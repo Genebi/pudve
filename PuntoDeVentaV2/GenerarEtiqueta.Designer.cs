@@ -167,6 +167,7 @@
             this.Name = "GenerarEtiqueta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Personalizar etiqueta";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GenerarEtiqueta_FormClosed);
             this.Load += new System.EventHandler(this.GenerarEtiqueta_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -64,6 +64,7 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lAtajo = new System.Windows.Forms.Label();
             this.btnCambiarTipo = new System.Windows.Forms.Button();
             this.btnPedido = new System.Windows.Forms.Button();
             this.btnCleanFilter = new System.Windows.Forms.Button();
@@ -103,6 +104,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -132,6 +134,7 @@
             this.btnAgregarProducto.TabIndex = 1;
             this.btnAgregarProducto.Text = "Producto";
             this.btnAgregarProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.TTipButtonText.SetToolTip(this.btnAgregarProducto, "Agregar Producto(Ctrl + N)");
             this.btnAgregarProducto.UseVisualStyleBackColor = false;
             this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 
@@ -170,6 +173,7 @@
             this.txtBusqueda.Size = new System.Drawing.Size(755, 23);
             this.txtBusqueda.TabIndex = 5;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBusqueda.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBusqueda_KeyDown);
             this.txtBusqueda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBusqueda_KeyPress);
             // 
             // cbOrden
@@ -268,6 +272,7 @@
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
             this.DGVProductos.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseLeave);
             this.DGVProductos.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DGVProductos_RowPostPaint);
+            this.DGVProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVProductos_KeyDown);
             // 
             // CheckProducto
             // 
@@ -466,6 +471,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.lAtajo);
             this.panel1.Controls.Add(this.btnCambiarTipo);
             this.panel1.Controls.Add(this.btnPedido);
             this.panel1.Controls.Add(this.btnCleanFilter);
@@ -490,6 +496,19 @@
             this.panel1.Size = new System.Drawing.Size(942, 215);
             this.panel1.TabIndex = 15;
             // 
+            // lAtajo
+            // 
+            this.lAtajo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lAtajo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lAtajo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lAtajo.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.lAtajo.Location = new System.Drawing.Point(829, 5);
+            this.lAtajo.Name = "lAtajo";
+            this.lAtajo.Size = new System.Drawing.Size(100, 23);
+            this.lAtajo.TabIndex = 24;
+            this.lAtajo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lAtajo.Visible = false;
+            // 
             // btnCambiarTipo
             // 
             this.btnCambiarTipo.BackColor = System.Drawing.Color.Green;
@@ -503,6 +522,7 @@
             this.btnCambiarTipo.Size = new System.Drawing.Size(205, 28);
             this.btnCambiarTipo.TabIndex = 23;
             this.btnCambiarTipo.Text = "Cambiar tipo";
+            this.TTipButtonText.SetToolTip(this.btnCambiarTipo, "Modificar Producto (Ctrl + T)");
             this.btnCambiarTipo.UseVisualStyleBackColor = false;
             this.btnCambiarTipo.Click += new System.EventHandler(this.btnCambiarTipo_Click);
             // 
@@ -517,6 +537,7 @@
             this.btnPedido.TabIndex = 22;
             this.btnPedido.Text = "Reporte";
             this.btnPedido.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.TTipButtonText.SetToolTip(this.btnPedido, "Generar Reporte (Ctrl + R)");
             this.btnPedido.UseVisualStyleBackColor = true;
             this.btnPedido.Click += new System.EventHandler(this.btnPedido_Click);
             // 
@@ -535,6 +556,7 @@
             this.btnCleanFilter.TabIndex = 21;
             this.btnCleanFilter.Text = "Borrar";
             this.btnCleanFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.TTipButtonText.SetToolTip(this.btnCleanFilter, "Borrar Filtrado (ESC)");
             this.btnCleanFilter.UseVisualStyleBackColor = false;
             this.btnCleanFilter.Click += new System.EventHandler(this.btnCleanFilter_Click);
             // 
@@ -562,6 +584,7 @@
             this.btnImprimir.Size = new System.Drawing.Size(85, 28);
             this.btnImprimir.TabIndex = 19;
             this.btnImprimir.Text = "Imprimir";
+            this.TTipButtonText.SetToolTip(this.btnImprimir, "Imprimir Reporte (Ctrl + P)");
             this.btnImprimir.UseVisualStyleBackColor = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
@@ -589,6 +612,7 @@
             this.btnEtiqueta.Size = new System.Drawing.Size(105, 28);
             this.btnEtiqueta.TabIndex = 17;
             this.btnEtiqueta.Text = "Etiqueta";
+            this.TTipButtonText.SetToolTip(this.btnEtiqueta, "Personalizar etiqueta(Ctrl + E)");
             this.btnEtiqueta.UseVisualStyleBackColor = false;
             this.btnEtiqueta.Click += new System.EventHandler(this.btnEtiqueta_Click);
             // 
@@ -605,6 +629,7 @@
             this.btnAsignarMultiple.Size = new System.Drawing.Size(105, 28);
             this.btnAsignarMultiple.TabIndex = 16;
             this.btnAsignarMultiple.Text = "Asignar";
+            this.TTipButtonText.SetToolTip(this.btnAsignarMultiple, "Asignar Cambios (Ctrl + A)");
             this.btnAsignarMultiple.UseVisualStyleBackColor = false;
             this.btnAsignarMultiple.Click += new System.EventHandler(this.btnAsignarMultiple_Click);
             // 
@@ -626,6 +651,7 @@
             this.btnFilterSearch.Text = "Filtro";
             this.btnFilterSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFilterSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.TTipButtonText.SetToolTip(this.btnFilterSearch, "Realizar Filtrado  (Ctrl  + F)");
             this.btnFilterSearch.UseVisualStyleBackColor = false;
             this.btnFilterSearch.Click += new System.EventHandler(this.btnFilterSearch_Click);
             // 
@@ -670,6 +696,7 @@
             this.btnAgregarServicio.TabIndex = 3;
             this.btnAgregarServicio.Text = "Servicio";
             this.btnAgregarServicio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.TTipButtonText.SetToolTip(this.btnAgregarServicio, "Agregar Servicio (Ctrl + S)");
             this.btnAgregarServicio.UseVisualStyleBackColor = false;
             this.btnAgregarServicio.Click += new System.EventHandler(this.btnAgregarServicio_Click);
             // 
@@ -690,6 +717,7 @@
             this.btnAgregarPaquete.TabIndex = 2;
             this.btnAgregarPaquete.Text = "Combo";
             this.btnAgregarPaquete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.TTipButtonText.SetToolTip(this.btnAgregarPaquete, "Agregar Combo (Alt + C)");
             this.btnAgregarPaquete.UseVisualStyleBackColor = false;
             this.btnAgregarPaquete.Click += new System.EventHandler(this.btnAgregarPaquete_Click);
             // 
@@ -706,6 +734,7 @@
             this.btnListView.TabIndex = 12;
             this.btnListView.Text = "Lista";
             this.btnListView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.TTipButtonText.SetToolTip(this.btnListView, "Mostrar en Lista (Ctrl + L)");
             this.btnListView.UseVisualStyleBackColor = true;
             this.btnListView.Click += new System.EventHandler(this.btnListView_Click);
             // 
@@ -722,6 +751,7 @@
             this.btnPhotoView.TabIndex = 11;
             this.btnPhotoView.Text = "Mosaico";
             this.btnPhotoView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.TTipButtonText.SetToolTip(this.btnPhotoView, "Mostrar en Mosaico (Ctrl + M)");
             this.btnPhotoView.UseVisualStyleBackColor = true;
             this.btnPhotoView.Click += new System.EventHandler(this.btnPhotoView_Click);
             // 
@@ -738,6 +768,7 @@
             this.btnModificarEstado.TabIndex = 10;
             this.btnModificarEstado.Text = "Deshabilitar seleccionados";
             this.btnModificarEstado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.TTipButtonText.SetToolTip(this.btnModificarEstado, "Deshabilitar (Ctrl + D)");
             this.btnModificarEstado.UseVisualStyleBackColor = true;
             this.btnModificarEstado.Click += new System.EventHandler(this.btnModificarEstado_Click);
             // 
@@ -754,6 +785,7 @@
             this.btnAgregarXML.TabIndex = 8;
             this.btnAgregarXML.Text = "Agregar XML";
             this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.TTipButtonText.SetToolTip(this.btnAgregarXML, "Ctrl + X");
             this.btnAgregarXML.UseVisualStyleBackColor = false;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
@@ -1036,6 +1068,11 @@
             this.label1.Text = "Total de productos \r\nregistrados :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1049,6 +1086,7 @@
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Productos_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Productos_KeyDown);
             this.Resize += new System.EventHandler(this.Productos_Resize);
             this.panelShowDGVProductosView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).EndInit();
@@ -1071,7 +1109,6 @@
         private System.Windows.Forms.Button btnAgregarProducto;
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.Label tituloBusqueda;
-        private System.Windows.Forms.TextBox txtBusqueda;
         private System.Windows.Forms.ComboBox cbOrden;
         private System.Windows.Forms.ComboBox cbMostrar;
         private System.Windows.Forms.Button btnAgregarXML;
@@ -1142,5 +1179,8 @@
         private System.Windows.Forms.Button btnCambiarTipo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtIrPagina;
+        private System.Windows.Forms.Label lAtajo;
+        private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.TextBox txtBusqueda;
     }
 }

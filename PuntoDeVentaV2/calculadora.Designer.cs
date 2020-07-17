@@ -357,8 +357,6 @@
             this.Load += new System.EventHandler(this.calculadora_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.calculadora_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.calculadora_KeyPress);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.calculadora_KeyUp);
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.calculadora_PreviewKeyDown);
             this.ResumeLayout(false);
 
         }
