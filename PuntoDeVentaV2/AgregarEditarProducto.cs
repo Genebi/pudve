@@ -1115,6 +1115,7 @@ namespace PuntoDeVentaV2
                     txtStockMinimo.Text = words[0] + "." + words[1];
                 }
             }
+            ValidarStockMaximo();
         }
 
         private void txtStockMaximo_Enter(object sender, EventArgs e)
@@ -1291,6 +1292,9 @@ namespace PuntoDeVentaV2
                     {
                         MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                        var numero = Convert.ToInt32(minimo);
+                        var agregar = numero + 1;
+                        txtStockMaximo.Text=agregar.ToString();
                         txtStockMaximo.Focus();
                     }
                     else if (maximo > minimo)
