@@ -3613,6 +3613,7 @@ namespace PuntoDeVentaV2
                     theNumberAsAString = string.Empty;
                     theNumber = 0;
                     string[] nvoCodBar;
+                    var noEcontradoCodBar = new List<string>();
                     nvoCodBar = nuevosCodigos.Trim().Split(' ');
                     foreach (var item in nvoCodBar)
                     {
@@ -3639,6 +3640,23 @@ namespace PuntoDeVentaV2
                                 txtBusqueda.Text = busqueda.Trim();
                             }
                         }
+                        else
+                        {
+                            noEcontradoCodBar.Add(nuevosCodigos);
+                            //MessageBox.Show("Cóodigo proporcionado: " + nuevosCodigos + "\nNo esta registrado", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            nuevosCodigos = string.Empty;
+                            //extra = string.Empty;
+                            //extra2 = string.Empty;
+                        }
+                    }
+                    if (!noEcontradoCodBar.Count.Equals(0))
+                    {
+                        string mensajeNoEncontrado = string.Empty;
+                        for (int i = 0; i < noEcontradoCodBar.Count; i++)
+                        {
+                            mensajeNoEncontrado += noEcontradoCodBar[i] + "\n";
+                        }
+                        MessageBox.Show("Cóodigo proporcionado:\n" + mensajeNoEncontrado + "No esta registrado", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -3698,7 +3716,14 @@ namespace PuntoDeVentaV2
                             }
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                if (busqueda.All(Char.IsLetterOrDigit))
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                }
+                                else
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
+                                }
                             }
                         }
 
@@ -3803,7 +3828,14 @@ namespace PuntoDeVentaV2
                             }
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                if (busqueda.All(Char.IsLetterOrDigit))
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                }
+                                else
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
+                                }
                             }
                         }
 
@@ -3876,7 +3908,14 @@ namespace PuntoDeVentaV2
                             }
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                if (busqueda.All(Char.IsLetterOrDigit))
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                }
+                                else
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
+                                }
                             }
                         }
 
