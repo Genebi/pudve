@@ -1438,29 +1438,39 @@ namespace PuntoDeVentaV2
 
         private void actualizar_automatico_Tick(object sender, EventArgs e)
         {
-            recargarDGV();
+            //recargarDGV();
         }
 
         public void recargarDGV()
         {
-            int ultimaPagina = p.countPag(), currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
+            int ultimaPagina = 0, 
+                currentPage = 0;
 
             if (!txtBusqueda.Text.Equals(""))
             {
+                ultimaPagina = p.countPag();
+                currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
                 actualizarDatosDespuesDeAgregarProducto();
+                goToPageNumber(ultimaPagina);
             }
             else if (txtBusqueda.Text.Equals(""))
             {
+                ultimaPagina = p.countPag();
+                currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
                 //goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
                 //actualizar();
                 if (currentPage.Equals(ultimaPagina))
                 {
-                    CargarDatos();
-                    ultimaPagina = p.countPag();
-                    goToPageNumber(ultimaPagina);
+                    //CargarDatos();
+                    //ultimaPagina = p.countPag();
+                    //goToPageNumber(ultimaPagina);
+                    //currentPage = p.numPag();
+                    goToPageNumber(currentPage);
                 }
                 else if (currentPage < ultimaPagina)
                 {
+                    //CargarDatos();
+                    //currentPage = p.numPag();
                     goToPageNumber(currentPage);
                 }
             }
@@ -2302,10 +2312,24 @@ namespace PuntoDeVentaV2
 
         private void goToPageNumber(int pageNumber)
         {
-            p.primerPagina();
-            p.irAPagina(pageNumber);
-            p.cargar();
-            clickBoton = 1;
+            //p.primerPagina();
+            //p.irAPagina(pageNumber);
+            //p.cargar();
+            //clickBoton = 1;
+            //CargarDatos();
+            //actualizar();
+            if (pageNumber.Equals(p.numPag()))
+            {
+                p.cargar();
+                clickBoton = 1;
+            }
+            else if (!pageNumber.Equals(p.numPag()))
+            {
+                p.primerPagina();
+                p.irAPagina(pageNumber);
+                p.cargar();
+                clickBoton = 1;
+            }
             CargarDatos();
             actualizar();
         }
@@ -4199,10 +4223,10 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
-            {
-                Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
-            }
+            //if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
+            //{
+            //    Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
+            //}
 
             var FormAgregar = new AgregarEditarProducto("Agregar");
 
