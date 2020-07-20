@@ -711,5 +711,42 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnActualiza_Click(object sender, EventArgs e)
+        {
+            var obtenerTxt = string.Empty;
+            obtenerTxt = txtPrecioCompra.Text;
+            var datoObtenido = "";
+
+            if (!obtenerTxt.Equals("") && !obtenerTxt.Equals("."))
+            {
+                var precio = float.Parse(obtenerTxt);
+                var descuento = cn.CargarDatos($"SELECT PorcentajePrecio FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+
+                for (int i = 0; i < descuento.Rows.Count; i++)
+                {
+                    datoObtenido = descuento.Rows[i]["PorcentajePrecio"].ToString();
+                }
+                var x = float.Parse(datoObtenido);
+                var operacion = (precio * x);
+                txtPrecio.Text = "$ " + operacion.ToString(); ;
+            }
+            else
+            {
+                MessageBox.Show("Porfavor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPrecioCompra.Text = "";
+                txtPrecioCompra.Focus();
+            }
+        }
     }
 }
