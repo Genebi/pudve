@@ -3821,7 +3821,14 @@ namespace PuntoDeVentaV2
                             }
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                if (busqueda.All(Char.IsLetterOrDigit))
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                }
+                                else
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
+                                }
                             }
                         }
 
