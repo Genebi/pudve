@@ -991,7 +991,6 @@
             this.Shown += new System.EventHandler(this.Ventas_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ventas_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Ventas_KeyPress_1);
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Ventas_PreviewKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -1355,14 +1355,52 @@ namespace PuntoDeVentaV2
 
             if (totalImporte > 0)
             {
+                var importeTmp = totalImporte;
                 //totalImporte -= totalAnticipos;
-                totalImporte = Math.Abs(totalImporte - totalAnticipos);
+                //totalImporte = Math.Abs(totalImporte - totalAnticipos);
 
-                if (totalAnticipos > totalImporte)
+                if ((totalImporte - totalAnticipos) <= 0)
                 {
-                    var diferencia = totalAnticipos - totalImporte;
+                    //MessageBox.Show("Test1");
+                    totalImporte = 0;
 
-                    cAnticipoUtilizado.Text = diferencia.ToString("0.00");
+                    if (totalAnticipos > 0)
+                    {
+                        //MessageBox.Show(totalAnticipos + "|" + importeTmp);
+                        //var diferencia = Math.Abs(importeTmp - totalAnticipos);
+
+                        //if (diferencia == 0)
+                        //{
+                        //    diferencia = totalAnticipos;
+                        //}
+
+                        //cAnticipoUtilizado.Text = diferencia.ToString("0.00");
+                        if (importeTmp <= totalAnticipos)
+                        {
+                            //MessageBox.Show("Test1");
+                            cAnticipoUtilizado.Text = importeTmp.ToString("0.00");
+                        }
+                    }
+                }
+
+                if ((totalImporte - totalAnticipos) > 0)
+                {
+                    totalImporte -= totalAnticipos;
+
+                    //cAnticipoUtilizado.Text = totalImporte.ToString("0.00");
+
+                    if (totalAnticipos > 0)
+                    {
+                        //MessageBox.Show("Test2");
+                        if (totalImporte <= totalAnticipos)
+                        {
+                            //MessageBox.Show("Test2: " + importeTmp + "|" + totalImporte);
+
+                            var diferencia = importeTmp - totalImporte;
+
+                            cAnticipoUtilizado.Text = diferencia.ToString("0.00");
+                        }
+                    }
                 }
             }
 
