@@ -1356,28 +1356,15 @@ namespace PuntoDeVentaV2
             if (totalImporte > 0)
             {
                 var importeTmp = totalImporte;
-                //totalImporte -= totalAnticipos;
-                //totalImporte = Math.Abs(totalImporte - totalAnticipos);
 
                 if ((totalImporte - totalAnticipos) <= 0)
                 {
-                    //MessageBox.Show("Test1");
                     totalImporte = 0;
 
                     if (totalAnticipos > 0)
                     {
-                        //MessageBox.Show(totalAnticipos + "|" + importeTmp);
-                        //var diferencia = Math.Abs(importeTmp - totalAnticipos);
-
-                        //if (diferencia == 0)
-                        //{
-                        //    diferencia = totalAnticipos;
-                        //}
-
-                        //cAnticipoUtilizado.Text = diferencia.ToString("0.00");
                         if (importeTmp <= totalAnticipos)
                         {
-                            //MessageBox.Show("Test1");
                             cAnticipoUtilizado.Text = importeTmp.ToString("0.00");
                         }
                     }
@@ -1387,15 +1374,10 @@ namespace PuntoDeVentaV2
                 {
                     totalImporte -= totalAnticipos;
 
-                    //cAnticipoUtilizado.Text = totalImporte.ToString("0.00");
-
                     if (totalAnticipos > 0)
                     {
-                        //MessageBox.Show("Test2");
                         if (totalImporte <= totalAnticipos)
                         {
-                            //MessageBox.Show("Test2: " + importeTmp + "|" + totalImporte);
-
                             var diferencia = importeTmp - totalImporte;
 
                             cAnticipoUtilizado.Text = diferencia.ToString("0.00");
@@ -1438,6 +1420,19 @@ namespace PuntoDeVentaV2
             cAnticipo.Text = totalAnticipos.ToString("0.00");
             cDescuento.Text = totalDescuento.ToString("0.00");
             cNumeroArticulos.Text = totalArticulos.ToString();
+
+            ComprobarProductos();
+        }
+
+        private void ComprobarProductos()
+        {
+            if (DGVentas.RowCount == 0)
+            {
+                listaAnticipos = string.Empty;
+                importeAnticipo = 0f;
+                cAnticipo.Text = "0.00";
+                cAnticipoUtilizado.Text = "0.00";
+            }
         }
 
         private void btnEliminarUltimo_Click(object sender, EventArgs e)
@@ -1833,15 +1828,30 @@ namespace PuntoDeVentaV2
 
                         var anticipos = auxiliar.Split('-');
 
+                        // Diferencia del anticipo recibido menos el anticipo utilizado
+                        var diferencia = float.Parse(cAnticipo.Text) - float.Parse(cAnticipoUtilizado.Text);
+
+                        var contadorAux = 0;
+                        var longitud = anticipos.Length;
+
                         foreach (string anticipo in anticipos)
                         {
                             var idAnticipo = Convert.ToInt32(anticipo);
 
                             cn.EjecutarConsulta(cs.CambiarStatusAnticipo(3, idAnticipo, FormPrincipal.userID));
                             cn.EjecutarConsulta($"UPDATE Anticipos SET IDVenta = {idVenta} WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
+
+                            if (contadorAux == (longitud - 1))
+                            {
+                                if (diferencia > 0)
+                                {
+                                    cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {diferencia}, Status = 5 WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
+                                }
+                            }
+
+                            contadorAux++;
                         }
 
-                        //cn.EjecutarConsulta($"UPDATE Caja SET Anticipo = {totalAnticipos} WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion = '{FechaOperacion}'");
                         cn.EjecutarConsulta($"UPDATE DetallesVenta SET Anticipo = '{Anticipo}' WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
                     }
 

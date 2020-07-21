@@ -40,7 +40,7 @@ namespace PuntoDeVentaV2
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND (Status = 1 OR Status = 5)", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVListaAnticipos.Rows.Clear();
