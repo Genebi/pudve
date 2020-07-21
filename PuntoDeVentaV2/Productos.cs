@@ -3462,7 +3462,14 @@ namespace PuntoDeVentaV2
                                 }
                                 else if (palabras[0].Equals("0"))
                                 {
-                                    buscarCodigosBarraExtra += palabras[1].ToString() + " ";
+                                    string nvoTheNumberAsAString = string.Empty;
+                                    long nvoTheNumber;
+                                    nvoTheNumberAsAString = palabras[1].ToString();
+                                    if (long.TryParse(nvoTheNumberAsAString, out nvoTheNumber))
+                                    {
+                                        //numBusqueda += nvoTheNumberAsAString + " ";
+                                        buscarCodigosBarraExtra += palabras[1].ToString() + " ";
+                                    }
                                 }
                             }
                             extra = string.Empty;
@@ -3740,14 +3747,15 @@ namespace PuntoDeVentaV2
                             }
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                if (busqueda.All(Char.IsLetterOrDigit))
-                                {
-                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
-                                }
-                                else
-                                {
-                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
-                                }
+                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                //if (busqueda.All(Char.IsLetterOrDigit))
+                                //{
+                                //    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                //}
+                                //else
+                                //{
+                                //    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
+                                //}
                             }
                         }
 
@@ -3852,14 +3860,15 @@ namespace PuntoDeVentaV2
                             }
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                if (busqueda.All(Char.IsLetterOrDigit))
-                                {
-                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
-                                }
-                                else
-                                {
-                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
-                                }
+                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                //if (busqueda.All(Char.IsLetterOrDigit))
+                                //{
+                                //    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                //}
+                                //else
+                                //{
+                                //    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
+                                //}
                             }
                         }
 
