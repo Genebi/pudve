@@ -1382,6 +1382,12 @@ namespace PuntoDeVentaV2
 
                             cAnticipoUtilizado.Text = diferencia.ToString("0.00");
                         }
+                        else
+                        {
+                            var diferencia = importeTmp - totalImporte;
+
+                            cAnticipoUtilizado.Text = diferencia.ToString("0.00");
+                        }
                     }
                 }
             }
