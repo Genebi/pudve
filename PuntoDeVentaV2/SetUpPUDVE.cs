@@ -231,26 +231,37 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarRevision_Click(object sender, EventArgs e)
         {
-            if (opcion2 == 0)
+            var validacionPunto = string.Empty;
+            validacionPunto = txtNumeroRevision.Text;
+            if (!validacionPunto.Equals("."))
             {
-                Utilidades.MensajePermiso();
-                return;
+                if (opcion2 == 0)
+                {
+                    Utilidades.MensajePermiso();
+                    return;
+                }
+
+                var numeroRevision = txtNumeroRevision.Text;
+
+                if (string.IsNullOrWhiteSpace(numeroRevision))
+                {
+                    MessageBox.Show("Es necesario asignar un número de revisión", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var respuesta = cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevision} WHERE IDUsuario = {FormPrincipal.userID}", true);
+
+                if (respuesta > 0)
+                {
+                    MessageBox.Show("Información guardada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor ingrese numeros", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNumeroRevision.Focus();
             }
 
-            var numeroRevision = txtNumeroRevision.Text;
-
-            if (string.IsNullOrWhiteSpace(numeroRevision))
-            {
-                MessageBox.Show("Es necesario asignar un número de revisión", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            var respuesta = cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevision} WHERE IDUsuario = {FormPrincipal.userID}", true);
-
-            if (respuesta > 0)
-            {
-                MessageBox.Show("Información guardada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
 
         private void btnLimpiarTabla_Click(object sender, EventArgs e)
@@ -413,7 +424,7 @@ namespace PuntoDeVentaV2
 
             if (pagWeb.Checked)
             {
-                habilitado = 1; 
+                habilitado = 1;
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
@@ -464,27 +475,41 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarPorcentaje_Click(object sender, EventArgs e)
         {
-            if (opcion3 == 0)
+
+            var validacionPunto = string.Empty;
+            validacionPunto = txtPorcentajeProducto.Text;
+
+            if (!validacionPunto.Equals("."))
             {
-                Utilidades.MensajePermiso();
-                return;
+                if (opcion3 == 0)
+                {
+                    Utilidades.MensajePermiso();
+                    return;
+                }
+
+                var porcentaje = txtPorcentajeProducto.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(porcentaje))
+                {
+                    MessageBox.Show("Ingrese la cantidad de porcentaje", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtPorcentajeProducto.Focus();
+                    return;
+                }
+
+                var respuesta = cn.EjecutarConsulta($"UPDATE Configuracion SET PorcentajePrecio = {porcentaje} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                if (respuesta > 0)
+                {
+                    MessageBox.Show("Información guardada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-
-            var porcentaje = txtPorcentajeProducto.Text.Trim();
-
-            if (string.IsNullOrWhiteSpace(porcentaje))
+            else
             {
-                MessageBox.Show("Ingrese la cantidad de porcentaje", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MessageBox.Show("Por favor ingrese numeros", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPorcentajeProducto.Focus();
-                return;
             }
 
-            var respuesta = cn.EjecutarConsulta($"UPDATE Configuracion SET PorcentajePrecio = {porcentaje} WHERE IDUsuario = {FormPrincipal.userID}");
-
-            if (respuesta > 0)
-            {
-                MessageBox.Show("Información guardada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
 
         private void checkMayoreo_CheckedChanged(object sender, EventArgs e)
@@ -512,7 +537,7 @@ namespace PuntoDeVentaV2
                 txtMinimoMayoreo.Enabled = false;
                 txtMinimoMayoreo.Text = string.Empty;
                 cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
-            } 
+            }
         }
 
         private void txtMinimoMayoreo_KeyUp(object sender, KeyEventArgs e)

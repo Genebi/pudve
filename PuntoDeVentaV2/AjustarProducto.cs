@@ -743,7 +743,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Porfavor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPrecioCompra.Text = "";
                 txtPrecioCompra.Focus();
             }

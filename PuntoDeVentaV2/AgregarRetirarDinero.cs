@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
         // 1 = Retirar
         // 2 = Corte
         int operacion = 0;
-        
+
 
         private float totalEfectivo = 0f;
         private float totalTarjeta = 0f;
@@ -178,7 +178,7 @@ namespace PuntoDeVentaV2
             {
                 tipoOperacion = "retiro";
             }
-            
+
             // Corte de caja
             if (operacion == 2)
             {
@@ -301,7 +301,7 @@ namespace PuntoDeVentaV2
 
         private void GenerarTicket(string[] info)
         {
-            
+
             var datos = FormPrincipal.datosUsuario;
 
             // tipo 0 = Agregar dinero
@@ -500,78 +500,150 @@ namespace PuntoDeVentaV2
 
         private void txtEfectivo_KeyUp(object sender, KeyEventArgs e)
         {
+            var obtenerTxt = string.Empty;
+            obtenerTxt = txtEfectivo.Text;
             if (!string.IsNullOrWhiteSpace(txtEfectivo.Text))
             {
-                float efectivo = float.Parse(txtEfectivo.Text);
-
-                if (efectivo > totalEfectivo && operacion > 0)
+                if (obtenerTxt.Equals("."))
                 {
-                    MensajeCantidad(totalEfectivo, sender);
+                    txtEfectivo.Text = "";
+                    txtEfectivo.Focus();
+                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                else
+                {
+                    float efectivo = float.Parse(txtEfectivo.Text);
+
+                    if (efectivo > totalEfectivo && operacion > 0)
+                    {
+                        MensajeCantidad(totalEfectivo, sender);
+                    }
+                }
+
             }
         }
 
         private void txtTarjeta_KeyUp(object sender, KeyEventArgs e)
         {
+            var obtenerTxt = string.Empty;
+            obtenerTxt = txtTarjeta.Text;
+
             if (!string.IsNullOrWhiteSpace(txtTarjeta.Text))
             {
-                float tarjeta = float.Parse(txtTarjeta.Text);
-
-                if (tarjeta > totalTarjeta && operacion > 0)
+                if (obtenerTxt.Equals("."))
                 {
-                    MensajeCantidad(totalTarjeta, sender);
+                    txtTarjeta.Text = "";
+                    txtTarjeta.Focus();
+                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    float tarjeta = float.Parse(txtTarjeta.Text);
+
+                    if (tarjeta > totalTarjeta && operacion > 0)
+                    {
+                        MensajeCantidad(totalTarjeta, sender);
+                    }
                 }
             }
         }
 
         private void txtVales_KeyUp(object sender, KeyEventArgs e)
         {
+            var obtenerTxt = string.Empty;
+            obtenerTxt = txtVales.Text;
+
             if (!string.IsNullOrWhiteSpace(txtVales.Text))
             {
-                float vales = float.Parse(txtVales.Text);
-
-                if (vales > totalVales && operacion > 0)
+                if (obtenerTxt.Equals("."))
                 {
-                    MensajeCantidad(totalVales, sender);
+                    txtVales.Text = "";
+                    txtVales.Focus();
+                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    float vales = float.Parse(txtVales.Text);
+
+                    if (vales > totalVales && operacion > 0)
+                    {
+                        MensajeCantidad(totalVales, sender);
+                    }
                 }
             }
         }
 
         private void txtCheque_KeyUp(object sender, KeyEventArgs e)
         {
+            var obtenerTxt = string.Empty;
+            obtenerTxt = txtCheque.Text;
+
             if (!string.IsNullOrWhiteSpace(txtCheque.Text))
             {
-                float cheque = float.Parse(txtCheque.Text);
-
-                if (cheque > totalCheque && operacion > 0)
+                if (obtenerTxt.Equals("."))
                 {
-                    MensajeCantidad(totalCheque, sender);
+                    txtCheque.Text = "";
+                    txtCheque.Focus();
+                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    float cheque = float.Parse(txtCheque.Text);
+
+                    if (cheque > totalCheque && operacion > 0)
+                    {
+                        MensajeCantidad(totalCheque, sender);
+                    }
                 }
             }
         }
 
         private void txtTrans_KeyUp(object sender, KeyEventArgs e)
         {
+            var obtenerTxt = string.Empty;
+            obtenerTxt = txtTrans.Text;
+
             if (!string.IsNullOrWhiteSpace(txtTrans.Text))
             {
-                float trans = float.Parse(txtTrans.Text);
-
-                if (trans > totalTransferencia && operacion > 0)
+                if (obtenerTxt.Equals("."))
                 {
-                    MensajeCantidad(totalTransferencia, sender);
+                    txtTrans.Text = "";
+                    txtTrans.Focus();
+                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    float trans = float.Parse(txtTrans.Text);
+
+                    if (trans > totalTransferencia && operacion > 0)
+                    {
+                        MensajeCantidad(totalTransferencia, sender);
+                    }
                 }
             }
         }
 
         private void txtCredito_KeyUp(object sender, KeyEventArgs e)
         {
+            var obtenerTxt = string.Empty;
+            obtenerTxt = txtCredito.Text;
+
             if (!string.IsNullOrWhiteSpace(txtCredito.Text))
             {
-                float credito = float.Parse(txtCredito.Text);
-
-                if (credito > totalCredito && operacion > 0)
+                if (obtenerTxt.Equals("."))
                 {
-                    MensajeCantidad(totalCredito, sender);
+                    txtCredito.Text = "";
+                    txtCredito.Focus();
+                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    float credito = float.Parse(txtCredito.Text);
+
+                    if (credito > totalCredito && operacion > 0)
+                    {
+                        MensajeCantidad(totalCredito, sender);
+                    }
                 }
             }
         }
