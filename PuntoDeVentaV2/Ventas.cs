@@ -1604,6 +1604,7 @@ namespace PuntoDeVentaV2
             var Total = cTotal.Text;
             var DescuentoGeneral = porcentajeGeneral.ToString("0.00");
             var Anticipo = cAnticipo.Text;
+            var AnticipoUtilizado = cAnticipoUtilizado.Text;
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var Folio = "";
             var Serie = "A";
@@ -1683,7 +1684,7 @@ namespace PuntoDeVentaV2
                         guardar = new string[] {
                             idVenta, IDProducto, Nombre, Cantidad, Precio,
                             DescuentoGeneral, DescuentoIndividual, ImporteIndividual,
-                            Descuento, Total, Folio
+                            Descuento, Total, Folio, AnticipoUtilizado
                         };
 
                         // Guardar info de los productos
@@ -2326,6 +2327,7 @@ namespace PuntoDeVentaV2
             float descuentoGeneral = 0;
             float totalDescuento = float.Parse(productos[0][8]);
             float totalTicket = float.Parse(productos[0][9]);
+            float totalAnticipo = float.Parse(productos[0][11]);
 
             var longitud = productos.Length;
 
@@ -2377,6 +2379,11 @@ namespace PuntoDeVentaV2
             separadorFinal.BorderWidth = 0;
             separadorFinal.Colspan = 5;
 
+            PdfPCell colTotalAnticipo = new PdfPCell(new Phrase("Anticipo: $" + totalAnticipo.ToString("0.00"), fuenteNormal));
+            colTotalAnticipo.BorderWidth = 0;
+            colTotalAnticipo.HorizontalAlignment = Element.ALIGN_RIGHT;
+            colTotalAnticipo.Colspan = 5;
+
             PdfPCell colTotalDescuento = new PdfPCell(new Phrase("Descuento productos: $" + descuentoProductos.ToString("0.00"), fuenteNormal));
             colTotalDescuento.BorderWidth = 0;
             colTotalDescuento.HorizontalAlignment = Element.ALIGN_RIGHT;
@@ -2396,6 +2403,12 @@ namespace PuntoDeVentaV2
             totalVenta.Colspan = 5;
 
             tabla.AddCell(separadorFinal);
+
+            if (totalAnticipo > 0)
+            {
+                tabla.AddCell(colTotalAnticipo);
+            }
+
             tabla.AddCell(colTotalDescuento);
 
             if (descuentoGeneral > 0)

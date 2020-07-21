@@ -78,6 +78,8 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cAnticipoUtilizado = new System.Windows.Forms.Label();
+            this.lbAnticipoUtilizado = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -103,8 +105,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lFolio = new System.Windows.Forms.TextBox();
-            this.cAnticipoUtilizado = new System.Windows.Forms.Label();
-            this.lbAnticipoUtilizado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -656,6 +656,30 @@
             this.panel1.Size = new System.Drawing.Size(1221, 372);
             this.panel1.TabIndex = 34;
             // 
+            // cAnticipoUtilizado
+            // 
+            this.cAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cAnticipoUtilizado.AutoSize = true;
+            this.cAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cAnticipoUtilizado.Location = new System.Drawing.Point(877, 225);
+            this.cAnticipoUtilizado.Name = "cAnticipoUtilizado";
+            this.cAnticipoUtilizado.Size = new System.Drawing.Size(48, 22);
+            this.cAnticipoUtilizado.TabIndex = 56;
+            this.cAnticipoUtilizado.Text = "0.00";
+            this.cAnticipoUtilizado.Visible = false;
+            // 
+            // lbAnticipoUtilizado
+            // 
+            this.lbAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbAnticipoUtilizado.AutoSize = true;
+            this.lbAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAnticipoUtilizado.Location = new System.Drawing.Point(673, 225);
+            this.lbAnticipoUtilizado.Name = "lbAnticipoUtilizado";
+            this.lbAnticipoUtilizado.Size = new System.Drawing.Size(171, 22);
+            this.lbAnticipoUtilizado.TabIndex = 55;
+            this.lbAnticipoUtilizado.Text = "Anticipo utilizado:";
+            this.lbAnticipoUtilizado.Visible = false;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -931,30 +955,6 @@
             this.lFolio.Visible = false;
             this.lFolio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lFolio_KeyDown);
             this.lFolio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lFolio_KeyPress);
-            // 
-            // cAnticipoUtilizado
-            // 
-            this.cAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cAnticipoUtilizado.AutoSize = true;
-            this.cAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cAnticipoUtilizado.Location = new System.Drawing.Point(877, 225);
-            this.cAnticipoUtilizado.Name = "cAnticipoUtilizado";
-            this.cAnticipoUtilizado.Size = new System.Drawing.Size(48, 22);
-            this.cAnticipoUtilizado.TabIndex = 56;
-            this.cAnticipoUtilizado.Text = "0.00";
-            this.cAnticipoUtilizado.Visible = false;
-            // 
-            // lbAnticipoUtilizado
-            // 
-            this.lbAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbAnticipoUtilizado.AutoSize = true;
-            this.lbAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAnticipoUtilizado.Location = new System.Drawing.Point(673, 225);
-            this.lbAnticipoUtilizado.Name = "lbAnticipoUtilizado";
-            this.lbAnticipoUtilizado.Size = new System.Drawing.Size(171, 22);
-            this.lbAnticipoUtilizado.TabIndex = 55;
-            this.lbAnticipoUtilizado.Text = "Anticipo utilizado:";
-            this.lbAnticipoUtilizado.Visible = false;
             // 
             // Ventas
             // 
