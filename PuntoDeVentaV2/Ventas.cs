@@ -1355,7 +1355,41 @@ namespace PuntoDeVentaV2
 
             if (totalImporte > 0)
             {
-                totalImporte -= totalAnticipos;
+                var importeTmp = totalImporte;
+
+                if ((totalImporte - totalAnticipos) <= 0)
+                {
+                    totalImporte = 0;
+
+                    if (totalAnticipos > 0)
+                    {
+                        if (importeTmp <= totalAnticipos)
+                        {
+                            cAnticipoUtilizado.Text = importeTmp.ToString("0.00");
+                        }
+                    }
+                }
+
+                if ((totalImporte - totalAnticipos) > 0)
+                {
+                    totalImporte -= totalAnticipos;
+
+                    if (totalAnticipos > 0)
+                    {
+                        if (totalImporte <= totalAnticipos)
+                        {
+                            var diferencia = importeTmp - totalImporte;
+
+                            cAnticipoUtilizado.Text = diferencia.ToString("0.00");
+                        }
+                        else
+                        {
+                            var diferencia = importeTmp - totalImporte;
+
+                            cAnticipoUtilizado.Text = diferencia.ToString("0.00");
+                        }
+                    }
+                }
             }
 
             cIVA.Text = totalIVA16.ToString("0.00");
@@ -1366,12 +1400,16 @@ namespace PuntoDeVentaV2
             if (totalAnticipos > 0)
             {
                 lbAnticipo.Visible = true;
+                lbAnticipoUtilizado.Visible = true;
                 cAnticipo.Visible = true;
+                cAnticipoUtilizado.Visible = true;
             }
             else
             {
                 lbAnticipo.Visible = false;
+                lbAnticipoUtilizado.Visible = false;
                 cAnticipo.Visible = false;
+                cAnticipoUtilizado.Visible = false;
             }
 
             if (totalDescuento > 0)
@@ -1388,6 +1426,19 @@ namespace PuntoDeVentaV2
             cAnticipo.Text = totalAnticipos.ToString("0.00");
             cDescuento.Text = totalDescuento.ToString("0.00");
             cNumeroArticulos.Text = totalArticulos.ToString();
+
+            ComprobarProductos();
+        }
+
+        private void ComprobarProductos()
+        {
+            if (DGVentas.RowCount == 0)
+            {
+                listaAnticipos = string.Empty;
+                importeAnticipo = 0f;
+                cAnticipo.Text = "0.00";
+                cAnticipoUtilizado.Text = "0.00";
+            }
         }
 
         private void btnEliminarUltimo_Click(object sender, EventArgs e)
@@ -1553,6 +1604,7 @@ namespace PuntoDeVentaV2
             var Total = cTotal.Text;
             var DescuentoGeneral = porcentajeGeneral.ToString("0.00");
             var Anticipo = cAnticipo.Text;
+            var AnticipoUtilizado = cAnticipoUtilizado.Text;
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var Folio = "";
             var Serie = "A";
@@ -1632,7 +1684,7 @@ namespace PuntoDeVentaV2
                         guardar = new string[] {
                             idVenta, IDProducto, Nombre, Cantidad, Precio,
                             DescuentoGeneral, DescuentoIndividual, ImporteIndividual,
-                            Descuento, Total, Folio
+                            Descuento, Total, Folio, AnticipoUtilizado
                         };
 
                         // Guardar info de los productos
@@ -1783,15 +1835,30 @@ namespace PuntoDeVentaV2
 
                         var anticipos = auxiliar.Split('-');
 
+                        // Diferencia del anticipo recibido menos el anticipo utilizado
+                        var diferencia = float.Parse(cAnticipo.Text) - float.Parse(cAnticipoUtilizado.Text);
+
+                        var contadorAux = 0;
+                        var longitud = anticipos.Length;
+
                         foreach (string anticipo in anticipos)
                         {
                             var idAnticipo = Convert.ToInt32(anticipo);
 
                             cn.EjecutarConsulta(cs.CambiarStatusAnticipo(3, idAnticipo, FormPrincipal.userID));
                             cn.EjecutarConsulta($"UPDATE Anticipos SET IDVenta = {idVenta} WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
+
+                            if (contadorAux == (longitud - 1))
+                            {
+                                if (diferencia > 0)
+                                {
+                                    cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {diferencia}, Status = 5 WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
+                                }
+                            }
+
+                            contadorAux++;
                         }
 
-                        //cn.EjecutarConsulta($"UPDATE Caja SET Anticipo = {totalAnticipos} WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion = '{FechaOperacion}'");
                         cn.EjecutarConsulta($"UPDATE DetallesVenta SET Anticipo = '{Anticipo}' WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
                     }
 
@@ -2260,6 +2327,7 @@ namespace PuntoDeVentaV2
             float descuentoGeneral = 0;
             float totalDescuento = float.Parse(productos[0][8]);
             float totalTicket = float.Parse(productos[0][9]);
+            float totalAnticipo = float.Parse(productos[0][11]);
 
             var longitud = productos.Length;
 
@@ -2311,6 +2379,11 @@ namespace PuntoDeVentaV2
             separadorFinal.BorderWidth = 0;
             separadorFinal.Colspan = 5;
 
+            PdfPCell colTotalAnticipo = new PdfPCell(new Phrase("Anticipo: $" + totalAnticipo.ToString("0.00"), fuenteNormal));
+            colTotalAnticipo.BorderWidth = 0;
+            colTotalAnticipo.HorizontalAlignment = Element.ALIGN_RIGHT;
+            colTotalAnticipo.Colspan = 5;
+
             PdfPCell colTotalDescuento = new PdfPCell(new Phrase("Descuento productos: $" + descuentoProductos.ToString("0.00"), fuenteNormal));
             colTotalDescuento.BorderWidth = 0;
             colTotalDescuento.HorizontalAlignment = Element.ALIGN_RIGHT;
@@ -2330,6 +2403,12 @@ namespace PuntoDeVentaV2
             totalVenta.Colspan = 5;
 
             tabla.AddCell(separadorFinal);
+
+            if (totalAnticipo > 0)
+            {
+                tabla.AddCell(colTotalAnticipo);
+            }
+
             tabla.AddCell(colTotalDescuento);
 
             if (descuentoGeneral > 0)
@@ -2611,7 +2690,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                ListadoAnticipos anticipo = new ListadoAnticipos();
+                ListadoAnticipos anticipo = new ListadoAnticipos(DGVentas.Rows.Count);
 
                 anticipo.FormClosed += delegate
                 {
@@ -3500,25 +3579,14 @@ namespace PuntoDeVentaV2
 
         private void Ventas_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 27)//ESC
-            {
-                // btnCancelarVenta.PerformClick();
-                //MessageBox.Show("ESC");
-            }
-
-            if (Char.IsDigit(e.KeyChar))
+            if (char.IsDigit(e.KeyChar))
             {
                 e.Handled = false;
             }
-            else if(Char.IsControl(e.KeyChar))
+            else if (char.IsControl(e.KeyChar))
             {
                 e.Handled = false;
             }
-            
-        }
-
-        private void Ventas_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
             
         }
 
@@ -3559,6 +3627,11 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
             
+        }
+
+        private void Ventas_Shown(object sender, EventArgs e)
+        {
+            txtBuscadorProducto.Focus();
         }
 
         private void CuerpoEmails()

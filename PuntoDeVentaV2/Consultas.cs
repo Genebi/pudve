@@ -140,15 +140,15 @@ namespace PuntoDeVentaV2
 
         public string GuardarAnticipo(string[] datos)
         {
-            string consulta = $"INSERT INTO Anticipos (IDUsuario, Concepto, Importe, Cliente, FormaPago, Comentarios, Status, Fecha)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}')";
+            string consulta = $"INSERT INTO Anticipos (IDUsuario, Concepto, Importe, Cliente, FormaPago, Comentarios, Status, Fecha, ImporteOriginal)";
+                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[2]}')";
 
             return consulta;
         }
 
         public string CambiarStatusAnticipo(int status, int IDAnticipo, int IDUsuario)
         {
-            return $"UPDATE Anticipos SET Status = {status} WHERE ID = {IDAnticipo} AND IDUsuario = {IDUsuario}";
+            return $"UPDATE Anticipos SET Importe = ImporteOriginal, Status = {status} WHERE ID = {IDAnticipo} AND IDUsuario = {IDUsuario}";
         }
 
         public string ProductosDeServicios(int idServ)

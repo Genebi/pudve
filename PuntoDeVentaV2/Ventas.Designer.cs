@@ -78,6 +78,8 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cAnticipoUtilizado = new System.Windows.Forms.Label();
+            this.lbAnticipoUtilizado = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -490,9 +492,9 @@
             this.lbAnticipo.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAnticipo.Location = new System.Drawing.Point(673, 202);
             this.lbAnticipo.Name = "lbAnticipo";
-            this.lbAnticipo.Size = new System.Drawing.Size(92, 22);
+            this.lbAnticipo.Size = new System.Drawing.Size(171, 22);
             this.lbAnticipo.TabIndex = 23;
-            this.lbAnticipo.Text = "Anticipo:";
+            this.lbAnticipo.Text = "Anticipo recibido:";
             this.lbAnticipo.Visible = false;
             // 
             // lbDescuento
@@ -500,7 +502,7 @@
             this.lbDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDescuento.AutoSize = true;
             this.lbDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDescuento.Location = new System.Drawing.Point(673, 224);
+            this.lbDescuento.Location = new System.Drawing.Point(673, 247);
             this.lbDescuento.Name = "lbDescuento";
             this.lbDescuento.Size = new System.Drawing.Size(115, 22);
             this.lbDescuento.TabIndex = 24;
@@ -512,7 +514,7 @@
             this.lbTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTotal.AutoSize = true;
             this.lbTotal.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotal.Location = new System.Drawing.Point(669, 251);
+            this.lbTotal.Location = new System.Drawing.Point(669, 274);
             this.lbTotal.Name = "lbTotal";
             this.lbTotal.Size = new System.Drawing.Size(125, 39);
             this.lbTotal.TabIndex = 25;
@@ -568,7 +570,7 @@
             this.cDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cDescuento.AutoSize = true;
             this.cDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cDescuento.Location = new System.Drawing.Point(877, 224);
+            this.cDescuento.Location = new System.Drawing.Point(877, 247);
             this.cDescuento.Name = "cDescuento";
             this.cDescuento.Size = new System.Drawing.Size(48, 22);
             this.cDescuento.TabIndex = 30;
@@ -580,7 +582,7 @@
             this.cTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cTotal.AutoSize = true;
             this.cTotal.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cTotal.Location = new System.Drawing.Point(785, 251);
+            this.cTotal.Location = new System.Drawing.Point(785, 274);
             this.cTotal.Name = "cTotal";
             this.cTotal.Size = new System.Drawing.Size(80, 39);
             this.cTotal.TabIndex = 31;
@@ -614,6 +616,8 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.cAnticipoUtilizado);
+            this.panel1.Controls.Add(this.lbAnticipoUtilizado);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label8);
@@ -652,10 +656,34 @@
             this.panel1.Size = new System.Drawing.Size(1221, 372);
             this.panel1.TabIndex = 34;
             // 
+            // cAnticipoUtilizado
+            // 
+            this.cAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cAnticipoUtilizado.AutoSize = true;
+            this.cAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cAnticipoUtilizado.Location = new System.Drawing.Point(877, 225);
+            this.cAnticipoUtilizado.Name = "cAnticipoUtilizado";
+            this.cAnticipoUtilizado.Size = new System.Drawing.Size(48, 22);
+            this.cAnticipoUtilizado.TabIndex = 56;
+            this.cAnticipoUtilizado.Text = "0.00";
+            this.cAnticipoUtilizado.Visible = false;
+            // 
+            // lbAnticipoUtilizado
+            // 
+            this.lbAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbAnticipoUtilizado.AutoSize = true;
+            this.lbAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAnticipoUtilizado.Location = new System.Drawing.Point(673, 225);
+            this.lbAnticipoUtilizado.Name = "lbAnticipoUtilizado";
+            this.lbAnticipoUtilizado.Size = new System.Drawing.Size(171, 22);
+            this.lbAnticipoUtilizado.TabIndex = 55;
+            this.lbAnticipoUtilizado.Text = "Anticipo utilizado:";
+            this.lbAnticipoUtilizado.Visible = false;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(814, 316);
+            this.label11.Location = new System.Drawing.Point(814, 339);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(31, 13);
             this.label11.TabIndex = 54;
@@ -788,7 +816,7 @@
             this.btnTerminarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTerminarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTerminarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminarVenta.Location = new System.Drawing.Point(793, 295);
+            this.btnTerminarVenta.Location = new System.Drawing.Point(793, 318);
             this.btnTerminarVenta.Name = "btnTerminarVenta";
             this.btnTerminarVenta.Size = new System.Drawing.Size(75, 40);
             this.btnTerminarVenta.TabIndex = 37;
@@ -960,9 +988,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Ventas_FormClosing);
             this.Load += new System.EventHandler(this.Ventas_Load);
+            this.Shown += new System.EventHandler(this.Ventas_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ventas_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Ventas_KeyPress_1);
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Ventas_PreviewKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -1049,5 +1077,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox lFolio;
+        private System.Windows.Forms.Label cAnticipoUtilizado;
+        private System.Windows.Forms.Label lbAnticipoUtilizado;
     }
 }
