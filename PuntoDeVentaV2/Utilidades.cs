@@ -16,7 +16,7 @@ namespace PuntoDeVentaV2
 {
     public static class Utilidades
     {
-        public static void CrearMarcaDeAgua(int idVenta)
+        public static void CrearMarcaDeAgua(int idVenta, string texto)
         {
             var servidor = Properties.Settings.Default.Hosting;
             var archivoCopia = string.Empty;
@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
 
                         cb.SetColorFill(iTextSharp.text.BaseColor.RED);
                         cb.BeginText();
-                        cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, "CANCELADA", rec.Width / 2, rec.Height / 2, 45f);
+                        cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, texto, rec.Width / 2, rec.Height / 2, 45f);
                         cb.EndText();
                         cb.EndLayer();
                     }
