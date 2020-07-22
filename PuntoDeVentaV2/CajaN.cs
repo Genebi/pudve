@@ -446,6 +446,7 @@ namespace PuntoDeVentaV2
             lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + vAnticipos).ToString("0.00");
 
             // Apartado ANTICIPOS RECIBIDOS
+
             lbTEfectivoA.Text = "$" + aEfectivo.ToString("0.00");
             lbTTarjetaA.Text = "$" + aTarjeta.ToString("0.00");
             lbTValesA.Text = "$" + aVales.ToString("0.00");
