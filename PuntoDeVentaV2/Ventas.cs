@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         float porcentajeGeneral = 0;
         float descuentoCliente = 0;
 
-        bool ventaGuardada = false; //Para saber si la venta se guardo o no
+        public static bool ventaGuardada = false; //Para saber si la venta se guardo o no
         int cantidadExtra = 0;
 
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
@@ -1949,15 +1949,25 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            ListaClientes cliente = new ListaClientes();
 
-            cliente.FormClosed += delegate
+            if (DGVentas.RowCount > 0)
             {
-                ventaGuardada = true;
-                DatosVenta();
-            };
+                ListaClientes cliente = new ListaClientes();
 
-            cliente.ShowDialog();
+                cliente.FormClosed += delegate
+                {
+                    if (ventaGuardada)
+                    {
+                        DatosVenta();
+                    }
+                };
+
+                cliente.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No hay productos agregados a la lista", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private bool VerificarStockProducto()

@@ -101,7 +101,14 @@ namespace PuntoDeVentaV2
             
             if (resultado > 0)
             {
+                var datoObtenido = "";
+                var consultarVacio = cn.CargarDatos($"SELECT Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1");
+                for (int i=0; i<consultarVacio.Rows.Count; i++)
+                {
+                    //datoObtenido = consultarVacio.Rows[i][0,1].ToString();
+                }
                 cn.EjecutarConsulta($"UPDATE Anticipos SET FormaPago = '{formaPago}' WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
+
                 //Se devuelve el dinero del anticipo y se elimina el registro de la tabla Caja para que la cantidad total
                 //Que hay en caja sea correcta
                 //cn.EjecutarConsulta($"DELETE FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion = '{fecha}'");
