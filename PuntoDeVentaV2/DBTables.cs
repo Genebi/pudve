@@ -62,7 +62,7 @@ namespace PuntoDeVentaV2
         public DBTables()
         {
         #region Inicializar Variables
-            Anticipos = 11;
+            Anticipos = 12;
             Caja = 14;
             CatalogoUnidadesMedida = 3;
             CodigoBarrasExtras = 3;
@@ -142,7 +142,8 @@ namespace PuntoDeVentaV2
                                               Comentarios TEXT,
                                               Status      INT (1)  DEFAULT (0)  NOT NULL,
                                               Fecha       DATETIME NOT NULL,
-                                              IDVenta     INTEGER  DEFAULT (0));";
+                                              IDVenta     INTEGER  DEFAULT (0),
+                                              ImporteOriginal DECIMAL  DEFAULT (0) NOT NULL);";
         }
 
         public string QueryUpdateTablaAnticipos(string tabla)
@@ -156,7 +157,8 @@ namespace PuntoDeVentaV2
                                             FormaPago,
                                             Comentarios,
                                             Status,
-                                            Fecha)
+                                            Fecha,
+                                            IDVenta)
                                     SELECT  ID,
                                             IDUsuario,
                                             IDEmpleado,
@@ -166,7 +168,8 @@ namespace PuntoDeVentaV2
                                             FormaPago,
                                             Comentarios,
                                             Status,
-                                            Fecha 
+                                            Fecha,
+                                            IDVenta 
                                     FROM '{tabla}_temp';";
         }
 

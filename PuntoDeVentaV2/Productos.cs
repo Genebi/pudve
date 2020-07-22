@@ -9,7 +9,6 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
@@ -422,6 +421,12 @@ namespace PuntoDeVentaV2
 
         private void btnFilterSearch_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + F";
+            ///
+
             if (opcion13 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -573,6 +578,7 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
+            txtBusqueda.Focus();
         }
 
         // Metodo creado para manejo de mostrar ventana
@@ -599,6 +605,12 @@ namespace PuntoDeVentaV2
 
         private void btnPhotoView_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + M";
+            ///
+
             if (opcion6 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -613,6 +625,7 @@ namespace PuntoDeVentaV2
                 panelShowPhotoView.Visible = true;
                 searchPhotoProd();
                 photoShow();
+                txtBusqueda.Focus();
             }
             else if (panelShowPhotoView.Visible == true || panelShowPhotoView.Visible == false)
             {
@@ -621,11 +634,18 @@ namespace PuntoDeVentaV2
                 panelShowPhotoView.Visible = true;
                 searchPhotoProd();
                 photoShow();
+                txtBusqueda.Focus();
             }
         }
 
         private void btnListView_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + L";
+            ///
+
             if (opcion4 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -638,6 +658,7 @@ namespace PuntoDeVentaV2
                 panelShowDGVProductosView.Visible = true;
                 panel2.Visible = true;
                 searchToProdGral();
+                txtBusqueda.Focus();
             }
             else if (panelShowPhotoView.Visible == true || panelShowPhotoView.Visible == false)
             {
@@ -645,6 +666,7 @@ namespace PuntoDeVentaV2
                 panelShowDGVProductosView.Visible = true;
                 panel2.Visible = true;
                 searchToProdGral();
+                txtBusqueda.Focus();
             }
             actualizarDatosDespuesDeAgregarProducto();
         }
@@ -670,37 +692,37 @@ namespace PuntoDeVentaV2
                     DGVProductos.Cursor = Cursors.Hand;
                     if (e.ColumnIndex == 7)
                     {
-                        textoTTipButtonMsg = "Editar el Producto";
+                        textoTTipButtonMsg = "Editar el Producto (F2)";
                         coordenadaX = 90;
                         coordenadaY = -200;
                     }
                     if (e.ColumnIndex == 8)
                     {
-                        textoTTipButtonMsg = "Modificar estado del Producto";
+                        textoTTipButtonMsg = "Modificar estado del Producto (ALt + E)";
                         coordenadaX = 160;
                         coordenadaY = -200;
                     }
                     if (e.ColumnIndex == 9)
                     {
-                        textoTTipButtonMsg = "Historial de Compra";
+                        textoTTipButtonMsg = "Historial de Compra (Alt + H)";
                         coordenadaX = 105;
                         coordenadaY = -200;
                     }
                     if (e.ColumnIndex == 10)
                     {
-                        textoTTipButtonMsg = "Generar Código de Barras";
+                        textoTTipButtonMsg = "Generar Código de Barras (Alt + G)";
                         coordenadaX = 130;
                         coordenadaY = -200;
                     }
                     if (e.ColumnIndex == 11)
                     {
-                        textoTTipButtonMsg = "Imagen del Producto";
+                        textoTTipButtonMsg = "Imagen del Producto (Alt + I)";
                         coordenadaX = 110;
                         coordenadaY = -200;
                     }
                     if (e.ColumnIndex == 12)
                     {
-                        textoTTipButtonMsg = "Generar Etiqueta de Producto";
+                        textoTTipButtonMsg = "Generar Etiqueta de Producto (Alt + E)";
                         coordenadaX = 155;
                         coordenadaY = -200;
                     }
@@ -983,10 +1005,24 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            ///////////////////////////////////////////////
+            ////if (DGVProductos.SelectedRows.Count == 0)
+            ////{
+
+            ////}
+                
+                  
         }
 
         private void btnModificarEstado_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + D";
+            ///
+
             if (opcion2 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -1073,6 +1109,7 @@ namespace PuntoDeVentaV2
                 clickBoton = 1;
                 CargarDatos();
                 actualizar();
+                txtBusqueda.Focus();
             }
 
             if (estado == 1)
@@ -1082,6 +1119,7 @@ namespace PuntoDeVentaV2
                 clickBoton = 1;
                 CargarDatos();
                 actualizar();
+                txtBusqueda.Focus();
             }
 
             CheckBox master = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
@@ -1163,10 +1201,17 @@ namespace PuntoDeVentaV2
             }
 
             recargarBusqueda();
+            txtBusqueda.Focus();
         }
 
         private void btnCleanFilter_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "ESC";
+            ///
+
             if (opcion14 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -1393,29 +1438,39 @@ namespace PuntoDeVentaV2
 
         private void actualizar_automatico_Tick(object sender, EventArgs e)
         {
-            recargarDGV();
+            //recargarDGV();
         }
 
         public void recargarDGV()
         {
-            int ultimaPagina = p.countPag(), currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
+            int ultimaPagina = 0, 
+                currentPage = 0;
 
             if (!txtBusqueda.Text.Equals(""))
             {
+                ultimaPagina = p.countPag();
+                currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
                 actualizarDatosDespuesDeAgregarProducto();
+                goToPageNumber(ultimaPagina);
             }
             else if (txtBusqueda.Text.Equals(""))
             {
+                ultimaPagina = p.countPag();
+                currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
                 //goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
                 //actualizar();
                 if (currentPage.Equals(ultimaPagina))
                 {
-                    CargarDatos();
-                    ultimaPagina = p.countPag();
-                    goToPageNumber(ultimaPagina);
+                    //CargarDatos();
+                    //ultimaPagina = p.countPag();
+                    //goToPageNumber(ultimaPagina);
+                    //currentPage = p.numPag();
+                    goToPageNumber(currentPage);
                 }
                 else if (currentPage < ultimaPagina)
                 {
+                    //CargarDatos();
+                    //currentPage = p.numPag();
                     goToPageNumber(currentPage);
                 }
             }
@@ -1424,6 +1479,12 @@ namespace PuntoDeVentaV2
 
         private void btnPedido_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + R";
+            ///
+
             if (opcion8 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -1439,7 +1500,14 @@ namespace PuntoDeVentaV2
                 var opciones = new OpcionesReporteProducto();
 
                 opciones.Show();
+
+                opciones.FormClosed += delegate
+                {
+                    txtBusqueda.Focus(); 
+                };
             }
+
+            
         }
 
         private void AddPageNumber()
@@ -2145,6 +2213,12 @@ namespace PuntoDeVentaV2
 
         private void btnCambiarTipo_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + T";
+            ///
+
             if (opcion3 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -2189,10 +2263,12 @@ namespace PuntoDeVentaV2
             else if (contador > 1)
             {
                 MessageBox.Show("No se puede cambiar el tipo de 2\nelementos o más al mismo tiempo", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtBusqueda.Focus();
             }
             else
             {
                 MessageBox.Show("Seleccione un elemento para activar esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtBusqueda.Focus();
             }
         }
 
@@ -2236,10 +2312,24 @@ namespace PuntoDeVentaV2
 
         private void goToPageNumber(int pageNumber)
         {
-            p.primerPagina();
-            p.irAPagina(pageNumber);
-            p.cargar();
-            clickBoton = 1;
+            //p.primerPagina();
+            //p.irAPagina(pageNumber);
+            //p.cargar();
+            //clickBoton = 1;
+            //CargarDatos();
+            //actualizar();
+            if (pageNumber.Equals(p.numPag()))
+            {
+                p.cargar();
+                clickBoton = 1;
+            }
+            else if (!pageNumber.Equals(p.numPag()))
+            {
+                p.primerPagina();
+                p.irAPagina(pageNumber);
+                p.cargar();
+                clickBoton = 1;
+            }
             CargarDatos();
             actualizar();
         }
@@ -2261,6 +2351,538 @@ namespace PuntoDeVentaV2
             {
                 e.CellStyle.SelectionBackColor = e.CellStyle.BackColor;
                 e.CellStyle.SelectionForeColor = e.CellStyle.ForeColor;
+            }
+        }
+
+
+
+        private void Productos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)//Editar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F2";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
+            }
+            else if (e.KeyCode == Keys.D && (e.Alt))//Estado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + D";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
+            }
+            else if (e.KeyCode == Keys.H && (e.Alt))//Historial
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + H";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(9, 0));
+            }
+            else if (e.KeyCode == Keys.G && (e.Alt))//Generar codigo de barras
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + G";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(10, 0));
+            }
+            else if (e.KeyCode == Keys.I && (e.Alt))//Imagen
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + I";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(11, 0));
+            }
+            else if (e.KeyCode == Keys.E && (e.Alt))//Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + E";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(12, 0));
+            }
+            else if (e.KeyCode == Keys.F3)//Ajustar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F3";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(15, 0));
+            }
+            else if (e.KeyCode == Keys.N && (e.Control))//Agregar Producto
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + N";
+
+                btnAgregarProducto.PerformClick();
+            }
+            else if (e.KeyCode == Keys.C && (e.Alt))//Agregar Combo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + C";
+
+                btnAgregarPaquete.PerformClick();
+            }
+            else if (e.KeyCode == Keys.S && (e.Control))//Agregar Servicio
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + S";
+
+                btnAgregarServicio.PerformClick();
+            }
+            else if (e.KeyCode == Keys.F && (e.Control))//Filtro
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + F";
+
+                btnFilterSearch.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)//Borrar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "ESC";
+
+                btnCleanFilter.PerformClick();
+            }
+            else if (e.KeyCode == Keys.X && (e.Control))//Agregar XML
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + X";
+
+                btnAgregarXML.PerformClick();
+            }
+            else if (e.KeyCode == Keys.R && (e.Control))//Reporte
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + R";
+
+                btnPedido.PerformClick();
+            }
+            else if (e.KeyCode == Keys.L && (e.Control))//Lista
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + L";
+
+                btnListView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.M && (e.Control))//Mosaico
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + M";
+
+                btnPhotoView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.P && (e.Control))//Imprimir
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + P";
+
+                btnImprimir.PerformClick();
+            }
+            else if (e.KeyCode == Keys.E && (e.Control))//Boton Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + E";
+
+                btnEtiqueta.PerformClick();
+            }
+            else if(e.KeyCode==Keys.A && (e.Control))//Boton Asignar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + A";
+
+                btnAsignarMultiple.PerformClick();
+            }
+            else if (e.KeyCode==Keys.T && (e.Control))//Boton Cmbiar Tipo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + T";
+
+                btnCambiarTipo.PerformClick();
+            }
+            else if (e.KeyCode==Keys.D && (e.Control))//Boton Deshabilitar Seleccionado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + D";
+
+                btnModificarEstado.PerformClick();
+            }
+
+        }
+        //Atajos para el DataGridView y Botones
+        private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)//Editar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F2";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
+            }
+            else if (e.KeyCode == Keys.D && (e.Alt))//Estado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + D";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
+            }
+            else if (e.KeyCode == Keys.H && (e.Alt))//Historial
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + H";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(9, 0));
+            }
+            else if (e.KeyCode == Keys.G && (e.Alt))//Generar codigo de barras
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + G";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(10, 0));
+            }
+            else if (e.KeyCode == Keys.I && (e.Alt))//Imagen
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + I";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(11, 0));
+            }
+            else if (e.KeyCode == Keys.E && (e.Alt))//Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + E";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(12, 0));
+            }
+            else if (e.KeyCode == Keys.F3)//Ajustar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F3";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(15, 0));
+            }
+            else if (e.KeyCode == Keys.N && (e.Control))//Agregar Producto
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + N";
+
+                btnAgregarProducto.PerformClick();
+            }
+            else if (e.KeyCode == Keys.C && (e.Alt))//Agregar Combo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + C";
+
+                btnAgregarPaquete.PerformClick();
+            }
+            else if (e.KeyCode == Keys.S && (e.Control))//Agregar Servicio
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + S";
+
+                btnAgregarServicio.PerformClick();
+            }
+            else if (e.KeyCode == Keys.F && (e.Control))//Filtro
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + F";
+
+                btnFilterSearch.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)//Borrar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "ESC";
+
+                btnCleanFilter.PerformClick();
+            }
+            else if (e.KeyCode == Keys.X && (e.Control))//Agregar XML
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + X";
+
+                btnAgregarXML.PerformClick();
+            }
+            else if (e.KeyCode == Keys.R && (e.Control))//Reporte
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + R";
+
+                btnPedido.PerformClick();
+            }
+            else if (e.KeyCode == Keys.L && (e.Control))//Lista
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + L";
+
+                btnListView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.M && (e.Control))//Mosaico
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + M";
+
+                btnPhotoView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.P && (e.Control))//Imprimir
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + P";
+
+                btnImprimir.PerformClick();
+            }
+            else if (e.KeyCode == Keys.E && (e.Control))//Boton Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + E";
+
+                btnEtiqueta.PerformClick();
+            }
+            else if (e.KeyCode == Keys.A && (e.Control))//Boton Asignar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + A";
+
+                btnAsignarMultiple.PerformClick();
+            }
+            else if (e.KeyCode == Keys.T && (e.Control))//Boton Cmbiar Tipo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + T";
+
+                btnCambiarTipo.PerformClick();
+            }
+            else if (e.KeyCode == Keys.D && (e.Control))//Boton Deshabilitar Seleccionado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + D";
+
+                btnModificarEstado.PerformClick();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            int conteo = 0;
+            conteo++;
+            
+            if (conteo == 1)
+            {
+                lAtajo.Visible = false;
+                timer1.Enabled = false;
+            }
+            conteo = 0;
+        }
+
+        private void DGVProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)//Editar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F2";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
+            }
+            else if (e.KeyCode == Keys.D && (e.Alt))//Estado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + D";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
+            }
+            else if (e.KeyCode == Keys.H && (e.Alt))//Historial
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + H";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(9, 0));
+            }
+            else if (e.KeyCode == Keys.G && (e.Alt))//Generar codigo de barras
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + G";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(10, 0));
+            }
+            else if (e.KeyCode == Keys.I && (e.Alt))//Imagen
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + I";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(11, 0));
+            }
+            else if (e.KeyCode == Keys.E && (e.Alt))//Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + E";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(12, 0));
+            }
+            else if (e.KeyCode == Keys.F3)//Ajustar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F3";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(15, 0));
+            }
+            else if (e.KeyCode == Keys.N && (e.Control))//Agregar Producto
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + N";
+
+                btnAgregarProducto.PerformClick();
+            }
+            else if (e.KeyCode == Keys.C && (e.Alt))//Agregar Combo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + C";
+
+                btnAgregarPaquete.PerformClick();
+            }
+            else if (e.KeyCode == Keys.S && (e.Control))//Agregar Servicio
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + S";
+
+                btnAgregarServicio.PerformClick();
+            }
+            else if (e.KeyCode == Keys.F && (e.Control))//Filtro
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + F";
+
+                btnFilterSearch.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)//Borrar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "ESC";
+
+                btnCleanFilter.PerformClick();
+            }
+            else if (e.KeyCode == Keys.X && (e.Control))//Agregar XML
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + X";
+
+                btnAgregarXML.PerformClick();
+            }
+            else if (e.KeyCode == Keys.R && (e.Control))//Reporte
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + R";
+
+                btnPedido.PerformClick();
+            }
+            else if (e.KeyCode == Keys.L && (e.Control))//Lista
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + L";
+
+                btnListView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.M && (e.Control))//Mosaico
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + M";
+
+                btnPhotoView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.P && (e.Control))//Imprimir
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + P";
+
+                btnImprimir.PerformClick();
+            }
+            else if (e.KeyCode == Keys.E && (e.Control))//Boton Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + E";
+
+                btnEtiqueta.PerformClick();
+            }
+            else if (e.KeyCode == Keys.A && (e.Control))//Boton Asignar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + A";
+
+                btnAsignarMultiple.PerformClick();
+            }
+            else if (e.KeyCode == Keys.T && (e.Control))//Boton Cmbiar Tipo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + T";
+
+                btnCambiarTipo.PerformClick();
+            }
+            else if (e.KeyCode == Keys.D && (e.Control))//Boton Deshabilitar Seleccionado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + D";
+
+                btnModificarEstado.PerformClick();
             }
         }
 
@@ -2840,7 +3462,14 @@ namespace PuntoDeVentaV2
                                 }
                                 else if (palabras[0].Equals("0"))
                                 {
-                                    buscarCodigosBarraExtra += palabras[1].ToString() + " ";
+                                    string nvoTheNumberAsAString = string.Empty;
+                                    long nvoTheNumber;
+                                    nvoTheNumberAsAString = palabras[1].ToString();
+                                    if (long.TryParse(nvoTheNumberAsAString, out nvoTheNumber))
+                                    {
+                                        //numBusqueda += nvoTheNumberAsAString + " ";
+                                        buscarCodigosBarraExtra += palabras[1].ToString() + " ";
+                                    }
                                 }
                             }
                             extra = string.Empty;
@@ -3015,6 +3644,7 @@ namespace PuntoDeVentaV2
                     theNumberAsAString = string.Empty;
                     theNumber = 0;
                     string[] nvoCodBar;
+                    var noEcontradoCodBar = new List<string>();
                     nvoCodBar = nuevosCodigos.Trim().Split(' ');
                     foreach (var item in nvoCodBar)
                     {
@@ -3041,6 +3671,23 @@ namespace PuntoDeVentaV2
                                 txtBusqueda.Text = busqueda.Trim();
                             }
                         }
+                        else
+                        {
+                            noEcontradoCodBar.Add(nuevosCodigos);
+                            //MessageBox.Show("Cóodigo proporcionado: " + nuevosCodigos + "\nNo esta registrado", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            nuevosCodigos = string.Empty;
+                            //extra = string.Empty;
+                            //extra2 = string.Empty;
+                        }
+                    }
+                    if (!noEcontradoCodBar.Count.Equals(0))
+                    {
+                        string mensajeNoEncontrado = string.Empty;
+                        for (int i = 0; i < noEcontradoCodBar.Count; i++)
+                        {
+                            mensajeNoEncontrado += noEcontradoCodBar[i] + "\n";
+                        }
+                        MessageBox.Show("Cóodigo proporcionado:\n" + mensajeNoEncontrado + "No esta registrado", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -3101,6 +3748,14 @@ namespace PuntoDeVentaV2
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
                                 filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                //if (busqueda.All(Char.IsLetterOrDigit))
+                                //{
+                                //    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                //}
+                                //else
+                                //{
+                                //    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
+                                //}
                             }
                         }
 
@@ -3206,6 +3861,14 @@ namespace PuntoDeVentaV2
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
                                 filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                //if (busqueda.All(Char.IsLetterOrDigit))
+                                //{
+                                //    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                //}
+                                //else
+                                //{
+                                //    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
+                                //}
                             }
                         }
 
@@ -3278,7 +3941,14 @@ namespace PuntoDeVentaV2
                             }
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                if (busqueda.All(Char.IsLetterOrDigit))
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                }
+                                else
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd;
+                                }
                             }
                         }
 
@@ -3335,6 +4005,7 @@ namespace PuntoDeVentaV2
                     //var stockTest = filaDatos["Stock"].ToString();
                     // Verificar si el stock es menor al minimo y cambiar el texto de color
                     var minimo = Convert.ToInt32(filaDatos["StockMinimo"].ToString());
+                    var maximo = Convert.ToInt32(filaDatos["StockNecesario"].ToString());
                     var stock = Convert.ToDecimal(filaDatos["Stock"].ToString());
 
                     if (stock < minimo)
@@ -3344,6 +4015,16 @@ namespace PuntoDeVentaV2
                         row.Cells["Column2"].Style = new DataGridViewCellStyle {
                             ForeColor = Color.White,
                             BackColor = Color.Black
+                        };
+                    }
+                    else if (stock > maximo)
+                    {
+                        row.Cells["Column2"].Value = filaDatos["Stock"].ToString();
+
+                        row.Cells["Column2"].Style = new DataGridViewCellStyle
+                        {
+                            ForeColor = Color.White,
+                            BackColor = Color.Blue
                         };
                     }
                     else
@@ -3539,16 +4220,22 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + N";
+            ///
+
             if (opcion10 == 0)
             {
                 Utilidades.MensajePermiso();
                 return;
             }
 
-            if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
-            {
-                Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
-            }
+            //if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
+            //{
+            //    Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
+            //}
 
             var FormAgregar = new AgregarEditarProducto("Agregar");
 
@@ -3583,6 +4270,7 @@ namespace PuntoDeVentaV2
                 AgregarEditarProducto.stockNecesario = "0";
                 clickBoton = 0;
                 agregarEspacioAlFinal();
+                txtBusqueda.Focus();
             };
 
             if (!FormAgregar.Visible)
@@ -3720,6 +4408,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + C";
+            ///
+
             if (opcion11 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -3753,6 +4447,7 @@ namespace PuntoDeVentaV2
             {
                 //actualizarDatosDespuesDeAgregarProducto();
                 linkLblPaginaActual_Click_1(sender, e);
+                txtBusqueda.Focus();
             };
 
             if (!FormAgregar.Visible)
@@ -3823,6 +4518,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + S";
+            ///
+
             if (opcion12 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -3858,6 +4559,7 @@ namespace PuntoDeVentaV2
             {
                 //actualizarDatosDespuesDeAgregarProducto();
                 linkLblPaginaActual_Click_1(sender, e);
+                txtBusqueda.Focus();
             };
 
             if (!FormAgregar.Visible)
@@ -4159,6 +4861,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarXML_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + X";
+            ///
+
             if (opcion1 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -4175,6 +4883,7 @@ namespace PuntoDeVentaV2
             {
                 FormXML.OcultarPanelRegistro();
                 FormXML.ShowDialog();
+                txtBusqueda.Focus();
             }
             else
             {
@@ -4448,7 +5157,8 @@ namespace PuntoDeVentaV2
 
         private void quitarEspacioEnBlanco()
         {
-            txtBusqueda.Text = txtBusqueda.Text.TrimEnd();
+            //txtBusqueda.Text = txtBusqueda.Text.TrimEnd();
+            txtBusqueda.Text = txtBusqueda.Text.Trim();
             txtBusqueda.Select(txtBusqueda.Text.Length, 0);
         }
 
@@ -4482,6 +5192,12 @@ namespace PuntoDeVentaV2
 
         private void btnAsignarMultiple_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + A";
+            ///
+
             if (opcion5 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -4530,6 +5246,7 @@ namespace PuntoDeVentaV2
                                 row.Cells["CheckProducto"].Value = false;
                             }
                         }
+                        txtBusqueda.Focus();
                     };
 
                     am.Show();
@@ -4540,11 +5257,18 @@ namespace PuntoDeVentaV2
                 var mensaje = "Seleccione al menos un producto para habilitar esta opción";
 
                 MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtBusqueda.Focus();
             }
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + P";
+            ///
+
             if (opcion9 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -4571,16 +5295,25 @@ namespace PuntoDeVentaV2
                 using (var formImprimir = new ImprimirEtiqueta(lista))
                 {
                     var resultado = formImprimir.ShowDialog();
+                    txtBusqueda.Focus();
                 }
+                
             }
             else
             {
                 MessageBox.Show("Seleccione al menos un producto para habilitar esta opción", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtBusqueda.Focus();
             }
         }
 
         private void btnEtiqueta_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + E";
+            ///
+
             if (opcion7 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -4590,6 +5323,7 @@ namespace PuntoDeVentaV2
             GenerarEtiqueta ge = new GenerarEtiqueta();
 
             ge.ShowDialog();
+            txtBusqueda.Focus();
         }
 
         private void Productos_Resize(object sender, EventArgs e)

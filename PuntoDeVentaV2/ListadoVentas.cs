@@ -594,7 +594,7 @@ namespace PuntoDeVentaV2
                             }
 
                             // Agregamos marca de agua al PDF del ticket de la venta cancelada
-                            Utilidades.CrearMarcaDeAgua(idVenta);
+                            Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
 
                             mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 

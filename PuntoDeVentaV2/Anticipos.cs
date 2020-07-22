@@ -18,7 +18,7 @@ namespace PuntoDeVentaV2
         //Status 2 = Deshabilitado
         //Status 3 = Usado
         //Status 4 = Devuelto = Este no se muestra como opcion
-        //Status 4 = Parciales
+        //Status 5 = Parciales
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();

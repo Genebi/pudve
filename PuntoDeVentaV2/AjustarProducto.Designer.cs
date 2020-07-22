@@ -64,6 +64,7 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lbEditarPrecio = new System.Windows.Forms.Label();
             this.txtPrecio = new System.Windows.Forms.TextBox();
+            this.btnActualiza = new System.Windows.Forms.Button();
             this.panelComprado.SuspendLayout();
             this.panelAjustar.SuspendLayout();
             this.SuspendLayout();
@@ -381,6 +382,7 @@
             this.txtDisminuir.Size = new System.Drawing.Size(125, 22);
             this.txtDisminuir.TabIndex = 1;
             this.txtDisminuir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDisminuir.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDisminuir_KeyPress);
             this.txtDisminuir.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDisminuir_KeyUp);
             // 
             // txtAumentar
@@ -391,6 +393,7 @@
             this.txtAumentar.Size = new System.Drawing.Size(125, 22);
             this.txtAumentar.TabIndex = 0;
             this.txtAumentar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAumentar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAumentar_KeyPress);
             this.txtAumentar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtAumentar_KeyUp);
             // 
             // txtComentarios
@@ -485,11 +488,29 @@
             this.txtPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecio_KeyDown);
             // 
+            // btnActualiza
+            // 
+            this.btnActualiza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnActualiza.BackColor = System.Drawing.Color.DarkCyan;
+            this.btnActualiza.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnActualiza.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
+            this.btnActualiza.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualiza.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualiza.ForeColor = System.Drawing.Color.White;
+            this.btnActualiza.Location = new System.Drawing.Point(393, 45);
+            this.btnActualiza.Name = "btnActualiza";
+            this.btnActualiza.Size = new System.Drawing.Size(144, 28);
+            this.btnActualiza.TabIndex = 33;
+            this.btnActualiza.Text = "Actualizar";
+            this.btnActualiza.UseVisualStyleBackColor = false;
+            this.btnActualiza.Click += new System.EventHandler(this.btnActualiza_Click);
+            // 
             // AjustarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 412);
+            this.Controls.Add(this.btnActualiza);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.lbEditarPrecio);
             this.Controls.Add(this.btnAceptar);
@@ -556,5 +577,6 @@
         private System.Windows.Forms.Label lbConcepto;
         private System.Windows.Forms.Button btnAgregarConcepto;
         private System.Windows.Forms.ComboBox cbConceptos;
+        private System.Windows.Forms.Button btnActualiza;
     }
 }

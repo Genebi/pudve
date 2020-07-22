@@ -13,6 +13,10 @@ namespace PuntoDeVentaV2
 {
     public partial class AjustarProducto : Form
     {
+        //Variables para calculadora
+        int calcu = 0;
+        ///////////////////////////
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -649,6 +653,99 @@ namespace PuntoDeVentaV2
                 conceptos.ShowDialog();
 
                 CargarConceptos();
+            }
+        }
+
+        private void txtDisminuir_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtDisminuir.Text = calculadora.lCalculadora.Text;
+                    };
+
+                    calcu = 0;
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtAumentar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtAumentar.Text = calculadora.lCalculadora.Text;
+                    };
+
+                    calcu = 0;
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnActualiza_Click(object sender, EventArgs e)
+        {
+            var obtenerTxt = string.Empty;
+            obtenerTxt = txtPrecioCompra.Text;
+            var datoObtenido = "";
+
+            if (!obtenerTxt.Equals("") && !obtenerTxt.Equals("."))
+            {
+                var precio = float.Parse(obtenerTxt);
+                var descuento = cn.CargarDatos($"SELECT PorcentajePrecio FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+
+                for (int i = 0; i < descuento.Rows.Count; i++)
+                {
+                    datoObtenido = descuento.Rows[i]["PorcentajePrecio"].ToString();
+                }
+                var x = float.Parse(datoObtenido);
+                var operacion = (precio * x);
+                txtPrecio.Text = "$ " + operacion.ToString(); ;
+            }
+            else
+            {
+                MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPrecioCompra.Text = "";
+                txtPrecioCompra.Focus();
             }
         }
     }

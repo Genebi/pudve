@@ -1070,8 +1070,9 @@ namespace PuntoDeVentaV2
                     calculadora.FormClosed += delegate
                     {
                         txtStockMinimo.Text = calculadora.lCalculadora.Text;
-                        calcu = 0;
                     };
+
+                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();
@@ -1080,11 +1081,6 @@ namespace PuntoDeVentaV2
                     {
                         calculadora.Show();
                     }
-
-                    //if ()
-                    //{
-                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
-                    //}
                 }
             }
 
@@ -1119,6 +1115,7 @@ namespace PuntoDeVentaV2
                     txtStockMinimo.Text = words[0] + "." + words[1];
                 }
             }
+            ValidarStockMaximo();
         }
 
         private void txtStockMaximo_Enter(object sender, EventArgs e)
@@ -1295,6 +1292,9 @@ namespace PuntoDeVentaV2
                     {
                         MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                        var numero = Convert.ToInt32(minimo);
+                        var agregar = numero + 1;
+                        txtStockMaximo.Text=agregar.ToString();
                         txtStockMaximo.Focus();
                     }
                     else if (maximo > minimo)
@@ -2991,7 +2991,7 @@ namespace PuntoDeVentaV2
 
                                             //string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
 
-                                            string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{precio}','{descuentoXML}','{PrecioCompraXMLNvoProd}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}',datetime('now', 'localtime'),'{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
+                                            string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}',datetime('now', 'localtime'),'{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
 
                                             try
                                             {
@@ -3831,7 +3831,7 @@ namespace PuntoDeVentaV2
                 rfcProveedor = proveedorTmp[1];
             }
 
-            guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+            guardar = new string[] { nombre, stock, txtPrecioCompra.Text, precio, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
 
             cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
 

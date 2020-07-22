@@ -18,9 +18,17 @@ namespace PuntoDeVentaV2
 
         string[] anticipos = new string[] { };
 
-        public ListadoAnticipos()
+        int numeroProductos = 0;
+
+        public ListadoAnticipos(int numeroProductos)
         {
             InitializeComponent();
+
+            this.numeroProductos = numeroProductos;
+        }
+
+        private void ListadoAnticipos_Load(object sender, EventArgs e)
+        {
             CargarDatos();
         }
 
@@ -32,7 +40,7 @@ namespace PuntoDeVentaV2
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND (Status = 1 OR Status = 5)", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVListaAnticipos.Rows.Clear();
@@ -102,11 +110,18 @@ namespace PuntoDeVentaV2
                 //Si el anticipo no ha sido aplicado se hace la operacion normalmente
                 if (seleccionado < 0)
                 {
-                    Ventas.listaAnticipos += idAnticipo + "-";
+                    if (numeroProductos > 0)
+                    {
+                        Ventas.listaAnticipos += idAnticipo + "-";
 
-                    Ventas.importeAnticipo = float.Parse(DGVListaAnticipos.Rows[fila].Cells["Importe"].Value.ToString());
+                        Ventas.importeAnticipo = float.Parse(DGVListaAnticipos.Rows[fila].Cells["Importe"].Value.ToString());
 
-                    this.Close();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se puede aplicar un anticipo a la venta\nya que no hay productos agregados", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
 
