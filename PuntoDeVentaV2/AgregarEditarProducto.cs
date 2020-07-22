@@ -4143,9 +4143,11 @@ namespace PuntoDeVentaV2
         private void cbTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             string cadAux = string.Empty;
+            resetControlesTableGridLayout();
             filtro = Convert.ToString(cbTipo.SelectedItem);      // tomamos el valor que se elige en el TextBox
             if (filtro == "Producto")                            // comparamos si el valor a filtrar es Producto
             {
+                agregarProducto();
                 if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
                 {
                     Titulo = "Agregar Producto";
@@ -4165,6 +4167,8 @@ namespace PuntoDeVentaV2
                 tituloSeccion.Text = TituloForm;
                 //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 this.Text = cadAux + "s";
+                chkBoxConProductos.Checked = false;
+                chkBoxConProductos.Visible = false;
                 //if (PStock.Visible == false)
                 //{
                 //    PStock.Visible = true;
@@ -4186,12 +4190,15 @@ namespace PuntoDeVentaV2
             }
             else if (filtro == "Combo")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
             {
+                agregarCombo();
                 Titulo = "Agregar Combo";
                 TituloForm = Titulo;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Paquete)
                 tituloSeccion.Text = TituloForm;
                 //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 this.Text = cadAux + "s";
+                chkBoxConProductos.Checked = false;
+                chkBoxConProductos.Visible = true;
                 //if (PStock.Visible == true)
                 //{
                 //    PStock.Visible = false;
@@ -4214,12 +4221,15 @@ namespace PuntoDeVentaV2
             }
             else if (filtro == "Servicio")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
             {
+                agregarServicio();
                 Titulo = "Agregar Servicio";
                 TituloForm = Titulo;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Servicio)
                 tituloSeccion.Text = TituloForm;
                 //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 this.Text = cadAux + "s";
+                chkBoxConProductos.Checked = false;
+                chkBoxConProductos.Visible = true;
                 //if (PStock.Visible == true)
                 //{
                 //    PStock.Visible = false;
@@ -4241,7 +4251,40 @@ namespace PuntoDeVentaV2
                 //}
             }
         }
-        
+
+        private void resetControlesTableGridLayout()
+        {
+            label1.Visible = false;
+            txtStockMinimo.Visible = false;
+
+            label12.Visible = false;
+            txtStockMaximo.Visible = false;
+
+            label6.Visible = false;
+            txtStockProducto.Visible = false;
+
+            label7.Visible = false;
+            txtPrecioCompra.Visible = false;
+
+            label4.Visible = false;
+            txtPrecioProducto.Visible = false;
+
+            label5.Visible = false;
+            txtClaveProducto.Visible = false;
+
+            label2.Visible = false;
+            txtCodigoBarras.Visible = false;
+            btnGenerarCB.Visible = false;
+            panelContenedor.Visible = false;
+
+            PImagen.Visible = false;
+
+            lblCantPaqServ.Visible = false;
+            button1.Visible = false;
+
+            txtCantPaqServ.Visible = false;
+        }
+
         private void ocultarPanel()
         {
             if (Hided)  // Si su valor es True
