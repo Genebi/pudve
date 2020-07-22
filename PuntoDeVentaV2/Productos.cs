@@ -111,7 +111,7 @@ namespace PuntoDeVentaV2
         string filtroConSinFiltroAvanzado = string.Empty;
 
         string[] palabras;
-        List<string> auxWord, setUpVariable;
+        List<string> auxWord, setUpVariable, noEcontradoCodBar;
         List<Control> listVariables;
 
         Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos = new Dictionary<string, Tuple<string, string, string, string>>();
@@ -1564,6 +1564,62 @@ namespace PuntoDeVentaV2
                 quitarEspacioEnBlanco();
                 busquedaDelUsuario();
                 agregarEspacioAlFinal();
+                borrarCodigosNoValidos();
+            }
+        }
+
+        private void borrarCodigosNoValidos()
+        {
+            if (!noEcontradoCodBar.Count().Equals(0))
+            {
+                for (int i = 0; i < noEcontradoCodBar.Count; i++)
+                {
+                    foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                    {
+                        if (item is Panel)
+                        {
+                            string toDelete = string.Empty, noFoundToDelete = string.Empty;
+                            toDelete = item.Name.ToString();
+                            noFoundToDelete = "pEtiqueta" + noEcontradoCodBar[i].ToString().Trim();
+                            if (toDelete.Equals(noFoundToDelete))
+                            {
+                                fLPDynamicTags.Controls.Remove(item);
+                            }
+                        }
+                    }
+
+                    for (int u = 0; u < auxWord.Count; u++)
+                    {
+                        if (auxWord[u].Equals(noEcontradoCodBar[i].ToString().Trim()))
+                        {
+                            auxWord.RemoveAt(u);
+                        }
+                    }
+
+                    string newCadenaBusqueda = string.Empty;
+
+                    for (int u = 0; u < auxWord.Count; u++)
+                    {
+                        newCadenaBusqueda += auxWord[u].ToString() + " ";
+                    }
+
+                    txtBusqueda.Text = newCadenaBusqueda.Trim();
+                    txtBusqueda.Select(txtBusqueda.Text.Length, 0);
+
+                    if (txtBusqueda.Text.Equals(""))
+                    {
+                        CargarDatos();
+                    }
+                    else if (!txtBusqueda.Text.Equals(""))
+                    {
+                        quitarEspacioEnBlanco();
+                        busquedaDelUsuario();
+                    }
+
+                    txtBusqueda.Focus();
+
+                    verificarBotonLimpiarTags();
+                }
             }
         }
 
@@ -3686,7 +3742,7 @@ namespace PuntoDeVentaV2
                     theNumberAsAString = string.Empty;
                     theNumber = 0;
                     string[] nvoCodBar;
-                    var noEcontradoCodBar = new List<string>();
+                    noEcontradoCodBar = new List<string>();
                     nvoCodBar = nuevosCodigos.Trim().Split(' ');
                     foreach (var item in nvoCodBar)
                     {
@@ -3729,7 +3785,8 @@ namespace PuntoDeVentaV2
                         {
                             mensajeNoEncontrado += noEcontradoCodBar[i] + "\n";
                         }
-                        MessageBox.Show("Cóodigo proporcionado:\n" + mensajeNoEncontrado + "No esta registrado", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Cóodigo proporcionado:\n" + mensajeNoEncontrado + "No esta registrado ó no es valido su formato.", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
                     }
                 }
             }
