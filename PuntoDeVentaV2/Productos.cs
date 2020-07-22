@@ -3399,6 +3399,44 @@ namespace PuntoDeVentaV2
                     // Si hay concidencias de la busqueda de la palabra
                     if (coincidencias.Count > 0)
                     {
+                        // recorremos diccionario para eliminar coincidencias de la busqueda
+                        foreach (KeyValuePair<int, int> prod in coincidencias)
+                        {
+                            //MessageBox.Show("ID del Producto: " + prod.Key);
+                            using (DataTable dtCoincidenciaProducto = cn.CargarDatos($"SELECT ID, Nombre FROM Productos WHERE ID = '{prod.Key.ToString()}'"))
+                            {
+                                if (!dtCoincidenciaProducto.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow drProd in dtCoincidenciaProducto.Rows)
+                                    {
+                                        bool found = false;
+                                        int begin, end;
+                                        string producto = drProd["Nombre"].ToString();
+                                        string auxTxtBusquedaString = string.Empty;
+                                        string[] wordSearch;
+
+                                        wordSearch = txtBusquedaString.Trim().Split(' ');
+
+                                        foreach (var item in wordSearch)
+                                        {
+                                            found = producto.Contains(item);
+                                            if (found)
+                                            {
+                                                begin = txtBusquedaString.IndexOf(item);
+                                                end = item.Length;
+                                                auxTxtBusquedaString = txtBusquedaString.Remove(begin, end);
+                                                txtBusquedaString.Trim();
+                                                auxTxtBusquedaString.Trim();
+                                                txtBusquedaString = auxTxtBusquedaString;
+                                                //MessageBox.Show("txtBusquedaString: " + txtBusquedaString + "\nauxTxtBusquedaString: " + auxTxtBusquedaString);
+                                                //txtBusquedaString.Replace(item.ToString(), "");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         extra = string.Empty;
                         // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
                         // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
@@ -3427,7 +3465,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                string txtAndNumSearch = txtBusquedaString + numBusqueda;
+                string txtAndNumSearch = txtBusquedaString.Trim() + " " + numBusqueda;
 
                 if (!txtAndNumSearch.Equals(""))
                 {
@@ -3469,6 +3507,10 @@ namespace PuntoDeVentaV2
                                     {
                                         //numBusqueda += nvoTheNumberAsAString + " ";
                                         buscarCodigosBarraExtra += palabras[1].ToString() + " ";
+                                    }
+                                    else
+                                    {
+                                        nuevosCodigos += palabras[1].ToString() + " ";
                                     }
                                 }
                             }
@@ -4119,6 +4161,7 @@ namespace PuntoDeVentaV2
 
             clickBoton = 0;
         }
+
         /// <summary>
         /// Fin CargarDatos
         /// </summary>
