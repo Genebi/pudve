@@ -4220,10 +4220,10 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            ///Mostrar Mensaje ne la etiqueta de atajos
-            timer1.Start();
-            lAtajo.Visible = true;
-            lAtajo.Text = "Ctrl + N";
+            ///Mostrar Mensaje en la etiqueta de atajos
+            //timer1.Start();
+            //lAtajo.Visible = true;
+            //lAtajo.Text = "Ctrl + N";
             ///
 
             if (opcion10 == 0)

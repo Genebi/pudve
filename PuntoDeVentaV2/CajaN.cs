@@ -345,6 +345,13 @@ namespace PuntoDeVentaV2
             float dCheque = 0f;
             float dTrans = 0f;
 
+            // Variables retiros
+            float rEfectivo = 0f;
+            float rTarjeta = 0f;
+            float rVales = 0f;
+            float rCheque = 0f;
+            float rTransferencia = 0f;
+
             // Variables caja
             float efectivo = 0f;
             float tarjeta = 0f;
@@ -462,26 +469,34 @@ namespace PuntoDeVentaV2
             lbTTransD.Text = "$" + dTrans.ToString("0.00");
             lbTAgregado.Text = "$" + (dEfectivo + dTarjeta + dVales + dCheque + dTrans).ToString("0.00");
 
+            // Apartado Dinero Retirado
+            lbEfectivoR.Text = "$" + retiroEfectivo.ToString("0.00");
+            lbTarjetaR.Text = "$" + retiroTarjeta.ToString("0.00");
+            lbValesR.Text = "$" + retiroVales.ToString("0.00");
+            lbChequeR.Text = "$" + retiroCheque.ToString("0.00");
+            lbTransferenciaR.Text = "$" + retiroTrans.ToString("0.00");
+            lbTRetirado.Text = "$" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans).ToString("0.00");
+
             // Apartado TOTAL EN CAJA
-            efectivo = vEfectivo + aEfectivo + dEfectivo;
-            tarjeta = vTarjeta + aTarjeta + dTarjeta;
-            vales = vVales + aVales + dVales;
-            cheque = vCheque + aCheque + dCheque;
-            trans = vTrans + aTrans + dTrans;
+            efectivo = (vEfectivo + aEfectivo + dEfectivo)-rEfectivo;
+            tarjeta = (vTarjeta + aTarjeta + dTarjeta)-rTarjeta;
+            vales = (vVales + aVales + dVales)-rVales;
+            cheque = (vCheque + aCheque + dCheque)-rCheque;
+            trans = (vTrans + aTrans + dTrans)-rTransferencia;
             credito = vCredito;
             anticipos = vAnticipos;
             subtotal = efectivo + tarjeta + vales + cheque + trans + credito + saldoInicial;
 
-            lbTEfectivoC.Text = "$" + efectivo.ToString("0.00");
-            lbTTarjetaC.Text = "$" + tarjeta.ToString("0.00");
-            lbTValesC.Text = "$" + vales.ToString("0.00");
-            lbTChequeC.Text = "$" + cheque.ToString("0.00");
-            lbTTransC.Text = "$" + trans.ToString("0.00");
+            lbTEfectivoC.Text = "$" + (efectivo - retiroEfectivo).ToString("0.00");
+            lbTTarjetaC.Text = "$" + (tarjeta - retiroTarjeta).ToString("0.00");
+            lbTValesC.Text = "$" + (vales - retiroVales).ToString("0.00");
+            lbTChequeC.Text = "$" + (cheque - retiroCheque).ToString("0.00");
+            lbTTransC.Text = "$" + (trans - retiroTrans).ToString("0.00");
             lbTCreditoC.Text = "$" + credito.ToString("0.00");
             lbTAnticiposC.Text = "$" + anticipos.ToString("0.00");
             lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
-            lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
-            lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
+            //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
+            //lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
             lbTTotalCaja.Text = "$" + (subtotal - dineroRetirado).ToString("0.00");
 
             // Variables de clase
