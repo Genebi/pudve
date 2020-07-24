@@ -25,6 +25,13 @@ namespace PuntoDeVentaV2
         public static bool recargarDatos = false;
         public static bool botones = false;
 
+        // Pasar Variables de Total en Caja
+        public static float efectivo { get; set; }
+        public static float tarjeta { get; set; }
+        public static float vales { get; set; }
+        public static float cheque { get; set; }
+        public static float trans { get; set; }
+
         // Variables Totales
         public static float totalEfectivo = 0f;
         public static float totalTarjeta = 0f;

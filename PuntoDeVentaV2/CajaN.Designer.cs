@@ -266,8 +266,8 @@
             this.tablaContenedor.Controls.Add(this.panelDineroRetirado, 3, 0);
             this.tablaContenedor.Controls.Add(this.panelDineroAgregado, 2, 0);
             this.tablaContenedor.Controls.Add(this.panelVentas, 0, 0);
-            this.tablaContenedor.Controls.Add(this.panelTotales, 4, 0);
             this.tablaContenedor.Controls.Add(this.panelAnticipos, 1, 0);
+            this.tablaContenedor.Controls.Add(this.panelTotales, 4, 0);
             this.tablaContenedor.Location = new System.Drawing.Point(15, 176);
             this.tablaContenedor.Name = "tablaContenedor";
             this.tablaContenedor.RowCount = 1;
@@ -846,7 +846,7 @@
             this.panelTotales.Controls.Add(this.lbEfectivoC);
             this.panelTotales.Location = new System.Drawing.Point(884, 4);
             this.panelTotales.Name = "panelTotales";
-            this.panelTotales.Size = new System.Drawing.Size(208, 386);
+            this.panelTotales.Size = new System.Drawing.Size(213, 386);
             this.panelTotales.TabIndex = 111;
             // 
             // lbTSaldoInicial
@@ -854,7 +854,7 @@
             this.lbTSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTSaldoInicial.AutoSize = true;
             this.lbTSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTSaldoInicial.Location = new System.Drawing.Point(149, 275);
+            this.lbTSaldoInicial.Location = new System.Drawing.Point(151, 275);
             this.lbTSaldoInicial.Name = "lbTSaldoInicial";
             this.lbTSaldoInicial.Size = new System.Drawing.Size(39, 17);
             this.lbTSaldoInicial.TabIndex = 24;
@@ -865,7 +865,7 @@
             this.lbTDineroRetirado.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTDineroRetirado.AutoSize = true;
             this.lbTDineroRetirado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTDineroRetirado.Location = new System.Drawing.Point(149, 335);
+            this.lbTDineroRetirado.Location = new System.Drawing.Point(151, 335);
             this.lbTDineroRetirado.Name = "lbTDineroRetirado";
             this.lbTDineroRetirado.Size = new System.Drawing.Size(39, 17);
             this.lbTDineroRetirado.TabIndex = 22;
@@ -877,7 +877,7 @@
             this.lbTSubtotal.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTSubtotal.AutoSize = true;
             this.lbTSubtotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTSubtotal.Location = new System.Drawing.Point(148, 305);
+            this.lbTSubtotal.Location = new System.Drawing.Point(150, 305);
             this.lbTSubtotal.Name = "lbTSubtotal";
             this.lbTSubtotal.Size = new System.Drawing.Size(39, 17);
             this.lbTSubtotal.TabIndex = 21;
@@ -889,7 +889,7 @@
             this.lbSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbSaldoInicial.AutoSize = true;
             this.lbSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSaldoInicial.Location = new System.Drawing.Point(18, 275);
+            this.lbSaldoInicial.Location = new System.Drawing.Point(20, 275);
             this.lbSaldoInicial.Name = "lbSaldoInicial";
             this.lbSaldoInicial.Size = new System.Drawing.Size(80, 17);
             this.lbSaldoInicial.TabIndex = 23;
@@ -900,7 +900,7 @@
             this.lbDineroRetirado.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbDineroRetirado.AutoSize = true;
             this.lbDineroRetirado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDineroRetirado.Location = new System.Drawing.Point(18, 335);
+            this.lbDineroRetirado.Location = new System.Drawing.Point(20, 335);
             this.lbDineroRetirado.Name = "lbDineroRetirado";
             this.lbDineroRetirado.Size = new System.Drawing.Size(98, 17);
             this.lbDineroRetirado.TabIndex = 20;
@@ -912,7 +912,7 @@
             this.lbSubtotal.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbSubtotal.AutoSize = true;
             this.lbSubtotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubtotal.Location = new System.Drawing.Point(18, 305);
+            this.lbSubtotal.Location = new System.Drawing.Point(20, 305);
             this.lbSubtotal.Name = "lbSubtotal";
             this.lbSubtotal.Size = new System.Drawing.Size(107, 17);
             this.lbSubtotal.TabIndex = 19;
@@ -925,7 +925,7 @@
             this.lbTAnticiposC.AutoSize = true;
             this.lbTAnticiposC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTAnticiposC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
-            this.lbTAnticiposC.Location = new System.Drawing.Point(148, 235);
+            this.lbTAnticiposC.Location = new System.Drawing.Point(150, 235);
             this.lbTAnticiposC.Name = "lbTAnticiposC";
             this.lbTAnticiposC.Size = new System.Drawing.Size(39, 17);
             this.lbTAnticiposC.TabIndex = 18;
@@ -936,7 +936,7 @@
             this.lbAnticiposC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbAnticiposC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAnticiposC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
-            this.lbAnticiposC.Location = new System.Drawing.Point(18, 235);
+            this.lbAnticiposC.Location = new System.Drawing.Point(20, 235);
             this.lbAnticiposC.Name = "lbAnticiposC";
             this.lbAnticiposC.Size = new System.Drawing.Size(130, 35);
             this.lbAnticiposC.TabIndex = 17;
@@ -947,7 +947,7 @@
             this.tituloCaja.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloCaja.AutoSize = true;
             this.tituloCaja.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloCaja.Location = new System.Drawing.Point(41, 20);
+            this.tituloCaja.Location = new System.Drawing.Point(43, 20);
             this.tituloCaja.Name = "tituloCaja";
             this.tituloCaja.Size = new System.Drawing.Size(119, 18);
             this.tituloCaja.TabIndex = 17;
@@ -959,7 +959,7 @@
             this.lbTTotalCaja.AutoSize = true;
             this.lbTTotalCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTTotalCaja.ForeColor = System.Drawing.Color.Red;
-            this.lbTTotalCaja.Location = new System.Drawing.Point(148, 365);
+            this.lbTTotalCaja.Location = new System.Drawing.Point(150, 365);
             this.lbTTotalCaja.Name = "lbTTotalCaja";
             this.lbTTotalCaja.Size = new System.Drawing.Size(39, 17);
             this.lbTTotalCaja.TabIndex = 13;
@@ -971,7 +971,7 @@
             this.lbTotalCaja.AutoSize = true;
             this.lbTotalCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalCaja.ForeColor = System.Drawing.Color.Red;
-            this.lbTotalCaja.Location = new System.Drawing.Point(18, 365);
+            this.lbTotalCaja.Location = new System.Drawing.Point(20, 365);
             this.lbTotalCaja.Name = "lbTotalCaja";
             this.lbTotalCaja.Size = new System.Drawing.Size(86, 17);
             this.lbTotalCaja.TabIndex = 12;
@@ -983,7 +983,7 @@
             this.lbTCreditoC.AutoSize = true;
             this.lbTCreditoC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTCreditoC.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbTCreditoC.Location = new System.Drawing.Point(149, 205);
+            this.lbTCreditoC.Location = new System.Drawing.Point(151, 205);
             this.lbTCreditoC.Name = "lbTCreditoC";
             this.lbTCreditoC.Size = new System.Drawing.Size(39, 17);
             this.lbTCreditoC.TabIndex = 11;
@@ -994,7 +994,7 @@
             this.lbTTransC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTTransC.AutoSize = true;
             this.lbTTransC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTTransC.Location = new System.Drawing.Point(149, 175);
+            this.lbTTransC.Location = new System.Drawing.Point(151, 175);
             this.lbTTransC.Name = "lbTTransC";
             this.lbTTransC.Size = new System.Drawing.Size(39, 17);
             this.lbTTransC.TabIndex = 10;
@@ -1005,7 +1005,7 @@
             this.lbTChequeC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTChequeC.AutoSize = true;
             this.lbTChequeC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTChequeC.Location = new System.Drawing.Point(149, 145);
+            this.lbTChequeC.Location = new System.Drawing.Point(151, 145);
             this.lbTChequeC.Name = "lbTChequeC";
             this.lbTChequeC.Size = new System.Drawing.Size(39, 17);
             this.lbTChequeC.TabIndex = 9;
@@ -1016,7 +1016,7 @@
             this.lbTValesC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTValesC.AutoSize = true;
             this.lbTValesC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTValesC.Location = new System.Drawing.Point(149, 115);
+            this.lbTValesC.Location = new System.Drawing.Point(151, 115);
             this.lbTValesC.Name = "lbTValesC";
             this.lbTValesC.Size = new System.Drawing.Size(39, 17);
             this.lbTValesC.TabIndex = 8;
@@ -1027,7 +1027,7 @@
             this.lbTTarjetaC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTTarjetaC.AutoSize = true;
             this.lbTTarjetaC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTTarjetaC.Location = new System.Drawing.Point(148, 85);
+            this.lbTTarjetaC.Location = new System.Drawing.Point(150, 85);
             this.lbTTarjetaC.Name = "lbTTarjetaC";
             this.lbTTarjetaC.Size = new System.Drawing.Size(39, 17);
             this.lbTTarjetaC.TabIndex = 7;
@@ -1038,7 +1038,7 @@
             this.lbTEfectivoC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTEfectivoC.AutoSize = true;
             this.lbTEfectivoC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTEfectivoC.Location = new System.Drawing.Point(149, 55);
+            this.lbTEfectivoC.Location = new System.Drawing.Point(151, 55);
             this.lbTEfectivoC.Name = "lbTEfectivoC";
             this.lbTEfectivoC.Size = new System.Drawing.Size(39, 17);
             this.lbTEfectivoC.TabIndex = 6;
@@ -1049,7 +1049,7 @@
             this.lbCreditoC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbCreditoC.AutoSize = true;
             this.lbCreditoC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCreditoC.Location = new System.Drawing.Point(18, 205);
+            this.lbCreditoC.Location = new System.Drawing.Point(20, 205);
             this.lbCreditoC.Name = "lbCreditoC";
             this.lbCreditoC.Size = new System.Drawing.Size(53, 17);
             this.lbCreditoC.TabIndex = 5;
@@ -1060,7 +1060,7 @@
             this.lbTransC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTransC.AutoSize = true;
             this.lbTransC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTransC.Location = new System.Drawing.Point(18, 175);
+            this.lbTransC.Location = new System.Drawing.Point(20, 175);
             this.lbTransC.Name = "lbTransC";
             this.lbTransC.Size = new System.Drawing.Size(87, 17);
             this.lbTransC.TabIndex = 4;
@@ -1071,7 +1071,7 @@
             this.lbChequeC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbChequeC.AutoSize = true;
             this.lbChequeC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbChequeC.Location = new System.Drawing.Point(18, 145);
+            this.lbChequeC.Location = new System.Drawing.Point(20, 145);
             this.lbChequeC.Name = "lbChequeC";
             this.lbChequeC.Size = new System.Drawing.Size(55, 17);
             this.lbChequeC.TabIndex = 3;
@@ -1082,7 +1082,7 @@
             this.lbValesC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbValesC.AutoSize = true;
             this.lbValesC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbValesC.Location = new System.Drawing.Point(18, 115);
+            this.lbValesC.Location = new System.Drawing.Point(20, 115);
             this.lbValesC.Name = "lbValesC";
             this.lbValesC.Size = new System.Drawing.Size(41, 17);
             this.lbValesC.TabIndex = 2;
@@ -1093,7 +1093,7 @@
             this.lbTarjetaC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTarjetaC.AutoSize = true;
             this.lbTarjetaC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTarjetaC.Location = new System.Drawing.Point(18, 85);
+            this.lbTarjetaC.Location = new System.Drawing.Point(20, 85);
             this.lbTarjetaC.Name = "lbTarjetaC";
             this.lbTarjetaC.Size = new System.Drawing.Size(49, 17);
             this.lbTarjetaC.TabIndex = 1;
@@ -1104,7 +1104,7 @@
             this.lbEfectivoC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbEfectivoC.AutoSize = true;
             this.lbEfectivoC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbEfectivoC.Location = new System.Drawing.Point(18, 55);
+            this.lbEfectivoC.Location = new System.Drawing.Point(20, 55);
             this.lbEfectivoC.Name = "lbEfectivoC";
             this.lbEfectivoC.Size = new System.Drawing.Size(58, 17);
             this.lbEfectivoC.TabIndex = 0;

@@ -81,6 +81,7 @@ namespace PuntoDeVentaV2
             CargarConceptos();
         }
 
+        
         private void CargarConceptos()
         {
             var conceptos = mb.ObtenerConceptosDinamicos(origen: "CAJA");
