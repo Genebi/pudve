@@ -216,6 +216,7 @@
             this.DGVProductRecord.TabIndex = 1;
             this.DGVProductRecord.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellClick);
             this.DGVProductRecord.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellContentDoubleClick);
+            this.DGVProductRecord.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellLeave_1);
             // 
             // panel2
             // 

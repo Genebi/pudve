@@ -111,6 +111,31 @@ namespace PuntoDeVentaV2
             llenarDatos();
         }
 
+        private void DGVProductRecord_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void DGVProductRecord_CellLeave_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+            else
+            {
+                lblFolioCompra.Text = DGVProductRecord[0, e.RowIndex].Value.ToString();
+                lblRFCProveedor.Text = DGVProductRecord[1, e.RowIndex].Value.ToString();
+                lblNombreProveedor.Text = DGVProductRecord[2, e.RowIndex].Value.ToString();
+                lblClaveProducto.Text = DGVProductRecord[3, e.RowIndex].Value.ToString();
+                lblFechaCompletaCompra.Text = DGVProductRecord[4, e.RowIndex].Value.ToString();
+                lblCantidadCompra.Text = DGVProductRecord[5, e.RowIndex].Value.ToString();
+                lblValorUnitarioProducto.Text = DGVProductRecord[8, e.RowIndex].Value.ToString();
+                lblDescuentoProducto.Text = DGVProductRecord[7, e.RowIndex].Value.ToString();
+                lblPrecioCompra.Text = DGVProductRecord[6, e.RowIndex].Value.ToString();
+            }
+        }
+
         public void SeleccionarFila()
         {
             if (DGVProductRecord.RowCount > 0)
