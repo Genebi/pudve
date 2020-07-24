@@ -748,5 +748,8 @@ namespace PuntoDeVentaV2
                 txtPrecioCompra.Focus();
             }
         }
+
+
+
     }
 }

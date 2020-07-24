@@ -43,6 +43,7 @@
             this.cbFormaPago.Name = "cbFormaPago";
             this.cbFormaPago.Size = new System.Drawing.Size(310, 24);
             this.cbFormaPago.TabIndex = 16;
+            this.cbFormaPago.SelectedIndexChanged += new System.EventHandler(this.cbFormaPago_SelectedIndexChanged);
             // 
             // lbTitulo
             // 
