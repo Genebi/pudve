@@ -24,8 +24,8 @@ namespace PuntoDeVentaV2
         private int IDProducto = 0;
         private string producto = string.Empty;
         private float precioProducto = 0;
-        private int stockProducto = 0;
-        private int stockExistencia = 0;
+        private float stockProducto = 0f;
+        private float stockExistencia = 0f;
         private int apartado = 0;
         private float precioAdquision = 0f; // Precio de compra
 
@@ -352,7 +352,7 @@ namespace PuntoDeVentaV2
             //Ajustar producto
             if (rbAjustar.Checked)
             {
-                int auxiliar = 0;
+                float auxiliar = 0f;
                 var aumentar = txtAumentar.Text;
                 var disminuir = txtDisminuir.Text;
 
@@ -364,13 +364,13 @@ namespace PuntoDeVentaV2
                 }
 
                 var stockOriginal = stockProducto;
-                var stockAgregado = 0;
-                var stockActual = 0;
+                var stockAgregado = 0f;
+                var stockActual = 0f;
                 var operacion = string.Empty;
 
                 if (aumentar != "")
                 {
-                    auxiliar = Convert.ToInt32(aumentar);
+                    auxiliar = float.Parse(aumentar);
                     stockAgregado = auxiliar;
                     stockProducto += auxiliar;
                     operacion = "agregó";
@@ -378,7 +378,7 @@ namespace PuntoDeVentaV2
 
                 if (disminuir != "")
                 {
-                    auxiliar = Convert.ToInt32(disminuir);
+                    auxiliar = float.Parse(disminuir);
                     stockAgregado = auxiliar;
                     stockProducto -= auxiliar;
                     operacion = "resto";
@@ -571,17 +571,17 @@ namespace PuntoDeVentaV2
                 Invent.getResta = 0;
             }
 
-            int suma = 0, resta = 0, aumentar = 0, disminuir = 0;
+            float suma = 0f, resta = 0f, aumentar = 0f, disminuir = 0f;
 
             if (opc == 1)
             {
                 if(txtAumentar.Text != "")
                 {
-                    aumentar = Convert.ToInt32(txtAumentar.Text);
+                    aumentar = float.Parse(txtAumentar.Text);
                     if (Invent != null)
                     {
                         Invent.getSuma = aumentar;
-                        Invent.getStockAnterior = Convert.ToInt32(txt_en_stock.Text);
+                        Invent.getStockAnterior = float.Parse(txt_en_stock.Text);
                     }
                 }
 
@@ -669,9 +669,8 @@ namespace PuntoDeVentaV2
                     calculadora.FormClosed += delegate
                     {
                         txtDisminuir.Text = calculadora.lCalculadora.Text;
+                        calcu = 0;
                     };
-
-                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();
@@ -697,9 +696,8 @@ namespace PuntoDeVentaV2
                     calculadora.FormClosed += delegate
                     {
                         txtAumentar.Text = calculadora.lCalculadora.Text;
+                        calcu = 0;
                     };
-
-                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();

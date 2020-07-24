@@ -666,7 +666,6 @@
             // 
             // PDetalle
             // 
-            this.PDetalle.Controls.Add(this.tableLayoutPanel1);
             this.PDetalle.Controls.Add(this.label12);
             this.PDetalle.Controls.Add(this.txtStockMinimo);
             this.PDetalle.Controls.Add(this.PImagen);
@@ -689,6 +688,7 @@
             this.PDetalle.Controls.Add(this.label7);
             this.PDetalle.Controls.Add(this.label6);
             this.PDetalle.Controls.Add(this.txtStockMaximo);
+            this.PDetalle.Controls.Add(this.tableLayoutPanel1);
             this.PDetalle.Location = new System.Drawing.Point(2, 2);
             this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
