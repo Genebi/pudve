@@ -28,14 +28,14 @@ namespace PuntoDeVentaV2
         public static bool botonAceptar = false;
         public static bool aceptarFiltro = false;
 
-        public int getSuma { get; set; }
-        public static int suma = 0;
+        public float getSuma { get; set; }
+        public static float suma = 0;
 
-        public int getResta { get; set; }
-        public static int resta = 0;
+        public float getResta { get; set; }
+        public static float resta = 0;
 
-        public int getStockAnterior { get; set; }
-        public static int stockAnterior = 0;
+        public float getStockAnterior { get; set; }
+        public static float stockAnterior = 0;
 
         // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
         Dictionary<int, string> productos;

@@ -631,6 +631,7 @@ namespace PuntoDeVentaV2
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
+            
             this.Close();
         }
 
