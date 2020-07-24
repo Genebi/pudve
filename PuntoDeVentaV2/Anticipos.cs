@@ -41,6 +41,7 @@ namespace PuntoDeVentaV2
         public Anticipos()
         {
             InitializeComponent();
+   
         }
 
         private void Anticipos_Load(object sender, EventArgs e)
@@ -66,6 +67,7 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos(int estado = 1, int tipo = 0)
         {
+            cbAnticipos.SelectedIndex = 0;
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
