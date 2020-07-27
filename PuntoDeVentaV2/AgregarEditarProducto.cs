@@ -5064,7 +5064,7 @@ namespace PuntoDeVentaV2
                     {
                         if (words[1].Equals(""))
                         {
-                            words[1] = "0";
+                            words[1] = "00";
                         }
                         txtPrecioCompra.Text = words[0] + "." + words[1];
                     }
@@ -5096,7 +5096,7 @@ namespace PuntoDeVentaV2
                 {
                     if (words[1].Equals(""))
                     {
-                        words[1] = "0";
+                        words[1] = "00";
                     }
                     txtPrecioCompra.Text = words[0] + "." + words[1];
                 }
