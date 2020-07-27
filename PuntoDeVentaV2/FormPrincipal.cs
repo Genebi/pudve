@@ -341,6 +341,7 @@ namespace PuntoDeVentaV2
             this.Hide();
 
             Login VentanaLogin = new Login();
+            VentanaLogin.contadorMetodoTablas = 1;
             VentanaLogin.ShowDialog();
         }
 
