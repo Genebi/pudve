@@ -4379,6 +4379,7 @@ namespace PuntoDeVentaV2
                 clickBoton = 0;
                 agregarEspacioAlFinal();
                 txtBusqueda.Focus();
+                CargarDatos();
             };
 
             if (!FormAgregar.Visible)
