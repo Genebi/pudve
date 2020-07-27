@@ -400,7 +400,7 @@
             // txtStockMaximo
             // 
             this.txtStockMaximo.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold);
-            this.txtStockMaximo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.txtStockMaximo.ForeColor = System.Drawing.Color.Black;
             this.txtStockMaximo.Location = new System.Drawing.Point(20, 83);
             this.txtStockMaximo.Name = "txtStockMaximo";
             this.txtStockMaximo.Size = new System.Drawing.Size(144, 23);
@@ -416,7 +416,7 @@
             // txtStockMinimo
             // 
             this.txtStockMinimo.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold);
-            this.txtStockMinimo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.txtStockMinimo.ForeColor = System.Drawing.Color.Black;
             this.txtStockMinimo.Location = new System.Drawing.Point(3, 238);
             this.txtStockMinimo.Name = "txtStockMinimo";
             this.txtStockMinimo.Size = new System.Drawing.Size(144, 23);
