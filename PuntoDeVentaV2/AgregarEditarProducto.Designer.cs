@@ -76,7 +76,7 @@
             this.PConteidoProducto = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tLPProducto = new System.Windows.Forms.TableLayoutPanel();
             this.PAccion = new System.Windows.Forms.Panel();
             this.btnProdUpdate = new System.Windows.Forms.Button();
             this.Ptitulo = new System.Windows.Forms.Panel();
@@ -90,6 +90,8 @@
             this.fLPDetallesProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
+            this.tLPCombo = new System.Windows.Forms.TableLayoutPanel();
+            this.tLPServicio = new System.Windows.Forms.TableLayoutPanel();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -430,9 +432,10 @@
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.label12.Location = new System.Drawing.Point(100, 51);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(77, 13);
+            this.label12.Size = new System.Drawing.Size(102, 17);
             this.label12.TabIndex = 32;
             this.label12.Text = "Stock Maximo:";
             this.label12.Visible = false;
@@ -440,9 +443,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.label1.Location = new System.Drawing.Point(3, 219);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.Size = new System.Drawing.Size(98, 17);
             this.label1.TabIndex = 30;
             this.label1.Text = "Stock Minimo:";
             this.label1.Visible = false;
@@ -666,7 +670,9 @@
             // 
             // PDetalle
             // 
-            this.PDetalle.Controls.Add(this.tableLayoutPanel1);
+            this.PDetalle.Controls.Add(this.tLPServicio);
+            this.PDetalle.Controls.Add(this.tLPCombo);
+            this.PDetalle.Controls.Add(this.tLPProducto);
             this.PDetalle.Controls.Add(this.label12);
             this.PDetalle.Controls.Add(this.txtStockMinimo);
             this.PDetalle.Controls.Add(this.PImagen);
@@ -695,17 +701,18 @@
             this.PDetalle.Size = new System.Drawing.Size(838, 287);
             this.PDetalle.TabIndex = 2;
             // 
-            // tableLayoutPanel1
+            // tLPProducto
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(805, 281);
-            this.tableLayoutPanel1.TabIndex = 23;
-            this.tableLayoutPanel1.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
+            this.tLPProducto.ColumnCount = 1;
+            this.tLPProducto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tLPProducto.Location = new System.Drawing.Point(20, 3);
+            this.tLPProducto.Name = "tLPProducto";
+            this.tLPProducto.RowCount = 1;
+            this.tLPProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tLPProducto.Size = new System.Drawing.Size(805, 281);
+            this.tLPProducto.TabIndex = 23;
+            this.tLPProducto.Visible = false;
+            this.tLPProducto.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
             // 
             // PAccion
             // 
@@ -840,6 +847,32 @@
             this.errorProvAgregarEditarProducto.ContainerControl = this;
             this.errorProvAgregarEditarProducto.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvAgregarEditarProducto.Icon")));
             // 
+            // tLPCombo
+            // 
+            this.tLPCombo.ColumnCount = 1;
+            this.tLPCombo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tLPCombo.Location = new System.Drawing.Point(20, 3);
+            this.tLPCombo.Name = "tLPCombo";
+            this.tLPCombo.RowCount = 1;
+            this.tLPCombo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tLPCombo.Size = new System.Drawing.Size(805, 281);
+            this.tLPCombo.TabIndex = 35;
+            this.tLPCombo.Visible = false;
+            this.tLPCombo.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPCombo_CellPaint);
+            // 
+            // tLPServicio
+            // 
+            this.tLPServicio.ColumnCount = 1;
+            this.tLPServicio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tLPServicio.Location = new System.Drawing.Point(21, 5);
+            this.tLPServicio.Name = "tLPServicio";
+            this.tLPServicio.RowCount = 1;
+            this.tLPServicio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tLPServicio.Size = new System.Drawing.Size(804, 282);
+            this.tLPServicio.TabIndex = 36;
+            this.tLPServicio.Visible = false;
+            this.tLPServicio.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPServicio_CellPaint);
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -952,6 +985,8 @@
         public System.Windows.Forms.TextBox txtPrecioMayoreo;
         public System.Windows.Forms.TextBox txtStockMaximo;
         public System.Windows.Forms.TextBox txtStockMinimo;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tLPProducto;
+        private System.Windows.Forms.TableLayoutPanel tLPCombo;
+        private System.Windows.Forms.TableLayoutPanel tLPServicio;
     }
 }

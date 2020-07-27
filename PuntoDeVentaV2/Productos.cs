@@ -4332,10 +4332,10 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            //if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
-            //{
-            //    Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
-            //}
+            if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
+            {
+                Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
+            }
 
             var FormAgregar = new AgregarEditarProducto("Agregar");
 
