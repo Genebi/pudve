@@ -282,7 +282,7 @@
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.tituloSeccion);
             this.Name = "Anticipos";
-            this.Text = "Anticipos";
+            this.Text = "0";
             this.Load += new System.EventHandler(this.Anticipos_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Anticipos_Paint);
             this.Resize += new System.EventHandler(this.Anticipos_Resize);

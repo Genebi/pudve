@@ -2422,14 +2422,14 @@ namespace PuntoDeVentaV2
 
                 DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
             }
-            else if (e.KeyCode == Keys.D && (e.Alt))//Estado
-            {
-                timer1.Start();
-                lAtajo.Visible = true;
-                lAtajo.Text = "Alt + D";
+            //else if (e.KeyCode == Keys.D && (e.Alt))//Estado
+            //{
+            //    timer1.Start();
+            //    lAtajo.Visible = true;
+            //    lAtajo.Text = "Alt + D";
 
-                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
-            }
+            //    DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
+            //}
             else if (e.KeyCode == Keys.H && (e.Alt))//Historial
             {
                 timer1.Start();
@@ -2595,14 +2595,14 @@ namespace PuntoDeVentaV2
 
                 DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
             }
-            else if (e.KeyCode == Keys.D && (e.Alt))//Estado
-            {
-                timer1.Start();
-                lAtajo.Visible = true;
-                lAtajo.Text = "Alt + D";
+            //else if (e.KeyCode == Keys.D && (e.Alt))//Estado
+            //{
+            //    timer1.Start();
+            //    lAtajo.Visible = true;
+            //    lAtajo.Text = "Alt + D";
 
-                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
-            }
+            //    DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
+            //}
             else if (e.KeyCode == Keys.H && (e.Alt))//Historial
             {
                 timer1.Start();
@@ -2780,14 +2780,14 @@ namespace PuntoDeVentaV2
 
                 DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
             }
-            else if (e.KeyCode == Keys.D && (e.Alt))//Estado
-            {
-                timer1.Start();
-                lAtajo.Visible = true;
-                lAtajo.Text = "Alt + D";
+            //else if (e.KeyCode == Keys.D && (e.Alt))//Estado
+            //{
+            //    timer1.Start();
+            //    lAtajo.Visible = true;
+            //    lAtajo.Text = "Alt + D";
 
-                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
-            }
+            //    DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
+            //}
             else if (e.KeyCode == Keys.H && (e.Alt))//Historial
             {
                 timer1.Start();
