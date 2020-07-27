@@ -13,6 +13,7 @@ namespace PuntoDeVentaV2
     public partial class AgregarDescuentoDirecto : Form
     {
         public string TotalDescuento { get; set; }
+        public int TipoDescuento { get; set; }
 
         private int idProducto;
         private string nombreProducto;
@@ -98,6 +99,7 @@ namespace PuntoDeVentaV2
             }  
 
             this.TotalDescuento = lbTotalDescuento.Text + porcentaje;
+            this.TipoDescuento = tipo;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

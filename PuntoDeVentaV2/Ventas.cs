@@ -777,6 +777,7 @@ namespace PuntoDeVentaV2
                         if (resultado == DialogResult.OK)
                         {
                             DGVentas.Rows[celda].Cells["Descuento"].Value = formDescuento.TotalDescuento;
+                            DGVentas.Rows[celda].Cells["TipoDescuento"].Value = formDescuento.TipoDescuento;
                         }
                         else
                         {
@@ -1679,12 +1680,13 @@ namespace PuntoDeVentaV2
 
                         var DescuentoIndividual = fila.Cells["Descuento"].Value.ToString();
                         var ImporteIndividual = fila.Cells["Importe"].Value.ToString();
+                        var TipoDescuento = fila.Cells["TipoDescuento"].Value.ToString();
 
                         // A partir de la variable DescuentoGeneral esos valores y datos se toman solo para el ticket de venta
                         guardar = new string[] {
                             idVenta, IDProducto, Nombre, Cantidad, Precio,
                             DescuentoGeneral, DescuentoIndividual, ImporteIndividual,
-                            Descuento, Total, Folio, AnticipoUtilizado
+                            Descuento, Total, Folio, AnticipoUtilizado, TipoDescuento
                         };
 
                         // Guardar info de los productos
@@ -2122,9 +2124,31 @@ namespace PuntoDeVentaV2
                 {
                     string[] info = producto.Split('|');
 
-                    string[] datosProducto = cn.BuscarProducto(Convert.ToInt32(info[0]), FormPrincipal.userID);
+                    var idProducto = Convert.ToInt32(info[0]);
+
+                    string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
 
                     int cantidad = Convert.ToInt32(info[2]);
+
+                    // Agregamos los descuentos directos de la venta guardada
+                    if (!descuentosDirectos.ContainsKey(idProducto))
+                    {
+                        var tipoDescuento = Convert.ToInt32(info[4]);
+                        var cantidadDescuento = 0f;
+
+                        if (tipoDescuento == 2)
+                        {
+                            var cantidadTmp = info[3].Split('-');
+                            cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
+                            cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
+                        }
+                        else
+                        {
+                            cantidadDescuento = float.Parse(info[3].Trim());
+                        }
+
+                        descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
+                    }
 
                     AgregarProductoLista(datosProducto, cantidad, true);
                 }

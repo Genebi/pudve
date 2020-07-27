@@ -392,8 +392,11 @@ namespace PuntoDeVentaV2
 
             while (dr.Read())
             {
-                //IDProducto, Nombre y Cantidad
-                lista.Add(dr["IDProducto"] + "|" + dr["Nombre"] + "|" + dr["Cantidad"]);
+                //IDProducto, Nombre, Cantidad, descuento, TipoDescuento
+
+                var datos = $"{dr["IDProducto"]}|{dr["Nombre"]}|{dr["Cantidad"]}|{dr["descuento"]}|{dr["TipoDescuento"]}";
+
+                lista.Add(datos);
             }
 
             dr.Close();
