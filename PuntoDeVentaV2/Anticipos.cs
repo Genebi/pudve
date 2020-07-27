@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
         public Anticipos()
         {
             InitializeComponent();
-   
+            
         }
 
         private void Anticipos_Load(object sender, EventArgs e)
@@ -49,7 +49,6 @@ namespace PuntoDeVentaV2
             //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Anticipos\Tickets");
 
-            cbAnticipos.SelectedIndex = 0;
             cbAnticipos.DropDownStyle = ComboBoxStyle.DropDownList;
             CargarDatos(1);
 
@@ -67,7 +66,6 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos(int estado = 1, int tipo = 0)
         {
-            cbAnticipos.SelectedIndex = 0;
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
@@ -90,7 +88,7 @@ namespace PuntoDeVentaV2
             //Normal
             if (tipo == 0)
             {
-                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado}";
+                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Status != 4";
             }
 
             //Con fechas de busqueda
