@@ -76,9 +76,9 @@ namespace PuntoDeVentaV2
                 lblClaveProducto.Text = DGVProductRecord[3, e.RowIndex].Value.ToString();
                 lblFechaCompletaCompra.Text = DGVProductRecord[4, e.RowIndex].Value.ToString();
                 lblCantidadCompra.Text = DGVProductRecord[5, e.RowIndex].Value.ToString();
-                lblValorUnitarioProducto.Text = DGVProductRecord[8, e.RowIndex].Value.ToString();
+                lblValorUnitarioProducto.Text = DGVProductRecord[6, e.RowIndex].Value.ToString();
                 lblDescuentoProducto.Text = DGVProductRecord[7, e.RowIndex].Value.ToString();
-                lblPrecioCompra.Text = DGVProductRecord[6, e.RowIndex].Value.ToString();
+                lblPrecioCompra.Text = DGVProductRecord[8, e.RowIndex].Value.ToString();
             }
         }
 
@@ -130,9 +130,9 @@ namespace PuntoDeVentaV2
                 lblClaveProducto.Text = DGVProductRecord[3, e.RowIndex].Value.ToString();
                 lblFechaCompletaCompra.Text = DGVProductRecord[4, e.RowIndex].Value.ToString();
                 lblCantidadCompra.Text = DGVProductRecord[5, e.RowIndex].Value.ToString();
-                lblValorUnitarioProducto.Text = DGVProductRecord[8, e.RowIndex].Value.ToString();
+                lblValorUnitarioProducto.Text = DGVProductRecord[6, e.RowIndex].Value.ToString();
                 lblDescuentoProducto.Text = DGVProductRecord[7, e.RowIndex].Value.ToString();
-                lblPrecioCompra.Text = DGVProductRecord[6, e.RowIndex].Value.ToString();
+                lblPrecioCompra.Text = DGVProductRecord[8, e.RowIndex].Value.ToString();
             }
         }
 
