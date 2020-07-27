@@ -111,7 +111,7 @@ namespace PuntoDeVentaV2
         string filtroConSinFiltroAvanzado = string.Empty;
 
         string[] palabras;
-        List<string> auxWord, setUpVariable, noEcontradoCodBar;
+        List<string> auxWord, setUpVariable, noEcontradoCodBar = new List<string>();
         List<Control> listVariables;
 
         Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos = new Dictionary<string, Tuple<string, string, string, string>>();
@@ -3521,9 +3521,18 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                string txtAndNumSearch = txtBusquedaString.Trim() + " " + numBusqueda;
+                string txtAndNumSearch = string.Empty;
 
-                if (!txtAndNumSearch.Equals(""))
+                if (!txtBusquedaString.Equals("") || !txtBusquedaString.Equals(" "))
+                {
+                    txtAndNumSearch += txtBusquedaString.Trim();
+                }
+                else if (!numBusqueda.Equals(""))
+                {
+                    txtAndNumSearch += " " + numBusqueda.Trim();
+                }
+
+                if (!txtAndNumSearch.Trim().Equals(""))
                 {
                     // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
                     var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(txtAndNumSearch.Trim());
@@ -3742,7 +3751,6 @@ namespace PuntoDeVentaV2
                     theNumberAsAString = string.Empty;
                     theNumber = 0;
                     string[] nvoCodBar;
-                    noEcontradoCodBar = new List<string>();
                     nvoCodBar = nuevosCodigos.Trim().Split(' ');
                     foreach (var item in nvoCodBar)
                     {
