@@ -1374,6 +1374,42 @@ namespace PuntoDeVentaV2
 
         #endregion Modifying Configuration Settings at Runtime
 
+        private void tLPServicio_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+            //if ((e.Column + e.Row) % 2 == 1)
+            //{
+            //    using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
+            //    {
+            //        e.Graphics.FillRectangle(brush, e.CellBounds);
+            //    }
+            //}
+            //else
+            //{
+            //    using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
+            //    {
+            //        e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
+            //    }
+            //}
+        }
+
+        private void tLPCombo_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+            //if ((e.Column + e.Row) % 2 == 1)
+            //{
+            //    using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
+            //    {
+            //        e.Graphics.FillRectangle(brush, e.CellBounds);
+            //    }
+            //}
+            //else
+            //{
+            //    using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
+            //    {
+            //        e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
+            //    }
+            //}
+        }
+
         public void PrimerCodBarras()
         {
             Contenido = "7777000001";
@@ -4143,11 +4179,11 @@ namespace PuntoDeVentaV2
         private void cbTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             string cadAux = string.Empty;
-            resetControlesTableGridLayout();
+            //resetControlesTableGridLayout();
             filtro = Convert.ToString(cbTipo.SelectedItem);      // tomamos el valor que se elige en el TextBox
             if (filtro == "Producto")                            // comparamos si el valor a filtrar es Producto
             {
-                agregarProducto();
+                //agregarProducto();
                 if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
                 {
                     Titulo = "Agregar Producto";
@@ -4190,7 +4226,7 @@ namespace PuntoDeVentaV2
             }
             else if (filtro == "Combo")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
             {
-                agregarCombo();
+                //agregarCombo();
                 Titulo = "Agregar Combo";
                 TituloForm = Titulo;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Paquete)
@@ -4221,7 +4257,7 @@ namespace PuntoDeVentaV2
             }
             else if (filtro == "Servicio")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
             {
-                agregarServicio();
+                //agregarServicio();
                 Titulo = "Agregar Servicio";
                 TituloForm = Titulo;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Servicio)
@@ -5399,7 +5435,7 @@ namespace PuntoDeVentaV2
             {
                 saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
             }
-
+            
             detalleProductoBasico.Clear();
             detalleProductoGeneral.Clear();
             seleccionListaStock = 0;
@@ -5657,20 +5693,23 @@ namespace PuntoDeVentaV2
 
         private void agregarProducto()
         {
+            // pasar controles a form principal
+            cambiarControlesAgregarEditarProducto();
+
             // borrar todas las filas y columnas del TableLayoutPanel
-            clearSetUpTableLayoutPanel();
+            clearSetUpTableLayoutPanel("Producto");
 
             // creamos 6 columnas en el TableLayoutPanel
             for (int i = 0; i <= 5; i++)
             {
-                tableLayoutPanel1.ColumnCount++;
-                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 134.16F));
+                tLPProducto.ColumnCount++;
+                tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 134.16F));
             }
             // creamos 7 filas en el TableLayoutPanel
             for (int i = 0; i <= 6; i++)
             {
-                tableLayoutPanel1.RowCount++;
-                tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40.83F));
+                tLPProducto.RowCount++;
+                tLPProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 40.83F));
             }
 
             // Primera Fila del TableLayoutPanel
@@ -5702,12 +5741,12 @@ namespace PuntoDeVentaV2
             txtStockProducto.TabIndex = 3;
             txtStockProducto.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(label1, 0, 0);               // Stock Minimo Label
-            tableLayoutPanel1.Controls.Add(txtStockMinimo, 1, 0);       // Stock Minimo TextBox
-            tableLayoutPanel1.Controls.Add(label12, 2, 0);              // Stock Maximo Label
-            tableLayoutPanel1.Controls.Add(txtStockMaximo, 3, 0);       // Stock Maximo TextBox
-            tableLayoutPanel1.Controls.Add(label6, 4, 0);               // Stock Label
-            tableLayoutPanel1.Controls.Add(txtStockProducto, 5, 0);     // Stock TextBox
+            tLPProducto.Controls.Add(label1, 0, 0);               // Stock Minimo Label
+            tLPProducto.Controls.Add(txtStockMinimo, 1, 0);       // Stock Minimo TextBox
+            tLPProducto.Controls.Add(label12, 2, 0);              // Stock Maximo Label
+            tLPProducto.Controls.Add(txtStockMaximo, 3, 0);       // Stock Maximo TextBox
+            tLPProducto.Controls.Add(label6, 4, 0);               // Stock Label
+            tLPProducto.Controls.Add(txtStockProducto, 5, 0);     // Stock TextBox
 
             #endregion End Row 1
 
@@ -5741,12 +5780,12 @@ namespace PuntoDeVentaV2
             txtClaveProducto.TabIndex = 6;
             txtClaveProducto.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(label7, 0, 1);               // Precio Compra Label
-            tableLayoutPanel1.Controls.Add(txtPrecioCompra, 1, 1);      // Precio Compra TextBox
-            tableLayoutPanel1.Controls.Add(label4, 2, 1);               // Precio Venta Label
-            tableLayoutPanel1.Controls.Add(txtPrecioProducto, 3, 1);    // Precio Venta TextBox
-            tableLayoutPanel1.Controls.Add(label5, 4, 1);               // Clave Interna Label
-            tableLayoutPanel1.Controls.Add(txtClaveProducto, 5, 1);     // Clave Interna TextBox
+            tLPProducto.Controls.Add(label7, 0, 1);               // Precio Compra Label
+            tLPProducto.Controls.Add(txtPrecioCompra, 1, 1);      // Precio Compra TextBox
+            tLPProducto.Controls.Add(label4, 2, 1);               // Precio Venta Label
+            tLPProducto.Controls.Add(txtPrecioProducto, 3, 1);    // Precio Venta TextBox
+            tLPProducto.Controls.Add(label5, 4, 1);               // Clave Interna Label
+            tLPProducto.Controls.Add(txtClaveProducto, 5, 1);     // Clave Interna TextBox
 
             #endregion End Row 2
 
@@ -5772,27 +5811,27 @@ namespace PuntoDeVentaV2
             PImagen.TabIndex = 9;
             PImagen.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(label2, 0, 2);               // Código de Barras Label
-            tableLayoutPanel1.Controls.Add(txtCodigoBarras, 1, 2);      // Código de Barras TextBox
-            tableLayoutPanel1.Controls.Add(btnGenerarCB, 2, 2);         // Generar Button
-            tableLayoutPanel1.Controls.Add(PImagen, 4, 2);              // Cuadro para agregar Imagen Panel
-            tableLayoutPanel1.SetRowSpan(PImagen, 4);                   // Filas hacia abajo
-            tableLayoutPanel1.SetColumnSpan(PImagen, 2);                // Columnas hacia derecha
+            tLPProducto.Controls.Add(label2, 0, 2);               // Código de Barras Label
+            tLPProducto.Controls.Add(txtCodigoBarras, 1, 2);      // Código de Barras TextBox
+            tLPProducto.Controls.Add(btnGenerarCB, 2, 2);         // Generar Button
+            tLPProducto.Controls.Add(PImagen, 4, 2);              // Cuadro para agregar Imagen Panel
+            tLPProducto.SetRowSpan(PImagen, 4);                   // Filas hacia abajo
+            tLPProducto.SetColumnSpan(PImagen, 2);                // Columnas hacia derecha
 
             #endregion End Row 3
 
             // Cuarta Fila del TableLayoutPanel
             #region Begin Row 4
-            
+
             // Panel para Generar Código de Barra Extra
             panelContenedor.Visible = true;
             panelContenedor.Anchor = AnchorStyles.Left;
             panelContenedor.TabIndex = 10;
             panelContenedor.TabStop = true;
-            
-            tableLayoutPanel1.Controls.Add(panelContenedor, 1, 3);
-            tableLayoutPanel1.SetColumnSpan(panelContenedor, 2);
-            tableLayoutPanel1.SetRowSpan(panelContenedor, 2);
+
+            tLPProducto.Controls.Add(panelContenedor, 1, 3);
+            tLPProducto.SetColumnSpan(panelContenedor, 2);
+            tLPProducto.SetRowSpan(panelContenedor, 2);
 
             #endregion End Row 4
 
@@ -5808,28 +5847,75 @@ namespace PuntoDeVentaV2
             button1.TabIndex = 11;
             button1.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(lblCantPaqServ, 4, 6);       // Relacionar Combo/Servicio Label9
-            tableLayoutPanel1.Controls.Add(button1, 5, 6);              // Combo / Servicio Button2
+            tLPProducto.Controls.Add(lblCantPaqServ, 4, 6);       // Relacionar Combo/Servicio Label9
+            tLPProducto.Controls.Add(button1, 5, 6);              // Combo / Servicio Button2
 
             #endregion End Row 6
         }
 
+        private void cambiarControlesAgregarEditarProducto()
+        {
+            label1.Visible = false;
+            this.Controls.Add(label1);
+            txtStockMinimo.Visible = false;
+            this.Controls.Add(txtStockMinimo);
+            label12.Visible = false;
+            this.Controls.Add(label12);
+            txtStockMaximo.Visible = false;
+            this.Controls.Add(txtStockMaximo);
+            label6.Visible = false;
+            this.Controls.Add(label6);
+            txtStockProducto.Visible = false;
+            this.Controls.Add(txtStockProducto);
+            label7.Visible = false;
+            this.Controls.Add(label7);
+            txtPrecioCompra.Visible = false;
+            this.Controls.Add(txtPrecioCompra);
+            label4.Visible = false;
+            this.Controls.Add(label4);
+            txtPrecioProducto.Visible = false;
+            this.Controls.Add(txtPrecioProducto);
+            label5.Visible = false;
+            this.Controls.Add(label5);
+            txtClaveProducto.Visible = false;
+            this.Controls.Add(txtClaveProducto);
+            label2.Visible = false;
+            this.Controls.Add(label2);
+            txtCodigoBarras.Visible = false;
+            this.Controls.Add(txtCodigoBarras);
+            btnGenerarCB.Visible = false;
+            this.Controls.Add(btnGenerarCB);
+            panelContenedor.Visible = false;
+            this.Controls.Add(panelContenedor);
+            PImagen.Visible = false;
+            this.Controls.Add(PImagen);
+            lblCantPaqServ.Visible = false;
+            this.Controls.Add(lblCantPaqServ);
+            button1.Visible = false;
+            this.Controls.Add(button1);
+            txtCantPaqServ.Visible = false;
+            this.Controls.Add(txtCantPaqServ);
+        }
+
         private void agregarCombo()
         {
+            // pasar controles a form principal
+            cambiarControlesAgregarEditarProducto();
+
             // borrar todas las filas y columnas del TableLayoutPanel
-            clearSetUpTableLayoutPanel();
+            clearSetUpTableLayoutPanel("Combo");
 
             // creamos 5 columnas en el TableLayoutPanel
             for (int i = 0; i < 5; i++)
             {
-                tableLayoutPanel1.ColumnCount++;
-                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+                tLPCombo.ColumnCount++;
+                tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             }
             // creamos 6 filas en el TableLayoutPanel
             for (int i = 0; i < 6; i++)
             {
-                tableLayoutPanel1.RowCount++;
-                tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66F));
+                tLPCombo.RowCount++;
+                tLPCombo.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66F));
             }
 
             // Primera Fila del TableLayoutPanel
@@ -5853,10 +5939,10 @@ namespace PuntoDeVentaV2
             txtPrecioProducto.TabIndex = 2;
             txtPrecioProducto.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(label7, 0, 0);               // Precio Compra Label
-            tableLayoutPanel1.Controls.Add(txtPrecioCompra, 1, 0);      // Precio Compra TextBox
-            tableLayoutPanel1.Controls.Add(label4, 2, 0);               // Precio Venta Label
-            tableLayoutPanel1.Controls.Add(txtPrecioProducto, 3, 0);    // Precio Venta TextBox
+            tLPCombo.Controls.Add(label7, 0, 0);               // Precio Compra Label
+            tLPCombo.Controls.Add(txtPrecioCompra, 1, 0);      // Precio Compra TextBox
+            tLPCombo.Controls.Add(label4, 2, 0);               // Precio Venta Label
+            tLPCombo.Controls.Add(txtPrecioProducto, 3, 0);    // Precio Venta TextBox
 
             #endregion End Row 1
 
@@ -5886,11 +5972,11 @@ namespace PuntoDeVentaV2
             btnGenerarCB.TabIndex = 5;
             btnGenerarCB.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(label5, 0, 1);               // Clave Interna Label
-            tableLayoutPanel1.Controls.Add(txtClaveProducto, 1, 1);     // Clave Interna TextBox
-            tableLayoutPanel1.Controls.Add(label2, 2, 1);               // Código de Barras Label
-            tableLayoutPanel1.Controls.Add(txtCodigoBarras, 3, 1);      // Código de Barras TextBox
-            tableLayoutPanel1.Controls.Add(btnGenerarCB, 4, 1);         // Código de Barras Button
+            tLPCombo.Controls.Add(label5, 0, 1);               // Clave Interna Label
+            tLPCombo.Controls.Add(txtClaveProducto, 1, 1);     // Clave Interna TextBox
+            tLPCombo.Controls.Add(label2, 2, 1);               // Código de Barras Label
+            tLPCombo.Controls.Add(txtCodigoBarras, 3, 1);      // Código de Barras TextBox
+            tLPCombo.Controls.Add(btnGenerarCB, 4, 1);         // Código de Barras Button
 
             #endregion End Row 2
 
@@ -5916,12 +6002,12 @@ namespace PuntoDeVentaV2
             panelContenedor.TabIndex = 8;
             panelContenedor.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(lblCantPaqServ, 0, 2);       // Relacionar con Combo/Servicio Label
-            tableLayoutPanel1.Controls.Add(txtCantPaqServ, 1, 2);       // Relacionar con Combo/Servicio TextBox
-            tableLayoutPanel1.Controls.Add(button1, 2, 2);              // Combo/Servicio Button
-            tableLayoutPanel1.Controls.Add(panelContenedor, 3, 2);      // Contenedor de Código Barras extra Panel
-            tableLayoutPanel1.SetColumnSpan(panelContenedor, 2);
-            tableLayoutPanel1.SetRowSpan(panelContenedor, 2);
+            tLPCombo.Controls.Add(lblCantPaqServ, 0, 2);       // Relacionar con Combo/Servicio Label
+            tLPCombo.Controls.Add(txtCantPaqServ, 1, 2);       // Relacionar con Combo/Servicio TextBox
+            tLPCombo.Controls.Add(button1, 2, 2);              // Combo/Servicio Button
+            tLPCombo.Controls.Add(panelContenedor, 3, 2);      // Contenedor de Código Barras extra Panel
+            tLPCombo.SetColumnSpan(panelContenedor, 2);
+            tLPCombo.SetRowSpan(panelContenedor, 2);
 
             #endregion End Row 3
 
@@ -5933,29 +6019,32 @@ namespace PuntoDeVentaV2
             PImagen.TabIndex = 9;
             PImagen.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(PImagen, 0, 3);              // Imagen del Producto Panel
-            tableLayoutPanel1.SetColumnSpan(PImagen, 2);
-            tableLayoutPanel1.SetRowSpan(PImagen, 4);
+            tLPCombo.Controls.Add(PImagen, 0, 3);              // Imagen del Producto Panel
+            tLPCombo.SetColumnSpan(PImagen, 2);
+            tLPCombo.SetRowSpan(PImagen, 4);
 
             #endregion End Row 4
         }
 
         private void agregarServicio()
         {
+            // pasar controles a form principal
+            cambiarControlesAgregarEditarProducto();
+
             // borrar todas las filas y columnas del TableLayoutPanel
-            clearSetUpTableLayoutPanel();
+            clearSetUpTableLayoutPanel("Servicio");
 
             // creamos 5 columnas en el TableLayoutPanel
             for (int i = 0; i < 5; i++)
             {
-                tableLayoutPanel1.ColumnCount++;
-                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+                tLPServicio.ColumnCount++;
+                tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             }
             // creamos 6 filas en el TableLayoutPanel
             for (int i = 0; i < 6; i++)
             {
-                tableLayoutPanel1.RowCount++;
-                tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66F));
+                tLPServicio.RowCount++;
+                tLPServicio.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66F));
             }
 
             // Primera Fila del TableLayoutPanel
@@ -5979,10 +6068,10 @@ namespace PuntoDeVentaV2
             txtPrecioProducto.TabIndex = 2;
             txtPrecioProducto.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(label7, 0, 0);               // Precio Compra Label
-            tableLayoutPanel1.Controls.Add(txtPrecioCompra, 1, 0);      // Precio Compra TextBox
-            tableLayoutPanel1.Controls.Add(label4, 2, 0);               // Precio Venta Label
-            tableLayoutPanel1.Controls.Add(txtPrecioProducto, 3, 0);    // Precio Venta TextBox
+            tLPServicio.Controls.Add(label7, 0, 0);               // Precio Compra Label
+            tLPServicio.Controls.Add(txtPrecioCompra, 1, 0);      // Precio Compra TextBox
+            tLPServicio.Controls.Add(label4, 2, 0);               // Precio Venta Label
+            tLPServicio.Controls.Add(txtPrecioProducto, 3, 0);    // Precio Venta TextBox
 
             #endregion End Row 1
 
@@ -6012,11 +6101,11 @@ namespace PuntoDeVentaV2
             btnGenerarCB.TabIndex = 5;
             btnGenerarCB.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(label5, 0, 1);               // Clave Interna Label
-            tableLayoutPanel1.Controls.Add(txtClaveProducto, 1, 1);     // Clave Interna TextBox
-            tableLayoutPanel1.Controls.Add(label2, 2, 1);               // Código de Barras Label
-            tableLayoutPanel1.Controls.Add(txtCodigoBarras, 3, 1);      // Código de Barras TextBox
-            tableLayoutPanel1.Controls.Add(btnGenerarCB, 4, 1);         // Código de Barras Button
+            tLPServicio.Controls.Add(label5, 0, 1);               // Clave Interna Label
+            tLPServicio.Controls.Add(txtClaveProducto, 1, 1);     // Clave Interna TextBox
+            tLPServicio.Controls.Add(label2, 2, 1);               // Código de Barras Label
+            tLPServicio.Controls.Add(txtCodigoBarras, 3, 1);      // Código de Barras TextBox
+            tLPServicio.Controls.Add(btnGenerarCB, 4, 1);         // Código de Barras Button
 
             #endregion End Row 2
 
@@ -6042,12 +6131,12 @@ namespace PuntoDeVentaV2
             panelContenedor.TabIndex = 7;
             panelContenedor.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(lblCantPaqServ, 0, 2);       // Clave Interna Label
-            tableLayoutPanel1.Controls.Add(txtCantPaqServ, 1, 2);       // Clave Interna TextBox
-            tableLayoutPanel1.Controls.Add(button1, 2, 2);              // Código de Barras Label
-            tableLayoutPanel1.Controls.Add(panelContenedor, 3, 2);      // Código de Barras TextBox
-            tableLayoutPanel1.SetColumnSpan(panelContenedor, 2);
-            tableLayoutPanel1.SetRowSpan(panelContenedor, 2);
+            tLPServicio.Controls.Add(lblCantPaqServ, 0, 2);       // Clave Interna Label
+            tLPServicio.Controls.Add(txtCantPaqServ, 1, 2);       // Clave Interna TextBox
+            tLPServicio.Controls.Add(button1, 2, 2);              // Código de Barras Label
+            tLPServicio.Controls.Add(panelContenedor, 3, 2);      // Código de Barras TextBox
+            tLPServicio.SetColumnSpan(panelContenedor, 2);
+            tLPServicio.SetRowSpan(panelContenedor, 2);
 
             #endregion End Row 3
 
@@ -6059,20 +6148,49 @@ namespace PuntoDeVentaV2
             PImagen.TabIndex = 8;
             PImagen.TabStop = true;
 
-            tableLayoutPanel1.Controls.Add(PImagen, 0, 3);              // Imagen del Producto Panel
-            tableLayoutPanel1.SetColumnSpan(PImagen, 2);
-            tableLayoutPanel1.SetRowSpan(PImagen, 4);
+            tLPServicio.Controls.Add(PImagen, 0, 3);              // Imagen del Producto Panel
+            tLPServicio.SetColumnSpan(PImagen, 2);
+            tLPServicio.SetRowSpan(PImagen, 4);
 
             #endregion End Row 4
         }
 
-        private void clearSetUpTableLayoutPanel()
+        private void clearSetUpTableLayoutPanel(string origin)
         {
-            tableLayoutPanel1.AutoSize = true;
-            tableLayoutPanel1.ColumnCount = 0;
-            tableLayoutPanel1.ColumnStyles.Clear();
-            tableLayoutPanel1.RowCount = 0;
-            tableLayoutPanel1.RowStyles.Clear();
+            //tLPProducto.Controls.Clear();
+            tLPProducto.Visible = false;
+            //tLPCombo.Controls.Clear();
+            tLPCombo.Visible = false;
+            //tLPServicio.Controls.Clear();
+            tLPServicio.Visible = false;
+
+            if (origin.Equals("Producto"))
+            {
+                tLPProducto.AutoSize = true;
+                tLPProducto.ColumnCount = 0;
+                tLPProducto.ColumnStyles.Clear();
+                tLPProducto.RowCount = 0;
+                tLPProducto.RowStyles.Clear();
+                tLPProducto.Visible = true;
+            }
+            else if (origin.Equals("Combo"))
+            {
+                tLPCombo.AutoSize = true;
+                tLPCombo.ColumnCount = 0;
+                tLPCombo.ColumnStyles.Clear();
+                tLPCombo.RowCount = 0;
+                tLPCombo.RowStyles.Clear();
+                tLPCombo.Visible = true;
+            }
+            else if (origin.Equals("Servicio"))
+            {
+                tLPServicio.AutoSize = true;
+                tLPServicio.ColumnCount = 0;
+                tLPServicio.ColumnStyles.Clear();
+                tLPServicio.RowCount = 0;
+                tLPServicio.RowStyles.Clear();
+                tLPServicio.Visible = true;
+            }
         }
 
         private void mostrarOcultarfLPDetallesProducto()
