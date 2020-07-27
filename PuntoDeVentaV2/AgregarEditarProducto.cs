@@ -5047,6 +5047,28 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
+                string[] words;
+
+                if (txtPrecioCompra.Text.Equals(""))
+                {
+                    txtPrecioCompra.Text = "0";
+                }
+                else if (!txtPrecioCompra.Text.Equals(""))
+                {
+                    words = txtPrecioCompra.Text.Split('.');
+                    if (words[0].Equals(""))
+                    {
+                        words[0] = "0";
+                    }
+                    if (words.Length > 1)
+                    {
+                        if (words[1].Equals(""))
+                        {
+                            words[1] = "0";
+                        }
+                        txtPrecioCompra.Text = words[0] + "." + words[1];
+                    }
+                }
                 precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
                 PrecioRecomendado = precioOriginalConIVA * porcentajeGanancia;
                 txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
