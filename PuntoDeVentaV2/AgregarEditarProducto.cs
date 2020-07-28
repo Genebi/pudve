@@ -5518,7 +5518,12 @@ namespace PuntoDeVentaV2
                             using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
                             {
                                 pictureBoxProducto.Image = Image.FromStream(File);      // carrgamos la imagen en el PictureBox
+                                btnImagenes.Text = "Borrar imagen";
                             }
+                        }
+                        else if (logoTipo.Equals(""))
+                        {
+                            btnImagenes.Text = "Seleccionar imagen";
                         }
                     }
                     else if (pictureBoxProducto.Image == null)
@@ -5531,8 +5536,13 @@ namespace PuntoDeVentaV2
                                 using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
                                 {
                                     pictureBoxProducto.Image = Image.FromStream(File);      // carrgamos la imagen en el PictureBox
+                                    btnImagenes.Text = "Borrar imagen";
                                 }
                             }
+                        }
+                        else if (logoTipo.Equals(""))
+                        {
+                            btnImagenes.Text = "Seleccionar imagen";
                         }
                     }
                 }
