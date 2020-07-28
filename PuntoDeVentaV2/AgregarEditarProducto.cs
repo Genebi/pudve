@@ -2427,6 +2427,9 @@ namespace PuntoDeVentaV2
                     btnImagenes.Text = "Borrar imagen";
                     // Liberamos el pictureBox para poder borrar su imagen
                     pictureBoxProducto.Image.Dispose();
+                    // Establecemos a Nothing el valor de la propiedad Image
+                    // del control PictureBox
+                    pictureBoxProducto.Image = null;
                     // borramos el archivo de la imagen
                     System.IO.File.Delete(path);
 
