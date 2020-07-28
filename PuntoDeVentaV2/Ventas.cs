@@ -663,7 +663,16 @@ namespace PuntoDeVentaV2
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
-                row.Cells["Descuento"].Value = "0.00";
+
+                if ((datosProducto.Length - 1) == 13)
+                {
+                    row.Cells["Descuento"].Value = datosProducto[13];
+                }
+                else
+                {
+                    row.Cells["Descuento"].Value = "0.00";
+                }
+
                 row.Cells["ImagenProducto"].Value = datosProducto[9];
 
                 var imagen = row.Cells["ImagenProducto"].Value.ToString();
@@ -2116,8 +2125,6 @@ namespace PuntoDeVentaV2
 
             if (tieneProductos)
             {
-                //DGVentas.Rows.Clear();
-
                 string[] productos = cn.ObtenerProductosVenta(mostrarVenta);
 
                 foreach (string producto in productos)
@@ -2148,6 +2155,8 @@ namespace PuntoDeVentaV2
                         }
 
                         descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
+
+                        datosProducto = new List<string>(datosProducto) { info[3] }.ToArray();
                     }
 
                     AgregarProductoLista(datosProducto, cantidad, true);
