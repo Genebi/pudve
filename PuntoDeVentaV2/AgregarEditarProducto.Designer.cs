@@ -628,7 +628,7 @@
             this.btnImagenes.Name = "btnImagenes";
             this.btnImagenes.Size = new System.Drawing.Size(175, 29);
             this.btnImagenes.TabIndex = 10;
-            this.btnImagenes.Text = "Seleccionar imagen(es)";
+            this.btnImagenes.Text = "Seleccionar imagen";
             this.btnImagenes.UseVisualStyleBackColor = true;
             this.btnImagenes.Click += new System.EventHandler(this.btnImagenes_Click);
             // 
