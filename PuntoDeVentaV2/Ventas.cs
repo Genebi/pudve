@@ -671,6 +671,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     row.Cells["Descuento"].Value = "0.00";
+                    row.Cells["TipoDescuento"].Value = "0";
                 }
 
                 row.Cells["ImagenProducto"].Value = datosProducto[9];
@@ -2114,12 +2115,6 @@ namespace PuntoDeVentaV2
             cTotal.Text = datos[2];
             cDescuento.Text = datos[3];
 
-            //Descuento general
-            if (float.Parse(datos[4]) > 0)
-            {
-                txtDescuentoGeneral.Text = datos[4];
-            }
-
             //Verificar si tiene productos la venta
             bool tieneProductos = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosVenta WHERE IDVenta = '{mostrarVenta}'");
 
@@ -2138,29 +2133,41 @@ namespace PuntoDeVentaV2
                     int cantidad = Convert.ToInt32(info[2]);
 
                     // Agregamos los descuentos directos de la venta guardada
-                    if (!descuentosDirectos.ContainsKey(idProducto))
+                    if (Convert.ToInt16(info[4]) > 0)
                     {
-                        var tipoDescuento = Convert.ToInt32(info[4]);
-                        var cantidadDescuento = 0f;
-
-                        if (tipoDescuento == 2)
+                        if (!descuentosDirectos.ContainsKey(idProducto))
                         {
-                            var cantidadTmp = info[3].Split('-');
-                            cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
-                            cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
-                        }
-                        else
-                        {
-                            cantidadDescuento = float.Parse(info[3].Trim());
-                        }
+                            var tipoDescuento = Convert.ToInt32(info[4]);
+                            var cantidadDescuento = 0f;
 
-                        descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
+                            if (tipoDescuento == 2)
+                            {
+                                var cantidadTmp = info[3].Split('-');
+                                cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
+                                cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
+                            }
+                            else
+                            {
+                                cantidadDescuento = float.Parse(info[3].Trim());
+                            }
 
-                        datosProducto = new List<string>(datosProducto) { info[3] }.ToArray();
+                            descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
+
+                            datosProducto = new List<string>(datosProducto) { info[3] }.ToArray();
+                        }
                     }
 
                     AgregarProductoLista(datosProducto, cantidad, true);
                 }
+            }
+
+            //Descuento general
+            if (float.Parse(datos[4]) > 0)
+            {
+                var porcentaje = float.Parse(datos[4]);
+                var resultado = porcentaje * 100;
+                txtDescuentoGeneral.Text = resultado.ToString();
+                DescuentoGeneral();
             }
         }
 
@@ -3424,30 +3431,6 @@ namespace PuntoDeVentaV2
                         CantidadesFinalesVenta();
                     }
                 }
-
-                //var descuentoG = float.Parse(txtDescuentoGeneral.Text);
-
-                //if (descuentoG > 0)
-                //{
-                //    // Reiniciamos a su valor por defecto la variable del descuento por cliente
-                //    descuentoCliente = 0;
-
-                //    porcentajeGeneral = descuentoG / 100;
-
-                //    productosDescuentoG.Clear();
-
-                //    foreach (DataGridViewRow fila in DGVentas.Rows)
-                //    {
-                //        var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
-
-                //        if (!productosDescuentoG.ContainsKey(idProducto))
-                //        {
-                //            productosDescuentoG.Add(idProducto, true);
-                //        }
-                //    }
-
-                //    CantidadesFinalesVenta();
-                //}
             }
         }
 
