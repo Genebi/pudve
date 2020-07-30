@@ -2768,7 +2768,7 @@ namespace PuntoDeVentaV2
 
                                         //Se obtiene la ID del último producto agregado
                                         idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-
+                                        var claveP = txtClaveProducto.Text;
                                         #region Inicio de Datos de Impuestos
                                         //Se realiza el proceso para guardar los detalles de facturación del producto
                                         if (datosImpuestos != null)
@@ -2802,6 +2802,7 @@ namespace PuntoDeVentaV2
                                         {
                                             #region Inicio para relacionar productos con algun combo/servicio
                                             guardarRelacionDeProductoConComboServicio();
+                                            var contenido = cn.EjecutarConsulta($"UPDATE HistorialCompras SET RFCEmisor = '{AgregarDetalleProducto.rfc}', NomEmisor = '{AgregarDetalleProducto.nameProveedor}', ClaveProdEmisor = '{claveP}' WHERE IDProducto = {idProducto}");
                                             #endregion Final para relacionar productos con algun paquete/servicio
                                         }
                                         #endregion Final Agreado de forma manual Boton
