@@ -132,6 +132,7 @@ namespace PuntoDeVentaV2
 
                         if (datosCliente.Length > 0)
                         {
+                            datosCliente = new List<string>(datosCliente) { idCliente.ToString() }.ToArray();
                             DialogResult = DialogResult.OK;
                         }
                     }

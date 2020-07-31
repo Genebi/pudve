@@ -89,6 +89,7 @@ namespace PuntoDeVentaV2
         private bool buscarVG = false; // Buscar venta guardada
         private int indiceColumna = 0;
         private bool imprimirCodigo = false;
+        int idClienteDescuento = 0;
 
         DataTable dtProdMessg;
         DataRow drProdMessg;
@@ -211,8 +212,7 @@ namespace PuntoDeVentaV2
         {
             if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
             {
-                txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
-                
+                txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";    
             }
         }
 
@@ -1640,7 +1640,8 @@ namespace PuntoDeVentaV2
 
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
-                DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion
+                DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion,
+                idClienteDescuento.ToString()
             };
 
 
@@ -1691,6 +1692,14 @@ namespace PuntoDeVentaV2
                         var DescuentoIndividual = fila.Cells["Descuento"].Value.ToString();
                         var ImporteIndividual = fila.Cells["Importe"].Value.ToString();
                         var TipoDescuento = fila.Cells["TipoDescuento"].Value.ToString();
+
+                        if (TipoDescuento.Equals("0"))
+                        {
+                            if (descuentoCliente > 0)
+                            {
+                                TipoDescuento = "3";
+                            }
+                        }
 
                         // A partir de la variable DescuentoGeneral esos valores y datos se toman solo para el ticket de venta
                         guardar = new string[] {
@@ -1907,6 +1916,7 @@ namespace PuntoDeVentaV2
             ventaGuardada = false;
             mostrarVenta = 0;
             listaAnticipos = string.Empty;
+            idClienteDescuento = 0;
             ventasGuardadas.Clear();
 
             // Limpiar variables de cantidades asignadas en el form DetalleVenta
@@ -2115,6 +2125,25 @@ namespace PuntoDeVentaV2
             cTotal.Text = datos[2];
             cDescuento.Text = datos[3];
 
+            // Cuando la venta guardada tiene descuento por cliente
+            var idClienteDesc = Convert.ToInt32(datos[8]);
+
+            if (idClienteDesc > 0)
+            {
+                var datosCliente = mb.ObtenerDatosCliente(idClienteDesc, FormPrincipal.userID);
+                var cliente = string.Empty;
+
+                var auxPrimero = string.IsNullOrWhiteSpace(datosCliente[0]);
+                var auxSegundo = string.IsNullOrWhiteSpace(datosCliente[1]);
+                var auxTercero = string.IsNullOrWhiteSpace(datosCliente[17]);
+
+                if (!auxPrimero) { cliente += $"Cliente: {datosCliente[0]}"; }
+                if (!auxSegundo) { cliente += $" --- RFC: {datosCliente[1]}"; }
+                if (!auxTercero) { cliente += $" --- No. {datosCliente[17]}"; }
+
+                lbDatosCliente.Text = cliente;
+            }
+
             //Verificar si tiene productos la venta
             bool tieneProductos = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosVenta WHERE IDVenta = '{mostrarVenta}'");
 
@@ -2140,14 +2169,21 @@ namespace PuntoDeVentaV2
                             var tipoDescuento = Convert.ToInt32(info[4]);
                             var cantidadDescuento = 0f;
 
-                            if (tipoDescuento == 2)
+                            if (tipoDescuento == 4)
                             {
+                                // Descuento cliente
+
+                            }
+                            else if (tipoDescuento == 2 || tipoDescuento == 3)
+                            {
+                                // Descuento directo
                                 var cantidadTmp = info[3].Split('-');
                                 cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
                                 cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
                             }
-                            else
+                            else if (tipoDescuento == 1)
                             {
+                                // Descuento directo
                                 cantidadDescuento = float.Parse(info[3].Trim());
                             }
 
@@ -3347,6 +3383,8 @@ namespace PuntoDeVentaV2
 
                     var idTipoCliente = Convert.ToInt32(datos[16]);
 
+                    idClienteDescuento = Convert.ToInt32(datos[18]);
+
                     if (idTipoCliente > 0)
                     {
                         var datosDescuento = mb.ObtenerTipoCliente(idTipoCliente);
@@ -3638,12 +3676,10 @@ namespace PuntoDeVentaV2
             {
                 lFolio.Visible = false;
             }
-
         }
 
         private void lFolio_KeyDown(object sender, KeyEventArgs e)
         {
-            
             if (e.KeyCode == Keys.Enter)
             {
                 CancelarVenta();
@@ -3657,7 +3693,6 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
-            
         }
 
         private void Ventas_Shown(object sender, EventArgs e)
