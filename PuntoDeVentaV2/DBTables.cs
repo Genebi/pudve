@@ -84,7 +84,7 @@ namespace PuntoDeVentaV2
             RegimenDeUsuarios = 2;
             RegimenFiscal = 7;
             Usuarios = 24;
-            Ventas = 26;
+            Ventas = 27;
             Clientes = 23;
             RevisarInventario = 17;
             DetallesVenta = 14;
