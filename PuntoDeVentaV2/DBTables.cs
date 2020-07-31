@@ -79,7 +79,7 @@ namespace PuntoDeVentaV2
             ProductoRelacionadoXML = 5;
             Productos = 24;
             ProductosDeServicios = 6;
-            ProductosVenta = 7;
+            ProductosVenta = 8;
             Proveedores = 15;
             RegimenDeUsuarios = 2;
             RegimenFiscal = 7;
