@@ -18,6 +18,9 @@ namespace PuntoDeVentaV2
 {
     public partial class AgregarDetalleProducto : Form
     {
+        public static string nameProveedor { get; set; }
+        public static string rfc { get; set; }
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -1387,6 +1390,14 @@ namespace PuntoDeVentaV2
                     separadas = cadena.Split(delimiterChars);
                     idProveedor = Convert.ToInt32(separadas[0]);
                     nombreProveedor = separadas[1];
+                    nameProveedor = nombreProveedor.ToString().TrimStart();
+                    var obtenerDatosProv = cn.CargarDatos($"SELECT * FROM Proveedores WHERE IDUsuario={FormPrincipal.userID}");
+
+                    for (int i=0; i<obtenerDatosProv.Rows.Count; i++)
+                    {
+                        rfc = obtenerDatosProv.Rows[i]["RFC"].ToString();
+                    }
+
                 }
                 else if (comboBoxIndex <= 0)
                 {

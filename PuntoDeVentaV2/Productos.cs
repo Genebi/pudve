@@ -3523,7 +3523,7 @@ namespace PuntoDeVentaV2
 
                 string txtAndNumSearch = string.Empty;
 
-                if (!txtBusquedaString.Equals("") || !txtBusquedaString.Equals(" "))
+                if (!txtBusquedaString.Equals(""))
                 {
                     txtAndNumSearch += txtBusquedaString.Trim();
                 }
@@ -4379,6 +4379,7 @@ namespace PuntoDeVentaV2
                 clickBoton = 0;
                 agregarEspacioAlFinal();
                 txtBusqueda.Focus();
+                CargarDatos();
             };
 
             if (!FormAgregar.Visible)

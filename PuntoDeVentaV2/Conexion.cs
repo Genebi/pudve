@@ -653,14 +653,26 @@ namespace PuntoDeVentaV2
             return contador;
         }
 
-        public void ForeginKeysOff()
+        public string ForeginKeysOff()
         {
             string query = "PRAGMA foreign_keys = OFF;";
-            Conectarse();
-            sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = query;
-            sql_cmd.ExecuteNonQuery();
+            //Conectarse();
+            //sql_con.Open();
+            //sql_cmd = sql_con.CreateCommand();
+            //sql_cmd.CommandText = query;
+            //sql_cmd.ExecuteNonQuery();
+            return query;
+        }
+
+        public string BeginTransaction()
+        {
+            string query = "BEGIN TRANSACTION;";
+            //Conectarse();
+            //sql_con.Open();
+            //sql_cmd = sql_con.CreateCommand();
+            //sql_cmd.CommandText = query;
+            //sql_cmd.ExecuteNonQuery();
+            return query;
         }
 
         public void renameTable(string Query)
@@ -681,14 +693,26 @@ namespace PuntoDeVentaV2
             sql_cmd.ExecuteNonQuery();
         }
 
-        public void ForeginKeysOn()
+        public string Commit()
+        {
+            string query = "COMMIT;";
+            //Conectarse();
+            //sql_con.Open();
+            //sql_cmd = sql_con.CreateCommand();
+            //sql_cmd.CommandText = query;
+            //sql_cmd.ExecuteNonQuery();
+            return query;
+        }
+
+        public string ForeginKeysOn()
         {
             string query = "PRAGMA foreign_keys = ON;";
-            Conectarse();
-            sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = query;
-            sql_cmd.ExecuteNonQuery();
+            //Conectarse();
+            //sql_con.Open();
+            //sql_cmd = sql_con.CreateCommand();
+            //sql_cmd.CommandText = query;
+            //sql_cmd.ExecuteNonQuery();
+            return query;
         }
 
         public void insertDataIntoTable(string Query)

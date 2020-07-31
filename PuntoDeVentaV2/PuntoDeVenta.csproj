@@ -386,6 +386,7 @@
       <DependentUpon>ConceptosCaja.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
+    <Compile Include="ConexionDataDictionary.cs" />
     <Compile Include="ConexionNet.cs" />
     <Compile Include="ConnectionHandler.cs" />
     <Compile Include="ConsultarProductoVentas.cs">
@@ -713,6 +714,7 @@
     <Compile Include="SetUpPUDVE.Designer.cs">
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
     </Compile>
+    <Compile Include="SQLiteSchema.cs" />
     <Compile Include="Subir_archivos_digitales.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -750,6 +752,12 @@
     </Compile>
     <Compile Include="Ventas.Designer.cs">
       <DependentUpon>Ventas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="verificarBasesSQLite.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="verificarBasesSQLite.Designer.cs">
+      <DependentUpon>verificarBasesSQLite.cs</DependentUpon>
     </Compile>
     <Compile Include="VincularPC.cs">
       <SubType>Form</SubType>
@@ -1049,6 +1057,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="verificarBasesSQLite.resx">
+      <DependentUpon>verificarBasesSQLite.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VincularPC.resx">
       <DependentUpon>VincularPC.cs</DependentUpon>

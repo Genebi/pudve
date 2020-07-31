@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,9 @@ namespace PuntoDeVentaV2
 {
     class DBTables
     {
-    #region Variables Tablas
+        Conexion cn = new Conexion();
+
+        #region Variables Tablas
         public static int Anticipos;
         public static int Caja;
         public static int CatalogoUnidadesMedida;
@@ -112,6 +115,246 @@ namespace PuntoDeVentaV2
             EmpleadosPermisos = 28;
         #endregion Inicializar Variables
         }
+
+        public int countTables()
+        {
+            int count = 0;
+
+            string SQL_GET_ALL_TABLES = "SELECT * FROM sqlite_master WHERE type = 'table' AND name != 'android_metadata' AND name != 'sqlite_sequence' ORDER BY name ASC";
+
+            using (DataTable dtAllTables = cn.CargarDatos(SQL_GET_ALL_TABLES))
+            {
+                if (dtAllTables.Rows.Count.Equals(0))
+                {
+                    count = 0;
+                }
+                else if (dtAllTables.Rows.Count > 0)
+                {
+                    count = dtAllTables.Rows.Count;
+                }
+            }
+
+            return count;
+        }
+
+        // Schema Table
+        #region operaciones de checar tablas de la base de datos
+        public int getValorVariable(string nameTable)
+        {
+            int value = 0;
+
+            if (nameTable.Equals("Anticipos"))  // Tabla 01
+            {
+                value = Anticipos;
+            }
+            else if (nameTable.Equals("Caja"))  // Tabla 02
+            {
+                value = Caja;
+            }
+            else if (nameTable.Equals("CatalogoUnidadesMedida"))  // Tabla 03
+            {
+                value = CatalogoUnidadesMedida;
+            }
+            else if (nameTable.Equals("CodigoBarrasExtras"))  // Tabla 04
+            {
+                value = CodigoBarrasExtras;
+            }
+            else if (nameTable.Equals("DescuentoCliente"))  // Tabla 05
+            {
+                value = DescuentoCliente;
+            }
+            else if (nameTable.Equals("DescuentoMayoreo"))  // Tabla 06
+            {
+                value = DescuentoMayoreo;
+            }
+            else if (nameTable.Equals("DetallesFacturacionProductos"))  // Tabla 07
+            {
+                value = DetallesFacturacionProductos;
+            }
+            else if (nameTable.Equals("DetallesProducto"))  // Tabla 08
+            {
+                value = DetallesProducto;
+            }
+            else if (nameTable.Equals("Empresas"))  // Tabla 09
+            {
+                value = Empresas;
+            }
+            else if (nameTable.Equals("HisotorialCompras"))  // Tabla 10
+            {
+                value = HisotorialCompras;
+            }
+            else if (nameTable.Equals("HistorialModificacionRecordProduct"))  // Tabla 11
+            {
+                value = HistorialModificacionRecordProduct;
+            }
+            else if (nameTable.Equals("ProductoRelacionadoXML"))  // Tabla 12
+            {
+                value = ProductoRelacionadoXML;
+            }
+            else if (nameTable.Equals("Productos"))  // Tabla 13
+            {
+                value = Productos;
+            }
+            else if (nameTable.Equals("ProductosDeServicios"))  // Tabla 14
+            {
+                value = ProductosDeServicios;
+            }
+            else if (nameTable.Equals("ProductosVenta"))  // Tabla 15
+            {
+                value = ProductosVenta;
+            }
+            else if (nameTable.Equals("Proveedores"))  // Tabla 16
+            {
+                value = Proveedores;
+            }
+            else if (nameTable.Equals("RegimenDeUsuarios"))  // Tabla 17
+            {
+                value = RegimenDeUsuarios;
+            }
+            else if (nameTable.Equals("RegimenFiscal"))  // Tabla 18
+            {
+                value = RegimenFiscal;
+            }
+            else if (nameTable.Equals("Usuarios"))  // Tabla 19
+            {
+                value = Usuarios;
+            }
+            else if (nameTable.Equals("Ventas"))  // Tabla 20
+            {
+                value = Ventas;
+            }
+            else if (nameTable.Equals("Clientes"))  // Tabla 21
+            {
+                value = Clientes;
+            }
+            else if (nameTable.Equals("RevisarInventario"))  // Tabla 22
+            {
+                value = RevisarInventario;
+            }
+            else if (nameTable.Equals("DetallesVenta"))  // Tabla 23
+            {
+                value = DetallesVenta;
+            }
+            else if (nameTable.Equals("Abonos"))  // Tabla 24
+            {
+                value = Abonos;
+            }
+            else if (nameTable.Equals("Categorias"))  // Tabla 25
+            {
+                value = Categorias;
+            }
+            else if (nameTable.Equals("Ubicaciones"))  // Tabla 26
+            {
+                value = Ubicaciones;
+            }
+            else if (nameTable.Equals("DetalleGeneral"))  // Tabla 27
+            {
+                value = DetalleGeneral;
+            }
+            else if (nameTable.Equals("DetallesProductoGenerales"))  // Tabla 28
+            {
+                value = DetallesProductoGenerales;
+            }
+            else if (nameTable.Equals("ProductMessage"))  // Tabla 29
+            {
+                value = ProductMessage;
+            }
+            else if (nameTable.Equals("CodigoBarrasGenerado"))  // Tabla 30
+            {
+                value = CodigoBarrasGenerado;
+            }
+            else if (nameTable.Equals("Empleados"))  // Tabla 31
+            {
+                value = Empleados;
+            }
+            else if (nameTable.Equals("MensajesInventario"))  // Tabla 32
+            {
+                value = MensajesInventario;
+            }
+            else if (nameTable.Equals("Catalogo_claves_producto"))  // Tabla 33
+            {
+                value = Catalogo_claves_producto;
+            }
+            else if (nameTable.Equals("Catalogo_monedas"))  // Tabla 34
+            {
+                value = Catalogo_monedas;
+            }
+            else if (nameTable.Equals("HistorialPrecios"))  // Tabla 35
+            {
+                value = HistorialPrecios;
+            }
+            else if (nameTable.Equals("appSettings"))  // Tabla 36
+            {
+                value = appSettings;
+            }
+            else if (nameTable.Equals("Configuracion"))  // Tabla 37
+            {
+                value = Configuracion;
+            }
+            else if (nameTable.Equals("TipoClientes"))  // Tabla 38
+            {
+                value = TipoClientes;
+            }
+            else if (nameTable.Equals("FiltroProducto"))  // Tabla 39
+            {
+                value = FiltroProducto;
+            }
+            else if (nameTable.Equals("Facturas"))  // Tabla 40
+            {
+                value = Facturas;
+            }
+            else if (nameTable.Equals("Facturas_impuestos"))  // Tabla 41
+            {
+                value = Facturas_impuestos;
+            }
+            else if (nameTable.Equals("Facturas_productos"))  // Tabla 42
+            {
+                value = Facturas_productos;
+            }
+            else if (nameTable.Equals("Facturas_complemento_pago"))  // Tabla 43
+            {
+                value = Facturas_complemento_pago;
+            }
+            else if (nameTable.Equals("FiltroDinamico"))  // Tabla 44
+            {
+                value = FiltroDinamico;
+            }
+            else if (nameTable.Equals("ConceptosDinamicos"))  // Tabla 45
+            {
+                value = ConceptosDinamicos;
+            }
+            else if (nameTable.Equals("CorreosProducto"))  // Tabla 46
+            {
+                value = CorreosProducto;
+            }
+            else if (nameTable.Equals("FiltrosDinamicosVetanaFiltros"))  // Tabla 47
+            {
+                value = FiltrosDinamicosVetanaFiltros;
+            }
+
+            return value;
+        }
+
+        public string PragmaTabla(string nameTable)
+        {
+            return $"PRAGMA table_info('{nameTable}');";
+        }
+
+        public string encontrarTabla(string nameTable)
+        {
+            return $"SELECT name FROM sqlite_master WHERE type='table' AND name='{nameTable}';";
+        }
+
+        public string QueryRename(string nameTable)
+        {
+            return $"ALTER TABLE '{nameTable}_new' RENAME TO '{nameTable}';";
+        }
+
+        public string DropTabla(string nameTable)
+        {
+            return $"DROP TABLE '{nameTable}';";
+        }
+        #endregion
 
         // Tabla de Anticipos 01
         #region Tabla Anticipos
