@@ -41,7 +41,6 @@ namespace PuntoDeVentaV2
         public Anticipos()
         {
             InitializeComponent();
-            
         }
 
         private void Anticipos_Load(object sender, EventArgs e)
@@ -97,7 +96,7 @@ namespace PuntoDeVentaV2
                 var fechaInicio = dpFechaInicial.Text;
                 var fechaFinal = dpFechaFinal.Text;
 
-                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
+                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
             }
 
             sql_cmd = new SQLiteCommand(consulta, sql_con);
@@ -425,6 +424,7 @@ namespace PuntoDeVentaV2
                 CargarDatos(cbAnticipos.SelectedIndex + 1);
                 recargarDatos = false;
             }
+            cbAnticipos.SelectedIndex = 0;
         }
 
         private void Anticipos_Resize(object sender, EventArgs e)
