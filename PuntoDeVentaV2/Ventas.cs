@@ -2142,6 +2142,7 @@ namespace PuntoDeVentaV2
                 if (!auxTercero) { cliente += $" --- No. {datosCliente[17]}"; }
 
                 lbDatosCliente.Text = cliente;
+                lbEliminarCliente.Visible = true;
             }
 
             //Verificar si tiene productos la venta
@@ -3364,6 +3365,12 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            if (DGVentas.RowCount == 0)
+            {
+                MessageBox.Show("No hay productos agregados a la lista\npara aplicar el descuento", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             using (var clientes = new ListaClientes(tipo: 1))
             {
                 var respuesta = clientes.ShowDialog();
@@ -3401,6 +3408,7 @@ namespace PuntoDeVentaV2
                     }
 
                     lbDatosCliente.Text = cliente;
+                    lbEliminarCliente.Visible = true;
                 }
             }
         }
@@ -3698,6 +3706,14 @@ namespace PuntoDeVentaV2
         private void Ventas_Shown(object sender, EventArgs e)
         {
             txtBuscadorProducto.Focus();
+        }
+
+        private void lbEliminarCliente_Click(object sender, EventArgs e)
+        {
+            descuentoCliente = 0;
+            CantidadesFinalesVenta();
+            lbDatosCliente.Text = string.Empty;
+            lbEliminarCliente.Visible = false;
         }
 
         private void CuerpoEmails()
