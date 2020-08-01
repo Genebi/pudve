@@ -106,6 +106,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lFolio = new System.Windows.Forms.TextBox();
+            this.lbEliminarCliente = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -359,9 +360,9 @@
             this.PrecioAuxiliar.Name = "PrecioAuxiliar";
             this.PrecioAuxiliar.ReadOnly = true;
             this.PrecioAuxiliar.Visible = false;
-            //
+            // 
             // TipoDescuento
-            //
+            // 
             this.TipoDescuento.HeaderText = "TipoDescuento";
             this.TipoDescuento.Name = "TipoDescuento";
             this.TipoDescuento.ReadOnly = true;
@@ -625,6 +626,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.lbEliminarCliente);
             this.panel1.Controls.Add(this.cAnticipoUtilizado);
             this.panel1.Controls.Add(this.lbAnticipoUtilizado);
             this.panel1.Controls.Add(this.label11);
@@ -965,6 +967,21 @@
             this.lFolio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lFolio_KeyDown);
             this.lFolio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lFolio_KeyPress);
             // 
+            // lbEliminarCliente
+            // 
+            this.lbEliminarCliente.AutoSize = true;
+            this.lbEliminarCliente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbEliminarCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbEliminarCliente.ForeColor = System.Drawing.Color.Red;
+            this.lbEliminarCliente.Location = new System.Drawing.Point(256, 8);
+            this.lbEliminarCliente.Name = "lbEliminarCliente";
+            this.lbEliminarCliente.Size = new System.Drawing.Size(17, 16);
+            this.lbEliminarCliente.TabIndex = 57;
+            this.lbEliminarCliente.Text = "X";
+            this.lbEliminarCliente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbEliminarCliente.Visible = false;
+            this.lbEliminarCliente.Click += new System.EventHandler(this.lbEliminarCliente_Click);
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1089,5 +1106,6 @@
         private System.Windows.Forms.TextBox lFolio;
         private System.Windows.Forms.Label cAnticipoUtilizado;
         private System.Windows.Forms.Label lbAnticipoUtilizado;
+        private System.Windows.Forms.Label lbEliminarCliente;
     }
 }
