@@ -117,6 +117,7 @@ namespace PuntoDeVentaV2
         Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos = new Dictionary<string, Tuple<string, string, string, string>>();
         Dictionary<string, Tuple<string, string, string>> setUpFiltroDinamicos = new Dictionary<string, Tuple<string, string, string>>();
         Dictionary<int, int> listaCoincidenciasAux = new Dictionary<int, int>();
+        Dictionary<int, int> listaSearchFoundAux = new Dictionary<int, int>();
 
         public static iTextSharp.text.Image imgReporte;
 
@@ -1554,12 +1555,12 @@ namespace PuntoDeVentaV2
 
         private void recargarBusqueda()
         {
-            if (txtBusqueda.Text.Equals(""))
+            if (txtBusqueda.Text.Trim().Equals(""))
             {
                 //CargarDatos();
                 busquedaDelUsuario();
             }
-            else if (!txtBusqueda.Text.Equals(""))
+            else if (!txtBusqueda.Text.Trim().Equals(""))
             {
                 quitarEspacioEnBlanco();
                 busquedaDelUsuario();
@@ -3056,7 +3057,7 @@ namespace PuntoDeVentaV2
 
             filtroConSinFiltroAvanzado = cs.IniciarFiltroConSinFiltroAvanzado(FormPrincipal.userID) + $"{extra}";
 
-            ChecarFiltroDinamicoDelSistema();
+            //ChecarFiltroDinamicoDelSistema();
 
             p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
 
@@ -3122,9 +3123,11 @@ namespace PuntoDeVentaV2
 
         private void ChecarFiltroDinamicoDelSistema()
         {
-            string queryFiltroProducto = string.Empty;
+            string queryFiltroProducto = string.Empty, querySearchResult = string.Empty;
 
             queryFiltroProducto = cs.VerificarContenidoFiltroProducto(FormPrincipal.userID);
+
+            querySearchResult += filtroConSinFiltroAvanzado;
 
             using (DataTable dtFiltroProducto = cn.CargarDatos(queryFiltroProducto))
             {
@@ -3138,7 +3141,7 @@ namespace PuntoDeVentaV2
                             {
                                 if (row["concepto"].ToString().Equals("chkBoxImagen"))
                                 {
-                                    filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}";
+                                    querySearchResult += $" AND P.{row["textComboBoxConcepto"].ToString()}";
                                 }
                                 else if (row["concepto"].ToString().Equals("chkBoxTipo"))
                                 {
@@ -3146,12 +3149,86 @@ namespace PuntoDeVentaV2
                                     words = row["textComboBoxConcepto"].ToString().Split(' ');
                                     if (!words[2].ToString().Equals(""))
                                     {
-                                        filtroConSinFiltroAvanzado += $" AND P.{words[0].ToString()} {words[1].ToString()} '{words[2].ToString()}'";
+                                        querySearchResult += $" AND P.{words[0].ToString()} {words[1].ToString()} '{words[2].ToString()}'";
                                     }
                                 }
                                 else if (!row["concepto"].ToString().Equals("chkBoxImagen") || !row["concepto"].ToString().Equals("chkBoxTipo"))
                                 {
-                                    filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}{row["textCantidad"].ToString()}";
+                                    querySearchResult += $" AND P.{row["textComboBoxConcepto"].ToString()}{row["textCantidad"].ToString()}";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            using (DataTable dtResultado = cn.CargarDatos(querySearchResult))
+            {
+                if (!dtResultado.Rows.Count.Equals(0))
+                {
+                    listaSearchFoundAux.Clear();
+                    foreach (DataRow drResultado in dtResultado.Rows)
+                    {
+                        var id = Convert.ToInt32(drResultado["ID"].ToString());
+                        if (listaSearchFoundAux.ContainsKey(id))
+                        {
+                            listaSearchFoundAux[id] += 1;
+                        }
+                        else
+                        {
+                            listaSearchFoundAux.Add(id, 1);
+                        }
+                    }
+                    // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
+                    // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
+                    extra = string.Empty;
+                    extra2 = string.Empty;
+                    int contadorTmp = 1;
+                    var listaCoincidencias = from entry in listaSearchFoundAux orderby entry.Value descending select entry;
+                    extra += "AND P.ID IN (";
+                    foreach (var producto in listaCoincidencias)
+                    {
+                        extra += $"{producto.Key},";
+                        extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
+                        contadorTmp++;
+                    }
+                    // Eliminamos el último caracter que es una coma (,)
+                    extra = extra.Remove(extra.Length - 1);
+                    extra += ") ORDER BY CASE P.ID ";
+                    extra2 += "END ";
+                    // Concatenamos las dos variables para formar por completo la sentencia sql
+                    extra += extra2;
+                }
+                else if (dtResultado.Rows.Count.Equals(0))
+                {
+                    using (DataTable dtFiltroProductoAgain = cn.CargarDatos(queryFiltroProducto))
+                    {
+                        if (!dtFiltroProductoAgain.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow row in dtFiltroProductoAgain.Rows)
+                            {
+                                if (row["checkBoxConcepto"].ToString().Equals("1"))
+                                {
+                                    if (!row["textComboBoxConcepto"].ToString().Equals(""))
+                                    {
+                                        if (row["concepto"].ToString().Equals("chkBoxImagen"))
+                                        {
+                                            filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}";
+                                        }
+                                        else if (row["concepto"].ToString().Equals("chkBoxTipo"))
+                                        {
+                                            string[] words;
+                                            words = row["textComboBoxConcepto"].ToString().Split(' ');
+                                            if (!words[2].ToString().Equals(""))
+                                            {
+                                                filtroConSinFiltroAvanzado += $" AND P.{words[0].ToString()} {words[1].ToString()} '{words[2].ToString()}'";
+                                            }
+                                        }
+                                        else if (!row["concepto"].ToString().Equals("chkBoxImagen") || !row["concepto"].ToString().Equals("chkBoxTipo"))
+                                        {
+                                            filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}{row["textCantidad"].ToString()}";
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -3519,6 +3596,32 @@ namespace PuntoDeVentaV2
                         // Original
                         extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
                     }
+                    int doChecarFiltroDinamicoDelSisttema = 0;
+                    using (DataTable dtFiltrosAtSystem = cn.CargarDatos(cs.VerificarContenidoFiltroProducto(FormPrincipal.userID)))
+                    {
+                        foreach (DataRow drFiltrosAtSystem in dtFiltrosAtSystem.Rows)
+                        {
+                            int checkValue = 0;
+                            checkValue = Convert.ToInt32(drFiltrosAtSystem["checkBoxConcepto"].ToString());
+                            if (checkValue.Equals(1))
+                            {
+                                doChecarFiltroDinamicoDelSisttema = checkValue;
+                                break;
+                            }
+                            else
+                            {
+                                doChecarFiltroDinamicoDelSisttema = checkValue;
+                            }
+                        }
+                    }
+                    if (doChecarFiltroDinamicoDelSisttema.Equals(1))
+                    {
+                        ChecarFiltroDinamicoDelSistema();
+                    }
+                    else
+                    {
+                        extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                    }
                 }
 
                 string txtAndNumSearch = string.Empty;
@@ -3836,7 +3939,7 @@ namespace PuntoDeVentaV2
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
 
-                        ChecarFiltroDinamicoDelSistema();
+                        //ChecarFiltroDinamicoDelSistema();
 
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
@@ -3875,7 +3978,7 @@ namespace PuntoDeVentaV2
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
 
-                        ChecarFiltroDinamicoDelSistema();
+                        //ChecarFiltroDinamicoDelSistema();
 
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
@@ -3887,18 +3990,22 @@ namespace PuntoDeVentaV2
             {
                 if (busqueda == "")
                 {
-                    extra = busqueda;
+                    //ChecarFiltroDinamicoDelSistema();
+                    if (extra.Equals(""))
+                    {
+                        extra = busqueda;
+                    }
                     if (DGVProductos.RowCount <= 0)
                     {
                         if (!queryHeadAdvancedProveedor.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
+                            //filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
                             if (!queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+                                //filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
                             }
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
@@ -3915,7 +4022,7 @@ namespace PuntoDeVentaV2
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
 
-                        ChecarFiltroDinamicoDelSistema();
+                        //ChecarFiltroDinamicoDelSistema();
 
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
@@ -3924,16 +4031,24 @@ namespace PuntoDeVentaV2
                         if (!queryHeadAdvancedProveedor.Equals(""))
                         {
                             filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
+                            //filtroConSinFiltroAvanzado += extra;
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
                             if (!queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+                                filtroConSinFiltroAvanzado += queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
                             }
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                if (filtroConSinFiltroAvanzado.Equals(""))
+                                {
+                                    filtroConSinFiltroAvanzado += queryHead + queryWhereAnd + extra;
+                                }
+                                else if (!filtroConSinFiltroAvanzado.Equals(""))
+                                {
+                                    filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                                }
                             }
                         }
 
@@ -3946,13 +4061,14 @@ namespace PuntoDeVentaV2
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
 
-                        ChecarFiltroDinamicoDelSistema();
+                        //ChecarFiltroDinamicoDelSistema();
 
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
                 }
                 else if (busqueda != "")
                 {
+                    //ChecarFiltroDinamicoDelSistema();
                     if (DGVProductos.RowCount >= 0 && clickBoton == 0)
                     {
                         if (!queryHeadAdvancedProveedor.Equals(""))
@@ -3988,8 +4104,6 @@ namespace PuntoDeVentaV2
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
 
-                        ChecarFiltroDinamicoDelSistema();
-
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
                 }
@@ -4000,6 +4114,11 @@ namespace PuntoDeVentaV2
             {
                 if (busqueda == "")
                 {
+                    //ChecarFiltroDinamicoDelSistema();
+                    if (extra.Equals(""))
+                    {
+                        extra = busqueda;
+                    }
                     if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
                     {
                         if (!queryHeadAdvancedProveedor.Equals(""))
@@ -4027,13 +4146,14 @@ namespace PuntoDeVentaV2
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
 
-                        ChecarFiltroDinamicoDelSistema();
+                        //ChecarFiltroDinamicoDelSistema();
 
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
                 }
                 else if (busqueda != "")
                 {
+                    //ChecarFiltroDinamicoDelSistema();
                     if (DGVProductos.RowCount >= 0)
                     {
                         if (!queryHeadAdvancedProveedor.Equals(""))
@@ -4068,7 +4188,7 @@ namespace PuntoDeVentaV2
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
 
-                        ChecarFiltroDinamicoDelSistema();
+                        //ChecarFiltroDinamicoDelSistema();
 
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
