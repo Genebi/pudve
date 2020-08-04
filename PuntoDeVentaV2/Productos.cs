@@ -19,6 +19,21 @@ namespace PuntoDeVentaV2
                 line = string.Empty,
                 fileReportOrder = string.Empty;
 
+        string queryHead = string.Empty,
+                   queryWhereAnd = string.Empty,
+                   nameTag = string.Empty,
+                   queryHeadAdvancedProveedor = string.Empty,
+                   queryAndAdvancedProveedor = string.Empty,
+                   queryHeadAdvancedOtherTags = string.Empty,
+                   queryResultOtherTags = string.Empty,
+                   queryAndAdvancedOtherTagsBegin = string.Empty,
+                   queryAndAdvancedOtherTags = string.Empty,
+                   queryAndAdvancedOtherTagsEnd = string.Empty,
+                   buscarCodigosBarraExtra = string.Empty,
+                   nuevosCodigos = string.Empty,
+                   theNumberAsAString = string.Empty;
+
+
         bool isEmptyAuxWord,
             isEmptySetUpVariable,
             isEmptySetUpDinamicos;
@@ -3126,8 +3141,14 @@ namespace PuntoDeVentaV2
             string queryFiltroProducto = string.Empty, querySearchResult = string.Empty;
 
             queryFiltroProducto = cs.VerificarContenidoFiltroProducto(FormPrincipal.userID);
-
-            querySearchResult += filtroConSinFiltroAvanzado;
+            if (extra.Equals("") && extra2.Equals(""))
+            {
+                querySearchResult = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+            }
+            else if (!extra.Equals("") && !extra2.Equals(""))
+            {
+                querySearchResult += filtroConSinFiltroAvanzado;
+            }
 
             using (DataTable dtFiltroProducto = cn.CargarDatos(queryFiltroProducto))
             {
@@ -3425,20 +3446,6 @@ namespace PuntoDeVentaV2
             int idProducto = 0, 
                 countSetUpDinamicos = 0,
                 contadorTmp = 0;
-
-            string queryHead = string.Empty,
-                   queryWhereAnd = string.Empty,
-                   nameTag = string.Empty,
-                   queryHeadAdvancedProveedor = string.Empty,
-                   queryAndAdvancedProveedor = string.Empty,
-                   queryHeadAdvancedOtherTags = string.Empty,
-                   queryResultOtherTags = string.Empty,
-                   queryAndAdvancedOtherTagsBegin = string.Empty,
-                   queryAndAdvancedOtherTags = string.Empty,
-                   queryAndAdvancedOtherTagsEnd = string.Empty,
-                   buscarCodigosBarraExtra = string.Empty,
-                   nuevosCodigos = string.Empty,
-                   theNumberAsAString = string.Empty;
 
             long theNumber;
 
@@ -3905,6 +3912,32 @@ namespace PuntoDeVentaV2
             {
                 extra = string.Empty;
                 extra2 = string.Empty;
+                int doChecarFiltroDinamicoDelSisttema = 0;
+                using (DataTable dtFiltrosAtSystem = cn.CargarDatos(cs.VerificarContenidoFiltroProducto(FormPrincipal.userID)))
+                {
+                    foreach (DataRow drFiltrosAtSystem in dtFiltrosAtSystem.Rows)
+                    {
+                        int checkValue = 0;
+                        checkValue = Convert.ToInt32(drFiltrosAtSystem["checkBoxConcepto"].ToString());
+                        if (checkValue.Equals(1))
+                        {
+                            doChecarFiltroDinamicoDelSisttema = checkValue;
+                            break;
+                        }
+                        else
+                        {
+                            doChecarFiltroDinamicoDelSisttema = checkValue;
+                        }
+                    }
+                }
+                if (doChecarFiltroDinamicoDelSisttema.Equals(1))
+                {
+                    ChecarFiltroDinamicoDelSistema();
+                }
+                else
+                {
+                    extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                }
             }
             // Status 2 es poner el listado en todos los 
             // productos y servecios sin importar es activo o desactivado
