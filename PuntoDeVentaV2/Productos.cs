@@ -3640,7 +3640,7 @@ namespace PuntoDeVentaV2
                 {
                     txtAndNumSearch += txtBusquedaString.Trim();
                 }
-                else if (!numBusqueda.Equals(""))
+                if (!numBusqueda.Equals(""))
                 {
                     txtAndNumSearch += " " + numBusqueda.Trim();
                 }
@@ -3899,16 +3899,15 @@ namespace PuntoDeVentaV2
                             //extra2 = string.Empty;
                         }
                     }
-                    if (!noEcontradoCodBar.Count.Equals(0))
-                    {
-                        string mensajeNoEncontrado = string.Empty;
-                        for (int i = 0; i < noEcontradoCodBar.Count; i++)
-                        {
-                            mensajeNoEncontrado += noEcontradoCodBar[i] + "\n";
-                        }
-                        MessageBox.Show("Cóodigo proporcionado:\n" + mensajeNoEncontrado + "No esta registrado ó no es valido su formato.", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
-                    }
+                    //if (!noEcontradoCodBar.Count.Equals(0))
+                    //{
+                    //    string mensajeNoEncontrado = string.Empty;
+                    //    for (int i = 0; i < noEcontradoCodBar.Count; i++)
+                    //    {
+                    //        mensajeNoEncontrado += noEcontradoCodBar[i] + "\n";
+                    //    }
+                    //    MessageBox.Show("Cóodigo proporcionado:\n" + mensajeNoEncontrado + "No esta registrado ó no es valido su formato.", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //}
                 }
             }
             else if (string.IsNullOrWhiteSpace(busqueda))
