@@ -3627,7 +3627,10 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                        if (extra.Equals("") && extra2.Equals(""))
+                        {
+                            extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                        }
                     }
                 }
 
