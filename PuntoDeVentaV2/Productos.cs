@@ -3451,6 +3451,9 @@ namespace PuntoDeVentaV2
 
             dictionaryLoad();
 
+            extra = string.Empty;
+            extra2 = string.Empty;
+
             if (setUpDinamicos.Count > 0)
             {
                 queryHead = "SELECT DISTINCT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID ";
@@ -3570,6 +3573,7 @@ namespace PuntoDeVentaV2
                                                 txtBusquedaString = auxTxtBusquedaString;
                                                 //MessageBox.Show("txtBusquedaString: " + txtBusquedaString + "\nauxTxtBusquedaString: " + auxTxtBusquedaString);
                                                 //txtBusquedaString.Replace(item.ToString(), "");
+                                                break;
                                             }
                                         }
                                     }
@@ -3741,26 +3745,34 @@ namespace PuntoDeVentaV2
                                     buscarCodigosBarraExtra += palabras[1].ToString() + " ";
                                 }
                             }
-                            extra = string.Empty;
-                            // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
-                            // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
-                            extra2 = string.Empty;
-                            contadorTmp = 1;
-                            var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
-                            extra += "AND P.ID IN (";
-                            foreach (var producto in listaCoincidencias)
+                            bool isEmptyLista;
+                            using (var dictionaryEnum = listaCoincidenciasAux.GetEnumerator())
                             {
-                                extra += $"{producto.Key},";
-                                extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
-                                contadorTmp++;
+                                isEmptyLista = !dictionaryEnum.MoveNext();
                             }
-                            // Eliminamos el último caracter que es una coma (,)
-                            extra = extra.Remove(extra.Length - 1);
-                            extra += ") ORDER BY CASE P.ID ";
-                            extra2 += "END ";
-                            // Concatenamos las dos variables para formar por completo la sentencia sql
-                            extra += extra2;
-                            //listaCoincidenciasAux.Clear();
+                            if (!isEmptyLista)
+                            {
+                                extra = string.Empty;
+                                // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
+                                // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
+                                extra2 = string.Empty;
+                                contadorTmp = 1;
+                                var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
+                                extra += "AND P.ID IN (";
+                                foreach (var producto in listaCoincidencias)
+                                {
+                                    extra += $"{producto.Key},";
+                                    extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
+                                    contadorTmp++;
+                                }
+                                // Eliminamos el último caracter que es una coma (,)
+                                extra = extra.Remove(extra.Length - 1);
+                                extra += ") ORDER BY CASE P.ID ";
+                                extra2 += "END ";
+                                // Concatenamos las dos variables para formar por completo la sentencia sql
+                                extra += extra2;
+                                //listaCoincidenciasAux.Clear();
+                            }
                         }
                         else if (isEmpty && resultadoCodBarClavInt.Length == 0)
                         {
@@ -3865,6 +3877,7 @@ namespace PuntoDeVentaV2
                     theNumber = 0;
                     string[] nvoCodBar;
                     nvoCodBar = nuevosCodigos.Trim().Split(' ');
+                    noEcontradoCodBar.Clear();
                     foreach (var item in nvoCodBar)
                     {
                         theNumberAsAString = item;
