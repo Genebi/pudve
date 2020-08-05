@@ -34,6 +34,7 @@
             this.cbFiltro = new System.Windows.Forms.ComboBox();
             this.cbOperadores = new System.Windows.Forms.ComboBox();
             this.txtCantidad = new System.Windows.Forms.TextBox();
+            this.cbFiltroDinamico = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // primerSeparador
@@ -114,11 +115,22 @@
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidad.Visible = false;
             // 
+            // cbFiltroDinamico
+            // 
+            this.cbFiltroDinamico.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFiltroDinamico.FormattingEnabled = true;
+            this.cbFiltroDinamico.Location = new System.Drawing.Point(114, 92);
+            this.cbFiltroDinamico.Name = "cbFiltroDinamico";
+            this.cbFiltroDinamico.Size = new System.Drawing.Size(150, 21);
+            this.cbFiltroDinamico.TabIndex = 125;
+            this.cbFiltroDinamico.Visible = false;
+            // 
             // FiltroRevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 196);
+            this.Controls.Add(this.cbFiltroDinamico);
             this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.cbOperadores);
             this.Controls.Add(this.cbFiltro);
@@ -145,5 +157,6 @@
         private System.Windows.Forms.ComboBox cbFiltro;
         private System.Windows.Forms.ComboBox cbOperadores;
         private System.Windows.Forms.TextBox txtCantidad;
+        private System.Windows.Forms.ComboBox cbFiltroDinamico;
     }
 }
