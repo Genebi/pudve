@@ -424,6 +424,7 @@ namespace PuntoDeVentaV2
                     {
                         AbrirVentanaVenta();
                         CargarDatos();
+                        btnUltimaPagina.PerformClick();
                     };
 
                     venta.Show();
@@ -809,6 +810,8 @@ namespace PuntoDeVentaV2
                 fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
 
                 CargarDatos();
+
+                existenProductos = mb.TieneProductos();
 
                 recargarDatos = false;
 
