@@ -492,7 +492,7 @@ namespace PuntoDeVentaV2
             player.Play();
         }
 
-        private void AgregarProducto(string[] datosProducto)
+        private void AgregarProducto(string[] datosProducto, decimal cnt = 1)
         {
             if (DGVentas.Rows.Count == 0 && buscarvVentaGuardada == ".#")
             {
@@ -507,7 +507,7 @@ namespace PuntoDeVentaV2
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]))
                     {
-                        decimal sumar = 1;
+                        decimal sumar = cnt;// 1;
 
                         if (cantidadExtra > 0)
                         {
@@ -520,6 +520,11 @@ namespace PuntoDeVentaV2
                             if (Convert.ToDecimal(nudCantidadPS.Value) > 0)
                             {
                                 sumar = Convert.ToDecimal(nudCantidadPS.Value);
+                            }
+
+                            if (cnt > 1)
+                            {
+                                sumar = cnt;
                             }
 
                             nudCantidadPS.Value = 1;
@@ -587,12 +592,26 @@ namespace PuntoDeVentaV2
 
                 if (!existe)
                 {
-                    AgregarProductoLista(datosProducto);
+                    var ignorar = false;
+
+                    if (cnt > 1)
+                    {
+                        ignorar = true;
+                    }
+
+                    AgregarProductoLista(datosProducto, cnt, ignorar);
                 }
             }            
             else
             {
-                AgregarProductoLista(datosProducto);
+                var ignorar = false;
+
+                if (cnt > 1)
+                {
+                    ignorar = true;
+                } 
+
+                AgregarProductoLista(datosProducto, cnt, ignorar);
             }
 
             CalculoMayoreo();
@@ -2209,7 +2228,8 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    AgregarProductoLista(datosProducto, cantidad, true);
+                    //AgregarProductoLista(datosProducto, cantidad, true);
+                    AgregarProducto(datosProducto, cantidad);
                 }
             }
 
