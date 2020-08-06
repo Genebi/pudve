@@ -104,6 +104,7 @@
             this.cbOperadores.Size = new System.Drawing.Size(150, 25);
             this.cbOperadores.TabIndex = 123;
             this.cbOperadores.Visible = false;
+            this.cbOperadores.SelectionChangeCommitted += new System.EventHandler(this.cbOperadores_SelectionChangeCommitted);
             // 
             // txtCantidad
             // 
@@ -130,13 +131,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 196);
-            this.Controls.Add(this.cbFiltroDinamico);
-            this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.cbOperadores);
             this.Controls.Add(this.cbFiltro);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.cbFiltroDinamico);
+            this.Controls.Add(this.txtCantidad);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

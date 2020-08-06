@@ -210,6 +210,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ListarProveedores(int idUser)
+        {
+            var consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {idUser}";
+
+            return consulta;
+        }
+
         public string verificarExistenciaUusario(int idUsuario)
         {
             var consulta = $"SELECT * FROM Configuracion WHERE IDUsuario = '{idUsuario}'";
@@ -328,6 +335,13 @@ namespace PuntoDeVentaV2
             string consulta = string.Empty;
 
             consulta = $"UPDATE DetallesProductoGenerales SET IDDetalleGral = '{datos[3]}' WHERE IDProducto = '{datos[0]}' AND IDUsuario = '{datos[1]}' AND panelContenido = '{datos[2]}'";
+
+            return consulta;
+        }
+
+        public string ListarDetalleGeneral(int idUser, string chkNombre)
+        {
+            var consulta = $"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUser} AND ChckName = '{chkNombre}'";
 
             return consulta;
         }
@@ -859,6 +873,13 @@ namespace PuntoDeVentaV2
         public string VerificarTextoConceptoFiltroDinamico(string searchConcepto, int idUser)
         {
             var consulta = $"SELECT * FROM FiltroDinamico WHERE concepto = 'chk{searchConcepto}' AND IDUsuario = '{idUser}'";
+
+            return consulta;
+        }
+
+        public string LlenarFiltroDinamicoComboBox(int idUser)
+        {
+            var consulta = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = {idUser}";
 
             return consulta;
         }

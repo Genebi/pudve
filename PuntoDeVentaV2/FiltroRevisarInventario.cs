@@ -12,6 +12,10 @@ namespace PuntoDeVentaV2
 {
     public partial class FiltroRevisarInventario : Form
     {
+        // Instanciar clase Conexion y Consultas
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+
         // Para el filtro de inventario
         #region Variables para el Filtro de Inventario
         public string tipoFiltro { get; set; }
@@ -21,6 +25,7 @@ namespace PuntoDeVentaV2
         Dictionary<string, string> filtros = new Dictionary<string, string>();
         Dictionary<string, string> operadores = new Dictionary<string, string>();
         Dictionary<string, string> filtroDinamico = new Dictionary<string, string>();
+        List<string> strFiltroDinamico = new List<string>();
         #endregion Fin de Variables para el Filtro de Invetario
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
@@ -64,7 +69,18 @@ namespace PuntoDeVentaV2
             operadores.Add("<", "Menor que");
 
             filtroDinamico.Add("NA", "Selecciona filtro...");
-            
+
+            using (DataTable dtFiltroDinamico = cn.CargarDatos(cs.LlenarFiltroDinamicoComboBox(FormPrincipal.userID)))
+            {
+                if (!dtFiltroDinamico.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drFiltroDinamico in dtFiltroDinamico.Rows)
+                    {
+                        filtroDinamico.Add(drFiltroDinamico["concepto"].ToString(), drFiltroDinamico["concepto"].ToString().Remove(0, 3));
+                    }
+                }
+            }
+
             cbFiltro.DataSource = filtros.ToArray();
             cbFiltro.DisplayMember = "Value";
             cbFiltro.ValueMember = "Key";
@@ -135,7 +151,6 @@ namespace PuntoDeVentaV2
             }
             else if (filtro == "Filtros")
             {
-
                 cbOperadores.DataSource = filtroDinamico.ToArray();
                 cbOperadores.DisplayMember = "Value";
                 cbOperadores.ValueMember = "Key";
@@ -143,6 +158,75 @@ namespace PuntoDeVentaV2
                 cbOperadores.Visible = true;
                 cbFiltroDinamico.Visible = true;
                 txtCantidad.Visible = false;
+            }
+        }
+
+        private void cbOperadores_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var filtroDinamico = cbOperadores.SelectedValue.ToString();
+            string filtroSeleccionado = string.Empty;
+
+            strFiltroDinamico.Clear();
+
+            if (!filtroDinamico.Equals("NA"))
+            {
+                if (!filtroDinamico.Equals(">="))
+                {
+                    if (!filtroDinamico.Equals("<="))
+                    {
+                        if (!filtroDinamico.Equals("=="))
+                        {
+                            if (!filtroDinamico.Equals(">"))
+                            {
+                                if (!filtroDinamico.Equals("<"))
+                                {
+                                    filtroSeleccionado = filtroDinamico.Remove(0, 3);
+
+                                    strFiltroDinamico.Add("Selecciona " + filtroSeleccionado + "...");
+
+                                    if (filtroSeleccionado.Equals("Proveedor"))
+                                    {
+                                        using (DataTable dtStrFiltroDinamico = cn.CargarDatos(cs.ListarProveedores(FormPrincipal.userID)))
+                                        {
+                                            if (!dtStrFiltroDinamico.Rows.Count.Equals(0))
+                                            {
+                                                foreach (DataRow drStrFiltroDinamico in dtStrFiltroDinamico.Rows)
+                                                {
+                                                    strFiltroDinamico.Add(drStrFiltroDinamico["Nombre"].ToString());
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (!filtroSeleccionado.Equals("Proveedor"))
+                                    {
+                                        using (DataTable dtStrFiltroDinamico = cn.CargarDatos(cs.ListarDetalleGeneral(FormPrincipal.userID, filtroSeleccionado)))
+                                        {
+                                            if (!dtStrFiltroDinamico.Rows.Count.Equals(0))
+                                            {
+                                                foreach (DataRow drStrFiltroDinamico in dtStrFiltroDinamico.Rows)
+                                                {
+                                                    strFiltroDinamico.Add(drStrFiltroDinamico["Descripcion"].ToString());
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (cbFiltroDinamico.Visible.Equals(true))
+                                    {
+                                        cbFiltroDinamico.DataSource = strFiltroDinamico.ToArray();
+                                    }   
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (filtroDinamico.Equals("NA"))
+            {
+                if (cbFiltroDinamico.Visible.Equals(true))
+                {
+                    cbFiltroDinamico.DataSource = strFiltroDinamico.ToArray();
+                }
             }
         }
 
