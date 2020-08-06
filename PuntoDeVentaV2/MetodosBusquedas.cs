@@ -1946,6 +1946,29 @@ namespace PuntoDeVentaV2
             return lista;
         }
 
+        public Dictionary<int, string> ProductosGuardados(int idVenta)
+        {
+            var datos = new Dictionary<int, string>();
+
+            DatosConexion($"SELECT * FROM ProductosVenta WHERE IDVenta = {idVenta}");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
+                    var descuento = dr.GetValue(dr.GetOrdinal("descuento")).ToString();
+
+                    datos.Add(idProducto, descuento);
+                }
+            }
+
+            dr.Close();
+
+            return datos;
+        }
 
         public DateTime ObtenerFechaVentaProducto(int idVenta)
         {

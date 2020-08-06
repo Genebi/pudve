@@ -492,7 +492,7 @@ namespace PuntoDeVentaV2
             player.Play();
         }
 
-        private void AgregarProducto(string[] datosProducto)
+        private void AgregarProducto(string[] datosProducto, decimal cnt = 1)
         {
             if (DGVentas.Rows.Count == 0 && buscarvVentaGuardada == ".#")
             {
@@ -507,7 +507,7 @@ namespace PuntoDeVentaV2
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]))
                     {
-                        decimal sumar = 1;
+                        decimal sumar = cnt;// 1;
 
                         if (cantidadExtra > 0)
                         {
@@ -520,6 +520,11 @@ namespace PuntoDeVentaV2
                             if (Convert.ToDecimal(nudCantidadPS.Value) > 0)
                             {
                                 sumar = Convert.ToDecimal(nudCantidadPS.Value);
+                            }
+
+                            if (cnt > 1)
+                            {
+                                sumar = cnt;
                             }
 
                             nudCantidadPS.Value = 1;
@@ -587,12 +592,26 @@ namespace PuntoDeVentaV2
 
                 if (!existe)
                 {
-                    AgregarProductoLista(datosProducto);
+                    var ignorar = false;
+
+                    if (cnt > 1)
+                    {
+                        ignorar = true;
+                    }
+
+                    AgregarProductoLista(datosProducto, cnt, ignorar);
                 }
             }            
             else
             {
-                AgregarProductoLista(datosProducto);
+                var ignorar = false;
+
+                if (cnt > 1)
+                {
+                    ignorar = true;
+                } 
+
+                AgregarProductoLista(datosProducto, cnt, ignorar);
             }
 
             CalculoMayoreo();
@@ -2103,6 +2122,18 @@ namespace PuntoDeVentaV2
                 {
                     if (mostrarVenta > 0)
                     {
+                        // Verifica si los productos guardados tienen descuento
+                        var datos = mb.ProductosGuardados(mostrarVenta);
+
+                        if (datos.Count > 0)
+                        {
+                            if (!ComprobarDescuento(datos))
+                            {
+                                mostrarVenta = 0;
+                                return;
+                            }
+                        }
+
                         CargarVentaGuardada();
 
                         ventasGuardadas.Add(mostrarVenta);
@@ -2170,12 +2201,15 @@ namespace PuntoDeVentaV2
                             var tipoDescuento = Convert.ToInt32(info[4]);
                             var cantidadDescuento = 0f;
 
-                            if (tipoDescuento == 4)
+                            if (tipoDescuento == 3)
                             {
                                 // Descuento cliente
+                                var cantidadTmp = info[3].Split('-');
+                                cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
+                                cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
 
                             }
-                            else if (tipoDescuento == 2 || tipoDescuento == 3)
+                            else if (tipoDescuento == 2)
                             {
                                 // Descuento directo
                                 var cantidadTmp = info[3].Split('-');
@@ -2194,7 +2228,8 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    AgregarProductoLista(datosProducto, cantidad, true);
+                    //AgregarProductoLista(datosProducto, cantidad, true);
+                    AgregarProducto(datosProducto, cantidad);
                 }
             }
 
@@ -2206,6 +2241,32 @@ namespace PuntoDeVentaV2
                 txtDescuentoGeneral.Text = resultado.ToString();
                 DescuentoGeneral();
             }
+        }
+
+        private bool ComprobarDescuento(Dictionary<int, string> guardados)
+        {
+            bool respuesta = true;
+
+            foreach (DataGridViewRow fila in DGVentas.Rows)
+            {
+                var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value.ToString());
+
+                if (guardados.ContainsKey(idProducto))
+                {
+                    var nombre = fila.Cells["Descripcion"].Value.ToString();
+                    var descuentoListado = fila.Cells["Descuento"].Value.ToString();
+                    var descuentoGuardado = guardados[idProducto];
+
+                    if (!descuentoListado.Equals("0.00") || !descuentoGuardado.Equals("0.00"))
+                    {
+                        respuesta = false;
+                        MessageBox.Show($"No se puede cargar la venta guardada porque\nel siguiente producto ya tiene un descuento\n\n{nombre}", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                    }
+                }
+            }
+
+            return respuesta;
         }
 
         private void Ventas_FormClosing(object sender, FormClosingEventArgs e)
@@ -2998,7 +3059,7 @@ namespace PuntoDeVentaV2
                                 {
                                     string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                     CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
-                                };
+                                }
 
                                 if (cantidad <= 0)
                                 {
