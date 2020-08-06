@@ -481,7 +481,7 @@ namespace PuntoDeVentaV2
 
             if (contadorMetodoTablas == 0)
             {
-                RevisarTablas();
+                //RevisarTablas();
                 contadorMetodoTablas = 1;
             }
 
