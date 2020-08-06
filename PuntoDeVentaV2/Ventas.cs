@@ -2253,12 +2253,14 @@ namespace PuntoDeVentaV2
 
                 if (guardados.ContainsKey(idProducto))
                 {
+                    var nombre = fila.Cells["Descripcion"].Value.ToString();
                     var descuentoListado = fila.Cells["Descuento"].Value.ToString();
                     var descuentoGuardado = guardados[idProducto];
 
                     if (!descuentoListado.Equals("0.00") || !descuentoGuardado.Equals("0.00"))
                     {
                         respuesta = false;
+                        MessageBox.Show($"No se puede cargar la venta guardada porque\nel siguiente producto ya tiene un descuento\n\n{nombre}", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     }
                 }
