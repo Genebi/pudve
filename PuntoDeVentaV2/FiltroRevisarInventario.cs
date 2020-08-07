@@ -99,6 +99,31 @@ namespace PuntoDeVentaV2
                 operadorFiltro = "NA";
                 cantidadFiltro = 0;
             }
+            else if (filtro == "Filtros")
+            {
+                var fieldTable = cbOperadores.SelectedValue.ToString();
+                var strFiltro = cbFiltroDinamico.SelectedItem.ToString();
+
+                if (fieldTable == "NA")
+                {
+                    MessageBox.Show("Seleccione una opción de las condiciones para el filtro", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cbOperadores.Focus();
+                    return;
+                }
+
+                string palabra = "Selecciona";
+                bool foundWord = strFiltro.Contains(palabra);
+
+                if (foundWord)
+                {
+                    MessageBox.Show("Seleccione una opción de la\nlista de Fitros comó Proveedor, etc;\nque estan en la lista deslegable", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cbFiltroDinamico.Focus();
+                    cbFiltroDinamico.DroppedDown = true;
+                    return;
+                }
+
+                operadorFiltro = fieldTable;
+            }
             else
             {
                 var operador = cbOperadores.SelectedValue.ToString();
@@ -109,6 +134,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Seleccione una opción de las condiciones para el filtro", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     cbOperadores.Focus();
+                    cbOperadores.DroppedDown = true;
                     return;
                 }
 
