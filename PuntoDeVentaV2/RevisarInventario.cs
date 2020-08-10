@@ -56,6 +56,8 @@ namespace PuntoDeVentaV2
         {
             var datosInventario = mb.DatosRevisionInventario();
 
+            listaProductos = new Dictionary<int, string>();
+
             // Si existe un registro en la tabla obtiene los datos de lo contrario hace un insert para
             // que exista la configuracion necesaria
             if (datosInventario.Length > 0)
@@ -102,12 +104,11 @@ namespace PuntoDeVentaV2
                         var consulta = cs.CantidadListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
                     }
                 }
+
                 //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
 
                 buscarCodigoBarras();
             }
-
-            listaProductos = new Dictionary<int, string>();
         }
 
         private string AplicarFiltro(int idProducto)
