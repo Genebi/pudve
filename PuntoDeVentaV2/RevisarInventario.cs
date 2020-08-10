@@ -29,6 +29,7 @@ namespace PuntoDeVentaV2
         // Variables para cuando el filtro es diferente a la revision normal
         string tipoFiltro = string.Empty;
         string operadorFiltro = string.Empty;
+        string strFiltroDinamico = string.Empty;
         int cantidadFiltro = 0;
         int cantidadRegistros = 0;
         int cantidadRegistrosAux = 0;
@@ -41,7 +42,14 @@ namespace PuntoDeVentaV2
 
             tipoFiltro = datos[0];
             operadorFiltro = datos[1];
-            cantidadFiltro = Convert.ToInt32(datos[2]);
+            if (tipoFiltro.Equals("Filtros"))
+            {
+                strFiltroDinamico = datos[2];
+            }
+            else
+            {
+                cantidadFiltro = Convert.ToInt32(datos[2]);
+            }
         }
 
         private void RevisarInventario_Load(object sender, EventArgs e)
@@ -78,8 +86,22 @@ namespace PuntoDeVentaV2
             // Ejecutar busqueda de productos cuando hay filtro
             if (tipoFiltro != "Normal")
             {
-                var consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro}";
-                cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                if (tipoFiltro != "Filtros")
+                {
+                    var consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro}";
+                    cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                }
+                else
+                {
+                    if (operadorFiltro.Equals("chkProveedor"))
+                    {
+                        var consulta = cs.CantidadListaProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1);
+                    }
+                    else
+                    {
+                        var consulta = cs.CantidadListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
+                    }
+                }
                 //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
 
                 buscarCodigoBarras();
@@ -94,7 +116,21 @@ namespace PuntoDeVentaV2
 
             if (tipoFiltro != "Normal")
             {
-                consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND ID > {idProducto} ORDER BY ID ASC LIMIT 1";
+                if (tipoFiltro != "Filtros")
+                {
+                    consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND ID > {idProducto} ORDER BY ID ASC LIMIT 1";
+                }
+                else
+                {
+                    if (operadorFiltro.Equals("chkProveedor"))
+                    {
+                        consulta = cs.ListarProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1);
+                    }
+                    else
+                    {
+                        consulta = cs.ListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
+                    }
+                }
             }
 
             return consulta;

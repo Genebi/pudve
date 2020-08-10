@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
         {
 
         }
+
         public string Productos(int id)
         {
             return $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path', P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{id}'";
@@ -59,6 +60,38 @@ namespace PuntoDeVentaV2
         public string GuardarNvaImagen(int idProducto, string imgProducto)
         {
             string consulta = $"UPDATE Productos SET ProdImage = '{imgProducto}' WHERE ID = '{idProducto}'";
+
+            return consulta;
+        }
+
+        public string ListarProductosProveedor(int idUser, string NombreProveedor, int statusProducto)
+        {
+            // Script para INNER JOIN de Proveedores
+            var consulta = $"SELECT DISTINCT Prod.* FROM Productos AS Prod INNER JOIN Usuarios AS Usr ON Prod.IDUsuario = Usr.ID INNER JOIN DetallesProducto AS DetailProd ON Prod.ID = DetailProd.IDProducto INNER JOIN Proveedores AS Prov ON Prov.ID = DetailProd.IDProveedor WHERE Prov.IDUsuario = '{idUser}' AND Prov.Nombre = '{NombreProveedor}' AND Prod.Status = '{statusProducto}'";
+
+            return consulta;
+        }
+
+        public string CantidadListaProductosProveedor(int idUser, string NombreProveedor, int statusProducto)
+        {
+            // Script para INNER JOIN de Proveedores
+            var consulta = $"SELECT COUNT(Prod.ID) AS Total FROM Productos AS Prod INNER JOIN Usuarios AS Usr ON Prod.IDUsuario = Usr.ID INNER JOIN DetallesProducto AS DetailProd ON Prod.ID = DetailProd.IDProducto INNER JOIN Proveedores AS Prov ON Prov.ID = DetailProd.IDProveedor WHERE Prov.IDUsuario = '{idUser}' AND Prov.Nombre = '{NombreProveedor}' AND Prod.Status = '{statusProducto}' AND Prod.Tipo = 'P'";
+
+            return consulta;
+        }
+
+        public string ListarProductosConceptoDinamico(int idUser, string ConceptoDinamico, int statusProducto)
+        {
+            // Script para INNER JOIN de Detalle Dinamico
+            var consulta = $"SELECT DISTINCT Prod.* FROM Productos AS Prod INNER JOIN Usuarios AS Usr ON Prod.IDUsuario = Usr.ID INNER JOIN DetallesProductoGenerales AS DetailGralProd ON Prod.ID = DetailGralProd.IDProducto INNER JOIN DetalleGeneral AS DetailGral ON DetailGralProd.IDDetalleGral = DetailGral.ID WHERE DetailGral.IDUsuario = '{idUser}' AND DetailGral.Descripcion = '{ConceptoDinamico}' AND Prod.Status = '{statusProducto}'";
+
+            return consulta;
+        }
+
+        public string CantidadListarProductosConceptoDinamico(int idUser, string ConceptoDinamico, int statusProducto)
+        {
+            // Script para INNER JOIN de Detalle Dinamico
+            var consulta = $"SELECT COUNT(Prod.ID) AS Total FROM Productos AS Prod INNER JOIN Usuarios AS Usr ON Prod.IDUsuario = Usr.ID INNER JOIN DetallesProductoGenerales AS DetailGralProd ON Prod.ID = DetailGralProd.IDProducto INNER JOIN DetalleGeneral AS DetailGral	ON DetailGralProd.IDDetalleGral = DetailGral.ID	WHERE DetailGral.IDUsuario = '{idUser}' AND DetailGral.Descripcion = '{ConceptoDinamico}'	AND Prod.Status = '{statusProducto}' AND Prod.Tipo = 'P'";
 
             return consulta;
         }

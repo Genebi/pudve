@@ -21,6 +21,7 @@ namespace PuntoDeVentaV2
         public string tipoFiltro { get; set; }
         public string operadorFiltro { get; set; }
         public int cantidadFiltro { get; set; }
+        public string textoFiltroDinamico { get; set; }
 
         Dictionary<string, string> filtros = new Dictionary<string, string>();
         Dictionary<string, string> operadores = new Dictionary<string, string>();
@@ -123,6 +124,7 @@ namespace PuntoDeVentaV2
                 }
 
                 operadorFiltro = fieldTable;
+                textoFiltroDinamico = strFiltro;
             }
             else
             {
