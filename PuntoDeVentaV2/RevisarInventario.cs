@@ -98,10 +98,12 @@ namespace PuntoDeVentaV2
                     if (operadorFiltro.Equals("chkProveedor"))
                     {
                         var consulta = cs.CantidadListaProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1);
+                        cantidadRegistros = mb.CantidadFiltroInventario(consulta);
                     }
                     else
                     {
                         var consulta = cs.CantidadListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
+                        cantidadRegistros = mb.CantidadFiltroInventario(consulta);
                     }
                 }
 
