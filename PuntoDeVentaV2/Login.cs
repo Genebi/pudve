@@ -483,6 +483,7 @@ namespace PuntoDeVentaV2
             {
                 RevisarTablas();
                 contadorMetodoTablas = 1;
+                //MessageBox.Show("Hosting: " + Properties.Settings.Default.Hosting.ToString());
             }
 
             txtUsuario.Text = Properties.Settings.Default.Usuario;
