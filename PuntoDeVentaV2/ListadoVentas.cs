@@ -1057,6 +1057,8 @@ namespace PuntoDeVentaV2
             string folio = r_venta["Folio"].ToString();
             string serie = r_venta["Serie"].ToString();
             DateTime fecha = Convert.ToDateTime(r_venta["FechaOperacion"]);
+            decimal anticipo = Convert.ToDecimal(r_venta["Anticipo"]);
+
 
             /*string tipo_iva = "";
 
@@ -1178,25 +1180,6 @@ namespace PuntoDeVentaV2
 
                     decimal importe_v = Convert.ToDecimal(r_prodventa["Cantidad"]) * Convert.ToDecimal(r_prodventa["Precio"]);
 
-                    /*if (r_prodventa["descuento"].ToString() != "")
-                    {
-                        decimal desc = Convert.ToDecimal(r_prodventa["descuento"]);
-                        importe_v = importe_v - desc;
-                    }*/
-
-                    /*decimal tasa_cuota = 0.000000m;
-
-                    if (tipo_iva == "IVA16")
-                    {
-                        importe_v = importe_v / 1.16m;
-                        tasa_cuota = 0.160000m;
-                    }
-                    if (tipo_iva == "IVA8")
-                    {
-                        importe_v = importe_v / 1.08m;
-                        tasa_cuota = 0.080000m;
-                    }*/
-
                     concepto_v.Importe = importe_v;
 
                     suma_importe_concep += importe_v;
@@ -1209,9 +1192,14 @@ namespace PuntoDeVentaV2
                         if (tdesc > -1)
                         {
                             string d = r_prodventa["descuento"].ToString();
+                            int tam = r_prodventa["descuento"].ToString().Length;
+
                             string cdesc = d.Substring(0, tdesc);
+                            string porc_desc = d.Substring((tdesc + 2), (tam - (tdesc + 2)));
+
 
                             concepto_v.Descuento = Convert.ToDecimal(cdesc);
+                            concepto_v.PorcentajeDescuento = porc_desc;
                             suma_descuento += Convert.ToDecimal(cdesc);
                         }
                         else
@@ -1241,6 +1229,7 @@ namespace PuntoDeVentaV2
             comprobanteventa.Descuento = suma_descuento;
             comprobanteventa.Total = total_general;
             comprobanteventa.LugarExpedicion = lugar_expedicion;
+            comprobanteventa.Anticipo = anticipo;
 
 
 

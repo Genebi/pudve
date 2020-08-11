@@ -180,7 +180,13 @@
                     <td>@dos_decimales(@concepto.Importe)</td>
 
                     @if(Model.Descuento != 0M){
-                        <td>@dos_decimales(@concepto.Descuento)</td>
+                        <td>
+                            @if(concepto.PorcentajeDescuento != "" & concepto.PorcentajeDescuento != null){
+                                @concepto.PorcentajeDescuento <span> - </span>
+                            }
+                            
+                            @dos_decimales(@concepto.Descuento)
+                        </td>
                     }
                 </tr>
                 
@@ -237,6 +243,17 @@
                     <td></td>
                     <td>@dos_decimales(@Model.Descuento)</td>
                 </tr>
+            }
+            @if(Model.Anticipo != 0M){
+            <tr>
+                <td colspan="2"></td>
+                <td class="negritas">Anticipo</td>
+                <td>@dos_decimales(@Model.Anticipo)</td>
+
+                @if(Model.Descuento != 0M){
+                    <td></td>
+                }
+            </tr>
             }
             
             @if(cant_list > 0){

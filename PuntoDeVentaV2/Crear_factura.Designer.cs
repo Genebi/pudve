@@ -390,7 +390,9 @@
             // 
             // txt_rfc
             // 
+            this.txt_rfc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_rfc.Location = new System.Drawing.Point(92, 37);
+            this.txt_rfc.MaxLength = 13;
             this.txt_rfc.Name = "txt_rfc";
             this.txt_rfc.Size = new System.Drawing.Size(303, 22);
             this.txt_rfc.TabIndex = 3;

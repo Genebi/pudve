@@ -813,7 +813,8 @@ namespace PuntoDeVentaV2
                         string descuento_xproducto = "";
                         string descuento = r_productos["descuento"].ToString();
 
-                        if (Convert.ToDecimal(descuento) > 0) //!= ""
+                        //if (Convert.ToDecimal(descuento) > 0) //!= ""
+                        if (descuento != "" & descuento != "0" & descuento != "0.00")
                         {
                             var tip_desc = (descuento).IndexOf("-");
 
@@ -883,6 +884,7 @@ namespace PuntoDeVentaV2
                                 // Descuento en porcentaje
 
                                 string porc_desc = descuento_xproducto.Substring(0, (descuento_xproducto.Length - 1));
+
                                 decimal porcent_desc = Convert.ToDecimal(porc_desc);
 
                                 if (porcent_desc > 1)
@@ -890,7 +892,7 @@ namespace PuntoDeVentaV2
                                     porcent_desc = porcent_desc / 100;
                                 }
 
-                                decimal desc_encant = precio_unit * porcent_desc;
+                                decimal desc_encant = precio_unit * porcent_desc; 
                                 decimal pu_desc = precio_unit - dos_seis_decimales(desc_encant, 6);
                                 decimal nbase = pu_desc;
 
@@ -910,7 +912,7 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 // Descuento en cantidad $
-                                
+                       
                                 decimal descuento_xcantidad = Convert.ToDecimal(descuento_xproducto) / cantidad;
                                 
                                 decimal pu_desc = precio_unit - dos_seis_decimales(descuento_xcantidad, 2);

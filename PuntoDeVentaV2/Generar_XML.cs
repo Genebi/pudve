@@ -405,6 +405,7 @@ namespace PuntoDeVentaV2
                                     decimal nuevo_importe= recalcular_datos_impuestos(id_producto, seis_decimales(importe), cantidad, res[1], res[2]);
 
                                     concepto_traslado.Importe = nuevo_importe;
+                                    importe = nuevo_importe;
                                 }
                             }
 
@@ -1241,7 +1242,7 @@ namespace PuntoDeVentaV2
                 // Elimina la factura que fue creada
                 //error_eliminar_factura(id_factura, con_complemento_pg);
             }
-
+            
 
             return mensaje;
         }
