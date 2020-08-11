@@ -34,6 +34,8 @@ public partial class ComprobanteVenta
 
     private string lugarExpedicionField;
 
+    private decimal anticipoField;
+
 
 
 
@@ -265,6 +267,20 @@ public partial class ComprobanteVenta
             this.lugarExpedicionField = value;
         }
     }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public decimal Anticipo
+    {
+        get
+        {
+            return this.anticipoField;
+        }
+        set
+        {
+            this.anticipoField = value;
+        }
+    }
 }
 
 
@@ -406,6 +422,8 @@ public partial class ComprobanteConceptoVenta
 
     private bool descuentoFieldSpecified;
 
+    private string porcentajeDescuentoField;
+
     /// <remarks/>
     public ComprobanteConceptoImpuestosVenta Impuestos
     {
@@ -501,6 +519,18 @@ public partial class ComprobanteConceptoVenta
         set
         {
             this.descuentoFieldSpecified = value;
+        }
+    }
+
+    public string PorcentajeDescuento
+    {
+        get
+        {
+            return this.porcentajeDescuentoField;
+        }
+        set
+        {
+            this.porcentajeDescuentoField = value;
         }
     }
 }
