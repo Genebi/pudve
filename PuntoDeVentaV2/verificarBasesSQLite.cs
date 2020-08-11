@@ -25,7 +25,8 @@ namespace PuntoDeVentaV2
                nametable = string.Empty,
                querySQLite = string.Empty,
                queryForeignKey = string.Empty,
-               queryUpdateSQLite = string.Empty;
+               queryUpdateSQLite = string.Empty,
+               machineName = string.Empty;
 
         int count = 0,
             contadorMetodoTablas = 0,
@@ -33,10 +34,26 @@ namespace PuntoDeVentaV2
 
         bool IsEmpty,
              exist;
-        
+
+        private void RestoreNameMachine()
+        {
+            Properties.Settings.Default.Hosting = machineName;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        private void ResetNameMachine()
+        {
+            machineName = Properties.Settings.Default.Hosting;
+            Properties.Settings.Default.Hosting = string.Empty;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
         public verificarBasesSQLite()
         {
             InitializeComponent();
+            ResetNameMachine();
             createDirToBackUpDB();  // Se crea una carpeta si no existe
             doBackUpDB();           // Realizamos el copiado del archivo de un directorio a otro
             Shown += new EventHandler(verificarBasesSQLite_Shown);  // Agregamos un manejador del evento Shown de la forma
@@ -69,6 +86,7 @@ namespace PuntoDeVentaV2
             {
                 // Finally, handle the case where the operation 
                 // succeeded.
+                RestoreNameMachine();
                 this.Close();
             }
         }
