@@ -150,15 +150,47 @@ namespace PuntoDeVentaV2
 
             if (busqueda != string.Empty)
             {
+                List<string> listaCodigosBarras = new List<string>();
+
                 var aplicar = false;
 
                 var codigo = txtBoxBuscarCodigoBarras.Text;
 
                 if (tipoFiltro != "Normal")
                 {
-                    codigo = AplicarFiltro(idProductoAux);
+                    if (tipoFiltro.Equals("Filtros"))
+                    {
+                        if (operadorFiltro.Equals("chkProveedor"))
+                        {
+                            using (DataTable dtListaProductosProveedor = cn.CargarDatos(cs.ListarProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1)))
+                            {
+                                if (!dtListaProductosProveedor.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow drListaProductosProveedor in dtListaProductosProveedor.Rows)
+                                    {
+                                        if (!drListaProductosProveedor["CodigoBarras"].ToString().Equals("") || 
+                                            !drListaProductosProveedor["CodigoBarras"].ToString().Equals(null))
+                                        {
+                                            listaCodigosBarras.Add(drListaProductosProveedor["CodigoBarras"].ToString());
+                                        }
+                                        else
+                                        {
+                                            listaCodigosBarras.Add(drListaProductosProveedor["ClaveInterna"].ToString());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
 
-                    aplicar = true;
+                        }
+                    }
+                    else
+                    {
+                        codigo = AplicarFiltro(idProductoAux);
+                        aplicar = true;
+                    }
                 }
 
                 // Verifica si el codigo existe en algun producto y si pertenece al usuario
