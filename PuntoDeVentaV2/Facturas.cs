@@ -283,6 +283,13 @@ namespace PuntoDeVentaV2
                     {
                         Lista_complementos_pago ver_cpago = new Lista_complementos_pago(id_factura, id_empleado);
 
+                        ver_cpago.FormClosed += delegate
+                        {
+                            // Cargar consulta
+                            int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
+                            cargar_lista_facturas(tipo_factura);
+                        };
+
                         ver_cpago.ShowDialog();
                     }
                 }
@@ -361,8 +368,15 @@ namespace PuntoDeVentaV2
                     {
                         estatus = "ACUSE_";
                     }
+
                     
-                    inicia_descargaf(tipo, idf, estatus);
+                    // Elige carpeta donde guardar el comprimido
+                    if (elegir_carpeta_descarga.ShowDialog() == DialogResult.OK)
+                    {
+                        string carpeta = elegir_carpeta_descarga.SelectedPath;
+
+                        inicia_descargaf(tipo, idf, estatus, carpeta);
+                    }
                 }
 
                 // Cancelar factura
@@ -407,7 +421,7 @@ namespace PuntoDeVentaV2
                                     // Cambiar a canceladas
                                     cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1 WHERE ID='{id_factura}'");
 
-                                    if (t_comprobante == "P")
+                                   /* if (t_comprobante == "P")
                                     {
                                         cn.EjecutarConsulta($"UPDATE Facturas_complemento_pago SET cancelada=1 WHERE id_factura='{id_factura}'");
 
@@ -423,16 +437,22 @@ namespace PuntoDeVentaV2
                                         int cant_exi_complement = d_exi_complement.Rows.Count;
 
 
-                                        // Ver si el campo resta_pago se modifica una vez se timbra la factura rpincipal
+                                        // Ver si el campo resta_pago se modifica una vez se timbra la factura principal
                                         if(cant_exi_complement == 0)
                                         {
-                                            cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0, resta_cpago=0 WHERE ID='{id_factura_princ}'");
+                                            // Obtiene el total de la factura principal 
+                                            DataTable d_imp_fct_p = cn.CargarDatos(cs.obtener_datos_para_gcpago(1, id_factura_princ));
+                                            DataRow r_imp_fct_p = d_imp_fct_p.Rows[0];
+
+                                            decimal importe_fct_principal= Convert.ToDecimal(r_imp_fct_p["total"].ToString());
+
+                                            cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0, resta_cpago='{importe_fct_principal}' WHERE ID='{id_factura_princ}'");
                                         }
                                         else
                                         {
                                             cn.EjecutarConsulta($"UPDATE Facturas SET resta_cpago=resta_cpago+'{importe_pg}' WHERE ID='{id_factura_princ}'");
                                         }
-                                    }
+                                    }*/
 
                                     // Cargar consulta
                                     int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
@@ -891,7 +911,7 @@ namespace PuntoDeVentaV2
             e.DrawText();
         }
 
-        private bool descargar_factura(string tipo, int idf, string estatus, int opc)
+        private bool descargar_factura(string tipo, int idf, string estatus, int opc, string carpeta_elegida)
         {
             string nombrexml = tipo + idf;
             string n_user = Environment.UserName; 
@@ -902,7 +922,7 @@ namespace PuntoDeVentaV2
 
             if (ban == false)
             {
-                MessageBox.Show("El archivo comprimido con su XML y PDF seran descargados en el escritorio.", "Mensaje del sistema", MessageBoxButtons.OK);
+                MessageBox.Show("El archivo comprimido con su XML y PDF seran descargados en la carpeta." + carpeta_elegida, "Mensaje del sistema", MessageBoxButtons.OK);
 
                 ban = true;
             }
@@ -978,16 +998,18 @@ namespace PuntoDeVentaV2
                 DateTime fecha_actual = DateTime.UtcNow;
                 string fech = fecha_actual.ToString("yyyyMMddhhmmss");
 
-                string ruta_carpet_comprimida = "C:\\Users\\" + n_user + "\\Desktop\\" + nombrexml + "_" + fech + ".zip";
+                //string ruta_carpet_comprimida = "C:\\Users\\" + n_user + "\\Desktop\\" + nombrexml + "_" + fech + ".zip";
+                string ruta_carpet_comprimida = $@"{carpeta_elegida}\" + nombrexml + "_" + fech + ".zip";
                 
+
                 ZipFile.CreateFromDirectory(ruta_new_carpeta, ruta_carpet_comprimida);
             }
             
 
             return true;
         }
-
-        public void inicia_descargaf(string tipo, int idf, string estatus)
+        
+        public void inicia_descargaf(string tipo, int idf, string estatus, string carpeta_elegida)
         {
             pBar1.Visible = true; 
             lb_texto_descarga.Visible = true;
@@ -999,7 +1021,7 @@ namespace PuntoDeVentaV2
 
             for (int x = 3; x <= 6; x++)
             {
-                if (descargar_factura(tipo, idf, estatus, x) == true)
+                if (descargar_factura(tipo, idf, estatus, x, carpeta_elegida) == true)
                 {
                     // Incrementa la barra
                     pBar1.PerformStep(); 

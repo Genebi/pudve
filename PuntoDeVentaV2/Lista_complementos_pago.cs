@@ -186,8 +186,16 @@ namespace PuntoDeVentaV2
                     string tipo = "PAGO_";
                     string estatus = "";
                     int idf = id_factura;
-                    
-                    fct.inicia_descargaf(tipo, idf, estatus);
+
+
+                    // Elige carpeta donde guardar el comprimido
+                    if (elegir_carpeta_descarga.ShowDialog() == DialogResult.OK)
+                    {
+                        string carpeta = elegir_carpeta_descarga.SelectedPath;
+
+                        fct.inicia_descargaf(tipo, idf, estatus, carpeta);
+                    }
+                    //fct.inicia_descargaf(tipo, idf, estatus, carpeta);
                 }
 
                 // Cancelar factura
@@ -224,7 +232,13 @@ namespace PuntoDeVentaV2
                             // Ver si el campo resta_pago se modifica una vez se timbra la factura principal
                             if (cant_exi_complement == 0)
                             {
-                                cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0, resta_cpago=0 WHERE ID='{id_factura_princ}'");
+                                // Obtiene el total de la factura principal 
+                                DataTable d_imp_fct_p = cn.CargarDatos(cs.obtener_datos_para_gcpago(1, id_factura_princ));
+                                DataRow r_imp_fct_p = d_imp_fct_p.Rows[0];
+
+                                decimal importe_fct_principal = Convert.ToDecimal(r_imp_fct_p["total"].ToString());
+
+                                cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0, resta_cpago='{importe_fct_principal}' WHERE ID='{id_factura_princ}'");
                             }
                             else
                             {
