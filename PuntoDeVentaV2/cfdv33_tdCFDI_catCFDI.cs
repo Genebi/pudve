@@ -100,6 +100,9 @@ public partial class Comprobante {
     public TimbreFiscalDigital timbre_fiscal_digital;
     public Pagos cpagos;
 
+    //private string canceladaField;
+    //private bool canceladaFieldSpecified;
+
 
     public string QR
     {
@@ -470,6 +473,40 @@ public partial class Comprobante {
             this.confirmacionField = value;
         }
     }
+
+    #region  Código nuevo. Auxiliar para la generación del PDF.
+    // No pertenece al archivo orginal.
+    // No será usado para el timbrado, pero si para la generación del PDF
+
+    /// <remarks/>
+    /*[System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Cancelada
+    {
+        get
+        {
+            return this.canceladaField;
+        }
+        set
+        {
+            //canceladaFieldSpecified = true;
+            this.canceladaField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool CanceladaSpecified
+    {
+        get
+        {
+            return this.canceladaFieldSpecified;
+        }
+        set
+        {
+            this.canceladaFieldSpecified = value;
+        }
+    }*/
+    #endregion
 }
 
 /// <remarks/>

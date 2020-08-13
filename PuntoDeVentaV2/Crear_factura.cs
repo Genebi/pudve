@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         int con_id_cliente = 0;
         int n_filas = 0;
@@ -85,7 +86,6 @@ namespace PuntoDeVentaV2
 
             cmb_bx_clientes.SelectedIndex = 0;
 
-            
             
             // Forma de pago
 
@@ -246,6 +246,42 @@ namespace PuntoDeVentaV2
             }
 
             groupb_pago.Visible = false;
+
+
+            // Verifica si se asigno un cliente a la venta.
+            // Si la nota fue hecha a público en general, entonces agrega esos datos por default
+            var detalles = mb.ObtenerDetallesVenta(id_venta, FormPrincipal.userID);
+
+            if (detalles.Length > 0)
+            {
+                if (Convert.ToInt32(detalles[0]) == 0)
+                {
+                    txt_razon_social.Text = "Público en general";
+                    txt_rfc.Text = "XAXX010101000";
+
+                    Dictionary<string, string> usoCFDI = new Dictionary<string, string>();
+                    usoCFDI.Add("G01", "Adquisición de mercancias");
+                    usoCFDI.Add("G02", "Devoluciones, descuentos o bonificaciones");
+                    usoCFDI.Add("G03", "Gastos en general");
+                    usoCFDI.Add("I01", "Construcciones");
+                    usoCFDI.Add("I02", "Mobilario y equipo de oficina por inversiones");
+                    usoCFDI.Add("I03", "Equipo de transporte");
+                    usoCFDI.Add("I04", "Equipo de computo y accesorios");
+                    usoCFDI.Add("I05", "Dados, troqueles, moldes, matrices y herramental");
+                    usoCFDI.Add("I06", "Comunicaciones telefónica");
+                    usoCFDI.Add("I07", "Comunicaciones satelitale");
+                    usoCFDI.Add("I08", "Otra maquinaria y equipo");
+                    usoCFDI.Add("P01", "Por definir");
+
+                    cmb_bx_uso_cfdi.DataSource = usoCFDI.ToArray();
+                    cmb_bx_uso_cfdi.DisplayMember = "Value";
+                    cmb_bx_uso_cfdi.ValueMember = "Key";
+                    cmb_bx_uso_cfdi.SelectedValue = "G03";
+
+                    pnl_datos_cliente.Visible = true;
+                    btn_facturar.Enabled = true;
+                }
+            }
         }
 
         private void ir_a_clientes(object sender, EventArgs e)
