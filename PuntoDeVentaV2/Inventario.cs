@@ -116,23 +116,48 @@ namespace PuntoDeVentaV2
                 {
                     if (aceptarFiltro)
                     {
-                        var datos = new string[] { filtro.tipoFiltro, filtro.operadorFiltro, filtro.cantidadFiltro.ToString() };
+                        string filtradoParaRealizar = filtro.tipoFiltro;
 
-                        panelContenedor.Visible = false;
-                        aceptarFiltro = false;
-
-                        RevisarInventario revisar = new RevisarInventario(datos);
-
-                        revisar.FormClosed += delegate
+                        if (filtradoParaRealizar.Equals("Filtros"))
                         {
-                            ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
-                            reporte.GetFilterNumActiveRecord = NumRevActivo;
-                            reporte.limpiarTabla = limpiarTabla;
-                            limpiarTabla = false;
-                            reporte.Show();
-                        };
+                            var datos = new string[] { filtro.tipoFiltro, filtro.operadorFiltro, filtro.textoFiltroDinamico.ToString() };
 
-                        revisar.Show();
+                            panelContenedor.Visible = false;
+                            aceptarFiltro = false;
+
+                            RevisarInventario revisar = new RevisarInventario(datos);
+
+                            revisar.FormClosed += delegate
+                            {
+                                ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
+                                reporte.GetFilterNumActiveRecord = NumRevActivo;
+                                reporte.limpiarTabla = limpiarTabla;
+                                limpiarTabla = false;
+                                reporte.Show();
+                            };
+
+                            revisar.Show();
+                        }
+                        else
+                        {
+                            var datos = new string[] { filtro.tipoFiltro, filtro.operadorFiltro, filtro.cantidadFiltro.ToString() };
+
+                            panelContenedor.Visible = false;
+                            aceptarFiltro = false;
+
+                            RevisarInventario revisar = new RevisarInventario(datos);
+
+                            revisar.FormClosed += delegate
+                            {
+                                ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
+                                reporte.GetFilterNumActiveRecord = NumRevActivo;
+                                reporte.limpiarTabla = limpiarTabla;
+                                limpiarTabla = false;
+                                reporte.Show();
+                            };
+
+                            revisar.Show();
+                        }
                     }
                 };
 

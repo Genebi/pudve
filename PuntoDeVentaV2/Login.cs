@@ -479,12 +479,11 @@ namespace PuntoDeVentaV2
 
             //RevisarTablas();
 
-            if (contadorMetodoTablas == 0)
-            {
-                RevisarTablas();
-                contadorMetodoTablas = 1;
-                //MessageBox.Show("Hosting: " + Properties.Settings.Default.Hosting.ToString());
-            }
+            //if (contadorMetodoTablas == 0)
+            //{
+            //    RevisarTablas();
+            //    contadorMetodoTablas = 1;
+            //}
 
             txtUsuario.Text = Properties.Settings.Default.Usuario;
             txtPassword.Text = Properties.Settings.Default.Password;
