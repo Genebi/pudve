@@ -152,6 +152,26 @@ namespace PuntoDeVentaV2
             return respuesta;
         }
 
+        private void modificarDateTime(string maquinaServidor)
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.UseShellExecute = true;
+            startInfo.CreateNoWindow = true;
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = @"/C cd C:\  & net time \\" + maquinaServidor + " /set /yes & exit";
+            startInfo.Verb = "runas";
+            process.StartInfo = startInfo;
+            process.Start();
+
+            ////Si el usuario pone que si
+            ////if (Process.Start(startInfo) != null)
+            ////{
+            ////    Application.Exit();
+            ////}
+        }
+
         private void btnEntrar_Click(object sender, EventArgs e)
         {
             var servidor = Properties.Settings.Default.Hosting;
@@ -160,6 +180,18 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show($"La computadora {servidor} no se encuentra en la Red, le \nrecomendamos verificar o desvincular esta computadora\npara poder continuar", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+
+            try
+            {
+                if (!string.IsNullOrEmpty(servidor.ToString()))
+                {
+                    modificarDateTime(servidor.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.Exit();
             }
 
             // Condicion para ejecutar el metodo que comprueba los cambios en las tablas
