@@ -209,8 +209,11 @@ namespace PuntoDeVentaV2
                                 if (!filtroDinamico.Equals("<"))
                                 {
                                     filtroSeleccionado = filtroDinamico.Remove(0, 3);
+                                    string inicioStr = "Selecciona " + filtroSeleccionado + "...";
+                                    string sinFiltro = "Sin " + filtroSeleccionado;
 
-                                    strFiltroDinamico.Add("Selecciona " + filtroSeleccionado + "...");
+                                    strFiltroDinamico.Add(inicioStr.ToUpper());
+                                    strFiltroDinamico.Add(sinFiltro.ToUpper());
 
                                     if (filtroSeleccionado.Equals("Proveedor"))
                                     {

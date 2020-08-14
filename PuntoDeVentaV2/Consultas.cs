@@ -72,10 +72,26 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ListarProductosSinProveedor(int idUser, int statusProducto)
+        {
+            // Script para INNER JOIN de Proveedores
+            var consulta = $"SELECT Prod.* FROM Productos AS Prod WHERE NOT EXISTS (SELECT * FROM DetallesProducto AS DetailProd WHERE Prod.ID = DetailProd.IDProducto) AND Prod.IDUsuario = '{idUser}' AND Prod.Tipo = 'P' AND Prod.Status = '{statusProducto}'";
+
+            return consulta;
+        }
+
         public string CantidadListaProductosProveedor(int idUser, string NombreProveedor, int statusProducto)
         {
             // Script para INNER JOIN de Proveedores
             var consulta = $"SELECT COUNT(Prod.ID) AS Total FROM Productos AS Prod INNER JOIN Usuarios AS Usr ON Prod.IDUsuario = Usr.ID INNER JOIN DetallesProducto AS DetailProd ON Prod.ID = DetailProd.IDProducto INNER JOIN Proveedores AS Prov ON Prov.ID = DetailProd.IDProveedor WHERE Prov.IDUsuario = '{idUser}' AND Prov.Nombre = '{NombreProveedor}' AND Prod.Status = '{statusProducto}' AND Prod.Tipo = 'P'";
+
+            return consulta;
+        }
+
+        public string CantidadListaProductosSinProveedor(int idUser, int statusProducto)
+        {
+            // Script para INNER JOIN de Proveedores
+            var consulta = $"SELECT COUNT(Prod.ID) AS Total FROM Productos AS Prod WHERE NOT EXISTS (SELECT * FROM DetallesProducto AS DetailProd WHERE Prod.ID = DetailProd.IDProducto) AND Prod.IDUsuario = '{idUser}' AND Prod.Tipo = 'P' AND Prod.Status = '{statusProducto}'";
 
             return consulta;
         }
@@ -88,10 +104,26 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ListarProductosSinConceptoDinamico(int idUser, string ConceptoDinamico, int statusProducto)
+        {
+            // Script para INNER JOIN de Detalle Dinamico
+            var consulta = $"SELECT Prod.* FROM Productos AS Prod WHERE NOT EXISTS (SELECT * FROM DetallesProductoGenerales AS DetailProdGral WHERE Prod.ID = DetailProdGral.IDProducto AND DetailProdGral.panelContenido = 'panelContenido{ConceptoDinamico}') AND Prod.IDUsuario = '{idUser}' AND Prod.Tipo = 'P' AND Prod.Status = '{statusProducto}'";
+
+            return consulta;
+        }
+
         public string CantidadListarProductosConceptoDinamico(int idUser, string ConceptoDinamico, int statusProducto)
         {
             // Script para INNER JOIN de Detalle Dinamico
             var consulta = $"SELECT COUNT(Prod.ID) AS Total FROM Productos AS Prod INNER JOIN Usuarios AS Usr ON Prod.IDUsuario = Usr.ID INNER JOIN DetallesProductoGenerales AS DetailGralProd ON Prod.ID = DetailGralProd.IDProducto INNER JOIN DetalleGeneral AS DetailGral	ON DetailGralProd.IDDetalleGral = DetailGral.ID	WHERE DetailGral.IDUsuario = '{idUser}' AND DetailGral.Descripcion = '{ConceptoDinamico}'	AND Prod.Status = '{statusProducto}' AND Prod.Tipo = 'P'";
+
+            return consulta;
+        }
+
+        public string CantidadListarProductosSinConceptoDinamico(int idUser, string ConceptoDinamico, int statusProducto)
+        {
+            // Script para INNER JOIN de Detalle Dinamico
+            var consulta = $"SELECT COUNT(Prod.ID) AS Total FROM Productos AS Prod WHERE NOT EXISTS (SELECT * FROM DetallesProductoGenerales AS DetailProdGral WHERE Prod.ID = DetailProdGral.IDProducto AND DetailProdGral.panelContenido = 'panelContenido{ConceptoDinamico}') AND Prod.IDUsuario = '{idUser}' AND Prod.Tipo = 'P' AND Prod.Status = '{statusProducto}'";
 
             return consulta;
         }
