@@ -145,11 +145,25 @@ namespace PuntoDeVentaV2
                 {
                     if (operadorFiltro.Equals("chkProveedor"))
                     {
-                        consulta = cs.ListarProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1);
+                        if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
+                        {
+                            consulta = cs.ListarProductosSinProveedor(FormPrincipal.userID, 1);
+                        }
+                        else
+                        {
+                            consulta = cs.ListarProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1);
+                        }
                     }
                     else
                     {
-                        consulta = cs.ListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
+                        if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
+                        {
+                            consulta = cs.ListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1);
+                        }
+                        else
+                        {
+                            consulta = cs.ListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
+                        }
                     }
                 }
             }
@@ -225,19 +239,42 @@ namespace PuntoDeVentaV2
                         else
                         {
                             listaCodigosBarras.Clear();
-                            using (DataTable dtListaProductosConceptoDinamico = cn.CargarDatos(cs.ListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1)))
+                            if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
                             {
-                                if (!dtListaProductosConceptoDinamico.Rows.Count.Equals(0))
+                                using (DataTable dtListaProductosSinConceptoDinamico = cn.CargarDatos(cs.ListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1)))
                                 {
-                                    foreach (DataRow drListaProductosConceptoDinamico in dtListaProductosConceptoDinamico.Rows)
+                                    if (!dtListaProductosSinConceptoDinamico.Rows.Count.Equals(0))
                                     {
-                                        if (!string.IsNullOrWhiteSpace(drListaProductosConceptoDinamico["CodigoBarras"].ToString()))
+                                        foreach (DataRow drListaProductosSinConceptoDinamico in dtListaProductosSinConceptoDinamico.Rows)
                                         {
-                                            listaCodigosBarras.Add(drListaProductosConceptoDinamico["CodigoBarras"].ToString());
+                                            if (!string.IsNullOrWhiteSpace(drListaProductosSinConceptoDinamico["CodigoBarras"].ToString()))
+                                            {
+                                                listaCodigosBarras.Add(drListaProductosSinConceptoDinamico["CodigoBarras"].ToString());
+                                            }
+                                            else
+                                            {
+                                                listaCodigosBarras.Add(drListaProductosSinConceptoDinamico["ClaveInterna"].ToString());
+                                            }
                                         }
-                                        else
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                using (DataTable dtListaProductosConceptoDinamico = cn.CargarDatos(cs.ListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1)))
+                                {
+                                    if (!dtListaProductosConceptoDinamico.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow drListaProductosConceptoDinamico in dtListaProductosConceptoDinamico.Rows)
                                         {
-                                            listaCodigosBarras.Add(drListaProductosConceptoDinamico["ClaveInterna"].ToString());
+                                            if (!string.IsNullOrWhiteSpace(drListaProductosConceptoDinamico["CodigoBarras"].ToString()))
+                                            {
+                                                listaCodigosBarras.Add(drListaProductosConceptoDinamico["CodigoBarras"].ToString());
+                                            }
+                                            else
+                                            {
+                                                listaCodigosBarras.Add(drListaProductosConceptoDinamico["ClaveInterna"].ToString());
+                                            }
                                         }
                                     }
                                 }

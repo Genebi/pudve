@@ -104,6 +104,14 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ListarProductosSinConceptoDinamico(int idUser, string ConceptoDinamico, int statusProducto)
+        {
+            // Script para INNER JOIN de Detalle Dinamico
+            var consulta = $"SELECT Prod.* FROM Productos AS Prod WHERE NOT EXISTS (SELECT * FROM DetallesProductoGenerales AS DetailProdGral WHERE Prod.ID = DetailProdGral.IDProducto AND DetailProdGral.panelContenido = 'panelContenido{ConceptoDinamico}') AND Prod.IDUsuario = '{idUser}' AND Prod.Tipo = 'P' AND Prod.Status = '{statusProducto}'";
+
+            return consulta;
+        }
+
         public string CantidadListarProductosConceptoDinamico(int idUser, string ConceptoDinamico, int statusProducto)
         {
             // Script para INNER JOIN de Detalle Dinamico
