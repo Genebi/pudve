@@ -98,13 +98,30 @@ namespace PuntoDeVentaV2
                 {
                     if (operadorFiltro.Equals("chkProveedor"))
                     {
-                        var consulta = cs.CantidadListaProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1);
-                        cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                        if (strFiltroDinamico.Equals("SIN PROVEEDOR"))
+                        {
+                            var consulta = cs.CantidadListaProductosSinProveedor(FormPrincipal.userID, 1);
+                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                        }
+                        else
+                        {
+                            var consulta = cs.CantidadListaProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1);
+                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                        }
                     }
                     else
                     {
-                        var consulta = cs.CantidadListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
-                        cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                        string Seleccionado = "SIN " + operadorFiltro.ToUpper().Remove(0, 3);
+                        if (strFiltroDinamico.Equals(Seleccionado))
+                        {
+                            var consulta = cs.CantidadListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1);
+                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                        }
+                        else
+                        {
+                            var consulta = cs.CantidadListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
+                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                        }
                     }
                 }
 
@@ -164,19 +181,42 @@ namespace PuntoDeVentaV2
                         if (operadorFiltro.Equals("chkProveedor"))
                         {
                             listaCodigosBarras.Clear();
-                            using (DataTable dtListaProductosProveedor = cn.CargarDatos(cs.ListarProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1)))
+                            if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
                             {
-                                if (!dtListaProductosProveedor.Rows.Count.Equals(0))
+                                using (DataTable dtListaProductosSinProveedor = cn.CargarDatos(cs.ListarProductosSinProveedor(FormPrincipal.userID, 1)))
                                 {
-                                    foreach (DataRow drListaProductosProveedor in dtListaProductosProveedor.Rows)
+                                    if (!dtListaProductosSinProveedor.Rows.Count.Equals(0))
                                     {
-                                        if (!string.IsNullOrWhiteSpace(drListaProductosProveedor["CodigoBarras"].ToString()))
+                                        foreach (DataRow drListaProductosSinProveedor in dtListaProductosSinProveedor.Rows)
                                         {
-                                            listaCodigosBarras.Add(drListaProductosProveedor["CodigoBarras"].ToString());
+                                            if (!string.IsNullOrWhiteSpace(drListaProductosSinProveedor["CodigoBarras"].ToString()))
+                                            {
+                                                listaCodigosBarras.Add(drListaProductosSinProveedor["CodigoBarras"].ToString());
+                                            }
+                                            else
+                                            {
+                                                listaCodigosBarras.Add(drListaProductosSinProveedor["ClaveInterna"].ToString());
+                                            }
                                         }
-                                        else
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                using (DataTable dtListaProductosProveedor = cn.CargarDatos(cs.ListarProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1)))
+                                {
+                                    if (!dtListaProductosProveedor.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow drListaProductosProveedor in dtListaProductosProveedor.Rows)
                                         {
-                                            listaCodigosBarras.Add(drListaProductosProveedor["ClaveInterna"].ToString());
+                                            if (!string.IsNullOrWhiteSpace(drListaProductosProveedor["CodigoBarras"].ToString()))
+                                            {
+                                                listaCodigosBarras.Add(drListaProductosProveedor["CodigoBarras"].ToString());
+                                            }
+                                            else
+                                            {
+                                                listaCodigosBarras.Add(drListaProductosProveedor["ClaveInterna"].ToString());
+                                            }
                                         }
                                     }
                                 }
