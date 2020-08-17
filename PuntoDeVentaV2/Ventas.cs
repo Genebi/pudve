@@ -3809,7 +3809,7 @@ namespace PuntoDeVentaV2
 
         private void label3_Click(object sender, EventArgs e)
         {
-            btnCancelarVenta.PerformClick();
+            btnCancelarVenta.PerformClick(); 
         }
 
         private void label8_Click(object sender, EventArgs e)
