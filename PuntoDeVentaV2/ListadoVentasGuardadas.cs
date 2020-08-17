@@ -156,5 +156,13 @@ namespace PuntoDeVentaV2
                 Close();
             }
         }
+
+        private void DGVListaVentasGuardadas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+        }
     }
 }
