@@ -81,5 +81,10 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void btnImagen_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
