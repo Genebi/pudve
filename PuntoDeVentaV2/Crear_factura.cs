@@ -254,6 +254,7 @@ namespace PuntoDeVentaV2
 
             if (detalles.Length > 0)
             {
+                // Sin cliente asignado
                 if (Convert.ToInt32(detalles[0]) == 0)
                 {
                     txt_razon_social.Text = "Público en general";
@@ -277,10 +278,16 @@ namespace PuntoDeVentaV2
                     cmb_bx_uso_cfdi.DisplayMember = "Value";
                     cmb_bx_uso_cfdi.ValueMember = "Key";
                     cmb_bx_uso_cfdi.SelectedValue = "G03";
-
-                    pnl_datos_cliente.Visible = true;
-                    btn_facturar.Enabled = true;
                 }
+
+                // Con cliente asignado
+                if (Convert.ToInt32(detalles[0]) > 0)
+                {
+                    cargar_datos_cliente(Convert.ToInt32(detalles[0]));
+                }
+
+                pnl_datos_cliente.Visible = true;
+                btn_facturar.Enabled = true;
             }
         }
 
@@ -306,43 +313,7 @@ namespace PuntoDeVentaV2
                 limpiar_campos_dcliente();
                 pnl_datos_cliente.Visible = true;
 
-                DataTable d_datos_clientes = cn.CargarDatos(cs.cargar_datos_venta_xml(3, Convert.ToInt32(clave), 0));
-                DataRow r_datos_clientes = d_datos_clientes.Rows[0];
-
-                txt_razon_social.Text = r_datos_clientes["RazonSocial"].ToString();
-                txt_rfc.Text = r_datos_clientes["RFC"].ToString();
-                txt_telefono.Text = r_datos_clientes["Telefono"].ToString();
-                txt_correo.Text = r_datos_clientes["Email"].ToString();
-                txt_nombre_comercial.Text = r_datos_clientes["NombreComercial"].ToString();
-                txt_pais.Text = r_datos_clientes["Pais"].ToString();
-                txt_estado.Text = r_datos_clientes["Estado"].ToString();
-                txt_municipio.Text = r_datos_clientes["Municipio"].ToString();
-                txt_localidad.Text = r_datos_clientes["Localidad"].ToString();
-                txt_cp.Text = r_datos_clientes["CodigoPostal"].ToString();
-                txt_colonia.Text = r_datos_clientes["Colonia"].ToString();
-                txt_calle.Text = r_datos_clientes["Calle"].ToString();
-                txt_num_ext.Text = r_datos_clientes["NoExterior"].ToString();
-                txt_num_int.Text = r_datos_clientes["NoInterior"].ToString();
-
-
-                Dictionary<string, string> usoCFDI = new Dictionary<string, string>();
-                usoCFDI.Add("G01", "Adquisición de mercancias");
-                usoCFDI.Add("G02", "Devoluciones, descuentos o bonificaciones");
-                usoCFDI.Add("G03", "Gastos en general");
-                usoCFDI.Add("I01", "Construcciones");
-                usoCFDI.Add("I02", "Mobilario y equipo de oficina por inversiones");
-                usoCFDI.Add("I03", "Equipo de transporte");
-                usoCFDI.Add("I04", "Equipo de computo y accesorios");
-                usoCFDI.Add("I05", "Dados, troqueles, moldes, matrices y herramental");
-                usoCFDI.Add("I06", "Comunicaciones telefónica");
-                usoCFDI.Add("I07", "Comunicaciones satelitale");
-                usoCFDI.Add("I08", "Otra maquinaria y equipo");
-                usoCFDI.Add("P01", "Por definir");
-
-                cmb_bx_uso_cfdi.DataSource = usoCFDI.ToArray();
-                cmb_bx_uso_cfdi.DisplayMember = "Value";
-                cmb_bx_uso_cfdi.ValueMember = "Key";
-                cmb_bx_uso_cfdi.SelectedValue = r_datos_clientes["UsoCFDI"];
+                cargar_datos_cliente(Convert.ToInt32(clave));
 
                 btn_facturar.Enabled = true;
             }
@@ -644,10 +615,16 @@ namespace PuntoDeVentaV2
                 // Cliente
 
                 int cant_clientes = cmb_bx_clientes.Items.Count;
+                int cliente_valido = 0;
 
-                if (cant_clientes > 0)
+                if (txt_razon_social.Text.Trim() != "") {    cliente_valido++;    }
+
+                if (txt_rfc.Text.Trim() != "") {    cliente_valido++;    }
+
+
+                if (cant_clientes > 0 | cliente_valido == 2)
                 {
-                    if (cmb_bx_clientes.SelectedValue.ToString() == "0")
+                    if (cmb_bx_clientes.SelectedValue.ToString() == "0" & cliente_valido == 0)
                     {
                         MessageBox.Show("Se debe elegir un cliente para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         botones_visibles(2);
@@ -1097,6 +1074,47 @@ namespace PuntoDeVentaV2
             {
                 txt_cuenta.Text = "(Opcional) No. cuenta";
             }
+        }
+
+        private void cargar_datos_cliente(int clave)
+        {
+            DataTable d_datos_clientes = cn.CargarDatos(cs.cargar_datos_venta_xml(3, clave, 0));
+            DataRow r_datos_clientes = d_datos_clientes.Rows[0];
+
+            txt_razon_social.Text = r_datos_clientes["RazonSocial"].ToString();
+            txt_rfc.Text = r_datos_clientes["RFC"].ToString();
+            txt_telefono.Text = r_datos_clientes["Telefono"].ToString();
+            txt_correo.Text = r_datos_clientes["Email"].ToString();
+            txt_nombre_comercial.Text = r_datos_clientes["NombreComercial"].ToString();
+            txt_pais.Text = r_datos_clientes["Pais"].ToString();
+            txt_estado.Text = r_datos_clientes["Estado"].ToString();
+            txt_municipio.Text = r_datos_clientes["Municipio"].ToString();
+            txt_localidad.Text = r_datos_clientes["Localidad"].ToString();
+            txt_cp.Text = r_datos_clientes["CodigoPostal"].ToString();
+            txt_colonia.Text = r_datos_clientes["Colonia"].ToString();
+            txt_calle.Text = r_datos_clientes["Calle"].ToString();
+            txt_num_ext.Text = r_datos_clientes["NoExterior"].ToString();
+            txt_num_int.Text = r_datos_clientes["NoInterior"].ToString();
+
+
+            Dictionary<string, string> usoCFDI = new Dictionary<string, string>();
+            usoCFDI.Add("G01", "Adquisición de mercancias");
+            usoCFDI.Add("G02", "Devoluciones, descuentos o bonificaciones");
+            usoCFDI.Add("G03", "Gastos en general");
+            usoCFDI.Add("I01", "Construcciones");
+            usoCFDI.Add("I02", "Mobilario y equipo de oficina por inversiones");
+            usoCFDI.Add("I03", "Equipo de transporte");
+            usoCFDI.Add("I04", "Equipo de computo y accesorios");
+            usoCFDI.Add("I05", "Dados, troqueles, moldes, matrices y herramental");
+            usoCFDI.Add("I06", "Comunicaciones telefónica");
+            usoCFDI.Add("I07", "Comunicaciones satelitale");
+            usoCFDI.Add("I08", "Otra maquinaria y equipo");
+            usoCFDI.Add("P01", "Por definir");
+
+            cmb_bx_uso_cfdi.DataSource = usoCFDI.ToArray();
+            cmb_bx_uso_cfdi.DisplayMember = "Value";
+            cmb_bx_uso_cfdi.ValueMember = "Key";
+            cmb_bx_uso_cfdi.SelectedValue = r_datos_clientes["UsoCFDI"];
         }
     }
 }

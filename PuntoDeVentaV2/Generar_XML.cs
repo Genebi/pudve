@@ -970,11 +970,11 @@ namespace PuntoDeVentaV2
             comprobante.LugarExpedicion = lugar_expedicion;
 
 
-            //comprobante.TipoCambioSpecified = true;
+        //comprobante.TipoCambioSpecified = true;
 
             if (con_complemento_pg == 0)
             {
-                comprobante.xsiSchemaLocation = "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
+                comprobante.xsiSchemaLocation = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
             }
                 
 
@@ -986,7 +986,7 @@ namespace PuntoDeVentaV2
 
             if (con_complemento_pg == 1)
             {
-                comprobante.xsiSchemaLocation = "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd";
+                comprobante.xsiSchemaLocation = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd";
 
                 // NODO PAGOS, PAGO
                 //-----------------
@@ -1256,7 +1256,7 @@ namespace PuntoDeVentaV2
             xmlNameSpaces.Add("cfdi", "http://www.sat.gob.mx/cfd/3");
             xmlNameSpaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
             
-
+                        
             //Generacion del XML
 
             XmlSerializer xmlSerializador = new XmlSerializer(typeof(Comprobante));
