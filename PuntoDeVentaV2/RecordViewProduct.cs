@@ -115,8 +115,9 @@ namespace PuntoDeVentaV2
         {
 
         }
+        
 
-        private void DGVProductRecord_CellLeave_1(object sender, DataGridViewCellEventArgs e)
+        private void DGVProductRecord_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1)
             {
