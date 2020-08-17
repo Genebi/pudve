@@ -29,7 +29,12 @@ namespace PuntoDeVentaV2
         public static string ClaveInternaFinal;
         public static string CodigoBarrasFinal;
 
-        
+        int index = 0;
+        string buscar;
+        string imgPath;
+        string pathString = string.Empty;
+        string idEditarProducto = string.Empty;
+
         public photoShow()
         {
             InitializeComponent();
@@ -43,8 +48,7 @@ namespace PuntoDeVentaV2
         public void cargarDatos()
         {
             var servidor = Properties.Settings.Default.Hosting;
-            string pathString = string.Empty;
-
+            
             if (!string.IsNullOrWhiteSpace(servidor))
             {
                 pathString = $@"\\{servidor}\pudve\Productos\";
@@ -53,11 +57,7 @@ namespace PuntoDeVentaV2
             {
                 pathString = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
             }
-
-            int index = 0;
-            string buscar;
-            string imgPath;
-
+            
             DataTable dt;
 
             NombreProdFinal = NombreProd;
@@ -69,6 +69,7 @@ namespace PuntoDeVentaV2
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
             dt = cn.CargarDatos(buscar);
+            idEditarProducto = dt.Rows[index]["ID"].ToString();
             imgPath = dt.Rows[index]["ProdImage"].ToString();
             lblNombreProducto.Text = NombreProdFinal;
 
@@ -84,7 +85,53 @@ namespace PuntoDeVentaV2
 
         private void btnImagen_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (!imgPath.Equals("") || !imgPath.Equals(null))
+                {
+                    btnImagen.Visible = true;
 
+                    string path = string.Empty, 
+                           queryDeleteImageProd = string.Empty, 
+                           DeleteImage = string.Empty;
+
+                    // ponemos la direccion y nombre de la imagen
+                    path = pathString + imgPath;
+                    
+                    // Liberamos el pictureBox para poder borrar su imagen
+                    pictureBoxProducto.Image.Dispose();
+                    
+                    // Establecemos a Nothing el valor de la propiedad Image
+                    // del control PictureBox
+                    pictureBoxProducto.Image = null;
+                    
+                    // borramos el archivo de la imagen
+                    System.IO.File.Delete(path);
+
+                    //var idProducto = Convert.ToInt32(idEditarProducto);
+                    queryDeleteImageProd = $"UPDATE Productos SET ProdImage ='{DeleteImage}' WHERE ID = {idEditarProducto}";
+                    try
+                    {
+                        cn.EjecutarConsulta(queryDeleteImageProd);
+                        imgPath = string.Empty;
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al borrar el nombre de la imagen\nde la base de datos:\n" + ex.Message.ToString(), "información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else if (imgPath.Equals("") || imgPath.Equals(null))
+                {
+                    btnImagen.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // si el nombre del archivo esta en blanco
+                // si no selecciona un archivo valido o ningun archivo muestra este mensaje
+                MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
     }
 }
