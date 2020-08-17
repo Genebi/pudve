@@ -3777,6 +3777,56 @@ namespace PuntoDeVentaV2
             lbEliminarCliente.Visible = false;
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+            btnConsultar.PerformClick();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            btnClientes.PerformClick();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            btnAnticipos.PerformClick();
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            btnAbrirCaja.PerformClick();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            btnGuardarVenta.PerformClick();
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            btnVentasGuardadas.PerformClick();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            btnCancelarVenta.PerformClick();
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+            btnEliminarDescuentos.PerformClick();
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+            btnAplicarDescuento.PerformClick();
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+            btnTerminarVenta.PerformClick();
+        }
+
         private void CuerpoEmails()
         {
             var correo = FormPrincipal.datosUsuario[9];
