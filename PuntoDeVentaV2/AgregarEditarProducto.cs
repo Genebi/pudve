@@ -1115,7 +1115,37 @@ namespace PuntoDeVentaV2
                     txtStockMinimo.Text = words[0] + "." + words[1];
                 }
             }
-            ValidarStockMaximo();
+            ValidarStockMinimo();
+        }
+
+        private void ValidarStockMinimo()
+        {
+            var minimoAux = txtStockMinimo.Text.Trim();
+            var maximoAux = txtStockMaximo.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(minimoAux))
+            {
+                if (!string.IsNullOrWhiteSpace(maximoAux))
+                {
+                    var minimo = float.Parse(minimoAux);
+                    var maximo = float.Parse(maximoAux);
+
+                    if (maximo <= minimo)
+                    {
+                        //MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        var numero = Convert.ToInt32(minimo);
+                        var agregar = numero + 1;
+                        txtStockMaximo.Text = agregar.ToString();
+                        txtStockMaximo.Focus();
+                    }
+                    else if (maximo > minimo)
+                    {
+                        stockMinimo = minimo.ToString();
+                        stockNecesario = maximo.ToString();
+                    }
+                }
+            }
         }
 
         private void txtStockMaximo_Enter(object sender, EventArgs e)
