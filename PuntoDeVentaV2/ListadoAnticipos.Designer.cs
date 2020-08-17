@@ -71,6 +71,7 @@
             this.DGVListaAnticipos.TabIndex = 7;
             this.DGVListaAnticipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaAnticipos_CellClick);
             this.DGVListaAnticipos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaAnticipos_CellMouseEnter);
+            this.DGVListaAnticipos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVListaAnticipos_KeyDown);
             // 
             // ID
             // 

@@ -63,6 +63,7 @@
             this.DGVListaVentasGuardadas.TabIndex = 0;
             this.DGVListaVentasGuardadas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaVentasGuardadas_CellClick);
             this.DGVListaVentasGuardadas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaVentasGuardadas_CellMouseEnter);
+            this.DGVListaVentasGuardadas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVListaVentasGuardadas_KeyDown);
             // 
             // ID
             // 
