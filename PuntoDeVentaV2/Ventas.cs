@@ -1642,7 +1642,10 @@ namespace PuntoDeVentaV2
 
             if (ventaGuardada)
             {
-                statusVenta = "2";
+                if (statusVenta.Equals(""))
+                {
+                    statusVenta = "2";
+                }
 
                 if (string.IsNullOrWhiteSpace(idClienteTmp))
                 {
@@ -1651,7 +1654,10 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                idClienteTmp = "0";
+                if (idClienteTmp.Equals(""))
+                {
+                    idClienteTmp = "0";
+                }
             }
 
             aumentoFolio();
@@ -1906,7 +1912,10 @@ namespace PuntoDeVentaV2
 
                     if (ventaGuardada)
                     {
-                        Utilidades.CrearMarcaDeAgua(Convert.ToInt32(idVenta), "PRESUPUESTO");
+                        if (statusVenta.Equals("2"))
+                        {
+                            Utilidades.CrearMarcaDeAgua(Convert.ToInt32(idVenta), "PRESUPUESTO");
+                        }
                     }
 
                     if (Utilidades.AdobeReaderInstalado())
