@@ -58,6 +58,7 @@
             this.PrecioMayoreo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrecioAuxiliar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCancelarVenta = new System.Windows.Forms.Button();
             this.btnGuardarVenta = new System.Windows.Forms.Button();
             this.btnAnticipos = new System.Windows.Forms.Button();
@@ -218,7 +219,8 @@
             this.AplicarDescuento,
             this.PrecioMayoreo,
             this.PrecioAuxiliar,
-            this.TipoDescuento});
+            this.TipoDescuento,
+            this.Impuesto});
             this.DGVentas.Location = new System.Drawing.Point(3, 114);
             this.DGVentas.Name = "DGVentas";
             this.DGVentas.ReadOnly = true;
@@ -367,6 +369,13 @@
             this.TipoDescuento.Name = "TipoDescuento";
             this.TipoDescuento.ReadOnly = true;
             this.TipoDescuento.Visible = false;
+            //
+            // Impuesto
+            //
+            this.Impuesto.HeaderText = "Impuesto";
+            this.Impuesto.Name = "Impuesto";
+            this.Impuesto.ReadOnly = true;
+            this.Impuesto.Visible = false;
             // 
             // btnCancelarVenta
             // 
@@ -1112,6 +1121,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioMayoreo;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioAuxiliar;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoDescuento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Impuesto;
         private System.Windows.Forms.Label lbMayoreo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
