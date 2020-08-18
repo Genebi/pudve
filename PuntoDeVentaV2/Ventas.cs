@@ -3552,25 +3552,33 @@ namespace PuntoDeVentaV2
 
         private void btnAplicarDescuento_Click(object sender, EventArgs e)
         {
-            if (opcion19 == 0)
+            if (!txtDescuentoGeneral.Text.Equals("."))
             {
-                Utilidades.MensajePermiso();
-                return;
-            }
+                if (opcion19 == 0)
+                {
+                    Utilidades.MensajePermiso();
+                    return;
+                }
 
-            DescuentoGeneral();
+                DescuentoGeneral();
 
-            var mensaje = "¿Desea aplicar este descuento a los siguientes\nproductos que se agreguen a esta venta?";
+                var mensaje = "¿Desea aplicar este descuento a los siguientes\nproductos que se agreguen a esta venta?";
 
-            var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (respuesta == DialogResult.Yes)
-            {
-                aplicarDescuentoG = true;
+                if (respuesta == DialogResult.Yes)
+                {
+                    aplicarDescuentoG = true;
+                }
+                else
+                {
+                    aplicarDescuentoG = false;
+                }
             }
             else
             {
-                aplicarDescuentoG = false;
+                MessageBox.Show("Porfavor introduzca un porcentaje", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDescuentoGeneral.Text = "% descuento";
             }
         }
 
