@@ -1461,7 +1461,7 @@ namespace PuntoDeVentaV2
         {
             int ultimaPagina = 0, 
                 currentPage = 0;
-
+            
             if (!txtBusqueda.Text.Equals(""))
             {
                 ultimaPagina = p.countPag();
@@ -3066,7 +3066,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void filtroLoadProductos()
+        public void filtroLoadProductos()
         {
             extra = string.Empty;
 
@@ -3654,6 +3654,9 @@ namespace PuntoDeVentaV2
                     // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
                     var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(txtAndNumSearch.Trim());
 
+                    buscarCodigosBarraExtra = string.Empty;
+                    nuevosCodigos = string.Empty;
+
                     if (resultadoCodBarClavInt.Length > 0)
                     {
                         bool isEmpty = (listaCoincidenciasAux.Count == 0);
@@ -3684,6 +3687,7 @@ namespace PuntoDeVentaV2
                                 {
                                     string nvoTheNumberAsAString = string.Empty;
                                     long nvoTheNumber;
+
                                     nvoTheNumberAsAString = palabras[1].ToString();
                                     if (long.TryParse(nvoTheNumberAsAString, out nvoTheNumber))
                                     {
@@ -3855,6 +3859,8 @@ namespace PuntoDeVentaV2
                         else if (isEmpty)
                         {
                             listaCoincidenciasAux.Clear();
+                            nuevosCodigos = string.Empty;
+
                             foreach (var id in infoProducto)
                             {
                                 string[] palabras = id.Split('|');
