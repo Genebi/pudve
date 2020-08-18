@@ -74,6 +74,7 @@ namespace PuntoDeVentaV2
             cmb_bx_clientes.DisplayMember = "Value";
             cmb_bx_clientes.ValueMember = "Key";
 
+
             // Método de pago
 
             Dictionary<string, string> metodo_pago = new Dictionary<string, string>();
@@ -115,12 +116,61 @@ namespace PuntoDeVentaV2
             cmb_bx_forma_pago.DataSource = forma_pago.ToArray();
             cmb_bx_forma_pago.DisplayMember = "Value";
             cmb_bx_forma_pago.ValueMember = "Key";
-            cmb_bx_forma_pago.SelectedIndex = 0;
+            
+            //Busca la forma de pago de la venta
+            DataTable d_detallesvnt = cn.CargarDatos(cs.consulta_dventa(2, id_venta));
+            DataRow r_detallesvnt = d_detallesvnt.Rows[0];
+
+            int f_pg_default = 0;
+            int cant_fpg = 0;
+            decimal [] arr_f_pg= new decimal[3];
+            Console.WriteLine(Convert.ToInt32(r_detallesvnt["Cheque"])+"=="+Convert.ToInt32(r_detallesvnt["Efectivo"]));
+            if (Convert.ToInt32(r_detallesvnt["Efectivo"]) > 0) {  f_pg_default = 0;   cant_fpg++;  }
+
+            if (Convert.ToInt32(r_detallesvnt["Cheque"]) > 0) {  f_pg_default = 1;   cant_fpg++;  }
+
+            if (Convert.ToInt32(r_detallesvnt["Transferencia"]) > 0) {  f_pg_default = 2;   cant_fpg++;  }
+
+            if (Convert.ToInt32(r_detallesvnt["Vales"]) > 0) {  f_pg_default = 6;   cant_fpg++;  }
+
+            if (cant_fpg > 1)
+            {
+                decimal efectivo = Convert.ToDecimal(r_detallesvnt["Efectivo"]);
+                decimal cheque = Convert.ToDecimal(r_detallesvnt["Cheque"]);
+                decimal transf = Convert.ToDecimal(r_detallesvnt["Transferencia"]);
+                decimal vales = Convert.ToDecimal(r_detallesvnt["Vales"]);
+
+                if (efectivo > cheque  &  efectivo > transf  &  efectivo > vales)
+                {
+                    f_pg_default = 0;
+                }
+                if (cheque > efectivo  &  cheque > transf  &  cheque > vales)
+                {
+                    f_pg_default = 1;
+                }
+                if (transf > efectivo  &  transf > cheque  &  transf > vales)
+                {
+                    f_pg_default = 2;
+                }
+                if (vales > efectivo  &  vales > cheque  &  vales > transf)
+                {
+                    f_pg_default = 6;
+                }
+            }
+            cmb_bx_forma_pago.SelectedIndex = f_pg_default;
+
 
             // Número de cuenta
 
             txt_cuenta.GotFocus += new EventHandler(encampo_cuenta);
             txt_cuenta.LostFocus += new EventHandler(scampo_cuenta);
+
+            if(f_pg_default > 0)
+            {
+                string clave = cmb_bx_forma_pago.SelectedValue.ToString();
+
+                mforma_pago(clave);
+            }
 
             // Moneda
 
@@ -367,7 +417,11 @@ namespace PuntoDeVentaV2
         {
             string clave = cmb_bx_forma_pago.SelectedValue.ToString();
 
+            mforma_pago(clave);
+        }
 
+        private void mforma_pago(string clave)
+        {
             if (clave == "02" | clave == "03" | clave == "04" | clave == "28" | clave == "29" | clave == "05" | clave == "06" | clave == "99")
             {
                 txt_cuenta.ReadOnly = false;
