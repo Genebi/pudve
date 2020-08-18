@@ -2165,6 +2165,14 @@ namespace PuntoDeVentaV2
             cTotal.Text = datos[2];
             cDescuento.Text = datos[3];
 
+            string[] datosAnticipo = cn.BuscarAnticipo(mostrarVenta, FormPrincipal.userID);
+
+            if (datosAnticipo.Length > 0)
+            {
+                cAnticipo.Text = datosAnticipo[1].ToString();
+                cAnticipoUtilizado.Text = datosAnticipo[1].ToString();
+            }
+
             // Cuando la venta guardada tiene descuento por cliente
             var idClienteDesc = Convert.ToInt32(datos[8]);
 
