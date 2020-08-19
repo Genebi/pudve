@@ -639,6 +639,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Stock"].Value = datosProducto[4]; // Este campo no es visible
                 row.Cells["TipoPS"].Value = datosProducto[5]; // Este campo no es visible
                 row.Cells["PrecioMayoreo"].Value = datosProducto[12]; // Este campo no es visible
+                row.Cells["Impuesto"].Value = datosProducto[13]; // Este campo no es visible
                 row.Cells["Cantidad"].Value = datosProducto[6];
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
@@ -679,13 +680,15 @@ namespace PuntoDeVentaV2
                 row.Cells["Stock"].Value = datosProducto[4]; // Este campo no es visible
                 row.Cells["TipoPS"].Value = datosProducto[5]; // Este campo no es visible
                 row.Cells["PrecioMayoreo"].Value = datosProducto[12]; // Este campo no es visible
+                row.Cells["Impuesto"].Value = datosProducto[13]; // Este campo no es visible
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
+                
 
-                if ((datosProducto.Length - 1) == 13)
+                if ((datosProducto.Length - 1) == 14)
                 {
-                    row.Cells["Descuento"].Value = datosProducto[13];
+                    row.Cells["Descuento"].Value = datosProducto[14];
                 }
                 else
                 {
@@ -1168,9 +1171,12 @@ namespace PuntoDeVentaV2
         {
             decimal totalArticulos = 0;
             double totalImporte   = 0;
+            double totalImporte8  = 0;
             double totalDescuento = 0;
             double totalSubtotal  = 0;
+            double totalSubtotal8 = 0;
             double totalIVA16     = 0;
+            double totalIVA8      = 0;
             double totalAnticipos = 0;
 
             foreach (DataGridViewRow fila in DGVentas.Rows)
@@ -1179,6 +1185,13 @@ namespace PuntoDeVentaV2
                 var porcentajeGeneralAux = 0f;
                 var descuentoClienteAux = 0f;
                 var esDescuentoDirecto = false;
+
+                var impuesto = fila.Cells["Impuesto"].Value.ToString();
+
+                if (string.IsNullOrWhiteSpace(impuesto))
+                {
+                    impuesto = "16%";
+                }
 
                 // Obtenemos el descuento individual y lo convertimos en array para dividir la cantidad
                 // y el texto del porcentaje aplicado a ese producto en caso de que tenga descuento
@@ -1210,7 +1223,16 @@ namespace PuntoDeVentaV2
 
                     fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 
-                    totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    if (impuesto.Equals("16%"))
+                    {
+                        totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    }
+                    else if (impuesto.Equals("8%"))
+                    {
+                        totalImporte8 += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    }
+
+                    //totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                     totalArticulos += cantidadProducto;
                     totalDescuento += cantidadDescuento;
                 }
@@ -1276,7 +1298,16 @@ namespace PuntoDeVentaV2
                         fila.Cells["Descuento"].Value = mensajeDescuento;
                         fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 
-                        totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                        if (impuesto.Equals("16%"))
+                        {
+                            totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                        }
+                        else if (impuesto.Equals("8%"))
+                        {
+                            totalImporte8 += Convert.ToDouble(fila.Cells["Importe"].Value);
+                        }
+
+                        //totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                         totalArticulos += cantidadProducto;
                         totalDescuento += descuento + cantidadDescuento;
                     }
@@ -1290,7 +1321,16 @@ namespace PuntoDeVentaV2
 
                         fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 
-                        totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                        if (impuesto.Equals("16%"))
+                        {
+                            totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                        }
+                        else if (impuesto.Equals("8%"))
+                        {
+                            totalImporte8 += Convert.ToDouble(fila.Cells["Importe"].Value);
+                        }
+
+                        //totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                         totalArticulos += cantidadProducto;
                         totalDescuento += cantidadDescuento;
                     } 
@@ -1342,7 +1382,16 @@ namespace PuntoDeVentaV2
                     fila.Cells["Descuento"].Value = mensajeDescuento;
                     fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 
-                    totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    if (impuesto.Equals("16%"))
+                    {
+                        totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    }
+                    else if (impuesto.Equals("8%"))
+                    {
+                        totalImporte8 += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    }
+
+                    //totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                     totalArticulos += cantidadProducto;
                     totalDescuento += descuento + cantidadDescuento;
                 }
@@ -1363,7 +1412,16 @@ namespace PuntoDeVentaV2
 
                     fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 
-                    totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    if (impuesto.Equals("16%"))
+                    {
+                        totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    }
+                    else if (impuesto.Equals("8%"))
+                    {
+                        totalImporte8 += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    }
+
+                    //totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                     totalArticulos += cantidadProducto;
                     totalDescuento += cantidadDescuento;
                 }
@@ -1377,8 +1435,22 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            totalSubtotal = totalImporte / 1.16;
-            totalIVA16    = totalSubtotal * 0.16;
+            // Calculo del subtotal al 16
+            if (totalImporte > 0)
+            {
+                totalSubtotal = totalImporte / 1.16;
+                totalIVA16 = totalSubtotal * 0.16;
+            }
+
+            // Calculo del subtotal al 8
+            if (totalImporte8 > 0)
+            {
+                totalSubtotal8 = totalImporte8 / 1.08;
+                totalIVA8 = totalSubtotal8 * 0.08;
+            }
+
+            //totalSubtotal = totalImporte / 1.16;
+            //totalIVA16    = totalSubtotal * 0.16;
 
             totalAnticipos = Convert.ToDouble(cAnticipo.Text);
             totalAnticipos += importeAnticipo;
@@ -1422,9 +1494,16 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            if (totalIVA8 > 0)
+            {
+                lbIVA8.Visible = true;
+                cIVA8.Visible = true;
+                cIVA8.Text = totalIVA8.ToString("0.00");
+            }
+
             cIVA.Text = totalIVA16.ToString("0.00");
-            cTotal.Text = totalImporte.ToString("0.00");
-            cSubtotal.Text = totalSubtotal.ToString("0.00");
+            cTotal.Text = (totalImporte + totalImporte8).ToString("0.00");
+            cSubtotal.Text = (totalSubtotal + totalSubtotal8).ToString("0.00");
 
             // Se ocultan si las cantidades de este campo son igual a 0
             if (totalAnticipos > 0)
