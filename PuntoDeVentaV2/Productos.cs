@@ -1662,6 +1662,7 @@ namespace PuntoDeVentaV2
             borrarAuxWordTags();
             cargarListaDeEtiquetas();
             verificarBotonLimpiarTags();
+            btnUltimaPagina.PerformClick();
         }
 
         public void creacionEtiquetasDinamicas()
@@ -2398,6 +2399,7 @@ namespace PuntoDeVentaV2
             else if (!pageNumber.Equals(p.numPag()))
             {
                 p.primerPagina();
+                p.ultimaPagina();
                 p.irAPagina(pageNumber);
                 p.cargar();
                 clickBoton = 1;
@@ -4549,11 +4551,13 @@ namespace PuntoDeVentaV2
                 //actualizarDatosDespuesDeAgregarProducto();
                 //linkLblPaginaActual_Click_1(sender, e);
                 //MessageBox.Show("Super mega Dislike");
+                //recargarDGV();
                 AgregarEditarProducto.stockNecesario = "0";
                 clickBoton = 0;
                 agregarEspacioAlFinal();
                 txtBusqueda.Focus();
                 CargarDatos();
+                btnUltimaPagina.PerformClick();
             };
 
             if (!FormAgregar.Visible)
