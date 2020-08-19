@@ -1662,7 +1662,7 @@ namespace PuntoDeVentaV2
             borrarAuxWordTags();
             cargarListaDeEtiquetas();
             verificarBotonLimpiarTags();
-            btnUltimaPagina.PerformClick();
+            //btnUltimaPagina.PerformClick();
         }
 
         public void creacionEtiquetasDinamicas()
