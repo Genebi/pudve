@@ -1455,13 +1455,15 @@ namespace PuntoDeVentaV2
             totalAnticipos = Convert.ToDouble(cAnticipo.Text);
             totalAnticipos += importeAnticipo;
 
-            if (totalImporte > 0)
-            {
-                var importeTmp = totalImporte;
+            var sumaImportes = totalImporte + totalImporte8;
 
-                if ((totalImporte - totalAnticipos) <= 0)
+            if (sumaImportes > 0)
+            {
+                var importeTmp = sumaImportes;
+
+                if ((sumaImportes - totalAnticipos) <= 0)
                 {
-                    totalImporte = 0;
+                    sumaImportes = 0;
 
                     if (totalAnticipos > 0)
                     {
@@ -1472,21 +1474,21 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                if ((totalImporte - totalAnticipos) > 0)
+                if ((sumaImportes - totalAnticipos) > 0)
                 {
-                    totalImporte -= totalAnticipos;
+                    sumaImportes -= totalAnticipos;
 
                     if (totalAnticipos > 0)
                     {
-                        if (totalImporte <= totalAnticipos)
+                        if (sumaImportes <= totalAnticipos)
                         {
-                            var diferencia = importeTmp - totalImporte;
+                            var diferencia = importeTmp - sumaImportes;
 
                             cAnticipoUtilizado.Text = diferencia.ToString("0.00");
                         }
                         else
                         {
-                            var diferencia = importeTmp - totalImporte;
+                            var diferencia = importeTmp - sumaImportes;
 
                             cAnticipoUtilizado.Text = diferencia.ToString("0.00");
                         }
@@ -1498,11 +1500,16 @@ namespace PuntoDeVentaV2
             {
                 lbIVA8.Visible = true;
                 cIVA8.Visible = true;
-                cIVA8.Text = totalIVA8.ToString("0.00");
+            }
+            else
+            {
+                lbIVA8.Visible = false;
+                cIVA8.Visible = false;
             }
 
             cIVA.Text = totalIVA16.ToString("0.00");
-            cTotal.Text = (totalImporte + totalImporte8).ToString("0.00");
+            cIVA8.Text = totalIVA8.ToString("0.00");
+            cTotal.Text = sumaImportes.ToString("0.00");
             cSubtotal.Text = (totalSubtotal + totalSubtotal8).ToString("0.00");
 
             // Se ocultan si las cantidades de este campo son igual a 0
