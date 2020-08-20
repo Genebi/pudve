@@ -30,7 +30,7 @@ namespace PuntoDeVentaV2
 
             if (tipoDescuento == 1)
             {
-                txtTituloDescuento.Text = "Descuento por Cliente";
+                txtTituloDescuento.Text = "Descuento por Producto";
                 rbCliente.Checked = true;
             }
         }
@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
 
             if (tipoDescuento == 1)
             {
-                txtTituloDescuento.Text = "Descuento por Cliente";
+                txtTituloDescuento.Text = "Descuento por Producto";
                 rbCliente.Checked = true;
             }
 
@@ -706,7 +706,7 @@ namespace PuntoDeVentaV2
 
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
         {
-            txtTituloDescuento.Text = "Descuento por Cliente";
+            txtTituloDescuento.Text = "Descuento por Producto";
             tipoDescuento = 1;
             CargarFormularios(tipoDescuento);
         }
@@ -717,8 +717,7 @@ namespace PuntoDeVentaV2
             tipoDescuento = idGenerado = 2;
             CargarFormularios(tipoDescuento);
         }
-
-
+        
         private void rangoProductosTB(object sender, KeyEventArgs e)
         {
 
@@ -756,8 +755,7 @@ namespace PuntoDeVentaV2
                 generarLineaMayoreo();
             }
         }
-
-
+        
         private void generarLineaMayoreo()
         {
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
@@ -880,8 +878,7 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-
-
+        
         //Seleccion de CheckBoxes para el descuento por Mayoreo
         private void seleccionCheckBoxes(object sender, EventArgs e)
         {
