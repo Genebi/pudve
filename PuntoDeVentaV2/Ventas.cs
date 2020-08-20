@@ -1728,7 +1728,10 @@ namespace PuntoDeVentaV2
 
             if (ventaGuardada)
             {
-                statusVenta = "2";
+                if (statusVenta.Equals(""))
+                {
+                    statusVenta = "2";
+                }
 
                 if (string.IsNullOrWhiteSpace(idClienteTmp))
                 {
@@ -1737,7 +1740,10 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                idClienteTmp = "0";
+                if (idClienteTmp.Equals(""))
+                {
+                    idClienteTmp = "0";
+                }
             }
 
             aumentoFolio();
@@ -1992,7 +1998,10 @@ namespace PuntoDeVentaV2
 
                     if (ventaGuardada)
                     {
-                        Utilidades.CrearMarcaDeAgua(Convert.ToInt32(idVenta), "PRESUPUESTO");
+                        if (statusVenta.Equals("2"))
+                        {
+                            Utilidades.CrearMarcaDeAgua(Convert.ToInt32(idVenta), "PRESUPUESTO");
+                        }
                     }
 
                     if (Utilidades.AdobeReaderInstalado())
@@ -2241,6 +2250,14 @@ namespace PuntoDeVentaV2
             cIVA.Text = datos[1];
             cTotal.Text = datos[2];
             cDescuento.Text = datos[3];
+
+            string[] datosAnticipo = cn.BuscarAnticipo(mostrarVenta, FormPrincipal.userID);
+
+            if (datosAnticipo.Length > 0)
+            {
+                cAnticipo.Text = datosAnticipo[1].ToString();
+                cAnticipoUtilizado.Text = datosAnticipo[1].ToString();
+            }
 
             // Cuando la venta guardada tiene descuento por cliente
             var idClienteDesc = Convert.ToInt32(datos[8]);
@@ -3629,25 +3646,33 @@ namespace PuntoDeVentaV2
 
         private void btnAplicarDescuento_Click(object sender, EventArgs e)
         {
-            if (opcion19 == 0)
+            if (!txtDescuentoGeneral.Text.Equals("."))
             {
-                Utilidades.MensajePermiso();
-                return;
-            }
+                if (opcion19 == 0)
+                {
+                    Utilidades.MensajePermiso();
+                    return;
+                }
 
-            DescuentoGeneral();
+                DescuentoGeneral();
 
-            var mensaje = "¿Desea aplicar este descuento a los siguientes\nproductos que se agreguen a esta venta?";
+                var mensaje = "¿Desea aplicar este descuento a los siguientes\nproductos que se agreguen a esta venta?";
 
-            var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (respuesta == DialogResult.Yes)
-            {
-                aplicarDescuentoG = true;
+                if (respuesta == DialogResult.Yes)
+                {
+                    aplicarDescuentoG = true;
+                }
+                else
+                {
+                    aplicarDescuentoG = false;
+                }
             }
             else
             {
-                aplicarDescuentoG = false;
+                MessageBox.Show("Porfavor introduzca un porcentaje", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDescuentoGeneral.Text = "% descuento";
             }
         }
 

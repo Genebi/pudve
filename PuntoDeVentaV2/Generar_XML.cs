@@ -1055,7 +1055,7 @@ namespace PuntoDeVentaV2
 
                 XmlDocument c_pago = new XmlDocument();
                 XmlSerializerNamespaces xml_namespaces_pago = new XmlSerializerNamespaces();
-                xml_namespaces_pago.Add("pago10", "http://www.sat.gob.mx/Pagos");
+                //xml_namespaces_pago.Add("pago10", ".http://www.sat.gob.mx/Pagos");
 
                 using (XmlWriter write_pago = c_pago.CreateNavigator().AppendChild())
                 {
@@ -1108,7 +1108,7 @@ namespace PuntoDeVentaV2
 
 
 
-            GenerarXML(comprobante, rutaXML);
+            GenerarXML(comprobante, rutaXML, con_complemento_pg);
 
 
 
@@ -1134,7 +1134,7 @@ namespace PuntoDeVentaV2
             comprobante.Certificado = selloDigital.Certificado(ruta_cer);
             comprobante.Sello = selloDigital.Sellar(cadenaOriginal, ruta_key, clave_privada);
             
-            GenerarXML(comprobante, rutaXML);
+            GenerarXML(comprobante, rutaXML, con_complemento_pg);
 
             
 
@@ -1248,15 +1248,20 @@ namespace PuntoDeVentaV2
         }
 
 
-        private void GenerarXML(Comprobante comprobante, string rutaXML)
+        private void GenerarXML(Comprobante comprobante, string rutaXML, int complemento_pg)
         {
             string xml = string.Empty;
 
             XmlSerializerNamespaces xmlNameSpaces = new XmlSerializerNamespaces();
             xmlNameSpaces.Add("cfdi", "http://www.sat.gob.mx/cfd/3");
             xmlNameSpaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+
+            if(complemento_pg == 1)
+            {
+                xmlNameSpaces.Add("pago10", "http://www.sat.gob.mx/Pagos");
+            }
             
-                        
+
             //Generacion del XML
 
             XmlSerializer xmlSerializador = new XmlSerializer(typeof(Comprobante));

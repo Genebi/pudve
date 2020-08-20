@@ -5617,6 +5617,9 @@ namespace PuntoDeVentaV2
 
             if (producto != null)
             {
+                //producto.DGVProductos.Rows.Clear();
+                //producto.filtroLoadProductos();
+                //producto.CargarDatos();
                 producto.recargarDGV();
             }
         }

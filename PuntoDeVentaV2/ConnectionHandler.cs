@@ -547,7 +547,7 @@ namespace PuntoDeVentaV2
             trans = vTrans + aTrans + dTrans;
             credito = vCredito;
             anticipos1 = vAnticipos;
-            subtotal = efectivo + tarjeta + vales + cheque + trans + credito + saldoInicial;
+            subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial;
             totalCaja = (subtotal - dineroRetirado);
 
             // Cerramos la conexion y el datareader

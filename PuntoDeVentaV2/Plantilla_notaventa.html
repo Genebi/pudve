@@ -181,16 +181,16 @@
 
                     @if(Model.Descuento != 0M){
                         <td>
-                            @if(concepto.PorcentajeDescuento != "" & concepto.PorcentajeDescuento != null){
-                                @concepto.PorcentajeDescuento <span> - </span>
-                            }
-                            
                             @dos_decimales(@concepto.Descuento)
+
+                            @if(concepto.PorcentajeDescuento != "" & concepto.PorcentajeDescuento != null){
+                                <span> - </span> @concepto.PorcentajeDescuento 
+                            }
                         </td>
                     }
                 </tr>
                 
-                <!-- Obtención los impuestos -->
+                <!-- Obtención de los impuestos -->
 
                 if(concepto.Impuestos != null){
                     if(concepto.Impuestos.Traslados != null){
