@@ -140,6 +140,10 @@ namespace PuntoDeVentaV2
 
         string nuevoCodigoBarrasDeProducto = string.Empty;
 
+        //variables para los combobox al cambiar en mosaico
+
+        int statusTipo = 0;
+        int obtenerDatoCombo = 0;
 
         // Permisos botones
         int opcion1 = 1; // Agregar XML
@@ -197,8 +201,47 @@ namespace PuntoDeVentaV2
 
         private void searchPhotoProd()
         {
-            queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
-            fotos = cn.CargarDatos(queryFotos);
+            var posicionIndex = cbMostrar.SelectedIndex;
+            var nuevoDatoCbo = -1;
+
+            if (posicionIndex==0)
+            {
+                nuevoDatoCbo = 1;
+            }
+            else if (posicionIndex==1)
+            {
+                nuevoDatoCbo = 0;
+            }
+            else if (posicionIndex==2)
+            {
+                nuevoDatoCbo = 2;
+            }
+
+            //else if (posicionIndex==2)
+            //{
+            //    queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
+            //    fotos = cn.CargarDatos(queryFotos);
+            //}
+
+            var statusDelCbo = nuevoDatoCbo;
+            pruebasMetodos(statusDelCbo);
+            //queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Status = '{statusDelCbo}'";
+            //fotos = cn.CargarDatos(queryFotos);
+        }
+
+        public void pruebasMetodos(int dato)
+        {
+            if (dato < 2)
+            {
+                queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Status = '{dato}'";
+                fotos = cn.CargarDatos(queryFotos);
+            }
+            else
+            {
+                queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
+                fotos = cn.CargarDatos(queryFotos);
+            }
+            
         }
 
         private void linkLabel1_Click(object sender, EventArgs e)
@@ -524,6 +567,7 @@ namespace PuntoDeVentaV2
         private void cbOrden_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtro = Convert.ToString(cbOrden.SelectedItem);
+            //tipoOrden = filtro;
 
             Properties.Settings.Default.FiltroOrdenar = filtro;
             Properties.Settings.Default.Save();
@@ -626,6 +670,8 @@ namespace PuntoDeVentaV2
             lAtajo.Visible = true;
             lAtajo.Text = "Ctrl + M";
             ///
+            //var posicionIndex = cbMostrar.SelectedIndex;
+            //obtenerDatosCombosBoxStatus(posicionIndex);
 
             if (opcion6 == 0)
             {
@@ -652,6 +698,8 @@ namespace PuntoDeVentaV2
                 photoShow();
                 txtBusqueda.Focus();
             }
+            //obtenerDatoCombo = statusTipo;
+
         }
 
         private void btnListView_Click(object sender, EventArgs e)
@@ -1164,6 +1212,7 @@ namespace PuntoDeVentaV2
 
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
         {
+            obtenerDatoCombo = statusTipo;
             filtro = Convert.ToString(cbMostrar.SelectedItem);      // tomamos el valor que se elige en el TextBox
 
             if (filtro == "Habilitados")                            // comparamos si el valor a filtrar es Habilitados
@@ -1180,6 +1229,7 @@ namespace PuntoDeVentaV2
                 {
                     searchPhotoProdActivo();
                     photoShow();
+                    statusTipo = 1;
                 }
             }
             else if (filtro == "Deshabilitados")                    // comparamos si el valor a filtrar es Deshabilitados
@@ -1196,6 +1246,7 @@ namespace PuntoDeVentaV2
                 {
                     searchPhotoProdInactivo();
                     photoShow();
+                    statusTipo = 0;
                 }
             }
             else if (filtro == "Todos")
@@ -1213,6 +1264,7 @@ namespace PuntoDeVentaV2
                 {
                     searchPhotoProd();
                     photoShow();
+                    statusTipo = 2;
                 }
             }
 
