@@ -100,8 +100,8 @@ public partial class Comprobante {
     public TimbreFiscalDigital timbre_fiscal_digital;
     public Pagos cpagos;
 
-    //private string canceladaField;
-    //private bool canceladaFieldSpecified;
+    private int canceladaField;
+    private bool canceladaFieldSpecified;
 
 
     public string QR
@@ -479,8 +479,8 @@ public partial class Comprobante {
     // No será usado para el timbrado, pero si para la generación del PDF
 
     /// <remarks/>
-    /*[System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Cancelada
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public int Cancelada
     {
         get
         {
@@ -488,7 +488,6 @@ public partial class Comprobante {
         }
         set
         {
-            //canceladaFieldSpecified = true;
             this.canceladaField = value;
         }
     }
@@ -505,7 +504,7 @@ public partial class Comprobante {
         {
             this.canceladaFieldSpecified = value;
         }
-    }*/
+    }
     #endregion
 }
 
@@ -634,7 +633,13 @@ public partial class ComprobanteReceptor {
     private string numRegIdTribField;
     
     private string usoCFDIField;
-    
+
+    private string domicilioReceptorField; // nuevo, solo para PDF
+    private bool domicilioReceptorFieldSpecified;
+
+    private string correoTelefonoReceptorField; // nuevo, solo para PDF
+    private bool correoTelefonoReceptorFieldSpecified;
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     public string Rfc {
@@ -700,6 +705,66 @@ public partial class ComprobanteReceptor {
             this.usoCFDIField = value;
         }
     }
+
+    #region Código nuevo. Auxiliar para la generación del PDF
+    // No pertenece al archivo orginal.
+    // No será usado para el timbrado, pero si para la generación del PDF
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string DomicilioReceptor
+    {
+        get
+        {
+            return this.domicilioReceptorField;
+        }
+        set
+        {
+            this.domicilioReceptorField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool domicilioReceptorSpecified
+    {
+        get
+        {
+            return this.domicilioReceptorFieldSpecified;
+        }
+        set
+        {
+            this.domicilioReceptorFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string CorreoTelefonoReceptor
+    {
+        get
+        {
+            return this.correoTelefonoReceptorField;
+        }
+        set
+        {
+            this.correoTelefonoReceptorField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool correoTelefonoReceptorSpecified
+    {
+        get
+        {
+            return this.correoTelefonoReceptorFieldSpecified;
+        }
+        set
+        {
+            this.correoTelefonoReceptorFieldSpecified = value;
+        }
+    }
+    #endregion
 }
 
 

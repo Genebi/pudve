@@ -165,7 +165,7 @@ namespace PuntoDeVentaV2
                     {
                         MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
 
-                        fct.generar_PDF(nombre_xml);
+                        fct.generar_PDF(nombre_xml, id_factura);
                     }
 
                     // Ver PDF de factura

@@ -81,7 +81,9 @@
         <div class="alineacion txt-tipo-letra" style="width: 48%; font-size: .94em;">
             @Model.Receptor.Nombre<br />
             <b>RFC:</b> @Model.Receptor.Rfc<br />
-            <b>Uso CFDI:</b> @Model.Receptor.UsoCFDI - @uso_cfdi(@Model.Receptor.UsoCFDI)
+            <span class="saltos"><b>Uso CFDI:</b> @Model.Receptor.UsoCFDI - @uso_cfdi(@Model.Receptor.UsoCFDI)</span><br />
+            <span class="saltos">@Model.Receptor.DomicilioReceptor</span><br />
+            <span class="saltos">@Model.Receptor.CorreoTelefonoReceptor</span>
         </div>
 
         <!-- OTROS DATOS -->
@@ -133,11 +135,14 @@
 
 
 
-    <!--<div style="font-size: 1.3em; margin: 10px 0; color: #ff0000; font-weight: 600;">
-        Factura cancelada
-    </div>
+    @if(Model.Cancelada == 1){
+        <div class="txt-tipo-letra" style="font-size: 1.7em; margin: 10px 0; color: #ff0000; font-weight: 700; text-align: center;">
+            FACTURA CANCELADA
+        </div>
 
-    <div style="clear: both;"></div>-->
+        <div style="clear: both;"></div>
+    }
+    
 
 
 

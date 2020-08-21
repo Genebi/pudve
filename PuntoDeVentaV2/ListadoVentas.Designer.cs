@@ -48,6 +48,8 @@
             this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
             this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.btn_timbrar = new System.Windows.Forms.Button();
+            this.btn_descargar = new System.Windows.Forms.Button();
             this.txtBuscador = new System.Windows.Forms.TextBox();
             this.btn_enviar = new System.Windows.Forms.Button();
             this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
@@ -67,6 +69,9 @@
             this.linkLblPaginaSiguiente = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
+            this.elegir_carpeta_descarga = new System.Windows.Forms.FolderBrowserDialog();
+            this.pBar_descarga = new System.Windows.Forms.ProgressBar();
+            this.lb_texto_descarga = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -233,6 +238,7 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.btn_descargar);
             this.panelBotones.Controls.Add(this.txtBuscador);
             this.panelBotones.Controls.Add(this.btn_enviar);
             this.panelBotones.Controls.Add(this.dpFechaFinal);
@@ -245,6 +251,39 @@
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(886, 76);
             this.panelBotones.TabIndex = 6;
+            // 
+            // btn_timbrar
+            // 
+            this.btn_timbrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_timbrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btn_timbrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_timbrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_timbrar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_timbrar.ForeColor = System.Drawing.Color.White;
+            this.btn_timbrar.Location = new System.Drawing.Point(806, 47);
+            this.btn_timbrar.Name = "btn_timbrar";
+            this.btn_timbrar.Size = new System.Drawing.Size(89, 24);
+            this.btn_timbrar.TabIndex = 10;
+            this.btn_timbrar.Text = "Timbrar";
+            this.btn_timbrar.UseVisualStyleBackColor = false;
+            this.btn_timbrar.Visible = false;
+            this.btn_timbrar.Click += new System.EventHandler(this.btn_timbrar_Click);
+            // 
+            // btn_descargar
+            // 
+            this.btn_descargar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_descargar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btn_descargar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_descargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_descargar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_descargar.ForeColor = System.Drawing.Color.White;
+            this.btn_descargar.Location = new System.Drawing.Point(794, 44);
+            this.btn_descargar.Name = "btn_descargar";
+            this.btn_descargar.Size = new System.Drawing.Size(89, 25);
+            this.btn_descargar.TabIndex = 10;
+            this.btn_descargar.Text = "Descargar";
+            this.btn_descargar.UseVisualStyleBackColor = false;
+            this.btn_descargar.Click += new System.EventHandler(this.btn_descargar_Click);
             // 
             // txtBuscador
             // 
@@ -266,9 +305,9 @@
             this.btn_enviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_enviar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_enviar.ForeColor = System.Drawing.Color.White;
-            this.btn_enviar.Location = new System.Drawing.Point(691, 45);
+            this.btn_enviar.Location = new System.Drawing.Point(702, 44);
             this.btn_enviar.Name = "btn_enviar";
-            this.btn_enviar.Size = new System.Drawing.Size(75, 25);
+            this.btn_enviar.Size = new System.Drawing.Size(89, 25);
             this.btn_enviar.TabIndex = 8;
             this.btn_enviar.Text = "Enviar";
             this.btn_enviar.UseVisualStyleBackColor = false;
@@ -305,7 +344,7 @@
             this.btnNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevaVenta.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaVenta.Location = new System.Drawing.Point(772, 45);
+            this.btnNuevaVenta.Location = new System.Drawing.Point(588, 44);
             this.btnNuevaVenta.Name = "btnNuevaVenta";
             this.btnNuevaVenta.Size = new System.Drawing.Size(111, 24);
             this.btnNuevaVenta.TabIndex = 5;
@@ -503,11 +542,39 @@
             this.linkLblPaginaAnterior.Text = "1";
             this.linkLblPaginaAnterior.Click += new System.EventHandler(this.linkLblPaginaAnterior_Click);
             // 
+            // pBar_descarga
+            // 
+            this.pBar_descarga.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pBar_descarga.Location = new System.Drawing.Point(136, 398);
+            this.pBar_descarga.Name = "pBar_descarga";
+            this.pBar_descarga.Size = new System.Drawing.Size(668, 23);
+            this.pBar_descarga.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.pBar_descarga.TabIndex = 8;
+            this.pBar_descarga.Visible = false;
+            // 
+            // lb_texto_descarga
+            // 
+            this.lb_texto_descarga.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_texto_descarga.AutoSize = true;
+            this.lb_texto_descarga.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_texto_descarga.ForeColor = System.Drawing.Color.Red;
+            this.lb_texto_descarga.Location = new System.Drawing.Point(389, 424);
+            this.lb_texto_descarga.Name = "lb_texto_descarga";
+            this.lb_texto_descarga.Size = new System.Drawing.Size(154, 19);
+            this.lb_texto_descarga.TabIndex = 9;
+            this.lb_texto_descarga.Text = "Descargando nota";
+            this.lb_texto_descarga.Visible = false;
+            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 561);
+            this.Controls.Add(this.btn_timbrar);
+            this.Controls.Add(this.lb_texto_descarga);
+            this.Controls.Add(this.pBar_descarga);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.DGVListadoVentas);
@@ -569,5 +636,10 @@
         private System.Windows.Forms.DataGridViewImageColumn Abono;
         private System.Windows.Forms.DataGridViewImageColumn Timbrar;
         private System.Windows.Forms.TextBox txtBuscador;
+        private System.Windows.Forms.Button btn_descargar;
+        private System.Windows.Forms.FolderBrowserDialog elegir_carpeta_descarga;
+        private System.Windows.Forms.ProgressBar pBar_descarga;
+        private System.Windows.Forms.Label lb_texto_descarga;
+        private System.Windows.Forms.Button btn_timbrar;
     }
 }

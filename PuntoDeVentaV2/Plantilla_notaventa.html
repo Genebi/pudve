@@ -23,32 +23,8 @@
             <b>RFC:</b> @Model.Emisor.Rfc <br />
             <b>Régimen:</b> @Model.Emisor.RegimenFiscal <br />
 
-            @if(Model.Emisor.Calle != "" | Model.Emisor.Numext != "" | Model.Emisor.Numint != "" | Model.Emisor.Colonia != "" | Model.Emisor.CP != "" | Model.Emisor.Estado != "" | Model.Emisor.Municipio != ""){
-                <b>Domicilio:</b>
-
-                if(Model.Emisor.Calle != ""){
-                    <span> </span> @Model.Emisor.Calle
-                }
-                if(Model.Emisor.Numext != ""){
-                    @Model.Emisor.Numext
-                }
-                if(Model.Emisor.Numint != ""){
-                    <span>Num. int. </span> @Model.Emisor.Numint
-                }
-                if(Model.Emisor.Colonia != ""){
-                    <span>Col.</span> @Model.Emisor.Colonia
-                }
-                if(Model.Emisor.CP != ""){
-                    <span>CP.</span> @Model.Emisor.CP 
-                }
-                if(Model.Emisor.Municipio != ""){
-                    <span> </span>@Model.Emisor.Municipio
-                }
-                if(Model.Emisor.Estado != ""){
-                    <span> </span>@Model.Emisor.Estado
-                }
-
-                <br />
+            @if(Model.Emisor.DomicilioEmisor != ""){
+                <span class="saltos"><b>Domicilio:</b> @Model.Emisor.DomicilioEmisor</span><br />
             }
 
             @if(Model.Emisor.Correo != "" | Model.Emisor.Telefono != ""){
@@ -106,27 +82,10 @@
             @if(Model.Receptor.Rfc != ""){
                 <b>RFC:</b> @Model.Receptor.Rfc<br />
             }
-
-            @if(Model.Receptor.Calle != "" | Model.Receptor.Numext != "" | Model.Receptor.Numint != "" | Model.Receptor.Colonia != "" | Model.Receptor.CP != ""){
+            
+            @if(Model.Receptor.DomicilioReceptor != ""){
                 <span>Domicilio:</span>
-
-                if(Model.Receptor.Calle != ""){
-                    <span> </span> @Model.Receptor.Calle
-                }
-                if(Model.Receptor.Numext != ""){
-                    @Model.Receptor.Numext
-                }
-                if(Model.Receptor.Numint != ""){
-                    <span>Num. int. </span> @Model.Receptor.Numint
-                }
-                if(Model.Receptor.Colonia != ""){
-                    <span>Col.</span> @Model.Receptor.Colonia
-                }
-                if(Model.Receptor.CP != ""){
-                    <span>CP.</span> @Model.Receptor.CP
-                }
-
-                <br />
+                <span class="saltos">@Model.Receptor.DomicilioReceptor</span><br />
             }
 
             @if(Model.Receptor.Correo != "" | Model.Receptor.Telefono != ""){
@@ -137,8 +96,10 @@
                 if(Model.Receptor.Telefono != ""){
                     <span>Teléfono:</span> @Model.Receptor.Telefono
                 }
-
-                <span>&nbsp; &nbsp;</span> <b>Forma pago:</b> @Model.FormaPago
+                
+                if(@Model.FormaPago != ""){
+                    <span>&nbsp; &nbsp;</span> <b>Forma pago:</b> @Model.FormaPago
+                }
             }
         </div>
 

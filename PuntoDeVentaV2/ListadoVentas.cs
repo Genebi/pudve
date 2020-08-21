@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Printing;
+using System.IO.Compression;
 
 namespace PuntoDeVentaV2
 {
@@ -61,6 +62,8 @@ namespace PuntoDeVentaV2
         int opcion6 = 1; // Enviar nota
         int opcion7 = 1; // Buscar venta
         int opcion8 = 1; // Nueva venta
+
+        bool ban = false;
 
         IEnumerable<Ventas> FormVenta = Application.OpenForms.OfType<Ventas>();
 
@@ -1068,40 +1071,54 @@ namespace PuntoDeVentaV2
             // Consulta tabla DetallesVenta
 
             DataTable d_detallesventa = cn.CargarDatos(cs.consulta_dventa(2, id_venta));
-            DataRow r_detallesventa = d_detallesventa.Rows[0];
 
-            int id_cliente = Convert.ToInt32(r_detallesventa["IDCliente"]);
+            
+            int id_cliente = 0;
             string forma_pago = "";
 
-            if (Convert.ToDecimal(r_detallesventa["Efectivo"]) > 0)
+            if (d_detallesventa.Rows.Count > 0)
             {
-                forma_pago += "Efectivo";
+                DataRow r_detallesventa = d_detallesventa.Rows[0];
+
+                id_cliente = Convert.ToInt32(r_detallesventa["IDCliente"]);
+
+
+                if (Convert.ToDecimal(r_detallesventa["Efectivo"]) > 0)
+                {
+                    forma_pago += "Efectivo";
+                }
+                if (Convert.ToDecimal(r_detallesventa["Tarjeta"]) > 0)
+                {
+                    if (forma_pago != "") { forma_pago += "/"; }
+                    forma_pago += "Tarjeta";
+                }
+                if (Convert.ToDecimal(r_detallesventa["Vales"]) > 0)
+                {
+                    if (forma_pago != "") { forma_pago += "/"; }
+                    forma_pago += "Vales";
+                }
+                if (Convert.ToDecimal(r_detallesventa["Cheque"]) > 0)
+                {
+                    if (forma_pago != "") { forma_pago += "/"; }
+                    forma_pago += "Cheque";
+                }
+                if (Convert.ToDecimal(r_detallesventa["Transferencia"]) > 0)
+                {
+                    if (forma_pago != "") { forma_pago += "/"; }
+                    forma_pago += "Transferencia";
+                }
+                if (Convert.ToDecimal(r_detallesventa["Credito"]) > 0)
+                {
+                    if (forma_pago != "") { forma_pago += "/"; }
+                    forma_pago += "Crédito";
+                }
             }
-            if (Convert.ToDecimal(r_detallesventa["Tarjeta"]) > 0)
+            else
             {
-                if (forma_pago != "") { forma_pago += "/"; }
-                forma_pago += "Tarjeta";
+                id_cliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDCliente FROM Ventas WHERE ID='{id_venta}'", 6));
             }
-            if (Convert.ToDecimal(r_detallesventa["Vales"]) > 0)
-            {
-                if (forma_pago != "") { forma_pago += "/"; }
-                forma_pago += "Vales";
-            }
-            if (Convert.ToDecimal(r_detallesventa["Cheque"]) > 0)
-            {
-                if (forma_pago != "") { forma_pago += "/"; }
-                forma_pago += "Cheque";
-            }
-            if (Convert.ToDecimal(r_detallesventa["Transferencia"]) > 0)
-            {
-                if (forma_pago != "") { forma_pago += "/"; }
-                forma_pago += "Transferencia";
-            }
-            if (Convert.ToDecimal(r_detallesventa["Credito"]) > 0)
-            {
-                if (forma_pago != "") { forma_pago += "/"; }
-                forma_pago += "Crédito";
-            }
+            
+            
 
 
 
@@ -1120,15 +1137,57 @@ namespace PuntoDeVentaV2
             emisor_v.Nombre = r_usuario["RazonSocial"].ToString();
             emisor_v.Rfc= r_usuario["RFC"].ToString();
             emisor_v.RegimenFiscal= r_usuario["Regimen"].ToString();
-            emisor_v.Estado = r_usuario["Estado"].ToString();
-            emisor_v.Municipio = r_usuario["Municipio"].ToString();
-            emisor_v.CP = r_usuario["CodigoPostal"].ToString();
-            emisor_v.Colonia = r_usuario["Colonia"].ToString();
-            emisor_v.Calle = r_usuario["Calle"].ToString();
-            emisor_v.Numext = r_usuario["NoExterior"].ToString();
-            emisor_v.Numint = r_usuario["NoInterior"].ToString();
             emisor_v.Correo = r_usuario["Email"].ToString();
             emisor_v.Telefono = r_usuario["Telefono"].ToString();
+
+
+            string domicilio_emisor = "";
+
+            if (r_usuario["Calle"].ToString() != "")
+            {
+                domicilio_emisor = r_usuario["Calle"].ToString();
+            }
+            if (r_usuario["NoExterior"].ToString() != "")
+            {
+                if (domicilio_emisor != "") { domicilio_emisor += ", "; }
+
+                domicilio_emisor += r_usuario["NoExterior"].ToString();
+            }
+            if (r_usuario["NoInterior"].ToString() != "")
+            {
+                if (domicilio_emisor != "") { domicilio_emisor += ", int. "; }
+
+                domicilio_emisor += r_usuario["NoInterior"].ToString();
+            }
+            if (r_usuario["Colonia"].ToString() != "")
+            {
+                if (domicilio_emisor != "") { domicilio_emisor += ", Col. "; }
+
+                domicilio_emisor += r_usuario["Colonia"].ToString();
+            }
+            if (r_usuario["CodigoPostal"].ToString() != "")
+            {
+                if (domicilio_emisor != "") { domicilio_emisor += ", CP. "; }
+
+                domicilio_emisor += r_usuario["CodigoPostal"].ToString();
+            }
+            if (r_usuario["Municipio"].ToString() != "")
+            {
+                if (domicilio_emisor != "") { domicilio_emisor += ", "; }
+
+                domicilio_emisor += r_usuario["Municipio"].ToString();
+            }
+            if (r_usuario["Estado"].ToString() != "")
+            {
+                if (domicilio_emisor != "") { domicilio_emisor += ", "; }
+
+                domicilio_emisor += r_usuario["Estado"].ToString();
+            }
+
+            if (domicilio_emisor != "")
+            {
+                emisor_v.DomicilioEmisor = domicilio_emisor;
+            }
 
             comprobanteventa.Emisor = emisor_v;
 
@@ -1144,18 +1203,69 @@ namespace PuntoDeVentaV2
                 ComprobanteReceptorVenta receptor_v = new ComprobanteReceptorVenta();
 
                 receptor_v.Nombre = r_cliente["RazonSocial"].ToString();
-                receptor_v.Rfc = r_cliente["RFC"].ToString();
-                receptor_v.Pais = r_cliente["Pais"].ToString();
-                receptor_v.Estado = r_cliente["Estado"].ToString();
-                receptor_v.Municipio = r_cliente["Municipio"].ToString();
-                receptor_v.Localidad = r_cliente["Localidad"].ToString();
-                receptor_v.CP = r_cliente["CodigoPostal"].ToString();
-                receptor_v.Colonia = r_cliente["Colonia"].ToString();
-                receptor_v.Calle = r_cliente["Calle"].ToString();
-                receptor_v.Numext = r_cliente["NoExterior"].ToString();
-                receptor_v.Numint = r_cliente["NoInterior"].ToString();
+                receptor_v.Rfc = r_cliente["RFC"].ToString();                
                 receptor_v.Correo = r_cliente["Email"].ToString();
                 receptor_v.Telefono = r_cliente["Telefono"].ToString();
+
+                string domicilio_receptor = "";
+
+                if (r_cliente["Calle"].ToString() != "")
+                {
+                    domicilio_receptor = r_cliente["Calle"].ToString();
+                }
+                if (r_cliente["NoExterior"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                    domicilio_receptor += r_cliente["NoExterior"].ToString();
+                }
+                if (r_cliente["NoInterior"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", int. "; }
+
+                    domicilio_receptor += r_cliente["NoInterior"].ToString();
+                }
+                if (r_cliente["Colonia"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", Col. "; }
+
+                    domicilio_receptor += r_cliente["Colonia"].ToString();
+                }
+                if (r_cliente["CodigoPostal"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", CP. "; }
+
+                    domicilio_receptor += r_cliente["CodigoPostal"].ToString();
+                }
+                if (r_cliente["Localidad"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                    domicilio_receptor += r_cliente["Localidad"].ToString();
+                }
+                if (r_cliente["Municipio"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                    domicilio_receptor += r_cliente["Municipio"].ToString();
+                }
+                if (r_cliente["Estado"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                    domicilio_receptor += r_cliente["Estado"].ToString();
+                }
+                if (r_cliente["Pais"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                    domicilio_receptor += r_cliente["Pais"].ToString();
+                }
+
+                if (domicilio_receptor != "")
+                {
+                    receptor_v.DomicilioReceptor = domicilio_receptor;
+                }
 
                 comprobanteventa.Receptor = receptor_v;
             }
@@ -1219,7 +1329,7 @@ namespace PuntoDeVentaV2
 
             // Datos generales de la venta 
 
-            decimal total_general = suma_importe_concep - suma_descuento; //+ suma_importe_impuest;
+            decimal total_general = suma_importe_concep - (suma_descuento + anticipo); //+ suma_importe_impuest;
 
             comprobanteventa.Serie = serie;
             comprobanteventa.Folio = folio;
@@ -1530,6 +1640,276 @@ namespace PuntoDeVentaV2
                     btnBuscarVentas.PerformClick();
                 }
             }
+        }
+
+        private void btn_descargar_Click(object sender, EventArgs e)
+        {
+            int cont = 0;
+            int c = 0;
+            int d = 0;
+            int t = DGVListadoVentas.Rows.Count - 2;
+            string mnsj_error = "";
+            int[] arr_id_desc;
+            string opc_tipo_nota = cbTipoVentas.SelectedValue.ToString();
+
+
+            if (opc_tipo_nota == "FAC" | opc_tipo_nota == "PRE")
+            {
+                MessageBox.Show("La descarga solo aplica para notas de venta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+                {
+                    if (c < t)
+                    {
+                        bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                        if (estado == true)
+                        {
+                            cont++;
+                        }
+                        else
+                        {
+                            mnsj_error = "No ha seleccionado alguna nota de venta para descargar.";
+                        }
+
+                        c++;
+                    }
+                }
+
+
+                // Obtener el id de la nota a descargar
+
+                if (cont > 0)
+                {
+                    c = 0;
+                    arr_id_desc = new int[cont];
+
+                    foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+                    {
+                        if (c < t)
+                        {
+                            bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                            if (estado == true)
+                            {
+                                arr_id_desc[d] = Convert.ToInt32(row.Cells["ID"].Value);
+                                d++;
+                            }
+                            c++;
+                        }
+                    }
+
+                    // Elige carpeta donde guardar el comprimido
+                    if (elegir_carpeta_descarga.ShowDialog() == DialogResult.OK)
+                    {
+                        string carpeta = elegir_carpeta_descarga.SelectedPath;
+
+                        inicia_descarga(arr_id_desc, carpeta);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }            
+        }
+
+        public void inicia_descarga(int[] idnv, string carpeta_elegida)
+        {
+            pBar_descarga.Visible = true; Console.WriteLine("tam=" + idnv.Length);
+            lb_texto_descarga.Visible = true;
+
+            pBar_descarga.Minimum = 1;
+            pBar_descarga.Maximum = 6;
+            pBar_descarga.Value = 2; // Valor inicial
+            pBar_descarga.Step = 1;
+
+            for (int x = 3; x <= 6; x++)
+            {
+                if (descargar_nota(idnv, x, carpeta_elegida) == true)
+                {
+                    pBar_descarga.PerformStep();
+                }
+            }
+
+            ban = false;
+
+            MessageBox.Show("La(s) nota(s) de venta ha sido descargada(s).", "Mensaje del sistema", MessageBoxButtons.OK);
+
+            pBar_descarga.Visible = false;
+            lb_texto_descarga.Visible = false;
+        }
+
+        private bool descargar_nota(int[] idnv, int opc, string carpeta_elegida)
+        {
+            string n_user = Environment.UserName;
+            string ruta_new_carpeta = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idnv[0];
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (ban == false)
+            {
+                MessageBox.Show("El archivo comprimido será descargado en la carpeta." + carpeta_elegida, "Mensaje del sistema", MessageBoxButtons.OK);
+
+                ban = true;
+            }
+
+
+            // Si la conexión es en red cambia ruta de guardado
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                ruta_new_carpeta = $@"\\{servidor}\Archivos PUDVE\Facturas\PDF\VENTA_" + idnv[0];
+            }
+
+
+            // Crear carpeta a comprimir
+
+            if (opc == 3)
+            {
+                if (!Directory.Exists(ruta_new_carpeta))
+                {
+                    Directory.CreateDirectory(ruta_new_carpeta);
+                }
+                else
+                {
+                    DirectoryInfo dir_arch = new DirectoryInfo(ruta_new_carpeta);
+
+                    foreach (FileInfo f in dir_arch.GetFiles())
+                    {
+                        f.Delete();
+                    }
+                }
+            }
+
+
+            // Verifica que el PDF ya este creado, de no ser así lo crea
+
+            if (opc == 4)
+            {
+                for(var i= 0; i < idnv.Length; i++)
+                {
+                    string ruta_archivos = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idnv[i];
+                    // Si la conexión es en red cambia ruta de guardado
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        ruta_archivos = $@"\\{servidor}\Archivos PUDVE\Facturas\PDF\VENTA_" + idnv[i];
+                    }
+                        
+
+                    if (!File.Exists(ruta_archivos + ".pdf"))
+                    {
+                        ver_factura(idnv[i]);
+                    }
+                }
+            }
+
+
+            // Copiar archivos a la carpeta
+
+            if (opc == 5)
+            {
+                for (var i = 0; i < idnv.Length; i++)
+                {
+                    string ruta_archivos = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idnv[i];
+                    // Si la conexión es en red cambia ruta de guardado
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        ruta_archivos = $@"\\{servidor}\Archivos PUDVE\Facturas\PDF\VENTA_" + idnv[i];
+                    }
+
+                    File.Copy(ruta_archivos + ".pdf", ruta_new_carpeta + "\\VENTA_" + idnv[i] + ".pdf");
+                } 
+            }
+
+
+            // Comprimir carpeta
+
+            if (opc == 6)
+            {
+                DateTime fecha_actual = DateTime.UtcNow;
+                string fech = fecha_actual.ToString("yyyyMMddhhmmss");
+
+                string ruta_carpet_comprimida = $@"{carpeta_elegida}\VENTA_" + idnv[0] + "_" + fech + ".zip";
+
+
+                ZipFile.CreateFromDirectory(ruta_new_carpeta, ruta_carpet_comprimida);
+
+
+                // Eliminar carpeta 
+                DirectoryInfo dir_arch = new DirectoryInfo(ruta_new_carpeta);
+
+                foreach (FileInfo f in dir_arch.GetFiles())
+                {
+                    f.Delete();
+                }
+
+                Directory.Delete(ruta_new_carpeta); 
+            }
+
+
+            return true;
+        }
+
+        private void btn_timbrar_Click(object sender, EventArgs e)
+        {
+            /*int cont = 0;
+            int b = 0;
+            int c = 0;
+            int t = DGVListadoVentas.Rows.Count - 2;
+            string mnsj_error = "";
+            int[] arr_id_timb;
+
+
+            foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+            {
+                if (c < t)
+                {
+                    bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                    if (estado == true)
+                    {
+                        cont++;
+                    }
+                    else
+                    {
+                        mnsj_error = "No ha seleccionado alguna nota de venta para timbrar.";
+                    }
+
+                    c++;
+                }
+            }
+
+
+            // Obtener el id de la factura a enviar
+
+            if (cont > 0)
+            {
+                c = 0;
+                arr_id_timb = new int[cont];
+
+                foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+                {
+                    if (c < t)
+                    {
+                        bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                        if (estado == true)
+                        {
+                            arr_id_timb[b] = Convert.ToInt32(row.Cells["ID"].Value);
+
+                            b++;
+                        }
+                        c++;
+                    }
+                }
+
+
+            }
+            else
+            {
+                MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }*/
         }
     }
 }

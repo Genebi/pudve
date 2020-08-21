@@ -352,7 +352,7 @@ namespace PuntoDeVentaV2
                     if (!File.Exists(ruta_archivo))
                     {
                         Facturas f = new Facturas();
-                        f.generar_PDF(nom);
+                        f.generar_PDF(nom, Convert.ToInt32(arr_ids_f_enviar[i][0]));
                     }
                 }
             }
