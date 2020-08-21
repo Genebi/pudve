@@ -601,7 +601,6 @@
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.DataGridView DGVListadoVentas;
         private System.Windows.Forms.Panel panelBotones;
-        private System.Windows.Forms.Button btnNuevaVenta;
         private System.Windows.Forms.Button btnBuscarVentas;
         private System.Windows.Forms.ComboBox cbTipoVentas;
         private System.Windows.Forms.ComboBox cbVentas;
@@ -636,10 +635,14 @@
         private System.Windows.Forms.DataGridViewImageColumn Abono;
         private System.Windows.Forms.DataGridViewImageColumn Timbrar;
         private System.Windows.Forms.TextBox txtBuscador;
+<<<<<<< HEAD
         private System.Windows.Forms.Button btn_descargar;
         private System.Windows.Forms.FolderBrowserDialog elegir_carpeta_descarga;
         private System.Windows.Forms.ProgressBar pBar_descarga;
         private System.Windows.Forms.Label lb_texto_descarga;
         private System.Windows.Forms.Button btn_timbrar;
+=======
+        public System.Windows.Forms.Button btnNuevaVenta;
+>>>>>>> ajustesVentas
     }
 }

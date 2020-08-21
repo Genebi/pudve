@@ -225,6 +225,7 @@
             this.txtPrecioCompra.Size = new System.Drawing.Size(110, 22);
             this.txtPrecioCompra.TabIndex = 2;
             this.txtPrecioCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPrecioCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecioCompra_KeyDown);
             // 
             // panelAjustar
             // 
@@ -382,6 +383,7 @@
             this.txtDisminuir.Size = new System.Drawing.Size(125, 22);
             this.txtDisminuir.TabIndex = 1;
             this.txtDisminuir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDisminuir.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDisminuir_KeyDown);
             this.txtDisminuir.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDisminuir_KeyPress);
             this.txtDisminuir.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDisminuir_KeyUp);
             // 
@@ -393,6 +395,7 @@
             this.txtAumentar.Size = new System.Drawing.Size(125, 22);
             this.txtAumentar.TabIndex = 0;
             this.txtAumentar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAumentar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAumentar_KeyDown);
             this.txtAumentar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAumentar_KeyPress);
             this.txtAumentar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtAumentar_KeyUp);
             // 
@@ -530,6 +533,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Ajustar";
             this.Load += new System.EventHandler(this.AjustarProducto_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AjustarProducto_KeyDown);
             this.panelComprado.ResumeLayout(false);
             this.panelComprado.PerformLayout();
             this.panelAjustar.ResumeLayout(false);

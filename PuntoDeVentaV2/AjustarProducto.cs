@@ -558,6 +558,9 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Enter)
             {
                 btnAceptar.PerformClick();
+            }else if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
 
@@ -747,7 +750,36 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtPrecioCompra_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Escape)
+            {
+                this.Close();
+            }
+        }
 
+        private void txtAumentar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Escape)
+            {
+                this.Close();
+            }
+        }
 
+        private void txtDisminuir_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
+        private void AjustarProducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

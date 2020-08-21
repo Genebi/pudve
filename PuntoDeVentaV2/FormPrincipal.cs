@@ -29,6 +29,8 @@ namespace PuntoDeVentaV2
         public static string[] datosUsuario = new string[] { };
         private bool cerrarAplicacion = false;
 
+        IEnumerable<Ventas> FormVenta = Application.OpenForms.OfType<Ventas>();
+
         // declaramos la variable que se pasara entre los dos formularios
         // FormPrincipal y MisDatos
         public static int userID;
@@ -495,6 +497,8 @@ namespace PuntoDeVentaV2
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
+            Ventas venta = new Ventas();
+
             if (ventas == 1)
             {
                 AbrirFormulario<ListadoVentas>();
@@ -505,6 +509,18 @@ namespace PuntoDeVentaV2
             else
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+            if (FormVenta.Count() == 1)
+            {
+                 if (FormVenta.First().WindowState == FormWindowState.Minimized)
+                 {
+                        FormVenta.First().WindowState = FormWindowState.Normal;
+                 }
+            }
+            else
+            {
+                venta.Show();
             }
         }
 
