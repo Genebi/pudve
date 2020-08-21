@@ -181,6 +181,7 @@
             this.Name = "AgregarDescuentoProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Descuento Producto";
+            this.Activated += new System.EventHandler(this.AgregarDescuentoProducto_Activated);
             this.Load += new System.EventHandler(this.AgregarDescuentoProducto_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

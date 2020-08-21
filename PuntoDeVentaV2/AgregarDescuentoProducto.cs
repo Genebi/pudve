@@ -41,6 +41,8 @@ namespace PuntoDeVentaV2
         {
             this.ControlBox = false;
 
+            obtenerTipoDescuento();
+
             if (tipoDescuento == 1)
             {
                 txtTituloDescuento.Text = "Descuento por Producto";
@@ -736,6 +738,7 @@ namespace PuntoDeVentaV2
                 {
                     txtTituloDescuento.Text = "Descuento por Producto";
                     tipoDescuento = 1;
+                    CargarFormularios(tipoDescuento);
                 }
                 else if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
                 {
@@ -743,6 +746,7 @@ namespace PuntoDeVentaV2
                     {
                         txtTituloDescuento.Text = "Descuento por Producto";
                         tipoDescuento = 1;
+                        CargarFormularios(tipoDescuento);
                     }
                     else if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
                     {
@@ -752,18 +756,38 @@ namespace PuntoDeVentaV2
                         {
                             txtTituloDescuento.Text = "Descuento por Producto";
                             tipoDescuento = 1;
+                            CargarFormularios(tipoDescuento);
                         }
                         else if (dialogResult.Equals(DialogResult.No))
                         {
                             txtTituloDescuento.Text = "Descuento por Mayoreo";
                             tipoDescuento = 2;
+                            rbMayoreo.Checked = true;
+                            CargarFormularios(tipoDescuento);
                         }
                     }
                 }
-
-                if (tipoDescuento.Equals(2))
+            }
+            else 
+            {
+                if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
                 {
-                    rbMayoreo.Checked = true;
+                    if (tipoDescuento.Equals(1) && 
+                        AgregarEditarProducto.SearchDesMayoreo.Rows.Count.Equals(0))
+                    {
+                        rbMayoreo.Checked = true;
+                        CargarFormularios(tipoDescuento);
+                    }
+                    else if (tipoDescuento.Equals(2) && 
+                             AgregarEditarProducto.SearchDesMayoreo.Rows.Count.Equals(0))
+                    {
+                        rbMayoreo.Checked = true;
+                        CargarFormularios(tipoDescuento);
+                    }
+                    else
+                    {
+                        CargarFormularios(tipoDescuento);
+                    }
                 }
                 else
                 {
@@ -785,6 +809,7 @@ namespace PuntoDeVentaV2
                 {
                     txtTituloDescuento.Text = "Descuento por Mayoreo";
                     tipoDescuento = idGenerado = 2;
+                    CargarFormularios(tipoDescuento);
                 }
                 else if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
                 {
@@ -792,6 +817,7 @@ namespace PuntoDeVentaV2
                     {
                         txtTituloDescuento.Text = "Descuento por Mayoreo";
                         tipoDescuento = idGenerado = 2;
+                        CargarFormularios(tipoDescuento);
                     }
                     else if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
                     {
@@ -801,18 +827,38 @@ namespace PuntoDeVentaV2
                         {
                             txtTituloDescuento.Text = "Descuento por Mayoreo";
                             tipoDescuento = 2;
+                            CargarFormularios(tipoDescuento);
                         }
                         else if (dialogResult.Equals(DialogResult.No))
                         {
                             txtTituloDescuento.Text = "Descuento por Producto";
                             tipoDescuento = 1;
+                            rbCliente.Checked = true;
+                            CargarFormularios(tipoDescuento);
                         }
                     }
                 }
-
-                if (tipoDescuento.Equals(1))
+            }
+            else 
+            {
+                if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
                 {
-                    rbCliente.Checked = true;
+                    if (tipoDescuento.Equals(1) && 
+                        AgregarEditarProducto.SearchDesCliente.Rows.Count.Equals(0))
+                    {
+                        rbCliente.Checked = true;
+                        CargarFormularios(tipoDescuento);
+                    }
+                    else if (tipoDescuento.Equals(2) &&
+                             AgregarEditarProducto.SearchDesMayoreo.Rows.Count.Equals(0))
+                    {
+                        rbCliente.Checked = true;
+                        CargarFormularios(tipoDescuento);
+                    }
+                    else
+                    {
+                        CargarFormularios(tipoDescuento);
+                    }
                 }
                 else
                 {
@@ -1064,6 +1110,11 @@ namespace PuntoDeVentaV2
                     this.Hide();
                 }
             }
+        }
+
+        private void AgregarDescuentoProducto_Activated(object sender, EventArgs e)
+        {
+            obtenerTipoDescuento();
         }
     }
 }
