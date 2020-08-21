@@ -120,12 +120,12 @@
             // 
             this.rbCliente.AutoSize = true;
             this.rbCliente.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbCliente.Location = new System.Drawing.Point(191, 397);
+            this.rbCliente.Location = new System.Drawing.Point(173, 397);
             this.rbCliente.Name = "rbCliente";
-            this.rbCliente.Size = new System.Drawing.Size(192, 24);
+            this.rbCliente.Size = new System.Drawing.Size(208, 24);
             this.rbCliente.TabIndex = 31;
             this.rbCliente.TabStop = true;
-            this.rbCliente.Text = "Descuento por Cliente";
+            this.rbCliente.Text = "Descuento por Producto";
             this.rbCliente.UseVisualStyleBackColor = true;
             this.rbCliente.CheckedChanged += new System.EventHandler(this.rbCliente_CheckedChanged);
             // 
@@ -133,7 +133,7 @@
             // 
             this.rbMayoreo.AutoSize = true;
             this.rbMayoreo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbMayoreo.Location = new System.Drawing.Point(400, 397);
+            this.rbMayoreo.Location = new System.Drawing.Point(404, 397);
             this.rbMayoreo.Name = "rbMayoreo";
             this.rbMayoreo.Size = new System.Drawing.Size(208, 24);
             this.rbMayoreo.TabIndex = 32;

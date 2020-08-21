@@ -86,6 +86,11 @@ namespace PuntoDeVentaV2
                     tipoDescuento = 2;
                     rbMayoreo.Checked = true;
                 }
+                else
+                {
+                    tipoDescuento = 1;
+                    rbCliente.Checked = true;
+                }
             }
         }
 
@@ -766,6 +771,12 @@ namespace PuntoDeVentaV2
                             CargarFormularios(tipoDescuento);
                         }
                     }
+                    else
+                    {
+                        txtTituloDescuento.Text = "Descuento por Producto";
+                        tipoDescuento = 1;
+                        CargarFormularios(tipoDescuento);
+                    }
                 }
             }
             else 
@@ -836,6 +847,12 @@ namespace PuntoDeVentaV2
                             rbCliente.Checked = true;
                             CargarFormularios(tipoDescuento);
                         }
+                    }
+                    else
+                    {
+                        txtTituloDescuento.Text = "Descuento por Mayoreo";
+                        tipoDescuento = 2;
+                        CargarFormularios(tipoDescuento);
                     }
                 }
             }
@@ -1105,8 +1122,13 @@ namespace PuntoDeVentaV2
                 if (!string.IsNullOrWhiteSpace(idProducto))
                 {
                     cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {idProducto}");
+                    AgregarEditarProducto.SearchDesCliente.Clear();
                     cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {idProducto}");
-                    
+                    AgregarEditarProducto.SearchDesMayoreo.Clear();
+
+                    panelContenedor.Controls.Clear();
+                    cargarNvoDescuentos();
+
                     this.Hide();
                 }
             }
