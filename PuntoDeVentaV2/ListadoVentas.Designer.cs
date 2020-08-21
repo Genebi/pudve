@@ -534,7 +534,6 @@
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.DataGridView DGVListadoVentas;
         private System.Windows.Forms.Panel panelBotones;
-        private System.Windows.Forms.Button btnNuevaVenta;
         private System.Windows.Forms.Button btnBuscarVentas;
         private System.Windows.Forms.ComboBox cbTipoVentas;
         private System.Windows.Forms.ComboBox cbVentas;
@@ -569,5 +568,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Abono;
         private System.Windows.Forms.DataGridViewImageColumn Timbrar;
         private System.Windows.Forms.TextBox txtBuscador;
+        public System.Windows.Forms.Button btnNuevaVenta;
     }
 }

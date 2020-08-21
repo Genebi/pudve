@@ -217,16 +217,8 @@ namespace PuntoDeVentaV2
                 nuevoDatoCbo = 2;
             }
 
-            //else if (posicionIndex==2)
-            //{
-            //    queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
-            //    fotos = cn.CargarDatos(queryFotos);
-            //}
-
             var statusDelCbo = nuevoDatoCbo;
             pruebasMetodos(statusDelCbo);
-            //queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Status = '{statusDelCbo}'";
-            //fotos = cn.CargarDatos(queryFotos);
         }
 
         public void pruebasMetodos(int dato)
@@ -241,7 +233,6 @@ namespace PuntoDeVentaV2
                 queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
                 fotos = cn.CargarDatos(queryFotos);
             }
-            
         }
 
         private void linkLabel1_Click(object sender, EventArgs e)
@@ -1049,6 +1040,7 @@ namespace PuntoDeVentaV2
                         {
                             if (botonAceptar)
                             {
+                                txtBusqueda.Focus();
                                 if (txtBusqueda.Text.Equals(""))
                                 {
                                     CargarDatos();
@@ -1064,7 +1056,7 @@ namespace PuntoDeVentaV2
                                 botonAceptar = false;
                             }
                         };
-
+                        txtBusqueda.Focus();
                         ap.ShowDialog();
                     }
                 }
