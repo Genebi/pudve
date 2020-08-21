@@ -28,11 +28,13 @@ namespace PuntoDeVentaV2
 
             this.ControlBox = false;
 
-            if (tipoDescuento == 1)
-            {
-                txtTituloDescuento.Text = "Descuento por Producto";
-                rbCliente.Checked = true;
-            }
+            //if (tipoDescuento == 1)
+            //{
+            //    txtTituloDescuento.Text = "Descuento por Producto";
+            //    rbCliente.Checked = true;
+            //}
+
+            obtenerTipoDescuento();
         }
 
         private void AgregarDescuentoProducto_Load(object sender, EventArgs e)
@@ -61,6 +63,30 @@ namespace PuntoDeVentaV2
             CargarFormularios(tipoDescuento);
         }
 
+        private void obtenerTipoDescuento()
+        {
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(1) ||
+                AgregarEditarProducto.DatosSourceFinal.Equals(3) ||
+                AgregarEditarProducto.DatosSourceFinal.Equals(5))
+            {
+                tipoDescuento = 1;
+                rbCliente.Checked = true;
+            }
+            else if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+            {
+                if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                {
+                    tipoDescuento = 1;
+                    rbCliente.Checked = true;
+                }
+                else if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                {
+                    tipoDescuento = 2;
+                    rbMayoreo.Checked = true;
+                }
+            }
+        }
+
         private void btnCancelarDesc_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -68,7 +94,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptarDesc_Click(object sender, EventArgs e)
         {
-            //Cliente
+            //Producto
             if (tipoDescuento == 1)
             {
                 AgregarEditarProducto.descuentos.Clear();
@@ -590,7 +616,6 @@ namespace PuntoDeVentaV2
                         panelHijo2.Controls.Add(tb3);
                         panelHijo2.SetFlowBreak(tb3, true);
                         panelHijo2.Controls.Add(cb1);
-
                         
                         panelHijo2.FlowDirection = FlowDirection.LeftToRight;
 
@@ -687,7 +712,9 @@ namespace PuntoDeVentaV2
 
         private void CargarFormularios(int tipo)
         {
-            if (AgregarEditarProducto.DatosSourceFinal == 1 || AgregarEditarProducto.DatosSourceFinal == 3)
+            if (AgregarEditarProducto.DatosSourceFinal == 1 || 
+                AgregarEditarProducto.DatosSourceFinal == 3 || 
+                AgregarEditarProducto.DatosSourceFinal == 5)
             {
                 panelContenedor.Controls.Clear();
                 cargarNvoDescuentos();
@@ -699,28 +726,90 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void Cb1_CheckedChanged(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
         {
-            txtTituloDescuento.Text = "Descuento por Producto";
-            tipoDescuento = 1;
-            CargarFormularios(tipoDescuento);
+            if (rbCliente.Checked.Equals(true))
+            {
+                if (AgregarEditarProducto.DatosSourceFinal.Equals(1) ||
+                    AgregarEditarProducto.DatosSourceFinal.Equals(3) ||
+                    AgregarEditarProducto.DatosSourceFinal.Equals(5))
+                {
+                    txtTituloDescuento.Text = "Descuento por Producto";
+                    tipoDescuento = 1;
+                }
+                else if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+                {
+                    if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                    {
+                        txtTituloDescuento.Text = "Descuento por Producto";
+                        tipoDescuento = 1;
+                    }
+                    else if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                    {
+                        DialogResult dialogResult = MessageBox.Show("El producto ya tiene asignado descuento por Mayoreo\ndesea cambiarlo a descuento por Producto", 
+                                                                    "Advertencia de descuentos", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (dialogResult.Equals(DialogResult.Yes))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Producto";
+                            tipoDescuento = 1;
+                        }
+                        else if (dialogResult.Equals(DialogResult.No))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Mayoreo";
+                            tipoDescuento = 2;
+                        }
+                    }
+                }
+                CargarFormularios(tipoDescuento);
+            }
+            //txtTituloDescuento.Text = "Descuento por Producto";
+            //tipoDescuento = 1;
+            //CargarFormularios(tipoDescuento);
         }
 
         private void rbMayoreo_CheckedChanged(object sender, EventArgs e)
         {
-            txtTituloDescuento.Text = "Descuento por Mayoreo";
-            tipoDescuento = idGenerado = 2;
-            CargarFormularios(tipoDescuento);
+            if (rbMayoreo.Checked.Equals(true))
+            {
+                if (AgregarEditarProducto.DatosSourceFinal.Equals(1) || 
+                    AgregarEditarProducto.DatosSourceFinal.Equals(3) || 
+                    AgregarEditarProducto.DatosSourceFinal.Equals(5))
+                {
+                    txtTituloDescuento.Text = "Descuento por Mayoreo";
+                    tipoDescuento = idGenerado = 2;
+                }
+                else if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+                {
+                    if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                    {
+                        txtTituloDescuento.Text = "Descuento por Mayoreo";
+                        tipoDescuento = idGenerado = 2;
+                    }
+                    else if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                    {
+                        DialogResult dialogResult = MessageBox.Show("El producto ya tiene asignado descuento por Producto\ndesea cambiarlo a descuento por Mayoreo",
+                                                                    "Advertencia de descuentos", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (dialogResult.Equals(DialogResult.Yes))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Mayoreo";
+                            tipoDescuento = 2;
+                        }
+                        else if (dialogResult.Equals(DialogResult.No))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Producto";
+                            tipoDescuento = 1;
+                        }
+                    }
+                }
+                CargarFormularios(tipoDescuento);
+            }
+            //txtTituloDescuento.Text = "Descuento por Mayoreo";
+            //tipoDescuento = idGenerado = 2;
+            //CargarFormularios(tipoDescuento);
         }
         
         private void rangoProductosTB(object sender, KeyEventArgs e)
         {
-
             //Se hace para obtener el numero de linea al que pertenece el TextBox
             TextBox tb = sender as TextBox;
             string nombre = tb.Name.Replace("tbMayoreo", "");
@@ -955,8 +1044,6 @@ namespace PuntoDeVentaV2
                 {
                     cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {idProducto}");
                     cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {idProducto}");
-
-                    
                     
                     this.Hide();
                 }
