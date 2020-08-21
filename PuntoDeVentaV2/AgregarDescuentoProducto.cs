@@ -746,7 +746,7 @@ namespace PuntoDeVentaV2
                     }
                     else if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
                     {
-                        DialogResult dialogResult = MessageBox.Show("El producto ya tiene asignado descuento por Mayoreo\ndesea cambiarlo a descuento por Producto", 
+                        DialogResult dialogResult = MessageBox.Show("Este producto ya tiene asignado descuento por Mayoreo\ndesea cambiarlo a descuento por Producto", 
                                                                     "Advertencia de descuentos", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (dialogResult.Equals(DialogResult.Yes))
                         {
@@ -760,7 +760,15 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                CargarFormularios(tipoDescuento);
+
+                if (tipoDescuento.Equals(2))
+                {
+                    rbMayoreo.Checked = true;
+                }
+                else
+                {
+                    CargarFormularios(tipoDescuento);
+                }
             }
             //txtTituloDescuento.Text = "Descuento por Producto";
             //tipoDescuento = 1;
@@ -801,7 +809,15 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                CargarFormularios(tipoDescuento);
+
+                if (tipoDescuento.Equals(1))
+                {
+                    rbCliente.Checked = true;
+                }
+                else
+                {
+                    CargarFormularios(tipoDescuento);
+                }
             }
             //txtTituloDescuento.Text = "Descuento por Mayoreo";
             //tipoDescuento = idGenerado = 2;
