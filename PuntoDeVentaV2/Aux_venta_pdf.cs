@@ -330,19 +330,7 @@ public partial class ComprobanteEmisorVenta
         }
     }
 
-    public string Estado { get; set; }
-
-    public string Municipio { get; set; }
-
-    public string CP { get; set; }
-
-    public string Colonia { get; set; }
-
-    public string Calle { get; set; }
-
-    public string Numext { get; set; }
-
-    public string Numint { get; set; }
+    public string DomicilioEmisor { get; set; }
 
     public string Correo { get; set; }
 
@@ -380,23 +368,7 @@ public partial class ComprobanteReceptorVenta
         }
     }
 
-    public string Pais { get; set; }
-
-    public string Estado { get; set; }
-
-    public string Municipio { get; set; }
-
-    public string Localidad { get; set; }
-
-    public string CP { get; set; }
-
-    public string Colonia { get; set; }
-
-    public string Calle { get; set; }
-
-    public string Numext { get; set; }
-
-    public string Numint { get; set; }
+    public string DomicilioReceptor { get; set; }
 
     public string Correo { get; set; }
 

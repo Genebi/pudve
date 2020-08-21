@@ -127,8 +127,8 @@ namespace PuntoDeVentaV2
                 // Pagadas
                 if (opc_tipo_factura == 2)
                 {
-                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) " + condicional_fecha_i_f + " ORDER BY ID DESC";
-                }
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND ( (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) ) " + condicional_fecha_i_f + " ORDER BY ID DESC";
+                } 
                 // Canceladas
                 if (opc_tipo_factura == 3)
                 {
@@ -333,7 +333,7 @@ namespace PuntoDeVentaV2
                     {
                         MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
                         //Generar_PDF_factura.generar_PDF(nombre_xml);
-                        generar_PDF(nombre_xml);
+                        generar_PDF(nombre_xml, id_factura);
                     }
 
                     // Ver PDF de factura
@@ -620,7 +620,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public void generar_PDF(string nombre_xml)
+        public void generar_PDF(string nombre_xml, int id_fct)
         {
             var servidor = Properties.Settings.Default.Hosting;
 
@@ -683,6 +683,95 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            // Comprueba si el comprobante esta cancelado.
+            // Obtiene el domicilio del receptor.
+            DataTable d_factura = cn.CargarDatos(cs.cargar_datos_venta_xml(1, id_fct, id_usuario));
+            DataRow r_factura = d_factura.Rows[0];
+
+            if(Convert.ToInt32(r_factura["cancelada"]) == 1)
+            {
+                comprobante.CanceladaSpecified = true;
+                comprobante.Cancelada = 1;
+            }
+
+            string domicilio_receptor = "";
+            string correo_tel_receptor = "";
+
+            if(r_factura["r_calle"].ToString() != "")
+            {
+                domicilio_receptor = r_factura["r_calle"].ToString();
+            }
+            if (r_factura["r_num_ext"].ToString() != "")
+            {
+                if(domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                domicilio_receptor += r_factura["r_num_ext"].ToString();
+            }
+            if (r_factura["r_num_int"].ToString() != "")
+            {
+                if (domicilio_receptor != "") { domicilio_receptor += ", int. "; }
+
+                domicilio_receptor += r_factura["r_num_int"].ToString();
+            }
+            if (r_factura["r_colonia"].ToString() != "")
+            {
+                if (domicilio_receptor != "") { domicilio_receptor += ", Col. "; }
+
+                domicilio_receptor += r_factura["r_colonia"].ToString();
+            }
+            if (r_factura["r_cp"].ToString() != "")
+            {
+                if (domicilio_receptor != "") { domicilio_receptor += ", CP. "; }
+
+                domicilio_receptor += r_factura["r_cp"].ToString();
+            }
+            if (r_factura["r_localidad"].ToString() != "")
+            {
+                if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                domicilio_receptor += r_factura["r_localidad"].ToString();
+            }
+            if (r_factura["r_municipio"].ToString() != "")
+            {
+                if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                domicilio_receptor += r_factura["r_municipio"].ToString();
+            }
+            if (r_factura["r_estado"].ToString() != "")
+            {
+                if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                domicilio_receptor += r_factura["r_estado"].ToString();
+            }
+            if (r_factura["r_pais"].ToString() != "")
+            {
+                if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                domicilio_receptor += r_factura["r_pais"].ToString();
+            }
+            if (domicilio_receptor != "")
+            {
+                comprobante.Receptor.domicilioReceptorSpecified = true;
+                comprobante.Receptor.DomicilioReceptor = domicilio_receptor;
+            }
+            // Correo y telefono
+            if (r_factura["r_correo"].ToString() != "")
+            {
+                correo_tel_receptor = "Correo:" + r_factura["r_correo"].ToString();
+            }
+            if (r_factura["r_telefono"].ToString() != "")
+            {
+                if (correo_tel_receptor != "") { correo_tel_receptor += ", "; }
+
+                correo_tel_receptor = "Tel.:" + r_factura["r_telefono"].ToString();
+            }
+            if(correo_tel_receptor != "")
+            {
+                comprobante.Receptor.correoTelefonoReceptorSpecified = true;
+                comprobante.Receptor.CorreoTelefonoReceptor = correo_tel_receptor;
+            }
+
 
 
 
@@ -963,7 +1052,7 @@ namespace PuntoDeVentaV2
             {
                 if (!File.Exists(ruta_archivos + ".pdf"))
                 {
-                    generar_PDF("XML_" + nombrexml);
+                    generar_PDF("XML_" + nombrexml, idf);
                 }
             }
 
