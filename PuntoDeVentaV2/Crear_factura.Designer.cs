@@ -70,6 +70,7 @@
             this.lb_facturando = new System.Windows.Forms.Label();
             this.tab_control = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txt_buscarcliente = new System.Windows.Forms.TextBox();
             this.groupb_productos = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.pnl_productos = new System.Windows.Forms.Panel();
@@ -111,7 +112,7 @@
             this.cmb_bx_clientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_bx_clientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_bx_clientes.FormattingEnabled = true;
-            this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 29);
+            this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
             this.cmb_bx_clientes.Name = "cmb_bx_clientes";
             this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
             this.cmb_bx_clientes.TabIndex = 2;
@@ -155,7 +156,7 @@
             this.pnl_datos_cliente.Controls.Add(this.lb_razon);
             this.pnl_datos_cliente.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnl_datos_cliente.ForeColor = System.Drawing.Color.Black;
-            this.pnl_datos_cliente.Location = new System.Drawing.Point(18, 83);
+            this.pnl_datos_cliente.Location = new System.Drawing.Point(18, 97);
             this.pnl_datos_cliente.Name = "pnl_datos_cliente";
             this.pnl_datos_cliente.Size = new System.Drawing.Size(815, 281);
             this.pnl_datos_cliente.TabIndex = 4;
@@ -445,7 +446,7 @@
             this.btn_crear_cliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_crear_cliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_crear_cliente.ForeColor = System.Drawing.Color.White;
-            this.btn_crear_cliente.Location = new System.Drawing.Point(726, 27);
+            this.btn_crear_cliente.Location = new System.Drawing.Point(726, 21);
             this.btn_crear_cliente.Name = "btn_crear_cliente";
             this.btn_crear_cliente.Size = new System.Drawing.Size(110, 30);
             this.btn_crear_cliente.TabIndex = 3;
@@ -501,26 +502,36 @@
             // tab_control
             // 
             this.tab_control.Controls.Add(this.tabPage1);
-            this.tab_control.Location = new System.Drawing.Point(12, 91);
+            this.tab_control.Location = new System.Drawing.Point(12, 78);
             this.tab_control.Name = "tab_control";
             this.tab_control.SelectedIndex = 0;
-            this.tab_control.Size = new System.Drawing.Size(856, 400);
+            this.tab_control.Size = new System.Drawing.Size(856, 415);
             this.tab_control.TabIndex = 15;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.groupb_productos);
-            this.tabPage1.Controls.Add(this.groupb_pago);
             this.tabPage1.Controls.Add(this.pnl_datos_cliente);
             this.tabPage1.Controls.Add(this.btn_crear_cliente);
+            this.tabPage1.Controls.Add(this.groupb_pago);
             this.tabPage1.Controls.Add(this.cmb_bx_clientes);
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(848, 370);
+            this.tabPage1.Size = new System.Drawing.Size(848, 385);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Cliente";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txt_buscarcliente
+            // 
+            this.txt_buscarcliente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txt_buscarcliente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txt_buscarcliente.Location = new System.Drawing.Point(816, 28);
+            this.txt_buscarcliente.Name = "txt_buscarcliente";
+            this.txt_buscarcliente.Size = new System.Drawing.Size(48, 22);
+            this.txt_buscarcliente.TabIndex = 18;
+            this.txt_buscarcliente.Visible = false;
             // 
             // groupb_productos
             // 
@@ -557,7 +568,7 @@
             this.pnl_productos.ForeColor = System.Drawing.SystemColors.ControlText;
             this.pnl_productos.Location = new System.Drawing.Point(10, 64);
             this.pnl_productos.Name = "pnl_productos";
-            this.pnl_productos.Size = new System.Drawing.Size(813, 124);
+            this.pnl_productos.Size = new System.Drawing.Size(813, 132);
             this.pnl_productos.TabIndex = 0;
             // 
             // label7
@@ -740,6 +751,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(880, 549);
+            this.Controls.Add(this.txt_buscarcliente);
             this.Controls.Add(this.tab_control);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_facturar);
@@ -828,5 +840,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txt_buscarcliente;
     }
 }

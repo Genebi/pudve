@@ -67,6 +67,7 @@
             this.linklb_pag_actual = new System.Windows.Forms.LinkLabel();
             this.linklb_pag_anterior = new System.Windows.Forms.LinkLabel();
             this.elegir_carpeta_descarga = new System.Windows.Forms.FolderBrowserDialog();
+            this.btn_cancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -498,11 +499,28 @@
             this.linklb_pag_anterior.Text = "1";
             this.linklb_pag_anterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklb_pag_anterior_LinkClicked);
             // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_cancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btn_cancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancelar.ForeColor = System.Drawing.Color.White;
+            this.btn_cancelar.Location = new System.Drawing.Point(761, 53);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(100, 30);
+            this.btn_cancelar.TabIndex = 12;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = false;
+            this.btn_cancelar.Visible = false;
+            // 
             // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 519);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.lb_texto_descarga);
             this.Controls.Add(this.pBar1);
@@ -567,5 +585,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_t_comprobante;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_conpago;
         private System.Windows.Forms.FolderBrowserDialog elegir_carpeta_descarga;
+        private System.Windows.Forms.Button btn_cancelar;
     }
 }

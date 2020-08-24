@@ -1295,7 +1295,8 @@ namespace PuntoDeVentaV2
 
         private decimal dos_decimales(decimal c)
         {
-            decimal cantidad = Decimal.Round(c, 2);
+            //decimal cantidad = Decimal.Round(c, 2);
+            decimal cantidad = Math.Round(c, 2, MidpointRounding.AwayFromZero);
 
             return cantidad;
         }
