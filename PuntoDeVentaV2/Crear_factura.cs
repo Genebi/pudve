@@ -35,7 +35,9 @@ namespace PuntoDeVentaV2
 
         private void Crear_factura_Load(object sender, EventArgs e)
         {
-            
+
+            //txt_buscarcliente.AutoCompleteCustomSource = cargar_clientes();
+
             // Obtiene los clientes
 
             DataTable d_clientes;
@@ -353,6 +355,28 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        /*private AutoCompleteStringCollection cargar_clientes()
+        {
+            AutoCompleteStringCollection cclientes = new AutoCompleteStringCollection();
+            string[][] coleccion;
+            
+            DataTable d_clientes = cn.CargarDatos(cs.cargar_datos_venta_xml(7, 0, Convert.ToInt32(FormPrincipal.userID)));
+
+            if (d_clientes.Rows.Count > 0)
+            {
+                int ta = d_clientes.Rows.Count;
+                coleccion = new string[ta][];
+
+                foreach (DataRow r_clientes in d_clientes.Rows)
+                {
+                    //cclientes.AddRange(coleccion);
+                    //cclientes.Add(r_clientes["RFC"].ToString() + " - " + r_clientes["RazonSocial"].ToString());
+                }
+            }
+
+            return cclientes;
+        }*/
 
         private void ir_a_clientes(object sender, EventArgs e)
         {
@@ -1183,5 +1207,6 @@ namespace PuntoDeVentaV2
             cmb_bx_uso_cfdi.ValueMember = "Key";
             cmb_bx_uso_cfdi.SelectedValue = r_datos_clientes["UsoCFDI"];
         }
+        
     }
 }
