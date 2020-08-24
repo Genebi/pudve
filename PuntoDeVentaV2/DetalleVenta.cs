@@ -77,6 +77,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            Ventas venta = new Ventas();
             float pagado = CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito;
 
             //Comprobamos si las cantidades a pagar son mayores o igual al total de la venta para poder terminarla
@@ -124,6 +125,8 @@ namespace PuntoDeVentaV2
 
                 this.Hide();
                 this.Close();
+
+                venta.Show();
             }
         }
 

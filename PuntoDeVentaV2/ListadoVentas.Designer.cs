@@ -635,11 +635,21 @@
         private System.Windows.Forms.DataGridViewImageColumn Abono;
         private System.Windows.Forms.DataGridViewImageColumn Timbrar;
         private System.Windows.Forms.TextBox txtBuscador;
+<<<<<<< HEAD
+=======
+//<<<<<<< HEAD
+>>>>>>> revisionPgWeb
         private System.Windows.Forms.Button btn_descargar;
         private System.Windows.Forms.FolderBrowserDialog elegir_carpeta_descarga;
         private System.Windows.Forms.ProgressBar pBar_descarga;
         private System.Windows.Forms.Label lb_texto_descarga;
         private System.Windows.Forms.Button btn_timbrar;
+<<<<<<< HEAD
         public System.Windows.Forms.Button btnNuevaVenta;
+=======
+//=======
+        public System.Windows.Forms.Button btnNuevaVenta;
+//>>>>>>> ajustesVentas
+>>>>>>> revisionPgWeb
     }
 }
