@@ -396,6 +396,10 @@
             this.temporizador_respaldo.Interval = 900000;
             this.temporizador_respaldo.Tick += new System.EventHandler(this.temporizador_respaldo_Tick);
             // 
+            // actualizarCaja
+            // 
+            this.actualizarCaja.Tick += new System.EventHandler(this.actualizarCaja_Tick_1);
+            // 
             // timerProductos
             // 
             this.timerProductos.Enabled = true;

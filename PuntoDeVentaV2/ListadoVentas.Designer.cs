@@ -635,14 +635,14 @@
         private System.Windows.Forms.DataGridViewImageColumn Abono;
         private System.Windows.Forms.DataGridViewImageColumn Timbrar;
         private System.Windows.Forms.TextBox txtBuscador;
-<<<<<<< HEAD
+//<<<<<<< HEAD
         private System.Windows.Forms.Button btn_descargar;
         private System.Windows.Forms.FolderBrowserDialog elegir_carpeta_descarga;
         private System.Windows.Forms.ProgressBar pBar_descarga;
         private System.Windows.Forms.Label lb_texto_descarga;
         private System.Windows.Forms.Button btn_timbrar;
-=======
+//=======
         public System.Windows.Forms.Button btnNuevaVenta;
->>>>>>> ajustesVentas
+//>>>>>>> ajustesVentas
     }
 }

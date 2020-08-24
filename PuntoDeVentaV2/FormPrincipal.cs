@@ -16,6 +16,8 @@ using System.Xml;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Threading;
+using System.Net.NetworkInformation;
+using static System.Net.WebRequestMethods;
 
 namespace PuntoDeVentaV2
 {
@@ -313,6 +315,11 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
+        private void actualizarCaja_Tick_1(object sender, EventArgs e)
+        {
+
+        }
+
         private void cerrarSesion()
         {
             FormCollection formulariosApp = Application.OpenForms;
@@ -425,7 +432,9 @@ namespace PuntoDeVentaV2
                 diasNoVendidos = Convert.ToInt32(datosConfig[12]);
             }
 
-            InitializarTimerAndroid();
+                InitializarTimerAndroid();
+            
+           
             //====================================================================
 
             // Verificar si existe registro de la tabla configuracion
@@ -435,6 +444,26 @@ namespace PuntoDeVentaV2
             {
                 cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{userID}')");
             }
+        }
+
+        public bool verificarInternet()
+        {
+            string host = "google.com.mx";
+            bool resul = false;
+            Ping p = new Ping();
+            try
+            {
+                PingReply reply = p.Send(host, 3000);
+                if (reply.Status == IPStatus.Success)
+                {
+                    resul = true;
+                }
+            }
+            catch
+            {
+                resul = false;
+            }
+            return resul;
         }
 
         private void InsertarPermisosDefault(int idEmpleado)
@@ -513,7 +542,12 @@ namespace PuntoDeVentaV2
 
             if (FormVenta.Count() == 1)
             {
-                 if (FormVenta.First().WindowState == FormWindowState.Minimized)
+                if (FormVenta.First().WindowState == FormWindowState.Normal)
+                {
+                    FormVenta.First().BringToFront();
+                }
+
+                if (FormVenta.First().WindowState == FormWindowState.Minimized)
                  {
                         FormVenta.First().WindowState = FormWindowState.Normal;
                  }
@@ -724,18 +758,25 @@ namespace PuntoDeVentaV2
 
         public void InitializarTimerAndroid()
         {
-            actualizarCaja.Interval = 60000;
-            actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
-            actualizarCaja.Enabled = true;
+            
+                actualizarCaja.Interval = 60000;
+                actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
+                actualizarCaja.Enabled = true;
         }
 
         private void actualizarCaja_Tick(object sender, EventArgs e)
         {
-            if (pasar == 1)
+            
+            var datoMEtodoMAfufo = verificarInternet();
+           
+            if (datoMEtodoMAfufo)
             {
-                _conHandler.StartCheckConnectionState();
+                if (pasar == 1)
+                {
+                    _conHandler.StartCheckConnectionState();
+                }
             }
-        }
+}
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
