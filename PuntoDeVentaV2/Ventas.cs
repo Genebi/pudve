@@ -1645,7 +1645,6 @@ namespace PuntoDeVentaV2
                     {
                         if (botonAceptar)
                         {
-                            //statusVenta = "1";
                             DatosVenta();
                             botonAceptar = false;
                             idCliente = string.Empty;
