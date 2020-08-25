@@ -135,9 +135,6 @@ namespace PuntoDeVentaV2
             label5.BackColor = Color.FromArgb(229, 231, 233);
             label6.BackColor = Color.FromArgb(229, 231, 233);
             label7.BackColor = Color.FromArgb(229, 231, 233);
-            label8.BackColor = Color.FromArgb(229, 231, 233);
-            label10.BackColor = Color.FromArgb(229, 231, 233);
-            label11.BackColor = Color.FromArgb(229, 231, 233);
 
             txtBuscadorProducto.GotFocus  += new EventHandler(BuscarTieneFoco);
             txtBuscadorProducto.LostFocus += new EventHandler(BuscarPierdeFoco);

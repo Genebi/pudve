@@ -83,9 +83,6 @@
             this.lbEliminarCliente = new System.Windows.Forms.Label();
             this.cAnticipoUtilizado = new System.Windows.Forms.Label();
             this.lbAnticipoUtilizado = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.lbDatosCliente = new System.Windows.Forms.Label();
             this.lbMayoreo = new System.Windows.Forms.Label();
             this.btnEliminarDescuentos = new System.Windows.Forms.Button();
@@ -641,9 +638,6 @@
             this.panel1.Controls.Add(this.lbEliminarCliente);
             this.panel1.Controls.Add(this.cAnticipoUtilizado);
             this.panel1.Controls.Add(this.lbAnticipoUtilizado);
-            this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.lbDatosCliente);
             this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Controls.Add(this.lbMayoreo);
@@ -718,39 +712,6 @@
             this.lbAnticipoUtilizado.Text = "Anticipo utilizado:";
             this.lbAnticipoUtilizado.Visible = false;
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label11.Location = new System.Drawing.Point(814, 339);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(31, 13);
-            this.label11.TabIndex = 54;
-            this.label11.Text = "\"Fin\"";
-            this.label11.Click += new System.EventHandler(this.label11_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label10.Location = new System.Drawing.Point(593, 342);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(37, 13);
-            this.label10.TabIndex = 52;
-            this.label10.Text = "Alt + 3";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label8.Location = new System.Drawing.Point(402, 342);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(37, 13);
-            this.label8.TabIndex = 52;
-            this.label8.Text = "Alt + 1";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
-            // 
             // lbDatosCliente
             // 
             this.lbDatosCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -778,11 +739,11 @@
             // 
             this.btnEliminarDescuentos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEliminarDescuentos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarDescuentos.Location = new System.Drawing.Point(383, 321);
+            this.btnEliminarDescuentos.Location = new System.Drawing.Point(311, 321);
             this.btnEliminarDescuentos.Name = "btnEliminarDescuentos";
-            this.btnEliminarDescuentos.Size = new System.Drawing.Size(79, 40);
+            this.btnEliminarDescuentos.Size = new System.Drawing.Size(113, 25);
             this.btnEliminarDescuentos.TabIndex = 44;
-            this.btnEliminarDescuentos.Text = "Eliminar";
+            this.btnEliminarDescuentos.Text = "Eliminar (Alt + 1)";
             this.btnEliminarDescuentos.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnEliminarDescuentos.UseVisualStyleBackColor = true;
             this.btnEliminarDescuentos.Click += new System.EventHandler(this.btnEliminarDescuentos_Click);
@@ -791,11 +752,11 @@
             // 
             this.btnAplicarDescuento.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAplicarDescuento.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAplicarDescuento.Location = new System.Drawing.Point(574, 322);
+            this.btnAplicarDescuento.Location = new System.Drawing.Point(535, 321);
             this.btnAplicarDescuento.Name = "btnAplicarDescuento";
-            this.btnAplicarDescuento.Size = new System.Drawing.Size(75, 40);
+            this.btnAplicarDescuento.Size = new System.Drawing.Size(114, 25);
             this.btnAplicarDescuento.TabIndex = 43;
-            this.btnAplicarDescuento.Text = "APLICAR";
+            this.btnAplicarDescuento.Text = "Aplicar (Alt + 3)";
             this.btnAplicarDescuento.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnAplicarDescuento.UseVisualStyleBackColor = true;
             this.btnAplicarDescuento.Click += new System.EventHandler(this.btnAplicarDescuento_Click);
@@ -860,11 +821,11 @@
             this.btnTerminarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTerminarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTerminarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminarVenta.Location = new System.Drawing.Point(793, 318);
+            this.btnTerminarVenta.Location = new System.Drawing.Point(820, 321);
             this.btnTerminarVenta.Name = "btnTerminarVenta";
-            this.btnTerminarVenta.Size = new System.Drawing.Size(75, 40);
+            this.btnTerminarVenta.Size = new System.Drawing.Size(105, 25);
             this.btnTerminarVenta.TabIndex = 37;
-            this.btnTerminarVenta.Text = "Terminar";
+            this.btnTerminarVenta.Text = "Terminar \"Fin\"";
             this.btnTerminarVenta.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnTerminarVenta.UseVisualStyleBackColor = true;
             this.btnTerminarVenta.Click += new System.EventHandler(this.btnTerminarVenta_Click);
@@ -872,9 +833,10 @@
             // txtDescuentoGeneral
             // 
             this.txtDescuentoGeneral.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescuentoGeneral.Location = new System.Drawing.Point(468, 322);
+            this.txtDescuentoGeneral.Location = new System.Drawing.Point(430, 322);
+            this.txtDescuentoGeneral.Multiline = true;
             this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
-            this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 22);
+            this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 23);
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1133,9 +1095,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox lFolio;
         private System.Windows.Forms.Label cAnticipoUtilizado;
         private System.Windows.Forms.Label lbAnticipoUtilizado;
