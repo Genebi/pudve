@@ -470,5 +470,15 @@ namespace PuntoDeVentaV2
 
             return numero.ToString("D6");
         }
+
+        private void lAgregarClienteNuevo_Click(object sender, EventArgs e)
+        {
+            Clientes addTypeCliente = Application.OpenForms.OfType<Clientes>().FirstOrDefault();
+
+            if (addTypeCliente != null)
+            {
+                addTypeCliente.btnTipoCliente_Click(this, null);
+            }
+        }
     }
 }

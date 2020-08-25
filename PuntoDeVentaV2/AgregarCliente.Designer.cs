@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.cbTipoCliente = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -66,13 +68,13 @@
             this.txtRFC = new System.Windows.Forms.TextBox();
             this.txtNombreComercial = new System.Windows.Forms.TextBox();
             this.txtRazonSocial = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.cbTipoCliente = new System.Windows.Forms.ComboBox();
+            this.lAgregarClienteNuevo = new System.Windows.Forms.Label();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbContenedor
             // 
+            this.gbContenedor.Controls.Add(this.lAgregarClienteNuevo);
             this.gbContenedor.Controls.Add(this.cbTipoCliente);
             this.gbContenedor.Controls.Add(this.label17);
             this.gbContenedor.Controls.Add(this.label23);
@@ -117,6 +119,27 @@
             this.gbContenedor.Size = new System.Drawing.Size(610, 570);
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
+            // 
+            // cbTipoCliente
+            // 
+            this.cbTipoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoCliente.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoCliente.FormattingEnabled = true;
+            this.cbTipoCliente.Location = new System.Drawing.Point(152, 375);
+            this.cbTipoCliente.Name = "cbTipoCliente";
+            this.cbTipoCliente.Size = new System.Drawing.Size(180, 24);
+            this.cbTipoCliente.TabIndex = 84;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(33, 376);
+            this.label17.Name = "label17";
+            this.label17.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label17.Size = new System.Drawing.Size(78, 17);
+            this.label17.TabIndex = 83;
+            this.label17.Text = "Tipo Cliente";
             // 
             // label23
             // 
@@ -518,26 +541,17 @@
             this.txtRazonSocial.TabIndex = 1;
             this.txtRazonSocial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label17
+            // lAgregarClienteNuevo
             // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(33, 376);
-            this.label17.Name = "label17";
-            this.label17.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label17.Size = new System.Drawing.Size(78, 17);
-            this.label17.TabIndex = 83;
-            this.label17.Text = "Tipo Cliente";
-            // 
-            // cbTipoCliente
-            // 
-            this.cbTipoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipoCliente.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTipoCliente.FormattingEnabled = true;
-            this.cbTipoCliente.Location = new System.Drawing.Point(152, 375);
-            this.cbTipoCliente.Name = "cbTipoCliente";
-            this.cbTipoCliente.Size = new System.Drawing.Size(180, 24);
-            this.cbTipoCliente.TabIndex = 84;
+            this.lAgregarClienteNuevo.AutoSize = true;
+            this.lAgregarClienteNuevo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lAgregarClienteNuevo.Location = new System.Drawing.Point(354, 382);
+            this.lAgregarClienteNuevo.Name = "lAgregarClienteNuevo";
+            this.lAgregarClienteNuevo.Size = new System.Drawing.Size(153, 13);
+            this.lAgregarClienteNuevo.TabIndex = 85;
+            this.lAgregarClienteNuevo.Text = "Agregar Nuevo Tipo de Cliente";
+            this.lAgregarClienteNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lAgregarClienteNuevo.Click += new System.EventHandler(this.lAgregarClienteNuevo_Click);
             // 
             // AgregarCliente
             // 
@@ -599,5 +613,6 @@
         private System.Windows.Forms.ComboBox cbUsoCFDI;
         private System.Windows.Forms.ComboBox cbTipoCliente;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label lAgregarClienteNuevo;
     }
 }

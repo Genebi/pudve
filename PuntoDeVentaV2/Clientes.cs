@@ -213,7 +213,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void btnTipoCliente_Click(object sender, EventArgs e)
+        public void btnTipoCliente_Click(object sender, EventArgs e)
         {
             if (opcion2 == 0)
             {
