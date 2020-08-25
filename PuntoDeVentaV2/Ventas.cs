@@ -144,13 +144,11 @@ namespace PuntoDeVentaV2
             txtDescuentoGeneral.GotFocus  += new EventHandler(DescuentoTieneFoco);
             txtDescuentoGeneral.LostFocus += new EventHandler(DescuentoPierdeFoco);
 
-            btnProductoRapido.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\plus.png");
             btnEliminarUltimo.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
             btnEliminarTodos.BackgroundImage  = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
             btnUltimoTicket.BackgroundImage   = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
             btnPresupuesto.BackgroundImage    = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\money.png");
 
-            btnProductoRapido.BackgroundImageLayout = ImageLayout.Center;
             btnEliminarUltimo.BackgroundImageLayout = ImageLayout.Center;
             btnEliminarTodos.BackgroundImageLayout  = ImageLayout.Center;
             btnUltimoTicket.BackgroundImageLayout   = ImageLayout.Center;
@@ -2088,6 +2086,12 @@ namespace PuntoDeVentaV2
 
             if (DGVentas.RowCount > 0)
             {
+                if (!string.IsNullOrWhiteSpace(listaAnticipos))
+                {
+                    MessageBox.Show("No se puede guardar esta venta ya que\ntiene un anticipo aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 ListaClientes cliente = new ListaClientes();
 
                 cliente.FormClosed += delegate
@@ -2954,6 +2958,7 @@ namespace PuntoDeVentaV2
                     {
                         CantidadesFinalesVenta();
                         importeAnticipo = 0f;
+                        btnEliminarAnticipos.Visible = true;
                     }
                 };
 
@@ -3936,6 +3941,16 @@ namespace PuntoDeVentaV2
         private void label11_Click(object sender, EventArgs e)
         {
             btnTerminarVenta.PerformClick();
+        }
+
+        private void btnEliminarAnticipos_Click(object sender, EventArgs e)
+        {
+            listaAnticipos = string.Empty;
+            importeAnticipo = 0f;
+            cAnticipo.Text = "0.00";
+            cAnticipoUtilizado.Text = "0.00";
+            btnEliminarAnticipos.Visible = false;
+            CantidadesFinalesVenta();
         }
 
         private void CuerpoEmails()

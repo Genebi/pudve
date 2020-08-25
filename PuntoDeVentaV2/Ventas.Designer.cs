@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.tituloBoton = new System.Windows.Forms.ToolTip(this.components);
-            this.btnProductoRapido = new System.Windows.Forms.Button();
+            this.btnEliminarAnticipos = new System.Windows.Forms.Button();
             this.btnEliminarUltimo = new System.Windows.Forms.Button();
             this.btnEliminarTodos = new System.Windows.Forms.Button();
             this.btnUltimoTicket = new System.Windows.Forms.Button();
@@ -126,15 +126,18 @@
             this.tituloSeccion.Text = "NUEVA VENTA";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // btnProductoRapido
+            // btnEliminarAnticipos
             // 
-            this.btnProductoRapido.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnProductoRapido.Location = new System.Drawing.Point(516, 80);
-            this.btnProductoRapido.Name = "btnProductoRapido";
-            this.btnProductoRapido.Size = new System.Drawing.Size(40, 28);
-            this.btnProductoRapido.TabIndex = 10;
-            this.tituloBoton.SetToolTip(this.btnProductoRapido, "Agregar producto o servicio rápido");
-            this.btnProductoRapido.UseVisualStyleBackColor = true;
+            this.btnEliminarAnticipos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEliminarAnticipos.Location = new System.Drawing.Point(451, 80);
+            this.btnEliminarAnticipos.Name = "btnEliminarAnticipos";
+            this.btnEliminarAnticipos.Size = new System.Drawing.Size(105, 28);
+            this.btnEliminarAnticipos.TabIndex = 10;
+            this.btnEliminarAnticipos.Text = "Eliminar Anticipos";
+            this.tituloBoton.SetToolTip(this.btnEliminarAnticipos, "Eliminar todos los anticipos de esta venta");
+            this.btnEliminarAnticipos.UseVisualStyleBackColor = true;
+            this.btnEliminarAnticipos.Visible = false;
+            this.btnEliminarAnticipos.Click += new System.EventHandler(this.btnEliminarAnticipos_Click);
             // 
             // btnEliminarUltimo
             // 
@@ -369,9 +372,9 @@
             this.TipoDescuento.Name = "TipoDescuento";
             this.TipoDescuento.ReadOnly = true;
             this.TipoDescuento.Visible = false;
-            //
+            // 
             // Impuesto
-            //
+            // 
             this.Impuesto.HeaderText = "Impuesto";
             this.Impuesto.Name = "Impuesto";
             this.Impuesto.ReadOnly = true;
@@ -660,7 +663,7 @@
             this.panel1.Controls.Add(this.cTotal);
             this.panel1.Controls.Add(this.btnEliminarTodos);
             this.panel1.Controls.Add(this.cDescuento);
-            this.panel1.Controls.Add(this.btnProductoRapido);
+            this.panel1.Controls.Add(this.btnEliminarAnticipos);
             this.panel1.Controls.Add(this.cAnticipo);
             this.panel1.Controls.Add(this.cIVA);
             this.panel1.Controls.Add(this.cSubtotal);
@@ -1060,7 +1063,7 @@
 
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.ToolTip tituloBoton;
-        private System.Windows.Forms.Button btnProductoRapido;
+        private System.Windows.Forms.Button btnEliminarAnticipos;
         private System.Windows.Forms.TextBox txtBuscadorProducto;
         private System.Windows.Forms.DataGridView DGVentas;
         private System.Windows.Forms.Button btnEliminarUltimo;
