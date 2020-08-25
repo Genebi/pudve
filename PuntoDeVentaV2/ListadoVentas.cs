@@ -265,8 +265,11 @@ namespace PuntoDeVentaV2
                     int idVenta = Convert.ToInt32(filaDatos["ID"].ToString());
                     int status = Convert.ToInt32(filaDatos["Status"].ToString());
 
-                    string cliente = "Público General";
-                    string rfc = "XAXX010101000";
+                    //string cliente = "Público General";
+                    //string rfc = "XAXX010101000";
+
+                    string cliente = filaDatos["Cliente"].ToString();
+                    string rfc = filaDatos["RFC"].ToString();
 
                     // Obtener detalle de venta y datos del cliente
                     var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
