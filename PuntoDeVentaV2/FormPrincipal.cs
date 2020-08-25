@@ -446,25 +446,25 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public bool verificarInternet()
-        {
-            string host = "google.com.mx";
-            bool resul = false;
-            Ping p = new Ping();
-            try
-            {
-                PingReply reply = p.Send(host, 3000);
-                if (reply.Status == IPStatus.Success)
-                {
-                    resul = true;
-                }
-            }
-            catch
-            {
-                resul = false;
-            }
-            return resul;
-        }
+        //public bool verificarInternet()
+        //{
+        //    string host = "google.com.mx";
+        //    bool resul = false;
+        //    Ping p = new Ping();
+        //    try
+        //    {
+        //        PingReply reply = p.Send(host, 1000);
+        //        if (reply.Status == IPStatus.Success)
+        //        {
+        //            resul = true;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        resul = false;
+        //    }
+        //    return resul;
+        //}
 
         private void InsertarPermisosDefault(int idEmpleado)
         {
@@ -767,14 +767,14 @@ namespace PuntoDeVentaV2
         private void actualizarCaja_Tick(object sender, EventArgs e)
         {
             
-            var datoMEtodoMAfufo = verificarInternet();
+            //var datoMEtodoMAfufo = verificarInternet();
            
-            if (datoMEtodoMAfufo)
-            {
+            //if (datoMEtodoMAfufo)
+            //{
                 if (pasar == 1)
                 {
                     _conHandler.StartCheckConnectionState();
-                }
+                //}
             }
 }
 

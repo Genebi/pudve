@@ -125,7 +125,6 @@ namespace PuntoDeVentaV2
 
                 this.Hide();
                 this.Close();
-
                 venta.Show();
             }
         }

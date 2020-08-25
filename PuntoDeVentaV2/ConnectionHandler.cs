@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -154,7 +155,25 @@ namespace PuntoDeVentaV2
 
         }
 
-
+        public bool verificarInternet()
+        {
+            string host = "google.com.mx";
+            bool resul = false;
+            Ping p = new Ping();
+            try
+            {
+                PingReply reply = p.Send(host, 2000);
+                if (reply.Status == IPStatus.Success)
+                {
+                    resul = true;
+                }
+            }
+            catch
+            {
+                resul = false;
+            }
+            return resul;
+        }
 
 
         //Se necesita para saber si la computadora tiene conexion a internet
@@ -171,20 +190,23 @@ namespace PuntoDeVentaV2
 
         public void MejoraMysql()
         {
+            var datoMEtodoMAfufo = verificarInternet();
 
-            if (ConectadoInternet())
+            if (datoMEtodoMAfufo)
             {
-                var servidor = Properties.Settings.Default.Hosting;
-                if (string.IsNullOrWhiteSpace(servidor))
+                if (ConectadoInternet())
                 {
-                    actualizarIdUsuario();
-                    eliminarCaja();
-                    insertarCaja();
-                    eliminarProductos();
-                    insertarProductos();
+                    var servidor = Properties.Settings.Default.Hosting;
+                    if (string.IsNullOrWhiteSpace(servidor))
+                    {
+                        actualizarIdUsuario();
+                        eliminarCaja();
+                        insertarCaja();
+                        eliminarProductos();
+                        insertarProductos();
+                    }
                 }
             }
-
         }
 
         private void actualizarIdUsuario()
