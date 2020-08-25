@@ -397,7 +397,7 @@ namespace PuntoDeVentaV2
             CargarDatos(busqueda: true);
         }
 
-        private void btnNuevaVenta_Click(object sender, EventArgs e)
+        public void btnNuevaVenta_Click(object sender, EventArgs e)
         {
             if (opcion8 == 0)
             {

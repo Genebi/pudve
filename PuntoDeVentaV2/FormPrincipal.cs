@@ -87,6 +87,8 @@ namespace PuntoDeVentaV2
 
         string FechaFinal, saveDirectoryFile = string.Empty;
 
+        int veces = 0;
+
         #region Variables Globales	
 
         List<string> infoDetalle, infoDetailProdGral;
@@ -526,36 +528,55 @@ namespace PuntoDeVentaV2
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            Ventas venta = new Ventas();
-
-            if (ventas == 1)
+            if (veces == 0)
             {
-                AbrirFormulario<ListadoVentas>();
-
-                ListadoVentas.recargarDatos = true;
-                ListadoVentas.abrirNuevaVenta = true;
-            }
-            else
-            {
-                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-
-            if (FormVenta.Count() == 1)
-            {
-                if (FormVenta.First().WindowState == FormWindowState.Normal)
+                if (ventas == 1)
                 {
-                    FormVenta.First().BringToFront();
-                }
+                    AbrirFormulario<ListadoVentas>();
 
-                if (FormVenta.First().WindowState == FormWindowState.Minimized)
-                 {
-                        FormVenta.First().WindowState = FormWindowState.Normal;
-                 }
+                    ListadoVentas.recargarDatos = true;
+                    ListadoVentas.abrirNuevaVenta = true;
+
+                }
+                else
+                {
+                    MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
             }
-            else
+            
+            veces++;
+
+            if (veces > 0)
             {
-                venta.Show();
+                ListadoVentas lVentas = Application.OpenForms.OfType<ListadoVentas>().FirstOrDefault();
+
+                if (lVentas != null)
+                {
+                    lVentas.btnNuevaVenta_Click(this, null);
+                }
             }
+
+            //if (FormVenta.Count() == 1)
+            //{
+            //if (FormVenta.First().WindowState == FormWindowState.Normal)
+            //{
+            //    FormVenta.First().BringToFront();
+            //}
+            //if (FormVenta.First().WindowState == FormWindowState.Minimized)
+            // {
+            //    FormVenta.First().WindowState = FormWindowState.Normal;
+            // }
+
+            //}
+            //else
+            //{
+            //ListadoVentas lVentas = Application.OpenForms.OfType<ListadoVentas>().FirstOrDefault();
+
+            //if (lVentas != null)
+            //{
+            //    lVentas.btnNuevaVenta_Click(this, null);
+            //}
+            //}
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
