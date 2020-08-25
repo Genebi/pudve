@@ -122,6 +122,7 @@ namespace PuntoDeVentaV2
                             AsignarCreditoVenta.cliente = cliente;
 
                             Ventas.idCliente = idCliente.ToString();
+                            Ventas.statusVenta = "2";
                             Ventas.ventaGuardada = true;
                         }
                     }
