@@ -22,6 +22,8 @@ namespace PuntoDeVentaV2
         //Guarda la cantidad del rango inicial del descuento por mayoreo
         string rangoInicial = null;
 
+        int vecesMostradas = 0;
+
         public AgregarDescuentoProducto()
         {
             InitializeComponent();
@@ -385,6 +387,7 @@ namespace PuntoDeVentaV2
                         tb2.Height = 20;
                         tb2.Margin = new Padding(270, 5, 0, 0);
                         tb2.TextAlign = HorizontalAlignment.Center;
+                        tb2.Leave += new EventHandler(borrarTextoMensaje);
                         tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
                         tb2.KeyUp += new KeyEventHandler(calculoDescuento);
                         tb2.Text = renglon[2].ToString();
@@ -483,6 +486,7 @@ namespace PuntoDeVentaV2
                     tb2.Height = 20;
                     tb2.Margin = new Padding(270, 5, 0, 0);
                     tb2.TextAlign = HorizontalAlignment.Center;
+                    tb2.Leave += new EventHandler(borrarTextoMensaje);
                     tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
                     tb2.KeyUp += new KeyEventHandler(calculoDescuento);
 
@@ -594,6 +598,7 @@ namespace PuntoDeVentaV2
                         tb2.Height = 20;
                         tb2.Margin = new Padding(50, 5, 0, 0);
                         tb2.TextAlign = HorizontalAlignment.Center;
+                        tb2.Leave += new EventHandler(borrarTextoMensaje);
                         tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
                         tb2.Text = renglon[2].ToString();
 
@@ -677,6 +682,7 @@ namespace PuntoDeVentaV2
                     tb2.Height = 20;
                     tb2.Margin = new Padding(50, 5, 0, 0);
                     tb2.TextAlign = HorizontalAlignment.Center;
+                    tb2.Leave += new EventHandler(borrarTextoMensaje);
                     tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
 
                     TextBox tb3 = new TextBox();
@@ -714,6 +720,16 @@ namespace PuntoDeVentaV2
 
                     panelContenedor.FlowDirection = FlowDirection.TopDown;
                 }
+            }
+        }
+
+        private void borrarTextoMensaje(object sender, EventArgs e)
+        {
+            TextBox tbPorcentaje = (TextBox)sender;
+
+            if (!tbPorcentaje.Text.Equals(string.Empty))
+            {
+                lblMensaje.Text = string.Empty;
             }
         }
 
@@ -934,28 +950,52 @@ namespace PuntoDeVentaV2
 
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbCliente.Checked.Equals(true))
+            //if (rbCliente.Checked.Equals(true))
+            //{
+            //    validarRBProducto();
+            //}
+
+            txtTituloDescuento.Text = "Descuento por Producto";
+            tipoDescuento = 1;
+            CargarFormularios(tipoDescuento);
+
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
             {
-                validarRBProducto();
-                rbMayoreo.Checked = false;
+                vecesMostradas = 0;
+                if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                {
+                    lblMensaje.Visible = true;
+                    if (vecesMostradas < 5)
+                    {
+                        lblMensaje.Text = "Este producto ya tiene asignado descuento por Mayoreo desea cambiarlo";
+                    }
+                }
             }
-            
-            //txtTituloDescuento.Text = "Descuento por Producto";
-            //tipoDescuento = 1;
-            //CargarFormularios(tipoDescuento);
         }
 
         private void rbMayoreo_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbMayoreo.Checked.Equals(true))
+            //if (rbMayoreo.Checked.Equals(true))
+            //{
+            //    validarRBMayoreo();
+            //}
+
+            txtTituloDescuento.Text = "Descuento por Mayoreo";
+            tipoDescuento = idGenerado = 2;
+            CargarFormularios(tipoDescuento);
+
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
             {
-                validarRBMayoreo();
-                rbCliente.Checked = false;
+                vecesMostradas = 0;
+                if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                {
+                    lblMensaje.Visible = true;
+                    if (vecesMostradas < 5)
+                    {
+                        lblMensaje.Text = "Este producto ya tiene asignado descuento por Producto desea cambiarlo";
+                    }
+                }
             }
-            
-            //txtTituloDescuento.Text = "Descuento por Mayoreo";
-            //tipoDescuento = idGenerado = 2;
-            //CargarFormularios(tipoDescuento);
         }
         
         private void rangoProductosTB(object sender, KeyEventArgs e)
@@ -1208,6 +1248,21 @@ namespace PuntoDeVentaV2
         private void AgregarDescuentoProducto_Activated(object sender, EventArgs e)
         {
             obtenerTipoDescuento();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (vecesMostradas < 5)
+            {
+                Random randomValue = new Random();
+                int A = randomValue.Next(0, 255);
+                int B = randomValue.Next(0, 255);
+                int C = randomValue.Next(0, 255);
+
+                lblMensaje.ForeColor = System.Drawing.Color.FromArgb(A, B, C);
+                
+                vecesMostradas++;
+            }
         }
     }
 }
