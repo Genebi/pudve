@@ -684,6 +684,7 @@ namespace PuntoDeVentaV2
                 if ((datosProducto.Length - 1) == 14)
                 {
                     row.Cells["Descuento"].Value = datosProducto[14];
+                    row.Cells["TipoDescuento"].Value = "0";
                 }
                 else
                 {
