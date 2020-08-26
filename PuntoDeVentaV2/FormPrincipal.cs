@@ -87,7 +87,7 @@ namespace PuntoDeVentaV2
 
         string FechaFinal, saveDirectoryFile = string.Empty;
 
-        int veces = 0;
+        int veces = 1;
 
         #region Variables Globales	
 
@@ -322,6 +322,11 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void btnServicios_Click(object sender, EventArgs e)
+        {
+            validarVentasVentanas(); 
+        }
+
         private void cerrarSesion()
         {
             FormCollection formulariosApp = Application.OpenForms;
@@ -514,6 +519,7 @@ namespace PuntoDeVentaV2
 
         private void btnProductos_Click(object sender, EventArgs e)
         {
+            
             if (productos == 1)
             {
                 AbrirFormulario<Productos>();
@@ -524,11 +530,14 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas();
         }
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            if (veces == 0)
+           //Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "ListadoVentas").SingleOrDefault<Form>();
+
+            if (veces == 1)
             {
                 if (ventas == 1)
                 {
@@ -536,17 +545,13 @@ namespace PuntoDeVentaV2
 
                     ListadoVentas.recargarDatos = true;
                     ListadoVentas.abrirNuevaVenta = true;
-
+                    veces = 2;
                 }
                 else
                 {
                     MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
-            }
-            
-            veces++;
-
-            if (veces > 0)
+            } else if (veces==2)
             {
                 ListadoVentas lVentas = Application.OpenForms.OfType<ListadoVentas>().FirstOrDefault();
 
@@ -555,29 +560,11 @@ namespace PuntoDeVentaV2
                     lVentas.btnNuevaVenta_Click(this, null);
                 }
             }
-            veces = 0;
+        }
 
-            //if (FormVenta.Count() == 1)
-            //{
-            //if (FormVenta.First().WindowState == FormWindowState.Normal)
-            //{
-            //    FormVenta.First().BringToFront();
-            //}
-            //if (FormVenta.First().WindowState == FormWindowState.Minimized)
-            // {
-            //    FormVenta.First().WindowState = FormWindowState.Normal;
-            // }
-
-            //}
-            //else
-            //{
-            //ListadoVentas lVentas = Application.OpenForms.OfType<ListadoVentas>().FirstOrDefault();
-
-            //if (lVentas != null)
-            //{
-            //    lVentas.btnNuevaVenta_Click(this, null);
-            //}
-            //}
+        private void validarVentasVentanas()
+        {
+            veces = 1;
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
@@ -590,6 +577,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas();
         }
 
         private void btnProveedores_Click(object sender, EventArgs e)
@@ -602,6 +590,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas();
         }
 
         //Metodo para abrir formularios dentro del panel
@@ -640,6 +629,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas();
         }
 
         private void btnEmpresas_Click(object sender, EventArgs e)
@@ -652,6 +642,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas();
         }
 
         private void btnAnticipos_Click(object sender, EventArgs e)
@@ -666,6 +657,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas();
         }
 
         private void btnConfig_Click(object sender, EventArgs e)
@@ -680,6 +672,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas();
         }
 
         private void btnCaja_Click(object sender, EventArgs e)
@@ -694,6 +687,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas();
         }
 
         private void btnInventario_Click(object sender, EventArgs e)
@@ -706,6 +700,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas();
         }
 
         private void btnEmpleados_Click(object sender, EventArgs e)
@@ -718,6 +713,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas(); ;
         }
 
         private void btnReportes_Click(object sender, EventArgs e)
@@ -726,6 +722,7 @@ namespace PuntoDeVentaV2
             {
                 AbrirFormulario<Reportes>();
             }
+            validarVentasVentanas(); ;
         }
 
         private void btnFacturas_Click(object sender, EventArgs e)
@@ -738,6 +735,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+            validarVentasVentanas();
         }
 
         private void temporizador_respaldo_Tick(object sender, EventArgs e)
