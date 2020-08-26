@@ -483,11 +483,29 @@ namespace PuntoDeVentaV2
             if (addTypeCliente != null)
             {
                 addTypeCliente.btnTipoCliente_Click(this, null);
+
+                //AgregarTipoCliente tCliente = new AgregarTipoCliente();
+
+                //addTypeCliente.FormClosed += delegate
+                //{
+                //    addTypeCliente.ti
+                //   // var tipoClientes = mb.ObtenerTipoClientes(extra: true);
+                //    DatosAgregarCliente();
+                //};
+                
             }
         }
 
         private void cbTipoCliente_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
+=======
+
+        }
+
+        private void cbTipoCliente_Click_1(object sender, EventArgs e)
+        {
+>>>>>>> clientesPIII
             DatosAgregarCliente();
         }
     }
