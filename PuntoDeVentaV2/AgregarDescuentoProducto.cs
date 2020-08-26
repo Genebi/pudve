@@ -962,6 +962,7 @@ namespace PuntoDeVentaV2
             if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
             {
                 vecesMostradas = 0;
+                lblMensaje.Text = string.Empty;
                 if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
                 {
                     lblMensaje.Visible = true;
@@ -987,6 +988,7 @@ namespace PuntoDeVentaV2
             if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
             {
                 vecesMostradas = 0;
+                lblMensaje.Text = string.Empty;
                 if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
                 {
                     lblMensaje.Visible = true;

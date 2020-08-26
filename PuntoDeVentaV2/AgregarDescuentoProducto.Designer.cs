@@ -46,7 +46,7 @@
             // label8
             // 
             this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label8.Location = new System.Drawing.Point(17, 71);
+            this.label8.Location = new System.Drawing.Point(17, 92);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(750, 2);
             this.label8.TabIndex = 21;
@@ -96,7 +96,7 @@
             // txtTituloDescuento
             // 
             this.txtTituloDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTituloDescuento.Location = new System.Drawing.Point(13, 17);
+            this.txtTituloDescuento.Location = new System.Drawing.Point(13, 24);
             this.txtTituloDescuento.Name = "txtTituloDescuento";
             this.txtTituloDescuento.Size = new System.Drawing.Size(754, 23);
             this.txtTituloDescuento.TabIndex = 28;
@@ -105,7 +105,7 @@
             // panelContenedor
             // 
             this.panelContenedor.AutoScroll = true;
-            this.panelContenedor.Location = new System.Drawing.Point(17, 91);
+            this.panelContenedor.Location = new System.Drawing.Point(17, 104);
             this.panelContenedor.Name = "panelContenedor";
             this.panelContenedor.Size = new System.Drawing.Size(748, 280);
             this.panelContenedor.TabIndex = 29;
@@ -164,8 +164,8 @@
             // 
             // lblMensaje
             // 
-            this.lblMensaje.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblMensaje.Location = new System.Drawing.Point(13, 45);
+            this.lblMensaje.Font = new System.Drawing.Font("Century", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblMensaje.Location = new System.Drawing.Point(13, 61);
             this.lblMensaje.Name = "lblMensaje";
             this.lblMensaje.Size = new System.Drawing.Size(754, 23);
             this.lblMensaje.TabIndex = 34;
