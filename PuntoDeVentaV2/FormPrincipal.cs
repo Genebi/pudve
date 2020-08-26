@@ -555,6 +555,7 @@ namespace PuntoDeVentaV2
                     lVentas.btnNuevaVenta_Click(this, null);
                 }
             }
+            veces = 0;
 
             //if (FormVenta.Count() == 1)
             //{
