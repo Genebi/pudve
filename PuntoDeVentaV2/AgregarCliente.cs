@@ -498,14 +498,12 @@ namespace PuntoDeVentaV2
 
         private void cbTipoCliente_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
-=======
 
         }
 
         private void cbTipoCliente_Click_1(object sender, EventArgs e)
         {
->>>>>>> clientesPIII
+
             DatosAgregarCliente();
         }
     }
