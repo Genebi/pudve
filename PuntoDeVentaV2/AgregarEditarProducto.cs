@@ -1440,6 +1440,11 @@ namespace PuntoDeVentaV2
             //}
         }
 
+        private void txtPrecioProducto_Resize(object sender, EventArgs e)
+        {
+
+        }
+
         public void PrimerCodBarras()
         {
             Contenido = "7777000001";
@@ -2066,6 +2071,11 @@ namespace PuntoDeVentaV2
                     }
                     txtPrecioProducto.Text = words[0] + "." + words[1];
                 }
+            }
+
+            if (!txtPrecioProducto.Text.Equals(""))
+            {
+                btnAgregarDescuento.Enabled = true;
             }
         }
 
@@ -5638,7 +5648,7 @@ namespace PuntoDeVentaV2
             {
                 saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
             }
-            
+
             detalleProductoBasico.Clear();
             detalleProductoGeneral.Clear();
             seleccionListaStock = 0;
@@ -5651,6 +5661,17 @@ namespace PuntoDeVentaV2
             Hided1 = false;
             flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
+
+            if (DatosSourceFinal.Equals(2))
+            {
+                btnAgregarDescuento.Enabled = true;
+            }
+            if (DatosSourceFinal.Equals(1) ||
+                DatosSourceFinal.Equals(3) ||
+                DatosSourceFinal.Equals(5))
+            {
+                btnAgregarDescuento.Enabled = false;
+            }
 
             PCategoria.Visible = false;
             fLPDetallesProducto.Visible = true;

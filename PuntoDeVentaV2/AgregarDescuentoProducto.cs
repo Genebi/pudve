@@ -22,26 +22,32 @@ namespace PuntoDeVentaV2
         //Guarda la cantidad del rango inicial del descuento por mayoreo
         string rangoInicial = null;
 
+        int vecesMostradas = 0;
+
         public AgregarDescuentoProducto()
         {
             InitializeComponent();
 
             this.ControlBox = false;
 
-            if (tipoDescuento == 1)
-            {
-                txtTituloDescuento.Text = "Descuento por Cliente";
-                rbCliente.Checked = true;
-            }
+            //if (tipoDescuento == 1)
+            //{
+            //    txtTituloDescuento.Text = "Descuento por Producto";
+            //    rbCliente.Checked = true;
+            //}
+
+            obtenerTipoDescuento();
         }
 
         private void AgregarDescuentoProducto_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
 
+            obtenerTipoDescuento();
+
             if (tipoDescuento == 1)
             {
-                txtTituloDescuento.Text = "Descuento por Cliente";
+                txtTituloDescuento.Text = "Descuento por Producto";
                 rbCliente.Checked = true;
             }
 
@@ -61,6 +67,35 @@ namespace PuntoDeVentaV2
             CargarFormularios(tipoDescuento);
         }
 
+        private void obtenerTipoDescuento()
+        {
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(1) ||
+                AgregarEditarProducto.DatosSourceFinal.Equals(3) ||
+                AgregarEditarProducto.DatosSourceFinal.Equals(5))
+            {
+                tipoDescuento = 1;
+                rbCliente.Checked = true;
+            }
+            else if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+            {
+                if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                {
+                    tipoDescuento = 1;
+                    rbCliente.Checked = true;
+                }
+                else if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                {
+                    tipoDescuento = 2;
+                    rbMayoreo.Checked = true;
+                }
+                else
+                {
+                    tipoDescuento = 1;
+                    rbCliente.Checked = true;
+                }
+            }
+        }
+
         private void btnCancelarDesc_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -68,7 +103,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptarDesc_Click(object sender, EventArgs e)
         {
-            //Cliente
+            //Producto
             if (tipoDescuento == 1)
             {
                 AgregarEditarProducto.descuentos.Clear();
@@ -307,7 +342,7 @@ namespace PuntoDeVentaV2
 
         public void cargarDescuentos()
         {
-            if (rbCliente.Checked == true)
+            if (tipoDescuento.Equals(1))
             {
                 if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
                 {
@@ -352,6 +387,7 @@ namespace PuntoDeVentaV2
                         tb2.Height = 20;
                         tb2.Margin = new Padding(270, 5, 0, 0);
                         tb2.TextAlign = HorizontalAlignment.Center;
+                        tb2.Leave += new EventHandler(borrarTextoMensaje);
                         tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
                         tb2.KeyUp += new KeyEventHandler(calculoDescuento);
                         tb2.Text = renglon[2].ToString();
@@ -450,6 +486,7 @@ namespace PuntoDeVentaV2
                     tb2.Height = 20;
                     tb2.Margin = new Padding(270, 5, 0, 0);
                     tb2.TextAlign = HorizontalAlignment.Center;
+                    tb2.Leave += new EventHandler(borrarTextoMensaje);
                     tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
                     tb2.KeyUp += new KeyEventHandler(calculoDescuento);
 
@@ -504,7 +541,7 @@ namespace PuntoDeVentaV2
                     panelContenedor.FlowDirection = FlowDirection.TopDown;
                 }
             }
-            if (rbMayoreo.Checked == true)
+            if (tipoDescuento.Equals(2))
             {
                 if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
                 {
@@ -561,6 +598,7 @@ namespace PuntoDeVentaV2
                         tb2.Height = 20;
                         tb2.Margin = new Padding(50, 5, 0, 0);
                         tb2.TextAlign = HorizontalAlignment.Center;
+                        tb2.Leave += new EventHandler(borrarTextoMensaje);
                         tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
                         tb2.Text = renglon[2].ToString();
 
@@ -590,7 +628,6 @@ namespace PuntoDeVentaV2
                         panelHijo2.Controls.Add(tb3);
                         panelHijo2.SetFlowBreak(tb3, true);
                         panelHijo2.Controls.Add(cb1);
-
                         
                         panelHijo2.FlowDirection = FlowDirection.LeftToRight;
 
@@ -645,6 +682,7 @@ namespace PuntoDeVentaV2
                     tb2.Height = 20;
                     tb2.Margin = new Padding(50, 5, 0, 0);
                     tb2.TextAlign = HorizontalAlignment.Center;
+                    tb2.Leave += new EventHandler(borrarTextoMensaje);
                     tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
 
                     TextBox tb3 = new TextBox();
@@ -685,43 +723,285 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void CargarFormularios(int tipo)
+        private void borrarTextoMensaje(object sender, EventArgs e)
         {
-            if (AgregarEditarProducto.DatosSourceFinal == 1 || AgregarEditarProducto.DatosSourceFinal == 3)
+            TextBox tbPorcentaje = (TextBox)sender;
+
+            if (!tbPorcentaje.Text.Equals(string.Empty))
             {
-                panelContenedor.Controls.Clear();
-                cargarNvoDescuentos();
-            }
-            else if (AgregarEditarProducto.DatosSourceFinal == 2)
-            {
-                panelContenedor.Controls.Clear();
-                cargarDescuentos();
+                lblMensaje.Text = string.Empty;
             }
         }
 
-        private void Cb1_CheckedChanged(object sender, EventArgs e)
+        private void CargarFormularios(int tipo)
         {
-            throw new NotImplementedException();
+            panelContenedor.Controls.Clear();
+            if (tipo.Equals(1))
+            {
+                if (AgregarEditarProducto.DatosSourceFinal == 1 ||
+                    AgregarEditarProducto.DatosSourceFinal == 3 ||
+                    AgregarEditarProducto.DatosSourceFinal == 5)
+                {
+                    cargarNvoDescuentos();
+                }
+                else if (AgregarEditarProducto.DatosSourceFinal == 2)
+                {
+                    cargarDescuentos();
+                }
+            }
+            else if (tipo.Equals(2))
+            {
+                if (AgregarEditarProducto.DatosSourceFinal == 1 ||
+                    AgregarEditarProducto.DatosSourceFinal == 3 ||
+                    AgregarEditarProducto.DatosSourceFinal == 5)
+                {
+                    cargarNvoDescuentos();
+                }
+                else if (AgregarEditarProducto.DatosSourceFinal == 2)
+                {
+                    cargarDescuentos();
+                }
+            }
+        }
+
+        private void validarRadioButtons()
+        {
+            if (rbMayoreo.Checked.Equals(true))
+            {
+                if (AgregarEditarProducto.DatosSourceFinal.Equals(1) ||
+                    AgregarEditarProducto.DatosSourceFinal.Equals(3) ||
+                    AgregarEditarProducto.DatosSourceFinal.Equals(5))
+                {
+                    txtTituloDescuento.Text = "Descuento por Mayoreo";
+                    tipoDescuento = idGenerado = 2;
+                    CargarFormularios(tipoDescuento);
+                }
+                else if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+                {
+                    if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                    {
+                        txtTituloDescuento.Text = "Descuento por Mayoreo";
+                        tipoDescuento = idGenerado = 2;
+                        CargarFormularios(tipoDescuento);
+                    }
+                    else if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                    {
+                        DialogResult dialogResult = MessageBox.Show("El producto ya tiene asignado descuento por Producto\ndesea cambiarlo a descuento por Mayoreo", "Advertencia de descuentos", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (dialogResult.Equals(DialogResult.Yes))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Mayoreo";
+                            tipoDescuento = 2;
+                            rbMayoreo.Checked = true;
+                        }
+                        else if (dialogResult.Equals(DialogResult.No))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Producto";
+                            tipoDescuento = 1;
+                            //rbCliente.Checked = true;
+                        }
+                        CargarFormularios(tipoDescuento);
+                    }
+                    else
+                    {
+                        txtTituloDescuento.Text = "Descuento por Mayoreo";
+                        tipoDescuento = 2;
+                        CargarFormularios(tipoDescuento);
+                    }
+                }
+            }
+            else if (rbCliente.Checked.Equals(true))
+            {
+                if (AgregarEditarProducto.DatosSourceFinal.Equals(1) ||
+                    AgregarEditarProducto.DatosSourceFinal.Equals(3) ||
+                    AgregarEditarProducto.DatosSourceFinal.Equals(5))
+                {
+                    txtTituloDescuento.Text = "Descuento por Producto";
+                    tipoDescuento = 1;
+                    CargarFormularios(tipoDescuento);
+                }
+                else if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+                {
+                    if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                    {
+                        txtTituloDescuento.Text = "Descuento por Producto";
+                        tipoDescuento = 1;
+                        CargarFormularios(tipoDescuento);
+                    }
+                    else if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Este producto ya tiene asignado descuento por Mayoreo\ndesea cambiarlo a descuento por Producto",
+                                                                    "Advertencia de descuentos", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (dialogResult.Equals(DialogResult.Yes))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Producto";
+                            tipoDescuento = 1;
+                            rbCliente.Checked = true;
+                        }
+                        else if (dialogResult.Equals(DialogResult.No))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Mayoreo";
+                            tipoDescuento = 2;
+                            //rbMayoreo.Checked = true;
+                        }
+                        CargarFormularios(tipoDescuento);
+                    }
+                    else
+                    {
+                        txtTituloDescuento.Text = "Descuento por Producto";
+                        tipoDescuento = 1;
+                        CargarFormularios(tipoDescuento);
+                    }
+                }
+            }
+        }
+
+        private void validarRBProducto()
+        {
+            if (rbCliente.Checked.Equals(true))
+            {
+                if (AgregarEditarProducto.DatosSourceFinal.Equals(1) ||
+                    AgregarEditarProducto.DatosSourceFinal.Equals(3) ||
+                    AgregarEditarProducto.DatosSourceFinal.Equals(5))
+                {
+                    txtTituloDescuento.Text = "Descuento por Producto";
+                    tipoDescuento = 1;
+                    CargarFormularios(tipoDescuento);
+                }
+                else if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+                {
+                    if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                    {
+                        txtTituloDescuento.Text = "Descuento por Producto";
+                        tipoDescuento = 1;
+                        CargarFormularios(tipoDescuento);
+                    }
+                    else if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Este producto ya tiene asignado descuento por Mayoreo\ndesea cambiarlo a descuento por Producto", "Advertencia de descuentos", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (dialogResult.Equals(DialogResult.Yes))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Producto";
+                            tipoDescuento = 1;
+                            panelContenedor.Controls.Clear();
+                            CargarFormularios(tipoDescuento);
+                        }
+                        else if (dialogResult.Equals(DialogResult.No))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Mayoreo";
+                            tipoDescuento = 2;
+                            CargarFormularios(tipoDescuento);
+                        }
+                    }
+                    else
+                    {
+                        txtTituloDescuento.Text = "Descuento por Producto";
+                        tipoDescuento = 1;
+                        CargarFormularios(tipoDescuento);
+                    }
+                }
+            }
+        }
+
+        private void validarRBMayoreo()
+        {
+            if (rbMayoreo.Checked.Equals(true))
+            {
+                if (AgregarEditarProducto.DatosSourceFinal.Equals(1) ||
+                    AgregarEditarProducto.DatosSourceFinal.Equals(3) ||
+                    AgregarEditarProducto.DatosSourceFinal.Equals(5))
+                {
+                    txtTituloDescuento.Text = "Descuento por Mayoreo";
+                    tipoDescuento = idGenerado = 2;
+                    CargarFormularios(tipoDescuento);
+                }
+                else if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+                {
+                    if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                    {
+                        txtTituloDescuento.Text = "Descuento por Mayoreo";
+                        tipoDescuento = idGenerado = 2;
+                        CargarFormularios(tipoDescuento);
+                    }
+                    else if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                    {
+                        DialogResult dialogResult = MessageBox.Show("El producto ya tiene asignado descuento por Producto\ndesea cambiarlo a descuento por Mayoreo", "Advertencia de descuentos", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (dialogResult.Equals(DialogResult.Yes))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Mayoreo";
+                            tipoDescuento = 2;
+                            CargarFormularios(tipoDescuento);
+                        }
+                        else if (dialogResult.Equals(DialogResult.No))
+                        {
+                            txtTituloDescuento.Text = "Descuento por Producto";
+                            tipoDescuento = 1;
+                            CargarFormularios(tipoDescuento);
+                        }
+                    }
+                    else
+                    {
+                        txtTituloDescuento.Text = "Descuento por Mayoreo";
+                        tipoDescuento = 2;
+                        CargarFormularios(tipoDescuento);
+                    }
+                }
+            }
         }
 
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
         {
-            txtTituloDescuento.Text = "Descuento por Cliente";
+            //if (rbCliente.Checked.Equals(true))
+            //{
+            //    validarRBProducto();
+            //}
+
+            txtTituloDescuento.Text = "Descuento por Producto";
             tipoDescuento = 1;
             CargarFormularios(tipoDescuento);
+
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+            {
+                vecesMostradas = 0;
+                lblMensaje.Text = string.Empty;
+                if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                {
+                    lblMensaje.Visible = true;
+                    if (vecesMostradas < 5)
+                    {
+                        lblMensaje.Text = "Este producto ya tiene asignado descuento por Mayoreo desea cambiarlo";
+                    }
+                }
+            }
         }
 
         private void rbMayoreo_CheckedChanged(object sender, EventArgs e)
         {
+            //if (rbMayoreo.Checked.Equals(true))
+            //{
+            //    validarRBMayoreo();
+            //}
+
             txtTituloDescuento.Text = "Descuento por Mayoreo";
             tipoDescuento = idGenerado = 2;
             CargarFormularios(tipoDescuento);
+
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+            {
+                vecesMostradas = 0;
+                lblMensaje.Text = string.Empty;
+                if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                {
+                    lblMensaje.Visible = true;
+                    if (vecesMostradas < 5)
+                    {
+                        lblMensaje.Text = "Este producto ya tiene asignado descuento por Producto desea cambiarlo";
+                    }
+                }
+            }
         }
-
-
+        
         private void rangoProductosTB(object sender, KeyEventArgs e)
         {
-
             //Se hace para obtener el numero de linea al que pertenece el TextBox
             TextBox tb = sender as TextBox;
             string nombre = tb.Name.Replace("tbMayoreo", "");
@@ -756,8 +1036,7 @@ namespace PuntoDeVentaV2
                 generarLineaMayoreo();
             }
         }
-
-
+        
         private void generarLineaMayoreo()
         {
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
@@ -880,8 +1159,7 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-
-
+        
         //Seleccion de CheckBoxes para el descuento por Mayoreo
         private void seleccionCheckBoxes(object sender, EventArgs e)
         {
@@ -957,12 +1235,35 @@ namespace PuntoDeVentaV2
                 if (!string.IsNullOrWhiteSpace(idProducto))
                 {
                     cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {idProducto}");
+                    AgregarEditarProducto.SearchDesCliente.Clear();
                     cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {idProducto}");
+                    AgregarEditarProducto.SearchDesMayoreo.Clear();
 
-                    
-                    
+                    panelContenedor.Controls.Clear();
+                    cargarNvoDescuentos();
+
                     this.Hide();
                 }
+            }
+        }
+
+        private void AgregarDescuentoProducto_Activated(object sender, EventArgs e)
+        {
+            obtenerTipoDescuento();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (vecesMostradas < 5)
+            {
+                Random randomValue = new Random();
+                int A = randomValue.Next(0, 255);
+                int B = randomValue.Next(0, 255);
+                int C = randomValue.Next(0, 255);
+
+                lblMensaje.ForeColor = System.Drawing.Color.FromArgb(A, B, C);
+                
+                vecesMostradas++;
             }
         }
     }
