@@ -934,7 +934,11 @@ namespace PuntoDeVentaV2
 
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
         {
-            validarRBProducto();
+            if (rbCliente.Checked.Equals(true))
+            {
+                validarRBProducto();
+                rbMayoreo.Checked = false;
+            }
             
             //txtTituloDescuento.Text = "Descuento por Producto";
             //tipoDescuento = 1;
@@ -943,7 +947,11 @@ namespace PuntoDeVentaV2
 
         private void rbMayoreo_CheckedChanged(object sender, EventArgs e)
         {
-            validarRBMayoreo();
+            if (rbMayoreo.Checked.Equals(true))
+            {
+                validarRBMayoreo();
+                rbCliente.Checked = false;
+            }
             
             //txtTituloDescuento.Text = "Descuento por Mayoreo";
             //tipoDescuento = idGenerado = 2;
