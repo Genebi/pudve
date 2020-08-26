@@ -123,10 +123,7 @@
             // lAgregarClienteNuevo
             // 
             this.lAgregarClienteNuevo.AutoSize = true;
-<<<<<<< HEAD
             this.lAgregarClienteNuevo.Cursor = System.Windows.Forms.Cursors.Hand;
-=======
->>>>>>> clientesPIII
             this.lAgregarClienteNuevo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.lAgregarClienteNuevo.Location = new System.Drawing.Point(354, 382);
             this.lAgregarClienteNuevo.Name = "lAgregarClienteNuevo";
@@ -145,11 +142,8 @@
             this.cbTipoCliente.Name = "cbTipoCliente";
             this.cbTipoCliente.Size = new System.Drawing.Size(180, 24);
             this.cbTipoCliente.TabIndex = 84;
-<<<<<<< HEAD
             this.cbTipoCliente.Click += new System.EventHandler(this.cbTipoCliente_Click);
-=======
             this.cbTipoCliente.Click += new System.EventHandler(this.cbTipoCliente_Click_1);
->>>>>>> clientesPIII
             // 
             // label17
             // 
