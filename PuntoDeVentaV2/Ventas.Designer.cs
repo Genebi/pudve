@@ -105,6 +105,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lFolio = new System.Windows.Forms.TextBox();
+            this.lbOtrosImpuestos = new System.Windows.Forms.Label();
+            this.cOtrosImpuestos = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -476,7 +478,7 @@
             this.lbNumeroArticulos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbNumeroArticulos.AutoSize = true;
             this.lbNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNumeroArticulos.Location = new System.Drawing.Point(672, 114);
+            this.lbNumeroArticulos.Location = new System.Drawing.Point(672, 90);
             this.lbNumeroArticulos.Name = "lbNumeroArticulos";
             this.lbNumeroArticulos.Size = new System.Drawing.Size(198, 22);
             this.lbNumeroArticulos.TabIndex = 20;
@@ -487,7 +489,7 @@
             this.lbSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSubtotal.AutoSize = true;
             this.lbSubtotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubtotal.Location = new System.Drawing.Point(673, 136);
+            this.lbSubtotal.Location = new System.Drawing.Point(673, 112);
             this.lbSubtotal.Name = "lbSubtotal";
             this.lbSubtotal.Size = new System.Drawing.Size(91, 22);
             this.lbSubtotal.TabIndex = 21;
@@ -498,7 +500,7 @@
             this.lbIVA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbIVA.AutoSize = true;
             this.lbIVA.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbIVA.Location = new System.Drawing.Point(673, 158);
+            this.lbIVA.Location = new System.Drawing.Point(673, 134);
             this.lbIVA.Name = "lbIVA";
             this.lbIVA.Size = new System.Drawing.Size(92, 22);
             this.lbIVA.TabIndex = 22;
@@ -544,7 +546,7 @@
             this.cNumeroArticulos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cNumeroArticulos.AutoSize = true;
             this.cNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cNumeroArticulos.Location = new System.Drawing.Point(877, 116);
+            this.cNumeroArticulos.Location = new System.Drawing.Point(877, 92);
             this.cNumeroArticulos.Name = "cNumeroArticulos";
             this.cNumeroArticulos.Size = new System.Drawing.Size(21, 22);
             this.cNumeroArticulos.TabIndex = 26;
@@ -555,7 +557,7 @@
             this.cSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cSubtotal.AutoSize = true;
             this.cSubtotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cSubtotal.Location = new System.Drawing.Point(877, 136);
+            this.cSubtotal.Location = new System.Drawing.Point(877, 112);
             this.cSubtotal.Name = "cSubtotal";
             this.cSubtotal.Size = new System.Drawing.Size(48, 22);
             this.cSubtotal.TabIndex = 27;
@@ -566,7 +568,7 @@
             this.cIVA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cIVA.AutoSize = true;
             this.cIVA.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cIVA.Location = new System.Drawing.Point(877, 158);
+            this.cIVA.Location = new System.Drawing.Point(877, 134);
             this.cIVA.Name = "cIVA";
             this.cIVA.Size = new System.Drawing.Size(48, 22);
             this.cIVA.TabIndex = 28;
@@ -612,7 +614,7 @@
             this.lbIVA8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbIVA8.AutoSize = true;
             this.lbIVA8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbIVA8.Location = new System.Drawing.Point(673, 180);
+            this.lbIVA8.Location = new System.Drawing.Point(673, 156);
             this.lbIVA8.Name = "lbIVA8";
             this.lbIVA8.Size = new System.Drawing.Size(81, 22);
             this.lbIVA8.TabIndex = 32;
@@ -624,7 +626,7 @@
             this.cIVA8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cIVA8.AutoSize = true;
             this.cIVA8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cIVA8.Location = new System.Drawing.Point(877, 180);
+            this.cIVA8.Location = new System.Drawing.Point(877, 156);
             this.cIVA8.Name = "cIVA8";
             this.cIVA8.Size = new System.Drawing.Size(48, 22);
             this.cIVA8.TabIndex = 33;
@@ -635,6 +637,8 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.cOtrosImpuestos);
+            this.panel1.Controls.Add(this.lbOtrosImpuestos);
             this.panel1.Controls.Add(this.lbEliminarCliente);
             this.panel1.Controls.Add(this.cAnticipoUtilizado);
             this.panel1.Controls.Add(this.lbAnticipoUtilizado);
@@ -976,6 +980,30 @@
             this.lFolio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lFolio_KeyDown);
             this.lFolio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lFolio_KeyPress);
             // 
+            // lbOtrosImpuestos
+            // 
+            this.lbOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbOtrosImpuestos.AutoSize = true;
+            this.lbOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOtrosImpuestos.Location = new System.Drawing.Point(673, 179);
+            this.lbOtrosImpuestos.Name = "lbOtrosImpuestos";
+            this.lbOtrosImpuestos.Size = new System.Drawing.Size(159, 22);
+            this.lbOtrosImpuestos.TabIndex = 58;
+            this.lbOtrosImpuestos.Text = "Otros impuestos:";
+            this.lbOtrosImpuestos.Visible = false;
+            // 
+            // cOtrosImpuestos
+            // 
+            this.cOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cOtrosImpuestos.AutoSize = true;
+            this.cOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cOtrosImpuestos.Location = new System.Drawing.Point(877, 179);
+            this.cOtrosImpuestos.Name = "cOtrosImpuestos";
+            this.cOtrosImpuestos.Size = new System.Drawing.Size(48, 22);
+            this.cOtrosImpuestos.TabIndex = 59;
+            this.cOtrosImpuestos.Text = "0.00";
+            this.cOtrosImpuestos.Visible = false;
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1099,5 +1127,7 @@
         private System.Windows.Forms.Label cAnticipoUtilizado;
         private System.Windows.Forms.Label lbAnticipoUtilizado;
         private System.Windows.Forms.Label lbEliminarCliente;
+        private System.Windows.Forms.Label cOtrosImpuestos;
+        private System.Windows.Forms.Label lbOtrosImpuestos;
     }
 }
