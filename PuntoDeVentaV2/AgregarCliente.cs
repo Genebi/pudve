@@ -41,6 +41,11 @@ namespace PuntoDeVentaV2
 
         private void AgregarCliente_Load(object sender, EventArgs e)
         {
+            DatosAgregarCliente();
+        }
+
+        public void DatosAgregarCliente()
+        {
             // El titulo que se mostrara al abrir el form
             if (tipo == 1)
             {
@@ -478,7 +483,27 @@ namespace PuntoDeVentaV2
             if (addTypeCliente != null)
             {
                 addTypeCliente.btnTipoCliente_Click(this, null);
+
+                //AgregarTipoCliente tCliente = new AgregarTipoCliente();
+
+                //addTypeCliente.FormClosed += delegate
+                //{
+                //    addTypeCliente.ti
+                //   // var tipoClientes = mb.ObtenerTipoClientes(extra: true);
+                //    DatosAgregarCliente();
+                //};
+                
             }
+        }
+
+        private void cbTipoCliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbTipoCliente_Click_1(object sender, EventArgs e)
+        {
+            DatosAgregarCliente();
         }
     }
 }

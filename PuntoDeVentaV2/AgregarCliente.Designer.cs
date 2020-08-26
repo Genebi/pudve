@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.lAgregarClienteNuevo = new System.Windows.Forms.Label();
             this.cbTipoCliente = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -68,7 +69,6 @@
             this.txtRFC = new System.Windows.Forms.TextBox();
             this.txtNombreComercial = new System.Windows.Forms.TextBox();
             this.txtRazonSocial = new System.Windows.Forms.TextBox();
-            this.lAgregarClienteNuevo = new System.Windows.Forms.Label();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -120,6 +120,18 @@
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
             // 
+            // lAgregarClienteNuevo
+            // 
+            this.lAgregarClienteNuevo.AutoSize = true;
+            this.lAgregarClienteNuevo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lAgregarClienteNuevo.Location = new System.Drawing.Point(354, 382);
+            this.lAgregarClienteNuevo.Name = "lAgregarClienteNuevo";
+            this.lAgregarClienteNuevo.Size = new System.Drawing.Size(153, 13);
+            this.lAgregarClienteNuevo.TabIndex = 85;
+            this.lAgregarClienteNuevo.Text = "Agregar Nuevo Tipo de Cliente";
+            this.lAgregarClienteNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lAgregarClienteNuevo.Click += new System.EventHandler(this.lAgregarClienteNuevo_Click);
+            // 
             // cbTipoCliente
             // 
             this.cbTipoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -129,6 +141,7 @@
             this.cbTipoCliente.Name = "cbTipoCliente";
             this.cbTipoCliente.Size = new System.Drawing.Size(180, 24);
             this.cbTipoCliente.TabIndex = 84;
+            this.cbTipoCliente.Click += new System.EventHandler(this.cbTipoCliente_Click_1);
             // 
             // label17
             // 
@@ -540,18 +553,6 @@
             this.txtRazonSocial.Size = new System.Drawing.Size(446, 21);
             this.txtRazonSocial.TabIndex = 1;
             this.txtRazonSocial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // lAgregarClienteNuevo
-            // 
-            this.lAgregarClienteNuevo.AutoSize = true;
-            this.lAgregarClienteNuevo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lAgregarClienteNuevo.Location = new System.Drawing.Point(354, 382);
-            this.lAgregarClienteNuevo.Name = "lAgregarClienteNuevo";
-            this.lAgregarClienteNuevo.Size = new System.Drawing.Size(153, 13);
-            this.lAgregarClienteNuevo.TabIndex = 85;
-            this.lAgregarClienteNuevo.Text = "Agregar Nuevo Tipo de Cliente";
-            this.lAgregarClienteNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lAgregarClienteNuevo.Click += new System.EventHandler(this.lAgregarClienteNuevo_Click);
             // 
             // AgregarCliente
             // 
