@@ -324,7 +324,8 @@ namespace PuntoDeVentaV2
 
         private void btnServicios_Click(object sender, EventArgs e)
         {
-            validarVentasVentanas(); 
+            //Descomentar este metodo cuando se empiece a trabajar en este apartado
+            //validarVentasVentanas(); 
         }
 
         private void cerrarSesion()
