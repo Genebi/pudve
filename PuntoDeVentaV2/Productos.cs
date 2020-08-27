@@ -345,6 +345,8 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            int pageNumber = p.numPag();
+
             var apartado = cbMostrar.SelectedItem.ToString();
 
             if (apartado.Equals("Deshabilitados"))
@@ -1508,7 +1510,7 @@ namespace PuntoDeVentaV2
             int ultimaPagina = 0, 
                 currentPage = 0;
             
-            if (!txtBusqueda.Text.Equals(""))
+            if (!txtBusqueda.Text.Trim().Equals(""))
             {
                 if (retornoAgregarEditarProductoDatosSourceFinal.Equals(1) ||
                     retornoAgregarEditarProductoDatosSourceFinal.Equals(3) ||
@@ -1526,19 +1528,19 @@ namespace PuntoDeVentaV2
                 }
                 else if (retornoAgregarEditarProductoDatosSourceFinal.Equals(2))
                 {
-                    if(!txtBusqueda.Text.Equals(""))
+                    if(!txtBusqueda.Text.Trim().Equals(""))
                     {
                         quitarEspacioEnBlanco();
                         busquedaDelUsuario();
                     }
-                    else if (txtBusqueda.Text.Equals(""))
+                    else if (txtBusqueda.Text.Trim().Equals(""))
                     {
                         CargarDatos();
                         btnUltimaPagina.PerformClick();
                     }
                 }
             }
-            else if (txtBusqueda.Text.Equals(""))
+            else if (txtBusqueda.Text.Trim().Equals(""))
             {
                 ultimaPagina = p.countPag();
                 currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
@@ -4605,6 +4607,8 @@ namespace PuntoDeVentaV2
 
             var FormAgregar = new AgregarEditarProducto("Agregar");
 
+            var pageNumberBtnAdd = p.numPag();
+
             if (origenDeLosDatos == 0)
             {
                 FormAgregar.DatosSource = 1;
@@ -4648,7 +4652,6 @@ namespace PuntoDeVentaV2
                 {
                     FormAgregar.ProdNombre = "";
                     FormAgregar.Show();
-
                 }
                 else if (seleccionadoDato == 1)
                 {
