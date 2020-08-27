@@ -1542,6 +1542,11 @@ namespace PuntoDeVentaV2
             }
             else if (txtBusqueda.Text.Trim().Equals(""))
             {
+                p.actualizarPagina();
+                clickBoton = 1;
+                CargarDatos();
+                actualizar();
+
                 ultimaPagina = p.countPag();
                 currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
                 //goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
@@ -1552,6 +1557,7 @@ namespace PuntoDeVentaV2
                     //ultimaPagina = p.countPag();
                     //goToPageNumber(ultimaPagina);
                     //currentPage = p.numPag();
+
                     goToPageNumber(currentPage);
                 }
                 else if (currentPage < ultimaPagina)
