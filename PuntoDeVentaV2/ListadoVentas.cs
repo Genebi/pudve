@@ -429,9 +429,13 @@ namespace PuntoDeVentaV2
                     venta.Disposed += delegate
                     {
                         AbrirVentanaVenta();
+
+                        cbTipoVentas.Text = "Ventas pagadas";
+
                         clickBoton = 0;
                         CargarDatos();
                         actualizar();
+
                         btnUltimaPagina.PerformClick();
                     };
 
