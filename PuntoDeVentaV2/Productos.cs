@@ -170,6 +170,7 @@ namespace PuntoDeVentaV2
         int opcion21 = 1; // Opcion copiar
         int opcion22 = 1; // Opcion ajustar
 
+        public int retornoAgregarEditarProductoDatosSourceFinal;
 
         //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1508,10 +1509,28 @@ namespace PuntoDeVentaV2
             
             if (!txtBusqueda.Text.Equals(""))
             {
-                ultimaPagina = p.countPag();
-                currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
-                actualizarDatosDespuesDeAgregarProducto();
-                goToPageNumber(ultimaPagina);
+                if (retornoAgregarEditarProductoDatosSourceFinal.Equals(1) ||
+                    retornoAgregarEditarProductoDatosSourceFinal.Equals(3) ||
+                    retornoAgregarEditarProductoDatosSourceFinal.Equals(5))
+                {
+                    ultimaPagina = p.countPag();
+                    currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
+                    actualizarDatosDespuesDeAgregarProducto();
+                    goToPageNumber(ultimaPagina);
+                }
+                else if (retornoAgregarEditarProductoDatosSourceFinal.Equals(2))
+                {
+                    if(!txtBusqueda.Text.Equals(""))
+                    {
+                        quitarEspacioEnBlanco();
+                        busquedaDelUsuario();
+                    }
+                    else if (txtBusqueda.Text.Equals(""))
+                    {
+                        CargarDatos();
+                        btnUltimaPagina.PerformClick();
+                    }
+                }
             }
             else if (txtBusqueda.Text.Equals(""))
             {
@@ -3563,6 +3582,7 @@ namespace PuntoDeVentaV2
                 listaCoincidenciasAux.Clear();
 
                 string txtBusquedaString = string.Empty;
+                string NvoTxtBusquedaString = string.Empty;
                 string numBusqueda = string.Empty;
                 string[] separatingStrings = { ") ORDER BY CASE P.ID ", "END " };
                 string[] words;
@@ -3616,6 +3636,7 @@ namespace PuntoDeVentaV2
                                                 auxTxtBusquedaString = txtBusquedaString.Remove(begin, end);
                                                 txtBusquedaString.Trim();
                                                 auxTxtBusquedaString.Trim();
+                                                NvoTxtBusquedaString = auxTxtBusquedaString;
                                                 txtBusquedaString = auxTxtBusquedaString;
                                                 //MessageBox.Show("txtBusquedaString: " + txtBusquedaString + "\nauxTxtBusquedaString: " + auxTxtBusquedaString);
                                                 //txtBusquedaString.Replace(item.ToString(), "");
@@ -3686,9 +3707,9 @@ namespace PuntoDeVentaV2
 
                 string txtAndNumSearch = string.Empty;
 
-                if (!txtBusquedaString.Equals(""))
+                if (!NvoTxtBusquedaString.Equals(""))
                 {
-                    txtAndNumSearch += txtBusquedaString.Trim();
+                    txtAndNumSearch += NvoTxtBusquedaString.Trim();
                 }
                 if (!numBusqueda.Equals(""))
                 {
@@ -4600,8 +4621,8 @@ namespace PuntoDeVentaV2
                 clickBoton = 0;
                 agregarEspacioAlFinal();
                 txtBusqueda.Focus();
-                CargarDatos();
-                btnUltimaPagina.PerformClick();
+                //CargarDatos();
+                //btnUltimaPagina.PerformClick();
             };
 
             if (!FormAgregar.Visible)

@@ -5616,13 +5616,11 @@ namespace PuntoDeVentaV2
             //{
             //    FormDetalleProducto.Close();
             //}
-            LimpiarDatos();
+            //LimpiarDatos();
         }
 
         private void AgregarEditarProducto_FormClosed(object sender, FormClosedEventArgs e)
         {
-            LimpiarDatos();
-
             Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
 
             if (producto != null)
@@ -5630,8 +5628,11 @@ namespace PuntoDeVentaV2
                 //producto.DGVProductos.Rows.Clear();
                 //producto.filtroLoadProductos();
                 //producto.CargarDatos();
+                producto.retornoAgregarEditarProductoDatosSourceFinal = DatosSourceFinal;
                 producto.recargarDGV();
             }
+
+            LimpiarDatos();
         }
         
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
