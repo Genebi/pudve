@@ -31,7 +31,8 @@ namespace PuntoDeVentaV2
                    queryAndAdvancedOtherTagsEnd = string.Empty,
                    buscarCodigosBarraExtra = string.Empty,
                    nuevosCodigos = string.Empty,
-                   theNumberAsAString = string.Empty;
+                   theNumberAsAString = string.Empty,
+                   busqueda = string.Empty;
 
 
         bool isEmptyAuxWord,
@@ -1513,6 +1514,11 @@ namespace PuntoDeVentaV2
                     retornoAgregarEditarProductoDatosSourceFinal.Equals(3) ||
                     retornoAgregarEditarProductoDatosSourceFinal.Equals(5))
                 {
+                    if (!theNumberAsAString.Equals(""))
+                    {
+                        busqueda = txtBusqueda.Text.ToString().Replace(theNumberAsAString, "");
+                        txtBusqueda.Text = busqueda;
+                    }
                     ultimaPagina = p.countPag();
                     currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
                     actualizarDatosDespuesDeAgregarProducto();
@@ -3505,8 +3511,8 @@ namespace PuntoDeVentaV2
         /// Metodo CargarDatos
         /// </summary>
         /// <param name="status">El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos</param>
-        /// <param name="busqueda">Cadena de texto que introduce el Usuario para coincidencias</param>
-        public void CargarDatos(int status = 1, string busqueda = "")
+        /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
+        public void CargarDatos(int status = 1, string busquedaEnProductos = "")
         {
             int idProducto = 0, 
                 countSetUpDinamicos = 0,
@@ -3515,6 +3521,10 @@ namespace PuntoDeVentaV2
             long theNumber;
 
             dictionaryLoad();
+
+            busqueda = string.Empty;
+
+            busqueda = busquedaEnProductos;
 
             extra = string.Empty;
             extra2 = string.Empty;
