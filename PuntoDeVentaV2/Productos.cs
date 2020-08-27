@@ -3871,6 +3871,8 @@ namespace PuntoDeVentaV2
                     // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
                     var infoProducto = mb.BuscarCodigoBarrasExtraFormProductos(buscarCodigosBarraExtra.Trim());
 
+                    nuevosCodigos = string.Empty;
+
                     if (infoProducto.Length > 0)
                     {
                         bool isEmpty = (listaCoincidenciasAux.Count == 0);
@@ -3927,10 +3929,11 @@ namespace PuntoDeVentaV2
                         {
                             listaCoincidenciasAux.Clear();
                             nuevosCodigos = string.Empty;
+                            string[] palabras = new string[] { "" };
 
                             foreach (var id in infoProducto)
                             {
-                                string[] palabras = id.Split('|');
+                                palabras = id.Split('|');
                                 if (palabras[0].Equals("1"))
                                 {
                                     extra = $" AND P.ID = {palabras[1].ToString()}";
@@ -3940,8 +3943,10 @@ namespace PuntoDeVentaV2
                                     nuevosCodigos += palabras[1].ToString() + " ";
                                 }
                             }
+                            Array.Clear(palabras, 0, palabras.Length);
                         }
                     }
+                    buscarCodigosBarraExtra = string.Empty;
                 }
 
                 if (!nuevosCodigos.Equals(""))
@@ -3963,6 +3968,7 @@ namespace PuntoDeVentaV2
                                 origenDeLosDatos = 5;
                                 seleccionadoDato = 2;
                                 nuevoCodigoBarrasDeProducto = theNumberAsAString;
+                                nuevosCodigos = string.Empty;
                                 btnAgregarProducto.PerformClick();
                                 clickBoton = 1;
                             }
@@ -3974,6 +3980,7 @@ namespace PuntoDeVentaV2
                                 quitarEspacioEnBlanco();
                                 agregarEspacioAlFinal();
                                 txtBusqueda.Text = busqueda.Trim();
+                                nuevosCodigos = string.Empty;
                             }
                         }
                         else
