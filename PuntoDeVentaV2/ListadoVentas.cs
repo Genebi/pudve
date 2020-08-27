@@ -429,7 +429,9 @@ namespace PuntoDeVentaV2
                     venta.Disposed += delegate
                     {
                         AbrirVentanaVenta();
+                        clickBoton = 0;
                         CargarDatos();
+                        actualizar();
                         btnUltimaPagina.PerformClick();
                     };
 
