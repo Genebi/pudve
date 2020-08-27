@@ -1988,6 +1988,24 @@ namespace PuntoDeVentaV2
             return fecha;
         }
 
+        public float ObtenerImpuestoProducto(int idProducto)
+        {
+            var impuesto = 0f;
+
+            DatosConexion($"SELECT * FROM DetallesFacturacionProductos WHERE Impuesto = 'IEPS' AND IDProducto = {idProducto}");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                impuesto = float.Parse(dr.GetValue(dr.GetOrdinal("Importe")).ToString());
+            }
+
+            dr.Close();
+
+            return impuesto;
+        }
+
         public string[] obtener_permisos_empleado(int id_empleado, int id_usuario)
         {
             List<string> list = new List<string>();
