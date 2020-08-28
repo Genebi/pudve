@@ -194,12 +194,7 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyData == Keys.Enter)
             {
-                var busqueda = txtBuscador.Text.Trim();
-
-                CargarDatos(busqueda);
-
-                txtBuscador.Text = string.Empty;
-                txtBuscador.Focus();
+                buscarCliente();
             }
             else if (e.KeyCode == Keys.Escape)
             {
@@ -225,6 +220,21 @@ namespace PuntoDeVentaV2
             {
                 Close();
             }
+        }
+
+        private void btnBucarCliente_Click(object sender, EventArgs e)
+        {
+            buscarCliente();
+        }
+
+        private void buscarCliente()
+        {
+            var busqueda = txtBuscador.Text.Trim();
+
+            CargarDatos(busqueda);
+
+            txtBuscador.Text = string.Empty;
+            txtBuscador.Focus();
         }
     }
 }
