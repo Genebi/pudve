@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnVerCBExtra = new System.Windows.Forms.Button();
             this.txtCodigoBarras = new System.Windows.Forms.TextBox();
@@ -57,6 +56,10 @@
             this.lblNoRevision = new System.Windows.Forms.Label();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.lbCantidadFiltro = new System.Windows.Forms.Label();
+            this.btnDeshabilitarProducto = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -72,18 +75,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Código de Barras:";
-            // 
-            // txtBoxBuscarCodigoBarras
-            // 
-            this.txtBoxBuscarCodigoBarras.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtBoxBuscarCodigoBarras.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxBuscarCodigoBarras.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.txtBoxBuscarCodigoBarras.Location = new System.Drawing.Point(40, 22);
-            this.txtBoxBuscarCodigoBarras.Name = "txtBoxBuscarCodigoBarras";
-            this.txtBoxBuscarCodigoBarras.Size = new System.Drawing.Size(344, 33);
-            this.txtBoxBuscarCodigoBarras.TabIndex = 0;
-            this.txtBoxBuscarCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtBoxBuscarCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxBuscarCodigoBarras_KeyDown);
             // 
             // groupBox2
             // 
@@ -307,7 +298,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnTerminar);
+            this.groupBox3.Controls.Add(this.btnAnterior);
             this.groupBox3.Controls.Add(this.btnSiguiente);
             this.groupBox3.Location = new System.Drawing.Point(12, 494);
             this.groupBox3.Name = "groupBox3";
@@ -318,9 +309,9 @@
             // btnTerminar
             // 
             this.btnTerminar.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminar.Location = new System.Drawing.Point(225, 19);
+            this.btnTerminar.Location = new System.Drawing.Point(35, 567);
             this.btnTerminar.Name = "btnTerminar";
-            this.btnTerminar.Size = new System.Drawing.Size(171, 48);
+            this.btnTerminar.Size = new System.Drawing.Size(373, 48);
             this.btnTerminar.TabIndex = 5;
             this.btnTerminar.Text = "Terminar";
             this.btnTerminar.UseVisualStyleBackColor = true;
@@ -330,7 +321,7 @@
             // 
             this.btnSiguiente.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSiguiente.ForeColor = System.Drawing.Color.Red;
-            this.btnSiguiente.Location = new System.Drawing.Point(23, 19);
+            this.btnSiguiente.Location = new System.Drawing.Point(225, 19);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(171, 48);
             this.btnSiguiente.TabIndex = 4;
@@ -371,11 +362,48 @@
             this.lbCantidadFiltro.TabIndex = 5;
             this.lbCantidadFiltro.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnDeshabilitarProducto
+            // 
+            this.btnDeshabilitarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.trash;
+            this.btnDeshabilitarProducto.Location = new System.Drawing.Point(407, 5);
+            this.btnDeshabilitarProducto.Name = "btnDeshabilitarProducto";
+            this.btnDeshabilitarProducto.Size = new System.Drawing.Size(25, 23);
+            this.btnDeshabilitarProducto.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnDeshabilitarProducto, "Deshabilitar Producto");
+            this.btnDeshabilitarProducto.UseVisualStyleBackColor = true;
+            this.btnDeshabilitarProducto.Click += new System.EventHandler(this.btnDeshabilitarProducto_Click);
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnterior.ForeColor = System.Drawing.Color.Red;
+            this.btnAnterior.Location = new System.Drawing.Point(23, 19);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(171, 48);
+            this.btnAnterior.TabIndex = 5;
+            this.btnAnterior.Text = "Anterior";
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // txtBoxBuscarCodigoBarras
+            // 
+            this.txtBoxBuscarCodigoBarras.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtBoxBuscarCodigoBarras.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxBuscarCodigoBarras.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.txtBoxBuscarCodigoBarras.Location = new System.Drawing.Point(40, 22);
+            this.txtBoxBuscarCodigoBarras.Name = "txtBoxBuscarCodigoBarras";
+            this.txtBoxBuscarCodigoBarras.Size = new System.Drawing.Size(344, 33);
+            this.txtBoxBuscarCodigoBarras.TabIndex = 0;
+            this.txtBoxBuscarCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBoxBuscarCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxBuscarCodigoBarras_KeyDown);
+            // 
             // RevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(442, 584);
+            this.ClientSize = new System.Drawing.Size(442, 632);
+            this.Controls.Add(this.btnTerminar);
+            this.Controls.Add(this.btnDeshabilitarProducto);
             this.Controls.Add(this.lbCantidadFiltro);
             this.Controls.Add(this.lblNoRevision);
             this.Controls.Add(this.label2);
@@ -406,7 +434,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtBoxBuscarCodigoBarras;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnReducirStock;
@@ -433,5 +460,9 @@
         private System.Windows.Forms.TextBox txtCodigoBarras;
         private System.Windows.Forms.Label lbBackground;
         private System.Windows.Forms.Button btnVerCBExtra;
+        private System.Windows.Forms.Button btnDeshabilitarProducto;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.TextBox txtBoxBuscarCodigoBarras;
     }
 }
