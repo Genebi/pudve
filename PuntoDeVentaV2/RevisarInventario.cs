@@ -26,6 +26,10 @@ namespace PuntoDeVentaV2
         int idProducto = 0;
         int idProductoAux = 0;
         int countListaCodigosBarras = 0;
+        
+        // Variable para verproductos anteriormente revisados
+        int anterior = 0;
+        int NoRevision = 0;
 
         // Variables para cuando el filtro es diferente a la revision normal
         string tipoFiltro = string.Empty;
@@ -82,7 +86,7 @@ namespace PuntoDeVentaV2
 
             // Asignamos el numero de revision para que cargue los productos en el reporte al cerrar el form
             Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
-
+            NoRevision = Convert.ToInt32(numeroRevision);
             // Obtener el nombre de la computadora
             nombrePC = Environment.MachineName;
 
@@ -807,41 +811,45 @@ namespace PuntoDeVentaV2
 
         private void btnTerminar_Click(object sender, EventArgs e)
         {
-            // Guardamos los dos Datos de las variables del sistema
-            //Properties.Settings.Default.InicioFinInventario = 2;
-            //Properties.Settings.Default.Save();
-
-            // Actualizar el numero de revision despues de haber terminado el inventario
-            var numeroRevisionTmp = Convert.ToInt32(numeroRevision) + 1;
-
-            cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevisionTmp} WHERE IDUsuario = {FormPrincipal.userID}", true);
-
-            // Cambiamos el valor de la variable para eliminar los registros de la tabla RevisarInventario con el numero de revision
-            Inventario.limpiarTabla = true;
-
-            if (listaProductos.Count > 0)
+            DialogResult deseaTernimar =  MessageBox.Show("Desea Terminar la Revision", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (deseaTernimar == DialogResult.Yes)
             {
-                var html = string.Empty;
+                // Guardamos los dos Datos de las variables del sistema
+                //Properties.Settings.Default.InicioFinInventario = 2;
+                //Properties.Settings.Default.Save();
 
-                foreach (var producto in listaProductos)
+                // Actualizar el numero de revision despues de haber terminado el inventario
+                var numeroRevisionTmp = Convert.ToInt32(numeroRevision) + 1;
+
+                cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevisionTmp} WHERE IDUsuario = {FormPrincipal.userID}", true);
+
+                // Cambiamos el valor de la variable para eliminar los registros de la tabla RevisarInventario con el numero de revision
+                Inventario.limpiarTabla = true;
+
+                if (listaProductos.Count > 0)
                 {
-                    html += producto.Value;
+                    var html = string.Empty;
+
+                    foreach (var producto in listaProductos)
+                    {
+                        html += producto.Value;
+                    }
+
+                    // Ejecutar hilo para enviar notificacion
+                    var datos = new string[] { html, "", "", "", "REVISAR INVENTARIO", "" };
+
+                    Thread notificacion = new Thread(
+                        () => Utilidades.CambioStockProductoEmail(datos, 1)
+                    );
+
+                    notificacion.Start();
+
+                    listaProductos.Clear();
                 }
 
-                // Ejecutar hilo para enviar notificacion
-                var datos = new string[] { html, "", "", "", "REVISAR INVENTARIO", "" };
-
-                Thread notificacion = new Thread(
-                    () => Utilidades.CambioStockProductoEmail(datos, 1)
-                );
-
-                notificacion.Start();
-
-                listaProductos.Clear();
+                this.Hide();
+                this.Close();
             }
-
-            this.Hide();
-            this.Close();
         }
 
         private void LimpiarCampos()
@@ -884,6 +892,64 @@ namespace PuntoDeVentaV2
                 else
                 {
                     MessageBox.Show("No hay información extra disponible", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void btnDeshabilitarProducto_Click(object sender, EventArgs e)
+        {
+            var idObtenido = idProducto;
+            DialogResult confirmarDesicion = MessageBox.Show("¿Desea Deshabilitar este producto?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (confirmarDesicion == DialogResult.Yes)
+            {
+                cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idObtenido}'");
+                //lblNoRevision.Text = "";
+                txtBoxBuscarCodigoBarras.Text = "";
+                txtNombreProducto.Text = "";
+                txtCodigoBarras.Text = "";
+                lbBackground.Text = "";
+                lblPrecioProducto.Text = "";
+                lblStockMinimo.Text = "";
+                lblStockMaximo.Text = "";
+                txtCantidadStock.Text = "";
+                txtBoxBuscarCodigoBarras.Focus();
+            }
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            var idString = "";
+            var datosRevisador = cn.CargarDatos($"SELECT ID FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}'AND NoRevision = '{NoRevision}' ORDER BY ID DESC LIMIT 1");
+
+            if (!datosRevisador.Rows.Count.Equals(0))
+            {
+                foreach (DataRow obtenerUltimoID in datosRevisador.Rows)
+                {
+                    idString = obtenerUltimoID["ID"].ToString();
+                }
+
+                anterior++;
+                if (!string.IsNullOrEmpty(idString))
+                {
+                    var conversion = Convert.ToInt32(idString);
+                    var ultimoId = (conversion - anterior).ToString();
+
+                    var informacionProducto = cn.CargarDatos($"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{NoRevision}' AND ID = '{ultimoId}'");
+
+                    foreach (DataRow recorrerConsulta in informacionProducto.Rows)
+                    {
+                        if (!recorrerConsulta["CodigoBarras"].ToString().Equals(""))
+                        {
+                            txtBoxBuscarCodigoBarras.Text = recorrerConsulta["CodigoBarras"].ToString();
+                        }
+                        else if (!recorrerConsulta["ClaveInterna"].ToString().Equals(""))
+                        {
+                            txtBoxBuscarCodigoBarras.Text = recorrerConsulta["ClaveInterna"].ToString();
+                        }
+                        buscarCodigoBarras();
+                        //txtBoxBuscarCodigoBarras.Focus();
+                    }
                 }
             }
         }
