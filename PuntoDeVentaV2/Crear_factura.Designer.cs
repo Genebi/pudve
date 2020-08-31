@@ -70,7 +70,6 @@
             this.lb_facturando = new System.Windows.Forms.Label();
             this.tab_control = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.txt_buscarcliente = new System.Windows.Forms.TextBox();
             this.groupb_productos = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.pnl_productos = new System.Windows.Forms.Panel();
@@ -87,6 +86,7 @@
             this.cmb_bx_metodo_pago = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.txt_buscarcliente = new System.Windows.Forms.TextBox();
             this.btn_anterior = new System.Windows.Forms.Button();
             this.pnl_datos_cliente.SuspendLayout();
             this.tab_control.SuspendLayout();
@@ -523,16 +523,6 @@
             this.tabPage1.Text = "Cliente";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // txt_buscarcliente
-            // 
-            this.txt_buscarcliente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txt_buscarcliente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txt_buscarcliente.Location = new System.Drawing.Point(816, 28);
-            this.txt_buscarcliente.Name = "txt_buscarcliente";
-            this.txt_buscarcliente.Size = new System.Drawing.Size(48, 22);
-            this.txt_buscarcliente.TabIndex = 18;
-            this.txt_buscarcliente.Visible = false;
-            // 
             // groupb_productos
             // 
             this.groupb_productos.BackColor = System.Drawing.Color.Transparent;
@@ -617,7 +607,7 @@
             this.groupb_pago.Controls.Add(this.label3);
             this.groupb_pago.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupb_pago.ForeColor = System.Drawing.Color.Navy;
-            this.groupb_pago.Location = new System.Drawing.Point(8, 33);
+            this.groupb_pago.Location = new System.Drawing.Point(8, 27);
             this.groupb_pago.Name = "groupb_pago";
             this.groupb_pago.Size = new System.Drawing.Size(833, 121);
             this.groupb_pago.TabIndex = 10;
@@ -729,6 +719,16 @@
             this.label3.Size = new System.Drawing.Size(94, 17);
             this.label3.TabIndex = 3;
             this.label3.Text = "Método  pago";
+            // 
+            // txt_buscarcliente
+            // 
+            this.txt_buscarcliente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txt_buscarcliente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txt_buscarcliente.Location = new System.Drawing.Point(841, 62);
+            this.txt_buscarcliente.Name = "txt_buscarcliente";
+            this.txt_buscarcliente.Size = new System.Drawing.Size(20, 22);
+            this.txt_buscarcliente.TabIndex = 18;
+            this.txt_buscarcliente.Visible = false;
             // 
             // btn_anterior
             // 

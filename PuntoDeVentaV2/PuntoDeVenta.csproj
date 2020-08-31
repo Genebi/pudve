@@ -336,6 +336,12 @@
       <DependentUpon>calculadora.cs</DependentUpon>
     </Compile>
     <Compile Include="Cancelar_XML.cs" />
+    <Compile Include="Cancelar_XML_mensajes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar_XML_mensajes.Designer.cs">
+      <DependentUpon>Cancelar_XML_mensajes.cs</DependentUpon>
+    </Compile>
     <Compile Include="CantidadProdServicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -438,6 +444,12 @@
     </Compile>
     <Compile Include="Empleados.Designer.cs">
       <DependentUpon>Empleados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Empleado_muestra_acciones_factura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empleado_muestra_acciones_factura.Designer.cs">
+      <DependentUpon>Empleado_muestra_acciones_factura.cs</DependentUpon>
     </Compile>
     <Compile Include="Empresas.cs">
       <SubType>Form</SubType>
@@ -873,6 +885,9 @@
     <EmbeddedResource Include="calculadora.resx">
       <DependentUpon>calculadora.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar_XML_mensajes.resx">
+      <DependentUpon>Cancelar_XML_mensajes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CantidadProdServicio.resx">
       <DependentUpon>CantidadProdServicio.cs</DependentUpon>
     </EmbeddedResource>
@@ -914,6 +929,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Empleados.resx">
       <DependentUpon>Empleados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Empleado_muestra_acciones_factura.resx">
+      <DependentUpon>Empleado_muestra_acciones_factura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>

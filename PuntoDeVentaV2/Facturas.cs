@@ -22,6 +22,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        Cancelar_XML cancela = new Cancelar_XML(); 
 
         int id_usuario = FormPrincipal.userID;
         int id_empleado = FormPrincipal.id_empleado;
@@ -158,7 +159,7 @@ namespace PuntoDeVentaV2
                     DataGridViewRow fila = datagv_facturas.Rows[fila_id];
 
                     // Nombre de empleado
-                    string user_empleado = "";
+                    /*string user_empleado = "";
 
                     if (id_empleado == 0)
                     {
@@ -175,7 +176,7 @@ namespace PuntoDeVentaV2
                             var pos = user_empleado.IndexOf("@");
                             user_empleado = user_empleado.Substring(pos + 1, user_empleado.Length - (pos + 1));
                         }
-                    }
+                    }*/
 
 
                     fila.Cells["col_id"].Value = r_facturas["ID"].ToString();
@@ -183,14 +184,14 @@ namespace PuntoDeVentaV2
                     fila.Cells["col_checkbox"].Value = false;
                     fila.Cells["col_folio"].Value = r_facturas["folio"].ToString();
                     fila.Cells["col_serie"].Value = r_facturas["serie"].ToString();
-                    if (id_empleado > 0)
+                    /*if (id_empleado > 0)
                     {
                         this.datagv_facturas.Columns["col_empleado"].Visible = false;
                     }
                     else
                     {
                         fila.Cells["col_empleado"].Value = user_empleado;
-                    }
+                    }*/
                     fila.Cells["col_rfc"].Value = r_facturas["r_rfc"].ToString();
                     fila.Cells["col_razon_social"].Value = r_facturas["r_razon_social"].ToString();
                     fila.Cells["col_total"].Value = r_facturas["total"].ToString();
@@ -213,12 +214,13 @@ namespace PuntoDeVentaV2
                     Image img_pdf = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
                     Image img_descargar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\download.png");
                     Image img_cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell-slash.png");
+                    Image img_info_emp = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
 
                     fila.Cells["col_cpago"].Value = img_cpago;
                     fila.Cells["col_pdf"].Value = img_pdf;
                     fila.Cells["col_descargar"].Value = img_descargar;
                     fila.Cells["col_cancelar"].Value = img_cancelar;
-                    
+                    fila.Cells["col_empleado"].Value = img_info_emp;
                 }
             }
         }
@@ -271,7 +273,7 @@ namespace PuntoDeVentaV2
 
 
                 // Lista complementos de pago
-                if (e.ColumnIndex == 9)
+                if (e.ColumnIndex == 8)
                 {
                     if (opcion4 == 0)
                     {
@@ -295,7 +297,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // Ver PDF
-                if (e.ColumnIndex == 10)
+                if (e.ColumnIndex == 9)
                 {
                     if (opcion1 == 0)
                     {
@@ -348,7 +350,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // Descargar factura
-                if (e.ColumnIndex == 11)
+                if (e.ColumnIndex == 10)
                 {
                     if (opcion2 == 0)
                     {
@@ -380,7 +382,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // Cancelar factura
-                if (e.ColumnIndex == 12)
+                if (e.ColumnIndex == 11)
                 {
                     if (opcion3 == 0)
                     {
@@ -411,7 +413,6 @@ namespace PuntoDeVentaV2
 
                             if (resp == DialogResult.Yes)
                             {
-                                Cancelar_XML cancela = new Cancelar_XML();
                                 string[] respuesta = cancela.cancelar(id_factura, t_comprobante);
                                
                                 if (respuesta[1] == "201")
@@ -419,7 +420,7 @@ namespace PuntoDeVentaV2
                                     MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK);
 
                                     // Cambiar a canceladas
-                                    cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1 WHERE ID='{id_factura}'");
+                                    cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1, id_emp_cancela='{id_empleado}' WHERE ID='{id_factura}'");
 
                                    /* if (t_comprobante == "P")
                                     {
@@ -469,13 +470,21 @@ namespace PuntoDeVentaV2
                     }
                 }
 
+                // Información empleado
+                if(e.ColumnIndex == 12)
+                {
+                    Empleado_muestra_acciones_factura vnt = new Empleado_muestra_acciones_factura(id_factura, opc_tipo_factura);
+                    vnt.ShowDialog();
+                }
+
+
                 datagv_facturas.ClearSelection();
             }
         }
 
         private void cursor_en_icono(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0 & e.ColumnIndex >= 9)
+            if(e.RowIndex >= 0 & e.ColumnIndex >= 8)
             {
                 datagv_facturas.Cursor = Cursors.Hand;
 
@@ -486,7 +495,7 @@ namespace PuntoDeVentaV2
                 int coordenadaX = 0;
                 var permitir = true;
 
-                if (e.ColumnIndex == 9)
+                if (e.ColumnIndex == 8)
                 {
                     coordenadaX = 140;
                     txt_toolt = "Ver complementos de pago";
@@ -498,20 +507,25 @@ namespace PuntoDeVentaV2
                         permitir = false;
                     }
                 }
-                if (e.ColumnIndex == 10)
+                if (e.ColumnIndex == 9)
                 {
                     coordenadaX = 70;
                     txt_toolt = "Ver factura";
                 }
-                if (e.ColumnIndex == 11)
+                if (e.ColumnIndex == 10)
                 {
                     coordenadaX = 105;
                     txt_toolt = "Descargar factura";
                 }
-                if (e.ColumnIndex == 12)
+                if (e.ColumnIndex == 11)
                 {
                     coordenadaX = 100;
                     txt_toolt = "Cancelar factura";
+                }
+                if (e.ColumnIndex == 12)
+                {
+                    coordenadaX = 80;
+                    txt_toolt = "Información";
                 }
 
                 VerToolTip(txt_toolt, cellRect.X, coordenadaX, cellRect.Y, permitir);
@@ -520,7 +534,7 @@ namespace PuntoDeVentaV2
 
         private void cursor_no_icono(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 & e.ColumnIndex >= 9)
+            if (e.RowIndex >= 0 & e.ColumnIndex >= 8)
             {
                 datagv_facturas.Cursor = Cursors.Default;
             }
@@ -1228,6 +1242,120 @@ namespace PuntoDeVentaV2
                 {
                     linklb_pag_siguiente.Text = AfterPage.ToString();
                     linklb_pag_siguiente.Visible = false;
+                }
+            }
+        }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            int cont = 0;
+            int c = 0;
+            string mnsj_error = "";
+            string[][] arr_id_cmult;
+            int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
+            int tiene_complementos = 0;
+
+            if(opc_tipo_factura == 3)
+            {
+                MessageBox.Show("La factura ya ha sido cancelada con anterioridad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                var resp = MessageBox.Show("La cancelación tardará unos segundos. Un momento por favor. \n\n ¿Esta seguro que desea cancelar las facturas?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+                if (resp == DialogResult.Yes)
+                {
+
+                    foreach (DataGridViewRow row in datagv_facturas.Rows)
+                    {
+                        bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                        if (estado == true)
+                        {
+                            cont++;
+
+                            // Comprueba que la factura no tenga complementos de pago
+
+                            if (opc_tipo_factura == 1)
+                            {
+                                var uuidf = cn.EjecutarSelect($"SELECT UUID FROM Facturas WHERE ID='{row.Cells["col_id"].Value}'", 13);
+
+                                var existe_complemento = cn.EjecutarSelect($"SELECT * FROM Facturas_complemento_pago WHERE uuid='{uuidf}' AND timbrada=1 AND cancelada=0");
+
+
+                                if (Convert.ToBoolean(existe_complemento) == true)
+                                {
+                                    tiene_complementos = 1;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            mnsj_error = "No ha seleccionado alguna factura para cancelar.";
+                        }
+                    }
+
+                    if (cont == 0)
+                    {
+                        MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    if (tiene_complementos == 1)
+                    {
+                        MessageBox.Show("Alguna de las facturas no puede ser cancelada porque tiene complementos de pago timbrados. Para continuar por favor desmarque las facturas con complementos de pagos vigentes.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+
+                    // Obtener el id de la factura a enviar
+
+                    arr_id_cmult = new string[cont][];
+
+                    foreach (DataGridViewRow row in datagv_facturas.Rows)
+                    {
+                        bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                        if (estado == true)
+                        {
+
+                            arr_id_cmult[c] = new string[5];
+
+                            arr_id_cmult[c][0] = Convert.ToString(row.Cells["col_id"].Value);
+                            arr_id_cmult[c][1] = Convert.ToString(row.Cells["col_t_comprobante"].Value);
+                            arr_id_cmult[c][2] = Convert.ToString(row.Cells["col_folio"].Value);
+                            c++;
+                        }
+                    }
+
+
+                    // Mandar a cancelar
+
+                    for (var z=0; z<arr_id_cmult.Length; z++)
+                    {
+                        string[] respuesta = cancela.cancelar(Convert.ToInt32(arr_id_cmult[z][0]), arr_id_cmult[z][1]);
+
+                        if (respuesta[1] == "201" | respuesta[1] == "202")
+                        {
+                            // Cambiar a canceladas
+                            cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1, id_emp_cancela='{id_empleado}' WHERE ID='{arr_id_cmult[z][0]}'");
+                        }
+
+                        arr_id_cmult[z][3] = respuesta[0];
+                        arr_id_cmult[z][4] = respuesta[1];
+                    }
+
+
+                    // Muestra resultados 
+
+                    Cancelar_XML_mensajes canc_mensaje = new Cancelar_XML_mensajes(arr_id_cmult);
+
+                    canc_mensaje.FormClosed += delegate
+                    {
+                        // Cargar consulta
+                        cargar_lista_facturas(opc_tipo_factura);
+                    };
+
+                    canc_mensaje.ShowDialog();
                 }
             }
         }
