@@ -839,6 +839,28 @@ namespace PuntoDeVentaV2
                     btnNuevaVenta.PerformClick();
                 }
             }
+
+            FormPrincipal mainForm = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
+
+            if (mainForm != null)
+            {
+                if (mainForm.WindowState == FormWindowState.Minimized)
+                {
+                    mainForm.WindowState = FormWindowState.Maximized;
+                    mainForm.SendToBack();
+                }
+                if (mainForm.WindowState == FormWindowState.Maximized)
+                {
+                    mainForm.WindowState = FormWindowState.Maximized;
+                    mainForm.SendToBack();
+                }
+                if (mainForm.Visible == false)
+                {
+                    mainForm.Visible = true;
+                    mainForm.WindowState = FormWindowState.Minimized;
+                    mainForm.SendToBack();
+                }
+            }
         }
 
         //Se agrego para que no se abra la ventana nueva venta al cambiar el tamaño del form
