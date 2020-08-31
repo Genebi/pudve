@@ -56,6 +56,7 @@ namespace PuntoDeVentaV2
             txtCheque.KeyUp += new KeyEventHandler(SumaMetodosPago);
             txtTransferencia.KeyUp += new KeyEventHandler(SumaMetodosPago);
 
+            MessageBox.Show(idVenta.ToString());
             var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
             totalPendiente = float.Parse(detalles[2]);
             txtTotalOriginal.Text = "$" + totalOriginal.ToString("0.00");

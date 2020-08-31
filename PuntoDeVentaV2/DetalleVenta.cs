@@ -131,7 +131,7 @@ namespace PuntoDeVentaV2
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ListaClientes clientes = new ListaClientes();
+            ListaClientes clientes = new ListaClientes(tipo: 2);
 
             clientes.FormClosed += delegate
             {

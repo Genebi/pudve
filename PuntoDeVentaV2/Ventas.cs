@@ -1541,7 +1541,6 @@ namespace PuntoDeVentaV2
             {
                 lbOtrosImpuestos.Visible = true;
                 cOtrosImpuestos.Visible = true;
-                cOtrosImpuestos.Text = totalOtrosImpuestos.ToString("0.00");
             }
             else
             {
@@ -1549,6 +1548,7 @@ namespace PuntoDeVentaV2
                 cOtrosImpuestos.Visible = false;
             }
 
+            cOtrosImpuestos.Text = totalOtrosImpuestos.ToString("0.00");
             cAnticipo.Text = totalAnticipos.ToString("0.00");
             cDescuento.Text = totalDescuento.ToString("0.00");
             cNumeroArticulos.Text = totalArticulos.ToString();
