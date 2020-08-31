@@ -454,19 +454,6 @@ namespace PuntoDeVentaV2
 
                         existe = true;
                     }
-                    else
-                    {
-                        // Se reproducto cuando el codigo o clave buscado no esta registrado
-                        /*ReproducirSonido();
-
-                        var respuesta = MessageBox.Show($"El código o clave {codigo} no esta registrado en el sistema", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                        if (respuesta == DialogResult.OK)
-                        {
-                            txtBuscadorProducto.Text = string.Empty;
-                            txtBuscadorProducto.Focus();
-                        }*/
-                    }
                 }
             }
             
@@ -1174,6 +1161,7 @@ namespace PuntoDeVentaV2
             double totalIVA16     = 0;
             double totalIVA8      = 0;
             double totalAnticipos = 0;
+            double totalOtrosImpuestos = 0;
 
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
@@ -1181,6 +1169,21 @@ namespace PuntoDeVentaV2
                 var porcentajeGeneralAux = 0f;
                 var descuentoClienteAux = 0f;
                 var esDescuentoDirecto = false;
+
+                // Buscar si tiene IEPS para la etiqueta otros impuestos
+                var ieps = mb.ObtenerImpuestoProducto(idProducto);
+                
+                if (ieps > 0)
+                {
+                    var cantidadAux = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+
+                    totalOtrosImpuestos += (ieps * cantidadAux);
+                    
+                    var precioOriginalAux = float.Parse(fila.Cells["PrecioOriginal"].Value.ToString());
+
+                    fila.Cells["Precio"].Value = precioOriginalAux + ieps;
+                    fila.Cells["PrecioOriginal"].Value = precioOriginalAux + ieps;
+                }
 
                 var impuesto = fila.Cells["Impuesto"].Value.ToString();
 
@@ -1535,6 +1538,18 @@ namespace PuntoDeVentaV2
                 cDescuento.Visible = false;
             }
 
+            if (totalOtrosImpuestos > 0)
+            {
+                lbOtrosImpuestos.Visible = true;
+                cOtrosImpuestos.Visible = true;
+            }
+            else
+            {
+                lbOtrosImpuestos.Visible = false;
+                cOtrosImpuestos.Visible = false;
+            }
+
+            cOtrosImpuestos.Text = totalOtrosImpuestos.ToString("0.00");
             cAnticipo.Text = totalAnticipos.ToString("0.00");
             cDescuento.Text = totalDescuento.ToString("0.00");
             cNumeroArticulos.Text = totalArticulos.ToString();

@@ -24,6 +24,7 @@ namespace PuntoDeVentaV2
 
         // Tipo: 0 = Por defecto
         // Tipo: 1 = Por parte de la ventana Venta
+        // Tipo: 2 = Por parte de la ventana DetalleVenta
         public ListaClientes(int idVenta = 0, int tipo = 0)
         {
             InitializeComponent();
@@ -136,6 +137,18 @@ namespace PuntoDeVentaV2
                             datosCliente = new List<string>(datosCliente) { idCliente.ToString() }.ToArray();
                             DialogResult = DialogResult.OK;
                         }
+                    }
+
+                    if (tipo == 2)
+                    {
+                        DetalleVenta.idCliente = idCliente;
+                        DetalleVenta.cliente = cliente;
+
+                        AsignarCreditoVenta.idCliente = idCliente;
+                        AsignarCreditoVenta.cliente = cliente;
+
+                        Ventas.idCliente = idCliente.ToString();
+                        Ventas.ventaGuardada = false;
                     }
 
                     this.Close();
