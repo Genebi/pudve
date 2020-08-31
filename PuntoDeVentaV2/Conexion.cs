@@ -148,7 +148,11 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["Timbrada"];
                 }
-                if(tipo == 10)
+                if (tipo == 9)
+                {
+                    respuesta = dr["usuario"]; // Nombre de usuario de un empleado
+                }
+                if (tipo == 10)
                 {
                     respuesta = dr["uuid"];
                 }

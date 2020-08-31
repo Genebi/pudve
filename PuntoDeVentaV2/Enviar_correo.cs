@@ -23,6 +23,7 @@ namespace PuntoDeVentaV2
         string[][] arr_ids_f_enviar;
         string tipo = "";
         int tipo_factura = 0;
+        int id_empleado = FormPrincipal.id_empleado;
 
 
         public Enviar_correo(string[][] arr_ids, string titulo, int tp_factura)
@@ -298,6 +299,14 @@ namespace PuntoDeVentaV2
             {
                 smtp.Send(correo);
                 correo.Dispose();
+
+                if (tipo == "factura")
+                {
+                    for (int x = 0; x < arr_ids_f_enviar.Length; x++)
+                    {
+                        cn.EjecutarConsulta($"UPDATE Facturas SET id_emp_envia='{id_empleado}', f_enviada=1 WHERE ID='{arr_ids_f_enviar[x][0]}'");
+                    }
+                }
 
                 MessageBox.Show("La " + tipo + " ha sido enviado con éxito.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

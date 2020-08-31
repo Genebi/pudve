@@ -1360,7 +1360,17 @@ namespace PuntoDeVentaV2
 
             // Datos generales de la venta 
 
-            decimal total_general = suma_importe_concep - (suma_descuento + anticipo); //+ suma_importe_impuest;
+            decimal total_general = suma_importe_concep - suma_descuento; //+ suma_importe_impuest;
+
+            if(total_general > anticipo)
+            {
+                total_general = total_general - anticipo;
+            }
+            if(total_general < anticipo)
+            {
+                anticipo = total_general;
+                total_general = total_general - anticipo;
+            }
 
             comprobanteventa.Serie = serie;
             comprobanteventa.Folio = folio;
