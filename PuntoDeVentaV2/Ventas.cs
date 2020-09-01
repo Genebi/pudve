@@ -1163,6 +1163,9 @@ namespace PuntoDeVentaV2
             double totalAnticipos = 0;
             double totalOtrosImpuestos = 0;
 
+            // Super dislike
+            double dislike = 0;
+
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
                 var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
