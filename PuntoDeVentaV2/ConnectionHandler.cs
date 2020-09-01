@@ -568,7 +568,7 @@ namespace PuntoDeVentaV2
             cheque = vCheque + aCheque + dCheque;
             trans = vTrans + aTrans + dTrans;
             credito = vCredito;
-            anticipos1 = vAnticipos;
+            anticipos1 = totalAnticipos /*vAnticipos*/;
             subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial;
             totalCaja = (subtotal - dineroRetirado);
 

@@ -221,6 +221,7 @@ namespace PuntoDeVentaV2
                 {
                     if (botones == true)
                     {
+                        cn.EjecutarConsulta($"UPDATE Anticipos Set AnticipoAplicado = 0 WHERE IDUsuario = '{FormPrincipal.userID}'");
                         if (Utilidades.AdobeReaderInstalado())
                         {
                             GenerarReporte();
@@ -322,6 +323,14 @@ namespace PuntoDeVentaV2
                 var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 fechaDefault = Convert.ToDateTime(fechaTmp);
             }
+
+            string nDato = ""; //Se agrego esta linea desde esta linea...
+            var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'"); 
+            foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
+            {
+                 nDato = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
+            }
+            var anticiposAplicados = Convert.ToInt32(nDato); //Hasta esta linea.
 
             fechaGeneral = fechaDefault;
 
@@ -456,8 +465,9 @@ namespace PuntoDeVentaV2
             lbTCheque.Text = "$" + vCheque.ToString("0.00");
             lbTTrans.Text = "$" + vTrans.ToString("0.00");
             lbTCredito.Text = "$" + vCredito.ToString("0.00");
-            lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
-            lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + vAnticipos).ToString("0.00");
+            //lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
+            lbTAnticipos.Text = "$" + anticiposAplicados.ToString("0.00");
+            lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + /*vAnticipos*/anticiposAplicados).ToString("0.00");
 
             // Apartado ANTICIPOS RECIBIDOS
 
@@ -482,8 +492,9 @@ namespace PuntoDeVentaV2
             lbValesR.Text = "$ -" + retiroVales.ToString("0.00");
             lbChequeR.Text = "$ -" + retiroCheque.ToString("0.00");
             lbTransferenciaR.Text = "$ -" + retiroTrans.ToString("0.00");
-            lbTAnticiposC.Text = "$ -" + vAnticipos.ToString("0.00");
-            lbTRetirado.Text = "$ -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + vAnticipos).ToString("0.00");
+            //lbTAnticiposC.Text = "$ -" + vAnticipos.ToString("0.00");
+            lbTAnticiposC.Text = "$ -" + anticiposAplicados.ToString("0.00");
+            lbTRetirado.Text = "$ -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados).ToString("0.00");
 
             // Apartado TOTAL EN CAJA
             efectivo = (vEfectivo + aEfectivo + dEfectivo)-rEfectivo;
@@ -492,7 +503,8 @@ namespace PuntoDeVentaV2
             cheque = (vCheque + aCheque + dCheque)-rCheque; 
             trans = (vTrans + aTrans + dTrans)-rTransferencia;
             credito = vCredito;
-            anticipos = vAnticipos;
+            //anticipos = vAnticipos;
+            anticipos = anticiposAplicados;
             subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial;
 
             lbTEfectivoC.Text = "$" + (efectivo - retiroEfectivo).ToString("0.00");

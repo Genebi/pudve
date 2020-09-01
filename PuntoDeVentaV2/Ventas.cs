@@ -1453,6 +1453,16 @@ namespace PuntoDeVentaV2
 
             var sumaImportes = totalImporte + totalImporte8;
 
+            //totalAnticipos
+            //totalImporte
+
+            var anticipoAplicado = totalAnticipos - totalImporte;
+            if (totalAnticipos > 0)
+            {
+                var idAnticipo = ListadoAnticipos.obtenerIdAnticipo;
+                cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{totalImporte}' + AnticipoAplicado WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
+            }
+
             if (sumaImportes > 0)
             {
                 var importeTmp = sumaImportes;
