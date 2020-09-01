@@ -13,6 +13,8 @@ namespace PuntoDeVentaV2
 {
     public partial class ListadoAnticipos : Form
     {
+        public static int obtenerIdAnticipo { get; set; }
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
@@ -104,6 +106,7 @@ namespace PuntoDeVentaV2
                 var fila = DGVListaAnticipos.CurrentCell.RowIndex;
 
                 int idAnticipo = Convert.ToInt32(DGVListaAnticipos.Rows[fila].Cells["ID"].Value);
+                obtenerIdAnticipo = idAnticipo;
 
                 int seleccionado = Array.IndexOf(anticipos, idAnticipo.ToString());
 
