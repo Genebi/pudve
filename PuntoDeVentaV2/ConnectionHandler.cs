@@ -484,6 +484,14 @@ namespace PuntoDeVentaV2
                 fechaDefault = Convert.ToDateTime(fechaTmp);
             }
 
+            string nDato = ""; //Se agrego esta linea desde esta linea...
+            var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
+            foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
+            {
+                nDato = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
+            }
+            var anticiposAplicados = Convert.ToInt32(nDato); //Hasta esta linea.
+
             fechaGeneral = fechaDefault;
 
             var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID}";
@@ -568,7 +576,7 @@ namespace PuntoDeVentaV2
             cheque = vCheque + aCheque + dCheque;
             trans = vTrans + aTrans + dTrans;
             credito = vCredito;
-            anticipos1 = totalAnticipos /*vAnticipos*/;
+            anticipos1 = anticiposAplicados/* totalAnticipos*/ /*vAnticipos*/;
             subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial;
             totalCaja = (subtotal - dineroRetirado);
 
