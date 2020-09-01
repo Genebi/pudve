@@ -86,6 +86,7 @@ namespace PuntoDeVentaV2
 
         public static DateTime fechaGeneral;
 
+        float anticiposAplicados2 = 0f;
 
         #region declare
         //public MySqlConnection Con;
@@ -276,7 +277,7 @@ namespace PuntoDeVentaV2
                                                                   efectivoDineroAgregado, tarjetaDineroAgregado, valesDineroAgregado, chequeDineroAgregado, transferenciaDineroAgregado, totalDineroAgregado,   
                                                                   efectivoTotalCaja, tarjetaTotalCaja, valesTotalCaja, chequeTotalCaja, transferenciaTotalCaja, creditoTotalCaja, anticiposUtilizadosTotalCaja, saldoInicialTotalCaja, subtotalEnCajaTotalCaja, dineroRetiradoTotalCaja, totalEnCajaTotalCaja, 
                                                                   fechaActualizacion, nickUsuario, idUsuario) 
-                                                         VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{vAnticipos}', '{totalVentas}',
+                                                         VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{anticipos1}', '{totalVentas}',
                                                                  '{aEfectivo}', '{aTarjeta}', '{aVales}', '{aCheque}', '{aTrans}', '{totalAnticipos}', 
                                                                  '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}',  
                                                                  '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos1}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}',
@@ -417,6 +418,7 @@ namespace PuntoDeVentaV2
             aCheque = 0f;
             aTrans = 0f;
             totalAnticipos = 0f;
+            anticiposAplicados2 = 0f;
 
             dEfectivo = 0f;
             dTarjeta = 0f;
@@ -521,7 +523,7 @@ namespace PuntoDeVentaV2
                     vTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
                     vCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
                     vAnticipos += float.Parse(drDos.GetValue(drDos.GetOrdinal("Anticipo")).ToString());
-                    totalVentas = (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + vAnticipos);
+                    totalVentas = (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + anticiposAplicados/*vAnticipos*/);
                 }
 
                 if (operacion == "anticipo" && fechaOperacion > fechaDefault)
@@ -531,7 +533,7 @@ namespace PuntoDeVentaV2
                     aVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
                     aCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
                     aTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
-                    totalAnticipos = (aEfectivo + aTarjeta + aVales + aCheque + aTrans);
+                    totalAnticipos /*anticiposAplicados2*/ = (aEfectivo + aTarjeta + aVales + aCheque + aTrans);
 
                 }
 
@@ -576,7 +578,7 @@ namespace PuntoDeVentaV2
             cheque = vCheque + aCheque + dCheque;
             trans = vTrans + aTrans + dTrans;
             credito = vCredito;
-            anticipos1 = anticiposAplicados/* totalAnticipos*/ /*vAnticipos*/;
+            anticipos1 = totalAnticipos + anticiposAplicados/* totalAnticipos*/ /*vAnticipos*/;
             subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial;
             totalCaja = (subtotal - dineroRetirado);
 
