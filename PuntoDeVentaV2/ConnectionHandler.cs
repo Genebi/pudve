@@ -491,16 +491,13 @@ namespace PuntoDeVentaV2
             try
             {
                 var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
-                if (segundaConsulta.Rows.Count > 0)
+                if (segundaConsulta.Rows.Count > 0 && !string.IsNullOrWhiteSpace(segundaConsulta.ToString()))
                 {
-                    //Se agrego esta linea desde esta linea...
                     foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
                     {
                         consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
                     }
-
                     anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
-
                 }
             }
             catch
