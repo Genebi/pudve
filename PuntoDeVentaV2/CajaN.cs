@@ -323,18 +323,25 @@ namespace PuntoDeVentaV2
                 var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 fechaDefault = Convert.ToDateTime(fechaTmp);
             }
-
-            var consultaAnticipoAplicado = "";
-            var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
-            if (segundaConsulta.Rows.Count > 0)
+     
+            var consultaAnticipoAplicado = ""; //Se agrego esta linea desde esta linea...
+            try
             {
-                 //Se agrego esta linea desde esta linea...
-                foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
+                var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
+                if (segundaConsulta.Rows.Count > 0)
                 {
-                    consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
+                    foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
+                    {
+                        consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
+                    }
                 }
             }
+            catch
+            {
+
+            }
             var anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
+
 
             fechaGeneral = fechaDefault;
 

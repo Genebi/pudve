@@ -487,14 +487,22 @@ namespace PuntoDeVentaV2
             }
 
             var consultaAnticipoAplicado = "";
-            var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
-            if (segundaConsulta.Rows.Count > 0)
+            try
             {
-                //Se agrego esta linea desde esta linea...
-                foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
+                var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
+                if (segundaConsulta.Rows.Count > 0)
                 {
-                    consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
+                    //Se agrego esta linea desde esta linea...
+                    foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
+                    {
+                        consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
+                    }
                 }
+                
+            }
+            catch
+            {
+
             }
             var anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
 
