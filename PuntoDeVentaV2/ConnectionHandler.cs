@@ -87,6 +87,7 @@ namespace PuntoDeVentaV2
         public static DateTime fechaGeneral;
 
         float anticiposAplicados2 = 0f;
+        int anticiposAplicados = 0;
 
         #region declare
         //public MySqlConnection Con;
@@ -497,14 +498,15 @@ namespace PuntoDeVentaV2
                     {
                         consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
                     }
+
+                    anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
+
                 }
-                
             }
             catch
             {
 
             }
-            var anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
 
             fechaGeneral = fechaDefault;
 
