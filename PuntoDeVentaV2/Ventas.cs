@@ -1163,9 +1163,6 @@ namespace PuntoDeVentaV2
             double totalAnticipos = 0;
             double totalOtrosImpuestos = 0;
 
-            // Super dislike
-            double dislike = 0;
-
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
                 var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
@@ -1434,6 +1431,15 @@ namespace PuntoDeVentaV2
                 {
                     porcentajeGeneral = porcentajeGeneralAux;
                     descuentoCliente = descuentoClienteAux;
+                }
+
+                // Se vuelve a restaurar el valor original despues de haber hecho los calculos
+                // cuando el producto tiene detalle de facturacion en especifico tiene IEPS
+                if (ieps > 0)
+                {
+                    var precioOriginalAux = float.Parse(fila.Cells["PrecioOriginal"].Value.ToString());
+
+                    fila.Cells["PrecioOriginal"].Value = precioOriginalAux - ieps;
                 }
             }
 
