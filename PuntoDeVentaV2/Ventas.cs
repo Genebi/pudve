@@ -1446,14 +1446,14 @@ namespace PuntoDeVentaV2
             // Calculo del subtotal al 16
             if (totalImporte > 0)
             {
-                totalSubtotal = totalImporte / 1.16;
+                totalSubtotal = (totalImporte - totalOtrosImpuestos) / 1.16;
                 totalIVA16 = totalSubtotal * 0.16;
             }
 
             // Calculo del subtotal al 8
             if (totalImporte8 > 0)
             {
-                totalSubtotal8 = totalImporte8 / 1.08;
+                totalSubtotal8 = (totalImporte8 - totalOtrosImpuestos) / 1.08;
                 totalIVA8 = totalSubtotal8 * 0.08;
             }
 
