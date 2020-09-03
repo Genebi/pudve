@@ -1755,6 +1755,7 @@ namespace PuntoDeVentaV2
             var Folio = "";
             var Serie = "A";
             var idClienteTmp = idCliente;
+            string id_empleado = Convert.ToString(FormPrincipal.id_empleado);
 
             if (ventaGuardada)
             {
@@ -1782,7 +1783,7 @@ namespace PuntoDeVentaV2
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
                 DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion,
-                idClienteDescuento.ToString()
+                idClienteDescuento.ToString(), id_empleado
             };
 
 

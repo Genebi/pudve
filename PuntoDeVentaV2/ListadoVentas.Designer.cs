@@ -47,8 +47,8 @@
             this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
             this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
             this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
-            this.btn_timbrar = new System.Windows.Forms.Button();
             this.btn_descargar = new System.Windows.Forms.Button();
             this.txtBuscador = new System.Windows.Forms.TextBox();
             this.btn_enviar = new System.Windows.Forms.Button();
@@ -58,6 +58,7 @@
             this.btnBuscarVentas = new System.Windows.Forms.Button();
             this.cbTipoVentas = new System.Windows.Forms.ComboBox();
             this.cbVentas = new System.Windows.Forms.ComboBox();
+            this.btn_timbrar = new System.Windows.Forms.Button();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -115,7 +116,8 @@
             this.Factura,
             this.Ticket,
             this.Abono,
-            this.Timbrar});
+            this.Timbrar,
+            this.cInformacion});
             this.DGVListadoVentas.Location = new System.Drawing.Point(12, 159);
             this.DGVListadoVentas.Name = "DGVListadoVentas";
             this.DGVListadoVentas.ReadOnly = true;
@@ -234,6 +236,13 @@
             this.Timbrar.ReadOnly = true;
             this.Timbrar.Width = 30;
             // 
+            // cInformacion
+            // 
+            this.cInformacion.HeaderText = "";
+            this.cInformacion.Name = "cInformacion";
+            this.cInformacion.ReadOnly = true;
+            this.cInformacion.Width = 30;
+            // 
             // panelBotones
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -251,23 +260,6 @@
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(886, 76);
             this.panelBotones.TabIndex = 6;
-            // 
-            // btn_timbrar
-            // 
-            this.btn_timbrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_timbrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btn_timbrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_timbrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_timbrar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_timbrar.ForeColor = System.Drawing.Color.White;
-            this.btn_timbrar.Location = new System.Drawing.Point(806, 47);
-            this.btn_timbrar.Name = "btn_timbrar";
-            this.btn_timbrar.Size = new System.Drawing.Size(89, 24);
-            this.btn_timbrar.TabIndex = 10;
-            this.btn_timbrar.Text = "Timbrar";
-            this.btn_timbrar.UseVisualStyleBackColor = false;
-            this.btn_timbrar.Visible = false;
-            this.btn_timbrar.Click += new System.EventHandler(this.btn_timbrar_Click);
             // 
             // btn_descargar
             // 
@@ -393,6 +385,23 @@
             this.cbVentas.Name = "cbVentas";
             this.cbVentas.Size = new System.Drawing.Size(156, 24);
             this.cbVentas.TabIndex = 0;
+            // 
+            // btn_timbrar
+            // 
+            this.btn_timbrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_timbrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btn_timbrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_timbrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_timbrar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_timbrar.ForeColor = System.Drawing.Color.White;
+            this.btn_timbrar.Location = new System.Drawing.Point(806, 47);
+            this.btn_timbrar.Name = "btn_timbrar";
+            this.btn_timbrar.Size = new System.Drawing.Size(89, 24);
+            this.btn_timbrar.TabIndex = 10;
+            this.btn_timbrar.Text = "Timbrar";
+            this.btn_timbrar.UseVisualStyleBackColor = false;
+            this.btn_timbrar.Visible = false;
+            this.btn_timbrar.Click += new System.EventHandler(this.btn_timbrar_Click);
             // 
             // TTMensaje
             // 
@@ -618,6 +627,13 @@
         private System.Windows.Forms.LinkLabel linkLblPaginaActual;
         private System.Windows.Forms.LinkLabel linkLblPaginaAnterior;
         private System.Windows.Forms.Button btn_enviar;
+        private System.Windows.Forms.TextBox txtBuscador;
+        private System.Windows.Forms.Button btn_descargar;
+        private System.Windows.Forms.FolderBrowserDialog elegir_carpeta_descarga;
+        private System.Windows.Forms.ProgressBar pBar_descarga;
+        private System.Windows.Forms.Label lb_texto_descarga;
+        private System.Windows.Forms.Button btn_timbrar;
+        public System.Windows.Forms.Button btnNuevaVenta;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_checkbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
@@ -634,12 +650,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Ticket;
         private System.Windows.Forms.DataGridViewImageColumn Abono;
         private System.Windows.Forms.DataGridViewImageColumn Timbrar;
-        private System.Windows.Forms.TextBox txtBuscador;
-        private System.Windows.Forms.Button btn_descargar;
-        private System.Windows.Forms.FolderBrowserDialog elegir_carpeta_descarga;
-        private System.Windows.Forms.ProgressBar pBar_descarga;
-        private System.Windows.Forms.Label lb_texto_descarga;
-        private System.Windows.Forms.Button btn_timbrar;
-        public System.Windows.Forms.Button btnNuevaVenta;
+        private System.Windows.Forms.DataGridViewImageColumn cInformacion;
     }
 }
