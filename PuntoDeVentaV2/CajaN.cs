@@ -32,6 +32,8 @@ namespace PuntoDeVentaV2
         public static float cheque { get; set; }
         public static float trans { get; set; }
 
+        int anticiposAplicados = 0;
+
         // Variables Totales
         public static float totalEfectivo = 0f;
         public static float totalTarjeta = 0f;
@@ -323,14 +325,25 @@ namespace PuntoDeVentaV2
                 var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 fechaDefault = Convert.ToDateTime(fechaTmp);
             }
-
-            string nDato = ""; //Se agrego esta linea desde esta linea...
-            var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'"); 
-            foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
+     
+            var consultaAnticipoAplicado = ""; //Se agrego esta linea desde esta linea...
+            try
             {
-                 nDato = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
+                var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
+                if (segundaConsulta.Rows.Count > 0 && !string.IsNullOrWhiteSpace(segundaConsulta.ToString()))
+                {
+                    foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
+                    {
+                        consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
+                    }
+                    anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
+                }
             }
-            var anticiposAplicados = Convert.ToInt32(nDato); //Hasta esta linea.
+            catch
+            {
+
+            }
+
 
             fechaGeneral = fechaDefault;
 

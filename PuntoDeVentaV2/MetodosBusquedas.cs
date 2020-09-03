@@ -106,7 +106,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Clientes WHERE ID = {idCliente} AND IDUsuario = {idUsuario}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
