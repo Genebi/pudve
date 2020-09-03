@@ -2105,6 +2105,24 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public int obtener_id_empleado(int id_venta)
+        {
+            int id_empleado = 0;
+
+            DatosConexion($"SELECT IDEmpleado FROM Ventas WHERE ID={id_venta}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                id_empleado = Convert.ToInt32(dr["IDEmpleado"].ToString());
+            }
+
+            dr.Close();
+
+            return id_empleado;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);

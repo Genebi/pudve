@@ -85,11 +85,9 @@ namespace PuntoDeVentaV2
             // Opciones para el combobox
             Dictionary<string, string> ventas = new Dictionary<string, string>();
             ventas.Add("VP", "Ventas pagadas");
-            ventas.Add("VG", "Ventas guardadas");
+            ventas.Add("VG", "Ventas guardadas (Presupuestos)");
             ventas.Add("VC", "Ventas canceladas");
             ventas.Add("VCC", "Ventas a crédito");
-            ventas.Add("FAC", "Facturas");
-            ventas.Add("PRE", "Presupuestos");
 
             cbTipoVentas.DataSource = ventas.ToArray();
             cbTipoVentas.DisplayMember = "Value";
@@ -194,10 +192,6 @@ namespace PuntoDeVentaV2
                     if (opcion == "VC") { estado = 3; }
                     // Ventas a credito
                     if (opcion == "VCC") { estado = 4; }
-                    // Facturas
-                    if (opcion == "FAC") { estado = 5; }
-                    // Presupuestos
-                    if (opcion == "PRE") { estado = 6; }
 
 
                     if (buscador.Equals("BUSCAR POR RFC, CLIENTE O FOLIO..."))
@@ -249,8 +243,9 @@ namespace PuntoDeVentaV2
             Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
             Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
             Image credito = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\dollar.png");
-            Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
+            Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\dollar.png");
             Image timbrar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell.png");
+            Image informacion= Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
 
             Bitmap sinImagen = new Bitmap(1, 1);
             sinImagen.SetPixel(0, 0, Color.White);
@@ -324,6 +319,7 @@ namespace PuntoDeVentaV2
                     row.Cells["Ticket"].Value = ticket;
                     row.Cells["Abono"].Value = credito;
                     row.Cells["Timbrar"].Value = timbrar;
+                    row.Cells["cInformacion"].Value = informacion;
 
                     // Ventas canceladas
                     if (status == 3)
@@ -478,10 +474,6 @@ namespace PuntoDeVentaV2
             if (opcion == "VC") { CargarDatos(3); }
             //Ventas a credito
             if (opcion == "VCC") { CargarDatos(4); }
-            //Facturas
-            if (opcion == "FAC") { CargarDatos(5); }
-            //Presupuestos
-            if (opcion == "PRE") { CargarDatos(6); }
         }
 
         #region Manejo del evento MouseEnter para el DataGridView
@@ -535,6 +527,12 @@ namespace PuntoDeVentaV2
                     {
                         textoTT = "Timbrar";
                         coordenadaX = 56;
+                    }
+
+                    if (e.ColumnIndex == 16)
+                    {
+                        textoTT = "Información";
+                        coordenadaX = 75;
                     }
 
                     // Si es diferente a la fila donde se muestran los totales
@@ -802,6 +800,13 @@ namespace PuntoDeVentaV2
                         // Verifica que la venta tenga todos los datos para facturar
                         comprobar_venta_f(idVenta);
                     }
+                }
+
+                // Información
+                if(e.ColumnIndex == 16)
+                {
+                    Ventas_ventana_informacion info = new Ventas_ventana_informacion(idVenta);
+                    info.ShowDialog();
                 }
 
                 DGVListadoVentas.ClearSelection();
@@ -1694,12 +1699,7 @@ namespace PuntoDeVentaV2
             string opc_tipo_nota = cbTipoVentas.SelectedValue.ToString();
 
 
-            if (opc_tipo_nota == "FAC" | opc_tipo_nota == "PRE")
-            {
-                MessageBox.Show("La descarga solo aplica para notas de venta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
+
                 foreach (DataGridViewRow row in DGVListadoVentas.Rows)
                 {
                     if (c < t)
@@ -1753,13 +1753,12 @@ namespace PuntoDeVentaV2
                 else
                 {
                     MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }            
+                }          
         }
 
         public void inicia_descarga(int[] idnv, string carpeta_elegida)
         {
-            pBar_descarga.Visible = true; Console.WriteLine("tam=" + idnv.Length);
+            pBar_descarga.Visible = true; 
             lb_texto_descarga.Visible = true;
 
             pBar_descarga.Minimum = 1;

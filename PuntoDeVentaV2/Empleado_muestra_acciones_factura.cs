@@ -84,12 +84,6 @@ namespace PuntoDeVentaV2
             lb_timbrar.Size = new Size(50, 18);
             lb_timbrar.Text = "Timbrar:";
             lb_timbrar.AutoSize = true;
-            
-            Label lb_timbrar_n = new Label();
-            lb_timbrar_n.Location = new Point(129, 19);
-            lb_timbrar_n.Size = new Size(129, 18);
-            lb_timbrar_n.Text = nom_e_timbra;
-            lb_timbrar_n.AutoSize = true;
 
             Label lb_enviar = new Label();
             lb_enviar.Location = new Point(10, 55);
@@ -97,17 +91,23 @@ namespace PuntoDeVentaV2
             lb_enviar.Text = "Enviar correo:";
             lb_enviar.AutoSize = true;
 
-            Label lb_enviar_n = new Label();
-            lb_enviar_n.Location = new Point(129, 55);
-            lb_enviar_n.Size = new Size(50, 18);
-            lb_enviar_n.Text = nom_e_envia;
-            lb_enviar_n.AutoSize = true;
-
             Label lb_cancelar = new Label();
             lb_cancelar.Location = new Point(10, 94);
             lb_timbrar.Size = new Size(50, 18);
             lb_cancelar.Text = "Cancelar:";
             lb_cancelar.AutoSize = true;
+
+            Label lb_timbrar_n = new Label();
+            lb_timbrar_n.Location = new Point(129, 19);
+            lb_timbrar_n.Size = new Size(129, 18);
+            lb_timbrar_n.Text = nom_e_timbra;
+            lb_timbrar_n.AutoSize = true;
+
+            Label lb_enviar_n = new Label();
+            lb_enviar_n.Location = new Point(129, 55);
+            lb_enviar_n.Size = new Size(50, 18);
+            lb_enviar_n.Text = nom_e_envia;
+            lb_enviar_n.AutoSize = true;
 
             Label lb_cancelar_n = new Label();
             lb_cancelar_n.Location = new Point(129, 94);

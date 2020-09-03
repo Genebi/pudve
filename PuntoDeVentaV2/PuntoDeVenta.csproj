@@ -765,6 +765,12 @@
     <Compile Include="Ventas.Designer.cs">
       <DependentUpon>Ventas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ventas_ventana_informacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventas_ventana_informacion.Designer.cs">
+      <DependentUpon>Ventas_ventana_informacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="verificarBasesSQLite.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1075,6 +1081,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventas_ventana_informacion.resx">
+      <DependentUpon>Ventas_ventana_informacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="verificarBasesSQLite.resx">
       <DependentUpon>verificarBasesSQLite.cs</DependentUpon>

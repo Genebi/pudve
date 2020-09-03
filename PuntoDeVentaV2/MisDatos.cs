@@ -99,7 +99,7 @@ namespace PuntoDeVentaV2
             *   y se los asignamos a cada uno de los variables  *
             ****************************************************/
             id = dt.Rows[index]["ID"].ToString();
-            nomComp = dt.Rows[index]["NombreCompleto"].ToString();
+            nomComp = dt.Rows[index]["RazonSocial"].ToString();
             rfc = dt.Rows[index]["RFC"].ToString();
             calle = dt.Rows[index]["Calle"].ToString();
             numExt = dt.Rows[index]["NoExterior"].ToString();
@@ -362,13 +362,34 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            ActualizarDatos();
-            FormPrincipal.datosUsuario = cn.DatosUsuario(IDUsuario: FormPrincipal.userID, tipo: 0);
-            MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            bool result = ActualizarDatos();
+
+            if(result == true)
+            {
+                FormPrincipal.datosUsuario = cn.DatosUsuario(IDUsuario: FormPrincipal.userID, tipo: 0);
+                MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
-        private void ActualizarDatos(int tipo = 0)
+        private bool ActualizarDatos(int tipo = 0)
         {
+            if (txtNombre.Text.Trim() == "")
+            {
+                MessageBox.Show("El RFC no debe estar vacío.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtCodPost.Text.Trim() == "")
+            {
+                MessageBox.Show("El código postal no debe estar vacío.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (cbRegimen.Text.Trim() == "")
+            {
+                MessageBox.Show("El régimen no debe estar vacío.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+
             // mandamos llamar la funcion actualizarVariables()
             actualizarVariables();
 
@@ -383,6 +404,8 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            
+
             // el string para hacer el UPDATE
             actualizar = $"UPDATE Usuarios SET RFC = '{rfc}', Telefono = '{telefono}', Email = '{email}', NombreCompleto = '{nomComp}', Calle = '{calle}', NoExterior = '{numExt}', NoInterior = '{numInt}', Colonia = '{colonia}', Municipio = '{mpio}', Estado = '{estado}', CodigoPostal = '{codPostal}', Regimen = '{regimen}', TipoPersona = '{tipoPersona}' WHERE ID = '{id}'";
 
@@ -392,6 +415,8 @@ namespace PuntoDeVentaV2
 
             // Llamamos a la Funcion consulta
             consulta();
+
+            return true;
         }
 
         private bool ValidarDatos()
