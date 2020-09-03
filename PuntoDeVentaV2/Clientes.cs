@@ -102,6 +102,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Tipo"].Value = tipoCliente;
                 row.Cells["NoCliente"].Value = fila["NumeroCliente"];
                 row.Cells["Fecha"].Value = Convert.ToDateTime(fila["FechaOperacion"]).ToString("yyyy-MM-dd HH:mm:ss");
+                var idClientesPorID = row.Cells["ID"].Value = fila["ID"];/////////////////////////////////////////////////////////////////
 
                 Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
                 Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");

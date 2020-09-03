@@ -337,7 +337,6 @@ namespace PuntoDeVentaV2
                         consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
                     }
                     anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
-
                 }
             }
             catch

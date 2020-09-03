@@ -154,7 +154,10 @@ namespace PuntoDeVentaV2
             var formaPago = "01"; //cbFormaPago.SelectedValue;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}' ORDER BY FechaOperacion DESC LIMIT 1", 1));
+            if (tipo != 2)
+            {
+                int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}' ORDER BY FechaOperacion DESC LIMIT 1", 1));
+            }
 
             if (string.IsNullOrWhiteSpace(razon))
             {
