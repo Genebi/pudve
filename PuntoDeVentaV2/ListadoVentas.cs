@@ -1371,11 +1371,15 @@ namespace PuntoDeVentaV2
             {
                 total_general = total_general - anticipo;
             }
-            if(total_general < anticipo)
+            else
             {
-                anticipo = total_general;
-                total_general = total_general - anticipo;
+                if (total_general < anticipo)
+                {
+                    anticipo = total_general;
+                    total_general = total_general - anticipo;
+                }
             }
+            
 
             comprobanteventa.Serie = serie;
             comprobanteventa.Folio = folio;
