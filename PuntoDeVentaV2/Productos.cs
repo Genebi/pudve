@@ -482,6 +482,41 @@ namespace PuntoDeVentaV2
             if (HighlightedRowIndex >= 0)
             {
                 SetRowStyle(DGVProductos.Rows[HighlightedRowIndex], null);
+
+                var Tipo = Convert.ToString(DGVProductos.Rows[e.RowIndex].Cells[22].Value.ToString());
+                var minimo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[24].Value.ToString());
+                var maximo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[25].Value.ToString());
+
+                if (Tipo.Equals("P"))
+                {
+                    var stock = Convert.ToDecimal(DGVProductos.Rows[e.RowIndex].Cells[2].Value.ToString());
+
+                    if (stock < minimo)
+                    {
+                        DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                        {
+                            ForeColor = Color.White,
+                            BackColor = Color.Black
+                        };
+                    }
+                    else if (stock > maximo)
+                    {
+                        DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                        {
+                            ForeColor = Color.White,
+                            BackColor = Color.Blue
+                        };
+                    }
+                }
+                else if (Tipo.Equals("S") || Tipo.Equals("PQ"))
+                {
+                    DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                    {
+                        ForeColor = Color.Black,
+                        BackColor = Color.White
+                    };
+                }
+
                 HighlightedRowIndex = -1;
             }
         }
@@ -825,6 +860,40 @@ namespace PuntoDeVentaV2
             if (HighlightedRowIndex >= 0)
             {
                 SetRowStyle(DGVProductos.Rows[HighlightedRowIndex], HighlightStyle);
+
+                var Tipo = Convert.ToString(DGVProductos.Rows[e.RowIndex].Cells[22].Value.ToString());
+                var minimo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[24].Value.ToString());
+                var maximo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[25].Value.ToString());
+                
+                if (Tipo.Equals("P"))
+                {
+                    var stock = Convert.ToDecimal(DGVProductos.Rows[e.RowIndex].Cells[2].Value.ToString());
+
+                    if (stock < minimo)
+                    {
+                        DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                        {
+                            ForeColor = Color.White,
+                            BackColor = Color.Black
+                        };
+                    }
+                    else if (stock > maximo)
+                    {
+                        DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                        {
+                            ForeColor = Color.White,
+                            BackColor = Color.Blue
+                        };
+                    }
+                }
+                else if (Tipo.Equals("S") || Tipo.Equals("PQ"))
+                {
+                    DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                    {
+                        ForeColor = Color.Black,
+                        BackColor = Color.White
+                    };
+                }
             }
 
             //if (HighlightedRowIndex >= 0)
@@ -4427,6 +4496,9 @@ namespace PuntoDeVentaV2
                     var maximo = Convert.ToInt32(filaDatos["StockNecesario"].ToString());
                     var stock = Convert.ToDecimal(filaDatos["Stock"].ToString());
 
+                    row.Cells["StockMinimo"].Value = minimo.ToString();
+                    row.Cells["StockMaximo"].Value = maximo.ToString();
+
                     if (stock < minimo)
                     {
                         row.Cells["Column2"].Value = filaDatos["Stock"].ToString();
@@ -4454,6 +4526,10 @@ namespace PuntoDeVentaV2
                 else if (TipoProd == "S" || TipoProd == "PQ")
                 {
                     row.Cells["Column2"].Value = "N/A";
+                    var minimo = Convert.ToInt32(filaDatos["StockMinimo"].ToString());
+                    var maximo = Convert.ToInt32(filaDatos["StockNecesario"].ToString());
+                    row.Cells["StockMinimo"].Value = minimo.ToString();
+                    row.Cells["StockMaximo"].Value = maximo.ToString();
                 }
 
                 row.Cells["Column3"].Value = decimal.Parse(filaDatos["Precio"].ToString());
