@@ -285,13 +285,6 @@ namespace PuntoDeVentaV2
 
                     if (resultado > 0)
                     {
-                        //Verificamos que sea la confirmacion de que los datos del cliente son los correctos
-                        //Al aceptar se actualizara la informacion y generara el XML
-                        if (tipo == 3)
-                        {
-                            //DatosXML();
-                        }
-
                         this.Close();
                     }
                 }
@@ -340,114 +333,7 @@ namespace PuntoDeVentaV2
 
             cn.EjecutarConsulta(cs.GuardarDetallesVenta(datos, 1));
         }
-
-        /*private void DatosXML()
-        {
-            //Obtener numero de certificado
-            string rutaCer = @"C:\Archivos PUDVE\MisDatos\CFDI\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109s.cer";
-            string rutaKey = @"C:\Archivos PUDVE\MisDatos\CFDI\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109.key";
-            string clavePrivada = "House121";
-
-            string numeroCertificado, a, b, c;
-
-            CFDI.SelloDigital.leerCER(rutaCer, out a, out b, out c, out numeroCertificado);
-
-            Comprobante comprobante = new Comprobante();
-            comprobante.Version = "3.3";
-            comprobante.Folio = "666"; //cambiarlo
-            comprobante.Serie = "A"; //cambiarlo
-            comprobante.Fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-            comprobante.FormaPago = c_FormaPago.Item99; //cambiarlo
-            comprobante.NoCertificado = numeroCertificado;
-            comprobante.SubTotal = 10;
-            comprobante.Descuento = 1;
-            comprobante.Total = 9;
-            comprobante.Moneda = c_Moneda.MXN; //Cambiar a string
-            comprobante.TipoDeComprobante = c_TipoDeComprobante.I;
-            comprobante.MetodoPago = c_MetodoPago.PPD; //Cambiar a string
-            comprobante.LugarExpedicion = "48900";
-            comprobante.TipoCambio = 1;
-            comprobante.TipoCambioSpecified = true;
-            comprobante.CondicionesDePago = "Vacio";
-            
-
-            ComprobanteEmisor emisor = new ComprobanteEmisor();
-            emisor.Nombre = "Alejandro";
-            emisor.Rfc = "NUSN900420SS5";
-            emisor.RegimenFiscal = c_RegimenFiscal.Item601; //Cambiar a string
-
-            ComprobanteReceptor receptor = new ComprobanteReceptor();
-            receptor.Nombre = "Carlos Mafufo";
-            receptor.Rfc = "NUSN900420SS6";
-            receptor.UsoCFDI = c_UsoCFDI.P01; //Cambiar a string
-
-            comprobante.Emisor = emisor;
-            comprobante.Receptor = receptor;
-
-            List<ComprobanteConcepto> listaConceptos = new List<ComprobanteConcepto>();
-            ComprobanteConcepto concepto = new ComprobanteConcepto();
-            concepto.Importe = 5;
-            concepto.ClaveProdServ = "00000000";
-            concepto.ClaveUnidad = "KM";
-            concepto.Cantidad = 1;
-            concepto.ValorUnitario = 5;
-            concepto.Unidad = "Numero de paquetes";
-            concepto.NoIdentificacion = "151515";
-            concepto.Descripcion = "nada";
-            concepto.Descuento = 2;
-            concepto.DescuentoSpecified = true;
-            listaConceptos.Add(concepto);
-            comprobante.Conceptos = listaConceptos.ToArray();
-
-
-            string rutaXML = @"C:\Users\Jando\Desktop\xmlprueba.xml";
-
-            GenerarXML(comprobante, rutaXML);
-
-            string cadenaOriginal = string.Empty;
-            string rutaXSLT = Properties.Settings.Default.rutaDirectorio + @"\xslt\cadenaoriginal_3_3.xslt";
-            System.Xml.Xsl.XslCompiledTransform transformador = new System.Xml.Xsl.XslCompiledTransform(true);
-            transformador.Load(rutaXSLT);
-
-            using (StringWriter sw = new StringWriter())
-            using (XmlWriter xw = XmlWriter.Create(sw, transformador.OutputSettings))
-            {
-                transformador.Transform(rutaXML, xw);
-                cadenaOriginal = sw.ToString();
-            }
-
-            CFDI.SelloDigital selloDigital = new CFDI.SelloDigital();
-            comprobante.Certificado = selloDigital.Certificado(rutaCer);
-            comprobante.Sello = selloDigital.Sellar(cadenaOriginal, rutaKey, clavePrivada);
-
-            GenerarXML(comprobante, rutaXML);
-        }
-
-        private void GenerarXML(Comprobante comprobante, string rutaXML)
-        {
-            XmlSerializerNamespaces xmlNameSpaces = new XmlSerializerNamespaces();
-            xmlNameSpaces.Add("cfdi", ".http://www.sat.gob.mx/cfd/3");
-            xmlNameSpaces.Add("tfd", ".http://www.sat.gob.mx/TimbreFiscalDigital");
-            xmlNameSpaces.Add("xsi", ".http://www.w3.org/2001/XMLSchema-instance");
-
-            //Generacion del XML
-            XmlSerializer xmlSerializador = new XmlSerializer(typeof(Comprobante));
-
-            string xml = string.Empty;
-
-            using (var sw = new CFDI.StringWriterConEncoding(Encoding.UTF8))
-            {
-                using (XmlWriter writter = XmlWriter.Create(sw))
-                {
-                    xmlSerializador.Serialize(writter, comprobante, xmlNameSpaces);
-                    xml = sw.ToString();
-                }
-            }
-
-            //Guardamos la string en el archivo XML
-            File.WriteAllText(rutaXML, xml);
-        }*/
-
+        
         private void valida_longitud(object sender, EventArgs e)
         {
             int tam = txtRFC.TextLength;
