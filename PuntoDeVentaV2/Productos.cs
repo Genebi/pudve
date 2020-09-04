@@ -13,6 +13,11 @@ namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
     {
+        // The currently highlighted cell.
+        private int HighlightedRowIndex = -1;
+        // The style to use when the mouse is over a row.
+        private DataGridViewCellStyle HighlightStyle;
+
         string strTag = string.Empty,
                 path = string.Empty,
                 saveDirectoryFile = string.Empty,
@@ -394,6 +399,8 @@ namespace PuntoDeVentaV2
             }
         }
 
+        // Unhighlight the currently highlighted row.
+        // Borrar mensaje de ToolTip
         private void DGVProductos_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -470,6 +477,47 @@ namespace PuntoDeVentaV2
                 {
                     DGVProductos.Cursor = Cursors.Default;
                 }
+            }
+
+            if (HighlightedRowIndex >= 0)
+            {
+                SetRowStyle(DGVProductos.Rows[HighlightedRowIndex], null);
+
+                var Tipo = Convert.ToString(DGVProductos.Rows[e.RowIndex].Cells[22].Value.ToString());
+                var minimo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[24].Value.ToString());
+                var maximo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[25].Value.ToString());
+
+                if (Tipo.Equals("P"))
+                {
+                    var stock = Convert.ToDecimal(DGVProductos.Rows[e.RowIndex].Cells[2].Value.ToString());
+
+                    if (stock < minimo)
+                    {
+                        DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                        {
+                            ForeColor = Color.White,
+                            BackColor = Color.Black
+                        };
+                    }
+                    else if (stock > maximo)
+                    {
+                        DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                        {
+                            ForeColor = Color.White,
+                            BackColor = Color.Blue
+                        };
+                    }
+                }
+                else if (Tipo.Equals("S") || Tipo.Equals("PQ"))
+                {
+                    DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                    {
+                        ForeColor = Color.Black,
+                        BackColor = Color.White
+                    };
+                }
+
+                HighlightedRowIndex = -1;
             }
         }
 
@@ -730,6 +778,8 @@ namespace PuntoDeVentaV2
             actualizarDatosDespuesDeAgregarProducto();
         }
 
+        // Highlight this cell's row.
+        // Mostrar tambien ToolTip de cada celda
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -804,6 +854,65 @@ namespace PuntoDeVentaV2
                 {
                     DGVProductos.Cursor = Cursors.Default;
                 }
+            }
+
+            HighlightedRowIndex = e.RowIndex;
+            if (HighlightedRowIndex >= 0)
+            {
+                SetRowStyle(DGVProductos.Rows[HighlightedRowIndex], HighlightStyle);
+
+                var Tipo = Convert.ToString(DGVProductos.Rows[e.RowIndex].Cells[22].Value.ToString());
+                var minimo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[24].Value.ToString());
+                var maximo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[25].Value.ToString());
+                
+                if (Tipo.Equals("P"))
+                {
+                    var stock = Convert.ToDecimal(DGVProductos.Rows[e.RowIndex].Cells[2].Value.ToString());
+
+                    if (stock < minimo)
+                    {
+                        DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                        {
+                            ForeColor = Color.White,
+                            BackColor = Color.Black
+                        };
+                    }
+                    else if (stock > maximo)
+                    {
+                        DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                        {
+                            ForeColor = Color.White,
+                            BackColor = Color.Blue
+                        };
+                    }
+                }
+                else if (Tipo.Equals("S") || Tipo.Equals("PQ"))
+                {
+                    DGVProductos.Rows[e.RowIndex].Cells[2].Style = new DataGridViewCellStyle
+                    {
+                        ForeColor = Color.Black,
+                        BackColor = Color.White
+                    };
+                }
+            }
+
+            //if (HighlightedRowIndex >= 0)
+            //{
+            //    SetRowStyle(DGVProductos.Rows[HighlightedRowIndex], null);
+            //}
+
+            //if (e.RowIndex == HighlightedRowIndex)
+            //{
+            //    return;
+            //}
+        }
+
+        // Set the cell Styles in the given row.
+        private void SetRowStyle(DataGridViewRow row, DataGridViewCellStyle style)
+        {
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                cell.Style = style;
             }
         }
 
@@ -1434,6 +1543,12 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            // Define the highlight style.
+            HighlightStyle = new DataGridViewCellStyle();
+            HighlightStyle.ForeColor = Color.Blue;
+            HighlightStyle.BackColor = Color.Beige;
+            HighlightStyle.Font = new System.Drawing.Font(DGVProductos.Font, FontStyle.Bold);
+
             productosSeleccionados = new Dictionary<int, string>();
 
             listVariables = new List<Control>();
@@ -4381,6 +4496,9 @@ namespace PuntoDeVentaV2
                     var maximo = Convert.ToInt32(filaDatos["StockNecesario"].ToString());
                     var stock = Convert.ToDecimal(filaDatos["Stock"].ToString());
 
+                    row.Cells["StockMinimo"].Value = minimo.ToString();
+                    row.Cells["StockMaximo"].Value = maximo.ToString();
+
                     if (stock < minimo)
                     {
                         row.Cells["Column2"].Value = filaDatos["Stock"].ToString();
@@ -4408,6 +4526,10 @@ namespace PuntoDeVentaV2
                 else if (TipoProd == "S" || TipoProd == "PQ")
                 {
                     row.Cells["Column2"].Value = "N/A";
+                    var minimo = Convert.ToInt32(filaDatos["StockMinimo"].ToString());
+                    var maximo = Convert.ToInt32(filaDatos["StockNecesario"].ToString());
+                    row.Cells["StockMinimo"].Value = minimo.ToString();
+                    row.Cells["StockMaximo"].Value = maximo.ToString();
                 }
 
                 row.Cells["Column3"].Value = decimal.Parse(filaDatos["Precio"].ToString());
