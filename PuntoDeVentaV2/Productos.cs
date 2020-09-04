@@ -13,6 +13,11 @@ namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
     {
+        // The currently highlighted cell.
+        private int HighlightedRowIndex = -1;
+        // The style to use when the mouse is over a row.
+        private DataGridViewCellStyle HighlightStyle;
+
         string strTag = string.Empty,
                 path = string.Empty,
                 saveDirectoryFile = string.Empty,
@@ -394,6 +399,8 @@ namespace PuntoDeVentaV2
             }
         }
 
+        // Unhighlight the currently highlighted row.
+        // Borrar mensaje de ToolTip
         private void DGVProductos_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -470,6 +477,12 @@ namespace PuntoDeVentaV2
                 {
                     DGVProductos.Cursor = Cursors.Default;
                 }
+            }
+
+            if (HighlightedRowIndex >= 0)
+            {
+                SetRowStyle(DGVProductos.Rows[HighlightedRowIndex], null);
+                HighlightedRowIndex = -1;
             }
         }
 
@@ -730,6 +743,8 @@ namespace PuntoDeVentaV2
             actualizarDatosDespuesDeAgregarProducto();
         }
 
+        // Highlight this cell's row.
+        // Mostrar tambien ToolTip de cada celda
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -804,6 +819,31 @@ namespace PuntoDeVentaV2
                 {
                     DGVProductos.Cursor = Cursors.Default;
                 }
+            }
+
+            HighlightedRowIndex = e.RowIndex;
+            if (HighlightedRowIndex >= 0)
+            {
+                SetRowStyle(DGVProductos.Rows[HighlightedRowIndex], HighlightStyle);
+            }
+
+            //if (HighlightedRowIndex >= 0)
+            //{
+            //    SetRowStyle(DGVProductos.Rows[HighlightedRowIndex], null);
+            //}
+
+            //if (e.RowIndex == HighlightedRowIndex)
+            //{
+            //    return;
+            //}
+        }
+
+        // Set the cell Styles in the given row.
+        private void SetRowStyle(DataGridViewRow row, DataGridViewCellStyle style)
+        {
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                cell.Style = style;
             }
         }
 
@@ -1434,6 +1474,12 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            // Define the highlight style.
+            HighlightStyle = new DataGridViewCellStyle();
+            HighlightStyle.ForeColor = Color.Blue;
+            HighlightStyle.BackColor = Color.Beige;
+            HighlightStyle.Font = new System.Drawing.Font(DGVProductos.Font, FontStyle.Bold);
+
             productosSeleccionados = new Dictionary<int, string>();
 
             listVariables = new List<Control>();
