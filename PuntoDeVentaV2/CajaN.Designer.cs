@@ -44,7 +44,9 @@
             this.lbTransferenciaR = new System.Windows.Forms.Label();
             this.lbChequeR = new System.Windows.Forms.Label();
             this.lbValesR = new System.Windows.Forms.Label();
+            this.lbTAnticiposC = new System.Windows.Forms.Label();
             this.lbTarjetaR = new System.Windows.Forms.Label();
+            this.lbAnticiposC = new System.Windows.Forms.Label();
             this.lbEfectivoR = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -104,8 +106,6 @@
             this.lbSaldoInicial = new System.Windows.Forms.Label();
             this.lbDineroRetirado = new System.Windows.Forms.Label();
             this.lbSubtotal = new System.Windows.Forms.Label();
-            this.lbTAnticiposC = new System.Windows.Forms.Label();
-            this.lbAnticiposC = new System.Windows.Forms.Label();
             this.tituloCaja = new System.Windows.Forms.Label();
             this.lbTTotalCaja = new System.Windows.Forms.Label();
             this.lbTotalCaja = new System.Windows.Forms.Label();
@@ -122,6 +122,8 @@
             this.lbTarjetaC = new System.Windows.Forms.Label();
             this.lbEfectivoC = new System.Windows.Forms.Label();
             this.btnImprimir = new System.Windows.Forms.Button();
+            this.lbTCreditoTotal = new System.Windows.Forms.Label();
+            this.lbCreditoTotal = new System.Windows.Forms.Label();
             this.panelFondo.SuspendLayout();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroRetirado.SuspendLayout();
@@ -365,6 +367,18 @@
             this.lbValesR.TabIndex = 8;
             this.lbValesR.Text = "$0.00";
             // 
+            // lbTAnticiposC
+            // 
+            this.lbTAnticiposC.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTAnticiposC.AutoSize = true;
+            this.lbTAnticiposC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTAnticiposC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
+            this.lbTAnticiposC.Location = new System.Drawing.Point(148, 205);
+            this.lbTAnticiposC.Name = "lbTAnticiposC";
+            this.lbTAnticiposC.Size = new System.Drawing.Size(39, 17);
+            this.lbTAnticiposC.TabIndex = 18;
+            this.lbTAnticiposC.Text = "$0.00";
+            // 
             // lbTarjetaR
             // 
             this.lbTarjetaR.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -375,6 +389,17 @@
             this.lbTarjetaR.Size = new System.Drawing.Size(39, 17);
             this.lbTarjetaR.TabIndex = 7;
             this.lbTarjetaR.Text = "$0.00";
+            // 
+            // lbAnticiposC
+            // 
+            this.lbAnticiposC.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbAnticiposC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAnticiposC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
+            this.lbAnticiposC.Location = new System.Drawing.Point(17, 205);
+            this.lbAnticiposC.Name = "lbAnticiposC";
+            this.lbAnticiposC.Size = new System.Drawing.Size(130, 35);
+            this.lbAnticiposC.TabIndex = 17;
+            this.lbAnticiposC.Text = "Anticipos utilizados al corte";
             // 
             // lbEfectivoR
             // 
@@ -990,6 +1015,8 @@
             // 
             // panelTotales
             // 
+            this.panelTotales.Controls.Add(this.lbTCreditoTotal);
+            this.panelTotales.Controls.Add(this.lbCreditoTotal);
             this.panelTotales.Controls.Add(this.lbTSaldoInicial);
             this.panelTotales.Controls.Add(this.lbTDineroRetirado);
             this.panelTotales.Controls.Add(this.lbTSubtotal);
@@ -1085,29 +1112,6 @@
             this.lbSubtotal.TabIndex = 19;
             this.lbSubtotal.Text = "Subtotal en caja";
             this.lbSubtotal.Visible = false;
-            // 
-            // lbTAnticiposC
-            // 
-            this.lbTAnticiposC.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbTAnticiposC.AutoSize = true;
-            this.lbTAnticiposC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTAnticiposC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
-            this.lbTAnticiposC.Location = new System.Drawing.Point(148, 205);
-            this.lbTAnticiposC.Name = "lbTAnticiposC";
-            this.lbTAnticiposC.Size = new System.Drawing.Size(39, 17);
-            this.lbTAnticiposC.TabIndex = 18;
-            this.lbTAnticiposC.Text = "$0.00";
-            // 
-            // lbAnticiposC
-            // 
-            this.lbAnticiposC.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbAnticiposC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAnticiposC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
-            this.lbAnticiposC.Location = new System.Drawing.Point(17, 205);
-            this.lbAnticiposC.Name = "lbAnticiposC";
-            this.lbAnticiposC.Size = new System.Drawing.Size(130, 35);
-            this.lbAnticiposC.TabIndex = 17;
-            this.lbAnticiposC.Text = "Anticipos utilizados al corte";
             // 
             // tituloCaja
             // 
@@ -1293,6 +1297,28 @@
             this.btnImprimir.UseVisualStyleBackColor = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
+            // lbTCreditoTotal
+            // 
+            this.lbTCreditoTotal.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTCreditoTotal.AutoSize = true;
+            this.lbTCreditoTotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTCreditoTotal.Location = new System.Drawing.Point(146, 266);
+            this.lbTCreditoTotal.Name = "lbTCreditoTotal";
+            this.lbTCreditoTotal.Size = new System.Drawing.Size(39, 17);
+            this.lbTCreditoTotal.TabIndex = 18;
+            this.lbTCreditoTotal.Text = "$0.00";
+            // 
+            // lbCreditoTotal
+            // 
+            this.lbCreditoTotal.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbCreditoTotal.AutoSize = true;
+            this.lbCreditoTotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCreditoTotal.Location = new System.Drawing.Point(15, 266);
+            this.lbCreditoTotal.Name = "lbCreditoTotal";
+            this.lbCreditoTotal.Size = new System.Drawing.Size(85, 17);
+            this.lbCreditoTotal.TabIndex = 17;
+            this.lbCreditoTotal.Text = "Total Crédito";
+            // 
             // CajaN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1424,5 +1450,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lbTCreditoTotal;
+        private System.Windows.Forms.Label lbCreditoTotal;
     }
 }
