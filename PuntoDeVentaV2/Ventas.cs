@@ -1480,7 +1480,22 @@ namespace PuntoDeVentaV2
             if (totalAnticipos > 0)
             {
                 var idAnticipo = ListadoAnticipos.obtenerIdAnticipo;
-                cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{totalImporte}' + AnticipoAplicado WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
+                var consultaImporteOriginal = cn.CargarDatos($"SELECT ImporteOriginal FROM Anticipos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
+                var resultadoImporte = "";
+
+                foreach (DataRow consultaImporOriginal in consultaImporteOriginal.Rows)
+                {
+                    resultadoImporte = consultaImporOriginal["ImporteOriginal"].ToString();
+                }
+
+                if (anticipoAplicado < 0) 
+                {
+                    var actualizarAnticipoAplicado2 = cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{resultadoImporte}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
+                }
+                else
+                {
+                    var actualizarAnticipoAplicado = cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{totalImporte}' + AnticipoAplicado WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
+                }
             }
 
             if (sumaImportes > 0)

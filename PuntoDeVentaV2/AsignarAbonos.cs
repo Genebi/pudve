@@ -114,7 +114,7 @@ namespace PuntoDeVentaV2
                 vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
             };
 
-            
+
             int resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
 
             if (resultado > 0)
@@ -229,7 +229,15 @@ namespace PuntoDeVentaV2
             //El total del campo efectivo + la suma de los otros metodos de pago - total de venta
             double cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos) - totalPendiente);
 
-            lbTotalCambio.Text = "$" + cambio.ToString("0.00");
+            // validar para que en el cambio las cantidades no sean negativas
+            if (cambio > 0)
+            {
+                lbTotalCambio.Text = "$" + cambio.ToString("0.00");
+            }
+            else
+            {
+                lbTotalCambio.Text = "$0.00";
+            }
         }
 
 
@@ -375,7 +383,7 @@ namespace PuntoDeVentaV2
             {
                 ProcessStartInfo info = new ProcessStartInfo();
                 info.Verb = "print";
-                info.FileName = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_abono_" + idVenta + "_" + idAbono +".pdf";
+                info.FileName = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_abono_" + idVenta + "_" + idAbono + ".pdf";
                 info.CreateNoWindow = true;
                 info.WindowStyle = ProcessWindowStyle.Hidden;
 

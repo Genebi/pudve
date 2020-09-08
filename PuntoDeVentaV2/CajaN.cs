@@ -330,7 +330,7 @@ namespace PuntoDeVentaV2
             try
             {
                 var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
-                if (segundaConsulta.Rows.Count > 0 && !string.IsNullOrWhiteSpace(segundaConsulta.ToString()))
+                if (segundaConsulta.Rows.Count > 0 && string.IsNullOrWhiteSpace(segundaConsulta.ToString()))
                 {
                     foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
                     {
@@ -483,7 +483,6 @@ namespace PuntoDeVentaV2
             lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + /*vAnticipos*/anticiposAplicados).ToString("0.00");
 
             // Apartado ANTICIPOS RECIBIDOS
-
             lbTEfectivoA.Text = "$" + aEfectivo.ToString("0.00");
             lbTTarjetaA.Text = "$" + aTarjeta.ToString("0.00");
             lbTValesA.Text = "$" + aVales.ToString("0.00");
@@ -518,16 +517,17 @@ namespace PuntoDeVentaV2
             credito = vCredito;
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
-            subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial;
+            subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial + vCredito;
 
             lbTEfectivoC.Text = "$" + (efectivo - retiroEfectivo).ToString("0.00");
             lbTTarjetaC.Text = "$" + (tarjeta - retiroTarjeta).ToString("0.00");
             lbTValesC.Text = "$" + (vales - retiroVales).ToString("0.00");
             lbTChequeC.Text = "$" + (cheque - retiroCheque).ToString("0.00");
             lbTTransC.Text = "$" + (trans - retiroTrans).ToString("0.00");
-            //lbTCreditoC.Text = "$" + credito.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos
+            lbTCreditoC.Text = "$" + credito.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00");
             lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
+            lbTCreditoTotal.Text = "$" + vCredito.ToString("0.00");
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             //lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
             lbTTotalCaja.Text = "$" + (subtotal - dineroRetirado).ToString("0.00");
