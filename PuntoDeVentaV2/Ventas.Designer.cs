@@ -80,6 +80,8 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cOtrosImpuestos = new System.Windows.Forms.Label();
+            this.lbOtrosImpuestos = new System.Windows.Forms.Label();
             this.lbEliminarCliente = new System.Windows.Forms.Label();
             this.cAnticipoUtilizado = new System.Windows.Forms.Label();
             this.lbAnticipoUtilizado = new System.Windows.Forms.Label();
@@ -105,8 +107,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lFolio = new System.Windows.Forms.TextBox();
-            this.lbOtrosImpuestos = new System.Windows.Forms.Label();
-            this.cOtrosImpuestos = new System.Windows.Forms.Label();
+            this.timer_img_producto = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -677,6 +678,30 @@
             this.panel1.Size = new System.Drawing.Size(1221, 372);
             this.panel1.TabIndex = 34;
             // 
+            // cOtrosImpuestos
+            // 
+            this.cOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cOtrosImpuestos.AutoSize = true;
+            this.cOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cOtrosImpuestos.Location = new System.Drawing.Point(877, 179);
+            this.cOtrosImpuestos.Name = "cOtrosImpuestos";
+            this.cOtrosImpuestos.Size = new System.Drawing.Size(48, 22);
+            this.cOtrosImpuestos.TabIndex = 59;
+            this.cOtrosImpuestos.Text = "0.00";
+            this.cOtrosImpuestos.Visible = false;
+            // 
+            // lbOtrosImpuestos
+            // 
+            this.lbOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbOtrosImpuestos.AutoSize = true;
+            this.lbOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOtrosImpuestos.Location = new System.Drawing.Point(673, 179);
+            this.lbOtrosImpuestos.Name = "lbOtrosImpuestos";
+            this.lbOtrosImpuestos.Size = new System.Drawing.Size(159, 22);
+            this.lbOtrosImpuestos.TabIndex = 58;
+            this.lbOtrosImpuestos.Text = "Otros impuestos:";
+            this.lbOtrosImpuestos.Visible = false;
+            // 
             // lbEliminarCliente
             // 
             this.lbEliminarCliente.AutoSize = true;
@@ -980,29 +1005,10 @@
             this.lFolio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lFolio_KeyDown);
             this.lFolio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lFolio_KeyPress);
             // 
-            // lbOtrosImpuestos
+            // timer_img_producto
             // 
-            this.lbOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbOtrosImpuestos.AutoSize = true;
-            this.lbOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbOtrosImpuestos.Location = new System.Drawing.Point(673, 179);
-            this.lbOtrosImpuestos.Name = "lbOtrosImpuestos";
-            this.lbOtrosImpuestos.Size = new System.Drawing.Size(159, 22);
-            this.lbOtrosImpuestos.TabIndex = 58;
-            this.lbOtrosImpuestos.Text = "Otros impuestos:";
-            this.lbOtrosImpuestos.Visible = false;
-            // 
-            // cOtrosImpuestos
-            // 
-            this.cOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cOtrosImpuestos.AutoSize = true;
-            this.cOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cOtrosImpuestos.Location = new System.Drawing.Point(877, 179);
-            this.cOtrosImpuestos.Name = "cOtrosImpuestos";
-            this.cOtrosImpuestos.Size = new System.Drawing.Size(48, 22);
-            this.cOtrosImpuestos.TabIndex = 59;
-            this.cOtrosImpuestos.Text = "0.00";
-            this.cOtrosImpuestos.Visible = false;
+            this.timer_img_producto.Interval = 7000;
+            this.timer_img_producto.Tick += new System.EventHandler(this.timer_img_producto_Tick);
             // 
             // Ventas
             // 
@@ -1129,5 +1135,6 @@
         private System.Windows.Forms.Label lbEliminarCliente;
         private System.Windows.Forms.Label cOtrosImpuestos;
         private System.Windows.Forms.Label lbOtrosImpuestos;
+        private System.Windows.Forms.Timer timer_img_producto;
     }
 }

@@ -31,7 +31,7 @@
             this.lbProducto = new System.Windows.Forms.Label();
             this.lbPrecio = new System.Windows.Forms.Label();
             this.lbDescuento = new System.Windows.Forms.Label();
-            this.txtCantidad = new System.Windows.Forms.TextBox();
+            this.txtCantidad1 = new System.Windows.Forms.TextBox();
             this.txtPorcentaje = new System.Windows.Forms.TextBox();
             this.lbCantidad = new System.Windows.Forms.Label();
             this.lbPorcentaje = new System.Windows.Forms.Label();
@@ -43,6 +43,7 @@
             this.segundoSeparador = new System.Windows.Forms.Label();
             this.lbCantidadProducto = new System.Windows.Forms.Label();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.txtCantidad = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbProducto
@@ -78,16 +79,17 @@
             this.lbDescuento.Text = "Descuento total $:";
             this.lbDescuento.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtCantidad
+            // txtCantidad1
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(21, 128);
-            this.txtCantidad.Margin = new System.Windows.Forms.Padding(4);
-            this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.Size = new System.Drawing.Size(132, 23);
-            this.txtCantidad.TabIndex = 3;
-            this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
-            this.txtCantidad.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyUp);
+            this.txtCantidad1.Location = new System.Drawing.Point(9, 8);
+            this.txtCantidad1.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCantidad1.Name = "txtCantidad1";
+            this.txtCantidad1.Size = new System.Drawing.Size(24, 23);
+            this.txtCantidad1.TabIndex = 3;
+            this.txtCantidad1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidad1.Visible = false;
+            this.txtCantidad1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
+            this.txtCantidad1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyUp);
             // 
             // txtPorcentaje
             // 
@@ -220,11 +222,21 @@
             this.btnEliminar.UseVisualStyleBackColor = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
+            // txtCantidad
+            // 
+            this.txtCantidad.Location = new System.Drawing.Point(21, 128);
+            this.txtCantidad.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCantidad.Name = "txtCantidad";
+            this.txtCantidad.Size = new System.Drawing.Size(132, 23);
+            this.txtCantidad.TabIndex = 37;
+            this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // AgregarDescuentoDirecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 291);
+            this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.lbCantidadProducto);
             this.Controls.Add(this.segundoSeparador);
@@ -236,7 +248,7 @@
             this.Controls.Add(this.lbPorcentaje);
             this.Controls.Add(this.lbCantidad);
             this.Controls.Add(this.txtPorcentaje);
-            this.Controls.Add(this.txtCantidad);
+            this.Controls.Add(this.txtCantidad1);
             this.Controls.Add(this.lbDescuento);
             this.Controls.Add(this.lbPrecio);
             this.Controls.Add(this.lbProducto);
@@ -258,7 +270,7 @@
         private System.Windows.Forms.Label lbProducto;
         private System.Windows.Forms.Label lbPrecio;
         private System.Windows.Forms.Label lbDescuento;
-        private System.Windows.Forms.TextBox txtCantidad;
+        private System.Windows.Forms.TextBox txtCantidad1;
         private System.Windows.Forms.TextBox txtPorcentaje;
         private System.Windows.Forms.Label lbCantidad;
         private System.Windows.Forms.Label lbPorcentaje;
@@ -270,5 +282,6 @@
         private System.Windows.Forms.Label segundoSeparador;
         private System.Windows.Forms.Label lbCantidadProducto;
         private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.TextBox txtCantidad;
     }
 }

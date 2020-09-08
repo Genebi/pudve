@@ -531,6 +531,8 @@ namespace PuntoDeVentaV2
 
                         CantidadesFinalesVenta();
 
+                        timer_img_producto.Stop();
+
                         // Imagen del producto
                         var imagen = fila.Cells["ImagenProducto"].Value.ToString();
 
@@ -551,6 +553,7 @@ namespace PuntoDeVentaV2
                             if (File.Exists(rutaImagen))
                             {
                                 PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
+                                timer_img_producto.Start();
                             }
                             else
                             {
@@ -683,6 +686,10 @@ namespace PuntoDeVentaV2
 
                 var imagen = row.Cells["ImagenProducto"].Value.ToString();
 
+
+                timer_img_producto.Stop();
+
+
                 if (!string.IsNullOrEmpty(imagen))
                 {
                     var servidor = Properties.Settings.Default.Hosting;
@@ -700,6 +707,7 @@ namespace PuntoDeVentaV2
                     if (File.Exists(rutaImagen))
                     {
                         PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
+                        timer_img_producto.Start();                        
                     }
                     else
                     {
@@ -3985,7 +3993,7 @@ namespace PuntoDeVentaV2
             btnEliminarAnticipos.Visible = false;
             CantidadesFinalesVenta();
         }
-
+        
         private void CuerpoEmails()
         {
             var correo = FormPrincipal.datosUsuario[9];
@@ -4037,6 +4045,13 @@ namespace PuntoDeVentaV2
                     Utilidades.EnviarEmail(html, asunto, correo);
                 }
             }
+        }
+
+        private void timer_img_producto_Tick(object sender, EventArgs e)
+        {
+            PBImagen.Image = null;
+            PBImagen.Refresh();
+            timer_img_producto.Stop();
         }
     }
 }

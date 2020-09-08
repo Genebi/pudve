@@ -141,8 +141,14 @@ namespace PuntoDeVentaV2
             List<string> lista = new List<string>();
 
             DatosConexion($"SELECT * FROM Clientes WHERE IDUsuario = {idUsuario} AND Status = 1");
-
+            
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            int cant = dr.FieldCount;
+
+            if (cant > 0 & cant > 1)
+            {
+                lista.Add("Seleccione un cliente");
+            }
 
             while (dr.Read())
             {

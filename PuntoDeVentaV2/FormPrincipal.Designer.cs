@@ -45,7 +45,6 @@
             this.btnClientes = new System.Windows.Forms.Button();
             this.btnReportes = new System.Windows.Forms.Button();
             this.btnEmpleados = new System.Windows.Forms.Button();
-            this.btnServicios = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
             this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
@@ -72,10 +71,13 @@
             this.panelContenedor.Name = "panelContenedor";
             this.panelContenedor.Size = new System.Drawing.Size(854, 602);
             this.panelContenedor.TabIndex = 2;
+            this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContenedor_Paint);
             // 
             // menuVertical
             // 
             this.menuVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.menuVertical.Controls.Add(this.btnEmpleados);
+            this.menuVertical.Controls.Add(this.btnReportes);
             this.menuVertical.Controls.Add(this.btnSesion);
             this.menuVertical.Controls.Add(this.btnEmpresas);
             this.menuVertical.Controls.Add(this.btnMisDatos);
@@ -86,9 +88,6 @@
             this.menuVertical.Controls.Add(this.btnFacturas);
             this.menuVertical.Controls.Add(this.btnProveedores);
             this.menuVertical.Controls.Add(this.btnClientes);
-            this.menuVertical.Controls.Add(this.btnReportes);
-            this.menuVertical.Controls.Add(this.btnEmpleados);
-            this.menuVertical.Controls.Add(this.btnServicios);
             this.menuVertical.Controls.Add(this.btnVentas);
             this.menuVertical.Controls.Add(this.btnProductos);
             this.menuVertical.Dock = System.Windows.Forms.DockStyle.Left;
@@ -123,7 +122,7 @@
             this.btnEmpresas.ForeColor = System.Drawing.Color.White;
             this.btnEmpresas.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpresas.Image")));
             this.btnEmpresas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEmpresas.Location = new System.Drawing.Point(115, 463);
+            this.btnEmpresas.Location = new System.Drawing.Point(0, 387);
             this.btnEmpresas.Name = "btnEmpresas";
             this.btnEmpresas.Size = new System.Drawing.Size(115, 71);
             this.btnEmpresas.TabIndex = 13;
@@ -163,7 +162,7 @@
             this.btnInventario.ForeColor = System.Drawing.Color.White;
             this.btnInventario.Image = ((System.Drawing.Image)(resources.GetObject("btnInventario.Image")));
             this.btnInventario.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnInventario.Location = new System.Drawing.Point(0, 464);
+            this.btnInventario.Location = new System.Drawing.Point(0, 238);
             this.btnInventario.Name = "btnInventario";
             this.btnInventario.Size = new System.Drawing.Size(115, 69);
             this.btnInventario.TabIndex = 11;
@@ -183,7 +182,7 @@
             this.btnCaja.ForeColor = System.Drawing.Color.White;
             this.btnCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnCaja.Image")));
             this.btnCaja.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCaja.Location = new System.Drawing.Point(115, 313);
+            this.btnCaja.Location = new System.Drawing.Point(115, 89);
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Size = new System.Drawing.Size(115, 68);
             this.btnCaja.TabIndex = 10;
@@ -203,7 +202,7 @@
             this.btnAnticipos.ForeColor = System.Drawing.Color.White;
             this.btnAnticipos.Image = ((System.Drawing.Image)(resources.GetObject("btnAnticipos.Image")));
             this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAnticipos.Location = new System.Drawing.Point(0, 387);
+            this.btnAnticipos.Location = new System.Drawing.Point(0, 86);
             this.btnAnticipos.Name = "btnAnticipos";
             this.btnAnticipos.Size = new System.Drawing.Size(115, 71);
             this.btnAnticipos.TabIndex = 9;
@@ -223,7 +222,7 @@
             this.btnConfig.ForeColor = System.Drawing.Color.White;
             this.btnConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnConfig.Image")));
             this.btnConfig.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnConfig.Location = new System.Drawing.Point(115, 238);
+            this.btnConfig.Location = new System.Drawing.Point(0, 465);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(115, 69);
             this.btnConfig.TabIndex = 8;
@@ -243,7 +242,7 @@
             this.btnFacturas.ForeColor = System.Drawing.Color.White;
             this.btnFacturas.Image = ((System.Drawing.Image)(resources.GetObject("btnFacturas.Image")));
             this.btnFacturas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnFacturas.Location = new System.Drawing.Point(0, 313);
+            this.btnFacturas.Location = new System.Drawing.Point(115, 238);
             this.btnFacturas.Name = "btnFacturas";
             this.btnFacturas.Size = new System.Drawing.Size(115, 68);
             this.btnFacturas.TabIndex = 7;
@@ -263,7 +262,7 @@
             this.btnProveedores.ForeColor = System.Drawing.Color.White;
             this.btnProveedores.Image = ((System.Drawing.Image)(resources.GetObject("btnProveedores.Image")));
             this.btnProveedores.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnProveedores.Location = new System.Drawing.Point(0, 164);
+            this.btnProveedores.Location = new System.Drawing.Point(112, 163);
             this.btnProveedores.Name = "btnProveedores";
             this.btnProveedores.Size = new System.Drawing.Size(115, 68);
             this.btnProveedores.TabIndex = 6;
@@ -283,7 +282,7 @@
             this.btnClientes.ForeColor = System.Drawing.Color.White;
             this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnClientes.Location = new System.Drawing.Point(115, 164);
+            this.btnClientes.Location = new System.Drawing.Point(0, 163);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(115, 68);
             this.btnClientes.TabIndex = 5;
@@ -303,7 +302,7 @@
             this.btnReportes.ForeColor = System.Drawing.Color.White;
             this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
             this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnReportes.Location = new System.Drawing.Point(0, 238);
+            this.btnReportes.Location = new System.Drawing.Point(115, 314);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(115, 69);
             this.btnReportes.TabIndex = 4;
@@ -323,7 +322,7 @@
             this.btnEmpleados.ForeColor = System.Drawing.Color.White;
             this.btnEmpleados.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpleados.Image")));
             this.btnEmpleados.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEmpleados.Location = new System.Drawing.Point(115, 86);
+            this.btnEmpleados.Location = new System.Drawing.Point(0, 311);
             this.btnEmpleados.Name = "btnEmpleados";
             this.btnEmpleados.Size = new System.Drawing.Size(115, 72);
             this.btnEmpleados.TabIndex = 3;
@@ -331,26 +330,6 @@
             this.btnEmpleados.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnEmpleados.UseVisualStyleBackColor = true;
             this.btnEmpleados.Click += new System.EventHandler(this.btnEmpleados_Click);
-            // 
-            // btnServicios
-            // 
-            this.btnServicios.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnServicios.FlatAppearance.BorderSize = 0;
-            this.btnServicios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
-            this.btnServicios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnServicios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnServicios.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnServicios.ForeColor = System.Drawing.Color.White;
-            this.btnServicios.Image = ((System.Drawing.Image)(resources.GetObject("btnServicios.Image")));
-            this.btnServicios.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnServicios.Location = new System.Drawing.Point(0, 89);
-            this.btnServicios.Name = "btnServicios";
-            this.btnServicios.Size = new System.Drawing.Size(115, 69);
-            this.btnServicios.TabIndex = 2;
-            this.btnServicios.Text = "Servicios";
-            this.btnServicios.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnServicios.UseVisualStyleBackColor = true;
-            this.btnServicios.Click += new System.EventHandler(this.btnServicios_Click);
             // 
             // btnVentas
             // 
@@ -431,7 +410,6 @@
         private System.Windows.Forms.Panel panelContenedor;
         private System.Windows.Forms.Panel menuVertical;
         private System.Windows.Forms.Button btnEmpleados;
-        private System.Windows.Forms.Button btnServicios;
         private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Button btnProductos;
         private System.Windows.Forms.Button btnMisDatos;

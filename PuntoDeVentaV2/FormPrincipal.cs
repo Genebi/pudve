@@ -322,10 +322,9 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void btnServicios_Click(object sender, EventArgs e)
+        private void panelContenedor_Paint(object sender, PaintEventArgs e)
         {
-            //Descomentar este metodo cuando se empiece a trabajar en este apartado
-            //validarVentasVentanas(); 
+
         }
 
         private void cerrarSesion()
