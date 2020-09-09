@@ -298,6 +298,12 @@ namespace PuntoDeVentaV2
                     var ivaTmp = float.Parse(filaDatos["IVA16"].ToString());
                     var subtotalTmp = float.Parse(filaDatos["Subtotal"].ToString());
                     var totalTmp = float.Parse(filaDatos["Total"].ToString());
+                    var iva8 = float.Parse(filaDatos["IVA8"].ToString());
+
+                    if(iva8 > 0)
+                    {
+                        ivaTmp = iva8;
+                    }
 
                     iva += ivaTmp;
                     subtotal += subtotalTmp;
@@ -341,7 +347,15 @@ namespace PuntoDeVentaV2
                     float ivaTmpGral = 0, subtotalTmpGral = 0, totalTmpGral = 0;
                     foreach (DataRow row in dbTotalesGenerales.Rows)
                     {
-                        ivaTmpGral += float.Parse(row["IVA16"].ToString());
+                        if(float.Parse(row["IVA8"].ToString()) > 0)
+                        {
+                            ivaTmpGral += float.Parse(row["IVA8"].ToString());
+                        }
+                        if (float.Parse(row["IVA16"].ToString()) > 0)
+                        {
+                            ivaTmpGral += float.Parse(row["IVA16"].ToString());
+                        }
+                        //ivaTmpGral += float.Parse(row["IVA16"].ToString());
                         subtotalTmpGral += float.Parse(row["Subtotal"].ToString());
                         totalTmpGral += float.Parse(row["Total"].ToString());
                     }
@@ -495,7 +509,7 @@ namespace PuntoDeVentaV2
 
                     DGVListadoVentas.Cursor = Cursors.Hand;
 
-                    if (e.ColumnIndex == 11)
+                    if (e.ColumnIndex == 10)
                     {
                         textoTT = "Cancelar";
                         coordenadaX = 60;
@@ -503,19 +517,19 @@ namespace PuntoDeVentaV2
                         if (opcion == "VC") { permitir = false; }
                     }
 
-                    if (e.ColumnIndex == 12)
+                    if (e.ColumnIndex == 11)
                     {
                         textoTT = "Ver nota";
                         coordenadaX = 70;
                     }
 
-                    if (e.ColumnIndex == 13)
+                    if (e.ColumnIndex == 12)
                     {
                         textoTT = "Ver ticket";
                         coordenadaX = 62;
                     }
 
-                    if (e.ColumnIndex == 14)
+                    if (e.ColumnIndex == 13)
                     {
                         textoTT = "Abonos";
                         coordenadaX = 54;
@@ -523,13 +537,13 @@ namespace PuntoDeVentaV2
                         if (opcion != "VCC") { permitir = false; }
                     }
 
-                    if (e.ColumnIndex == 15)
+                    if (e.ColumnIndex == 14)
                     {
                         textoTT = "Timbrar";
                         coordenadaX = 56;
                     }
 
-                    if (e.ColumnIndex == 16)
+                    if (e.ColumnIndex == 15)
                     {
                         textoTT = "Información";
                         coordenadaX = 75;
@@ -572,7 +586,7 @@ namespace PuntoDeVentaV2
                 int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
 
                 //Cancelar
-                if (e.ColumnIndex == 11)
+                if (e.ColumnIndex == 10)
                 {
                     if (opcion1 == 0)
                     {
@@ -643,7 +657,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Ver nota
-                if (e.ColumnIndex == 12)
+                if (e.ColumnIndex == 11)
                 {
                     if (opcion2 == 0)
                     {
@@ -684,7 +698,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Ver ticket
-                if (e.ColumnIndex == 13)
+                if (e.ColumnIndex == 12)
                 {
                     if (opcion3 == 0)
                     {
@@ -733,7 +747,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Abonos
-                if (e.ColumnIndex == 14)
+                if (e.ColumnIndex == 13)
                 {
                     if (opcion4 == 0)
                     {
@@ -774,7 +788,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Timbrar
-                if (e.ColumnIndex == 15)
+                if (e.ColumnIndex == 14)
                 {
                     if (opcion5 == 0)
                     {
@@ -803,7 +817,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // Información
-                if(e.ColumnIndex == 16)
+                if(e.ColumnIndex == 15)
                 {
                     Ventas_ventana_informacion info = new Ventas_ventana_informacion(idVenta);
                     info.ShowDialog();

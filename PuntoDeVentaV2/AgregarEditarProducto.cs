@@ -1025,7 +1025,7 @@ namespace PuntoDeVentaV2
         {
             bool bStatus = true;
 
-            if (txtPrecioProducto.Text.Equals("0") || txtPrecioProducto.Text.Equals("0.00"))
+            if (txtPrecioProducto.Text.Equals("0") || txtPrecioProducto.Text.Equals("0.00") || Convert.ToInt32(txtPrecioProducto.Text) == 0)
             {
                 txtPrecioProducto.Select(0, txtPrecioProducto.Text.Length);
                 errorProvAgregarEditarProducto.SetError(txtPrecioProducto, "Debe tener un Precio de Venta\npara poder continuar el proceso.");
