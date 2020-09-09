@@ -33,6 +33,7 @@ namespace PuntoDeVentaV2
         public static float trans { get; set; }
 
         int anticiposAplicados = 0;
+        double abonos;
 
         // Variables Totales
         public static float totalEfectivo = 0f;
@@ -338,6 +339,24 @@ namespace PuntoDeVentaV2
                     }
                     anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
                 }
+
+                var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                string ultimaDate = "";
+                if (fechaCorteUltima.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
+                {
+                    foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
+                    {
+                        ultimaDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                    }
+
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimaDate}'");
+                    var abono = "";
+                    foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                    {
+                        abono = cantidadAbono["sum(Total)"].ToString();
+                    }
+                    abonos = Convert.ToDouble(abono);
+                }
             }
             catch
             {
@@ -524,7 +543,7 @@ namespace PuntoDeVentaV2
             lbTValesC.Text = "$" + (vales - retiroVales).ToString("0.00");
             lbTChequeC.Text = "$" + (cheque - retiroCheque).ToString("0.00");
             lbTTransC.Text = "$" + (trans - retiroTrans).ToString("0.00");
-            lbTCreditoC.Text = "$" + credito.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
+            //.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00");
             lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
             lbTCreditoTotal.Text = "$" + vCredito.ToString("0.00");
