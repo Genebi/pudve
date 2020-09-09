@@ -595,15 +595,15 @@ namespace PuntoDeVentaV2
             {
                 if(txtDisminuir.Text != "")
                 {
-                    disminuir = Convert.ToInt32(txtDisminuir.Text);
+                    disminuir = float.Parse(txtDisminuir.Text);
                     if (Invent != null)
                     {
                         Invent.getResta = disminuir;
-                        Invent.getStockAnterior = Convert.ToInt32(txt_en_stock.Text);
+                        Invent.getStockAnterior = float.Parse(txt_en_stock.Text);
                     }
                 }
 
-                resta = Convert.ToInt32(txt_en_stock.Text) - disminuir; 
+                resta = float.Parse(txt_en_stock.Text) - disminuir; 
                 lb_disminuir_stock_total.Text = resta.ToString();
             }
         }
