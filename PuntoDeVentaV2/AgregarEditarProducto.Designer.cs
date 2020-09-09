@@ -190,7 +190,6 @@
             this.txtPrecioProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioProducto_KeyPress);
             this.txtPrecioProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPrecioProducto_KeyUp);
             this.txtPrecioProducto.Leave += new System.EventHandler(this.txtPrecioProducto_Leave);
-            this.txtPrecioProducto.Resize += new System.EventHandler(this.txtPrecioProducto_Resize);
             this.txtPrecioProducto.Validating += new System.ComponentModel.CancelEventHandler(this.txtPrecioProducto_Validating);
             // 
             // txtStockProducto
