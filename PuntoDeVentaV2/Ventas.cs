@@ -2354,7 +2354,7 @@ namespace PuntoDeVentaV2
 
                     string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
 
-                    int cantidad = Convert.ToInt32(info[2]);
+                    decimal cantidad = (decimal)float.Parse(info[2].ToString());
 
                     // Agregamos los descuentos directos de la venta guardada
                     if (Convert.ToInt16(info[4]) > 0)
