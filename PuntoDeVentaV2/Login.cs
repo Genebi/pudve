@@ -511,11 +511,11 @@ namespace PuntoDeVentaV2
 
             //RevisarTablas();
 
-            if (contadorMetodoTablas == 0)
-            {
-                RevisarTablas();
-                contadorMetodoTablas = 1;
-            }
+            //if (contadorMetodoTablas == 0)
+            //{
+            //    RevisarTablas();
+            //    contadorMetodoTablas = 1;
+            //}
 
             txtUsuario.Text = Properties.Settings.Default.Usuario;
             txtPassword.Text = Properties.Settings.Default.Password;
