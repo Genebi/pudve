@@ -32,8 +32,8 @@ namespace PuntoDeVentaV2
         public static float cheque { get; set; }
         public static float trans { get; set; }
 
-        int anticiposAplicados = 0;
-        double abonos;
+        float anticiposAplicados = 0f;
+        float abonos = 0f;
 
         // Variables Totales
         public static float totalEfectivo = 0f;
@@ -337,7 +337,7 @@ namespace PuntoDeVentaV2
                     {
                         consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
                     }
-                    anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
+                    anticiposAplicados = float.Parse(consultaAnticipoAplicado); //Hasta esta linea.
                 }
 
                 var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
@@ -355,7 +355,7 @@ namespace PuntoDeVentaV2
                     {
                         abono = cantidadAbono["sum(Total)"].ToString();
                     }
-                    abonos = Convert.ToDouble(abono);
+                    abonos = float.Parse(abono);
                 }
             }
             catch
