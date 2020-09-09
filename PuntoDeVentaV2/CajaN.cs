@@ -341,15 +341,17 @@ namespace PuntoDeVentaV2
                 }
 
                 var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                string ultimaDate = "";
+                string ultimoDate = "";  
+
                 if (fechaCorteUltima.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
                 {
                     foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
                     {
-                        ultimaDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                        ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
                     }
+                    DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
 
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimaDate}'");
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     var abono = "";
                     foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
                     {
@@ -545,8 +547,7 @@ namespace PuntoDeVentaV2
             lbTTransC.Text = "$" + (trans - retiroTrans).ToString("0.00");
             //.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
-
-            lbTCredito.Text = "$" + abonos.ToString("0.00");
+            lbTCreditoC.Text = "$" + abonos.ToString("0.00");
             lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
             lbTCreditoTotal.Text = "$" + vCredito.ToString("0.00");
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
