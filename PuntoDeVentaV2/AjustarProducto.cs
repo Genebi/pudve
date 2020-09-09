@@ -100,7 +100,7 @@ namespace PuntoDeVentaV2
             txtPrecio.Text = "$" + float.Parse(datos[2]).ToString("N2");
             producto = datos[1];
             precioProducto = float.Parse(datos[2]);
-            stockProducto = Convert.ToInt32(datos[4]);
+            stockProducto = float.Parse(datos[4]);
             stockExistencia = stockProducto;
             precioAdquision = float.Parse(datos[11]);
             ActiveControl = txtCantidadCompra;
@@ -111,9 +111,9 @@ namespace PuntoDeVentaV2
 
             //Eventos para los campos que solo requieren cantidades
             txtPrecioCompra.KeyPress += new KeyPressEventHandler(SoloDecimales);
-            txtCantidadCompra.KeyPress += new KeyPressEventHandler(SoloNumeros);
-            txtAumentar.KeyPress += new KeyPressEventHandler(SoloNumeros);
-            txtDisminuir.KeyPress += new KeyPressEventHandler(SoloNumeros);
+            txtCantidadCompra.KeyPress += new KeyPressEventHandler(SoloDecimales);
+            txtAumentar.KeyPress += new KeyPressEventHandler(SoloDecimales);
+            txtDisminuir.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtPrecio.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
             CargarConceptos();
@@ -588,7 +588,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                suma = Convert.ToInt32(txt_en_stock.Text) + aumentar;
+                suma = float.Parse(txt_en_stock.Text) + aumentar;
                 lb_aumentar_stock_total.Text = suma.ToString();
             }
             if(opc == 2)
