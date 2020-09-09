@@ -308,6 +308,8 @@ namespace PuntoDeVentaV2
         string  filtroTipoSerPaq = string.Empty,
                 tipoServPaq = string.Empty,
                 nombre = string.Empty,
+                parteEntera = string.Empty,
+                parteDecimal = string.Empty,
                 stock = string.Empty,
                 precio = string.Empty,
                 categoria = string.Empty,
@@ -2613,13 +2615,13 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
-            #region Inicio Seccón de Cambio de Producto a Servicio/Combo ó Servicio/Combo a Producto
+            #region Inicio Sección de Cambio de Producto a Servicio/Combo ó Servicio/Combo a Producto
             // Condiciones para saber si se realiza el cambio de un producto a servicio y viceversa
             if (cambioProducto)
             {
                 validarCambioProducto();
             }
-            #endregion Final Seccón de Cambio de Producto a Servicio/Combo ó Servicio/Combo a Producto
+            #endregion Final Sección de Cambio de Producto a Servicio/Combo ó Servicio/Combo a Producto
 
             #region Inicio de Variables de Alejandro
             /****************************
@@ -2628,7 +2630,16 @@ namespace PuntoDeVentaV2
             filtroTipoSerPaq = Convert.ToString(cbTipo.SelectedItem);
             tipoServPaq = filtroTipoSerPaq;
             nombre = txtNombreProducto.Text;
-            stock = txtStockProducto.Text;
+            validarDecimales(txtStockProducto.Text.ToString());
+            if (!parteDecimal.Equals(""))
+            {
+                stock = parteEntera + "." + parteDecimal;
+            }
+            else if (parteDecimal.Equals(""))
+            {
+                stock = parteEntera;
+            }
+            //stock = txtStockProducto.Text;
             valorDePrecioVenta = Convert.ToDouble(txtPrecioProducto.Text);
             precio = valorDePrecioVenta.ToString();
             categoria = txtCategoriaProducto.Text;
@@ -4027,6 +4038,46 @@ namespace PuntoDeVentaV2
             }
             #endregion Final  Sección De Copiado Producto
             /* Fin del codigo de Emmanuel */
+        }
+
+        private void validarDecimales(string valorEntrada)
+        {
+            bool esDouble;
+            double valorSalida;
+            int count;
+            string[] valores;
+
+            esDouble = Double.TryParse(valorEntrada, out valorSalida);
+
+            if (esDouble)
+            {
+                count = getDecimalCount(valorSalida);
+                valores = valorEntrada.Split('.');
+                if (count > 0)
+                {
+                    parteEntera = valores[0].ToString();
+                    parteDecimal = valores[1].ToString();
+                }
+                else
+                {
+                    parteEntera = valores[0].ToString();
+                    parteDecimal = string.Empty;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Sólo se aceptan numeros enteros y decimales\n", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private int getDecimalCount(double valorSalida)
+        {
+            int i = 0;
+            while (Math.Round(valorSalida, i) != valorSalida)
+            {
+                i++;
+            }
+            return i;
         }
 
         private void guardarRelacionDeProductoConComboServicio()
