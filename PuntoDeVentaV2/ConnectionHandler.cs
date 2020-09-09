@@ -88,6 +88,7 @@ namespace PuntoDeVentaV2
 
         float anticiposAplicados2 = 0f;
         int anticiposAplicados = 0;
+        double abonos;
 
         #region declare
         //public MySqlConnection Con;
@@ -499,6 +500,25 @@ namespace PuntoDeVentaV2
                     }
                     anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
                 }
+
+                var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                string ultimaDate = "";
+                if (fechaCorteUltima.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
+                {
+                    foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
+                    {
+                        ultimaDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                    }
+
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimaDate}'");
+                    var abono = "";
+                    foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                    {
+                        abono = cantidadAbono["sum(Total)"].ToString();
+                    }
+                    abonos = Convert.ToDouble(abono);
+                }
+
             }
             catch
             {
