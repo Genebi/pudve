@@ -536,7 +536,7 @@ namespace PuntoDeVentaV2
             credito = vCredito;
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
-            subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial + vCredito;
+            subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial /*+ vCredito*/;
 
             lbTEfectivoC.Text = "$" + (efectivo - retiroEfectivo).ToString("0.00");
             lbTTarjetaC.Text = "$" + (tarjeta - retiroTarjeta).ToString("0.00");
@@ -544,7 +544,9 @@ namespace PuntoDeVentaV2
             lbTChequeC.Text = "$" + (cheque - retiroCheque).ToString("0.00");
             lbTTransC.Text = "$" + (trans - retiroTrans).ToString("0.00");
             //.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
-            //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00");
+            //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
+
+            lbTCredito.Text = "$" + abonos.ToString("0.00");
             lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
             lbTCreditoTotal.Text = "$" + vCredito.ToString("0.00");
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
