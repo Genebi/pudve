@@ -2179,8 +2179,8 @@ namespace PuntoDeVentaV2
                 {
                     foreach (DataGridViewRow fila in DGVentas.Rows)
                     {
-                        var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
-                        var cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                        var stock = float.Parse(fila.Cells["Stock"].Value.ToString());
+                        var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
                         var tipoPS = fila.Cells["TipoPS"].Value.ToString();
 
                         // Es producto
