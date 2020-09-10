@@ -16,6 +16,9 @@ namespace PuntoDeVentaV2
 
         DataTable dtRecordProducto, dt;
 
+        private int HighlightedRowIndex = -1;
+        private DataGridViewCellStyle HighlightStyle;
+
         string queryRecord, buscar, Id_Prod_select;
 
         int index = 0;
@@ -136,6 +139,32 @@ namespace PuntoDeVentaV2
                 lblPrecioCompra.Text = DGVProductRecord[8, e.RowIndex].Value.ToString();
             }
         }
+        // Set the cell Styles in the given row.
+        private void SetRowStyle(DataGridViewRow row, DataGridViewCellStyle style)
+        {
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                cell.Style = style;
+            }
+        }
+
+        private void DGVProductRecord_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            HighlightedRowIndex = e.RowIndex;
+            if (HighlightedRowIndex >= 0)
+            {
+                SetRowStyle(DGVProductRecord.Rows[HighlightedRowIndex], HighlightStyle);
+            }
+        }
+
+        private void DGVProductRecord_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (HighlightedRowIndex >= 0)
+            {
+                SetRowStyle(DGVProductRecord.Rows[HighlightedRowIndex], null);
+                HighlightedRowIndex = -1;
+            }
+        }
 
         public void SeleccionarFila()
         {
@@ -156,6 +185,12 @@ namespace PuntoDeVentaV2
         {
             cargarDatos();
             SeleccionarFila();
+
+            // Define the highlight style.
+            HighlightStyle = new DataGridViewCellStyle();
+            HighlightStyle.ForeColor = Color.Blue;
+            HighlightStyle.BackColor = Color.Beige;
+            HighlightStyle.Font = new System.Drawing.Font(DGVProductRecord.Font, FontStyle.Bold);
         }
     }
 }

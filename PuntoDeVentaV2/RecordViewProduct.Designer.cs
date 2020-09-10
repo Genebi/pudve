@@ -217,6 +217,8 @@
             this.DGVProductRecord.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellClick);
             this.DGVProductRecord.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellContentDoubleClick);
             this.DGVProductRecord.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellEnter);
+            this.DGVProductRecord.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellMouseEnter);
+            this.DGVProductRecord.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellMouseLeave);
             // 
             // panel2
             // 
