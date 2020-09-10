@@ -274,14 +274,14 @@ namespace PuntoDeVentaV2
                     Invent.getSuma = 0;
                     Invent.getResta = 0;
 
-                    Invent.getSuma = Convert.ToInt32(cantidadCompra);
-                    Invent.getStockAnterior = Convert.ToInt32(stockProducto);
+                    Invent.getSuma = float.Parse(cantidadCompra);
+                    Invent.getStockAnterior = stockProducto;
                 }
 
                 var stockOriginal = stockProducto;
                 var stockAgregado = cantidadCompra;
 
-                stockProducto += Convert.ToInt32(cantidadCompra);
+                stockProducto += float.Parse(cantidadCompra);
 
                 var stockActual = stockProducto;
 
