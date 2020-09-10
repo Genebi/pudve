@@ -123,6 +123,14 @@ namespace PuntoDeVentaV2
                 Ventas.credito = credito.ToString();
                 Ventas.botonAceptar = true;
 
+                ListadoVentas lstVentas = Application.OpenForms.OfType<ListadoVentas>().FirstOrDefault();
+
+                if (lstVentas != null)
+                {
+                    lstVentas.cbTipoVentas.Text = "Ventas pagadas";
+                    lstVentas.CargarDatos();
+                }
+
                 this.Hide();
                 this.Close();
             }
@@ -208,8 +216,7 @@ namespace PuntoDeVentaV2
 
             CalcularCambio();
         }
-
-
+        
         //Este metodo suma todas las cantidades de los campos de metodos de pago excepto el de efectivo
         private float SumaMetodos()
         {
@@ -356,8 +363,7 @@ namespace PuntoDeVentaV2
                 Close();
             }
         }
-
-
+        
         private void EventoTab(object sender, PreviewKeyDownEventArgs e)
         {
             var campos = new string[] {
