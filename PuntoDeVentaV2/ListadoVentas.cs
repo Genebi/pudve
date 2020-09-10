@@ -36,6 +36,7 @@ namespace PuntoDeVentaV2
         private string rutaTicketGenerado = string.Empty;
         private DateTime fechaUltimoCorte;
         private bool existenProductos;
+        private bool hay_productos_habilitados;
 
         public static bool recargarDatos = false;
         public static bool abrirNuevaVenta = false;
@@ -122,6 +123,8 @@ namespace PuntoDeVentaV2
                 opcion7 = permisos[6];
                 opcion8 = permisos[7];
             }
+
+            hay_productos_habilitados = mb.tiene_productos_habilitados();
         }
 
         private void actualizar()
@@ -420,36 +423,43 @@ namespace PuntoDeVentaV2
 
             if (existenProductos)
             {
-                if (FormVenta.Count() == 1)
+                if (hay_productos_habilitados)
                 {
-                    if (FormVenta.First().WindowState == FormWindowState.Normal)
+                    if (FormVenta.Count() == 1)
                     {
-                        FormVenta.First().BringToFront();
-                    }
+                        if (FormVenta.First().WindowState == FormWindowState.Normal)
+                        {
+                            FormVenta.First().BringToFront();
+                        }
 
-                    if (FormVenta.First().WindowState == FormWindowState.Minimized)
+                        if (FormVenta.First().WindowState == FormWindowState.Minimized)
+                        {
+                            FormVenta.First().WindowState = FormWindowState.Normal;
+                        }
+                    }
+                    else
                     {
-                        FormVenta.First().WindowState = FormWindowState.Normal;
+                        Ventas venta = new Ventas();
+
+                        venta.Disposed += delegate
+                        {
+                            AbrirVentanaVenta();
+
+                            cbTipoVentas.Text = "Ventas pagadas";
+
+                            clickBoton = 0;
+                            CargarDatos();
+                            actualizar();
+
+                            btnUltimaPagina.PerformClick();
+                        };
+
+                        venta.Show();
                     }
                 }
                 else
                 {
-                    Ventas venta = new Ventas();
-
-                    venta.Disposed += delegate
-                    {
-                        AbrirVentanaVenta();
-
-                        cbTipoVentas.Text = "Ventas pagadas";
-
-                        clickBoton = 0;
-                        CargarDatos();
-                        actualizar();
-
-                        btnUltimaPagina.PerformClick();
-                    };
-
-                    venta.Show();
+                    MessageBox.Show("Se ha detectado que tiene productos registrados pero estos estan deshabilitados, para poder realizar una venta es necesario tener productos habilitados.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
