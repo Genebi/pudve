@@ -584,7 +584,7 @@ namespace PuntoDeVentaV2
             {
                 if (!string.IsNullOrWhiteSpace(txtCantidadStock.Text))
                 {
-                    var cantidadStock = long.Parse(txtCantidadStock.Text);
+                    var cantidadStock = double.Parse(txtCantidadStock.Text);
 
                     if (cantidadStock >= 1000)
                     {
@@ -608,7 +608,7 @@ namespace PuntoDeVentaV2
 
                         var stockFisico = txtCantidadStock.Text;
                         var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        var diferencia = Convert.ToInt32(datosProducto[1]) - Convert.ToInt32(stockFisico);
+                        var diferencia = double.Parse(datosProducto[1]) - double.Parse(stockFisico);
 
                         // Actualizar datos en RevisarInventario
                         cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockAlmacen = '{info[4]}', StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
@@ -654,7 +654,7 @@ namespace PuntoDeVentaV2
                         var stockFisico = txtCantidadStock.Text;
                         var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                        var diferencia = Convert.ToInt32(info[4]) - Convert.ToInt32(stockFisico);
+                        var diferencia = double.Parse(info[4]) - double.Parse(stockFisico);
 
                         var datos = new string[]
                         {
