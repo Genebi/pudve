@@ -2129,6 +2129,29 @@ namespace PuntoDeVentaV2
             return id_empleado;
         }
 
+        public bool tiene_productos_habilitados()
+        {
+            var r = false;
+
+            DatosConexion($"SELECT COUNT(ID) AS cantidad FROM Productos WHERE IDUsuario='{FormPrincipal.userID}' AND Status='1'");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var p_habilitados = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("cantidad")));
+
+                if (p_habilitados > 0)
+                {
+                    r = true;
+                }
+            }
+
+            dr.Close();
+
+            return r;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);

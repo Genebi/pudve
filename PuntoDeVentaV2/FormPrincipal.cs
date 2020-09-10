@@ -421,7 +421,7 @@ namespace PuntoDeVentaV2
 
                 permisos_empleado(datos_per);
 
-                var existenPermisos = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDUsuario = {userID}");
+                var existenPermisos = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado='{id_empleado}' AND IDUsuario = {userID}");
 
                 if (!existenPermisos)
                 {
