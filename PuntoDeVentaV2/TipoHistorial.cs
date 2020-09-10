@@ -200,7 +200,7 @@ namespace PuntoDeVentaV2
                     var fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
                     var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
 
-                    totalCantidad += Convert.ToInt32(cantidad);
+                    totalCantidad += float.Parse(cantidad);
                     totalPrecio += precio;
 
                     //=========================================================================================
