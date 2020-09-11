@@ -46,7 +46,6 @@ namespace PuntoDeVentaV2
             cbox_productos.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[9]));
             cbox_proveedores.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[10]));
             cbox_reportes.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[11]));
-            cbox_servicios.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[12]));
             cbox_ventas.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[13]));
         }
 
@@ -70,14 +69,13 @@ namespace PuntoDeVentaV2
             string producto = Convert.ToString(Convert.ToInt32(cbox_productos.Checked));
             string proveedor = Convert.ToString(Convert.ToInt32(cbox_proveedores.Checked));
             string reporte = Convert.ToString(Convert.ToInt32(cbox_reportes.Checked));
-            string servicio = Convert.ToString(Convert.ToInt32(cbox_servicios.Checked));
             string venta = Convert.ToString(Convert.ToInt32(cbox_ventas.Checked));
 
 
             string[] datos = new string[]
             {
                 FormPrincipal.userID.ToString(), id_empleado.ToString(), anticipo, caja, client, config, empleado,
-                empresa, factura, inventario, mdatos, producto, proveedor, reporte, servicio, venta
+                empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta
             };
 
             int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 2));

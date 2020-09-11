@@ -39,6 +39,8 @@
             this.lb_usuario_completo = new System.Windows.Forms.Label();
             this.btn_aceptar = new System.Windows.Forms.Button();
             this.btn_cancelar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmb_bx_permisos = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lbTitulo
@@ -57,7 +59,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 80);
+            this.label2.Location = new System.Drawing.Point(28, 80);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label2.Size = new System.Drawing.Size(56, 17);
@@ -67,7 +69,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(48, 123);
+            this.label3.Location = new System.Drawing.Point(28, 123);
             this.label3.Name = "label3";
             this.label3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label3.Size = new System.Drawing.Size(51, 17);
@@ -77,7 +79,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 164);
+            this.label4.Location = new System.Drawing.Point(28, 164);
             this.label4.Name = "label4";
             this.label4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label4.Size = new System.Drawing.Size(77, 17);
@@ -87,7 +89,7 @@
             // txt_nombre
             // 
             this.txt_nombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txt_nombre.Location = new System.Drawing.Point(115, 77);
+            this.txt_nombre.Location = new System.Drawing.Point(140, 77);
             this.txt_nombre.MaxLength = 100;
             this.txt_nombre.Name = "txt_nombre";
             this.txt_nombre.Size = new System.Drawing.Size(190, 22);
@@ -97,7 +99,7 @@
             // txt_usuario
             // 
             this.txt_usuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txt_usuario.Location = new System.Drawing.Point(115, 120);
+            this.txt_usuario.Location = new System.Drawing.Point(140, 120);
             this.txt_usuario.MaxLength = 30;
             this.txt_usuario.Name = "txt_usuario";
             this.txt_usuario.Size = new System.Drawing.Size(190, 22);
@@ -111,7 +113,7 @@
             // 
             this.lb_usuario.AutoSize = true;
             this.lb_usuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_usuario.Location = new System.Drawing.Point(45, 203);
+            this.lb_usuario.Location = new System.Drawing.Point(25, 203);
             this.lb_usuario.Name = "lb_usuario";
             this.lb_usuario.Size = new System.Drawing.Size(51, 17);
             this.lb_usuario.TabIndex = 6;
@@ -120,7 +122,7 @@
             // 
             // txt_conttraseña
             // 
-            this.txt_conttraseña.Location = new System.Drawing.Point(115, 161);
+            this.txt_conttraseña.Location = new System.Drawing.Point(140, 161);
             this.txt_conttraseña.MaxLength = 15;
             this.txt_conttraseña.Name = "txt_conttraseña";
             this.txt_conttraseña.PasswordChar = '*';
@@ -133,7 +135,7 @@
             // 
             this.lb_usuario_completo.AutoSize = true;
             this.lb_usuario_completo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_usuario_completo.Location = new System.Drawing.Point(112, 203);
+            this.lb_usuario_completo.Location = new System.Drawing.Point(137, 203);
             this.lb_usuario_completo.Name = "lb_usuario_completo";
             this.lb_usuario_completo.Size = new System.Drawing.Size(18, 17);
             this.lb_usuario_completo.TabIndex = 8;
@@ -148,7 +150,7 @@
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(195, 247);
+            this.btn_aceptar.Location = new System.Drawing.Point(196, 314);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(119, 30);
             this.btn_aceptar.TabIndex = 9;
@@ -164,7 +166,7 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(48, 247);
+            this.btn_cancelar.Location = new System.Drawing.Point(49, 314);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
             this.btn_cancelar.TabIndex = 10;
@@ -172,11 +174,34 @@
             this.btn_cancelar.UseVisualStyleBackColor = false;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(25, 237);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 17);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Asignar permisos";
+            // 
+            // cmb_bx_permisos
+            // 
+            this.cmb_bx_permisos.FormattingEnabled = true;
+            this.cmb_bx_permisos.Items.AddRange(new object[] {
+            "Todos los permisos",
+            "Permisos limitados",
+            "Elegir permisos"});
+            this.cmb_bx_permisos.Location = new System.Drawing.Point(140, 237);
+            this.cmb_bx_permisos.Name = "cmb_bx_permisos";
+            this.cmb_bx_permisos.Size = new System.Drawing.Size(190, 25);
+            this.cmb_bx_permisos.TabIndex = 12;
+            // 
             // Agregar_empleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 289);
+            this.ClientSize = new System.Drawing.Size(363, 356);
+            this.Controls.Add(this.cmb_bx_permisos);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.lb_usuario_completo);
@@ -215,5 +240,7 @@
         private System.Windows.Forms.Label lb_usuario_completo;
         private System.Windows.Forms.Button btn_aceptar;
         private System.Windows.Forms.Button btn_cancelar;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cmb_bx_permisos;
     }
 }
