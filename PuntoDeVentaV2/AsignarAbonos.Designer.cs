@@ -192,6 +192,7 @@
             // 
             // txtEfectivo
             // 
+            this.txtEfectivo.AcceptsReturn = true;
             this.txtEfectivo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEfectivo.Location = new System.Drawing.Point(13, 140);
             this.txtEfectivo.Name = "txtEfectivo";

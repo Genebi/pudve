@@ -32,8 +32,8 @@ namespace PuntoDeVentaV2
         public static float cheque { get; set; }
         public static float trans { get; set; }
 
-        float anticiposAplicados = 0f;
-        float abonos = 0f;
+        //float anticiposAplicados = 0f;
+        //float abonos = 0f;
 
         // Variables Totales
         public static float totalEfectivo = 0f;
@@ -221,7 +221,7 @@ namespace PuntoDeVentaV2
                 AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
 
                 corte.FormClosed += delegate
-                {
+{
                     if (botones == true)
                     {
                         cn.EjecutarConsulta($"UPDATE Anticipos Set AnticipoAplicado = 0 WHERE IDUsuario = '{FormPrincipal.userID}'");
@@ -327,44 +327,7 @@ namespace PuntoDeVentaV2
                 fechaDefault = Convert.ToDateTime(fechaTmp);
             }
      
-            var consultaAnticipoAplicado = ""; //Se agrego esta linea desde esta linea...
-            try
-            {
-                var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
-                if (segundaConsulta.Rows.Count > 0 && string.IsNullOrWhiteSpace(segundaConsulta.ToString()))
-                {
-                    foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
-                    {
-                        consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
-                    }
-                    anticiposAplicados = float.Parse(consultaAnticipoAplicado); //Hasta esta linea.
-                }
-
-                var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                string ultimoDate = "";  
-
-                if (fechaCorteUltima.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
-                {
-                    foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
-                    {
-                        ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
-                    }
-                    DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
-
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
-                    var abono = "";
-                    foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
-                    {
-                        abono = cantidadAbono["sum(Total)"].ToString();
-                    }
-                    abonos = float.Parse(abono);
-                }
-            }
-            catch
-            {
-
-            }
-
+            
 
             fechaGeneral = fechaDefault;
 
@@ -408,6 +371,7 @@ namespace PuntoDeVentaV2
             float vales = 0f;
             float cheque = 0f;
             float trans = 0f;
+            //float abono = 0f;////
             float credito = 0f;
             float subtotal = 0f;
             float anticipos = 0f;
@@ -422,6 +386,47 @@ namespace PuntoDeVentaV2
             retiroCredito = 0f;
 
             int saltar = 0;
+
+            //Variables para anticipos y abonos
+            float anticiposAplicados = 0f;
+            float abonos = 0f;
+
+            var consultaAnticipoAplicado = ""; //Se agrego esta linea desde esta linea...
+            string ultimoDate = "";
+            try
+            {
+                var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
+                if (segundaConsulta.Rows.Count > 0 && string.IsNullOrWhiteSpace(segundaConsulta.ToString()))
+                {
+                    foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
+                    {
+                        consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
+                    }
+                    anticiposAplicados = float.Parse(consultaAnticipoAplicado); //Hasta esta linea.
+                }
+
+                var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                if (fechaCorteUltima.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
+                {
+                    foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
+                    {
+                        ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                    }
+                    DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
+
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
+                    var abono = "";
+                    foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                    {
+                        abono = cantidadAbono["sum(Total)"].ToString();
+                    }
+                    abonos = float.Parse(abono);
+                }
+            }
+            catch
+            {
+
+            }
 
             while (drDos.Read())
             {
@@ -538,16 +543,15 @@ namespace PuntoDeVentaV2
             credito = vCredito;
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
-            subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial /*+ vCredito*/;
+            subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/+ abonos + saldoInicial /*+ vCredito*/;
 
             lbTEfectivoC.Text = "$" + (efectivo - retiroEfectivo).ToString("0.00");
             lbTTarjetaC.Text = "$" + (tarjeta - retiroTarjeta).ToString("0.00");
             lbTValesC.Text = "$" + (vales - retiroVales).ToString("0.00");
             lbTChequeC.Text = "$" + (cheque - retiroCheque).ToString("0.00");
             lbTTransC.Text = "$" + (trans - retiroTrans).ToString("0.00");
-            //.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
+            lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
-            lbTCreditoC.Text = "$" + abonos.ToString("0.00");
             lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
             lbTCreditoTotal.Text = "$" + vCredito.ToString("0.00");
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");

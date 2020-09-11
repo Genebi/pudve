@@ -202,6 +202,7 @@ namespace PuntoDeVentaV2
                     var servidor = Properties.Settings.Default.Hosting;
                     if (string.IsNullOrWhiteSpace(servidor))
                     {
+
                         actualizarIdUsuario();
                         eliminarCaja();
                         insertarCaja();
@@ -272,7 +273,7 @@ namespace PuntoDeVentaV2
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
             {
                 MySqlCommand agregar = conexion.CreateCommand();
-                conexion.Open();
+conexion.Open();
 
                 agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, anticiposUtilizadosVentas, totalVentas,  
                                                                   efectivoAnticipos, tarjetaAnticipos, valesAnticipos, chequeAnticipos, transferenciaAnticipos, totalAnticipos,   
@@ -491,6 +492,7 @@ namespace PuntoDeVentaV2
             var consultaAnticipoAplicado = "";
             try
             {
+                //Anticipos
                 var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
                 if (segundaConsulta.Rows.Count > 0 && !string.IsNullOrWhiteSpace(segundaConsulta.ToString()))
                 {
@@ -500,25 +502,25 @@ namespace PuntoDeVentaV2
                     }
                     anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
                 }
-
+                //Abonos
                 var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                string ultimaDate = "";
+                string ultimoDate = "";
                 if (fechaCorteUltima.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
                 {
                     foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
                     {
-                        ultimaDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                        ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
                     }
+                    DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
 
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimaDate}'");
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     var abono = "";
                     foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
                     {
                         abono = cantidadAbono["sum(Total)"].ToString();
                     }
-                    abonos = Convert.ToDouble(abono);
+                    abonos = float.Parse(abono);
                 }
-
             }
             catch
             {
