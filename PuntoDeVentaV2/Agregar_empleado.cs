@@ -104,11 +104,17 @@ namespace PuntoDeVentaV2
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
+            btn_aceptar.Enabled = false;
+            btn_cancelar.Enabled = false;
+
+
             string mnsj_er = "";
             string error = "0";
 
             string val_campos = valida_campos();
             string[] m_e = val_campos.Split('-');
+            string permisos = Convert.ToString(cmb_bx_permisos.SelectedIndex);
+            int id_empleado = 0;
 
             mnsj_er = m_e[0];
             error = m_e[1];
@@ -117,16 +123,88 @@ namespace PuntoDeVentaV2
             {
                 if (tipo == 1)
                 {
+                    
                     string[] datos = new string[]
                     {
-                        FormPrincipal.userID.ToString(), txt_nombre.Text, lb_usuario_completo.Text, txt_conttraseña.Text
+                        FormPrincipal.userID.ToString(), txt_nombre.Text, lb_usuario_completo.Text, txt_conttraseña.Text, permisos
                     };
 
                     int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 1));
 
-                    if (r > 0)
+                    // Obtiene id del empleado
+                    id_empleado = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Empleados WHERE IDUsuario='{FormPrincipal.userID}' ORDER BY ID DESC LIMIT 1", 5));
+                    // Crea registro en tabla EmpleadosPermisos
+                    crear_registro_empleados_permisos(id_empleado);
+
+                    
+                    // Limitados
+                    if (cmb_bx_permisos.SelectedIndex == 1)
                     {
-                        this.Close();
+                        // Anticipos
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion2='0' WHERE Seccion='Anticipos' AND IDEmpleado='{id_empleado}'");
+                        // Caja
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion8='0', Opcion11='0' WHERE Seccion='Caja' AND IDEmpleado='{id_empleado}'");
+                        // Clientes
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion2='0', Opcion3='0' WHERE Seccion='Clientes' AND IDEmpleado='{id_empleado}'");
+                        // Configuración
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion3='0', Opcion4='0', Opcion5='0', Opcion6='0', Opcion7='0', Opcion8='0', Opcion9='0', Opcion11='0', Opcion14='0', Opcion15='0' WHERE Seccion='Configuracion' AND IDEmpleado='{id_empleado}'");
+                        // Empleados
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion1='0', Opcion2='0', Opcion3='0' WHERE Seccion='Empleados' AND IDEmpleado='{id_empleado}'");
+                        // Facturas
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion3='0' WHERE Seccion='Facturas' AND IDEmpleado='{id_empleado}'");
+                        // Inventario
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion1='0', Opcion2='0', Opcion3='0', Opcion4='0', Opcion5='0' WHERE Seccion='Inventario' AND IDEmpleado='{id_empleado}'");
+                        // Mis datos
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion1='0', Opcion2='0', Opcion3='0', Opcion4='0', Opcion5='0' WHERE Seccion='MisDatos' AND IDEmpleado='{id_empleado}'");
+                        // Proveedores
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion1='0', Opcion2='0' WHERE Seccion='Proveedores' AND IDEmpleado='{id_empleado}'");
+                        // Reportes
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion1='0', Opcion2='0' WHERE Seccion='Reportes' AND IDEmpleado='{id_empleado}'");
+                        // Productos
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion1='0', Opcion2='0', Opcion3='0', Opcion4='0', Opcion5='0', Opcion6='0', Opcion7='0', Opcion8='0', Opcion9='0', Opcion10='0', Opcion11='0', Opcion12='0', Opcion13='0', Opcion14='0', Opcion15='0', Opcion16='0', Opcion17='0', Opcion18='0', Opcion19='0', Opcion20='0', Opcion21='0', Opcion22='0' WHERE Seccion='Productos' AND IDEmpleado='{id_empleado}'");
+
+                        // Tabla Empleados
+                        cn.EjecutarConsulta($"UPDATE Empleados SET p_empleado='0', p_empresa='0', p_inventario='0', p_mdatos='0', p_producto='0', p_proveedor='0', p_reporte='0' WHERE ID='{id_empleado}'");
+
+                        /* 
+                         * - Anticipos
+                         *    opcion2 --> habilitar/inahibilitar 
+                         * - Facturas 
+                         *    opcion3 --> Cancelar factura
+                         * - Caja 
+                         *    opcion8 --> Mostrar panel ventas
+                         *    opcion11 --> Mostrar panel total caja
+                         * - Clientes 
+                         *    opcion2 --> Nuevo tipo cliente
+                         *    opcion3 --> Listado tipo cliente
+                         * - Empresas,  Mis datos 1-5,  Reportes 1y2 
+                         *    Deshabilitar todo
+                         * - Productos 1-22,  Empleados 1-3,  Inventario 1-5,  Proveedores 1y2
+                         *    Deshabilitar todo
+                         * - Configuración
+                         *    opcion3 --> Porcentaje ganancia
+                         *    opcion4 --> Respaldar informacion
+                         *    opcion5 --> Correo modificar precio
+                         *    opcion6 --> Correo modificar stock
+                         *    opcion7 --> Correo stock minimo
+                         *    opcion8 --> Correo vender producto
+                         *    opcion9 --> Permitir stock negativo
+                         *    opcion11 --> Informacion pagina web
+                         *    opcion14 --> Activar precio mayoreo
+                         *    opcion15 --> Avisar productos no vendidos */
+                    }
+
+
+                    btn_aceptar.Enabled = true;
+                    btn_cancelar.Enabled = true;
+
+                    this.Close();
+
+                    // Elegidos
+                    if (cmb_bx_permisos.SelectedIndex == 2)
+                    {
+                        Agregar_empleado_permisos elegir_permisos = new Agregar_empleado_permisos(id_empleado);
+                        elegir_permisos.ShowDialog();
                     }
                 }
 
@@ -207,6 +285,20 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("Ya existe ese nombre de usuario, elegir otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+        }
+
+        private void crear_registro_empleados_permisos(int id_e)
+        {
+            var secciones = new string[] {
+                "Caja", "Ventas", "Inventario", "Anticipos",
+                "MisDatos", "Facturas", "Configuracion", "Reportes",
+                "Clientes", "Proveedores", "Empleados", "Productos"
+            };
+
+            foreach (var seccion in secciones)
+            {
+                cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_e}', '{FormPrincipal.userID}', '{seccion}')");
             }
         }
     }

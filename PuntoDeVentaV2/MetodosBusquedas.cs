@@ -2152,6 +2152,24 @@ namespace PuntoDeVentaV2
             return r;
         }
 
+        public int obtener_cantidad_timbres()
+        {
+            int timbres = 0;
+
+            DatosConexion($"SELECT timbres FROM Usuarios WHERE ID={FormPrincipal.userID}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                timbres = Convert.ToInt32(dr["timbres"].ToString());
+            }
+
+            dr.Close();
+            timbres = 3;
+            return timbres;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);

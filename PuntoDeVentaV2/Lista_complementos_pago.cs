@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         Facturas fct = new Facturas();
         Cancelar_XML cancela = new Cancelar_XML();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         int id_factura_p = 0;
         int id_empleado = 0;
@@ -205,57 +206,67 @@ namespace PuntoDeVentaV2
 
                 if (e.ColumnIndex == 10)
                 {
-                    var resp = MessageBox.Show("La cancelación tardará 5 segundos (aproximadamente) en ser cancelada, un momento por favor. \n\n ¿Esta seguro que desea cancelar la factura?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    int tiene_timbres = mb.obtener_cantidad_timbres();
 
-                    if (resp == DialogResult.Yes)
+                    if (tiene_timbres <= 0)
                     {
-                        string[] respuesta = cancela.cancelar(id_factura, "P");
+                        MessageBox.Show("No cuenta con timbres para cancelar el documento. Le sugerimos realizar una compra de timbres.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        var resp = MessageBox.Show("La cancelación tardará 5 segundos (aproximadamente) en ser cancelada, un momento por favor. \n\n ¿Esta seguro que desea cancelar la factura?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
-                        if (respuesta[1] == "201")
+                        if (resp == DialogResult.Yes)
                         {
-                            MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK);
+                            string[] respuesta = cancela.cancelar(id_factura, "P");
 
-                            // Cambiar a cancelada
-                            cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1, id_emp_cancela='{id_empleado}' WHERE ID='{id_factura}'");
-                            cn.EjecutarConsulta($"UPDATE Facturas_complemento_pago SET cancelada=1 WHERE id_factura='{id_factura}'");
-
-                            // Obtener el id de la factura principal a la que se le hace el abono
-                            DataTable d_datos_cp = cn.CargarDatos(cs.obtener_datos_para_gcpago(4, id_factura));
-                            DataRow r_datos_cp = d_datos_cp.Rows[0];
-
-                            int id_factura_princ = Convert.ToInt32(r_datos_cp["id_factura_principal"].ToString());
-                            decimal importe_pg = Convert.ToDecimal(r_datos_cp["importe_pagado"].ToString());
-
-                            // Verificar el comprobante para ver si no era el único que estaba por cancelar
-                            DataTable d_exi_complement = cn.CargarDatos(cs.obtener_datos_para_gcpago(5, id_factura_princ));
-                            int cant_exi_complement = d_exi_complement.Rows.Count;
-
-
-                            // Ver si el campo resta_pago se modifica una vez se timbra la factura principal
-                            if (cant_exi_complement == 0)
+                            if (respuesta[1] == "201")
                             {
-                                // Obtiene el total de la factura principal 
-                                DataTable d_imp_fct_p = cn.CargarDatos(cs.obtener_datos_para_gcpago(1, id_factura_princ));
-                                DataRow r_imp_fct_p = d_imp_fct_p.Rows[0];
+                                MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK);
 
-                                decimal importe_fct_principal = Convert.ToDecimal(r_imp_fct_p["total"].ToString());
+                                // Cambiar a cancelada
+                                cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1, id_emp_cancela='{id_empleado}' WHERE ID='{id_factura}'");
+                                cn.EjecutarConsulta($"UPDATE Facturas_complemento_pago SET cancelada=1 WHERE id_factura='{id_factura}'");
 
-                                cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0, resta_cpago='{importe_fct_principal}' WHERE ID='{id_factura_princ}'");
+                                // Obtener el id de la factura principal a la que se le hace el abono
+                                DataTable d_datos_cp = cn.CargarDatos(cs.obtener_datos_para_gcpago(4, id_factura));
+                                DataRow r_datos_cp = d_datos_cp.Rows[0];
+
+                                int id_factura_princ = Convert.ToInt32(r_datos_cp["id_factura_principal"].ToString());
+                                decimal importe_pg = Convert.ToDecimal(r_datos_cp["importe_pagado"].ToString());
+
+                                // Verificar el comprobante para ver si no era el único que estaba por cancelar
+                                DataTable d_exi_complement = cn.CargarDatos(cs.obtener_datos_para_gcpago(5, id_factura_princ));
+                                int cant_exi_complement = d_exi_complement.Rows.Count;
+
+
+                                // Ver si el campo resta_pago se modifica una vez se timbra la factura principal
+                                if (cant_exi_complement == 0)
+                                {
+                                    // Obtiene el total de la factura principal 
+                                    DataTable d_imp_fct_p = cn.CargarDatos(cs.obtener_datos_para_gcpago(1, id_factura_princ));
+                                    DataRow r_imp_fct_p = d_imp_fct_p.Rows[0];
+
+                                    decimal importe_fct_principal = Convert.ToDecimal(r_imp_fct_p["total"].ToString());
+
+                                    cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0, resta_cpago='{importe_fct_principal}' WHERE ID='{id_factura_princ}'");
+                                }
+                                else
+                                {
+                                    cn.EjecutarConsulta($"UPDATE Facturas SET resta_cpago=resta_cpago+'{importe_pg}' WHERE ID='{id_factura_princ}'");
+                                }
+
+
+                                // Cargar consulta
+                                cargar_lista_complementos();
                             }
                             else
                             {
-                                cn.EjecutarConsulta($"UPDATE Facturas SET resta_cpago=resta_cpago+'{importe_pg}' WHERE ID='{id_factura_princ}'");
+                                MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-
-
-                            // Cargar consulta
-                            cargar_lista_complementos();
-                        }
-                        else
-                        {
-                            MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
+                    
                 }
                 
                 // Información empleado
@@ -414,6 +425,13 @@ namespace PuntoDeVentaV2
             int c = 0;
             string mnsj_error = "";
             string[][] arr_id_cmult;
+            int tiene_timbres = mb.obtener_cantidad_timbres();
+
+
+            if (tiene_timbres <= 0)
+            {
+                MessageBox.Show("No cuenta con timbres para cancelar el documento. Le sugerimos realizar una compra de timbres.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
 
             var resp = MessageBox.Show("La cancelación tardará unos segundos. Un momento por favor. \n\n ¿Esta seguro que desea cancelar los complementos de pago?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);

@@ -980,6 +980,13 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            int tiene_timbres = mb.obtener_cantidad_timbres();
+
+            if (tiene_timbres <= 0)
+            {
+                MessageBox.Show("No cuenta con timbres para timbrar su factura. Le sugerimos realizar una compra de timbres.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             // Abrir ventana para agregar los datos faltantes para la factura
 

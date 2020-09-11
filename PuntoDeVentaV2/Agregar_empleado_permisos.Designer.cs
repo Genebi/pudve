@@ -41,7 +41,6 @@
             this.cbox_productos = new System.Windows.Forms.CheckBox();
             this.cbox_proveedores = new System.Windows.Forms.CheckBox();
             this.cbox_reportes = new System.Windows.Forms.CheckBox();
-            this.cbox_servicios = new System.Windows.Forms.CheckBox();
             this.cbox_ventas = new System.Windows.Forms.CheckBox();
             this.btn_aceptar = new System.Windows.Forms.Button();
             this.btn_cancelar = new System.Windows.Forms.Button();
@@ -51,7 +50,6 @@
             this.btnConfig = new System.Windows.Forms.Button();
             this.btnFacturas = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
             this.btnEmpleados = new System.Windows.Forms.Button();
             this.btnInventario = new System.Windows.Forms.Button();
             this.btnProveedores = new System.Windows.Forms.Button();
@@ -193,20 +191,10 @@
             this.cbox_reportes.Text = "Reportes";
             this.cbox_reportes.UseVisualStyleBackColor = true;
             // 
-            // cbox_servicios
-            // 
-            this.cbox_servicios.AutoSize = true;
-            this.cbox_servicios.Location = new System.Drawing.Point(34, 247);
-            this.cbox_servicios.Name = "cbox_servicios";
-            this.cbox_servicios.Size = new System.Drawing.Size(81, 21);
-            this.cbox_servicios.TabIndex = 13;
-            this.cbox_servicios.Text = "Servicios";
-            this.cbox_servicios.UseVisualStyleBackColor = true;
-            // 
             // cbox_ventas
             // 
             this.cbox_ventas.AutoSize = true;
-            this.cbox_ventas.Location = new System.Drawing.Point(176, 247);
+            this.cbox_ventas.Location = new System.Drawing.Point(34, 247);
             this.cbox_ventas.Name = "cbox_ventas";
             this.cbox_ventas.Size = new System.Drawing.Size(69, 21);
             this.cbox_ventas.TabIndex = 14;
@@ -311,16 +299,6 @@
             this.btnProductos.UseVisualStyleBackColor = true;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
             // 
-            // button6
-            // 
-            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button6.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.button6.Location = new System.Drawing.Point(8, 246);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(20, 20);
-            this.button6.TabIndex = 23;
-            this.button6.UseVisualStyleBackColor = true;
-            // 
             // btnEmpleados
             // 
             this.btnEmpleados.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -358,7 +336,7 @@
             // 
             this.btnVentas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVentas.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnVentas.Location = new System.Drawing.Point(150, 246);
+            this.btnVentas.Location = new System.Drawing.Point(8, 246);
             this.btnVentas.Name = "btnVentas";
             this.btnVentas.Size = new System.Drawing.Size(20, 20);
             this.btnVentas.TabIndex = 27;
@@ -435,7 +413,6 @@
             this.Controls.Add(this.btnProveedores);
             this.Controls.Add(this.btnInventario);
             this.Controls.Add(this.btnEmpleados);
-            this.Controls.Add(this.button6);
             this.Controls.Add(this.btnProductos);
             this.Controls.Add(this.btnFacturas);
             this.Controls.Add(this.btnConfig);
@@ -445,7 +422,6 @@
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.cbox_ventas);
-            this.Controls.Add(this.cbox_servicios);
             this.Controls.Add(this.cbox_reportes);
             this.Controls.Add(this.cbox_proveedores);
             this.Controls.Add(this.cbox_productos);
@@ -488,7 +464,6 @@
         private System.Windows.Forms.CheckBox cbox_productos;
         private System.Windows.Forms.CheckBox cbox_proveedores;
         private System.Windows.Forms.CheckBox cbox_reportes;
-        private System.Windows.Forms.CheckBox cbox_servicios;
         private System.Windows.Forms.CheckBox cbox_ventas;
         private System.Windows.Forms.Button btn_aceptar;
         private System.Windows.Forms.Button btn_cancelar;
@@ -498,7 +473,6 @@
         private System.Windows.Forms.Button btnConfig;
         private System.Windows.Forms.Button btnFacturas;
         private System.Windows.Forms.Button btnProductos;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button btnEmpleados;
         private System.Windows.Forms.Button btnInventario;
         private System.Windows.Forms.Button btnProveedores;

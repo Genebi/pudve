@@ -421,12 +421,12 @@ namespace PuntoDeVentaV2
 
                 permisos_empleado(datos_per);
 
-                var existenPermisos = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado='{id_empleado}' AND IDUsuario = {userID}");
+                /*var existenPermisos = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado='{id_empleado}' AND IDUsuario = {userID}");
 
                 if (!existenPermisos)
                 {
                     InsertarPermisosDefault(id_empleado);
-                }
+                }*/
             }
 
             //====================================================================
@@ -473,7 +473,7 @@ namespace PuntoDeVentaV2
         //    return resul;
         //}
 
-        private void InsertarPermisosDefault(int idEmpleado)
+        /*private void InsertarPermisosDefault(int idEmpleado)
         {
             var secciones = new string[] {
                 "Caja", "Ventas", "Inventario", "Anticipos",
@@ -485,7 +485,7 @@ namespace PuntoDeVentaV2
             {
                 cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{idEmpleado}', '{userID}', '{seccion}')");
             }
-        }
+        }*/
 
         private void obtenerDatosCheckStock()
         {
@@ -730,6 +730,7 @@ namespace PuntoDeVentaV2
             if (facturas == 1)
             {
                 AbrirFormulario<Facturas>();
+                Facturas.volver_a_recargar_datos = true;
             }
             else
             {
