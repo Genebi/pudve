@@ -166,6 +166,7 @@ namespace PuntoDeVentaV2
             }
         }
 
+
         public void SeleccionarFila()
         {
             if (DGVProductRecord.RowCount > 0)
