@@ -79,6 +79,7 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             float totalEfectivo = 0f;
+            float efectiv = 0f;
 
             var tarjeta = CantidadDecimal(txtTarjeta.Text);
             var vales = CantidadDecimal(txtVales.Text);
@@ -87,9 +88,11 @@ namespace PuntoDeVentaV2
             var referencia = txtReferencia.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            if (SumaMetodos() > 0)
+            if (SumaMetodos() > 0)/////////////////////////////////////
             {
-                totalEfectivo = totalPendiente - (SumaMetodos() + CantidadDecimal(txtEfectivo.Text));
+                //totalEfectivo = totalPendiente - (SumaMetodos() + CantidadDecimal(txtEfectivo.Text));
+                totalEfectivo = (SumaMetodos() + CantidadDecimal(txtEfectivo.Text)); //=100
+                efectiv = CantidadDecimal(txtEfectivo.Text);
             }
             else
             {
@@ -101,7 +104,8 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia;
+            //var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia; //=150
+            var totalAbonado = totalEfectivo;
 
             //Condicion para saber si se termino de pagar y cambiar el status de la venta
             if (totalAbonado >= totalPendiente)
@@ -110,7 +114,7 @@ namespace PuntoDeVentaV2
             }
 
             string[] datos = new string[] {
-                idVenta.ToString(), FormPrincipal.userID.ToString(), totalAbonado.ToString(), totalEfectivo.ToString(), tarjeta.ToString(),
+                idVenta.ToString(), FormPrincipal.userID.ToString(), totalAbonado.ToString(), efectiv.ToString(), tarjeta.ToString(),
                 vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
             };
 
@@ -133,6 +137,29 @@ namespace PuntoDeVentaV2
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
         {
+            TextBox cantidad = (TextBox)sender;
+            //if (cantidad.Name.Equals("txtEfectivo"))
+            //{
+            //    txtEfectivo.Text = "0.0";
+            //}else if (cantidad.Name.Equals("txtTarjeta"))
+            //{
+            //    txtTarjeta.Text = "0.0";
+            //}else if (cantidad.Name.Equals("txtVales"))
+            //{
+            //    txtVales.Text = "0.0";
+            //}else if (cantidad.Name.Equals("txtCheque"))
+            //{
+            //    txtCheque.Text = "0.0";
+            //}else if (cantidad.Name.Equals("txtTransferencia"))
+            //{
+            //    txtTransferencia.Text = "0.0";
+            //}
+
+            if (cantidad.Text.Equals("."))
+            {
+                cantidad.Text = "0.0";
+            }
+
             //permite 0-9, eliminar y decimal
             if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
             {
@@ -160,7 +187,15 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                valor = float.Parse(cantidad);
+                if (cantidad.Equals("."))
+                {
+                    cantidad = "0.0";
+                    valor = float.Parse(cantidad);
+                }
+                else
+                {
+                    valor = float.Parse(cantidad);
+                }
             }
 
             return valor;
@@ -263,6 +298,7 @@ namespace PuntoDeVentaV2
 
         private void txtEfectivo_KeyUp(object sender, KeyEventArgs e)
         {
+
             CalcularCambio();
         }
 
