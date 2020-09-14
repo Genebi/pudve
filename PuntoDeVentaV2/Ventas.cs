@@ -3902,7 +3902,7 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_Enter(object sender, EventArgs e)
         {
-            txtDescuentoGeneral.Text = "";
+            txtDescuentoGeneral.Text = "";            
             txtDescuentoGeneral.Select(0, 0);
         }
 
@@ -4059,6 +4059,15 @@ namespace PuntoDeVentaV2
                 {
                     Utilidades.EnviarEmail(html, asunto, correo);
                 }
+            }
+        }
+
+        private void txtDescuentoGeneral_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtDescuentoGeneral.Text == ".")
+            {
+                txtDescuentoGeneral.Text = "0.0";
+                txtDescuentoGeneral.Select(txtDescuentoGeneral.Text.Length, 0);
             }
         }
 
