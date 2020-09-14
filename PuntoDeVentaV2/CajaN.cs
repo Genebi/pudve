@@ -1716,7 +1716,7 @@ namespace PuntoDeVentaV2
             }
             catch
             {
-                MessageBox.Show("Error en Systema");
+                //MessageBox.Show("Error en Systema");
             }
 
             if (abonos > 0)
