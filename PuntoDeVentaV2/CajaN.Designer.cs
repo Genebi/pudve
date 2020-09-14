@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.btnReporteRetirar = new System.Windows.Forms.Button();
@@ -104,6 +105,8 @@
             this.lbTarjetaC = new System.Windows.Forms.Label();
             this.lbEfectivoC = new System.Windows.Forms.Label();
             this.panelVentas = new System.Windows.Forms.Panel();
+            this.lbTCreditoC = new System.Windows.Forms.Label();
+            this.lbCreditoC = new System.Windows.Forms.Label();
             this.lbVentas = new System.Windows.Forms.Label();
             this.lbTVentas = new System.Windows.Forms.Label();
             this.lbTAnticipos = new System.Windows.Forms.Label();
@@ -123,8 +126,7 @@
             this.lbEfectivo = new System.Windows.Forms.Label();
             this.tituloVentas = new System.Windows.Forms.Label();
             this.btnImprimir = new System.Windows.Forms.Button();
-            this.lbTCreditoC = new System.Windows.Forms.Label();
-            this.lbCreditoC = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelFondo.SuspendLayout();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroRetirado.SuspendLayout();
@@ -1094,6 +1096,30 @@
             this.panelVentas.Size = new System.Drawing.Size(213, 386);
             this.panelVentas.TabIndex = 107;
             // 
+            // lbTCreditoC
+            // 
+            this.lbTCreditoC.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTCreditoC.AutoSize = true;
+            this.lbTCreditoC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTCreditoC.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbTCreditoC.Location = new System.Drawing.Point(149, 236);
+            this.lbTCreditoC.Name = "lbTCreditoC";
+            this.lbTCreditoC.Size = new System.Drawing.Size(39, 17);
+            this.lbTCreditoC.TabIndex = 36;
+            this.lbTCreditoC.Text = "$0.00";
+            // 
+            // lbCreditoC
+            // 
+            this.lbCreditoC.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbCreditoC.AutoSize = true;
+            this.lbCreditoC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCreditoC.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbCreditoC.Location = new System.Drawing.Point(15, 236);
+            this.lbCreditoC.Name = "lbCreditoC";
+            this.lbCreditoC.Size = new System.Drawing.Size(53, 17);
+            this.lbCreditoC.TabIndex = 37;
+            this.lbCreditoC.Text = "Abonos";
+            // 
             // lbVentas
             // 
             this.lbVentas.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -1202,6 +1228,7 @@
             this.btnCambioAbonos.Name = "btnCambioAbonos";
             this.btnCambioAbonos.Size = new System.Drawing.Size(36, 26);
             this.btnCambioAbonos.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.btnCambioAbonos, "Mostrar Abonos");
             this.btnCambioAbonos.UseVisualStyleBackColor = true;
             this.btnCambioAbonos.Visible = false;
             this.btnCambioAbonos.Click += new System.EventHandler(this.btnCambioAbonos_Click);
@@ -1308,30 +1335,6 @@
             this.btnImprimir.Text = "Abrir Caja";
             this.btnImprimir.UseVisualStyleBackColor = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
-            // 
-            // lbTCreditoC
-            // 
-            this.lbTCreditoC.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbTCreditoC.AutoSize = true;
-            this.lbTCreditoC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTCreditoC.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbTCreditoC.Location = new System.Drawing.Point(149, 236);
-            this.lbTCreditoC.Name = "lbTCreditoC";
-            this.lbTCreditoC.Size = new System.Drawing.Size(39, 17);
-            this.lbTCreditoC.TabIndex = 36;
-            this.lbTCreditoC.Text = "$0.00";
-            // 
-            // lbCreditoC
-            // 
-            this.lbCreditoC.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbCreditoC.AutoSize = true;
-            this.lbCreditoC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCreditoC.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbCreditoC.Location = new System.Drawing.Point(15, 236);
-            this.lbCreditoC.Name = "lbCreditoC";
-            this.lbCreditoC.Size = new System.Drawing.Size(53, 17);
-            this.lbCreditoC.TabIndex = 37;
-            this.lbCreditoC.Text = "Abonos";
             // 
             // CajaN
             // 
@@ -1467,5 +1470,6 @@
         private System.Windows.Forms.Button btnCambioAbonos;
         private System.Windows.Forms.Label lbTCreditoC;
         private System.Windows.Forms.Label lbCreditoC;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -268,6 +268,7 @@
             this.txtTransferencia.Size = new System.Drawing.Size(80, 22);
             this.txtTransferencia.TabIndex = 98;
             this.txtTransferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTransferencia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTransferencia_KeyUp);
             // 
             // txtCheque
             // 
@@ -277,6 +278,7 @@
             this.txtCheque.Size = new System.Drawing.Size(80, 22);
             this.txtCheque.TabIndex = 99;
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
             // 
             // txtVales
             // 
@@ -286,6 +288,7 @@
             this.txtVales.Size = new System.Drawing.Size(80, 22);
             this.txtVales.TabIndex = 100;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
             // 
             // txtTarjeta
             // 
@@ -295,6 +298,7 @@
             this.txtTarjeta.Size = new System.Drawing.Size(80, 22);
             this.txtTarjeta.TabIndex = 97;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
             // 
             // txtEfectivo
             // 

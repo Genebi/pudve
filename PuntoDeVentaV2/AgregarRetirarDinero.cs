@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        MetodosGenerales mg = new MetodosGenerales();
 
         // 0 = Depositar
         // 1 = Retirar
@@ -79,6 +80,8 @@ namespace PuntoDeVentaV2
             totalCredito = CajaN.totalCredito;
 
             CargarConceptos();
+
+            
         }
 
         
@@ -507,9 +510,8 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtEfectivo.Text = "";
-                    txtEfectivo.Focus();
-                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtEfectivo.Text = "0.0";
+                    txtEfectivo.Select(txtEfectivo.Text.Length,0);
                 }
                 else
                 {
@@ -533,9 +535,8 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtTarjeta.Text = "";
-                    txtTarjeta.Focus();
-                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTarjeta.Text = "0.0";
+                    txtTarjeta.Select(txtTarjeta.Text.Length, 0);
                 }
                 else
                 {
@@ -558,9 +559,8 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtVales.Text = "";
-                    txtVales.Focus();
-                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtVales.Text = "0.0";
+                    txtVales.Select(txtVales.Text.Length, 0);
                 }
                 else
                 {
@@ -583,9 +583,8 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtCheque.Text = "";
-                    txtCheque.Focus();
-                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCheque.Text = "0.0";
+                    txtCheque.Select(txtCheque.Text.Length, 0);
                 }
                 else
                 {
@@ -608,9 +607,8 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtTrans.Text = "";
-                    txtTrans.Focus();
-                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTrans.Text = "0.0";
+                    txtTrans.Select(txtTrans.Text.Length, 0);
                 }
                 else
                 {
@@ -633,9 +631,8 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtCredito.Text = "";
-                    txtCredito.Focus();
-                    MessageBox.Show("Por favor ingrese una cantidad", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCredito.Text = "0.0";
+                    txtCredito.Select(txtCredito.Text.Length, 0);
                 }
                 else
                 {

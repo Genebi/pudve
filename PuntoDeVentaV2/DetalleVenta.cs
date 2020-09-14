@@ -274,9 +274,10 @@ namespace PuntoDeVentaV2
         {
             if (txtEfectivo.TextLength == 1 && txtEfectivo.Text.Equals("."))
             {
-                txtEfectivo.Text = string.Empty;
+                //txtEfectivo.Text = string.Empty;
+                txtEfectivo.Text = "0.0";
+                txtEfectivo.Select(txtEfectivo.Text.Length, 0);
             }
-
 
             var totalVenta = float.Parse(txtTotalVenta.Text.Remove(0, 1));
             var totalEfectivo = 0f;
@@ -391,6 +392,42 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+            }
+        }
+
+        private void txtTarjeta_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtTarjeta.TextLength == 1 && txtTarjeta.Text.Equals("."))
+            {
+                txtTarjeta.Text = "0.0";
+                txtTarjeta.Select(txtEfectivo.Text.Length, 0);
+            }
+        }
+
+        private void txtTransferencia_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtTransferencia.TextLength == 1 && txtTransferencia.Text.Equals("."))
+            {
+                txtTransferencia.Text = "0.0";
+                txtTransferencia.Select(txtEfectivo.Text.Length, 0);
+            }
+        }
+
+        private void txtCheque_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtCheque.TextLength == 1 && txtCheque.Text.Equals("."))
+            {
+                txtCheque.Text = "0.0";
+                txtCheque.Select(txtEfectivo.Text.Length, 0);
+            }
+        }
+
+        private void txtVales_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtVales.TextLength == 1 && txtVales.Text.Equals("."))
+            {
+                txtVales.Text = "0.0";
+                txtVales.Select(txtEfectivo.Text.Length, 0);
             }
         }
     }
