@@ -323,6 +323,12 @@
       <DependentUpon>AsignarPropiedad.cs</DependentUpon>
     </Compile>
     <Compile Include="Aux_venta_pdf.cs" />
+    <Compile Include="CajaAbonos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CajaAbonos.Designer.cs">
+      <DependentUpon>CajaAbonos.cs</DependentUpon>
+    </Compile>
     <Compile Include="CajaN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -884,6 +890,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AsignarPropiedad.resx">
       <DependentUpon>AsignarPropiedad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CajaAbonos.resx">
+      <DependentUpon>CajaAbonos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CajaN.resx">
       <DependentUpon>CajaN.cs</DependentUpon>

@@ -33,7 +33,8 @@ namespace PuntoDeVentaV2
         public static float trans { get; set; }
 
         //float anticiposAplicados = 0f;
-        //float abonos = 0f;
+        float abonos = 0f;
+        //int incremento = 1;
 
         // Variables Totales
         public static float totalEfectivo = 0f;
@@ -102,6 +103,8 @@ namespace PuntoDeVentaV2
             panelAnticipos.Visible = Convert.ToBoolean(opcion9);
             panelDineroAgregado.Visible = Convert.ToBoolean(opcion10);
             panelTotales.Visible = Convert.ToBoolean(opcion11);
+
+            verificarCantidadAbonos();
         }
 
         private void CargarSaldoInicial()
@@ -277,7 +280,7 @@ namespace PuntoDeVentaV2
             lista.Add(lbTTransC.Text);
 
             lista.Add(lbTCredito.Text);
-            lista.Add(lbTCreditoC.Text);
+            //lista.Add(lbTCreditoC.Text);
 
             lista.Add(lbTAnticipos.Text);
             lista.Add(lbTAnticiposC.Text);
@@ -326,8 +329,6 @@ namespace PuntoDeVentaV2
                 var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 fechaDefault = Convert.ToDateTime(fechaTmp);
             }
-     
-            
 
             fechaGeneral = fechaDefault;
 
@@ -390,6 +391,11 @@ namespace PuntoDeVentaV2
             //Variables para anticipos y abonos
             float anticiposAplicados = 0f;
             float abonos = 0f;
+            //float abonoEfectivoI = 0f;
+            //float abonoTarjetaI = 0f;
+            //float abonoValesI = 0f;
+            //float abonoChequeI = 0f;
+            //float abonoTransferenciaI = 0f;
 
             var consultaAnticipoAplicado = ""; //Se agrego esta linea desde esta linea...
             string ultimoDate = "";
@@ -414,13 +420,31 @@ namespace PuntoDeVentaV2
                     }
                     DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
 
+                    //var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
+                    //var abono = "";
+                    //foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                    //{
+                    //    abono = cantidadAbono["sum(Total)"].ToString();
+                    //}
+                    //abonos = float.Parse(abono);
                     var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     var abono = "";
+                    //var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
                     foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
                     {
                         abono = cantidadAbono["sum(Total)"].ToString();
+                        //abonoEfectivo = cantidadAbono["Efectivo"].ToString();
+                        //abonoTarjeta = cantidadAbono["Tarjeta"].ToString();
+                        //abonoVales = cantidadAbono["Vales"].ToString();
+                        //abonoCheque = cantidadAbono["Cheque"].ToString();
+                        //abonoTransferencia = cantidadAbono["Transferencia"].ToString();
                     }
                     abonos = float.Parse(abono);
+                    //abonoEfectivoI = float.Parse(abonoEfectivo);
+                    //abonoTarjetaI = float.Parse(abonoTarjeta);
+                    //abonoValesI = float.Parse(abonoVales);
+                    //abonoChequeI = float.Parse(abonoCheque);
+                    //abonoTransferenciaI = float.Parse(abonoTransferencia);
                 }
             }
             catch
@@ -508,6 +532,16 @@ namespace PuntoDeVentaV2
             lbTAnticipos.Text = "$" + anticiposAplicados.ToString("0.00");
             lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + /*vAnticipos*/anticiposAplicados).ToString("0.00");
 
+            ////Variables de Abonos en Ventas
+            //lbEfectivoAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
+            //lbTarjetaAbonos.Text = "$" + abonoTarjetaI.ToString("0.00");
+            //lbValesAbonos.Text = "$" + abonoValesI.ToString("0.00");
+            //lbChequeAbonos.Text = "$" + abonoChequeI.ToString("0.00");
+            //lbTransferenciaAbonos.Text = "$" + abonoTransferenciaI.ToString("0.00");
+            lbTCreditoC.Text = "$" + abonos/*(abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI)*/.ToString("0.00");
+
+            //lbTotalAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
+
             // Apartado ANTICIPOS RECIBIDOS
             lbTEfectivoA.Text = "$" + aEfectivo.ToString("0.00");
             lbTTarjetaA.Text = "$" + aTarjeta.ToString("0.00");
@@ -543,14 +577,14 @@ namespace PuntoDeVentaV2
             credito = vCredito;
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
-            subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/+ abonos + saldoInicial /*+ vCredito*/;
+            subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + saldoInicial /*+ vCredito*/;
 
             lbTEfectivoC.Text = "$" + (efectivo - retiroEfectivo).ToString("0.00");
             lbTTarjetaC.Text = "$" + (tarjeta - retiroTarjeta).ToString("0.00");
             lbTValesC.Text = "$" + (vales - retiroVales).ToString("0.00");
             lbTChequeC.Text = "$" + (cheque - retiroCheque).ToString("0.00");
             lbTTransC.Text = "$" + (trans - retiroTrans).ToString("0.00");
-            lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
+            //lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
             lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
             lbTCreditoTotal.Text = "$" + vCredito.ToString("0.00");
@@ -581,6 +615,64 @@ namespace PuntoDeVentaV2
         private void CajaN_Resize(object sender, EventArgs e)
         {
             recargarDatos = false;
+        }
+
+        private void switcharVentasAbonos(int ventasAbonos)
+        {
+            ////ventasAbonos = 0 = informacion Ventas  
+            ////ventasAbonos = 1 = informacion Abonos
+            //if (ventasAbonos == 0)
+            //{
+            //    //Deshabilitar Abonos
+            //    tituloAbonos.Visible = false;
+            //    lbEfectivoAbonos.Visible = false;
+            //    lbTarjetaAbonos.Visible = false;
+            //    lbValesAbonos.Visible = false;
+            //    lbChequeAbonos.Visible = false;
+            //    lbTransferenciaAbonos.Visible = false;
+            //    lbCreditoC.Visible = false;
+            //    lbTCreditoC.Visible = false;
+
+            //    //Habilitar Ventas
+            //    tituloVentas.Visible = true;
+            //    lbTEfectivo.Visible = true;
+            //    lbTTarjeta.Visible = true;
+            //    lbTVales.Visible = true;
+            //    lbTCheque.Visible = true;
+            //    lbTTrans.Visible = true;
+            //    lbCredito.Visible = true;
+            //    lbTCredito.Visible = true;
+            //    lbAnticipos.Visible = true;
+            //    lbTAnticipos.Visible = true;
+            //    lbVentas.Visible = true;
+            //    lbTVentas.Visible = true;
+            //}else if (ventasAbonos == 1)
+            //{
+            //    //Deshabilitar Ventas
+            //    tituloVentas.Visible = false;
+            //    lbTEfectivo.Visible = false;
+            //    lbTTarjeta.Visible = false;
+            //    lbTVales.Visible = false;
+            //    lbTCheque.Visible = false;
+            //    lbTTrans.Visible = false;
+            //    lbCredito.Visible = false;
+            //    lbTCredito.Visible = false;
+            //    lbAnticipos.Visible = false;
+            //    lbTAnticipos.Visible = false;
+            //    lbVentas.Visible = false;
+            //    lbTVentas.Visible = false;
+
+            //    //Habilitar Abonos
+            //    tituloAbonos.Visible = true;
+            //    lbEfectivoAbonos.Visible = true;
+            //    lbTarjetaAbonos.Visible = true;
+            //    lbValesAbonos.Visible = true;
+            //    lbChequeAbonos.Visible = true;
+            //    lbTransferenciaAbonos.Visible = true;
+            //    lbCreditoC.Visible = true;
+            //    lbTCreditoC.Visible = true;
+                
+            //}
         }
 
         private void GenerarReporte()
@@ -1592,6 +1684,49 @@ namespace PuntoDeVentaV2
             }
 
             Utilidades.GenerarTicketCaja();
+        }
+
+        private void btnCambioAbonos_Click(object sender, EventArgs e)
+        {
+                CajaAbonos mostrarAbonos = new CajaAbonos();
+                mostrarAbonos.Show();
+        }
+        public void verificarCantidadAbonos()
+        {
+            string ultimoDate = "";
+            try
+            {
+                var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                if (fechaCorteUltima.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
+                {
+                    foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
+                    {
+                        ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                    }
+                    DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
+
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
+                    var abono = "";
+                    foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                    {
+                        abono = cantidadAbono["sum(Total)"].ToString();
+                    }
+                    abonos = float.Parse(abono);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error en Systema");
+            }
+
+            if (abonos > 0)
+            {
+                btnCambioAbonos.Visible = true;
+            }
+            else
+            {
+                btnCambioAbonos.Visible = false;
+            }
         }
     }
 }
