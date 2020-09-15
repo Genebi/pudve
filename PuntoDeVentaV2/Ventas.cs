@@ -1476,7 +1476,7 @@ namespace PuntoDeVentaV2
             //totalAnticipos
             //totalImporte
 
-            var anticipoAplicado = totalAnticipos - totalImporte;
+            var anticipoAplicado = (totalAnticipos - sumaImportes);
             if (totalAnticipos > 0)
             {
                 var idAnticipo = ListadoAnticipos.obtenerIdAnticipo;
@@ -1494,7 +1494,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    var actualizarAnticipoAplicado = cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{totalImporte}' + AnticipoAplicado WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
+                    var actualizarAnticipoAplicado = cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{sumaImportes}' + AnticipoAplicado WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
                 }
             }
 
