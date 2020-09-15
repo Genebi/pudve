@@ -283,5 +283,16 @@ namespace PuntoDeVentaV2
             ticket.Close();
             writer.Close();
         }
+
+        private void txtImporte_KeyUp(object sender, KeyEventArgs e)
+        {
+            var obtenerTxt = txtImporte.Text;
+
+            if (obtenerTxt.Equals("."))
+            {
+                txtImporte.Text = "0.";
+                txtImporte.Select(txtImporte.Text.Length, 0);
+            }
+        }
     }
 }

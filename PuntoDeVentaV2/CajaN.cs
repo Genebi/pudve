@@ -280,7 +280,7 @@ namespace PuntoDeVentaV2
             lista.Add(lbTTransC.Text);
 
             lista.Add(lbTCredito.Text);
-            //lista.Add(lbTCreditoC.Text);
+            lista.Add(lbTCreditoC.Text);
 
             lista.Add(lbTAnticipos.Text);
             lista.Add(lbTAnticiposC.Text);

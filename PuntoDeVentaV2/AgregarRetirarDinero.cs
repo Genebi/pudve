@@ -510,7 +510,7 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtEfectivo.Text = "0.0";
+                    txtEfectivo.Text = "0.";
                     txtEfectivo.Select(txtEfectivo.Text.Length,0);
                 }
                 else
@@ -535,7 +535,7 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtTarjeta.Text = "0.0";
+                    txtTarjeta.Text = "0.";
                     txtTarjeta.Select(txtTarjeta.Text.Length, 0);
                 }
                 else
@@ -559,7 +559,7 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtVales.Text = "0.0";
+                    txtVales.Text = "0.";
                     txtVales.Select(txtVales.Text.Length, 0);
                 }
                 else
@@ -583,7 +583,7 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtCheque.Text = "0.0";
+                    txtCheque.Text = "0.";
                     txtCheque.Select(txtCheque.Text.Length, 0);
                 }
                 else
@@ -607,7 +607,7 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtTrans.Text = "0.0";
+                    txtTrans.Text = "0.";
                     txtTrans.Select(txtTrans.Text.Length, 0);
                 }
                 else
@@ -631,7 +631,7 @@ namespace PuntoDeVentaV2
             {
                 if (obtenerTxt.Equals("."))
                 {
-                    txtCredito.Text = "0.0";
+                    txtCredito.Text = "0.";
                     txtCredito.Select(txtCredito.Text.Length, 0);
                 }
                 else

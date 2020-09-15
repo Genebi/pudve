@@ -1136,7 +1136,7 @@ namespace PuntoDeVentaV2
 
                     if (maximo <= minimo)
                     {
-                        //MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         var numero = Convert.ToInt32(minimo);
                         var agregar = numero + 1;
@@ -1324,7 +1324,7 @@ namespace PuntoDeVentaV2
 
                     if (maximo <= minimo)
                     {
-                        MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         var numero = Convert.ToInt32(minimo);
                         var agregar = numero + 1;
