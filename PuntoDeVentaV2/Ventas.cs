@@ -25,6 +25,8 @@ namespace PuntoDeVentaV2
         // Status 5 = Facturas
         // Status 6 = Presupuestos
 
+        public static double pasarSumaImportes { get; set; }
+        public static double pasarTotalAnticipos { get; set; }
         private bool aplicarDescuentoG { get; set; }
         // Almacena los ID de los productos a los que se aplica descuento general
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
@@ -1473,30 +1475,33 @@ namespace PuntoDeVentaV2
 
             var sumaImportes = totalImporte + totalImporte8;
 
+            pasarTotalAnticipos = totalAnticipos;
+            pasarSumaImportes = sumaImportes;
             //totalAnticipos
             //totalImporte
 
             var anticipoAplicado = (totalAnticipos - sumaImportes);
-            if (totalAnticipos > 0)
-            {
-                var idAnticipo = ListadoAnticipos.obtenerIdAnticipo;
-                var consultaImporteOriginal = cn.CargarDatos($"SELECT ImporteOriginal FROM Anticipos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
-                var resultadoImporte = "";
+            //Este codigo lo movi a DetalleVenta
+            //if (totalAnticipos > 0)
+            //{
+            //    var idAnticipo = ListadoAnticipos.obtenerIdAnticipo;
+            //    var consultaImporteOriginal = cn.CargarDatos($"SELECT ImporteOriginal FROM Anticipos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
+            //    var resultadoImporte = "";
 
-                foreach (DataRow consultaImporOriginal in consultaImporteOriginal.Rows)
-                {
-                    resultadoImporte = consultaImporOriginal["ImporteOriginal"].ToString();
-                }
+            //    foreach (DataRow consultaImporOriginal in consultaImporteOriginal.Rows)
+            //    {
+            //        resultadoImporte = consultaImporOriginal["ImporteOriginal"].ToString();
+            //    }
 
-                if (anticipoAplicado < 0) 
-                {
-                    var actualizarAnticipoAplicado2 = cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{resultadoImporte}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
-                }
-                else
-                {
-                    var actualizarAnticipoAplicado = cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{sumaImportes}' + AnticipoAplicado WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
-                }
-            }
+            //    if (anticipoAplicado < 0) 
+            //    {
+            //        var actualizarAnticipoAplicado2 = cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{resultadoImporte}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
+            //    }
+            //    else
+            //    {
+            //        var actualizarAnticipoAplicado = cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{sumaImportes}' + AnticipoAplicado WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
+            //    }
+            //}
 
             if (sumaImportes > 0)
             {
