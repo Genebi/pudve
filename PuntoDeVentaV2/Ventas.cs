@@ -4082,14 +4082,15 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void DGVentas_CellLeave(object sender, DataGridViewCellEventArgs e)
+        private void DGVentas_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var celda = e.RowIndex;
 
             // Cantidad
             if (e.ColumnIndex == 5)
             {
-                //DGVentas.Rows[celda].Cells[9].Value = (Convert.ToDecimal(DGVentas.Rows[celda].Cells[5].Value) * Convert.ToDecimal(DGVentas.Rows[celda].Cells[6].Value) - Convert.ToDecimal(DGVentas.Rows[celda].Cells[8].Value));
+                DGVentas.Rows[celda].Cells[9].Value = (Convert.ToDecimal(DGVentas.Rows[celda].Cells[5].Value) * Convert.ToDecimal(DGVentas.Rows[celda].Cells[6].Value));
+                
             }
         }
 
