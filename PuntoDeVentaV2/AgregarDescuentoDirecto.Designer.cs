@@ -230,6 +230,7 @@
             this.txtCantidad.Size = new System.Drawing.Size(132, 23);
             this.txtCantidad.TabIndex = 37;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidad.Leave += new System.EventHandler(this.txtCantidad_Leave);
             // 
             // AgregarDescuentoDirecto
             // 

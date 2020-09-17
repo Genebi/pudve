@@ -4090,7 +4090,7 @@ namespace PuntoDeVentaV2
             if (e.ColumnIndex == 5)
             {
                 DGVentas.Rows[celda].Cells[9].Value = (Convert.ToDecimal(DGVentas.Rows[celda].Cells[5].Value) * Convert.ToDecimal(DGVentas.Rows[celda].Cells[6].Value));
-                
+                CantidadesFinalesVenta();
             }
         }
 

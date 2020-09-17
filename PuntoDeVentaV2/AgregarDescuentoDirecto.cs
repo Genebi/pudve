@@ -36,10 +36,10 @@ namespace PuntoDeVentaV2
             lbPrecio.Text = "Precio: $" + precioProducto.ToString("0.00");
             lbCantidadProducto.Text = "Cantidad: " + cantidadProducto;
 
-            txtCantidad1.KeyPress += new KeyPressEventHandler(SoloDecimales);
+            txtCantidad.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtPorcentaje.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
-            txtCantidad1.Focus();
+            txtCantidad.Focus();
 
             //==============================================================
             if (Ventas.descuentosDirectos.ContainsKey(idProducto))
@@ -50,7 +50,7 @@ namespace PuntoDeVentaV2
                 if (tipo == 1)
                 {
                     txtCantidad1.Text = cantidad.ToString("N2");
-                    txtCantidad1.Select(txtCantidad1.Text.Length, 0);
+                    txtCantidad.Select(txtCantidad.Text.Length, 0);
                     txtCantidad_KeyUp(sender, new KeyEventArgs(Keys.Up));
                 }
 
@@ -70,7 +70,7 @@ namespace PuntoDeVentaV2
             // Esto es para guardar cual campo es el que aplico el descuento y la cantidad
             // ya sea del porcentaje aplicado o un total en especifico
             var tipo = 0;
-            var cantidad = txtCantidad1.Text;
+            var cantidad = txtCantidad.Text;
             var porcentaje = txtPorcentaje.Text;
             var cantidadElegida = 0f;
 
@@ -127,13 +127,13 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    txtCantidad1.Text = ((precioProducto * cantidadProducto) - 1).ToString("0.00");
-                    cantidad = Convert.ToDouble(txtCantidad1.Text);
+                    txtCantidad.Text = ((precioProducto * cantidadProducto) - 1).ToString("0.00");
+                    cantidad = Convert.ToDouble(txtCantidad.Text);
                     lbTotalDescuento.Text = cantidad.ToString("0.00");
                     lbTotalFinal.Text = ((precioProducto * cantidadProducto) - cantidad).ToString("0.00");
 
-                    txtCantidad1.SelectionStart = txtCantidad1.Text.Length;
-                    txtCantidad1.SelectionLength = 0;
+                    txtCantidad.SelectionStart = txtCantidad.Text.Length;
+                    txtCantidad.SelectionLength = 0;
                 }
             }
             else
@@ -150,8 +150,8 @@ namespace PuntoDeVentaV2
             if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text))
             {
                 lbCantidadProducto.Visible = true;
-                txtCantidad1.Enabled = false;
-                txtCantidad1.Text = string.Empty;
+                txtCantidad.Enabled = false;
+                txtCantidad.Text = string.Empty;
 
                 var porcentaje = Convert.ToDouble(txtPorcentaje.Text);
 
@@ -181,7 +181,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                txtCantidad1.Enabled = true;
+                txtCantidad.Enabled = true;
                 lbTotalDescuento.Text = "0.00";
                 lbTotalFinal.Text = "0.00";
                 lbCantidadProducto.Visible = false;
@@ -229,13 +229,39 @@ namespace PuntoDeVentaV2
             {
                 Ventas.descuentosDirectos.Remove(idProducto);
 
-                txtCantidad1.Text = string.Empty;
-                txtCantidad1.Enabled = true;
+                txtCantidad.Text = string.Empty;
+                txtCantidad.Enabled = true;
                 txtPorcentaje.Text = string.Empty;
                 txtPorcentaje.Enabled = true;
                 lbCantidadProducto.Visible = false;
                 lbTotalDescuento.Text = "0.00";
                 lbTotalFinal.Text = "0.00";
+            }
+        }
+
+        private void txtCantidad_Leave(object sender, EventArgs e)
+        {
+            string[] words;
+
+            if (txtCantidad.Text.Equals(""))
+            {
+                txtCantidad.Text = "0";
+            }
+            else if (!txtCantidad.Text.Equals(""))
+            {
+                words = txtCantidad.Text.Split('.');
+                if (words[0].Equals(""))
+                {
+                    words[0] = "0";
+                }
+                if (words.Length > 1)
+                {
+                    if (words[1].Equals(""))
+                    {
+                        words[1] = "0";
+                    }
+                    txtCantidad.Text = words[0] + "." + words[1];
+                }
             }
         }
     }
