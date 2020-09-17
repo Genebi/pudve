@@ -421,7 +421,15 @@ namespace PuntoDeVentaV2
                 {
                     if (filesToCopy[x - 1].ToString().Equals("DataDictionary.db"))
                     {
-                        File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
+                        if (!File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
+                        {
+                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
+                        }
+                        else if (File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
+                        {
+                            File.Delete(pathDestino + filesToCopy[x - 1].ToString());
+                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
+                        }
                     }
                     else
                     {
