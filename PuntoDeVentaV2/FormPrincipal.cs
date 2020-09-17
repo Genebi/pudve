@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         public static string[] datosUsuario = new string[] { };
         private bool cerrarAplicacion = false;
 
-        IEnumerable<Ventas> FormVenta = Application.OpenForms.OfType<Ventas>();
+        IEnumerable<Ventas> FormVenta = Application.OpenForms.OfType<Ventas>();//Revisar esta linea
 
         // declaramos la variable que se pasara entre los dos formularios
         // FormPrincipal y MisDatos
@@ -74,6 +74,9 @@ namespace PuntoDeVentaV2
         public static int pasar = 0;
         public static int checkNoVendidos = 0;
         public static int diasNoVendidos = 0;
+
+        //Validar el cierre de sesion
+        int validarCierreDeSesion = 0;
 
         // variables usasadas para que sea estatico los valores y asi en empresas
         // se agrege tambien la cuenta principal y poder hacer que regresemos a ella
@@ -451,6 +454,13 @@ namespace PuntoDeVentaV2
             {
                 cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{userID}')");
             }
+
+            if (validarCierreDeSesion==1)
+            {
+                Application.Exit();
+            }
+            validarCierreDeSesion++;
+
         }
 
         //public bool verificarInternet()
@@ -532,10 +542,18 @@ namespace PuntoDeVentaV2
             }
             validarVentasVentanas();
         }
+        private void validarCerrarSesion()
+        {
+            FormPrincipal fPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
 
+            if (fPrincipal != null)
+            {
+                fPrincipal.Close();
+            }
+        }
         private void btnVentas_Click(object sender, EventArgs e)
         {
-           //Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "ListadoVentas").SingleOrDefault<Form>();
+            //Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "ListadoVentas").SingleOrDefault<Form>();
 
             if (veces == 1)
             {
@@ -546,18 +564,21 @@ namespace PuntoDeVentaV2
                     ListadoVentas.recargarDatos = true;
                     ListadoVentas.abrirNuevaVenta = true;
                     veces = 2;
-                }
+                    //Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "ListadoVentas").SingleOrDefault<Form>();
+}
                 else
                 {
                     MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
-            } else if (veces==2)
+            }
+            else if (veces == 2)
             {
                 ListadoVentas lVentas = Application.OpenForms.OfType<ListadoVentas>().FirstOrDefault();
 
                 if (lVentas != null)
                 {
                     lVentas.btnNuevaVenta_Click(this, null);
+                    //Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "ListadoVentas").SingleOrDefault<Form>();
                 }
             }
         }

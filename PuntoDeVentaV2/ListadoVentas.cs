@@ -883,12 +883,12 @@ namespace PuntoDeVentaV2
                     mainForm.WindowState = FormWindowState.Maximized;
                     mainForm.SendToBack();
                 }
-                if (mainForm.Visible == false)
-                {
-                    mainForm.Visible = true;
-                    mainForm.WindowState = FormWindowState.Minimized;
-                    mainForm.SendToBack();
-                }
+                //if (mainForm.Visible == false)
+                //{
+                //    mainForm.Visible = true;
+                //    mainForm.WindowState = FormWindowState.Minimized;//Aqui es donde me muestra la nueva ventana
+                //    mainForm.SendToBack();
+                //}
             }
         }
 
