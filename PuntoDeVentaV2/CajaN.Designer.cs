@@ -105,6 +105,7 @@
             this.lbTarjetaC = new System.Windows.Forms.Label();
             this.lbEfectivoC = new System.Windows.Forms.Label();
             this.panelVentas = new System.Windows.Forms.Panel();
+            this.lbCambioAbonos = new System.Windows.Forms.Label();
             this.lbTCreditoC = new System.Windows.Forms.Label();
             this.lbCreditoC = new System.Windows.Forms.Label();
             this.lbVentas = new System.Windows.Forms.Label();
@@ -116,7 +117,6 @@
             this.lbTVales = new System.Windows.Forms.Label();
             this.lbTTarjeta = new System.Windows.Forms.Label();
             this.lbTEfectivo = new System.Windows.Forms.Label();
-            this.btnCambioAbonos = new System.Windows.Forms.Button();
             this.lbAnticipos = new System.Windows.Forms.Label();
             this.lbCredito = new System.Windows.Forms.Label();
             this.lbTrans = new System.Windows.Forms.Label();
@@ -1071,6 +1071,7 @@
             // 
             this.panelVentas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelVentas.Controls.Add(this.lbCambioAbonos);
             this.panelVentas.Controls.Add(this.lbTCreditoC);
             this.panelVentas.Controls.Add(this.lbCreditoC);
             this.panelVentas.Controls.Add(this.lbVentas);
@@ -1082,7 +1083,6 @@
             this.panelVentas.Controls.Add(this.lbTVales);
             this.panelVentas.Controls.Add(this.lbTTarjeta);
             this.panelVentas.Controls.Add(this.lbTEfectivo);
-            this.panelVentas.Controls.Add(this.btnCambioAbonos);
             this.panelVentas.Controls.Add(this.lbAnticipos);
             this.panelVentas.Controls.Add(this.lbCredito);
             this.panelVentas.Controls.Add(this.lbTrans);
@@ -1095,6 +1095,18 @@
             this.panelVentas.Name = "panelVentas";
             this.panelVentas.Size = new System.Drawing.Size(213, 386);
             this.panelVentas.TabIndex = 107;
+            // 
+            // lbCambioAbonos
+            // 
+            this.lbCambioAbonos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbCambioAbonos.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lbCambioAbonos.Location = new System.Drawing.Point(186, 233);
+            this.lbCambioAbonos.Name = "lbCambioAbonos";
+            this.lbCambioAbonos.Size = new System.Drawing.Size(30, 26);
+            this.lbCambioAbonos.TabIndex = 38;
+            this.toolTip1.SetToolTip(this.lbCambioAbonos, "Mostrar Abonos");
+            this.lbCambioAbonos.Visible = false;
+            this.lbCambioAbonos.Click += new System.EventHandler(this.lbCambioAbonos_Click);
             // 
             // lbTCreditoC
             // 
@@ -1220,18 +1232,6 @@
             this.lbTEfectivo.Size = new System.Drawing.Size(39, 17);
             this.lbTEfectivo.TabIndex = 6;
             this.lbTEfectivo.Text = "$0.00";
-            // 
-            // btnCambioAbonos
-            // 
-            this.btnCambioAbonos.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.btnCambioAbonos.Location = new System.Drawing.Point(186, 231);
-            this.btnCambioAbonos.Name = "btnCambioAbonos";
-            this.btnCambioAbonos.Size = new System.Drawing.Size(32, 27);
-            this.btnCambioAbonos.TabIndex = 23;
-            this.toolTip1.SetToolTip(this.btnCambioAbonos, "Mostrar Abonos");
-            this.btnCambioAbonos.UseVisualStyleBackColor = true;
-            this.btnCambioAbonos.Visible = false;
-            this.btnCambioAbonos.Click += new System.EventHandler(this.btnCambioAbonos_Click);
             // 
             // lbAnticipos
             // 
@@ -1467,9 +1467,9 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lbTCreditoTotal;
         private System.Windows.Forms.Label lbCreditoTotal;
-        private System.Windows.Forms.Button btnCambioAbonos;
         private System.Windows.Forms.Label lbTCreditoC;
         private System.Windows.Forms.Label lbCreditoC;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label lbCambioAbonos;
     }
 }

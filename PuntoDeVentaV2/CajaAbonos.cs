@@ -56,16 +56,16 @@ namespace PuntoDeVentaV2
                     //    abono = cantidadAbono["sum(Total)"].ToString();
                     //}
                     //abonos = float.Parse(abono);
-                    var fechaMovimientos = cn.CargarDatos($"SELECT * FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
                     foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
                     {
                         // = cantidadAbono["sum(Total)"].ToString();
-                        abonoEfectivo = cantidadAbono["Efectivo"].ToString();
-                        abonoTarjeta = cantidadAbono["Tarjeta"].ToString();
-                        abonoVales = cantidadAbono["Vales"].ToString();
-                        abonoCheque = cantidadAbono["Cheque"].ToString();
-                        abonoTransferencia = cantidadAbono["Transferencia"].ToString();
+                        abonoEfectivo = cantidadAbono["sum(Efectivo)"].ToString();
+                        abonoTarjeta = cantidadAbono["sum(Tarjeta)"].ToString();
+                        abonoVales = cantidadAbono["sum(Vales)"].ToString();
+                        abonoCheque = cantidadAbono["sum(Cheque)"].ToString();
+                        abonoTransferencia = cantidadAbono["sum(Transferencia)"].ToString();
                     }
                     //abonos = float.Parse(abonoEfectivo);
                     abonoEfectivoI = float.Parse(abonoEfectivo);
