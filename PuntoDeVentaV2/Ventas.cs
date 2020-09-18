@@ -4076,6 +4076,29 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void DGVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var celda = DGVentas.CurrentCell.RowIndex;
+
+            // Cantidad
+            if (e.ColumnIndex == 5)
+            {
+                DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
+            }
+        }
+
+        private void DGVentas_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            var celda = e.RowIndex;
+
+            // Cantidad
+            if (e.ColumnIndex == 5)
+            {
+                DGVentas.Rows[celda].Cells[9].Value = (Convert.ToDecimal(DGVentas.Rows[celda].Cells[5].Value) * Convert.ToDecimal(DGVentas.Rows[celda].Cells[6].Value));
+                CantidadesFinalesVenta();
+            }
+        }
+
         private void timer_img_producto_Tick(object sender, EventArgs e)
         {
             PBImagen.Image = null;
