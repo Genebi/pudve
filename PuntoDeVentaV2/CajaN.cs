@@ -104,7 +104,7 @@ namespace PuntoDeVentaV2
             panelDineroAgregado.Visible = Convert.ToBoolean(opcion10);
             panelTotales.Visible = Convert.ToBoolean(opcion11);
 
-            verificarCantidadAbonos();
+            //verificarCantidadAbonos();
         }
 
         private void CargarSaldoInicial()
@@ -301,6 +301,8 @@ namespace PuntoDeVentaV2
         #region Metodo para cargar saldos y totales
         private void CargarSaldo()
         {
+            verificarCantidadAbonos();
+
             SQLiteConnection sql_con;
             SQLiteCommand consultaUno, consultaDos;
             SQLiteDataReader drUno, drDos;
