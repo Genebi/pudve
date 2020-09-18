@@ -1715,6 +1715,16 @@ namespace PuntoDeVentaV2
                     }
                     abonos = float.Parse(abono);
                 }
+                else if(fechaCorteUltima.Rows.Count > 0)
+                {
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}'");
+                    var abono = "";
+                    foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                    {
+                        abono = cantidadAbono["sum(Total)"].ToString();
+                    }
+                    abonos = float.Parse(abono);
+                }
             }
             catch
             {
