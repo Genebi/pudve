@@ -105,12 +105,14 @@
             // lbCredito
             // 
             this.lbCredito.AutoSize = true;
+            this.lbCredito.Enabled = false;
             this.lbCredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCredito.Location = new System.Drawing.Point(200, 128);
             this.lbCredito.Name = "lbCredito";
             this.lbCredito.Size = new System.Drawing.Size(57, 17);
             this.lbCredito.TabIndex = 216;
             this.lbCredito.Text = "Crédito";
+            this.lbCredito.Visible = false;
             // 
             // label9
             // 
@@ -197,12 +199,14 @@
             // 
             // txtCredito
             // 
+            this.txtCredito.Enabled = false;
             this.txtCredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCredito.Location = new System.Drawing.Point(297, 125);
             this.txtCredito.Name = "txtCredito";
             this.txtCredito.Size = new System.Drawing.Size(103, 23);
             this.txtCredito.TabIndex = 6;
             this.txtCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCredito.Visible = false;
             this.txtCredito.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCredito_KeyPress);
             this.txtCredito.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCredito_KeyUp);
             // 
