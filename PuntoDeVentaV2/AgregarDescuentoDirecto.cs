@@ -114,7 +114,7 @@ namespace PuntoDeVentaV2
 
                 if (txtCantidad.Text.Equals("."))
                 {
-                    txtCantidad.Text = "0.00";
+                    txtCantidad.Text = "0.";
                     txtCantidad.Select(txtCantidad.Text.Length, 0);
                 }
                 else
