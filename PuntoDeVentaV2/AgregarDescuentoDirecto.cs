@@ -49,7 +49,7 @@ namespace PuntoDeVentaV2
 
                 if (tipo == 1)
                 {
-                    txtCantidad1.Text = cantidad.ToString("N2");
+                    txtCantidad.Text = cantidad.ToString("N2");
                     txtCantidad.Select(txtCantidad.Text.Length, 0);
                     txtCantidad_KeyUp(sender, new KeyEventArgs(Keys.Up));
                 }
@@ -106,34 +106,42 @@ namespace PuntoDeVentaV2
 
         private void txtCantidad_KeyUp(object sender, KeyEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtCantidad1.Text))
+            if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
                 lbCantidadProducto.Visible = true;
                 txtPorcentaje.Enabled = false;
                 txtPorcentaje.Text = string.Empty;
 
-                var cantidad = Convert.ToDouble(txtCantidad1.Text);
-
-                if (cantidad == 0)
+                if (txtCantidad.Text.Equals("."))
                 {
-                    btnEliminar.PerformClick();
-                    return;
-                }
-
-                if (cantidad < (precioProducto * cantidadProducto))
-                {
-                    lbTotalDescuento.Text = cantidad.ToString("0.00");
-                    lbTotalFinal.Text = ((precioProducto * cantidadProducto) - cantidad).ToString("0.00");
+                    txtCantidad.Text = "0.00";
+                    txtCantidad.Select(txtCantidad.Text.Length, 0);
                 }
                 else
                 {
-                    txtCantidad.Text = ((precioProducto * cantidadProducto) - 1).ToString("0.00");
-                    cantidad = Convert.ToDouble(txtCantidad.Text);
-                    lbTotalDescuento.Text = cantidad.ToString("0.00");
-                    lbTotalFinal.Text = ((precioProducto * cantidadProducto) - cantidad).ToString("0.00");
+                    var cantidad = Convert.ToDouble(txtCantidad.Text);
 
-                    txtCantidad.SelectionStart = txtCantidad.Text.Length;
-                    txtCantidad.SelectionLength = 0;
+                    if (cantidad == 0)
+                    {
+                        btnEliminar.PerformClick();
+                        return;
+                    }
+
+                    if (cantidad < (precioProducto * cantidadProducto))
+                    {
+                        lbTotalDescuento.Text = cantidad.ToString("0.00");
+                        lbTotalFinal.Text = ((precioProducto * cantidadProducto) - cantidad).ToString("0.00");
+                    }
+                    else
+                    {
+                        txtCantidad.Text = ((precioProducto * cantidadProducto) - 1).ToString("0.00");
+                        cantidad = Convert.ToDouble(txtCantidad.Text);
+                        lbTotalDescuento.Text = cantidad.ToString("0.00");
+                        lbTotalFinal.Text = ((precioProducto * cantidadProducto) - cantidad).ToString("0.00");
+
+                        txtCantidad.SelectionStart = txtCantidad.Text.Length;
+                        txtCantidad.SelectionLength = 0;
+                    }
                 }
             }
             else

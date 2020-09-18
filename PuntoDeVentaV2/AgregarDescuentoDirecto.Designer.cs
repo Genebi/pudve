@@ -31,7 +31,6 @@
             this.lbProducto = new System.Windows.Forms.Label();
             this.lbPrecio = new System.Windows.Forms.Label();
             this.lbDescuento = new System.Windows.Forms.Label();
-            this.txtCantidad1 = new System.Windows.Forms.TextBox();
             this.txtPorcentaje = new System.Windows.Forms.TextBox();
             this.lbCantidad = new System.Windows.Forms.Label();
             this.lbPorcentaje = new System.Windows.Forms.Label();
@@ -78,18 +77,6 @@
             this.lbDescuento.TabIndex = 2;
             this.lbDescuento.Text = "Descuento total $:";
             this.lbDescuento.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtCantidad1
-            // 
-            this.txtCantidad1.Location = new System.Drawing.Point(9, 8);
-            this.txtCantidad1.Margin = new System.Windows.Forms.Padding(4);
-            this.txtCantidad1.Name = "txtCantidad1";
-            this.txtCantidad1.Size = new System.Drawing.Size(24, 23);
-            this.txtCantidad1.TabIndex = 3;
-            this.txtCantidad1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCantidad1.Visible = false;
-            this.txtCantidad1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
-            this.txtCantidad1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyUp);
             // 
             // txtPorcentaje
             // 
@@ -230,6 +217,7 @@
             this.txtCantidad.Size = new System.Drawing.Size(132, 23);
             this.txtCantidad.TabIndex = 37;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidad.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyUp);
             this.txtCantidad.Leave += new System.EventHandler(this.txtCantidad_Leave);
             // 
             // AgregarDescuentoDirecto
@@ -249,7 +237,6 @@
             this.Controls.Add(this.lbPorcentaje);
             this.Controls.Add(this.lbCantidad);
             this.Controls.Add(this.txtPorcentaje);
-            this.Controls.Add(this.txtCantidad1);
             this.Controls.Add(this.lbDescuento);
             this.Controls.Add(this.lbPrecio);
             this.Controls.Add(this.lbProducto);
@@ -271,7 +258,6 @@
         private System.Windows.Forms.Label lbProducto;
         private System.Windows.Forms.Label lbPrecio;
         private System.Windows.Forms.Label lbDescuento;
-        private System.Windows.Forms.TextBox txtCantidad1;
         private System.Windows.Forms.TextBox txtPorcentaje;
         private System.Windows.Forms.Label lbCantidad;
         private System.Windows.Forms.Label lbPorcentaje;
