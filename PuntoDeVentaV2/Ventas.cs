@@ -480,7 +480,15 @@ namespace PuntoDeVentaV2
         {
             if (DGVentas.Rows.Count == 0 && buscarvVentaGuardada == ".#")
             {
-                AgregarProductoLista(datosProducto);
+                if (cnt >= 1)
+                {
+                    AgregarProductoLista(datosProducto);
+                }
+                else if (cnt < 1)
+                {
+                    var ignorar = false;
+                    AgregarProductoLista(datosProducto, cnt, ignorar);
+                }
             }
             else if (DGVentas.Rows.Count > 0)
             {   
@@ -643,9 +651,12 @@ namespace PuntoDeVentaV2
                 }
                 else if (cantidadExtra == 0)
                 {
-                    if (Convert.ToInt32(nudCantidadPS.Value) > 0)
+                    if (cantidad.Equals(1))
                     {
-                        cantidad = Convert.ToDecimal(nudCantidadPS.Value);
+                        if (Convert.ToInt32(nudCantidadPS.Value) > 0)
+                        {
+                            cantidad = Convert.ToDecimal(nudCantidadPS.Value);
+                        }
                     }
 
                     nudCantidadPS.Value = 1;
@@ -3795,7 +3806,7 @@ namespace PuntoDeVentaV2
                 productosDescuentoG.Add(idProducto, aplicarDescuentoG);
             }
 
-            AgregarProducto(datosProducto);
+            AgregarProducto(datosProducto, Convert.ToDecimal(nudCantidadPS.Value));
         }
 
         private void CalculoMayoreo()
