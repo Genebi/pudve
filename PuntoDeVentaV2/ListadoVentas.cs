@@ -232,7 +232,7 @@ namespace PuntoDeVentaV2
                 }
 
                 FiltroAvanzado = consulta;
-                
+
                 p = new Paginar(FiltroAvanzado, DataMemberDGV, maximo_x_pagina);
             }
 
@@ -248,7 +248,7 @@ namespace PuntoDeVentaV2
             Image credito = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\dollar.png");
             Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\dollar.png");
             Image timbrar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell.png");
-            Image informacion= Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
+            Image informacion = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
 
             Bitmap sinImagen = new Bitmap(1, 1);
             sinImagen.SetPixel(0, 0, Color.White);
@@ -303,7 +303,7 @@ namespace PuntoDeVentaV2
                     var totalTmp = float.Parse(filaDatos["Total"].ToString());
                     var iva8 = float.Parse(filaDatos["IVA8"].ToString());
 
-                    if(iva8 > 0)
+                    if (iva8 > 0)
                     {
                         ivaTmp = iva8;
                     }
@@ -344,13 +344,13 @@ namespace PuntoDeVentaV2
                 }
 
                 AgregarTotales(iva, subtotal, total);
-                
+
                 using (DataTable dbTotalesGenerales = cn.CargarDatos(FiltroAvanzado))
                 {
                     float ivaTmpGral = 0, subtotalTmpGral = 0, totalTmpGral = 0;
                     foreach (DataRow row in dbTotalesGenerales.Rows)
                     {
-                        if(float.Parse(row["IVA8"].ToString()) > 0)
+                        if (float.Parse(row["IVA8"].ToString()) > 0)
                         {
                             ivaTmpGral += float.Parse(row["IVA8"].ToString());
                         }
@@ -511,7 +511,7 @@ namespace PuntoDeVentaV2
                 var permitir = true;
 
                 Rectangle cellRect = DGVListadoVentas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
-                
+
                 if (e.ColumnIndex >= 11)
                 {
                     var textoTT = string.Empty;
@@ -565,7 +565,7 @@ namespace PuntoDeVentaV2
                         VerToolTip(textoTT, cellRect.X, coordenadaX, cellRect.Y, permitir);
 
                         textoTT = string.Empty;
-                    } 
+                    }
                 }
                 else
                 {
@@ -580,7 +580,7 @@ namespace PuntoDeVentaV2
             if (mostrar)
             {
                 TTMensaje.Show(texto, this, DGVListadoVentas.Location.X + cellRectX - coordX, DGVListadoVentas.Location.Y + cellRectY, 1500);
-            }  
+            }
         }
 
         private void DGVListadoVentas_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -808,12 +808,12 @@ namespace PuntoDeVentaV2
 
                     // Se valida que la nota no tenga ya una factura creada
                     int r = Convert.ToInt32(cn.EjecutarSelect($"SELECT Timbrada FROM Ventas WHERE ID={idVenta}", 8));
-                    
-                    if(r == 1)
+
+                    if (r == 1)
                     {
                         var resp = MessageBox.Show("La nota de venta ya tiene una factura creada. La generación de más de una factura para la misma nota queda a responsabilidad de usted. \n\n ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                        if(resp == DialogResult.Yes)
+                        if (resp == DialogResult.Yes)
                         {
                             // Verifica que la venta tenga todos los datos para facturar
                             comprobar_venta_f(idVenta);
@@ -827,7 +827,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // Información
-                if(e.ColumnIndex == 15)
+                if (e.ColumnIndex == 15)
                 {
                     Ventas_ventana_informacion info = new Ventas_ventana_informacion(idVenta);
                     info.ShowDialog();
@@ -916,7 +916,7 @@ namespace PuntoDeVentaV2
             //int n_filas = 0;
             int i = 1;
 
-            
+
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
@@ -925,7 +925,7 @@ namespace PuntoDeVentaV2
 
             // Consulta IDCliente
             int id_cliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDCliente FROM DetallesVenta WHERE IDVenta='{id_venta}'", 6));
-            
+
             /*if(id_cliente == 0)
             {
                 sin_cliente = 1;
@@ -935,7 +935,7 @@ namespace PuntoDeVentaV2
             d_id_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(4, id_venta, 0));
 
             // Declara arreglo y tamaño
-            int n_filas = d_id_productos.Rows.Count + 1; 
+            int n_filas = d_id_productos.Rows.Count + 1;
             faltantes_productos = new string[n_filas][];
 
 
@@ -953,8 +953,8 @@ namespace PuntoDeVentaV2
 
                     if (d_claves.Rows.Count > 0)
                     {
-                        foreach(DataRow r_claves in d_claves.Rows)
-                        { 
+                        foreach (DataRow r_claves in d_claves.Rows)
+                        {
                             string clave_u = r_claves["UnidadMedida"].ToString();
                             string clave_p = r_claves["ClaveProducto"].ToString();
 
@@ -1011,7 +1011,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            
+
             if (arch_cer != "" & arch_key != "")
             {
                 // Consulta que se halla guardado el número de certificado
@@ -1024,7 +1024,7 @@ namespace PuntoDeVentaV2
                     cp = r_dcer["CodigoPostal"].ToString();
                 }
 
-                if(numero_cer != "" & cp != "")
+                if (numero_cer != "" & cp != "")
                 {
                     Crear_factura crear_factura = new Crear_factura(id_cliente, n_filas, id_venta);
 
@@ -1032,7 +1032,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    if(cp == "")
+                    if (cp == "")
                     {
                         MessageBox.Show("No ha ingresado su código postal, por favor vaya al apartado Mis Datos para agregarlo.  \n\n Esta acción es necesaria para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -1122,7 +1122,7 @@ namespace PuntoDeVentaV2
 
             DataTable d_venta = cn.CargarDatos(cs.consulta_dventa(1, id_venta));
             DataRow r_venta = d_venta.Rows[0];
-            
+
             int id_usuario = Convert.ToInt32(r_venta["IDUsuario"]);
             string folio = r_venta["Folio"].ToString();
             string serie = r_venta["Serie"].ToString();
@@ -1139,16 +1139,20 @@ namespace PuntoDeVentaV2
 
             DataTable d_detallesventa = cn.CargarDatos(cs.consulta_dventa(2, id_venta));
 
-            
+
             int id_cliente = 0;
             string forma_pago = "";
+
+            if (r_venta["Status"].ToString().Equals("2"))
+            {
+                forma_pago += "Presupuesto";
+            }
 
             if (d_detallesventa.Rows.Count > 0)
             {
                 DataRow r_detallesventa = d_detallesventa.Rows[0];
 
                 id_cliente = Convert.ToInt32(r_detallesventa["IDCliente"]);
-
 
                 if (Convert.ToDecimal(r_detallesventa["Efectivo"]) > 0)
                 {
@@ -1184,8 +1188,8 @@ namespace PuntoDeVentaV2
             {
                 id_cliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDCliente FROM Ventas WHERE ID='{id_venta}'", 6));
             }
-            
-            
+
+
 
 
 
@@ -1202,8 +1206,8 @@ namespace PuntoDeVentaV2
             ComprobanteEmisorVenta emisor_v = new ComprobanteEmisorVenta();
 
             emisor_v.Nombre = r_usuario["RazonSocial"].ToString();
-            emisor_v.Rfc= r_usuario["RFC"].ToString();
-            emisor_v.RegimenFiscal= r_usuario["Regimen"].ToString();
+            emisor_v.Rfc = r_usuario["RFC"].ToString();
+            emisor_v.RegimenFiscal = r_usuario["Regimen"].ToString();
             emisor_v.Correo = r_usuario["Email"].ToString();
             emisor_v.Telefono = r_usuario["Telefono"].ToString();
 
@@ -1266,11 +1270,11 @@ namespace PuntoDeVentaV2
             if (d_cliente.Rows.Count > 0)
             {
                 DataRow r_cliente = d_cliente.Rows[0];
-                
+
                 ComprobanteReceptorVenta receptor_v = new ComprobanteReceptorVenta();
 
                 receptor_v.Nombre = r_cliente["RazonSocial"].ToString();
-                receptor_v.Rfc = r_cliente["RFC"].ToString();                
+                receptor_v.Rfc = r_cliente["RFC"].ToString();
                 receptor_v.Correo = r_cliente["Email"].ToString();
                 receptor_v.Telefono = r_cliente["Telefono"].ToString();
 
@@ -1336,7 +1340,7 @@ namespace PuntoDeVentaV2
 
                 comprobanteventa.Receptor = receptor_v;
             }
-            
+
 
 
             // Datos del producto
@@ -1345,7 +1349,7 @@ namespace PuntoDeVentaV2
 
             DataTable d_prodventa = cn.CargarDatos(cs.cargar_datos_venta_xml(4, id_venta, 0));
 
-            if(d_prodventa.Rows.Count > 0)
+            if (d_prodventa.Rows.Count > 0)
             {
                 foreach (DataRow r_prodventa in d_prodventa.Rows)
                 {
@@ -1362,7 +1366,7 @@ namespace PuntoDeVentaV2
                     suma_importe_concep += importe_v;
 
                     // Descuento
-                    if(r_prodventa["descuento"].ToString() != "")
+                    if (r_prodventa["descuento"].ToString() != "")
                     {
                         var tdesc = (r_prodventa["descuento"].ToString()).IndexOf("-");
 
@@ -1383,9 +1387,9 @@ namespace PuntoDeVentaV2
                         {
                             concepto_v.Descuento = Convert.ToDecimal(r_prodventa["descuento"]);
                             suma_descuento += Convert.ToDecimal(r_prodventa["descuento"]);
-                        }                            
-                    }                    
-                    
+                        }
+                    }
+
 
                     listaconcepto_v.Add(concepto_v);
                 }
@@ -1398,7 +1402,7 @@ namespace PuntoDeVentaV2
 
             decimal total_general = suma_importe_concep - suma_descuento; //+ suma_importe_impuest;
 
-            if(total_general > anticipo)
+            if (total_general > anticipo)
             {
                 total_general = total_general - anticipo;
             }
@@ -1410,7 +1414,7 @@ namespace PuntoDeVentaV2
                     total_general = total_general - anticipo;
                 }
             }
-            
+
 
             comprobanteventa.Serie = serie;
             comprobanteventa.Folio = folio;
@@ -1438,7 +1442,7 @@ namespace PuntoDeVentaV2
             {
                 Directory.CreateDirectory(carpeta_venta);
             }
-            
+
 
             string origen_pdf_temp = nombre_venta + ".pdf";
             string destino_pdf = @"C:\Archivos PUDVE\Ventas\PDF\" + nombre_venta + ".pdf";
@@ -1490,7 +1494,7 @@ namespace PuntoDeVentaV2
                         Unit = Unit.Centimeters,
                     }
                 },
-                Objects = { 
+                Objects = {
                     new ObjectSettings
                     {
                         HtmlText = result_html,
@@ -1592,14 +1596,14 @@ namespace PuntoDeVentaV2
             int t = DGVListadoVentas.Rows.Count - 2;
 
             CheckBox headerBox = ((CheckBox)DGVListadoVentas.Controls.Find("cbox_seleccionar_todo", true)[0]);
-            
+
             foreach (DataGridViewRow row in DGVListadoVentas.Rows)
             {
-                if(c < t)
+                if (c < t)
                 {
                     row.Cells["col_checkbox"].Value = headerBox.Checked;
                 }
-                
+
                 c++;
             }
         }
@@ -1618,7 +1622,7 @@ namespace PuntoDeVentaV2
             int t = DGVListadoVentas.Rows.Count - 2;
             string mnsj_error = "";
             string[][] arr_id_env;
-            
+
 
             foreach (DataGridViewRow row in DGVListadoVentas.Rows)
             {
@@ -1636,7 +1640,7 @@ namespace PuntoDeVentaV2
                     }
 
                     c++;
-                } 
+                }
             }
 
 
@@ -1662,7 +1666,7 @@ namespace PuntoDeVentaV2
                             en++;
                         }
                         c++;
-                    }   
+                    }
                 }
 
                 // Formulario envío de correo
@@ -1735,6 +1739,33 @@ namespace PuntoDeVentaV2
 
 
 
+            foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+            {
+                if (c < t)
+                {
+                    bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                    if (estado == true)
+                    {
+                        cont++;
+                    }
+                    else
+                    {
+                        mnsj_error = "No ha seleccionado alguna nota de venta para descargar.";
+                    }
+
+                    c++;
+                }
+            }
+
+
+            // Obtener el id de la nota a descargar
+
+            if (cont > 0)
+            {
+                c = 0;
+                arr_id_desc = new int[cont];
+
                 foreach (DataGridViewRow row in DGVListadoVentas.Rows)
                 {
                     if (c < t)
@@ -1743,57 +1774,30 @@ namespace PuntoDeVentaV2
 
                         if (estado == true)
                         {
-                            cont++;
+                            arr_id_desc[d] = Convert.ToInt32(row.Cells["ID"].Value);
+                            d++;
                         }
-                        else
-                        {
-                            mnsj_error = "No ha seleccionado alguna nota de venta para descargar.";
-                        }
-
                         c++;
                     }
                 }
 
-
-                // Obtener el id de la nota a descargar
-
-                if (cont > 0)
+                // Elige carpeta donde guardar el comprimido
+                if (elegir_carpeta_descarga.ShowDialog() == DialogResult.OK)
                 {
-                    c = 0;
-                    arr_id_desc = new int[cont];
+                    string carpeta = elegir_carpeta_descarga.SelectedPath;
 
-                    foreach (DataGridViewRow row in DGVListadoVentas.Rows)
-                    {
-                        if (c < t)
-                        {
-                            bool estado = (bool)row.Cells["col_checkbox"].Value;
-
-                            if (estado == true)
-                            {
-                                arr_id_desc[d] = Convert.ToInt32(row.Cells["ID"].Value);
-                                d++;
-                            }
-                            c++;
-                        }
-                    }
-
-                    // Elige carpeta donde guardar el comprimido
-                    if (elegir_carpeta_descarga.ShowDialog() == DialogResult.OK)
-                    {
-                        string carpeta = elegir_carpeta_descarga.SelectedPath;
-
-                        inicia_descarga(arr_id_desc, carpeta);
-                    }
+                    inicia_descarga(arr_id_desc, carpeta);
                 }
-                else
-                {
-                    MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }          
+            }
+            else
+            {
+                MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void inicia_descarga(int[] idnv, string carpeta_elegida)
         {
-            pBar_descarga.Visible = true; 
+            pBar_descarga.Visible = true;
             lb_texto_descarga.Visible = true;
 
             pBar_descarga.Minimum = 1;
@@ -1862,7 +1866,7 @@ namespace PuntoDeVentaV2
 
             if (opc == 4)
             {
-                for(var i= 0; i < idnv.Length; i++)
+                for (var i = 0; i < idnv.Length; i++)
                 {
                     string ruta_archivos = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idnv[i];
                     // Si la conexión es en red cambia ruta de guardado
@@ -1870,7 +1874,7 @@ namespace PuntoDeVentaV2
                     {
                         ruta_archivos = $@"\\{servidor}\Archivos PUDVE\Facturas\PDF\VENTA_" + idnv[i];
                     }
-                        
+
 
                     if (!File.Exists(ruta_archivos + ".pdf"))
                     {
@@ -1894,7 +1898,7 @@ namespace PuntoDeVentaV2
                     }
 
                     File.Copy(ruta_archivos + ".pdf", ruta_new_carpeta + "\\VENTA_" + idnv[i] + ".pdf");
-                } 
+                }
             }
 
 
@@ -1919,7 +1923,7 @@ namespace PuntoDeVentaV2
                     f.Delete();
                 }
 
-                Directory.Delete(ruta_new_carpeta); 
+                Directory.Delete(ruta_new_carpeta);
             }
 
 

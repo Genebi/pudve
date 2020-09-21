@@ -2506,6 +2506,8 @@ namespace PuntoDeVentaV2
             //Variables y arreglos para el contenido de la tabla
             float[] anchoColumnas = new float[] { };
 
+            string txtFormaPago = string.Empty;
+            string strFormaPago = string.Empty;
             string txtDescripcion = string.Empty;
             string txtCantidad = string.Empty;
             string txtImporte = string.Empty;
@@ -2524,9 +2526,35 @@ namespace PuntoDeVentaV2
             int altoLogo = 0;
             int espacio = 0;
 
+            if (statusVenta.Equals("1"))
+            {
+                strFormaPago = "Efectivo";
+            }
+            else if (statusVenta.Equals("2"))
+            {
+                strFormaPago = "Presupuesto";
+            }
+            else if (statusVenta.Equals("3"))
+            {
+                strFormaPago = "Cancelada";
+            }
+            else if (statusVenta.Equals("4"))
+            {
+                strFormaPago = "Crédito";
+            }
+            else if (statusVenta.Equals("5"))
+            {
+                strFormaPago = "Factura";
+            }
+            else if (statusVenta.Equals("6"))
+            {
+                strFormaPago = "Presupuestos";
+            }
+
             if (tipoPapel == 80)
             {
                 anchoColumnas = new float[] { 7f, 24f, 10f, 10f, 10f };
+                txtFormaPago = "Forma de pago:";
                 txtDescripcion = "Descripción";
                 txtCantidad = "Cant.";
                 txtImporte = "Imp.";
@@ -2547,6 +2575,7 @@ namespace PuntoDeVentaV2
             else if (tipoPapel == 57)
             {
                 anchoColumnas = new float[] { 7f, 20f, 11f, 11f, 13f };
+                txtFormaPago = "Forma de pago:";
                 txtDescripcion = "Descripción";
                 txtImporte = "Imp.";
                 txtCantidad = "Cant.";
@@ -2619,6 +2648,8 @@ namespace PuntoDeVentaV2
             titulo.Alignment = Element.ALIGN_CENTER;
             domicilio.Alignment = Element.ALIGN_CENTER;
             domicilio.SetLeading(espacio, 0);
+
+            Paragraph FormPago = new Paragraph(txtFormaPago + " " + strFormaPago, fuenteNormal);
 
             /**************************************
              ** Tabla con los productos vendidos **
@@ -2768,6 +2799,7 @@ namespace PuntoDeVentaV2
 
             ticket.Add(titulo);
             ticket.Add(domicilio);
+            ticket.Add(FormPago);
             ticket.Add(tabla);
             ticket.Add(mensaje);
 

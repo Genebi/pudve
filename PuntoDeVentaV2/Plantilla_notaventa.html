@@ -108,7 +108,11 @@
         <br />
     }
 
-
+    @if(Model.FormaPago != ""){
+        <span>Forma de pago:</span>
+        <span class="saltos">@Model.FormaPago</span>
+    }
+    <br />
 
     <!-- CONCEPTOS -->
 
