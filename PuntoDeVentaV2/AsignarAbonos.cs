@@ -297,9 +297,15 @@ namespace PuntoDeVentaV2
         }
 
         private void txtEfectivo_KeyUp(object sender, KeyEventArgs e)
-        {
-
+        {            
             CalcularCambio();
+
+            var cantidadEfectivo = txtEfectivo.Text;
+            if (cantidadEfectivo.Equals("."))
+            {
+                txtEfectivo.Text = "0.";
+                txtEfectivo.Select(txtEfectivo.Text.Length, 0);
+            }
         }
 
         private void GenerarTicket(string[] info)
@@ -438,6 +444,46 @@ namespace PuntoDeVentaV2
             catch (Exception ex)
             {
                 MessageBox.Show("Error No: " + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtTarjeta_KeyUp(object sender, KeyEventArgs e)
+        {
+            var cantidadEfectivo = txtTarjeta.Text;
+            if (cantidadEfectivo.Equals("."))
+            {
+                txtTarjeta.Text = "0.";
+                txtTarjeta.Select(txtTarjeta.Text.Length, 0);
+            }
+        }
+
+        private void txtVales_KeyUp(object sender, KeyEventArgs e)
+        {
+            var cantidadEfectivo = txtVales.Text;
+            if (cantidadEfectivo.Equals("."))
+            {
+                txtVales.Text = "0.";
+                txtVales.Select(txtVales.Text.Length, 0);
+            }
+        }
+
+        private void txtCheque_KeyUp(object sender, KeyEventArgs e)
+        {
+            var cantidadEfectivo = txtCheque.Text;
+            if (cantidadEfectivo.Equals("."))
+            {
+                txtCheque.Text = "0.";
+                txtCheque.Select(txtCheque.Text.Length, 0);
+            }
+        }
+
+        private void txtTransferencia_KeyUp(object sender, KeyEventArgs e)
+        {
+            var cantidadEfectivo = txtTransferencia.Text;
+            if (cantidadEfectivo.Equals("."))
+            {
+                txtTransferencia.Text = "0.";
+                txtTransferencia.Select(txtTransferencia.Text.Length, 0);
             }
         }
     }
