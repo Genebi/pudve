@@ -61,7 +61,14 @@ namespace PuntoDeVentaV2
             DataTable dt;
 
             NombreProdFinal = NombreProd;
-            StockProdFinal = StockProd;
+            if (StockProd.Equals("N/A"))
+            {
+                StockProdFinal = "0";
+            }
+            else
+            {
+                StockProdFinal = StockProd;
+            }
             PrecioProdFinal = PrecioProd;
             ClaveInternaFinal = ClaveInterna;
             CodigoBarrasFinal = CodigoBarras;
