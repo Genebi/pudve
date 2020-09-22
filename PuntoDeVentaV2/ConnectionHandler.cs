@@ -87,8 +87,17 @@ namespace PuntoDeVentaV2
         public static DateTime fechaGeneral;
 
         float anticiposAplicados2 = 0f;
-        int anticiposAplicados = 0;
-        double abonos;
+        //int anticiposAplicados = 0;
+        //double abonos;
+
+        //Variables para anticipos y abonos
+        float anticiposAplicados = 0f;
+        float abonos = 0f;
+        float abonoEfectivoI = 0f;
+        float abonoTarjetaI = 0f;
+        float abonoValesI = 0f;
+        float abonoChequeI = 0f;
+        float abonoTransferenciaI = 0f;
 
         #region declare
         //public MySqlConnection Con;
@@ -273,16 +282,20 @@ namespace PuntoDeVentaV2
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
             {
                 MySqlCommand agregar = conexion.CreateCommand();
-conexion.Open();
+                conexion.Open();
 
-                agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, anticiposUtilizadosVentas, totalVentas,  
+                agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, abonosVentas, anticiposUtilizadosVentas, totalVentas,  
+                                                                  efectivoAbonos, tarjetaAbonos, valesAbonos, chequeAbonos, transferenciaAbonos, totalAbonos,
                                                                   efectivoAnticipos, tarjetaAnticipos, valesAnticipos, chequeAnticipos, transferenciaAnticipos, totalAnticipos,   
                                                                   efectivoDineroAgregado, tarjetaDineroAgregado, valesDineroAgregado, chequeDineroAgregado, transferenciaDineroAgregado, totalDineroAgregado,   
+                                                                  efectivoRetirado, tarjetaRetirado, valesRetirado, chequeRetirado, transferenciaRetirado, anticiposUtilizadosRetiro, totalRetirado,
                                                                   efectivoTotalCaja, tarjetaTotalCaja, valesTotalCaja, chequeTotalCaja, transferenciaTotalCaja, creditoTotalCaja, anticiposUtilizadosTotalCaja, saldoInicialTotalCaja, subtotalEnCajaTotalCaja, dineroRetiradoTotalCaja, totalEnCajaTotalCaja, 
                                                                   fechaActualizacion, nickUsuario, idUsuario) 
-                                                         VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{anticipos1}', '{totalVentas}',
+                                                         VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{abonos}', '{anticipos1}', '{totalVentas}',
+                                                                 '{abonoEfectivoI}', '{abonoTarjetaI}', '{abonoValesI}', '{abonoChequeI}', '{abonoTransferenciaI}', '{abonos}',
                                                                  '{aEfectivo}', '{aTarjeta}', '{aVales}', '{aCheque}', '{aTrans}', '{totalAnticipos}', 
-                                                                 '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}',  
+                                                                 '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}', 
+                                                                 '{retiroEfectivo}', '{retiroTarjeta}', '{retiroVales}', '{retiroCheque}', '{retiroTrans}', '{anticipos1}','{dineroRetirado}', 
                                                                  '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos1}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}',
                                                                  '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{userNickName}', '{FormPrincipal.userID.ToString()}')";
                 int add = agregar.ExecuteNonQuery();
@@ -415,6 +428,14 @@ conexion.Open();
             vAnticipos = 0f;
             totalVentas = 0f;
 
+            anticiposAplicados = 0f;
+            abonoEfectivoI = 0f;
+            abonoTarjetaI = 0f;
+            abonoValesI = 0f;
+            abonoChequeI = 0f;
+            abonoTransferenciaI = 0f;
+            abonos = 0f;
+
             aEfectivo = 0f;
             aTarjeta = 0f;
             aVales = 0f;
@@ -441,6 +462,13 @@ conexion.Open();
             subtotal = 0f;
             dineroRetirado = 0f;
             totalCaja = 0f;
+
+            retiroEfectivo = 0f;
+            retiroTarjeta = 0f;
+            retiroVales = 0f;
+            retiroCheque = 0f;
+            retiroTrans = 0f;
+            retiroCredito = 0f;
 
             //  Apartado de Productos  //
             nombreP = "";
@@ -500,7 +528,7 @@ conexion.Open();
                     {
                         consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
                     }
-                    anticiposAplicados = Convert.ToInt32(consultaAnticipoAplicado); //Hasta esta linea.
+                    anticiposAplicados = float.Parse(consultaAnticipoAplicado); //Hasta esta linea.
                 }
                 //Abonos
                 var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
@@ -513,13 +541,24 @@ conexion.Open();
                     }
                     DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
 
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     var abono = "";
+                    var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
                     foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
                     {
                         abono = cantidadAbono["sum(Total)"].ToString();
+                        abonoEfectivo = cantidadAbono["sum(Efectivo)"].ToString();
+                        abonoTarjeta = cantidadAbono["sum(Tarjeta)"].ToString();
+                        abonoVales = cantidadAbono["sum(Vales)"].ToString();
+                        abonoCheque = cantidadAbono["sum(Cheque)"].ToString();
+                        abonoTransferencia = cantidadAbono["sum(Transferencia)"].ToString();
                     }
                     abonos = float.Parse(abono);
+                    abonoEfectivoI = float.Parse(abonoEfectivo);
+                    abonoTarjetaI = float.Parse(abonoTarjeta);
+                    abonoValesI = float.Parse(abonoVales);
+                    abonoChequeI = float.Parse(abonoCheque);
+                    abonoTransferenciaI = float.Parse(abonoTransferencia);
                 }
             }
             catch
@@ -605,12 +644,12 @@ conexion.Open();
             }
 
             // Apartado TOTAL EN CAJA
-            efectivo = vEfectivo + aEfectivo + dEfectivo;
-            tarjeta = vTarjeta + aTarjeta + dTarjeta;
-            vales = vVales + aVales + dVales;
-            cheque = vCheque + aCheque + dCheque;
-            trans = vTrans + aTrans + dTrans;
-            credito = vCredito;
+            efectivo = vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI;
+            tarjeta = vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI;
+            vales = vVales + aVales + dVales + abonoValesI;
+            cheque = vCheque + aCheque + dCheque + abonoChequeI;
+            trans = vTrans + aTrans + dTrans + abonoTransferenciaI ;
+            credito = vCredito ;
             anticipos1 = totalAnticipos + anticiposAplicados/* totalAnticipos*/ /*vAnticipos*/;
             subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*/ + saldoInicial;
             totalCaja = (subtotal - dineroRetirado);
