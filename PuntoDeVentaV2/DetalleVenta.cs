@@ -180,6 +180,7 @@ namespace PuntoDeVentaV2
                 {
                     lbEliminarCliente.Visible = true;
                 }
+                cliente = string.Empty;
             };
 
             clientes.ShowDialog();
