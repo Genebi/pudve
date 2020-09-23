@@ -111,8 +111,12 @@
     <!-- Forma de Pago -->
 
     @if(Model.FormaPago != ""){
-        <span>Forma de pago:</span>
+        <span class="negritas">Forma de pago:</span>
         <span class="saltos">@Model.FormaPago</span>
+    }
+    else if(Model.Anticipo != 0M){
+        <span class="negritas">Forma de pago:</span>
+        <span class="saltos">Anticipo</span>
     }
     <br />
 
