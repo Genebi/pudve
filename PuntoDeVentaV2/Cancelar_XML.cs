@@ -167,6 +167,10 @@ namespace PuntoDeVentaV2
                 if(r_codigo == "201")
                 {
                     File.WriteAllText(ruta_acuse, response.acuse_cancelacion);
+
+                    // Resta timbre
+
+                    //cn.EjecutarConsulta(cs.descontar_timbres(id_usuario));
                 }
                 
 

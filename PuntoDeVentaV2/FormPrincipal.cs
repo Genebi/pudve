@@ -1010,5 +1010,72 @@ namespace PuntoDeVentaV2
 
             Utilidades.EnviarEmail(html, asunto, email);
         }
+
+        private void consultar_estado_timbres_Tick(object sender, EventArgs e)
+        {
+            ThreadStart delegado = new ThreadStart(vtimbres);
+            Thread hilo = new Thread(delegado);
+            hilo.Start();
+        }
+
+        private void vtimbres()
+        {
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection c = new MySqlConnection();
+                c.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+
+                try
+                {
+                    int cantidad_timbres = 0;
+                    string fecha_actual = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+
+                    c.Open();
+
+                    MySqlCommand consulta = c.CreateCommand();
+
+                    // MySQL: Consulta si se han agregado timbres al usuario
+                    consulta.CommandText = $"SELECT * FROM historial_timbres WHERE usuario='{userNickName}' AND se_agregaron='0'";
+                    MySqlDataReader dr = consulta.ExecuteReader();
+
+
+                    while (dr.Read())
+                    {
+                        Console.WriteLine("WHILE" + dr.GetString(6) + " convertido= " + Convert.ToInt32(dr.GetString(6)));
+                        cantidad_timbres += Convert.ToInt32(dr.GetString(6));
+                    }
+
+                    dr.Close();
+
+
+                    if (cantidad_timbres > 0)
+                    {
+                        // SQLite: Agrega timbres a usuario
+                        cn.EjecutarConsulta($"UPDATE Usuarios SET timbres= timbres + '{cantidad_timbres}' WHERE ID='{FormPrincipal.userID}'");
+
+                        // MySQL: Indicamos que los timbres han sido agregados
+                        string editar = $"UPDATE historial_timbres SET se_agregaron='1', fecha_asignacion='{fecha_actual}' WHERE usuario='{userNickName}' AND se_agregaron='0'";
+
+                        MySqlCommand edi = new MySqlCommand(editar, c);
+                        edi.ExecuteReader();
+                    }
+
+
+                    c.Close();
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Sin conexión", "", MessageBoxButtons.OK);
+
+            }
+            Console.WriteLine("- timbres fin -");
+        }
     }
 }

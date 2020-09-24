@@ -1225,6 +1225,10 @@ namespace PuntoDeVentaV2
                 };
                 cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(9, datos_xml));
 
+
+                // Resta timbre
+
+                //cn.EjecutarConsulta(cs.descontar_timbres(id_usuario));
             }
             catch (FaultException fex)
             {

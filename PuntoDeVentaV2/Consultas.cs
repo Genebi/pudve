@@ -1186,5 +1186,12 @@ namespace PuntoDeVentaV2
 
             return cons;
         }
+
+        public string descontar_timbres(int id)
+        {
+            string ed = $"UPDATE Usuarios SET timbres= timbres - 1 WHERE ID='{id}'";
+
+            return ed;
+        }
     }
 }
