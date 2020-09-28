@@ -1043,7 +1043,7 @@ namespace PuntoDeVentaV2
 
                     while (dr.Read())
                     {
-                        Console.WriteLine("WHILE" + dr.GetString(6) + " convertido= " + Convert.ToInt32(dr.GetString(6)));
+                        //Console.WriteLine("WHILE" + dr.GetString(6) + " convertido= " + Convert.ToInt32(dr.GetString(6)));
                         cantidad_timbres += Convert.ToInt32(dr.GetString(6));
                     }
 
@@ -1075,7 +1075,6 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Sin conexión", "", MessageBoxButtons.OK);
 
             }
-            Console.WriteLine("- timbres fin -");
         }
     }
 }

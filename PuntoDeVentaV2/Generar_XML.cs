@@ -1228,7 +1228,7 @@ namespace PuntoDeVentaV2
 
                 // Resta timbre
 
-                //cn.EjecutarConsulta(cs.descontar_timbres(id_usuario));
+                cn.EjecutarConsulta(cs.descontar_timbres(id_usuario));
             }
             catch (FaultException fex)
             {

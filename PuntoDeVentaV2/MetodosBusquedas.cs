@@ -2166,7 +2166,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
-            timbres = 3;
+            //timbres = 3;
             return timbres;
         }
 
