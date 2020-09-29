@@ -4183,7 +4183,7 @@ namespace PuntoDeVentaV2
         {
             if (txtDescuentoGeneral.Text == ".")
             {
-                txtDescuentoGeneral.Text = "0.0";
+                txtDescuentoGeneral.Text = "0.";
                 txtDescuentoGeneral.Select(txtDescuentoGeneral.Text.Length, 0);
             }
         }
