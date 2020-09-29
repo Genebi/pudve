@@ -1138,20 +1138,23 @@ namespace PuntoDeVentaV2
                     {
                         txtStockMinimo.Text = Convert.ToString(minimo);
                         txtStockMaximo.Text = Convert.ToString(maximo);
+                        return;
                     }
                     else if (maximo <= minimo)
                     {
-                        MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         var numero = Convert.ToInt32(minimo);
                         var agregar = numero + 1;
                         txtStockMaximo.Text = agregar.ToString();
                         txtStockMaximo.Focus();
+                        return;
                     }
                     else if (maximo > minimo)
                     {
                         stockMinimo = minimo.ToString();
                         stockNecesario = maximo.ToString();
+                        return;
                     }
                 }
             }
@@ -1327,19 +1330,31 @@ namespace PuntoDeVentaV2
                     var minimo = float.Parse(minimoAux);
                     var maximo = float.Parse(maximoAux);
 
-                    if (maximo <= minimo)
+                    if ((minimo.Equals(0)) && (maximo.Equals(0)))
                     {
-                        //MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("El stock máximo y mínimo no puede ser cero", "Mensaje del Sistema Stock Cero", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        var numero = Convert.ToInt32(minimo);
+                        var agregar = numero + 1;
+                        txtStockMaximo.Text = agregar.ToString();
+                        txtStockMaximo.Focus();
+                        return;
+                    }
+                    else if (maximo <= minimo)
+                    {
+                        MessageBox.Show("El stock máximo no puede ser menor/igual \nque stock mínimo", "Mensaje del Sistema Stock Menor", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         var numero = Convert.ToInt32(minimo);
                         var agregar = numero + 1;
                         txtStockMaximo.Text=agregar.ToString();
                         txtStockMaximo.Focus();
+                        return;
                     }
                     else if (maximo > minimo)
                     {
                         stockMinimo = minimo.ToString();
                         stockNecesario = maximo.ToString();
+                        return;
                     }
                 }
             }
