@@ -6003,10 +6003,17 @@ namespace PuntoDeVentaV2
             clearSetUpTableLayoutPanel("Producto");
 
             // creamos 6 columnas en el TableLayoutPanel
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i <= 8; i++)
             {
                 tLPProducto.ColumnCount++;
-                tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 134.16F));
+                if (i.Equals(2) || i.Equals(5) || i.Equals(8))
+                {
+                    tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25.33F));
+                }
+                else
+                {
+                    tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 122.33F));
+                }
             }
             // creamos 7 filas en el TableLayoutPanel
             for (int i = 0; i <= 6; i++)
@@ -6026,6 +6033,9 @@ namespace PuntoDeVentaV2
             txtStockMinimo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtStockMinimo.TabIndex = 1;
             txtStockMinimo.TabStop = true;
+            // label de esclamation txtStockMinimo
+            lblStockMinimo.Visible = true;
+            lblStockMinimo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             // label para Stock Maximo
             label12.Visible = true;
             label12.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -6046,10 +6056,11 @@ namespace PuntoDeVentaV2
 
             tLPProducto.Controls.Add(label1, 0, 0);               // Stock Minimo Label
             tLPProducto.Controls.Add(txtStockMinimo, 1, 0);       // Stock Minimo TextBox
-            tLPProducto.Controls.Add(label12, 2, 0);              // Stock Maximo Label
-            tLPProducto.Controls.Add(txtStockMaximo, 3, 0);       // Stock Maximo TextBox
-            tLPProducto.Controls.Add(label6, 4, 0);               // Stock Label
-            tLPProducto.Controls.Add(txtStockProducto, 5, 0);     // Stock TextBox
+            tLPProducto.Controls.Add(lblStockMinimo, 2, 0);       // Label de exclamation Stock Minimo
+            tLPProducto.Controls.Add(label12, 3, 0);              // Stock Maximo Label
+            tLPProducto.Controls.Add(txtStockMaximo, 4, 0);       // Stock Maximo TextBox
+            tLPProducto.Controls.Add(label6, 6, 0);               // Stock Label
+            tLPProducto.Controls.Add(txtStockProducto, 7, 0);     // Stock TextBox
 
             #endregion End Row 1
 
@@ -6085,10 +6096,10 @@ namespace PuntoDeVentaV2
 
             tLPProducto.Controls.Add(label7, 0, 1);               // Precio Compra Label
             tLPProducto.Controls.Add(txtPrecioCompra, 1, 1);      // Precio Compra TextBox
-            tLPProducto.Controls.Add(label4, 2, 1);               // Precio Venta Label
-            tLPProducto.Controls.Add(txtPrecioProducto, 3, 1);    // Precio Venta TextBox
-            tLPProducto.Controls.Add(label5, 4, 1);               // Clave Interna Label
-            tLPProducto.Controls.Add(txtClaveProducto, 5, 1);     // Clave Interna TextBox
+            tLPProducto.Controls.Add(label4, 3, 1);               // Precio Venta Label
+            tLPProducto.Controls.Add(txtPrecioProducto, 4, 1);    // Precio Venta TextBox
+            tLPProducto.Controls.Add(label5, 6, 1);               // Clave Interna Label
+            tLPProducto.Controls.Add(txtClaveProducto, 7, 1);     // Clave Interna TextBox
 
             #endregion End Row 2
 
@@ -6117,7 +6128,8 @@ namespace PuntoDeVentaV2
             tLPProducto.Controls.Add(label2, 0, 2);               // Código de Barras Label
             tLPProducto.Controls.Add(txtCodigoBarras, 1, 2);      // Código de Barras TextBox
             tLPProducto.Controls.Add(btnGenerarCB, 2, 2);         // Generar Button
-            tLPProducto.Controls.Add(PImagen, 4, 2);              // Cuadro para agregar Imagen Panel
+            tLPProducto.SetColumnSpan(btnGenerarCB, 2);           // Columnas hacia derecha
+            tLPProducto.Controls.Add(PImagen, 6, 2);              // Cuadro para agregar Imagen Panel
             tLPProducto.SetRowSpan(PImagen, 4);                   // Filas hacia abajo
             tLPProducto.SetColumnSpan(PImagen, 2);                // Columnas hacia derecha
 
@@ -6150,8 +6162,8 @@ namespace PuntoDeVentaV2
             button1.TabIndex = 11;
             button1.TabStop = true;
 
-            tLPProducto.Controls.Add(lblCantPaqServ, 4, 6);       // Relacionar Combo/Servicio Label9
-            tLPProducto.Controls.Add(button1, 5, 6);              // Combo / Servicio Button2
+            tLPProducto.Controls.Add(lblCantPaqServ, 6, 6);       // Relacionar Combo/Servicio Label9
+            tLPProducto.Controls.Add(button1, 7, 6);              // Combo / Servicio Button2
 
             #endregion End Row 6
         }
@@ -6198,6 +6210,8 @@ namespace PuntoDeVentaV2
             this.Controls.Add(button1);
             txtCantPaqServ.Visible = false;
             this.Controls.Add(txtCantPaqServ);
+            lblStockMinimo.Visible = false;
+            this.Controls.Add(lblStockMinimo);
         }
 
         private void agregarCombo()

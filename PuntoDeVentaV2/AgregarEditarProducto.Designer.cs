@@ -76,6 +76,7 @@
             this.PConteidoProducto = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
+            this.lblStockMinimo = new System.Windows.Forms.Label();
             this.tLPServicio = new System.Windows.Forms.TableLayoutPanel();
             this.tLPCombo = new System.Windows.Forms.TableLayoutPanel();
             this.tLPProducto = new System.Windows.Forms.TableLayoutPanel();
@@ -670,6 +671,7 @@
             // 
             // PDetalle
             // 
+            this.PDetalle.Controls.Add(this.lblStockMinimo);
             this.PDetalle.Controls.Add(this.tLPServicio);
             this.PDetalle.Controls.Add(this.tLPCombo);
             this.PDetalle.Controls.Add(this.tLPProducto);
@@ -700,6 +702,14 @@
             this.PDetalle.Name = "PDetalle";
             this.PDetalle.Size = new System.Drawing.Size(838, 287);
             this.PDetalle.TabIndex = 2;
+            // 
+            // lblStockMinimo
+            // 
+            this.lblStockMinimo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lblStockMinimo.Location = new System.Drawing.Point(6, 263);
+            this.lblStockMinimo.Name = "lblStockMinimo";
+            this.lblStockMinimo.Size = new System.Drawing.Size(20, 23);
+            this.lblStockMinimo.TabIndex = 37;
             // 
             // tLPServicio
             // 
@@ -988,5 +998,6 @@
         private System.Windows.Forms.TableLayoutPanel tLPProducto;
         private System.Windows.Forms.TableLayoutPanel tLPCombo;
         private System.Windows.Forms.TableLayoutPanel tLPServicio;
+        private System.Windows.Forms.Label lblStockMinimo;
     }
 }
