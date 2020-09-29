@@ -1134,7 +1134,12 @@ namespace PuntoDeVentaV2
                     var minimo = float.Parse(minimoAux);
                     var maximo = float.Parse(maximoAux);
 
-                    if (maximo <= minimo)
+                    if ((minimo.Equals(0) && (maximo.Equals(0))))
+                    {
+                        txtStockMinimo.Text = Convert.ToString(minimo);
+                        txtStockMaximo.Text = Convert.ToString(maximo);
+                    }
+                    else if (maximo <= minimo)
                     {
                         MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
