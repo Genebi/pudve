@@ -1448,20 +1448,20 @@ namespace PuntoDeVentaV2
 
         private void tLPCombo_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            //if ((e.Column + e.Row) % 2 == 1)
-            //{
-            //    using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
-            //    {
-            //        e.Graphics.FillRectangle(brush, e.CellBounds);
-            //    }
-            //}
-            //else
-            //{
-            //    using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
-            //    {
-            //        e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
-            //    }
-            //}
+            if ((e.Column + e.Row) % 2 == 1)
+            {
+                using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
+                {
+                    e.Graphics.FillRectangle(brush, e.CellBounds);
+                }
+            }
+            else
+            {
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
+                {
+                    e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
+                }
+            }
         }
 
         public void PrimerCodBarras()
@@ -5994,6 +5994,9 @@ namespace PuntoDeVentaV2
             tituloSeccion.Text = tituloSeccion.Text.ToUpper();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void agregarProducto()
         {
             // pasar controles a form principal
@@ -6045,6 +6048,9 @@ namespace PuntoDeVentaV2
             txtStockMaximo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtStockMaximo.TabIndex = 2;
             txtStockMaximo.TabStop = true;
+            //Label de Excalmation Stock
+            lbStockMaximo.Visible = true;
+            lbStockMaximo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             // label de cantidad Stock Compra
             label6.Visible = true;
             label6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -6053,14 +6059,19 @@ namespace PuntoDeVentaV2
             txtStockProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtStockProducto.TabIndex = 3;
             txtStockProducto.TabStop = true;
+            //Label de Excalmation Stock
+            lbStock.Visible = true;
+            lbStock.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             tLPProducto.Controls.Add(label1, 0, 0);               // Stock Minimo Label
             tLPProducto.Controls.Add(txtStockMinimo, 1, 0);       // Stock Minimo TextBox
             tLPProducto.Controls.Add(lblStockMinimo, 2, 0);       // Label de exclamation Stock Minimo
             tLPProducto.Controls.Add(label12, 3, 0);              // Stock Maximo Label
             tLPProducto.Controls.Add(txtStockMaximo, 4, 0);       // Stock Maximo TextBox
+            tLPProducto.Controls.Add(lbStockMaximo, 5, 0);        // Label de Excalmation Stock Maximo
             tLPProducto.Controls.Add(label6, 6, 0);               // Stock Label
             tLPProducto.Controls.Add(txtStockProducto, 7, 0);     // Stock TextBox
+            tLPProducto.Controls.Add(lbStock, 8, 0);              // Label de Excalmation Stock
 
             #endregion End Row 1
 
@@ -6075,6 +6086,10 @@ namespace PuntoDeVentaV2
             txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPrecioCompra.TabIndex = 4;
             txtPrecioCompra.TabStop = true;
+            // Label de exclamation Precio de Compra
+            lbPrecioCompra.Visible = true;
+            lbPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
             // label para Precio Venta
             label4.Visible = true;
             label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -6084,6 +6099,10 @@ namespace PuntoDeVentaV2
             txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPrecioProducto.TabIndex = 5;
             txtPrecioProducto.TabStop = true;
+            // Label de exclamation Precio de Venta
+            lbPrecioVenta.Visible = true;
+            lbPrecioVenta.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
             // label para Clave Interna
             label5.Visible = true;
             label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -6093,13 +6112,19 @@ namespace PuntoDeVentaV2
             txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtClaveProducto.TabIndex = 6;
             txtClaveProducto.TabStop = true;
+            // Label de exclamation Clave Interna
+            lbClaveInterna.Visible = true;
+            lbClaveInterna.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             tLPProducto.Controls.Add(label7, 0, 1);               // Precio Compra Label
             tLPProducto.Controls.Add(txtPrecioCompra, 1, 1);      // Precio Compra TextBox
+            tLPProducto.Controls.Add(lbPrecioCompra, 2, 1);       // Label de exclamation Precio de Compra
             tLPProducto.Controls.Add(label4, 3, 1);               // Precio Venta Label
             tLPProducto.Controls.Add(txtPrecioProducto, 4, 1);    // Precio Venta TextBox
+            tLPProducto.Controls.Add(lbPrecioVenta, 5, 1);        // Label de exclamation Precio de Venta
             tLPProducto.Controls.Add(label5, 6, 1);               // Clave Interna Label
             tLPProducto.Controls.Add(txtClaveProducto, 7, 1);     // Clave Interna TextBox
+            tLPProducto.Controls.Add(lbClaveInterna, 8, 1);       // Label de exclamation Clave Interna
 
             #endregion End Row 2
 
@@ -6212,6 +6237,8 @@ namespace PuntoDeVentaV2
             this.Controls.Add(txtCantPaqServ);
             lblStockMinimo.Visible = false;
             this.Controls.Add(lblStockMinimo);
+            lbPrecioCompra.Visible = false;
+            this.Controls.Add(lbPrecioCompra);
         }
 
         private void agregarCombo()
@@ -6223,10 +6250,17 @@ namespace PuntoDeVentaV2
             clearSetUpTableLayoutPanel("Combo");
 
             // creamos 5 columnas en el TableLayoutPanel
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 7; i++)
             {
                 tLPCombo.ColumnCount++;
-                tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+                if (i.Equals(2) || i.Equals(5))
+                {
+                    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+                }
+                else
+                {
+                    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51F));
+                }
             }
             // creamos 6 filas en el TableLayoutPanel
             for (int i = 0; i < 6; i++)
@@ -6246,6 +6280,10 @@ namespace PuntoDeVentaV2
             txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPrecioCompra.TabIndex = 1;
             txtPrecioCompra.TabStop = true;
+            // Label de exclamation Precio Compra
+            lbPrecioCompra.Visible = true;
+            lbPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
             // Label para Precio Venta
             label4.Visible = true;
             label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -6255,11 +6293,16 @@ namespace PuntoDeVentaV2
             txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPrecioProducto.TabIndex = 2;
             txtPrecioProducto.TabStop = true;
+            // Label de exclamation Precio Venta
+            lbPrecioVenta.Visible = true;
+            lbPrecioVenta.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             tLPCombo.Controls.Add(label7, 0, 0);               // Precio Compra Label
             tLPCombo.Controls.Add(txtPrecioCompra, 1, 0);      // Precio Compra TextBox
-            tLPCombo.Controls.Add(label4, 2, 0);               // Precio Venta Label
-            tLPCombo.Controls.Add(txtPrecioProducto, 3, 0);    // Precio Venta TextBox
+            tLPCombo.Controls.Add(lbPrecioCompra, 2, 0);       // Label de exclamation Precio Compra
+            tLPCombo.Controls.Add(label4, 3, 0);               // Precio Venta Label
+            tLPCombo.Controls.Add(txtPrecioProducto, 4, 0);    // Precio Venta TextBox
+            tLPCombo.Controls.Add(lbPrecioVenta, 5, 0);        // Label de exclamation Precio Venta
 
             #endregion End Row 1
 
