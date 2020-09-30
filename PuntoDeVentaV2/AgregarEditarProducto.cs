@@ -1448,20 +1448,20 @@ namespace PuntoDeVentaV2
 
         private void tLPCombo_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            if ((e.Column + e.Row) % 2 == 1)
-            {
-                using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
-                {
-                    e.Graphics.FillRectangle(brush, e.CellBounds);
-                }
-            }
-            else
-            {
-                using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
-                {
-                    e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
-                }
-            }
+            //if ((e.Column + e.Row) % 2 == 1)
+            //{
+            //    using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
+            //    {
+            //        e.Graphics.FillRectangle(brush, e.CellBounds);
+            //    }
+            //}
+            //else
+            //{
+            //    using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
+            //    {
+            //        e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
+            //    }
+            //}
         }
 
         public void PrimerCodBarras()
@@ -6253,13 +6253,21 @@ namespace PuntoDeVentaV2
             for (int i = 0; i < 7; i++)
             {
                 tLPCombo.ColumnCount++;
+                //if (i.Equals(2) || i.Equals(5))
+                //{
+                //    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 22F));
+                //}
+                //else
+                //{
+                //    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 115F));
+                //}
                 if (i.Equals(2) || i.Equals(5))
                 {
-                    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+                    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25F));
                 }
                 else
                 {
-                    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51F));
+                    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
                 }
             }
             // creamos 6 filas en el TableLayoutPanel
@@ -6317,6 +6325,10 @@ namespace PuntoDeVentaV2
             txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtClaveProducto.TabIndex = 3;
             txtClaveProducto.TabStop = true;
+            // Label de exclamation Clave Interna
+            lbClaveInterna.Visible = true;
+            lbClaveInterna.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
             // Label para Código de Barras
             label2.Visible = true;
             label2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -6326,17 +6338,21 @@ namespace PuntoDeVentaV2
             txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtCodigoBarras.TabIndex = 4;
             txtCodigoBarras.TabStop = true;
+
             // Button para Generar Código de Barras
             btnGenerarCB.Visible = true;
             btnGenerarCB.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             btnGenerarCB.TabIndex = 5;
             btnGenerarCB.TabStop = true;
 
+
             tLPCombo.Controls.Add(label5, 0, 1);               // Clave Interna Label
             tLPCombo.Controls.Add(txtClaveProducto, 1, 1);     // Clave Interna TextBox
-            tLPCombo.Controls.Add(label2, 2, 1);               // Código de Barras Label
-            tLPCombo.Controls.Add(txtCodigoBarras, 3, 1);      // Código de Barras TextBox
-            tLPCombo.Controls.Add(btnGenerarCB, 4, 1);         // Código de Barras Button
+            tLPCombo.Controls.Add(lbClaveInterna, 2, 1);       // Label de exclamation Clave Interna
+            tLPCombo.Controls.Add(label2, 3, 1);               // Código de Barras Label
+            tLPCombo.Controls.Add(txtCodigoBarras, 4, 1);      // Código de Barras TextBox
+            tLPCombo.Controls.Add(btnGenerarCB, 5, 1);         // Código de Barras Button
+            tLPCombo.SetColumnSpan(btnGenerarCB, 2);
 
             #endregion End Row 2
 
@@ -6365,7 +6381,8 @@ namespace PuntoDeVentaV2
             tLPCombo.Controls.Add(lblCantPaqServ, 0, 2);       // Relacionar con Combo/Servicio Label
             tLPCombo.Controls.Add(txtCantPaqServ, 1, 2);       // Relacionar con Combo/Servicio TextBox
             tLPCombo.Controls.Add(button1, 2, 2);              // Combo/Servicio Button
-            tLPCombo.Controls.Add(panelContenedor, 3, 2);      // Contenedor de Código Barras extra Panel
+            tLPCombo.SetColumnSpan(button1, 2);
+            tLPCombo.Controls.Add(panelContenedor, 4, 2);      // Contenedor de Código Barras extra Panel
             tLPCombo.SetColumnSpan(panelContenedor, 2);
             tLPCombo.SetRowSpan(panelContenedor, 2);
 
@@ -6395,10 +6412,17 @@ namespace PuntoDeVentaV2
             clearSetUpTableLayoutPanel("Servicio");
 
             // creamos 5 columnas en el TableLayoutPanel
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 7; i++)
             {
                 tLPServicio.ColumnCount++;
-                tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+                if (i.Equals(2) || i.Equals(5) )
+                {
+                    tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25F));
+                }
+                else
+                {
+                    tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+                }
             }
             // creamos 6 filas en el TableLayoutPanel
             for (int i = 0; i < 6; i++)
@@ -6418,6 +6442,10 @@ namespace PuntoDeVentaV2
             txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPrecioCompra.TabIndex = 1;
             txtPrecioCompra.TabStop = true;
+            // Label de exclamation Precio Compra
+            lbPrecioCompra.Visible = true;
+            lbPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
             // Label para Precio Venta
             label4.Visible = true;
             label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -6427,11 +6455,16 @@ namespace PuntoDeVentaV2
             txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPrecioProducto.TabIndex = 2;
             txtPrecioProducto.TabStop = true;
+            // Label de exclamation Precio Venta
+            lbPrecioVenta.Visible = true;
+            lbPrecioVenta.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             tLPServicio.Controls.Add(label7, 0, 0);               // Precio Compra Label
             tLPServicio.Controls.Add(txtPrecioCompra, 1, 0);      // Precio Compra TextBox
-            tLPServicio.Controls.Add(label4, 2, 0);               // Precio Venta Label
-            tLPServicio.Controls.Add(txtPrecioProducto, 3, 0);    // Precio Venta TextBox
+            tLPServicio.Controls.Add(lbPrecioCompra, 2, 0);       // Label de exclamation Precio Compra
+            tLPServicio.Controls.Add(label4, 3, 0);               // Precio Venta Label
+            tLPServicio.Controls.Add(txtPrecioProducto, 4, 0);    // Precio Venta TextBox
+            tLPServicio.Controls.Add(lbPrecioVenta, 5, 0);        // Label de exclamation Precio Venta
 
             #endregion End Row 1
 
@@ -6446,6 +6479,10 @@ namespace PuntoDeVentaV2
             txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtClaveProducto.TabIndex = 3;
             txtClaveProducto.TabStop = true;
+            // Label de exclamation Clave Interna
+            lbClaveInterna.Visible = true;
+            lbClaveInterna.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
             // Label para Código de Barras
             label2.Visible = true;
             label2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -6463,9 +6500,11 @@ namespace PuntoDeVentaV2
 
             tLPServicio.Controls.Add(label5, 0, 1);               // Clave Interna Label
             tLPServicio.Controls.Add(txtClaveProducto, 1, 1);     // Clave Interna TextBox
-            tLPServicio.Controls.Add(label2, 2, 1);               // Código de Barras Label
-            tLPServicio.Controls.Add(txtCodigoBarras, 3, 1);      // Código de Barras TextBox
-            tLPServicio.Controls.Add(btnGenerarCB, 4, 1);         // Código de Barras Button
+            tLPServicio.Controls.Add(lbClaveInterna, 2, 1);
+            tLPServicio.Controls.Add(label2, 3, 1);               // Código de Barras Label
+            tLPServicio.Controls.Add(txtCodigoBarras, 4, 1);      // Código de Barras TextBox
+            tLPServicio.Controls.Add(btnGenerarCB, 5, 1);         // Código de Barras Button
+            tLPServicio.SetColumnSpan(btnGenerarCB, 2);
 
             #endregion End Row 2
 
@@ -6494,7 +6533,8 @@ namespace PuntoDeVentaV2
             tLPServicio.Controls.Add(lblCantPaqServ, 0, 2);       // Clave Interna Label
             tLPServicio.Controls.Add(txtCantPaqServ, 1, 2);       // Clave Interna TextBox
             tLPServicio.Controls.Add(button1, 2, 2);              // Código de Barras Label
-            tLPServicio.Controls.Add(panelContenedor, 3, 2);      // Código de Barras TextBox
+            tLPServicio.SetColumnSpan(button1, 2);
+            tLPServicio.Controls.Add(panelContenedor, 4, 2);      // Código de Barras TextBox
             tLPServicio.SetColumnSpan(panelContenedor, 2);
             tLPServicio.SetRowSpan(panelContenedor, 2);
 
