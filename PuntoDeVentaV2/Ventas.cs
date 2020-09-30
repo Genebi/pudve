@@ -2171,6 +2171,9 @@ namespace PuntoDeVentaV2
                     if (ventaGuardada)
                     {
                         DatosVenta();
+                        idCliente = string.Empty;
+                        statusVenta = string.Empty;
+                        ventaGuardada = false;
                     }
                 };
 
