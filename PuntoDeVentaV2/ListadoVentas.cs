@@ -1402,7 +1402,7 @@ namespace PuntoDeVentaV2
 
             decimal total_general = suma_importe_concep - suma_descuento; //+ suma_importe_impuest;
 
-            if (total_general > anticipo)
+            if (total_general >= anticipo)
             {
                 total_general = total_general - anticipo;
             }
