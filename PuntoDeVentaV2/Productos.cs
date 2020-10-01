@@ -583,6 +583,7 @@ namespace PuntoDeVentaV2
                 btn.Size = new System.Drawing.Size(150, 150);
                 btn.Font = new System.Drawing.Font("Tahoma", 14, FontStyle.Bold | FontStyle.Italic);
                 btn.TextAlign = ContentAlignment.TopCenter;
+                var x = row["ProdImage"].ToString();
                 if (row["ProdImage"].ToString() == "" || row["ProdImage"].ToString() == null)
                 {
                     btn.ForeColor = Color.Red;
@@ -594,12 +595,25 @@ namespace PuntoDeVentaV2
                 }
                 else if (row["ProdImage"].ToString() != "" || row["ProdImage"].ToString() != null)
                 {
-                    btn.ForeColor = Color.Red;
-                    using (fs = new FileStream(fileSavePath + row["ProdImage"].ToString(), FileMode.Open))
+                    try
                     {
-                        btn.Image = System.Drawing.Image.FromStream(fs);
-                        btn.Image = new Bitmap(btn.Image, btn.Size);
+                        btn.ForeColor = Color.Red;
+                        using (fs = new FileStream(fileSavePath + row["ProdImage"].ToString(), FileMode.Open))
+                        {
+                            btn.Image = System.Drawing.Image.FromStream(fs);
+                            btn.Image = new Bitmap(btn.Image, btn.Size);
+                        }
                     }
+                    catch
+                    {
+                        btn.ForeColor = Color.Red;
+                        using (fs = new FileStream(fileSavePath + @"\no-image.png", FileMode.Open))
+                        {
+                            btn.Image = System.Drawing.Image.FromStream(fs);
+                            btn.Image = new Bitmap(btn.Image, btn.Size);
+                        }
+                    }
+                    
                 }
                 btn.Tag = row["ID"].ToString();
                 fLPShowPhoto.Controls.Add(btn);
