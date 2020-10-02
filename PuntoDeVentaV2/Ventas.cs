@@ -4220,5 +4220,13 @@ namespace PuntoDeVentaV2
             PBImagen.Refresh();
             timer_img_producto.Stop();
         }
+
+        private void Ventas_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
+            {
+                Application.OpenForms.OfType<ListadoVentasGuardadas>().First().Close();
+            }
+        }
     }
 }
