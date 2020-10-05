@@ -790,5 +790,12 @@ namespace PuntoDeVentaV2
 
             return TieneRegistros;
         }
+
+        public string getStringConnection()
+        {
+            var stringConnection = "datasource=127.0.0.1;port=6666;username=root;password=;";
+
+            return stringConnection;
+        }
     }
 }
