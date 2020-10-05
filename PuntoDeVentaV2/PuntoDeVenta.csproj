@@ -1308,6 +1308,9 @@
     <Content Include="PUDVE\BarCode\BarCode.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\BD\DataDictionary.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\BD\pudveDB.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -6091,6 +6094,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\youtube-square.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\gifs\cargando.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\gifs\loading.gif">

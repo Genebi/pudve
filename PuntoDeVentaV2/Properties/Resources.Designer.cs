@@ -2706,6 +2706,16 @@ namespace PuntoDeVentaV2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cargando {
+            get {
+                object obj = ResourceManager.GetObject("cargando", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cart_arrow_down {
             get {
                 object obj = ResourceManager.GetObject("cart_arrow_down", resourceCulture);
@@ -4365,6 +4375,16 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("database1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DataDictionary {
+            get {
+                object obj = ResourceManager.GetObject("DataDictionary", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -12342,7 +12362,7 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 7777000213
+        ///   Looks up a localized string similar to 7777000250
         ///.
         /// </summary>
         internal static string setupCodBar {
