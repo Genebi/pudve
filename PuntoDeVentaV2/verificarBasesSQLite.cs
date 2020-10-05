@@ -464,11 +464,6 @@ namespace PuntoDeVentaV2
             return sameContent;
         }
 
-        private void verificarBasesSQLite_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void rebuildDataBaseSQLite(string nametable)
         {
             string querySQLiteTranstacction = string.Empty;

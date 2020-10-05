@@ -83,7 +83,6 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Verificar y Actualizar Configuración del Sistema";
-            this.Load += new System.EventHandler(this.verificarBasesSQLite_Load);
             this.Shown += new System.EventHandler(this.verificarBasesSQLite_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
