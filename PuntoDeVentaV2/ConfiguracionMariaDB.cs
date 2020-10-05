@@ -72,9 +72,9 @@ namespace PuntoDeVentaV2
                 if (File.Exists(rutaDirectorio + primerArchivo))
                 {
                     InstalarMariaDB();
-                    PrivilegiosUsuario();
-                    db.buildDataBase();
-                    td.buildTables();
+                    await PrivilegiosUsuario();
+                    await db.buildDataBase();
+                    await td.buildTables();
                 }
 
                 if (File.Exists(rutaDirectorio + segundoArchivo))
@@ -86,7 +86,7 @@ namespace PuntoDeVentaV2
             return true;
         }
 
-        private async void InstalarMariaDB()
+        private void InstalarMariaDB()
         {
             try
             {
@@ -126,7 +126,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void PrivilegiosUsuario()
+        private async Task PrivilegiosUsuario()
         {
             MySqlConnection conexion = new MySqlConnection();
 
@@ -134,7 +134,7 @@ namespace PuntoDeVentaV2
 
             try
             {
-                conexion.Open();
+                await conexion.OpenAsync();
                 MySqlCommand crear = conexion.CreateCommand();
 
                 var usuario = "root";
@@ -144,15 +144,15 @@ namespace PuntoDeVentaV2
                 //Consulta de MySQL
                 var consulta = string.Format("GRANT ALL PRIVILEGES ON *.* TO '{0}'@'{1}' WITH GRANT OPTION;", usuario, primerHost);
                 crear.CommandText = consulta;
-                crear.ExecuteNonQuery();
+                await crear.ExecuteNonQueryAsync();
 
                 consulta = string.Format("CREATE USER '{0}'@'{1}' IDENTIFIED BY '';", usuario, segundoHost);
                 crear.CommandText = consulta;
-                crear.ExecuteNonQuery();
+                await crear.ExecuteNonQueryAsync();
 
                 consulta = string.Format("GRANT ALL PRIVILEGES ON *.* TO '{0}'@'{1}' WITH GRANT OPTION;", usuario, segundoHost);
                 crear.CommandText = consulta;
-                crear.ExecuteNonQuery();
+                await crear.ExecuteNonQueryAsync();
 
                 //Cerramos la conexion de MySQL
                 conexion.Close();
