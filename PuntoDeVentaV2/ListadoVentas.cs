@@ -366,11 +366,12 @@ namespace PuntoDeVentaV2
                 }
 
                 DGVListadoVentas.FirstDisplayedScrollingRowIndex = DGVListadoVentas.RowCount - 1;
-                for (var i = 0; i < DGVListadoVentas.Columns.Count; i++)
-                {
-                    DGVListadoVentas.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-                }
+                //for (var i = 0; i < DGVListadoVentas.Columns.Count; i++)
+                //{
+                //    DGVListadoVentas.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                //}
                 //DGVListadoVentas.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                DGVListadoVentas.FirstDisplayedScrollingColumnIndex = DGVListadoVentas.ColumnCount - 1;
             }
             tipo_venta = estado;
         }
