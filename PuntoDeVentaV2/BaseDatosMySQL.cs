@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
             dataBase.Add("CREATE DATABASE IF NOT EXISTS pudve CHARACTER SET utf8 COLLATE utf8_general_ci;");
         }
 
-        public void buildDataBase()
+        public async Task buildDataBase()
         {
             buildListDataBase();
 
@@ -35,12 +35,12 @@ namespace PuntoDeVentaV2
 
             try
             {
-                connection.Open();
+                await connection.OpenAsync();
 
                 foreach (var item in dataBase)
                 {
                     MySqlCommand command = new MySqlCommand(item, connection);
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
                 }
 
                 connection.Close();

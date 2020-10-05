@@ -16,7 +16,7 @@ namespace PuntoDeVentaV2
 {
     public partial class ConfiguracionMariaDB : Form
     {
-        string rutaDirectorio = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\";
+        static string rutaDirectorio = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\";
         string direccionURL = "https://sifo.com.mx/updatepudve/";
 
         BaseDatosMySQL db = new BaseDatosMySQL();
@@ -71,10 +71,10 @@ namespace PuntoDeVentaV2
 
                 if (File.Exists(rutaDirectorio + primerArchivo))
                 {
-                    InstalarMariaDB();
-                    PrivilegiosUsuario();
-                    db.buildDataBase();
-                    td.buildTables();
+                    await InstalarMariaDB();
+                    await PrivilegiosUsuario();
+                    await db.buildDataBase();
+                    await td.buildTables();
                 }
 
                 if (File.Exists(rutaDirectorio + segundoArchivo))
@@ -86,26 +86,34 @@ namespace PuntoDeVentaV2
             return true;
         }
 
-        private async void InstalarMariaDB()
+        static Task<int> InstalarMariaDB()
         {
-            try
-            {
-                string rutaMSI = rutaDirectorio + "mariadb-10.5.5-win32.msi";
-                string rutaInstalacion = @"C:\Program Files (x86)\PudveBD\";
-                string servicio = "PudveBD";
-                string argumentos = string.Format("/qn /i \"{0}\" INSTALLDIR=\"{1}\" ADDLOCAL=ALL REMOVE=HeidiSQL ALLUSERS=1 PORT=6666 SERVICENAME=\"{2}\"", rutaMSI, rutaInstalacion, servicio);
+            var tcs = new TaskCompletionSource<int>();
 
-                Process proceso = new Process();
-                proceso.StartInfo.FileName = "msiexec.exe";
-                proceso.StartInfo.Arguments = argumentos;
-                proceso.StartInfo.Verb = "runas";
-                proceso.Start();
-                proceso.WaitForExit();
-            }
-            catch (Exception ex)
+            string rutaMSI = rutaDirectorio + "mariadb-10.5.5-win32.msi";
+            string rutaInstalacion = @"C:\Program Files (x86)\PudveBD\";
+            string servicio = "PudveBD";
+            string argumentos = string.Format("/qn /i \"{0}\" INSTALLDIR=\"{1}\" ADDLOCAL=ALL REMOVE=HeidiSQL ALLUSERS=1 PORT=6666 SERVICENAME=\"{2}\"", rutaMSI, rutaInstalacion, servicio);
+
+            Process proceso = new Process
             {
-                MessageBox.Show(ex.Message);
-            }
+                StartInfo = {
+                    FileName = "msiexec.exe",
+                    Arguments = argumentos,
+                    Verb = "runas"
+                },
+                EnableRaisingEvents = true
+            };
+
+            proceso.Exited += (sender, args) =>
+            {
+                tcs.SetResult(proceso.ExitCode);
+                proceso.Dispose();
+            };
+
+            proceso.Start();
+
+            return tcs.Task;
         }
 
         private void InstalarComponentes(string archivo)
@@ -126,7 +134,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void PrivilegiosUsuario()
+        private async Task PrivilegiosUsuario()
         {
             MySqlConnection conexion = new MySqlConnection();
 
@@ -134,7 +142,7 @@ namespace PuntoDeVentaV2
 
             try
             {
-                conexion.Open();
+                await conexion.OpenAsync();
                 MySqlCommand crear = conexion.CreateCommand();
 
                 var usuario = "root";
@@ -144,15 +152,15 @@ namespace PuntoDeVentaV2
                 //Consulta de MySQL
                 var consulta = string.Format("GRANT ALL PRIVILEGES ON *.* TO '{0}'@'{1}' WITH GRANT OPTION;", usuario, primerHost);
                 crear.CommandText = consulta;
-                crear.ExecuteNonQuery();
+                await crear.ExecuteNonQueryAsync();
 
                 consulta = string.Format("CREATE USER '{0}'@'{1}' IDENTIFIED BY '';", usuario, segundoHost);
                 crear.CommandText = consulta;
-                crear.ExecuteNonQuery();
+                await crear.ExecuteNonQueryAsync();
 
                 consulta = string.Format("GRANT ALL PRIVILEGES ON *.* TO '{0}'@'{1}' WITH GRANT OPTION;", usuario, segundoHost);
                 crear.CommandText = consulta;
-                crear.ExecuteNonQuery();
+                await crear.ExecuteNonQueryAsync();
 
                 //Cerramos la conexion de MySQL
                 conexion.Close();
