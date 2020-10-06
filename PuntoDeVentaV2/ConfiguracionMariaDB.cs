@@ -74,6 +74,12 @@ namespace PuntoDeVentaV2
                     }
                 }
 
+                if (File.Exists(rutaDirectorio + segundoArchivo))
+                {
+                    // Instala Visual C++ 2013
+                    await InstalarComponentes(rutaDirectorio + segundoArchivo);
+                }
+
                 if (File.Exists(rutaDirectorio + primerArchivo))
                 {
                     await InstalarMariaDB();
@@ -84,11 +90,6 @@ namespace PuntoDeVentaV2
                     // por problemas conlos ciclos asincronos
                     Thread crear = new Thread(() => td.buildTables());
                     crear.Start();
-                }
-
-                if (File.Exists(rutaDirectorio + segundoArchivo))
-                {
-                    InstalarComponentes(rutaDirectorio + segundoArchivo);
                 }
             }
 
@@ -125,22 +126,32 @@ namespace PuntoDeVentaV2
             return tcs.Task;
         }
 
-        private void InstalarComponentes(string archivo)
+        static Task<int> InstalarComponentes(string archivo)
         {
-            try
+            var tcs = new TaskCompletionSource<int>();
+
+            Process proceso = new Process
             {
-                ProcessStartInfo psi = new ProcessStartInfo();
-                psi.Arguments = "/s /v /qn /min";
-                psi.CreateNoWindow = true;
-                psi.WindowStyle = ProcessWindowStyle.Hidden;
-                psi.FileName = archivo;
-                psi.UseShellExecute = false;
-                Process.Start(psi);
-            }
-            catch (Exception ex)
+                StartInfo =
+                {
+                    Arguments = "/s /v /qn /min",
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = archivo,
+                    UseShellExecute = false
+                },
+                EnableRaisingEvents = true
+            };
+
+            proceso.Exited += (sender, args) =>
             {
-                MessageBox.Show(ex.Message);
-            }
+                tcs.SetResult(proceso.ExitCode);
+                proceso.Dispose();
+            };
+
+            proceso.Start();
+
+            return tcs.Task;
         }
 
         private async Task PrivilegiosUsuario()
