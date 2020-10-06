@@ -41,6 +41,10 @@ namespace PuntoDeVentaV2
         public static bool recargarDatos = false;
         public static bool abrirNuevaVenta = false;
 
+        public static int retomarVentasCanceladas { get; set; }
+        public static int obtenerIdVenta { get; set; }
+        public static int folioVenta { get; set; }
+
         public static int tipo_venta = 0;
         public static string[][] faltantes_productos;
         private static WebSettings _webSettings;
@@ -600,6 +604,7 @@ namespace PuntoDeVentaV2
                 var fila = DGVListadoVentas.CurrentCell.RowIndex;
 
                 int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
+                folioVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["Folio"].Value);
 
                 //Cancelar
                 if (e.ColumnIndex == 10)
@@ -839,6 +844,18 @@ namespace PuntoDeVentaV2
                     info.ShowDialog();
                 }
 
+                //Retomar Venta
+                if (e.ColumnIndex == 16)
+                {
+                    retomarVentasCanceladas = 1;
+                    
+                    if (retomarVentasCanceladas == 1 && opcion == "VC")
+                    {
+                        obtenerIdVenta = /*numeroDeFolio*/idVenta;
+                        btnNuevaVenta.PerformClick();
+                    }
+                    retomarVentasCanceladas = 0;
+                }
                 DGVListadoVentas.ClearSelection();
             }
         }
