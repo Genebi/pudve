@@ -126,6 +126,21 @@ namespace PuntoDeVentaV2
         public Ventas()
         {
             InitializeComponent();
+            metodoCancelarVentaDesdeListadoVentas();
+        }
+
+        private void metodoCancelarVentaDesdeListadoVentas()
+        {
+            var retomarVentas = ListadoVentas.retomarVentasCanceladas;
+            if (retomarVentas == 1)
+            {
+                var idVentaObtenida = ListadoVentas.obtenerIdVenta;
+                var numFolio = ListadoVentas.folioVenta;
+                mostrarVenta = idVentaObtenida;
+                CargarVentaGuardada();
+                mostrarVenta = 0;
+
+                }
         }
 
         private void Ventas_Load(object sender, EventArgs e)
@@ -196,6 +211,8 @@ namespace PuntoDeVentaV2
                 opcion20 = permisos[19];
             }
         }
+
+
 
         private void BuscarTieneFoco(object sender, EventArgs e)
         {
@@ -303,10 +320,10 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void CancelarVenta()
+        private void CancelarVenta(string numFolio)
         {
             // var folio = txtBuscadorProducto.Text.Trim();
-            var folio = lFolio.Text.Trim();
+            var folio = numFolio.Trim();
 
             if (!string.IsNullOrWhiteSpace(folio))
             {
@@ -3963,6 +3980,7 @@ namespace PuntoDeVentaV2
             {
                 lFolio.Visible = true;
                 lFolio.Text = "";
+                lFolio.Focus();
             }
             else
             {
@@ -3976,74 +3994,76 @@ namespace PuntoDeVentaV2
             {
                 var numFolio = lFolio.Text;
 
-                //Obtener el ID de la venta
-                var obtenerIdVenta = cn.CargarDatos($"SELECT ID FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio = '{numFolio}'");
-                var idVentaObtenido = "";
+                CancelarVenta(numFolio);
 
-                foreach (DataRow getId in obtenerIdVenta.Rows)
-                {
-                    idVentaObtenido = getId["ID"].ToString();
-                }
-                var idVenta = Convert.ToInt32(idVentaObtenido);
+                ////Obtener el ID de la venta
+                //var obtenerIdVenta = cn.CargarDatos($"SELECT ID FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio = '{numFolio}'");
+                //var idVentaObtenido = "";
 
-                //Caneclar la venta
-                int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+                //foreach (DataRow getId in obtenerIdVenta.Rows)
+                //{
+                //    idVentaObtenido = getId["ID"].ToString();
+                //}
+                //var idVenta = Convert.ToInt32(idVentaObtenido);
 
-                var mensajeCancelarVenta = MessageBox.Show($"¿Desea cancelar la venta con el folio '{numFolio}'?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                ////Caneclar la venta
+                //int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
 
-                if (mensajeCancelarVenta == DialogResult.Yes)
-                {
-                    // Regresar la cantidad de producto vendido al stock
-                    if (resultado > 0)
-                    {
-                        var productos = cn.ObtenerProductosVenta(idVenta);
+                //var mensajeCancelarVenta = MessageBox.Show($"¿Desea cancelar la venta con el folio '{numFolio}'?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                        if (productos.Length > 0)
-                        {
-                            foreach (var producto in productos)
-                            {
-                                var info = producto.Split('|');
-                                var idProducto = info[0];
-                                var cantidad = Convert.ToInt32(info[2]);
+                //if (mensajeCancelarVenta == DialogResult.Yes)
+                //{
+                //    // Regresar la cantidad de producto vendido al stock
+                //    if (resultado > 0)
+                //    {
+                //        var productos = cn.ObtenerProductosVenta(idVenta);
 
-                                cn.EjecutarConsulta($"UPDATE Productos SET Stock =  Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-                            }
-                        }
+                //        if (productos.Length > 0)
+                //        {
+                //            foreach (var producto in productos)
+                //            {
+                //                var info = producto.Split('|');
+                //                var idProducto = info[0];
+                //                var cantidad = Convert.ToInt32(info[2]);
 
-                        // Agregamos marca de agua al PDF del ticket de la venta cancelada
-                        Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
-                    }
+                //                cn.EjecutarConsulta($"UPDATE Productos SET Stock =  Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                //            }
+                //        }
 
-                    mensajeCancelarVenta = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //        // Agregamos marca de agua al PDF del ticket de la venta cancelada
+                //        Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
+                //    }
 
-                    if (mensajeCancelarVenta == DialogResult.Yes)
-                    {
-                        var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+                //    mensajeCancelarVenta = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                        // Operacion para que la devolucion del dinero afecte al apartado Caja
-                        if (formasPago.Length > 0)
-                        {
-                            var total = formasPago.Sum().ToString();
-                            var efectivo = formasPago[0].ToString();
-                            var tarjeta = formasPago[1].ToString();
-                            var vales = formasPago[2].ToString();
-                            var cheque = formasPago[3].ToString();
-                            var transferencia = formasPago[4].ToString();
-                            var credito = formasPago[5].ToString();
-                            var anticipo = "0";
+                //    if (mensajeCancelarVenta == DialogResult.Yes)
+                //    {
+                //        var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
-                            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                            var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+                //        // Operacion para que la devolucion del dinero afecte al apartado Caja
+                //        if (formasPago.Length > 0)
+                //        {
+                //            var total = formasPago.Sum().ToString();
+                //            var efectivo = formasPago[0].ToString();
+                //            var tarjeta = formasPago[1].ToString();
+                //            var vales = formasPago[2].ToString();
+                //            var cheque = formasPago[3].ToString();
+                //            var transferencia = formasPago[4].ToString();
+                //            var credito = formasPago[5].ToString();
+                //            var anticipo = "0";
 
-                            string[] datos = new string[] {
-                                        "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
-                                        efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
-                                    };
+                //            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                //            var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
 
-                            cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                        }
-                    }
-                }
+                //            string[] datos = new string[] {
+                //                        "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                //                        efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
+                //                    };
+
+                //            cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                //        }
+                //    }
+                //}
                 lFolio.Text = "";
             }
         }

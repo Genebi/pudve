@@ -72,6 +72,7 @@
             this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
             this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
+            this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -115,7 +116,8 @@
             this.Ticket,
             this.Abono,
             this.Timbrar,
-            this.cInformacion});
+            this.cInformacion,
+            this.retomarVenta});
             this.DGVListadoVentas.Location = new System.Drawing.Point(12, 159);
             this.DGVListadoVentas.Name = "DGVListadoVentas";
             this.DGVListadoVentas.ReadOnly = true;
@@ -571,6 +573,13 @@
             this.cInformacion.ReadOnly = true;
             this.cInformacion.Width = 30;
             // 
+            // retomarVenta
+            // 
+            this.retomarVenta.HeaderText = "";
+            this.retomarVenta.Name = "retomarVenta";
+            this.retomarVenta.ReadOnly = true;
+            this.retomarVenta.Width = 30;
+            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -645,5 +654,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Abono;
         private System.Windows.Forms.DataGridViewImageColumn Timbrar;
         private System.Windows.Forms.DataGridViewImageColumn cInformacion;
+        private System.Windows.Forms.DataGridViewImageColumn retomarVenta;
     }
 }
