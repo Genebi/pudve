@@ -450,11 +450,11 @@ namespace PuntoDeVentaV2
         {
             //iniciarVariablesSistema();
 
-            verificarVentanasAbiertas();
+            //verificarVentanasAbiertas();
 
             var pathPUDVESistema = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            // Varaiable para cuando hacemos el instalador
+            // Variable para cuando hacemos el instalador
             Properties.Settings.Default.pathPUDVE = pathPUDVESistema;
             Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
             Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
@@ -511,6 +511,28 @@ namespace PuntoDeVentaV2
             createDir(pathsOrigen);
 
             createDir(pathsDestino);
+
+            /* Verifica si el directorio existe, este directorio es donde se instala
+             * MariaDB descargado desde el servidor de SIFO, en caso de que no exista
+             * significa que es la primera vez que se instala el programa y se manda a
+             * llamar el form para configurar MariaDB por primera vez, crear la base de
+             * datos y las tablas
+             */
+
+            //if (!Directory.Exists(@"C:\Program Files (x86)\PudveBD\"))
+            //{
+            //    Hide();
+
+            //    using (ConfiguracionMariaDB config = new ConfiguracionMariaDB())
+            //    {
+            //        config.ShowDialog();
+
+            //        config.FormClosed += delegate
+            //        {
+            //            Show();
+            //        };
+            //    }
+            //}
 
             try
             {

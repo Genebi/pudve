@@ -68,15 +68,18 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(343, 164);
+            this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.PBLoading);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfiguracionMariaDB";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ConfiguracionMariaDB_Load);
+            this.Shown += new System.EventHandler(this.ConfiguracionMariaDB_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.PBLoading)).EndInit();
             this.ResumeLayout(false);
 

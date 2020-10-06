@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,25 +23,29 @@ namespace PuntoDeVentaV2
         BaseDatosMySQL db = new BaseDatosMySQL();
         TablasMySQL td = new TablasMySQL();
 
+        List<string> tables = new List<string>();
+
         public ConfiguracionMariaDB()
         {
             InitializeComponent();
         }
 
-        private async void ConfiguracionMariaDB_Load(object sender, EventArgs e)
+        private void ConfiguracionMariaDB_Load(object sender, EventArgs e)
         {
             var imagen = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\gifs\cargando.gif";
 
             PBLoading.Load(imagen);
+        }
 
+        private async void ConfiguracionMariaDB_Shown(object sender, EventArgs e)
+        {
             var respuesta = await Cargando();
 
             if (respuesta)
             {
-                MessageBox.Show("Test");
+                this.Close();
             }
         }
-
 
         private async Task<bool> Cargando()
         {
@@ -74,7 +79,11 @@ namespace PuntoDeVentaV2
                     await InstalarMariaDB();
                     await PrivilegiosUsuario();
                     await db.buildDataBase();
-                    await td.buildTables();
+
+                    // Se utilizo un hilo en lugar de usar async/await 
+                    // por problemas conlos ciclos asincronos
+                    Thread crear = new Thread(() => td.buildTables());
+                    crear.Start();
                 }
 
                 if (File.Exists(rutaDirectorio + segundoArchivo))

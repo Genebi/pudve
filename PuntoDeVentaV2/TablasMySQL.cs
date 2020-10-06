@@ -759,7 +759,7 @@ namespace PuntoDeVentaV2
             //            );");
         }
 
-        public async Task buildTables()
+        public void buildTables()
         {
             connectionString = cn.getStringConnection() + "database=pudve;";
 
@@ -770,14 +770,14 @@ namespace PuntoDeVentaV2
 
             try
             {
-                await connection.OpenAsync();
+                connection.Open();
 
                 MySqlCommand command = connection.CreateCommand();
 
                 foreach (var item in tables)
                 {
                     command.CommandText = item;
-                    await command.ExecuteNonQueryAsync();
+                    command.ExecuteNonQuery();
                 }
 
                 connection.Close();
