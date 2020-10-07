@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
@@ -21,7 +22,7 @@ namespace PuntoDeVentaV2
         private int _ultimaPagina = 0;              // Almacena cantidad paginas a mostrar
 
         private String _datamember;                 // Sera a que tabla nos vamos a dirigir
-        private SQLiteDataAdapter _adapter;         // Adaptador para manejo de SQLite
+        private MySqlDataAdapter _adapter;         // Adaptador para manejo de SQLite
         private DataSet _datos;                     // DataSet donde se va almacenar la informacion
 
         private String _query;                      // Almacena la Consulta a SQLite
@@ -51,8 +52,8 @@ namespace PuntoDeVentaV2
             }
             #endregion Final Path de la DB de SQLite
 
-            SQLiteConnection connection = new SQLiteConnection(ps_cadena);  // Iniciamos la conexion SQLite
-            this._adapter = new SQLiteDataAdapter(_query, connection);      // Iniciamos el adaptador SQLite
+            MySqlConnection connection = new MySqlConnection(ps_cadena);  // Iniciamos la conexion SQLite
+            this._adapter = new MySqlDataAdapter(_query, connection);      // Iniciamos el adaptador SQLite
             this._datos = new DataSet();                                    // Iniciamos el DataSet SQLite
             auxiliar = new DataTable();
 
@@ -249,8 +250,8 @@ namespace PuntoDeVentaV2
         {
             DataTable auxiliar;     // Tabla auxiliar para el manejo de la informcion
 
-            SQLiteConnection connection = new SQLiteConnection(ps_cadena);      // Iniciamos la conexion SQLite
-            this._adapter = new SQLiteDataAdapter(_query, connection);          // Iniciamos el adaptador SQLite
+            MySqlConnection connection = new MySqlConnection(ps_cadena);      // Iniciamos la conexion SQLite
+            this._adapter = new MySqlDataAdapter(_query, connection);          // Iniciamos el adaptador SQLite
             this._datos = new DataSet();                                        // Iniciamos el DataSet SQLite
             auxiliar = new DataTable();                                         
 

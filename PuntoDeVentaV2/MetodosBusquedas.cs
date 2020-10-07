@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -13,26 +14,24 @@ namespace PuntoDeVentaV2
 {
     class MetodosBusquedas
     {
-        private SQLiteConnection sql_con;
-        private SQLiteCommand sql_cmd;
+        private MySqlConnection sql_con;
+        private MySqlCommand sql_cmd;
 
         public void Conexion(bool ignorar = false)
         {
             if (ignorar == true)
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True; PRAGMA journal_mode=WAL;");
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
             else
             {
                 if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
                 {
-                    //MessageBox.Show("Hosting: " + Properties.Settings.Default.Hosting.ToString(), "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True; PRAGMA journal_mode=WAL;");
+                    sql_con = new MySqlConnection("datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=mysql;");
                 }
                 else
                 {
-                    //MessageBox.Show("Hosting: " + Properties.Settings.Default.Hosting.ToString(), "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True; PRAGMA journal_mode=WAL;");
+                    sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
                 }
             }
         }
@@ -43,7 +42,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetallesVenta WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -65,7 +64,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT SUM(Total) AS Total FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -83,7 +82,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetallesVenta WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -106,7 +105,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Clientes WHERE ID = {idCliente} AND IDUsuario = {idUsuario}");
 
-             SQLiteDataReader dr = sql_cmd.ExecuteReader();
+             MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -142,7 +141,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Clientes WHERE IDUsuario = {idUsuario} AND Status = 1");
             
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
             int cant = dr.FieldCount;
 
             if (cant > 0 & cant > 1)
@@ -164,7 +163,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetalleGeneral WHERE ID = '{idDetalleGral}' AND IDUsuario = '{idUsr}'");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -185,7 +184,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Proveedores WHERE ID = {idProveedor} AND IDUsuario = {idUsuario} ORDER BY Nombre ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -213,7 +212,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Categorias WHERE ID = {idCategoria} AND IDUsuario = {idUsuario} ORDER BY Nombre ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -232,7 +231,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Ubicaciones WHERE ID = {idUbicacion} AND IDUsuario = {idUsuario} ORDER BY Descripcion ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -251,7 +250,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario} AND IDDetalleGral = {idDetalleGral} ORDER BY IDDetalleGral ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -272,7 +271,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = '{idProducto}' AND IDUsuario = '{idUsuario}' AND panelContenido = '{panel}'");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -295,7 +294,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND Descripcion = '{Descripcion}' ORDER BY Descripcion ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -316,7 +315,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Proveedores WHERE IDUsuario = '{idUsuario}' AND Nombre = '{Descripcion}' ORDER BY Nombre ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -348,7 +347,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Categorias WHERE IDUsuario = '{idUsuario}' AND Nombre = '{Descripcion}' ORDER BY Nombre ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -368,7 +367,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Ubicaciones WHERE IDUsuario = '{idUsuario}' AND Descripcion = '{Descripcion}' ORDER BY Descripcion ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -388,7 +387,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetallesProducto WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -412,7 +411,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDUsuario = '{idUsuario}' AND panelContenido = '{namePanel}' AND IDProducto = '{idProducto}'");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -436,7 +435,7 @@ namespace PuntoDeVentaV2
             //DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
             DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND ID = '{idProdDetailGral}'");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -456,7 +455,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND Descripcion = '{Descripcion}'");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -482,7 +481,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion(consulta);
 
-            SQLiteDataReader datos = sql_cmd.ExecuteReader();
+            MySqlDataReader datos = sql_cmd.ExecuteReader();
 
             if (datos.Read())
             {
@@ -505,7 +504,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion(consulta);
 
-            SQLiteDataReader datos = sql_cmd.ExecuteReader();
+            MySqlDataReader datos = sql_cmd.ExecuteReader();
 
             if (datos.Read())
             {
@@ -528,7 +527,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion(consulta);
 
-            SQLiteDataReader datos = sql_cmd.ExecuteReader();
+            MySqlDataReader datos = sql_cmd.ExecuteReader();
 
             if (datos.HasRows)
             {
@@ -552,7 +551,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Anticipos WHERE ID = {idAnticipo} AND IDUsuario = {idUsuario}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -575,7 +574,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
             {
@@ -606,7 +605,7 @@ namespace PuntoDeVentaV2
                 // Obtenemos todos los codigos de barra y clave que tenga registrado
                 DatosConexion($"SELECT ClaveInterna, CodigoBarras FROM Productos WHERE ID = {idProductoTMP} AND IDUsuario = {idUsuario}");
 
-                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                MySqlDataReader dr = sql_cmd.ExecuteReader();
 
                 if (dr.Read())
                 {
@@ -626,7 +625,7 @@ namespace PuntoDeVentaV2
                 // Obtener todos los codigos de la tabla de codigos de barra extra
                 DatosConexion($"SELECT CB.CodigoBarraExtra FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {idUsuario} AND CB.IDProducto = {idProductoTMP}");
 
-                SQLiteDataReader info = sql_cmd.ExecuteReader();
+                MySqlDataReader info = sql_cmd.ExecuteReader();
 
                 if (info.HasRows)
                 {
@@ -660,7 +659,7 @@ namespace PuntoDeVentaV2
 
                 DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Status = 1 AND (CodigoBarras  = '{codigoClave}' OR ClaveInterna = '{codigoClave}')");
 
-                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                MySqlDataReader dr = sql_cmd.ExecuteReader();
 
                 if (dr.Read())
                 {
@@ -671,7 +670,7 @@ namespace PuntoDeVentaV2
                     //DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigoClave}'");
                     DatosConexion($"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {idUsuario} AND CB.CodigoBarraExtra = '{codigoClave}'");
 
-                    SQLiteDataReader info = sql_cmd.ExecuteReader();
+                    MySqlDataReader info = sql_cmd.ExecuteReader();
 
                     if (info.HasRows)
                     {
@@ -682,7 +681,7 @@ namespace PuntoDeVentaV2
 
                             DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {idUsuario} AND Status = 1");
 
-                            SQLiteDataReader info2 = sql_cmd.ExecuteReader();
+                            MySqlDataReader info2 = sql_cmd.ExecuteReader();
 
                             if (info2.Read())
                             {
@@ -712,7 +711,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {idUsuario}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -721,7 +720,7 @@ namespace PuntoDeVentaV2
 
                 DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto}");
 
-                SQLiteDataReader info = sql_cmd.ExecuteReader();
+                MySqlDataReader info = sql_cmd.ExecuteReader();
 
                 while (info.Read())
                 {
@@ -742,7 +741,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Categorias WHERE IDUsuario = {idUsuario} ORDER BY Nombre ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             while (dr.Read())
             {
@@ -760,7 +759,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Ubicaciones WHERE IDUsuario = {idUsuario} ORDER BY Descripcion ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             while (dr.Read())
             {
@@ -778,7 +777,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND ChckName = '{detalle}' ORDER BY Descripcion ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             while (dr.Read())
             {
@@ -796,7 +795,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT MAX(Folio) AS Folio FROM Ventas WHERE IDUsuario = {idUsuario}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -819,7 +818,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM RevisarInventario WHERE ID = {idRevision} AND IDUsuario = {idUsuario}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -856,7 +855,7 @@ namespace PuntoDeVentaV2
                              AND usr.ID = '{usrID}'
                              AND prod.Tipo = 'P'");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -888,7 +887,7 @@ namespace PuntoDeVentaV2
                     //DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigo}'");
                     DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{searchCodBar}'");
 
-                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                    MySqlDataReader dr = sql_cmd.ExecuteReader();
 
                     if (dr.HasRows)
                     {
@@ -922,7 +921,7 @@ namespace PuntoDeVentaV2
                     //DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigo}'");
                     DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{searchCodBar}'");
 
-                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                    MySqlDataReader dr = sql_cmd.ExecuteReader();
 
                     if (dr.HasRows)
                     {
@@ -952,7 +951,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM CodigoBarrasGenerado WHERE IDUsuario = {idUsuario}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -971,7 +970,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT ID FROM Caja WHERE IDUsuario = {idUsuario} AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -979,7 +978,7 @@ namespace PuntoDeVentaV2
 
                 DatosConexion($"SELECT * FROM Caja WHERE IDUsuario = {idUsuario} AND Operacion = 'venta' AND ID > {idCaja} ORDER BY ID LIMIT 1");
 
-                SQLiteDataReader info = sql_cmd.ExecuteReader();
+                MySqlDataReader info = sql_cmd.ExecuteReader();
 
                 if (info.Read())
                 {
@@ -1005,7 +1004,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUsuario} AND ChckName = '{propiedad}'");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
             {
@@ -1033,7 +1032,7 @@ namespace PuntoDeVentaV2
                     DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR CodigoBarras LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%')");
                     //DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
 
-                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                    MySqlDataReader dr = sql_cmd.ExecuteReader();
 
                     if (dr.HasRows)
                     {
@@ -1072,7 +1071,7 @@ namespace PuntoDeVentaV2
                     //DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR CodigoBarras LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%')");
                     DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%')");
 
-                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                    MySqlDataReader dr = sql_cmd.ExecuteReader();
 
                     if (dr.HasRows)
                     {
@@ -1173,7 +1172,7 @@ namespace PuntoDeVentaV2
                 {
                     DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%' OR CodigoBarras LIKE '%{palabra}%')");
 
-                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                    MySqlDataReader dr = sql_cmd.ExecuteReader();
 
                     if (dr.HasRows)
                     {
@@ -1216,7 +1215,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -1247,7 +1246,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion(consulta);
 
-            SQLiteDataReader info = sql_cmd.ExecuteReader();
+            MySqlDataReader info = sql_cmd.ExecuteReader();
 
             if (info.Read())
             {
@@ -1268,7 +1267,7 @@ namespace PuntoDeVentaV2
                         {
                             DatosConexion($"SELECT * FROM Productos WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
 
-                            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
                             if (dr.Read())
                             {
@@ -1286,7 +1285,7 @@ namespace PuntoDeVentaV2
             {
                 DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
 
-                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                MySqlDataReader dr = sql_cmd.ExecuteReader();
 
                 if (dr.Read())
                 {
@@ -1318,7 +1317,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM CodigoBarrasGenerado WHERE IDUsuario = {FormPrincipal.userID}", true);
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -1339,7 +1338,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -1362,7 +1361,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idServPQ}'");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
             {
@@ -1402,7 +1401,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion(consulta);
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -1420,7 +1419,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -1434,7 +1433,7 @@ namespace PuntoDeVentaV2
                 // Obtener proveedor
                 DatosConexion($"SELECT * FROM DetallesProducto WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
-                SQLiteDataReader dr2 = sql_cmd.ExecuteReader();
+                MySqlDataReader dr2 = sql_cmd.ExecuteReader();
 
                 if (dr2.Read())
                 {
@@ -1455,7 +1454,7 @@ namespace PuntoDeVentaV2
                         // Obtener ID del detalle general del producto
                         DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
-                        SQLiteDataReader dr3 = sql_cmd.ExecuteReader();
+                        MySqlDataReader dr3 = sql_cmd.ExecuteReader();
 
                         if (dr3.HasRows)
                         {
@@ -1467,7 +1466,7 @@ namespace PuntoDeVentaV2
                                 // Obtener la descripcion
                                 DatosConexion($"SELECT * FROM DetalleGeneral WHERE ID = {idDetalle} AND IDUsuario = {FormPrincipal.userID} AND ChckName = '{propiedad}'");
 
-                                SQLiteDataReader dr4 = sql_cmd.ExecuteReader();
+                                MySqlDataReader dr4 = sql_cmd.ExecuteReader();
 
                                 if (dr4.Read())
                                 {
@@ -1510,7 +1509,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT Stock, Precio FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P'");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
             {
@@ -1537,7 +1536,7 @@ namespace PuntoDeVentaV2
             // Obtener ID del detalle general del producto
             DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
             {
@@ -1549,7 +1548,7 @@ namespace PuntoDeVentaV2
                     // Obtener la descripcion
                     DatosConexion($"SELECT * FROM DetalleGeneral WHERE ID = {idDetalle} AND IDUsuario = {FormPrincipal.userID} AND ChckName = '{propiedad}'");
 
-                    SQLiteDataReader dr2 = sql_cmd.ExecuteReader();
+                    MySqlDataReader dr2 = sql_cmd.ExecuteReader();
 
                     if (dr2.Read())
                     {
@@ -1578,7 +1577,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -1599,7 +1598,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT NumeroCliente FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -1617,7 +1616,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion(consulta);
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -1635,7 +1634,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM TipoClientes WHERE IDUsuario = {FormPrincipal.userID} AND Habilitar = {tipo}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (extra)
             {
@@ -1674,7 +1673,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM TipoClientes WHERE ID = {idTipoCliente} AND IDUsuario = {FormPrincipal.userID}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -1695,7 +1694,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Origen = '{origen}' AND Status = {tipo}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
 
             if (tipo == 1)
@@ -1725,7 +1724,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion("SELECT * FROM CatalogoUnidadesMedida ORDER BY LOWER(Nombre) ASC");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
             {
@@ -2017,7 +2016,7 @@ namespace PuntoDeVentaV2
             List<string> list = new List<string>();
 
             DatosConexion($"SELECT * FROM Empleados WHERE ID={id_empleado} AND IDUsuario = {id_usuario}");
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -2052,7 +2051,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT * FROM FiltroProducto WHERE concepto = '{chkConcepto}' AND IDUsuario = '{idUsuario}'");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -2117,7 +2116,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT IDEmpleado FROM Ventas WHERE ID={id_venta}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -2158,7 +2157,7 @@ namespace PuntoDeVentaV2
 
             DatosConexion($"SELECT timbres FROM Usuarios WHERE ID={FormPrincipal.userID}");
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {

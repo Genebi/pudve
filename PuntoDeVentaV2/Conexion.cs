@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 //Agregados
 using System.Data;
-using System.Data.SQLite;
 using System.Windows.Forms;
 //using MySql.Data.MySqlClient;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Collections.Specialized;
+using MySql.Data.MySqlClient;
 
 namespace PuntoDeVentaV2
 {
@@ -21,16 +21,16 @@ namespace PuntoDeVentaV2
         //public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
-        private SQLiteConnection sql_con;
-        private SQLiteCommand sql_cmd;
-        private SQLiteDataAdapter DB;
+        private MySqlConnection sql_con;
+        private MySqlCommand sql_cmd;
+        private MySqlDataAdapter DB;
         private DataSet DS = new DataSet();
         private DataTable DT = new DataTable();
         
         // pasamos variables entre la calse de conexion con la de consultas
-        public static SQLiteConnection cs_sql_con;
-        public static SQLiteCommand cs_sql_cmd;
-        public static SQLiteDataAdapter cs_DB;
+        public static MySqlConnection cs_sql_con;
+        public static MySqlCommand cs_sql_cmd;
+        public static MySqlDataAdapter cs_DB;
         public static DataSet cs_DS = new DataSet();
         public static DataTable cs_DT = new DataTable();
 
@@ -66,17 +66,17 @@ namespace PuntoDeVentaV2
         {
             if (ignorar == true)
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True; PRAGMA journal_mode=WAL;", true);
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
             else
             {
                 if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
                 {
-                    sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True; PRAGMA journal_mode=WAL;", true);
+                    sql_con = new MySqlConnection("datasource="+ Properties.Settings.Default.Hosting +";port=6666;username=root;password=;database=pudve;");
                 }
                 else
                 {
-                    sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True; PRAGMA journal_mode=WAL;", true);
+                    sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
                 }
             }
         }
@@ -106,7 +106,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = consulta;
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             object respuesta = null;
 
@@ -192,8 +192,8 @@ namespace PuntoDeVentaV2
             DataTable db = new DataTable();
             Conectarse();
             sql_con.Open();
-            SQLiteCommand com = new SQLiteCommand(consulta, sql_con);
-            SQLiteDataAdapter adap = new SQLiteDataAdapter(com);
+            MySqlCommand com = new MySqlCommand(consulta, sql_con);
+            MySqlDataAdapter adap = new MySqlDataAdapter(com);
             adap.Fill(db);
             sql_con.Close();
 
@@ -206,8 +206,8 @@ namespace PuntoDeVentaV2
             DataTable dbcb = new DataTable();
             Conectarse();
             sql_con.Open();
-            SQLiteCommand com = new SQLiteCommand(consulta, sql_con);
-            SQLiteDataAdapter adap = new SQLiteDataAdapter(com);
+            MySqlCommand com = new MySqlCommand(consulta, sql_con);
+            MySqlDataAdapter adap = new MySqlDataAdapter(com);
             adap.Fill(dbcb);
             sql_con.Close();
 
@@ -218,8 +218,8 @@ namespace PuntoDeVentaV2
             DataTable dbcbreg = new DataTable();
             Conectarse();
             sql_con.Open();
-            SQLiteCommand com = new SQLiteCommand(consulta, sql_con);
-            SQLiteDataAdapter adap = new SQLiteDataAdapter(com);
+            MySqlCommand com = new MySqlCommand(consulta, sql_con);
+            MySqlDataAdapter adap = new MySqlDataAdapter(com);
             adap.Fill(dbcbreg);
             sql_con.Close();
 
@@ -230,7 +230,7 @@ namespace PuntoDeVentaV2
         {
             Conectarse();
             sql_con.Open();
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(consulta, sql_con);
+            MySqlDataAdapter sda = new MySqlDataAdapter(consulta, sql_con);
             sda.Fill(DT);
             sql_con.Close();
             return DT;
@@ -240,7 +240,7 @@ namespace PuntoDeVentaV2
         {
             Conectarse();
             sql_con.Open();
-            SQLiteDataAdapter sda = new SQLiteDataAdapter(consulta, sql_con);
+            MySqlDataAdapter sda = new MySqlDataAdapter(consulta, sql_con);
             sda.Fill(DT);
             sql_con.Close();
             return DT;
@@ -256,7 +256,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT D.IDProducto, D.Nombre, D.Precio, P.TipoDescuento, P.Stock, P.Tipo, D.Cantidad, D.IDVenta FROM Ventas V INNER JOIN ProductosVenta D INNER JOIN Productos P ON V.ID = D.IDVenta AND D.IDProducto = P.ID WHERE V.IDUsuario = {IDUsuario} AND V.Status = '2' AND V.Folio = {IDFolio}";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -285,7 +285,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT * FROM Productos WHERE ID = {IDProducto} AND IDUsuario = {IDUsuario}";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -332,7 +332,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = consulta;
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             while (dr.Read())
             {
@@ -364,7 +364,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT * FROM Ventas WHERE ID = {IDVenta} AND IDUsuario = {IDUsuario}";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -394,7 +394,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT * FROM Anticipos WHERE IDVenta = {IDVenta} AND IDUsuario = {IDUsuario}";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -421,7 +421,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT * FROM ProductosVenta WHERE IDVenta = {IDVenta}";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             while (dr.Read())
             {
@@ -459,7 +459,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = consulta;
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -506,7 +506,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = {IDServicio}";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             while (dr.Read())
             {
@@ -528,7 +528,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE IDUsuario = {IDUsuario} AND Status = 1";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             while (dr.Read())
             {
@@ -550,7 +550,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE ID = {idProveedor} AND IDUsuario = {IDUsuario}";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -573,7 +573,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT * FROM Productos WHERE ID = {IDProducto} AND IDUsuario = {IDUsuario}";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -596,7 +596,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT MAX(IDReporte) AS ID FROM HistorialCompras WHERE IDUsuario = {IDUsuario} AND IDReporte <> ''";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -625,7 +625,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = $"SELECT Saldo FROM Caja WHERE IDUsuario = {IDUsuario} ORDER BY FechaOperacion DESC LIMIT 1";
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
@@ -644,26 +644,6 @@ namespace PuntoDeVentaV2
             return saldo;
         }
 
-        public void BackUpDB()
-        {
-            string path = @"C:\Archivos PUDVE\DB\";
-
-            if (!Directory.Exists(path))	// verificamos que si no existe el directorio
-            {
-                Directory.CreateDirectory(path);	// lo crea para poder almacenar la imagen
-            }
-
-            using (var destination = new SQLiteConnection("Data Source=" + path + "BackupDb.db; Version=3; New=False;Compress=True;"))
-            {
-                Conectarse();
-                sql_con.Open();
-                destination.Open();
-                sql_con.BackupDatabase(destination, "main", "main", -1, null, 0);
-                destination.Close();
-                sql_con.Close();
-            }
-        }
-
         public int CountColumnasTabla(string consulta)
         {
             Conectarse();
@@ -672,7 +652,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = consulta;
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             int contador = 0;
 
@@ -775,7 +755,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = Consulta;
             sql_cmd.ExecuteNonQuery();
 
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
