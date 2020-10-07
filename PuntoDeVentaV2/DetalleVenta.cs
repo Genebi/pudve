@@ -22,9 +22,11 @@ namespace PuntoDeVentaV2
         private float total = 0;
         private float totalMetodos = 0;
 
+        public static int validarNoDuplicarVentas = 0;
         public DetalleVenta(float total, string idCliente = "")
         {
             InitializeComponent();
+            validarNoDuplicarVentas = 1;
 
             this.total = total;
             
@@ -134,6 +136,7 @@ namespace PuntoDeVentaV2
 
                 this.Hide();
                 this.Close();
+                
             }
 
             var sumaImportes = Ventas.pasarSumaImportes;
@@ -160,6 +163,7 @@ namespace PuntoDeVentaV2
                     var actualizarAnticipoAplicado = cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{sumaImportes}' + AnticipoAplicado WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
                 }
             }
+            validarNoDuplicarVentas = 0;
         }
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

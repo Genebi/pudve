@@ -3415,7 +3415,11 @@ namespace PuntoDeVentaV2
             // Cuando presiona la tecla fin hace click en el boton terminar venta
             if (e.KeyData == Keys.End)
             {
-                btnTerminarVenta.PerformClick();
+                var noDuplicadoVentas = DetalleVenta.validarNoDuplicarVentas;
+                if (noDuplicadoVentas == 0)
+                {
+                    btnTerminarVenta.PerformClick();
+                }
             }
 
             // Cuando presione la tecla escape debera cerrar la ventana
