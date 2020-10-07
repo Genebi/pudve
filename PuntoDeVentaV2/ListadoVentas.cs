@@ -580,7 +580,7 @@ namespace PuntoDeVentaV2
                     if (e.ColumnIndex == 16)
                     {
                         textoTT = "Retomar esta venta";
-                        coordenadaX = 85;
+                        coordenadaX = 120;
                     }
 
                     // Si es diferente a la fila donde se muestran los totales
