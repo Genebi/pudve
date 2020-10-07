@@ -24,8 +24,6 @@ namespace PuntoDeVentaV2
         BaseDatosMySQL db = new BaseDatosMySQL();
         TablasMySQL td = new TablasMySQL();
 
-        List<string> tables = new List<string>();
-
         public ConfiguracionMariaDB()
         {
             InitializeComponent();
