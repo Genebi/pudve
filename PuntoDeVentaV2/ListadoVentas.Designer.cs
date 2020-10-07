@@ -578,6 +578,7 @@
             this.retomarVenta.HeaderText = "";
             this.retomarVenta.Name = "retomarVenta";
             this.retomarVenta.ReadOnly = true;
+            this.retomarVenta.ToolTipText = "Retomar Venta Cancelada";
             this.retomarVenta.Width = 30;
             // 
             // ListadoVentas
