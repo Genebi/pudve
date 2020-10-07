@@ -253,6 +253,8 @@ namespace PuntoDeVentaV2
             Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\dollar.png");
             Image timbrar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell.png");
             Image informacion = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
+            Image reusarVentas = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\repeat.png");
+
 
             Bitmap sinImagen = new Bitmap(1, 1);
             sinImagen.SetPixel(0, 0, Color.White);
@@ -333,6 +335,7 @@ namespace PuntoDeVentaV2
                     row.Cells["Abono"].Value = credito;
                     row.Cells["Timbrar"].Value = timbrar;
                     row.Cells["cInformacion"].Value = informacion;
+                    row.Cells["retomarVenta"].Value = reusarVentas;
 
                     // Ventas canceladas
                     if (status == 3)
@@ -344,6 +347,12 @@ namespace PuntoDeVentaV2
                     if (status != 4)
                     {
                         row.Cells["Abono"].Value = info;
+                    }
+
+                    //Retomar Ventas Canceladas
+                    if (status != 3)
+                    {
+                        row.Cells["retomarVenta"].Value = sinImagen;
                     }
                 }
 
@@ -567,6 +576,11 @@ namespace PuntoDeVentaV2
                     {
                         textoTT = "Información";
                         coordenadaX = 75;
+                    }
+                    if (e.ColumnIndex == 16)
+                    {
+                        textoTT = "Retomar esta venta";
+                        coordenadaX = 85;
                     }
 
                     // Si es diferente a la fila donde se muestran los totales
