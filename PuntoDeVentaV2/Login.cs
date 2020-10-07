@@ -518,20 +518,20 @@ namespace PuntoDeVentaV2
              * llamar el form para configurar MariaDB por primera vez, crear la base de
              * datos y las tablas
              */
-            //if (!Directory.Exists(@"C:\Program Files (x86)\PudveBD\"))
-            //{
-            //    Hide();
+            if (!Directory.Exists(@"C:\Program Files (x86)\PudveBD\"))
+            {
+                Hide();
 
-            //    using (ConfiguracionMariaDB config = new ConfiguracionMariaDB())
-            //    {
-            //        config.ShowDialog();
+                using (ConfiguracionMariaDB config = new ConfiguracionMariaDB())
+                {
+                    config.ShowDialog();
 
-            //        config.FormClosed += delegate
-            //        {
-            //            Show();
-            //        };
-            //    }
-            //}
+                    config.FormClosed += delegate
+                    {
+                        Show();
+                    };
+                }
+            }
 
 
             try
