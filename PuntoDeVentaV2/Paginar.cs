@@ -44,11 +44,11 @@ namespace PuntoDeVentaV2
             #region Inicio Path de la DB de SQLite
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
-                ps_cadena = "Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True; PRAGMA journal_mode=WAL;";
+                ps_cadena = "datasource="+ Properties.Settings.Default.Hosting +";port=6666;username=root;password=;database=pudve;";
             }
             else
             {
-                ps_cadena = "Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True; PRAGMA journal_mode=WAL;";
+                ps_cadena = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
             }
             #endregion Final Path de la DB de SQLite
 
