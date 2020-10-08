@@ -172,6 +172,9 @@ namespace PuntoDeVentaV2
 
         private void NvoProduct_Load(object sender, EventArgs e)
         {
+            baseProducto = "0";
+            ivaProducto = "0";
+
             var servidor = Properties.Settings.Default.Hosting;
 
             if (!string.IsNullOrWhiteSpace(servidor))
