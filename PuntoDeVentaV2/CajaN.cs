@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.draw;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -303,19 +304,19 @@ namespace PuntoDeVentaV2
         {
             //verificarCantidadAbonos();
 
-            SQLiteConnection sql_con;
-            SQLiteCommand consultaUno, consultaDos;
-            SQLiteDataReader drUno, drDos;
+            MySqlConnection sql_con;
+            MySqlCommand consultaUno, consultaDos;
+            MySqlDataReader drUno, drDos;
 
             var servidor = Properties.Settings.Default.Hosting;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                sql_con = new SQLiteConnection("Data source=//" + servidor + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection($"datasource={servidor};port=6666;username=root;password=;database=pudve;");
             }
             else
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
 
             sql_con.Open();
@@ -323,7 +324,7 @@ namespace PuntoDeVentaV2
             var fechaDefault = Convert.ToDateTime("0001-01-01 00:00:00");
 
             var consultarFecha = $"SELECT FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte' ORDER BY FeChaOperacion DESC LIMIT 1";
-            consultaUno = new SQLiteCommand(consultarFecha, sql_con);
+            consultaUno = new MySqlCommand(consultarFecha, sql_con);
             drUno = consultaUno.ExecuteReader();
 
             if (drUno.Read())
@@ -333,9 +334,10 @@ namespace PuntoDeVentaV2
             }
 
             fechaGeneral = fechaDefault;
+            drUno.Close();
 
             var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
-            consultaDos = new SQLiteCommand(consulta, sql_con);
+            consultaDos = new MySqlCommand(consulta, sql_con);
             drDos = consultaDos.ExecuteReader();
 
             // Variables ventas
@@ -518,7 +520,7 @@ namespace PuntoDeVentaV2
             }
 
             // Cerramos la conexion y el datareader
-            drUno.Close();
+            //drUno.Close();
             drDos.Close();
             sql_con.Close();
 
@@ -1306,13 +1308,13 @@ namespace PuntoDeVentaV2
             Paragraph tituloDepositos = new Paragraph("HISTORIAL DE DEPOSITOS\n\n", fuenteGrande);
             tituloDepositos.Alignment = Element.ALIGN_CENTER;
 
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
+            MySqlConnection sql_con;
+            MySqlCommand sql_cmd;
+            MySqlDataReader dr;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
+            sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
@@ -1433,9 +1435,9 @@ namespace PuntoDeVentaV2
 
             anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f, 100f };
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
+            sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
@@ -1493,8 +1495,8 @@ namespace PuntoDeVentaV2
                 tablaRetiros.AddCell(colDepositoCreditoR);
                 tablaRetiros.AddCell(colDepositoFechaR);
 
-                //SQLiteCommand sql_cmd;
-                //SQLiteDataReader dr;
+                //MySqlCommand sql_cmd;
+                //MySqlDataReader dr;
 
                 while (dr.Read())
                 {

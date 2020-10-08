@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.draw;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,24 +33,24 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos()
         {
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
+            MySqlConnection sql_con;
+            MySqlCommand sql_cmd;
+            MySqlDataReader dr;
 
             var fechaBusqueda = fecha.ToString("yyyy-MM-dd HH:mm:ss");
             var servidor = Properties.Settings.Default.Hosting;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                sql_con = new SQLiteConnection("Data source=//" + servidor + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection($"datasource={servidor};port=6666;username=root;password=;database=pudve;");
             }
             else
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
 
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND FechaOperacion > '{fechaBusqueda}'", sql_con);
+            sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND FechaOperacion > '{fechaBusqueda}'", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVDepositos.Rows.Clear();
