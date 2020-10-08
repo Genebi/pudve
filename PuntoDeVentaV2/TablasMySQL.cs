@@ -366,16 +366,16 @@ namespace PuntoDeVentaV2
                             AnticipoAplicado DECIMAL (16, 2) DEFAULT (0) 
                         );");
             // 21 Tabla de appSettings
-            //tables.Add(@"CREATE TABLE IF NOT EXISTS appSettings (
-            //                ID INTEGER PRIMARY KEY AUTO_INCREMENT,
-            //                concepto TEXT,
-            //                checkBoxConcepto INTEGER NOT NULL DEFAULT (0),
-            //                textComboBoxConcepto TEXT,
-            //                checkBoxComboBoxConcepto INTEGER NOT NULL DEFAULT (0),
-            //                IDUsuario INTEGER NOT NULL,
-            //                FOREIGN KEY (IDUsuario)
-            //                REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE
-            //            );");
+            tables.Add(@"CREATE TABLE IF NOT EXISTS appSettings (
+                            ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+                            concepto TEXT,
+                            checkBoxConcepto INTEGER NOT NULL DEFAULT (0),
+                            textComboBoxConcepto TEXT,
+                            checkBoxComboBoxConcepto INTEGER NOT NULL DEFAULT (0),
+                            IDUsuario INTEGER NOT NULL,
+                            FOREIGN KEY (IDUsuario)
+                            REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE
+                        );");
 
             // 22 Tabla de Caja
             tables.Add(@"CREATE TABLE IF NOT EXISTS Caja (
