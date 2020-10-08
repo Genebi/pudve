@@ -1423,7 +1423,7 @@ namespace PuntoDeVentaV2
 	                        '{RFCEmisor}',
 	                        '{nombreEmisor}',
 	                        '{claveProdEmisor}',
-                            datetime('now', 'localtime'), 
+                            '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
                             '{Inventario.idReporte}',
 	                        '{idProducto}',
 	                        '{userId}')";
