@@ -2902,7 +2902,9 @@ namespace PuntoDeVentaV2
                                             }
                                             #endregion Final Agregar Proveedor a Detalle Producto
 
-                                            string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio.Trim()}','{RFCEmisor.Trim()}','{nombreEmisor.Trim()}','{claveProdEmisor.Trim()}',datetime('now', 'localtime'),'{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
+                                            DateTime dt = DateTime.Now;
+
+                                            string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio.Trim()}','{RFCEmisor.Trim()}','{nombreEmisor.Trim()}','{claveProdEmisor.Trim()}','{dt.ToString("yyyy-MM-dd hh:mm:ss")}','{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
 
                                             #region Inicio Historial de Compras
                                             try
@@ -5705,6 +5707,9 @@ namespace PuntoDeVentaV2
         
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
+            baseProducto = "0";
+            ivaProducto = "0";
+
             var servidor = Properties.Settings.Default.Hosting;
 
             errorProvAgregarEditarProducto.ContainerControl = this;
@@ -6744,7 +6749,7 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error de lectura de los Datos Dinamicos: {0}" + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error de lectura de los Datos Dinamicos: " + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -848,21 +848,7 @@ namespace PuntoDeVentaV2
         public void searchProd()
         {
             // preparamos el Query
-            string search = $@"SELECT 
-                                      prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna,
-                                      prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status,
-                                      codbarext.CodigoBarraExtra,codbarext.IDProducto 
-                               FROM 
-                                    Productos prod 
-                               LEFT JOIN 
-                                    CodigoBarrasExtras codbarext 
-                               WHERE 
-                                    prod.IDUsuario = '{userId}' 
-                               AND 
-                                    prod.Status = 1 
-                               AND (prod.CodigoBarras = '{ClaveInterna}' 
-                                    OR prod.ClaveInterna = '{ClaveInterna}' 
-                                    OR codbarext.CodigoBarraExtra = '{ClaveInterna}')";
+            string search = $@"SELECT prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna, prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status, codbarext.CodigoBarraExtra,codbarext.IDProducto FROM Productos prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE prod.IDUsuario = '{userId}' AND prod.Status = 1 AND (prod.CodigoBarras = '{ClaveInterna}' OR prod.ClaveInterna = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}')";
             dtProductos = cn.CargarDatos(search); // alamcenamos el resultado de la busqueda en dtProductos
             if (dtProductos.Rows.Count >= 1) // si el resultado arroja al menos una fila
             {
@@ -1157,7 +1143,7 @@ namespace PuntoDeVentaV2
             idProducto = dtProductos.Rows[0]["ID"].ToString();
             txtBoxDescripcionProd.Text = dtProductos.Rows[0]["Nombre"].ToString();
             txtBoxClaveInternaProd.Text = dtProductos.Rows[0]["ClaveInterna"].ToString();
-            stockProd = int.Parse(dtProductos.Rows[0]["Stock"].ToString());                 // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
+            stockProd = (Int32)decimal.Parse(dtProductos.Rows[0]["Stock"].ToString());                 // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
             lblStockProd.Text = stockProd.ToString();
             lblCodigoBarrasProd.Text = dtProductos.Rows[0]["CodigoBarras"].ToString();
             lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;
