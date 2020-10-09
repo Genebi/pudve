@@ -3116,7 +3116,7 @@ namespace PuntoDeVentaV2
                                                 rfcProveedor = proveedorTmp[1];
                                             }
 
-                                            guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+                                            guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, idReporte.ToString(), idProducto.ToString(), FormPrincipal.userID.ToString() };
 
                                             cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
 
