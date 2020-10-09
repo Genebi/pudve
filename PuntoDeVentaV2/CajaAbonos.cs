@@ -74,6 +74,26 @@ namespace PuntoDeVentaV2
                     abonoChequeI = float.Parse(abonoCheque);
                     abonoTransferenciaI = float.Parse(abonoTransferencia);
                 }
+                else
+                {
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}'");
+                    var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
+                    foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                    {
+                        // = cantidadAbono["sum(Total)"].ToString();
+                        abonoEfectivo = cantidadAbono["sum(Efectivo)"].ToString();
+                        abonoTarjeta = cantidadAbono["sum(Tarjeta)"].ToString();
+                        abonoVales = cantidadAbono["sum(Vales)"].ToString();
+                        abonoCheque = cantidadAbono["sum(Cheque)"].ToString();
+                        abonoTransferencia = cantidadAbono["sum(Transferencia)"].ToString();
+                    }
+                    //abonos = float.Parse(abonoEfectivo);
+                    abonoEfectivoI = float.Parse(abonoEfectivo);
+                    abonoTarjetaI = float.Parse(abonoTarjeta);
+                    abonoValesI = float.Parse(abonoVales);
+                    abonoChequeI = float.Parse(abonoCheque);
+                    abonoTransferenciaI = float.Parse(abonoTransferencia);
+                }
             }
             catch
             {

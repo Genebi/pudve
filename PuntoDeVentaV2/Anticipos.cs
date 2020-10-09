@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -65,19 +66,19 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos(int estado = 1, int tipo = 0)
         {
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
+            MySqlConnection sql_con;
+            MySqlCommand sql_cmd;
+            MySqlDataReader dr;
 
             var servidor = Properties.Settings.Default.Hosting;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                sql_con = new SQLiteConnection("Data source=//" + servidor + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection($"datasource={servidor};port=6666;username=root;password=;database=pudve;");
             }
             else
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
             
             sql_con.Open();
@@ -99,7 +100,7 @@ namespace PuntoDeVentaV2
                 consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
             }
 
-            sql_cmd = new SQLiteCommand(consulta, sql_con);
+            sql_cmd = new MySqlCommand(consulta, sql_con);
 
             dr = sql_cmd.ExecuteReader();
 
