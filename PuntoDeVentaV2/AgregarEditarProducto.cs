@@ -111,7 +111,8 @@ namespace PuntoDeVentaV2
                 nombreProveedor = string.Empty,
                 nombreCategoria = string.Empty,
                 nombreUbicacion = string.Empty,
-                nombreDetalleGral = string.Empty;
+                nombreDetalleGral = string.Empty,
+                idReporte = string.Empty;
 
         public string getIdProducto { get; set; }
 
@@ -4125,7 +4126,7 @@ namespace PuntoDeVentaV2
                 rfcProveedor = proveedorTmp[1];
             }
 
-            guardar = new string[] { nombre, stock, txtPrecioCompra.Text, precio, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+            guardar = new string[] { nombre, stock, txtPrecioCompra.Text, precio, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, idReporte.ToString(), idProducto.ToString(), FormPrincipal.userID.ToString() };
 
             cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
 
@@ -5709,6 +5710,7 @@ namespace PuntoDeVentaV2
         {
             baseProducto = "0";
             ivaProducto = "0";
+            idReporte = "0";
 
             var servidor = Properties.Settings.Default.Hosting;
 
