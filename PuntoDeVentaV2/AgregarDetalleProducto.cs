@@ -2370,7 +2370,7 @@ namespace PuntoDeVentaV2
                         loadFromConfigDB();
                         BuscarTextoListView(settingDatabases);
                     }
-                    else
+                    else if (!editDetelle.Equals("Proveedor"))
                     {
                         fLPCentralDetalle.Controls.Clear();
                         //ReadKey(editDetelle);
@@ -2398,7 +2398,11 @@ namespace PuntoDeVentaV2
 
                         try
                         {
-                            var UpdateNombreDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoVentanaFiltros(editDetalleNvo, editDetelle, FormPrincipal.userID));
+                            var UpdateNombreDatoFiltroDinamico = cn.EjecutarConsulta(cs.RenombrarDetallesProductoGenerales(editDetalleNvo, editDetelle, FormPrincipal.userID));
+                            var UdapteDatosDelFiltroDinamico = cn.EjecutarConsulta(cs.RenombrarDatosDelFiltroDinamico(editDetalleNvo, editDetelle, FormPrincipal.userID));
+                            //ActualizarNombreDatoVentanaFiltros
+                            //RenombrarDetallesProductoGenerales
+                            //RenombrarDatosDelFiltroDinamico 
                         }
                         catch (Exception ex)
                         {

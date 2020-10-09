@@ -404,6 +404,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string RenombrarDetallesProductoGenerales(string nvoConcepto, string viejoConcepto, int idUser)
+        {
+            var consulta = $"UPDATE DetallesProductoGenerales SET panelContenido = 'panelContenido{nvoConcepto}' WHERE IDUsuario = '{idUser}' AND panelContenido = 'panelContenido{viejoConcepto}'";
+
+            return consulta;
+        }
+
         public string ListarDetalleGeneral(int idUser, string chkNombre)
         {
             var consulta = $"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUser} AND ChckName = '{chkNombre}'";
@@ -1192,6 +1199,13 @@ namespace PuntoDeVentaV2
             string ed = $"UPDATE Usuarios SET timbres= timbres - 1 WHERE ID='{id}'";
 
             return ed;
+        }
+
+        public string RenombrarDatosDelFiltroDinamico(string nvoConcepto, string viejoConcepto, int idUser)
+        {
+            var consulta = $"UPDATE DetalleGeneral SET ChckName = '{nvoConcepto}' WHERE IDUsuario = '{idUser}' AND ChckName = '{viejoConcepto}'";
+
+            return consulta;
         }
     }
 }
