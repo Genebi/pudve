@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -123,19 +124,19 @@ namespace PuntoDeVentaV2
 
         private void CargarSaldo()
         {
-            SQLiteConnection sql_con;
-            SQLiteCommand consultaUno, consultaDos;
-            SQLiteDataReader drUno, drDos;
+            MySqlConnection sql_con; 
+            MySqlCommand consultaUno, consultaDos;
+            MySqlDataReader drUno, drDos;
 
             var servidor = Properties.Settings.Default.Hosting;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                sql_con = new SQLiteConnection("Data source=//" + servidor + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection($"datasource={servidor};port=6666;username=root;password=;database=pudve;");
             }
             else
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
 
             sql_con.Open();
@@ -143,7 +144,7 @@ namespace PuntoDeVentaV2
             var fechaDefault = Convert.ToDateTime("0001-01-01 00:00:00");
 
             var consultarFecha = $"SELECT FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte' ORDER BY FeChaOperacion DESC LIMIT 1";
-            consultaUno = new SQLiteCommand(consultarFecha, sql_con);
+            consultaUno = new MySqlCommand(consultarFecha, sql_con);
             drUno = consultaUno.ExecuteReader();
 
             if (drUno.Read())
@@ -155,7 +156,7 @@ namespace PuntoDeVentaV2
             fechaGeneral = fechaDefault;
 
             var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID}";
-            consultaDos = new SQLiteCommand(consulta, sql_con);
+            consultaDos = new MySqlCommand(consulta, sql_con);
             drDos = consultaDos.ExecuteReader();
 
             int saltar = 0;

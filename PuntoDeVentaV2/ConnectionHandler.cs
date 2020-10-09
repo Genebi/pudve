@@ -291,7 +291,7 @@ namespace PuntoDeVentaV2
                                                                   efectivoRetirado, tarjetaRetirado, valesRetirado, chequeRetirado, transferenciaRetirado, anticiposUtilizadosRetiro, totalRetirado,
                                                                   efectivoTotalCaja, tarjetaTotalCaja, valesTotalCaja, chequeTotalCaja, transferenciaTotalCaja, creditoTotalCaja, anticiposUtilizadosTotalCaja, saldoInicialTotalCaja, subtotalEnCajaTotalCaja, dineroRetiradoTotalCaja, totalEnCajaTotalCaja, 
                                                                   fechaActualizacion, nickUsuario, idUsuario) 
-                                                         VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{abonos}', '{anticipos1}', '{totalVentas}',
+                                                         VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{abonos}', '{vAnticipos}', '{totalVentas}',
                                                                  '{abonoEfectivoI}', '{abonoTarjetaI}', '{abonoValesI}', '{abonoChequeI}', '{abonoTransferenciaI}', '{abonos}',
                                                                  '{aEfectivo}', '{aTarjeta}', '{aVales}', '{aCheque}', '{aTrans}', '{totalAnticipos}', 
                                                                  '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}', 
