@@ -76,6 +76,11 @@
             this.PConteidoProducto = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
+            this.lbClaveInterna = new System.Windows.Forms.Label();
+            this.lbStock = new System.Windows.Forms.Label();
+            this.lbPrecioVenta = new System.Windows.Forms.Label();
+            this.lbStockMaximo = new System.Windows.Forms.Label();
+            this.lbPrecioCompra = new System.Windows.Forms.Label();
             this.lblStockMinimo = new System.Windows.Forms.Label();
             this.tLPServicio = new System.Windows.Forms.TableLayoutPanel();
             this.tLPCombo = new System.Windows.Forms.TableLayoutPanel();
@@ -93,11 +98,6 @@
             this.fLPDetallesProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lbPrecioCompra = new System.Windows.Forms.Label();
-            this.lbStockMaximo = new System.Windows.Forms.Label();
-            this.lbPrecioVenta = new System.Windows.Forms.Label();
-            this.lbStock = new System.Windows.Forms.Label();
-            this.lbClaveInterna = new System.Windows.Forms.Label();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -551,6 +551,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
@@ -712,6 +713,56 @@
             this.PDetalle.Name = "PDetalle";
             this.PDetalle.Size = new System.Drawing.Size(838, 287);
             this.PDetalle.TabIndex = 2;
+            // 
+            // lbClaveInterna
+            // 
+            this.lbClaveInterna.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbClaveInterna.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lbClaveInterna.Location = new System.Drawing.Point(821, 219);
+            this.lbClaveInterna.Name = "lbClaveInterna";
+            this.lbClaveInterna.Size = new System.Drawing.Size(20, 23);
+            this.lbClaveInterna.TabIndex = 42;
+            this.lbClaveInterna.Visible = false;
+            // 
+            // lbStock
+            // 
+            this.lbStock.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbStock.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lbStock.Location = new System.Drawing.Point(821, 196);
+            this.lbStock.Name = "lbStock";
+            this.lbStock.Size = new System.Drawing.Size(20, 23);
+            this.lbStock.TabIndex = 41;
+            this.lbStock.Visible = false;
+            // 
+            // lbPrecioVenta
+            // 
+            this.lbPrecioVenta.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbPrecioVenta.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lbPrecioVenta.Location = new System.Drawing.Point(821, 171);
+            this.lbPrecioVenta.Name = "lbPrecioVenta";
+            this.lbPrecioVenta.Size = new System.Drawing.Size(20, 23);
+            this.lbPrecioVenta.TabIndex = 40;
+            this.lbPrecioVenta.Visible = false;
+            // 
+            // lbStockMaximo
+            // 
+            this.lbStockMaximo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbStockMaximo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lbStockMaximo.Location = new System.Drawing.Point(821, 138);
+            this.lbStockMaximo.Name = "lbStockMaximo";
+            this.lbStockMaximo.Size = new System.Drawing.Size(20, 23);
+            this.lbStockMaximo.TabIndex = 39;
+            this.lbStockMaximo.Visible = false;
+            // 
+            // lbPrecioCompra
+            // 
+            this.lbPrecioCompra.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbPrecioCompra.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lbPrecioCompra.Location = new System.Drawing.Point(821, 112);
+            this.lbPrecioCompra.Name = "lbPrecioCompra";
+            this.lbPrecioCompra.Size = new System.Drawing.Size(20, 23);
+            this.lbPrecioCompra.TabIndex = 38;
+            this.lbPrecioCompra.Visible = false;
             // 
             // lblStockMinimo
             // 
@@ -894,56 +945,6 @@
             // 
             this.errorProvAgregarEditarProducto.ContainerControl = this;
             this.errorProvAgregarEditarProducto.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvAgregarEditarProducto.Icon")));
-            // 
-            // lbPrecioCompra
-            // 
-            this.lbPrecioCompra.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbPrecioCompra.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbPrecioCompra.Location = new System.Drawing.Point(821, 112);
-            this.lbPrecioCompra.Name = "lbPrecioCompra";
-            this.lbPrecioCompra.Size = new System.Drawing.Size(20, 23);
-            this.lbPrecioCompra.TabIndex = 38;
-            this.lbPrecioCompra.Visible = false;
-            // 
-            // lbStockMaximo
-            // 
-            this.lbStockMaximo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbStockMaximo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbStockMaximo.Location = new System.Drawing.Point(821, 138);
-            this.lbStockMaximo.Name = "lbStockMaximo";
-            this.lbStockMaximo.Size = new System.Drawing.Size(20, 23);
-            this.lbStockMaximo.TabIndex = 39;
-            this.lbStockMaximo.Visible = false;
-            // 
-            // lbPrecioVenta
-            // 
-            this.lbPrecioVenta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbPrecioVenta.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbPrecioVenta.Location = new System.Drawing.Point(821, 171);
-            this.lbPrecioVenta.Name = "lbPrecioVenta";
-            this.lbPrecioVenta.Size = new System.Drawing.Size(20, 23);
-            this.lbPrecioVenta.TabIndex = 40;
-            this.lbPrecioVenta.Visible = false;
-            // 
-            // lbStock
-            // 
-            this.lbStock.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbStock.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbStock.Location = new System.Drawing.Point(821, 196);
-            this.lbStock.Name = "lbStock";
-            this.lbStock.Size = new System.Drawing.Size(20, 23);
-            this.lbStock.TabIndex = 41;
-            this.lbStock.Visible = false;
-            // 
-            // lbClaveInterna
-            // 
-            this.lbClaveInterna.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbClaveInterna.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbClaveInterna.Location = new System.Drawing.Point(821, 219);
-            this.lbClaveInterna.Name = "lbClaveInterna";
-            this.lbClaveInterna.Size = new System.Drawing.Size(20, 23);
-            this.lbClaveInterna.TabIndex = 42;
-            this.lbClaveInterna.Visible = false;
             // 
             // AgregarEditarProducto
             // 
