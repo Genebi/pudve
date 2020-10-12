@@ -232,7 +232,9 @@ namespace PuntoDeVentaV2
         private void btnGuardarRevision_Click(object sender, EventArgs e)
         {
             var validacionPunto = string.Empty;
+
             validacionPunto = txtNumeroRevision.Text;
+
             if (!validacionPunto.Equals("."))
             {
                 if (opcion2 == 0)
@@ -261,7 +263,6 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Por favor ingrese numeros", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNumeroRevision.Focus();
             }
-
         }
 
         private void btnLimpiarTabla_Click(object sender, EventArgs e)
