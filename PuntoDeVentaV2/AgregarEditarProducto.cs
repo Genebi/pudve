@@ -2648,7 +2648,10 @@ namespace PuntoDeVentaV2
             filtroTipoSerPaq = Convert.ToString(cbTipo.SelectedItem);
             tipoServPaq = filtroTipoSerPaq;
             nombre = txtNombreProducto.Text;
-            validarDecimales(txtStockProducto.Text.ToString());
+            if (this.Text.Trim() == "Productos")
+            {
+                validarDecimales(txtStockProducto.Text.ToString());
+            }
             if (!parteDecimal.Equals(""))
             {
                 stock = parteEntera + "." + parteDecimal;
@@ -3632,6 +3635,11 @@ namespace PuntoDeVentaV2
                                 }
                             }
                             #endregion Final Seccion Descuentos
+
+                            if (!(this.Text == "Productos"))
+                            {
+                                stock = "0";
+                            }
 
                             queryUpdateProd = $@"UPDATE Productos SET Nombre = '{nombre}', 
                                                 Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}',
