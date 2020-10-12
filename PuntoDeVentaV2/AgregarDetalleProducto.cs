@@ -13,6 +13,7 @@ using Microsoft.Win32;
 
 using System.Configuration;
 using System.Collections.Specialized;
+using MySql.Data.MySqlClient;
 
 namespace PuntoDeVentaV2
 {
@@ -2365,48 +2366,68 @@ namespace PuntoDeVentaV2
 
                         MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         fLPCentralDetalle.Controls.Clear();
-                        //RefreshAppSettings();
-                        //loadFormConfig();
                         loadFromConfigDB();
                         BuscarTextoListView(settingDatabases);
                     }
                     else if (!editDetelle.Equals("Proveedor"))
                     {
+                        string tableSource = string.Empty;
                         fLPCentralDetalle.Controls.Clear();
-                        //ReadKey(editDetelle);
-                        //RenameKey(editDetelle, editValor);
-                        //RefreshAppSettings();
-                        //loadFormConfig();
 
                         try
                         {
+                            tableSource = "appSettings";
                             var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
                         }
+                        catch (MySqlException exMySql)
+                        {
+                            MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...\nError: " + ex.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error al intentar actualizar registro de Detalle Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         try
                         {
+                            tableSource = "FiltroDinamico";
                             var UpdateDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoFiltroDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
                         }
+                        catch (MySqlException exMySql)
+                        {
+                            MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error al Intentar Actualizar Registro de Filtro Dinamico...\nError: " + ex.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error al intentar actualizar registro de Filtro Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         try
                         {
+                            tableSource = "DetallesProductoGenerales";
                             var UpdateNombreDatoFiltroDinamico = cn.EjecutarConsulta(cs.RenombrarDetallesProductoGenerales(editDetalleNvo, editDetelle, FormPrincipal.userID));
-                            var UdapteDatosDelFiltroDinamico = cn.EjecutarConsulta(cs.RenombrarDatosDelFiltroDinamico(editDetalleNvo, editDetelle, FormPrincipal.userID));
-                            //ActualizarNombreDatoVentanaFiltros
-                            //RenombrarDetallesProductoGenerales
-                            //RenombrarDatosDelFiltroDinamico 
+                        }
+                        catch (MySqlException exMySql)
+                        {
+                            MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error al Intentar Actualizar Registro de Filtro Dinamico...\nError: " + ex.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error al intentar actualizar registro de Filtro Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        try
+                        {
+                            tableSource = "DetalleGeneral";
+                            var UdapteDatosDelFiltroDinamico = cn.EjecutarConsulta(cs.RenombrarDatosDelFiltroDinamico(editDetalleNvo, editDetelle, FormPrincipal.userID));
+                        }
+                        catch (MySqlException exMySql)
+                        {
+                            MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al intentar actualizar registro de Filtro Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         loadFromConfigDB();
@@ -2415,8 +2436,6 @@ namespace PuntoDeVentaV2
                 }
                 else if (found.Equals(0))
                 {
-                    //RefreshAppSettings();
-                    //loadFormConfig();
                     loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
