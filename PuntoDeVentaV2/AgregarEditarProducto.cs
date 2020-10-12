@@ -6007,6 +6007,15 @@ namespace PuntoDeVentaV2
                 //panelMayoreo.Visible = Convert.ToBoolean(config[9]);
             }
             tituloSeccion.Text = tituloSeccion.Text.ToUpper();
+
+            if (!txtPrecioProducto.Text.Equals(""))
+            {
+                var valor = double.Parse(txtPrecioProducto.Text);
+                if (valor > 0)
+                {
+                    btnAgregarDescuento.Enabled = true;
+                }
+            }
         }
 
         /// <summary>
