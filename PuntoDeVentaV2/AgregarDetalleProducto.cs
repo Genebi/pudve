@@ -2146,8 +2146,6 @@ namespace PuntoDeVentaV2
                 fLPCentralDetalle.Controls.Clear();
                 if (nvoDetalle.Equals("Escriba aquí su Detalle a Eliminar"))
                 {
-                    //RefreshAppSettings();
-                    //loadFormConfig();
                     loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2159,8 +2157,6 @@ namespace PuntoDeVentaV2
                         var mensaje = deleteDetalle;
 
                         MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //RefreshAppSettings();
-                        //loadFormConfig();
                         loadFromConfigDB();
                         BuscarTextoListView(settingDatabases);
                     }
@@ -2181,53 +2177,55 @@ namespace PuntoDeVentaV2
 
                         if (found.Equals(1))
                         {
+                            string tableSource = string.Empty;
                             fLPCentralDetalle.Controls.Clear();
 
                             try
                             {
+                                tableSource = "appSettings";
                                 var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
                             try
                             {
+                                tableSource = "FiltroDinamico";
                                 var DeleteDatoFiltroDinamico = cn.EjecutarConsulta(cs.BorrarDatoFiltroDinamico("chk" + deleteDetalle, FormPrincipal.userID));
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
                             try
                             {
+                                tableSource = "FiltrosDinamicosVetanaFiltros";
                                 var DeleteDatoFiltroDinamicoVentanaFiltros = cn.EjecutarConsulta(cs.BorrarDatoVentanaFiltros(deleteDetalle, FormPrincipal.userID));
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
                             try
                             {
+                                tableSource = "DetallesProductoGenerales";
                                 var DeleteDetallesProductoGenerales = cn.EjecutarConsulta(cs.BorrarDetallesProductoGeneralesPorConcepto("panelContenido" + deleteDetalle, finalIdProducto));
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
-                            //loadFormConfig();
                             loadFromConfigDB();
                             BuscarTextoListView(settingDatabases);
                             deleteDetalle = string.Empty;
                         }
                         else if (found.Equals(0))
                         {
-                            //RefreshAppSettings();
-                            //loadFormConfig();
                             loadFromConfigDB();
                             BuscarTextoListView(settingDatabases);
                             MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2238,8 +2236,6 @@ namespace PuntoDeVentaV2
             }
             catch (Exception ex)
             {
-                //RefreshAppSettings();
-                //loadFormConfig();
                 loadFromConfigDB();
                 BuscarTextoListView(settingDatabases);
                 MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
