@@ -533,7 +533,6 @@ namespace PuntoDeVentaV2
                 }
             }
 
-
             try
             {
                 for (int i = 0; i < pathsOrigen.Length; i++)
