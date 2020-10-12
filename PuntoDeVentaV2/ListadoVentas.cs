@@ -647,9 +647,9 @@ namespace PuntoDeVentaV2
                                 {
                                     var info = producto.Split('|');
                                     var idProducto = info[0];
-                                    var cantidad = Convert.ToInt32(info[2]);
+                                    var cantidad = Convert.ToDecimal(info[2]);
 
-                                    cn.EjecutarConsulta($"UPDATE Productos SET Stock =  Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                    cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                                 }
                             }
 
