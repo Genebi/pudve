@@ -1207,5 +1207,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string BorrarDetalleGeneralPorConcepto(string deleteDetalle, int userID)
+        {
+            var consulta = $"DELETE FROM DetalleGeneral WHERE IDUsuario = '{userID}' AND ChckName = '{deleteDetalle}'";
+
+            return consulta;
+        }
     }
 }

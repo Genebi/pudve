@@ -2236,6 +2236,20 @@ namespace PuntoDeVentaV2
                                 MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
+                            try
+                            {
+                                tableSource = "DetalleGeneral";
+                                var DeleteDetalleGeneral = cn.EjecutarConsulta(cs.BorrarDetalleGeneralPorConcepto(deleteDetalle, FormPrincipal.userID));
+                            }
+                            catch (MySqlException exMySql)
+                            {
+                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
                             loadFromConfigDB();
                             BuscarTextoListView(settingDatabases);
                             deleteDetalle = string.Empty;
