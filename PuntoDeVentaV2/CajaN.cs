@@ -252,6 +252,7 @@ namespace PuntoDeVentaV2
 
                 //GenerarTicket();
             }
+            abonos = 0;
         }
 
         private string[] ObtenerCantidades()
@@ -332,14 +333,14 @@ namespace PuntoDeVentaV2
 
             if (drUno.Read())
             {
-                var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString(/*"yyyy-MM-dd HH:mm:ss"*/);
+                var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 fechaDefault = Convert.ToDateTime(fechaTmp);
             }
 
             fechaGeneral = fechaDefault;
             drUno.Close();
 
-            var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString(/*"yyyy-MM-dd HH:mm:ss"*/)}' ORDER BY FechaOperacion ASC";
+            var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
             consultaDos = new MySqlCommand(consulta, sql_con);
             drDos = consultaDos.ExecuteReader();
 
@@ -434,7 +435,7 @@ namespace PuntoDeVentaV2
                     //    abono = cantidadAbono["sum(Total)"].ToString();
                     //}
                     //abonos = float.Parse(abono);
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString(/*"yyyy-MM-dd HH:mm:ss"*/)}'");
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     var abono = "";
                     var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
                     foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
@@ -483,12 +484,12 @@ namespace PuntoDeVentaV2
             while (drDos.Read())
             {
                 string operacion = drDos.GetValue(drDos.GetOrdinal("Operacion")).ToString();
-                var auxiliar = Convert.ToDateTime(drDos.GetValue(drDos.GetOrdinal("FechaOperacion"))).ToString(/*"yyyy-MM-dd HH:mm:ss"*/);
+                var auxiliar = Convert.ToDateTime(drDos.GetValue(drDos.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 var fechaOperacion = Convert.ToDateTime(auxiliar);
 
                 if (operacion == "venta" && fechaOperacion > fechaDefault)
                 {
-                    if (saltar == 0 && !fechaDefault.ToString(/*"yyyy-MM-dd HH:mm:ss"*/).Equals("0001-01-01 00:00:00"))
+                    if (saltar == 0 && !fechaDefault.ToString("yyyy-MM-dd HH:mm:ss").Equals("0001-01-01 00:00:00"))
                     {
                         saltar++;
                         continue;
@@ -740,7 +741,7 @@ namespace PuntoDeVentaV2
             reporte.Open();
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaUltimoCorte.ToString(/*"yyyy-MM-dd HH:mm:ss"*/) + "\n\n\n", fuenteNormal);
+            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
@@ -1340,7 +1341,7 @@ namespace PuntoDeVentaV2
 
             sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             sql_con.Open();
-            sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND FechaOperacion > '{fechaGeneral.ToString(/*"yyyy-MM-dd HH:mm:ss"*/)}'", sql_con);
+            sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
@@ -1399,7 +1400,7 @@ namespace PuntoDeVentaV2
                     var vales = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
                     var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
                     var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
-                    var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString(/*"yyyy-MM-dd HH:mm:ss"*/);
+                    var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
 
                     PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
                     colEmpleadoTmp.BorderWidth = 0;
@@ -1463,7 +1464,7 @@ namespace PuntoDeVentaV2
 
             sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             sql_con.Open();
-            sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND FechaOperacion > '{fechaGeneral.ToString(/*"yyyy-MM-dd HH:mm:ss"*/)}'", sql_con);
+            sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
@@ -1532,7 +1533,7 @@ namespace PuntoDeVentaV2
                     var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
                     var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
                     var credito = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Credito"))).ToString("0.00");
-                    var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString(/*"yyyy-MM-dd HH:mm:ss"*/);
+                    var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
 
                     PdfPCell colEmpleadoTmpR = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
                     colEmpleadoTmpR.BorderWidth = 0;
@@ -1654,7 +1655,7 @@ namespace PuntoDeVentaV2
             ticket.Open();
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaUltimoCorte.ToString(/*"yyyy-MM-dd HH:mm:ss"*/), fuenteNormal);
+            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"), fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
@@ -1735,24 +1736,33 @@ namespace PuntoDeVentaV2
                     }
                     DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
 
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString()}'");
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     var abono = "";
-                    foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+
+                    if (fechaMovimientos.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaMovimientos.ToString()))
                     {
-                        abono = cantidadAbono["sum(Total)"].ToString();
-                    }
-                    abonos = float.Parse(abono);
-                }
-                else
-                {
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}'");
-                        var abono = "";
                         foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
                         {
                             abono = cantidadAbono["sum(Total)"].ToString();
                         }
                         abonos = float.Parse(abono);
                     }
+                    else
+                    {
+                        abonos = 0f;
+                    }
+                    
+                }
+                //else
+                //{
+                //    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}'");
+                //        var abono = "";
+                //        foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                //        {
+                //            abono = cantidadAbono["sum(Total)"].ToString();
+                //        }
+                //        abonos = float.Parse(abono);
+                //    }
             }
             catch
             {
