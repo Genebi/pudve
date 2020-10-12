@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SQLite;
+using MySql.Data.MySqlClient;
 
 namespace PuntoDeVentaV2
 {
@@ -41,25 +41,25 @@ namespace PuntoDeVentaV2
 
         public void cargar_lista_empleados()
         {
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
+            MySqlConnection sql_con;
+            MySqlCommand sql_cmd;
+            MySqlDataReader dr;
 
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
-                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection("datasource="+ Properties.Settings.Default.Hosting +";port=6666;username=root;password=;database=mysql;");
             }
             else
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
 
             sql_con.Open();
 
 
             string cons = $"SELECT * FROM Empleados WHERE IDUsuario='{FormPrincipal.userID}' AND estatus=1";
-            sql_cmd = new SQLiteCommand(cons, sql_con);
+            sql_cmd = new MySqlCommand(cons, sql_con);
             dr = sql_cmd.ExecuteReader();
 
 
