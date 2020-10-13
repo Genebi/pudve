@@ -446,6 +446,7 @@ namespace PuntoDeVentaV2
                         abonoVales = cantidadAbono["sum(Vales)"].ToString();
                         abonoCheque = cantidadAbono["sum(Cheque)"].ToString();
                         abonoTransferencia = cantidadAbono["sum(Transferencia)"].ToString();
+
                     }
                     //abonos = float.Parse(abono);
                     abonoEfectivoI = float.Parse(abonoEfectivo);
