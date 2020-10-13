@@ -1751,7 +1751,6 @@ namespace PuntoDeVentaV2
                     {
                         abonos = 0f;
                     }
-                    
                 }
                 //else
                 //{
