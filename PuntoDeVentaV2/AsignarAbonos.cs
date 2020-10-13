@@ -93,10 +93,11 @@ namespace PuntoDeVentaV2
                 //totalEfectivo = totalPendiente - (SumaMetodos() + CantidadDecimal(txtEfectivo.Text));
                 totalEfectivo = (SumaMetodos() + CantidadDecimal(txtEfectivo.Text)); //=100
                 efectiv = CantidadDecimal(txtEfectivo.Text);
+                totalEfectivo = CantidadDecimal(txtEfectivo.Text);
             }
             else
             {
-                totalEfectivo = CantidadDecimal(txtEfectivo.Text);
+                efectiv = CantidadDecimal(txtEfectivo.Text);
 
                 if (totalEfectivo > totalPendiente && SumaMetodos() == 0)
                 {
