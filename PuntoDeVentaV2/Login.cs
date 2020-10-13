@@ -533,26 +533,28 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            try
+            if (Directory.Exists(@"C:\Program Files (x86)\PudveBD\"))
             {
-                for (int i = 0; i < pathsOrigen.Length; i++)
+                List<string> tablasPendientes = new List<string>();
+
+                tablasPendientes.Add("appSettings");
+
+                if (tablasPendientes.Count > 0)
                 {
-                    CopyWithProgress(pathsOrigen[i], pathsDestino[i]);
+                    Hide();
+
+                    ConfiguracionMariaDB config = new ConfiguracionMariaDB(false);
+                    TablasMySQL tablas = new TablasMySQL();
+
+                    config.Show();
+                    var tarea = Task.Run(() => tablas.buildTables());
+                    tarea.Wait();
+                    config.Close();
+                    Show();
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al enviar parametro error: " + ex.Message, "Error al pasar parametro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
 
-            //RevisarTablas();
-
-            //if (contadorMetodoTablas == 0)
-            //{
-            //    RevisarTablas();
-            //    contadorMetodoTablas = 1;
-            //}
-
+          
             txtUsuario.Text = Properties.Settings.Default.Usuario;
             txtPassword.Text = Properties.Settings.Default.Password;
 
@@ -561,17 +563,6 @@ namespace PuntoDeVentaV2
                 btnEntrar.Focus();
                 checkBoxRecordarDatos.Checked = true;
             }
-        }
-
-        public void verificarVentanasAbiertas()
-        {
-            //foreach (Form frm in Application.OpenForms)
-            //{
-            //    if (frm.Name != "Login")    //Cerramos todos los formularios menos el formulario principal que contiene el menú
-            //    {
-            //        frm.Dispose();
-            //    }
-            //}
         }
 
         private void modoDebug()
@@ -600,27 +591,6 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.AlterProductosDeServicios = 0;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
-        }
-
-        private void RevisarTablas()
-        {
-            verificarBasesSQLite checkBasesSQLite = new verificarBasesSQLite();
-
-            if (checkBasesSQLite.Visible)
-            {
-                checkBasesSQLite.ShowDialog();
-            }
-            else
-            {
-                checkBasesSQLite.ShowDialog();
-            }
-        }
-
-        private bool checkEmpty(object tabla)
-        {
-            string queryTableCheck = $"SELECT * FROM '{tabla}'";
-            IsEmpty = cn.IsEmptyTable(queryTableCheck);
-            return IsEmpty;
         }
 
         private void btnLimpiarDatos_Click(object sender, EventArgs e)
