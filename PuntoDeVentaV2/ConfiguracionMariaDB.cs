@@ -24,9 +24,13 @@ namespace PuntoDeVentaV2
         BaseDatosMySQL db = new BaseDatosMySQL();
         TablasMySQL td = new TablasMySQL();
 
-        public ConfiguracionMariaDB()
+        private bool ejecutarShown = true;
+
+        public ConfiguracionMariaDB(bool ejecutarShown = true)
         {
             InitializeComponent();
+
+            this.ejecutarShown = ejecutarShown;
         }
 
         private void ConfiguracionMariaDB_Load(object sender, EventArgs e)
@@ -38,11 +42,14 @@ namespace PuntoDeVentaV2
 
         private async void ConfiguracionMariaDB_Shown(object sender, EventArgs e)
         {
-            var respuesta = await Cargando();
-
-            if (respuesta)
+            if (ejecutarShown)
             {
-                this.Close();
+                var respuesta = await Cargando();
+
+                if (respuesta)
+                {
+                    this.Close();
+                }
             }
         }
 
