@@ -356,7 +356,7 @@ namespace PuntoDeVentaV2
                                 {
                                     var info = producto.Split('|');
                                     var idProducto = info[0];
-                                    var cantidad = Convert.ToInt32(info[2]);
+                                    var cantidad = float.Parse(info[2]);
 
                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock =  Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                                 }
@@ -3412,11 +3412,18 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            // Cuando presiona la tecla fin hace click en el boton terminar venta
+            // Tecla fin terminar venta
             if (e.KeyData == Keys.End)
             {
                 var noDuplicadoVentas = DetalleVenta.validarNoDuplicarVentas;
                 if (noDuplicadoVentas == 0)
+                {
+                    btnTerminarVenta.PerformClick();
+                }else if(noDuplicadoVentas == 1)
+                {
+
+                }
+                else
                 {
                     btnTerminarVenta.PerformClick();
                 }
