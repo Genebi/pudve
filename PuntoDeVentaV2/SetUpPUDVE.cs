@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -175,19 +176,43 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            guardarArchivo.Filter = "SQL (*.db)|*.db";
+            guardarArchivo.Filter = "SQL (*.sql)|*.sql";
             guardarArchivo.FilterIndex = 1;
             guardarArchivo.RestoreDirectory = true;
 
             if (guardarArchivo.ShowDialog() == DialogResult.OK)
             {
-                string archivoBD = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db";
-                string copiaDB = guardarArchivo.FileName;
-                //string fecha = DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss");
-
                 try
                 {
-                    File.Copy(archivoBD, copiaDB);
+                    string conexion = string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+                    {
+                        conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+                    }
+                    else
+                    {
+                        conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+                    }
+
+                    // Important Additional Connection Options
+                    conexion += "charset=utf8;convertzerodatetime=true;";
+
+                    string archivo = guardarArchivo.FileName;
+
+                    using (MySqlConnection con = new MySqlConnection(conexion))
+                    {
+                        using (MySqlCommand cmd = new MySqlCommand())
+                        {
+                            using (MySqlBackup backup = new MySqlBackup(cmd))
+                            {
+                                cmd.Connection = con;
+                                con.Open();
+                                backup.ExportToFile(archivo);
+                                con.Close();
+                            }
+                        }
+                    }
 
                     MessageBox.Show("Información respaldada exitosamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -262,16 +287,6 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Por favor ingrese numeros", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNumeroRevision.Focus();
-            }
-        }
-
-        private void btnLimpiarTabla_Click(object sender, EventArgs e)
-        {
-            int resultado = cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDUsuario = {FormPrincipal.userID}");
-
-            if (resultado > 0)
-            {
-                MessageBox.Show("Operación terminada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
