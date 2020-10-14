@@ -1377,14 +1377,14 @@ namespace PuntoDeVentaV2
             pathTemp = saveDirectoryFile + usrNo + @"\";
             if (usrNo > 0)
             {
-                if (!File.Exists(path + fileName))
+                if (!File.Exists(pathTemp + fileName))
                 {
-                    Directory.CreateDirectory(path);
-                    using (File.Create(path + fileName)) { }
+                    Directory.CreateDirectory(pathTemp);
+                    using (File.Create(pathTemp + fileName)) { }
                 }
-                if (File.Exists(path + fileName))
+                if (File.Exists(pathTemp + fileName))
                 {
-                    rutaCompletaFile = path + fileName;
+                    rutaCompletaFile = pathTemp + fileName;
                     rutaCompletaTempFile = pathTemp + fileTempName;
                     if (File.Exists(rutaCompletaFile))
                     {
@@ -2810,8 +2810,8 @@ namespace PuntoDeVentaV2
 
                 saveConfigGarlDB();
 
-                //saveDictionary();
-                
+                saveDictionary();
+
                 this.Close();
             }
             else if (result == DialogResult.No)

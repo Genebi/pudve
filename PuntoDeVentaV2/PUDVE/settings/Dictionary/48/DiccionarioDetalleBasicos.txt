@@ -1,0 +1,2 @@
+48|chkBoxchkProveedor|False|Selecciona Proveedor|cbchkProveedor
+49|chkBoxchkLongitud|False|Selecciona Longitud|cbchkLongitud
