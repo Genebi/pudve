@@ -1366,7 +1366,9 @@
     <Content Include="PUDVE\BD\RegimenFiscal.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="PUDVE\BD\UnidadesMedida.sql" />
+    <Content Include="PUDVE\BD\UnidadesMedida.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black16\500px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
