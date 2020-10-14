@@ -1351,12 +1351,16 @@
     <Content Include="PUDVE\BarCode\BarCode.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="PUDVE\BD\CatalogoMonedas.sql" />
+    <None Include="PUDVE\BD\ClavesProducto.sql" />
     <Content Include="PUDVE\BD\DataDictionary.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\BD\pudveDB.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="PUDVE\BD\RegimenFiscal.sql" />
+    <None Include="PUDVE\BD\UnidadesMedida.sql" />
     <Content Include="PUDVE\icon\black16\500px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
