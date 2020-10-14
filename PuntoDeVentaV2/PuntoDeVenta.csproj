@@ -1351,7 +1351,9 @@
     <Content Include="PUDVE\BarCode\BarCode.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="PUDVE\BD\CatalogoMonedas.sql" />
+    <Content Include="PUDVE\BD\CatalogoMonedas.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="PUDVE\BD\ClavesProducto.sql" />
     <Content Include="PUDVE\BD\DataDictionary.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
