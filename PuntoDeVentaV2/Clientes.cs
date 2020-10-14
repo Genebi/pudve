@@ -85,7 +85,6 @@ namespace PuntoDeVentaV2
                 var tipoCliente = string.Empty;
 
                 var datosTipoCliente = mb.ObtenerTipoCliente(tipoClienteAux);
-
                 if (datosTipoCliente.Length > 0)
                 {
                     tipoCliente = datosTipoCliente[0];
@@ -254,6 +253,10 @@ namespace PuntoDeVentaV2
                     var listado = new ListadoTipoClientes();
 
                     listado.Show();
+                    listado.FormClosed += delegate
+                    {
+                        CargarDatos();
+                    };
                 }
                 else
                 {
