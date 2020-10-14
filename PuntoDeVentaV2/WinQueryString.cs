@@ -1377,14 +1377,14 @@ namespace PuntoDeVentaV2
             pathTemp = saveDirectoryFile + usrNo + @"\";
             if (usrNo > 0)
             {
-                if (!File.Exists(path + fileName))
+                if (!File.Exists(pathTemp + fileName))
                 {
-                    Directory.CreateDirectory(path);
-                    using (File.Create(path + fileName)) { }
+                    Directory.CreateDirectory(pathTemp);
+                    using (File.Create(pathTemp + fileName)) { }
                 }
-                if (File.Exists(path + fileName))
+                if (File.Exists(pathTemp + fileName))
                 {
-                    rutaCompletaFile = path + fileName;
+                    rutaCompletaFile = pathTemp + fileName;
                     rutaCompletaTempFile = pathTemp + fileTempName;
                     if (File.Exists(rutaCompletaFile))
                     {
@@ -1790,248 +1790,6 @@ namespace PuntoDeVentaV2
             validarCheckBoxFiltrosDinamicos();
 
             LLenarFiltrosDinamicosDeVetanaFiltros();
-
-            ////loadFormConfig();
-            //loadFromConfigDB();
-            //BuscarChkBoxListView(chkDatabase);
-            //dictionaryLoad();
-
-            ////if (!servidor.Equals(""))
-            ////{
-            ////    dictionaryLoad();
-            ////}
-            ////else if (servidor.Equals(""))
-            ////{
-            ////    FiltroDinamicoLoad();
-            ////}
-
-            //// Condiciones para valorar los procesos del CheckBox de Stock
-            //// Si esta activado
-            //if (Properties.Settings.Default.chkFiltroStock.Equals(true))
-            //{
-            //    string strOperadorAndCant;
-            //    string[] strList;
-            //    char[] separator = { ' ' };
-            //    chkBoxStock.Checked = Properties.Settings.Default.chkFiltroStock;
-            //    strOperadorAndCant = Properties.Settings.Default.strFiltroStock;
-            //    if (!strOperadorAndCant.Equals(""))
-            //    {
-            //        strList = strOperadorAndCant.Split(separator);
-            //        txtCantStock.Text = strList[2].ToString();
-            //        if (strList[1].ToString().Equals(">="))
-            //        {
-            //            cbTipoFiltroStock.SelectedIndex = 1;
-            //        }
-            //        else if (strList[1].ToString().Equals("<="))
-            //        {
-            //            cbTipoFiltroStock.SelectedIndex = 2;
-            //        }
-            //        else if (strList[1].ToString().Equals("="))
-            //        {
-            //            cbTipoFiltroStock.SelectedIndex = 3;
-            //        }
-            //        else if (strList[1].ToString().Equals(">"))
-            //        {
-            //            cbTipoFiltroStock.SelectedIndex = 4;
-            //        }
-            //        else if (strList[1].ToString().Equals("<"))
-            //        {
-            //            cbTipoFiltroStock.SelectedIndex = 5;
-            //        }
-            //    }
-            //}
-            //// si esta desactivado
-            //else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
-            //{
-            //    chkBoxStock.Checked = false;
-            //    cbTipoFiltroStock.SelectedIndex = 0;
-            //    cbTipoFiltroStock_SelectedIndexChanged(sender, e);
-            //    validarChkBoxStock();
-            //}
-
-            //// Condiciones para valorar los procesos del CheckBox de Precio
-            //// Si esta activado
-            //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
-            //{
-            //    string strOperadorAndCant;
-            //    string[] strList;
-            //    char[] separator = { ' ' };
-            //    chkBoxPrecio.Checked = Properties.Settings.Default.chkFiltroPrecio;
-            //    strOperadorAndCant = Properties.Settings.Default.strFiltroPrecio;
-            //    if (!strOperadorAndCant.Equals(""))
-            //    {
-            //        strList = strOperadorAndCant.Split(separator);
-            //        if (strList.Length > 1)
-            //        {
-            //            txtCantPrecio.Text = strList[2].ToString();
-
-            //            if (strList[1].ToString().Equals(">="))
-            //            {
-            //                cbTipoFiltroPrecio.SelectedIndex = 1;
-            //            }
-            //            else if (strList[1].ToString().Equals("<="))
-            //            {
-            //                cbTipoFiltroPrecio.SelectedIndex = 2;
-            //            }
-            //            else if (strList[1].ToString().Equals("="))
-            //            {
-            //                cbTipoFiltroPrecio.SelectedIndex = 3;
-            //            }
-            //            else if (strList[1].ToString().Equals(">"))
-            //            {
-            //                cbTipoFiltroPrecio.SelectedIndex = 4;
-            //            }
-            //            else if (strList[1].ToString().Equals("<"))
-            //            {
-            //                cbTipoFiltroPrecio.SelectedIndex = 5;
-            //            }
-            //        }
-            //    }
-            //}
-            //// si esta desactivado
-            //else if (Properties.Settings.Default.chkFiltroPrecio.Equals(false))
-            //{
-            //    chkBoxPrecio.Checked = false;
-            //    cbTipoFiltroPrecio.SelectedIndex = 0;
-            //    cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
-            //    validarChkBoxPrecio();
-            //}
-
-            //// Condiciones para valorar los procesos del CheckBox de Stock
-            //// Si esta Activado
-            //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true))
-            //{
-            //    string textoCombo = string.Empty;
-            //    bool chkBoxProdCombServ;
-
-            //    chkBoxProdCombServ = Properties.Settings.Default.chkFiltroCombProdServ;
-            //    chkBoxTipo.Checked = chkBoxProdCombServ;
-
-            //    //textoCombo = Properties.Settings.Default.strFiltroCombProdServ.Remove(0, 7);
-
-            //    cbTipoFiltroCombProdServ.Enabled = true;
-
-            //    if (textoCombo.Equals("No Aplica") || textoCombo.Equals(""))
-            //    {
-            //        cbTipoFiltroCombProdServ.SelectedIndex = 0;
-            //    }
-            //    else if (textoCombo.Equals("'PQ'"))
-            //    {
-            //        cbTipoFiltroCombProdServ.SelectedIndex = 1;
-            //    }
-            //    else if (textoCombo.Equals("'P'"))
-            //    {
-            //        cbTipoFiltroCombProdServ.SelectedIndex = 2;
-            //    }
-            //    else if (textoCombo.Equals("'S'"))
-            //    {
-            //        cbTipoFiltroCombProdServ.SelectedIndex = 3;
-            //    }
-            //}
-            //else if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(false))
-            //{
-            //    bool chkBoxProdCombServ;
-
-            //    cbTipoFiltroCombProdServ.SelectedIndex = 0;
-            //    cbTipoFiltroCombProdServ.Enabled = false;
-
-            //    chkBoxProdCombServ = Properties.Settings.Default.chkFiltroCombProdServ;
-
-            //    chkBoxTipo.Checked = chkBoxProdCombServ;
-            //    //chkFiltroCombProdServ = bool
-            //    //strFiltroCombProdServ = string
-            //}
-
-            //// Condiciones para valorar los procesos del CheckBox de Stock
-            //// Si esta Activado
-            //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true))
-            //{
-            //    string strOperadorAndCant;
-            //    string[] strList;
-            //    char[] separador = { ' ' };
-
-            //    filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
-            //    chkBoxRevision.Checked = filtroRevision;
-
-            //    strOperadorAndCant = Properties.Settings.Default.strFiltroRevisionInventario;
-
-            //    if (!strOperadorAndCant.Equals(""))
-            //    {
-            //        strList = strOperadorAndCant.Split(separador);
-            //        if (strList.Length > 1)
-            //        {
-            //            txtNoRevision.Text = strList[2].ToString();
-            //            if (strList[1].ToString().Equals(">="))
-            //            {
-            //                cbTipoFiltroRevision.SelectedIndex = 1;
-            //            }
-            //            else if (strList[1].ToString().Equals("<="))
-            //            {
-            //                cbTipoFiltroRevision.SelectedIndex = 2;
-            //            }
-            //            else if (strList[1].ToString().Equals("="))
-            //            {
-            //                cbTipoFiltroRevision.SelectedIndex = 3;
-            //            }
-            //            else if (strList[1].ToString().Equals(">"))
-            //            {
-            //                cbTipoFiltroRevision.SelectedIndex = 4;
-            //            }
-            //            else if (strList[1].ToString().Equals("<"))
-            //            {
-            //                cbTipoFiltroRevision.SelectedIndex = 5;
-            //            }
-            //        }
-            //    }
-            //}
-            //// Si esta Desactivado
-            //else if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(false))
-            //{
-            //    filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
-
-            //    chkBoxRevision.Checked = filtroRevision;
-
-            //    validarChkBoxRevision();
-            //}
-
-            //// Condiciones para valorar los procesos del CheckBox de Stock
-            //// Si esta Activado
-            //if (Properties.Settings.Default.chkFiltroImagen.Equals(true))
-            //{
-            //    string textoCombo = string.Empty;
-            //    string[] strList;
-            //    char[] separador = { ' ' };
-            //    bool chkBoxEstadoImagen;
-
-            //    chkBoxEstadoImagen = Properties.Settings.Default.chkFiltroImagen;
-            //    chkBoxImagen.Checked = chkBoxEstadoImagen;
-
-            //    textoCombo = Properties.Settings.Default.strFiltroImagen;
-
-            //    if (!textoCombo.Equals(""))
-            //    {
-            //        strList = textoCombo.Split(separador);
-
-            //        if (strList[1].ToString().Equals("<>"))
-            //        {
-            //            cbTipoFiltroImagen.SelectedIndex = 1;
-            //        }
-            //        else if (strList[1].ToString().Equals("="))
-            //        {
-            //            cbTipoFiltroImagen.SelectedIndex = 2;
-            //        }
-            //    }
-
-            //}
-            //else if (Properties.Settings.Default.chkFiltroImagen.Equals(false))
-            //{
-            //    bool chkBoxEstadoImagen;
-
-            //    chkBoxEstadoImagen = Properties.Settings.Default.chkFiltroImagen;
-            //    chkBoxImagen.Checked = chkBoxEstadoImagen;
-
-            //    validarChkBoxImagen();
-            //}
         }
 
         private void validarCheckBoxFijos()
@@ -2839,23 +2597,18 @@ namespace PuntoDeVentaV2
         private void btnAplicar_Click(object sender, EventArgs e)
         {
             cbTipoFiltroStock_SelectedIndexChanged(sender, e);
-            //filtroStock = Properties.Settings.Default.chkFiltroStock;
             filtroStock = chkBoxStock.Checked;
 
             cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
-            //filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
             filtroPrecio = chkBoxPrecio.Checked;
 
             cbTipoFiltroCombProdServ_SelectedIndexChanged(sender, e);
-            //filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
             filtroTipo = chkBoxTipo.Checked;
 
             cbTipoFiltroRevision_SelectedIndexChanged(sender, e);
-            //filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
             filtroRevision = chkBoxRevision.Checked;
 
             cbTipoFiltroImagen_SelectedIndexChanged(sender, e);
-            //filtroImagen = Properties.Settings.Default.chkFiltroImagen;
             filtroImagen = chkBoxImagen.Checked;
 
             DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección", "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -2883,10 +2636,6 @@ namespace PuntoDeVentaV2
                             }
 
                             strFiltroStock += strTxtStock;
-
-                            //Properties.Settings.Default.strFiltroStock = strFiltroStock;
-                            //Properties.Settings.Default.Save();
-                            //Properties.Settings.Default.Reload();
                         }
                         else if (strOpcionCBStock.Equals("No Aplica"))
                         {
@@ -2930,10 +2679,6 @@ namespace PuntoDeVentaV2
                             }
 
                             strFiltroPrecio += strTxtPrecio;
-
-                            //Properties.Settings.Default.strFiltroPrecio = strFiltroPrecio;
-                            //Properties.Settings.Default.Save();
-                            //Properties.Settings.Default.Reload();
                         }
                         else if (strOpcionCBPrecio.Equals("No Aplica"))
                         {
@@ -2960,9 +2705,6 @@ namespace PuntoDeVentaV2
                     if (strFiltroCombProdServ.Equals("No Aplica") || strFiltroCombProdServ.Equals(""))
                     {
                         MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Tipo", "Selección Tipo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //Properties.Settings.Default.strFiltroCombProdServ = strFiltroCombProdServ;
-                        //Properties.Settings.Default.Save();
-                        //Properties.Settings.Default.Reload();
                         cbTipoFiltroCombProdServ.Focus();
                         return;
                     }
@@ -2988,12 +2730,6 @@ namespace PuntoDeVentaV2
                             filtro += words[0].ToString() + " " + words[1].ToString() + " " + words[2].ToString().Replace("'", string.Empty);
                             cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(nameChkBox, filtro));
                         }
-
-                        //Properties.Settings.Default.strFiltroCombProdServ = strFiltroCombProdServ;
-                        //Properties.Settings.Default.Save();
-                        //Properties.Settings.Default.Reload();
-
-                        //MessageBox.Show("Filtro de Tipo: " + Properties.Settings.Default.strFiltroCombProdServ.ToString());
                     }
                 }
                 else if (filtroTipo.Equals(false))
@@ -3005,9 +2741,6 @@ namespace PuntoDeVentaV2
                     if (strFiltroNoRevision.Equals("No Aplica") || strFiltroNoRevision.Equals(""))
                     {
                         MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Revisión", "Selección Revisión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //Properties.Settings.Default.strFiltroRevisionInventario = strFiltroNoRevision;
-                        //Properties.Settings.Default.Save();
-                        //Properties.Settings.Default.Reload();
                         cbTipoFiltroRevision.Focus();
                         return;
                     }
@@ -3030,12 +2763,6 @@ namespace PuntoDeVentaV2
 
                         //strFiltroNoRevision
                         strFiltroNoRevision += $"{strTxtNoRevision}";
-
-                        //Properties.Settings.Default.strFiltroRevisionInventario = strFiltroNoRevision;
-                        //Properties.Settings.Default.Save();
-                        //Properties.Settings.Default.Reload();
-
-                        //MessageBox.Show("Filtro de Revisón: " + Properties.Settings.Default.strFiltroRevisionInventario.ToString());
                     }
                 }
                 else if (filtroRevision.Equals(false))
@@ -3047,9 +2774,6 @@ namespace PuntoDeVentaV2
                     if (strFiltroImagen.Equals("No Aplica") || strFiltroImagen.Equals(""))
                     {
                         MessageBox.Show("Debe de Elegit una Opción\ndel Campo de Imagen", "Selección Imagen", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //Properties.Settings.Default.strFiltroImagen = strFiltroImagen;
-                        //Properties.Settings.Default.Save();
-                        //Properties.Settings.Default.Reload();
                         cbTipoFiltroImagen.Focus();
                         return;
                     }
@@ -3077,12 +2801,6 @@ namespace PuntoDeVentaV2
                             //MessageBox.Show("Filtro: " + filtro.ToString());
                             cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(nameChkBox, filtro));
                         }
-
-                        //Properties.Settings.Default.strFiltroImagen = strFiltroImagen;
-                        //Properties.Settings.Default.Save();
-                        //Properties.Settings.Default.Reload();
-
-                        //MessageBox.Show("Filtro de Revisón: " + Properties.Settings.Default.strFiltroRevisionInventario.ToString());
                     }
                 }
                 else if (filtroImagen.Equals(false))
@@ -3090,25 +2808,9 @@ namespace PuntoDeVentaV2
                     //MessageBox.Show("Que Paso...\nFalta Seleccionar Imagen.");
                 }
 
-                //var servidor = Properties.Settings.Default.Hosting;
-
-                //if (string.IsNullOrWhiteSpace(servidor))
-                //{
-                //    saveConfigGarlDB();
-                //}
-                //else if (!string.IsNullOrWhiteSpace(servidor))
-                //{
-                //    saveDictionary();
-                //}
-
                 saveConfigGarlDB();
 
                 saveDictionary();
-
-                //if((!strOpcionCBStock.Equals("No Aplica")) && (!strOpcionCBPrecio.Equals("No Aplica")) && (!strFiltroCombProdServ.Equals("No Aplica")))
-                //{
-                //    this.Close();
-                //}
 
                 this.Close();
             }
