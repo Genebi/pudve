@@ -100,11 +100,6 @@ namespace PuntoDeVentaV2
             Select();
         }
 
-        private void btnCerrarLogin_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private bool VerificarServidor()
         {
             var respuesta = false;
@@ -409,43 +404,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void CopyWithProgress(string pathOrigen, string pathDestino)
-        {
-            DirectoryInfo source = new DirectoryInfo(pathOrigen);
-            FileInfo[] filesToCopy = source.GetFiles();
-
-            try
-            {
-                // Loop through all files to copy.
-                for (int x = 1; x <= filesToCopy.Length; x++)
-                {
-                    if (filesToCopy[x - 1].ToString().Equals("DataDictionary.db"))
-                    {
-                        if (!File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
-                        {
-                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
-                        }
-                        else if (File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
-                        {
-                            File.Delete(pathDestino + filesToCopy[x - 1].ToString());
-                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
-                        }
-                    }
-                    else
-                    {
-                        if (!File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
-                        {
-                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al copiar error: " + ex.Message, "Error al copiar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void Login_Load(object sender, EventArgs e)
         {
             //iniciarVariablesSistema();
@@ -612,7 +570,7 @@ namespace PuntoDeVentaV2
         {
             // Inicializamos los valores por defecto del openFileDialog
             buscarArchivoBD.FileName = string.Empty;
-            buscarArchivoBD.Filter = "SQL (*.db)|*.db";
+            buscarArchivoBD.Filter = "SQL (*.sql)|*.sql";
             buscarArchivoBD.FilterIndex = 1;
             buscarArchivoBD.RestoreDirectory = true;
 
@@ -635,42 +593,38 @@ namespace PuntoDeVentaV2
                 {
                     // Se guarda la ruta completa junto con el nombre del archivo que se selecciono
                     var rutaArchivo = buscarArchivoBD.FileName;
-                    // Convertimos la ruta en un arreglo
-                    var infoArchivo = buscarArchivoBD.FileName.Split('\\');
-                    // Guardamos SOLO el nombre del archivo original seleccionado
-                    var nombreArchivo = infoArchivo[infoArchivo.Length - 1];
-                    // Creamos una ruta temporal del archivo seleccionado sin tomar en cuenta el nombre del archivo
-                    var rutaTmp = rutaArchivo.Replace(nombreArchivo, "");
 
                     try
                     {
-                        // Copiamos el archivo original seleccionado en la misma ruta 
-                        // pero con diferente nombre de manera temporal
-                        File.Copy(rutaArchivo, rutaTmp + "pudveDB.db");
+                        string conexion = string.Empty;
 
-                        try
+                        if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
                         {
-                            // Ruta del archivo actual de la base de datos
-                            var rutaDestino = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db";
+                            conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+                        }
+                        else
+                        {
+                            conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+                        }
 
-                            // Si existe el archivo se elimina
-                            if (File.Exists(rutaDestino))
+                        // Important Additional Connection Options
+                        conexion += "charset=utf8;convertzerodatetime=true;";
+
+                        using (MySqlConnection con = new MySqlConnection(conexion))
+                        {
+                            using (MySqlCommand cmd = new MySqlCommand())
                             {
-                                File.Delete(rutaDestino);
+                                using (MySqlBackup backup = new MySqlBackup(cmd))
+                                {
+                                    cmd.Connection = con;
+                                    con.Open();
+                                    backup.ImportFromFile(rutaArchivo);
+                                    con.Close();
+                                }
                             }
-
-                            // Copiamos el archivo creado temporalmente en la ruta
-                            // donde el programa buscara el archivo de la base de datos
-                            File.Copy(rutaTmp + "pudveDB.db", rutaDestino);
-                            // Finalmente borramos el archivo temporal de la base de datos que se importo
-                            File.Delete(rutaTmp + "pudveDB.db");
-
-                            MessageBox.Show("Importación realizada con éxito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+
+                        MessageBox.Show("Importación realizada con éxito", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
