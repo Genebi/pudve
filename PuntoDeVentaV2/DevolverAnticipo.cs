@@ -154,6 +154,7 @@ namespace PuntoDeVentaV2
             }
 
             fechaGeneral = fechaDefault;
+            drUno.Close();
 
             var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID}";
             consultaDos = new MySqlCommand(consulta, sql_con);
@@ -242,7 +243,7 @@ namespace PuntoDeVentaV2
             totalCaja = (subtotal - dineroRetirado);
 
             // Cerramos la conexion y el datareader
-            drUno.Close();
+            //drUno.Close();
             drDos.Close();
             sql_con.Close();
         }
