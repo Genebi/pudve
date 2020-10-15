@@ -2754,11 +2754,24 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES (&apos;AED&apos;, &apos;Dirham de EAU&apos;, 2);
-        ///INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES (&apos;AFN&apos;, &apos;Afghani&apos;, 2);
-        ///INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES (&apos;ALL&apos;, &apos;Lek&apos;, 2);
-        ///INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES (&apos;AMD&apos;, &apos;Dram armenio&apos;, 2);
-        ///INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES (&apos;ANG&apos;, &apos; [resto de la cadena truncado]&quot;;.
+        ///   Busca una cadena traducida similar a INSERT INTO Catalogo_monedas 
+        ///(clave_moneda, descripcion, cant_decimales)
+        ///VALUES
+        ///(&apos;AED&apos;, &apos;Dirham de EAU&apos;, 2),
+        ///(&apos;AFN&apos;, &apos;Afghani&apos;, 2),
+        ///(&apos;ALL&apos;, &apos;Lek&apos;, 2),
+        ///(&apos;AMD&apos;, &apos;Dram armenio&apos;, 2),
+        ///(&apos;ANG&apos;, &apos;FlorÃ­n antillano neerlandÃ©s&apos;, 2),
+        ///(&apos;AOA&apos;, &apos;Kwanza&apos;, 2),
+        ///(&apos;ARS&apos;, &apos;Peso Argentino&apos;, 2),
+        ///(&apos;AUD&apos;, &apos;DÃ³lar Australiano&apos;, 2),
+        ///(&apos;AWG&apos;, &apos;Aruba Florin&apos;, 2),
+        ///(&apos;AZN&apos;, &apos;Azerbaijanian Manat&apos;, 2),
+        ///(&apos;BAM&apos;, &apos;Convertibles marca&apos;, 2),
+        ///(&apos;BBD&apos;, &apos;DÃ³lar de Barbados&apos;, 2),
+        ///(&apos;BDT&apos;, &apos;Taka&apos;, 2),
+        ///(&apos;BGN&apos;, &apos;Lev bÃºlgaro&apos;, 2),
+        ///(&apos;BHD [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string CatalogoMonedas {
             get {
@@ -3448,11 +3461,22 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a INSERT INTO Catalogo_claves_producto (ID, clave, descripcion) VALUES (1, &apos;1010101&apos;, &apos;No existe en el catálogo&apos;);
-        ///INSERT INTO Catalogo_claves_producto (ID, clave, descripcion) VALUES (2, &apos;10101500&apos;, &apos;Animales vivos de granja&apos;);
-        ///INSERT INTO Catalogo_claves_producto (ID, clave, descripcion) VALUES (3, &apos;10101501&apos;, &apos;Gatos vivos&apos;);
-        ///INSERT INTO Catalogo_claves_producto (ID, clave, descripcion) VALUES (4, &apos;10101502&apos;, &apos;Perros&apos;);
-        ///INSERT INTO Catalogo_claves_producto (ID, clave, descripcion) VALUES (5, &apos;10101504&apos;, [resto de la cadena truncado]&quot;;.
+        ///   Busca una cadena traducida similar a   INSERT INTO Catalogo_claves_producto 
+        ///  (ID, clave, descripcion)
+        ///  VALUES
+        ///  (1, &apos;1010101&apos;, &apos;No existe en el catÃ¡logo&apos;),
+        ///  (2, &apos;10101500&apos;, &apos;Animales vivos de granja&apos;),
+        ///  (3, &apos;10101501&apos;, &apos;Gatos vivos&apos;),
+        ///  (4, &apos;10101502&apos;, &apos;Perros&apos;),
+        ///  (5, &apos;10101504&apos;, &apos;VisÃ³n&apos;),
+        ///  (6, &apos;10101505&apos;, &apos;Ratas&apos;),
+        ///  (7, &apos;10101506&apos;, &apos;Caballos&apos;),
+        ///  (8, &apos;10101507&apos;, &apos;Ovejas&apos;),
+        ///  (9, &apos;10101508&apos;, &apos;Cabras&apos;),
+        ///  (10, &apos;10101509&apos;, &apos;Asnos&apos;),
+        ///  (11, &apos;10101510&apos;, &apos;Ratones&apos;),
+        ///  (12, &apos;10101511&apos;, &apos;Cerdos&apos;),
+        ///  (13, &apos;10101512&apos;, &apos;Conejos&apos; [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string ClavesProducto {
             get {
@@ -11658,10 +11682,16 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a INSERT INTO RegimenFiscal (ID, CodigoRegimen, Descripcion, AplicaFisica, AplicaMoral) VALUES (1, 601, &apos;General de Ley Personas Morales&apos;, &apos;No&apos;, &apos;Sí&apos;);
-        ///INSERT INTO RegimenFiscal (ID, CodigoRegimen, Descripcion, AplicaFisica, AplicaMoral) VALUES (2, 603, &apos;Personas Morales con Fines no Lucrativos&apos;, &apos;No&apos;, &apos;Sí&apos;);
-        ///INSERT INTO RegimenFiscal (ID, CodigoRegimen, Descripcion, AplicaFisica, AplicaMoral) VALUES (3, 605, &apos;Sueldos y Salarios e Ingresos Asimilados a Salarios&apos;, &apos;Sí&apos;, &apos;No&apos;);
-        ///INSERT INTO RegimenFiscal (ID, [resto de la cadena truncado]&quot;;.
+        ///   Busca una cadena traducida similar a INSERT INTO RegimenFiscal 
+        ///(ID, CodigoRegimen, Descripcion, AplicaFisica, AplicaMoral) 
+        ///VALUES 
+        ///(1, 601, &apos;General de Ley Personas Morales&apos;, &apos;No&apos;, &apos;SÃ­&apos;),
+        ///(2, 603, &apos;Personas Morales con Fines no Lucrativos&apos;, &apos;No&apos;, &apos;SÃ­&apos;),
+        ///(3, 605, &apos;Sueldos y Salarios e Ingresos Asimilados a Salarios&apos;, &apos;SÃ­&apos;, &apos;No&apos;),
+        ///(4, 606, &apos;Arrendamiento&apos;, &apos;SÃ­&apos;, &apos;No&apos;),
+        ///(5, 608, &apos;DemÃ¡s ingresos&apos;, &apos;SÃ­&apos;, &apos;No&apos;),
+        ///(6, 609, &apos;ConsolidaciÃ³n&apos;, &apos;No&apos;, &apos;SÃ­&apos;),
+        ///(7, 610, &apos;Residentes en el Extranjero sin Establecimiento Permanente en MÃ©xico&apos;, [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string RegimenFiscal {
             get {
@@ -14048,6 +14078,35 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a -- 01 Tabla de usuarios
+        ///CREATE TABLE IF NOT EXISTS Usuarios (
+        ///    ID  INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+        ///    Usuario TEXT NOT NULL,
+        ///    Password  TEXT NOT NULL,
+        ///    RazonSocial TEXT NOT NULL,
+        ///    RFC TEXT,
+        ///    Telefono TEXT,
+        ///    Email TEXT NOT NULL,
+        ///    NombreCompleto TEXT,
+        ///    Calle TEXT,
+        ///    NoExterior TEXT,
+        ///    NoInterior TEXT,
+        ///    Colonia TEXT,
+        ///    Municipio TEXT,
+        ///    Estado TEXT,
+        ///    CodigoPostal TEXT,
+        ///    Regimen TEXT,
+        ///    TipoPersona TEXT,
+        ///    LogoTipo TEXT,
+        ///    Referenc [resto de la cadena truncado]&quot;;.
+        /// </summary>
+        internal static string Tablas {
+            get {
+                return ResourceManager.GetString("Tablas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap table {
@@ -15446,11 +15505,19 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a INSERT INTO CatalogoUnidadesMedida (ID, ClaveUnidad, Nombre) VALUES (1, &apos;18&apos;, &apos;Tambor de cincuenta y cinco galones (EUA)&apos;);
-        ///INSERT INTO CatalogoUnidadesMedida (ID, ClaveUnidad, Nombre) VALUES (2, &apos;19&apos;, &apos;Camión cisterna&apos;);
-        ///INSERT INTO CatalogoUnidadesMedida (ID, ClaveUnidad, Nombre) VALUES (3, &apos;26&apos;, &apos;Tonelada real&apos;);
-        ///INSERT INTO CatalogoUnidadesMedida (ID, ClaveUnidad, Nombre) VALUES (4, &apos;29&apos;, &apos;Libra por mil pies cuadrados&apos;);
-        ///INSERT INTO CatalogoUnidadesMedida (ID, ClaveUnidad, Nombre) VALUES (5, &apos;30&apos;, &apos; [resto de la cadena truncado]&quot;;.
+        ///   Busca una cadena traducida similar a INSERT INTO CatalogoUnidadesMedida 
+        ///(ID, ClaveUnidad, Nombre) 
+        ///VALUES 
+        ///(1, &apos;18&apos;, &apos;Tambor de cincuenta y cinco galones (EUA)&apos;),
+        ///(2, &apos;19&apos;, &apos;CamiÃ³n cisterna&apos;),
+        ///(3, &apos;26&apos;, &apos;Tonelada real&apos;),
+        ///(4, &apos;29&apos;, &apos;Libra por mil pies cuadrados&apos;),
+        ///(5, &apos;30&apos;, &apos;DÃ­a de potencia de caballos por tonelada mÃ©trica de aire seco&apos;),
+        ///(6, &apos;31&apos;, &apos;Pescar&apos;),
+        ///(7, &apos;32&apos;, &apos;Kilogramo por tonelada mÃ©trica seca del aire&apos;),
+        ///(8, &apos;36&apos;, &apos;Pie cÃºbico por minuto por pie cuadrado&apos;),
+        ///(9, &apos;44&apos;, &apos;Bolsa a granel de quinientos kilos&apos;),
+        ///(10, &apos;45&apos; [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string UnidadesMedida {
             get {

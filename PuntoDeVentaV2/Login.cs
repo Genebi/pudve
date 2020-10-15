@@ -505,7 +505,7 @@ namespace PuntoDeVentaV2
                     TablasMySQL tablas = new TablasMySQL();
 
                     config.Show();
-                    var tarea = Task.Run(() => tablas.buildTables());
+                    var tarea = Task.Run(() => tablas.buildTables(false));
                     tarea.Wait();
                     config.Close();
                     Show();

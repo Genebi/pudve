@@ -94,7 +94,7 @@ namespace PuntoDeVentaV2
 
                     // Se utilizo un hilo en lugar de usar async/await 
                     // por problemas conlos ciclos asincronos
-                    Thread crear = new Thread(() => td.buildTables());
+                    Thread crear = new Thread(async () => await td.buildTables());
                     crear.Start();
                 }
             }
