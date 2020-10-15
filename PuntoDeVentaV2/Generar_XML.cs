@@ -119,7 +119,7 @@ namespace PuntoDeVentaV2
 
                 rfc_e = r_facturas["e_rfc"].ToString();
                 nombre_e = r_facturas["e_razon_social"].ToString();
-                regimen = Convert.ToString(cn.EjecutarSelect($"SELECT CodigoRegimen FROM RegimenFiscal WHERE Descripcion='{r_facturas["e_regimen"]}'", 12));
+                regimen = "621";//Convert.ToString(cn.EjecutarSelect($"SELECT CodigoRegimen FROM RegimenFiscal WHERE Descripcion='{r_facturas["e_regimen"]}'", 12));
 
                 rfc_r = r_facturas["r_rfc"].ToString();
                 nombre_r = r_facturas["r_razon_social"].ToString();

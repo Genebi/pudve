@@ -68,11 +68,17 @@
             this.linklb_pag_anterior = new System.Windows.Forms.LinkLabel();
             this.elegir_carpeta_descarga = new System.Windows.Forms.FolderBrowserDialog();
             this.btn_cancelar = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.lb_timbres = new System.Windows.Forms.Label();
+            this.btn_comprar_timbres = new System.Windows.Forms.Button();
+            this.btn_actualizar_timbres = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // datagv_facturas
@@ -99,13 +105,13 @@
             this.col_empleado,
             this.col_t_comprobante,
             this.col_conpago});
-            this.datagv_facturas.Location = new System.Drawing.Point(12, 161);
+            this.datagv_facturas.Location = new System.Drawing.Point(12, 181);
             this.datagv_facturas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.datagv_facturas.Name = "datagv_facturas";
             this.datagv_facturas.ReadOnly = true;
             this.datagv_facturas.RowHeadersVisible = false;
             this.datagv_facturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.datagv_facturas.Size = new System.Drawing.Size(927, 235);
+            this.datagv_facturas.Size = new System.Drawing.Size(927, 267);
             this.datagv_facturas.TabIndex = 0;
             this.datagv_facturas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.click_en_icono);
             this.datagv_facturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clickcellc_checkbox);
@@ -229,7 +235,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(388, 28);
+            this.label1.Location = new System.Drawing.Point(388, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 25);
             this.label1.TabIndex = 1;
@@ -297,9 +303,9 @@
             this.btn_cpago.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cpago.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cpago.ForeColor = System.Drawing.Color.White;
-            this.btn_cpago.Location = new System.Drawing.Point(762, 83);
+            this.btn_cpago.Location = new System.Drawing.Point(759, 112);
             this.btn_cpago.Name = "btn_cpago";
-            this.btn_cpago.Size = new System.Drawing.Size(177, 65);
+            this.btn_cpago.Size = new System.Drawing.Size(177, 60);
             this.btn_cpago.TabIndex = 6;
             this.btn_cpago.Text = "Generar complemento \r\npago";
             this.btn_cpago.UseVisualStyleBackColor = false;
@@ -313,7 +319,7 @@
             this.btn_enviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_enviar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_enviar.ForeColor = System.Drawing.Color.White;
-            this.btn_enviar.Location = new System.Drawing.Point(653, 119);
+            this.btn_enviar.Location = new System.Drawing.Point(653, 143);
             this.btn_enviar.Name = "btn_enviar";
             this.btn_enviar.Size = new System.Drawing.Size(100, 29);
             this.btn_enviar.TabIndex = 7;
@@ -328,7 +334,7 @@
             this.panel1.Controls.Add(this.datetp_fecha_final);
             this.panel1.Controls.Add(this.datetp_fecha_inicial);
             this.panel1.Controls.Add(this.cmb_bx_tipo_factura);
-            this.panel1.Location = new System.Drawing.Point(12, 95);
+            this.panel1.Location = new System.Drawing.Point(12, 119);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(585, 50);
             this.panel1.TabIndex = 8;
@@ -344,7 +350,7 @@
             // 
             this.pBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pBar1.Location = new System.Drawing.Point(136, 465);
+            this.pBar1.Location = new System.Drawing.Point(136, 509);
             this.pBar1.Name = "pBar1";
             this.pBar1.Size = new System.Drawing.Size(668, 23);
             this.pBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -359,7 +365,7 @@
             this.lb_texto_descarga.AutoSize = true;
             this.lb_texto_descarga.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_texto_descarga.ForeColor = System.Drawing.Color.Red;
-            this.lb_texto_descarga.Location = new System.Drawing.Point(389, 491);
+            this.lb_texto_descarga.Location = new System.Drawing.Point(389, 535);
             this.lb_texto_descarga.Name = "lb_texto_descarga";
             this.lb_texto_descarga.Size = new System.Drawing.Size(174, 19);
             this.lb_texto_descarga.TabIndex = 10;
@@ -375,7 +381,7 @@
             this.panel2.Controls.Add(this.linklb_pag_siguiente);
             this.panel2.Controls.Add(this.linklb_pag_actual);
             this.panel2.Controls.Add(this.linklb_pag_anterior);
-            this.panel2.Location = new System.Drawing.Point(12, 410);
+            this.panel2.Location = new System.Drawing.Point(12, 456);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(927, 49);
             this.panel2.TabIndex = 11;
@@ -514,19 +520,86 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(653, 83);
+            this.btn_cancelar.Location = new System.Drawing.Point(653, 112);
             this.btn_cancelar.Name = "btn_cancelar";
-            this.btn_cancelar.Size = new System.Drawing.Size(100, 30);
+            this.btn_cancelar.Size = new System.Drawing.Size(100, 29);
             this.btn_cancelar.TabIndex = 12;
             this.btn_cancelar.Text = "Cancelar";
             this.btn_cancelar.UseVisualStyleBackColor = false;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
+            // panel5
+            // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.BackColor = System.Drawing.SystemColors.Control;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.lb_timbres);
+            this.panel5.Controls.Add(this.btn_comprar_timbres);
+            this.panel5.Controls.Add(this.btn_actualizar_timbres);
+            this.panel5.Controls.Add(this.label2);
+            this.panel5.Location = new System.Drawing.Point(528, 56);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(408, 45);
+            this.panel5.TabIndex = 13;
+            // 
+            // lb_timbres
+            // 
+            this.lb_timbres.AutoSize = true;
+            this.lb_timbres.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_timbres.ForeColor = System.Drawing.Color.Blue;
+            this.lb_timbres.Location = new System.Drawing.Point(139, 12);
+            this.lb_timbres.Name = "lb_timbres";
+            this.lb_timbres.Size = new System.Drawing.Size(17, 20);
+            this.lb_timbres.TabIndex = 1;
+            this.lb_timbres.Text = "0";
+            // 
+            // btn_comprar_timbres
+            // 
+            this.btn_comprar_timbres.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(183)))), ((int)(((byte)(14)))));
+            this.btn_comprar_timbres.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_comprar_timbres.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_comprar_timbres.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_comprar_timbres.ForeColor = System.Drawing.Color.White;
+            this.btn_comprar_timbres.Location = new System.Drawing.Point(306, 9);
+            this.btn_comprar_timbres.Name = "btn_comprar_timbres";
+            this.btn_comprar_timbres.Size = new System.Drawing.Size(90, 28);
+            this.btn_comprar_timbres.TabIndex = 3;
+            this.btn_comprar_timbres.Text = "Comprar";
+            this.btn_comprar_timbres.UseVisualStyleBackColor = false;
+            this.btn_comprar_timbres.Click += new System.EventHandler(this.btn_comprar_timbres_Click);
+            // 
+            // btn_actualizar_timbres
+            // 
+            this.btn_actualizar_timbres.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(115)))), ((int)(((byte)(180)))));
+            this.btn_actualizar_timbres.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_actualizar_timbres.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_actualizar_timbres.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_actualizar_timbres.ForeColor = System.Drawing.Color.White;
+            this.btn_actualizar_timbres.Location = new System.Drawing.Point(210, 9);
+            this.btn_actualizar_timbres.Name = "btn_actualizar_timbres";
+            this.btn_actualizar_timbres.Size = new System.Drawing.Size(90, 28);
+            this.btn_actualizar_timbres.TabIndex = 2;
+            this.btn_actualizar_timbres.Text = "Actualizar";
+            this.btn_actualizar_timbres.UseVisualStyleBackColor = false;
+            this.btn_actualizar_timbres.Click += new System.EventHandler(this.btn_actualizar_timbres_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Blue;
+            this.label2.Location = new System.Drawing.Point(6, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(135, 20);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Timbres restantes:";
+            // 
             // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(951, 519);
+            this.ClientSize = new System.Drawing.Size(951, 561);
+            this.Controls.Add(this.panel5);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.lb_texto_descarga);
@@ -548,6 +621,8 @@
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -594,5 +669,10 @@
         private System.Windows.Forms.DataGridViewImageColumn col_empleado;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_t_comprobante;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_conpago;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button btn_comprar_timbres;
+        private System.Windows.Forms.Button btn_actualizar_timbres;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lb_timbres;
     }
 }

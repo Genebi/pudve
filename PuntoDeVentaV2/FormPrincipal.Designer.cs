@@ -50,7 +50,6 @@
             this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
             this.actualizarCaja = new System.Windows.Forms.Timer(this.components);
             this.timerProductos = new System.Windows.Forms.Timer(this.components);
-            this.consultar_estado_timbres = new System.Windows.Forms.Timer(this.components);
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -387,12 +386,6 @@
             this.timerProductos.Interval = 180000;
             this.timerProductos.Tick += new System.EventHandler(this.timerProductos_Tick);
             // 
-            // consultar_estado_timbres
-            // 
-            this.consultar_estado_timbres.Enabled = true;
-            this.consultar_estado_timbres.Interval = 1000000;
-            this.consultar_estado_timbres.Tick += new System.EventHandler(this.consultar_estado_timbres_Tick);
-            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -433,7 +426,6 @@
         private System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer timerProductos;
         private System.Windows.Forms.Button btnSesion;
-        private System.Windows.Forms.Timer consultar_estado_timbres;
     }
 }
 
