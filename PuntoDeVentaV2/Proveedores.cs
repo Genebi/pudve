@@ -22,6 +22,7 @@ namespace PuntoDeVentaV2
         int maximo_x_pagina = 17;
         int clickBoton = 0;
 
+        int datoEncontrado = 0;
         // Permisos botones
         int opcion1 = 1; // Boton buscar
         int opcion2 = 1; // Nuevo proveedor
@@ -94,6 +95,14 @@ namespace PuntoDeVentaV2
             DGVProveedores.ClearSelection();
 
             ActualizarPaginador();
+            if (dtDatos.Rows.Count > 0)
+            {
+                datoEncontrado = 1;
+            }
+            else
+            {
+                datoEncontrado = 0;
+            }
         }
 
 
@@ -253,6 +262,12 @@ namespace PuntoDeVentaV2
             }
 
             CargarDatos(busqueda);
+            if (datoEncontrado != 1)
+            {
+                MessageBox.Show($"No se encontraron resultados con {busqueda}", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBuscador.Text = string.Empty;
+                txtBuscador.Focus();
+            }
         }
 
         private void btnPrimeraPagina_Click(object sender, EventArgs e)

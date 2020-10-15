@@ -93,7 +93,7 @@ namespace PuntoDeVentaV2
                 //totalEfectivo = totalPendiente - (SumaMetodos() + CantidadDecimal(txtEfectivo.Text));
                 totalEfectivo = (SumaMetodos() + CantidadDecimal(txtEfectivo.Text)); //=100
                 efectiv = CantidadDecimal(txtEfectivo.Text);
-                totalEfectivo = CantidadDecimal(txtEfectivo.Text);
+                //totalEfectivo = CantidadDecimal(txtEfectivo.Text);
             }
             else
             {
@@ -102,6 +102,10 @@ namespace PuntoDeVentaV2
                 if (totalEfectivo > totalPendiente && SumaMetodos() == 0)
                 {
                     totalEfectivo = Math.Abs(CantidadDecimal(txtEfectivo.Text) - totalPendiente);
+                }
+                else
+                {
+                    totalEfectivo = efectiv;
                 }
             }
 
@@ -115,7 +119,7 @@ namespace PuntoDeVentaV2
             }
 
             string[] datos = new string[] {
-                idVenta.ToString(), FormPrincipal.userID.ToString(), totalAbonado.ToString(), efectiv.ToString(), tarjeta.ToString(),
+                idVenta.ToString(), FormPrincipal.userID.ToString(), totalEfectivo.ToString(), efectiv.ToString(), tarjeta.ToString(),
                 vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
             };
 

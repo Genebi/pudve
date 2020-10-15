@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,21 +39,21 @@ namespace PuntoDeVentaV2
         {
             var servidor = Properties.Settings.Default.Hosting;
 
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
+            MySqlConnection sql_con;
+            MySqlCommand sql_cmd;
+            MySqlDataReader dr;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection($"datasource={servidor};port=6666;username=root;password=;database=pudve;");
             }
             else
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
 
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Origen = '{origen}' AND Status = {status} ORDER BY FechaOperacion ASC", sql_con);
+            sql_cmd = new MySqlCommand($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Origen = '{origen}' AND Status = {status} ORDER BY FechaOperacion ASC", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVConceptos.Rows.Clear();
