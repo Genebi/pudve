@@ -995,7 +995,7 @@ namespace PuntoDeVentaV2
                             string clave_u = r_claves["UnidadMedida"].ToString();
                             string clave_p = r_claves["ClaveProducto"].ToString();
 
-                            faltantes_productos[i] = new string[6];
+                            faltantes_productos[i] = new string[11];
 
                             if (clave_p == "" | clave_u == "")
                             {
@@ -1010,6 +1010,12 @@ namespace PuntoDeVentaV2
                             faltantes_productos[i][2] = clave_p;
                             faltantes_productos[i][3] = clave_u;
                             faltantes_productos[i][4] = r_id_productos["Nombre"].ToString();
+                            faltantes_productos[i][5] = r_id_productos["Cantidad"].ToString();
+                            faltantes_productos[i][6] = r_id_productos["Precio"].ToString();
+                            faltantes_productos[i][7] = r_id_productos["descuento"].ToString();
+                            faltantes_productos[i][8] = r_id_productos["TipoDescuento"].ToString();
+                            faltantes_productos[i][9] = r_claves["Base"].ToString();
+                            faltantes_productos[i][10] = r_claves["Impuesto"].ToString();
                         }
 
                         i++;

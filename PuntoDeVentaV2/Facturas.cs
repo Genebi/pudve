@@ -13,7 +13,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.Drawing.Printing;
-
+using MySql.Data.MySqlClient;
 
 namespace PuntoDeVentaV2
 {
@@ -67,6 +67,11 @@ namespace PuntoDeVentaV2
 
             // Crea un checkbox en la cabecera de la tabla. Será para seleccionar todo.
             ag_checkb_header();
+
+            // Obtenemos la cantidad de timbres
+            int timbres_disponibles = mb.obtener_cantidad_timbres();
+            lb_timbres.Text = timbres_disponibles.ToString();
+
             // Carga las facturas en la tabla 
             cargar_lista_facturas(0, 2);
 
@@ -1406,6 +1411,78 @@ namespace PuntoDeVentaV2
             }
 
             cmb_bx_tipo_factura.SelectedIndex = 2;
+
+            // Obtenemos la cantidad de timbres
+            int timbres_disponibles = mb.obtener_cantidad_timbres();
+            lb_timbres.Text = timbres_disponibles.ToString();
+        }
+
+        private void btn_actualizar_timbres_Click(object sender, EventArgs e)
+        {
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection c = new MySqlConnection();
+                c.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+
+                try
+                {
+                    int cantidad_timbres = 0;
+                    string fecha_actual = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+
+                    c.Open();
+
+                    MySqlCommand consulta = c.CreateCommand();
+
+                    // MySQL: Consulta si se han agregado timbres al usuario
+                    consulta.CommandText = $"SELECT * FROM historial_timbres WHERE usuario='{FormPrincipal.userNickName}' AND se_agregaron='0'";
+                    MySqlDataReader dr = consulta.ExecuteReader();
+
+
+                    while (dr.Read())
+                    {
+                        //Console.WriteLine("WHILE" + dr.GetString(6) + " convertido= " + Convert.ToInt32(dr.GetString(6)));
+                        cantidad_timbres += Convert.ToInt32(dr.GetString(6));
+                    }
+
+                    dr.Close();
+
+
+                    if (cantidad_timbres > 0)
+                    {
+                        // SQLite: Agrega timbres a usuario
+                        cn.EjecutarConsulta($"UPDATE Usuarios SET timbres= timbres + '{cantidad_timbres}' WHERE ID='{FormPrincipal.userID}'");
+
+                        // MySQL: Indicamos que los timbres han sido agregados
+                        string editar = $"UPDATE historial_timbres SET se_agregaron='1', fecha_asignacion='{fecha_actual}' WHERE usuario='{FormPrincipal.userNickName}' AND se_agregaron='0'";
+
+                        MySqlCommand edi = new MySqlCommand(editar, c);
+                        edi.ExecuteReader();
+                    }
+
+                    c.Close();
+
+                    // Obtenemos la cantidad de timbres
+                    int timbres_disponibles = mb.obtener_cantidad_timbres();
+
+                    lb_timbres.Text = timbres_disponibles.ToString();
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Sin conexión a internet. Esta accción requiere una conexión.", "", MessageBoxButtons.OK);
+
+            }
+        }
+
+        private void btn_comprar_timbres_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://sifo.com.mx/pagina-para-factura-electronica.php");
         }
     }
 }
