@@ -163,7 +163,7 @@ namespace PuntoDeVentaV2
                     var actualizarAnticipoAplicado = cn.EjecutarConsulta($"UPDATE Anticipos SET AnticipoAplicado = '{sumaImportes}' + AnticipoAplicado WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAnticipo}'");
                 }
             }
-            validarNoDuplicarVentas = 0;
+            //validarNoDuplicarVentas = 0;
         }
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
