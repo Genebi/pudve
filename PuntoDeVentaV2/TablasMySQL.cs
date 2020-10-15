@@ -759,7 +759,33 @@ namespace PuntoDeVentaV2
             //            );");
         }
 
-        public void buildTables()
+        private async Task InsertarDatos()
+        {
+            string[] archivos = new string[] { "RegimenFiscal", "CatalogoMonedas", "UnidadesMedida", "ClavesProducto" };
+
+            string conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+
+            foreach (var archivo in archivos)
+            {
+                string rutaArchivo = Properties.Settings.Default.rutaDirectorio + $@"\PUDVE\BD\{archivo}.sql";
+
+                using (MySqlConnection con = new MySqlConnection(conexion))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        using (MySqlBackup backup = new MySqlBackup(cmd))
+                        {
+                            cmd.Connection = con;
+                            await con.OpenAsync();
+                            backup.ImportFromFile(rutaArchivo);
+                            con.Close();
+                        }
+                    }
+                }
+            }
+        }
+
+        public async void buildTables()
         {
             connectionString = cn.getStringConnection() + "database=pudve;";
 
@@ -781,6 +807,8 @@ namespace PuntoDeVentaV2
                 }
 
                 connection.Close();
+
+                await InsertarDatos();
             }
             catch (MySqlException mysqlex)
             {

@@ -495,7 +495,7 @@ namespace PuntoDeVentaV2
             {
                 List<string> tablasPendientes = new List<string>();
 
-                tablasPendientes.Add("appSettings");
+                //tablasPendientes.Add("appSettings");
 
                 if (tablasPendientes.Count > 0)
                 {
@@ -525,7 +525,6 @@ namespace PuntoDeVentaV2
 
         private void modoDebug()
         {
-            
             Properties.Settings.Default.baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             Properties.Settings.Default.archivo = @"..\..\App.config";
             Properties.Settings.Default.TipoEjecucion = 1;

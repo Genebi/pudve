@@ -1,178 +1,181 @@
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('AED', 'Dirham de EAU', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('AFN', 'Afghani', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('ALL', 'Lek', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('AMD', 'Dram armenio', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('ANG', 'Florín antillano neerlandés', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('AOA', 'Kwanza', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('ARS', 'Peso Argentino', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('AUD', 'Dólar Australiano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('AWG', 'Aruba Florin', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('AZN', 'Azerbaijanian Manat', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BAM', 'Convertibles marca', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BBD', 'Dólar de Barbados', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BDT', 'Taka', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BGN', 'Lev búlgaro', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BHD', 'Dinar de Bahrein', 3);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BIF', 'Burundi Franc', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BMD', 'Dólar de Bermudas', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BND', 'Dólar de Brunei', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BOB', 'Boliviano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BOV', 'Mvdol', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BRL', 'Real brasileño', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BSD', 'Dólar de las Bahamas', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BTN', 'Ngultrum', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BWP', 'Pula', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BYR', 'Rublo bielorruso', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('BZD', 'Dólar de Belice', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CAD', 'Dolar Canadiense', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CDF', 'Franco congoleño', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CHE', 'WIR Euro', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CHF', 'Franco Suizo', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CHW', 'Franc WIR', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CLF', 'Unidad de Fomento', 4);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CLP', 'Peso chileno', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CNY', 'Yuan Renminbi', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('COP', 'Peso Colombiano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('COU', 'Unidad de Valor real', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CRC', 'Colón costarricense', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CUC', 'Peso Convertible', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CUP', 'Peso Cubano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CVE', 'Cabo Verde Escudo', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('CZK', 'Corona checa', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('DJF', 'Franco de Djibouti', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('DKK', 'Corona danesa', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('DOP', 'Peso Dominicano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('DZD', 'Dinar argelino', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('EGP', 'Libra egipcia', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('ERN', 'Nakfa', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('ETB', 'Birr etíope', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('EUR', 'Euro', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('FJD', 'Dólar de Fiji', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('FKP', 'Libra malvinense', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('GBP', 'Libra Esterlina', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('GEL', 'Lari', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('GHS', 'Cedi de Ghana', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('GIP', 'Libra de Gibraltar', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('GMD', 'Dalasi', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('GNF', 'Franco guineano', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('GTQ', 'Quetzal', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('GYD', 'Dólar guyanés', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('HKD', 'Dolar De Hong Kong', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('HNL', 'Lempira', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('HRK', 'Kuna', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('HTG', 'Gourde', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('HUF', 'Florín', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('IDR', 'Rupia', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('ILS', 'Nuevo Shekel Israelí', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('INR', 'Rupia india', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('IQD', 'Dinar iraquí', 3);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('IRR', 'Rial iraní', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('ISK', 'Corona islandesa', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('JMD', 'Dólar Jamaiquino', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('JOD', 'Dinar jordano', 3);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('JPY', 'Yen', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('KES', 'Chelín keniano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('KGS', 'Som', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('KHR', 'Riel', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('KMF', 'Franco Comoro', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('KPW', 'Corea del Norte ganó', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('KRW', 'Won', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('KWD', 'Dinar kuwaití', 3);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('KYD', 'Dólar de las Islas Caimán', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('KZT', 'Tenge', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('LAK', 'Kip', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('LBP', 'Libra libanesa', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('LKR', 'Rupia de Sri Lanka', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('LRD', 'Dólar liberiano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('LSL', 'Loti', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('LYD', 'Dinar libio', 3);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MAD', 'Dirham marroquí', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MDL', 'Leu moldavo', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MGA', 'Ariary malgache', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MKD', 'Denar', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MMK', 'Kyat', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MNT', 'Tugrik', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MOP', 'Pataca', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MRO', 'Ouguiya', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MUR', 'Rupia de Mauricio', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MVR', 'Rupia', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MWK', 'Kwacha', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MXN', 'Peso Mexicano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MXV', 'México Unidad de Inversión (UDI)', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MYR', 'Ringgit malayo', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('MZN', 'Mozambique Metical', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('NAD', 'Dólar de Namibia', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('NGN', 'Naira', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('NIO', 'Córdoba Oro', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('NOK', 'Corona noruega', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('NPR', 'Rupia nepalí', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('NZD', 'Dólar de Nueva Zelanda', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('OMR', 'Rial omaní', 3);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('PAB', 'Balboa', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('PEN', 'Nuevo Sol', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('PGK', 'Kina', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('PHP', 'Peso filipino', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('PKR', 'Rupia de Pakistán', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('PLN', 'Zloty', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('PYG', 'Guaraní', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('QAR', 'Qatar Rial', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('RON', 'Leu rumano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('RSD', 'Dinar serbio', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('RUB', 'Rublo ruso', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('RWF', 'Franco ruandés', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SAR', 'Riyal saudí', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SBD', 'Dólar de las Islas Salomón', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SCR', 'Rupia de Seychelles', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SDG', 'Libra sudanesa', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SEK', 'Corona sueca', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SGD', 'Dolar De Singapur', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SHP', 'Libra de Santa Helena', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SLL', 'Leona', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SOS', 'Chelín somalí', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SRD', 'Dólar de Suriname', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SSP', 'Libra sudanesa Sur', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('STD', 'Dobra', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SVC', 'Colon El Salvador', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SYP', 'Libra Siria', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('SZL', 'Lilangeni', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('THB', 'Baht', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('TJS', 'Somoni', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('TMT', 'Turkmenistán nuevo manat', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('TND', 'Dinar tunecino', 3);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('TOP', 'Pa''anga', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('TRY', 'Lira turca', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('TTD', 'Dólar de Trinidad y Tobago', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('TWD', 'Nuevo dólar de Taiwán', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('TZS', 'Shilling tanzano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('UAH', 'Hryvnia', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('UGX', 'Shilling de Uganda', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('USD', 'Dolar americano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('USN', 'Dólar estadounidense (día siguiente)', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('UYI', 'Peso Uruguay en Unidades Indexadas (URUIURUI)', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('UYU', 'Peso Uruguayo', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('UZS', 'Uzbekistán Sum', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('VEF', 'Bolívar', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('VND', 'Dong', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('VUV', 'Vatu', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('WST', 'Tala', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XAF', 'Franco CFA BEAC', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XAG', 'Plata', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XAU', 'Oro', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XBA', 'Unidad de Mercados de Bonos Unidad Europea Composite (EURCO)', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XBB', 'Unidad Monetaria de Bonos de Mercados Unidad Europea (UEM-6)', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XBC', 'Mercados de Bonos Unidad Europea unidad de cuenta a 9 (UCE-9)', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XBD', 'Mercados de Bonos Unidad Europea unidad de cuenta a 17 (UCE-17)', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XCD', 'Dólar del Caribe Oriental', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XDR', 'DEG (Derechos Especiales de Giro)', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XOF', 'Franco CFA BCEAO', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XPD', 'Paladio', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XPF', 'Franco CFP', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XPT', 'Platino', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XSU', 'Sucre', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XTS', 'Códigos reservados específicamente para propósitos de prueba', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XUA', 'Unidad ADB de Cuenta', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('XXX', 'Los códigos asignados para las transacciones en que intervenga ninguna moneda', 0);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('YER', 'Rial yemení', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('ZAR', 'Rand', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('ZMW', 'Kwacha zambiano', 2);
-INSERT INTO Catalogo_monedas (clave_moneda, descripcion, cant_decimales) VALUES ('ZWL', 'Zimbabwe Dólar', 2);
+INSERT INTO Catalogo_monedas 
+(clave_moneda, descripcion, cant_decimales)
+VALUES
+('AED', 'Dirham de EAU', 2),
+('AFN', 'Afghani', 2),
+('ALL', 'Lek', 2),
+('AMD', 'Dram armenio', 2),
+('ANG', 'Florín antillano neerlandés', 2),
+('AOA', 'Kwanza', 2),
+('ARS', 'Peso Argentino', 2),
+('AUD', 'Dólar Australiano', 2),
+('AWG', 'Aruba Florin', 2),
+('AZN', 'Azerbaijanian Manat', 2),
+('BAM', 'Convertibles marca', 2),
+('BBD', 'Dólar de Barbados', 2),
+('BDT', 'Taka', 2),
+('BGN', 'Lev búlgaro', 2),
+('BHD', 'Dinar de Bahrein', 3),
+('BIF', 'Burundi Franc', 0),
+('BMD', 'Dólar de Bermudas', 2),
+('BND', 'Dólar de Brunei', 2),
+('BOB', 'Boliviano', 2),
+('BOV', 'Mvdol', 2),
+('BRL', 'Real brasileño', 2),
+('BSD', 'Dólar de las Bahamas', 2),
+('BTN', 'Ngultrum', 2),
+('BWP', 'Pula', 2),
+('BYR', 'Rublo bielorruso', 0),
+('BZD', 'Dólar de Belice', 2),
+('CAD', 'Dolar Canadiense', 2),
+('CDF', 'Franco congoleño', 2),
+('CHE', 'WIR Euro', 2),
+('CHF', 'Franco Suizo', 2),
+('CHW', 'Franc WIR', 2),
+('CLF', 'Unidad de Fomento', 4),
+('CLP', 'Peso chileno', 0),
+('CNY', 'Yuan Renminbi', 2),
+('COP', 'Peso Colombiano', 2),
+('COU', 'Unidad de Valor real', 2),
+('CRC', 'Colón costarricense', 2),
+('CUC', 'Peso Convertible', 2),
+('CUP', 'Peso Cubano', 2),
+('CVE', 'Cabo Verde Escudo', 2),
+('CZK', 'Corona checa', 2),
+('DJF', 'Franco de Djibouti', 0),
+('DKK', 'Corona danesa', 2),
+('DOP', 'Peso Dominicano', 2),
+('DZD', 'Dinar argelino', 2),
+('EGP', 'Libra egipcia', 2),
+('ERN', 'Nakfa', 2),
+('ETB', 'Birr etíope', 2),
+('EUR', 'Euro', 2),
+('FJD', 'Dólar de Fiji', 2),
+('FKP', 'Libra malvinense', 2),
+('GBP', 'Libra Esterlina', 2),
+('GEL', 'Lari', 2),
+('GHS', 'Cedi de Ghana', 2),
+('GIP', 'Libra de Gibraltar', 2),
+('GMD', 'Dalasi', 2),
+('GNF', 'Franco guineano', 0),
+('GTQ', 'Quetzal', 2),
+('GYD', 'Dólar guyanés', 2),
+('HKD', 'Dolar De Hong Kong', 2),
+('HNL', 'Lempira', 2),
+('HRK', 'Kuna', 2),
+('HTG', 'Gourde', 2),
+('HUF', 'Florín', 2),
+('IDR', 'Rupia', 2),
+('ILS', 'Nuevo Shekel Israelí', 2),
+('INR', 'Rupia india', 2),
+('IQD', 'Dinar iraquí', 3),
+('IRR', 'Rial iraní', 2),
+('ISK', 'Corona islandesa', 0),
+('JMD', 'Dólar Jamaiquino', 2),
+('JOD', 'Dinar jordano', 3),
+('JPY', 'Yen', 0),
+('KES', 'Chelín keniano', 2),
+('KGS', 'Som', 2),
+('KHR', 'Riel', 2),
+('KMF', 'Franco Comoro', 0),
+('KPW', 'Corea del Norte ganó', 2),
+('KRW', 'Won', 0),
+('KWD', 'Dinar kuwaití', 3),
+('KYD', 'Dólar de las Islas Caimán', 2),
+('KZT', 'Tenge', 2),
+('LAK', 'Kip', 2),
+('LBP', 'Libra libanesa', 2),
+('LKR', 'Rupia de Sri Lanka', 2),
+('LRD', 'Dólar liberiano', 2),
+('LSL', 'Loti', 2),
+('LYD', 'Dinar libio', 3),
+('MAD', 'Dirham marroquí', 2),
+('MDL', 'Leu moldavo', 2),
+('MGA', 'Ariary malgache', 2),
+('MKD', 'Denar', 2),
+('MMK', 'Kyat', 2),
+('MNT', 'Tugrik', 2),
+('MOP', 'Pataca', 2),
+('MRO', 'Ouguiya', 2),
+('MUR', 'Rupia de Mauricio', 2),
+('MVR', 'Rupia', 2),
+('MWK', 'Kwacha', 2),
+('MXN', 'Peso Mexicano', 2),
+('MXV', 'México Unidad de Inversión (UDI)', 2),
+('MYR', 'Ringgit malayo', 2),
+('MZN', 'Mozambique Metical', 2),
+('NAD', 'Dólar de Namibia', 2),
+('NGN', 'Naira', 2),
+('NIO', 'Córdoba Oro', 2),
+('NOK', 'Corona noruega', 2),
+('NPR', 'Rupia nepalí', 2),
+('NZD', 'Dólar de Nueva Zelanda', 2),
+('OMR', 'Rial omaní', 3),
+('PAB', 'Balboa', 2),
+('PEN', 'Nuevo Sol', 2),
+('PGK', 'Kina', 2),
+('PHP', 'Peso filipino', 2),
+('PKR', 'Rupia de Pakistán', 2),
+('PLN', 'Zloty', 2),
+('PYG', 'Guaraní', 0),
+('QAR', 'Qatar Rial', 2),
+('RON', 'Leu rumano', 2),
+('RSD', 'Dinar serbio', 2),
+('RUB', 'Rublo ruso', 2),
+('RWF', 'Franco ruandés', 0),
+('SAR', 'Riyal saudí', 2),
+('SBD', 'Dólar de las Islas Salomón', 2),
+('SCR', 'Rupia de Seychelles', 2),
+('SDG', 'Libra sudanesa', 2),
+('SEK', 'Corona sueca', 2),
+('SGD', 'Dolar De Singapur', 2),
+('SHP', 'Libra de Santa Helena', 2),
+('SLL', 'Leona', 2),
+('SOS', 'Chelín somalí', 2),
+('SRD', 'Dólar de Suriname', 2),
+('SSP', 'Libra sudanesa Sur', 2),
+('STD', 'Dobra', 2),
+('SVC', 'Colon El Salvador', 2),
+('SYP', 'Libra Siria', 2),
+('SZL', 'Lilangeni', 2),
+('THB', 'Baht', 2),
+('TJS', 'Somoni', 2),
+('TMT', 'Turkmenistán nuevo manat', 2),
+('TND', 'Dinar tunecino', 3),
+('TOP', 'Pa''anga', 2),
+('TRY', 'Lira turca', 2),
+('TTD', 'Dólar de Trinidad y Tobago', 2),
+('TWD', 'Nuevo dólar de Taiwán', 2),
+('TZS', 'Shilling tanzano', 2),
+('UAH', 'Hryvnia', 2),
+('UGX', 'Shilling de Uganda', 0),
+('USD', 'Dolar americano', 2),
+('USN', 'Dólar estadounidense (día siguiente)', 2),
+('UYI', 'Peso Uruguay en Unidades Indexadas (URUIURUI)', 0),
+('UYU', 'Peso Uruguayo', 2),
+('UZS', 'Uzbekistán Sum', 2),
+('VEF', 'Bolívar', 2),
+('VND', 'Dong', 0),
+('VUV', 'Vatu', 0),
+('WST', 'Tala', 2),
+('XAF', 'Franco CFA BEAC', 0),
+('XAG', 'Plata', 0),
+('XAU', 'Oro', 0),
+('XBA', 'Unidad de Mercados de Bonos Unidad Europea Composite (EURCO)', 0),
+('XBB', 'Unidad Monetaria de Bonos de Mercados Unidad Europea (UEM-6)', 0),
+('XBC', 'Mercados de Bonos Unidad Europea unidad de cuenta a 9 (UCE-9)', 0),
+('XBD', 'Mercados de Bonos Unidad Europea unidad de cuenta a 17 (UCE-17)', 0),
+('XCD', 'Dólar del Caribe Oriental', 2),
+('XDR', 'DEG (Derechos Especiales de Giro)', 0),
+('XOF', 'Franco CFA BCEAO', 0),
+('XPD', 'Paladio', 0),
+('XPF', 'Franco CFP', 0),
+('XPT', 'Platino', 0),
+('XSU', 'Sucre', 0),
+('XTS', 'Códigos reservados específicamente para propósitos de prueba', 0),
+('XUA', 'Unidad ADB de Cuenta', 0),
+('XXX', 'Los códigos asignados para las transacciones en que intervenga ninguna moneda', 0),
+('YER', 'Rial yemení', 2),
+('ZAR', 'Rand', 2),
+('ZMW', 'Kwacha zambiano', 2),
+('ZWL', 'Zimbabwe Dólar', 2);
