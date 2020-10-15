@@ -27,7 +27,7 @@ namespace PuntoDeVentaV2
             {
                 if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
                 {
-                    sql_con = new MySqlConnection("datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=mysql;");
+                    sql_con = new MySqlConnection("datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;");
                 }
                 else
                 {
