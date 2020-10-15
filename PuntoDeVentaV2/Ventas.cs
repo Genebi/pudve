@@ -49,6 +49,8 @@ namespace PuntoDeVentaV2
         public static string listaAnticipos = string.Empty;
         public static float importeAnticipo = 0f;
 
+        int noDuplicadoVentas /*= DetalleVenta.validarNoDuplicarVentas*/=0;
+
         // Variables para almacenar los valores agregados en el form DetalleVenta.cs
         public static string efectivoReal = string.Empty;
         public static string efectivo = string.Empty;
@@ -1752,9 +1754,11 @@ namespace PuntoDeVentaV2
                             AsignarCreditoVenta.idCliente = 0;
                             AsignarCreditoVenta.cliente = string.Empty;
                         }
+                        noDuplicadoVentas = 0;
                     };
 
                     detalle.Show();
+                    noDuplicadoVentas = 1;
                 }
             }
         }
@@ -3415,11 +3419,10 @@ namespace PuntoDeVentaV2
             // Tecla fin terminar venta
             if (e.KeyData == Keys.End)
             {
-                var noDuplicadoVentas = DetalleVenta.validarNoDuplicarVentas;
                 if (noDuplicadoVentas == 0)
                 {
                     btnTerminarVenta.PerformClick();
-                }else if(noDuplicadoVentas == 1)
+                }else if (noDuplicadoVentas == 1)
                 {
 
                 }
@@ -4250,6 +4253,11 @@ namespace PuntoDeVentaV2
             PBImagen.Image = null;
             PBImagen.Refresh();
             timer_img_producto.Stop();
+        }
+
+        private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void Ventas_FormClosed(object sender, FormClosedEventArgs e)
