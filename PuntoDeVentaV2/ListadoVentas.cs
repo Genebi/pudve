@@ -894,6 +894,8 @@ namespace PuntoDeVentaV2
                 recargarDatos = false;
 
                 btnUltimaPagina.PerformClick();
+
+                hay_productos_habilitados = mb.tiene_productos_habilitados();
             }
 
             if (abrirNuevaVenta)
