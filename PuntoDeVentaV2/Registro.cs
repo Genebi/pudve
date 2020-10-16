@@ -289,5 +289,10 @@ namespace PuntoDeVentaV2
         {
             e.Handled = (e.KeyChar == (char)Keys.Space);
         }
+
+        private void Registro_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

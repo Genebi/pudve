@@ -58,9 +58,9 @@
             this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(117, 65);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(156, 17);
+            this.label1.Size = new System.Drawing.Size(157, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Cree un Nuevo Usuario";
+            this.label1.Text = "Crea un Nuevo Usuario";
             // 
             // label2
             // 
@@ -78,9 +78,9 @@
             this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(117, 228);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(131, 17);
+            this.label3.Size = new System.Drawing.Size(226, 17);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Ingrese su Nombre ";
+            this.label3.Text = "Ingrese su Nombre o Razon Social";
             // 
             // label4
             // 
@@ -165,9 +165,9 @@
             this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(117, 176);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(210, 17);
+            this.label6.Size = new System.Drawing.Size(166, 17);
             this.label6.TabIndex = 2;
-            this.label6.Text = "Vuelva a Escribir su Contraseña";
+            this.label6.Text = "Confirma tu Contraseña";
             // 
             // label7
             // 
@@ -226,7 +226,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Red;
-            this.label10.Location = new System.Drawing.Point(325, 177);
+            this.label10.Location = new System.Drawing.Point(280, 177);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(14, 17);
             this.label10.TabIndex = 16;
@@ -237,7 +237,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Red;
-            this.label11.Location = new System.Drawing.Point(244, 228);
+            this.label11.Location = new System.Drawing.Point(340, 228);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(14, 17);
             this.label11.TabIndex = 17;
@@ -248,7 +248,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(312, 281);
+            this.label12.Location = new System.Drawing.Point(310, 281);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(14, 17);
             this.label12.TabIndex = 18;
@@ -331,6 +331,7 @@
             this.Name = "Registro";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUVE - Nueva Cuenta";
+            this.Load += new System.EventHandler(this.Registro_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
