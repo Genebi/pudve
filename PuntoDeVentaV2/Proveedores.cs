@@ -267,6 +267,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show($"No se encontraron resultados con {busqueda}", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtBuscador.Text = string.Empty;
                 txtBuscador.Focus();
+                CargarDatos();
             }
         }
 
