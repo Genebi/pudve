@@ -147,7 +147,7 @@ namespace PuntoDeVentaV2
 
                 if (soloFechaRevision == fechaActual)
                 {
-                    queryUpdateCalculos = $"UPDATE '{tabla}' SET Diferencia = '{row.Cells["Diferencia"].Value.ToString()}' WHERE ID = '{row.Cells["ID"].Value.ToString()}' AND IDComputadora = '{nombrePC}'";
+                    queryUpdateCalculos = $"UPDATE {tabla} SET Diferencia = '{row.Cells["Diferencia"].Value.ToString()}' WHERE ID = '{row.Cells["ID"].Value.ToString()}' AND IDComputadora = '{nombrePC}'";
                     cn.EjecutarConsulta(queryUpdateCalculos);
                 }
             }
@@ -219,14 +219,14 @@ namespace PuntoDeVentaV2
 
         private void cargarTabla()
         {
-            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{FilterNumActiveRecord}' AND IDComputadora = '{nombrePC}' ORDER BY Fecha DESC, Nombre ASC";
+            queryFiltroReporteStock = $"SELECT * FROM {tabla} WHERE IDUsuario = {FormPrincipal.userID} AND NoRevision = '{FilterNumActiveRecord}' AND IDComputadora = '{nombrePC}' ORDER BY Fecha DESC, Nombre ASC";
             //queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE IDUsuario = '{FormPrincipal.userID}' AND StatusInventariado = '1' ORDER BY Fecha DESC, Nombre ASC";
             dtFinalReportCheckStockToDay = cn.CargarDatos(queryFiltroReporteStock);
         }
 
         private bool checkEmpty(string tabla)
         {
-            string queryTableCheck = $"SELECT * FROM '{tabla}'";
+            string queryTableCheck = $"SELECT * FROM {tabla}";
             IsEmpty = cn.IsEmptyTable(queryTableCheck);
             return IsEmpty;
         }
