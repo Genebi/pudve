@@ -1582,19 +1582,8 @@ namespace PuntoDeVentaV2
                 {
                     saveDirectoryImg = $@"\\{servidor}\PUDVE\Productos\";
                 }
-                else if (!System.IO.File.Exists($@"\\{servidor}\PUDVE\Productos\"))
-                {
-                    Directory.CreateDirectory($@"\\{servidor}\PUDVE\Productos\");
-                    saveDirectoryImg = $@"\\{servidor}\PUDVE\Productos\";
-                }
-
                 if (System.IO.File.Exists($@"\\{servidor}\PUDVE\settings\Dictionary\"))
                 {
-                    saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
-                }
-                else if (!System.IO.File.Exists($@"\\{servidor}\PUDVE\settings\Dictionary\"))
-                {
-                    Directory.CreateDirectory($@"\\{servidor}\PUDVE\settings\Dictionary\");
                     saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
                 }
             }
