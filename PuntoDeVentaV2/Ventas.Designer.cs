@@ -35,7 +35,6 @@
             this.btnEliminarUltimo = new System.Windows.Forms.Button();
             this.btnEliminarTodos = new System.Windows.Forms.Button();
             this.btnUltimoTicket = new System.Windows.Forms.Button();
-            this.btnPresupuesto = new System.Windows.Forms.Button();
             this.txtBuscadorProducto = new System.Windows.Forms.TextBox();
             this.DGVentas = new System.Windows.Forms.DataGridView();
             this.IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -165,25 +164,13 @@
             // 
             this.btnUltimoTicket.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUltimoTicket.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(770, 47);
+            this.btnUltimoTicket.Location = new System.Drawing.Point(854, 47);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
             this.btnUltimoTicket.Size = new System.Drawing.Size(37, 40);
             this.btnUltimoTicket.TabIndex = 18;
             this.tituloBoton.SetToolTip(this.btnUltimoTicket, "Imprimir último ticket");
             this.btnUltimoTicket.UseVisualStyleBackColor = true;
             this.btnUltimoTicket.Click += new System.EventHandler(this.btnUltimoTicket_Click);
-            // 
-            // btnPresupuesto
-            // 
-            this.btnPresupuesto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPresupuesto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPresupuesto.Location = new System.Drawing.Point(813, 47);
-            this.btnPresupuesto.Name = "btnPresupuesto";
-            this.btnPresupuesto.Size = new System.Drawing.Size(37, 40);
-            this.btnPresupuesto.TabIndex = 19;
-            this.tituloBoton.SetToolTip(this.btnPresupuesto, "Guardar como presupuesto");
-            this.btnPresupuesto.UseVisualStyleBackColor = true;
-            this.btnPresupuesto.Click += new System.EventHandler(this.btnPresupuesto_Click);
             // 
             // txtBuscadorProducto
             // 
@@ -389,7 +376,7 @@
             this.btnCancelarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.reply1;
             this.btnCancelarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelarVenta.Location = new System.Drawing.Point(856, 47);
+            this.btnCancelarVenta.Location = new System.Drawing.Point(897, 47);
             this.btnCancelarVenta.Name = "btnCancelarVenta";
             this.btnCancelarVenta.Size = new System.Drawing.Size(105, 40);
             this.btnCancelarVenta.TabIndex = 13;
@@ -407,9 +394,9 @@
             this.btnGuardarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGuardarVenta.Location = new System.Drawing.Point(506, 47);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
-            this.btnGuardarVenta.Size = new System.Drawing.Size(97, 40);
+            this.btnGuardarVenta.Size = new System.Drawing.Size(181, 40);
             this.btnGuardarVenta.TabIndex = 14;
-            this.btnGuardarVenta.Text = "Guardar";
+            this.btnGuardarVenta.Text = "Guardar / Presupuesto";
             this.btnGuardarVenta.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnGuardarVenta.UseVisualStyleBackColor = true;
             this.btnGuardarVenta.Click += new System.EventHandler(this.btnGuardarVenta_Click);
@@ -453,7 +440,7 @@
             this.btnVentasGuardadas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVentasGuardadas.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard1;
             this.btnVentasGuardadas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentasGuardadas.Location = new System.Drawing.Point(609, 47);
+            this.btnVentasGuardadas.Location = new System.Drawing.Point(693, 47);
             this.btnVentasGuardadas.Name = "btnVentasGuardadas";
             this.btnVentasGuardadas.Size = new System.Drawing.Size(155, 40);
             this.btnVentasGuardadas.TabIndex = 17;
@@ -947,7 +934,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label3.Location = new System.Drawing.Point(907, 68);
+            this.label3.Location = new System.Drawing.Point(945, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(28, 13);
             this.label3.TabIndex = 47;
@@ -958,7 +945,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label4.Location = new System.Drawing.Point(547, 68);
+            this.label4.Location = new System.Drawing.Point(576, 68);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 48;
@@ -991,7 +978,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label7.Location = new System.Drawing.Point(676, 68);
+            this.label7.Location = new System.Drawing.Point(758, 68);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(43, 13);
             this.label7.TabIndex = 51;
@@ -1037,7 +1024,6 @@
             this.Controls.Add(this.btnAbrirCaja);
             this.Controls.Add(this.btnVentasGuardadas);
             this.Controls.Add(this.btnUltimoTicket);
-            this.Controls.Add(this.btnPresupuesto);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(1027, 597);
@@ -1074,7 +1060,6 @@
         private System.Windows.Forms.Button btnAbrirCaja;
         private System.Windows.Forms.Button btnVentasGuardadas;
         private System.Windows.Forms.Button btnUltimoTicket;
-        private System.Windows.Forms.Button btnPresupuesto;
         private System.Windows.Forms.ListBox listaProductos;
         private System.Windows.Forms.Label lbNumeroArticulos;
         private System.Windows.Forms.Label lbSubtotal;

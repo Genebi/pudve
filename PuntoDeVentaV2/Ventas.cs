@@ -163,12 +163,10 @@ namespace PuntoDeVentaV2
             btnEliminarUltimo.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
             btnEliminarTodos.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
             btnUltimoTicket.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
-            btnPresupuesto.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\money.png");
 
             btnEliminarUltimo.BackgroundImageLayout = ImageLayout.Center;
             btnEliminarTodos.BackgroundImageLayout = ImageLayout.Center;
             btnUltimoTicket.BackgroundImageLayout = ImageLayout.Center;
-            btnPresupuesto.BackgroundImageLayout = ImageLayout.Center;
 
 
             var datosConfig = mb.DatosConfiguracion();
@@ -1857,6 +1855,14 @@ namespace PuntoDeVentaV2
                     // Operacion para afectar la tabla de Caja
                     // var saldoActual = cn.ObtenerSaldoActual(FormPrincipal.userID);
                     // var totalTmp = saldoActual + Convert.ToDouble(Total);
+
+                    if (string.IsNullOrWhiteSpace(efectivo)) { efectivo = "0"; }
+                    if (string.IsNullOrWhiteSpace(tarjeta)) { tarjeta = "0"; }
+                    if (string.IsNullOrWhiteSpace(vales)) { vales = "0"; }
+                    if (string.IsNullOrWhiteSpace(cheque)) { cheque = "0"; }
+                    if (string.IsNullOrWhiteSpace(transferencia)) { transferencia = "0"; }
+                    if (string.IsNullOrWhiteSpace(credito)) { credito = "0"; }
+                    if (string.IsNullOrWhiteSpace(Anticipo)) { Anticipo = "0"; }
 
                     string[] datos = new string[] {
                         "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
