@@ -599,7 +599,7 @@ CREATE TABLE IF NOT EXISTS Facturas (
     total DOUBLE DEFAULT (0),
     e_rfc VARCHAR (13),
     e_razon_social VARCHAR(100),
-    e_regimen VARCHAR (3),
+    e_regimen VARCHAR (100),
     e_correo VARCHAR(50),
     e_telefono VARCHAR (10),
     e_cp VARCHAR (5),
