@@ -162,13 +162,14 @@
             this.btnEmpresas.ForeColor = System.Drawing.Color.White;
             this.btnEmpresas.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpresas.Image")));
             this.btnEmpresas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEmpresas.Location = new System.Drawing.Point(0, 387);
+            this.btnEmpresas.Location = new System.Drawing.Point(109, 463);
             this.btnEmpresas.Name = "btnEmpresas";
             this.btnEmpresas.Size = new System.Drawing.Size(115, 71);
             this.btnEmpresas.TabIndex = 13;
             this.btnEmpresas.Text = "Empresas";
             this.btnEmpresas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnEmpresas.UseVisualStyleBackColor = true;
+            this.btnEmpresas.Visible = false;
             this.btnEmpresas.Click += new System.EventHandler(this.btnEmpresas_Click);
             // 
             // btnMisDatos
@@ -182,7 +183,7 @@
             this.btnMisDatos.ForeColor = System.Drawing.Color.White;
             this.btnMisDatos.Image = ((System.Drawing.Image)(resources.GetObject("btnMisDatos.Image")));
             this.btnMisDatos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnMisDatos.Location = new System.Drawing.Point(115, 387);
+            this.btnMisDatos.Location = new System.Drawing.Point(1, 386);
             this.btnMisDatos.Name = "btnMisDatos";
             this.btnMisDatos.Size = new System.Drawing.Size(115, 71);
             this.btnMisDatos.TabIndex = 12;
@@ -262,7 +263,7 @@
             this.btnConfig.ForeColor = System.Drawing.Color.White;
             this.btnConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnConfig.Image")));
             this.btnConfig.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnConfig.Location = new System.Drawing.Point(0, 465);
+            this.btnConfig.Location = new System.Drawing.Point(112, 386);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(115, 69);
             this.btnConfig.TabIndex = 8;
