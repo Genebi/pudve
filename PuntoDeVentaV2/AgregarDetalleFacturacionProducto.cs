@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -24,8 +24,8 @@ namespace PuntoDeVentaV2
         string tipoPorcentaje = null;
         string porcentajeSeleccionado = null;
 
-        private SQLiteConnection sql_con;
-        private SQLiteCommand sql_cmd;
+        private MySqlConnection sql_con;
+        private MySqlCommand sql_cmd;
 
         List<string> clavesUnidad = new List<string>();
         List<string> impuestos = new List<string>();
@@ -142,13 +142,13 @@ namespace PuntoDeVentaV2
 
             try
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
                 sql_con.Open();
                 sql_cmd = sql_con.CreateCommand();
                 sql_cmd.CommandText = "SELECT * FROM CatalogoUnidadesMedida ORDER BY LOWER(Nombre) ASC";
                 sql_cmd.ExecuteNonQuery();
 
-                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                MySqlDataReader dr = sql_cmd.ExecuteReader();
 
                 ComboboxItem item2 = new ComboboxItem();
                 item2.Text = "Selecciona una opción";
