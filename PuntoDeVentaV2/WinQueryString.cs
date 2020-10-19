@@ -3014,6 +3014,7 @@ namespace PuntoDeVentaV2
                                 {
                                     CheckBox chkBox = (CheckBox)intoSubControlHijo;
                                     chkBox.Checked = false;
+
                                 }
                             }
                         }
