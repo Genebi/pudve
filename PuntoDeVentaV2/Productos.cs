@@ -1482,21 +1482,23 @@ namespace PuntoDeVentaV2
 
                     if (words[2].ToString().Equals("False"))
                     {
-                        queryUpdateDatoDinamico += $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{0}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'; ";
+                        //queryUpdateDatoDinamico += $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{0}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE IDUsuario = '{FormPrincipal.userID}'; ";
+                        queryUpdateDatoDinamico = cs.ActualizarDatoVentanaFiltros("0", words[3].ToString().Remove(0, 11), "Selecciona " + words[3].ToString().Remove(0, 11), FormPrincipal.userID);
                     }
                     else if (words[2].ToString().Equals("True"))
                     {
-                        queryUpdateDatoDinamico += $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{1}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'; ";
+                        //queryUpdateDatoDinamico += $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{1}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE IDUsuario = '{FormPrincipal.userID}'; ";
+                        queryUpdateDatoDinamico = cs.ActualizarDatoVentanaFiltros("1", words[3].ToString().Remove(0, 11), "Selecciona " + words[3].ToString().Remove(0, 11), FormPrincipal.userID);
                     }
-                }
 
-                try
-                {
-                    var UpdateDatoDinamico = cn.EjecutarConsulta(queryUpdateDatoDinamico);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al Actualizar el Dato dinamico: " + ex.Message.ToString(), "Error de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        var UpdateDatoDinamico = cn.EjecutarConsulta(queryUpdateDatoDinamico);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al Actualizar el Dato dinamico: " + ex.Message.ToString(), "Error de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
 
                 listDictionary.Clear();
@@ -4283,7 +4285,7 @@ namespace PuntoDeVentaV2
                         {
                             if (!queryHeadAdvancedOtherTags.Equals(""))
                             {
-                                //filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
                             }
                             else if (queryHeadAdvancedOtherTags.Equals(""))
                             {
@@ -4293,11 +4295,11 @@ namespace PuntoDeVentaV2
 
                         if (!queryResultOtherTags.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado += queryResultOtherTags;
+                            filtroConSinFiltroAvanzado += " " + queryResultOtherTags;
                         }
                         else if (queryResultOtherTags.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado += queryResultOtherTags;
+                            filtroConSinFiltroAvanzado += " " + queryResultOtherTags;
                         }
 
                         //ChecarFiltroDinamicoDelSistema();

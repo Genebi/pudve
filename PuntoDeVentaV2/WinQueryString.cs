@@ -3015,6 +3015,23 @@ namespace PuntoDeVentaV2
                                     CheckBox chkBox = (CheckBox)intoSubControlHijo;
                                     chkBox.Checked = false;
 
+                                    string  valorCheckBox = string.Empty, 
+                                            conceptoCheckBox = string.Empty, 
+                                            cadenaFiltro = string.Empty;
+                                    
+                                    if (chkBox.Checked.Equals(true))
+                                    {
+                                        valorCheckBox = "1";
+                                        conceptoCheckBox = intoSubControlHijo.Name.ToString().Remove(0, 9);
+                                        cadenaFiltro = "Selecciona " + conceptoCheckBox;
+                                    }
+                                    else if (chkBox.Checked.Equals(false))
+                                    {
+                                        valorCheckBox = "0";
+                                        conceptoCheckBox = intoSubControlHijo.Name.ToString().Remove(0, 9);
+                                        cadenaFiltro = "Selecciona " + conceptoCheckBox;
+                                    }
+                                    cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorCheckBox, conceptoCheckBox, cadenaFiltro, FormPrincipal.userID));
                                 }
                             }
                         }
@@ -3035,6 +3052,25 @@ namespace PuntoDeVentaV2
                                 {
                                     CheckBox chkBox = (CheckBox)intoSubControlHijo;
                                     chkBox.Checked = false;
+
+
+                                    string valorCheckBox = string.Empty,
+                                            conceptoCheckBox = string.Empty,
+                                            cadenaFiltro = string.Empty;
+
+                                    if (chkBox.Checked.Equals(true))
+                                    {
+                                        valorCheckBox = "1";
+                                        conceptoCheckBox = intoSubControlHijo.Name.ToString().Remove(0, 9);
+                                        cadenaFiltro = "Selecciona " + conceptoCheckBox;
+                                    }
+                                    else if (chkBox.Checked.Equals(false))
+                                    {
+                                        valorCheckBox = "0";
+                                        conceptoCheckBox = intoSubControlHijo.Name.ToString().Remove(0, 9);
+                                        cadenaFiltro = "Selecciona " + conceptoCheckBox;
+                                    }
+                                    cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorCheckBox, conceptoCheckBox, cadenaFiltro, FormPrincipal.userID));
                                 }
                             }
                         }
