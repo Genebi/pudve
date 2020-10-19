@@ -3628,9 +3628,12 @@ namespace PuntoDeVentaV2
         {
             int idProducto = 0, 
                 countSetUpDinamicos = 0,
-                contadorTmp = 0;
+                contadorTmp = 0,
+                countFalse = 0;
 
             long theNumber;
+
+            bool siFiltrar = false;
 
             dictionaryLoad();
 
@@ -3641,7 +3644,18 @@ namespace PuntoDeVentaV2
             extra = string.Empty;
             extra2 = string.Empty;
 
-            if (setUpDinamicos.Count > 0)
+            countFalse = contarCamposFalsos(setUpDinamicos);
+
+            if (countFalse.Equals(setUpDinamicos.Count))
+            {
+                siFiltrar = false;
+            }
+            else if (countFalse < setUpDinamicos.Count)
+            {
+                siFiltrar = true;
+            }
+
+            if ((setUpDinamicos.Count > 0) && (siFiltrar.Equals(true)))
             {
                 queryHead = "SELECT DISTINCT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID ";
                 queryAndAdvancedOtherTagsBegin = "AND (";
@@ -3685,9 +3699,11 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            else if (setUpDinamicos.Count <= 0)
+            else if ((setUpDinamicos.Count <= 0) || (setUpDinamicos.Count > 0 && siFiltrar.Equals(false)))
             {
                 queryHead = "SELECT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID ";
+                queryHeadAdvancedOtherTags = string.Empty;
+                queryResultOtherTags = string.Empty;
             } 
 
             if (status.Equals(0))   // Productos Desactivados
@@ -4610,6 +4626,21 @@ namespace PuntoDeVentaV2
             lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("N2");
 
             clickBoton = 0;
+        }
+
+        private int contarCamposFalsos(Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos)
+        {
+            int count = 0;
+
+            foreach (KeyValuePair<string, Tuple<string, string, string, string>> item in setUpDinamicos)
+            {
+                if (item.Value.Item2.Equals("False"))
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         /// <summary>
