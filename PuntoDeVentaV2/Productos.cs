@@ -1501,15 +1501,15 @@ namespace PuntoDeVentaV2
 
                 listDictionary.Clear();
 
-                //rutaCompletaFile = path + fileNameDictionary;
-                //using (StreamWriter file = new StreamWriter(rutaCompletaFile))
-                //{
-                //    foreach (var entry in setUpDinamicos)
-                //    {
-                //        file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
-                //    }
-                //    file.Close();
-                //}
+                rutaCompletaFile = path + fileNameDictionary;
+                using (StreamWriter file = new StreamWriter(rutaCompletaFile))
+                {
+                    foreach (var entry in setUpDinamicos)
+                    {
+                        file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
+                    }
+                    file.Close();
+                }
 
                 setUpDinamicos.Clear();
             }
@@ -3644,6 +3644,10 @@ namespace PuntoDeVentaV2
             extra = string.Empty;
             extra2 = string.Empty;
 
+            queryResultOtherTags = string.Empty;
+            queryAndAdvancedOtherTags = string.Empty;
+            queryAndAdvancedOtherTags = string.Empty;
+
             countFalse = contarCamposFalsos(setUpDinamicos);
 
             if (countFalse.Equals(setUpDinamicos.Count))
@@ -3703,6 +3707,7 @@ namespace PuntoDeVentaV2
             {
                 queryHead = "SELECT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID ";
                 queryHeadAdvancedOtherTags = string.Empty;
+                queryAndAdvancedOtherTags = string.Empty;
                 queryResultOtherTags = string.Empty;
             } 
 
