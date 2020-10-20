@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
             validarNoDuplicarVentas = 1;
 
             this.total = total;
-            
+
             //Obtenemos los datos del cliente en caso de que sea una venta guardada con clientes
             if (!string.IsNullOrWhiteSpace(idCliente))
             {
@@ -78,10 +78,47 @@ namespace PuntoDeVentaV2
             txtEfectivo.Text = total.ToString("0.00");
         }
 
+        private double getMayorNumber(List<string> listaNumeros)
+        {
+            double may, men;
+            int i = 1;
+
+            may = men = 0;
+
+            foreach (var item in listaNumeros)
+            {
+                if (!item.Equals(""))
+                {
+                    double numero = Convert.ToDouble(item.ToString());
+                    if (i.Equals(1))
+                    {
+                        may = numero;
+                        men = numero;
+                        i++;
+                    }
+                    else
+                    {
+                        if (numero > may)
+                        {
+                            may = numero;
+                        }
+                        if (numero < men)
+                        {
+                            men = numero;
+                        }
+                    }
+                }
+            }
+
+            return may;
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             Ventas venta = new Ventas();
-            float pagado = CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito;
+            float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito) * 100 / 100;
+
+            List<string> listaCantidades = new List<string>();
 
             //Comprobamos si las cantidades a pagar son mayores o igual al total de la venta para poder terminarla
             if ((pagado >= total) || credito > 0)
@@ -106,6 +143,62 @@ namespace PuntoDeVentaV2
                 Ventas.cheque = CantidadDecimal(txtCheque.Text).ToString("0.00");
                 Ventas.transferencia = CantidadDecimal(txtTransferencia.Text).ToString("0.00");
                 Ventas.referencia = txtReferencia.Text;
+
+                listaCantidades.Add(txtEfectivo.Text);
+                listaCantidades.Add(txtTarjeta.Text);
+                listaCantidades.Add(txtTransferencia.Text);
+                listaCantidades.Add(txtCheque.Text);
+                listaCantidades.Add(txtVales.Text);
+
+                var mayor = getMayorNumber(listaCantidades);
+
+                float checarEfectivo = 0,
+                        checarTarjeta = 0,
+                        checarTransferencia = 0,
+                        checarCheque = 0,
+                        checarVales = 0;
+
+                if (!txtEfectivo.Text.Equals(""))
+                {
+                    checarEfectivo = float.Parse(txtEfectivo.Text);
+                }
+                if (!txtTarjeta.Text.Equals(""))
+                {
+                    checarTarjeta = float.Parse(txtTarjeta.Text);
+                }
+                if (!txtTransferencia.Text.Equals(""))
+                {
+                    checarTransferencia = float.Parse(txtTransferencia.Text);
+                }
+                if (!txtCheque.Text.Equals(""))
+                {
+                    checarCheque = float.Parse(txtCheque.Text);
+                }
+                if (!txtVales.Text.Equals(""))
+                {
+                    checarVales = float.Parse(txtVales.Text);
+                }
+
+                if (checarEfectivo.Equals((float)mayor))
+                {
+                    Ventas.formaDePagoDeVenta = "Efectivo";
+                }
+                else if (checarTarjeta.Equals((float)mayor))
+                {
+                    Ventas.formaDePagoDeVenta = "Tarjeta";
+                }
+                else if (checarTransferencia.Equals((float)mayor))
+                {
+                    Ventas.formaDePagoDeVenta = "Transferencia";
+                }
+                else if (checarCheque.Equals((float)mayor))
+                {
+                    Ventas.formaDePagoDeVenta = "Cheque";
+                }
+                else if (checarVales.Equals((float)mayor))
+                {
+                    Ventas.formaDePagoDeVenta = "Vales";
+                }
 
                 if (idCliente == 0)
                 {
@@ -136,7 +229,7 @@ namespace PuntoDeVentaV2
 
                 this.Hide();
                 this.Close();
-                
+
             }
 
             var sumaImportes = Ventas.pasarSumaImportes;
@@ -248,7 +341,7 @@ namespace PuntoDeVentaV2
 
             CalcularCambio();
         }
-        
+
         //Este metodo suma todas las cantidades de los campos de metodos de pago excepto el de efectivo
         private float SumaMetodos()
         {
@@ -313,7 +406,7 @@ namespace PuntoDeVentaV2
 
             var totalVenta = float.Parse(txtTotalVenta.Text.Remove(0, 1));
             var totalEfectivo = 0f;
-            
+
             if (!string.IsNullOrWhiteSpace(txtEfectivo.Text.Trim()))
             {
                 totalEfectivo = float.Parse(txtEfectivo.Text.Trim());
@@ -358,7 +451,7 @@ namespace PuntoDeVentaV2
             lbTotalCredito.Text = "0.00";
             lbEliminarCliente.Visible = false;
             lbCliente.Text = "Asignar cliente";
-            
+
             CalcularCambio();
         }
 
@@ -396,7 +489,7 @@ namespace PuntoDeVentaV2
                 Close();
             }
         }
-        
+
         private void EventoTab(object sender, PreviewKeyDownEventArgs e)
         {
             var campos = new string[] {

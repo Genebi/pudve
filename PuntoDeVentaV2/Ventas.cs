@@ -45,6 +45,9 @@ namespace PuntoDeVentaV2
         // Estado de la venta
         public static string statusVenta = string.Empty;
 
+        // Concepto de la Venta
+        public static string formaDePagoDeVenta = string.Empty;
+
         // Para los anticipos por aplicar
         public static string listaAnticipos = string.Empty;
         public static float importeAnticipo = 0f;
@@ -1841,7 +1844,7 @@ namespace PuntoDeVentaV2
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
                 DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion,
-                idClienteDescuento.ToString(), id_empleado
+                idClienteDescuento.ToString(), id_empleado, formaDePagoDeVenta
             };
 
 
@@ -1913,7 +1916,8 @@ namespace PuntoDeVentaV2
                         guardar = new string[] {
                             idVenta, IDProducto, Nombre, Cantidad, Precio,
                             DescuentoGeneral, DescuentoIndividual, ImporteIndividual,
-                            Descuento, Total, Folio, AnticipoUtilizado, TipoDescuento
+                            Descuento, Total, Folio, AnticipoUtilizado, TipoDescuento,
+                            formaDePagoDeVenta
                         };
 
                         // Guardar info de los productos
@@ -2264,13 +2268,13 @@ namespace PuntoDeVentaV2
                                 {
                                     var datosProducto = producto.Split('|');
                                     var idProducto = Convert.ToInt32(datosProducto[0]);
-                                    var stockRequerido = Convert.ToInt32(datosProducto[1]) * cantidad;
+                                    var stockRequerido = (int)Convert.ToDouble(datosProducto[1]) * cantidad;
 
                                     datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
                                     datosProducto = datosProducto[0].Split('|');
 
                                     var nombreProducto = datosProducto[0];
-                                    var stockActual = Convert.ToInt32(datosProducto[1]);
+                                    var stockActual = (int)Convert.ToDouble(datosProducto[1]);
 
                                     if (stockActual < stockRequerido)
                                     {
@@ -2556,30 +2560,30 @@ namespace PuntoDeVentaV2
             int altoLogo = 0;
             int espacio = 0;
 
-            if (statusVenta.Equals("1"))
-            {
-                strFormaPago = "Efectivo";
-            }
-            else if (statusVenta.Equals("2"))
-            {
-                strFormaPago = "Presupuesto";
-            }
-            else if (statusVenta.Equals("3"))
-            {
-                strFormaPago = "Cancelada";
-            }
-            else if (statusVenta.Equals("4"))
-            {
-                strFormaPago = "Crédito";
-            }
-            else if (statusVenta.Equals("5"))
-            {
-                strFormaPago = "Factura";
-            }
-            else if (statusVenta.Equals("6"))
-            {
-                strFormaPago = "Presupuestos";
-            }
+            //if (statusVenta.Equals("1"))
+            //{
+            //    strFormaPago = "Efectivo";
+            //}
+            //else if (statusVenta.Equals("2"))
+            //{
+            //    strFormaPago = "Presupuesto";
+            //}
+            //else if (statusVenta.Equals("3"))
+            //{
+            //    strFormaPago = "Cancelada";
+            //}
+            //else if (statusVenta.Equals("4"))
+            //{
+            //    strFormaPago = "Crédito";
+            //}
+            //else if (statusVenta.Equals("5"))
+            //{
+            //    strFormaPago = "Factura";
+            //}
+            //else if (statusVenta.Equals("6"))
+            //{
+            //    strFormaPago = "Presupuestos";
+            //}
 
             if (tipoPapel == 80)
             {
@@ -2679,7 +2683,7 @@ namespace PuntoDeVentaV2
             domicilio.Alignment = Element.ALIGN_CENTER;
             domicilio.SetLeading(espacio, 0);
 
-            Paragraph FormPago = new Paragraph(txtFormaPago + " " + strFormaPago, fuenteNormal);
+            Paragraph FormPago = new Paragraph(txtFormaPago + " " + productos[0][13], fuenteNormal);
 
             /**************************************
              ** Tabla con los productos vendidos **
