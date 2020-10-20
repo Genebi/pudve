@@ -1855,21 +1855,24 @@ namespace PuntoDeVentaV2
                 txtStockMinimo.Enabled = false;
             }
 
-            if (!finalIdProducto.Equals(""))
+            if (finalOrigenProdServCombo.Equals(2) || finalOrigenProdServCombo.Equals(4))
             {
-                // Verificar si tiene mensaje para mostrar el checkbox habilitado
-                var mensajeInventario = mb.MensajeInventario(Convert.ToInt32(finalIdProducto), 1);
-
-                if (!string.IsNullOrEmpty(mensajeInventario))
+                if (!finalIdProducto.Equals(""))
                 {
-                    chkMensajeInventario.Checked = true;
-                }
-                else
-                {
-                    chkMensajeInventario.Checked = false;
-                }
+                    // Verificar si tiene mensaje para mostrar el checkbox habilitado
+                    var mensajeInventario = mb.MensajeInventario(Convert.ToInt32(finalIdProducto), 1);
 
-                eventoMensajeInventario = true;
+                    if (!string.IsNullOrEmpty(mensajeInventario))
+                    {
+                        chkMensajeInventario.Checked = true;
+                    }
+                    else
+                    {
+                        chkMensajeInventario.Checked = false;
+                    }
+
+                    eventoMensajeInventario = true;
+                }
             }
         }
 
