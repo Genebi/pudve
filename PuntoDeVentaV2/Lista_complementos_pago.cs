@@ -265,6 +265,9 @@ namespace PuntoDeVentaV2
                                 MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
+
+                        // Obtenemos la cantidad de timbres
+                        fct.actualizar_timbres();
                     }
                     
                 }
@@ -539,6 +542,9 @@ namespace PuntoDeVentaV2
 
                 canc_mensaje.ShowDialog();
             }
+
+            // Obtenemos la cantidad de timbres
+            fct.actualizar_timbres();
         }
     }
 }

@@ -69,8 +69,7 @@ namespace PuntoDeVentaV2
             ag_checkb_header();
 
             // Obtenemos la cantidad de timbres
-            int timbres_disponibles = mb.obtener_cantidad_timbres();
-            lb_timbres.Text = timbres_disponibles.ToString();
+            actualizar_timbres();
 
             // Carga las facturas en la tabla 
             cargar_lista_facturas(0, 2);
@@ -440,39 +439,6 @@ namespace PuntoDeVentaV2
                                         // Cambiar a canceladas
                                         cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1, id_emp_cancela='{id_empleado}' WHERE ID='{id_factura}'");
 
-                                        /* if (t_comprobante == "P")
-                                         {
-                                             cn.EjecutarConsulta($"UPDATE Facturas_complemento_pago SET cancelada=1 WHERE id_factura='{id_factura}'");
-
-                                             // Obtener el id de la factura principal a la que se le hace el abono
-                                             DataTable d_datos_cp = cn.CargarDatos(cs.obtener_datos_para_gcpago(4, id_factura));
-                                             DataRow r_datos_cp = d_datos_cp.Rows[0];
-
-                                             int id_factura_princ = Convert.ToInt32(r_datos_cp["id_factura_principal"].ToString());
-                                             decimal importe_pg = Convert.ToDecimal(r_datos_cp["importe_pagado"].ToString());
-
-                                             // Verificar el comprobante para ver si no era el único que estaba por cancelar
-                                             DataTable d_exi_complement = cn.CargarDatos(cs.obtener_datos_para_gcpago(5, id_factura_princ));
-                                             int cant_exi_complement = d_exi_complement.Rows.Count;
-
-
-                                             // Ver si el campo resta_pago se modifica una vez se timbra la factura principal
-                                             if(cant_exi_complement == 0)
-                                             {
-                                                 // Obtiene el total de la factura principal 
-                                                 DataTable d_imp_fct_p = cn.CargarDatos(cs.obtener_datos_para_gcpago(1, id_factura_princ));
-                                                 DataRow r_imp_fct_p = d_imp_fct_p.Rows[0];
-
-                                                 decimal importe_fct_principal= Convert.ToDecimal(r_imp_fct_p["total"].ToString());
-
-                                                 cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0, resta_cpago='{importe_fct_principal}' WHERE ID='{id_factura_princ}'");
-                                             }
-                                             else
-                                             {
-                                                 cn.EjecutarConsulta($"UPDATE Facturas SET resta_cpago=resta_cpago+'{importe_pg}' WHERE ID='{id_factura_princ}'");
-                                             }
-                                         }*/
-
                                         // Cargar consulta
                                         int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
                                         cargar_lista_facturas(tipo_factura);
@@ -491,6 +457,9 @@ namespace PuntoDeVentaV2
                         
                         //cancela.Sellar(ruta_key, clave);
                     }
+
+                    // Obtenemos la cantidad de timbres
+                    actualizar_timbres();
                 }
 
                 // Información empleado
@@ -645,6 +614,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            // Obtenemos la cantidad de timbres
+            actualizar_timbres();
         }
 
         private void clickcellc_checkbox(object sender, DataGridViewCellEventArgs e)
@@ -1398,6 +1370,9 @@ namespace PuntoDeVentaV2
                     };
 
                     canc_mensaje.ShowDialog();
+
+                    // Obtenemos la cantidad de timbres
+                    actualizar_timbres();
                 }
             }
         }
@@ -1413,8 +1388,7 @@ namespace PuntoDeVentaV2
             cmb_bx_tipo_factura.SelectedIndex = 2;
 
             // Obtenemos la cantidad de timbres
-            int timbres_disponibles = mb.obtener_cantidad_timbres();
-            lb_timbres.Text = timbres_disponibles.ToString();
+            actualizar_timbres();
         }
 
         private void btn_actualizar_timbres_Click(object sender, EventArgs e)
@@ -1464,9 +1438,7 @@ namespace PuntoDeVentaV2
                     c.Close();
 
                     // Obtenemos la cantidad de timbres
-                    int timbres_disponibles = mb.obtener_cantidad_timbres();
-
-                    lb_timbres.Text = timbres_disponibles.ToString();
+                    actualizar_timbres();
                 }
                 catch (MySqlException ex)
                 {
@@ -1483,6 +1455,14 @@ namespace PuntoDeVentaV2
         private void btn_comprar_timbres_Click(object sender, EventArgs e)
         {
             Process.Start("https://sifo.com.mx/pagina-para-factura-electronica.php");
+        }
+
+
+        public void actualizar_timbres()
+        {
+            // Obtenemos la cantidad de timbres
+            int timbres_disponibles = mb.obtener_cantidad_timbres();
+            lb_timbres.Text = timbres_disponibles.ToString();
         }
     }
 }
