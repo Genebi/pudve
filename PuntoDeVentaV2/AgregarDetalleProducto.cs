@@ -1855,6 +1855,7 @@ namespace PuntoDeVentaV2
                 txtStockMinimo.Enabled = false;
             }
 
+            // correcion desde cargar de XML para qe no muestre error
             if (finalOrigenProdServCombo.Equals(2) || finalOrigenProdServCombo.Equals(4))
             {
                 if (!finalIdProducto.Equals(""))
