@@ -545,11 +545,11 @@
             // lb_timbres
             // 
             this.lb_timbres.AutoSize = true;
-            this.lb_timbres.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_timbres.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_timbres.ForeColor = System.Drawing.Color.Blue;
-            this.lb_timbres.Location = new System.Drawing.Point(139, 12);
+            this.lb_timbres.Location = new System.Drawing.Point(147, 12);
             this.lb_timbres.Name = "lb_timbres";
-            this.lb_timbres.Size = new System.Drawing.Size(17, 20);
+            this.lb_timbres.Size = new System.Drawing.Size(19, 21);
             this.lb_timbres.TabIndex = 1;
             this.lb_timbres.Text = "0";
             // 
@@ -586,11 +586,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Blue;
-            this.label2.Location = new System.Drawing.Point(6, 12);
+            this.label2.Location = new System.Drawing.Point(4, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(135, 20);
+            this.label2.Size = new System.Drawing.Size(148, 21);
             this.label2.TabIndex = 0;
             this.label2.Text = "Timbres restantes:";
             // 
