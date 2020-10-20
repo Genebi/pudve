@@ -35,7 +35,7 @@ namespace PuntoDeVentaV2
         private void cargarDatos()
         {
             IDProductoFinal = IDProducto;
-            queryProducto = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras' FROM Productos P WHERE P.IDUsuario = '{FormPrincipal.userID}' AND P.ID = '{IDProductoFinal}'";
+            queryProducto = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Codigo de Barras' FROM Productos P WHERE P.IDUsuario = '{FormPrincipal.userID}' AND P.ID = '{IDProductoFinal}'";
             Producto = cn.CargarDatos(queryProducto);
             DataRow row = Producto.Rows[0];
             lblNombre.Text = row["Nombre"].ToString();
@@ -43,7 +43,7 @@ namespace PuntoDeVentaV2
             lblStock.Text = row["Stock"].ToString();
             lblCategoria.Text = row["Categoria"].ToString();
             lblClaveInterna.Text = row["Clave Interna"].ToString();
-            lblCodigoBarras.Text = row["Código de Barras"].ToString();
+            lblCodigoBarras.Text = row["Codigo de Barras"].ToString();
         }
     }
 }
