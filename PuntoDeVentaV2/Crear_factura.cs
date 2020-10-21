@@ -873,7 +873,7 @@ namespace PuntoDeVentaV2
                     decimal cantidad_productos = Convert.ToDecimal(ListadoVentas.faltantes_productos[1][5]);
                     decimal unproducto = resp_total_factura / cantidad_productos;
 
-                    if (cantidad_productos > 1 & resp_total_factura > monto_xfactura & unproducto < monto_xfactura)
+                    if (cantidad_productos > 1 & resp_total_factura > monto_xfactura & unproducto <= monto_xfactura)
                     {
                         partir_factura = true;
                     }
