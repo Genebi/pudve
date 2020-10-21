@@ -5656,6 +5656,13 @@ namespace PuntoDeVentaV2
 
                 cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
 
+                if (cbMostrar.Text.Equals("Deshabilitados") || cbMostrar.Text.Equals("Todos"))
+                {
+                    cbMostrar.Text = "Habilitados";
+                }
+
+                cbMostrar_SelectedIndexChanged(sender, EventArgs.Empty);
+
                 txtBusqueda.Text = string.Empty;
 
                 // Calcular capital temporalmente (informativo)
