@@ -939,6 +939,9 @@
     <EmbeddedResource Include="AsignarPropiedad.resx">
       <DependentUpon>AsignarPropiedad.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CajaAbonos.resx">
+      <DependentUpon>CajaAbonos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CajaN.resx">
       <DependentUpon>CajaN.cs</DependentUpon>
     </EmbeddedResource>

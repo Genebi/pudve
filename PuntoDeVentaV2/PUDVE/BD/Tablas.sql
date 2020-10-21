@@ -778,3 +778,18 @@ CREATE TABLE IF NOT EXISTS TipoClientes (
 //                IDUsuario INTEGER NOT NULL,
 //                Descripcion TEXT
 //            );");*/
+
+/* 49 Tabla de Devoluciones
+CREATE TABLE IF NOT EXISTS Devoluciones(
+    ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+    IDVenta INTEGER  NOT NULL,
+    IDUsuario INTEGER,
+    Total DECIMAL (16, 2) DEFAULT (0),
+    Efectivo DECIMAL (16, 2) DEFAULT (0),
+    Tarjeta DECIMAL (16, 2) DEFAULT (0),
+    Vales DECIMAL (16, 2) DEFAULT (0),
+    Cheque DECIMAL (16, 2) DEFAULT (0),
+    Transferencia DECIMAL (16, 2) DEFAULT (0),
+    Referencia TEXT,
+    FechaOperacion DATETIME NOT NULL
+);

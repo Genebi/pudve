@@ -676,13 +676,77 @@ namespace PuntoDeVentaV2
 
                                     var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                     var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+                                    var conceptoCredito = $"DEVOLUCION DINERO VENTA A CREDITO CANCELADA ID {idVenta}";
 
-                                    string[] datos = new string[] {
+                                    if (cbTipoVentas.SelectedIndex != 3)
+                                    {//Cancela las ventas
+                                        string[] datos = new string[] {
                                         "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                                         efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
                                     };
 
-                                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                        cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                    }
+                                    else if(cbTipoVentas.SelectedIndex == 3)
+                                    {//Cancela las ventas a credito
+                                        var revisarSiTieneAbono = cn.CargarDatos($"SELECT * FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
+                                        string ultimoDate = string.Empty;
+                                        if (!string.IsNullOrWhiteSpace(revisarSiTieneAbono.ToString()))// valida si la consulta esta vacia 
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                                            if (fechaCorteUltima.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
+                                            {
+                                                foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
+                                                {
+                                                    ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                                                }
+                                                DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
+
+                                                var resultadoConsultaAbonos = string.Empty;
+                                                var efectivoAbonadoADevolver = string.Empty;
+                                                var tarjetaAbonadoADevolver = string.Empty;
+                                                var valesAbonadoADevolver = string.Empty;
+                                                var chequeAbonadoADevolver = string.Empty;
+                                                var transAbonadoADevolver = string.Empty;
+                                                var fechaOperacionAbonadoADevolver = string.Empty;
+
+                                                foreach (DataRow contenido in revisarSiTieneAbono.Rows)
+                                                {
+                                                    resultadoConsultaAbonos = contenido["Total"].ToString();
+                                                    efectivoAbonadoADevolver = contenido["Efectivo"].ToString();
+                                                    tarjetaAbonadoADevolver = contenido["Tarjeta"].ToString();
+                                                    valesAbonadoADevolver = contenido["Vales"].ToString();
+                                                    chequeAbonadoADevolver = contenido["Cheque"].ToString();
+                                                    transAbonadoADevolver = contenido["Transferencia"].ToString();
+                                                    fechaOperacionAbonadoADevolver = contenido["FechaOperacion"].ToString();
+                                                }
+                                                DateTime fechaAbonoRealizado = DateTime.Parse(fechaOperacionAbonadoADevolver);
+
+                                                if (fechaAbonoRealizado > fechaDelCorteCaja)
+                                                {
+                                                    string[] datos = new string[] {
+                                                    "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(),
+                                                    efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, /*credito*/"0.00", anticipo
+                                                };
+                                                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                }
+                                                else if(fechaAbonoRealizado < fechaDelCorteCaja)/////////////////////////////////////////
+                                                {
+                                                    string[] datos = new string[]
+                                                    {
+                                                        idVenta.ToString(), FormPrincipal.userID.ToString(), resultadoConsultaAbonos, efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver,
+                                                        chequeAbonadoADevolver, transAbonadoADevolver, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                                                    };
+
+                                                    cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
 
@@ -896,6 +960,7 @@ namespace PuntoDeVentaV2
                 btnUltimaPagina.PerformClick();
 
                 hay_productos_habilitados = mb.tiene_productos_habilitados();
+                cbTipoVentas.SelectedIndex = 0;
             }
 
             if (abrirNuevaVenta)
