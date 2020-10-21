@@ -428,5 +428,73 @@ namespace PuntoDeVentaV2
         {
             MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        public static void CrearMarcaDeAguaNotaVenta(int idVenta, string texto)
+        {
+            var servidor = Properties.Settings.Default.Hosting;
+            var archivoCopia = string.Empty;
+            var archivoPDF = string.Empty;
+            var nuevoPDF = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                archivoCopia = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\VENTA_{idVenta}_tmp.pdf";
+                archivoPDF = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\VENTA_{idVenta}.pdf";
+
+                nuevoPDF = archivoPDF;
+
+                // Renombramos el archivo PDF
+                File.Move(archivoPDF, archivoCopia);
+            }
+            else
+            {
+                archivoCopia = $@"C:\Archivos PUDVE\Ventas\PDF\VENTA_{idVenta}_tmp.pdf";
+                archivoPDF = $@"C:\Archivos PUDVE\Ventas\PDF\VENTA_{idVenta}.pdf";
+
+                nuevoPDF = archivoPDF;
+
+                // Renombramos el archivo PDF
+                File.Move(archivoPDF, archivoCopia);
+            }
+
+            using (PdfReader reader = new PdfReader(archivoCopia))
+            {
+                FileStream fs = new FileStream(nuevoPDF, FileMode.Create, FileAccess.Write, FileShare.None);
+
+                using (PdfStamper stamper = new PdfStamper(reader, fs))
+                {
+                    int numeroPaginas = reader.NumberOfPages;
+
+                    PdfLayer layer = new PdfLayer("WatermarkLayer", stamper.Writer);
+
+                    for (int i = 1; i <= numeroPaginas; i++)
+                    {
+                        iTextSharp.text.Rectangle rec = reader.GetPageSize(i);
+                        PdfContentByte cb = stamper.GetUnderContent(i);
+
+                        cb.BeginLayer(layer);
+                        cb.SetFontAndSize(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 60);
+
+                        PdfGState gstate = new PdfGState();
+                        gstate.FillOpacity = 0.35f;
+                        cb.SetGState(gstate);
+
+                        cb.SetColorFill(iTextSharp.text.BaseColor.RED);
+                        cb.BeginText();
+                        cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, texto, rec.Width / 2, rec.Height / 2, 45f);
+                        cb.EndText();
+                        cb.EndLayer();
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(archivoCopia))
+            {
+                if (File.Exists(archivoCopia))
+                {
+                    File.Delete(archivoCopia);
+                }
+            }
+        }
     }
 }

@@ -718,6 +718,21 @@ namespace PuntoDeVentaV2
                         ver_factura(idVenta);
                     }
 
+                    // poner marca de agua a la nota si es presupuesto
+                    using (var dtVentaRealizada = cn.CargarDatos(cs.consulta_dventa(1, idVenta)))
+                    {
+                        if (!dtVentaRealizada.Rows.Count.Equals(0))
+                        {
+                            foreach(DataRow item in dtVentaRealizada.Rows)
+                            {
+                                if (item["Status"].ToString().Equals("2"))
+                                {
+                                    Utilidades.CrearMarcaDeAguaNotaVenta(idVenta, "PRESUPUESTO");
+                                }
+                            }
+                        }
+                    }
+
                     // Visualiza PDF
 
                     string nombre = "VENTA_" + idVenta;
