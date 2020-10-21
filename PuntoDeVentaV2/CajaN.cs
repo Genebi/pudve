@@ -35,7 +35,10 @@ namespace PuntoDeVentaV2
 
         //float anticiposAplicados = 0f;
         float abonos = 0f;
-        //int incremento = 1;
+        float devoluciones = 0f;
+        
+        //Validar si se mostrara abonos o devoluciones
+        public static string abonos_devoluciones { get; set; }
 
         // Variables Totales
         public static float totalEfectivo = 0f;
@@ -373,6 +376,7 @@ namespace PuntoDeVentaV2
             float rVales = 0f;
             float rCheque = 0f;
             float rTransferencia = 0f;
+            float devoluciones = 0f;
 
             // Variables caja
             float efectivo = 0f;
@@ -409,74 +413,119 @@ namespace PuntoDeVentaV2
             string ultimoDate = "";
             try
             {
-                var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
-                if (segundaConsulta.Rows.Count > 0 && string.IsNullOrWhiteSpace(segundaConsulta.ToString()))
+                var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) AS AnticipoAplicado FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
+                if (!segundaConsulta.Rows.Count.Equals(0))
                 {
                     foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
                     {
-                        consultaAnticipoAplicado = obtenerAnticipoAplicado["sum(AnticipoAplicado)"].ToString();
+                        if (string.IsNullOrWhiteSpace(obtenerAnticipoAplicado["AnticipoAplicado"].ToString()))
+                        {
+                            consultaAnticipoAplicado = "0";
+                        }
+                        else
+                        {
+                            consultaAnticipoAplicado = obtenerAnticipoAplicado["AnticipoAplicado"].ToString();
+                        }
                     }
                     anticiposAplicados = float.Parse(consultaAnticipoAplicado); //Hasta esta linea.
                 }
-
+                //Obtenemos la fecha del ultimo corte
                 var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                if (fechaCorteUltima.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
+                if (!fechaCorteUltima.Rows.Count.Equals(0))
                 {
                     foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
                     {
                         ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
                     }
-                    DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
+                    DateTime ultimoDateCorte = DateTime.Parse(ultimoDate);
 
-                    //var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
+                    //Obtenemos la cantidad de abonos realizados despues del ultimo corte de caja
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     //var abono = "";
-                    //foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
-                    //{
-                    //    abono = cantidadAbono["sum(Total)"].ToString();
-                    //}
-                    //abonos = float.Parse(abono);
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
-                    //var abono = "";
-                    var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
-                    foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                    if (!fechaMovimientos.Rows.Count.Equals(0))
                     {
-                        //abono = cantidadAbono["sum(Total)"].ToString();
-                        abonoEfectivo = cantidadAbono["sum(Efectivo)"].ToString();
-                        abonoTarjeta = cantidadAbono["sum(Tarjeta)"].ToString();
-                        abonoVales = cantidadAbono["sum(Vales)"].ToString();
-                        abonoCheque = cantidadAbono["sum(Cheque)"].ToString();
-                        abonoTransferencia = cantidadAbono["sum(Transferencia)"].ToString();
+                        var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
+                        foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                        {
+                            if (string.IsNullOrWhiteSpace(cantidadAbono["Efectivo"].ToString()))
+                            {
+                                abonoEfectivo = "0";
+                            }
+                            else
+                            {
+                                abonoEfectivo = cantidadAbono["Efectivo"].ToString();
+                            }
 
+                            if (string.IsNullOrWhiteSpace(cantidadAbono["Tarjeta"].ToString()))
+                            {
+                                abonoTarjeta = "0";
+                            }
+                            else
+                            {
+                                abonoTarjeta = cantidadAbono["Tarjeta"].ToString();
+                            }
+
+                            if (string.IsNullOrWhiteSpace(cantidadAbono["Vales"].ToString()))
+                            {
+                                abonoVales = "0";
+                            }
+                            else
+                            {
+                                abonoVales = cantidadAbono["Vales"].ToString();
+                            }
+
+                            if (string.IsNullOrWhiteSpace(cantidadAbono["Cheque"].ToString()))
+                            {
+                                abonoCheque = "0";
+                            }
+                            else
+                            {
+                                abonoCheque = cantidadAbono["Cheque"].ToString();
+                            }
+
+                            if (string.IsNullOrWhiteSpace(cantidadAbono["Transferencia"].ToString()))
+                            {
+                                abonoTransferencia = "0";
+                            }
+                            else
+                            {
+                                abonoTransferencia = cantidadAbono["Transferencia"].ToString();
+                            }
+
+                        }
+                        //abonos = float.Parse(abono);
+                        abonoEfectivoI = float.Parse(abonoEfectivo);
+                        abonoTarjetaI = float.Parse(abonoTarjeta);
+                        abonoValesI = float.Parse(abonoVales);
+                        abonoChequeI = float.Parse(abonoCheque);
+                        abonoTransferenciaI = float.Parse(abonoTransferencia);
+                        abonos = (abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI);
                     }
-                    //abonos = float.Parse(abono);
-                    abonoEfectivoI = float.Parse(abonoEfectivo);
-                    abonoTarjetaI = float.Parse(abonoTarjeta);
-                    abonoValesI = float.Parse(abonoVales);
-                    abonoChequeI = float.Parse(abonoCheque);
-                    abonoTransferenciaI = float.Parse(abonoTransferencia);
-                    abonos = (abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI);
+
+                    //Obtenemos la cantidad de Devoluciones realizados despues del ultimo corte de caja
+                    var obtenerDevoluciones = cn.CargarDatos($@"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'");
+                    if (!obtenerDevoluciones.Rows.Count.Equals(0))
+                    {
+                        string devolucionTotal = string.Empty, devolucionEfectivo = string.Empty, devolucionTarjeta = string.Empty, devolucionVales = string.Empty, devolucionCheque = string.Empty, devolucionTrans = string.Empty;
+                        foreach (DataRow devol in obtenerDevoluciones.Rows)
+                        {
+                            if (string.IsNullOrWhiteSpace(devol["Total"].ToString()))
+                            {
+                                devolucionTotal = "0";
+                            }
+                            else
+                            {
+                                devolucionTotal = devol["Total"].ToString();
+                            }
+                            //devolucionEfectivo = devol["sum(Efectivo)"].ToString();
+                            //devolucionTarjeta = devol["sum(Tarjeta)"].ToString();
+                            //devolucionVales = devol["sum(Vales)"].ToString();
+                            //devolucionCheque = devol["sum(Cheque)"].ToString();
+                            //devolucionTrans = devol["sum(Transferencia)"].ToString();
+                        }
+                        devoluciones = float.Parse(devolucionTotal);
+                    }
                 }
-                //else
-                //{
-                //    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}'");
-                //    var abono = "";
-                //    var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
-                //    foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
-                //    {
-                //        abono = cantidadAbono["sum(Total)"].ToString();
-                //        abonoEfectivo = cantidadAbono["sum(Efectivo)"].ToString();
-                //        abonoTarjeta = cantidadAbono["sum(Tarjeta)"].ToString();
-                //        abonoVales = cantidadAbono["sum(Vales)"].ToString();
-                //        abonoCheque = cantidadAbono["sum(Cheque)"].ToString();
-                //        abonoTransferencia = cantidadAbono["sum(Transferencia)"].ToString();
-                //    }
-                //    abonos = float.Parse(abono);
-                //    abonoEfectivoI = float.Parse(abonoEfectivo);
-                //    abonoTarjetaI = float.Parse(abonoTarjeta);
-                //    abonoValesI = float.Parse(abonoVales);
-                //    abonoChequeI = float.Parse(abonoCheque);
-                //    abonoTransferenciaI = float.Parse(abonoTransferencia);
-                //}
             }
             catch
             {
@@ -597,7 +646,8 @@ namespace PuntoDeVentaV2
             lbTransferenciaR.Text = "$ -" + retiroTrans.ToString("0.00");
             //lbTAnticiposC.Text = "$ -" + vAnticipos.ToString("0.00");
             lbTAnticiposC.Text = "$ -" + anticiposAplicados.ToString("0.00");
-            lbTRetirado.Text = "$ -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados).ToString("0.00");
+            lbDevoluciones.Text = "$-" + devoluciones.ToString("0.00");
+            lbTRetirado.Text = "$ -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");
 
             // Apartado TOTAL EN CAJA
             efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo;
@@ -1730,7 +1780,7 @@ namespace PuntoDeVentaV2
             try
             {
                 var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                if (fechaCorteUltima.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
+                if (!fechaCorteUltima.Rows.Count.Equals(0))
                 {
                     foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
                     {
@@ -1738,14 +1788,21 @@ namespace PuntoDeVentaV2
                     }
                     DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
 
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     var abono = "";
 
-                    if (fechaMovimientos.Rows.Count > 0 && string.IsNullOrWhiteSpace(fechaMovimientos.ToString()))
+                    if (!fechaMovimientos.Rows.Count.Equals(0))
                     {
                         foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
                         {
-                            abono = cantidadAbono["sum(Total)"].ToString();
+                            if (string.IsNullOrWhiteSpace(cantidadAbono["Total"].ToString()))
+                            {
+                                abono = "0";
+                            }
+                            else
+                            {
+                                abono = cantidadAbono["Total"].ToString();
+                            }
                         }
                         abonos = float.Parse(abono);
                     }
@@ -1770,6 +1827,47 @@ namespace PuntoDeVentaV2
 
             }
 
+            try
+            {
+                var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                if (!fechaCorteUltima.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
+                    {
+                        ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                    }
+                    DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
+
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total FROM devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
+                    var devolucion = "";
+
+                    if (!fechaMovimientos.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                        {
+                            if (string.IsNullOrWhiteSpace(cantidadAbono["Total"].ToString()))
+                            {
+                                devolucion = "0";
+                            }
+                            else
+                            {
+                                devolucion = cantidadAbono["Total"].ToString();
+                            }
+                        }
+                        devoluciones = float.Parse(devolucion);
+                    }
+                    else
+                    {
+                        devoluciones = 0f;
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+
+
             if (abonos > 0)
             {
                 lbCambioAbonos.Visible = true;
@@ -1778,12 +1876,29 @@ namespace PuntoDeVentaV2
             {
                 lbCambioAbonos.Visible = false;
             }
+
+            if (devoluciones > 0)
+            {
+                lbCambioDevoluciones.Visible = true;
+            }
+            else
+            {
+                lbCambioDevoluciones.Visible = false;
+            }
         }
 
         private void lbCambioAbonos_Click(object sender, EventArgs e)
         {
+            abonos_devoluciones = "abonos";
             CajaAbonos mostrarAbonos = new CajaAbonos();
             mostrarAbonos.Show();
+        }
+
+        private void lbCambioDevoluciones_Click(object sender, EventArgs e)
+        {
+            abonos_devoluciones = "devoluciones";
+            CajaAbonos mostrarDevoluciones = new CajaAbonos();
+            mostrarDevoluciones.Show();
         }
     }
 }
