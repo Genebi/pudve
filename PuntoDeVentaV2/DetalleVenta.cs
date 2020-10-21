@@ -400,7 +400,7 @@ namespace PuntoDeVentaV2
             if (txtEfectivo.TextLength == 1 && txtEfectivo.Text.Equals("."))
             {
                 //txtEfectivo.Text = string.Empty;
-                txtEfectivo.Text = "0.0";
+                txtEfectivo.Text = "0.";
                 txtEfectivo.Select(txtEfectivo.Text.Length, 0);
             }
 
@@ -524,7 +524,7 @@ namespace PuntoDeVentaV2
         {
             if (txtTarjeta.TextLength == 1 && txtTarjeta.Text.Equals("."))
             {
-                txtTarjeta.Text = "0.0";
+                txtTarjeta.Text = "0.";
                 txtTarjeta.Select(txtEfectivo.Text.Length, 0);
             }
         }
@@ -533,7 +533,7 @@ namespace PuntoDeVentaV2
         {
             if (txtTransferencia.TextLength == 1 && txtTransferencia.Text.Equals("."))
             {
-                txtTransferencia.Text = "0.0";
+                txtTransferencia.Text = "0.";
                 txtTransferencia.Select(txtEfectivo.Text.Length, 0);
             }
         }
@@ -542,7 +542,7 @@ namespace PuntoDeVentaV2
         {
             if (txtCheque.TextLength == 1 && txtCheque.Text.Equals("."))
             {
-                txtCheque.Text = "0.0";
+                txtCheque.Text = "0.";
                 txtCheque.Select(txtEfectivo.Text.Length, 0);
             }
         }
@@ -551,7 +551,7 @@ namespace PuntoDeVentaV2
         {
             if (txtVales.TextLength == 1 && txtVales.Text.Equals("."))
             {
-                txtVales.Text = "0.0";
+                txtVales.Text = "0.";
                 txtVales.Select(txtEfectivo.Text.Length, 0);
             }
         }
