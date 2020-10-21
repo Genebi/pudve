@@ -1831,7 +1831,14 @@ namespace PuntoDeVentaV2
             DataTable dtHistorialCompras;
             DataRow rowHistorialCompras;
 
-            ProdNombreFinal = ProdNombre;
+            if (DatosSourceFinal == 2)
+            {
+                ProdNombreFinal = ProdNombre;
+            }
+            else if (DatosSourceFinal == 4)
+            {
+                ProdNombreFinal = "Copia de " + ProdNombre;
+            }
             ProdStockFinal = ProdStock;
             ProdPrecioFinal = ProdPrecio;
             precioProducto = ProdPrecio; //Se asigna a la variable que se utiliza en detalles de facturacion
@@ -5784,7 +5791,7 @@ namespace PuntoDeVentaV2
             }
             // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
             // si el llamado de la ventana proviene del DataGridView (Copiar Producto)
-            else if (DatosSourceFinal == 2 ||DatosSourceFinal == 4)      
+            else if (DatosSourceFinal == 2 || DatosSourceFinal == 4)      
             {
                 txtStockProducto.Enabled = false;
                 button1.Visible = true;
