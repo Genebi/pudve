@@ -107,21 +107,31 @@ namespace PuntoDeVentaV2
             if (tipoDescuento == 1)
             {
                 AgregarEditarProducto.descuentos.Clear();
-                TextBox precio     = (TextBox)this.Controls.Find("txtPrecio", true).FirstOrDefault();
+
+                TextBox precio = (TextBox)this.Controls.Find("txtPrecio", true).FirstOrDefault();
                 TextBox porcentaje = (TextBox)this.Controls.Find("txtPorcentaje", true).FirstOrDefault();
                 TextBox precioDesc = (TextBox)this.Controls.Find("txtPrecioDescuento", true).FirstOrDefault();
-                TextBox descuento  = (TextBox)this.Controls.Find("txtDescuento", true).FirstOrDefault();
-                AgregarEditarProducto.descuentos.Add(tipoDescuento.ToString());
-                AgregarEditarProducto.descuentos.Add(precio.Text);
-                AgregarEditarProducto.descuentos.Add(porcentaje.Text);
-                AgregarEditarProducto.descuentos.Add(precioDesc.Text);
-                AgregarEditarProducto.descuentos.Add(descuento.Text);
+                TextBox descuento = (TextBox)this.Controls.Find("txtDescuento", true).FirstOrDefault();
+
+                if (porcentaje.Text.Equals("") && precioDesc.Text.Equals("") && descuento.Text.Equals(""))
+                {
+                    btnCancelarDesc.PerformClick();
+                }
+                else
+                {
+                    AgregarEditarProducto.descuentos.Add(tipoDescuento.ToString());
+                    AgregarEditarProducto.descuentos.Add(precio.Text);
+                    AgregarEditarProducto.descuentos.Add(porcentaje.Text);
+                    AgregarEditarProducto.descuentos.Add(precioDesc.Text);
+                    AgregarEditarProducto.descuentos.Add(descuento.Text);
+                }
             }
             //Mayoreo
             if (tipoDescuento == 2)
             {
                 AgregarEditarProducto.descuentos.Clear();
                 AgregarEditarProducto.descuentos.Add(tipoDescuento.ToString());
+
                 foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                 {
                     string descuentoMayoreo = null;
@@ -151,8 +161,25 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    //MessageBox.Show(descuentoMayoreo);
-                    AgregarEditarProducto.descuentos.Add(descuentoMayoreo);
+
+                    string cadenaDescuentoMayoreo = string.Empty, cadenaParaBuscar = string.Empty;
+                    bool cadenaEncontrada = false;
+
+                    cadenaDescuentoMayoreo = descuentoMayoreo;
+                    cadenaParaBuscar = "N";
+
+                    cadenaEncontrada = cadenaDescuentoMayoreo.Contains(cadenaParaBuscar);
+
+                    if (cadenaEncontrada)
+                    {
+                        btnCancelarDesc.PerformClick();
+                    }
+                    else if (!cadenaEncontrada)
+                    {
+                        //MessageBox.Show(descuentoMayoreo);
+                        AgregarEditarProducto.descuentos.Add(descuentoMayoreo);
+                    }
+                    
                     descuentoMayoreo = null;
                 }
             }

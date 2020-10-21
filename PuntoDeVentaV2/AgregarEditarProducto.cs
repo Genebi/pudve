@@ -2313,13 +2313,20 @@ namespace PuntoDeVentaV2
 
                 if (FormAgregar != null)
                 {
-                    FormAgregar.Show();
-                    FormAgregar.BringToFront();
+                    try
+                    {
+                        FormAgregar.Show();
+                        FormAgregar.BringToFront();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Excepción: " + ex.Message.ToString(), "Advertencia " + this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 else
                 {
                     FormAgregar = new AgregarDescuentoProducto();
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
             }
         }
