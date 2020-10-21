@@ -38,6 +38,8 @@ namespace PuntoDeVentaV2
             {
                 Text = "PUDVE - Agregar Empleado";
                 lbTitulo.Text = "NUEVO EMPLEADO";
+
+                cmb_bx_permisos.SelectedIndex = 0;
             }
 
             if (tipo == 2)
@@ -227,6 +229,9 @@ namespace PuntoDeVentaV2
             else
             {
                 MessageBox.Show(mnsj_er, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                btn_aceptar.Enabled = true;
+                btn_cancelar.Enabled = true;
             }
 
         }

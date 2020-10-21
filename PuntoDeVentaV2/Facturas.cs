@@ -226,7 +226,16 @@ namespace PuntoDeVentaV2
                     Image img_cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell-slash.png");
                     Image img_info_emp = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
 
-                    fila.Cells["col_cpago"].Value = img_cpago;
+                    if (opc_tipo_factura == 3)
+                    {
+                        this.datagv_facturas.Columns["col_cpago"].Visible = false;
+                    }
+                    else
+                    {
+                        this.datagv_facturas.Columns["col_cpago"].Visible = true;
+                        fila.Cells["col_cpago"].Value = img_cpago;
+                    }
+                    
                     fila.Cells["col_pdf"].Value = img_pdf;
                     fila.Cells["col_descargar"].Value = img_descargar;
                     fila.Cells["col_cancelar"].Value = img_cancelar;

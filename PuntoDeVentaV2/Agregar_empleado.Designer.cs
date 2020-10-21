@@ -185,15 +185,16 @@
             // 
             // cmb_bx_permisos
             // 
+            this.cmb_bx_permisos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_bx_permisos.FormattingEnabled = true;
             this.cmb_bx_permisos.Items.AddRange(new object[] {
             "Todos los permisos",
             "Permisos limitados",
             "Elegir permisos"});
-            this.cmb_bx_permisos.Location = new System.Drawing.Point(140, 237);
+            this.cmb_bx_permisos.Location = new System.Drawing.Point(138, 234);
             this.cmb_bx_permisos.Name = "cmb_bx_permisos";
             this.cmb_bx_permisos.Size = new System.Drawing.Size(190, 25);
-            this.cmb_bx_permisos.TabIndex = 12;
+            this.cmb_bx_permisos.TabIndex = 13;
             // 
             // Agregar_empleado
             // 
