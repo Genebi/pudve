@@ -5782,7 +5782,9 @@ namespace PuntoDeVentaV2
                 cargarDatos();
                 txtPrecioCompra.Enabled = true;
             }
-            else if (DatosSourceFinal == 2)      // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
+            // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
+            // si el llamado de la ventana proviene del DataGridView (Copiar Producto)
+            else if (DatosSourceFinal == 2 ||DatosSourceFinal == 4)      
             {
                 txtStockProducto.Enabled = false;
                 button1.Visible = true;

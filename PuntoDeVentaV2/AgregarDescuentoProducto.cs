@@ -176,7 +176,6 @@ namespace PuntoDeVentaV2
                     }
                     else if (!cadenaEncontrada)
                     {
-                        //MessageBox.Show(descuentoMayoreo);
                         AgregarEditarProducto.descuentos.Add(descuentoMayoreo);
                     }
                     

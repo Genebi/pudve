@@ -1148,6 +1148,7 @@ namespace PuntoDeVentaV2
                         obtenerDatosDGVProductos(numerofila);
                         origenDeLosDatos = 4;
                     }
+
                     btnAgregarProducto.PerformClick();
                 }
                 else if (e.ColumnIndex == 17)
