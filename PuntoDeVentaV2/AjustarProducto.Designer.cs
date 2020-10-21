@@ -108,9 +108,9 @@
             // panelComprado
             // 
             this.panelComprado.Controls.Add(this.cantidadStockActual);
-            this.panelComprado.Controls.Add(this.lbStockActual);
             this.panelComprado.Controls.Add(this.lbCantidadCompra);
             this.panelComprado.Controls.Add(this.lbPrecioCompra);
+            this.panelComprado.Controls.Add(this.lbStockActual);
             this.panelComprado.Controls.Add(this.lbFechaCompra);
             this.panelComprado.Controls.Add(this.lbProveedor);
             this.panelComprado.Controls.Add(this.cbProveedores);
@@ -138,7 +138,7 @@
             // 
             this.lbStockActual.AutoSize = true;
             this.lbStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbStockActual.Location = new System.Drawing.Point(21, 64);
+            this.lbStockActual.Location = new System.Drawing.Point(0, 0);
             this.lbStockActual.Name = "lbStockActual";
             this.lbStockActual.Size = new System.Drawing.Size(84, 17);
             this.lbStockActual.TabIndex = 10;
@@ -490,6 +490,7 @@
             this.txtPrecio.TabIndex = 32;
             this.txtPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecio_KeyDown);
+            this.txtPrecio.Leave += new System.EventHandler(this.txtPrecio_Leave);
             // 
             // btnActualiza
             // 

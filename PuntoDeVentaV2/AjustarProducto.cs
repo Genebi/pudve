@@ -24,6 +24,7 @@ namespace PuntoDeVentaV2
         private int IDProducto = 0;
         private string producto = string.Empty;
         private float precioProducto = 0;
+        private float precioProductoAux = 0;
         private float stockProducto = 0f;
         private float stockExistencia = 0f;
         private int apartado = 0;
@@ -726,8 +727,16 @@ namespace PuntoDeVentaV2
         private void btnActualiza_Click(object sender, EventArgs e)
         {
             var obtenerTxt = string.Empty;
-            obtenerTxt = txtPrecioCompra.Text;
             var datoObtenido = "";
+
+            if (rbAjustar.Checked.Equals(true))
+            {
+                obtenerTxt = txtPrecioCompra.Text;
+            }
+            else if (rbProducto.Checked.Equals(true))
+            {
+                obtenerTxt = precioProductoAux.ToString();
+            }
 
             if (!obtenerTxt.Equals("") && !obtenerTxt.Equals("."))
             {
@@ -740,7 +749,7 @@ namespace PuntoDeVentaV2
                 }
                 var x = float.Parse(datoObtenido);
                 var operacion = (precio * x);
-                txtPrecio.Text = "$ " + operacion.ToString(); ;
+                txtPrecio.Text = "$ " + operacion.ToString().Remove(operacion.ToString().Length - 1); 
             }
             else
             {
@@ -780,6 +789,11 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
+        }
+
+        private void txtPrecio_Leave(object sender, EventArgs e)
+        {
+            precioProductoAux = float.Parse(txtPrecio.Text);
         }
     }
 }
