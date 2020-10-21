@@ -4111,6 +4111,7 @@ namespace PuntoDeVentaV2
             CantidadesFinalesVenta();
             lbDatosCliente.Text = string.Empty;
             lbEliminarCliente.Visible = false;
+            btnEliminarDescuentos.PerformClick();
         }
 
         private void label1_Click(object sender, EventArgs e)
