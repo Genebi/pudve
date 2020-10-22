@@ -213,6 +213,7 @@
             this.TipoDescuento,
             this.Impuesto});
             this.DGVentas.Location = new System.Drawing.Point(3, 114);
+            this.DGVentas.MultiSelect = false;
             this.DGVentas.Name = "DGVentas";
             this.DGVentas.RowHeadersVisible = false;
             this.DGVentas.Size = new System.Drawing.Size(646, 203);
@@ -221,6 +222,7 @@
             this.DGVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellContentClick);
             this.DGVentas.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEndEdit);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
+            this.DGVentas.SelectionChanged += new System.EventHandler(this.DGVentas_SelectionChanged);
             // 
             // IDProducto
             // 

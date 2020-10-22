@@ -4271,6 +4271,12 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void DGVentas_SelectionChanged(object sender, EventArgs e)
+        {
+            DGVentas.CurrentCell = DGVentas.CurrentRow.Cells["Cantidad"];
+            DGVentas.BeginEdit(true);
+        }
+
         private void Ventas_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
