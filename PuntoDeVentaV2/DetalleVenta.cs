@@ -278,7 +278,7 @@ namespace PuntoDeVentaV2
                     lbEliminarCliente.Visible = true;
                 }
 
-                cliente = string.Empty;
+                //cliente = string.Empty;
             };
 
             clientes.ShowDialog();
