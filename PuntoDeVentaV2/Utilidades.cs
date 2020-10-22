@@ -472,7 +472,9 @@ namespace PuntoDeVentaV2
                         iTextSharp.text.Rectangle rec = reader.GetPageSize(i);
                         PdfContentByte cb = stamper.GetUnderContent(i);
 
-                        float posicionX = 0, posicionY = 0, anguloTexto = 0f;
+                        float   posicionX = 0, 
+                                posicionY = 0, 
+                                anguloTexto = 0f;
 
                         cb.BeginLayer(layer);
                         cb.SetFontAndSize(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 20);
@@ -484,7 +486,7 @@ namespace PuntoDeVentaV2
                         cb.SetColorFill(iTextSharp.text.BaseColor.RED);
                         cb.BeginText();
                         posicionX = rec.Width / 2;
-                        posicionY = (rec.Height / 3)*2;
+                        posicionY = (rec.Height / 3)*(float)1.9;
                         cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, texto, posicionX, posicionY, anguloTexto);
                         cb.EndText();
                         cb.EndLayer();
