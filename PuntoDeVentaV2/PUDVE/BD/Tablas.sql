@@ -411,14 +411,7 @@ CREATE TABLE IF NOT EXISTS CatalogoUnidadesMedida (
     Nombre      TEXT
 );
 
-/* 26 Tabla de Categorias
-//tables.Add(@"CREATE TABLE IF NOT EXISTS Categorias (
-//                ID INTEGER PRIMARY KEY AUTO_INCREMENT,
-//                IDUsuario INTEGER NOT NULL,
-//                Nombre TEXT NOT NULL
-//            );");*/
-
--- 27 Tabla de CodigoBarrasExtras
+-- 26 Tabla de CodigoBarrasExtras
 CREATE TABLE IF NOT EXISTS CodigoBarrasExtras (
     IDCodBarrExt INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     CodigoBarraExtra TEXT,
@@ -427,7 +420,7 @@ CREATE TABLE IF NOT EXISTS CodigoBarrasExtras (
     REFERENCES Productos (ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- 28 Tabla de CodigoBarrasGenerado
+-- 27 Tabla de CodigoBarrasGenerado
 CREATE TABLE IF NOT EXISTS CodigoBarrasGenerado (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     IDUsuario INTEGER,
@@ -436,7 +429,7 @@ CREATE TABLE IF NOT EXISTS CodigoBarrasGenerado (
     NoRevision INTEGER DEFAULT (1) 
 );
 
--- 29 Tabla de ConceptosDinamicos
+-- 28 Tabla de ConceptosDinamicos
 CREATE TABLE IF NOT EXISTS ConceptosDinamicos (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     IDUsuario INTEGER  NOT NULL,
@@ -447,7 +440,7 @@ CREATE TABLE IF NOT EXISTS ConceptosDinamicos (
     FechaOperacion DATETIME
 );
 
--- 30 Tabla de Configuracion
+-- 29 Tabla de Configuracion
 CREATE TABLE IF NOT EXISTS Configuracion (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     IDUsuario INTEGER NOT NULL,
@@ -467,7 +460,7 @@ CREATE TABLE IF NOT EXISTS Configuracion (
     diasNoVendidos INTEGER DEFAULT (0) 
 );
 
--- 31 Tabla de CorreosProducto
+-- 30 Tabla de CorreosProducto
 CREATE TABLE IF NOT EXISTS CorreosProducto (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     IDUsuario INTEGER NOT NULL,
@@ -479,7 +472,7 @@ CREATE TABLE IF NOT EXISTS CorreosProducto (
     CorreoVentaProducto INTEGER DEFAULT (0) 
 );
 
--- 32 Tabla de DescuentoCliente
+-- 31 Tabla de DescuentoCliente
 CREATE TABLE IF NOT EXISTS DescuentoCliente (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     PrecioProducto DECIMAL (16, 2) DEFAULT (0),
@@ -491,7 +484,7 @@ CREATE TABLE IF NOT EXISTS DescuentoCliente (
     REFERENCES Productos (ID) 
 );
 
--- 33 Tabla de DescuentoMayoreo
+-- 32 Tabla de DescuentoMayoreo
 CREATE TABLE IF NOT EXISTS DescuentoMayoreo (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     RangoInicial TEXT,
@@ -503,7 +496,7 @@ CREATE TABLE IF NOT EXISTS DescuentoMayoreo (
     REFERENCES Productos (ID) 
 );
 
--- 34 Tabla de DetallesFacturacionProductos
+-- 33 Tabla de DetallesFacturacionProductos
 CREATE TABLE IF NOT EXISTS DetallesFacturacionProductos (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     Tipo TEXT,
@@ -517,7 +510,7 @@ CREATE TABLE IF NOT EXISTS DetallesFacturacionProductos (
     REFERENCES Productos (ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- 35 Tabla de EmpleadosPermisos
+-- 34 Tabla de EmpleadosPermisos
 CREATE TABLE IF NOT EXISTS EmpleadosPermisos (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     IDEmpleado INTEGER NOT NULL,
@@ -549,7 +542,7 @@ CREATE TABLE IF NOT EXISTS EmpleadosPermisos (
     Opcion24 INTEGER DEFAULT (1) 
 );
 
--- 36 Tabla de Empresas
+-- 35 Tabla de Empresas
 CREATE TABLE IF NOT EXISTS Empresas (
     ID_Empresa INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     Usuario TEXT NOT NULL,
@@ -574,7 +567,7 @@ CREATE TABLE IF NOT EXISTS Empresas (
     REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- 37 Tabla de Facturas
+-- 36 Tabla de Facturas
 CREATE TABLE IF NOT EXISTS Facturas (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_usuario INTEGER,
@@ -634,7 +627,7 @@ CREATE TABLE IF NOT EXISTS Facturas (
     FOREIGN KEY (id_usuario) REFERENCES Usuarios (ID) 
 );
 
--- 38 Tabla de Facturas_complemento_pago
+-- 37 Tabla de Facturas_complemento_pago
 CREATE TABLE IF NOT EXISTS Facturas_complemento_pago (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_factura INTEGER NOT NULL,
@@ -653,7 +646,7 @@ CREATE TABLE IF NOT EXISTS Facturas_complemento_pago (
     REFERENCES Facturas (ID) 
 );
 
--- 39 Tabla de Facturas_productos
+-- 38 Tabla de Facturas_productos
 CREATE TABLE IF NOT EXISTS Facturas_productos (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_factura INTEGER,
@@ -670,7 +663,7 @@ CREATE TABLE IF NOT EXISTS Facturas_productos (
     REFERENCES Facturas (ID) 
 );
 
--- 40 Tabla de Facturas_impuestos
+-- 39 Tabla de Facturas_impuestos
 CREATE TABLE IF NOT EXISTS Facturas_impuestos (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_factura_producto INTEGER NOT NULL,
@@ -684,7 +677,7 @@ CREATE TABLE IF NOT EXISTS Facturas_impuestos (
     REFERENCES Facturas_productos (id_factura) 
 );
 
--- 41 Tabla de FiltroDinamico
+-- 40 Tabla de FiltroDinamico
 CREATE TABLE IF NOT EXISTS FiltroDinamico (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     concepto TEXT,
@@ -695,7 +688,7 @@ CREATE TABLE IF NOT EXISTS FiltroDinamico (
     REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- 42 Tabla de FiltroProducto
+-- 41 Tabla de FiltroProducto
 CREATE TABLE IF NOT EXISTS FiltroProducto (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     concepto TEXT,
@@ -707,7 +700,7 @@ CREATE TABLE IF NOT EXISTS FiltroProducto (
     REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- 43 Tabla de FiltrosDinamicosVetanaFiltros
+-- 42 Tabla de FiltrosDinamicosVetanaFiltros
 CREATE TABLE IF NOT EXISTS FiltrosDinamicosVetanaFiltros (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     checkBoxValue INTEGER NOT NULL DEFAULT (0),
@@ -718,7 +711,7 @@ CREATE TABLE IF NOT EXISTS FiltrosDinamicosVetanaFiltros (
     REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- 44 Tabla de RegimenFiscal
+-- 43 Tabla de RegimenFiscal
 CREATE TABLE IF NOT EXISTS RegimenFiscal (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     CodigoRegimen INTEGER NOT NULL,
@@ -729,7 +722,7 @@ CREATE TABLE IF NOT EXISTS RegimenFiscal (
     FinVigencia DATE
 );
 
--- 45 Tabla de RegimenDeUsuarios
+-- 44 Tabla de RegimenDeUsuarios
 CREATE TABLE IF NOT EXISTS RegimenDeUsuarios (
     Usuario_ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     Regimen_ID INTEGER NOT NULL,
@@ -739,7 +732,7 @@ CREATE TABLE IF NOT EXISTS RegimenDeUsuarios (
     REFERENCES RegimenFiscal (ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- 46 Tabla de RevisarInventario
+-- 45 Tabla de RevisarInventario
 CREATE TABLE IF NOT EXISTS RevisarInventario (
     ID INTEGER  PRIMARY KEY AUTO_INCREMENT NOT NULL,
     IDAlmacen          TEXT     NOT NULL,
@@ -762,7 +755,7 @@ CREATE TABLE IF NOT EXISTS RevisarInventario (
     REFERENCES USuarios (ID) 
 );
 
--- 47 Tabla de TipoClientes
+-- 46 Tabla de TipoClientes
 CREATE TABLE IF NOT EXISTS TipoClientes (
     ID                  INTEGER  PRIMARY KEY AUTO_INCREMENT,
     IDUsuario           INTEGER  NOT NULL DEFAULT (0),
@@ -772,14 +765,7 @@ CREATE TABLE IF NOT EXISTS TipoClientes (
     FechaOperacion      DATETIME
 );
 
-/* 48 Tabla de Ubicaciones
-//tables.Add(@"CREATE TABLE IF NOT EXISTS Ubicaciones (
-//                ID INTEGER PRIMARY KEY AUTO_INCREMENT,
-//                IDUsuario INTEGER NOT NULL,
-//                Descripcion TEXT
-//            );");*/
-
-/* 49 Tabla de Devoluciones
+-- 47 Tabla de Devoluciones
 CREATE TABLE IF NOT EXISTS Devoluciones(
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     IDVenta INTEGER  NOT NULL,
