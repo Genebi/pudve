@@ -808,6 +808,12 @@ namespace PuntoDeVentaV2
             {
                 var celda = DGVentas.CurrentCell.RowIndex;
 
+                // Cantidad
+                if (e.ColumnIndex == 5)
+                {
+                    DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
+                }
+
                 // Descuento
                 if (e.ColumnIndex == 8)
                 {
@@ -1653,6 +1659,8 @@ namespace PuntoDeVentaV2
                 Utilidades.MensajePermiso();
                 return;
             }
+
+            int contFila = DGVentas.Rows.Count;
 
             if (DGVentas.Rows.Count > 0)
             {
@@ -3138,17 +3146,20 @@ namespace PuntoDeVentaV2
         #region Expresiones regulares para buscar producto
         private string VerificarPatronesBusqueda(string cadena)
         {
-            //  -----------------------------------------------------------------
-            //  |   Expresion Regular                       |   Ejemplo         |
-            //  |---------------------------------------------------------------|
-            //  |   (digito+espacioBlanco*espacioBlanco)    |   5 * 15665132    |
-            //  |   ((Signo+)digito+ || digito+(Signo+))    |   +2 || 2+        |
-            //  |   ((Signo-)digito+ || digito+(Signo-))    |   -1 || 1-        |
-            //  |   (digito+(Signo*)+espacioBlanco)         |   5* 15665132     |
-            //  |   (digito+(Signo*)+espacioBlanco)         |   5 *15665132     |
-            //  |   (digito+(Signo*)+espacioBlanco)         |   5*15665132      |
-            //  |   (#+espacioBlanco)                       |   # FolioDeVenta  |
-            //  -----------------------------------------------------------------
+            /*
+            -------------------------------------------------------------------------------------
+            |   Expresion Regular                       |   Ejemplo         |   No de Patron    |
+            |---------------------------------------------------------------|--------------------
+            |   (digito+espacioBlanco*espacioBlanco)    |   5 * 15665132    |   primerPatron    |
+            |   ((Signo+)digito+ || digito+(Signo+))    |   +2 || 2+        |   segundoPatron   |
+            |   ((Signo-)digito+ || digito+(Signo-))    |   -1 || 1-        |   tercerPatron    |
+            |   (digito+(Signo*)+espacioBlanco)         |   5* 15665132     |   cuartoPatron    |
+            |   (digito+(Signo*)+espacioBlanco)         |   5 *15665132     |   quintoPatron    |
+            |   (digito+(Signo*)+espacioBlanco)         |   5*15665132      |   sextoPatron     |
+            |   (#+espacioBlanco)                       |   # FolioDeVenta  |   septimoPatron   |
+            -------------------------------------------------------------------------------------  
+            */
+
 
             string primerPatron = @"^\d+\s\*\s";
             string segundoPatron = @"^(\+\d+)|(\d+\+)|(\+)|(\+\+)$";
@@ -3157,9 +3168,11 @@ namespace PuntoDeVentaV2
             string quintoPatron = @"^\d+\s\*";
             string sextoPatron = @"^\d+\*";
             string septimoPatron = @"^.#\d+\.";
+            //string octavoPatron = @"^\+\s-?(0|[1-9]\d*)?(\.\d+)?(?<=\d)$";
             //string septimoPatron = @"^#\s\d+";
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
+            //Match octavaCoincidencia = Regex.Match(cadena, octavoPatron, RegexOptions.IgnoreCase);
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
             Match terceraCoincidencia = Regex.Match(cadena, tercerPatron, RegexOptions.IgnoreCase);
             Match cuartaCoincidencia = Regex.Match(cadena, cuartoPatron, RegexOptions.IgnoreCase);
@@ -3385,6 +3398,10 @@ namespace PuntoDeVentaV2
                     folio = resultado[0];
                 }
             }
+            //else if (octavaCoincidencia.Success)
+            //{
+
+            //}
 
             ocultarResultados();
 
@@ -4273,8 +4290,11 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_SelectionChanged(object sender, EventArgs e)
         {
-            DGVentas.CurrentCell = DGVentas.CurrentRow.Cells["Cantidad"];
-            DGVentas.BeginEdit(true);
+            if (!DGVentas.Rows.Count.Equals(0))
+            {
+                DGVentas.CurrentCell = DGVentas.CurrentRow.Cells["Cantidad"];
+                DGVentas.BeginEdit(true);
+            }
         }
 
         private void Ventas_FormClosed(object sender, FormClosedEventArgs e)

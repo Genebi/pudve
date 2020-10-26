@@ -213,7 +213,6 @@
             this.TipoDescuento,
             this.Impuesto});
             this.DGVentas.Location = new System.Drawing.Point(3, 114);
-            this.DGVentas.MultiSelect = false;
             this.DGVentas.Name = "DGVentas";
             this.DGVentas.RowHeadersVisible = false;
             this.DGVentas.Size = new System.Drawing.Size(646, 203);
