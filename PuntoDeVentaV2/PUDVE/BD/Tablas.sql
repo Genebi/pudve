@@ -779,7 +779,7 @@ CREATE TABLE IF NOT EXISTS TipoClientes (
 //                Descripcion TEXT
 //            );");*/
 
-/* 49 Tabla de Devoluciones
+ 49 Tabla de Devoluciones
 CREATE TABLE IF NOT EXISTS Devoluciones(
     ID INTEGER PRIMARY KEY AUTO_INCREMENT,
     IDVenta INTEGER  NOT NULL,
