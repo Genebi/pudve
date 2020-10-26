@@ -525,7 +525,7 @@ namespace PuntoDeVentaV2
             if (txtTarjeta.TextLength == 1 && txtTarjeta.Text.Equals("."))
             {
                 txtTarjeta.Text = "0.";
-                txtTarjeta.Select(txtEfectivo.Text.Length, 0);
+                txtTarjeta.Select(txtTarjeta.Text.Length, 0);
             }
         }
 
