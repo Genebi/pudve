@@ -534,7 +534,7 @@ namespace PuntoDeVentaV2
             if (txtTransferencia.TextLength == 1 && txtTransferencia.Text.Equals("."))
             {
                 txtTransferencia.Text = "0.";
-                txtTransferencia.Select(txtEfectivo.Text.Length, 0);
+                txtTransferencia.Select(txtTransferencia.Text.Length, 0);
             }
         }
 
