@@ -216,6 +216,7 @@
             this.DGVentas.MultiSelect = false;
             this.DGVentas.Name = "DGVentas";
             this.DGVentas.RowHeadersVisible = false;
+            this.DGVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVentas.Size = new System.Drawing.Size(646, 203);
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
