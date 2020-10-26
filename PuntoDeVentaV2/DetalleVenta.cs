@@ -552,7 +552,7 @@ namespace PuntoDeVentaV2
             if (txtVales.TextLength == 1 && txtVales.Text.Equals("."))
             {
                 txtVales.Text = "0.";
-                txtVales.Select(txtEfectivo.Text.Length, 0);
+                txtVales.Select(txtVales.Text.Length, 0);
             }
         }
     }
