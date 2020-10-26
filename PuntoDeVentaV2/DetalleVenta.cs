@@ -543,7 +543,7 @@ namespace PuntoDeVentaV2
             if (txtCheque.TextLength == 1 && txtCheque.Text.Equals("."))
             {
                 txtCheque.Text = "0.";
-                txtCheque.Select(txtEfectivo.Text.Length, 0);
+                txtCheque.Select(txtCheque.Text.Length, 0);
             }
         }
 
