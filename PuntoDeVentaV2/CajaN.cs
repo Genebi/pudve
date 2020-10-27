@@ -36,7 +36,7 @@ namespace PuntoDeVentaV2
         //float anticiposAplicados = 0f;
         float abonos = 0f;
         float devoluciones = 0f;
-        
+
         //Validar si se mostrara abonos o devoluciones
         public static string abonos_devoluciones { get; set; }
 
@@ -78,7 +78,7 @@ namespace PuntoDeVentaV2
         public CajaN()
         {
             InitializeComponent();
-            
+
         }
 
         private void CajaN_Load(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace PuntoDeVentaV2
             panelDineroAgregado.Visible = Convert.ToBoolean(opcion10);
             panelTotales.Visible = Convert.ToBoolean(opcion11);
 
-           // verificarCantidadAbonos();
+            // verificarCantidadAbonos();
         }
 
         private void CargarSaldoInicial()
@@ -247,7 +247,7 @@ namespace PuntoDeVentaV2
 
     CargarSaldoInicial();
     CargarSaldo();
-    
+
 
 };
 
@@ -590,7 +590,7 @@ namespace PuntoDeVentaV2
                     dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
                     retiroTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
 
-                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
+                    //dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
                     retiroCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
                 }
             }

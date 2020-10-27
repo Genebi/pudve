@@ -129,6 +129,7 @@ namespace PuntoDeVentaV2
             }
 
             hay_productos_habilitados = mb.tiene_productos_habilitados();
+            this.Focus();
         }
 
         private void actualizar()
@@ -350,10 +351,11 @@ namespace PuntoDeVentaV2
                     }
 
                     //Retomar Ventas Canceladas
-                    if (status != 3)
+                    if (status == 1 || status == 4)
                     {
                         row.Cells["retomarVenta"].Value = sinImagen;
                     }
+
                 }
 
                 AgregarTotales(iva, subtotal, total);
@@ -492,6 +494,7 @@ namespace PuntoDeVentaV2
 
                 MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            agregarFocus();
         }
 
 
@@ -652,6 +655,30 @@ namespace PuntoDeVentaV2
                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                                 }
                             }
+                            var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+
+                            var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
+                            if (formasPago2.Length > 0)
+                            {
+                                var total1 = "0";
+                                var efectivo1 = "0";
+                                var tarjeta1 = "0";
+                                var vales1 = "0";
+                                var cheque1 = "0";
+                                var transferencia1 = "0";
+                                var credito1 = formasPago2[5].ToString();
+                                //var anticipo1 = "0";
+
+                                var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                string[] datos = new string[] {
+                                                        "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
+                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
+                                                    };
+                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
+
+                            }
+
 
                             // Agregamos marca de agua al PDF del ticket de la venta cancelada
                             Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
@@ -724,7 +751,7 @@ namespace PuntoDeVentaV2
 
                                             string[] datos = new string[] {
                                                         "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, /*credito*/"0.00", /*anticipo*/"0"
+                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
                                                     };
                                             cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
@@ -1062,6 +1089,9 @@ namespace PuntoDeVentaV2
                     {
                         obtenerIdVenta = /*numeroDeFolio*/idVenta;
                         btnNuevaVenta.PerformClick();
+                    }else if (retomarVentasCanceladas == 1 && opcion == "VG")
+                    {
+                        MessageBox.Show("Para retomar la venta debe ir a la ventana \n\"Nueva Venta F2\">boton ventas guardadas ", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     retomarVentasCanceladas = 0;
                 }
@@ -1919,6 +1949,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            agregarFocus();
         }
 
         private void clickcellc_checkbox(object sender, DataGridViewCellEventArgs e)
@@ -1965,6 +1996,11 @@ namespace PuntoDeVentaV2
                 {
                     btnBuscarVentas.PerformClick();
                 }
+            }
+
+            if (e.KeyCode == Keys.F2)
+            {
+                btnNuevaVenta.PerformClick();
             }
         }
 
@@ -2034,6 +2070,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            agregarFocus();
         }
 
         public void inicia_descarga(int[] idnv, string carpeta_elegida)
@@ -2230,6 +2267,35 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }*/
+            agregarFocus();
+        }
+
+        private void agregarFocus()
+        {
+            this.Focus();
+        }
+        private void ListadoVentas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                btnNuevaVenta.PerformClick();
+            }
+
+        }
+        private void DGVListadoVentas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                btnNuevaVenta.PerformClick();
+            }
+        }
+
+        private void cbTipoVentas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                btnNuevaVenta.PerformClick();
+            }
         }
     }
 }
