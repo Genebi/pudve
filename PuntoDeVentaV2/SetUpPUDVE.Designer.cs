@@ -89,6 +89,7 @@
             this.btnRespaldo.Text = "Respaldar información";
             this.btnRespaldo.UseVisualStyleBackColor = false;
             this.btnRespaldo.Click += new System.EventHandler(this.btnRespaldo_Click);
+            this.btnRespaldo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnRespaldo_KeyDown);
             // 
             // tituloSeccion
             // 
@@ -135,6 +136,7 @@
             this.btnGuardarServidor.Text = "Guardar";
             this.btnGuardarServidor.UseVisualStyleBackColor = false;
             this.btnGuardarServidor.Click += new System.EventHandler(this.btnGuardarServidor_Click);
+            this.btnGuardarServidor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnGuardarServidor_KeyDown);
             // 
             // lbNombreServidor
             // 
@@ -165,6 +167,7 @@
             this.btnGuardarRevision.Text = "Guardar";
             this.btnGuardarRevision.UseVisualStyleBackColor = false;
             this.btnGuardarRevision.Click += new System.EventHandler(this.btnGuardarRevision_Click);
+            this.btnGuardarRevision.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnGuardarRevision_KeyDown);
             // 
             // txtNumeroRevision
             // 
@@ -309,6 +312,7 @@
             this.btnGuardarPorcentaje.Text = "Guardar";
             this.btnGuardarPorcentaje.UseVisualStyleBackColor = false;
             this.btnGuardarPorcentaje.Click += new System.EventHandler(this.btnGuardarPorcentaje_Click);
+            this.btnGuardarPorcentaje.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnGuardarPorcentaje_KeyDown);
             // 
             // txtPorcentajeProducto
             // 
@@ -451,6 +455,7 @@
             this.Text = "PUDVE - Configuración";
             this.Load += new System.EventHandler(this.SetUpPUDVE_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.SetUpPUDVE_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SetUpPUDVE_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

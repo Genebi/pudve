@@ -70,6 +70,7 @@ namespace PuntoDeVentaV2
                 opcion4 = permisos[3];
                 opcion5 = permisos[4];
             }
+            this.Focus();
         }
 
         private bool ExistenProductos(string nombre)
@@ -235,6 +236,11 @@ namespace PuntoDeVentaV2
                     ocultarResultados();
                     listaProductos.Items.Clear();
                 }
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
             }
         }
 
@@ -632,6 +638,11 @@ namespace PuntoDeVentaV2
                         e.Handled = true;
                     }
                 }
+                else if (e.KeyCode == Keys.F2)
+                {
+                    Ventas mostrarVentas = new Ventas();
+                    mostrarVentas.Show();
+                }
             }
         }
 
@@ -944,6 +955,51 @@ namespace PuntoDeVentaV2
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
             vr.ShowDialog();
+        }
+
+        private void btnRevisar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnActualizar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnActualizarXML_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void bntTerminar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
         }
     }
 }

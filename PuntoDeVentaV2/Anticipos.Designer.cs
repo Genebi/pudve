@@ -118,6 +118,7 @@
             this.btnNuevoAnticipo.Text = "Nuevo Anticipo";
             this.btnNuevoAnticipo.UseVisualStyleBackColor = false;
             this.btnNuevoAnticipo.Click += new System.EventHandler(this.btnNuevoAnticipo_Click);
+            this.btnNuevoAnticipo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnNuevoAnticipo_KeyDown);
             // 
             // btnBuscarAnticipos
             // 
@@ -136,6 +137,7 @@
             this.btnBuscarAnticipos.Text = "Buscar";
             this.btnBuscarAnticipos.UseVisualStyleBackColor = false;
             this.btnBuscarAnticipos.Click += new System.EventHandler(this.btnBuscarAnticipos_Click);
+            this.btnBuscarAnticipos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnBuscarAnticipos_KeyDown);
             // 
             // cbAnticipos
             // 
@@ -151,6 +153,7 @@
             this.cbAnticipos.Size = new System.Drawing.Size(185, 24);
             this.cbAnticipos.TabIndex = 0;
             this.cbAnticipos.SelectedIndexChanged += new System.EventHandler(this.cbAnticipos_SelectedIndexChanged);
+            this.cbAnticipos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbAnticipos_KeyDown);
             // 
             // DGVAnticipos
             // 
@@ -181,6 +184,7 @@
             this.DGVAnticipos.TabIndex = 8;
             this.DGVAnticipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellClick);
             this.DGVAnticipos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellMouseEnter);
+            this.DGVAnticipos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVAnticipos_KeyDown);
             // 
             // ID
             // 
@@ -285,6 +289,7 @@
             this.Text = "0";
             this.Load += new System.EventHandler(this.Anticipos_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Anticipos_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Anticipos_KeyDown);
             this.Resize += new System.EventHandler(this.Anticipos_Resize);
             this.panelBotones.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).EndInit();

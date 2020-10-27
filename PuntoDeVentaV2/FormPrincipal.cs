@@ -330,6 +330,15 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void FormPrincipal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
         private void cerrarSesion()
         {
             FormCollection formulariosApp = Application.OpenForms;
