@@ -117,6 +117,7 @@
             this.datagv_facturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clickcellc_checkbox);
             this.datagv_facturas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_en_icono);
             this.datagv_facturas.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_no_icono);
+            this.datagv_facturas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.datagv_facturas_KeyDown);
             // 
             // col_checkbox
             // 
@@ -256,6 +257,7 @@
             this.cmb_bx_tipo_factura.Size = new System.Drawing.Size(199, 25);
             this.cmb_bx_tipo_factura.TabIndex = 2;
             this.cmb_bx_tipo_factura.SelectionChangeCommitted += new System.EventHandler(this.buscar_tipo_factura);
+            this.cmb_bx_tipo_factura.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmb_bx_tipo_factura_KeyDown);
             // 
             // datetp_fecha_inicial
             // 
@@ -294,6 +296,7 @@
             this.btn_buscar.Text = "Buscar";
             this.btn_buscar.UseVisualStyleBackColor = false;
             this.btn_buscar.Click += new System.EventHandler(this.btn_buscar_Click);
+            this.btn_buscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btn_buscar_KeyDown);
             // 
             // btn_cpago
             // 
@@ -310,6 +313,7 @@
             this.btn_cpago.Text = "Generar complemento \r\npago";
             this.btn_cpago.UseVisualStyleBackColor = false;
             this.btn_cpago.Click += new System.EventHandler(this.btn_cpago_Click);
+            this.btn_cpago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btn_cpago_KeyDown);
             // 
             // btn_enviar
             // 
@@ -326,6 +330,7 @@
             this.btn_enviar.Text = "Enviar";
             this.btn_enviar.UseVisualStyleBackColor = false;
             this.btn_enviar.Click += new System.EventHandler(this.btn_enviar_Click);
+            this.btn_enviar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btn_enviar_KeyDown);
             // 
             // panel1
             // 
@@ -527,6 +532,7 @@
             this.btn_cancelar.Text = "Cancelar";
             this.btn_cancelar.UseVisualStyleBackColor = false;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            this.btn_cancelar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btn_cancelar_KeyDown);
             // 
             // panel5
             // 
@@ -567,6 +573,7 @@
             this.btn_comprar_timbres.Text = "Comprar";
             this.btn_comprar_timbres.UseVisualStyleBackColor = false;
             this.btn_comprar_timbres.Click += new System.EventHandler(this.btn_comprar_timbres_Click);
+            this.btn_comprar_timbres.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btn_comprar_timbres_KeyDown);
             // 
             // btn_actualizar_timbres
             // 
@@ -582,6 +589,7 @@
             this.btn_actualizar_timbres.Text = "Actualizar";
             this.btn_actualizar_timbres.UseVisualStyleBackColor = false;
             this.btn_actualizar_timbres.Click += new System.EventHandler(this.btn_actualizar_timbres_Click);
+            this.btn_actualizar_timbres.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btn_actualizar_timbres_KeyDown);
             // 
             // label2
             // 
@@ -615,6 +623,7 @@
             this.Text = "Facturas";
             this.Load += new System.EventHandler(this.Facturas_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Facturas_paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Facturas_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);

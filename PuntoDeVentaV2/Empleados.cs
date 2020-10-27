@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
                 opcion2 = permisos[1];
                 opcion3 = permisos[2];
             }
+            this.Focus();
         }
 
         public void cargar_lista_empleados()
@@ -168,6 +169,33 @@ namespace PuntoDeVentaV2
                 }
 
                 dgv_empleados.ClearSelection();
+            }
+        }
+
+        private void Empleados_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btn_agregar_empleado_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void dgv_empleados_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
             }
         }
     }

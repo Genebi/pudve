@@ -460,5 +460,50 @@ namespace PuntoDeVentaV2
 
             cn.EjecutarConsulta(cs.OperacionCaja(datos));
         }
+
+        private void Anticipos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void DGVAnticipos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void cbAnticipos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnNuevoAnticipo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnBuscarAnticipos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
     }
 }

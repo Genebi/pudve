@@ -45,6 +45,7 @@ namespace PuntoDeVentaV2
                 opcion1 = permisos[0];
                 opcion2 = permisos[1];
             }
+            this.Focus();
         }
 
         private void btnHistorialPrecios_Click(object sender, EventArgs e)
@@ -684,6 +685,33 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colSubCheque);
             tabla.AddCell(colSubTrans);
             tabla.AddCell(colAuxiliar);
+        }
+
+        private void Reportes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnHistorialPrecios_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnHistorialDineroAgregado_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
         }
     }
 }

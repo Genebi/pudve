@@ -815,7 +815,7 @@ namespace PuntoDeVentaV2
                     DGVProductos.Cursor = Cursors.Hand;
                     if (e.ColumnIndex == 7)
                     {
-                        textoTTipButtonMsg = "Editar el Producto (F2)";
+                        textoTTipButtonMsg = "Editar el Producto (F4)";
                         coordenadaX = 90;
                         coordenadaY = -200;
                     }
@@ -2650,13 +2650,17 @@ namespace PuntoDeVentaV2
 
         private void Productos_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F2)//Editar
+            if (e.KeyCode == Keys.F4)//Editar
             {
                 timer1.Start();
                 lAtajo.Visible = true;
-                lAtajo.Text = "F2";
+                lAtajo.Text = "F4";
 
                 DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
+            }else if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
             }
             //else if (e.KeyCode == Keys.D && (e.Alt))//Estado
             //{
@@ -2823,13 +2827,18 @@ namespace PuntoDeVentaV2
         //Atajos para el DataGridView y Botones
         private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F2)//Editar
+            if (e.KeyCode == Keys.F4)//Editar
             {
                 timer1.Start();
                 lAtajo.Visible = true;
-                lAtajo.Text = "F2";
+                lAtajo.Text = "F4";
 
                 DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
             }
             //else if (e.KeyCode == Keys.D && (e.Alt))//Estado
             //{
@@ -3008,13 +3017,18 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F2)//Editar
+            if (e.KeyCode == Keys.F4)//Editar
             {
                 timer1.Start();
                 lAtajo.Visible = true;
-                lAtajo.Text = "F2";
+                lAtajo.Text = "F4";
 
                 DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
             }
             //else if (e.KeyCode == Keys.D && (e.Alt))//Estado
             //{

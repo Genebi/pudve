@@ -87,6 +87,7 @@
             this.DGVProveedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProveedores_CellClick);
             this.DGVProveedores.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProveedores_CellMouseEnter);
             this.DGVProveedores.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProveedores_CellMouseLeave);
+            this.DGVProveedores.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVProveedores_KeyDown);
             // 
             // ID
             // 
@@ -173,6 +174,7 @@
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            this.btnBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnBuscar_KeyDown);
             // 
             // txtBuscador
             // 
@@ -202,6 +204,7 @@
             this.btnNuevoProveedor.Text = "Nuevo Proveedor";
             this.btnNuevoProveedor.UseVisualStyleBackColor = false;
             this.btnNuevoProveedor.Click += new System.EventHandler(this.btnNuevoProveedor_Click);
+            this.btnNuevoProveedor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnNuevoProveedor_KeyDown);
             // 
             // tituloSeccion
             // 
@@ -390,6 +393,7 @@
             this.Name = "Proveedores";
             this.Text = "Proveedores";
             this.Load += new System.EventHandler(this.Proveedores_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Proveedores_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProveedores)).EndInit();
             this.panelBotones.ResumeLayout(false);
             this.panelBotones.PerformLayout();

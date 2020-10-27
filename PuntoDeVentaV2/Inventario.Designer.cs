@@ -84,6 +84,7 @@
             this.btnRevisar.Text = "Revisar Inventario";
             this.btnRevisar.UseVisualStyleBackColor = false;
             this.btnRevisar.Click += new System.EventHandler(this.btnRevisar_Click);
+            this.btnRevisar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnRevisar_KeyDown);
             // 
             // btnActualizarXML
             // 
@@ -103,6 +104,7 @@
             this.btnActualizarXML.Text = "Actualizar Inventario XML";
             this.btnActualizarXML.UseVisualStyleBackColor = false;
             this.btnActualizarXML.Click += new System.EventHandler(this.btnActualizarXML_Click);
+            this.btnActualizarXML.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnActualizarXML_KeyDown);
             // 
             // btnActualizar
             // 
@@ -122,6 +124,7 @@
             this.btnActualizar.Text = "Actualizar Inventario";
             this.btnActualizar.UseVisualStyleBackColor = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            this.btnActualizar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnActualizar_KeyDown);
             // 
             // panelBotones
             // 
@@ -168,6 +171,7 @@
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            this.btnBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnBuscar_KeyDown);
             // 
             // bntTerminar
             // 
@@ -187,6 +191,7 @@
             this.bntTerminar.Text = "Terminar";
             this.bntTerminar.UseVisualStyleBackColor = false;
             this.bntTerminar.Click += new System.EventHandler(this.bntTerminar_Click);
+            this.bntTerminar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bntTerminar_KeyDown);
             // 
             // listaProductos
             // 
