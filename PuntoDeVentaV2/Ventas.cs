@@ -3168,7 +3168,6 @@ namespace PuntoDeVentaV2
             string quintoPatron = @"^\d+\s\*";
             string sextoPatron = @"^\d+\*";
             string septimoPatron = @"^.#\d+\.";
-            //string octavoPatron = @"^\+\s-?(0|[1-9]\d*)?(\.\d+)?(?<=\d)$";
             //string septimoPatron = @"^#\s\d+";
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
@@ -3204,40 +3203,32 @@ namespace PuntoDeVentaV2
             {
                 if (sumarProducto)
                 {
-                    var resultado = segundaCoincidencia.Value.Trim();
-
-                    if (resultado.Equals("+") || resultado.Equals("++"))
+                    if (cadena.Contains("."))
                     {
-                        cantidadExtra = 1;
-                    }
-                    else
-                    {
-                        var infoTmp = resultado.Split('+');
+                        var infoTmp = cadena.Split('+');
+                        float cantidadExtraDecimal = 0;
 
-                        if (infoTmp[0] != string.Empty)
+                        if (!infoTmp[0].Equals(string.Empty))
                         {
-                            cantidadExtra = Convert.ToInt32(infoTmp[0]);
+                            cantidadExtraDecimal = (float)Convert.ToDouble(infoTmp[0].ToString());
                         }
-                        else
+
+                        if (!infoTmp[1].Equals(string.Empty))
                         {
-                            cantidadExtra = Convert.ToInt32(infoTmp[1]);
+                            cantidadExtraDecimal = (float)Convert.ToDouble(infoTmp[1].ToString());
                         }
-                    }
 
-                    cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
+                        cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
 
-                    //Verifica que exista algun producto o servicio en el datagridview
-                    if (DGVentas.Rows.Count > 0)
-                    {
-                        if (cantidadExtra != 0)
+                        //Verifica que exista algun producto o servicio en el datagridview
+                        if (DGVentas.Rows.Count > 0)
                         {
-                            //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
-                            if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
+                            if (cantidadExtraDecimal != 0)
                             {
-                                //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
-                                var cantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["Cantidad"].Value);
+                                //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
+                                var cantidad = (float)Convert.ToDouble(DGVentas.Rows[0].Cells["Cantidad"].Value);
 
-                                cantidad += cantidadExtra;
+                                cantidad += cantidadExtraDecimal;
 
                                 // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
                                 float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
@@ -3252,13 +3243,74 @@ namespace PuntoDeVentaV2
                                 if (tipoDescuento > 0)
                                 {
                                     string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                                    CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
+                                    CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, 0);
                                 }
 
                                 CalculoMayoreo();
                                 CantidadesFinalesVenta();
 
-                                cantidadExtra = 0;
+                                cantidadExtraDecimal = 0;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var resultado = segundaCoincidencia.Value.Trim();
+
+                        if (resultado.Equals("+") || resultado.Equals("++"))
+                        {
+                            cantidadExtra = 1;
+                        }
+                        else
+                        {
+                            var infoTmp = resultado.Split('+');
+
+                            if (infoTmp[0] != string.Empty)
+                            {
+                                cantidadExtra = Convert.ToInt32(infoTmp[0]);
+                            }
+                            else
+                            {
+                                cantidadExtra = Convert.ToInt32(infoTmp[1]);
+                            }
+                        }
+
+                        cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
+
+                        //Verifica que exista algun producto o servicio en el datagridview
+                        if (DGVentas.Rows.Count > 0)
+                        {
+                            if (cantidadExtra != 0)
+                            {
+                                //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
+                                if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
+                                {
+                                    //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
+                                    var cantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["Cantidad"].Value);
+
+                                    cantidad += cantidadExtra;
+
+                                    // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
+                                    float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
+
+                                    DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
+                                    DGVentas.Rows[0].Cells["Importe"].Value = importe;
+
+                                    // Se agrego esta parte de descuento
+                                    int idProducto = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
+                                    int tipoDescuento = Convert.ToInt32(DGVentas.Rows[0].Cells["DescuentoTipo"].Value);
+
+                                    if (tipoDescuento > 0)
+                                    {
+                                        string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                                        CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
+                                    }
+
+                                    CalculoMayoreo();
+                                    CantidadesFinalesVenta();
+
+                                    cantidadExtra = 0;
+                                }
                             }
                         }
                     }
@@ -3505,7 +3557,24 @@ namespace PuntoDeVentaV2
         {
             listaProductos.Items.Clear();
 
+            string auxTxtBuscadorProducto = string.Empty, pattern = string.Empty, output = string.Empty;
+
+            pattern = @"^(\.\d+)$";
+
             txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
+
+            auxTxtBuscadorProducto = txtBuscadorProducto.Text;
+
+            output = Regex.Replace(auxTxtBuscadorProducto, pattern, string.Empty);
+
+            if (output.Equals(string.Empty))
+            {
+                txtBuscadorProducto.Text = string.Empty;
+            }
+            else
+            {
+                txtBuscadorProducto.Text = output;
+            }
 
             if (txtBuscadorProducto.Text.Length == 0)
             {
@@ -3513,74 +3582,81 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            // Regresa un diccionario
-            //var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
-            var resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), mostrarPrecioProducto, mostrarCBProducto);
-            int coincidencias = resultados.Count;
-
-            if (coincidencias > 0)
+            if (auxTxtBuscadorProducto.Contains("+."))
             {
-                // Guardamos los datos devueltos temporalmente en productosD
-                productosD = resultados;
-
-                // Calculamos la altura del listBox
-                var alturaLista = (coincidencias * 17) + 20;
-
-                listaProductos.Height = alturaLista;
-
-                // Si la cantidad de productos es mayor o igual a 15 establecemos una altura maxima para que haga scroll
-                if (coincidencias >= 15)
-                {
-                    listaProductos.Height = 275;
-                }
-
-                foreach (var item in resultados)
-                {
-                    listaProductos.Items.Add(item.Value);
-                    listaProductos.Visible = true;
-                    listaProductos.SelectedIndex = 0;
-                }
+                return;
             }
             else
             {
-                if (tipo == 1 && string.IsNullOrEmpty(buscarvVentaGuardada))
+                // Regresa un diccionario
+                //var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
+                var resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), mostrarPrecioProducto, mostrarCBProducto);
+                int coincidencias = resultados.Count;
+
+                if (coincidencias > 0)
                 {
-                    // Se reproducto cuando el codigo o clave buscado no esta registrado
-                    ReproducirSonido();
+                    // Guardamos los datos devueltos temporalmente en productosD
+                    productosD = resultados;
 
-                    var respuesta = MessageBox.Show($"El código o clave {txtBuscadorProducto.Text} no esta registrado en el sistema", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Calculamos la altura del listBox
+                    var alturaLista = (coincidencias * 17) + 20;
 
-                    if (respuesta == DialogResult.OK)
+                    listaProductos.Height = alturaLista;
+
+                    // Si la cantidad de productos es mayor o igual a 15 establecemos una altura maxima para que haga scroll
+                    if (coincidencias >= 15)
                     {
-                        txtBuscadorProducto.Text = string.Empty;
-                        txtBuscadorProducto.Focus();
+                        listaProductos.Height = 275;
                     }
-                }
-            }
 
-            if (buscarvVentaGuardada == ".#")
-            {
-                txtBuscadorProducto.Text = "";
-                string[] datosVentaGuardada = cn.ObtenerVentaGuardada(FormPrincipal.userID, Convert.ToInt32(folio));
-
-                var idVentaTmp = Convert.ToInt32(datosVentaGuardada[7]);
-
-                if (!ventasGuardadas.Contains(idVentaTmp))
-                {
-                    ventasGuardadas.Add(idVentaTmp);
-                    AgregarProducto(datosVentaGuardada);
+                    foreach (var item in resultados)
+                    {
+                        listaProductos.Items.Add(item.Value);
+                        listaProductos.Visible = true;
+                        listaProductos.SelectedIndex = 0;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show($"La venta guardada con folio: {folio} ya\nfue seleccionada previamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (tipo == 1 && string.IsNullOrEmpty(buscarvVentaGuardada))
+                    {
+                        // Se reproducto cuando el codigo o clave buscado no esta registrado
+                        ReproducirSonido();
+
+                        var respuesta = MessageBox.Show($"El código o clave {txtBuscadorProducto.Text} no esta registrado en el sistema", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        if (respuesta == DialogResult.OK)
+                        {
+                            txtBuscadorProducto.Text = string.Empty;
+                            txtBuscadorProducto.Focus();
+                        }
+                    }
                 }
 
-                buscarvVentaGuardada = "";
-            }
+                if (buscarvVentaGuardada == ".#")
+                {
+                    txtBuscadorProducto.Text = "";
+                    string[] datosVentaGuardada = cn.ObtenerVentaGuardada(FormPrincipal.userID, Convert.ToInt32(folio));
 
-            if (listaProductos.Visible == true)
-            {
-                this.KeyPreview = true;
+                    var idVentaTmp = Convert.ToInt32(datosVentaGuardada[7]);
+
+                    if (!ventasGuardadas.Contains(idVentaTmp))
+                    {
+                        ventasGuardadas.Add(idVentaTmp);
+                        AgregarProducto(datosVentaGuardada);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"La venta guardada con folio: {folio} ya\nfue seleccionada previamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    buscarvVentaGuardada = "";
+                }
+
+                if (listaProductos.Visible == true)
+                {
+                    this.KeyPreview = true;
+                }
             }
         }
 
