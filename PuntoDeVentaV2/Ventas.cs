@@ -52,7 +52,7 @@ namespace PuntoDeVentaV2
         public static string listaAnticipos = string.Empty;
         public static float importeAnticipo = 0f;
 
-        int noDuplicadoVentas /*= DetalleVenta.validarNoDuplicarVentas*/=0;
+        int noDuplicadoVentas /*= DetalleVenta.validarNoDuplicarVentas*/= 0;
 
         // Variables para almacenar los valores agregados en el form DetalleVenta.cs
         public static string efectivoReal = string.Empty;
@@ -145,7 +145,7 @@ namespace PuntoDeVentaV2
                 CargarVentaGuardada();
                 mostrarVenta = 0;
 
-                }
+            }
         }
 
         private void Ventas_Load(object sender, EventArgs e)
@@ -3432,7 +3432,8 @@ namespace PuntoDeVentaV2
                 if (noDuplicadoVentas == 0)
                 {
                     btnTerminarVenta.PerformClick();
-                }else if (noDuplicadoVentas == 1)
+                }
+                else if (noDuplicadoVentas == 1)
                 {
 
                 }
