@@ -309,6 +309,7 @@ namespace PuntoDeVentaV2
         #region Metodo para cargar saldos y totales
         private void CargarSaldo()
         {
+            this.Focus();
             //verificarCantidadAbonos();
 
             MySqlConnection sql_con;
@@ -1899,6 +1900,60 @@ namespace PuntoDeVentaV2
             abonos_devoluciones = "devoluciones";
             CajaAbonos mostrarDevoluciones = new CajaAbonos();
             mostrarDevoluciones.Show();
+        }
+
+        private void CajaN_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                    Ventas mostrarVentas = new Ventas();
+                    mostrarVentas.Show();
+            }
+        }
+
+        private void btnAgregarDinero_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnRetirarDinero_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnReporteAgregar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnReporteRetirar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnCorteCaja_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
         }
     }
 }

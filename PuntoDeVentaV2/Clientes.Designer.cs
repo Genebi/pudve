@@ -91,6 +91,7 @@
             this.DGVClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellClick);
             this.DGVClientes.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseEnter);
             this.DGVClientes.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseLeave);
+            this.DGVClientes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVClientes_KeyDown);
             // 
             // ID
             // 
@@ -189,6 +190,7 @@
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            this.btnBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnBuscar_KeyDown);
             // 
             // txtBuscador
             // 
@@ -215,6 +217,7 @@
             this.btnListaDescuentos.Text = "Listado tipo cliente";
             this.btnListaDescuentos.UseVisualStyleBackColor = false;
             this.btnListaDescuentos.Click += new System.EventHandler(this.btnListaDescuentos_Click);
+            this.btnListaDescuentos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnListaDescuentos_KeyDown);
             // 
             // btnTipoCliente
             // 
@@ -231,6 +234,7 @@
             this.btnTipoCliente.Text = "Nuevo tipo cliente";
             this.btnTipoCliente.UseVisualStyleBackColor = false;
             this.btnTipoCliente.Click += new System.EventHandler(this.btnTipoCliente_Click);
+            this.btnTipoCliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnTipoCliente_KeyDown);
             // 
             // btnNuevoCliente
             // 
@@ -250,6 +254,7 @@
             this.btnNuevoCliente.Text = "Nuevo Cliente";
             this.btnNuevoCliente.UseVisualStyleBackColor = false;
             this.btnNuevoCliente.Click += new System.EventHandler(this.btnNuevoCliente_Click);
+            this.btnNuevoCliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnNuevoCliente_KeyDown);
             // 
             // tituloSeccion
             // 
@@ -438,6 +443,7 @@
             this.Name = "Clientes";
             this.Text = "Clientes";
             this.Load += new System.EventHandler(this.Clientes_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Clientes_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).EndInit();
             this.panelBotones.ResumeLayout(false);
             this.panelBotones.PerformLayout();

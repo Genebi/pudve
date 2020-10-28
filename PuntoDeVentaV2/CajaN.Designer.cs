@@ -177,6 +177,7 @@
             this.btnReporteRetirar.Text = "Reporte";
             this.btnReporteRetirar.UseVisualStyleBackColor = false;
             this.btnReporteRetirar.Click += new System.EventHandler(this.btnReporteRetirar_Click);
+            this.btnReporteRetirar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnReporteRetirar_KeyDown);
             // 
             // btnReporteAgregar
             // 
@@ -195,6 +196,7 @@
             this.btnReporteAgregar.Text = "Reporte";
             this.btnReporteAgregar.UseVisualStyleBackColor = false;
             this.btnReporteAgregar.Click += new System.EventHandler(this.btnReporteAgregar_Click);
+            this.btnReporteAgregar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnReporteAgregar_KeyDown);
             // 
             // btnAgregarDinero
             // 
@@ -213,6 +215,7 @@
             this.btnAgregarDinero.Text = "Agregar Dinero";
             this.btnAgregarDinero.UseVisualStyleBackColor = false;
             this.btnAgregarDinero.Click += new System.EventHandler(this.btnAgregarDinero_Click);
+            this.btnAgregarDinero.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnAgregarDinero_KeyDown);
             // 
             // btnRetirarDinero
             // 
@@ -231,6 +234,7 @@
             this.btnRetirarDinero.Text = "Retirar Dinero";
             this.btnRetirarDinero.UseVisualStyleBackColor = false;
             this.btnRetirarDinero.Click += new System.EventHandler(this.btnRetirarDinero_Click);
+            this.btnRetirarDinero.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnRetirarDinero_KeyDown);
             // 
             // panelFondo
             // 
@@ -259,6 +263,7 @@
             this.btnCorteCaja.Text = "Corte de Caja";
             this.btnCorteCaja.UseVisualStyleBackColor = false;
             this.btnCorteCaja.Click += new System.EventHandler(this.btnCorteCaja_Click);
+            this.btnCorteCaja.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnCorteCaja_KeyDown);
             // 
             // tablaContenedor
             // 
@@ -1394,6 +1399,7 @@
             this.Text = "CajaN";
             this.Load += new System.EventHandler(this.CajaN_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.CajaN_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CajaN_KeyDown);
             this.Resize += new System.EventHandler(this.CajaN_Resize);
             this.panelFondo.ResumeLayout(false);
             this.tablaContenedor.ResumeLayout(false);

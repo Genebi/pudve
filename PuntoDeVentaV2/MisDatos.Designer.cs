@@ -594,6 +594,7 @@
             this.btnActualizarDatos.Text = "Guardar";
             this.btnActualizarDatos.UseVisualStyleBackColor = false;
             this.btnActualizarDatos.Click += new System.EventHandler(this.btnActualizarDatos_Click);
+            this.btnActualizarDatos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnActualizarDatos_KeyDown);
             // 
             // panel2
             // 
@@ -632,6 +633,7 @@
             this.btnBorrarImg.Text = "Eliminar imagen";
             this.btnBorrarImg.UseVisualStyleBackColor = true;
             this.btnBorrarImg.Click += new System.EventHandler(this.btnBorrarImg_Click);
+            this.btnBorrarImg.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnBorrarImg_KeyDown);
             // 
             // btnSubirArchivo
             // 
@@ -648,6 +650,7 @@
             this.btnSubirArchivo.Text = "Subir imagen";
             this.btnSubirArchivo.UseVisualStyleBackColor = false;
             this.btnSubirArchivo.Click += new System.EventHandler(this.btnSubirArchivo_Click);
+            this.btnSubirArchivo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnSubirArchivo_KeyDown);
             // 
             // pictureBox1
             // 
@@ -709,6 +712,7 @@
             this.btnActualizarPassword.Text = "Actualizar";
             this.btnActualizarPassword.UseVisualStyleBackColor = false;
             this.btnActualizarPassword.Click += new System.EventHandler(this.btnActualizarPassword_Click);
+            this.btnActualizarPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnActualizarPassword_KeyDown);
             // 
             // panel5
             // 
@@ -840,6 +844,7 @@
             this.btn_vnt_subir_archivos.Text = "Actualizar";
             this.btn_vnt_subir_archivos.UseVisualStyleBackColor = false;
             this.btn_vnt_subir_archivos.Click += new System.EventHandler(this.btn_vnt_subir_archivos_Click);
+            this.btn_vnt_subir_archivos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btn_vnt_subir_archivos_KeyDown);
             // 
             // txt_llave
             // 
@@ -910,6 +915,7 @@
             this.Name = "MisDatos";
             this.Text = "MisDatos";
             this.Load += new System.EventHandler(this.MisDatos_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MisDatos_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

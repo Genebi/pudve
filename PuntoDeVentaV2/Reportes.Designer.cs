@@ -76,6 +76,7 @@
             this.btnHistorialPrecios.Text = "Historial de Precios";
             this.btnHistorialPrecios.UseVisualStyleBackColor = false;
             this.btnHistorialPrecios.Click += new System.EventHandler(this.btnHistorialPrecios_Click);
+            this.btnHistorialPrecios.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnHistorialPrecios_KeyDown);
             // 
             // groupBox1
             // 
@@ -102,6 +103,7 @@
             this.btnHistorialDineroAgregado.Text = "Historial Dinero Agreado";
             this.btnHistorialDineroAgregado.UseVisualStyleBackColor = false;
             this.btnHistorialDineroAgregado.Click += new System.EventHandler(this.btnHistorialDineroAgregado_Click);
+            this.btnHistorialDineroAgregado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnHistorialDineroAgregado_KeyDown);
             // 
             // Reportes
             // 
@@ -115,6 +117,7 @@
             this.Name = "Reportes";
             this.Text = "Reportes";
             this.Load += new System.EventHandler(this.Reportes_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reportes_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 

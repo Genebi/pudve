@@ -399,6 +399,7 @@
             this.Text = "PUDVE - Punto de Venta";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormPrincipal_KeyDown);
             this.panelMaestro.ResumeLayout(false);
             this.menuVertical.ResumeLayout(false);
             this.ResumeLayout(false);

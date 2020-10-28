@@ -48,6 +48,7 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos(string busqueda = "")
         {
+            this.Focus();
             var consulta = string.Empty;
 
             if (string.IsNullOrWhiteSpace(busqueda))
@@ -329,6 +330,48 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Enter)
             {
                 btnBuscar.PerformClick();
+            }
+
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void Proveedores_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnNuevoProveedor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void DGVProveedores_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
+            }
+        }
+
+        private void btnBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
             }
         }
     }

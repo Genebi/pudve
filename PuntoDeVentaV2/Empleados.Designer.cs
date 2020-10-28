@@ -67,6 +67,7 @@
             this.btn_agregar_empleado.Text = "Nuevo empleado";
             this.btn_agregar_empleado.UseVisualStyleBackColor = false;
             this.btn_agregar_empleado.Click += new System.EventHandler(this.btn_agregar_empleado_Click);
+            this.btn_agregar_empleado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btn_agregar_empleado_KeyDown);
             // 
             // dgv_empleados
             // 
@@ -91,6 +92,7 @@
             this.dgv_empleados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.click_en_icono);
             this.dgv_empleados.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_en_icono);
             this.dgv_empleados.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_no_icono);
+            this.dgv_empleados.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_empleados_KeyDown);
             // 
             // id
             // 
@@ -144,6 +146,7 @@
             this.Name = "Empleados";
             this.Text = "Empleados";
             this.Load += new System.EventHandler(this.cargar_empleados);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Empleados_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
