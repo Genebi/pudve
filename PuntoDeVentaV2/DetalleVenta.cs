@@ -414,7 +414,7 @@ namespace PuntoDeVentaV2
 
             if (totalVenta != totalEfectivo)
             {
-                var totalTarjeta = totalVenta - totalEfectivo;
+                var totalTarjeta = totalVenta - (totalEfectivo + credito);
 
                 txtTarjeta.Text = totalTarjeta.ToString();
 
@@ -435,6 +435,7 @@ namespace PuntoDeVentaV2
         {
             //El total del campo efecto + la suma de los otros metodos de pago - total de venta
             double cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos + credito) - total);
+
 
             if (cambio < 0)
             {
