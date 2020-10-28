@@ -33,9 +33,9 @@
             this.rbAjustar = new System.Windows.Forms.RadioButton();
             this.panelComprado = new System.Windows.Forms.Panel();
             this.cantidadStockActual = new System.Windows.Forms.Label();
-            this.lbStockActual = new System.Windows.Forms.Label();
             this.lbCantidadCompra = new System.Windows.Forms.Label();
             this.lbPrecioCompra = new System.Windows.Forms.Label();
+            this.lbStockActual = new System.Windows.Forms.Label();
             this.lbFechaCompra = new System.Windows.Forms.Label();
             this.lbProveedor = new System.Windows.Forms.Label();
             this.cbProveedores = new System.Windows.Forms.ComboBox();
@@ -134,16 +134,6 @@
             this.cantidadStockActual.TabIndex = 11;
             this.cantidadStockActual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lbStockActual
-            // 
-            this.lbStockActual.AutoSize = true;
-            this.lbStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbStockActual.Location = new System.Drawing.Point(0, 0);
-            this.lbStockActual.Name = "lbStockActual";
-            this.lbStockActual.Size = new System.Drawing.Size(84, 17);
-            this.lbStockActual.TabIndex = 10;
-            this.lbStockActual.Text = "Stock actual";
-            // 
             // lbCantidadCompra
             // 
             this.lbCantidadCompra.AutoSize = true;
@@ -163,6 +153,16 @@
             this.lbPrecioCompra.Size = new System.Drawing.Size(115, 17);
             this.lbPrecioCompra.TabIndex = 8;
             this.lbPrecioCompra.Text = "Precio de compra";
+            // 
+            // lbStockActual
+            // 
+            this.lbStockActual.AutoSize = true;
+            this.lbStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStockActual.Location = new System.Drawing.Point(0, 0);
+            this.lbStockActual.Name = "lbStockActual";
+            this.lbStockActual.Size = new System.Drawing.Size(84, 17);
+            this.lbStockActual.TabIndex = 10;
+            this.lbStockActual.Text = "Stock actual";
             // 
             // lbFechaCompra
             // 
@@ -501,7 +501,7 @@
             this.btnActualiza.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualiza.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualiza.ForeColor = System.Drawing.Color.White;
-            this.btnActualiza.Location = new System.Drawing.Point(393, 45);
+            this.btnActualiza.Location = new System.Drawing.Point(393, 43);
             this.btnActualiza.Name = "btnActualiza";
             this.btnActualiza.Size = new System.Drawing.Size(144, 28);
             this.btnActualiza.TabIndex = 33;
@@ -514,6 +514,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 412);
+            this.Controls.Add(this.panelComprado);
+            this.Controls.Add(this.panelAjustar);
             this.Controls.Add(this.btnActualiza);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.lbEditarPrecio);
@@ -526,8 +528,6 @@
             this.Controls.Add(this.rbAjustar);
             this.Controls.Add(this.rbProducto);
             this.Controls.Add(this.lbProducto);
-            this.Controls.Add(this.panelAjustar);
-            this.Controls.Add(this.panelComprado);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "AjustarProducto";

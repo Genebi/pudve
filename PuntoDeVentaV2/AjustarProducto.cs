@@ -729,13 +729,21 @@ namespace PuntoDeVentaV2
             var obtenerTxt = string.Empty;
             var datoObtenido = "";
 
-            if (rbAjustar.Checked.Equals(true))
+            if (rbProducto.Checked.Equals(true))
             {
                 obtenerTxt = txtPrecioCompra.Text;
             }
-            else if (rbProducto.Checked.Equals(true))
+            else if (rbAjustar.Checked.Equals(true))
             {
-                obtenerTxt = precioProductoAux.ToString();
+                if (precioProductoAux.Equals(0))
+                {
+                    var oldPrecio = txtPrecio.Text.Replace("$", string.Empty);
+                    obtenerTxt = oldPrecio;
+                }
+                else
+                {
+                    obtenerTxt = precioProductoAux.ToString();
+                }
             }
 
             if (!obtenerTxt.Equals("") && !obtenerTxt.Equals("."))
@@ -749,7 +757,7 @@ namespace PuntoDeVentaV2
                 }
                 var x = float.Parse(datoObtenido);
                 var operacion = (precio * x);
-                txtPrecio.Text = "$ " + operacion.ToString().Remove(operacion.ToString().Length - 1); 
+                txtPrecio.Text = "$ " + operacion.ToString(); 
             }
             else
             {
