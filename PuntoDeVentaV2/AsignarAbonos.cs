@@ -78,7 +78,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            float totalEfectivo = 0f;
+            float total = 0f;
             float efectiv = 0f;
 
             var tarjeta = CantidadDecimal(txtTarjeta.Text);
@@ -91,7 +91,7 @@ namespace PuntoDeVentaV2
             if (SumaMetodos() > 0)/////////////////////////////////////
             {
                 //totalEfectivo = totalPendiente - (SumaMetodos() + CantidadDecimal(txtEfectivo.Text));
-                totalEfectivo = (SumaMetodos() + CantidadDecimal(txtEfectivo.Text)); //=100
+                total = (SumaMetodos() + CantidadDecimal(txtEfectivo.Text)); //=100
                 efectiv = CantidadDecimal(txtEfectivo.Text);
                 //totalEfectivo = CantidadDecimal(txtEfectivo.Text);
             }
@@ -99,18 +99,18 @@ namespace PuntoDeVentaV2
             {
                 efectiv = CantidadDecimal(txtEfectivo.Text);
 
-                if (totalEfectivo > totalPendiente && SumaMetodos() == 0)
+                if (total > totalPendiente && SumaMetodos() == 0)
                 {
-                    totalEfectivo = Math.Abs(CantidadDecimal(txtEfectivo.Text) - totalPendiente);
+                    total = Math.Abs(CantidadDecimal(txtEfectivo.Text) - totalPendiente);
                 }
                 else
                 {
-                    totalEfectivo = efectiv;
+                    total = efectiv;
                 }
             }
 
             //var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia; //=150
-            var totalAbonado = totalEfectivo;
+            var totalAbonado = total;
 
             //Condicion para saber si se termino de pagar y cambiar el status de la venta
             if (totalAbonado >= totalPendiente)
@@ -118,25 +118,58 @@ namespace PuntoDeVentaV2
                 cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 1, FormPrincipal.userID));
             }
 
-            string[] datos = new string[] {
-                idVenta.ToString(), FormPrincipal.userID.ToString(), totalEfectivo.ToString(), efectiv.ToString(), tarjeta.ToString(),
+            //var pagoPendiente = txtPendiente.Text;
+            //var cantidadPendiente = float.Parse(pagoPendiente);
+            //var operacionTotal = (total - totalPendiente);
+
+            if (efectiv > totalPendiente) { efectiv = totalPendiente; }
+            if (tarjeta > totalPendiente) { tarjeta = totalPendiente; }
+            if (vales > totalPendiente) { vales = totalPendiente; }
+            if (cheque > totalPendiente) { cheque = totalPendiente; }
+            if (transferencia > totalPendiente) { transferencia = totalPendiente; }
+
+            //Validar que se se guarde una cantidad mayor que el total pendiente
+            if (totalPendiente > total)
+            {
+                string[] datos = new string[] {
+                idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(),
                 vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
             };
+                int resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
 
+                if (resultado > 0)
+                {
+                    var idAbono = cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1", 1).ToString();
+                    var restante = totalPendiente - totalAbonado;
 
-            int resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
+                    datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
 
-            if (resultado > 0)
+                    GenerarTicket(datos);
+                    ImprimirTicket(idVenta.ToString(), idAbono);
+
+                    this.Dispose();
+                }
+            }
+            else
             {
-                var idAbono = cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1", 1).ToString();
-                var restante = totalPendiente - totalAbonado;
+                string[] datos = new string[] {
+                idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(),
+                vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
+            };
+                int resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
 
-                datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
+                if (resultado > 0)
+                {
+                    var idAbono = cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1", 1).ToString();
+                    var restante = totalPendiente - totalAbonado;
 
-                GenerarTicket(datos);
-                ImprimirTicket(idVenta.ToString(), idAbono);
+                    datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
 
-                this.Dispose();
+                    GenerarTicket(datos);
+                    ImprimirTicket(idVenta.ToString(), idAbono);
+
+                    this.Dispose();
+                }
             }
         }
 

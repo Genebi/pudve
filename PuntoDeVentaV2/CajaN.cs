@@ -1890,16 +1890,28 @@ namespace PuntoDeVentaV2
 
         private void lbCambioAbonos_Click(object sender, EventArgs e)
         {
-            abonos_devoluciones = "abonos";
-            CajaAbonos mostrarAbonos = new CajaAbonos();
-            mostrarAbonos.Show();
+            CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+
+            var validarAbono = "abono";
+            if (mostrarAbonosCaja != null)
+            {
+                abonos_devoluciones = "abonos";
+                CajaAbonos mostrarAbonos = new CajaAbonos();
+                mostrarAbonos.Show();
+            }
         }
 
         private void lbCambioDevoluciones_Click(object sender, EventArgs e)
         {
-            abonos_devoluciones = "devoluciones";
-            CajaAbonos mostrarDevoluciones = new CajaAbonos();
-            mostrarDevoluciones.Show();
+            CajaAbonos mostrarDevolucionesCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+
+            var validarDEvolucion = "devolucion";
+            if (mostrarDevolucionesCaja != null)
+            {
+                abonos_devoluciones = "devoluciones";
+                CajaAbonos mostrarDevoluciones = new CajaAbonos();
+                mostrarDevoluciones.Show();
+            }
         }
 
         private void CajaN_KeyDown(object sender, KeyEventArgs e)
