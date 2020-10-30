@@ -801,7 +801,20 @@ namespace PuntoDeVentaV2
 
         private void txtPrecio_Leave(object sender, EventArgs e)
         {
-            precioProductoAux = float.Parse(txtPrecio.Text);
+            string contenidoTxtPrecio = txtPrecio.Text;
+            bool siEsta = false;
+
+            siEsta = contenidoTxtPrecio.Contains("$");
+
+            if (siEsta)
+            {
+                contenidoTxtPrecio.Remove(0, 1);
+                precioProductoAux = float.Parse(txtPrecio.Text);
+            }
+            else
+            {
+                precioProductoAux = float.Parse(txtPrecio.Text);
+            }
         }
     }
 }
