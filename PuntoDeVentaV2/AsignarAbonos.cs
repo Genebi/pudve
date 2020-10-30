@@ -121,8 +121,8 @@ namespace PuntoDeVentaV2
             //var pagoPendiente = txtPendiente.Text;
             //var cantidadPendiente = float.Parse(pagoPendiente);
             //var operacionTotal = (total - totalPendiente);
-
-            if (efectiv > totalPendiente) { efectiv = totalPendiente; }
+            
+            if (efectiv > totalPendiente) { efectiv = totalPendiente;  }
             if (tarjeta > totalPendiente) { tarjeta = totalPendiente; }
             if (vales > totalPendiente) { vales = totalPendiente; }
             if (cheque > totalPendiente) { cheque = totalPendiente; }
