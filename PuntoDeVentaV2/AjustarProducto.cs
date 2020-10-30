@@ -808,8 +808,10 @@ namespace PuntoDeVentaV2
 
             if (siEsta)
             {
+
                 contenidoTxtPrecio.Remove(0, 1);
-                precioProductoAux = float.Parse(txtPrecio.Text);
+                precioProductoAux = float.Parse(contenidoTxtPrecio);
+
             }
             else
             {
