@@ -70,9 +70,9 @@
             this.label2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(60, 143);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(225, 16);
+            this.label2.Size = new System.Drawing.Size(224, 16);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Este proceso pueda tardar unos minutos";
+            this.label2.Text = "Este proceso puede tardar unos minutos";
             // 
             // ConfiguracionMariaDB
             // 
