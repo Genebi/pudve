@@ -31,12 +31,13 @@
             this.PBLoading = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PBLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // PBLoading
             // 
-            this.PBLoading.Location = new System.Drawing.Point(120, 43);
+            this.PBLoading.Location = new System.Drawing.Point(120, 39);
             this.PBLoading.Name = "PBLoading";
             this.PBLoading.Size = new System.Drawing.Size(100, 75);
             this.PBLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -56,12 +57,22 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 123);
+            this.label1.Location = new System.Drawing.Point(17, 118);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(314, 25);
             this.label1.TabIndex = 4;
-            this.label1.Text = "ESPERE UN MOMENTO...";
+            this.label1.Text = "CARGANDO...";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(60, 143);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(225, 16);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Este proceso pueda tardar unos minutos";
             // 
             // ConfiguracionMariaDB
             // 
@@ -69,6 +80,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(343, 164);
             this.ControlBox = false;
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.PBLoading);
@@ -82,6 +94,7 @@
             this.Shown += new System.EventHandler(this.ConfiguracionMariaDB_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.PBLoading)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -90,5 +103,6 @@
         private System.Windows.Forms.PictureBox PBLoading;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
