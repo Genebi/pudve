@@ -35,8 +35,8 @@ namespace PuntoDeVentaV2
         private string _pathPlantillaEtiqueta = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Plantillas\";
         private string _pathPlantillaEtiquetaTmp = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Plantillas\Tmp\";
         private string _pathXSLTFiles = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\xslt\";
-        private string _pathGifs = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\gifs\";
-        private string _pathTags = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Tags\";
+        private string _pathGifs = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\icon\gifs\";
+        private string _pathTags = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\icon\Tags\";
 
         private string _Assets = Directory.GetCurrentDirectory() + @"\PUDVE\assets\";
         private string _BarCode = Directory.GetCurrentDirectory() + @"\PUDVE\BarCode\";
@@ -55,8 +55,8 @@ namespace PuntoDeVentaV2
         private string _SetPlantillaEtiqueta = Directory.GetCurrentDirectory() + @"\PUDVE\Plantillas\";
         private string _SetPlantillaEtiquetaTmp = Directory.GetCurrentDirectory() + @"\PUDVE\Plantillas\Tmp\";
         private string _SetXSLT = Directory.GetCurrentDirectory() + @"\PUDVE\xslt\";
-        private string _SetGifs = Directory.GetCurrentDirectory() + @"\PUDVE\gifs\";
-        private string _SetTags = Directory.GetCurrentDirectory() + @"\PUDVE\Tags";
+        private string _SetGifs = Directory.GetCurrentDirectory() + @"\PUDVE\icon\gifs\";
+        private string _SetTags = Directory.GetCurrentDirectory() + @"\PUDVE\icon\Tags";
 
         string[] pathsOrigen, pathsDestino;
 
