@@ -470,6 +470,18 @@ namespace PuntoDeVentaV2
 
             createDir(pathsDestino);
 
+            try
+            {
+                for (int i = 0; i < pathsOrigen.Length; i++)
+                {
+                    CopyWithProgress(pathsOrigen[i], pathsDestino[i]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al enviar parametro error: " + ex.Message, "Error al pasar parametro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             /* Verifica si el directorio existe, este directorio es donde se instala
              * MariaDB descargado desde el servidor de SIFO, en caso de que no exista
              * significa que es la primera vez que se instala el programa y se manda a
@@ -521,6 +533,11 @@ namespace PuntoDeVentaV2
                 btnEntrar.Focus();
                 checkBoxRecordarDatos.Checked = true;
             }
+        }
+
+        private void CopyWithProgress(string v1, string v2)
+        {
+            throw new NotImplementedException();
         }
 
         private void modoDebug()
