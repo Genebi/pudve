@@ -36,6 +36,7 @@
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editar = new System.Windows.Forms.DataGridViewImageColumn();
             this.permisos = new System.Windows.Forms.DataGridViewImageColumn();
+            this.invi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,7 +83,8 @@
             this.nombre,
             this.usuario,
             this.editar,
-            this.permisos});
+            this.permisos,
+            this.invi});
             this.dgv_empleados.Location = new System.Drawing.Point(12, 158);
             this.dgv_empleados.Name = "dgv_empleados";
             this.dgv_empleados.ReadOnly = true;
@@ -106,14 +108,14 @@
             this.nombre.HeaderText = "Nombre";
             this.nombre.Name = "nombre";
             this.nombre.ReadOnly = true;
-            this.nombre.Width = 230;
+            this.nombre.Width = 470;
             // 
             // usuario
             // 
             this.usuario.HeaderText = "Usuario";
             this.usuario.Name = "usuario";
             this.usuario.ReadOnly = true;
-            this.usuario.Width = 230;
+            this.usuario.Width = 440;
             // 
             // editar
             // 
@@ -122,7 +124,7 @@
             this.editar.ReadOnly = true;
             this.editar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.editar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.editar.Width = 60;
+            this.editar.Width = 70;
             // 
             // permisos
             // 
@@ -131,7 +133,14 @@
             this.permisos.ReadOnly = true;
             this.permisos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.permisos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.permisos.Width = 70;
+            this.permisos.Width = 80;
+            // 
+            // invi
+            // 
+            this.invi.HeaderText = "";
+            this.invi.Name = "invi";
+            this.invi.ReadOnly = true;
+            this.invi.Width = 20;
             // 
             // Empleados
             // 
@@ -163,5 +172,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewImageColumn editar;
         private System.Windows.Forms.DataGridViewImageColumn permisos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn invi;
     }
 }

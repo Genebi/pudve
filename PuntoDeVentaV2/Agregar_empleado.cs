@@ -23,6 +23,7 @@ namespace PuntoDeVentaV2
         private string nombre;
         private string usuario;
         private string password;
+        int actualizar_contraseña = 0;
 
         public Agregar_empleado(int tipo = 1, int empleado = 0)
         {
@@ -38,6 +39,9 @@ namespace PuntoDeVentaV2
             {
                 Text = "PUDVE - Agregar Empleado";
                 lbTitulo.Text = "NUEVO EMPLEADO";
+                lb_permisos_contraseña.Text = "Asignar permisos";
+                txt_autorizar.Visible = false;
+                cmb_bx_permisos.Visible = true;
 
                 cmb_bx_permisos.SelectedIndex = 0;
             }
@@ -46,6 +50,11 @@ namespace PuntoDeVentaV2
             {
                 Text = "PUDVE - Editar Empleado";
                 lbTitulo.Text = "EDITAR EMPLEADO";
+
+                lb_permisos_contraseña.Visible = false;
+                cmb_bx_permisos.Visible = false;
+                picturebx_editar.Visible = true;
+                txt_conttraseña.Enabled = false;
 
                 var datos = mb.obtener_permisos_empleado(empleado, FormPrincipal.userID);
 
@@ -65,6 +74,9 @@ namespace PuntoDeVentaV2
 
                     lb_usuario_completo.Text = FormPrincipal.userNickName + "@" + usuario;
                     lb_usuario_completo.Visible = true;
+
+                    txt_usuario.Enabled = false;
+                    cmb_bx_permisos.Visible = false;
                 }
             }
         }
@@ -212,19 +224,27 @@ namespace PuntoDeVentaV2
 
                 if (tipo == 2)
                 {
+                    //lb_usuario_completo.Text.Trim(),
+                    int resultado = 0;
+
                     string[] datos = new string[] {
-                        empleado.ToString(), txt_nombre.Text.Trim(),
-                        lb_usuario_completo.Text.Trim(), txt_conttraseña.Text.Trim()
+                        empleado.ToString(), txt_nombre.Text.Trim(), txt_conttraseña.Text.Trim()
                     };
 
-                    int resultado = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 4));
-
+                    if (actualizar_contraseña == 1)
+                    {
+                        resultado = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 4));
+                    }
+                    else
+                    {
+                        resultado = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 5));
+                    }
+                    
                     if (resultado > 0)
                     {
                         Close();
                     }
                 }
-                
             }
             else
             {
@@ -242,30 +262,61 @@ namespace PuntoDeVentaV2
             int error = 0;
 
 
-            if (txt_conttraseña.Text.Trim() == "")
+            if(tipo == 1 | actualizar_contraseña == 1)
             {
-                error = 1;
-                mnsj = "La contraseña es obligatoria.";
-            }
-            if (txt_usuario.Text.Trim() == "")
-            {
-                error = 1;
-                mnsj = "El usuario es obligatorio";
-            }
-            else
-            {
-                bool existe = (bool)cn.EjecutarSelect($"SELECT * FROM Empleados WHERE usuario='{lb_usuario_completo.Text}' AND IDUsuario='{FormPrincipal.userID}'");
-
-                if (existe == true)
+                if (txt_conttraseña.Text.Trim() == "")
                 {
                     error = 1;
-                    mnsj =  "Ya existe ese nombre de usuario, elegir otro.";
+                    mnsj = "La contraseña es obligatoria.";
                 }
             }
+            
+            // Aplica solo para agregar
+            if (tipo == 1)
+            {
+                if (txt_usuario.Text.Trim() == "")
+                {
+                    error = 1;
+                    mnsj = "El usuario es obligatorio";
+                }
+                else
+                {
+                    bool existe = (bool)cn.EjecutarSelect($"SELECT * FROM Empleados WHERE usuario='{lb_usuario_completo.Text}' AND IDUsuario='{FormPrincipal.userID}'");
+
+                    if (existe == true)
+                    {
+                        error = 1;
+                        mnsj = "Ya existe ese nombre de usuario, elegir otro.";
+                    }
+                }
+            }
+                
             if (txt_nombre.Text.Trim() == "")
             {
                 error = 1;
                 mnsj = "El nombre es obligatorio.";
+            }
+
+            // Aplica para editar
+            if(tipo == 2 & actualizar_contraseña == 1)
+            {
+                if(txt_autorizar.Text.Trim() == "")
+                {
+                    error = 1;
+                    mnsj = "La contraseña que autoriza el cambio de contraseña del empleado no puede estar vacía.";
+                }
+                else
+                {
+                    // Validar que la contraseña del usuario sea valida
+
+                    bool valida_contraseña = (bool)cn.EjecutarSelect($"SELECT * FROM Empleados WHERE ID='{empleado}' AND contrasena='{txt_autorizar.Text}'");
+
+                    if(valida_contraseña == false)
+                    {
+                        error = 1;
+                        mnsj = "La contraseña del usuario es incorrecta.";
+                    }
+                }
             }
 
 
@@ -305,6 +356,16 @@ namespace PuntoDeVentaV2
             {
                 cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_e}', '{FormPrincipal.userID}', '{seccion}')");
             }
+        }
+
+        private void click_editar_contraseña(object sender, EventArgs e)
+        {
+            lb_permisos_contraseña.Text = "Autorizar con \n contraseña del \n usuario";
+            txt_conttraseña.Enabled = true;
+            lb_permisos_contraseña.Visible = true;
+            txt_autorizar.Visible = true;
+
+            actualizar_contraseña = 1;
         }
     }
 }
