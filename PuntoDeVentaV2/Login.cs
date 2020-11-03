@@ -56,7 +56,7 @@ namespace PuntoDeVentaV2
         private string _SetPlantillaEtiquetaTmp = Directory.GetCurrentDirectory() + @"\PUDVE\Plantillas\Tmp\";
         private string _SetXSLT = Directory.GetCurrentDirectory() + @"\PUDVE\xslt\";
         private string _SetGifs = Directory.GetCurrentDirectory() + @"\PUDVE\icon\gifs\";
-        private string _SetTags = Directory.GetCurrentDirectory() + @"\PUDVE\icon\Tags";
+        private string _SetTags = Directory.GetCurrentDirectory() + @"\PUDVE\icon\Tags\";
 
         string[] pathsOrigen, pathsDestino;
 
@@ -535,6 +535,13 @@ namespace PuntoDeVentaV2
             }
         }
 
+        /// <summary>
+        /// Metodo para hacer el copiado de archivos 
+        /// necesarios para el funcionamiento
+        /// correcto del sistema 
+        /// </summary>
+        /// <param name="pathOrigen">archivos desde ruta ofuscada</param>
+        /// <param name="pathDestino">los archivos van a ir a la carpeta Roamin</param>
         private void CopyWithProgress(string pathOrigen, string pathDestino)
         {
             DirectoryInfo source = new DirectoryInfo(pathOrigen);
@@ -545,7 +552,7 @@ namespace PuntoDeVentaV2
                 // Loop through all files to copy.
                 for (int x = 1; x <= filesToCopy.Length; x++)
                 {
-                    string rutaOrigen = pathOrigen + @"\" + filesToCopy[x - 1].ToString();
+                    string rutaOrigen = pathOrigen + filesToCopy[x - 1].ToString();
                     string rutaDestino = pathDestino + filesToCopy[x - 1].ToString();
 
                     if (filesToCopy[x - 1].ToString().Equals("DataDictionary.db"))
