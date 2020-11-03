@@ -535,9 +535,41 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void CopyWithProgress(string v1, string v2)
+        private void CopyWithProgress(string pathOrigen, string pathDestino)
         {
-            throw new NotImplementedException();
+            DirectoryInfo source = new DirectoryInfo(pathOrigen);
+            FileInfo[] filesToCopy = source.GetFiles();
+
+            try
+            {
+                // Loop through all files to copy.
+                for (int x = 1; x <= filesToCopy.Length; x++)
+                {
+                    if (filesToCopy[x - 1].ToString().Equals("DataDictionary.db"))
+                    {
+                        if (!File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
+                        {
+                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
+                        }
+                        else if (File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
+                        {
+                            File.Delete(pathDestino + filesToCopy[x - 1].ToString());
+                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
+                        }
+                    }
+                    else
+                    {
+                        if (!File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
+                        {
+                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al copiar error: " + ex.Message, "Error al copiar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void modoDebug()
