@@ -545,23 +545,26 @@ namespace PuntoDeVentaV2
                 // Loop through all files to copy.
                 for (int x = 1; x <= filesToCopy.Length; x++)
                 {
+                    string rutaOrigen = pathOrigen + @"\" + filesToCopy[x - 1].ToString();
+                    string rutaDestino = pathDestino + filesToCopy[x - 1].ToString();
+
                     if (filesToCopy[x - 1].ToString().Equals("DataDictionary.db"))
                     {
-                        if (!File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
+                        if (!File.Exists(rutaDestino))
                         {
-                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
+                            File.Copy(rutaOrigen, rutaDestino, true);
                         }
-                        else if (File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
+                        else if (File.Exists(rutaDestino))
                         {
-                            File.Delete(pathDestino + filesToCopy[x - 1].ToString());
-                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
+                            File.Delete(rutaDestino);
+                            File.Copy(rutaOrigen, rutaDestino, true);
                         }
                     }
                     else
                     {
-                        if (!File.Exists(pathDestino + filesToCopy[x - 1].ToString()))
+                        if (!File.Exists(rutaDestino))
                         {
-                            File.Copy(pathOrigen + filesToCopy[x - 1].ToString(), pathDestino + filesToCopy[x - 1].ToString(), true);
+                            File.Copy(rutaOrigen, rutaDestino, true);
                         }
                     }
                 }
