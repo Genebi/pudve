@@ -170,5 +170,6 @@ namespace PuntoDeVentaV2
                 dgv_empleados.ClearSelection();
             }
         }
+        
     }
 }

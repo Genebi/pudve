@@ -31,6 +31,23 @@
             this.components = new System.ComponentModel.Container();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.DGVListadoVentas = new System.Windows.Forms.DataGridView();
+            this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cancelar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Factura = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
+            this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.btn_descargar = new System.Windows.Forms.Button();
             this.txtBuscador = new System.Windows.Forms.TextBox();
@@ -54,25 +71,9 @@
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
             this.elegir_carpeta_descarga = new System.Windows.Forms.FolderBrowserDialog();
-            this.pBar_descarga = new System.Windows.Forms.ProgressBar();
-            this.lb_texto_descarga = new System.Windows.Forms.Label();
-            this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cancelar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Factura = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
-            this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
+            this.pBar_descarga_verpdf = new System.Windows.Forms.ProgressBar();
+            this.lb_texto_descarga_verpdf = new System.Windows.Forms.Label();
+            this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -128,6 +129,124 @@
             this.DGVListadoVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoVentas_CellClick);
             this.DGVListadoVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clickcellc_checkbox);
             this.DGVListadoVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoVentas_CellMouseEnter);
+            // 
+            // col_checkbox
+            // 
+            this.col_checkbox.HeaderText = "";
+            this.col_checkbox.Name = "col_checkbox";
+            this.col_checkbox.ReadOnly = true;
+            this.col_checkbox.Width = 35;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            // 
+            // Cliente
+            // 
+            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cliente.HeaderText = "Cliente";
+            this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
+            // 
+            // RFC
+            // 
+            this.RFC.HeaderText = "RFC";
+            this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
+            // 
+            // Subtotal
+            // 
+            this.Subtotal.HeaderText = "Subtotal";
+            this.Subtotal.Name = "Subtotal";
+            this.Subtotal.ReadOnly = true;
+            this.Subtotal.Visible = false;
+            // 
+            // IVA
+            // 
+            this.IVA.HeaderText = "IVA";
+            this.IVA.Name = "IVA";
+            this.IVA.ReadOnly = true;
+            this.IVA.Visible = false;
+            // 
+            // Total
+            // 
+            this.Total.HeaderText = "Total";
+            this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
+            // 
+            // Folio
+            // 
+            this.Folio.HeaderText = "Folio";
+            this.Folio.Name = "Folio";
+            this.Folio.ReadOnly = true;
+            this.Folio.Width = 50;
+            // 
+            // Serie
+            // 
+            this.Serie.HeaderText = "Serie";
+            this.Serie.Name = "Serie";
+            this.Serie.ReadOnly = true;
+            this.Serie.Width = 50;
+            // 
+            // Fecha
+            // 
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            this.Fecha.Width = 150;
+            // 
+            // Cancelar
+            // 
+            this.Cancelar.HeaderText = "";
+            this.Cancelar.Name = "Cancelar";
+            this.Cancelar.ReadOnly = true;
+            this.Cancelar.Width = 30;
+            // 
+            // Factura
+            // 
+            this.Factura.HeaderText = "";
+            this.Factura.Name = "Factura";
+            this.Factura.ReadOnly = true;
+            this.Factura.Width = 30;
+            // 
+            // Ticket
+            // 
+            this.Ticket.HeaderText = "";
+            this.Ticket.Name = "Ticket";
+            this.Ticket.ReadOnly = true;
+            this.Ticket.Width = 30;
+            // 
+            // Abono
+            // 
+            this.Abono.HeaderText = "";
+            this.Abono.Name = "Abono";
+            this.Abono.ReadOnly = true;
+            this.Abono.Width = 30;
+            // 
+            // Timbrar
+            // 
+            this.Timbrar.HeaderText = "";
+            this.Timbrar.Name = "Timbrar";
+            this.Timbrar.ReadOnly = true;
+            this.Timbrar.Width = 30;
+            // 
+            // cInformacion
+            // 
+            this.cInformacion.HeaderText = "";
+            this.cInformacion.Name = "cInformacion";
+            this.cInformacion.ReadOnly = true;
+            this.cInformacion.Width = 30;
+            // 
+            // retomarVenta
+            // 
+            this.retomarVenta.HeaderText = "";
+            this.retomarVenta.Name = "retomarVenta";
+            this.retomarVenta.ReadOnly = true;
+            this.retomarVenta.ToolTipText = "Retomar Venta Cancelada";
+            this.retomarVenta.Width = 30;
             // 
             // panelBotones
             // 
@@ -438,157 +557,54 @@
             this.linkLblPaginaAnterior.Text = "1";
             this.linkLblPaginaAnterior.Click += new System.EventHandler(this.linkLblPaginaAnterior_Click);
             // 
-            // pBar_descarga
+            // pBar_descarga_verpdf
             // 
-            this.pBar_descarga.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.pBar_descarga_verpdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pBar_descarga.Location = new System.Drawing.Point(136, 398);
-            this.pBar_descarga.Name = "pBar_descarga";
-            this.pBar_descarga.Size = new System.Drawing.Size(668, 23);
-            this.pBar_descarga.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.pBar_descarga.TabIndex = 8;
-            this.pBar_descarga.Visible = false;
+            this.pBar_descarga_verpdf.Location = new System.Drawing.Point(136, 398);
+            this.pBar_descarga_verpdf.Name = "pBar_descarga_verpdf";
+            this.pBar_descarga_verpdf.Size = new System.Drawing.Size(668, 23);
+            this.pBar_descarga_verpdf.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.pBar_descarga_verpdf.TabIndex = 8;
+            this.pBar_descarga_verpdf.Visible = false;
             // 
-            // lb_texto_descarga
+            // lb_texto_descarga_verpdf
             // 
-            this.lb_texto_descarga.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.lb_texto_descarga_verpdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lb_texto_descarga.AutoSize = true;
-            this.lb_texto_descarga.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_texto_descarga.ForeColor = System.Drawing.Color.Red;
-            this.lb_texto_descarga.Location = new System.Drawing.Point(389, 424);
-            this.lb_texto_descarga.Name = "lb_texto_descarga";
-            this.lb_texto_descarga.Size = new System.Drawing.Size(154, 19);
-            this.lb_texto_descarga.TabIndex = 9;
-            this.lb_texto_descarga.Text = "Descargando nota";
-            this.lb_texto_descarga.Visible = false;
+            this.lb_texto_descarga_verpdf.AutoSize = true;
+            this.lb_texto_descarga_verpdf.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_texto_descarga_verpdf.ForeColor = System.Drawing.Color.Red;
+            this.lb_texto_descarga_verpdf.Location = new System.Drawing.Point(393, 424);
+            this.lb_texto_descarga_verpdf.Name = "lb_texto_descarga_verpdf";
+            this.lb_texto_descarga_verpdf.Size = new System.Drawing.Size(154, 19);
+            this.lb_texto_descarga_verpdf.TabIndex = 9;
+            this.lb_texto_descarga_verpdf.Text = "Descargando nota";
+            this.lb_texto_descarga_verpdf.Visible = false;
             // 
-            // col_checkbox
+            // lb_txt_ruta_descargar
             // 
-            this.col_checkbox.HeaderText = "";
-            this.col_checkbox.Name = "col_checkbox";
-            this.col_checkbox.ReadOnly = true;
-            this.col_checkbox.Width = 35;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            // 
-            // Cliente
-            // 
-            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Cliente.HeaderText = "Cliente";
-            this.Cliente.Name = "Cliente";
-            this.Cliente.ReadOnly = true;
-            // 
-            // RFC
-            // 
-            this.RFC.HeaderText = "RFC";
-            this.RFC.Name = "RFC";
-            this.RFC.ReadOnly = true;
-            // 
-            // Subtotal
-            // 
-            this.Subtotal.HeaderText = "Subtotal";
-            this.Subtotal.Name = "Subtotal";
-            this.Subtotal.ReadOnly = true;
-            this.Subtotal.Visible = false;
-            // 
-            // IVA
-            // 
-            this.IVA.HeaderText = "IVA";
-            this.IVA.Name = "IVA";
-            this.IVA.ReadOnly = true;
-            this.IVA.Visible = false;
-            // 
-            // Total
-            // 
-            this.Total.HeaderText = "Total";
-            this.Total.Name = "Total";
-            this.Total.ReadOnly = true;
-            // 
-            // Folio
-            // 
-            this.Folio.HeaderText = "Folio";
-            this.Folio.Name = "Folio";
-            this.Folio.ReadOnly = true;
-            this.Folio.Width = 50;
-            // 
-            // Serie
-            // 
-            this.Serie.HeaderText = "Serie";
-            this.Serie.Name = "Serie";
-            this.Serie.ReadOnly = true;
-            this.Serie.Width = 50;
-            // 
-            // Fecha
-            // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
-            this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 150;
-            // 
-            // Cancelar
-            // 
-            this.Cancelar.HeaderText = "";
-            this.Cancelar.Name = "Cancelar";
-            this.Cancelar.ReadOnly = true;
-            this.Cancelar.Width = 30;
-            // 
-            // Factura
-            // 
-            this.Factura.HeaderText = "";
-            this.Factura.Name = "Factura";
-            this.Factura.ReadOnly = true;
-            this.Factura.Width = 30;
-            // 
-            // Ticket
-            // 
-            this.Ticket.HeaderText = "";
-            this.Ticket.Name = "Ticket";
-            this.Ticket.ReadOnly = true;
-            this.Ticket.Width = 30;
-            // 
-            // Abono
-            // 
-            this.Abono.HeaderText = "";
-            this.Abono.Name = "Abono";
-            this.Abono.ReadOnly = true;
-            this.Abono.Width = 30;
-            // 
-            // Timbrar
-            // 
-            this.Timbrar.HeaderText = "";
-            this.Timbrar.Name = "Timbrar";
-            this.Timbrar.ReadOnly = true;
-            this.Timbrar.Width = 30;
-            // 
-            // cInformacion
-            // 
-            this.cInformacion.HeaderText = "";
-            this.cInformacion.Name = "cInformacion";
-            this.cInformacion.ReadOnly = true;
-            this.cInformacion.Width = 30;
-            // 
-            // retomarVenta
-            // 
-            this.retomarVenta.HeaderText = "";
-            this.retomarVenta.Name = "retomarVenta";
-            this.retomarVenta.ReadOnly = true;
-            this.retomarVenta.ToolTipText = "Retomar Venta Cancelada";
-            this.retomarVenta.Width = 30;
+            this.lb_txt_ruta_descargar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_txt_ruta_descargar.AutoSize = true;
+            this.lb_txt_ruta_descargar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_txt_ruta_descargar.ForeColor = System.Drawing.Color.Red;
+            this.lb_txt_ruta_descargar.Location = new System.Drawing.Point(448, 450);
+            this.lb_txt_ruta_descargar.Name = "lb_txt_ruta_descargar";
+            this.lb_txt_ruta_descargar.Size = new System.Drawing.Size(58, 19);
+            this.lb_txt_ruta_descargar.TabIndex = 11;
+            this.lb_txt_ruta_descargar.Text = "label1";
+            this.lb_txt_ruta_descargar.Visible = false;
             // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 561);
+            this.Controls.Add(this.lb_txt_ruta_descargar);
             this.Controls.Add(this.btn_timbrar);
-            this.Controls.Add(this.lb_texto_descarga);
-            this.Controls.Add(this.pBar_descarga);
+            this.Controls.Add(this.lb_texto_descarga_verpdf);
+            this.Controls.Add(this.pBar_descarga_verpdf);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.DGVListadoVentas);
@@ -634,8 +650,8 @@
         private System.Windows.Forms.TextBox txtBuscador;
         private System.Windows.Forms.Button btn_descargar;
         private System.Windows.Forms.FolderBrowserDialog elegir_carpeta_descarga;
-        private System.Windows.Forms.ProgressBar pBar_descarga;
-        private System.Windows.Forms.Label lb_texto_descarga;
+        private System.Windows.Forms.ProgressBar pBar_descarga_verpdf;
+        private System.Windows.Forms.Label lb_texto_descarga_verpdf;
         private System.Windows.Forms.Button btn_timbrar;
         public System.Windows.Forms.Button btnNuevaVenta;
         public System.Windows.Forms.ComboBox cbTipoVentas;
@@ -656,5 +672,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Timbrar;
         private System.Windows.Forms.DataGridViewImageColumn cInformacion;
         private System.Windows.Forms.DataGridViewImageColumn retomarVenta;
+        private System.Windows.Forms.Label lb_txt_ruta_descargar;
     }
 }

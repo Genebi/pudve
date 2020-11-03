@@ -630,10 +630,15 @@ namespace PuntoDeVentaV2
             {
                 cons = $"SELECT nombre, usuario FROM Empleados WHERE ID='{datos[0]}'";
             }
-
+            // Editar 
             if (opc == 4)
             {
-                cons = $"UPDATE Empleados SET nombre = '{datos[1]}', usuario = '{datos[2]}', contrasena = '{datos[3]}' WHERE ID = {datos[0]} AND IDUsuario = {FormPrincipal.userID}";
+                cons = $"UPDATE Empleados SET nombre = '{datos[1]}', contrasena = '{datos[2]}' WHERE ID = {datos[0]} AND IDUsuario = {FormPrincipal.userID}";
+            }
+
+            if (opc == 5)
+            {
+                cons = $"UPDATE Empleados SET nombre = '{datos[1]}'  WHERE ID = {datos[0]} AND IDUsuario = {FormPrincipal.userID}";
             }
 
             return cons;

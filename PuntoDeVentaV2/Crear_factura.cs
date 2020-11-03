@@ -24,6 +24,7 @@ namespace PuntoDeVentaV2
         int paso = 1;
         string[][] arr_dproductos;
         decimal cantidd_productos = 0;
+        int excede_montomax_xproducto = 0;
 
 
         public Crear_factura(int sin_cliente, int n_f, int id_v)
@@ -769,12 +770,12 @@ namespace PuntoDeVentaV2
 
                 // Monto máximo de cada factura
                 
-                if(txt_cantidad_max.Text.Trim() == "" | txt_cantidad_max.Text.Trim() == "0")
+                /*if(txt_cantidad_max.Text.Trim() == "" | txt_cantidad_max.Text.Trim() == "0")
                 {
                     MessageBox.Show("La cantidad máxima en cada factura debe ser mayor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     botones_visibles(2);
                     return;
-                }
+                }*/
 
                 // Tipo cambio
 
@@ -850,7 +851,13 @@ namespace PuntoDeVentaV2
 
                 bool partir_factura = false;
                 decimal total_venta = 0;
-                decimal monto_xfactura = Convert.ToDecimal(txt_cantidad_max.Text.Trim());
+                decimal monto_xfactura = 0;
+
+                if (txt_cantidad_max.Text.Trim() != "")
+                {
+                    monto_xfactura = Convert.ToDecimal(txt_cantidad_max.Text.Trim());
+                }
+                
 
                 // Obtiene el total de la venta
                 DataTable d_ventas = cn.CargarDatos(cs.consulta_dventa(1, id_venta));
@@ -858,42 +865,54 @@ namespace PuntoDeVentaV2
                 total_venta = Convert.ToDecimal(r_ventas["Total"].ToString());
                 
 
-                if ((n_filas - 1) == 1)
+                if(monto_xfactura > 0)
                 {
-                    decimal resp_total_factura = 0;
-
-                    // Primera validación
-                    // Busca si hay más de un impuesto
-                    bool mas_dimpuesto = (bool)cn.EjecutarSelect($"SELECT * FROM DetallesFacturacionProductos WHERE IDProducto='{ListadoVentas.faltantes_productos[1][1]}'");
-                    
-
-                    // Segunda validación
-                    resp_total_factura = obtener_productos_a_facturar();
-
-                    decimal cantidad_productos = Convert.ToDecimal(ListadoVentas.faltantes_productos[1][5]);
-                    decimal unproducto = resp_total_factura / cantidad_productos;
-
-                    if (cantidad_productos > 1 & resp_total_factura > monto_xfactura & unproducto <= monto_xfactura)
+                    if ((n_filas - 1) == 1)
                     {
-                        partir_factura = true;
+                        decimal resp_total_factura = 0;
+
+                        // Primera validación
+                        // Busca si hay más de un impuesto
+                        bool mas_dimpuesto = (bool)cn.EjecutarSelect($"SELECT * FROM DetallesFacturacionProductos WHERE IDProducto='{ListadoVentas.faltantes_productos[1][1]}'");
+
+
+                        // Segunda validación
+                        resp_total_factura = obtener_productos_a_facturar(monto_xfactura);
+
+                        decimal cantidad_productos = Convert.ToDecimal(ListadoVentas.faltantes_productos[1][5]);
+                        decimal unproducto = resp_total_factura / cantidad_productos;
+
+                        if (cantidad_productos > 1 & resp_total_factura > monto_xfactura & unproducto <= monto_xfactura)
+                        {
+                            partir_factura = true;
+                        }
+
+                        if (unproducto > monto_xfactura & mas_dimpuesto == false)
+                        {
+                            MessageBox.Show("El total de la factura es mayor al monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                     }
-
-                    if (unproducto > monto_xfactura & mas_dimpuesto == false)
+                    else
                     {
-                        MessageBox.Show("El total de la factura es mayor al monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        decimal resp_total_factura = obtener_productos_a_facturar(monto_xfactura);
+
+                        if (resp_total_factura > monto_xfactura)
+                        {
+                            partir_factura = true;
+                        }
                     }
                 }
                 else
                 {
-                    decimal resp_total_factura = obtener_productos_a_facturar();
-
-                    if (resp_total_factura > monto_xfactura)
-                    {
-                        partir_factura = true;
-                    }
+                    partir_factura = false;
                 }
-
+                
+                if(excede_montomax_xproducto > 0)
+                {
+                    MessageBox.Show("Alguno de los productos excede el monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
 
 
@@ -1593,7 +1612,7 @@ namespace PuntoDeVentaV2
             cmb_bx_uso_cfdi.SelectedValue = r_datos_clientes["UsoCFDI"];
         }
 
-        private decimal obtener_productos_a_facturar()
+        private decimal obtener_productos_a_facturar(decimal monto_max)
         {
             arr_dproductos = new string[n_filas][];
 
@@ -1604,6 +1623,7 @@ namespace PuntoDeVentaV2
             decimal vtotal_retencion = 0;
             decimal vtotal_ltraslado = 0;
             decimal vtotal_lretenido = 0;
+            excede_montomax_xproducto = 0;
 
 
             for (var z = 1; z < n_filas; z++)
@@ -1757,6 +1777,7 @@ namespace PuntoDeVentaV2
                     arr_dproductos[z][9] = "0";
                 }
 
+                
 
                 // Buscamos si hay más impuestos
 
@@ -1905,6 +1926,25 @@ namespace PuntoDeVentaV2
                 if (vdescuento_xproducto.Trim() != "")
                 {
                     vtotal_descuento += Convert.ToDecimal(vdescuento_xproducto.Trim()) * vcantidad;
+                }
+
+
+                // Valida que el precio unitario del producto no exceda la cantidad máxima a facturar
+
+                if(vdescuento_xproducto.Trim() == "")
+                {
+                    vdescuento_xproducto = "0";
+                }
+
+                decimal vt_suma = Convert.ToDecimal(mbase) + Convert.ToDecimal(miva) + vtotal_xp_traslado + vtotal_xp_ltraslado;
+
+                decimal vt_resta = Convert.ToDecimal(vdescuento_xproducto) + vtotal_xp_retencion + vtotal_xp_lretenido;
+
+                decimal vt_xproducto = (vt_suma - vt_resta) / vcantidad;
+
+                if(vt_xproducto > monto_max)
+                {
+                    excede_montomax_xproducto++;
                 }
             }
 

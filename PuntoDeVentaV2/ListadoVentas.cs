@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Printing;
 using System.IO.Compression;
+using System.Threading;
 
 namespace PuntoDeVentaV2
 {
@@ -56,6 +57,8 @@ namespace PuntoDeVentaV2
         int clickBoton = 0;
         #endregion Variables Globales Para Paginar
 
+        bool ban_ver = false;
+
         CheckBox header_checkb = null;
 
         // Permisos de los botones
@@ -71,6 +74,9 @@ namespace PuntoDeVentaV2
         bool ban = false;
 
         IEnumerable<Ventas> FormVenta = Application.OpenForms.OfType<Ventas>();
+
+        delegate void delegado(int valor);
+
 
         public ListadoVentas()
         {
@@ -775,13 +781,28 @@ namespace PuntoDeVentaV2
 
                     string ruta_archivo = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idVenta + ".pdf";
 
+                    //Thread hilo;
+                    //pictureBox1.Visible = true;
                     if (!File.Exists(ruta_archivo))
-                    {
+                    {// () => mnsj(),
+                        //Parallel.Invoke(() => mnsj(), () => verfactura(idVenta));
+                        
+                        //pBar_descarga_verpdf.Visible = true;
+                        //lb_texto_descarga_verpdf.Visible = true;
+                        //lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
+                        ///Thread hilo = new Thread(() => RealizarProcesoProductos());
+                        /*hilo = new Thread(() => mnsj());
+                        //hilo.Start();
+                        
+                        hilo = new Thread(verfactura);
+                        hilo.Start(idVenta);
+
+                        hilo.Join();*/
                         MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
                         // Genera PDF
                         ver_factura(idVenta);
                     }
-
+                    
                     // poner marca de agua a la nota si es presupuesto
                     using (var dtVentaRealizada = cn.CargarDatos(cs.consulta_dventa(1, idVenta)))
                     {
@@ -810,7 +831,7 @@ namespace PuntoDeVentaV2
 
                     ver_nota.ShowDialog();
                 }
-
+                #region 
                 //Ver ticket
                 if (e.ColumnIndex == 12)
                 {
@@ -949,8 +970,54 @@ namespace PuntoDeVentaV2
                     }
                     retomarVentasCanceladas = 0;
                 }
+                #endregion
                 DGVListadoVentas.ClearSelection();
             }
+        }
+        public void mnsj()
+        {
+            //pictureBox1.Visible = true;
+            Console.WriteLine("uno");
+            //pBar_descarga_verpdf.Visible = true;
+            lb_texto_descarga_verpdf.Visible = true;
+            lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
+
+            ///          this.Invoke(barra, new object[] { 1 });
+            //            Thread.Sleep(10);
+
+
+            // (ban_ver == false)
+            //{
+            //pBar_descarga_verpdf.Maximum = 100;
+            //pBar_descarga_verpdf.Value = 2; // Valor inicial
+/*
+            for (var p = 0; p <= 100; p++)
+ {
+                //pBar_descarga_verpdf.Value = p;
+                pBar_descarga_verpdf.Increment(1);
+                lb_txt_ruta_descargar.Text = p.ToString();
+
+                if (ban_ver == true)
+                {
+                    pBar_descarga_verpdf.Visible = false;
+                    lb_texto_descarga_verpdf.Visible = false;
+                }*/
+
+                Console.WriteLine("progreso="+pBar_descarga_verpdf.Value);
+                //refrescar(p);
+                /*delegado barra = new delegado(refrescar);
+                this.Invoke(barra, new object[] { p });
+            Thread.Sleep(10);*/
+
+            //}
+            //}
+        }
+
+        private void verfactura(object id)
+        {
+            Console.WriteLine("dos");
+            int id_vent = Convert.ToInt32(id);
+            ver_factura(id_vent);
         }
 
         private void TTMensaje_Draw(object sender, DrawToolTipEventArgs e)
@@ -1635,6 +1702,7 @@ namespace PuntoDeVentaV2
 
             ByteArrayToFile(result, destino_pdf);
 
+            ban_ver = true;
 
 
             // .    CODIGO DE LA LIBRERIA WKHTMLTOPDF   .
@@ -1922,19 +1990,20 @@ namespace PuntoDeVentaV2
 
         public void inicia_descarga(int[] idnv, string carpeta_elegida)
         {
-            pBar_descarga.Visible = true;
-            lb_texto_descarga.Visible = true;
+            pBar_descarga_verpdf.Visible = true;
+            lb_texto_descarga_verpdf.Visible = true;
 
-            pBar_descarga.Minimum = 1;
-            pBar_descarga.Maximum = 6;
-            pBar_descarga.Value = 2; // Valor inicial
-            pBar_descarga.Step = 1;
+
+            pBar_descarga_verpdf.Minimum = 1;
+            pBar_descarga_verpdf.Maximum = 6;
+            pBar_descarga_verpdf.Value = 2; // Valor inicial
+            pBar_descarga_verpdf.Step = 1;
 
             for (int x = 3; x <= 6; x++)
             {
                 if (descargar_nota(idnv, x, carpeta_elegida) == true)
                 {
-                    pBar_descarga.PerformStep();
+                    pBar_descarga_verpdf.PerformStep();
                 }
             }
 
@@ -1942,8 +2011,8 @@ namespace PuntoDeVentaV2
 
             MessageBox.Show("La(s) nota(s) de venta ha sido descargada(s).", "Mensaje del sistema", MessageBoxButtons.OK);
 
-            pBar_descarga.Visible = false;
-            lb_texto_descarga.Visible = false;
+            pBar_descarga_verpdf.Visible = false;
+            lb_texto_descarga_verpdf.Visible = false;
         }
 
         private bool descargar_nota(int[] idnv, int opc, string carpeta_elegida)

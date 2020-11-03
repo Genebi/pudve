@@ -39,8 +39,11 @@
             this.lb_usuario_completo = new System.Windows.Forms.Label();
             this.btn_aceptar = new System.Windows.Forms.Button();
             this.btn_cancelar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lb_permisos_contraseña = new System.Windows.Forms.Label();
             this.cmb_bx_permisos = new System.Windows.Forms.ComboBox();
+            this.txt_autorizar = new System.Windows.Forms.TextBox();
+            this.picturebx_editar = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picturebx_editar)).BeginInit();
             this.SuspendLayout();
             // 
             // lbTitulo
@@ -79,7 +82,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(28, 164);
+            this.label4.Location = new System.Drawing.Point(28, 184);
             this.label4.Name = "label4";
             this.label4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label4.Size = new System.Drawing.Size(77, 17);
@@ -113,7 +116,7 @@
             // 
             this.lb_usuario.AutoSize = true;
             this.lb_usuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_usuario.Location = new System.Drawing.Point(25, 203);
+            this.lb_usuario.Location = new System.Drawing.Point(28, 155);
             this.lb_usuario.Name = "lb_usuario";
             this.lb_usuario.Size = new System.Drawing.Size(51, 17);
             this.lb_usuario.TabIndex = 6;
@@ -122,8 +125,8 @@
             // 
             // txt_conttraseña
             // 
-            this.txt_conttraseña.Location = new System.Drawing.Point(140, 161);
-            this.txt_conttraseña.MaxLength = 15;
+            this.txt_conttraseña.Location = new System.Drawing.Point(140, 184);
+            this.txt_conttraseña.MaxLength = 100;
             this.txt_conttraseña.Name = "txt_conttraseña";
             this.txt_conttraseña.PasswordChar = '*';
             this.txt_conttraseña.Size = new System.Drawing.Size(190, 22);
@@ -135,7 +138,7 @@
             // 
             this.lb_usuario_completo.AutoSize = true;
             this.lb_usuario_completo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_usuario_completo.Location = new System.Drawing.Point(137, 203);
+            this.lb_usuario_completo.Location = new System.Drawing.Point(140, 155);
             this.lb_usuario_completo.Name = "lb_usuario_completo";
             this.lb_usuario_completo.Size = new System.Drawing.Size(18, 17);
             this.lb_usuario_completo.TabIndex = 8;
@@ -150,7 +153,7 @@
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(196, 314);
+            this.btn_aceptar.Location = new System.Drawing.Point(200, 314);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(119, 30);
             this.btn_aceptar.TabIndex = 9;
@@ -166,7 +169,7 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(49, 314);
+            this.btn_cancelar.Location = new System.Drawing.Point(53, 314);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
             this.btn_cancelar.TabIndex = 10;
@@ -174,14 +177,14 @@
             this.btn_cancelar.UseVisualStyleBackColor = false;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
-            // label1
+            // lb_permisos_contraseña
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 237);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 17);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Asignar permisos";
+            this.lb_permisos_contraseña.AutoSize = true;
+            this.lb_permisos_contraseña.Location = new System.Drawing.Point(25, 231);
+            this.lb_permisos_contraseña.Name = "lb_permisos_contraseña";
+            this.lb_permisos_contraseña.Size = new System.Drawing.Size(107, 17);
+            this.lb_permisos_contraseña.TabIndex = 11;
+            this.lb_permisos_contraseña.Text = "Asignar permisos";
             // 
             // cmb_bx_permisos
             // 
@@ -191,18 +194,43 @@
             "Todos los permisos",
             "Permisos limitados",
             "Elegir permisos"});
-            this.cmb_bx_permisos.Location = new System.Drawing.Point(138, 234);
+            this.cmb_bx_permisos.Location = new System.Drawing.Point(140, 228);
             this.cmb_bx_permisos.Name = "cmb_bx_permisos";
             this.cmb_bx_permisos.Size = new System.Drawing.Size(190, 25);
             this.cmb_bx_permisos.TabIndex = 13;
+            // 
+            // txt_autorizar
+            // 
+            this.txt_autorizar.Location = new System.Drawing.Point(140, 233);
+            this.txt_autorizar.MaxLength = 100;
+            this.txt_autorizar.Name = "txt_autorizar";
+            this.txt_autorizar.PasswordChar = '*';
+            this.txt_autorizar.Size = new System.Drawing.Size(190, 22);
+            this.txt_autorizar.TabIndex = 14;
+            this.txt_autorizar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt_autorizar.Visible = false;
+            // 
+            // picturebx_editar
+            // 
+            this.picturebx_editar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picturebx_editar.Image = global::PuntoDeVentaV2.Properties.Resources.edit;
+            this.picturebx_editar.Location = new System.Drawing.Point(336, 186);
+            this.picturebx_editar.Name = "picturebx_editar";
+            this.picturebx_editar.Size = new System.Drawing.Size(18, 18);
+            this.picturebx_editar.TabIndex = 15;
+            this.picturebx_editar.TabStop = false;
+            this.picturebx_editar.Visible = false;
+            this.picturebx_editar.Click += new System.EventHandler(this.click_editar_contraseña);
             // 
             // Agregar_empleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 356);
+            this.ClientSize = new System.Drawing.Size(367, 356);
+            this.Controls.Add(this.picturebx_editar);
+            this.Controls.Add(this.txt_autorizar);
             this.Controls.Add(this.cmb_bx_permisos);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lb_permisos_contraseña);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.lb_usuario_completo);
@@ -223,6 +251,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Agregar Empleado";
             this.Load += new System.EventHandler(this.Agregar_empleado_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.picturebx_editar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,7 +270,9 @@
         private System.Windows.Forms.Label lb_usuario_completo;
         private System.Windows.Forms.Button btn_aceptar;
         private System.Windows.Forms.Button btn_cancelar;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lb_permisos_contraseña;
         private System.Windows.Forms.ComboBox cmb_bx_permisos;
+        private System.Windows.Forms.TextBox txt_autorizar;
+        private System.Windows.Forms.PictureBox picturebx_editar;
     }
 }
