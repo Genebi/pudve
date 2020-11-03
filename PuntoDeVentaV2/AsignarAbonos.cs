@@ -26,6 +26,9 @@ namespace PuntoDeVentaV2
         private float totalMetodos = 0f;
         private bool existenAbonos = false;
 
+        private string ticketGenerado = string.Empty;
+        private string rutaTicketGenerado = string.Empty;
+
         public AsignarAbonos(int idVenta, float totalOriginal)
         {
             InitializeComponent();
@@ -146,6 +149,7 @@ namespace PuntoDeVentaV2
 
                     GenerarTicket(datos);
                     ImprimirTicket(idVenta.ToString(), idAbono);
+                    MostrarTicketAbonos(idVenta.ToString(), idAbono);
 
                     this.Dispose();
                 }
@@ -167,9 +171,45 @@ namespace PuntoDeVentaV2
 
                     GenerarTicket(datos);
                     ImprimirTicket(idVenta.ToString(), idAbono);
+                    MostrarTicketAbonos(idVenta.ToString(), idAbono);
 
                     this.Dispose();
                 }
+            }
+        }
+
+        private void MostrarTicketAbonos(string idVenta, string idAbono)
+        {
+            var servidor = Properties.Settings.Default.Hosting;
+
+            ticketGenerado = $"ticket_abono_{idVenta}"+"_"+idAbono+".pdf";
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaTicketGenerado = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
+            }
+            else
+            {
+                rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
+            }
+
+            if (File.Exists(rutaTicketGenerado))
+            {
+                VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
+
+                vt.FormClosed += delegate
+                {
+                    vt.Dispose();
+
+                    rutaTicketGenerado = string.Empty;
+                    ticketGenerado = string.Empty;
+                };
+
+                vt.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
