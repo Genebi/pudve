@@ -55,7 +55,7 @@ namespace PuntoDeVentaV2
 
         private async Task<bool> Cargando()
         {
-            var primerArchivo = "mariadb-10.5.5-win32.msi";
+            var primerArchivo = "mariadb-10.4.15-win32.msi";
             var segundoArchivo = string.Empty;
 
             if (Environment.Is64BitOperatingSystem)
@@ -106,7 +106,7 @@ namespace PuntoDeVentaV2
         {
             var tcs = new TaskCompletionSource<int>();
 
-            string rutaMSI = rutaDirectorio + "mariadb-10.5.5-win32.msi";
+            string rutaMSI = rutaDirectorio + "mariadb-10.4.15-win32.msi";
             string rutaInstalacion = @"C:\Program Files (x86)\PudveBD\";
             string servicio = "PudveBD";
             string argumentos = string.Format("/qn /i \"{0}\" INSTALLDIR=\"{1}\" ADDLOCAL=ALL REMOVE=HeidiSQL ALLUSERS=1 PORT=6666 SERVICENAME=\"{2}\"", rutaMSI, rutaInstalacion, servicio);

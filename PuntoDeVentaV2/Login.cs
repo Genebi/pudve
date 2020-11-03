@@ -505,23 +505,19 @@ namespace PuntoDeVentaV2
 
             if (Directory.Exists(@"C:\Program Files (x86)\PudveBD\"))
             {
-                List<string> tablasPendientes = new List<string>();
+                Hide();
 
-                //tablasPendientes.Add("appSettings");
+                ConfiguracionMariaDB config = new ConfiguracionMariaDB(false);
+                BaseDatosMySQL bd = new BaseDatosMySQL();
+                TablasMySQL tablas = new TablasMySQL();
 
-                if (tablasPendientes.Count > 0)
-                {
-                    Hide();
-
-                    ConfiguracionMariaDB config = new ConfiguracionMariaDB(false);
-                    TablasMySQL tablas = new TablasMySQL();
-
-                    config.Show();
-                    var tarea = Task.Run(() => tablas.buildTables(false));
-                    tarea.Wait();
-                    config.Close();
-                    Show();
-                }
+                config.Show();
+                var database = Task.Run(() => bd.buildDataBase());
+                var tarea = Task.Run(() => tablas.buildTables(false));
+                database.Wait();
+                tarea.Wait();
+                config.Close();
+                Show();
             }
 
           
