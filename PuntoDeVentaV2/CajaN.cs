@@ -1893,11 +1893,19 @@ namespace PuntoDeVentaV2
             CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
 
             var validarAbono = "abono";
-            if (mostrarAbonosCaja != null)
+            if (mostrarAbonosCaja == null)
             {
                 abonos_devoluciones = "abonos";
                 CajaAbonos mostrarAbonos = new CajaAbonos();
                 mostrarAbonos.Show();
+            }
+
+            if (mostrarAbonosCaja != null)
+            {
+                if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+                {
+                    mostrarAbonosCaja.BringToFront();
+                }
             }
         }
 
@@ -1906,11 +1914,19 @@ namespace PuntoDeVentaV2
             CajaAbonos mostrarDevolucionesCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
 
             var validarDEvolucion = "devolucion";
-            if (mostrarDevolucionesCaja != null)
+            if (mostrarDevolucionesCaja == null)
             {
                 abonos_devoluciones = "devoluciones";
                 CajaAbonos mostrarDevoluciones = new CajaAbonos();
                 mostrarDevoluciones.Show();
+            }
+
+            if (mostrarDevolucionesCaja != null)
+            {
+                if (mostrarDevolucionesCaja.WindowState == FormWindowState.Minimized || mostrarDevolucionesCaja.WindowState == FormWindowState.Normal)
+                {
+                    mostrarDevolucionesCaja.BringToFront();
+                }
             }
         }
 
