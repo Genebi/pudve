@@ -71,14 +71,11 @@
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
             this.elegir_carpeta_descarga = new System.Windows.Forms.FolderBrowserDialog();
-<<<<<<< HEAD
-            this.pBar_descarga = new System.Windows.Forms.ProgressBar();
-            this.lb_texto_descarga = new System.Windows.Forms.Label();
-=======
             this.pBar_descarga_verpdf = new System.Windows.Forms.ProgressBar();
             this.lb_texto_descarga_verpdf = new System.Windows.Forms.Label();
+            //this.pBar_descarga_verpdf = new System.Windows.Forms.ProgressBar();
+            //this.lb_texto_descarga_verpdf = new System.Windows.Forms.Label();
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
->>>>>>> mnsjAntesDeCrearPDFNota
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -697,17 +694,15 @@
             // 
             this.lb_texto_descarga_verpdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-<<<<<<< HEAD
-            this.lb_texto_descarga.AutoSize = true;
-            this.lb_texto_descarga.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_texto_descarga.ForeColor = System.Drawing.Color.Red;
-            this.lb_texto_descarga.Location = new System.Drawing.Point(389, 424);
-            this.lb_texto_descarga.Name = "lb_texto_descarga";
-            this.lb_texto_descarga.Size = new System.Drawing.Size(154, 19);
-            this.lb_texto_descarga.TabIndex = 9;
-            this.lb_texto_descarga.Text = "Descargando nota";
-            this.lb_texto_descarga.Visible = false;
-=======
+            this.lb_texto_descarga_verpdf.AutoSize = true;
+            this.lb_texto_descarga_verpdf.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_texto_descarga_verpdf.ForeColor = System.Drawing.Color.Red;
+            this.lb_texto_descarga_verpdf.Location = new System.Drawing.Point(389, 424);
+            this.lb_texto_descarga_verpdf.Name = "lb_texto_descarga";
+            this.lb_texto_descarga_verpdf.Size = new System.Drawing.Size(154, 19);
+            this.lb_texto_descarga_verpdf.TabIndex = 9;
+            this.lb_texto_descarga_verpdf.Text = "Descargando nota";
+            this.lb_texto_descarga_verpdf.Visible = false;
             this.lb_texto_descarga_verpdf.AutoSize = true;
             this.lb_texto_descarga_verpdf.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_texto_descarga_verpdf.ForeColor = System.Drawing.Color.Red;
@@ -731,7 +726,6 @@
             this.lb_txt_ruta_descargar.TabIndex = 11;
             this.lb_txt_ruta_descargar.Text = "label1";
             this.lb_txt_ruta_descargar.Visible = false;
->>>>>>> mnsjAntesDeCrearPDFNota
             // 
             // ListadoVentas
             // 

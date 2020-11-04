@@ -171,7 +171,6 @@ namespace PuntoDeVentaV2
                 dgv_empleados.ClearSelection();
             }
         }
-<<<<<<< HEAD
 
         private void Empleados_KeyDown(object sender, KeyEventArgs e)
         {
@@ -199,8 +198,5 @@ namespace PuntoDeVentaV2
                 mostrarVentas.Show();
             }
         }
-=======
-        
->>>>>>> mnsjAntesDeCrearPDFNota
     }
 }
