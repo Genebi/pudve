@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnVerCBExtra = new System.Windows.Forms.Button();
             this.txtCodigoBarras = new System.Windows.Forms.TextBox();
@@ -50,16 +51,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lbBackground = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnTerminar = new System.Windows.Forms.Button();
+            this.btnAnterior = new System.Windows.Forms.Button();
             this.btnSiguiente = new System.Windows.Forms.Button();
+            this.btnTerminar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lblNoRevision = new System.Windows.Forms.Label();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.lbCantidadFiltro = new System.Windows.Forms.Label();
             this.btnDeshabilitarProducto = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnAnterior = new System.Windows.Forms.Button();
-            this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -75,6 +75,18 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Código de Barras:";
+            // 
+            // txtBoxBuscarCodigoBarras
+            // 
+            this.txtBoxBuscarCodigoBarras.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtBoxBuscarCodigoBarras.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxBuscarCodigoBarras.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.txtBoxBuscarCodigoBarras.Location = new System.Drawing.Point(40, 22);
+            this.txtBoxBuscarCodigoBarras.Name = "txtBoxBuscarCodigoBarras";
+            this.txtBoxBuscarCodigoBarras.Size = new System.Drawing.Size(344, 33);
+            this.txtBoxBuscarCodigoBarras.TabIndex = 0;
+            this.txtBoxBuscarCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBoxBuscarCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxBuscarCodigoBarras_KeyDown);
             // 
             // groupBox2
             // 
@@ -306,16 +318,17 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
-            // btnTerminar
+            // btnAnterior
             // 
-            this.btnTerminar.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminar.Location = new System.Drawing.Point(35, 567);
-            this.btnTerminar.Name = "btnTerminar";
-            this.btnTerminar.Size = new System.Drawing.Size(373, 48);
-            this.btnTerminar.TabIndex = 5;
-            this.btnTerminar.Text = "Terminar";
-            this.btnTerminar.UseVisualStyleBackColor = true;
-            this.btnTerminar.Click += new System.EventHandler(this.btnTerminar_Click);
+            this.btnAnterior.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnterior.ForeColor = System.Drawing.Color.Red;
+            this.btnAnterior.Location = new System.Drawing.Point(23, 19);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(171, 48);
+            this.btnAnterior.TabIndex = 5;
+            this.btnAnterior.Text = "Anterior";
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
             // btnSiguiente
             // 
@@ -328,6 +341,17 @@
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
+            // btnTerminar
+            // 
+            this.btnTerminar.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTerminar.Location = new System.Drawing.Point(35, 567);
+            this.btnTerminar.Name = "btnTerminar";
+            this.btnTerminar.Size = new System.Drawing.Size(373, 48);
+            this.btnTerminar.TabIndex = 5;
+            this.btnTerminar.Text = "Terminar";
+            this.btnTerminar.UseVisualStyleBackColor = true;
+            this.btnTerminar.Click += new System.EventHandler(this.btnTerminar_Click);
             // 
             // label2
             // 
@@ -364,6 +388,7 @@
             // 
             // btnDeshabilitarProducto
             // 
+            this.btnDeshabilitarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDeshabilitarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.trash;
             this.btnDeshabilitarProducto.Location = new System.Drawing.Point(407, 5);
             this.btnDeshabilitarProducto.Name = "btnDeshabilitarProducto";
@@ -372,30 +397,6 @@
             this.toolTip1.SetToolTip(this.btnDeshabilitarProducto, "Deshabilitar Producto");
             this.btnDeshabilitarProducto.UseVisualStyleBackColor = true;
             this.btnDeshabilitarProducto.Click += new System.EventHandler(this.btnDeshabilitarProducto_Click);
-            // 
-            // btnAnterior
-            // 
-            this.btnAnterior.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnterior.ForeColor = System.Drawing.Color.Red;
-            this.btnAnterior.Location = new System.Drawing.Point(23, 19);
-            this.btnAnterior.Name = "btnAnterior";
-            this.btnAnterior.Size = new System.Drawing.Size(171, 48);
-            this.btnAnterior.TabIndex = 5;
-            this.btnAnterior.Text = "Anterior";
-            this.btnAnterior.UseVisualStyleBackColor = true;
-            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
-            // 
-            // txtBoxBuscarCodigoBarras
-            // 
-            this.txtBoxBuscarCodigoBarras.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtBoxBuscarCodigoBarras.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxBuscarCodigoBarras.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.txtBoxBuscarCodigoBarras.Location = new System.Drawing.Point(40, 22);
-            this.txtBoxBuscarCodigoBarras.Name = "txtBoxBuscarCodigoBarras";
-            this.txtBoxBuscarCodigoBarras.Size = new System.Drawing.Size(344, 33);
-            this.txtBoxBuscarCodigoBarras.TabIndex = 0;
-            this.txtBoxBuscarCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtBoxBuscarCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxBuscarCodigoBarras_KeyDown);
             // 
             // RevisarInventario
             // 
