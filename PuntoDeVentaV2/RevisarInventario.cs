@@ -768,11 +768,11 @@ namespace PuntoDeVentaV2
 
         private void btnReducirStock_Click(object sender, EventArgs e)
         {
-            var cantidad = 0;
+            decimal cantidad = 0;
 
             if (!string.IsNullOrWhiteSpace(txtCantidadStock.Text))
             {
-                cantidad = Convert.ToInt32(txtCantidadStock.Text);
+                cantidad = Convert.ToDecimal(txtCantidadStock.Text);
             }
 
             cantidad -= 1;
