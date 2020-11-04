@@ -720,20 +720,19 @@ namespace PuntoDeVentaV2
 
         private void txtCantidadStock_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Para obligar a que sólo se introduzcan números
-            if (char.IsDigit(e.KeyChar))
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
             {
-                e.Handled = false;
+                e.Handled = true;
+                return;
             }
-            else
+
+            //verifica que solo un decimal este permitido
+            if (e.KeyChar == 46)
             {
-                if (char.IsControl(e.KeyChar))  // permitir teclas de control como retroceso
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
                 {
-                    e.Handled = false;
-                }
-                else
-                {
-                    e.Handled = true;   // el resto de teclas pulsadas se desactivan
+                    e.Handled = true;
                 }
             }
         }
