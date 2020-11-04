@@ -898,22 +898,20 @@ namespace PuntoDeVentaV2
         private void btnDeshabilitarProducto_Click(object sender, EventArgs e)
         {
             var idObtenido = idProducto;
+
             DialogResult confirmarDesicion = MessageBox.Show("¿Desea Deshabilitar este producto?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (confirmarDesicion == DialogResult.Yes)
             {
-                cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idObtenido}'");
-                //lblNoRevision.Text = "";
-                txtBoxBuscarCodigoBarras.Text = "";
-                txtNombreProducto.Text = "";
-                txtCodigoBarras.Text = "";
-                lbBackground.Text = "";
-                lblPrecioProducto.Text = "";
-                lblStockMinimo.Text = "";
-                lblStockMaximo.Text = "";
-                txtCantidadStock.Text = "";
-                txtBoxBuscarCodigoBarras.Focus();
+                //lbBackground.Text = string.Empty;
+                //LimpiarCampos();
+                //txtBoxBuscarCodigoBarras.Focus();
+                btnSiguiente.PerformClick();
+                cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE IDUsuario = {FormPrincipal.userID} AND ID = {idObtenido}");
+
             }
+
+            cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
         }
 
         private void btnAnterior_Click(object sender, EventArgs e)
