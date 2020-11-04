@@ -987,7 +987,7 @@ namespace PuntoDeVentaV2
                     saldo += float.Parse(info["Vales"].ToString());
                     saldo += float.Parse(info["Cheque"].ToString());
                     saldo += float.Parse(info["Transferencia"].ToString());
-                    saldo += float.Parse(info["Credito"].ToString());
+                    //saldo += float.Parse(info["Credito"].ToString());
                 }
 
                 info.Close();
