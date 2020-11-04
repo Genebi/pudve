@@ -423,9 +423,9 @@ namespace PuntoDeVentaV2
                     {
                         if (tipoFiltro != "Normal")
                         {
-                            MessageBox.Show("No se encontraron productos con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                            btnTerminar.PerformClick();
+                            MessageBox.Show("No se encontraron productos o no hay más con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //btnSiguiente.PerformClick();
+                            //btnTerminar.PerformClick();
                         }
                         else
                         {
@@ -552,9 +552,9 @@ namespace PuntoDeVentaV2
             {
                 if (tipoFiltro != "Normal")
                 {
-                    MessageBox.Show("No se encontraron productos con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    btnTerminar.PerformClick();
+                    MessageBox.Show("No se encontraron productos o no hay más con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //btnSiguiente.PerformClick();
+                    //btnTerminar.PerformClick();
                 }
                 else
                 {
@@ -810,7 +810,10 @@ namespace PuntoDeVentaV2
 
         private void btnTerminar_Click(object sender, EventArgs e)
         {
+            btnSiguiente.PerformClick();
+
             DialogResult deseaTernimar =  MessageBox.Show("Desea Terminar la Revision", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
             if (deseaTernimar == DialogResult.Yes)
             {
                 // Guardamos los dos Datos de las variables del sistema
@@ -908,10 +911,8 @@ namespace PuntoDeVentaV2
                 //txtBoxBuscarCodigoBarras.Focus();
                 btnSiguiente.PerformClick();
                 cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE IDUsuario = {FormPrincipal.userID} AND ID = {idObtenido}");
-
+                cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
             }
-
-            cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
         }
 
         private void btnAnterior_Click(object sender, EventArgs e)
