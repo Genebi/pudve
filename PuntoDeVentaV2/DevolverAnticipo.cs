@@ -380,7 +380,7 @@ namespace PuntoDeVentaV2
                         else if (cancelarVenta == 2)
                         {
                             //Cancela las ventas a credito
-                            var revisarSiTieneAbono = cn.CargarDatos($"SELECT * FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
+                            var revisarSiTieneAbono = cn.CargarDatos($"SELECT sum(Total), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia), FechaOperacion FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
                             string ultimoDate = string.Empty;
                             if (!revisarSiTieneAbono.Rows.Count.Equals(0))// valida si la consulta esta vacia 
                             {
@@ -403,12 +403,12 @@ namespace PuntoDeVentaV2
 
                                     foreach (DataRow contenido in revisarSiTieneAbono.Rows)
                                     {
-                                        resultadoConsultaAbonos = contenido["Total"].ToString();
-                                        efectivoAbonadoADevolver = contenido["Efectivo"].ToString();
-                                        tarjetaAbonadoADevolver = contenido["Tarjeta"].ToString();
-                                        valesAbonadoADevolver = contenido["Vales"].ToString();
-                                        chequeAbonadoADevolver = contenido["Cheque"].ToString();
-                                        transAbonadoADevolver = contenido["Transferencia"].ToString();
+                                        resultadoConsultaAbonos = contenido["sum(Total)"].ToString();
+                                        efectivoAbonadoADevolver = contenido["sum(Efectivo)"].ToString();
+                                        tarjetaAbonadoADevolver = contenido["sum(Tarjeta)"].ToString();
+                                        valesAbonadoADevolver = contenido["sum(Vales)"].ToString();
+                                        chequeAbonadoADevolver = contenido["sum(Cheque)"].ToString();
+                                        transAbonadoADevolver = contenido["sum(Transferencia)"].ToString();
                                         fechaOperacionAbonadoADevolver = contenido["FechaOperacion"].ToString();
                                     }
                                     DateTime fechaAbonoRealizado = DateTime.Parse(fechaOperacionAbonadoADevolver);
