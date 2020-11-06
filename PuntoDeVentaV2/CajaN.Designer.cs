@@ -130,6 +130,7 @@
             this.tituloVentas = new System.Windows.Forms.Label();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lbSaldoInicialInfo = new System.Windows.Forms.Label();
             this.panelFondo.SuspendLayout();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroRetirado.SuspendLayout();
@@ -144,7 +145,7 @@
             this.primerSeparador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.primerSeparador.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.primerSeparador.Location = new System.Drawing.Point(20, 53);
+            this.primerSeparador.Location = new System.Drawing.Point(20, 59);
             this.primerSeparador.Name = "primerSeparador";
             this.primerSeparador.Size = new System.Drawing.Size(1097, 10);
             this.primerSeparador.TabIndex = 21;
@@ -154,7 +155,7 @@
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(116, 19);
+            this.tituloSeccion.Location = new System.Drawing.Point(116, 7);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(900, 25);
             this.tituloSeccion.TabIndex = 22;
@@ -1381,11 +1382,24 @@
             this.btnImprimir.UseVisualStyleBackColor = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
+            // lbSaldoInicialInfo
+            // 
+            this.lbSaldoInicialInfo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbSaldoInicialInfo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lbSaldoInicialInfo.Location = new System.Drawing.Point(552, 30);
+            this.lbSaldoInicialInfo.Name = "lbSaldoInicialInfo";
+            this.lbSaldoInicialInfo.Size = new System.Drawing.Size(30, 26);
+            this.lbSaldoInicialInfo.TabIndex = 39;
+            this.toolTip1.SetToolTip(this.lbSaldoInicialInfo, "Mostrar Abonos");
+            this.lbSaldoInicialInfo.Visible = false;
+            this.lbSaldoInicialInfo.Click += new System.EventHandler(this.label2_Click);
+            // 
             // CajaN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1135, 661);
+            this.Controls.Add(this.lbSaldoInicialInfo);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.tablaContenedor);
             this.Controls.Add(this.panelFondo);
@@ -1520,5 +1534,6 @@
         private System.Windows.Forms.Label lbDevoluciones;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbCambioDevoluciones;
+        private System.Windows.Forms.Label lbSaldoInicialInfo;
     }
 }

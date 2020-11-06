@@ -42,6 +42,7 @@
             this.lbTCreditoC = new System.Windows.Forms.Label();
             this.lbCreditoC = new System.Windows.Forms.Label();
             this.tituloDevoluciones = new System.Windows.Forms.Label();
+            this.tituloSaldoInicial = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbTransferenciaAbonos
@@ -202,11 +203,24 @@
             this.tituloDevoluciones.Text = "DEVOLUCIONES";
             this.tituloDevoluciones.Visible = false;
             // 
+            // tituloSaldoInicial
+            // 
+            this.tituloSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tituloSaldoInicial.AutoSize = true;
+            this.tituloSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSaldoInicial.Location = new System.Drawing.Point(76, 26);
+            this.tituloSaldoInicial.Name = "tituloSaldoInicial";
+            this.tituloSaldoInicial.Size = new System.Drawing.Size(99, 18);
+            this.tituloSaldoInicial.TabIndex = 38;
+            this.tituloSaldoInicial.Text = "Saldo Inicial";
+            this.tituloSaldoInicial.Visible = false;
+            // 
             // CajaAbonos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(234, 350);
+            this.Controls.Add(this.tituloSaldoInicial);
             this.Controls.Add(this.tituloDevoluciones);
             this.Controls.Add(this.lbEfectivoAbonos);
             this.Controls.Add(this.lbTarjetaAbonos);
@@ -247,5 +261,6 @@
         private System.Windows.Forms.Label lbTCreditoC;
         private System.Windows.Forms.Label lbCreditoC;
         private System.Windows.Forms.Label tituloDevoluciones;
+        private System.Windows.Forms.Label tituloSaldoInicial;
     }
 }

@@ -1886,6 +1886,15 @@ namespace PuntoDeVentaV2
             {
                 lbCambioDevoluciones.Visible = false;
             }
+
+            if (MetodosBusquedas.totalSInicial > 0)
+            {
+                lbSaldoInicialInfo.Visible = true;
+            }
+            else
+            {
+                lbSaldoInicialInfo.Visible = false;
+            }
         }
 
         private void lbCambioAbonos_Click(object sender, EventArgs e)
@@ -1981,6 +1990,27 @@ namespace PuntoDeVentaV2
             {
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+
+            var validarSaldoInicial = "Saldo Inicial";
+            if (mostrarAbonosCaja == null)
+            {
+                abonos_devoluciones = "Saldo Inicial";
+                CajaAbonos mostrarAbonos = new CajaAbonos();
+                mostrarAbonos.Show();
+            }
+
+            if (mostrarAbonosCaja != null)
+            {
+                if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+                {
+                    mostrarAbonosCaja.BringToFront();
+                }
             }
         }
     }

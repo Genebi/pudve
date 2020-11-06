@@ -14,6 +14,13 @@ namespace PuntoDeVentaV2
 {
     class MetodosBusquedas
     {
+        public static float efectivoInicial { get; set; }
+        public static float tarjetaInicial { get; set; }
+        public static float valesInicial { get; set; }
+        public static float chequeInicial { get; set; }
+        public static float transInicial { get; set; }
+        public static float totalSInicial { get; set; }
+
         private MySqlConnection sql_con;
         private MySqlCommand sql_cmd;
 
@@ -982,6 +989,13 @@ namespace PuntoDeVentaV2
 
                 if (info.Read())
                 {
+                    efectivoInicial = float.Parse(info["Efectivo"].ToString());
+                    tarjetaInicial = float.Parse(info["Tarjeta"].ToString());
+                    valesInicial = float.Parse(info["Vales"].ToString());
+                    chequeInicial = float.Parse(info["Cheque"].ToString());
+                    transInicial = float.Parse(info["Transferencia"].ToString());
+                    totalSInicial = (efectivoInicial + tarjetaInicial + valesInicial + chequeInicial + transInicial);
+
                     saldo += float.Parse(info["Efectivo"].ToString());
                     saldo += float.Parse(info["Tarjeta"].ToString());
                     saldo += float.Parse(info["Vales"].ToString());

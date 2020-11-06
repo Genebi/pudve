@@ -210,6 +210,22 @@ namespace PuntoDeVentaV2
 
                 }
             }
+            else if (abodoDevolucion.Equals("Saldo Inicial"))
+            {
+                tituloSaldoInicial.Visible = true; ;
+                lbCreditoC.Text = "Total Saldo Inicial";
+
+                //Aqui se muestra lo de Devoluciones
+                efectivoI = MetodosBusquedas.efectivoInicial;
+                tarjetaI = MetodosBusquedas.tarjetaInicial;
+                valesI = MetodosBusquedas.valesInicial;
+                chequeI = MetodosBusquedas.chequeInicial;
+                transferenciaI = MetodosBusquedas.transInicial;    
+
+
+            }
+
+
             //Variables de Abonos en Ventas
             lbEfectivoAbonos.Text = "$" + efectivoI.ToString("0.00");
             lbTarjetaAbonos.Text = "$" + tarjetaI.ToString("0.00");
