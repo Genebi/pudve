@@ -416,7 +416,14 @@ namespace PuntoDeVentaV2
             {
                 var totalTarjeta = totalVenta - (totalEfectivo + credito);
 
-                txtTarjeta.Text = totalTarjeta.ToString();
+                if (totalTarjeta < 0)
+                {
+                    txtTarjeta.Text = string.Empty;
+                }
+                else
+                {
+                    txtTarjeta.Text = totalTarjeta.ToString();
+                }
 
                 if (totalEfectivo > totalVenta)
                 {

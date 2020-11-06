@@ -1886,6 +1886,15 @@ namespace PuntoDeVentaV2
             {
                 lbCambioDevoluciones.Visible = false;
             }
+
+            if (MetodosBusquedas.totalSInicial > 0)
+            {
+                lbSaldoInicialInfo.Visible = true;
+            }
+            else
+            {
+                lbSaldoInicialInfo.Visible = false;
+            }
         }
 
         private void lbCambioAbonos_Click(object sender, EventArgs e)
@@ -1893,11 +1902,19 @@ namespace PuntoDeVentaV2
             CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
 
             var validarAbono = "abono";
-            if (mostrarAbonosCaja != null)
+            if (mostrarAbonosCaja == null)
             {
                 abonos_devoluciones = "abonos";
                 CajaAbonos mostrarAbonos = new CajaAbonos();
                 mostrarAbonos.Show();
+            }
+
+            if (mostrarAbonosCaja != null)
+            {
+                if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+                {
+                    mostrarAbonosCaja.BringToFront();
+                }
             }
         }
 
@@ -1906,11 +1923,19 @@ namespace PuntoDeVentaV2
             CajaAbonos mostrarDevolucionesCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
 
             var validarDEvolucion = "devolucion";
-            if (mostrarDevolucionesCaja != null)
+            if (mostrarDevolucionesCaja == null)
             {
                 abonos_devoluciones = "devoluciones";
                 CajaAbonos mostrarDevoluciones = new CajaAbonos();
                 mostrarDevoluciones.Show();
+            }
+
+            if (mostrarDevolucionesCaja != null)
+            {
+                if (mostrarDevolucionesCaja.WindowState == FormWindowState.Minimized || mostrarDevolucionesCaja.WindowState == FormWindowState.Normal)
+                {
+                    mostrarDevolucionesCaja.BringToFront();
+                }
             }
         }
 
@@ -1965,6 +1990,27 @@ namespace PuntoDeVentaV2
             {
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+
+            var validarSaldoInicial = "Saldo Inicial";
+            if (mostrarAbonosCaja == null)
+            {
+                abonos_devoluciones = "Saldo Inicial";
+                CajaAbonos mostrarAbonos = new CajaAbonos();
+                mostrarAbonos.Show();
+            }
+
+            if (mostrarAbonosCaja != null)
+            {
+                if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+                {
+                    mostrarAbonosCaja.BringToFront();
+                }
             }
         }
     }

@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
             operadores.Add("NA", "Seleccionar opción...");
             operadores.Add(">=", "Mayor o igual que");
             operadores.Add("<=", "Menor o igual que");
-            operadores.Add("==", "Igual que");
+            operadores.Add("=", "Igual que");
             operadores.Add(">", "Mayor que");
             operadores.Add("<", "Menor que");
 
@@ -202,7 +202,7 @@ namespace PuntoDeVentaV2
                 {
                     if (!filtroDinamico.Equals("<="))
                     {
-                        if (!filtroDinamico.Equals("=="))
+                        if (!filtroDinamico.Equals("="))
                         {
                             if (!filtroDinamico.Equals(">"))
                             {
