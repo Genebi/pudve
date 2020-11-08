@@ -1125,7 +1125,40 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        var dtImpVenta = cn.CargarDatos(cs.ReimprimirTicket(idVenta));
+
+                        var datosConfig = mb.DatosConfiguracion();
+                        bool imprimirCodigo = false;
+
+                        if (Convert.ToInt16(datosConfig[0]) == 1)
+                        {
+                            imprimirCodigo = true;
+                        }
+
+                        if (dtImpVenta.Rows.Count > 0)
+                        {
+                            Utilidades.GenerarTicket(dtImpVenta, imprimirCodigo);
+
+                            if (File.Exists(rutaTicketGenerado))
+                            {
+                                VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
+
+                                vt.FormClosed += delegate
+                                {
+                                    vt.Dispose();
+
+                                    rutaTicketGenerado = string.Empty;
+                                    ticketGenerado = string.Empty;
+                                };
+
+                                vt.ShowDialog();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
 
