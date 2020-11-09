@@ -547,7 +547,7 @@ namespace PuntoDeVentaV2
                         continue;
                     }
 
-                    vEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+                    vEfectivo += (float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString())/*+MetodosBusquedas.efectivoInicial*/);
                     vTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
                     vVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
                     vCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());

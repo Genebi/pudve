@@ -3,7 +3,9 @@ using iTextSharp.text.pdf;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -339,7 +341,7 @@ namespace PuntoDeVentaV2
                         <p style='font-size: 0.8em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
                     </div>";
                 }
-                
+
                 if (tipo == 1)
                 {
                     html = $@"
@@ -385,7 +387,7 @@ namespace PuntoDeVentaV2
                         <p style='font-size: 0.8em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
                     </div>";
                 }
-                
+
                 if (tipo == 1)
                 {
                     html = $@"
@@ -472,8 +474,8 @@ namespace PuntoDeVentaV2
                         iTextSharp.text.Rectangle rec = reader.GetPageSize(i);
                         PdfContentByte cb = stamper.GetUnderContent(i);
 
-                        float   posicionX = 0, 
-                                posicionY = 0, 
+                        float posicionX = 0,
+                                posicionY = 0,
                                 anguloTexto = 0f;
 
                         cb.BeginLayer(layer);
@@ -486,7 +488,7 @@ namespace PuntoDeVentaV2
                         cb.SetColorFill(iTextSharp.text.BaseColor.RED);
                         cb.BeginText();
                         posicionX = rec.Width / 2;
-                        posicionY = (rec.Height / 3)*(float)1.9;
+                        posicionY = (rec.Height / 3) * (float)1.9;
                         cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, texto, posicionX, posicionY, anguloTexto);
                         cb.EndText();
                         cb.EndLayer();
@@ -501,6 +503,433 @@ namespace PuntoDeVentaV2
                     File.Delete(archivoCopia);
                 }
             }
+        }
+
+        public static void GenerarTicket(DataTable tbVenta, bool impCodigo)
+        {
+            string[][] productos = new string[tbVenta.Rows.Count][];
+
+            decimal totalTicketVenta = 0;
+
+            string idVenta = string.Empty,
+                    IDProducto = string.Empty,
+                    Nombre = string.Empty,
+                    Cantidad = string.Empty,
+                    Precio = string.Empty,
+                    DescuentoGeneral = string.Empty,
+                    DescuentoIndividual = string.Empty,
+                    ImporteIndividual = string.Empty,
+                    Descuento = string.Empty,
+                    Total = string.Empty,
+                    Folio = string.Empty,
+                    AnticipoUtilizado = string.Empty,
+                    TipoDescuento = string.Empty,
+                    formaDePagoDeVenta = string.Empty;
+
+            int contador = 0;
+
+            foreach (DataRow item in tbVenta.Rows)
+            {
+                try
+                {
+                    idVenta = item["idVenta"].ToString();
+                    IDProducto = item["IDProducto"].ToString();
+                    Nombre = item["Nombre"].ToString();
+                    Cantidad = item["Cantidad"].ToString();
+                    Precio = item["Precio"].ToString();
+                    DescuentoGeneral = item["DescuentoGeneral"].ToString();
+                    DescuentoIndividual = item["DescuentoIndividual"].ToString();
+                    ImporteIndividual = item["ImporteIndividual"].ToString();
+                    Descuento = item["Descuento"].ToString();
+                    totalTicketVenta += Convert.ToDecimal(item["Precio"].ToString());
+                    Folio = item["Folio"].ToString();
+                    AnticipoUtilizado = item["AnticipoUtilizado"].ToString();
+                    TipoDescuento = item["TipoDescuento"].ToString();
+                    formaDePagoDeVenta = item["formaDePagoDeVenta"].ToString();
+
+                    var guardar = new string[]
+                    {
+                        idVenta,
+                        IDProducto,
+                        Nombre,
+                        Cantidad,
+                        Precio,
+                        DescuentoGeneral,
+                        DescuentoIndividual,
+                        ImporteIndividual,
+                        Descuento,
+                        totalTicketVenta.ToString("#.##"),
+                        Folio,
+                        AnticipoUtilizado,
+                        TipoDescuento,
+                        formaDePagoDeVenta
+                    };
+
+                    productos[contador] = guardar;
+
+                    contador++;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Proceso no esperado en conversion de datos lista Productos para Ticket",
+                                    "Advertencias del Sisteman" + ex.Message.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            var datos = FormPrincipal.datosUsuario;
+
+            // Medidas de ticket de 57 y 80 mm
+            // 1 pulgada = 2.54 cm = 72 puntos = 25.4 mm
+            // 57mm = 161.28 pt
+            // 80mm = 226.08 pt
+
+            var tipoPapel = 80;
+            var anchoPapel = Convert.ToInt32(Math.Floor((((tipoPapel * 0.10) * 72) / 2.54)));
+            var altoPapel = Convert.ToInt32(anchoPapel + 72); // 54 64 68
+
+            if (productos.Length > 3)
+            {
+                var filas = productos.Length / 2.54;
+                filas *= 25.4;
+                altoPapel += Convert.ToInt32(filas);
+
+                for (int i = 0; i < productos.Length; i++)
+                {
+                    if (productos[i][2].Length > 18)
+                    {
+                        altoPapel += 20;
+                    }
+                }
+            }
+
+            //Variables y arreglos para el contenido de la tabla
+            float[] anchoColumnas = new float[] { };
+
+            string txtFormaPago = string.Empty;
+            string strFormaPago = string.Empty;
+            string txtDescripcion = string.Empty;
+            string txtCantidad = string.Empty;
+            string txtImporte = string.Empty;
+            string txtPrecio = string.Empty;
+            // Descuento general
+            string txtDesc = string.Empty;
+            string salto = string.Empty;
+
+            int medidaFuenteMensaje = 0;
+            int medidaFuenteNegrita = 0;
+            int medidaFuenteNormal = 0;
+            int medidaFuenteGrande = 0;
+
+            int separadores = 0;
+            int anchoLogo = 0;
+            int altoLogo = 0;
+            int espacio = 0;
+
+            if (tipoPapel == 80)
+            {
+                anchoColumnas = new float[] { 7f, 24f, 10f, 10f, 10f };
+                txtFormaPago = "Forma de pago:";
+                txtDescripcion = "Descripción";
+                txtCantidad = "Cant.";
+                txtImporte = "Imp.";
+                txtPrecio = "Precio";
+                txtDesc = "Desc.";
+                separadores = 81;
+                anchoLogo = 110;
+                altoLogo = 60;
+                espacio = 10;
+
+                medidaFuenteMensaje = 10;
+                medidaFuenteGrande = 10;
+                medidaFuenteNegrita = 8;
+                medidaFuenteNormal = 8;
+
+                salto = "\n";
+            }
+            else if (tipoPapel == 57)
+            {
+                anchoColumnas = new float[] { 7f, 20f, 11f, 11f, 13f };
+                txtFormaPago = "Forma de pago:";
+                txtDescripcion = "Descripción";
+                txtImporte = "Imp.";
+                txtCantidad = "Cant.";
+                txtPrecio = "Prec.";
+                txtDesc = "Desc.";
+                separadores = 75;
+                anchoLogo = 80;
+                altoLogo = 40;
+                espacio = 8;
+
+                medidaFuenteMensaje = 6;
+                medidaFuenteGrande = 8;
+                medidaFuenteNegrita = 6;
+                medidaFuenteNormal = 6;
+
+                salto = string.Empty;
+            }
+
+            var servidor = Properties.Settings.Default.Hosting;
+            var rutaArchivo = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + productos[0][0] + ".pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + productos[0][0] + ".pdf";
+            }
+
+
+            Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 3, 0);
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(rutaArchivo, FileMode.Create));
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteGrande);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteMensaje);
+
+            string logotipo = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                logotipo = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\" + datos[11];
+            }
+            else
+            {
+                logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + datos[11];
+            }
+
+            string encabezado = $"{salto}{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
+
+            ticket.Open();
+
+            //Validación para verificar si existe logotipo
+            if (logotipo != "")
+            {
+                if (File.Exists(logotipo))
+                {
+                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logotipo);
+                    logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                    logo.ScaleAbsolute(anchoLogo, altoLogo);
+                    ticket.Add(logo);
+                }
+            }
+
+            Paragraph titulo = new Paragraph(datos[0] + "\n", fuenteGrande);
+            Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            domicilio.Alignment = Element.ALIGN_CENTER;
+            domicilio.SetLeading(espacio, 0);
+
+            Paragraph FormPago = new Paragraph(txtFormaPago + " " + productos[0][13], fuenteNormal);
+
+            /**************************************
+             ** Tabla con los productos vendidos **
+             **************************************/
+
+            PdfPTable tabla = new PdfPTable(5);
+            tabla.WidthPercentage = 100;
+            tabla.SetWidths(anchoColumnas);
+
+            PdfPCell colCantidad = new PdfPCell(new Phrase(txtCantidad, fuenteNegrita));
+            colCantidad.BorderWidth = 0;
+
+            PdfPCell colDescripcion = new PdfPCell(new Phrase(txtDescripcion, fuenteNegrita));
+            colDescripcion.BorderWidth = 0;
+
+            PdfPCell colPrecio = new PdfPCell(new Phrase(txtPrecio, fuenteNegrita));
+            colPrecio.BorderWidth = 0;
+
+            PdfPCell colDesc = new PdfPCell(new Phrase(txtDesc, fuenteNegrita));
+            colDesc.BorderWidth = 0;
+
+            PdfPCell colImporte = new PdfPCell(new Phrase(txtImporte, fuenteNegrita));
+            colImporte.BorderWidth = 0;
+
+            tabla.AddCell(colCantidad);
+            tabla.AddCell(colDescripcion);
+            tabla.AddCell(colPrecio);
+            tabla.AddCell(colDesc);
+            tabla.AddCell(colImporte);
+
+            PdfPCell separadorInicial = new PdfPCell(new Phrase(new string('-', separadores), fuenteNormal));
+            separadorInicial.BorderWidth = 0;
+            separadorInicial.Colspan = 5;
+
+            tabla.AddCell(separadorInicial);
+
+            float descuentoProductos = 0;
+            float descuentoGeneral = 0;
+            float totalDescuento = float.Parse(productos[0][8]);
+            float totalTicket = float.Parse(totalTicketVenta.ToString("#.##"));
+            float totalAnticipo = float.Parse(productos[0][11]);
+
+            var longitud = productos.Length;
+
+            for (int i = 0; i < longitud; i++)
+            {
+                PdfPCell colCantidadTmp = new PdfPCell(new Phrase(productos[i][3], fuenteNormal));
+                colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                colCantidadTmp.BorderWidth = 0;
+
+                PdfPCell colDescripcionTmp = new PdfPCell(new Phrase(productos[i][2], fuenteNormal));
+                colDescripcionTmp.BorderWidth = 0;
+
+                PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + float.Parse(productos[i][4]).ToString("0.00"), fuenteNormal));
+                colPrecioTmp.BorderWidth = 0;
+
+                // Convertimos el descuento en array para poder mostrar el porcentaje y sumar
+                // el descuento a la variable del total descuentoProductos
+                var descuentoAux = productos[i][6].Split('-');
+
+                float descuento = float.Parse(descuentoAux[0].Trim());
+
+                var cadenaDescuento = string.Empty;
+
+                cadenaDescuento += descuento.ToString("0.00");
+
+                if (1 < descuentoAux.Length)
+                {
+                    cadenaDescuento += $" - {descuentoAux[1].Trim()}";
+                }
+
+                float importe = float.Parse(productos[i][7]);
+
+                descuentoProductos += descuento;
+
+                PdfPCell colDescTmp = new PdfPCell(new Phrase("$" + cadenaDescuento, fuenteNormal));
+                colDescTmp.BorderWidth = 0;
+
+                PdfPCell colImporteTmp = new PdfPCell(new Phrase("$" + importe.ToString("0.00"), fuenteNormal));
+                colImporteTmp.BorderWidth = 0;
+
+                tabla.AddCell(colCantidadTmp);
+                tabla.AddCell(colDescripcionTmp);
+                tabla.AddCell(colPrecioTmp);
+                tabla.AddCell(colDescTmp);
+                tabla.AddCell(colImporteTmp);
+            }
+
+            PdfPCell separadorFinal = new PdfPCell(new Phrase(new string('-', separadores), fuenteNormal));
+            separadorFinal.BorderWidth = 0;
+            separadorFinal.Colspan = 5;
+
+            PdfPCell colTotalAnticipo = new PdfPCell(new Phrase("Anticipo: $" + totalAnticipo.ToString("0.00"), fuenteNormal));
+            colTotalAnticipo.BorderWidth = 0;
+            colTotalAnticipo.HorizontalAlignment = Element.ALIGN_RIGHT;
+            colTotalAnticipo.Colspan = 5;
+
+            PdfPCell colTotalDescuento = new PdfPCell(new Phrase("Descuento productos: $" + descuentoProductos.ToString("0.00"), fuenteNormal));
+            colTotalDescuento.BorderWidth = 0;
+            colTotalDescuento.HorizontalAlignment = Element.ALIGN_RIGHT;
+            colTotalDescuento.Colspan = 5;
+
+            var descuentoG = descuentoGeneral;
+            descuentoGeneral = totalDescuento - descuentoProductos;
+
+            PdfPCell colDescuentoGeneral = new PdfPCell(new Phrase($"Descuento general ({descuentoG}%): $" + descuentoGeneral.ToString("0.00"), fuenteNormal));
+            colDescuentoGeneral.BorderWidth = 0;
+            colDescuentoGeneral.HorizontalAlignment = Element.ALIGN_RIGHT;
+            colDescuentoGeneral.Colspan = 5;
+
+            PdfPCell totalVenta = new PdfPCell(new Phrase("TOTAL: $" + totalTicket.ToString("0.00"), fuenteNormal));
+            totalVenta.BorderWidth = 0;
+            totalVenta.HorizontalAlignment = Element.ALIGN_RIGHT;
+            totalVenta.Colspan = 5;
+
+            tabla.AddCell(separadorFinal);
+
+            if (totalAnticipo > 0)
+            {
+                tabla.AddCell(colTotalAnticipo);
+            }
+
+            tabla.AddCell(colTotalDescuento);
+
+            if (descuentoGeneral > 0)
+            {
+                tabla.AddCell(colDescuentoGeneral);
+            }
+
+            tabla.AddCell(totalVenta);
+
+            /******************************************
+             ** Fin tabla con los productos vendidos **
+             ******************************************/
+
+            Paragraph mensaje = new Paragraph("\nCambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.\n\n", fuenteNormal);
+            mensaje.Alignment = Element.ALIGN_CENTER;
+
+            string drFecha = tbVenta.Rows[0]["FechaOperacion"].ToString();
+
+            string[] words;
+
+            words = drFecha.Split(' ');
+
+            var DiaFecha = DateTime.Parse(words[0].ToString());
+
+            var culture = new System.Globalization.CultureInfo("es-MX");
+            var dia = culture.DateTimeFormat.GetDayName(DiaFecha.DayOfWeek);
+            var fecha = drFecha;
+
+            Conexion cn = new Conexion();
+
+            dia = cn.Capitalizar(dia);
+
+            Paragraph diaVenta = new Paragraph($"{dia} - {fecha} - Folio: {productos[0][10]}", fuenteNormal);
+            diaVenta.Alignment = Element.ALIGN_CENTER;
+
+            ticket.Add(titulo);
+            ticket.Add(domicilio);
+            ticket.Add(FormPago);
+            ticket.Add(tabla);
+            ticket.Add(mensaje);
+
+            // Imprimir codigo de barras en el ticket
+            if (impCodigo)
+            {
+                // Generar el codigo de barras
+                var codigoBarra = GenerarCodigoBarras(productos[0][10], anchoPapel);
+
+                iTextSharp.text.Image imagenCodigo = iTextSharp.text.Image.GetInstance(codigoBarra, System.Drawing.Imaging.ImageFormat.Jpeg);
+                imagenCodigo.Alignment = Element.ALIGN_CENTER;
+
+                ticket.Add(imagenCodigo);
+            }
+
+            ticket.Add(diaVenta);
+            ticket.AddTitle("Ticket Venta");
+            ticket.AddAuthor("PUDVE");
+            ticket.Close();
+            writer.Close();
+        }
+
+        private static System.Drawing.Image GenerarCodigoBarras(string txtCodigo, int ancho)
+        {
+            System.Drawing.Image imagen;
+
+            BarcodeLib.Barcode codigo = new BarcodeLib.Barcode();
+
+            try
+            {
+                var anchoTmp = ancho / 2;
+                var auxiliar = anchoTmp;
+
+                anchoTmp = auxiliar / 2;
+                ancho = ancho - anchoTmp;
+
+                imagen = codigo.Encode(BarcodeLib.TYPE.CODE128, txtCodigo, Color.Black, Color.White, ancho, 40);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar código de barras para el ticket", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                imagen = null;
+            }
+
+            return imagen;
         }
     }
 }

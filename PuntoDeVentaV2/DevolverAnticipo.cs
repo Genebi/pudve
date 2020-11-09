@@ -412,24 +412,23 @@ namespace PuntoDeVentaV2
                                         fechaOperacionAbonadoADevolver = contenido["FechaOperacion"].ToString();
                                     }
                                     DateTime fechaAbonoRealizado = DateTime.Parse(fechaOperacionAbonadoADevolver);
-
-                                    if (fechaAbonoRealizado > fechaDelCorteCaja)
+                                    
+                                    //Valida si se hizo antes o despues del corte
+                                    //if (fechaAbonoRealizado > fechaDelCorteCaja)
+                                    //{
+                                    //    //string[] datos = new string[] {
+                                    //    //                "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(),
+                                    //    //                efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, /*credito*/"0.00", /*anticipo*/"0"
+                                    //    //            };
+                                    //    //cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                    //}
+                                    /*else*/ if (fechaAbonoRealizado > fechaDelCorteCaja)//Este es el bueno
                                     {
                                         string[] datos = new string[] {
                                                         "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(),
                                                         efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, /*credito*/"0.00", /*anticipo*/"0"
                                                     };
                                         cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                                    }
-                                    else if (fechaAbonoRealizado < fechaDelCorteCaja)/////////////////////////////////////////
-                                    {
-                                        string[] datos = new string[]
-                                        {
-                                                            idVenta.ToString(), FormPrincipal.userID.ToString(), resultadoConsultaAbonos, efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver,
-                                                            chequeAbonadoADevolver, transAbonadoADevolver, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                                        };
-
-                                        cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
                                     }
                                 }
                             }
