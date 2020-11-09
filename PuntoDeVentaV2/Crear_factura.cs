@@ -75,10 +75,11 @@ namespace PuntoDeVentaV2
                 //btn_crear_cliente.Cursor = Cursors.Hand;
             }
 
-            cmb_bx_clientes.DataSource = clientes.ToArray();
+            
             cmb_bx_clientes.DisplayMember = "Value";
             cmb_bx_clientes.ValueMember = "Key";
-
+            cmb_bx_clientes.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmb_bx_clientes.DataSource = clientes.ToArray();
 
             // Método de pago
 

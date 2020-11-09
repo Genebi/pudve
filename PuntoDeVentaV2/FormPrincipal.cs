@@ -551,6 +551,7 @@ namespace PuntoDeVentaV2
             }
             validarVentasVentanas();
         }
+
         private void validarCerrarSesion()
         {
             FormPrincipal fPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
