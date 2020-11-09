@@ -203,6 +203,11 @@ namespace PuntoDeVentaV2
             return $"UPDATE Ventas SET Status = {status} WHERE ID = '{IDVenta}' AND IDUsuario = {IDUsuario}";
         }
 
+        public string DevolverVentaCanceladaSiNoHayDinero(int IDVenta, int status, int IDUsuario)
+        {
+            return $"UPDATE Ventas SET STatus = {status} WHERE = '{IDVenta}' AND IDUsuario = {IDUsuario}";
+        }
+
         public string GuardarAnticipo(string[] datos)
         {
             string consulta = $"INSERT INTO Anticipos (IDUsuario, Concepto, Importe, Cliente, FormaPago, Comentarios, Status, Fecha, ImporteOriginal)";
