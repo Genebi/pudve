@@ -643,243 +643,251 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    var stopCancelar = false;
                     var mensaje = MessageBox.Show("¿Estás seguro de cancelar la venta?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (mensaje == DialogResult.Yes)
                     {
-                        //Obtener Status de la venta
-                        var obtenerStatusVenta = $"SELECT Status FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'";
-                        var statusObtenido = cn.CargarDatos(obtenerStatusVenta);
+                        var obtenerValorSiSeAbono = cn.CargarDatos($"SELECT * FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
+                        var abonoObtenido = string.Empty;
 
-                        datoREsultado = statusObtenido.Rows[0]["Status"].ToString();
-
-                        // Cancelar la venta
-                        int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
-
-                        if (resultado > 0)
+                        if (!obtenerValorSiSeAbono.Rows.Count.Equals(0))
                         {
-                            // Regresar la cantidad de producto vendido al stock
-                            var productos = cn.ObtenerProductosVenta(idVenta);
-
-                            if (productos.Length > 0)
+                            foreach (DataRow result in obtenerValorSiSeAbono.Rows)
                             {
-                                foreach (var producto in productos)
-                                {
-                                    var info = producto.Split('|');
-                                    var idProducto = info[0];
-                                    var cantidad = Convert.ToDecimal(info[2]);
-
-                                    cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-                                }
+                                abonoObtenido = result["Total"].ToString();
                             }
-                            var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+                            var totalObtenidoAbono = float.Parse(abonoObtenido);
 
-                            var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
-                            if (formasPago2.Length > 0)
+                            if (totalObtenidoAbono > 0)
                             {
-                                var total1 = "0";
-                                var efectivo1 = "0";
-                                var tarjeta1 = "0";
-                                var vales1 = "0";
-                                var cheque1 = "0";
-                                var transferencia1 = "0";
-                                var credito1 = formasPago2[5].ToString();
-                                //var anticipo1 = "0";
-
-                                var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                                string[] datos = new string[] {
-                                                        "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
-                                                    };
-                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
-
+                                mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             }
 
-
-                            // Agregamos marca de agua al PDF del ticket de la venta cancelada
-                            Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
-
-                            var obtenerValorSiSeAbono = cn.CargarDatos($"SELECT * FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
-                            var abonoObtenido = string.Empty;
-
-                            if (!obtenerValorSiSeAbono.Rows.Count.Equals(0))
+                            if (mensaje == DialogResult.Yes)
                             {
-                                foreach (DataRow result in obtenerValorSiSeAbono.Rows)
+                                var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+
+                                var t = formasPago.Sum().ToString();
+                                var total = float.Parse(t);
+                                var ventaCancelada = 0;
+                                if (cbTipoVentas.SelectedIndex != 3)
                                 {
-                                    abonoObtenido = result["Total"].ToString();
+                                    ventaCancelada = 1;
                                 }
-                                var totalObtenidoAbono = float.Parse(abonoObtenido);
-
-                                if (totalObtenidoAbono > 0)
+                                else if (cbTipoVentas.SelectedIndex == 3)
                                 {
-                                    mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    ventaCancelada = 2;
                                 }
 
-                                if (mensaje == DialogResult.Yes)
+                                var obtenerMontoAbonado = cn.CargarDatos($"SELECT Total FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
+                                var obtenerTotalAbonado = string.Empty;
+                                var totalAbonado = 0f;
+                                if (!obtenerMontoAbonado.Rows.Count.Equals(0))
                                 {
-                                    var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
-
-                                    var t = formasPago.Sum().ToString();
-                                    var total = float.Parse(t);
-                                    var ventaCancelada = 0;
-                                    if (cbTipoVentas.SelectedIndex != 3)
+                                    foreach (DataRow datosConsulta in obtenerMontoAbonado.Rows)
                                     {
-                                        ventaCancelada = 1;
+                                        obtenerTotalAbonado = datosConsulta["Total"].ToString();
                                     }
-                                    else if (cbTipoVentas.SelectedIndex == 3)
-                                    {
-                                        ventaCancelada = 2;
-                                    }
+                                    totalAbonado = float.Parse(obtenerTotalAbonado);
+                                }
 
-                                    var obtenerMontoAbonado = cn.CargarDatos($"SELECT Total FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
-                                    var obtenerTotalAbonado = string.Empty;
-                                    var totalAbonado = 0f;
-                                    if (!obtenerMontoAbonado.Rows.Count.Equals(0))
+                                if (totalAbonado > 0)
+                                {
+                                    var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                    var conceptoCredito = $"DEVOLUCION DINERO VENTA A CREDITO CANCELADA ID {idVenta}";
+
+                                    var revisarSiTieneAbono = cn.CargarDatos($"SELECT sum(Total), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia), FechaOperacion FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
+                                    string ultimoDate = string.Empty;
+                                    if (!revisarSiTieneAbono.Rows.Count.Equals(0))// valida si la consulta esta vacia 
                                     {
-                                        foreach (DataRow datosConsulta in obtenerMontoAbonado.Rows)
+                                        var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                                        if (!fechaCorteUltima.Rows.Count.Equals(0))
                                         {
-                                            obtenerTotalAbonado = datosConsulta["Total"].ToString();
-                                        }
-                                        totalAbonado = float.Parse(obtenerTotalAbonado);
-                                    }
-
-                                    if (totalAbonado > 0)
-                                    {
-                                        var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                        var conceptoCredito = $"DEVOLUCION DINERO VENTA A CREDITO CANCELADA ID {idVenta}";
-
-                                        var revisarSiTieneAbono = cn.CargarDatos($"SELECT sum(Total), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia), FechaOperacion FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
-                                        string ultimoDate = string.Empty;
-                                        if (!revisarSiTieneAbono.Rows.Count.Equals(0))// valida si la consulta esta vacia 
-                                        {
-                                            var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                                            if (!fechaCorteUltima.Rows.Count.Equals(0))
+                                            var resultadoConsultaAbonos = string.Empty; var efectivoAbonadoADevolver = string.Empty; var tarjetaAbonadoADevolver = string.Empty; var valesAbonadoADevolver = string.Empty; var chequeAbonadoADevolver = string.Empty; var transAbonadoADevolver = string.Empty; var fechaOperacionAbonadoADevolver = string.Empty;
+                                            foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
                                             {
-                                                var resultadoConsultaAbonos = string.Empty; var efectivoAbonadoADevolver = string.Empty; var tarjetaAbonadoADevolver = string.Empty; var valesAbonadoADevolver = string.Empty; var chequeAbonadoADevolver = string.Empty; var transAbonadoADevolver = string.Empty; var fechaOperacionAbonadoADevolver = string.Empty;
-                                                foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
-                                                {
-                                                    ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
-                                                }
-                                                DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
+                                                ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                                            }
+                                            DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
 
-                                                //var resultadoConsultaAbonos = string.Empty;
-                                                //var efectivoAbonadoADevolver = string.Empty;
-                                                //var tarjetaAbonadoADevolver = string.Empty;
-                                                //var valesAbonadoADevolver = string.Empty;
-                                                //var chequeAbonadoADevolver = string.Empty;
-                                                //var transAbonadoADevolver = string.Empty;
-                                                //var fechaOperacionAbonadoADevolver = string.Empty;
+                                            //var resultadoConsultaAbonos = string.Empty;
+                                            //var efectivoAbonadoADevolver = string.Empty;
+                                            //var tarjetaAbonadoADevolver = string.Empty;
+                                            //var valesAbonadoADevolver = string.Empty;
+                                            //var chequeAbonadoADevolver = string.Empty;
+                                            //var transAbonadoADevolver = string.Empty;
+                                            //var fechaOperacionAbonadoADevolver = string.Empty;
 
-                                                foreach (DataRow contenido in revisarSiTieneAbono.Rows)
-                                                {
-                                                    resultadoConsultaAbonos = contenido["sum(Total)"].ToString();
-                                                    efectivoAbonadoADevolver = contenido["sum(Efectivo)"].ToString();
-                                                    tarjetaAbonadoADevolver = contenido["sum(Tarjeta)"].ToString();
-                                                    valesAbonadoADevolver = contenido["sum(Vales)"].ToString();
-                                                    chequeAbonadoADevolver = contenido["sum(Cheque)"].ToString();
-                                                    transAbonadoADevolver = contenido["sum(Transferencia)"].ToString();
-                                                    fechaOperacionAbonadoADevolver = contenido["FechaOperacion"].ToString();
-                                                }
-                                                DateTime fechaAbonoRealizado = DateTime.Parse(fechaOperacionAbonadoADevolver);
+                                            foreach (DataRow contenido in revisarSiTieneAbono.Rows)
+                                            {
+                                                resultadoConsultaAbonos = contenido["sum(Total)"].ToString();
+                                                efectivoAbonadoADevolver = contenido["sum(Efectivo)"].ToString();
+                                                tarjetaAbonadoADevolver = contenido["sum(Tarjeta)"].ToString();
+                                                valesAbonadoADevolver = contenido["sum(Vales)"].ToString();
+                                                chequeAbonadoADevolver = contenido["sum(Cheque)"].ToString();
+                                                transAbonadoADevolver = contenido["sum(Transferencia)"].ToString();
+                                                fechaOperacionAbonadoADevolver = contenido["FechaOperacion"].ToString();
+                                            }
+                                            DateTime fechaAbonoRealizado = DateTime.Parse(fechaOperacionAbonadoADevolver);
 
-                                                if (fechaAbonoRealizado > fechaDelCorteCaja)//Escoger como devolver dinero
-                                                {
-                                                    DevolverAnticipo da = new DevolverAnticipo(idVenta, total, 3, ventaCancelada);
-                                                    da.ShowDialog();
-                                                }
-                                                else if (fechaAbonoRealizado < fechaDelCorteCaja)//Devolver dinero en efectivo
-                                                {
-                                                    saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
-                                                    var sEfectivo = MetodosBusquedas.efectivoInicial;
-                                                    var sTarjeta = MetodosBusquedas.tarjetaInicial;
-                                                    var sVales = MetodosBusquedas.valesInicial;
-                                                    var sCheque = MetodosBusquedas.chequeInicial;
-                                                    var sTrans = MetodosBusquedas.transInicial;
+                                            if (fechaAbonoRealizado > fechaDelCorteCaja)//Escoger como devolver dinero
+                                            {
+                                                DevolverAnticipo da = new DevolverAnticipo(idVenta, total, 3, ventaCancelada);
+                                                da.ShowDialog();
+                                            }
+                                            else if (fechaAbonoRealizado < fechaDelCorteCaja)//Devolver dinero en efectivo
+                                            {
+                                                saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
+                                                var sEfectivo = MetodosBusquedas.efectivoInicial;
+                                                var sTarjeta = MetodosBusquedas.tarjetaInicial;
+                                                var sVales = MetodosBusquedas.valesInicial;
+                                                var sCheque = MetodosBusquedas.chequeInicial;
+                                                var sTrans = MetodosBusquedas.transInicial;
 
-                                                    float efe=0f, tar=0f, val=0f, che=0f, trans=0f; 
-                                                    //Comprovar que se cuente con dinero suficiente
-                                                    var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
-                                                    var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
-                                                    if (!obtenerDinero.Rows.Count.Equals(0))
+                                                float efe = 0f, tar = 0f, val = 0f, che = 0f, trans = 0f;
+                                                //Comprovar que se cuente con dinero suficiente
+                                                var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
+                                                var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
+                                                if (!obtenerDinero.Rows.Count.Equals(0))
+                                                {
+                                                    foreach (DataRow getCash in obtenerDinero.Rows)
                                                     {
-                                                        foreach (DataRow getCash in obtenerDinero.Rows)
-                                                        {
-                                                            efectivoObtenido = getCash["sum(Efectivo)"].ToString();
-                                                            //tarjetaObtenido = getCash["sum(Tarjeta)"].ToString();
-                                                            //valesObtenido = getCash["sum(Vales)"].ToString();
-                                                            //chequeObtenido = getCash["sum(Cheque)"].ToString();
-                                                            //transObtenido = getCash["sum(Transferencia)"].ToString();
-                                                        }
-                                                        efe = (float.Parse(efectivoObtenido) + sEfectivo);
-                                                        //tar = (float.Parse(tarjetaObtenido) + sTarjeta);
-                                                        //val = (float.Parse(valesObtenido) + sVales);
-                                                        //che = (float.Parse(chequeObtenido) + sCheque);
-                                                        //trans = (float.Parse(transObtenido) +sTrans);
-
+                                                        efectivoObtenido = getCash["sum(Efectivo)"].ToString();
+                                                        //tarjetaObtenido = getCash["sum(Tarjeta)"].ToString();
+                                                        //valesObtenido = getCash["sum(Vales)"].ToString();
+                                                        //chequeObtenido = getCash["sum(Cheque)"].ToString();
+                                                        //transObtenido = getCash["sum(Transferencia)"].ToString();
                                                     }
+                                                    efe = (float.Parse(efectivoObtenido) + sEfectivo);
+                                                    //tar = (float.Parse(tarjetaObtenido) + sTarjeta);
+                                                    //val = (float.Parse(valesObtenido) + sVales);
+                                                    //che = (float.Parse(chequeObtenido) + sCheque);
+                                                    //trans = (float.Parse(transObtenido) +sTrans);
 
-                                                    var totalCaja = (efe + tar + val + che + trans);
+                                                }
 
-                                                    var efectivoAbonado = float.Parse(efectivoAbonadoADevolver);
-                                                    //var tarjetaAbonado = float.Parse(tarjetaAbonadoADevolver);
-                                                    //var valesAbonado = float.Parse(valesAbonadoADevolver);
-                                                    //var chequeAbonado = float.Parse(chequeAbonadoADevolver);
-                                                    //var transAbonado = float.Parse(transAbonadoADevolver);
+                                                var totalCaja = (efe + tar + val + che + trans);
 
-                                                    if (efectivoAbonado > efe /*|| tarjetaAbonado > tar || valesAbonado > val || chequeAbonado > che || transAbonado > trans*/)
+                                                var efectivoAbonado = float.Parse(efectivoAbonadoADevolver);
+                                                //var tarjetaAbonado = float.Parse(tarjetaAbonadoADevolver);
+                                                //var valesAbonado = float.Parse(valesAbonadoADevolver);
+                                                //var chequeAbonado = float.Parse(chequeAbonadoADevolver);
+                                                //var transAbonado = float.Parse(transAbonadoADevolver);
+
+                                                if (efectivoAbonado > efe /*|| tarjetaAbonado > tar || valesAbonado > val || chequeAbonado > che || transAbonado > trans*/)
+                                                {
+                                                    MessageBox.Show("No tiene suficiente dinero en efectivo para retirar", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                    //cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+                                                    stopCancelar = true;
+                                                }
+                                                else
+                                                {
+                                                    string[] datos = new string[]
                                                     {
-                                                        MessageBox.Show("No tiene suficiente dinero en efectivo para retirar", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                        cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
-                                                    }
-                                                    else
-                                                    {
-                                                        string[] datos = new string[]
-                                                        {
                                                             idVenta.ToString(), FormPrincipal.userID.ToString(), resultadoConsultaAbonos, efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver,
                                                             chequeAbonadoADevolver, transAbonadoADevolver, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                                                        };
+                                                    };
 
-                                                        cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
+                                                    cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
 
                                                     //    string[] datos2 = new string[] {
                                                     //    "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(),
                                                     //    efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, /*credito*/"0.00", /*anticipo*/"0"
                                                     //};
                                                     //    cn.EjecutarConsulta(cs.OperacionCaja(datos2));
-                                                    }
                                                 }
                                             }
                                         }
                                     }
-                                    else
+                                }
+                                else
+                                {
+                                    if (formasPago.Length > 0)
                                     {
-                                        if (formasPago.Length > 0)
-                                        {
-                                            var conceptoCredito = $"DEVOLUCION DINERO VENTA A CREDITO CANCELADA ID {idVenta}";
+                                        var conceptoCredito = $"DEVOLUCION DINERO VENTA A CREDITO CANCELADA ID {idVenta}";
 
-                                            var total1 = formasPago.Sum().ToString();
-                                            var efectivo1 = formasPago[0].ToString();
-                                            var tarjeta1 = formasPago[1].ToString();
-                                            var vales1 = formasPago[2].ToString();
-                                            var cheque1 = formasPago[3].ToString();
-                                            var transferencia1 = formasPago[4].ToString();
-                                            var credito1 = formasPago[5].ToString();
-                                            //var anticipo1 = "0";
+                                        var total1 = formasPago.Sum().ToString();
+                                        var efectivo1 = formasPago[0].ToString();
+                                        var tarjeta1 = formasPago[1].ToString();
+                                        var vales1 = formasPago[2].ToString();
+                                        var cheque1 = formasPago[3].ToString();
+                                        var transferencia1 = formasPago[4].ToString();
+                                        var credito1 = formasPago[5].ToString();
+                                        //var anticipo1 = "0";
 
-                                            var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                        var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                            string[] datos = new string[] {
+                                        string[] datos = new string[] {
                                                         "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(),
                                                         efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
                                                     };
-                                            cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                        cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
-                                        }
                                     }
                                 }
                             }
-                            CargarDatos();
+                        }
+
+
+                        if (stopCancelar == false)
+                        {
+                            //Obtener Status de la venta
+                            var obtenerStatusVenta = $"SELECT Status FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'";
+                            var statusObtenido = cn.CargarDatos(obtenerStatusVenta);
+
+                            datoREsultado = statusObtenido.Rows[0]["Status"].ToString();
+
+                            // Cancelar la venta
+                            int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+
+                            if (resultado > 0)
+                            {
+                                // Regresar la cantidad de producto vendido al stock
+                                var productos = cn.ObtenerProductosVenta(idVenta);
+
+                                if (productos.Length > 0)
+                                {
+                                    foreach (var producto in productos)
+                                    {
+                                        var info = producto.Split('|');
+                                        var idProducto = info[0];
+                                        var cantidad = Convert.ToDecimal(info[2]);
+
+                                        cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                    }
+                                }
+                                var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+
+                                var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
+                                if (formasPago2.Length > 0)
+                                {
+                                    var total1 = "0";
+                                    var efectivo1 = "0";
+                                    var tarjeta1 = "0";
+                                    var vales1 = "0";
+                                    var cheque1 = "0";
+                                    var transferencia1 = "0";
+                                    var credito1 = formasPago2[5].ToString();
+                                    //var anticipo1 = "0";
+
+                                    var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                    string[] datos = new string[] {
+                                                        "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
+                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
+                                                    };
+                                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+
+                                }
+
+
+                                // Agregamos marca de agua al PDF del ticket de la venta cancelada
+                                Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
+
+
+                                CargarDatos();
+                            }
                         }
                     }
                 }
