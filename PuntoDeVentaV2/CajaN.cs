@@ -659,7 +659,7 @@ namespace PuntoDeVentaV2
             credito = vCredito;
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
-            subtotal = efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + saldoInicial /*+ vCredito*/;
+            subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + saldoInicial /*+ vCredito*/) - devoluciones;
 
             lbTEfectivoC.Text = "$" + (efectivo - retiroEfectivo).ToString("0.00");
             lbTTarjetaC.Text = "$" + (tarjeta - retiroTarjeta).ToString("0.00");
