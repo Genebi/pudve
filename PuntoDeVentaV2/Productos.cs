@@ -1581,11 +1581,16 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                if (System.IO.File.Exists($@"\\{servidor}\PUDVE\Productos\"))
+                DirectoryInfo dirProd = new DirectoryInfo($@"\\{servidor}\PUDVE\Productos");
+
+                DirectoryInfo dirDicc = new DirectoryInfo($@"\\{servidor}\PUDVE\settings\Dictionary");
+
+                if (dirProd.Exists)
                 {
                     saveDirectoryImg = $@"\\{servidor}\PUDVE\Productos\";
                 }
-                if (System.IO.File.Exists($@"\\{servidor}\PUDVE\settings\Dictionary\"))
+
+                if (dirDicc.Exists)
                 {
                     saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
                 }
