@@ -80,6 +80,12 @@ namespace PuntoDeVentaV2
 
         delegate void delegado(int valor);
 
+        public static float validarEfectivo { get; set; }
+        public static float validarTarjeta { get; set; }
+        public static float validarVales { get; set; }
+        public static float validarCheque { get; set; }
+        public static float validarTrans { get; set; }
+
 
         public ListadoVentas()
         {
@@ -746,6 +752,7 @@ namespace PuntoDeVentaV2
                                                 var sTrans = MetodosBusquedas.transInicial;
 
                                                 float efe = 0f, tar = 0f, val = 0f, che = 0f, trans = 0f;
+
                                                 //Comprovar que se cuente con dinero suficiente
                                                 var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
                                                 var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
@@ -826,6 +833,75 @@ namespace PuntoDeVentaV2
 
                                     }
                                 }
+                            }
+                        }else if (obtenerValorSiSeAbono.Rows.Count.Equals(0)) 
+                        {
+                             mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            string ultimoDate = string.Empty;
+
+                            saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
+                            var sEfectivo = MetodosBusquedas.efectivoInicial;
+                            var sTarjeta = MetodosBusquedas.tarjetaInicial;
+                            var sVales = MetodosBusquedas.valesInicial;
+                            var sCheque = MetodosBusquedas.chequeInicial;
+                            var sTrans = MetodosBusquedas.transInicial;
+
+                            
+
+                            if (mensaje == DialogResult.Yes)
+                            {
+                                var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                                var resultadoConsultaAbonos = string.Empty; var efectivoAbonadoADevolver = string.Empty; var tarjetaAbonadoADevolver = string.Empty; var valesAbonadoADevolver = string.Empty; var chequeAbonadoADevolver = string.Empty; var transAbonadoADevolver = string.Empty; var fechaOperacionAbonadoADevolver = string.Empty;
+                                foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
+                                {
+                                    ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                                }
+                                DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
+
+                                //Comprovar que se cuente con dinero suficiente
+                                var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
+                                var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
+                                if (!obtenerDinero.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow getCash in obtenerDinero.Rows)
+                                    {
+                                        efectivoObtenido = getCash["sum(Efectivo)"].ToString();
+                                        tarjetaObtenido = getCash["sum(Tarjeta)"].ToString();
+                                        valesObtenido = getCash["sum(Vales)"].ToString();
+                                        chequeObtenido = getCash["sum(Cheque)"].ToString();
+                                        transObtenido = getCash["sum(Transferencia)"].ToString();
+                                    }
+                                    validarEfectivo = (float.Parse(efectivoObtenido) + sEfectivo);
+                                    validarTarjeta = (float.Parse(tarjetaObtenido) + sTarjeta);
+                                    validarVales = (float.Parse(valesObtenido) + sVales);
+                                    validarCheque = (float.Parse(chequeObtenido) + sCheque);
+                                    validarTrans = (float.Parse(transObtenido) + sTrans);
+
+                                }
+
+                                var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+
+                                var t = formasPago.Sum().ToString();
+                                var total = float.Parse(t);
+                                var ventaCancelada = 0;
+                                if (cbTipoVentas.SelectedIndex != 3)
+                                {
+                                    ventaCancelada = 1;
+                                }
+                                else if (cbTipoVentas.SelectedIndex == 3)
+                                {
+                                    ventaCancelada = 2;
+                                }
+
+                                DevolverAnticipo da = new DevolverAnticipo(idVenta, total, 3, ventaCancelada);
+                                da.ShowDialog();
+
+                                //if (DevolverAnticipo.noCash != true)
+                                //{
+                                //    stopCancelar = false;
+                                //}
+                                //stopCancelar = true;
+                                stopCancelar = DevolverAnticipo.noCash;
                             }
                         }
 

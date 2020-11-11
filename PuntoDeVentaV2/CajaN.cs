@@ -651,15 +651,15 @@ namespace PuntoDeVentaV2
             lbTRetirado.Text = "$ -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");
 
             // Apartado TOTAL EN CAJA
-            efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo;
-            tarjeta = (vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI) - rTarjeta;
-            vales = (vVales + aVales + dVales + abonoValesI) - rVales;
-            cheque = (vCheque + aCheque + dCheque + abonoChequeI) - rCheque;
-            trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia;
+            efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo; if (efectivo < 0) { efectivo = 0; }
+            tarjeta = (vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI) - rTarjeta; if (tarjeta < 0) { tarjeta = 0; }
+            vales = (vVales + aVales + dVales + abonoValesI) - rVales; if (vales < 0) { vales = 0; }
+            cheque = (vCheque + aCheque + dCheque + abonoChequeI) - rCheque; if (cheque < 0) { cheque = 0; }
+            trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia; if (trans < 0) { trans = 0; }
             credito = vCredito;
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
-            subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + saldoInicial /*+ vCredito*/) - devoluciones;
+            subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + saldoInicial /*+ vCredito*/)/* - devoluciones*/; if (subtotal < 0) { subtotal = 0; }
 
             lbTEfectivoC.Text = "$" + (efectivo - retiroEfectivo).ToString("0.00");
             lbTTarjetaC.Text = "$" + (tarjeta - retiroTarjeta).ToString("0.00");

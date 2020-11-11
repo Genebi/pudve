@@ -27,6 +27,8 @@ namespace PuntoDeVentaV2
         string transAbonadoADevolver = string.Empty;
         string fechaOperacionAbonadoADevolver = string.Empty;
 
+        public static bool noCash { get; set; }
+
         // Variables ventas
         float vEfectivo = 0f;
         float vTarjeta = 0f;
@@ -319,6 +321,7 @@ namespace PuntoDeVentaV2
                 comentario = "anticipo habilitado";
             }
 
+            //Devolver dinero de venta cancelada
             if (tipo == 3)
             {
                 iniciarVariablesWebService();
@@ -351,19 +354,30 @@ namespace PuntoDeVentaV2
 
                     obtenerDatos(idVenta);
 
+                    if (resultadoConsultaAbonos=="") { resultadoConsultaAbonos = "0"; }
+                    if (efectivoAbonadoADevolver=="") { efectivoAbonadoADevolver = "0"; }
+                    if (tarjetaAbonadoADevolver=="") { tarjetaAbonadoADevolver = "0"; }
+                    if (valesAbonadoADevolver == "") { valesAbonadoADevolver = "0"; }
+                    if (chequeAbonadoADevolver == "") { chequeAbonadoADevolver = "0"; }
+                    if (transAbonadoADevolver=="") { transAbonadoADevolver = "0"; }
+
                     var totalBuscar = float.Parse(resultadoConsultaAbonos);
                     var efectivoBuscar = float.Parse(efectivoAbonadoADevolver);
                     var tarjetaBuscar = float.Parse(tarjetaAbonadoADevolver);
                     var valesBuscar = float.Parse(valesAbonadoADevolver);
                     var chequeBuscar = float.Parse(chequeAbonadoADevolver);
                     var transferenciaBuscar = float.Parse(transAbonadoADevolver);
+
                     
 
-                    if (tipo == 3 && cbFormaPago.SelectedIndex == 0 && efectivoBuscar > (efectivoBuscar+ efectivoConvert) || cbFormaPago.SelectedIndex == 1 && chequeBuscar > (chequeBuscar + chequeConvet) ||
-                        cbFormaPago.SelectedIndex == 2 && transferenciaBuscar > (transferenciaBuscar+ transConvert) || cbFormaPago.SelectedIndex == 3 && tarjetaBuscar > (tarjetaBuscar+ tarjetaConvert) ||
-                        cbFormaPago.SelectedIndex == 4 && valesBuscar > (valesBuscar + valesConvert))
+
+
+                    if (tipo == 3 && cbFormaPago.SelectedIndex == 0 && efectivoConvert > (efectivoBuscar +  MetodosBusquedas.efectivoInicial + ListadoVentas.validarEfectivo) || cbFormaPago.SelectedIndex == 1 && chequeConvet > (chequeBuscar +  MetodosBusquedas.chequeInicial + ListadoVentas.validarCheque) ||
+                        cbFormaPago.SelectedIndex == 2 && transferenciaBuscar > (transConvert + MetodosBusquedas.transInicial + ListadoVentas.validarTrans) || cbFormaPago.SelectedIndex == 3 && tarjetaConvert > (tarjetaBuscar + MetodosBusquedas.tarjetaInicial + ListadoVentas.validarTarjeta) ||
+                        cbFormaPago.SelectedIndex == 4 && valesConvert > (valesBuscar +  MetodosBusquedas.valesInicial + ListadoVentas.validarVales))
                     {
-                        MessageBox.Show("Dinero Insuficuente", "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Dinero Insuficuente", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        noCash = true;
                     }
                     else
                     {
