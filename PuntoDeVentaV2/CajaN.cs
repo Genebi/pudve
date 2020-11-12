@@ -661,11 +661,17 @@ namespace PuntoDeVentaV2
             anticipos = anticiposAplicados;
             subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + saldoInicial /*+ vCredito*/)/* - devoluciones*/; if (subtotal < 0) { subtotal = 0; }
 
-            lbTEfectivoC.Text = "$" + (efectivo - retiroEfectivo).ToString("0.00");
-            lbTTarjetaC.Text = "$" + (tarjeta - retiroTarjeta).ToString("0.00");
-            lbTValesC.Text = "$" + (vales - retiroVales).ToString("0.00");
-            lbTChequeC.Text = "$" + (cheque - retiroCheque).ToString("0.00");
-            lbTTransC.Text = "$" + (trans - retiroTrans).ToString("0.00");
+            var totalF = (efectivo - retiroEfectivo); if (totalF<0) { totalF = 0; }
+            var totalTa = (tarjeta - retiroTarjeta); if (totalTa<0) { totalTa = 0; }
+            var totalV = (vales - retiroVales); if (totalV<0) { totalV = 0; }
+            var totalC = (cheque - retiroCheque); if (totalC<0) { totalC = 0; }
+            var totalTr = (trans - retiroTrans); if (totalTr<0) { totalTr = 0; }
+
+            lbTEfectivoC.Text = "$" + (totalF).ToString("0.00");
+            lbTTarjetaC.Text = "$" + (totalTa).ToString("0.00");
+            lbTValesC.Text = "$" + (totalV).ToString("0.00");
+            lbTChequeC.Text = "$" + (totalC).ToString("0.00");
+            lbTTransC.Text = "$" + (totalTr).ToString("0.00");
             //lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
             lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
