@@ -62,93 +62,100 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtConcepto.Text))
+            if (cbClientes.SelectedIndex != 0)
             {
-                txtConcepto.Focus();
-                MessageBox.Show("El concepto es requerido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtImporte.Text))
-            {
-                txtImporte.Focus();
-                MessageBox.Show("Ingresa el importe del anticipo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            var concepto = txtConcepto.Text;
-            var importe = Convert.ToDouble(txtImporte.Text);
-
-            if (importe <= 0)
-            {
-                txtImporte.Focus();
-                MessageBox.Show("La cantidad de importe debe ser mayor a cero", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            var cliente = cbClientes.GetItemText(cbClientes.SelectedItem);
-
-            if (string.IsNullOrWhiteSpace(cliente))
-            {
-                var existenClientes = mb.ObtenerClientes(FormPrincipal.userID);
-
-                if (existenClientes.Length == 0)
+                if (string.IsNullOrWhiteSpace(txtConcepto.Text))
                 {
-                    AgregarCliente ac = new AgregarCliente();
-
-                    ac.FormClosed += delegate
-                    {
-                        CargarClientes();
-                    };
-
-                    ac.ShowDialog();
+                    txtConcepto.Focus();
+                    MessageBox.Show("El concepto es requerido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
-                return;
-            }
+                if (string.IsNullOrWhiteSpace(txtImporte.Text))
+                {
+                    txtImporte.Focus();
+                    MessageBox.Show("Ingresa el importe del anticipo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            var formaPago = cbFormaPago.SelectedValue.ToString();
-            var comentario = txtComentarios.Text;
-            var status = "1";
-            var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                var concepto = txtConcepto.Text;
+                var importe = Convert.ToDouble(txtImporte.Text);
 
-            string[] datos = new string[] { FormPrincipal.userID.ToString(), concepto, importe.ToString("0.00"), cliente, formaPago, comentario, status, FechaOperacion };
+                if (importe <= 0)
+                {
+                    txtImporte.Focus();
+                    MessageBox.Show("La cantidad de importe debe ser mayor a cero", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            int respuesta = cn.EjecutarConsulta(cs.GuardarAnticipo(datos));
+                var cliente = cbClientes.GetItemText(cbClientes.SelectedItem);
 
-            if (respuesta > 0)
-            {
-                var efectivo = "0";
-                var cheque = "0";
-                var transferencia = "0";
-                var tarjeta = "0";
-                var vales = "0";
-                var credito = "0";
+                if (string.IsNullOrWhiteSpace(cliente))
+                {
+                    var existenClientes = mb.ObtenerClientes(FormPrincipal.userID);
 
-                //Operacion para afectar la Caja
-                if (formaPago == "01") { efectivo = importe.ToString(); }
-                if (formaPago == "02") { cheque = importe.ToString(); }
-                if (formaPago == "03") { transferencia = importe.ToString(); }
-                if (formaPago == "04") { tarjeta = importe.ToString(); }
-                if (formaPago == "08") { vales = importe.ToString(); }
+                    if (existenClientes.Length == 0)
+                    {
+                        AgregarCliente ac = new AgregarCliente();
 
-                datos = new string[] { "anticipo", importe.ToString("0.00"), "0", "", FechaOperacion, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales, cheque, transferencia, credito, "0" };
+                        ac.FormClosed += delegate
+                        {
+                            CargarClientes();
+                        };
 
-                cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                //Fin operacion caja
+                        ac.ShowDialog();
+                    }
+
+                    return;
+                }
+
+                var formaPago = cbFormaPago.SelectedValue.ToString();
+                var comentario = txtComentarios.Text;
+                var status = "1";
+                var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                string[] datos = new string[] { FormPrincipal.userID.ToString(), concepto, importe.ToString("0.00"), cliente, formaPago, comentario, status, FechaOperacion };
+
+                int respuesta = cn.EjecutarConsulta(cs.GuardarAnticipo(datos));
+
+                if (respuesta > 0)
+                {
+                    var efectivo = "0";
+                    var cheque = "0";
+                    var transferencia = "0";
+                    var tarjeta = "0";
+                    var vales = "0";
+                    var credito = "0";
+
+                    //Operacion para afectar la Caja
+                    if (formaPago == "01") { efectivo = importe.ToString(); }
+                    if (formaPago == "02") { cheque = importe.ToString(); }
+                    if (formaPago == "03") { transferencia = importe.ToString(); }
+                    if (formaPago == "04") { tarjeta = importe.ToString(); }
+                    if (formaPago == "08") { vales = importe.ToString(); }
+
+                    datos = new string[] { "anticipo", importe.ToString("0.00"), "0", "", FechaOperacion, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales, cheque, transferencia, credito, "0" };
+
+                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                    //Fin operacion caja
 
 
-                var idAnticipo = cn.EjecutarSelect($"SELECT ID FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1", 1).ToString();
+                    var idAnticipo = cn.EjecutarSelect($"SELECT ID FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1", 1).ToString();
 
-                datos = new string[] { FechaOperacion, cliente, concepto, importe.ToString("0.00"), comentario, idAnticipo };
+                    datos = new string[] { FechaOperacion, cliente, concepto, importe.ToString("0.00"), comentario, idAnticipo };
 
-                GenerarTicket(datos);
+                    GenerarTicket(datos);
 
-                this.Close();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrió un error al intentar guardar el anticipo.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                MessageBox.Show("Ocurrió un error al intentar guardar el anticipo.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Seleccione un cleinte", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
