@@ -53,7 +53,7 @@ namespace PuntoDeVentaV2
         #region Variables Globales Para Paginar
         private Paginar p;
         string DataMemberDGV = "Ventas";
-        int maximo_x_pagina = 10;
+        int maximo_x_pagina = 13;
         string FiltroAvanzado = string.Empty;
         int clickBoton = 0;
         #endregion Variables Globales Para Paginar
@@ -447,6 +447,8 @@ namespace PuntoDeVentaV2
             }
 
             CargarDatos(busqueda: true);
+            btnPrimeraPagina.PerformClick();
+            btnUltimaPagina.PerformClick();
         }
 
         public void btnNuevaVenta_Click(object sender, EventArgs e)
