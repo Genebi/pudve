@@ -77,7 +77,10 @@ namespace PuntoDeVentaV2
                 {
                     foreach (DataRow drFiltroDinamico in dtFiltroDinamico.Rows)
                     {
-                        filtroDinamico.Add(drFiltroDinamico["concepto"].ToString(), drFiltroDinamico["concepto"].ToString().Remove(0, 3));
+                        if (!filtroDinamico.ContainsKey(drFiltroDinamico["concepto"].ToString()))
+                        {
+                            filtroDinamico.Add(drFiltroDinamico["concepto"].ToString(), drFiltroDinamico["concepto"].ToString().Remove(0, 3));
+                        }
                     }
                 }
             }
