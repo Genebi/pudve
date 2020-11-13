@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
         int idProducto = 0;
         int idProductoAux = 0;
         int countListaCodigosBarras = 0;
-        
+
         // Variable para verproductos anteriormente revisados
         int anterior = 0;
         int NoRevision = 0;
@@ -38,6 +38,10 @@ namespace PuntoDeVentaV2
         int cantidadFiltro = 0;
         int cantidadRegistros = 0;
         int cantidadRegistrosAux = 0;
+
+        bool validarAnterior = true;
+        int convertirId = 0;
+        int numFilasExistentes = 0;
 
         Dictionary<int, string> listaProductos;
 
@@ -368,6 +372,9 @@ namespace PuntoDeVentaV2
 
                                     if (respuesta == DialogResult.Yes)
                                     {
+                                        //Decrementa el Id utilizar el boton de anterior 
+                                        convertirId--;
+
                                         // Se asigna el stock registrado en la tabla RevisarInventario
                                         txtCantidadStock.Text = infoInventariado[0];
                                     }
@@ -812,7 +819,7 @@ namespace PuntoDeVentaV2
         {
             btnSiguiente.PerformClick();
 
-            DialogResult deseaTernimar =  MessageBox.Show("Desea Terminar la Revision", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult deseaTernimar = MessageBox.Show("Desea Terminar la Revision", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (deseaTernimar == DialogResult.Yes)
             {
@@ -917,38 +924,54 @@ namespace PuntoDeVentaV2
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
-            var idString = "";
-            var datosRevisador = cn.CargarDatos($"SELECT ID FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}'AND NoRevision = '{NoRevision}' ORDER BY ID DESC LIMIT 1");
 
-            if (!datosRevisador.Rows.Count.Equals(0))
+            if (validarAnterior == true)
             {
-                foreach (DataRow obtenerUltimoID in datosRevisador.Rows)
+                validarAnterior = false;
+                using (var datoAnterior = cn.CargarDatos($"SELECT ID FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY ID DESC LIMIT 1"))
                 {
-                    idString = obtenerUltimoID["ID"].ToString();
-                }
-
-                anterior++;
-                if (!string.IsNullOrEmpty(idString))
-                {
-                    var conversion = Convert.ToInt32(idString);
-                    var ultimoId = (conversion - anterior).ToString();
-
-                    var informacionProducto = cn.CargarDatos($"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{NoRevision}' AND ID = '{ultimoId}'");
-
-                    foreach (DataRow recorrerConsulta in informacionProducto.Rows)
+                    if (!datoAnterior.Rows.Count.Equals(0))
                     {
-                        if (!recorrerConsulta["CodigoBarras"].ToString().Equals(""))
-                        {
-                            txtBoxBuscarCodigoBarras.Text = recorrerConsulta["CodigoBarras"].ToString();
-                        }
-                        else if (!recorrerConsulta["ClaveInterna"].ToString().Equals(""))
-                        {
-                            txtBoxBuscarCodigoBarras.Text = recorrerConsulta["ClaveInterna"].ToString();
-                        }
-                        buscarCodigoBarras();
-                        //txtBoxBuscarCodigoBarras.Focus();
+                        var result = datoAnterior.Rows[0]["ID"].ToString();
+                        convertirId = Convert.ToInt32(result);
+
+
+
+                        var restaId = cn.CargarDatos($"SELECT COUNT(*) AS Count FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}'");
+
+                        numFilasExistentes = Convert.ToInt32(restaId.Rows[0]["Count"].ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show("No hay productos revisados anteriormente", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+            }
+            var idStatico = (convertirId - numFilasExistentes);
+
+            if ((convertirId - numFilasExistentes) <= idStatico && (convertirId - numFilasExistentes) != 0)
+            {
+                //MessageBox.Show($"Id:{convertirId}");
+                var informacionProducto = cn.CargarDatos($"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{convertirId}'");
+
+                foreach (DataRow datosObtenidos in informacionProducto.Rows)
+                {
+                    if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
+                    {
+                        txtBoxBuscarCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
+                    }
+                    else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
+                    {
+                        txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
+                    }
+                    buscarCodigoBarras();
+                }
+
+                //convertirId--; == Esta dentro de un mbox con una variabble llamada respuesta dentro del metodo "buscarCodigoBarras()" en este mismo form
+            }
+            else
+            {
+                MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
