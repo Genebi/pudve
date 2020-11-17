@@ -1946,7 +1946,11 @@ namespace PuntoDeVentaV2
                             if (Tipo == "P")
                             {
                                 // Actualizar stock de productos
-                                var stock = Convert.ToDecimal(fila.Cells["Stock"].Value);
+                                var datosProductoAux = cn.VerificarStockProducto(Convert.ToInt32(IDProducto), FormPrincipal.userID);
+                                datosProductoAux = datosProductoAux[0].Split('|');
+
+                                //var stock = Convert.ToDecimal(fila.Cells["Stock"].Value);
+                                var stock = Convert.ToDecimal(datosProductoAux[1]);
                                 var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                                 var restantes = (stock - vendidos).ToString();
 
