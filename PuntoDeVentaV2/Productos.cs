@@ -1563,6 +1563,8 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            path = string.Empty;
+
             // Define the highlight style.
             HighlightStyle = new DataGridViewCellStyle();
             HighlightStyle.ForeColor = Color.Blue;
@@ -1577,29 +1579,7 @@ namespace PuntoDeVentaV2
 
             setUpVariable = new List<string>();
 
-            var servidor = Properties.Settings.Default.Hosting;
-
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                DirectoryInfo dirProd = new DirectoryInfo($@"\\{servidor}\PUDVE\Productos");
-
-                DirectoryInfo dirDicc = new DirectoryInfo($@"\\{servidor}\PUDVE\settings\Dictionary");
-
-                if (dirProd.Exists)
-                {
-                    saveDirectoryImg = $@"\\{servidor}\PUDVE\Productos\";
-                }
-
-                if (dirDicc.Exists)
-                {
-                    saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
-                }
-            }
-            else
-            {
-                saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
-                saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
-            }
+            validarConexionServidor();
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
 
@@ -1643,6 +1623,45 @@ namespace PuntoDeVentaV2
                 opcion16 = permisos[15]; opcion17 = permisos[16]; opcion18 = permisos[17];
                 opcion19 = permisos[18]; opcion20 = permisos[19]; opcion21 = permisos[20];
                 opcion22 = permisos[21];
+            }
+        }
+
+        private void validarConexionServidor()
+        {
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                DirectoryInfo dirProd = new DirectoryInfo($@"\\{servidor}\PUDVE\Productos");
+                DirectoryInfo dirDicc = new DirectoryInfo($@"\\{servidor}\PUDVE\settings\Dictionary");
+
+                if (dirProd.Exists)
+                {
+                    saveDirectoryImg = $@"\\{servidor}\PUDVE\Productos\";
+                }
+
+                if (dirDicc.Exists)
+                {
+                    saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
+                }
+
+                //bool dirProd = Directory.Exists($@"\\{servidor}\PUDVE\Productos");
+                //bool dirDicc = Directory.Exists($@"\\{servidor}\PUDVE\settings\Dictionary");
+
+                //if (dirProd)
+                //{
+                //    saveDirectoryImg = $@"\\{servidor}\PUDVE\Productos\";
+                //}
+
+                //if (dirDicc)
+                //{
+                //    saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
+                //}
+            }
+            else
+            {
+                saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
+                saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
             }
         }
 
@@ -5665,6 +5684,8 @@ namespace PuntoDeVentaV2
         {
             if (recargarDatos)
             {
+                validarConexionServidor();
+
                 txtBusqueda.Text = string.Empty;
 
                 if (txtBusqueda.Text.Equals(""))
