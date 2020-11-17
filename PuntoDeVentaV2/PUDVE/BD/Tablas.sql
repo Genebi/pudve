@@ -1,3 +1,7 @@
+-- ------------------------------------------
+-- -- Inicia sección de Tablas del sistema --
+-- ------------------------------------------
+
 -- 01 Tabla de usuarios
 CREATE TABLE IF NOT EXISTS Usuarios (
     ID  INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -780,3 +784,93 @@ CREATE TABLE IF NOT EXISTS Devoluciones(
     Referencia TEXT,
     FechaOperacion DATETIME NOT NULL
 );
+
+-- ------------------------------------------
+-- -- Final sección de Tablas del sistema --
+-- ------------------------------------------
+
+
+-- -----------------------------------------------------------
+-- -- Inicio sección de Index, Unique Index, y Foreign Key  --
+-- -----------------------------------------------------------
+
+-- Desactivamos Claves Primarias
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ---------------------------
+-- Creación de Index de Tablas
+-- ---------------------------
+
+-- Index Unico de Usuarios
+CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_Usuarios ON Usuarios (ID);
+
+-- Index Unico de Prveedores
+CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_Proveedores ON Proveedores (ID);
+CREATE FULLTEXT INDEX IF NOT EXISTS Nombre_Proveedores ON Proveedores (Nombre);
+
+-- Index Unico de DetallesProducto
+CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_DetallesProducto ON DetallesProducto (ID);
+
+-- Index Unico de DetallesProductoGenerales
+CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_DetallesProductoGenerales ON DetallesProductoGenerales (ID);
+
+-- Index Ventas
+CREATE INDEX IF NOT EXISTS idx_VentasGenerales ON Ventas(IDUsuario, Status, FechaOperacion);
+
+-- Index Unico de DetallsVenta
+CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_DetallesVenta ON DetallesVenta (ID);
+
+-- Index Unico de Abonos
+CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_Abonos ON Abonos (ID);
+
+-- Index Unico de Anticipos
+CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_Anticipos ON Anticipos (ID);
+
+-- Index Unico de CodigoBarrasGenerado
+CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_CodigoBarrasGenerado ON CodigoBarrasGenerado (ID);
+
+-- Index Unico de ConceptosDinamicos
+CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_ConceptosDinamicos ON ConceptosDinamicos (ID);
+
+
+-- -------------------------------------
+-- Creación de Claves Foraneas de tablas
+-- -------------------------------------
+
+-- HistorialPrecios 
+ALTER TABLE HistorialPrecios ADD CONSTRAINT FK_HistorialPrecios_IDUsuario FOREIGN KEY IF NOT EXISTS (IDUsuario) REFERENCES Usuarios (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE HistorialPrecios ADD CONSTRAINT FK_HistorialPrecios_IDProducto FOREIGN KEY IF NOT EXISTS (IDProducto) REFERENCES Productos (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- MensajesInventario 
+ALTER TABLE MensajesInventario ADD CONSTRAINT FK_MensajesInventario_IDProducto FOREIGN KEY IF NOT EXISTS (IDProducto) REFERENCES Productos (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE MensajesInventario ADD CONSTRAINT FK_MensajesInventario_IDUsuario FOREIGN KEY IF NOT EXISTS (IDUsuario) REFERENCES Usuarios (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- Proveedores 
+ALTER TABLE Proveedores ADD CONSTRAINT FK_Proveedores_IDUsuario FOREIGN KEY IF NOT EXISTS (IDUsuario) REFERENCES Usuarios (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- DetallesProducto 
+ALTER TABLE DetallesProducto ADD CONSTRAINT FK_DetallesProducto_IDUsuario FOREIGN KEY IF NOT EXISTS (IDUsuario) REFERENCES Usuarios (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE DetallesProducto ADD CONSTRAINT FK_DetallesProducto_IDProducto FOREIGN KEY IF NOT EXISTS (IDProducto) REFERENCES Productos (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- DetallesVenta 
+ALTER TABLE DetallesVenta ADD CONSTRAINT FK_DetallesVenta_IDUsuario FOREIGN KEY IF NOT EXISTS (IDUsuario) REFERENCES Usuarios (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE DetallesVenta ADD CONSTRAINT FK_DetallesVenta_IDVenta FOREIGN KEY IF NOT EXISTS (IDVenta) REFERENCES Ventas (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- Abonos 
+ALTER TABLE Abonos ADD CONSTRAINT FK_Abonos_IDUsuario FOREIGN KEY IF NOT EXISTS (IDUsuario) REFERENCES Usuarios (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE Abonos ADD CONSTRAINT FK_Abonos_IDVenta FOREIGN KEY IF NOT EXISTS (IDVenta) REFERENCES Ventas (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- ConceptosDinamicos
+ALTER TABLE ConceptosDinamicos ADD CONSTRAINT FK_ConceptosDinamicos_IDUsuario FOREIGN KEY IF NOT EXISTS (IDUsuario) REFERENCES Usuarios (ID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- Desactivamos Claves Primarias
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- -----------------------------------------------------------
+-- -- Final sección de Index, Unique Index, y Foreign Key  --
+-- -----------------------------------------------------------
