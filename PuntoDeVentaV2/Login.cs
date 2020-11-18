@@ -553,15 +553,15 @@ namespace PuntoDeVentaV2
 
                     if (filesToCopy[x - 1].ToString().Equals("DataDictionary.db"))
                     {
-                        if (!File.Exists(rutaDestino))
-                        {
-                            File.Copy(rutaOrigen, rutaDestino, true);
-                        }
-                        else if (File.Exists(rutaDestino))
-                        {
-                            File.Delete(rutaDestino);
-                            File.Copy(rutaOrigen, rutaDestino, true);
-                        }
+                        //if (!File.Exists(rutaDestino))
+                        //{
+                        //    File.Copy(rutaOrigen, rutaDestino, true);
+                        //}
+                        //else if (File.Exists(rutaDestino))
+                        //{
+                        //    File.Delete(rutaDestino);
+                        //    File.Copy(rutaOrigen, rutaDestino, true);
+                        //}
                     }
                     else if (filesToCopy[x - 1].ToString().Equals("Tablas.sql"))
                     {
