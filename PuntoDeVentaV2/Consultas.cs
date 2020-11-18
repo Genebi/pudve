@@ -1237,6 +1237,8 @@ namespace PuntoDeVentaV2
         {
             var consulta = $@"SELECT DISTINCT 
 	SaleDetail.IDVenta AS idVenta,
+    SaleDetail.Referencia AS Referencia,
+    SaleDetail.Cliente AS Cliente,
 	SaleProd.IDProducto AS IDProducto,
     Prod.Nombre AS Nombre,
     SaleProd.Cantidad AS Cantidad,
