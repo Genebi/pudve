@@ -1310,11 +1310,11 @@ namespace PuntoDeVentaV2
                     mainForm.WindowState = FormWindowState.Maximized;
                     mainForm.SendToBack();
                 }
-                if (mainForm.WindowState == FormWindowState.Maximized)
-                {
-                    mainForm.WindowState = FormWindowState.Maximized;
-                    mainForm.SendToBack();
-                }
+                //if (mainForm.WindowState == FormWindowState.Maximized)
+                //{
+                //    mainForm.WindowState = FormWindowState.Maximized;
+                //    mainForm.SendToBack();
+                //}
                 //if (mainForm.Visible == false)
                 //{
                 //    mainForm.Visible = true;
