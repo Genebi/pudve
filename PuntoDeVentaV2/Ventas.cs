@@ -2111,6 +2111,7 @@ namespace PuntoDeVentaV2
 
                     if (ventaGuardada)
                     {
+
                         if (statusVenta.Equals("2"))
                         {
                             Utilidades.CrearMarcaDeAgua(Convert.ToInt32(idVenta), "PRESUPUESTO");
