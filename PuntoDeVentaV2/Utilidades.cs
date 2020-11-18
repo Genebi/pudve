@@ -524,7 +524,9 @@ namespace PuntoDeVentaV2
                     Folio = string.Empty,
                     AnticipoUtilizado = string.Empty,
                     TipoDescuento = string.Empty,
-                    formaDePagoDeVenta = string.Empty;
+                    formaDePagoDeVenta = string.Empty,
+                    referencia = string.Empty,
+                    cliente = string.Empty;
 
             int contador = 0;
 
@@ -546,6 +548,8 @@ namespace PuntoDeVentaV2
                     AnticipoUtilizado = item["AnticipoUtilizado"].ToString();
                     TipoDescuento = item["TipoDescuento"].ToString();
                     formaDePagoDeVenta = item["formaDePagoDeVenta"].ToString();
+                    referencia = item["Referencia"].ToString();
+                    cliente = item["Cliente"].ToString();
 
                     var guardar = new string[]
                     {
@@ -562,7 +566,9 @@ namespace PuntoDeVentaV2
                         Folio,
                         AnticipoUtilizado,
                         TipoDescuento,
-                        formaDePagoDeVenta
+                        formaDePagoDeVenta,
+                        cliente,
+                        referencia
                     };
 
                     productos[contador] = guardar;
@@ -723,6 +729,8 @@ namespace PuntoDeVentaV2
             domicilio.Alignment = Element.ALIGN_CENTER;
             domicilio.SetLeading(espacio, 0);
 
+            Paragraph clienteP = new Paragraph($"Cliente: {productos[0][14]}", fuenteNormal);
+            Paragraph referenciaP = new Paragraph($"Referencia: {productos[0][15]}", fuenteNormal);
             Paragraph FormPago = new Paragraph(txtFormaPago + " " + productos[0][13], fuenteNormal);
 
             /**************************************
@@ -883,6 +891,17 @@ namespace PuntoDeVentaV2
 
             ticket.Add(titulo);
             ticket.Add(domicilio);
+
+            if (!string.IsNullOrWhiteSpace(productos[0][14]))
+            {
+                ticket.Add(clienteP);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productos[0][15]))
+            {
+                ticket.Add(referenciaP);
+            }
+
             ticket.Add(FormPago);
             ticket.Add(tabla);
             ticket.Add(mensaje);

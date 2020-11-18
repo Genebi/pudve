@@ -1925,7 +1925,7 @@ namespace PuntoDeVentaV2
                             idVenta, IDProducto, Nombre, Cantidad, Precio,
                             DescuentoGeneral, DescuentoIndividual, ImporteIndividual,
                             Descuento, Total, Folio, AnticipoUtilizado, TipoDescuento,
-                            formaDePagoDeVenta
+                            formaDePagoDeVenta, cliente, referencia
                         };
 
                         // Guardar info de los productos
@@ -2696,6 +2696,8 @@ namespace PuntoDeVentaV2
             domicilio.Alignment = Element.ALIGN_CENTER;
             domicilio.SetLeading(espacio, 0);
 
+            Paragraph cliente = new Paragraph($"Cliente: {productos[0][14]}", fuenteNormal);
+            Paragraph referencia = new Paragraph($"Referencia: {productos[0][15]}", fuenteNormal);
             Paragraph FormPago = new Paragraph(txtFormaPago + " " + productos[0][13], fuenteNormal);
 
             /**************************************
@@ -2846,6 +2848,17 @@ namespace PuntoDeVentaV2
 
             ticket.Add(titulo);
             ticket.Add(domicilio);
+
+            if (!string.IsNullOrWhiteSpace(productos[0][14]))
+            {
+                ticket.Add(cliente);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productos[0][15]))
+            {
+                ticket.Add(referencia);
+            }
+
             ticket.Add(FormPago);
             ticket.Add(tabla);
             ticket.Add(mensaje);
