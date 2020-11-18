@@ -551,19 +551,20 @@ namespace PuntoDeVentaV2
                     string rutaOrigen = pathOrigen + filesToCopy[x - 1].ToString();
                     string rutaDestino = pathDestino + filesToCopy[x - 1].ToString();
 
-                    if (filesToCopy[x - 1].ToString().Equals("DataDictionary.db"))
-                    {
-                        //if (!File.Exists(rutaDestino))
-                        //{
-                        //    File.Copy(rutaOrigen, rutaDestino, true);
-                        //}
-                        //else if (File.Exists(rutaDestino))
-                        //{
-                        //    File.Delete(rutaDestino);
-                        //    File.Copy(rutaOrigen, rutaDestino, true);
-                        //}
-                    }
-                    else if (filesToCopy[x - 1].ToString().Equals("Tablas.sql"))
+                    //if (filesToCopy[x - 1].ToString().Equals("DataDictionary.db"))
+                    //{
+                    //    //if (!File.Exists(rutaDestino))
+                    //    //{
+                    //    //    File.Copy(rutaOrigen, rutaDestino, true);
+                    //    //}
+                    //    //else if (File.Exists(rutaDestino))
+                    //    //{
+                    //    //    File.Delete(rutaDestino);
+                    //    //    File.Copy(rutaOrigen, rutaDestino, true);
+                    //    //}
+                    //}
+                    //else 
+                    if (filesToCopy[x - 1].ToString().Equals("Tablas.sql"))
                     {
                         if (!File.Exists(rutaDestino))
                         {

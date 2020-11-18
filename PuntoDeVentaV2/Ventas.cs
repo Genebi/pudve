@@ -3555,9 +3555,15 @@ namespace PuntoDeVentaV2
         {
             Regex regex1 = new Regex(@"^(\+\.\d+)");
             Regex regex2 = new Regex(@"^(\.\d+\+)");
+            Regex regex3 = new Regex(@"^(\+\d\.\d+)");
+            Regex regex4 = new Regex(@"^(\d\.\d+\+)");
+
             Match match1 = regex1.Match(cadena);
             Match match2 = regex2.Match(cadena);
-            return match1.Success || match2.Success;
+            Match match3 = regex3.Match(cadena);
+            Match match4 = regex4.Match(cadena);
+
+            return match1.Success || match2.Success || match3.Success || match4.Success;
         }
         #endregion
 
