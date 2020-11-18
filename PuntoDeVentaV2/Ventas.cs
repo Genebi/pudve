@@ -3151,21 +3151,23 @@ namespace PuntoDeVentaV2
         #region Expresiones regulares para buscar producto
         private string VerificarPatronesBusqueda(string cadena)
         {
-            /*
-            -------------------------------------------------------------------------------------
-            |   Expresion Regular                       |   Ejemplo         |   No de Patron    |
-            |---------------------------------------------------------------|--------------------
-            |   (digito+espacioBlanco*espacioBlanco)    |   5 * 15665132    |   primerPatron    |
-            |   ((Signo+)digito+ || digito+(Signo+))    |   +2 || 2+        |   segundoPatron   |
-            |   ((Signo-)digito+ || digito+(Signo-))    |   -1 || 1-        |   tercerPatron    |
-            |   (digito+(Signo*)+espacioBlanco)         |   5* 15665132     |   cuartoPatron    |
-            |   (digito+(Signo*)+espacioBlanco)         |   5 *15665132     |   quintoPatron    |
-            |   (digito+(Signo*)+espacioBlanco)         |   5*15665132      |   sextoPatron     |
-            |   (#+espacioBlanco)                       |   # FolioDeVenta  |   septimoPatron   |
-            -------------------------------------------------------------------------------------  
-            */
+            /*********************************************************************************************
+            *                                                                                            * 
+            *   --------------------------------------------------------------------------------------   *
+            *   |   Expresion Regular                       |   Ejemplo         |   No: de Patron    |   *
+            *   |---------------------------------------------------------------|---------------------   *
+            *   |   (digito+espacioBlanco*espacioBlanco)    |   5 * 15665132    |   primerPatron     |   *
+            *   |   ((Signo+)digito+ || digito+(Signo+))    |   +2 || 2+        |   segundoPatron    |   *
+            *   |   ((Signo-)digito+ || digito+(Signo-))    |   -1 || 1-        |   tercerPatron     |   *
+            *   |   (digito+(Signo*)+espacioBlanco)         |   5* 15665132     |   cuartoPatron     |   *
+            *   |   (digito+(Signo*)+espacioBlanco)         |   5 *15665132     |   quintoPatron     |   *
+            *   |   (digito+(Signo*)+espacioBlanco)         |   5*15665132      |   sextoPatron      |   *
+            *   |   (#+espacioBlanco)                       |   # FolioDeVenta  |   septimoPatron    |   *
+            *   --------------------------------------------------------------------------------------   *
+            *                                                                                            *
+            *********************************************************************************************/
 
-
+            // No: de Patron
             string primerPatron = @"^\d+\s\*\s";
             string segundoPatron = @"^(\+\d+)|(\d+\+)|(\+)|(\+\+)$";
             string tercerPatron = @"^(\-\d+)|(\d+\-)|(\-)|(\-\-)$";
@@ -3358,14 +3360,14 @@ namespace PuntoDeVentaV2
                                 if (cantidadExtraDecimal >= (float)nudCantidadPS.Minimum && cantidadExtraDecimal <= (float)nudCantidadPS.Maximum)
                                 {
                                     //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
-                                    var cantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["Cantidad"].Value);
+                                    var cantidad = float.Parse(DGVentas.Rows[0].Cells["Cantidad"].Value.ToString());
 
-                                    cantidad += cantidadExtra;
+                                    float cantResult = cantidad + cantidadExtraDecimal;
 
                                     // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
-                                    float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
+                                    float importe = cantResult * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
 
-                                    DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
+                                    DGVentas.Rows[0].Cells["Cantidad"].Value = cantResult;
                                     DGVentas.Rows[0].Cells["Importe"].Value = importe;
 
                                     // Se agrego esta parte de descuento
@@ -3538,9 +3540,15 @@ namespace PuntoDeVentaV2
         {
             Regex regex1 = new Regex(@"^(\-\.\d+)");
             Regex regex2 = new Regex(@"^(\.\d+\-)");
+            Regex regex3 = new Regex(@"^(\-\d\.\d+)");
+            Regex regex4 = new Regex(@"^(\d\.\d+\-)");
+
             Match match1 = regex1.Match(cadena);
             Match match2 = regex2.Match(cadena);
-            return match1.Success || match2.Success;
+            Match match3 = regex3.Match(cadena);
+            Match match4 = regex4.Match(cadena);
+
+            return match1.Success || match2.Success || match3.Success || match4.Success;
         }
 
         private bool verifiedContainsPlusSymbol(string cadena)
@@ -4073,7 +4081,7 @@ namespace PuntoDeVentaV2
 
         private void CalculoMayoreo()
         {
-            int contadorMayoreo = 0;
+            float contadorMayoreo = 0;
             // Si la casilla de mayoreo de config esta activa
             if (mayoreoActivo)
             {
@@ -4083,7 +4091,7 @@ namespace PuntoDeVentaV2
                     foreach (DataGridViewRow fila in DGVentas.Rows)
                     {
                         var mayoreo = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
-                        var cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value.ToString());
+                        var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
 
                         if (mayoreo > 0)
                         {
