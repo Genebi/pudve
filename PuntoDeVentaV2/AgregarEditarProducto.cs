@@ -6427,7 +6427,7 @@ namespace PuntoDeVentaV2
             tLPCombo.Controls.Add(button1, 2, 2);              // Combo/Servicio Button
             tLPCombo.SetColumnSpan(button1, 2);
             tLPCombo.Controls.Add(panelContenedor, 4, 2);      // Contenedor de Código Barras extra Panel
-            tLPCombo.SetColumnSpan(panelContenedor, 2);
+            tLPCombo.SetColumnSpan(panelContenedor, 3);
             tLPCombo.SetRowSpan(panelContenedor, 2);
 
             #endregion End Row 3
@@ -6441,7 +6441,7 @@ namespace PuntoDeVentaV2
             PImagen.TabStop = true;
 
             tLPCombo.Controls.Add(PImagen, 0, 3);              // Imagen del Producto Panel
-            tLPCombo.SetColumnSpan(PImagen, 2);
+            tLPCombo.SetColumnSpan(PImagen, 3);
             tLPCombo.SetRowSpan(PImagen, 4);
 
             #endregion End Row 4
