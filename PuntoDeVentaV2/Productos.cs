@@ -1598,6 +1598,8 @@ namespace PuntoDeVentaV2
 
             filtroOrdenarPor();
 
+            creacionEtiquetasDinamicas();
+
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
 
             // Calcular capital temporalmente (informativo)
@@ -2001,71 +2003,71 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            bool isEmpty = (setUpDinamicos.Count == 0);
-            usrNo = FormPrincipal.userID;
-            fileName = "DiccionarioDetalleBasicos.txt";
+            //bool isEmpty = (setUpDinamicos.Count == 0);
+            //usrNo = FormPrincipal.userID;
+            //fileName = "DiccionarioDetalleBasicos.txt";
 
-            if (!path.Equals(""))
-            {
-                path = saveDirectoryFile + usrNo + @"\";
-            }
-            else if (path.Equals(""))
-            {
-                path = saveDirectoryFile + usrNo + @"\";
-            }
+            //if (!path.Equals(""))
+            //{
+            //    path = saveDirectoryFile + usrNo + @"\";
+            //}
+            //else if (path.Equals(""))
+            //{
+            //    path = saveDirectoryFile + usrNo + @"\";
+            //}
 
-            if (usrNo > 0)
-            {
-                if (!isEmpty)
-                {
-                    borrarEtiquetasDinamicasSetUpDinamicos();
-                    setUpDinamicos.Clear();
+            //if (usrNo > 0)
+            //{
+            //    if (!isEmpty)
+            //    {
+            //        borrarEtiquetasDinamicasSetUpDinamicos();
+            //        setUpDinamicos.Clear();
 
-                    using (StreamReader file = new StreamReader(path + @"\" + fileName))
-                    {
-                        while ((line = file.ReadLine()) != null)
-                        {
-                            words = line.Split(delimiter);
-                            setUpDinamicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
-                        }
-                        file.Close();
-                    }
-                    crearEtiquetaDinamicaSetUpDinamicos();
-                }
-                else if (isEmpty)
-                {
-                    if (!System.IO.File.Exists(path + fileName))
-                    {
-                        Directory.CreateDirectory(path);
-                        using (System.IO.File.Create(path + fileName)) { }
-                    }
-                    if (new FileInfo(path + fileName).Length > 0)
-                    {
-                        borrarEtiquetasDinamicasSetUpDinamicos();
-                        setUpDinamicos.Clear();
-                        using (StreamReader file = new StreamReader(path + @"\" + fileName))
-                        {
-                            while ((line = file.ReadLine()) != null)
-                            {
-                                words = line.Split(delimiter);
-                                setUpDinamicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
-                            }
-                            file.Close();
-                        }
-                        crearEtiquetaDinamicaSetUpDinamicos();
-                    }
-                    else if (new FileInfo(path + fileName).Length < 0)
-                    {
-                        setUpDinamicos.Clear();
-                    }
-                }
-                verificarBotonLimpiarTags();
-            }
-            else if (usrNo.Equals(0))
-            {
-                MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario",
-                                "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //        using (StreamReader file = new StreamReader(path + @"\" + fileName))
+            //        {
+            //            while ((line = file.ReadLine()) != null)
+            //            {
+            //                words = line.Split(delimiter);
+            //                setUpDinamicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
+            //            }
+            //            file.Close();
+            //        }
+            //        crearEtiquetaDinamicaSetUpDinamicos();
+            //    }
+            //    else if (isEmpty)
+            //    {
+            //        if (!System.IO.File.Exists(path + fileName))
+            //        {
+            //            Directory.CreateDirectory(path);
+            //            using (System.IO.File.Create(path + fileName)) { }
+            //        }
+            //        if (new FileInfo(path + fileName).Length > 0)
+            //        {
+            //            borrarEtiquetasDinamicasSetUpDinamicos();
+            //            setUpDinamicos.Clear();
+            //            using (StreamReader file = new StreamReader(path + @"\" + fileName))
+            //            {
+            //                while ((line = file.ReadLine()) != null)
+            //                {
+            //                    words = line.Split(delimiter);
+            //                    setUpDinamicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
+            //                }
+            //                file.Close();
+            //            }
+            //            crearEtiquetaDinamicaSetUpDinamicos();
+            //        }
+            //        else if (new FileInfo(path + fileName).Length < 0)
+            //        {
+            //            setUpDinamicos.Clear();
+            //        }
+            //    }
+            //    verificarBotonLimpiarTags();
+
+            //}
+            //else if (usrNo.Equals(0))
+            //{
+            //    MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario", "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         public void borrarEtiquetasDinamicasSetUpDinamicos()
@@ -2197,7 +2199,7 @@ namespace PuntoDeVentaV2
             Button btnTag = (Button)sender;
             string name = string.Empty,
                     newtext = string.Empty,
-                    fileNameDictionary = "DiccionarioDetalleBasicos.txt",
+                    //fileNameDictionary = "DiccionarioDetalleBasicos.txt",
                     rutaCompletaFile = string.Empty;
 
             string[] words;
@@ -3587,9 +3589,15 @@ namespace PuntoDeVentaV2
             extra = string.Empty;
             extra2 = string.Empty;
 
+            queryHead = string.Empty;
+            queryAndAdvancedOtherTagsBegin = string.Empty;
+            queryAndAdvancedOtherTagsEnd = string.Empty;
+
             queryResultOtherTags = string.Empty;
             queryAndAdvancedOtherTags = string.Empty;
             queryAndAdvancedOtherTags = string.Empty;
+
+            queryHeadAdvancedProveedor = string.Empty;
 
             countFalse = contarCamposFalsos(setUpDinamicos);
 

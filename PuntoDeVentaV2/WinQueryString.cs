@@ -1778,8 +1778,7 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
-            servidor = Properties.Settings.Default.Hosting;
-            saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
+            validarConexionServidor();
             path = saveDirectoryFile;
 
             validarCheckBoxFijos();
@@ -1790,6 +1789,25 @@ namespace PuntoDeVentaV2
             validarCheckBoxFiltrosDinamicos();
 
             LLenarFiltrosDinamicosDeVetanaFiltros();
+        }
+
+        private void validarConexionServidor()
+        {
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                DirectoryInfo dirDicc = new DirectoryInfo($@"\\{servidor}\PUDVE\settings\Dictionary");
+
+                if (dirDicc.Exists)
+                {
+                    saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
+                }
+            }
+            else
+            {
+                saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
+            }
         }
 
         private void validarCheckBoxFijos()
@@ -2612,6 +2630,7 @@ namespace PuntoDeVentaV2
             filtroImagen = chkBoxImagen.Checked;
 
             DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección", "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
             if (result == DialogResult.Yes)
             {
                 if (filtroStock.Equals(true))
