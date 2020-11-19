@@ -1,4 +1,4 @@
 10|chkBoxchkProveedor|False|Selecciona Proveedor|cbchkProveedor
 11|chkBoxchkColor|False|Selecciona Color|cbchkColor
-12|chkBoxchkTalla|False|Selecciona Talla|cbchkTalla
+12|chkBoxchkTalla|True|UBICACION|cbchkTalla
 13|chkBoxchkPeso|False|Selecciona Peso|cbchkPeso

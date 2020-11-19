@@ -505,6 +505,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        /// <summary>
+        /// Metodo para Generar de nuevo el tcket
+        /// </summary>
+        /// <param name="tbVenta">DataTable que lleva los datos del ticket</param>
+        /// <param name="impCodigo">Bool que decide si imprimir codigo de barras o no</param>
         public static void GenerarTicket(DataTable tbVenta, bool impCodigo)
         {
             string[][] productos = new string[tbVenta.Rows.Count][];
@@ -925,6 +930,12 @@ namespace PuntoDeVentaV2
             writer.Close();
         }
 
+        /// <summary>
+        /// Metodo para Generar de Barras que lleva el ticket de venta
+        /// </summary>
+        /// <param name="txtCodigo">el codigo de barras</param>
+        /// <param name="ancho">el ancho del ticket</param>
+        /// <returns></returns>
         private static System.Drawing.Image GenerarCodigoBarras(string txtCodigo, int ancho)
         {
             System.Drawing.Image imagen;
