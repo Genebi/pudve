@@ -2350,44 +2350,6 @@ namespace PuntoDeVentaV2
                 }
             }
             crearEtiquetaSetUpVariable();
-
-            //setUpVariable.Clear();
-            //if (Properties.Settings.Default.chkFiltroStock.Equals(true))
-            //{
-            //    if (!Properties.Settings.Default.strFiltroStock.Equals(""))
-            //    {
-            //        setUpVariable.Add(Properties.Settings.Default.strFiltroStock);
-            //    }
-            //}
-            //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
-            //{
-            //    if (!Properties.Settings.Default.strFiltroPrecio.Equals(""))
-            //    {
-            //        setUpVariable.Add(Properties.Settings.Default.strFiltroPrecio);
-            //    }
-            //}
-            //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true))
-            //{
-            //    if (!Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-            //    {
-            //        setUpVariable.Add(Properties.Settings.Default.strFiltroRevisionInventario);
-            //    }
-            //}
-            //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true))
-            //{
-            //    if (!Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-            //    {
-            //        setUpVariable.Add(Properties.Settings.Default.strFiltroCombProdServ);
-            //    }
-            //}
-            //if (Properties.Settings.Default.chkFiltroImagen.Equals(true))
-            //{
-            //    if (!Properties.Settings.Default.strFiltroImagen.Equals(""))
-            //    {
-            //        setUpVariable.Add(Properties.Settings.Default.strFiltroImagen);
-            //    }
-            //}
-            //crearEtiquetaSetUpVariable();
         }
 
         private void crearEtiquetaSetUpVariable()
@@ -3240,8 +3202,9 @@ namespace PuntoDeVentaV2
             Button btnTag = (Button)sender;
             string name = string.Empty, newtext = string.Empty;
             name = btnTag.Name.Remove(0, 8);
-            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons
-                .YesNo, MessageBoxIcon.Question);
+
+            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
             if (result == DialogResult.Yes)
             {
                 foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
