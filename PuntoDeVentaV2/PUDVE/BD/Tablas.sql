@@ -804,6 +804,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Index Unico de Usuarios
 CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_Usuarios ON Usuarios (ID);
 
+-- Index y FullText Productos
+CREATE INDEX IF NOT EXISTS BUSQUEDA_COMBINADA_PRODUCTOS_DEL_USUARIO ON Productos (Status, IDUsuario, Nombre, NombreAlterno1, NombreAlterno2);
+CREATE FULLTEXT INDEX IF NOT EXISTS BUSQUEDA_TEXTO_CAMPOS_NOMBRES_PRODUCTOS ON Productos (Nombre, NombreAlterno1, NombreAlterno2);
+
 -- Index Unico de Prveedores
 CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_Proveedores ON Proveedores (ID);
 CREATE FULLTEXT INDEX IF NOT EXISTS Nombre_Proveedores ON Proveedores (Nombre);
