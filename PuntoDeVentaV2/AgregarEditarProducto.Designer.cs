@@ -105,6 +105,7 @@
             this.PCategoria.SuspendLayout();
             this.PConteidoProducto.SuspendLayout();
             this.PDetalle.SuspendLayout();
+            this.tLPCombo.SuspendLayout();
             this.PAccion.SuspendLayout();
             this.Ptitulo.SuspendLayout();
             this.PType.SuspendLayout();
@@ -683,7 +684,6 @@
             this.PDetalle.Controls.Add(this.lbStockMaximo);
             this.PDetalle.Controls.Add(this.lbPrecioCompra);
             this.PDetalle.Controls.Add(this.lblStockMinimo);
-            this.PDetalle.Controls.Add(this.tLPServicio);
             this.PDetalle.Controls.Add(this.tLPCombo);
             this.PDetalle.Controls.Add(this.tLPProducto);
             this.PDetalle.Controls.Add(this.label12);
@@ -778,11 +778,11 @@
             // 
             this.tLPServicio.ColumnCount = 1;
             this.tLPServicio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPServicio.Location = new System.Drawing.Point(21, 5);
+            this.tLPServicio.Location = new System.Drawing.Point(3, 3);
             this.tLPServicio.Name = "tLPServicio";
             this.tLPServicio.RowCount = 1;
             this.tLPServicio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPServicio.Size = new System.Drawing.Size(804, 282);
+            this.tLPServicio.Size = new System.Drawing.Size(799, 275);
             this.tLPServicio.TabIndex = 36;
             this.tLPServicio.Visible = false;
             this.tLPServicio.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPServicio_CellPaint);
@@ -791,6 +791,7 @@
             // 
             this.tLPCombo.ColumnCount = 1;
             this.tLPCombo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tLPCombo.Controls.Add(this.tLPServicio, 0, 0);
             this.tLPCombo.Location = new System.Drawing.Point(20, 3);
             this.tLPCombo.Name = "tLPCombo";
             this.tLPCombo.RowCount = 1;
@@ -982,6 +983,7 @@
             this.PConteidoProducto.ResumeLayout(false);
             this.PDetalle.ResumeLayout(false);
             this.PDetalle.PerformLayout();
+            this.tLPCombo.ResumeLayout(false);
             this.PAccion.ResumeLayout(false);
             this.Ptitulo.ResumeLayout(false);
             this.PType.ResumeLayout(false);
