@@ -2391,7 +2391,8 @@ namespace PuntoDeVentaV2
             {
                 if (logoTipo.Equals("") || logoTipo.Equals(null))
                 {
-                    btnImagenes.Text = "Seleccionar imagen";
+                    //btnImagenes.Text = "Seleccionar imagen";
+                    btnImagenes.Text = "Borrar imagen";
                     using (f = new OpenFileDialog())
                     {
                         // le aplicamos un filtro para solo ver 
@@ -2458,6 +2459,7 @@ namespace PuntoDeVentaV2
                                         {
                                             // cargamos la imagen en el PictureBox
                                             pictureBoxProducto.Image = Image.FromStream(File);
+
                                         }
                                     }
                                 }
@@ -2502,7 +2504,8 @@ namespace PuntoDeVentaV2
                     // ponemos la direccion y nombre de la imagen
                     path = saveDirectoryImg + logoTipo;
                     // cambiamos el texto del boton de Imagen
-                    btnImagenes.Text = "Borrar imagen";
+                    //btnImagenes.Text = "Borrar imagen";
+                    btnImagenes.Text = "Seleccionar imagen";
                     // Liberamos el pictureBox para poder borrar su imagen
                     pictureBoxProducto.Image.Dispose();
                     // Establecemos a Nothing el valor de la propiedad Image
@@ -2525,6 +2528,7 @@ namespace PuntoDeVentaV2
                             MessageBox.Show("Error al borrar el nombre de la imagen\nde la base de datos:\n" + ex.Message.ToString(), "información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
+                    logoTipo = string.Empty;
                 }
             }
             catch (Exception ex)
