@@ -2184,6 +2184,10 @@ namespace PuntoDeVentaV2
                     GenerarTextBox();
                     //MessageBox.Show(texto, "Mensaje");
                 }
+                else if (texto.Length <= 4)
+                {
+                    MessageBox.Show("Ingrese minimo 5 numeros","Mensaje de Sistema",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -6210,7 +6214,7 @@ namespace PuntoDeVentaV2
             panelContenedor.TabStop = true;
 
             tLPProducto.Controls.Add(panelContenedor, 1, 3);
-            tLPProducto.SetColumnSpan(panelContenedor, 2);
+            tLPProducto.SetColumnSpan(panelContenedor, 3);
             tLPProducto.SetRowSpan(panelContenedor, 2);
 
             #endregion End Row 4
