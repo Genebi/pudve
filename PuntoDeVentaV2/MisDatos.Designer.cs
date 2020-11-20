@@ -987,7 +987,6 @@
         private System.Windows.Forms.TextBox txt_llave;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label lbSeparador1;
-        private System.Windows.Forms.TextBox txt_certificado;
         private System.Windows.Forms.Button btn_vnt_subir_archivos;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label lb_fvencimiento;
@@ -1000,5 +999,6 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Button btnActualizarPassword;
+        public System.Windows.Forms.TextBox txt_certificado;
     }
 }

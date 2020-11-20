@@ -654,7 +654,6 @@ namespace PuntoDeVentaV2.CFDI
         //------- Parses binary asn.1 X509 SubjectPublicKeyInfo; returns RSACryptoServiceProvider ---
         public static RSACryptoServiceProvider DecodeX509PublicKey(byte[] x509key)
         {
-            //Console.WriteLine("INICIO CER");
             // encoded OID sequence for  PKCS #1 rsaEncryption szOID_RSA_RSA = "1.2.840.113549.1.1.1"
             byte[] SeqOID = { 0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00 };
             byte[] seq = new byte[15];
@@ -666,22 +665,20 @@ namespace PuntoDeVentaV2.CFDI
 
             try
             {
-                Console.WriteLine("TRY CER");
-                twobytes = binr.ReadUInt16(); Console.WriteLine("TRY CER" + twobytes);
+                twobytes = binr.ReadUInt16(); 
                 if (twobytes == 0x8130) //data read as little endian order (actual data order for Sequence is 30 81)
                     binr.ReadByte();    //advance 1 byte
                 else if (twobytes == 0x8230)
                     binr.ReadInt16();  //advance 2 bytes
                                        //Console.WriteLine("TRY 2 i CER");
                 else
-                    Console.WriteLine("TRY 2 CER");
-                //return null;
+                return null;
 
                 seq = binr.ReadBytes(15);       //read the Sequence OID
-                Console.WriteLine("TRY 3 i CER" + seq + "||||||||||||||" + binr);
+
                 if (!CompareBytearrays(seq, SeqOID))    //make sure Sequence for OID is correct
-                    Console.WriteLine("TRY 3 CER");
-                //return null;
+
+                return null;
 
                 twobytes = binr.ReadUInt16();
                 if (twobytes == 0x8103) //data read as little endian order (actual data order for Bit String is 03 81)
@@ -689,26 +686,26 @@ namespace PuntoDeVentaV2.CFDI
                 else if (twobytes == 0x8203)
                     binr.ReadInt16();   //advance 2 bytes
                 else
-                    Console.WriteLine("TRY 4 CER");
-                //return null;
 
-                bt = binr.ReadByte(); Console.WriteLine("TRY 4.1 CER" + bt);
+                return null;
+
+                bt = binr.ReadByte(); 
                 if (bt != 0x00)     //expect null byte next
-                    Console.WriteLine("TRY 5 CER");
-                //return null;
 
-                twobytes = binr.ReadUInt16(); Console.WriteLine("TRY 5.1 CER" + twobytes);
+                return null;
+
+                twobytes = binr.ReadUInt16(); 
                 if (twobytes == 0x8130) //data read as little endian order (actual data order for Sequence is 30 81)
                     binr.ReadByte();    //advance 1 byte
                 else if (twobytes == 0x8230)
                     binr.ReadInt16();   //advance 2 bytes
                 else
-                    Console.WriteLine("TRY 6 CER");
-                //return null;
+                    
+                return null;
 
                 twobytes = binr.ReadUInt16();
                 byte lowbyte = 0x00;
-                byte highbyte = 0x00; Console.WriteLine("TRY 6.1 CER" + twobytes);
+                byte highbyte = 0x00; 
 
                 if (twobytes == 0x8102) //data read as little endian order (actual data order for Integer is 02 81)
                     lowbyte = binr.ReadByte();  // read next bytes which is bytes in modulus
@@ -718,14 +715,14 @@ namespace PuntoDeVentaV2.CFDI
                     lowbyte = binr.ReadByte();
                 }
                 else
-                    Console.WriteLine("TRY 7 CER");
-                //return null;
+
+                return null;
                 byte[] modint = { lowbyte, highbyte, 0x00, 0x00 };   //reverse byte order since asn.1 key uses big endian order
                 int modsize = BitConverter.ToInt32(modint, 0);
 
                 byte firstbyte = binr.ReadByte();
                 binr.BaseStream.Seek(-1, SeekOrigin.Current);
-                Console.WriteLine("TRY 8 CER " + firstbyte);
+
                 if (firstbyte == 0x00)
                 {   //if first byte (highest order) of modulus is zero, don't include it
                     binr.ReadByte();    //skip this null byte
@@ -733,13 +730,12 @@ namespace PuntoDeVentaV2.CFDI
                 }
 
                 byte[] modulus = binr.ReadBytes(modsize);   //read the modulus bytes
-                Console.WriteLine("TRY 9 CER " + binr.ReadByte());
+
                 //if (binr.ReadByte() != 0x02)            //expect an Integer for the exponent data
                 //return null;
                 int expbytes = (int)binr.ReadByte();        // should only need one byte for actual exponent data (for all useful values)
                 byte[] exponent = binr.ReadBytes(expbytes);
-
-                Console.WriteLine("CASI FIN CER");
+                
                 showBytes("\nExponent", exponent);
                 showBytes("\nModulus", modulus);
 
@@ -749,7 +745,7 @@ namespace PuntoDeVentaV2.CFDI
                 RSAKeyInfo.Modulus = modulus;
                 RSAKeyInfo.Exponent = exponent;
                 RSA.ImportParameters(RSAKeyInfo);
-                Console.WriteLine("FIN CER" + RSA);
+
                 return RSA;
             }
             catch (Exception ex)

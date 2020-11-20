@@ -562,6 +562,28 @@ namespace PuntoDeVentaV2
                     subir_arch.FormClosed += delegate
                     {
                         cargar_archivos();
+
+                        // Los archivos no fueron subidos completos, por lo tanto los elimina 
+                        
+                        if (subir_arch.ban == true)
+                        {
+                            DirectoryInfo dir_info = new DirectoryInfo(@"C:\Archivos PUDVE\MisDatos\CSD\");
+
+                            foreach (FileInfo f in dir_info.GetFiles())
+                            {
+                                f.Delete();
+                            }
+
+
+                            string[] datos = new string[]
+                            {
+                                FormPrincipal.userID.ToString(), "", "", ""
+                            };
+
+                            cn.EjecutarConsulta(cs.archivos_digitales(datos, 1));
+                            
+                        }
+                        
                     };
 
                     subir_arch.Show();
@@ -861,7 +883,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void cargar_archivos()
+        public void cargar_archivos()
         {
             if (Directory.Exists(ruta_archivos_guadados))
             {
@@ -873,6 +895,7 @@ namespace PuntoDeVentaV2
 
 
                 DirectoryInfo dir = new DirectoryInfo(ruta_archivos_guadados);
+                int cant_arch = dir.GetFiles().Count();
 
                 foreach (var arch in dir.GetFiles())
                 {
@@ -914,6 +937,13 @@ namespace PuntoDeVentaV2
                             lb_fvencimiento.Text = fech;
                         }
                     }
+                }
+
+                if(cant_arch == 0 | cant_arch < 4)
+                {
+                    txt_certificado.Text = "";
+                    txt_llave.Text = "";
+                    lb_fvencimiento.Text = "";
                 }
             }
         }

@@ -33,6 +33,7 @@ namespace PuntoDeVentaV2
     
         public string error = "";
         public string mensajeExito = "";
+        public bool ban = false;
 
 
 
@@ -79,16 +80,14 @@ namespace PuntoDeVentaV2
 
                     i++;*/
                 }
+                
 
-                Console.WriteLine(txt_certificado.Text + "=" + txt_llave.Text);
                 if (txt_certificado.Text == "" & txt_llave.Text == "")
                 {
-                    Console.WriteLine("IF");
                     btn_subir_archivos.Enabled = true;
                 }
                 else
                 {
-                    Console.WriteLine("ELSE");
                     btn_subir_archivos.Enabled = false;
                 }
 
@@ -191,11 +190,24 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Archivo subido corrrectamente.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     txt_subir_archivos.Text = string.Empty;
+
                 }
                 else
                 {
                     MessageBox.Show("El archivo" + solo_nombre + " ya existe.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+
+
+            // Si los datos no son correctos activa bandera para eliminar todos los archivos
+            // y evitar que de errores al momento de querer timbrar o cancelar un CFDI.
+            if (txt_certificado.Text == "" | txt_certificado_pem.Text == "" | txt_llave.Text == "" | txt_llave_pem.Text == "")
+            {
+                ban = true;
+            }
+            else
+            {
+                ban = false;
             }
         }
 
@@ -245,22 +257,34 @@ namespace PuntoDeVentaV2
             {
                 mnsj = "Debe agregar la contraseña. La contraseña debe ser la perteneciente a sus archivos digitales.";
             }
-            if(txt_llave.Text == "")
+            if (txt_llave_pem.Text == "")
+            {
+                mnsj = "No ha subido su llave digital con extención .pem(.key.pem).";
+            }
+            if (txt_llave.Text == "")
             {
                 mnsj = "No ha subido su llave digital (.key).";
             }
-            if(txt_certificado.Text == "")
+            if (txt_certificado_pem.Text == "")
+            {
+                mnsj = "No ha subido su certificado con extención .pem (.cer.pem).";
+            }
+            if (txt_certificado.Text == "")
             {
                 mnsj = "No ha subido su certificado (.cer).";
             }
+                     
 
 
-            if(mnsj == "")
+            if (mnsj == "")
             {
+                ban = false;
                 this.Dispose();
+                
             }
             else
             {
+                ban = true;
                 MessageBox.Show(mnsj, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
