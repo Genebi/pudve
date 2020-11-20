@@ -990,7 +990,7 @@ namespace PuntoDeVentaV2
 
                     string ruta_archivo = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idVenta + ".pdf";
 
-                    //Thread hilo;
+                    Thread hilo;
                     //pictureBox1.Visible = true;
                     if (!File.Exists(ruta_archivo))
                     {// () => mnsj(),
@@ -999,17 +999,16 @@ namespace PuntoDeVentaV2
                         //pBar_descarga_verpdf.Visible = true;
                         //lb_texto_descarga_verpdf.Visible = true;
                         //lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
-                        ///Thread hilo = new Thread(() => RealizarProcesoProductos());
-                        /*hilo = new Thread(() => mnsj());
-                        //hilo.Start();
+                        hilo = new Thread(() => mnsj());
+                        hilo.Start();
                         
                         hilo = new Thread(verfactura);
                         hilo.Start(idVenta);
 
-                        hilo.Join();*/
-                        MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
+                        hilo.Join();
+                        //MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
                         // Genera PDF
-                        ver_factura(idVenta);
+                        //ver_factura(idVenta);
                     }
                     
                     // poner marca de agua a la nota si es presupuesto
@@ -1222,11 +1221,13 @@ namespace PuntoDeVentaV2
 
         public void mnsj()
         {
+            MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
+
             //pictureBox1.Visible = true;
-            Console.WriteLine("uno");
+            //Console.WriteLine("uno");
             //pBar_descarga_verpdf.Visible = true;
-            lb_texto_descarga_verpdf.Visible = true;
-            lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
+            //lb_texto_descarga_verpdf.Visible = true;
+            //lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
 
             ///          this.Invoke(barra, new object[] { 1 });
             //            Thread.Sleep(10);
@@ -1236,24 +1237,24 @@ namespace PuntoDeVentaV2
             //{
             //pBar_descarga_verpdf.Maximum = 100;
             //pBar_descarga_verpdf.Value = 2; // Valor inicial
-/*
-            for (var p = 0; p <= 100; p++)
- {
-                //pBar_descarga_verpdf.Value = p;
-                pBar_descarga_verpdf.Increment(1);
-                lb_txt_ruta_descargar.Text = p.ToString();
+            /*
+                        for (var p = 0; p <= 100; p++)
+             {
+                            //pBar_descarga_verpdf.Value = p;
+                            pBar_descarga_verpdf.Increment(1);
+                            lb_txt_ruta_descargar.Text = p.ToString();
 
-                if (ban_ver == true)
-                {
-                    pBar_descarga_verpdf.Visible = false;
-                    lb_texto_descarga_verpdf.Visible = false;
-                }*/
+                            if (ban_ver == true)
+                            {
+                                pBar_descarga_verpdf.Visible = false;
+                                lb_texto_descarga_verpdf.Visible = false;
+                            }*/
 
-                Console.WriteLine("progreso="+pBar_descarga_verpdf.Value);
-                //refrescar(p);
-                /*delegado barra = new delegado(refrescar);
-                this.Invoke(barra, new object[] { p });
-            Thread.Sleep(10);*/
+            //Console.WriteLine("progreso="+pBar_descarga_verpdf.Value);
+            //refrescar(p);
+            /*delegado barra = new delegado(refrescar);
+            this.Invoke(barra, new object[] { p });
+        Thread.Sleep(10);*/
 
             //}
             //}
@@ -1261,7 +1262,6 @@ namespace PuntoDeVentaV2
 
         private void verfactura(object id)
         {
-            Console.WriteLine("dos");
             int id_vent = Convert.ToInt32(id);
             ver_factura(id_vent);
         }

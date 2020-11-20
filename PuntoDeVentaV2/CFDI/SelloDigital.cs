@@ -264,9 +264,7 @@ namespace PuntoDeVentaV2.CFDI
         }
         public static bool leerCER(string NombreArchivo, out string Inicio, out string Final, out string Serie, out string Numero)
         {
-
-
-
+            
 
             if (NombreArchivo.Length < 1)
             {
@@ -289,9 +287,62 @@ namespace PuntoDeVentaV2.CFDI
             objSB.AppendLine("Tamaño de la clave = " + objCert.PublicKey.Key.KeySize.ToString());
             objSB.AppendLine("Número de serie = " + objCert.SerialNumber);
             Serie = objCert.SerialNumber.ToString();
-
+            Console.WriteLine("key="+objCert.PublicKey.Key.ToString()+ " tam key=" + objCert.PublicKey.Key.KeySize.ToString()+" sujeto="+ objCert.Subject);
             objSB.AppendLine("Hash = " + objCert.Thumbprint);
- 
+            objSB.AppendLine("SignatureAlgorithm = " + objCert.SignatureAlgorithm);
+            /*
+
+                        //Extensiones
+                        objSB.AppendLine("\nExtensiones:\n");
+                        foreach (X509Extension objExt in objCert.Extensions)
+                        {
+                            objSB.AppendLine(objExt.Oid.FriendlyName + " (" + objExt.Oid.Value + ')');
+
+                            if (objExt.Oid.FriendlyName == "Key Usage" | objExt.Oid.FriendlyName == "Uso de la clave")
+                            {
+                                X509KeyUsageExtension ext = (X509KeyUsageExtension)objExt;
+                                objSB.AppendLine("    " + ext.KeyUsages);
+                            }
+
+                            if (objExt.Oid.FriendlyName == "Basic Constraints" | objExt.Oid.FriendlyName == "Restricciones básicas")
+                            {
+                                X509BasicConstraintsExtension ext = (X509BasicConstraintsExtension)objExt;
+                                objSB.AppendLine("    " + ext.CertificateAuthority);
+                                objSB.AppendLine("    " + ext.HasPathLengthConstraint);
+                                objSB.AppendLine("    " + ext.PathLengthConstraint);
+                            }
+
+                            if (objExt.Oid.FriendlyName == "Subject Key Identifier")
+                            {
+                                X509SubjectKeyIdentifierExtension ext = (X509SubjectKeyIdentifierExtension)objExt;
+                                objSB.AppendLine("    " + ext.SubjectKeyIdentifier);
+                            }
+
+                            if (objExt.Oid.FriendlyName == "Enhanced Key Usage") //2.5.29.37
+                            {
+                                X509EnhancedKeyUsageExtension ext = (X509EnhancedKeyUsageExtension)objExt;
+                                OidCollection objOids = ext.EnhancedKeyUsages;
+                                foreach (Oid oid in objOids)
+                                    objSB.AppendLine("    " + oid.FriendlyName + " (" + oid.Value + ')');
+                            }
+                        }
+                        Console.Write(objSB.ToString());
+                        string ruta_guardar_archivos = @"C:\Archivos PUDVE\MisDatos\CSD\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109.key";
+                        string priv = File.ReadAllText(ruta_guardar_archivos);
+                       ///// RSACryptoServiceProvider pub = RSACryptoServiceProvider(priv);
+
+                        string strOriginal = "House121";
+
+                        byte[] bytOriginal = Encoding.ASCII.GetBytes(strOriginal);
+
+                        SHA256 objAlgoritmo = SHA256.Create();
+
+                        byte[] bytHash = objAlgoritmo.ComputeHash(bytOriginal);
+
+                        string strHash = Convert.ToBase64String(bytHash);
+
+                        Console.WriteLine("resultado=" + strHash);
+                        */
             //Numero = "?";
             string tNumero = "", rNumero = "", tNumero2 = "";
 
@@ -332,8 +383,6 @@ namespace PuntoDeVentaV2.CFDI
             {
                 return true;
             }
-
-
 
             return false;
         }
