@@ -3581,9 +3581,15 @@ namespace PuntoDeVentaV2
                             #region Incio Seccion Cambio de Precio
                             if (precioNuevo != precioAnterior)
                             {
+                                string precioAnteriorTmp = precioAnterior.ToString();
+                                string precioNuevoTmp = precioNuevo.ToString();
+
+                                precioAnteriorTmp = precioAnteriorTmp.Replace(",", "");
+                                precioNuevoTmp = precioNuevoTmp.Replace(",", "");
+
                                 var datos = new string[] {
                                     FormPrincipal.userID.ToString(), "0", idProductoBuscado,
-                                    precioAnterior.ToString("N2"), precioNuevo.ToString("N2"),
+                                    precioAnteriorTmp, precioNuevoTmp,
                                     "EDITAR PRODUCTO", fechaOperacion
                                 };
 

@@ -178,9 +178,15 @@ namespace PuntoDeVentaV2
 
             if (precioAux != precioProducto)
             {
+                string precioAnteriorTmp = precioProducto.ToString();
+                string precioNuevoTmp = precioAux.ToString();
+
+                precioAnteriorTmp = precioAnteriorTmp.Replace(",", "");
+                precioNuevoTmp = precioNuevoTmp.Replace(",", "");
+
                 var info = new string[] {
                     FormPrincipal.userID.ToString(), "0", IDProducto.ToString(),
-                    precioProducto.ToString("N2"), precioAux.ToString("N2"),
+                    precioAnteriorTmp, precioNuevoTmp,
                     "AJUSTAR PRODUCTO", fechaOperacion
                 };
 
