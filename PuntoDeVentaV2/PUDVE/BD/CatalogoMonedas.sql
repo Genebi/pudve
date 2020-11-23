@@ -1,4 +1,4 @@
-INSERT INTO Catalogo_monedas 
+INSERT IGNORE INTO Catalogo_monedas 
 (clave_moneda, descripcion, cant_decimales)
 VALUES
 ('AED', 'Dirham de EAU', 2),

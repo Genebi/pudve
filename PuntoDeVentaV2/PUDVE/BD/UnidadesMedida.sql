@@ -1,4 +1,4 @@
-INSERT INTO CatalogoUnidadesMedida 
+INSERT IGNORE INTO CatalogoUnidadesMedida 
 (ID, ClaveUnidad, Nombre) 
 VALUES 
 (1, '18', 'Tambor de cincuenta y cinco galones (EUA)'),

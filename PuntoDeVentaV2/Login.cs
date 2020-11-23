@@ -514,7 +514,8 @@ namespace PuntoDeVentaV2
                 config.Show();
                 var database = Task.Run(() => bd.buildDataBase());
                 var tarea = Task.Run(() => tablas.buildTables(false));
-                                                                                                                                                                                                                      database.Wait();
+
+                database.Wait();                                                                                                                                                                                                      database.Wait();
                 tarea.Wait();
                 config.Close();
                 Show();

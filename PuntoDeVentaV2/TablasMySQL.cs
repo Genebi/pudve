@@ -74,9 +74,7 @@ namespace PuntoDeVentaV2
             try
             {
                 await CrearTablas();
-
-                if (insertar)
-                    await InsertarDatos();
+                await InsertarDatos();
             }
             catch (MySqlException mysqlex)
             {

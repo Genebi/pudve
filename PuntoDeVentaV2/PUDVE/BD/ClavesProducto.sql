@@ -1,4 +1,4 @@
-  INSERT INTO Catalogo_claves_producto 
+  INSERT IGNORE INTO Catalogo_claves_producto 
   (ID, clave, descripcion)
   VALUES
   (1, '1010101', 'No existe en el catálogo'),

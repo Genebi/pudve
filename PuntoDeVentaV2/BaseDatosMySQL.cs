@@ -11,8 +11,6 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
 
-        List<string> dataBase = new List<string>();
-
         string connectionString = string.Empty;
 
         public BaseDatosMySQL()
@@ -20,15 +18,8 @@ namespace PuntoDeVentaV2
 
         }
 
-        public void buildListDataBase()
-        {
-            dataBase.Add("CREATE DATABASE IF NOT EXISTS pudve CHARACTER SET utf8 COLLATE utf8_general_ci;");
-        }
-
         public async Task buildDataBase()
         {
-            buildListDataBase();
-
             connectionString = cn.getStringConnection();
             // Prepara la conexión
             MySqlConnection connection = new MySqlConnection(connectionString);
@@ -37,12 +28,9 @@ namespace PuntoDeVentaV2
             {
                 await connection.OpenAsync();
 
-                foreach (var item in dataBase)
-                {
-                    MySqlCommand command = new MySqlCommand(item, connection);
-                    await command.ExecuteNonQueryAsync();
-                }
-
+                MySqlCommand command = new MySqlCommand("CREATE DATABASE IF NOT EXISTS pudve CHARACTER SET utf8 COLLATE utf8_general_ci;", connection);
+                await command.ExecuteNonQueryAsync();
+                
                 connection.Close();
             }
             catch (MySqlException mysqlex)
