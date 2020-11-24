@@ -6589,7 +6589,7 @@ namespace PuntoDeVentaV2
             tLPServicio.Controls.Add(button1, 2, 2);              // Código de Barras Label
             tLPServicio.SetColumnSpan(button1, 2);
             tLPServicio.Controls.Add(panelContenedor, 4, 2);      // Código de Barras TextBox
-            tLPServicio.SetColumnSpan(panelContenedor, 2);
+            tLPServicio.SetColumnSpan(panelContenedor, 3);
             tLPServicio.SetRowSpan(panelContenedor, 2);
 
             #endregion End Row 3
