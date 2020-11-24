@@ -972,13 +972,32 @@ namespace PuntoDeVentaV2
         public static void ventaNotSuccessfulFinalizadaEmail(List<string> productosNoVendidos, string fechaSistema, string cantidadTotal, string[] datosUsuario)
         {
             string[] words;
-            string productos = string.Empty;
+            string  productos = string.Empty, 
+                    encabezadoHTML = string.Empty, 
+                    pieHTML = string.Empty, 
+                    correoHTML = string.Empty, 
+                    asunto = string.Empty, 
+                    correo = string.Empty;
+
+            encabezadoHTML = "<h1 style='text-align: center; color: red;'>VENTA NO FINALIZADA EN EL SISTEMA</h1><br><p>Registro de venta no realizada en el sistema; la siguiente lista es de productos registrados en la venta no realizada:</p><table style='width:100%'><tr><th>Cantidad</th><th>Precio</th><th>Descripcion</th><th>Descuento</th><th>Importe</th></tr>";
 
             foreach (var item in productosNoVendidos)
             {
                 words = item.Split('|');
-                productos += "<b>Cantidad = </b>" + words[0].ToString() + " <b>Precio = </b>" + words[1].ToString() + " <b>Descripcion = </b>" + words[2].ToString() + " <b>Descuento = </b>" + words[3].ToString() + " <b>Importe = </b>" + words[4].ToString() + "<br>";
+                productos += "<tr><td style = 'text-align: left;'><span style='color: blue;'>" + words[0].ToString() + "</span></td><td style = 'text-align: left;'><span style='color: blue;'>" + words[1].ToString() + "</span></td><td style = 'text-align: center;'><span style='color: black;'><b>" + words[2].ToString() + "</b></span></td><td style = 'text-align: left;'><span style='color: blue;'>" + words[3].ToString() + "</span></td><td style = 'text-align: right;'><span style='color: blue;'><b>" + words[4].ToString() + "</b></span></td></tr>";
             }
+
+            pieHTML = $"<tr><td colspan='4' style = 'text-align: right;'>Total =</td><td style = 'text-align: right;'><span style='color: red'><b>{cantidadTotal}</b></span></td></tr></table><p>Está operación fue realizada con <span style='color:red;'>fecha de {fechaSistema}</span> por el <span style='color: red'>usuario = {datosUsuario[0].ToString()}</span></p>";
+
+            correoHTML = encabezadoHTML + productos + pieHTML;
+
+            asunto = "Venta no realizada en el sistema";
+            //correo = datosUsuario[9].ToString();
+            correo = "emmanuel.ruiz.garcia@outlook.com";
+            //correo = "genebi@outlook.com";
+            //correo = "clara_g08091@hotmail.com";
+
+            EnviarEmail(correoHTML, asunto, correo);
         }
     }
 }

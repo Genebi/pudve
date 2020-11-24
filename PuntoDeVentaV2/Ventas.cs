@@ -2524,6 +2524,12 @@ namespace PuntoDeVentaV2
                         importeTotal = cTotal.Text.ToString();
 
                         Utilidades.ventaNotSuccessfulFinalizadaEmail(productosNoVendidos, fechaSistema, importeTotal, FormPrincipal.datosUsuario);
+
+                        mostrarVenta = 0;
+                        listaAnticipos = string.Empty;
+                        ventasGuardadas.Clear();
+                        descuentosDirectos.Clear();
+
                     }
                     else
                     {
