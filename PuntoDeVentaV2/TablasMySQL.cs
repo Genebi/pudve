@@ -74,7 +74,13 @@ namespace PuntoDeVentaV2
             try
             {
                 await CrearTablas();
-                await InsertarDatos();
+
+                var existen = (bool)cn.EjecutarSelect($"SELECT * FROM RegimenFiscal");
+
+                if (!existen)
+                {
+                    await InsertarDatos();
+                }
             }
             catch (MySqlException mysqlex)
             {
