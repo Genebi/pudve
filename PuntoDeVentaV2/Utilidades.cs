@@ -961,5 +961,17 @@ namespace PuntoDeVentaV2
 
             return imagen;
         }
+
+        public static void ventaFinalizadaEmail(List<string> productosNoVendidos, string fechaSistema, string cantidadTotal, string[] datosUsuario)
+        {
+            string[] words;
+            string productos = string.Empty;
+
+            foreach (var item in productosNoVendidos)
+            {
+                words = item.Split('|');
+                productos += "Cantidad = " + words[0].ToString() + " Precio = " + words[1].ToString() + " Descripcion = " + words[2].ToString() + " Descuento = " + words[3].ToString() + " Importe = " + words[4].ToString() + "\n";
+            }
+        }
     }
 }
