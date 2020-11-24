@@ -128,6 +128,8 @@ namespace PuntoDeVentaV2
         int opcion19 = 1; // Aplicar descuento
         int opcion20 = 1; // Terminar venta
 
+        bool ventaFinalizada = false;
+
         public Ventas()
         {
             InitializeComponent();
@@ -1739,6 +1741,8 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+                    ventaFinalizada = true;
+
                     var totalVenta = float.Parse(cTotal.Text);
 
                     DetalleVenta detalle = new DetalleVenta(totalVenta, idCliente);
@@ -2507,10 +2511,27 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    mostrarVenta = 0;
-                    listaAnticipos = string.Empty;
-                    ventasGuardadas.Clear();
-                    descuentosDirectos.Clear();
+                    if (ventaFinalizada.Equals(false))
+                    {
+                        List<string> productosNoVendidos = new List<string>();
+                        string fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), importeTotal = string.Empty;
+
+                        foreach (DataGridViewRow dgvRenglon in DGVentas.Rows)
+                        {
+                            productosNoVendidos.Add(dgvRenglon.Cells["Cantidad"].Value.ToString() + "|" + dgvRenglon.Cells["Precio"].Value.ToString() + "|" + dgvRenglon.Cells["Descripcion"].Value.ToString() + "|" + dgvRenglon.Cells["Descuento"].Value.ToString() + "|" + dgvRenglon.Cells["Importe"].Value.ToString());
+                        }
+
+                        importeTotal = cTotal.Text.ToString();
+
+                        Utilidades.ventaNotSuccessfulFinalizadaEmail(productosNoVendidos, fechaSistema, importeTotal, FormPrincipal.datosUsuario);
+                    }
+                    else
+                    {
+                        mostrarVenta = 0;
+                        listaAnticipos = string.Empty;
+                        ventasGuardadas.Clear();
+                        descuentosDirectos.Clear();
+                    }
                 }
             }
             else

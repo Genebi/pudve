@@ -962,7 +962,14 @@ namespace PuntoDeVentaV2
             return imagen;
         }
 
-        public static void ventaFinalizadaEmail(List<string> productosNoVendidos, string fechaSistema, string cantidadTotal, string[] datosUsuario)
+        /// <summary>
+        /// Metodo para envio de correo de venta finalizada
+        /// </summary>
+        /// <param name="productosNoVendidos">Lista de productos en la listas de venta</param>
+        /// <param name="fechaSistema">Fecha de operación de venta del sistema</param>
+        /// <param name="cantidadTotal">Monto total de l vnta</param>
+        /// <param name="datosUsuario">Datos del usuario que realiza la venta</param>
+        public static void ventaNotSuccessfulFinalizadaEmail(List<string> productosNoVendidos, string fechaSistema, string cantidadTotal, string[] datosUsuario)
         {
             string[] words;
             string productos = string.Empty;
@@ -970,7 +977,7 @@ namespace PuntoDeVentaV2
             foreach (var item in productosNoVendidos)
             {
                 words = item.Split('|');
-                productos += "Cantidad = " + words[0].ToString() + " Precio = " + words[1].ToString() + " Descripcion = " + words[2].ToString() + " Descuento = " + words[3].ToString() + " Importe = " + words[4].ToString() + "\n";
+                productos += "<b>Cantidad = </b>" + words[0].ToString() + " <b>Precio = </b>" + words[1].ToString() + " <b>Descripcion = </b>" + words[2].ToString() + " <b>Descuento = </b>" + words[3].ToString() + " <b>Importe = </b>" + words[4].ToString() + "<br>";
             }
         }
     }
