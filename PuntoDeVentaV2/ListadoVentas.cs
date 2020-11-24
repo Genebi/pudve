@@ -846,73 +846,74 @@ namespace PuntoDeVentaV2
                             }
                         }else if (obtenerValorSiSeAbono.Rows.Count.Equals(0)) 
                         {
-                             mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                            string ultimoDate = string.Empty;
+                            // mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            //string ultimoDate = string.Empty;
 
-                            saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
-                            var sEfectivo = MetodosBusquedas.efectivoInicial;
-                            var sTarjeta = MetodosBusquedas.tarjetaInicial;
-                            var sVales = MetodosBusquedas.valesInicial;
-                            var sCheque = MetodosBusquedas.chequeInicial;
-                            var sTrans = MetodosBusquedas.transInicial;
+                            //saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
+                            //var sEfectivo = MetodosBusquedas.efectivoInicial;
+                            //var sTarjeta = MetodosBusquedas.tarjetaInicial;
+                            //var sVales = MetodosBusquedas.valesInicial;
+                            //var sCheque = MetodosBusquedas.chequeInicial;
+                            //var sTrans = MetodosBusquedas.transInicial;
 
-                            
 
-                            if (mensaje == DialogResult.Yes)
-                            {
-                                var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                                var resultadoConsultaAbonos = string.Empty; var efectivoAbonadoADevolver = string.Empty; var tarjetaAbonadoADevolver = string.Empty; var valesAbonadoADevolver = string.Empty; var chequeAbonadoADevolver = string.Empty; var transAbonadoADevolver = string.Empty; var fechaOperacionAbonadoADevolver = string.Empty;
-                                foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
-                                {
-                                    ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
-                                }
-                                DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
 
-                                //Comprovar que se cuente con dinero suficiente
-                                var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
-                                var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
-                                if (!obtenerDinero.Rows.Count.Equals(0))
-                                {
-                                    foreach (DataRow getCash in obtenerDinero.Rows)
-                                    {
-                                        efectivoObtenido = getCash["sum(Efectivo)"].ToString();
-                                        tarjetaObtenido = getCash["sum(Tarjeta)"].ToString();
-                                        valesObtenido = getCash["sum(Vales)"].ToString();
-                                        chequeObtenido = getCash["sum(Cheque)"].ToString();
-                                        transObtenido = getCash["sum(Transferencia)"].ToString();
-                                    }
-                                    validarEfectivo = (float.Parse(efectivoObtenido) + sEfectivo);
-                                    validarTarjeta = (float.Parse(tarjetaObtenido) + sTarjeta);
-                                    validarVales = (float.Parse(valesObtenido) + sVales);
-                                    validarCheque = (float.Parse(chequeObtenido) + sCheque);
-                                    validarTrans = (float.Parse(transObtenido) + sTrans);
+                            //if (mensaje == DialogResult.Yes)
+                            //{
+                            //    var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                            //    var resultadoConsultaAbonos = string.Empty; var efectivoAbonadoADevolver = string.Empty; var tarjetaAbonadoADevolver = string.Empty; var valesAbonadoADevolver = string.Empty; var chequeAbonadoADevolver = string.Empty; var transAbonadoADevolver = string.Empty; var fechaOperacionAbonadoADevolver = string.Empty;
+                            //    foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
+                            //    {
+                            //        ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                            //    }
+                            //    DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
 
-                                }
+                            //    //Comprovar que se cuente con dinero suficiente
+                            //    var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
+                            //    var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
+                            //    if (!obtenerDinero.Rows.Count.Equals(0))
+                            //    {
+                            //        foreach (DataRow getCash in obtenerDinero.Rows)
+                            //        {
+                            //            efectivoObtenido = getCash["sum(Efectivo)"].ToString();
+                            //            tarjetaObtenido = getCash["sum(Tarjeta)"].ToString();
+                            //            valesObtenido = getCash["sum(Vales)"].ToString();
+                            //            chequeObtenido = getCash["sum(Cheque)"].ToString();
+                            //            transObtenido = getCash["sum(Transferencia)"].ToString();
+                            //        }
+                            //        validarEfectivo = (float.Parse(efectivoObtenido) + sEfectivo);
+                            //        validarTarjeta = (float.Parse(tarjetaObtenido) + sTarjeta);
+                            //        validarVales = (float.Parse(valesObtenido) + sVales);
+                            //        validarCheque = (float.Parse(chequeObtenido) + sCheque);
+                            //        validarTrans = (float.Parse(transObtenido) + sTrans);
 
-                                var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+                            //    }
 
-                                var t = formasPago.Sum().ToString();
-                                var total = float.Parse(t);
-                                var ventaCancelada = 0;
-                                if (cbTipoVentas.SelectedIndex != 3)
-                                {
-                                    ventaCancelada = 1;
-                                }
-                                else if (cbTipoVentas.SelectedIndex == 3)
-                                {
-                                    ventaCancelada = 2;
-                                }
+                            //    var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
-                                DevolverAnticipo da = new DevolverAnticipo(idVenta, total, 3, ventaCancelada);
-                                da.ShowDialog();
+                            //    var t = formasPago.Sum().ToString();
+                            //    var total = float.Parse(t);
+                            //    var ventaCancelada = 0;
+                            //    if (cbTipoVentas.SelectedIndex != 3)
+                            //    {
+                            //        ventaCancelada = 1;
+                            //    }
+                            //    else if (cbTipoVentas.SelectedIndex == 3)
+                            //    {
+                            //        ventaCancelada = 2;
+                            //    }
 
-                                //if (DevolverAnticipo.noCash != true)
-                                //{
-                                //    stopCancelar = false;
-                                //}
-                                //stopCancelar = true;
-                                stopCancelar = DevolverAnticipo.noCash;
-                            }
+                            //    DevolverAnticipo da = new DevolverAnticipo(idVenta, total, 3, ventaCancelada);
+                            //    da.ShowDialog();
+
+                            //    //if (DevolverAnticipo.noCash != true)
+                            //    //{
+                            //    //    stopCancelar = false;
+                            //    //}
+                            //    //stopCancelar = true;
+                            //    stopCancelar = DevolverAnticipo.noCash;
+                            //}
+                            stopCancelar = false;
                         }
 
 
@@ -998,7 +999,7 @@ namespace PuntoDeVentaV2
 
                     string ruta_archivo = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idVenta + ".pdf";
 
-                    Thread hilo;
+                    //Thread hilo;
                     //pictureBox1.Visible = true;
                     if (!File.Exists(ruta_archivo))
                     {// () => mnsj(),
@@ -1007,16 +1008,17 @@ namespace PuntoDeVentaV2
                         //pBar_descarga_verpdf.Visible = true;
                         //lb_texto_descarga_verpdf.Visible = true;
                         //lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
-                        hilo = new Thread(() => mnsj());
-                        hilo.Start();
+                        ///Thread hilo = new Thread(() => RealizarProcesoProductos());
+                        /*hilo = new Thread(() => mnsj());
+                        //hilo.Start();
                         
                         hilo = new Thread(verfactura);
                         hilo.Start(idVenta);
 
-                        hilo.Join();
-                        //MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
+                        hilo.Join();*/
+                        MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
                         // Genera PDF
-                        //ver_factura(idVenta);
+                        ver_factura(idVenta);
                     }
                     
                     // poner marca de agua a la nota si es presupuesto
@@ -1229,13 +1231,11 @@ namespace PuntoDeVentaV2
 
         public void mnsj()
         {
-            MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
-
             //pictureBox1.Visible = true;
-            //Console.WriteLine("uno");
+            Console.WriteLine("uno");
             //pBar_descarga_verpdf.Visible = true;
-            //lb_texto_descarga_verpdf.Visible = true;
-            //lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
+            lb_texto_descarga_verpdf.Visible = true;
+            lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
 
             ///          this.Invoke(barra, new object[] { 1 });
             //            Thread.Sleep(10);
@@ -1245,24 +1245,24 @@ namespace PuntoDeVentaV2
             //{
             //pBar_descarga_verpdf.Maximum = 100;
             //pBar_descarga_verpdf.Value = 2; // Valor inicial
-            /*
-                        for (var p = 0; p <= 100; p++)
-             {
-                            //pBar_descarga_verpdf.Value = p;
-                            pBar_descarga_verpdf.Increment(1);
-                            lb_txt_ruta_descargar.Text = p.ToString();
+/*
+            for (var p = 0; p <= 100; p++)
+ {
+                //pBar_descarga_verpdf.Value = p;
+                pBar_descarga_verpdf.Increment(1);
+                lb_txt_ruta_descargar.Text = p.ToString();
 
-                            if (ban_ver == true)
-                            {
-                                pBar_descarga_verpdf.Visible = false;
-                                lb_texto_descarga_verpdf.Visible = false;
-                            }*/
+                if (ban_ver == true)
+                {
+                    pBar_descarga_verpdf.Visible = false;
+                    lb_texto_descarga_verpdf.Visible = false;
+                }*/
 
-            //Console.WriteLine("progreso="+pBar_descarga_verpdf.Value);
-            //refrescar(p);
-            /*delegado barra = new delegado(refrescar);
-            this.Invoke(barra, new object[] { p });
-        Thread.Sleep(10);*/
+                Console.WriteLine("progreso="+pBar_descarga_verpdf.Value);
+                //refrescar(p);
+                /*delegado barra = new delegado(refrescar);
+                this.Invoke(barra, new object[] { p });
+            Thread.Sleep(10);*/
 
             //}
             //}
@@ -1270,6 +1270,7 @@ namespace PuntoDeVentaV2
 
         private void verfactura(object id)
         {
+            Console.WriteLine("dos");
             int id_vent = Convert.ToInt32(id);
             ver_factura(id_vent);
         }
