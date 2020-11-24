@@ -992,8 +992,8 @@ namespace PuntoDeVentaV2
             correoHTML = encabezadoHTML + productos + pieHTML;
 
             asunto = "Venta no realizada en el sistema";
-            //correo = datosUsuario[9].ToString();
-            correo = "emmanuel.ruiz.garcia@outlook.com";
+            correo = datosUsuario[9].ToString();
+            //correo = "emmanuel.ruiz.garcia@outlook.com";
             //correo = "genebi@outlook.com";
             //correo = "clara_g08091@hotmail.com";
 
