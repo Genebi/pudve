@@ -78,7 +78,7 @@ namespace PuntoDeVentaV2
             }
             catch (MySqlException mysqlex)
             {
-                System.Windows.Forms.MessageBox.Show("Excepción de MySQL al Crear la Base de datos: " + mysqlex.Message.ToString());
+                System.Windows.Forms.MessageBox.Show("Excepción de MySQL al crear las tablas: " + mysqlex.Message.ToString());
             }
             catch (Exception ex)
             {

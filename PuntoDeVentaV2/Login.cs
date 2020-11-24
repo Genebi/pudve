@@ -512,11 +512,13 @@ namespace PuntoDeVentaV2
                 TablasMySQL tablas = new TablasMySQL();
 
                 config.Show();
-                var database = Task.Run(() => bd.buildDataBase());
-                var tarea = Task.Run(() => tablas.buildTables(false));
 
-                database.Wait();                                                                                                                                                                                                      database.Wait();
+                var database = Task.Run(() => bd.buildDataBase());
+                database.Wait();
+
+                var tarea = Task.Run(() => tablas.buildTables(false));                                                                                                                                                                                                     database.Wait();
                 tarea.Wait();
+
                 config.Close();
                 Show();
             }
