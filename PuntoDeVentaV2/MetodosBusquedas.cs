@@ -60,6 +60,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -79,6 +80,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return cantidad;
         }
@@ -102,6 +104,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -138,6 +141,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -149,6 +153,7 @@ namespace PuntoDeVentaV2
             DatosConexion($"SELECT * FROM Clientes WHERE IDUsuario = {idUsuario} AND Status = 1");
             
             MySqlDataReader dr = sql_cmd.ExecuteReader();
+
             int cant = dr.FieldCount;
 
             if (cant > 0 & cant > 1)
@@ -160,6 +165,9 @@ namespace PuntoDeVentaV2
             {
                 lista.Add(dr["RazonSocial"].ToString());
             }
+
+            dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -181,6 +189,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -209,6 +218,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -228,6 +238,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -247,6 +258,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -268,6 +280,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -291,6 +304,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -312,6 +326,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -344,6 +359,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -364,6 +380,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -384,6 +401,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -408,6 +426,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -431,6 +450,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -452,6 +472,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -473,6 +494,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -496,6 +518,7 @@ namespace PuntoDeVentaV2
             }
 
             datos.Close();
+            CerrarConexion();
 
             return idProducto;
         }
@@ -519,6 +542,7 @@ namespace PuntoDeVentaV2
             }
 
             datos.Close();
+            CerrarConexion();
 
             return idCombo;
         }
@@ -548,6 +572,7 @@ namespace PuntoDeVentaV2
             }
 
             datos.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -571,6 +596,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -597,6 +623,7 @@ namespace PuntoDeVentaV2
             }
             
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -646,6 +673,7 @@ namespace PuntoDeVentaV2
                 }
 
                 info.Close();
+                CerrarConexion();
 
                 codigos = lista.ToArray();
             }
@@ -738,6 +766,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -756,6 +785,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -774,6 +804,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -792,6 +823,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -815,6 +847,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return folio;
         }
@@ -833,6 +866,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -876,6 +910,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -908,6 +943,7 @@ namespace PuntoDeVentaV2
                     }
 
                     dr.Close();
+                    CerrarConexion();
                 }
             }
 
@@ -946,6 +982,7 @@ namespace PuntoDeVentaV2
                     }
 
                     dr.Close();
+                    CerrarConexion();
                 }
             }
 
@@ -966,6 +1003,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return codigo;
         }
@@ -1008,6 +1046,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return saldo;
         }
@@ -1029,6 +1068,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista;
         }
@@ -1066,6 +1106,7 @@ namespace PuntoDeVentaV2
                     }
 
                     dr.Close();
+                    CerrarConexion();
                 }
             }
 
@@ -1103,6 +1144,7 @@ namespace PuntoDeVentaV2
                     }
 
                     dr.Close();
+                    CerrarConexion();
                 }
             }
 
@@ -1156,6 +1198,7 @@ namespace PuntoDeVentaV2
                     }
 
                     dr.Close();
+                    CerrarConexion();
                 }
             }
             
@@ -1207,6 +1250,7 @@ namespace PuntoDeVentaV2
                     }
 
                     dr.Close();
+                    CerrarConexion();
                 }
             }
 
@@ -1237,6 +1281,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return fecha;
         }
@@ -1289,11 +1334,13 @@ namespace PuntoDeVentaV2
                             }
 
                             dr.Close();
+                            CerrarConexion();
                         }
                     }
                 }
             }
 
+            CerrarConexion();
 
             if (idProducto > 0)
             {
@@ -1317,6 +1364,7 @@ namespace PuntoDeVentaV2
                 }
 
                 dr.Close();
+                CerrarConexion();
             }
 
             return datos;
@@ -1342,6 +1390,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return datos;
         }
@@ -1365,6 +1414,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return datos;
         }
@@ -1394,6 +1444,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return datos;
         }
@@ -1423,6 +1474,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return mensaje;
         }
@@ -1500,6 +1552,7 @@ namespace PuntoDeVentaV2
                                 }
 
                                 dr4.Close();
+                                CerrarConexion();
                             }
                         }
                         else
@@ -1508,10 +1561,12 @@ namespace PuntoDeVentaV2
                         }
 
                         dr3.Close();
+                        CerrarConexion();
                     }
                 }
 
                 dr.Close();
+                CerrarConexion();
             }
 
             return datos;
@@ -1539,6 +1594,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return total;
         }
@@ -1572,6 +1628,7 @@ namespace PuntoDeVentaV2
                     }
 
                     dr2.Close();
+                    CerrarConexion();
                 }
             }
 
@@ -1581,6 +1638,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return resultado;
         }
@@ -1602,6 +1660,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return datos;
         }
@@ -1620,6 +1679,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return numeroCliente;
         }
@@ -1638,6 +1698,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return cantidad;
         }
@@ -1677,6 +1738,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista;
         }
@@ -1698,6 +1760,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return datos;
         }
@@ -1728,6 +1791,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista;
         }
@@ -1755,6 +1819,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return clavesUnidades;
         }
@@ -1799,6 +1864,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return config;
         }
@@ -1825,6 +1891,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return config;
         }
@@ -1848,6 +1915,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista;
         }
@@ -1870,6 +1938,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return datos;
         }
@@ -1893,6 +1962,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return respuesta;
         }
@@ -1916,6 +1986,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista;
         }
@@ -1934,6 +2005,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return fecha;
         }
@@ -1961,6 +2033,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista;
         }
@@ -1985,6 +2058,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return datos;
         }
@@ -2003,6 +2077,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return fecha;
         }
@@ -2021,6 +2096,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return impuesto;
         }
@@ -2054,6 +2130,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return list.ToArray();
         }
@@ -2078,6 +2155,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -2120,6 +2198,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return lista.ToArray();
         }
@@ -2138,6 +2217,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return id_empleado;
         }
@@ -2161,6 +2241,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
 
             return r;
         }
@@ -2179,6 +2260,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            CerrarConexion();
             //timbres = 3;
             return timbres;
         }
@@ -2190,6 +2272,11 @@ namespace PuntoDeVentaV2
             sql_cmd = sql_con.CreateCommand();
             sql_cmd.CommandText = consulta;
             sql_cmd.ExecuteNonQuery();
+        }
+
+        private void CerrarConexion()
+        {
+            sql_con.Close();
         }
     }
 }
