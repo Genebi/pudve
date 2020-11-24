@@ -743,6 +743,14 @@ namespace PuntoDeVentaV2
                                             {
                                                 DevolverAnticipo da = new DevolverAnticipo(idVenta, total, 3, ventaCancelada);
                                                 da.ShowDialog();
+                                                if (DevolverAnticipo.cancel == 1)
+                                                {
+                                                    stopCancelar = true;
+                                                }
+                                                else
+                                                {
+                                                    stopCancelar = false;
+                                                }
                                             }
                                             else if (fechaAbonoRealizado < fechaDelCorteCaja)//Devolver dinero en efectivo
                                             {
