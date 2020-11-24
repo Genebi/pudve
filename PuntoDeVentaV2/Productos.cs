@@ -1766,38 +1766,6 @@ namespace PuntoDeVentaV2
                     txtBusqueda.Focus(); 
                 };
             }
-
-            
-        }
-
-        private void AddPageNumber()
-        {
-            try
-            {
-                byte[] bytes = System.IO.File.ReadAllBytes(fileReportOrder);
-                iTextSharp.text.Font blackFont = FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    PdfReader reader = new PdfReader(bytes);
-                    using (PdfStamper stamper = new PdfStamper(reader, stream))
-                    {
-                        int pages = reader.NumberOfPages;
-                        for (int i = 1; i <= pages; i++)
-                        {
-                            ColumnText.ShowTextAligned(stamper.GetUnderContent(i), Element.ALIGN_RIGHT, new Phrase("Pagina: " + i.ToString(), blackFont), 568f, 15f, 0);
-                        }
-                        stamper.Close();
-                    }
-                    bytes = stream.ToArray();
-                    reader.Close();
-                }
-                System.IO.File.WriteAllBytes(fileReportOrder, bytes);
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show("Error al Intentar Paginar el Reporte en PDF:\n" + ex.Message.ToString(),
-                                "Error al Paginar PDF", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
