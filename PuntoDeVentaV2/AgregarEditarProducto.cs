@@ -1837,7 +1837,7 @@ namespace PuntoDeVentaV2
             }
             else if (DatosSourceFinal == 4)
             {
-                ProdNombreFinal = "Copia de " + ProdNombre;
+                ProdNombreFinal = /*"Copia de " +*/ ProdNombre;
             }
             ProdStockFinal = ProdStock;
             ProdPrecioFinal = ProdPrecio;
@@ -1857,6 +1857,7 @@ namespace PuntoDeVentaV2
 
             txtPrecioProducto.Text = ProdPrecioFinal;
             txtCategoriaProducto.Text = ProdCategoriaFinal;
+            if (Productos.noMostrarClave == true) { ProdClaveInternaFinal = string.Empty; }
             txtClaveProducto.Text = ProdClaveInternaFinal.Trim();
 
             if (DatosSourceFinal.Equals(2))
@@ -5742,6 +5743,7 @@ namespace PuntoDeVentaV2
             LimpiarDatos();
         }
         
+
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
             baseProducto = "0";
