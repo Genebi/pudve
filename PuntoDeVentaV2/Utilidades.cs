@@ -997,7 +997,10 @@ namespace PuntoDeVentaV2
             //correo = "genebi@outlook.com";
             //correo = "clara_g08091@hotmail.com";
 
-            EnviarEmail(correoHTML, asunto, correo);
+            if (!correo.Equals(""))
+            {
+                EnviarEmail(correoHTML, asunto, correo);
+            }
         }
     }
 }
