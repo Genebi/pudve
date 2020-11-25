@@ -518,7 +518,7 @@ namespace PuntoDeVentaV2
                             cbProveedor.SelectedValue = "0";
 
                             // Cuando se le da click en la opcion editar producto
-                            if (DatosSourceFinal == 2)
+                            if (DatosSourceFinal == 2 || DatosSourceFinal == 4)
                             {
                                 var idProducto = Convert.ToInt32(idEditarProducto);
                                 var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
@@ -627,7 +627,7 @@ namespace PuntoDeVentaV2
                         flowLayoutPanel3.Controls.Add(panelContenedor);
 
                         // Cuando se da click en la opcion editar producto
-                        if (DatosSourceFinal == 2)
+                        if (DatosSourceFinal == 2 || DatosSourceFinal == 4)
                         {
                             string Descripcion = string.Empty;
 
