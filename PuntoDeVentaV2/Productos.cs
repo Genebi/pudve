@@ -18,6 +18,8 @@ namespace PuntoDeVentaV2
         // The style to use when the mouse is over a row.
         private DataGridViewCellStyle HighlightStyle;
 
+        public static bool noMostrarClave { get; set; }
+
         string strTag = string.Empty,
                 path = string.Empty,
                 saveDirectoryFile = string.Empty,
@@ -1147,9 +1149,11 @@ namespace PuntoDeVentaV2
                         numerofila = e.RowIndex;
                         obtenerDatosDGVProductos(numerofila);
                         origenDeLosDatos = 4;
+                        noMostrarClave = true;
                     }
 
                     btnAgregarProducto.PerformClick();
+                    noMostrarClave = false;
                 }
                 else if (e.ColumnIndex == 17)
                 {
