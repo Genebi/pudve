@@ -809,7 +809,7 @@ namespace PuntoDeVentaV2
                                                     cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
 
                                                     //    string[] datos2 = new string[] {
-                                                    //    "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(),
+                                                    //"retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(),
                                                     //    efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, /*credito*/"0.00", /*anticipo*/"0"
                                                     //};
                                                     //    cn.EjecutarConsulta(cs.OperacionCaja(datos2));

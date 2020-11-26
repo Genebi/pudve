@@ -33,6 +33,16 @@ namespace PuntoDeVentaV2
         public static float cheque { get; set; }
         public static float trans { get; set; }
 
+        //Variables para el corte de caja
+        public static string efectivoCorte { get; set; }
+        public static string tarjetaCorte { get; set; }
+        public static string valesCorte { get; set; }
+        public static string chequeCorte { get; set; }
+        public static string transCorte { get; set; }
+        public static string totCorte { get; set; }
+        public static string date { get; set; }
+
+
         //float anticiposAplicados = 0f;
         float abonos = 0f;
         float devoluciones = 0f;
@@ -212,6 +222,8 @@ namespace PuntoDeVentaV2
 
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
+            var f = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            date = f;
             if (opcion6 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -311,6 +323,7 @@ namespace PuntoDeVentaV2
         {
             this.Focus();
             //verificarCantidadAbonos();
+            
 
             MySqlConnection sql_con;
             MySqlCommand consultaUno, consultaDos;
@@ -518,13 +531,20 @@ namespace PuntoDeVentaV2
                             {
                                 devolucionTotal = devol["Total"].ToString();
                             }
-                            //devolucionEfectivo = devol["sum(Efectivo)"].ToString();
-                            //devolucionTarjeta = devol["sum(Tarjeta)"].ToString();
-                            //devolucionVales = devol["sum(Vales)"].ToString();
-                            //devolucionCheque = devol["sum(Cheque)"].ToString();
-                            //devolucionTrans = devol["sum(Transferencia)"].ToString();
+                            devolucionEfectivo = devol["Efectivo"].ToString();
+                            devolucionTarjeta = devol["Tarjeta"].ToString();
+                            devolucionVales = devol["Vales"].ToString();
+                            devolucionCheque = devol["Cheque"].ToString();
+                            devolucionTrans = devol["Transferencia"].ToString();
                         }
                         devoluciones = float.Parse(devolucionTotal);
+
+                        efectivoCorte = devolucionEfectivo.ToString();
+                        tarjetaCorte = devolucionTarjeta.ToString();
+                        valesCorte = devolucionVales.ToString();
+                        chequeCorte = devolucionCheque.ToString();
+                        transCorte = devolucionTrans.ToString();
+                        totCorte = devoluciones.ToString();
                     }
                 }
             }
@@ -678,7 +698,7 @@ namespace PuntoDeVentaV2
             lbTCreditoTotal.Text = "$" + vCredito.ToString("0.00");
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             //lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
-            lbTTotalCaja.Text = "$" + (subtotal - dineroRetirado).ToString("0.00");
+            lbTTotalCaja.Text = "$" + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");
 
             // Variables de clase
             totalEfectivo = efectivo - retiroEfectivo;

@@ -276,13 +276,30 @@ namespace PuntoDeVentaV2
                     // Solo cuando es corte se hace esta resta, al total de cada forma de pago
                     // se le resta lo que el usuario quiere retirar menos el total retirado de cada
                     // forma de pago antes de que se haga el corte de caja
+                    if (CajaN.totCorte != "0")
+                    {
+                        var convertEfectivo = float.Parse(CajaN.efectivoCorte);
+                        var convertTarjeta = float.Parse(CajaN.tarjetaCorte);
+                        var convertCheque = float.Parse(CajaN.chequeCorte);
+                        var convertVales = float.Parse(CajaN.valesCorte);
+                        var convertTrans = float.Parse(CajaN.transCorte);
 
-                    efectivo = totalEfectivo - efectivo;// - CajaN.retiroEfectivo;
-                    tarjeta = totalTarjeta - tarjeta;// - CajaN.retiroTarjeta;
-                    cheque = totalCheque - cheque;// - CajaN.retiroCheque;
-                    vales = totalVales - vales;// - CajaN.retiroVales;
-                    trans = totalTransferencia - trans;// - CajaN.retiroTrans;
-                    credito = totalCredito - credito;
+                        efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
+                        tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
+                        cheque = (totalCheque - cheque - convertCheque);// - CajaN.retiroCheque;
+                        vales = (totalVales - vales - convertVales);// - CajaN.retiroVales;
+                        trans = (totalTransferencia - trans - convertTrans);// - CajaN.retiroTrans;
+                        credito = totalCredito - credito;
+                    }
+                    else
+                    {
+                        efectivo = (totalEfectivo - efectivo);// - CajaN.retiroEfectivo;
+                        tarjeta = (totalTarjeta - tarjeta);// - CajaN.retiroTarjeta;
+                        cheque = (totalCheque - cheque);// - CajaN.retiroCheque;
+                        vales = (totalVales - vales);// - CajaN.retiroVales;
+                        trans = (totalTransferencia - trans);// - CajaN.retiroTrans;
+                        credito = totalCredito - credito;
+                    }
 
                     cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
 
