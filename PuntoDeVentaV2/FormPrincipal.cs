@@ -549,6 +549,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+
             validarVentasVentanas();
         }
         private void validarCerrarSesion()

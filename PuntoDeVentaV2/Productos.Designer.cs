@@ -89,7 +89,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtIrPagina = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.lbCapital = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.linkLblUltimaPagina = new System.Windows.Forms.LinkLabel();
             this.btnSiguiente = new System.Windows.Forms.Button();
@@ -182,6 +181,7 @@
             // 
             this.cbOrden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbOrden.DisplayMember = "Prueba";
+            this.cbOrden.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOrden.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbOrden.FormattingEnabled = true;
             this.cbOrden.Items.AddRange(new object[] {
@@ -201,6 +201,7 @@
             // 
             this.cbMostrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbMostrar.DisplayMember = "Prueba";
+            this.cbMostrar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMostrar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbMostrar.FormattingEnabled = true;
             this.cbMostrar.Items.AddRange(new object[] {
@@ -826,7 +827,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.txtIrPagina);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.lbCapital);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.linkLblPaginaSiguiente);
@@ -865,15 +865,6 @@
             this.label3.TabIndex = 23;
             this.label3.Text = "Ir a Página:";
             // 
-            // lbCapital
-            // 
-            this.lbCapital.AutoSize = true;
-            this.lbCapital.Location = new System.Drawing.Point(8, 18);
-            this.lbCapital.Name = "lbCapital";
-            this.lbCapital.Size = new System.Drawing.Size(51, 13);
-            this.lbCapital.TabIndex = 22;
-            this.lbCapital.Text = "Capital: 0";
-            // 
             // panel4
             // 
             this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -895,7 +886,6 @@
             this.linkLblUltimaPagina.TabStop = true;
             this.linkLblUltimaPagina.Text = "100";
             this.linkLblUltimaPagina.Visible = false;
-            this.linkLblUltimaPagina.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblUltimaPagina_LinkClicked);
             // 
             // btnSiguiente
             // 
@@ -982,7 +972,6 @@
             this.linkLblPrimeraPagina.TabStop = true;
             this.linkLblPrimeraPagina.Text = "1";
             this.linkLblPrimeraPagina.Visible = false;
-            this.linkLblPrimeraPagina.Click += new System.EventHandler(this.linkLabel1_Click);
             // 
             // linkLblPaginaSiguiente
             // 
@@ -1024,7 +1013,6 @@
             this.linkLblPaginaAnterior.TabIndex = 14;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
-            this.linkLblPaginaAnterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPaginaAnterior_LinkClicked);
             this.linkLblPaginaAnterior.Click += new System.EventHandler(this.linkLblPaginaAnterior_Click);
             // 
             // btnActualizarMaximoProductos
@@ -1104,6 +1092,7 @@
             this.Name = "Productos";
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);
+            this.Shown += new System.EventHandler(this.Productos_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Productos_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Productos_KeyDown);
             this.Resize += new System.EventHandler(this.Productos_Resize);
@@ -1169,7 +1158,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnCleanFilter;
         private System.Windows.Forms.Button btnPedido;
-        private System.Windows.Forms.Label lbCapital;
         private System.Windows.Forms.Button btnCambiarTipo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtIrPagina;

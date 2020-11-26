@@ -65,6 +65,7 @@ namespace PuntoDeVentaV2
         public static int idReporte = 0;
         public static bool botonAceptar = false;
         public static bool recargarDatos = false;
+        public static bool primeraVez = true;
         // Este array es para guardar los productos seleccionados que seran tomados
         // en cuenta para el boton de "Asignar"
         public static Dictionary<int, string> productosSeleccionados;
@@ -242,30 +243,6 @@ namespace PuntoDeVentaV2
                 queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
                 fotos = cn.CargarDatos(queryFotos);
             }
-        }
-
-        private void linkLabel1_Click(object sender, EventArgs e)
-        {
-            //p.primerPagina();
-            //clickBoton = 1;
-            //CargarDatos();
-            //actualizar();
-        }
-
-        private void linkLblUltimaPagina_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            //p.ultimaPagina();
-            //clickBoton = 1;
-            //CargarDatos();
-            //actualizar();
-        }
-
-        private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            //p.atras();
-            //clickBoton = 1;
-            //CargarDatos();
-            //actualizar();
         }
 
         private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
@@ -1567,13 +1544,15 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            recargarDatos = false;
+
             path = string.Empty;
 
-            // Define the highlight style.
-            HighlightStyle = new DataGridViewCellStyle();
-            HighlightStyle.ForeColor = Color.Blue;
-            HighlightStyle.BackColor = Color.Beige;
-            HighlightStyle.Font = new System.Drawing.Font(DGVProductos.Font, FontStyle.Bold);
+            //// Define the highlight style.
+            //HighlightStyle = new DataGridViewCellStyle();
+            //HighlightStyle.ForeColor = Color.Blue;
+            //HighlightStyle.BackColor = Color.Beige;
+            //HighlightStyle.Font = new System.Drawing.Font(DGVProductos.Font, FontStyle.Bold);
 
             productosSeleccionados = new Dictionary<int, string>();
 
@@ -1600,22 +1579,11 @@ namespace PuntoDeVentaV2
 
             CargarDatos();
 
-            filtroOrdenarPor();
+            //filtroOrdenarPor();
 
             creacionEtiquetasDinamicas();
 
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
-
-            // Calcular capital temporalmente (informativo)
-            lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("N2");
-
-            //reloadTags();
-
-            //creacionEtiquetasDinamicas();
-
-            //actualizarDGVProductos.Interval = 3000;
-            //actualizarDGVProductos.Tick += actualizar_automatico_Tick;
-            //actualizarDGVProductos.Enabled = true;
 
             if (FormPrincipal.id_empleado > 0)
             {
@@ -2164,6 +2132,17 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+        }
+
+        private void Productos_Shown(object sender, EventArgs e)
+        {
+            // Define the highlight style.
+            HighlightStyle = new DataGridViewCellStyle();
+            HighlightStyle.ForeColor = Color.Blue;
+            HighlightStyle.BackColor = Color.Beige;
+            HighlightStyle.Font = new System.Drawing.Font(DGVProductos.Font, FontStyle.Bold);
+
+            filtroOrdenarPor();
         }
 
         private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
@@ -3248,16 +3227,12 @@ namespace PuntoDeVentaV2
             if (!Properties.Settings.Default.FiltroOrdenar.Equals("Ordenar por:"))
             {
                 cbOrden.Text = Properties.Settings.Default.FiltroOrdenar;
-                cbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
                 cbMostrar.SelectedIndex = 0;
-                cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
             }
             else if (Properties.Settings.Default.FiltroOrdenar.Equals("Ordenar por:"))
             {
                 cbOrden.SelectedIndex = 0;
-                cbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
                 cbMostrar.SelectedIndex = 0;
-                cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
             }
         }
 
@@ -4550,8 +4525,6 @@ namespace PuntoDeVentaV2
             }
 
             actualizar();
-            // Calcular capital temporalmente (informativo)
-            lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("N2");
 
             clickBoton = 0;
         }
@@ -5564,38 +5537,40 @@ namespace PuntoDeVentaV2
 
         private void Productos_Paint(object sender, PaintEventArgs e)
         {
-            if (recargarDatos)
+            if (!primeraVez)
             {
-                validarConexionServidor();
-
-                txtBusqueda.Text = string.Empty;
-
-                if (txtBusqueda.Text.Equals(""))
+                if (recargarDatos)
                 {
-                    CargarDatos();
+                    validarConexionServidor();
+
+                    txtBusqueda.Text = string.Empty;
+
+                    if (txtBusqueda.Text.Equals(""))
+                    {
+                        CargarDatos();
+                    }
+
+                    recargarDatos = false;
+
+                    cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
+
+                    if (cbMostrar.Text.Equals("Deshabilitados") || cbMostrar.Text.Equals("Todos"))
+                    {
+                        cbMostrar.Text = "Habilitados";
+                    }
+
+                    cbMostrar_SelectedIndexChanged(sender, EventArgs.Empty);
+
+                    txtBusqueda.Text = string.Empty;
+
+                    borrarAuxWordTags();
+
+                    creacionEtiquetasDinamicas();
                 }
-
-                recargarDatos = false;
-
-                cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
-
-                if (cbMostrar.Text.Equals("Deshabilitados") || cbMostrar.Text.Equals("Todos"))
-                {
-                    cbMostrar.Text = "Habilitados";
-                }
-
-                cbMostrar_SelectedIndexChanged(sender, EventArgs.Empty);
-
-                txtBusqueda.Text = string.Empty;
-
-                // Calcular capital temporalmente (informativo)
-                lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("N2");
-
-                borrarAuxWordTags();
-
-                creacionEtiquetasDinamicas();
-
-                //seleccionPersonalizadaDataGridView();
+            }
+            else
+            {
+                primeraVez = false;
             }
         }
 
