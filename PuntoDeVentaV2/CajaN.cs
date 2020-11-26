@@ -526,17 +526,24 @@ namespace PuntoDeVentaV2
                             if (string.IsNullOrWhiteSpace(devol["Total"].ToString()))
                             {
                                 devolucionTotal = "0";
+                                devolucionEfectivo = "0";
+                                devolucionTarjeta = "0";
+                                devolucionVales = "0";
+                                devolucionCheque = "0";
+                                devolucionTrans = "0";
+
                             }
                             else
                             {
                                 devolucionTotal = devol["Total"].ToString();
+                                devolucionEfectivo = devol["Efectivo"].ToString();
+                                devolucionTarjeta = devol["Tarjeta"].ToString();
+                                devolucionVales = devol["Vales"].ToString();
+                                devolucionCheque = devol["Cheque"].ToString();
+                                devolucionTrans = devol["Transferencia"].ToString();
                             }
-                            devolucionEfectivo = devol["Efectivo"].ToString();
-                            devolucionTarjeta = devol["Tarjeta"].ToString();
-                            devolucionVales = devol["Vales"].ToString();
-                            devolucionCheque = devol["Cheque"].ToString();
-                            devolucionTrans = devol["Transferencia"].ToString();
                         }
+
                         devoluciones = float.Parse(devolucionTotal);
 
                         efectivoCorte = devolucionEfectivo.ToString();

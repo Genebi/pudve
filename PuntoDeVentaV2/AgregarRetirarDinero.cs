@@ -35,11 +35,31 @@ namespace PuntoDeVentaV2
         private float totalTransferencia = 0f;
         private float totalCredito = 0f;
 
+        //Variables del corte de caja
+        float convertEfectivo = 0f;
+        float convertTarjeta = 0f;
+        float convertCheque = 0f;
+        float convertVales = 0f;
+        float convertTrans = 0f;
+
         public AgregarRetirarDinero(int operacion = 0)
         {
             InitializeComponent();
 
             this.operacion = operacion;
+            obtenerVariablesCaja();
+        }
+
+        private void obtenerVariablesCaja()
+        {
+            if (CajaN.totCorte != "")
+            {
+                 convertEfectivo = float.Parse(CajaN.efectivoCorte);
+                 convertTarjeta = float.Parse(CajaN.tarjetaCorte);
+                 convertCheque = float.Parse(CajaN.chequeCorte);
+                 convertVales = float.Parse(CajaN.valesCorte);
+                 convertTrans = float.Parse(CajaN.transCorte);
+            }
         }
 
         private void AgregarRetirarDinero_Load(object sender, EventArgs e)
@@ -278,11 +298,7 @@ namespace PuntoDeVentaV2
                     // forma de pago antes de que se haga el corte de caja
                     if (CajaN.totCorte != "0")
                     {
-                        var convertEfectivo = float.Parse(CajaN.efectivoCorte);
-                        var convertTarjeta = float.Parse(CajaN.tarjetaCorte);
-                        var convertCheque = float.Parse(CajaN.chequeCorte);
-                        var convertVales = float.Parse(CajaN.valesCorte);
-                        var convertTrans = float.Parse(CajaN.transCorte);
+                        
 
                         efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
                         tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
@@ -534,12 +550,11 @@ namespace PuntoDeVentaV2
                 {
                     float efectivo = float.Parse(txtEfectivo.Text);
 
-                    if (efectivo > totalEfectivo && operacion > 0)
+                    if (efectivo > (totalEfectivo - convertEfectivo) && operacion > 0)
                     {
-                        MensajeCantidad(totalEfectivo, sender);
+                        MensajeCantidad((totalEfectivo - convertEfectivo), sender);
                     }
                 }
-
             }
         }
 
@@ -558,10 +573,9 @@ namespace PuntoDeVentaV2
                 else
                 {
                     float tarjeta = float.Parse(txtTarjeta.Text);
-
-                    if (tarjeta > totalTarjeta && operacion > 0)
+                    if (tarjeta > (totalTarjeta - convertTarjeta) && operacion > 0)
                     {
-                        MensajeCantidad(totalTarjeta, sender);
+                        MensajeCantidad((totalTarjeta - convertTarjeta), sender);
                     }
                 }
             }
@@ -583,9 +597,9 @@ namespace PuntoDeVentaV2
                 {
                     float vales = float.Parse(txtVales.Text);
 
-                    if (vales > totalVales && operacion > 0)
+                    if (vales > (totalVales - convertVales) && operacion > 0)
                     {
-                        MensajeCantidad(totalVales, sender);
+                        MensajeCantidad((totalVales - convertVales), sender);
                     }
                 }
             }
@@ -607,9 +621,9 @@ namespace PuntoDeVentaV2
                 {
                     float cheque = float.Parse(txtCheque.Text);
 
-                    if (cheque > totalCheque && operacion > 0)
+                    if (cheque > (totalCheque - convertCheque) && operacion > 0)
                     {
-                        MensajeCantidad(totalCheque, sender);
+                        MensajeCantidad((totalCheque - convertCheque), sender);
                     }
                 }
             }
@@ -631,9 +645,9 @@ namespace PuntoDeVentaV2
                 {
                     float trans = float.Parse(txtTrans.Text);
 
-                    if (trans > totalTransferencia && operacion > 0)
+                    if (trans > (totalTransferencia - convertTrans) && operacion > 0)
                     {
-                        MensajeCantidad(totalTransferencia, sender);
+                        MensajeCantidad((totalTransferencia - convertTrans), sender);
                     }
                 }
             }
