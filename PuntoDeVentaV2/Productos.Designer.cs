@@ -196,6 +196,7 @@
             this.cbOrden.Size = new System.Drawing.Size(137, 25);
             this.cbOrden.TabIndex = 6;
             this.cbOrden.SelectedIndexChanged += new System.EventHandler(this.cbOrden_SelectedIndexChanged);
+            this.cbOrden.SelectionChangeCommitted += new System.EventHandler(this.cbOrden_SelectionChangeCommitted);
             // 
             // cbMostrar
             // 
@@ -214,6 +215,7 @@
             this.cbMostrar.Size = new System.Drawing.Size(137, 25);
             this.cbMostrar.TabIndex = 7;
             this.cbMostrar.SelectedIndexChanged += new System.EventHandler(this.cbMostrar_SelectedIndexChanged);
+            this.cbMostrar.SelectionChangeCommitted += new System.EventHandler(this.cbMostrar_SelectionChangeCommitted);
             // 
             // panelShowDGVProductosView
             // 

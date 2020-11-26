@@ -602,79 +602,7 @@ namespace PuntoDeVentaV2
 
         private void cbOrden_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtro = Convert.ToString(cbOrden.SelectedItem);
-            //tipoOrden = filtro;
-
-            Properties.Settings.Default.FiltroOrdenar = filtro;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-
-            if (Properties.Settings.Default.FiltroOrdenar == "A - Z")
-            {
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    DGVProductos.Sort(DGVProductos.Columns["Column1"], ListSortDirection.Ascending);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    fotos.DefaultView.Sort = "Nombre ASC";
-                    fotos = fotos.DefaultView.ToTable();
-                    photoShow();
-                }
-            }
-            else if (Properties.Settings.Default.FiltroOrdenar == "Z - A")
-            {
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    DGVProductos.Sort(DGVProductos.Columns["Column1"], ListSortDirection.Descending);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    fotos.DefaultView.Sort = "Nombre DESC";
-                    fotos = fotos.DefaultView.ToTable();
-                    photoShow();
-                }
-            }
-            else if (Properties.Settings.Default.FiltroOrdenar == "Mayor precio")
-            {
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    DGVProductos.Sort(DGVProductos.Columns["Column3"], ListSortDirection.Descending);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    fotos.DefaultView.Sort = "Precio DESC";
-                    fotos = fotos.DefaultView.ToTable();
-                    photoShow();
-                }
-            }
-            else if (Properties.Settings.Default.FiltroOrdenar == "Menor precio")
-            {
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    DGVProductos.Sort(DGVProductos.Columns["Column3"], ListSortDirection.Ascending);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    fotos.DefaultView.Sort = "Precio ASC";
-                    fotos = fotos.DefaultView.ToTable();
-                    photoShow();
-                }
-            }
-            else if (Properties.Settings.Default.FiltroOrdenar == "Ordenar por:")
-            {
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    CargarDatos();
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    fotos.DefaultView.Sort = "ID ASC";
-                    fotos = fotos.DefaultView.ToTable();
-                    photoShow();
-                }
-            }
-            txtBusqueda.Focus();
+            
         }
 
         // Metodo creado para manejo de mostrar ventana
@@ -1316,64 +1244,7 @@ namespace PuntoDeVentaV2
 
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
         {
-            obtenerDatoCombo = statusTipo;
-            filtro = Convert.ToString(cbMostrar.SelectedItem);      // tomamos el valor que se elige en el TextBox
-
-            if (filtro == "Habilitados")                            // comparamos si el valor a filtrar es Habilitados
-            {
-                btnModificarEstado.Enabled = true;
-                btnModificarEstado.Text = "Deshabilitar seleccionados";
-
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    clickBoton = 0;
-                    CargarDatos(1);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    searchPhotoProdActivo();
-                    photoShow();
-                    statusTipo = 1;
-                }
-            }
-            else if (filtro == "Deshabilitados")                    // comparamos si el valor a filtrar es Deshabilitados
-            {
-                btnModificarEstado.Enabled = true;
-                btnModificarEstado.Text = "Habilitar seleccionados";
-
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    clickBoton = 0;
-                    CargarDatos(0);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    searchPhotoProdInactivo();
-                    photoShow();
-                    statusTipo = 0;
-                }
-            }
-            else if (filtro == "Todos")
-            {
-                // comparamos si el valor a filtrar es Todos
-                btnModificarEstado.Enabled = false;
-
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    clickBoton = 0;
-                    // cargamos todos los registros
-                    CargarDatos(2);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    searchPhotoProd();
-                    photoShow();
-                    statusTipo = 2;
-                }
-            }
-
-            recargarBusqueda();
-            txtBusqueda.Focus();
+            
         }
 
         private void btnCleanFilter_Click(object sender, EventArgs e)
@@ -2143,6 +2014,146 @@ namespace PuntoDeVentaV2
             HighlightStyle.Font = new System.Drawing.Font(DGVProductos.Font, FontStyle.Bold);
 
             filtroOrdenarPor();
+        }
+
+        private void cbOrden_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            filtro = Convert.ToString(cbOrden.SelectedItem);
+            //tipoOrden = filtro;
+
+            Properties.Settings.Default.FiltroOrdenar = filtro;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
+            if (Properties.Settings.Default.FiltroOrdenar == "A - Z")
+            {
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    DGVProductos.Sort(DGVProductos.Columns["Column1"], ListSortDirection.Ascending);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    fotos.DefaultView.Sort = "Nombre ASC";
+                    fotos = fotos.DefaultView.ToTable();
+                    photoShow();
+                }
+            }
+            else if (Properties.Settings.Default.FiltroOrdenar == "Z - A")
+            {
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    DGVProductos.Sort(DGVProductos.Columns["Column1"], ListSortDirection.Descending);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    fotos.DefaultView.Sort = "Nombre DESC";
+                    fotos = fotos.DefaultView.ToTable();
+                    photoShow();
+                }
+            }
+            else if (Properties.Settings.Default.FiltroOrdenar == "Mayor precio")
+            {
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    DGVProductos.Sort(DGVProductos.Columns["Column3"], ListSortDirection.Descending);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    fotos.DefaultView.Sort = "Precio DESC";
+                    fotos = fotos.DefaultView.ToTable();
+                    photoShow();
+                }
+            }
+            else if (Properties.Settings.Default.FiltroOrdenar == "Menor precio")
+            {
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    DGVProductos.Sort(DGVProductos.Columns["Column3"], ListSortDirection.Ascending);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    fotos.DefaultView.Sort = "Precio ASC";
+                    fotos = fotos.DefaultView.ToTable();
+                    photoShow();
+                }
+            }
+            else if (Properties.Settings.Default.FiltroOrdenar == "Ordenar por:")
+            {
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    CargarDatos();
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    fotos.DefaultView.Sort = "ID ASC";
+                    fotos = fotos.DefaultView.ToTable();
+                    photoShow();
+                }
+            }
+
+            txtBusqueda.Focus();
+        }
+
+        private void cbMostrar_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            obtenerDatoCombo = statusTipo;
+            filtro = Convert.ToString(cbMostrar.SelectedItem);      // tomamos el valor que se elige en el TextBox
+
+            if (filtro == "Habilitados")                            // comparamos si el valor a filtrar es Habilitados
+            {
+                btnModificarEstado.Enabled = true;
+                btnModificarEstado.Text = "Deshabilitar seleccionados";
+
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    clickBoton = 0;
+                    CargarDatos(1);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    searchPhotoProdActivo();
+                    photoShow();
+                    statusTipo = 1;
+                }
+            }
+            else if (filtro == "Deshabilitados")                    // comparamos si el valor a filtrar es Deshabilitados
+            {
+                btnModificarEstado.Enabled = true;
+                btnModificarEstado.Text = "Habilitar seleccionados";
+
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    clickBoton = 0;
+                    CargarDatos(0);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    searchPhotoProdInactivo();
+                    photoShow();
+                    statusTipo = 0;
+                }
+            }
+            else if (filtro == "Todos")
+            {
+                // comparamos si el valor a filtrar es Todos
+                btnModificarEstado.Enabled = false;
+
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    clickBoton = 0;
+                    // cargamos todos los registros
+                    CargarDatos(2);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    searchPhotoProd();
+                    photoShow();
+                    statusTipo = 2;
+                }
+            }
+
+            recargarBusqueda();
+            txtBusqueda.Focus();
         }
 
         private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
@@ -5552,14 +5563,16 @@ namespace PuntoDeVentaV2
 
                     recargarDatos = false;
 
-                    cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
+                    //cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
+                    //cbOrden_SelectionChangeCommitted(sender, EventArgs.Empty);
 
-                    if (cbMostrar.Text.Equals("Deshabilitados") || cbMostrar.Text.Equals("Todos"))
-                    {
-                        cbMostrar.Text = "Habilitados";
-                    }
+                    //if (cbMostrar.Text.Equals("Deshabilitados") || cbMostrar.Text.Equals("Todos"))
+                    //{
+                    //    cbMostrar.Text = "Habilitados";
+                    //}
 
-                    cbMostrar_SelectedIndexChanged(sender, EventArgs.Empty);
+                    ////cbMostrar_SelectedIndexChanged(sender, EventArgs.Empty);
+                    //cbMostrar_SelectionChangeCommitted(sender, EventArgs.Empty);
 
                     txtBusqueda.Text = string.Empty;
 
