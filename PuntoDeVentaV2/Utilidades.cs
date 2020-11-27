@@ -1194,5 +1194,17 @@ namespace PuntoDeVentaV2
                 //EnviarEmail(correoHTML, asunto, correo1);
             }
         }
+
+        public static string RemoverCeroStock(string cantidad)
+        {
+            string[] tmp = cantidad.Split('.');
+
+            if (tmp[1] == "00")
+            {
+                cantidad = tmp[0];
+            }
+
+            return cantidad;
+        }
     }
 }
