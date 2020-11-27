@@ -131,10 +131,10 @@ namespace PuntoDeVentaV2
         bool ventaFinalizada = false;
 
         List<string> productoRestado = new List<string>();
-        List<string> nuevaLista = new List<string>();
+        List<string> productoEliminado = new List<string>();
         string fechaSistema = string.Empty;
-        int posicion = 0;
-        bool primerClick = false;
+        bool primerClickRestarIndividual = false, 
+             primerClickEliminarIndividual = false;
 
         public Ventas()
         {
@@ -928,10 +928,10 @@ namespace PuntoDeVentaV2
                     {
                         fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
-                        if (primerClick.Equals(false))
+                        if (primerClickRestarIndividual.Equals(false))
                         {
                             productoRestado.Add("1|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((1*Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
-                            primerClick = true;
+                            primerClickRestarIndividual = true;
                         }
                         else
                         {
@@ -1032,6 +1032,40 @@ namespace PuntoDeVentaV2
                 {
                     var idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
 
+                    fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+                    if (primerClickEliminarIndividual.Equals(false))
+                    {
+                        productoEliminado.Add(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Importe"].Value.ToString());
+                        primerClickEliminarIndividual = true;
+                    }
+                    else
+                    {
+                        string[] word;
+                        string palabra = string.Empty;
+                        bool descripcionEncontrada = false;
+                        palabra = DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString();
+
+                        for (int i = 0; i < productoEliminado.Count; i++)
+                        {
+                            word = productoEliminado[i].Split('|');
+                            descripcionEncontrada = Array.Exists(word, element => element == palabra);
+                            if (descripcionEncontrada)
+                            {
+                                var count = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
+                                count++;
+                                productoEliminado[i] = count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString()));
+                                break;
+                            }
+                        }
+
+                        if (!descripcionEncontrada)
+                        {
+                            var count = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
+                            productoEliminado.Add(count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
+                        }
+                    }
+                    
                     DGVentas.Rows.RemoveAt(celda);
 
                     if (productosDescuentoG.ContainsKey(idProducto))
@@ -1779,16 +1813,33 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    if (productoRestado.Any())
+                    if (primerClickRestarIndividual)
                     {
-                        Thread ProductLessSale = new Thread(
-                               () => Utilidades.ventaProductLessEmail(productoRestado, fechaSistema, FormPrincipal.datosUsuario)
-                        );
+                        if (productoRestado.Any())
+                        {
+                            Thread ProductLessSale = new Thread(
+                                   () => Utilidades.ventaProductLessEmail(productoRestado, fechaSistema, FormPrincipal.datosUsuario)
+                            );
 
-                        ProductLessSale.Start();
+                            ProductLessSale.Start();
+                        }
+
+                        primerClickRestarIndividual = false;
                     }
 
-                    primerClick = false;
+                    if (primerClickEliminarIndividual)
+                    {
+                        if (productoEliminado.Any())
+                        {
+                            Thread ProductDeleteSale = new Thread(
+                                () => Utilidades.ventaProductDeleteEmail(productoEliminado, fechaSistema, FormPrincipal.datosUsuario)
+                            );
+
+                            ProductDeleteSale.Start();
+                        }
+
+                        primerClickEliminarIndividual = false;
+                    }
 
                     ventaFinalizada = true;
 
