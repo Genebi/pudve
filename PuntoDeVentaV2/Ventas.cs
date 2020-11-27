@@ -130,11 +130,15 @@ namespace PuntoDeVentaV2
 
         bool ventaFinalizada = false;
 
-        List<string> productoRestado = new List<string>();
-        List<string> productoEliminado = new List<string>();
+        List<string> productoRestado = new List<string>(),
+                     productoEliminado = new List<string>(),
+                     productoUltimoAgregadoEliminado = new List<string>();
+
         string fechaSistema = string.Empty;
+
         bool primerClickRestarIndividual = false, 
-             primerClickEliminarIndividual = false;
+             primerClickEliminarIndividual = false,
+             primerClickBtnUltimoEliminado = false;
 
         public Ventas()
         {
@@ -1738,6 +1742,44 @@ namespace PuntoDeVentaV2
 
             if (DGVentas.Rows.Count > 0)
             {
+                fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+                if (primerClickBtnUltimoEliminado.Equals(false))
+                {
+                    productoUltimoAgregadoEliminado.Add(DGVentas.Rows[0].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[0].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[0].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[0].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[0].Cells["Importe"].Value.ToString());
+
+                    primerClickBtnUltimoEliminado = true;
+                }
+                else
+                {
+                    string[] word;
+                    string palabra = string.Empty;
+                    bool descripcionEncontrada = false;
+
+                    palabra = DGVentas.Rows[0].Cells["Descripcion"].Value.ToString();
+
+                    for (int i = 0; i < productoUltimoAgregadoEliminado.Count; i++)
+                    {
+                        word = productoUltimoAgregadoEliminado[i].Split('|');
+                        descripcionEncontrada = Array.Exists(word, element => element == palabra);
+                        if (descripcionEncontrada)
+                        {
+                            var count = Convert.ToDecimal(DGVentas.Rows[0].Cells["Cantidad"].Value.ToString());
+                            var nuevaCantidad = (count + Convert.ToDecimal(word[0].ToString()));
+
+                            productoUltimoAgregadoEliminado[i] = nuevaCantidad + "|" + DGVentas.Rows[0].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[0].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[0].Cells["Descuento"].Value.ToString() + "|" + ((nuevaCantidad * Convert.ToDecimal(DGVentas.Rows[0].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[0].Cells["Descuento"].Value.ToString()));
+                            break;
+                        }
+                    }
+
+                    if (!descripcionEncontrada)
+                    {
+                        var count = Convert.ToDecimal(DGVentas.Rows[0].Cells["Cantidad"].Value.ToString());
+
+                        productoUltimoAgregadoEliminado.Add(count + "|" + DGVentas.Rows[0].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[0].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[0].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[0].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[0].Cells["Descuento"].Value.ToString())));
+                    }
+                }
+
                 var id = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
 
                 DGVentas.Rows.RemoveAt(0);
@@ -1839,6 +1881,20 @@ namespace PuntoDeVentaV2
                         }
 
                         primerClickEliminarIndividual = false;
+                    }
+
+                    if (primerClickBtnUltimoEliminado)
+                    {
+                        if (productoUltimoAgregadoEliminado.Any())
+                        {
+                            Thread ProductDeleteLast = new Thread(
+                                () => Utilidades.ventaBtnUltimoEliminadoEmail(productoUltimoAgregadoEliminado, fechaSistema, FormPrincipal.datosUsuario)
+                            );
+
+                            ProductDeleteLast.Start();
+                        }
+
+                        primerClickBtnUltimoEliminado = false;
                     }
 
                     ventaFinalizada = true;

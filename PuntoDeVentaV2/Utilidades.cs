@@ -1029,6 +1029,7 @@ namespace PuntoDeVentaV2
             asunto = "Venta no realizada en el sistema";
             correo = datosUsuario[9].ToString();
             correo1 = "micorreoeshouse_1@hotmail.com";
+            //correo = "genebi@outlook.com";
 
             if (!correo.Equals(""))
             {
@@ -1059,7 +1060,7 @@ namespace PuntoDeVentaV2
                     correo = string.Empty,
                     correo1 = string.Empty;
 
-            encabezadoHTML = @"<h1 style='text-align: center; color: red;'>PRODUCTO RESTADO AL LISTADO DE LA VENTA</h1><br>
+            encabezadoHTML = @"<h1 style='text-align: center; color: red;'>PRODUCTO RESTADO (Click simbolo de menos) AL LISTADO DE LA VENTA</h1><br>
                                <p>Registro de disminución del producto; el listado de las cantidades restadas es el siguiente :</p>
                                <table style='width:100%'>
                                     <tr>
@@ -1106,9 +1107,10 @@ namespace PuntoDeVentaV2
 
             correoHTML = encabezadoHTML + productos + pieHTML;
 
-            asunto = "Producto Restado Al Listado De La Venta";
+            asunto = "Producto Restado (click simbolo de menos) Al Listado De La Venta";
             correo = datosUsuario[9].ToString();
             correo1 = "micorreoeshouse_1@hotmail.com";
+            //correo = "genebi@outlook.com";
 
             if (!correo.Equals(""))
             {
@@ -1133,7 +1135,7 @@ namespace PuntoDeVentaV2
                     correo = string.Empty,
                     correo1 = string.Empty;
 
-            encabezadoHTML = @"<h1 style='text-align: center; color: red;'>PRODUCTO ELIMINADO DEL LISTADO DE LA VENTA</h1><br>
+            encabezadoHTML = @"<h1 style='text-align: center; color: red;'>PRODUCTO ELIMINADO (click simbolo de x) DEL LISTADO DE LA VENTA</h1><br>
                                <p>Registro de eliminación del producto de la lista de venta; las cantidades eliminadas son las siguientes :</p>
                                <table style='width:100%'>
                                     <tr>
@@ -1180,9 +1182,10 @@ namespace PuntoDeVentaV2
 
             correoHTML = encabezadoHTML + productos + pieHTML;
 
-            asunto = "Producto Restado Al Listado De La Venta";
+            asunto = "Producto Eliminado (click simbolo de x) Al Listado De La Venta";
             correo = datosUsuario[9].ToString();
             correo1 = "micorreoeshouse_1@hotmail.com";
+            //correo = "genebi@outlook.com";
 
             if (!correo.Equals(""))
             {
@@ -1205,6 +1208,81 @@ namespace PuntoDeVentaV2
             }
 
             return cantidad;
+        }
+
+        public static void ventaBtnUltimoEliminadoEmail(List<string> productoUltimoAgregadoEliminado, string fechaSistema, string[] datosUsuario)
+        {
+            decimal monto = 0;
+            string[] words;
+            string productos = string.Empty,
+                    encabezadoHTML = string.Empty,
+                    pieHTML = string.Empty,
+                    correoHTML = string.Empty,
+                    asunto = string.Empty,
+                    correo = string.Empty,
+                    correo1 = string.Empty;
+
+            encabezadoHTML = @"<h1 style='text-align: center; color: red;'>PRODUCTO ELIMINADO (Último en agregarse) DEL LISTADO DE LA VENTA</h1><br>
+                               <p>Registro de eliminación del producto de la lista de venta; las cantidades eliminadas son las siguientes :</p>
+                               <table style='width:100%'>
+                                    <tr>
+                                        <th style = 'text-align: left;'>Cantidad Eliminada</th>
+                                        <th style = 'text-align: left;'>Precio</th>
+                                        <th>Descripcion</th>
+                                        <th style = 'text-align: left;'>Descuento</th>
+                                        <th style = 'text-align: right;'>Importe</th>
+                                    </tr>";
+
+            foreach (var item in productoUltimoAgregadoEliminado)
+            {
+                words = item.Split('|');
+                productos += $@"    <tr>
+                                        <td style = 'text-align: left;'>
+                                            <span style='color: blue;'>{words[0].ToString()}</span>
+                                        </td>
+                                        <td style = 'text-align: left;'>
+                                            <span style='color: blue;'>{words[1].ToString()}</span>
+                                        </td>
+                                        <td style = 'text-align: center;'>
+                                            <span style='color: black;'><b>{words[2].ToString()}</b></span>
+                                        </td>
+                                        <td style = 'text-align: left;'>
+                                            <span style='color: blue;'>{words[3].ToString()}</span>
+                                        </td>
+                                        <td style = 'text-align: right;'>
+                                            <span style='color: blue;'><b>{words[4].ToString()}</b></span>
+                                        </td>
+                                    </tr>";
+                monto += Convert.ToDecimal(words[4].ToString());
+            }
+
+            pieHTML = $@"           <tr>
+                                        <td colspan='4' style = 'text-align: right;'>
+                                            Total =
+                                        </td>
+                                        <td style = 'text-align: right;'>
+                                            <span style='color: red'><b>{monto}</b></span>
+                                        </td>
+                                    </tr>
+                               </table>
+                               <p>Está operación fue realizada con <span style='color:red;'>fecha de {fechaSistema}</span> por el <span style='color: red'>usuario = {datosUsuario[0].ToString()}</span></p>";
+
+            correoHTML = encabezadoHTML + productos + pieHTML;
+
+            asunto = "Producto Eliminado (Último en agregarse) Al Listado De La Venta";
+            correo = datosUsuario[9].ToString();
+            correo1 = "micorreoeshouse_1@hotmail.com";
+            //correo = "genebi@outlook.com";
+
+            if (!correo.Equals(""))
+            {
+                EnviarEmail(correoHTML, asunto, correo);
+                //EnviarEmail(correoHTML, asunto, correo1);
+            }
+            else
+            {
+                //EnviarEmail(correoHTML, asunto, correo1);
+            }
         }
     }
 }
