@@ -928,18 +928,16 @@ namespace PuntoDeVentaV2
             if (validarAnterior == true)
             {
                 validarAnterior = false;
-                using (var datoAnterior = cn.CargarDatos($"SELECT ID FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY ID DESC LIMIT 1"))
+                using (var datoAnterior = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY ID DESC LIMIT 1"))
                 {
                     if (!datoAnterior.Rows.Count.Equals(0))
                     {
                         var result = datoAnterior.Rows[0]["ID"].ToString();
                         convertirId = Convert.ToInt32(result);
 
+                        //var restaId = cn.CargarDatos($"SELECT COUNT(*) AS Count FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}'");
 
-
-                        var restaId = cn.CargarDatos($"SELECT COUNT(*) AS Count FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}'");
-
-                        numFilasExistentes = Convert.ToInt32(restaId.Rows[0]["Count"].ToString());
+                        //numFilasExistentes = Convert.ToInt32(restaId.Rows[0]["Count"].ToString());
                     }
                     else
                     {
@@ -947,12 +945,12 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            var idStatico = (convertirId - numFilasExistentes);
+            //var idStatico = (convertirId - numFilasExistentes);
 
-            if ((convertirId - numFilasExistentes) <= idStatico && (convertirId - numFilasExistentes) != 0)
+            if (/*(convertirId - numFilasExistentes) <= idStatico && (convertirId - numFilasExistentes) != 0*/convertirId > 0)
             {
                 //MessageBox.Show($"Id:{convertirId}");
-                var informacionProducto = cn.CargarDatos($"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{convertirId}'");
+                var informacionProducto = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{convertirId}'");
 
                 foreach (DataRow datosObtenidos in informacionProducto.Rows)
                 {
