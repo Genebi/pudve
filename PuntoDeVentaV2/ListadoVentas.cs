@@ -1831,6 +1831,13 @@ namespace PuntoDeVentaV2
                 {
                     ComprobanteConceptoVenta concepto_v = new ComprobanteConceptoVenta();
 
+                    var cantidadTmp = r_prodventa["Cantidad"].ToString().Split('.');
+
+                    if (cantidadTmp[1] == "00")
+                    {
+                        r_prodventa["Cantidad"] = cantidadTmp[0];
+                    }
+
                     concepto_v.Cantidad = Convert.ToDecimal(r_prodventa["Cantidad"]);
                     concepto_v.Descripcion = r_prodventa["Nombre"].ToString();
                     concepto_v.ValorUnitario = Convert.ToDecimal(r_prodventa["Precio"]);

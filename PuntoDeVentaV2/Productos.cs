@@ -4426,6 +4426,13 @@ namespace PuntoDeVentaV2
                     row.Cells["StockMinimo"].Value = minimo.ToString();
                     row.Cells["StockMaximo"].Value = maximo.ToString();
 
+                    var stockTmp = stock.ToString().Split('.');
+
+                    if (stockTmp[1] == "00")
+                    {
+                        filaDatos["Stock"] = stockTmp[0];
+                    }
+
                     if (stock < minimo)
                     {
                         row.Cells["Column2"].Value = filaDatos["Stock"].ToString();
