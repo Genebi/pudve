@@ -840,7 +840,6 @@ namespace PuntoDeVentaV2
                                                         efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
                                                     };
                                         cn.EjecutarConsulta(cs.OperacionCaja(datos));
-
                                     }
                                 }
                             }
@@ -913,9 +912,39 @@ namespace PuntoDeVentaV2
                             //    //stopCancelar = true;
                             //    stopCancelar = DevolverAnticipo.noCash;
                             //}
-                            stopCancelar = false;
-                        }
+                            if (cbTipoVentas.SelectedIndex == 0)
+                            {
+                                mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                                if (mensaje == DialogResult.Yes)
+                                {
+                                    var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+
+                                    if (formasPago.Length > 0)
+                                    {
+                                        var conceptoCredito = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+
+                                        var total1 = formasPago.Sum().ToString();
+                                        var efectivo1 = formasPago[0].ToString();
+                                        var tarjeta1 = formasPago[1].ToString();
+                                        var vales1 = formasPago[2].ToString();
+                                        var cheque1 = formasPago[3].ToString();
+                                        var transferencia1 = formasPago[4].ToString();
+                                        var credito1 = formasPago[5].ToString();
+                                        //var anticipo1 = "0";
+
+                                        var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                        string[] datos = new string[] {
+                                                        "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(),
+                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
+                                                    };
+                                        cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                    }
+                                }
+                                stopCancelar = false;
+                            }
+                        }
 
                         if (stopCancelar == false)
                         {
@@ -944,29 +973,29 @@ namespace PuntoDeVentaV2
                                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                                     }
                                 }
-                                var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+                                //var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
-                                var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
-                                if (formasPago2.Length > 0)
-                                {
-                                    var total1 = "0";
-                                    var efectivo1 = "0";
-                                    var tarjeta1 = "0";
-                                    var vales1 = "0";
-                                    var cheque1 = "0";
-                                    var transferencia1 = "0";
-                                    var credito1 = formasPago2[5].ToString();
-                                    //var anticipo1 = "0";
+                                //var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
+                                //if (formasPago2.Length > 0)
+                                //{
+                                //    var total1 = "0";
+                                //    var efectivo1 = "0";
+                                //    var tarjeta1 = "0";
+                                //    var vales1 = "0";
+                                //    var cheque1 = "0";
+                                //    var transferencia1 = "0";
+                                //    var credito1 = formasPago2[5].ToString();
+                                //    //var anticipo1 = "0";
 
-                                    var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                //    var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                    string[] datos = new string[] {
-                                                        "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
-                                                    };
-                                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                //    string[] datos = new string[] {
+                                //                        "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
+                                //                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
+                                //                    };
+                                //    cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
-                                }
+                                //}
 
 
                                 // Agregamos marca de agua al PDF del ticket de la venta cancelada
