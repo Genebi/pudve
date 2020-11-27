@@ -107,7 +107,7 @@
 
     <!-- Forma de Pago -->
 
-    @if(Model.FormaPago != ""){
+    @if(Model.FormaPago != "" && Model.Receptor == null){
         <span class="negritas">Forma de pago:</span>
         <span class="saltos">@Model.FormaPago</span>
     }
