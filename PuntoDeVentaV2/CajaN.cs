@@ -635,10 +635,10 @@ namespace PuntoDeVentaV2
             lbTVales.Text = "$" + vVales.ToString("0.00");
             lbTCheque.Text = "$" + vCheque.ToString("0.00");
             lbTTrans.Text = "$" + vTrans.ToString("0.00");
-            lbTCredito.Text = "$" + vCredito.ToString("0.00");
+            lbTCredito.Text = "$" + (vCredito - retiroCredito).ToString("0.00");
             //lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
             lbTAnticipos.Text = "$" + anticiposAplicados.ToString("0.00");
-            lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + /*vAnticipos*/anticiposAplicados).ToString("0.00");
+            lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (vCredito - retiroCredito) + /*vAnticipos*/anticiposAplicados).ToString("0.00");
 
             ////Variables de Abonos en Ventas
             //lbEfectivoAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
@@ -702,7 +702,7 @@ namespace PuntoDeVentaV2
             //lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
             lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
-            lbTCreditoTotal.Text = "$" + vCredito.ToString("0.00");
+            lbTCreditoTotal.Text = "$" + (vCredito - retiroCredito).ToString("0.00");
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             //lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
             lbTTotalCaja.Text = "$" + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");
