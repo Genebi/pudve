@@ -973,29 +973,29 @@ namespace PuntoDeVentaV2
                                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                                     }
                                 }
-                                //var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+                                var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
-                                //var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
-                                //if (formasPago2.Length > 0)
-                                //{
-                                //    var total1 = "0";
-                                //    var efectivo1 = "0";
-                                //    var tarjeta1 = "0";
-                                //    var vales1 = "0";
-                                //    var cheque1 = "0";
-                                //    var transferencia1 = "0";
-                                //    var credito1 = formasPago2[5].ToString();
-                                //    //var anticipo1 = "0";
+                                var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
+                                if (formasPago2.Length > 0)
+                                {
+                                    var total1 = "0";
+                                    var efectivo1 = "0";
+                                    var tarjeta1 = "0";
+                                    var vales1 = "0";
+                                    var cheque1 = "0";
+                                    var transferencia1 = "0";
+                                    var credito1 = formasPago2[5].ToString();
+                                    //var anticipo1 = "0";
 
-                                //    var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                    var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                //    string[] datos = new string[] {
-                                //                        "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                //                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
-                                //                    };
-                                //    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                    string[] datos = new string[] {
+                                                        "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
+                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
+                                                    };
+                                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
-                                //}
+                                }
 
 
                                 // Agregamos marca de agua al PDF del ticket de la venta cancelada
