@@ -130,6 +130,12 @@ namespace PuntoDeVentaV2
 
         bool ventaFinalizada = false;
 
+        List<string> productoRestado = new List<string>();
+        List<string> nuevaLista = new List<string>();
+        string fechaSistema = string.Empty;
+        int posicion = 0;
+        bool primerClick = false;
+
         public Ventas()
         {
             InitializeComponent();
@@ -920,6 +926,38 @@ namespace PuntoDeVentaV2
 
                     if (cantidad > 0)
                     {
+                        fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+                        if (primerClick.Equals(false))
+                        {
+                            productoRestado.Add("1|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((1*Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
+                            primerClick = true;
+                        }
+                        else
+                        {
+                            string[] word;
+                            string palabra = string.Empty;
+                            bool descripcionEncontrada = false;
+                            palabra = DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString();
+                            for (int i = 0; i < productoRestado.Count; i++)
+                            {
+                                word = productoRestado[i].Split('|');
+                                descripcionEncontrada = Array.Exists(word, element => element == palabra);
+                                if (descripcionEncontrada)
+                                {
+                                    var count = Convert.ToDecimal(word[0].ToString());
+                                    count++;
+                                    productoRestado[i] = count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString()));
+                                    break;
+                                }
+                            }
+
+                            if (!descripcionEncontrada)
+                            {
+                                productoRestado.Add("1|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((1 * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
+                            }
+                        }
+
                         int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
                         int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celda].Cells["DescuentoTipo"].Value);
                         var precio = float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
@@ -1741,6 +1779,17 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+                    if (productoRestado.Any())
+                    {
+                        Thread ProductLessSale = new Thread(
+                               () => Utilidades.ventaProductLessEmail(productoRestado, fechaSistema, FormPrincipal.datosUsuario)
+                        );
+
+                        ProductLessSale.Start();
+                    }
+
+                    primerClick = false;
+
                     ventaFinalizada = true;
 
                     var totalVenta = float.Parse(cTotal.Text);
@@ -2523,7 +2572,11 @@ namespace PuntoDeVentaV2
 
                         importeTotal = cTotal.Text.ToString();
 
-                        Utilidades.ventaNotSuccessfulFinalizadaEmail(productosNoVendidos, fechaSistema, importeTotal, FormPrincipal.datosUsuario);
+                        Thread NotSuccessfulSale = new Thread(
+                            () => Utilidades.ventaNotSuccessfulFinalizadaEmail(productosNoVendidos, fechaSistema, importeTotal, FormPrincipal.datosUsuario)
+                        );
+
+                        NotSuccessfulSale.Start();
 
                         mostrarVenta = 0;
                         listaAnticipos = string.Empty;
