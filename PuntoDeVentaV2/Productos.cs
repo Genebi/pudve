@@ -1769,7 +1769,7 @@ namespace PuntoDeVentaV2
 
             setUpFiltroDinamicos.Clear();
 
-            strFiltro = "SELECT * FROM FiltroDinamico WHERE IDUsuario = '11'";
+            strFiltro = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = {FormPrincipal.userID}";
 
             using (DataTable dtFiltroDinamico = cn.CargarDatos(strFiltro))
             {
