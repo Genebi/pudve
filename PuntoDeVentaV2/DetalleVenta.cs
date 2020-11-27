@@ -229,7 +229,11 @@ namespace PuntoDeVentaV2
 
                 this.Hide();
                 this.Close();
-
+            }
+            else
+            {
+                MessageBox.Show("La cantidades no coinciden con el total a pagar", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
 
             var sumaImportes = Ventas.pasarSumaImportes;
@@ -412,28 +416,28 @@ namespace PuntoDeVentaV2
                 totalEfectivo = float.Parse(txtEfectivo.Text.Trim());
             }
 
-            if (totalVenta != totalEfectivo)
-            {
-                var totalTarjeta = totalVenta - (totalEfectivo + credito);
+            //if (totalVenta != totalEfectivo)
+            //{
+            //    var totalTarjeta = totalVenta - (totalEfectivo + credito);
 
-                if (totalTarjeta < 0)
-                {
-                    txtTarjeta.Text = string.Empty;
-                }
-                else
-                {
-                    txtTarjeta.Text = totalTarjeta.ToString();
-                }
+            //    if (totalTarjeta < 0)
+            //    {
+            //        txtTarjeta.Text = string.Empty;
+            //    }
+            //    else
+            //    {
+            //        txtTarjeta.Text = totalTarjeta.ToString();
+            //    }
 
-                if (totalEfectivo > totalVenta)
-                {
-                    txtTarjeta.Text = string.Empty;
-                }
-            }
-            else
-            {
-                txtTarjeta.Text = string.Empty;
-            }
+            //    if (totalEfectivo > totalVenta)
+            //    {
+            //        txtTarjeta.Text = string.Empty;
+            //    }
+            //}
+            //else
+            //{
+            //    txtTarjeta.Text = string.Empty;
+            //}
 
             CalcularCambio();
         }
