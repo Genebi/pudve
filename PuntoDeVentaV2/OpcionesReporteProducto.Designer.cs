@@ -33,12 +33,14 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.btnFiltroReporte = new System.Windows.Forms.Button();
+            this.cbSeleccionados = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // panelContenedor
             // 
             this.panelContenedor.AutoScroll = true;
-            this.panelContenedor.Location = new System.Drawing.Point(2, 7);
+            this.panelContenedor.Location = new System.Drawing.Point(2, 39);
             this.panelContenedor.Name = "panelContenedor";
             this.panelContenedor.Size = new System.Drawing.Size(379, 301);
             this.panelContenedor.TabIndex = 0;
@@ -51,7 +53,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(272, 321);
+            this.btnAceptar.Location = new System.Drawing.Point(272, 353);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(105, 28);
             this.btnAceptar.TabIndex = 17;
@@ -70,7 +72,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(161, 322);
+            this.btnCancelar.Location = new System.Drawing.Point(161, 354);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(105, 27);
             this.btnCancelar.TabIndex = 18;
@@ -83,7 +85,7 @@
             this.primerSeparador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.primerSeparador.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.primerSeparador.Location = new System.Drawing.Point(7, 314);
+            this.primerSeparador.Location = new System.Drawing.Point(7, 346);
             this.primerSeparador.Name = "primerSeparador";
             this.primerSeparador.Size = new System.Drawing.Size(370, 2);
             this.primerSeparador.TabIndex = 22;
@@ -98,7 +100,7 @@
             this.btnFiltroReporte.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnFiltroReporte.ForeColor = System.Drawing.Color.White;
             this.btnFiltroReporte.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
-            this.btnFiltroReporte.Location = new System.Drawing.Point(7, 322);
+            this.btnFiltroReporte.Location = new System.Drawing.Point(7, 354);
             this.btnFiltroReporte.Name = "btnFiltroReporte";
             this.btnFiltroReporte.Size = new System.Drawing.Size(70, 27);
             this.btnFiltroReporte.TabIndex = 23;
@@ -108,11 +110,35 @@
             this.btnFiltroReporte.UseVisualStyleBackColor = false;
             this.btnFiltroReporte.Click += new System.EventHandler(this.btnFiltroReporte_Click);
             // 
+            // cbSeleccionados
+            // 
+            this.cbSeleccionados.AutoSize = true;
+            this.cbSeleccionados.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSeleccionados.Location = new System.Drawing.Point(7, 13);
+            this.cbSeleccionados.Name = "cbSeleccionados";
+            this.cbSeleccionados.Size = new System.Drawing.Size(208, 17);
+            this.cbSeleccionados.TabIndex = 24;
+            this.cbSeleccionados.Text = "Aplicar solo a los seleccionados";
+            this.cbSeleccionados.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point(7, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(370, 2);
+            this.label1.TabIndex = 25;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // OpcionesReporteProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 361);
+            this.ClientSize = new System.Drawing.Size(384, 391);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cbSeleccionados);
             this.Controls.Add(this.btnFiltroReporte);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnCancelar);
@@ -127,6 +153,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OpcionesReporteProducto_FormClosing);
             this.Load += new System.EventHandler(this.OpcionesReporteProducto_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -137,5 +164,7 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label primerSeparador;
         private System.Windows.Forms.Button btnFiltroReporte;
+        private System.Windows.Forms.CheckBox cbSeleccionados;
+        private System.Windows.Forms.Label label1;
     }
 }

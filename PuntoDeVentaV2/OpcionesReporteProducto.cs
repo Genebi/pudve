@@ -256,7 +256,38 @@ namespace PuntoDeVentaV2
             var fechaHoy = DateTime.Now;
 
             // Obtenemos todos los productos del usuario ordenado alfabéticamente
-            var consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY Nombre ASC";
+            var consulta = string.Empty;
+
+            if (cbSeleccionados.Checked)
+            {
+                var productos = Productos.productosSeleccionados;
+
+                if (productos.Count() > 0)
+                {
+                    var extra = "IN (";
+
+                    foreach (var producto in productos)
+                    {
+                        extra += $"{producto.Key},";
+                    }
+
+                    extra = extra.Substring(0, extra.Length - 1);
+
+                    extra += ")";
+
+                    consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND ID {extra}";
+                }
+
+                else
+                {
+                    consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY Nombre ASC";
+                }
+            }
+            else
+            {
+                consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY Nombre ASC";
+            }
+            
             var listaProductos = cn.CargarDatos(consulta);
 
 
