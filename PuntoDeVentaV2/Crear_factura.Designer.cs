@@ -122,6 +122,7 @@
             this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
             this.cmb_bx_clientes.TabIndex = 2;
             this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
+            this.cmb_bx_clientes.TextChanged += new System.EventHandler(this.cmb_bx_clientes_TextChanged);
             // 
             // pnl_datos_cliente
             // 

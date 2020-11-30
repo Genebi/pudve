@@ -1968,6 +1968,14 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void cmb_bx_clientes_TextChanged(object sender, EventArgs e)
+        {
+            if (cmb_bx_clientes.Text.Equals("") || !cmb_bx_clientes.Text.Equals(""))
+            {
+                cmb_bx_clientes.DroppedDown = false;
+            }
+        }
+
 
         /*private void btn_facturar_Click(object sender, EventArgs e)
         {
