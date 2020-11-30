@@ -73,13 +73,14 @@
             // 
             // lbTotalCambio
             // 
-            this.lbTotalCambio.AutoSize = true;
+            this.lbTotalCambio.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lbTotalCambio.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotalCambio.Location = new System.Drawing.Point(385, 271);
+            this.lbTotalCambio.Location = new System.Drawing.Point(195, 271);
             this.lbTotalCambio.Name = "lbTotalCambio";
-            this.lbTotalCambio.Size = new System.Drawing.Size(66, 25);
+            this.lbTotalCambio.Size = new System.Drawing.Size(256, 25);
             this.lbTotalCambio.TabIndex = 120;
             this.lbTotalCambio.Text = "$0.00";
+            this.lbTotalCambio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbCambio
             // 
