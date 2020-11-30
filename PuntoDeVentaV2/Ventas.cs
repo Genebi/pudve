@@ -1810,6 +1810,22 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
+                List<string> productosNoVendidos = new List<string>();
+                string fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), importeTotal = string.Empty;
+
+                foreach (DataGridViewRow dgvRenglon in DGVentas.Rows)
+                {
+                    productosNoVendidos.Add(dgvRenglon.Cells["Cantidad"].Value.ToString() + "|" + dgvRenglon.Cells["Precio"].Value.ToString() + "|" + dgvRenglon.Cells["Descripcion"].Value.ToString() + "|" + dgvRenglon.Cells["Descuento"].Value.ToString() + "|" + dgvRenglon.Cells["Importe"].Value.ToString());
+                }
+
+                importeTotal = cTotal.Text.ToString();
+
+                Thread btnClearAllItemSale = new Thread(
+                    () => Utilidades.ventaBtnClarAllItemSaleEmail(productosNoVendidos, fechaSistema, importeTotal, FormPrincipal.datosUsuario)
+                );
+
+                btnClearAllItemSale.Start();
+
                 DGVentas.Rows.Clear();
                 // Almacena los ID de los productos a los que se aplica descuento general
                 productosDescuentoG.Clear();
@@ -1821,7 +1837,7 @@ namespace PuntoDeVentaV2
             }
             else if (dialogoResult == DialogResult.No)
             {
-
+                return;
             }
 
         }
