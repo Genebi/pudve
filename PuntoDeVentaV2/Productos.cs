@@ -1594,6 +1594,23 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            Dictionary<int, string> lista = new Dictionary<int, string>();
+
+            // Obtener ID de los productos seleccionados
+            foreach (DataGridViewRow row in DGVProductos.Rows)
+            {
+                // Verificamos que el checkbox este marcado
+                if ((bool)row.Cells["CheckProducto"].Value == true)
+                {
+                    var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+                    var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
+
+                    lista.Add(idProducto, tipoProducto);
+                }
+            }
+
+            productosSeleccionados = lista;
+
             if (Application.OpenForms.OfType<OpcionesReporteProducto>().Count() == 1)
             {
                 Application.OpenForms.OfType<OpcionesReporteProducto>().First().BringToFront();
@@ -1606,7 +1623,9 @@ namespace PuntoDeVentaV2
 
                 opciones.FormClosed += delegate
                 {
-                    txtBusqueda.Focus(); 
+                    txtBusqueda.Focus();
+
+                    productosSeleccionados.Clear();
                 };
             }
         }
