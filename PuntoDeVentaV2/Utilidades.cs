@@ -1033,19 +1033,20 @@ namespace PuntoDeVentaV2
 
             if (!correo.Equals(""))
             {
-                if (correo.Equals(correo1))
-                {
-                    EnviarEmail(correoHTML, asunto, correo);
-                }
-                else
-                {
-                    EnviarEmail(correoHTML, asunto, correo);
-                    EnviarEmail(correoHTML, asunto, correo1);
-                }
+                EnviarEmail(correoHTML, asunto, correo);
+                //if (correo.Equals(correo1))
+                //{
+                //    EnviarEmail(correoHTML, asunto, correo);
+                //}
+                //else
+                //{
+                //    EnviarEmail(correoHTML, asunto, correo);
+                //    EnviarEmail(correoHTML, asunto, correo1);
+                //}
             }
             else
             {
-                EnviarEmail(correoHTML, asunto, correo1);
+                //EnviarEmail(correoHTML, asunto, correo1);
             }
         }
 
@@ -1121,19 +1122,20 @@ namespace PuntoDeVentaV2
 
             if (!correo.Equals(""))
             {
-                if (correo.Equals(correo1))
-                {
-                    EnviarEmail(correoHTML, asunto, correo);
-                }
-                else
-                {
-                    EnviarEmail(correoHTML, asunto, correo);
-                    EnviarEmail(correoHTML, asunto, correo1);
-                }
+                EnviarEmail(correoHTML, asunto, correo);
+                //if (correo.Equals(correo1))
+                //{
+                //    EnviarEmail(correoHTML, asunto, correo);
+                //}
+                //else
+                //{
+                //    EnviarEmail(correoHTML, asunto, correo);
+                //    EnviarEmail(correoHTML, asunto, correo1);
+                //}
             }
             else
             {
-                EnviarEmail(correoHTML, asunto, correo1);
+                //EnviarEmail(correoHTML, asunto, correo1);
             }
         }
 
@@ -1203,19 +1205,20 @@ namespace PuntoDeVentaV2
 
             if (!correo.Equals(""))
             {
-                if (correo.Equals(correo1))
-                {
-                    EnviarEmail(correoHTML, asunto, correo);
-                }
-                else
-                {
-                    EnviarEmail(correoHTML, asunto, correo);
-                    EnviarEmail(correoHTML, asunto, correo1);
-                }
+                EnviarEmail(correoHTML, asunto, correo);
+                //if (correo.Equals(correo1))
+                //{
+                //    EnviarEmail(correoHTML, asunto, correo);
+                //}
+                //else
+                //{
+                //    EnviarEmail(correoHTML, asunto, correo);
+                //    EnviarEmail(correoHTML, asunto, correo1);
+                //}
             }
             else
             {
-                EnviarEmail(correoHTML, asunto, correo1);
+                //EnviarEmail(correoHTML, asunto, correo1);
             }
         }
 
@@ -1297,19 +1300,101 @@ namespace PuntoDeVentaV2
 
             if (!correo.Equals(""))
             {
-                if (correo.Equals(correo1))
-                {
-                    EnviarEmail(correoHTML, asunto, correo);
-                }
-                else
-                {
-                    EnviarEmail(correoHTML, asunto, correo);
-                    EnviarEmail(correoHTML, asunto, correo1);
-                }
+                EnviarEmail(correoHTML, asunto, correo);
+                //if (correo.Equals(correo1))
+                //{
+                //    EnviarEmail(correoHTML, asunto, correo);
+                //}
+                //else
+                //{
+                //    EnviarEmail(correoHTML, asunto, correo);
+                //    EnviarEmail(correoHTML, asunto, correo1);
+                //}
             }
             else
             {
-                EnviarEmail(correoHTML, asunto, correo1);
+                //EnviarEmail(correoHTML, asunto, correo1);
+            }
+        }
+
+        public static void ventaBtnClarAllItemSaleEmail(List<string> productosNoVendidos, string fechaSistema, string importeTotal, string[] datosUsuario)
+        {
+            string[] words;
+            string productos = string.Empty,
+                    encabezadoHTML = string.Empty,
+                    pieHTML = string.Empty,
+                    correoHTML = string.Empty,
+                    asunto = string.Empty,
+                    correo = string.Empty,
+                    correo1 = string.Empty;
+
+            encabezadoHTML = @" <h1 style='text-align: center; color: red;'>VENTA NO FINALIZADA (Click en botón borrar todos los productos) EN EL SISTEMA</h1><br>
+                                <p>Registro de venta no realizada en el sistema; la siguiente lista es de productos registrados en la venta no realizada:</p>
+                                <table style='width:100%'>
+                                    <tr>
+                                        <th style = 'text-align: left;'>Cantidad</th>
+                                        <th style = 'text-align: left;'>Precio</th>
+                                        <th>Descripcion</th>
+                                        <th style = 'text-align: left;'>Descuento</th>
+                                        <th style = 'text-align: right;'>Importe</th>
+                                    </tr>";
+
+            foreach (var item in productosNoVendidos)
+            {
+                words = item.Split('|');
+                productos += $@"    <tr>
+                                        <td style = 'text-align: left;'>
+                                            <span style='color: blue;'>{words[0].ToString()}</span>
+                                        </td>
+                                        <td style = 'text-align: left;'>
+                                            <span style='color: blue;'>{words[1].ToString()}</span>
+                                        </td>
+                                        <td style = 'text-align: center;'>
+                                            <span style='color: black;'><b>{words[2].ToString()}</b></span>
+                                        </td>
+                                        <td style = 'text-align: left;'>
+                                            <span style='color: blue;'>{words[3].ToString()}</span>
+                                        </td>
+                                        <td style = 'text-align: right;'>
+                                            <span style='color: blue;'><b>{words[4].ToString()}</b></span>
+                                        </td>
+                                    </tr>";
+            }
+
+            pieHTML = $@"           <tr>
+                                        <td colspan='4' style = 'text-align: right;'>
+                                            Total =
+                                        </td>
+                                        <td style = 'text-align: right;'>
+                                            <span style='color: red'><b>{importeTotal}</b></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p>Está operación fue realizada con <span style='color:red;'>fecha de {fechaSistema}</span> por el <span style='color: red'>usuario = {datosUsuario[0].ToString()}</span></p>";
+
+            correoHTML = encabezadoHTML + productos + pieHTML;
+
+            asunto = "Venta no realizada en el sistema";
+            correo = datosUsuario[9].ToString();
+            correo1 = "micorreoeshouse_1@hotmail.com";
+            //correo = "genebi@outlook.com";
+
+            if (!correo.Equals(""))
+            {
+                EnviarEmail(correoHTML, asunto, correo);
+                //if (correo.Equals(correo1))
+                //{
+                //    EnviarEmail(correoHTML, asunto, correo);
+                //}
+                //else
+                //{
+                //    EnviarEmail(correoHTML, asunto, correo);
+                //    EnviarEmail(correoHTML, asunto, correo1);
+                //}
+            }
+            else
+            {
+                //EnviarEmail(correoHTML, asunto, correo1);
             }
         }
     }
