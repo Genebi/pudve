@@ -130,6 +130,8 @@ namespace PuntoDeVentaV2
 
         bool ventaFinalizada = false;
 
+        decimal cantidadAnterior = 0;
+
         List<string> productoRestado = new List<string>(),
                      productoEliminado = new List<string>(),
                      productoUltimoAgregadoEliminado = new List<string>();
@@ -824,6 +826,7 @@ namespace PuntoDeVentaV2
                 if (e.ColumnIndex == 5)
                 {
                     DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
+                    cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
                 }
 
                 // Descuento
@@ -4660,6 +4663,7 @@ namespace PuntoDeVentaV2
             if (e.ColumnIndex == 5)
             {
                 DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
+                cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
             }
         }
 
@@ -4670,7 +4674,20 @@ namespace PuntoDeVentaV2
             // Cantidad
             if (e.ColumnIndex == 5)
             {
-                DGVentas.Rows[celda].Cells[9].Value = (Convert.ToDecimal(DGVentas.Rows[celda].Cells[5].Value) * Convert.ToDecimal(DGVentas.Rows[celda].Cells[6].Value));
+                decimal cantiad = 0;
+
+                bool isDecimal = Decimal.TryParse(DGVentas.Rows[celda].Cells[5].Value.ToString(), out cantiad);
+
+                if (isDecimal)
+                {
+                    DGVentas.Rows[celda].Cells[9].Value = (cantiad * Convert.ToDecimal(DGVentas.Rows[celda].Cells[6].Value));
+                }
+                else
+                {
+                    DGVentas.Rows[celda].Cells[5].Value = cantidadAnterior;
+                    MessageBox.Show("El formato que introdujo no es el correcto; los siguientes son los permitidos:\n0.5(cualquier número despues del punto decimal)\n.5(cualquier número despues del punto decimal)");
+                    return;
+                }
                 CantidadesFinalesVenta();
             }
         }
