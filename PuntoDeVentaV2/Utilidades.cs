@@ -1223,9 +1223,12 @@ namespace PuntoDeVentaV2
         {
             string[] tmp = cantidad.Split('.');
 
-            if (tmp[1] == "00")
+            if (tmp.Count() > 1)
             {
-                cantidad = tmp[0];
+                if (tmp[1] == "00")
+                {
+                    cantidad = tmp[0];
+                }
             }
 
             return cantidad;
