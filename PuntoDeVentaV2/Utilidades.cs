@@ -1320,6 +1320,13 @@ namespace PuntoDeVentaV2
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productosNoVendidos"></param>
+        /// <param name="fechaSistema"></param>
+        /// <param name="importeTotal"></param>
+        /// <param name="datosUsuario"></param>
         public static void ventaBtnClarAllItemSaleEmail(List<string> productosNoVendidos, string fechaSistema, string importeTotal, string[] datosUsuario)
         {
             string[] words;
