@@ -56,6 +56,7 @@ namespace PuntoDeVentaV2
             opcionesDefault.Add("CodigoBarraExtra", new Tuple<string, float>("Código de barras extra", 70));
             opcionesDefault.Add("Proveedor", new Tuple<string, float>("Proveedor", 180));
             opcionesDefault.Add("CantidadPedir", new Tuple<string, float>("Cantidad a pedir", 50));
+            opcionesDefault.Add("Tipo", new Tuple<string, float>("Tipo", 50));
 
             ObtenerDetalles();
             VisualizarDetalles();
@@ -462,6 +463,28 @@ namespace PuntoDeVentaV2
                             valor = "$ " + valor;
 
                             PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
+                            //rowCustom.BorderWidth = 0;
+                            rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowCustom);
+                        }
+                        else if (opcion.Key == "Tipo")
+                        {
+                            var tipo = listaProductos.Rows[i]["Tipo"].ToString();
+
+                            if (tipo.Equals("P"))
+                            {
+                                tipo = "PRODUCTO";
+                            }
+                            else if (tipo.Equals("PQ"))
+                            {
+                                tipo = "COMBO";
+                            }
+                            else if (tipo.Equals("S"))
+                            {
+                                tipo = "SERVICIO";
+                            }
+
+                            PdfPCell rowCustom = new PdfPCell(new Phrase(tipo, fuenteNormal));
                             //rowCustom.BorderWidth = 0;
                             rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                             tablaProductos.AddCell(rowCustom);
