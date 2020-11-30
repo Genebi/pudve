@@ -112,8 +112,9 @@
             // 
             // cmb_bx_clientes
             // 
+            this.cmb_bx_clientes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cmb_bx_clientes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmb_bx_clientes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmb_bx_clientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_bx_clientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_bx_clientes.FormattingEnabled = true;
             this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
@@ -514,12 +515,12 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cmb_bx_clientes);
             this.tabPage1.Controls.Add(this.groupb_monto_max);
             this.tabPage1.Controls.Add(this.groupb_productos);
             this.tabPage1.Controls.Add(this.pnl_datos_cliente);
             this.tabPage1.Controls.Add(this.btn_crear_cliente);
             this.tabPage1.Controls.Add(this.groupb_pago);
-            this.tabPage1.Controls.Add(this.cmb_bx_clientes);
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
