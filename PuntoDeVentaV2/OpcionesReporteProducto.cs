@@ -277,7 +277,6 @@ namespace PuntoDeVentaV2
 
                     consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND ID {extra}";
                 }
-
                 else
                 {
                     consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY Nombre ASC";
