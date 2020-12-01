@@ -1826,7 +1826,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrEmpty(AgregarEditarProducto.stockNecesario))
             {
-                int stockTmp = Convert.ToInt32(AgregarEditarProducto.stockNecesario);
+                var stockTmp = Convert.ToDecimal(AgregarEditarProducto.stockNecesario);
 
                 if (stockTmp > 0)
                 {
@@ -1836,7 +1836,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrEmpty(AgregarEditarProducto.stockMinimo))
             {
-                int stockTmp = Convert.ToInt32(AgregarEditarProducto.stockMinimo);
+                var stockTmp = Convert.ToDecimal(AgregarEditarProducto.stockMinimo);
 
                 if (stockTmp > 0)
                 {
