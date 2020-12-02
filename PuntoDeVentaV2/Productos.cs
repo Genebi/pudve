@@ -69,6 +69,8 @@ namespace PuntoDeVentaV2
         // Este array es para guardar los productos seleccionados que seran tomados
         // en cuenta para el boton de "Asignar"
         public static Dictionary<int, string> productosSeleccionados;
+        // Lista que guarda los ID de los productos para cuando se marca el checkbox seleccionar todos
+        public static List<int> checkboxMarcados;
         // Variables para saber si uso el boton de cambiar tipo
         public int idProductoCambio { get; set; }
         public bool cambioProducto { get; set; }
@@ -1426,6 +1428,7 @@ namespace PuntoDeVentaV2
             //HighlightStyle.Font = new System.Drawing.Font(DGVProductos.Font, FontStyle.Bold);
 
             productosSeleccionados = new Dictionary<int, string>();
+            checkboxMarcados = new List<int>();
 
             listVariables = new List<Control>();
 
@@ -2173,6 +2176,31 @@ namespace PuntoDeVentaV2
 
             recargarBusqueda();
             txtBusqueda.Focus();
+        }
+
+        private void cbTodos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbTodos.Checked)
+            {
+                MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+            }
+            else
+            {
+                checkboxMarcados.Clear();
+
+                MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+
+                foreach (DataGridViewRow row in DGVProductos.Rows)
+                {
+                    // Verificamos que el checkbox este marcado
+                    if ((bool)row.Cells["CheckProducto"].Value == true)
+                    {
+                        var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+
+                        row.Cells["CheckProducto"].Value = false;
+                    } 
+                }
+            }
         }
 
         private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
@@ -3749,10 +3777,15 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        // Original
-                        extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                        if (!string.IsNullOrWhiteSpace(busqueda))
+                        {
+                            // Original
+                            extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                        }       
                     }
+
                     int doChecarFiltroDinamicoDelSisttema = 0;
+
                     using (DataTable dtFiltrosAtSystem = cn.CargarDatos(cs.VerificarContenidoFiltroProducto(FormPrincipal.userID)))
                     {
                         foreach (DataRow drFiltrosAtSystem in dtFiltrosAtSystem.Rows)
@@ -3770,6 +3803,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+
                     if (doChecarFiltroDinamicoDelSisttema.Equals(1))
                     {
                         ChecarFiltroDinamicoDelSistema();
@@ -3778,7 +3812,10 @@ namespace PuntoDeVentaV2
                     {
                         if (extra.Equals("") && extra2.Equals(""))
                         {
-                            extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                            if (!string.IsNullOrWhiteSpace(busqueda))
+                            {
+                                extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                            }    
                         }
                     }
                 }
@@ -4109,7 +4146,10 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                    if (!string.IsNullOrWhiteSpace(busqueda))
+                    {
+                        extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                    }
                 }
             }
             // Status 2 es poner el listado en todos los 
@@ -4430,6 +4470,16 @@ namespace PuntoDeVentaV2
                     }
                 }
 
+                if (cbTodos.Checked)
+                {
+                    if (checkboxMarcados.Count > 0)
+                    {
+                        if (checkboxMarcados.Contains(idProducto))
+                        {
+                            row.Cells["CheckProducto"].Value = true;
+                        }
+                    }
+                }
 
                 row.Cells["Column1"].Value = filaDatos["Nombre"].ToString();
 
@@ -4557,8 +4607,49 @@ namespace PuntoDeVentaV2
             }
 
             actualizar();
-
+            //MarcarCheckBoxes(filtroConSinFiltroAvanzado);
             clickBoton = 0;
+        }
+
+        private void MarcarCheckBoxes(string consulta)
+        {
+            if (!string.IsNullOrWhiteSpace(consulta))
+            {
+                using (var datos = cn.CargarDatos(consulta))
+                {
+                    if (datos.Rows.Count > 0)
+                    {
+                        checkboxMarcados.Clear();
+
+                        foreach (DataRow fila in datos.Rows)
+                        {
+                            var id = Convert.ToInt32(fila["ID"].ToString());
+
+                            checkboxMarcados.Add(id);
+                        }
+
+                        foreach (DataGridViewRow row in DGVProductos.Rows)
+                        {
+                            // Verificamos que el checkbox este marcado
+                            if ((bool)row.Cells["CheckProducto"].Value == true)
+                            {
+                                
+                            }
+
+                            var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+
+                            if (checkboxMarcados.Contains(idProducto))
+                            {
+                                row.Cells["CheckProducto"].Value = true;
+                            }
+                            else
+                            {
+                                row.Cells["CheckProducto"].Value = false;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private int contarCamposFalsos(Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos)
@@ -5610,11 +5701,10 @@ namespace PuntoDeVentaV2
 
         private void btnAsignarMultiple_Click(object sender, EventArgs e)
         {
-            ///Mostrar Mensaje ne la etiqueta de atajos
+            //Mostrar Mensaje ne la etiqueta de atajos
             timer1.Start();
             lAtajo.Visible = true;
             lAtajo.Text = "Ctrl + A";
-            ///
 
             if (opcion5 == 0)
             {

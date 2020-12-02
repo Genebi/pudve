@@ -66,6 +66,7 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbTodos = new System.Windows.Forms.CheckBox();
             this.lAtajo = new System.Windows.Forms.Label();
             this.btnCambiarTipo = new System.Windows.Forms.Button();
             this.btnPedido = new System.Windows.Forms.Button();
@@ -493,6 +494,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.cbTodos);
             this.panel1.Controls.Add(this.lAtajo);
             this.panel1.Controls.Add(this.btnCambiarTipo);
             this.panel1.Controls.Add(this.btnPedido);
@@ -518,6 +520,18 @@
             this.panel1.Size = new System.Drawing.Size(942, 215);
             this.panel1.TabIndex = 15;
             // 
+            // cbTodos
+            // 
+            this.cbTodos.AutoSize = true;
+            this.cbTodos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTodos.Location = new System.Drawing.Point(11, 188);
+            this.cbTodos.Name = "cbTodos";
+            this.cbTodos.Size = new System.Drawing.Size(197, 20);
+            this.cbTodos.TabIndex = 25;
+            this.cbTodos.Text = "Seleccionar todos los productos";
+            this.cbTodos.UseVisualStyleBackColor = true;
+            this.cbTodos.CheckedChanged += new System.EventHandler(this.cbTodos_CheckedChanged);
+            // 
             // lAtajo
             // 
             this.lAtajo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -539,9 +553,9 @@
             this.btnCambiarTipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCambiarTipo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCambiarTipo.ForeColor = System.Drawing.Color.White;
-            this.btnCambiarTipo.Location = new System.Drawing.Point(11, 182);
+            this.btnCambiarTipo.Location = new System.Drawing.Point(341, 149);
             this.btnCambiarTipo.Name = "btnCambiarTipo";
-            this.btnCambiarTipo.Size = new System.Drawing.Size(205, 28);
+            this.btnCambiarTipo.Size = new System.Drawing.Size(196, 28);
             this.btnCambiarTipo.TabIndex = 23;
             this.btnCambiarTipo.Text = "Cambiar tipo";
             this.TTipButtonText.SetToolTip(this.btnCambiarTipo, "Modificar Producto (Ctrl + T)");
@@ -601,13 +615,14 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.ForeColor = System.Drawing.Color.White;
-            this.btnImprimir.Location = new System.Drawing.Point(452, 149);
+            this.btnImprimir.Location = new System.Drawing.Point(452, 180);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(85, 28);
             this.btnImprimir.TabIndex = 19;
             this.btnImprimir.Text = "Imprimir";
             this.TTipButtonText.SetToolTip(this.btnImprimir, "Imprimir Reporte (Ctrl + P)");
             this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Visible = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // fLPDynamicTags
@@ -629,13 +644,14 @@
             this.btnEtiqueta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEtiqueta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEtiqueta.ForeColor = System.Drawing.Color.White;
-            this.btnEtiqueta.Location = new System.Drawing.Point(341, 149);
+            this.btnEtiqueta.Location = new System.Drawing.Point(341, 180);
             this.btnEtiqueta.Name = "btnEtiqueta";
             this.btnEtiqueta.Size = new System.Drawing.Size(105, 28);
             this.btnEtiqueta.TabIndex = 17;
             this.btnEtiqueta.Text = "Etiqueta";
             this.TTipButtonText.SetToolTip(this.btnEtiqueta, "Personalizar etiqueta(Ctrl + E)");
             this.btnEtiqueta.UseVisualStyleBackColor = false;
+            this.btnEtiqueta.Visible = false;
             this.btnEtiqueta.Click += new System.EventHandler(this.btnEtiqueta_Click);
             // 
             // btnAsignarMultiple
@@ -1193,5 +1209,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn StockMinimo;
         private System.Windows.Forms.DataGridViewTextBoxColumn StockMaximo;
+        private System.Windows.Forms.CheckBox cbTodos;
     }
 }
