@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnBusqueda = new System.Windows.Forms.Button();
             this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnVerCBExtra = new System.Windows.Forms.Button();
@@ -67,6 +68,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnBusqueda);
             this.groupBox1.Controls.Add(this.txtBoxBuscarCodigoBarras);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 56);
@@ -75,6 +77,18 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Código de Barras:";
+            // 
+            // btnBusqueda
+            // 
+            this.btnBusqueda.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.search;
+            this.btnBusqueda.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnBusqueda.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBusqueda.Location = new System.Drawing.Point(390, 23);
+            this.btnBusqueda.Name = "btnBusqueda";
+            this.btnBusqueda.Size = new System.Drawing.Size(30, 32);
+            this.btnBusqueda.TabIndex = 1;
+            this.btnBusqueda.UseVisualStyleBackColor = true;
+            this.btnBusqueda.Click += new System.EventHandler(this.btnBusqueda_Click);
             // 
             // txtBoxBuscarCodigoBarras
             // 
@@ -465,5 +479,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnAnterior;
         private System.Windows.Forms.TextBox txtBoxBuscarCodigoBarras;
+        private System.Windows.Forms.Button btnBusqueda;
     }
 }

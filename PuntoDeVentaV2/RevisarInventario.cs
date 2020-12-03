@@ -1021,6 +1021,7 @@ namespace PuntoDeVentaV2
                         lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
                         lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
                         txtCantidadStock.Text = datosObtenidos["Stock"].ToString();
+                        txtCantidadStock.Focus();
                     }
                     else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
                     {
@@ -1031,7 +1032,6 @@ namespace PuntoDeVentaV2
             }
             else 
             {
-                
                 var idActual2 = cn.CargarDatos($"SELECT IDAlmacen FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codeBarras}'");
                 if (!idActual2.Rows.Count.Equals(0))
                 {
@@ -1059,6 +1059,21 @@ namespace PuntoDeVentaV2
                 }
                 MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void btnBusqueda_Click(object sender, EventArgs e)
+        {
+            BusquedaRevisionInventario busquedaR = new BusquedaRevisionInventario();
+
+            busquedaR.FormClosed += delegate
+            {
+                if (!string.IsNullOrEmpty(BusquedaRevisionInventario.codigoBarras))
+                {
+                    txtBoxBuscarCodigoBarras.Text = BusquedaRevisionInventario.codigoBarras;
+                    buscarCodigoBarras();
+                }
+            };
+            busquedaR.ShowDialog();
         }
     }
 }
