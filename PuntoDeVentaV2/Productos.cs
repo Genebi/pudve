@@ -70,7 +70,7 @@ namespace PuntoDeVentaV2
         // en cuenta para el boton de "Asignar"
         public static Dictionary<int, string> productosSeleccionados;
         // Lista que guarda los ID de los productos para cuando se marca el checkbox seleccionar todos
-        public static List<int> checkboxMarcados;
+        public static Dictionary<int, string> checkboxMarcados;
         // Variables para saber si uso el boton de cambiar tipo
         public int idProductoCambio { get; set; }
         public bool cambioProducto { get; set; }
@@ -1428,7 +1428,7 @@ namespace PuntoDeVentaV2
             //HighlightStyle.Font = new System.Drawing.Font(DGVProductos.Font, FontStyle.Bold);
 
             productosSeleccionados = new Dictionary<int, string>();
-            checkboxMarcados = new List<int>();
+            checkboxMarcados = new Dictionary<int, string>();
 
             listVariables = new List<Control>();
 
@@ -1585,11 +1585,10 @@ namespace PuntoDeVentaV2
 
         private void btnPedido_Click(object sender, EventArgs e)
         {
-            ///Mostrar Mensaje ne la etiqueta de atajos
+            //Mostrar Mensaje ne la etiqueta de atajos
             timer1.Start();
             lAtajo.Visible = true;
             lAtajo.Text = "Ctrl + R";
-            ///
 
             if (opcion8 == 0)
             {
@@ -1611,8 +1610,15 @@ namespace PuntoDeVentaV2
                     lista.Add(idProducto, tipoProducto);
                 }
             }
-
-            productosSeleccionados = lista;
+            
+            if (cbTodos.Checked)
+            {
+                productosSeleccionados = checkboxMarcados;
+            }
+            else
+            {
+                productosSeleccionados = lista;
+            }
 
             if (Application.OpenForms.OfType<OpcionesReporteProducto>().Count() == 1)
             {
@@ -4474,7 +4480,7 @@ namespace PuntoDeVentaV2
                 {
                     if (checkboxMarcados.Count > 0)
                     {
-                        if (checkboxMarcados.Contains(idProducto))
+                        if (checkboxMarcados.ContainsKey(idProducto))
                         {
                             row.Cells["CheckProducto"].Value = true;
                         }
@@ -4624,8 +4630,9 @@ namespace PuntoDeVentaV2
                         foreach (DataRow fila in datos.Rows)
                         {
                             var id = Convert.ToInt32(fila["ID"].ToString());
+                            var tipoProducto = fila["Tipo"].ToString();
 
-                            checkboxMarcados.Add(id);
+                            checkboxMarcados.Add(id, tipoProducto);
                         }
 
                         foreach (DataGridViewRow row in DGVProductos.Rows)
@@ -4638,7 +4645,7 @@ namespace PuntoDeVentaV2
 
                             var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
 
-                            if (checkboxMarcados.Contains(idProducto))
+                            if (checkboxMarcados.ContainsKey(idProducto))
                             {
                                 row.Cells["CheckProducto"].Value = true;
                             }
@@ -5754,6 +5761,7 @@ namespace PuntoDeVentaV2
                                 row.Cells["CheckProducto"].Value = false;
                             }
                         }
+
                         txtBusqueda.Focus();
                     };
 
