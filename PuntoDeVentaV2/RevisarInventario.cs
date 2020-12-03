@@ -137,7 +137,6 @@ namespace PuntoDeVentaV2
                 }
 
                 //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
-
                 buscarCodigoBarras();
             }
         }
