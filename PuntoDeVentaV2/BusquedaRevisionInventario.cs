@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         public BusquedaRevisionInventario()
         {
             InitializeComponent();
+            txtBuscar.Select();
         }
 
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
@@ -62,18 +63,16 @@ namespace PuntoDeVentaV2
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            //Poner todas las letras mayusculas
             txtBuscar.CharacterCasing = CharacterCasing.Upper;
         }
 
         private void dgvRevisarInventario_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            //Obtiene el codigo de barras de la fila seleccionada
             codigoBarras = dgvRevisarInventario.Rows[dgvRevisarInventario.CurrentRow.Index].Cells[6].Value.ToString();
-            this.Dispose();
-        }
 
-        private void BusquedaRevisionInventario_Load(object sender, EventArgs e)
-        {
-            txtBuscar.Focus();
+            this.Dispose();
         }
     }
 }

@@ -138,7 +138,6 @@
             this.Name = "BusquedaRevisionInventario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Buscar Producto ";
-            this.Load += new System.EventHandler(this.BusquedaRevisionInventario_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRevisarInventario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

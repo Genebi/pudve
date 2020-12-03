@@ -444,6 +444,8 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            //txtCantidadStock.SelectAll();
+            txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
         }
 
         private void realizarBusqueda(string codigo, bool aplicar)
@@ -1012,7 +1014,7 @@ namespace PuntoDeVentaV2
 
                 foreach (DataRow datosObtenidos in datosId.Rows)
                 {
-                    if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
+                    if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
                     {
                         LimpiarCampos();
                         txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
@@ -1023,10 +1025,10 @@ namespace PuntoDeVentaV2
                         txtCantidadStock.Text = datosObtenidos["Stock"].ToString();
                         txtCantidadStock.Focus();
                     }
-                    else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
-                    {
-                        txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
-                    }
+                    //else if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
+                    //{
+                    //    txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
+                    //}
                     //buscarCodigoBarras();
                 }
             }
@@ -1050,10 +1052,10 @@ namespace PuntoDeVentaV2
                             lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
                             txtCantidadStock.Text = datosObtenidos["Stock"].ToString();
                         }
-                        else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
-                        {
-                            txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
-                        }
+                        //else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
+                        //{
+                        //    txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
+                        //}
                         //buscarCodigoBarras();
                     }
                 }
@@ -1067,13 +1069,36 @@ namespace PuntoDeVentaV2
 
             busquedaR.FormClosed += delegate
             {
+                
                 if (!string.IsNullOrEmpty(BusquedaRevisionInventario.codigoBarras))
                 {
-                    txtBoxBuscarCodigoBarras.Text = BusquedaRevisionInventario.codigoBarras;
-                    buscarCodigoBarras();
+                    var codBar = BusquedaRevisionInventario.codigoBarras.ToString();
+                    LimpiarCampos();
+                    txtBoxBuscarCodigoBarras.Text = codBar;
+                    llenarCampos(codBar);
                 }
             };
             busquedaR.ShowDialog();
+            txtCantidadStock.Focus();
+        }
+
+        private void llenarCampos(string codigo)
+        {
+            using (var traerDatos = cn.CargarDatos($"SELECT Nombre, CodigoBarras, Precio, StockMinimo, StockNecesario, Stock FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigo}'"))
+            {
+                if (!traerDatos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow dato in traerDatos.Rows)
+                    {
+                        txtNombreProducto.Text = dato["Nombre"].ToString();
+                        txtCodigoBarras.Text = dato["CodigoBarras"].ToString();
+                        lblPrecioProducto.Text = dato["Precio"].ToString();
+                        lblStockMinimo.Text = dato["StockMinimo"].ToString();
+                        lblStockMaximo.Text = dato["StockNecesario"].ToString();
+                        txtCantidadStock.Text = dato["Stock"].ToString();
+                    }
+                }
+            }
         }
     }
 }
