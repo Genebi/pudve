@@ -17,6 +17,14 @@ namespace PuntoDeVentaV2
             InitializeComponent();
         }
 
+        private void VincularPC_Load(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                txtNombre.Text = Properties.Settings.Default.Hosting;
+            }
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             var computadora = txtNombre.Text.Trim();
