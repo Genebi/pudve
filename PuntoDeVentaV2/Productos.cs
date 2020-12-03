@@ -1634,7 +1634,7 @@ namespace PuntoDeVentaV2
                 {
                     txtBusqueda.Focus();
 
-                    productosSeleccionados.Clear();
+                    //productosSeleccionados.Clear();
                 };
             }
         }
@@ -4613,45 +4613,42 @@ namespace PuntoDeVentaV2
             }
 
             actualizar();
-            //MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+            MarcarCheckBoxes(filtroConSinFiltroAvanzado);
             clickBoton = 0;
         }
 
         private void MarcarCheckBoxes(string consulta)
         {
-            if (!string.IsNullOrWhiteSpace(consulta))
+            if (cbTodos.Checked)
             {
-                using (var datos = cn.CargarDatos(consulta))
+                if (!string.IsNullOrWhiteSpace(consulta))
                 {
-                    if (datos.Rows.Count > 0)
+                    using (var datos = cn.CargarDatos(consulta))
                     {
-                        checkboxMarcados.Clear();
-
-                        foreach (DataRow fila in datos.Rows)
+                        if (datos.Rows.Count > 0)
                         {
-                            var id = Convert.ToInt32(fila["ID"].ToString());
-                            var tipoProducto = fila["Tipo"].ToString();
+                            checkboxMarcados.Clear();
 
-                            checkboxMarcados.Add(id, tipoProducto);
-                        }
-
-                        foreach (DataGridViewRow row in DGVProductos.Rows)
-                        {
-                            // Verificamos que el checkbox este marcado
-                            if ((bool)row.Cells["CheckProducto"].Value == true)
+                            foreach (DataRow fila in datos.Rows)
                             {
-                                
+                                var id = Convert.ToInt32(fila["ID"].ToString());
+                                var tipoProducto = fila["Tipo"].ToString();
+
+                                checkboxMarcados.Add(id, tipoProducto);
                             }
 
-                            var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+                            foreach (DataGridViewRow row in DGVProductos.Rows)
+                            {
+                                var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
 
-                            if (checkboxMarcados.ContainsKey(idProducto))
-                            {
-                                row.Cells["CheckProducto"].Value = true;
-                            }
-                            else
-                            {
-                                row.Cells["CheckProducto"].Value = false;
+                                if (checkboxMarcados.ContainsKey(idProducto))
+                                {
+                                    row.Cells["CheckProducto"].Value = true;
+                                }
+                                else
+                                {
+                                    row.Cells["CheckProducto"].Value = false;
+                                }
                             }
                         }
                     }
@@ -5734,7 +5731,16 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            productosSeleccionados = lista;
+            if (cbTodos.Checked)
+            {
+                MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+
+                productosSeleccionados = checkboxMarcados;
+            }
+            else
+            {
+                productosSeleccionados = lista;
+            }
 
             if (productosSeleccionados.Count > 0)
             {
@@ -5754,13 +5760,13 @@ namespace PuntoDeVentaV2
 
                         productosSeleccionados.Clear();
 
-                        foreach (DataGridViewRow row in DGVProductos.Rows)
-                        {
-                            if ((bool)row.Cells["CheckProducto"].Value == true)
-                            {
-                                row.Cells["CheckProducto"].Value = false;
-                            }
-                        }
+                        //foreach (DataGridViewRow row in DGVProductos.Rows)
+                        //{
+                        //    if ((bool)row.Cells["CheckProducto"].Value == true)
+                        //    {
+                        //        row.Cells["CheckProducto"].Value = false;
+                        //    }
+                        //}
 
                         txtBusqueda.Focus();
                     };
