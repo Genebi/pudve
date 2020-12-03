@@ -387,6 +387,7 @@ namespace PuntoDeVentaV2
                                         txtBoxBuscarCodigoBarras.Focus();
                                     }
                                 }
+                                txtCantidadStock.Focus();
                             }
                             else
                             {
@@ -395,7 +396,7 @@ namespace PuntoDeVentaV2
                             }
 
                             txtCantidadStock.Focus();
-                            txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                            //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                         }
                         else
                         {
@@ -444,7 +445,7 @@ namespace PuntoDeVentaV2
                 }
             }
             //txtCantidadStock.SelectAll();
-            txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+            //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
         }
 
         private void realizarBusqueda(string codigo, bool aplicar)
@@ -511,6 +512,7 @@ namespace PuntoDeVentaV2
                                 // Se asigna el stock registrado en la tabla RevisarInventario
                                 txtCantidadStock.Text = infoInventariado[0];
                             }
+                            txtCantidadStock.Focus();
 
                             if (respuesta == DialogResult.No)
                             {
@@ -526,7 +528,7 @@ namespace PuntoDeVentaV2
                     }
 
                     txtCantidadStock.Focus();
-                    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                    //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                 }
                 else
                 {
@@ -800,7 +802,7 @@ namespace PuntoDeVentaV2
 
             txtCantidadStock.Text = cantidad.ToString();
             txtCantidadStock.Focus();
-            txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+            //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
         }
 
 
@@ -817,7 +819,7 @@ namespace PuntoDeVentaV2
 
             txtCantidadStock.Text = cantidad.ToString();
             txtCantidadStock.Focus();
-            txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+            //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
         }
 
         private void btnTerminar_Click(object sender, EventArgs e)
@@ -886,7 +888,7 @@ namespace PuntoDeVentaV2
             else
             {
                 txtCantidadStock.Focus();
-                txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
             }
         }
 
