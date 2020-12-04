@@ -698,6 +698,7 @@ namespace PuntoDeVentaV2
         private void AccederComboBox(string nombre, int numeroCB, int opcion = 0, string seleccionado = "")
         {
             ComboBox cbTmp = (ComboBox)this.Controls.Find(nombre, true).FirstOrDefault();
+            
 
             /****************************
              **** PARA EL COMBOBOX 2 ****
@@ -708,18 +709,31 @@ namespace PuntoDeVentaV2
             {
                 tipoImpuesto = seleccionado;
 
+                // Limpia los combobox siempre para que no ponga opciones que no pertenecen a determinados impuestos 
+                // Se verifica si es local o no
+                string tipo = "n";
+                bool activo = true;
+
+                if (tipoImpuesto == "Loc. Retenido" | tipoImpuesto == "Loc. Traslado")
+                {
+                    tipo = "l";
+                }
+                if(opcion == 0) { activo = false; }
+
+                LimpiarComboBox(cbTmp, tipo, activo);
+
                 //Cuando se esta agregando un impuesto local
                 if (tipoImpuesto == "Loc. Retenido" || tipoImpuesto == "Loc. Traslado")
                 {
                     //La opcion es el numero del indice del item seleccionado
-                    if (opcion == 0)
-                    {
-                        LimpiarComboBox(cbTmp, false);
-                    }
+                    //if (opcion == 0)
+                    //{
+                        //LimpiarComboBox(cbTmp, "l", false);
+                    //}
 
                     if (opcion == 1)
                     {
-                        LimpiarComboBox(cbTmp, true);
+                        //LimpiarComboBox(cbTmp, "l", true);
                         cbTmp.Items.Add(impuestosL[0]); //...
                         cbTmp.Items.Add(impuestosL[1]); //ISH
                         cbTmp.Items.Add(impuestosL[5]); //Otro
@@ -728,7 +742,7 @@ namespace PuntoDeVentaV2
 
                     if (opcion == 2)
                     {
-                        LimpiarComboBox(cbTmp, true);
+                        //LimpiarComboBox(cbTmp, "l", true);
                         cbTmp.Items.Add(impuestosL[0]); //...
                         cbTmp.Items.Add(impuestosL[2]); //IMCD
                         cbTmp.Items.Add(impuestosL[3]); //Bienestar social
@@ -740,14 +754,14 @@ namespace PuntoDeVentaV2
                 else
                 {
                     //La opcion es el numero del indice del item seleccionado
-                    if (opcion == 0)
-                    {
-                        LimpiarComboBox(cbTmp, false);
-                    }
+                    //if (opcion == 0)
+                    //{
+                        //LimpiarComboBox(cbTmp, "n", false);
+                    //}
 
                     if (opcion == 1)
                     {
-                        LimpiarComboBox(cbTmp, true);
+                        //LimpiarComboBox(cbTmp, "n", true);
                         cbTmp.Items.Add(impuestos[0]); //...
                         cbTmp.Items.Add(impuestos[2]); //IVA
                         cbTmp.Items.Add(impuestos[3]); //IEPS
@@ -756,7 +770,7 @@ namespace PuntoDeVentaV2
 
                     if (opcion == 2)
                     {
-                        LimpiarComboBox(cbTmp, true);
+                        //LimpiarComboBox(cbTmp, "n", true);
                         cbTmp.Items.Add(impuestos[0]); //...
                         cbTmp.Items.Add(impuestos[1]); //ISR
                         cbTmp.Items.Add(impuestos[2]); //IVA
@@ -772,12 +786,23 @@ namespace PuntoDeVentaV2
 
             if (numeroCB == 3)
             {
-                
+                // Limpia los combobox siempre para que no ponga opciones que no pertenecen a determinados impuestos 
+                // Se verifica si es local o no
+                string tipo = "n";
+
+                if (tipoImpuesto == "Loc. Retenido" | tipoImpuesto == "Loc. Traslado")
+                {
+                    tipo = "l";
+                }
+
+                LimpiarComboBox(cbTmp, tipo, true);
+
+
                 if (tipoImpuesto == "Loc. Retenido")
                 {
                     tipoPorcentaje = seleccionado;
 
-                    LimpiarComboBox(cbTmp, true);
+                    //LimpiarComboBox(cbTmp, "l", true);
                     cbTmp.Items.Add("..."); //...
                     cbTmp.SelectedIndex = 0;
                 }
@@ -786,7 +811,7 @@ namespace PuntoDeVentaV2
                 {
                     tipoPorcentaje = seleccionado;
 
-                    LimpiarComboBox(cbTmp, true);
+                    //LimpiarComboBox(cbTmp, "l", true);
                     cbTmp.Items.Add("..."); //...
                     cbTmp.SelectedIndex = 0;
                 }
@@ -797,7 +822,7 @@ namespace PuntoDeVentaV2
 
                     if (opcion == 1)
                     {
-                        LimpiarComboBox(cbTmp, true);
+                        //LimpiarComboBox(cbTmp, "n", true);
                         cbTmp.Items.Add(factores[0]); //...
                         cbTmp.Items.Add(factores[1]); //Tasa
                         cbTmp.Items.Add(factores[3]); //Exento
@@ -806,7 +831,7 @@ namespace PuntoDeVentaV2
 
                     if (opcion == 2)
                     {
-                        LimpiarComboBox(cbTmp, true);
+                        //LimpiarComboBox(cbTmp, "n", true);
                         cbTmp.Items.Add(factores[0]); //...
                         cbTmp.Items.Add(factores[1]); //Tasa
                         cbTmp.Items.Add(factores[2]); //Cuota
@@ -820,7 +845,7 @@ namespace PuntoDeVentaV2
 
                     if (opcion == 1)
                     {
-                        LimpiarComboBox(cbTmp, true);
+                        //LimpiarComboBox(cbTmp, "n", true);
                         cbTmp.Items.Add(factores[0]); //...
                         cbTmp.Items.Add(factores[1]); //Tasa
                         cbTmp.SelectedIndex = 0;
@@ -828,7 +853,7 @@ namespace PuntoDeVentaV2
 
                     if (opcion == 2)
                     {
-                        LimpiarComboBox(cbTmp, true);
+                        //LimpiarComboBox(cbTmp, "n", true);
                         cbTmp.Items.Add(factores[0]); //...
                         cbTmp.Items.Add(factores[1]); //Tasa
                         cbTmp.SelectedIndex = 0;
@@ -836,7 +861,7 @@ namespace PuntoDeVentaV2
 
                     if (opcion == 3)
                     {
-                        LimpiarComboBox(cbTmp, true);
+                        //LimpiarComboBox(cbTmp, "n", true);
                         cbTmp.Items.Add(factores[0]); //...
                         cbTmp.Items.Add(factores[1]); //Tasa
                         cbTmp.Items.Add(factores[2]); //Cuota
@@ -851,13 +876,25 @@ namespace PuntoDeVentaV2
 
             if (numeroCB == 4)
             {
+                // Limpia los combobox siempre para que no ponga opciones que no pertenecen a determinados impuestos 
+                // Se verifica si es local o no
+                string tipo = "n";
+
+                if (tipoImpuesto == "Loc. Retenido" | tipoImpuesto == "Loc. Traslado")
+                {
+                    tipo = "l";
+                }
+
+                LimpiarComboBox(cbTmp, tipo, true);
+
+
                 if (tipoImpuesto == "Loc. Retenido")
                 {
                     if (tipoPorcentaje == "IMCD")
                     {
                         if (opcion == 0)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "l", true);
                             cbTmp.Items.Add(tasaL[0]); //...
                             cbTmp.Items.Add(tasaL[1]); //1%
                             cbTmp.Items.Add(tasaL[5]); //Definir %
@@ -869,7 +906,7 @@ namespace PuntoDeVentaV2
                     {
                         if (opcion == 0)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "l", true);
                             cbTmp.Items.Add(tasaL[0]); //...
                             cbTmp.Items.Add(tasaL[1]); //1%
                             cbTmp.Items.Add(tasaL[5]); //Definir %
@@ -881,7 +918,7 @@ namespace PuntoDeVentaV2
                     {
                         if (opcion == 0)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "l", true);
                             cbTmp.Items.Add(tasaL[0]); //...
                             cbTmp.Items.Add(tasaL[2]); //2%
                             cbTmp.Items.Add(tasaL[3]); //3%
@@ -895,7 +932,7 @@ namespace PuntoDeVentaV2
                     {
                         if (opcion == 0)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "l", true);
                             cbTmp.Items.Add(tasaL[0]); //...
                             cbTmp.Items.Add(tasaL[5]); //Definir %
                             cbTmp.SelectedIndex = 0;
@@ -909,7 +946,7 @@ namespace PuntoDeVentaV2
                     {
                         if (opcion == 0)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "l", true);
                             cbTmp.Items.Add(tasaL[0]); //...
                             cbTmp.Items.Add(tasaL[3]); //3%
                             cbTmp.Items.Add(tasaL[5]); //Definir %
@@ -919,7 +956,7 @@ namespace PuntoDeVentaV2
 
                     if (tipoPorcentaje == "Otro")
                     {
-                        LimpiarComboBox(cbTmp, true);
+                        //LimpiarComboBox(cbTmp, "l", true);
                         cbTmp.Items.Add(tasaL[0]); //...
                         cbTmp.Items.Add(tasaL[5]); //Definir %
                         cbTmp.SelectedIndex = 0;
@@ -932,16 +969,17 @@ namespace PuntoDeVentaV2
                     {
                         if (opcion == 1)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "n", true);
                             cbTmp.Items.Add(tasasCuotas[0]); //...
                             cbTmp.Items.Add(tasasCuotas[1]); //0%
+                            cbTmp.Items.Add(tasasCuotas[12]); //8%
                             cbTmp.Items.Add(tasasCuotas[2]); //16%
                             cbTmp.SelectedIndex = 0;
                         }
 
                         if (opcion == 2)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "n", true);
                             cbTmp.Items.Add(tasasCuotas[0]); //...
                             cbTmp.SelectedIndex = 0;
                         }
@@ -951,7 +989,7 @@ namespace PuntoDeVentaV2
                     {
                         if (opcion == 1)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "n", true);
                             cbTmp.Items.Add(tasasCuotas[0]); //...
                             cbTmp.Items.Add(tasasCuotas[1]); //0%
                             cbTmp.Items.Add(tasasCuotas[4]); //26.5%
@@ -971,7 +1009,7 @@ namespace PuntoDeVentaV2
 
                         if (opcion == 2)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "n", true);
                             cbTmp.Items.Add(tasasCuotas[0]); //...
                             cbTmp.Items.Add(tasasCuotas[3]); //Definir %
                             cbTmp.SelectedIndex = 0;
@@ -985,7 +1023,7 @@ namespace PuntoDeVentaV2
                     {
                         if (opcion == 1)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "n", true);
                             cbTmp.Items.Add(tasasCuotas[0]); //...
                             cbTmp.Items.Add(tasasCuotas[3]); //Definir %
                             cbTmp.SelectedIndex = 0;
@@ -996,7 +1034,7 @@ namespace PuntoDeVentaV2
                     {
                         if (opcion == 1)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "n", true);
                             cbTmp.Items.Add(tasasCuotas[0]); //...
                             cbTmp.Items.Add(tasasCuotas[3]); //Definir %
                             cbTmp.SelectedIndex = 0;
@@ -1007,7 +1045,7 @@ namespace PuntoDeVentaV2
                     {
                         if (opcion == 1)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "n", true);
                             cbTmp.Items.Add(tasasCuotas[0]); //...
                             cbTmp.Items.Add(tasasCuotas[4]); //26.5%
                             cbTmp.Items.Add(tasasCuotas[5]); //30%
@@ -1025,7 +1063,7 @@ namespace PuntoDeVentaV2
 
                         if (opcion == 2)
                         {
-                            LimpiarComboBox(cbTmp, true);
+                            //LimpiarComboBox(cbTmp, "n", true);
                             cbTmp.Items.Add(tasasCuotas[0]); //...
                             cbTmp.Items.Add(tasasCuotas[3]); //Definir %
                             cbTmp.SelectedIndex = 0;
@@ -1063,7 +1101,8 @@ namespace PuntoDeVentaV2
                         cantidadTmp[0] = "0";
                     }
 
-                    float porcentaje = CantidadPorcentaje(cantidadTmp[0]);
+                    //float porcentaje = CantidadPorcentaje(cantidadTmp[0]);
+                    double porcentaje = convertir_porcentaje(Convert.ToDouble(cantidadTmp[0]), tipoPorcentaje);
 
                     double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
                     double importe = precioProductoTmp * porcentaje;
@@ -1085,13 +1124,74 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            RecalcularTotal();
         }
         #endregion
 
-        private void LimpiarComboBox(ComboBox cb, bool habilitado = true)
+        private void LimpiarComboBox(ComboBox cb, string es_nl, bool habilitado = true)
         {
-            cb.DataSource = null;
-            cb.Items.Clear();
+            string nombre_cmb= cb.Name;
+            int tam = nombre_cmb.Length;
+            var columna = nombre_cmb.Split('_');
+            int tam_col0 = columna[0].Length;
+            int tam_pfila = 0;
+            int col = 0;
+            string fila = "";
+            string esLoc = "";
+
+
+            // Se obtiene el número de fila y columna 
+
+            if (es_nl == "n")
+            {
+                tam_pfila = tam_col0 - 7;
+                fila = columna[0].Substring(7, tam_pfila);
+                col = Convert.ToInt32(columna[1]);
+
+                if (Convert.ToInt32(columna[1]) > 1)
+                {
+                    col = Convert.ToInt32(columna[1]) - 1;
+                }                
+            }
+            if (es_nl == "l")
+            {
+                tam_pfila = tam_col0 - 8;
+                fila = columna[0].Substring(8, tam_pfila);
+                esLoc = "L";
+                col = Convert.ToInt32(columna[1]);
+
+                if (Convert.ToInt32(columna[1]) > 1)
+                {
+                    col = Convert.ToInt32(columna[1]) - 1;
+                }
+            }
+
+            // Inicia limpieza de campos cada vez que se cambia la opción de alguno de los combobox
+
+            string nombre_cmb_sel_actual = "cbLinea" + esLoc + fila + "_";
+            string nombre_txt = "tbLinea" + esLoc + fila + "_";
+            //ComboBox cmb_f_c = (ComboBox)this.Controls.Find(nombre_cmb_sel_actual + col, true).FirstOrDefault();
+            
+            int ncol = 4;
+            int ini = col + 1;
+
+            for (int c = ini; c <= ncol; c++)
+            {
+                ComboBox cmb_f_c_sig = (ComboBox)this.Controls.Find(nombre_cmb_sel_actual + c, true).FirstOrDefault();
+
+                cmb_f_c_sig.DataSource = null;
+                cmb_f_c_sig.Items.Clear();
+                cmb_f_c_sig.Enabled = false;
+            }
+            
+            TextBox txt_f_c1 = (TextBox)this.Controls.Find(nombre_txt + "1", true).FirstOrDefault();
+            TextBox txt_f_c2 = (TextBox)this.Controls.Find(nombre_txt + "2", true).FirstOrDefault();
+            txt_f_c1.Text = string.Empty;
+            txt_f_c2.Text = string.Empty;
+
+            //cb.DataSource = null;
+            //cb.Items.Clear();
             cb.Enabled = habilitado;
         }
 
@@ -1099,7 +1199,7 @@ namespace PuntoDeVentaV2
          **** FUNCION PARA CONVERTIR LOS PORCENTAJES AL VALOR CORRECTO ****
          ******************************************************************/
 
-        private float CantidadPorcentaje(string sCantidad)
+        /*private float CantidadPorcentaje(string sCantidad)
         {
             int longitud = sCantidad.Length;
 
@@ -1141,6 +1241,7 @@ namespace PuntoDeVentaV2
             
             return resultado;
         }
+*/         
 
         /********************************************************
          **** FUNCION PARA CALCULAR LOS PORCENTAJES MANUALES ****
@@ -1151,8 +1252,26 @@ namespace PuntoDeVentaV2
             TextBox tb = sender as TextBox;
 
             var nombre = tb.Name.Remove(tb.Name.Length - 1);
-
+                    
             var cantidad = tb.Text;
+
+            int numero_fila_actual = 0;
+            string txt_timpuest= nombre.Substring(0, 7);
+            string txt_timpuestLoc = nombre.Substring(0, 8);
+
+            if (txt_timpuestLoc == "tbLineaL")
+            {
+                numero_fila_actual = Convert.ToInt32(nombre.Substring(8, 1));
+            }
+            else
+            {
+                if (txt_timpuest == "tbLinea")
+                {
+                    numero_fila_actual = Convert.ToInt32(nombre.Substring(7, 1));
+                }
+            }
+            
+            
 
             if (cantidad.Equals("."))
             {
@@ -1164,12 +1283,105 @@ namespace PuntoDeVentaV2
             {
                 cantidad = "0";
             }
+            
 
-            float porcentaje = CantidadPorcentaje(cantidad);
+            // Obtiene el porcentaje máximo y minimo cuando se definido. 
+            // Dependera del tipo de impuesto.   
+            double lim_porc_minimo = 0;
+            double lim_porc_maximo = 0;
+            string cmb_impuesto_actual = "";
+            string cmb_tfactor_actual = "";
+            string cmb_es_actual = "";
+            string txt_lim_maxmin = "";
 
-            if (porcentaje < 0 || porcentaje > 0.43770000)
+            // Fila fija 
+            if(cbLinea1_1.Text != "..." & numero_fila_actual == 1)
             {
-                MessageBox.Show("El porcentaje debe ser entre 0 % y 43.770000 %", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cmb_es_actual = cbLinea1_1.GetItemText(cbLinea1_1.SelectedItem);
+                cmb_impuesto_actual = cbLinea1_2.GetItemText(cbLinea1_2.SelectedItem);
+                cmb_tfactor_actual = cbLinea1_3.GetItemText(cbLinea1_3.SelectedItem);
+            }
+            // Filas dinamicas
+            foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+            {
+                foreach (Control item in panel.Controls.OfType<Control>())
+                {
+                    if (item.Name.Contains("cbLinea") | item.Name.Contains("cbLineaL"))
+                    {
+                        int fila = 0;
+                        var col = item.Name.Split('_');
+                        string d_txt_timpuest = item.Name.Substring(0, 7);
+                        string d_txt_timpuestLoc = item.Name.Substring(0, 8);
+
+                        if (d_txt_timpuestLoc == "cbLineaL")
+                        {
+                            fila = Convert.ToInt32(item.Name.Substring(8, 1));
+                        }
+                        else
+                        {
+                            if (d_txt_timpuest == "cbLinea")
+                            {
+                                fila = Convert.ToInt32(item.Name.Substring(7, 1));
+                            }
+                        }
+
+                        if (fila.Equals(numero_fila_actual))
+                        {
+                            if (col[1].Equals("1"))
+                            {
+                                cmb_es_actual = item.Text;
+                            }
+                            if (col[1].Equals("2"))
+                            {
+                                cmb_impuesto_actual = item.Text;
+                            }
+                            if (col[1].Equals("3"))
+                            {
+                                cmb_tfactor_actual = item.Text;
+                            }
+                        }
+
+                        if (item.Name.Contains("tbLinea") | item.Name.Contains("tbLineaL"))
+                        {   
+                            
+                        }
+                    }
+                }
+            }
+
+
+            if (cmb_impuesto_actual == "IVA" & cmb_tfactor_actual == "Tasa" & cmb_es_actual == "Retención"){
+                lim_porc_minimo = 0;
+                lim_porc_maximo = 16;
+                txt_lim_maxmin = "0% y 16%.";
+            }
+            if (cmb_impuesto_actual == "ISR" & cmb_tfactor_actual == "Tasa"){
+                lim_porc_minimo = 0;
+                lim_porc_maximo = 35;
+                txt_lim_maxmin = "0% y 35%.";
+            }
+            if (cmb_impuesto_actual == "IEPS" & cmb_tfactor_actual == "Cuota"){
+                lim_porc_minimo = 0;
+                lim_porc_maximo = 50.320;
+                txt_lim_maxmin = "0% y 50.320000%.";
+            }
+            if (cmb_es_actual == "Loc. Traslado" | cmb_es_actual == "Loc. Retenido" & cmb_impuesto_actual != "otro"){
+                lim_porc_minimo = 0;
+                lim_porc_maximo = 16;
+                txt_lim_maxmin = "0% y 16%.";
+            }
+            if (cmb_impuesto_actual == "otro" & (cmb_es_actual == "Loc. Traslado" | cmb_es_actual == "Loc. Retenido")){
+                lim_porc_minimo = 0;
+                lim_porc_maximo = 100;
+                txt_lim_maxmin = "0% y 100%.";
+            }
+
+            //float porcentaje = CantidadPorcentaje(cantidad);
+            double porcentaje = convertir_porcentaje(Convert.ToDouble(cantidad), cmb_impuesto_actual);
+
+            if (porcentaje < lim_porc_minimo || porcentaje > lim_porc_maximo)
+            {
+                MessageBox.Show("El porcentaje debe ser entre " + txt_lim_maxmin, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -1282,6 +1494,8 @@ namespace PuntoDeVentaV2
         private void RecalcularTotal()
         {
             float totalFinal = 0;
+            double total_ret = 0;
+            double total_tra = 0;
 
             foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
             {
@@ -1317,27 +1531,40 @@ namespace PuntoDeVentaV2
                 if (tipo == 1)
                 {
                     //totalFinal += importe;
-                    totalFinal -= importe;
+                    //totalFinal -= importe;
+                    total_tra += importe; 
                 }
                 else
                 {
                     //totalFinal -= importe;
-                    totalFinal += importe;
+                    //totalFinal += importe;
+                    total_ret += importe;
                 }
             }
 
             if (cbLinea1_1.Text == "Traslado" || cbLinea1_1.Text == "Loc. Traslado")
             {
-                totalFinal += float.Parse(tbLinea1_2.Text);
+                //totalFinal += float.Parse(tbLinea1_2.Text);
+                if(tbLinea1_2.Text != "")
+                {
+                    total_tra += Convert.ToDouble(tbLinea1_2.Text);
+                }
             }
             else if (cbLinea1_1.Text == "Retención" || cbLinea1_1.Text == "Loc. Retenido")
             {
-                totalFinal -= float.Parse(tbLinea1_2.Text);
+                ///totalFinal -= float.Parse(tbLinea1_2.Text);
+                ///
+                if (tbLinea1_2.Text != "")
+                {
+                    total_ret += Convert.ToDouble(tbLinea1_2.Text);
+                }
             }
 
-            float totalActual = float.Parse(txtTotal.Text) + totalFinal;
-
-            txtTotal.Text = totalActual.ToString("0.00");
+            //float totalActual = float.Parse(txtTotal.Text) + totalFinal;
+            double total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txtBoxBase.Text);
+            total_nuevo = (total_nuevo + total_tra) - total_ret;
+            txtTotal.Text = total_nuevo.ToString("0.00");
+            //txtTotal.Text = totalActual.ToString("0.00");
         }
         #endregion
 
@@ -1367,12 +1594,29 @@ namespace PuntoDeVentaV2
                 }
 
                 var porcentajeTmp = auxiliar.Split(' ');
+                
+                // Si el tipo de impuesto es un IEPS y el tipo factor es Cuota,
+                // entonces el calculo para el importe es diferente, se calcula con la cantidad de unidades y no a la base.
+                   
+                string cb_linea_1_2 = cbLinea1_2.GetItemText(cbLinea1_2.SelectedItem);
+                string cb_linea_1_3 = cbLinea1_3.GetItemText(cbLinea1_3.SelectedItem);
 
-                var porcentaje = CantidadPorcentaje(porcentajeTmp[0]);
+                if (cb_linea_1_2 == "IEPS" & cb_linea_1_3 == "Cuota")
+                {
+                    double importe = 1 * Convert.ToDouble(porcentajeTmp[0]);
 
-                var importe = cantidadBase * porcentaje;
+                    tbLinea1_2.Text = importe.ToString("0.00");
+                }
+                else
+                {
+                    //var porcentaje = CantidadPorcentaje(porcentajeTmp[0]);
+                    double porcentaje = convertir_porcentaje(Convert.ToDouble(porcentajeTmp[0]), cb_linea_1_2);
+                    var importe = cantidadBase * porcentaje;
 
-                tbLinea1_2.Text = importe.ToString("0.00");
+                    tbLinea1_2.Text = importe.ToString("0.00");
+                }
+
+                
             }
 
             //Dinamicos
@@ -1380,6 +1624,9 @@ namespace PuntoDeVentaV2
             {
                 var manual = false; //Si el porcentaje es por definir cambiar a true
                 var auxiliar = string.Empty; //Auxiliar para almacenar el porcentaje del impuesto
+                string cmb_col_2 = "";
+                string cmb_col_3 = "";
+
 
                 foreach (Control item in panel.Controls.OfType<Control>())
                 {
@@ -1387,6 +1634,15 @@ namespace PuntoDeVentaV2
                     if (item.Name.Contains("cbLinea"))
                     {
                         var tmp = item.Name.Split('_');
+
+                        if(tmp[1] == "2")
+                        {
+                            cmb_col_2 = item.Text;
+                        }
+                        if (tmp[1] == "3")
+                        {
+                            cmb_col_3 = item.Text;
+                        }
 
                         if (tmp[1] == "4")
                         {
@@ -1418,16 +1674,48 @@ namespace PuntoDeVentaV2
                         {
                             var porcentajeTmp = auxiliar.Split(' ');
 
-                            var porcentaje = CantidadPorcentaje(porcentajeTmp[0]);
+                            if(cmb_col_2 == "IEPS" & cmb_col_3== "Cuota")
+                            {
+                                double importe = 1 * Convert.ToDouble(porcentajeTmp[0]);
 
-                            var importe = cantidadBase * porcentaje;
+                                item.Text = importe.ToString("0.00");
+                            }
+                            else
+                            {
+                                //var porcentaje = CantidadPorcentaje(porcentajeTmp[0]);
 
-                            item.Text = importe.ToString("0.00");
+                                double porcentaje = convertir_porcentaje(Convert.ToDouble(porcentajeTmp[0]), cmb_col_2);
+                                var importe = cantidadBase * porcentaje;
+
+                                item.Text = importe.ToString("0.00");
+                            }
+                            
+                            cmb_col_2 = "";
+                            cmb_col_3 = "";
                         }
                     }
                 }
             }
         }
         #endregion
+
+        private double convertir_porcentaje(double cant, string tipo_imp = "")
+        {
+            double r = cant;
+
+            if (cant >= 1)
+            {
+                if(tipo_imp == "Millar")
+                {
+                    r = cant / 1000;
+                }
+                else
+                {
+                    r = cant / 100;
+                }
+            }
+
+            return r;
+        }
     }
 }
