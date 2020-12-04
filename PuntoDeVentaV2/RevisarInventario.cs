@@ -1038,29 +1038,44 @@ namespace PuntoDeVentaV2
                 var idActual2 = cn.CargarDatos($"SELECT IDAlmacen FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codeBarras}'");
                 if (!idActual2.Rows.Count.Equals(0))
                 {
-                    var getId = Convert.ToInt32(idActual.Rows[0]["IDalmacen"].ToString());
+                    var getId = Convert.ToInt32(idActual2.Rows[0]["IDalmacen"].ToString());
                     var datosId = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{(getId - 1)}'");
-
-                    foreach (DataRow datosObtenidos in datosId.Rows)
+                    if (!datosId.Rows.Count.Equals(0))
                     {
-                        if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
+                        foreach (DataRow datosObtenidos in datosId.Rows)
                         {
-                            LimpiarCampos();
-                            txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
-                            txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
-                            lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
-                            lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
-                            lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-                            txtCantidadStock.Text = datosObtenidos["Stock"].ToString();
+                            if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
+                            {
+                                LimpiarCampos();
+                                txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
+                                txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
+                                lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
+                                lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
+                                lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
+                                txtCantidadStock.Text = datosObtenidos["Stock"].ToString();
+                            }
+                            else
+                            {
+                                MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            //else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
+                            //{
+                            //    txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
+                            //}
+                            //buscarCodigoBarras();
                         }
-                        //else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
-                        //{
-                        //    txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
-                        //}
-                        //buscarCodigoBarras();
                     }
+                    else
+                    {
+                        MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
                 }
-                MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                {
+                    MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                
             }
         }
 
