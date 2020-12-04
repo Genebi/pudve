@@ -52,14 +52,17 @@ namespace PuntoDeVentaV2
 
             if(d_clientes.Rows.Count > 0)
             {
-                //btn_crear_cliente.Enabled = false;
-                //btn_crear_cliente.Cursor = Cursors.No;
-
                 clientes.Add("0", "Seleccionar cliente");
                 foreach(DataRow r_clientes in d_clientes.Rows)
                 {
-                    //clientes.Add(r_clientes["ID"].ToString() + "|" + r_clientes["RazonSocial"].ToString(), r_clientes["RFC"].ToString() + " - " + r_clientes["RazonSocial"].ToString());
-                    clientes.Add(r_clientes["ID"].ToString(), r_clientes["RFC"].ToString() + " - " + r_clientes["RazonSocial"].ToString());
+                    if (!r_clientes["RFC"].ToString().Equals(""))
+                    {
+                        clientes.Add(r_clientes["ID"].ToString(), r_clientes["RazonSocial"].ToString() + " - " + r_clientes["RFC"].ToString());
+                    }
+                    else
+                    {
+                        clientes.Add(r_clientes["ID"].ToString(), r_clientes["RazonSocial"].ToString());
+                    }
 
                     if (Convert.ToInt32(r_clientes["ID"]) == con_id_cliente)
                     {
@@ -71,8 +74,6 @@ namespace PuntoDeVentaV2
             else
             {
                 clientes.Add("0", "No hay clientes para mostrar. Ir a registrar cliente.");
-                //btn_crear_cliente.Enabled = true;
-                //btn_crear_cliente.Cursor = Cursors.Hand;
             }
 
             cmb_bx_clientes.DataSource = clientes.ToArray();
