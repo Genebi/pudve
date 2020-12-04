@@ -8,7 +8,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CustomControlAutoCompleteComboBox;
 
 namespace PuntoDeVentaV2
 {
@@ -26,15 +25,7 @@ namespace PuntoDeVentaV2
         string[][] arr_dproductos;
         decimal cantidd_productos = 0;
         int excede_montomax_xproducto = 0;
-
-        #region Metodos para coincidencias
-        public class MethodItem
-        {
-            public string Name { get; set; }
-            public StringMatchingMethod Value { get; set; }
-        }
-        #endregion
-
+        
         public Crear_factura(int sin_cliente, int n_f, int id_v)
         {
             InitializeComponent();
