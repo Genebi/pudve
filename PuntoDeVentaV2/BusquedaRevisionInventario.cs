@@ -28,6 +28,10 @@ namespace PuntoDeVentaV2
             {
                 btnBuscar.PerformClick();
             }
+            else if (e.KeyCode == Keys.Down && !dgvRevisarInventario.Rows.Count.Equals(0))
+            {
+                dgvRevisarInventario.Focus();
+            }
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -38,10 +42,7 @@ namespace PuntoDeVentaV2
 
         private void dgvRevisarInventario_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            //Obtiene el codigo de barras de la fila seleccionada
-            codigoBarras = dgvRevisarInventario.Rows[dgvRevisarInventario.CurrentRow.Index].Cells[6].Value.ToString();
-
-            this.Dispose();
+            ejecutarAccion();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -76,9 +77,31 @@ namespace PuntoDeVentaV2
                             }
                             //Agregar los datos al DataGridView
                             dgvRevisarInventario.Rows.Add(llenarCampos["IDAlmacen"].ToString(), llenarCampos["Nombre"].ToString(), llenarCampos["StockFisico"].ToString(), llenarCampos["PrecioProducto"].ToString(), categoria, llenarCampos["ClaveInterna"].ToString(), llenarCampos["CodigoBarras"].ToString());
+                            dgvRevisarInventario.Focus();
                         }
                     }
                 }
+            }
+        }
+
+
+        private void ejecutarAccion()
+        {
+            //Obtiene el codigo de barras de la fila seleccionada
+            codigoBarras = dgvRevisarInventario.Rows[dgvRevisarInventario.CurrentRow.Index].Cells[6].Value.ToString();
+
+            this.Dispose();
+        }
+
+        private void dgvRevisarInventario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ejecutarAccion();
+            }
+            else if (e.KeyCode == Keys.Up && dgvRevisarInventario.CurrentRow.Index == 0)
+            {
+                txtBuscar.Focus();
             }
         }
     }

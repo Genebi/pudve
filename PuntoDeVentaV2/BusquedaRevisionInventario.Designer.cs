@@ -64,6 +64,7 @@
             this.dgvRevisarInventario.Size = new System.Drawing.Size(736, 193);
             this.dgvRevisarInventario.TabIndex = 0;
             this.dgvRevisarInventario.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRevisarInventario_CellMouseDoubleClick);
+            this.dgvRevisarInventario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvRevisarInventario_KeyDown);
             // 
             // ID
             // 
@@ -148,6 +149,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.dgvRevisarInventario);
+            this.KeyPreview = true;
             this.Name = "BusquedaRevisionInventario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Buscar Producto ";
