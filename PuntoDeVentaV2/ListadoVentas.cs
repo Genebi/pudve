@@ -511,7 +511,8 @@ namespace PuntoDeVentaV2
 
                 MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            agregarFocus();
+
+            //agregarFocus();
         }
 
 
