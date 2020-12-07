@@ -61,6 +61,8 @@
             this.lbCantidadFiltro = new System.Windows.Forms.Label();
             this.btnDeshabilitarProducto = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnOmitir = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -359,9 +361,9 @@
             // btnTerminar
             // 
             this.btnTerminar.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminar.Location = new System.Drawing.Point(35, 567);
+            this.btnTerminar.Location = new System.Drawing.Point(154, 567);
             this.btnTerminar.Name = "btnTerminar";
-            this.btnTerminar.Size = new System.Drawing.Size(373, 48);
+            this.btnTerminar.Size = new System.Drawing.Size(254, 48);
             this.btnTerminar.TabIndex = 5;
             this.btnTerminar.Text = "Terminar";
             this.btnTerminar.UseVisualStyleBackColor = true;
@@ -412,11 +414,33 @@
             this.btnDeshabilitarProducto.UseVisualStyleBackColor = true;
             this.btnDeshabilitarProducto.Click += new System.EventHandler(this.btnDeshabilitarProducto_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // btnOmitir
+            // 
+            this.btnOmitir.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOmitir.Location = new System.Drawing.Point(35, 567);
+            this.btnOmitir.Name = "btnOmitir";
+            this.btnOmitir.Size = new System.Drawing.Size(113, 48);
+            this.btnOmitir.TabIndex = 8;
+            this.btnOmitir.Text = "Omitir";
+            this.btnOmitir.UseVisualStyleBackColor = true;
+            this.btnOmitir.Click += new System.EventHandler(this.btnOmitir_Click);
+            // 
             // RevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(442, 632);
+            this.Controls.Add(this.btnOmitir);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnTerminar);
             this.Controls.Add(this.btnDeshabilitarProducto);
             this.Controls.Add(this.lbCantidadFiltro);
@@ -480,5 +504,7 @@
         private System.Windows.Forms.Button btnAnterior;
         private System.Windows.Forms.TextBox txtBoxBuscarCodigoBarras;
         private System.Windows.Forms.Button btnBusqueda;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnOmitir;
     }
 }

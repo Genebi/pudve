@@ -22,6 +22,7 @@ namespace PuntoDeVentaV2
         public string operadorFiltro { get; set; }
         public int cantidadFiltro { get; set; }
         public string textoFiltroDinamico { get; set; }
+        public static string datoCbo { get; set; }
 
         Dictionary<string, string> filtros = new Dictionary<string, string>();
         Dictionary<string, string> operadores = new Dictionary<string, string>();
@@ -102,6 +103,7 @@ namespace PuntoDeVentaV2
             {
                 operadorFiltro = "NA";
                 cantidadFiltro = 0;
+                datoCbo = filtro;
             }
             else if (filtro == "Filtros")
             {

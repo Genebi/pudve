@@ -62,6 +62,11 @@ namespace PuntoDeVentaV2
             {
                 cantidadFiltro = Convert.ToInt32(datos[2]);
             }
+
+            if (FiltroRevisarInventario.datoCbo == "Normal")
+            {
+                btnAnterior.Visible = false;
+            }
         }
 
         private void RevisarInventario_Load(object sender, EventArgs e)
@@ -1115,6 +1120,17 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void btnOmitir_Click(object sender, EventArgs e)
+        {
+            txtBoxBuscarCodigoBarras.Text = string.Empty;
+            txtNombreProducto.Text = string.Empty;
+            txtCodigoBarras.Text = string.Empty;
+            lblPrecioProducto.Text = string.Empty;
+            lblStockMinimo.Text = string.Empty;
+            lblStockMaximo.Text = string.Empty;
+            txtCantidadStock.Text = string.Empty;
         }
     }
 }
