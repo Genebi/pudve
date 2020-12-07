@@ -683,7 +683,7 @@ namespace PuntoDeVentaV2
             vales = (vVales + aVales + dVales + abonoValesI) - rVales; if (vales < 0) { vales = 0; }
             cheque = (vCheque + aCheque + dCheque + abonoChequeI) - rCheque; if (cheque < 0) { cheque = 0; }
             trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia; if (trans < 0) { trans = 0; }
-            credito = vCredito;
+            credito = vCredito; 
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
             subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + saldoInicial /*+ vCredito*/)/* - devoluciones*/; if (subtotal < 0) { subtotal = 0; }
@@ -702,7 +702,7 @@ namespace PuntoDeVentaV2
             //lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
             lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
-            lbTCreditoTotal.Text = "$" + (vCredito - retiroCredito).ToString("0.00");
+            if (credito < retiroCredito) { lbTCreditoTotal.Text = "$" + "0.00"; } else { lbTCreditoTotal.Text = "$" + (vCredito - retiroCredito).ToString("0.00"); }
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             //lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
             lbTTotalCaja.Text = "$" + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");
