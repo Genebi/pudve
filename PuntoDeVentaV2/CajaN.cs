@@ -454,105 +454,114 @@ namespace PuntoDeVentaV2
                     DateTime ultimoDateCorte = DateTime.Parse(ultimoDate);
 
                     //Obtenemos la cantidad de abonos realizados despues del ultimo corte de caja
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'");
-                    //var abono = "";
-                    if (!fechaMovimientos.Rows.Count.Equals(0))
+                    var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
+                    using (var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'"))
                     {
-                        var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
-                        foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+                        //var abono = "";
+                        if (!fechaMovimientos.Rows.Count.Equals(0))
                         {
-                            if (string.IsNullOrWhiteSpace(cantidadAbono["Efectivo"].ToString()))
-                            {
-                                abonoEfectivo = "0";
-                            }
-                            else
-                            {
-                                abonoEfectivo = cantidadAbono["Efectivo"].ToString();
-                            }
 
-                            if (string.IsNullOrWhiteSpace(cantidadAbono["Tarjeta"].ToString()))
+                            foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
                             {
-                                abonoTarjeta = "0";
-                            }
-                            else
-                            {
-                                abonoTarjeta = cantidadAbono["Tarjeta"].ToString();
-                            }
+                                if (string.IsNullOrWhiteSpace(cantidadAbono["Efectivo"].ToString()))
+                                {
+                                    abonoEfectivo = "0";
+                                }
+                                else
+                                {
+                                    abonoEfectivo = cantidadAbono["Efectivo"].ToString();
+                                }
 
-                            if (string.IsNullOrWhiteSpace(cantidadAbono["Vales"].ToString()))
-                            {
-                                abonoVales = "0";
-                            }
-                            else
-                            {
-                                abonoVales = cantidadAbono["Vales"].ToString();
-                            }
+                                if (string.IsNullOrWhiteSpace(cantidadAbono["Tarjeta"].ToString()))
+                                {
+                                    abonoTarjeta = "0";
+                                }
+                                else
+                                {
+                                    abonoTarjeta = cantidadAbono["Tarjeta"].ToString();
+                                }
 
-                            if (string.IsNullOrWhiteSpace(cantidadAbono["Cheque"].ToString()))
-                            {
-                                abonoCheque = "0";
-                            }
-                            else
-                            {
-                                abonoCheque = cantidadAbono["Cheque"].ToString();
-                            }
+                                if (string.IsNullOrWhiteSpace(cantidadAbono["Vales"].ToString()))
+                                {
+                                    abonoVales = "0";
+                                }
+                                else
+                                {
+                                    abonoVales = cantidadAbono["Vales"].ToString();
+                                }
 
-                            if (string.IsNullOrWhiteSpace(cantidadAbono["Transferencia"].ToString()))
-                            {
-                                abonoTransferencia = "0";
-                            }
-                            else
-                            {
-                                abonoTransferencia = cantidadAbono["Transferencia"].ToString();
-                            }
+                                if (string.IsNullOrWhiteSpace(cantidadAbono["Cheque"].ToString()))
+                                {
+                                    abonoCheque = "0";
+                                }
+                                else
+                                {
+                                    abonoCheque = cantidadAbono["Cheque"].ToString();
+                                }
 
+                                if (string.IsNullOrWhiteSpace(cantidadAbono["Transferencia"].ToString()))
+                                {
+                                    abonoTransferencia = "0";
+                                }
+                                else
+                                {
+                                    abonoTransferencia = cantidadAbono["Transferencia"].ToString();
+                                }
+
+                            }
+                            //abonos = float.Parse(abono);
+                            abonoEfectivoI = float.Parse(abonoEfectivo);
+                            abonoTarjetaI = float.Parse(abonoTarjeta);
+                            abonoValesI = float.Parse(abonoVales);
+                            abonoChequeI = float.Parse(abonoCheque);
+                            abonoTransferenciaI = float.Parse(abonoTransferencia);
+                            abonos = (abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI);
                         }
-                        //abonos = float.Parse(abono);
-                        abonoEfectivoI = float.Parse(abonoEfectivo);
-                        abonoTarjetaI = float.Parse(abonoTarjeta);
-                        abonoValesI = float.Parse(abonoVales);
-                        abonoChequeI = float.Parse(abonoCheque);
-                        abonoTransferenciaI = float.Parse(abonoTransferencia);
-                        abonos = (abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI);
                     }
+                       
+                    
 
                     //Obtenemos la cantidad de Devoluciones realizados despues del ultimo corte de caja
-                    var obtenerDevoluciones = cn.CargarDatos($@"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'");
-                    if (!obtenerDevoluciones.Rows.Count.Equals(0))
+                    using (var obtenerDevoluciones = cn.CargarDatos($@"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'"))
                     {
-                        string devolucionTotal = string.Empty, devolucionEfectivo = string.Empty, devolucionTarjeta = string.Empty, devolucionVales = string.Empty, devolucionCheque = string.Empty, devolucionTrans = string.Empty;
-                        foreach (DataRow devol in obtenerDevoluciones.Rows)
+                        if (!obtenerDevoluciones.Rows.Count.Equals(0))
                         {
-                            if (string.IsNullOrWhiteSpace(devol["Total"].ToString()))
+                            string devolucionTotal = string.Empty, devolucionEfectivo = string.Empty, devolucionTarjeta = string.Empty, devolucionVales = string.Empty, devolucionCheque = string.Empty, devolucionTrans = string.Empty;
+                            foreach (DataRow devol in obtenerDevoluciones.Rows)
                             {
-                                devolucionTotal = "0";
-                                devolucionEfectivo = "0";
-                                devolucionTarjeta = "0";
-                                devolucionVales = "0";
-                                devolucionCheque = "0";
-                                devolucionTrans = "0";
+                                if (string.IsNullOrWhiteSpace(devol["Total"].ToString()))
+                                {
+                                    devolucionTotal = "0";
+                                    devolucionEfectivo = "0";
+                                    devolucionTarjeta = "0";
+                                    devolucionVales = "0";
+                                    devolucionCheque = "0";
+                                    devolucionTrans = "0";
 
+                                }
+                                else
+                                {
+                                    devolucionTotal = devol["Total"].ToString();
+                                    devolucionEfectivo = devol["Efectivo"].ToString();
+                                    devolucionTarjeta = devol["Tarjeta"].ToString();
+                                    devolucionVales = devol["Vales"].ToString();
+                                    devolucionCheque = devol["Cheque"].ToString();
+                                    devolucionTrans = devol["Transferencia"].ToString();
+                                }
                             }
-                            else
-                            {
-                                devolucionTotal = devol["Total"].ToString();
-                                devolucionEfectivo = devol["Efectivo"].ToString();
-                                devolucionTarjeta = devol["Tarjeta"].ToString();
-                                devolucionVales = devol["Vales"].ToString();
-                                devolucionCheque = devol["Cheque"].ToString();
-                                devolucionTrans = devol["Transferencia"].ToString();
-                            }
+
+                            devoluciones = float.Parse(devolucionTotal);
+
+                            efectivoCorte = devolucionEfectivo.ToString();
+                            tarjetaCorte = devolucionTarjeta.ToString();
+                            valesCorte = devolucionVales.ToString();
+                            chequeCorte = devolucionCheque.ToString();
+                            transCorte = devolucionTrans.ToString();
+                            totCorte = devoluciones.ToString();
                         }
-
-                        devoluciones = float.Parse(devolucionTotal);
-
-                        efectivoCorte = devolucionEfectivo.ToString();
-                        tarjetaCorte = devolucionTarjeta.ToString();
-                        valesCorte = devolucionVales.ToString();
-                        chequeCorte = devolucionCheque.ToString();
-                        transCorte = devolucionTrans.ToString();
-                        totCorte = devoluciones.ToString();
                     }
+                        
+                    
                 }
             }
             catch
