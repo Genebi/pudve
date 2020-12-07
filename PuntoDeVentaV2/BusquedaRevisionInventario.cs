@@ -48,39 +48,48 @@ namespace PuntoDeVentaV2
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             string obtenerDatosTxt = txtBuscar.Text;
-            string cadena = obtenerDatosTxt.Trim();
-            char delimitador = (' ');
 
-            string[] separarPalabras = cadena.Split(delimitador);
+            if (!string.IsNullOrEmpty(obtenerDatosTxt))
+            {
+                string cadena = obtenerDatosTxt.Trim();
+                char delimitador = (' ');
 
-            foreach (var iterar in separarPalabras)
-            {   //Consulta para el buscador
-                using (var buscarDatos = cn.CargarDatos($"SELECT IDAlmacen, Nombre, StockFisico, PrecioProducto, Tipo, ClaveInterna, CodigoBarras FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre LIKE '%{iterar}%'"))
-                {
-                    if (!buscarDatos.Rows.Count.Equals(0))
+                string[] separarPalabras = cadena.Split(delimitador);
+
+                foreach (var iterar in separarPalabras)
+                {   //Consulta para el buscador
+                    using (var buscarDatos = cn.CargarDatos($"SELECT ID, Nombre, Stock, Precio, Tipo, ClaveInterna, CodigoBarras FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = 1 AND Nombre LIKE '%{iterar}%'"))
                     {
-                        dgvRevisarInventario.Rows.Clear();
-                        foreach (DataRow llenarCampos in buscarDatos.Rows)
-                        {   //Cambiar la abreviacion por la palabra completa en el Tipo
-                            var categoria = string.Empty;
-                            if (llenarCampos["Tipo"].ToString().Equals("P"))
-                            {
-                                categoria = "PRODUCTO";
+                        if (!buscarDatos.Rows.Count.Equals(0))
+                        {
+                            dgvRevisarInventario.Rows.Clear();
+                            foreach (DataRow llenarCampos in buscarDatos.Rows)
+                            {   //Cambiar la abreviacion por la palabra completa en el Tipo
+                                var categoria = string.Empty;
+                                if (llenarCampos["Tipo"].ToString().Equals("P"))
+                                {
+                                    categoria = "PRODUCTO";
+                                }
+                                else if (llenarCampos["Tipo"].ToString().Equals("PQ"))
+                                {
+                                    categoria = "COMBO";
+                                }
+                                else if (llenarCampos["Tipo"].ToString().Equals("S"))
+                                {
+                                    categoria = "SERVICIO";
+                                }
+                                //Agregar los datos al DataGridView
+                                dgvRevisarInventario.Rows.Add(llenarCampos["ID"].ToString(), llenarCampos["Nombre"].ToString(), llenarCampos["Stock"].ToString(), llenarCampos["Precio"].ToString(), categoria, llenarCampos["ClaveInterna"].ToString(), llenarCampos["CodigoBarras"].ToString());
+                                dgvRevisarInventario.Focus();
                             }
-                            else if (llenarCampos["Tipo"].ToString().Equals("PQ"))
-                            {
-                                categoria = "COMBO";
-                            }
-                            else if (llenarCampos["Tipo"].ToString().Equals("S"))
-                            {
-                                categoria = "SERVICIO";
-                            }
-                            //Agregar los datos al DataGridView
-                            dgvRevisarInventario.Rows.Add(llenarCampos["IDAlmacen"].ToString(), llenarCampos["Nombre"].ToString(), llenarCampos["StockFisico"].ToString(), llenarCampos["PrecioProducto"].ToString(), categoria, llenarCampos["ClaveInterna"].ToString(), llenarCampos["CodigoBarras"].ToString());
-                            dgvRevisarInventario.Focus();
                         }
                     }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Ingrese el nombre de algun producto", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                txtBuscar.Focus();
             }
         }
 
