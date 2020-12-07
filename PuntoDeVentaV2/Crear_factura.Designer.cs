@@ -780,7 +780,6 @@
             this.cmb_bx_clientes.Name = "cmb_bx_clientes";
             this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
             this.cmb_bx_clientes.TabIndex = 2;
-            this.cmb_bx_clientes.SelectedIndexChanged += new System.EventHandler(this.sel_clientes);
             // 
             // Crear_factura
             // 
