@@ -58,7 +58,7 @@ namespace PuntoDeVentaV2
 
                 foreach (var iterar in separarPalabras)
                 {   //Consulta para el buscador
-                    using (var buscarDatos = cn.CargarDatos($"SELECT ID, Nombre, Stock, Precio, Tipo, ClaveInterna, CodigoBarras FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = 1 AND Nombre LIKE '%{iterar}%'"))
+                    using (var buscarDatos = cn.CargarDatos($"SELECT ID, Nombre, Stock, Precio, Tipo, ClaveInterna, CodigoBarras FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = 1 AND Nombre LIKE '%{iterar}%'"))
                     {
                         if (!buscarDatos.Rows.Count.Equals(0))
                         {
