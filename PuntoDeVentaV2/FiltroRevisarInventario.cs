@@ -98,7 +98,7 @@ namespace PuntoDeVentaV2
             var filtro = cbFiltro.SelectedValue.ToString();
             
             tipoFiltro = filtro;
-
+            datoCbo = string.Empty;
             if (filtro == "Normal")
             {
                 operadorFiltro = "NA";

@@ -112,6 +112,7 @@
             this.groupBox2.Controls.Add(this.lblStockMaximo);
             this.groupBox2.Controls.Add(this.lblStockMinimo);
             this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.lblPrecioProducto);
@@ -126,7 +127,7 @@
             this.groupBox2.Controls.Add(this.lbBackground);
             this.groupBox2.Location = new System.Drawing.Point(12, 131);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(420, 371);
+            this.groupBox2.Size = new System.Drawing.Size(426, 512);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
@@ -325,11 +326,13 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnOmitir);
+            this.groupBox3.Controls.Add(this.btnTerminar);
             this.groupBox3.Controls.Add(this.btnAnterior);
             this.groupBox3.Controls.Add(this.btnSiguiente);
-            this.groupBox3.Location = new System.Drawing.Point(12, 494);
+            this.groupBox3.Location = new System.Drawing.Point(0, 358);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(420, 78);
+            this.groupBox3.Size = new System.Drawing.Size(420, 135);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
@@ -360,7 +363,7 @@
             // 
             this.btnTerminar.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTerminar.ForeColor = System.Drawing.Color.Red;
-            this.btnTerminar.Location = new System.Drawing.Point(237, 567);
+            this.btnTerminar.Location = new System.Drawing.Point(225, 83);
             this.btnTerminar.Name = "btnTerminar";
             this.btnTerminar.Size = new System.Drawing.Size(171, 48);
             this.btnTerminar.TabIndex = 5;
@@ -416,7 +419,7 @@
             // btnOmitir
             // 
             this.btnOmitir.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOmitir.Location = new System.Drawing.Point(35, 567);
+            this.btnOmitir.Location = new System.Drawing.Point(23, 83);
             this.btnOmitir.Name = "btnOmitir";
             this.btnOmitir.Size = new System.Drawing.Size(171, 48);
             this.btnOmitir.TabIndex = 8;
@@ -429,13 +432,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(442, 632);
-            this.Controls.Add(this.btnOmitir);
-            this.Controls.Add(this.btnTerminar);
             this.Controls.Add(this.btnDeshabilitarProducto);
             this.Controls.Add(this.lbCantidadFiltro);
             this.Controls.Add(this.lblNoRevision);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

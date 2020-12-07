@@ -65,11 +65,19 @@ namespace PuntoDeVentaV2
 
             if (FiltroRevisarInventario.datoCbo == "Normal")
             {
-                btnAnterior.Visible = false;
+                //btnAnterior.Visible = false;
+                btnOmitir.Location = new Point(23, 19);
+                btnTerminar.Location = new Point(23, 83);
+                btnTerminar.Size = new Size(373, 48);
             }
             else
             {
-                btnAnterior.Visible = true;
+                //btnAnterior.Visible = true;
+                btnAnterior.Location = new Point(23, 19);
+                btnSiguiente.Location = new Point(225, 19);
+                btnOmitir.Location = new Point(23, 83);
+                btnTerminar.Location = new Point(225, 83);
+                btnTerminar.Size = new Size(171, 48);
             }
         }
 
