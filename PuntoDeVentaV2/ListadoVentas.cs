@@ -1238,19 +1238,26 @@ namespace PuntoDeVentaV2
                     info.ShowDialog();
                 }
 
-                //Retomar Venta
+                // Retomar Venta
                 if (e.ColumnIndex == 16)
                 {
                     retomarVentasCanceladas = 1;
 
                     if (retomarVentasCanceladas == 1 && opcion == "VC")
                     {
-                        obtenerIdVenta = /*numeroDeFolio*/idVenta;
+                        if (Application.OpenForms.OfType<Ventas>().Count() == 1)
+                        {
+                            Application.OpenForms.OfType<Ventas>().FirstOrDefault().Close();
+                        }
+
+                        obtenerIdVenta = idVenta; // numeroDeFolio
                         btnNuevaVenta.PerformClick();
-                    }else if (retomarVentasCanceladas == 1 && opcion == "VG")
+                    }
+                    else if (retomarVentasCanceladas == 1 && opcion == "VG")
                     {
                         MessageBox.Show("Para retomar la venta debe ir a la ventana \n\"Nueva Venta F2\">boton ventas guardadas ", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+
                     retomarVentasCanceladas = 0;
                 }
                 #endregion
