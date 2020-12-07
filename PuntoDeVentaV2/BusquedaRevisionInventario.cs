@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
 
         public static string codigoBarras { get; set; }
+        public static string id { get; set; }
 
         public BusquedaRevisionInventario()
         {
@@ -98,6 +99,7 @@ namespace PuntoDeVentaV2
         {
             //Obtiene el codigo de barras de la fila seleccionada
             codigoBarras = dgvRevisarInventario.Rows[dgvRevisarInventario.CurrentRow.Index].Cells[6].Value.ToString();
+            id = dgvRevisarInventario.Rows[dgvRevisarInventario.CurrentRow.Index].Cells[0].Value.ToString();
 
             this.Dispose();
         }

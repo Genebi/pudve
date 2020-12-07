@@ -1097,6 +1097,7 @@ namespace PuntoDeVentaV2
                     LimpiarCampos();
                     txtBoxBuscarCodigoBarras.Text = codBar;
                     llenarCampos(codBar);
+                    idProducto =Convert.ToInt32(BusquedaRevisionInventario.id);
                 }
             };
             busquedaR.ShowDialog();
