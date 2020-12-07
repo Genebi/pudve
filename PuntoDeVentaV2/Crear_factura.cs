@@ -214,8 +214,7 @@ namespace PuntoDeVentaV2
             cmb_bx_moneda.DisplayMember = "Value";
             cmb_bx_moneda.ValueMember = "Key";
             cmb_bx_moneda.SelectedIndex = 1;
-
-
+            
             // Productos
            
             int location_y = 5;
@@ -407,33 +406,27 @@ namespace PuntoDeVentaV2
 
         private void sel_clientes(object sender, EventArgs e)
         {
-            //MethodItem mi = (MethodItem)new MethodItem { Name = "No comodines", Value = StringMatchingMethod.NoWildcards };
-            cmb_bx_clientes.MatchingMethod = StringMatchingMethod.NoWildcards;
+            string clave = cmb_bx_clientes.SelectedValue.ToString();
 
-            if (cmb_bx_clientes.SelectedValue != null)
+            clave = clave.Replace("[", string.Empty).Replace("]", string.Empty);
+
+            string[] words = clave.Split(',');
+
+            if (!words[0].Equals("0"))
             {
-                string clave = cmb_bx_clientes.SelectedValue.ToString();
+                limpiar_campos_dcliente();
+                pnl_datos_cliente.Visible = true;
 
-                clave = clave.Replace("[", string.Empty).Replace("]", string.Empty);
+                cargar_datos_cliente(Convert.ToInt32(words[0].ToString()));
 
-                string[] words = clave.Split(',');
+                btn_facturar.Enabled = true;
+            }
+            else
+            {
+                pnl_datos_cliente.Visible = false;
+                limpiar_campos_dcliente();
 
-                if (!words[0].Equals("0"))
-                {
-                    limpiar_campos_dcliente();
-                    pnl_datos_cliente.Visible = true;
-
-                    cargar_datos_cliente(Convert.ToInt32(words[0].ToString()));
-
-                    btn_facturar.Enabled = true;
-                }
-                else
-                {
-                    pnl_datos_cliente.Visible = false;
-                    limpiar_campos_dcliente();
-
-                    btn_facturar.Enabled = false;
-                }
+                btn_facturar.Enabled = false;
             }
         }
 
