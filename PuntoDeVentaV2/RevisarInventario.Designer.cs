@@ -336,7 +336,7 @@
             // btnAnterior
             // 
             this.btnAnterior.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnterior.ForeColor = System.Drawing.Color.Red;
+            this.btnAnterior.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnAnterior.Location = new System.Drawing.Point(23, 19);
             this.btnAnterior.Name = "btnAnterior";
             this.btnAnterior.Size = new System.Drawing.Size(171, 48);
@@ -348,7 +348,6 @@
             // btnSiguiente
             // 
             this.btnSiguiente.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSiguiente.ForeColor = System.Drawing.Color.Red;
             this.btnSiguiente.Location = new System.Drawing.Point(225, 19);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(171, 48);
@@ -360,9 +359,10 @@
             // btnTerminar
             // 
             this.btnTerminar.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminar.Location = new System.Drawing.Point(154, 567);
+            this.btnTerminar.ForeColor = System.Drawing.Color.Red;
+            this.btnTerminar.Location = new System.Drawing.Point(237, 567);
             this.btnTerminar.Name = "btnTerminar";
-            this.btnTerminar.Size = new System.Drawing.Size(254, 48);
+            this.btnTerminar.Size = new System.Drawing.Size(171, 48);
             this.btnTerminar.TabIndex = 5;
             this.btnTerminar.Text = "Terminar";
             this.btnTerminar.UseVisualStyleBackColor = true;
@@ -418,7 +418,7 @@
             this.btnOmitir.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOmitir.Location = new System.Drawing.Point(35, 567);
             this.btnOmitir.Name = "btnOmitir";
-            this.btnOmitir.Size = new System.Drawing.Size(113, 48);
+            this.btnOmitir.Size = new System.Drawing.Size(171, 48);
             this.btnOmitir.TabIndex = 8;
             this.btnOmitir.Text = "Omitir";
             this.btnOmitir.UseVisualStyleBackColor = true;
