@@ -67,6 +67,10 @@ namespace PuntoDeVentaV2
             {
                 btnAnterior.Visible = false;
             }
+            else
+            {
+                btnAnterior.Visible = true;
+            }
         }
 
         private void RevisarInventario_Load(object sender, EventArgs e)
