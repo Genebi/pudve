@@ -103,7 +103,7 @@ namespace PuntoDeVentaV2
             {
                 operadorFiltro = "NA";
                 cantidadFiltro = 0;
-                datoCbo = filtro;
+                datoCbo = "Normal";
             }
             else if (filtro == "Filtros")
             {
