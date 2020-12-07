@@ -734,7 +734,7 @@ namespace PuntoDeVentaV2
             // Consulta clientes
             if(opc == 7)
             {
-                cons = $"SELECT * FROM Clientes WHERE IDUsuario='{id_usuario}' ORDER BY RazonSocial ASC";
+                cons = $"SELECT * FROM Clientes WHERE IDUsuario='{id_usuario}'";
             }
             // Consulta impuestos de la venta en tabla DetallesFacturacionProductos
             if (opc == 8)

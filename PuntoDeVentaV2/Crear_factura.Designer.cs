@@ -69,6 +69,7 @@
             this.lb_facturando = new System.Windows.Forms.Label();
             this.tab_control = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cmb_bx_clientes = new SergeUtils.EasyCompletionComboBox();
             this.groupb_monto_max = new System.Windows.Forms.GroupBox();
             this.txt_cantidad_max = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
@@ -90,7 +91,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txt_buscarcliente = new System.Windows.Forms.TextBox();
             this.btn_anterior = new System.Windows.Forms.Button();
-            this.cmb_bx_clientes = new SergeUtils.EasyCompletionComboBox();
             this.pnl_datos_cliente.SuspendLayout();
             this.tab_control.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -516,6 +516,15 @@
             this.tabPage1.Text = "Cliente";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // cmb_bx_clientes
+            // 
+            this.cmb_bx_clientes.FormattingEnabled = true;
+            this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
+            this.cmb_bx_clientes.Name = "cmb_bx_clientes";
+            this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
+            this.cmb_bx_clientes.TabIndex = 2;
+            this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
+            // 
             // groupb_monto_max
             // 
             this.groupb_monto_max.Controls.Add(this.txt_cantidad_max);
@@ -772,14 +781,6 @@
             this.btn_anterior.Text = "Anterior";
             this.btn_anterior.UseVisualStyleBackColor = false;
             this.btn_anterior.Click += new System.EventHandler(this.btn_anterior_Click);
-            // 
-            // cmb_bx_clientes
-            // 
-            this.cmb_bx_clientes.FormattingEnabled = true;
-            this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
-            this.cmb_bx_clientes.Name = "cmb_bx_clientes";
-            this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
-            this.cmb_bx_clientes.TabIndex = 2;
             // 
             // Crear_factura
             // 

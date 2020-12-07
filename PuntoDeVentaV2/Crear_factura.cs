@@ -89,6 +89,7 @@ namespace PuntoDeVentaV2
             cmb_bx_clientes.ValueMember = "Key";
             cmb_bx_clientes.SelectedIndex = 0;
 
+            cmb_bx_clientes.MatchingMethod = StringMatchingMethod.NoWildcards;
 
             // Método de pago
 
@@ -406,11 +407,11 @@ namespace PuntoDeVentaV2
 
         private void sel_clientes(object sender, EventArgs e)
         {
+            //MethodItem mi = (MethodItem)new MethodItem { Name = "No comodines", Value = StringMatchingMethod.NoWildcards };
+            cmb_bx_clientes.MatchingMethod = StringMatchingMethod.NoWildcards;
+
             if (cmb_bx_clientes.SelectedValue != null)
             {
-                MethodItem mi = (MethodItem)new MethodItem { Name = "No comodines", Value = StringMatchingMethod.NoWildcards };
-                cmb_bx_clientes.MatchingMethod = mi.Value;
-
                 string clave = cmb_bx_clientes.SelectedValue.ToString();
 
                 clave = clave.Replace("[", string.Empty).Replace("]", string.Empty);
