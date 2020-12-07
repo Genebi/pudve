@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SergeUtils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,7 +26,15 @@ namespace PuntoDeVentaV2
         string[][] arr_dproductos;
         decimal cantidd_productos = 0;
         int excede_montomax_xproducto = 0;
-        
+
+        #region Metodos para coincidencias
+        public class MethodItem
+        {
+            public string Name { get; set; }
+            public StringMatchingMethod Value { get; set; }
+        }
+        #endregion
+
         public Crear_factura(int sin_cliente, int n_f, int id_v)
         {
             InitializeComponent();
@@ -399,14 +408,21 @@ namespace PuntoDeVentaV2
 
         private void sel_clientes(object sender, EventArgs e)
         {
+            MethodItem mi = (MethodItem)new MethodItem { Name = "No comodines", Value = StringMatchingMethod.NoWildcards };
+            cmb_bx_clientes.MatchingMethod = mi.Value;
+
             string clave = cmb_bx_clientes.SelectedValue.ToString();
 
-            if (clave != "0")
+            clave = clave.Replace("[", string.Empty).Replace("]", string.Empty);
+
+            string[] words = clave.Split(',');
+
+            if (!words[0].Equals("0"))
             {
                 limpiar_campos_dcliente();
                 pnl_datos_cliente.Visible = true;
 
-                cargar_datos_cliente(Convert.ToInt32(clave));
+                cargar_datos_cliente(Convert.ToInt32(words[0].ToString()));
 
                 btn_facturar.Enabled = true;
             }
