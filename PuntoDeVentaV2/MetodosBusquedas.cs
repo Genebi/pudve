@@ -2264,6 +2264,25 @@ namespace PuntoDeVentaV2
             return timbres;
         }
 
+        public int TieneDetallesProducto(int idProducto)
+        {
+            int resultado = 0;
+
+            DatosConexion($"SELECT COUNT(*) AS total FROM DetallesProductoGenerales AS DE INNER JOIN DetalleGeneral AS GE ON DE.IDDetalleGral = GE.ID WHERE DE.IDProducto = {idProducto} and DE.IDUsuario = {FormPrincipal.userID}");
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                resultado = Convert.ToInt32(dr["total"]);
+            }
+
+            dr.Close();
+            CerrarConexion();
+
+            return resultado;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);

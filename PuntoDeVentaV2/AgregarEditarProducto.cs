@@ -6666,6 +6666,11 @@ namespace PuntoDeVentaV2
                     fLPDetallesProducto.Visible = true;
                     this.Height = 731;
                 }
+
+                if (mb.TieneDetallesProducto(Convert.ToInt32(idEditarProducto)) == 0)
+                {
+                    fLPDetallesProducto.Visible = false;
+                }
             }
         }
 
