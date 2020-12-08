@@ -363,8 +363,8 @@ namespace PuntoDeVentaV2
                 var nombre = row.Cells["Nombre"].Value.ToString();
                 var clave = row.Cells["ClaveInterna"].Value.ToString();
                 var codigo = row.Cells["CodigoBarras"].Value.ToString();
-                var almacen = row.Cells["StockAlmacen"].Value.ToString();
-                var fisico = row.Cells["StockFisico"].Value.ToString();
+                var almacen = Utilidades.RemoverCeroStock(row.Cells["StockAlmacen"].Value.ToString());
+                var fisico = Utilidades.RemoverCeroStock(row.Cells["StockFisico"].Value.ToString());
                 var fecha = row.Cells["Fecha"].Value.ToString();
                 var diferencia = row.Cells["Diferencia"].Value.ToString();
                 var precio = float.Parse(row.Cells["PrecioProducto"].Value.ToString());

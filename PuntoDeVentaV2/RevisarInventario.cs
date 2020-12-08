@@ -395,7 +395,7 @@ namespace PuntoDeVentaV2
                                         convertirId--;
 
                                         // Se asigna el stock registrado en la tabla RevisarInventario
-                                        txtCantidadStock.Text = infoInventariado[0];
+                                        txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
                                     }
 
                                     if (respuesta == DialogResult.No)
@@ -409,7 +409,7 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 // Se asigna el stock registrado en la tabla Productos
-                                txtCantidadStock.Text = infoProducto[1];
+                                txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoProducto[1]);
                             }
 
                             txtCantidadStock.Focus();
@@ -527,7 +527,7 @@ namespace PuntoDeVentaV2
                             if (respuesta == DialogResult.Yes)
                             {
                                 // Se asigna el stock registrado en la tabla RevisarInventario
-                                txtCantidadStock.Text = infoInventariado[0];
+                                txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
                             }
                             txtCantidadStock.Focus();
 
@@ -541,7 +541,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         // Se asigna el stock registrado en la tabla Productos
-                        txtCantidadStock.Text = infoProducto[1];
+                        txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoProducto[1]);
                     }
 
                     txtCantidadStock.Focus();
@@ -1040,7 +1040,7 @@ namespace PuntoDeVentaV2
                         lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
                         lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
                         lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-                        txtCantidadStock.Text = datosObtenidos["Stock"].ToString();
+                        txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
                         txtCantidadStock.Focus();
                     }
                     //else if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
@@ -1069,7 +1069,7 @@ namespace PuntoDeVentaV2
                                 lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
                                 lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
                                 lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-                                txtCantidadStock.Text = datosObtenidos["Stock"].ToString();
+                                txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
                             }
                             else
                             {
@@ -1129,7 +1129,7 @@ namespace PuntoDeVentaV2
                         lblPrecioProducto.Text = dato["Precio"].ToString();
                         lblStockMinimo.Text = dato["StockMinimo"].ToString();
                         lblStockMaximo.Text = dato["StockNecesario"].ToString();
-                        txtCantidadStock.Text = dato["Stock"].ToString();
+                        txtCantidadStock.Text = Utilidades.RemoverCeroStock(dato["Stock"].ToString());
                     }
                 }
             }
