@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
 
         private string origen;
+        public static string id { get; set; }
 
         public ConceptosCaja(string origen)
         {
@@ -82,26 +83,59 @@ namespace PuntoDeVentaV2
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            var concepto = txtConcepto.Text.Trim();
-            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            //var concepto = txtConcepto.Text.Trim();
+            //var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            if (string.IsNullOrWhiteSpace(concepto))
+            //if (string.IsNullOrWhiteSpace(concepto))
+            //{
+            //    MessageBox.Show("Ingrese el nombre del concepto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
+
+            //var consulta = "INSERT INTO ConceptosDinamicos (IDUsuario, Concepto, Origen, FechaOperacion)";
+            //    consulta += $"VALUES ('{FormPrincipal.userID}', '{concepto}', '{origen}', '{fechaOperacion}')";
+
+            //var resultado = cn.EjecutarConsulta(consulta);
+
+            //if (resultado > 0)
+            //{
+            //    txtConcepto.Text = string.Empty;
+            //    txtConcepto.Focus();
+            //    CargarDatos();
+            //}
+
+            string agregarName = string.Empty.ToUpper();
+            agregarName = Microsoft.VisualBasic.Interaction.InputBox("Ingrese el Concepto", "Agregar Concepto","".ToUpper(), 500, 300);
+            if (!string.IsNullOrEmpty(agregarName))
             {
-                MessageBox.Show("Ingrese el nombre del concepto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                var mensaje =  MessageBox.Show($"¿Desea agregar {agregarName.ToUpper()}?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+                if (mensaje==DialogResult.Yes)
+                {
+
+                    var concepto = agregarName.ToUpper().Trim();
+                    var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    if (string.IsNullOrWhiteSpace(concepto))
+                    {
+                        MessageBox.Show("Ingrese el nombre del concepto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    var consulta = "INSERT INTO ConceptosDinamicos (IDUsuario, Concepto, Origen, FechaOperacion)";
+                    consulta += $"VALUES ('{FormPrincipal.userID}', '{concepto}', '{origen}', '{fechaOperacion}')";
+
+                    var resultado = cn.EjecutarConsulta(consulta);
+
+                    if (resultado > 0)
+                    {
+                        //txtConcepto.Text = string.Empty;
+                        //txtConcepto.Focus();
+                        CargarDatos();
+                    }
+                }
             }
 
-            var consulta = "INSERT INTO ConceptosDinamicos (IDUsuario, Concepto, Origen, FechaOperacion)";
-                consulta += $"VALUES ('{FormPrincipal.userID}', '{concepto}', '{origen}', '{fechaOperacion}')";
-
-            var resultado = cn.EjecutarConsulta(consulta);
-
-            if (resultado > 0)
-            {
-                txtConcepto.Text = string.Empty;
-                txtConcepto.Focus();
-                CargarDatos();
-            }
         }
 
         private void ConceptosCaja_Shown(object sender, EventArgs e)
@@ -113,8 +147,13 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyData == Keys.Enter)
             {
-                btnAgregar.PerformClick();
+                //btnAgregar.PerformClick();
+                btnBuscar.PerformClick();
             }
+            else if (e.KeyCode == Keys.Down)
+            {
+                DGVConceptos.Focus();
+            } 
         }
 
         private void DGVConceptos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -243,7 +282,9 @@ namespace PuntoDeVentaV2
 
         private void ejecutarAccion()
         {
+            id = DGVConceptos.Rows[DGVConceptos.CurrentRow.Index].Cells[0].Value.ToString();
 
+            //this.Dispose();
         }
     }
 }
