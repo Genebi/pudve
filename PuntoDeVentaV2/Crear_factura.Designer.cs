@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.cmb_bx_clientes = new System.Windows.Forms.ComboBox();
             this.pnl_datos_cliente = new System.Windows.Forms.Panel();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -70,6 +69,7 @@
             this.lb_facturando = new System.Windows.Forms.Label();
             this.tab_control = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cmb_bx_clientes = new SergeUtils.EasyCompletionComboBox();
             this.groupb_monto_max = new System.Windows.Forms.GroupBox();
             this.txt_cantidad_max = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
@@ -109,20 +109,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Datos facturación";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // cmb_bx_clientes
-            // 
-            this.cmb_bx_clientes.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.cmb_bx_clientes.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmb_bx_clientes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmb_bx_clientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_bx_clientes.FormattingEnabled = true;
-            this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
-            this.cmb_bx_clientes.Name = "cmb_bx_clientes";
-            this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
-            this.cmb_bx_clientes.TabIndex = 2;
-            this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
-            this.cmb_bx_clientes.TextChanged += new System.EventHandler(this.cmb_bx_clientes_TextChanged);
             // 
             // pnl_datos_cliente
             // 
@@ -530,6 +516,15 @@
             this.tabPage1.Text = "Cliente";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // cmb_bx_clientes
+            // 
+            this.cmb_bx_clientes.FormattingEnabled = true;
+            this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
+            this.cmb_bx_clientes.Name = "cmb_bx_clientes";
+            this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
+            this.cmb_bx_clientes.TabIndex = 2;
+            this.cmb_bx_clientes.SelectedIndexChanged += new System.EventHandler(this.sel_clientes);
+            // 
             // groupb_monto_max
             // 
             this.groupb_monto_max.Controls.Add(this.txt_cantidad_max);
@@ -825,7 +820,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmb_bx_clientes;
         private System.Windows.Forms.Button btn_facturar;
         private System.Windows.Forms.Button btn_cancelar;
         private System.Windows.Forms.Button btn_crear_cliente;
@@ -887,5 +881,6 @@
         private System.Windows.Forms.GroupBox groupb_monto_max;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox txt_cantidad_max;
+        private SergeUtils.EasyCompletionComboBox cmb_bx_clientes;
     }
 }

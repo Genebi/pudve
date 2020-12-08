@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SergeUtils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,7 +26,15 @@ namespace PuntoDeVentaV2
         string[][] arr_dproductos;
         decimal cantidd_productos = 0;
         int excede_montomax_xproducto = 0;
-        
+
+        #region Metodos para coincidencias
+        public class MethodItem
+        {
+            public string Name { get; set; }
+            public StringMatchingMethod Value { get; set; }
+        }
+        #endregion
+
         public Crear_factura(int sin_cliente, int n_f, int id_v)
         {
             InitializeComponent();
@@ -78,8 +87,10 @@ namespace PuntoDeVentaV2
             cmb_bx_clientes.DataSource = clientes.ToArray();
             cmb_bx_clientes.DisplayMember = "Value";
             cmb_bx_clientes.ValueMember = "Key";
+            cmb_bx_clientes.SelectedIndex = 0;
 
-
+            cmb_bx_clientes.MatchingMethod = StringMatchingMethod.NoWildcards;
+            
             // Método de pago
 
             Dictionary<string, string> metodo_pago = new Dictionary<string, string>();
@@ -89,9 +100,6 @@ namespace PuntoDeVentaV2
             cmb_bx_metodo_pago.DataSource = metodo_pago.ToArray();
             cmb_bx_metodo_pago.DisplayMember = "Value";
             cmb_bx_metodo_pago.ValueMember = "Key";
-
-            cmb_bx_clientes.SelectedIndex = 0;
-
             
             // Forma de pago
 
@@ -206,8 +214,7 @@ namespace PuntoDeVentaV2
             cmb_bx_moneda.DisplayMember = "Value";
             cmb_bx_moneda.ValueMember = "Key";
             cmb_bx_moneda.SelectedIndex = 1;
-
-
+            
             // Productos
            
             int location_y = 5;
@@ -401,12 +408,16 @@ namespace PuntoDeVentaV2
         {
             string clave = cmb_bx_clientes.SelectedValue.ToString();
 
-            if (clave != "0")
+            clave = clave.Replace("[", string.Empty).Replace("]", string.Empty);
+
+            string[] words = clave.Split(',');
+
+            if (!words[0].Equals("0"))
             {
                 limpiar_campos_dcliente();
                 pnl_datos_cliente.Visible = true;
 
-                cargar_datos_cliente(Convert.ToInt32(clave));
+                cargar_datos_cliente(Convert.ToInt32(words[0].ToString()));
 
                 btn_facturar.Enabled = true;
             }
@@ -1975,7 +1986,6 @@ namespace PuntoDeVentaV2
                 cmb_bx_clientes.DroppedDown = false;
             }
         }
-
 
         /*private void btn_facturar_Click(object sender, EventArgs e)
         {
