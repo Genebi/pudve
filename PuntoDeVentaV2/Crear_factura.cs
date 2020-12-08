@@ -1,5 +1,4 @@
-﻿using SergeUtils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,14 +25,6 @@ namespace PuntoDeVentaV2
         string[][] arr_dproductos;
         decimal cantidd_productos = 0;
         int excede_montomax_xproducto = 0;
-
-        #region Metodos para coincidencias
-        public class MethodItem
-        {
-            public string Name { get; set; }
-            public StringMatchingMethod Value { get; set; }
-        }
-        #endregion
 
         public Crear_factura(int sin_cliente, int n_f, int id_v)
         {
@@ -88,8 +79,6 @@ namespace PuntoDeVentaV2
             cmb_bx_clientes.DisplayMember = "Value";
             cmb_bx_clientes.ValueMember = "Key";
             cmb_bx_clientes.SelectedIndex = 0;
-
-            cmb_bx_clientes.MatchingMethod = StringMatchingMethod.NoWildcards;
             
             // Método de pago
 
