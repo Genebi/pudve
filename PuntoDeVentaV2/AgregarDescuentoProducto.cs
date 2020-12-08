@@ -762,10 +762,12 @@ namespace PuntoDeVentaV2
         private void CargarFormularios(int tipo)
         {
             panelContenedor.Controls.Clear();
+
             if (tipo.Equals(1))
             {
                 if (AgregarEditarProducto.DatosSourceFinal == 1 ||
                     AgregarEditarProducto.DatosSourceFinal == 3 ||
+                    AgregarEditarProducto.DatosSourceFinal == 4 ||
                     AgregarEditarProducto.DatosSourceFinal == 5)
                 {
                     cargarNvoDescuentos();
@@ -779,6 +781,7 @@ namespace PuntoDeVentaV2
             {
                 if (AgregarEditarProducto.DatosSourceFinal == 1 ||
                     AgregarEditarProducto.DatosSourceFinal == 3 ||
+                    AgregarEditarProducto.DatosSourceFinal == 4 ||
                     AgregarEditarProducto.DatosSourceFinal == 5)
                 {
                     cargarNvoDescuentos();
