@@ -502,12 +502,12 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.cmb_bx_clientes);
             this.tabPage1.Controls.Add(this.groupb_monto_max);
             this.tabPage1.Controls.Add(this.groupb_productos);
             this.tabPage1.Controls.Add(this.pnl_datos_cliente);
             this.tabPage1.Controls.Add(this.btn_crear_cliente);
             this.tabPage1.Controls.Add(this.groupb_pago);
+            this.tabPage1.Controls.Add(this.cmb_bx_clientes);
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -523,7 +523,7 @@
             this.cmb_bx_clientes.Name = "cmb_bx_clientes";
             this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
             this.cmb_bx_clientes.TabIndex = 2;
-            this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
+            this.cmb_bx_clientes.SelectedIndexChanged += new System.EventHandler(this.sel_clientes);
             // 
             // groupb_monto_max
             // 

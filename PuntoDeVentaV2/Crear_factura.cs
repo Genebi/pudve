@@ -90,7 +90,7 @@ namespace PuntoDeVentaV2
             cmb_bx_clientes.SelectedIndex = 0;
 
             cmb_bx_clientes.MatchingMethod = StringMatchingMethod.NoWildcards;
-
+            
             // Método de pago
 
             Dictionary<string, string> metodo_pago = new Dictionary<string, string>();
