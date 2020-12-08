@@ -193,7 +193,7 @@ namespace PuntoDeVentaV2
 
                 row.Cells["ID"].Value = datos[0];
                 row.Cells["Nombre"].Value = datos[1];
-                row.Cells["Stock"].Value = datos[4];
+                row.Cells["Stock"].Value = Utilidades.RemoverCeroStock(datos[4]);
                 row.Cells["Precio"].Value = float.Parse(datos[2]).ToString("N2");
                 row.Cells["Categoria"].Value = tipo;
                 row.Cells["ClaveInterna"].Value = datos[6];
