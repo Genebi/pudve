@@ -107,6 +107,11 @@ namespace PuntoDeVentaV2
                         valor = precio.ToString("0.00");
                     }
 
+                    if (propiedad.Key == "Stock")
+                    {
+                        valor = Utilidades.RemoverCeroStock(valor);
+                    }
+
                     row.Cells[propiedad.Key].Value = valor;
                 }
             }
