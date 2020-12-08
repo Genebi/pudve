@@ -29,16 +29,17 @@
         private void InitializeComponent()
         {
             this.DGVConceptos = new System.Windows.Forms.DataGridView();
-            this.txtConcepto = new System.Windows.Forms.TextBox();
-            this.btnAgregar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.rbHabilitados = new System.Windows.Forms.RadioButton();
-            this.rbDeshabilitados = new System.Windows.Forms.RadioButton();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Habilitar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.txtConcepto = new System.Windows.Forms.TextBox();
+            this.btnAgregar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.rbHabilitados = new System.Windows.Forms.RadioButton();
+            this.rbDeshabilitados = new System.Windows.Forms.RadioButton();
+            this.btnBuscar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVConceptos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,68 +62,7 @@
             this.DGVConceptos.TabIndex = 0;
             this.DGVConceptos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVConceptos_CellClick);
             this.DGVConceptos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVConceptos_CellMouseEnter);
-            // 
-            // txtConcepto
-            // 
-            this.txtConcepto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConcepto.Location = new System.Drawing.Point(94, 41);
-            this.txtConcepto.Name = "txtConcepto";
-            this.txtConcepto.Size = new System.Drawing.Size(282, 23);
-            this.txtConcepto.TabIndex = 1;
-            this.txtConcepto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtConcepto_KeyDown);
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.BackColor = System.Drawing.Color.Green;
-            this.btnAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregar.FlatAppearance.BorderSize = 0;
-            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregar.ForeColor = System.Drawing.Color.White;
-            this.btnAgregar.Location = new System.Drawing.Point(385, 40);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(87, 24);
-            this.btnAgregar.TabIndex = 9;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = false;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 44);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 17);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Concepto";
-            // 
-            // rbHabilitados
-            // 
-            this.rbHabilitados.AutoSize = true;
-            this.rbHabilitados.Checked = true;
-            this.rbHabilitados.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbHabilitados.Location = new System.Drawing.Point(137, 92);
-            this.rbHabilitados.Name = "rbHabilitados";
-            this.rbHabilitados.Size = new System.Drawing.Size(93, 21);
-            this.rbHabilitados.TabIndex = 11;
-            this.rbHabilitados.TabStop = true;
-            this.rbHabilitados.Text = "Habilitados";
-            this.rbHabilitados.UseVisualStyleBackColor = true;
-            this.rbHabilitados.CheckedChanged += new System.EventHandler(this.rbHabilitados_CheckedChanged);
-            // 
-            // rbDeshabilitados
-            // 
-            this.rbDeshabilitados.AutoSize = true;
-            this.rbDeshabilitados.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbDeshabilitados.Location = new System.Drawing.Point(262, 92);
-            this.rbDeshabilitados.Name = "rbDeshabilitados";
-            this.rbDeshabilitados.Size = new System.Drawing.Size(114, 21);
-            this.rbDeshabilitados.TabIndex = 12;
-            this.rbDeshabilitados.Text = "Deshabilitados";
-            this.rbDeshabilitados.UseVisualStyleBackColor = true;
-            this.rbDeshabilitados.CheckedChanged += new System.EventHandler(this.rbDeshabilitados_CheckedChanged);
+            this.DGVConceptos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVConceptos_KeyDown);
             // 
             // ID
             // 
@@ -163,11 +103,85 @@
             this.Deshabilitar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Deshabilitar.Width = 70;
             // 
+            // txtConcepto
+            // 
+            this.txtConcepto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConcepto.Location = new System.Drawing.Point(16, 40);
+            this.txtConcepto.Name = "txtConcepto";
+            this.txtConcepto.Size = new System.Drawing.Size(282, 23);
+            this.txtConcepto.TabIndex = 1;
+            this.txtConcepto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtConcepto_KeyDown);
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.BackColor = System.Drawing.Color.Green;
+            this.btnAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregar.FlatAppearance.BorderSize = 0;
+            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.ForeColor = System.Drawing.Color.White;
+            this.btnAgregar.Location = new System.Drawing.Point(385, 40);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(87, 24);
+            this.btnAgregar.TabIndex = 9;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = false;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(13, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 17);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Concepto";
+            // 
+            // rbHabilitados
+            // 
+            this.rbHabilitados.AutoSize = true;
+            this.rbHabilitados.Checked = true;
+            this.rbHabilitados.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbHabilitados.Location = new System.Drawing.Point(137, 92);
+            this.rbHabilitados.Name = "rbHabilitados";
+            this.rbHabilitados.Size = new System.Drawing.Size(93, 21);
+            this.rbHabilitados.TabIndex = 11;
+            this.rbHabilitados.TabStop = true;
+            this.rbHabilitados.Text = "Habilitados";
+            this.rbHabilitados.UseVisualStyleBackColor = true;
+            this.rbHabilitados.CheckedChanged += new System.EventHandler(this.rbHabilitados_CheckedChanged);
+            // 
+            // rbDeshabilitados
+            // 
+            this.rbDeshabilitados.AutoSize = true;
+            this.rbDeshabilitados.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbDeshabilitados.Location = new System.Drawing.Point(262, 92);
+            this.rbDeshabilitados.Name = "rbDeshabilitados";
+            this.rbDeshabilitados.Size = new System.Drawing.Size(114, 21);
+            this.rbDeshabilitados.TabIndex = 12;
+            this.rbDeshabilitados.Text = "Deshabilitados";
+            this.rbDeshabilitados.UseVisualStyleBackColor = true;
+            this.rbDeshabilitados.CheckedChanged += new System.EventHandler(this.rbDeshabilitados_CheckedChanged);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.search;
+            this.btnBuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnBuscar.Location = new System.Drawing.Point(304, 40);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(56, 24);
+            this.btnBuscar.TabIndex = 14;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // ConceptosCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 331);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.rbDeshabilitados);
             this.Controls.Add(this.rbHabilitados);
             this.Controls.Add(this.label1);
@@ -200,5 +214,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewImageColumn Habilitar;
         private System.Windows.Forms.DataGridViewImageColumn Deshabilitar;
+        private System.Windows.Forms.Button btnBuscar;
     }
 }

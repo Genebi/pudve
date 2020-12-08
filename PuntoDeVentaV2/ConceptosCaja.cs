@@ -183,5 +183,67 @@ namespace PuntoDeVentaV2
                 CargarDatos(0);
             }
         }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            var texto = txtConcepto.Text;
+
+            if (!string.IsNullOrEmpty(texto))
+            {
+                var cadena = texto.Trim();
+                char delimitar = (' ');
+
+                Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
+
+                string[] separarPalabras = cadena.Split(delimitar);
+
+                foreach (var iterar in separarPalabras)
+                {
+                    using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = 1 AND Concepto LIKE '%{iterar}%'"))
+                    {
+                        if (!buscarDatos.Rows.Count.Equals(0))
+                        {
+                            DGVConceptos.Rows.Clear();
+
+                            //if (rbHabilitados.Checked)//habilitados - la imagen para deshabilitar
+                            //{
+                            Image imgDeshabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
+                            //}
+                            //else if (rbDeshabilitados.Checked)//Deshabilitados - la imagen para habilitar
+                            //{
+                            //    Image imgHabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
+                            //}
+
+                            foreach (DataRow llenarCampos in buscarDatos.Rows)
+                            {
+                                DGVConceptos.Rows.Add(llenarCampos["ID"].ToString(), llenarCampos["Concepto"].ToString(), llenarCampos["FechaOperacion"]);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ingrese el nombre de algun producto", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                txtConcepto.Focus();
+            }
+        }
+
+        private void DGVConceptos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ejecutarAccion();
+            }
+            else if (e.KeyCode == Keys.Up && DGVConceptos.CurrentRow.Index == 0)
+            {
+                txtConcepto.Focus();
+            }
+        }
+
+        private void ejecutarAccion()
+        {
+
+        }
     }
 }
