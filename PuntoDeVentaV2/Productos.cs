@@ -3606,7 +3606,6 @@ namespace PuntoDeVentaV2
 
             queryResultOtherTags = string.Empty;
             queryAndAdvancedOtherTags = string.Empty;
-            queryAndAdvancedOtherTags = string.Empty;
 
             queryHeadAdvancedProveedor = string.Empty;
 
@@ -3848,6 +3847,7 @@ namespace PuntoDeVentaV2
                     if (resultadoCodBarClavInt.Length > 0)
                     {
                         bool isEmpty = (listaCoincidenciasAux.Count == 0);
+
                         if (!isEmpty)
                         {
                             foreach (var infoId in resultadoCodBarClavInt)
@@ -3997,11 +3997,13 @@ namespace PuntoDeVentaV2
                     if (infoProducto.Length > 0)
                     {
                         bool isEmpty = (listaCoincidenciasAux.Count == 0);
+
                         if (!isEmpty)
                         {
                             foreach (var id in infoProducto)
                             {
                                 string[] palabras = id.Split('|');
+
                                 if (palabras[0].Equals("1"))
                                 {
                                     // Verificar que el ID del producto pertenezca al usuasio
@@ -4013,6 +4015,7 @@ namespace PuntoDeVentaV2
                                         if (!isEmpty)
                                         {
                                             bool contieneIDProducto = listaCoincidenciasAux.Contains(new KeyValuePair<int, int>(Convert.ToInt32(palabras[1].ToString()), 1));
+
                                             if (!contieneIDProducto)
                                             {
                                                 listaCoincidenciasAux.Add(Convert.ToInt32(palabras[1].ToString()), 1);
