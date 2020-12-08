@@ -195,7 +195,10 @@ namespace PuntoDeVentaV2
                     foreach (DataGridViewRow row in DGVRevisionStock.Rows)
                     {
                         var idProducto = Convert.ToInt32(row.Cells["IDAlmacen"].Value);
-                        
+
+                        row.Cells["StockAlmacen"].Value = Utilidades.RemoverCeroStock(row.Cells["StockAlmacen"].Value.ToString());
+                        row.Cells["StockFisico"].Value = Utilidades.RemoverCeroStock(row.Cells["StockFisico"].Value.ToString());
+                                                
                         cn.EjecutarConsulta($"UPDATE Productos SET NumeroRevision = {FilterNumActiveRecord} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
                         var infoGetPaqServ = mb.ObtenerPaqueteServicioAsignado(Convert.ToInt32(idProducto.ToString()), FormPrincipal.userID);
