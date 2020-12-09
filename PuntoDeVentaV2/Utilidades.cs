@@ -1200,25 +1200,10 @@ namespace PuntoDeVentaV2
 
             asunto = "Producto Eliminado (click simbolo de x) Al Listado De La Venta";
             correo = datosUsuario[9].ToString();
-            correo1 = "micorreoeshouse_1@hotmail.com";
-            //correo = "genebi@outlook.com";
 
             if (!correo.Equals(""))
             {
                 EnviarEmail(correoHTML, asunto, correo);
-                //if (correo.Equals(correo1))
-                //{
-                //    EnviarEmail(correoHTML, asunto, correo);
-                //}
-                //else
-                //{
-                //    EnviarEmail(correoHTML, asunto, correo);
-                //    EnviarEmail(correoHTML, asunto, correo1);
-                //}
-            }
-            else
-            {
-                //EnviarEmail(correoHTML, asunto, correo1);
             }
         }
 
