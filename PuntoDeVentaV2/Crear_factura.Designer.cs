@@ -90,7 +90,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txt_buscarcliente = new System.Windows.Forms.TextBox();
             this.btn_anterior = new System.Windows.Forms.Button();
-            this.cmb_bx_clientes = new System.Windows.Forms.ComboBox();
+            this.cmb_bx_clientes = new CustomControlPUDVE.ComboBoxPUDVE();
             this.pnl_datos_cliente.SuspendLayout();
             this.tab_control.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -502,12 +502,12 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.cmb_bx_clientes);
             this.tabPage1.Controls.Add(this.groupb_monto_max);
             this.tabPage1.Controls.Add(this.groupb_productos);
             this.tabPage1.Controls.Add(this.pnl_datos_cliente);
             this.tabPage1.Controls.Add(this.btn_crear_cliente);
             this.tabPage1.Controls.Add(this.groupb_pago);
+            this.tabPage1.Controls.Add(this.cmb_bx_clientes);
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -780,6 +780,7 @@
             this.cmb_bx_clientes.Name = "cmb_bx_clientes";
             this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
             this.cmb_bx_clientes.TabIndex = 2;
+            this.cmb_bx_clientes.SelectedIndexChanged += new System.EventHandler(this.sel_clientes);
             this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
             // 
             // Crear_factura
@@ -881,6 +882,6 @@
         private System.Windows.Forms.GroupBox groupb_monto_max;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox txt_cantidad_max;
-        private System.Windows.Forms.ComboBox cmb_bx_clientes;
+        private CustomControlPUDVE.ComboBoxPUDVE cmb_bx_clientes;
     }
 }
