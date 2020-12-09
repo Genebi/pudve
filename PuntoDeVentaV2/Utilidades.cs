@@ -1034,19 +1034,6 @@ namespace PuntoDeVentaV2
             if (!correo.Equals(""))
             {
                 EnviarEmail(correoHTML, asunto, correo);
-                //if (correo.Equals(correo1))
-                //{
-                //    EnviarEmail(correoHTML, asunto, correo);
-                //}
-                //else
-                //{
-                //    EnviarEmail(correoHTML, asunto, correo);
-                //    EnviarEmail(correoHTML, asunto, correo1);
-                //}
-            }
-            else
-            {
-                //EnviarEmail(correoHTML, asunto, correo1);
             }
         }
 
