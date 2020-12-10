@@ -19,6 +19,8 @@ namespace PuntoDeVentaV2
         private string origen;
         public static string id { get; set; }
 
+        public static string pasarOrigen { get; set; }
+
         public ConceptosCaja(string origen)
         {
             InitializeComponent();
@@ -104,28 +106,42 @@ namespace PuntoDeVentaV2
             //    CargarDatos();
             //}
 
-            string agregarName = string.Empty.ToUpper();
-            agregarName = Microsoft.VisualBasic.Interaction.InputBox("Ingrese el Concepto", "Agregar Concepto","".ToUpper(), 500, 300);
-            if (!string.IsNullOrEmpty(agregarName))
+            pasarOrigen = origen;
+
+            //string agregarName = string.Empty.ToUpper();
+            ////agregarName = Microsoft.VisualBasic.Interaction.InputBox("Ingrese el Concepto", "Agregar Concepto","".ToUpper(), 500, 300);
+            //if (!string.IsNullOrEmpty(agregarName))
+            //{
+            //    //var mensaje =  MessageBox.Show($"¿Desea agregar {agregarName.ToUpper()}?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            //        var concepto = agregarName.ToUpper().Trim();
+            //        var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            //        if (string.IsNullOrWhiteSpace(concepto))
+            //        {
+            //            MessageBox.Show("Ingrese el nombre del concepto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //            return;
+            //        }
+
+            //        var consulta = "INSERT INTO ConceptosDinamicos (IDUsuario, Concepto, Origen, FechaOperacion)";
+            //        consulta += $"VALUES ('{FormPrincipal.userID}', '{concepto}', '{origen}', '{fechaOperacion}')";
+
+            //        var resultado = cn.EjecutarConsulta(consulta);
+
+            //        if (resultado > 0)
+            //        {
+            //            //txtConcepto.Text = string.Empty;
+            //            //txtConcepto.Focus();
+            //            CargarDatos();
+            //        }
+            //}
+            AgregarConcepto addConcepto = new AgregarConcepto();
+
+            addConcepto.FormClosed += delegate
             {
-                var mensaje =  MessageBox.Show($"¿Desea agregar {agregarName.ToUpper()}?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (mensaje==DialogResult.Yes)
+                if (AgregarConcepto.empty != 0)
                 {
-
-                    var concepto = agregarName.ToUpper().Trim();
-                    var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                    if (string.IsNullOrWhiteSpace(concepto))
-                    {
-                        MessageBox.Show("Ingrese el nombre del concepto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-
-                    var consulta = "INSERT INTO ConceptosDinamicos (IDUsuario, Concepto, Origen, FechaOperacion)";
-                    consulta += $"VALUES ('{FormPrincipal.userID}', '{concepto}', '{origen}', '{fechaOperacion}')";
-
-                    var resultado = cn.EjecutarConsulta(consulta);
+                    var resultado = cn.EjecutarConsulta(AgregarConcepto.query);
 
                     if (resultado > 0)
                     {
@@ -134,8 +150,9 @@ namespace PuntoDeVentaV2
                         CargarDatos();
                     }
                 }
-            }
-
+            };
+            txtConcepto.Focus();
+            addConcepto.ShowDialog();
         }
 
         private void ConceptosCaja_Shown(object sender, EventArgs e)
@@ -237,9 +254,6 @@ namespace PuntoDeVentaV2
             {
                 status = 0;
             }
-
-            //Image imgDeshabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
-            //Image imgHabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
 
             Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
             Image imgDeshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
