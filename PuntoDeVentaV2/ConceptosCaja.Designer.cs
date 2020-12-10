@@ -61,6 +61,7 @@
             this.DGVConceptos.Size = new System.Drawing.Size(460, 197);
             this.DGVConceptos.TabIndex = 0;
             this.DGVConceptos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVConceptos_CellClick);
+            this.DGVConceptos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVConceptos_CellDoubleClick);
             this.DGVConceptos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVConceptos_CellMouseEnter);
             this.DGVConceptos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVConceptos_KeyDown);
             // 

@@ -42,6 +42,8 @@ namespace PuntoDeVentaV2
         float convertVales = 0f;
         float convertTrans = 0f;
 
+        string idParaComboBox = string.Empty;
+
         public AgregarRetirarDinero(int operacion = 0)
         {
             InitializeComponent();
@@ -681,9 +683,24 @@ namespace PuntoDeVentaV2
         {
             using (var conceptos = new ConceptosCaja("CAJA"))
             {
+                conceptos.FormClosed += delegate
+                {
+                    idParaComboBox = ConceptosCaja.id;
+                    CargarConceptos();
+
+                    var getConcepto = cn.CargarDatos($"SELECT Concepto FROM ConceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idParaComboBox}'");
+                    if (!getConcepto.Rows.Count.Equals(0))
+                    {
+                        var x = string.Empty;
+                        foreach (DataRow concepto in getConcepto.Rows)
+                        {
+                            x = concepto["Concepto"].ToString();
+                        }
+                        cbConceptos.SelectedIndex = cbConceptos.FindString(x);
+                    }
+                };
                 conceptos.ShowDialog();
 
-                CargarConceptos();
             }
         }
 
