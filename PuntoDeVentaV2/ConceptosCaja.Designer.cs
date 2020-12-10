@@ -145,7 +145,7 @@
             this.rbHabilitados.AutoSize = true;
             this.rbHabilitados.Checked = true;
             this.rbHabilitados.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbHabilitados.Location = new System.Drawing.Point(137, 92);
+            this.rbHabilitados.Location = new System.Drawing.Point(16, 92);
             this.rbHabilitados.Name = "rbHabilitados";
             this.rbHabilitados.Size = new System.Drawing.Size(93, 21);
             this.rbHabilitados.TabIndex = 11;
@@ -158,7 +158,7 @@
             // 
             this.rbDeshabilitados.AutoSize = true;
             this.rbDeshabilitados.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbDeshabilitados.Location = new System.Drawing.Point(262, 92);
+            this.rbDeshabilitados.Location = new System.Drawing.Point(125, 92);
             this.rbDeshabilitados.Name = "rbDeshabilitados";
             this.rbDeshabilitados.Size = new System.Drawing.Size(114, 21);
             this.rbDeshabilitados.TabIndex = 12;
