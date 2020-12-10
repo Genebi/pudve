@@ -1494,78 +1494,97 @@ namespace PuntoDeVentaV2
                 datos.Add("Clave", dr["ClaveInterna"].ToString());
                 datos.Add("Codigo", dr["CodigoBarras"].ToString());
                 datos.Add("Tipo", dr["Tipo"].ToString());
+            }
 
-                // Obtener proveedor
-                DatosConexion($"SELECT * FROM DetallesProducto WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+            dr.Close();
+            CerrarConexion();
 
-                MySqlDataReader dr2 = sql_cmd.ExecuteReader();
+            // Obtener proveedor
+            DatosConexion($"SELECT * FROM DetallesProducto WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
-                if (dr2.Read())
+            MySqlDataReader dr2 = sql_cmd.ExecuteReader();
+
+            if (dr2.Read())
+            {
+                datos.Add("Proveedor", dr2["Proveedor"].ToString());
+
+                dr2.Close();
+            }
+            else
+            {
+                datos.Add("Proveedor", "N/A");
+            }
+
+            dr2.Close();
+            CerrarConexion();
+
+
+            // Obtener datos de las propiedades
+
+            Dictionary<int, string> detallesID = new Dictionary<int, string>();
+
+            if (propiedades.Count > 0)
+            {
+                foreach (var propiedad in propiedades)
                 {
-                    datos.Add("Proveedor", dr2["Proveedor"].ToString());
+                    // Obtener ID del detalle general del producto
+                    DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
-                    dr2.Close();
-                }
-                else
-                {
-                    datos.Add("Proveedor", "N/A");
-                }
+                    MySqlDataReader dr3 = sql_cmd.ExecuteReader();
 
-                // Obtener datos de las propiedades
-                if (propiedades.Count > 0)
-                {
-                    foreach (var propiedad in propiedades)
+                    if (dr3.HasRows)
                     {
-                        // Obtener ID del detalle general del producto
-                        DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-
-                        MySqlDataReader dr3 = sql_cmd.ExecuteReader();
-
-                        if (dr3.HasRows)
+                        while (dr3.Read())
                         {
-                            while (dr3.Read())
+                            // ID del detalle
+                            var idDetalle = Convert.ToInt32(dr3["IDDetalleGral"].ToString());
+
+                            if (!detallesID.ContainsKey(idDetalle))
                             {
-                                // ID del detalle
-                                var idDetalle = Convert.ToInt32(dr3["IDDetalleGral"].ToString());
-
-                                // Obtener la descripcion
-                                DatosConexion($"SELECT * FROM DetalleGeneral WHERE ID = {idDetalle} AND IDUsuario = {FormPrincipal.userID} AND ChckName = '{propiedad}'");
-
-                                MySqlDataReader dr4 = sql_cmd.ExecuteReader();
-
-                                if (dr4.Read())
-                                {
-                                    var descripcion = dr4["Descripcion"].ToString();
-
-                                    if (!datos.ContainsKey(propiedad))
-                                    {
-                                        datos.Add(propiedad, descripcion);
-                                    }
-                                }
-                                else
-                                {
-                                    if (!datos.ContainsKey(propiedad))
-                                    {
-                                        datos.Add(propiedad, "N/A");
-                                    }
-                                }
-
-                                dr4.Close();
-                                CerrarConexion();
+                                detallesID.Add(idDetalle, propiedad);
                             }
                         }
-                        else
-                        {
-                            datos.Add(propiedad, "N/A");
-                        }
-
-                        dr3.Close();
-                        CerrarConexion();
                     }
-                }
+                    else
+                    {
+                        datos.Add(propiedad, "N/A");
+                    }
 
-                dr.Close();
-                CerrarConexion();
+                    dr3.Close();
+                    CerrarConexion();
+                }
+            }
+
+
+            if (detallesID.Count > 0)
+            {
+                foreach (var detalle in detallesID)
+                {
+                    // Obtener la descripcion
+                    DatosConexion($"SELECT * FROM DetalleGeneral WHERE ID = {detalle.Key} AND IDUsuario = {FormPrincipal.userID} AND ChckName = '{detalle.Value}'");
+
+                    MySqlDataReader dr4 = sql_cmd.ExecuteReader();
+
+                    if (dr4.Read())
+                    {
+                        var descripcion = dr4["Descripcion"].ToString();
+
+                        if (!datos.ContainsKey(detalle.Value))
+                        {
+                            datos.Add(detalle.Value, descripcion);
+                        }
+                    }
+                    else
+                    {
+                        if (!datos.ContainsKey(detalle.Value))
+                        {
+                            datos.Add(detalle.Value, "N/A");
+                        }
+                    }
+
+                    dr4.Close();
+                    CerrarConexion();
+                }
             }
 
             return datos;
