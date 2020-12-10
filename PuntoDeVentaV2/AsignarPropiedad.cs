@@ -698,12 +698,23 @@ namespace PuntoDeVentaV2
                     TextBox txtRevision = (TextBox)this.Controls.Find("tbNumeroRevision", true)[0];
 
                     var numeroRevision = txtRevision.Text;
+                    var consulta = "INSERT IGNORE INTO Productos (ID, NumeroRevision) VALUES";
+                    var valores = string.Empty;
 
                     if (!string.IsNullOrWhiteSpace(numeroRevision))
                     {
                         foreach (var producto in productos)
                         {
-                            var consulta = $"UPDATE Productos SET NumeroRevision = {numeroRevision} WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}";
+                            valores += $"({producto.Key}, {numeroRevision}),";
+
+                            //cn.EjecutarConsulta(consulta);
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(valores))
+                        {
+                            valores = valores.TrimEnd(',');
+
+                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), NumeroRevision = VALUES(NumeroRevision);";
 
                             cn.EjecutarConsulta(consulta);
                         }
