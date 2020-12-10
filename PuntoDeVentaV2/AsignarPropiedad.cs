@@ -475,6 +475,9 @@ namespace PuntoDeVentaV2
                     var stock = txtStock.Text;
                     var html = string.Empty;
 
+                    var consulta = "INSERT IGNORE INTO Productos (ID, Stock) VALUES";
+                    var valores = string.Empty;
+
                     if (!string.IsNullOrWhiteSpace(stock))
                     {
                         foreach (var producto in productos)
@@ -508,10 +511,21 @@ namespace PuntoDeVentaV2
                                     }
                                 }
 
-                                datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
+                                valores += $"({producto.Key}, {stock}),";
 
-                                cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+                                //datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
+
+                                //cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
                             }
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(valores))
+                        {
+                            valores = valores.TrimEnd(',');
+
+                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Stock = VALUES(Stock);";
+
+                            cn.EjecutarConsulta(consulta);
                         }
 
                         if (!string.IsNullOrWhiteSpace(html))
@@ -537,6 +551,8 @@ namespace PuntoDeVentaV2
                     TextBox txtStock = (TextBox)this.Controls.Find("tbStockMinimo", true)[0];
 
                     var stock = txtStock.Text;
+                    var consulta = "INSERT IGNORE INTO Productos (ID, StockMinimo) VALUES";
+                    var valores = string.Empty;
 
                     if (!string.IsNullOrWhiteSpace(stock))
                     {
@@ -544,10 +560,19 @@ namespace PuntoDeVentaV2
                         {
                             if (producto.Value == "P")
                             {
-                                var consulta = $"UPDATE Productos SET StockMinimo = {stock} WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}";
+                                valores += $"({producto.Key}, {stock}),";
 
-                                cn.EjecutarConsulta(consulta);
+                                //cn.EjecutarConsulta(consulta);
                             }
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(valores))
+                        {
+                            valores = valores.TrimEnd(',');
+
+                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), StockMinimo = VALUES(StockMinimo);";
+
+                            cn.EjecutarConsulta(consulta);
                         }
                     }
                     else
@@ -873,6 +898,16 @@ namespace PuntoDeVentaV2
                 {
                     e.Handled = true;
                 }
+            }
+        }
+
+        private void AsignarPropiedad_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Application.OpenForms.OfType<Cargando>().Count() == 1)
+            {
+                e.Cancel = true;
+
+                Application.OpenForms.OfType<Cargando>().First().BringToFront();
             }
         }
     }
