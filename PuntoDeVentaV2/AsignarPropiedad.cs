@@ -626,6 +626,8 @@ namespace PuntoDeVentaV2
                     {
                         var precio = float.Parse(precioTmp);
                         var html = string.Empty;
+                        var consulta = "INSERT IGNORE INTO Productos (ID, Precio) VALUES";
+                        var valores = string.Empty;
 
                         foreach (var producto in productos)
                         {
@@ -657,7 +659,19 @@ namespace PuntoDeVentaV2
                             }
 
                             // Actualizar el nuevo precio
-                            cn.EjecutarConsulta(cs.SetUpPrecioProductos(producto.Key, precio, FormPrincipal.userID));
+
+                            valores += $"({producto.Key}, {precio}),";
+
+                            //cn.EjecutarConsulta(cs.SetUpPrecioProductos(producto.Key, precio, FormPrincipal.userID));
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(valores))
+                        {
+                            valores = valores.TrimEnd(',');
+
+                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Precio = VALUES(Precio)";
+
+                            cn.EjecutarConsulta(consulta);
                         }
 
                         if (!string.IsNullOrWhiteSpace(html))
