@@ -108,7 +108,7 @@ namespace PuntoDeVentaV2
             agregarName = Microsoft.VisualBasic.Interaction.InputBox("Ingrese el Concepto", "Agregar Concepto","".ToUpper(), 500, 300);
             if (!string.IsNullOrEmpty(agregarName))
             {
-                var mensaje =  MessageBox.Show($"¿Desea agregar {agregarName.ToUpper()}?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                var mensaje =  MessageBox.Show($"¿Desea agregar {agregarName.ToUpper()}?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (mensaje==DialogResult.Yes)
                 {
@@ -226,6 +226,23 @@ namespace PuntoDeVentaV2
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             var texto = txtConcepto.Text;
+            var status = 2;
+
+            if (rbHabilitados.Checked)
+            {
+                status = 1;
+
+            }
+            else if (rbHabilitados.Checked)
+            {
+                status = 0;
+            }
+
+            //Image imgDeshabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
+            //Image imgHabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
+
+            Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
+            Image imgDeshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
 
             if (!string.IsNullOrEmpty(texto))
             {
@@ -238,18 +255,36 @@ namespace PuntoDeVentaV2
 
                 foreach (var iterar in separarPalabras)
                 {
-                    using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = 1 AND Concepto LIKE '%{iterar}%'"))
+                    using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = '{status}' AND Concepto LIKE '%{iterar}%'"))
                     {
                         if (!buscarDatos.Rows.Count.Equals(0))
                         {
                             DGVConceptos.Rows.Clear();
-
-                            //Image imgDeshabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
-                            Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
-
                             foreach (DataRow llenarCampos in buscarDatos.Rows)
                             {
-                                DGVConceptos.Rows.Add(llenarCampos["ID"].ToString(), llenarCampos["Concepto"].ToString(), llenarCampos["FechaOperacion"]);
+                                int number_of_rows = DGVConceptos.Rows.Add();
+                                DataGridViewRow row = DGVConceptos.Rows[number_of_rows];
+
+                                if (status == 1)
+                                {
+                                    row.Cells["ID"].Value = llenarCampos["ID"].ToString();
+                                    row.Cells["Concepto"].Value = llenarCampos["Concepto"].ToString();
+                                    row.Cells["Fecha"].Value = llenarCampos["FechaOperacion"].ToString();
+                                    row.Cells["Habilitar"].Value = imgHabilitar;
+                                    row.Cells["Deshabilitar"].Value = imgDeshabilitar;
+
+                                    //DGVConceptos.Rows.Add(llenarCampos["ID"].ToString(), llenarCampos["Concepto"].ToString(), llenarCampos["FechaOperacion"]);
+                                }
+                                else if (status == 0)
+                                {
+                                    row.Cells["ID"].Value = llenarCampos["ID"].ToString();
+                                    row.Cells["Concepto"].Value = llenarCampos["Concepto"].ToString();
+                                    row.Cells["Fecha"].Value = llenarCampos["FechaOperacion"].ToString();
+                                    row.Cells["Habilitar"].Value = imgHabilitar;
+                                    row.Cells["Deshabilitar"].Value = imgDeshabilitar;
+
+                                    //DGVConceptos.Rows.Add(llenarCampos["ID"].ToString(), llenarCampos["Concepto"].ToString(), llenarCampos["FechaOperacion"]);
+                                }
                             }
                         }
                     }
@@ -259,18 +294,23 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("Ingrese el nombre de algun producto", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 //txtConcepto.Focus();
-                using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = 1"))
+                using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = '{status}'"))
                 {
                     if (!buscarDatos.Rows.Count.Equals(0))
                     {
                         DGVConceptos.Rows.Clear();
-
-                        //Image imgDeshabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
-                        Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
-
                         foreach (DataRow llenarCampos in buscarDatos.Rows)
                         {
-                            DGVConceptos.Rows.Add(llenarCampos["ID"].ToString(), llenarCampos["Concepto"].ToString(), llenarCampos["FechaOperacion"]);
+                            int number_of_rows = DGVConceptos.Rows.Add();
+                            DataGridViewRow row = DGVConceptos.Rows[number_of_rows];
+
+                            row.Cells["ID"].Value = llenarCampos["ID"].ToString();
+                            row.Cells["Concepto"].Value = llenarCampos["Concepto"].ToString();
+                            row.Cells["Fecha"].Value = llenarCampos["FechaOperacion"].ToString();
+                            row.Cells["Habilitar"].Value = imgHabilitar;
+                            row.Cells["Deshabilitar"].Value = imgDeshabilitar;
+
+                            //DGVConceptos.Rows.Add(llenarCampos["ID"].ToString(), llenarCampos["Concepto"].ToString(), llenarCampos["FechaOperacion"]);
                         }
                     }
                 }
