@@ -18,6 +18,11 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+        Dictionary<string, string> clientes = new Dictionary<string, string>();
+
+        string mensajeClientes = "Seleccionar cliente",
+               mensajeSinClientes = "No hay clientes para mostrar. Ir a registrar cliente.";
+
         int con_id_cliente = 0;
         int n_filas = 0;
         int id_venta = 0;
@@ -27,6 +32,49 @@ namespace PuntoDeVentaV2
         decimal cantidd_productos = 0;
         int excede_montomax_xproducto = 0;
 
+        private void RemoveText(object sender, EventArgs e)
+        {
+            if (cmb_bx_clientes.Text.Equals(mensajeClientes) || cmb_bx_clientes.Text.Equals(mensajeSinClientes))
+            {
+                cmb_bx_clientes.Text = String.Empty;
+                cmb_bx_clientes.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void AddText(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(cmb_bx_clientes.Text))
+            {
+                var isEmpty = estaSinRegistros(clientes);
+
+                if (isEmpty.Equals(true))
+                {
+                    cmb_bx_clientes.Text = mensajeSinClientes;
+                }
+                else if (isEmpty.Equals(false))
+                {
+                    cmb_bx_clientes.Text = mensajeClientes;
+                }
+                cmb_bx_clientes.ForeColor = Color.DarkGray;
+            }
+        }
+
+        private object estaSinRegistros(Dictionary<string, string> clientes)
+        {
+            bool isEmpty = false;
+
+            if (clientes.Count.Equals(0) || clientes.Count <= 1)
+            {
+                isEmpty = true;
+            }
+            else if (clientes.Count >= 2)
+            {
+                isEmpty = false;
+            }
+
+            return isEmpty;
+        }
+
         public Crear_factura(int sin_cliente, int n_f, int id_v)
         {
             InitializeComponent();
@@ -34,6 +82,9 @@ namespace PuntoDeVentaV2
             con_id_cliente = sin_cliente; 
             n_filas = n_f;
             id_venta = id_v;
+
+            cmb_bx_clientes.GotFocus += new System.EventHandler(RemoveText);
+            cmb_bx_clientes.LostFocus += new System.EventHandler(AddText);
         }
 
         private void Crear_factura_Load(object sender, EventArgs e)
@@ -44,7 +95,7 @@ namespace PuntoDeVentaV2
             // Obtiene los clientes
 
             DataTable d_clientes;
-            Dictionary<string, string> clientes = new Dictionary<string, string>();
+            
             var indice = 0;
             int c = 1;
 
@@ -52,7 +103,7 @@ namespace PuntoDeVentaV2
 
             if(d_clientes.Rows.Count > 0)
             {
-                clientes.Add("0", "Seleccionar cliente");
+                clientes.Add("0", mensajeClientes);
                 foreach(DataRow r_clientes in d_clientes.Rows)
                 {
                     if (!r_clientes["RFC"].ToString().Equals(""))
@@ -73,13 +124,14 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                clientes.Add("0", "No hay clientes para mostrar. Ir a registrar cliente.");
+                clientes.Add("0", mensajeSinClientes);
             }
 
             cmb_bx_clientes.DataSource = clientes.ToArray();
             cmb_bx_clientes.DisplayMember = "Value";
             cmb_bx_clientes.ValueMember = "Key";
             cmb_bx_clientes.SelectedIndex = 0;
+            cmb_bx_clientes.ForeColor = Color.DarkGray;
 
             cmb_bx_clientes.MatchingMethod = StringMatchingMethod.NoWildcards;
 

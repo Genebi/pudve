@@ -88,9 +88,9 @@
             this.cmb_bx_metodo_pago = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.cmb_bx_clientes = new CustomControlPUDVE.ComboBoxPUDVE();
             this.txt_buscarcliente = new System.Windows.Forms.TextBox();
             this.btn_anterior = new System.Windows.Forms.Button();
-            this.cmb_bx_clientes = new CustomControlPUDVE.ComboBoxPUDVE();
             this.pnl_datos_cliente.SuspendLayout();
             this.tab_control.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -502,12 +502,12 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cmb_bx_clientes);
             this.tabPage1.Controls.Add(this.groupb_monto_max);
             this.tabPage1.Controls.Add(this.groupb_productos);
             this.tabPage1.Controls.Add(this.pnl_datos_cliente);
             this.tabPage1.Controls.Add(this.btn_crear_cliente);
             this.tabPage1.Controls.Add(this.groupb_pago);
-            this.tabPage1.Controls.Add(this.cmb_bx_clientes);
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -747,6 +747,16 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Método  pago";
             // 
+            // cmb_bx_clientes
+            // 
+            this.cmb_bx_clientes.FormattingEnabled = true;
+            this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
+            this.cmb_bx_clientes.Name = "cmb_bx_clientes";
+            this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
+            this.cmb_bx_clientes.TabIndex = 2;
+            this.cmb_bx_clientes.SelectedIndexChanged += new System.EventHandler(this.sel_clientes);
+            this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
+            // 
             // txt_buscarcliente
             // 
             this.txt_buscarcliente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
@@ -772,16 +782,6 @@
             this.btn_anterior.Text = "Anterior";
             this.btn_anterior.UseVisualStyleBackColor = false;
             this.btn_anterior.Click += new System.EventHandler(this.btn_anterior_Click);
-            // 
-            // cmb_bx_clientes
-            // 
-            this.cmb_bx_clientes.FormattingEnabled = true;
-            this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
-            this.cmb_bx_clientes.Name = "cmb_bx_clientes";
-            this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
-            this.cmb_bx_clientes.TabIndex = 2;
-            this.cmb_bx_clientes.SelectedIndexChanged += new System.EventHandler(this.sel_clientes);
-            this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
             // 
             // Crear_factura
             // 
