@@ -818,19 +818,28 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
-            {
-                var celda = DGVentas.CurrentCell.RowIndex;
+            var celda = DGVentas.CurrentCell.RowIndex;
+            var columna = DGVentas.CurrentCell.ColumnIndex;
 
-                // Cantidad
-                if (e.ColumnIndex == 5)
+            if (celda.Equals(-1))
+            {
+                return;
+            }
+
+            // Cantidad
+            if (columna.Equals(5))
+            {
+                if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
                     cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
                 }
+            }
 
-                // Descuento
-                if (e.ColumnIndex == 8)
+            // Descuento
+            if (columna.Equals(8))
+            {
+                if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     var idProducto = DGVentas.Rows[celda].Cells["IDProducto"].Value.ToString();
                     var nombreProducto = DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString();
@@ -870,9 +879,12 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+            }
 
-                // Agregar multiple
-                if (e.ColumnIndex == 10)
+            // Agregar multiple
+            if (columna.Equals(10))
+            {
+                if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     indiceFila = e.RowIndex;
 
@@ -886,9 +898,12 @@ namespace PuntoDeVentaV2
 
                     agregarMultiple.ShowDialog();
                 }
+            }
 
-                // Agregar individual
-                if (e.ColumnIndex == 11)
+            // Agregar individual
+            if (columna.Equals(11))
+            {
+                if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
                     int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celda].Cells["DescuentoTipo"].Value);
@@ -924,9 +939,12 @@ namespace PuntoDeVentaV2
                         CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
                     }
                 }
-
-                // Restar individual
-                if (e.ColumnIndex == 12)
+            }
+            
+            // Restar individual
+            if (columna.Equals(12))
+            {
+                if(!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value);
                     cantidad -= 1;
@@ -937,7 +955,7 @@ namespace PuntoDeVentaV2
 
                         if (primerClickRestarIndividual.Equals(false))
                         {
-                            productoRestado.Add("1|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((1*Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
+                            productoRestado.Add("1|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((1 * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
                             primerClickRestarIndividual = true;
                         }
                         else
@@ -1033,9 +1051,12 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+            }
 
-                // Eliminar individual
-                if (e.ColumnIndex == 13)
+            // Eliminar individual
+            if (columna.Equals(13))
+            {
+                if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     var idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
 
@@ -1072,7 +1093,7 @@ namespace PuntoDeVentaV2
                             productoEliminado.Add(count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
                         }
                     }
-                    
+
                     DGVentas.Rows.RemoveAt(celda);
 
                     if (productosDescuentoG.ContainsKey(idProducto))
@@ -1086,14 +1107,289 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            catch (Exception)
-            {
-
-            }
 
             DGVentas.ClearSelection();
             CalculoMayoreo();
             CantidadesFinalesVenta();
+
+            //try
+            //{
+            //    var celda = DGVentas.CurrentCell.RowIndex;
+
+            //// Cantidad
+            //if (e.ColumnIndex == 5)
+            //{
+            //    DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
+            //    cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
+            //}
+
+            //// Descuento
+            //if (e.ColumnIndex == 8)
+            //{
+            //    DGVentas.Rows[celda].Cells["Descuento"].ReadOnly = false;
+
+            //    var idProducto = DGVentas.Rows[celda].Cells["IDProducto"].Value.ToString();
+            //    var nombreProducto = DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString();
+            //    var precioProducto = DGVentas.Rows[celda].Cells["Precio"].Value.ToString();
+            //    var cantidadProducto = DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString();
+
+            //    var datos = new string[] { idProducto, nombreProducto, precioProducto, cantidadProducto };
+
+            //    using (var formDescuento = new AgregarDescuentoDirecto(datos))
+            //    {
+            //        // Aqui comprueba si el producto tiene un descuento directo
+            //        var quitarDescuento = false;
+
+            //        if (descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
+            //        {
+            //            quitarDescuento = true;
+            //        }
+
+            //        var resultado = formDescuento.ShowDialog();
+
+            //        if (resultado == DialogResult.OK)
+            //        {
+            //            DGVentas.Rows[celda].Cells["Descuento"].Value = formDescuento.TotalDescuento;
+            //            DGVentas.Rows[celda].Cells["TipoDescuento"].Value = formDescuento.TipoDescuento;
+            //        }
+            //        else
+            //        {
+            //            // Si el producto tenia un descuento directo previamente y detecta al cerrar el form
+            //            // que el descuento fue eliminado pone por defecto cero en la columna correspondiente
+            //            if (quitarDescuento)
+            //            {
+            //                if (!descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
+            //                {
+            //                    DGVentas.Rows[celda].Cells["Descuento"].Value = "0.00";
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
+            //// Agregar multiple
+            //if (e.ColumnIndex == 10)
+            //{
+            //    indiceFila = e.RowIndex;
+
+            //    AgregarMultiplesProductos agregarMultiple = new AgregarMultiplesProductos();
+
+            //    agregarMultiple.FormClosed += delegate
+            //    {
+            //        AgregarMultiplesProductos();
+            //        agregarMultiple.Dispose();
+            //    };
+
+            //    agregarMultiple.ShowDialog();
+            //}
+
+            //// Agregar individual
+            //if (e.ColumnIndex == 11)
+            //{
+            //    int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
+            //    int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celda].Cells["DescuentoTipo"].Value);
+            //    var precio = float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
+            //    int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value) + 1;
+
+            //    float importe = cantidad * precio;
+
+            //    // Verificar si tiene descuento directo
+            //    if (descuentosDirectos.ContainsKey(idProducto))
+            //    {
+            //        var tipoDescuentoDirecto = descuentosDirectos[idProducto].Item1;
+
+            //        // Si el descuento directo es por descuento
+            //        if (tipoDescuentoDirecto == 2)
+            //        {
+            //            var porcentaje = descuentosDirectos[idProducto].Item2;
+
+            //            var descuentoTmp = (precio * cantidad) * (porcentaje / 100);
+            //            var importeTmp = (precio * cantidad) - descuentoTmp;
+
+            //            importe = importeTmp;
+            //            DGVentas.Rows[celda].Cells["Descuento"].Value = $"{descuentoTmp.ToString("N2")} - {porcentaje}%";
+            //        }
+            //    }
+
+            //    DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
+            //    DGVentas.Rows[celda].Cells["Importe"].Value = importe;
+
+            //    if (tipoDescuento > 0)
+            //    {
+            //        string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+            //        CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
+            //    }
+            //}
+
+            //// Restar individual
+            //if (e.ColumnIndex == 12)
+            //{
+            //    int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value);
+            //    cantidad -= 1;
+
+            //    if (cantidad > 0)
+            //    {
+            //        fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+            //        if (primerClickRestarIndividual.Equals(false))
+            //        {
+            //            productoRestado.Add("1|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((1*Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
+            //            primerClickRestarIndividual = true;
+            //        }
+            //        else
+            //        {
+            //            string[] word;
+            //            string palabra = string.Empty;
+            //            bool descripcionEncontrada = false;
+            //            palabra = DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString();
+            //            for (int i = 0; i < productoRestado.Count; i++)
+            //            {
+            //                word = productoRestado[i].Split('|');
+            //                descripcionEncontrada = Array.Exists(word, element => element == palabra);
+            //                if (descripcionEncontrada)
+            //                {
+            //                    var count = Convert.ToDecimal(word[0].ToString());
+            //                    count++;
+            //                    productoRestado[i] = count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString()));
+            //                    break;
+            //                }
+            //            }
+
+            //            if (!descripcionEncontrada)
+            //            {
+            //                productoRestado.Add("1|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((1 * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
+            //            }
+            //        }
+
+            //        int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
+            //        int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celda].Cells["DescuentoTipo"].Value);
+            //        var precio = float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
+
+            //        float importe = cantidad * precio;
+
+            //        // Verificar si tiene descuento directo
+            //        if (descuentosDirectos.ContainsKey(idProducto))
+            //        {
+            //            var tipoDescuentoDirecto = descuentosDirectos[idProducto].Item1;
+
+            //            // Si el descuento directo es el de cantidad
+            //            if (tipoDescuentoDirecto == 1)
+            //            {
+            //                var descuento = float.Parse(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString());
+
+            //                // Cuando cantidad de producto sea igual a 1 hara esto
+            //                if (cantidad == 1)
+            //                {
+            //                    // Si el importe es menor al descuento debe terminar la operacion
+            //                    if (importe < descuento)
+            //                    {
+            //                        DGVentas.ClearSelection();
+            //                        MessageBox.Show("El descuento no puede ser mayor al precio del producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                        return;
+            //                    }
+            //                }
+            //            }
+
+            //            // Si el descuento directo es por descuento
+            //            if (tipoDescuentoDirecto == 2)
+            //            {
+            //                var porcentaje = descuentosDirectos[idProducto].Item2;
+
+            //                var descuentoTmp = (precio * cantidad) * (porcentaje / 100);
+            //                var importeTmp = (precio * cantidad) - descuentoTmp;
+
+            //                importe = importeTmp;
+            //                DGVentas.Rows[celda].Cells["Descuento"].Value = $"{descuentoTmp.ToString("N2")} - {porcentaje}%";
+            //            }
+            //        }
+
+            //        DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
+            //        DGVentas.Rows[celda].Cells["Importe"].Value = importe;
+
+            //        if (tipoDescuento > 0)
+            //        {
+            //            string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+            //            CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        var idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
+
+            //        DGVentas.Rows.RemoveAt(celda);
+
+            //        if (productosDescuentoG.ContainsKey(idProducto))
+            //        {
+            //            productosDescuentoG.Remove(idProducto);
+            //        }
+
+            //        if (descuentosDirectos.ContainsKey(idProducto))
+            //        {
+            //            descuentosDirectos.Remove(idProducto);
+            //        }
+            //    }
+            //}
+
+            //// Eliminar individual
+            //if (e.ColumnIndex == 13)
+            //{
+            //    var idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
+
+            //    fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+            //    if (primerClickEliminarIndividual.Equals(false))
+            //    {
+            //        productoEliminado.Add(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Importe"].Value.ToString());
+            //        primerClickEliminarIndividual = true;
+            //    }
+            //    else
+            //    {
+            //        string[] word;
+            //        string palabra = string.Empty;
+            //        bool descripcionEncontrada = false;
+            //        palabra = DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString();
+
+            //        for (int i = 0; i < productoEliminado.Count; i++)
+            //        {
+            //            word = productoEliminado[i].Split('|');
+            //            descripcionEncontrada = Array.Exists(word, element => element == palabra);
+            //            if (descripcionEncontrada)
+            //            {
+            //                var count = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
+            //                count++;
+            //                productoEliminado[i] = count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString()));
+            //                break;
+            //            }
+            //        }
+
+            //        if (!descripcionEncontrada)
+            //        {
+            //            var count = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
+            //            productoEliminado.Add(count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
+            //        }
+            //    }
+
+            //    DGVentas.Rows.RemoveAt(celda);
+
+            //    if (productosDescuentoG.ContainsKey(idProducto))
+            //    {
+            //        productosDescuentoG.Remove(idProducto);
+            //    }
+
+            //    if (descuentosDirectos.ContainsKey(idProducto))
+            //    {
+            //        descuentosDirectos.Remove(idProducto);
+            //    }
+            //}
+            //}
+            //catch (Exception)
+            //{
+
+            //}
+
+            //DGVentas.ClearSelection();
+            //CalculoMayoreo();
+            //CantidadesFinalesVenta();
         }
 
         private void AgregarMultiplesProductos()
@@ -4658,13 +4954,20 @@ namespace PuntoDeVentaV2
         private void DGVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var celda = DGVentas.CurrentCell.RowIndex;
+            var columna = DGVentas.CurrentCell.ColumnIndex;
 
             // Cantidad
-            if (e.ColumnIndex == 5)
+            if (columna.Equals(5))
             {
                 DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
                 cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
             }
+
+            //// Descuento
+            //if (e.ColumnIndex == 8)
+            //{
+            //    DGVentas.Rows[celda].Cells["Descuento"].ReadOnly = false;
+            //}
         }
 
         private void DGVentas_CellEndEdit(object sender, DataGridViewCellEventArgs e)
