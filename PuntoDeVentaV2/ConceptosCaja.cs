@@ -284,7 +284,12 @@ namespace PuntoDeVentaV2
         {
             id = DGVConceptos.Rows[DGVConceptos.CurrentRow.Index].Cells[0].Value.ToString();
 
-            //this.Dispose();
+            this.Dispose();
+        }
+
+        private void DGVConceptos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ejecutarAccion();
         }
     }
 }
