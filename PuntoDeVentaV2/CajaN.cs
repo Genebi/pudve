@@ -637,17 +637,18 @@ namespace PuntoDeVentaV2
             drDos.Close();
             sql_con.Close();
 
-
+            var credi = (vCredito - retiroCredito);
+            if (credi < 0 ) { credi = 0; }
             // Apartado VENTAS
             lbTEfectivo.Text = "$" + vEfectivo.ToString("0.00");
             lbTTarjeta.Text = "$" + vTarjeta.ToString("0.00");
             lbTVales.Text = "$" + vVales.ToString("0.00");
             lbTCheque.Text = "$" + vCheque.ToString("0.00");
             lbTTrans.Text = "$" + vTrans.ToString("0.00");
-            lbTCredito.Text = "$" + (vCredito - retiroCredito).ToString("0.00");
+            lbTCredito.Text = "$" + credi.ToString("0.00"); 
             //lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
             lbTAnticipos.Text = "$" + anticiposAplicados.ToString("0.00");
-            lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (vCredito - retiroCredito) + /*vAnticipos*/anticiposAplicados).ToString("0.00");
+            lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00");
 
             ////Variables de Abonos en Ventas
             //lbEfectivoAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
