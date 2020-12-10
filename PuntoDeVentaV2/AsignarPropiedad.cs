@@ -475,6 +475,9 @@ namespace PuntoDeVentaV2
                     var stock = txtStock.Text;
                     var html = string.Empty;
 
+                    var consulta = "INSERT IGNORE INTO Productos (ID, Stock) VALUES";
+                    var valores = string.Empty;
+
                     if (!string.IsNullOrWhiteSpace(stock))
                     {
                         foreach (var producto in productos)
@@ -508,10 +511,21 @@ namespace PuntoDeVentaV2
                                     }
                                 }
 
-                                datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
+                                valores += $"({producto.Key}, {stock}),";
 
-                                cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+                                //datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
+
+                                //cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
                             }
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(valores))
+                        {
+                            valores = valores.TrimEnd(',');
+
+                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Stock = VALUES(Stock);";
+
+                            cn.EjecutarConsulta(consulta);
                         }
 
                         if (!string.IsNullOrWhiteSpace(html))
