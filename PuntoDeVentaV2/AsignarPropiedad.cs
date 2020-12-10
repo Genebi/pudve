@@ -551,6 +551,8 @@ namespace PuntoDeVentaV2
                     TextBox txtStock = (TextBox)this.Controls.Find("tbStockMinimo", true)[0];
 
                     var stock = txtStock.Text;
+                    var consulta = "INSERT IGNORE INTO Productos (ID, StockMinimo) VALUES";
+                    var valores = string.Empty;
 
                     if (!string.IsNullOrWhiteSpace(stock))
                     {
@@ -558,10 +560,19 @@ namespace PuntoDeVentaV2
                         {
                             if (producto.Value == "P")
                             {
-                                var consulta = $"UPDATE Productos SET StockMinimo = {stock} WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}";
+                                valores += $"({producto.Key}, {stock}),";
 
-                                cn.EjecutarConsulta(consulta);
+                                //cn.EjecutarConsulta(consulta);
                             }
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(valores))
+                        {
+                            valores = valores.TrimEnd(',');
+
+                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), StockMinimo = VALUES(StockMinimo);";
+
+                            cn.EjecutarConsulta(consulta);
                         }
                     }
                     else
