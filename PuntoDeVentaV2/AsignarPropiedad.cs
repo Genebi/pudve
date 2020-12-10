@@ -875,5 +875,15 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void AsignarPropiedad_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Application.OpenForms.OfType<Cargando>().Count() == 1)
+            {
+                e.Cancel = true;
+
+                Application.OpenForms.OfType<Cargando>().First().BringToFront();
+            }
+        }
     }
 }

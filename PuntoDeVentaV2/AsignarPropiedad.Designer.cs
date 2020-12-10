@@ -43,7 +43,7 @@
             // 
             // lbNombrePropiedad
             // 
-            this.lbNombrePropiedad.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNombrePropiedad.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNombrePropiedad.Location = new System.Drawing.Point(10, 8);
             this.lbNombrePropiedad.Name = "lbNombrePropiedad";
             this.lbNombrePropiedad.Size = new System.Drawing.Size(310, 23);
@@ -61,6 +61,7 @@
             this.MinimizeBox = false;
             this.Name = "AsignarPropiedad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AsignarPropiedad_FormClosing);
             this.Load += new System.EventHandler(this.AsignarPropiedad_Load);
             this.panelContenedor.ResumeLayout(false);
             this.ResumeLayout(false);

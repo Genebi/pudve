@@ -51,6 +51,7 @@
             this.Name = "AsignarMultipleProductos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Asignación Multiple";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AsignarMultipleProductos_FormClosing);
             this.Load += new System.EventHandler(this.AsignarMultipleProductos_Load);
             this.ResumeLayout(false);
 
