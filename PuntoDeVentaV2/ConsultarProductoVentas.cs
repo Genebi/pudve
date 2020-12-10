@@ -55,12 +55,6 @@ namespace PuntoDeVentaV2
             txtBuscar.Focus();
         }
 
-        private void timerBusqueda_Tick(object sender, EventArgs e)
-        {
-            timerBusqueda.Stop();
-            BuscarProductos();
-        }
-
         private void BuscarProductos()
         {
             var busqueda = txtBuscar.Text.Trim();
@@ -117,17 +111,16 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
-        {
-            timerBusqueda.Stop();
-            timerBusqueda.Start();
-        }
-
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
                 Close();
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                BuscarProductos();
             }
         }
 
