@@ -232,7 +232,7 @@ namespace PuntoDeVentaV2
                 var cadena = texto.Trim();
                 char delimitar = (' ');
 
-                Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
+                //Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
 
                 string[] separarPalabras = cadena.Split(delimitar);
 
@@ -244,14 +244,8 @@ namespace PuntoDeVentaV2
                         {
                             DGVConceptos.Rows.Clear();
 
-                            //if (rbHabilitados.Checked)//habilitados - la imagen para deshabilitar
-                            //{
-                            Image imgDeshabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
-                            //}
-                            //else if (rbDeshabilitados.Checked)//Deshabilitados - la imagen para habilitar
-                            //{
-                            //    Image imgHabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
-                            //}
+                            //Image imgDeshabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
+                            Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
 
                             foreach (DataRow llenarCampos in buscarDatos.Rows)
                             {
@@ -263,8 +257,23 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Ingrese el nombre de algun producto", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                txtConcepto.Focus();
+                //MessageBox.Show("Ingrese el nombre de algun producto", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                //txtConcepto.Focus();
+                using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = 1"))
+                {
+                    if (!buscarDatos.Rows.Count.Equals(0))
+                    {
+                        DGVConceptos.Rows.Clear();
+
+                        //Image imgDeshabilitar2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
+                        Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
+
+                        foreach (DataRow llenarCampos in buscarDatos.Rows)
+                        {
+                            DGVConceptos.Rows.Add(llenarCampos["ID"].ToString(), llenarCampos["Concepto"].ToString(), llenarCampos["FechaOperacion"]);
+                        }
+                    }
+                }
             }
         }
 
