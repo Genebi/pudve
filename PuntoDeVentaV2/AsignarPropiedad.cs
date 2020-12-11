@@ -417,6 +417,8 @@ namespace PuntoDeVentaV2
                 TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensaje", true)[0];
 
                 var mensaje = txtMensaje.Text;
+                var consulta = "INSERT IGNORE INTO ProductMessage (ID, ProductOfMessage) VALUES";
+                var valores = string.Empty;
 
                 if (string.IsNullOrWhiteSpace(mensaje))
                 {
@@ -427,18 +429,23 @@ namespace PuntoDeVentaV2
                 foreach (var producto in productos)
                 {
                     // Comprobar si existe ya un mensaje para este producto
-                    var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM ProductMessage WHERE IDProducto = {producto.Key}"));
+                    var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM ProductMessage WHERE IDProducto = {producto.Key}", 1));
 
-                    if (comprobar > 0)
+                    if (id > 0)
                     {
+                        valores += $"({id}, '{mensaje}'),";
                         // UPDATE
-                        cn.EjecutarConsulta($"UPDATE ProductMessage SET ProductOfMessage = '{mensaje}' WHERE IDProducto = {producto.Key}");
+                        //cn.EjecutarConsulta($"UPDATE ProductMessage SET ProductOfMessage = '{mensaje}' WHERE IDProducto = {producto.Key}");
                     }
-                    else
-                    {
-                        // INSERT
-                        cn.EjecutarConsulta($"INSERT INTO ProductMessage (IDProducto, ProductOfMessage, ProductMessageActivated) VALUES ('{producto.Key}', '{mensaje}', '1')");
-                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(valores))
+                {
+                    valores = valores.TrimEnd(',');
+
+                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), ProductOfMessage = VALUES(ProductOfMessage);";
+
+                    cn.EjecutarConsulta(consulta);
                 }
             }
             else if (propiedad == "MensajeInventario")
