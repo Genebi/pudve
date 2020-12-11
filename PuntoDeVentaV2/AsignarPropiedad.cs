@@ -860,6 +860,8 @@ namespace PuntoDeVentaV2
 
                 var idProveedor = Convert.ToInt32(combo.SelectedValue.ToString());
                 var proveedor = combo.Text;
+                var consulta = "INSERT IGNORE INTO DetallesProducto (ID, Proveedor, IDProveedor) VALUES";
+                var valores = string.Empty;
 
                 if (idProveedor > 0)
                 {
@@ -868,21 +870,19 @@ namespace PuntoDeVentaV2
                         // Comprobar si existe registro en la tabla DetallesProducto
                         var existe = mb.DetallesProducto(producto.Key, FormPrincipal.userID);
 
-                        datos = new string[] {
-                        producto.Key.ToString(), FormPrincipal.userID.ToString(),
-                        proveedor, idProveedor.ToString()
-                    };
-
                         if (existe.Length > 0)
                         {
-                            // Hacemos un UPDATE
-                            cn.EjecutarConsulta(cs.GuardarProveedorProducto(datos, 1));
+                            valores += $"({existe[0]}, '{proveedor}', {idProveedor}),";
                         }
-                        else
-                        {
-                            // Hacemos un INSERT
-                            cn.EjecutarConsulta(cs.GuardarProveedorProducto(datos));
-                        }
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(valores))
+                    {
+                        valores = valores.TrimEnd(',');
+
+                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Proveedor = VALUES(Proveedor), IDProveedor = VALUES(IDProveedor);";
+
+                        cn.EjecutarConsulta(consulta);
                     }
                 }
                 else
