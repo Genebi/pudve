@@ -108,11 +108,11 @@ namespace PuntoDeVentaV2
                 {
                     if (!r_clientes["RFC"].ToString().Equals(""))
                     {
-                        clientes.Add(r_clientes["ID"].ToString(), r_clientes["RazonSocial"].ToString() + " - " + r_clientes["RFC"].ToString());
+                        clientes.Add(r_clientes["ID"].ToString().Trim(), r_clientes["RazonSocial"].ToString().Trim() + " - " + r_clientes["RFC"].ToString().Trim());
                     }
                     else
                     {
-                        clientes.Add(r_clientes["ID"].ToString(), r_clientes["RazonSocial"].ToString());
+                        clientes.Add(r_clientes["ID"].ToString().Trim(), r_clientes["RazonSocial"].ToString().Trim());
                     }
 
                     if (Convert.ToInt32(r_clientes["ID"]) == con_id_cliente)
