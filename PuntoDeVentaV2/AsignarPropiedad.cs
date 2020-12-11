@@ -396,490 +396,512 @@ namespace PuntoDeVentaV2
         {
             cargando.Show();
 
-            await OperacionBoton();
+            await Task.Run(() =>
+            {
+                Thread.Sleep(2000);
+            });
+
+            OperacionBoton();
 
             cargando.Close();
 
             Dispose();
         }
 
-        private async Task OperacionBoton()
+        private void OperacionBoton()
         {
-            //Button boton = sender as Button;
-            await Task.Run(() =>
+            string[] datos;
+
+            if (propiedad == "Mensaje")
             {
-                string[] datos;
+                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensaje", true)[0];
 
-                if (propiedad == "Mensaje")
+                var mensaje = txtMensaje.Text;
+
+                if (string.IsNullOrWhiteSpace(mensaje))
                 {
-                    TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensaje", true)[0];
+                    MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
-                    var mensaje = txtMensaje.Text;
+                foreach (var producto in productos)
+                {
+                    // Comprobar si existe ya un mensaje para este producto
+                    var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM ProductMessage WHERE IDProducto = {producto.Key}"));
 
-                    if (string.IsNullOrWhiteSpace(mensaje))
+                    if (comprobar > 0)
                     {
-                        MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
+                        // UPDATE
+                        cn.EjecutarConsulta($"UPDATE ProductMessage SET ProductOfMessage = '{mensaje}' WHERE IDProducto = {producto.Key}");
                     }
+                    else
+                    {
+                        // INSERT
+                        cn.EjecutarConsulta($"INSERT INTO ProductMessage (IDProducto, ProductOfMessage, ProductMessageActivated) VALUES ('{producto.Key}', '{mensaje}', '1')");
+                    }
+                }
+            }
+            else if (propiedad == "MensajeInventario")
+            {
+                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
 
+                var mensaje = txtMensaje.Text;
+
+                if (string.IsNullOrWhiteSpace(mensaje))
+                {
+                    MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                foreach (var producto in productos)
+                {
+                    // Comprobar si existe ya un mensaje para este producto en inventario
+                    var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}"));
+
+                    if (comprobar > 0)
+                    {
+                        // UPDATE
+                        cn.EjecutarConsulta($"UPDATE MensajesInventario SET Mensaje = '{mensaje}' WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}");
+                    }
+                    else
+                    {
+                        // INSERT
+                        cn.EjecutarConsulta($"INSERT INTO MensajesInventario (IDUsuario, IDProducto, Mensaje, Activo) VALUES ('{FormPrincipal.userID}', '{producto.Key}', '{mensaje}', '1')");
+                    }
+                }
+            }
+            else if (propiedad == "Stock")
+            {
+                TextBox txtStock = (TextBox)this.Controls.Find("tbStock", true)[0];
+
+                var stock = txtStock.Text;
+                var html = string.Empty;
+
+                var consulta = "INSERT IGNORE INTO Productos (ID, Stock) VALUES";
+                var valores = string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(stock))
+                {
                     foreach (var producto in productos)
                     {
-                        // Comprobar si existe ya un mensaje para este producto
-                        var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM ProductMessage WHERE IDProducto = {producto.Key}"));
-
-                        if (comprobar > 0)
-                        {
-                            // UPDATE
-                            cn.EjecutarConsulta($"UPDATE ProductMessage SET ProductOfMessage = '{mensaje}' WHERE IDProducto = {producto.Key}");
-                        }
-                        else
-                        {
-                            // INSERT
-                            cn.EjecutarConsulta($"INSERT INTO ProductMessage (IDProducto, ProductOfMessage, ProductMessageActivated) VALUES ('{producto.Key}', '{mensaje}', '1')");
-                        }
-                    }
-                }
-                else if (propiedad == "MensajeInventario")
-                {
-                    TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
-
-                    var mensaje = txtMensaje.Text;
-
-                    if (string.IsNullOrWhiteSpace(mensaje))
-                    {
-                        MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-
-                    foreach (var producto in productos)
-                    {
-                        // Comprobar si existe ya un mensaje para este producto en inventario
-                        var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}"));
-
-                        if (comprobar > 0)
-                        {
-                            // UPDATE
-                            cn.EjecutarConsulta($"UPDATE MensajesInventario SET Mensaje = '{mensaje}' WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}");
-                        }
-                        else
-                        {
-                            // INSERT
-                            cn.EjecutarConsulta($"INSERT INTO MensajesInventario (IDUsuario, IDProducto, Mensaje, Activo) VALUES ('{FormPrincipal.userID}', '{producto.Key}', '{mensaje}', '1')");
-                        }
-                    }
-                }
-                else if (propiedad == "Stock")
-                {
-                    TextBox txtStock = (TextBox)this.Controls.Find("tbStock", true)[0];
-
-                    var stock = txtStock.Text;
-                    var html = string.Empty;
-
-                    var consulta = "INSERT IGNORE INTO Productos (ID, Stock) VALUES";
-                    var valores = string.Empty;
-
-                    if (!string.IsNullOrWhiteSpace(stock))
-                    {
-                        foreach (var producto in productos)
-                        {
-                            if (producto.Value == "P")
-                            {
-                                var datosConfig = mb.ComprobarConfiguracion();
-
-                                if (datosConfig.Count > 0)
-                                {
-                                    if (Convert.ToInt16(datosConfig[1]) == 1)
-                                    {
-                                        var configProducto = mb.ComprobarCorreoProducto(producto.Key);
-
-                                        if (configProducto.Count > 0)
-                                        {
-                                            if (configProducto[1] == 1)
-                                            {
-                                                // Obtenemos los datos del producto para el email
-                                                var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
-
-                                                html += $@"<li>
-                                                       <span style='color: red;'>{datosProducto[1]}</span> 
-                                                       --- <b>STOCK ANTERIOR:</b> 
-                                                       <span style='color: red;'>{datosProducto[4]}</span> 
-                                                       --- <b>STOCK NUEVO:</b> 
-                                                       <span style='color: red;'>{stock}</span>
-                                                   </li>";
-                                            }
-                                        }
-                                    }
-                                }
-
-                                valores += $"({producto.Key}, {stock}),";
-
-                                //datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
-
-                                //cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
-                            }
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(valores))
-                        {
-                            valores = valores.TrimEnd(',');
-
-                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Stock = VALUES(Stock);";
-
-                            cn.EjecutarConsulta(consulta);
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(html))
-                        {
-                            // Ejecutar hilo para enviar notificacion
-                            datos = new string[] { html, "", "", "", "ASIGNAR", "" };
-
-                            Thread notificacion = new Thread(
-                                () => Utilidades.CambioStockProductoEmail(datos, 1)
-                            );
-
-                            notificacion.Start();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ingrese una cantidad para stock", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                else if (propiedad == "StockMinimo")
-                {
-                    TextBox txtStock = (TextBox)this.Controls.Find("tbStockMinimo", true)[0];
-
-                    var stock = txtStock.Text;
-                    var consulta = "INSERT IGNORE INTO Productos (ID, StockMinimo) VALUES";
-                    var valores = string.Empty;
-
-                    if (!string.IsNullOrWhiteSpace(stock))
-                    {
-                        foreach (var producto in productos)
-                        {
-                            if (producto.Value == "P")
-                            {
-                                valores += $"({producto.Key}, {stock}),";
-
-                                //cn.EjecutarConsulta(consulta);
-                            }
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(valores))
-                        {
-                            valores = valores.TrimEnd(',');
-
-                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), StockMinimo = VALUES(StockMinimo);";
-
-                            cn.EjecutarConsulta(consulta);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ingrese una cantidad para stock minimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                else if (propiedad == "StockMaximo")
-                {
-                    TextBox txtStock = (TextBox)this.Controls.Find("tbStockMaximo", true)[0];
-
-                    var stock = txtStock.Text;
-                    var consulta = "INSERT IGNORE INTO Productos (ID, StockNecesario) VALUES";
-                    var valores = string.Empty;
-
-                    if (!string.IsNullOrWhiteSpace(stock))
-                    {
-                        foreach (var producto in productos)
-                        {
-                            if (producto.Value == "P")
-                            {
-                                valores += $"({producto.Key}, {stock}),";
-
-                                //cn.EjecutarConsulta(consulta);
-                            }
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(valores))
-                        {
-                            valores = valores.TrimEnd(',');
-
-                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), StockNecesario = VALUES(StockNecesario);";
-
-                            cn.EjecutarConsulta(consulta);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ingrese una cantidad para stock maximo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                else if (propiedad == "Precio")
-                {
-                    TextBox txtPrecio = (TextBox)this.Controls.Find("tbPrecio", true)[0];
-
-                    var precioTmp = txtPrecio.Text;
-
-                    if (!string.IsNullOrWhiteSpace(precioTmp))
-                    {
-                        var precio = float.Parse(precioTmp);
-                        var html = string.Empty;
-                        var consulta = "INSERT IGNORE INTO Productos (ID, Precio) VALUES";
-                        var valores = string.Empty;
-
-                        foreach (var producto in productos)
+                        if (producto.Value == "P")
                         {
                             var datosConfig = mb.ComprobarConfiguracion();
 
                             if (datosConfig.Count > 0)
                             {
-                                if (Convert.ToInt16(datosConfig[0]) == 1)
+                                if (Convert.ToInt16(datosConfig[1]) == 1)
                                 {
                                     var configProducto = mb.ComprobarCorreoProducto(producto.Key);
 
                                     if (configProducto.Count > 0)
                                     {
-                                        if (configProducto[0] == 1)
+                                        if (configProducto[1] == 1)
                                         {
                                             // Obtenemos los datos del producto para el email
                                             var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
 
                                             html += $@"<li>
-                                                       <span style='color: red;'>{datosProducto[1]}</span> 
-                                                       --- <b>PRECIO ANTERIOR:</b> 
-                                                       <span style='color: red;'>${float.Parse(datosProducto[2]).ToString("N2")}</span> 
-                                                       --- <b>PRECIO NUEVO:</b> 
-                                                       <span style='color: red;'>${precio.ToString("N2")}</span>
-                                                   </li>";
+                                                    <span style='color: red;'>{datosProducto[1]}</span> 
+                                                    --- <b>STOCK ANTERIOR:</b> 
+                                                    <span style='color: red;'>{datosProducto[4]}</span> 
+                                                    --- <b>STOCK NUEVO:</b> 
+                                                    <span style='color: red;'>{stock}</span>
+                                                </li>";
                                         }
                                     }
                                 }
                             }
 
-                            // Actualizar el nuevo precio
+                            valores += $"({producto.Key}, {stock}),";
 
-                            valores += $"({producto.Key}, {precio}),";
+                            //datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
 
-                            //cn.EjecutarConsulta(cs.SetUpPrecioProductos(producto.Key, precio, FormPrincipal.userID));
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(valores))
-                        {
-                            valores = valores.TrimEnd(',');
-
-                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Precio = VALUES(Precio)";
-
-                            cn.EjecutarConsulta(consulta);
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(html))
-                        {
-                            // Ejecutar hilo para enviar notificacion
-                            datos = new string[] { html, "", "", "ASIGNAR" };
-
-                            Thread notificacion = new Thread(
-                                () => Utilidades.CambioPrecioProductoEmail(datos, 1)
-                            );
-
-                            notificacion.Start();
+                            //cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
                         }
                     }
-                    else
+
+                    if (!string.IsNullOrWhiteSpace(valores))
                     {
-                        MessageBox.Show("Ingrese el precio para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        valores = valores.TrimEnd(',');
+
+                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Stock = VALUES(Stock);";
+
+                        cn.EjecutarConsulta(consulta);
                     }
 
-                }
-                else if (propiedad == "NumeroRevision")
-                {
-                    TextBox txtRevision = (TextBox)this.Controls.Find("tbNumeroRevision", true)[0];
-
-                    var numeroRevision = txtRevision.Text;
-                    var consulta = "INSERT IGNORE INTO Productos (ID, NumeroRevision) VALUES";
-                    var valores = string.Empty;
-
-                    if (!string.IsNullOrWhiteSpace(numeroRevision))
+                    if (!string.IsNullOrWhiteSpace(html))
                     {
-                        foreach (var producto in productos)
-                        {
-                            valores += $"({producto.Key}, {numeroRevision}),";
+                        // Ejecutar hilo para enviar notificacion
+                        datos = new string[] { html, "", "", "", "ASIGNAR", "" };
 
-                            //cn.EjecutarConsulta(consulta);
-                        }
+                        Thread notificacion = new Thread(
+                            () => Utilidades.CambioStockProductoEmail(datos, 1)
+                        );
 
-                        if (!string.IsNullOrWhiteSpace(valores))
-                        {
-                            valores = valores.TrimEnd(',');
-
-                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), NumeroRevision = VALUES(NumeroRevision);";
-
-                            cn.EjecutarConsulta(consulta);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ingrese el número de revisión para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                else if (propiedad == "TipoIVA")
-                {
-                    ComboBox combo = (ComboBox)this.Controls.Find("cbTipoIVA", true)[0];
-
-                    var iva = combo.SelectedValue.ToString();
-
-                    foreach (var producto in productos)
-                    {
-                        cn.EjecutarConsulta($"UPDATE Productos SET Impuesto = '{iva}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
-                    }
-                }
-                else if (propiedad == "ClaveProducto")
-                {
-                    TextBox txtClave = (TextBox)this.Controls.Find("tbClaveProducto", true).FirstOrDefault();
-
-                    var clave = txtClave.Text;
-
-                    if (!string.IsNullOrWhiteSpace(clave))
-                    {
-                        foreach (var producto in productos)
-                        {
-                            cn.EjecutarConsulta($"UPDATE Productos SET ClaveProducto = '{clave}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ingrese la clave de producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                else if (propiedad == "ClaveUnidad")
-                {
-                    TextBox txtClave = (TextBox)this.Controls.Find("tbClaveUnidad", true).FirstOrDefault();
-                    ComboBox combo = (ComboBox)this.Controls.Find("cbClaveUnidad", true).FirstOrDefault();
-
-                    var claveUnidad = txtClave.Text;
-                    var claveCombo = combo.SelectedValue.ToString();
-
-                    if (claveUnidad.Equals(claveCombo))
-                    {
-                        foreach (var producto in productos)
-                        {
-                            cn.EjecutarConsulta($"UPDATE Productos SET UnidadMedida = '{claveUnidad}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("La clave de unidad no es válida", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                else if (propiedad == "CorreosProducto")
-                {
-                    var checkPrimero = (CheckBox)Controls.Find("CorreoPrecioProducto", true).First();
-                    var checkSegundo = (CheckBox)Controls.Find("CorreoStockProducto", true).First();
-                    var checkTercero = (CheckBox)Controls.Find("CorreoStockMinimo", true).First();
-                    var checkCuarto = (CheckBox)Controls.Find("CorreoVentaProducto", true).First();
-
-                    var correoPrecioProducto = Convert.ToInt16(checkPrimero.Checked);
-                    var correoStockProducto = Convert.ToInt16(checkSegundo.Checked);
-                    var correoStockMinimo = Convert.ToInt16(checkTercero.Checked);
-                    var correoVentaProducto = Convert.ToInt16(checkCuarto.Checked);
-
-                    foreach (var producto in productos)
-                    {
-                        // Comprobar si existe registro en la tabla de correos
-                        var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM CorreosProducto WHERE IDProducto = {producto.Key}"));
-
-                        if (comprobar > 0)
-                        {
-                            // UPDATE
-                            cn.EjecutarConsulta($"UPDATE CorreosProducto SET CorreoPrecioProducto = {correoPrecioProducto}, CorreoStockProducto = {correoStockProducto}, CorreoStockMinimo = {correoStockMinimo}, CorreoVentaProducto = {correoVentaProducto} WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}");
-                        }
-                        else
-                        {
-                            // INSERT
-                            cn.EjecutarConsulta($"INSERT INTO CorreosProducto (IDUsuario, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo, CorreoVentaProducto) VALUES ('{FormPrincipal.userID}', '{producto.Key}', '{correoPrecioProducto}', '{correoStockProducto}', '{correoStockMinimo}', '{correoVentaProducto}')");
-                        }
-                    }
-                }
-                else if (propiedad == "Proveedor")
-                {
-                    // Acceder al combobox de proveedores
-                    ComboBox combo = (ComboBox)this.Controls.Find("cbProveedor", true)[0];
-
-                    var idProveedor = Convert.ToInt32(combo.SelectedValue.ToString());
-                    var proveedor = combo.Text;
-
-                    if (idProveedor > 0)
-                    {
-                        foreach (var producto in productos)
-                        {
-                            // Comprobar si existe registro en la tabla DetallesProducto
-                            var existe = mb.DetallesProducto(producto.Key, FormPrincipal.userID);
-
-                            datos = new string[] {
-                            producto.Key.ToString(), FormPrincipal.userID.ToString(),
-                            proveedor, idProveedor.ToString()
-                        };
-
-                            if (existe.Length > 0)
-                            {
-                                // Hacemos un UPDATE
-                                cn.EjecutarConsulta(cs.GuardarProveedorProducto(datos, 1));
-                            }
-                            else
-                            {
-                                // Hacemos un INSERT
-                                cn.EjecutarConsulta(cs.GuardarProveedorProducto(datos));
-                            }
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Es necesario seleccionar un proveedor", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
+                        notificacion.Start();
                     }
                 }
                 else
                 {
-                    ComboBox combo = (ComboBox)this.Controls.Find("cb" + propiedad, true)[0];
+                    MessageBox.Show("Ingrese una cantidad para stock", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else if (propiedad == "StockMinimo")
+            {
+                TextBox txtStock = (TextBox)this.Controls.Find("tbStockMinimo", true)[0];
 
-                    var idPropiedad = combo.SelectedValue.ToString();
-                    var nombreOpcion = combo.Text;
-                    var nombrePanel = "panelContenido" + propiedad;
+                var stock = txtStock.Text;
+                var consulta = "INSERT IGNORE INTO Productos (ID, StockMinimo) VALUES";
+                var valores = string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(stock))
+                {
+                    foreach (var producto in productos)
+                    {
+                        if (producto.Value == "P")
+                        {
+                            valores += $"({producto.Key}, {stock}),";
+
+                            //cn.EjecutarConsulta(consulta);
+                        }
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(valores))
+                    {
+                        valores = valores.TrimEnd(',');
+
+                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), StockMinimo = VALUES(StockMinimo);";
+
+                        cn.EjecutarConsulta(consulta);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese una cantidad para stock minimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else if (propiedad == "StockMaximo")
+            {
+                TextBox txtStock = (TextBox)this.Controls.Find("tbStockMaximo", true)[0];
+
+                var stock = txtStock.Text;
+                var consulta = "INSERT IGNORE INTO Productos (ID, StockNecesario) VALUES";
+                var valores = string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(stock))
+                {
+                    foreach (var producto in productos)
+                    {
+                        if (producto.Value == "P")
+                        {
+                            valores += $"({producto.Key}, {stock}),";
+
+                            //cn.EjecutarConsulta(consulta);
+                        }
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(valores))
+                    {
+                        valores = valores.TrimEnd(',');
+
+                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), StockNecesario = VALUES(StockNecesario);";
+
+                        cn.EjecutarConsulta(consulta);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese una cantidad para stock maximo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else if (propiedad == "Precio")
+            {
+                TextBox txtPrecio = (TextBox)this.Controls.Find("tbPrecio", true)[0];
+
+                var precioTmp = txtPrecio.Text;
+
+                if (!string.IsNullOrWhiteSpace(precioTmp))
+                {
+                    var precio = float.Parse(precioTmp);
+                    var html = string.Empty;
+                    var consulta = "INSERT IGNORE INTO Productos (ID, Precio) VALUES";
+                    var valores = string.Empty;
 
                     foreach (var producto in productos)
                     {
-                        var existe = (bool)cn.EjecutarSelect($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {producto.Key} AND IDUsuario = {FormPrincipal.userID} AND panelContenido = '{nombrePanel}'");
+                        var datosConfig = mb.ComprobarConfiguracion();
 
-                        if (existe)
+                        if (datosConfig.Count > 0)
                         {
-                            // UPDATE tabla DetallesProductoGenerales
-                            var info = mb.DetallesProductoGralPorPanel(nombrePanel, FormPrincipal.userID, producto.Key);
-                            var idDetalle = info[3];
+                            if (Convert.ToInt16(datosConfig[0]) == 1)
+                            {
+                                var configProducto = mb.ComprobarCorreoProducto(producto.Key);
 
-                            cn.EjecutarConsulta($"UPDATE DetallesProductoGenerales SET IDDetalleGral = {idPropiedad} WHERE IDProducto = {producto.Key} AND IDUsuario = {FormPrincipal.userID} AND IDDetalleGral = {idDetalle}");
+                                if (configProducto.Count > 0)
+                                {
+                                    if (configProducto[0] == 1)
+                                    {
+                                        // Obtenemos los datos del producto para el email
+                                        var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+
+                                        html += $@"<li>
+                                                    <span style='color: red;'>{datosProducto[1]}</span> 
+                                                    --- <b>PRECIO ANTERIOR:</b> 
+                                                    <span style='color: red;'>${float.Parse(datosProducto[2]).ToString("N2")}</span> 
+                                                    --- <b>PRECIO NUEVO:</b> 
+                                                    <span style='color: red;'>${precio.ToString("N2")}</span>
+                                                </li>";
+                                    }
+                                }
+                            }
+                        }
+
+                        // Actualizar el nuevo precio
+
+                        valores += $"({producto.Key}, {precio}),";
+
+                        //cn.EjecutarConsulta(cs.SetUpPrecioProductos(producto.Key, precio, FormPrincipal.userID));
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(valores))
+                    {
+                        valores = valores.TrimEnd(',');
+
+                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Precio = VALUES(Precio)";
+
+                        cn.EjecutarConsulta(consulta);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(html))
+                    {
+                        // Ejecutar hilo para enviar notificacion
+                        datos = new string[] { html, "", "", "ASIGNAR" };
+
+                        Thread notificacion = new Thread(
+                            () => Utilidades.CambioPrecioProductoEmail(datos, 1)
+                        );
+
+                        notificacion.Start();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese el precio para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+            }
+            else if (propiedad == "NumeroRevision")
+            {
+                TextBox txtRevision = (TextBox)this.Controls.Find("tbNumeroRevision", true)[0];
+
+                var numeroRevision = txtRevision.Text;
+                var consulta = "INSERT IGNORE INTO Productos (ID, NumeroRevision) VALUES";
+                var valores = string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(numeroRevision))
+                {
+                    foreach (var producto in productos)
+                    {
+                        valores += $"({producto.Key}, {numeroRevision}),";
+
+                        //cn.EjecutarConsulta(consulta);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(valores))
+                    {
+                        valores = valores.TrimEnd(',');
+
+                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), NumeroRevision = VALUES(NumeroRevision);";
+
+                        cn.EjecutarConsulta(consulta);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese el número de revisión para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else if (propiedad == "TipoIVA")
+            {
+                ComboBox combo = (ComboBox)this.Controls.Find("cbTipoIVA", true)[0];
+
+                var iva = combo.SelectedValue.ToString();
+                var consulta = "INSERT IGNORE INTO Productos (ID, Impuesto) VALUES";
+                var valores = string.Empty;
+
+                foreach (var producto in productos)
+                {
+                    valores += $"({producto.Key}, '{iva}'),";
+
+                    //cn.EjecutarConsulta($"UPDATE Productos SET Impuesto = '{iva}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
+                }
+
+                if (!string.IsNullOrWhiteSpace(valores))
+                {
+                    valores = valores.TrimEnd(',');
+
+                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Impuesto = VALUES(Impuesto);";
+
+                    cn.EjecutarConsulta(consulta);
+                }
+            }
+            else if (propiedad == "ClaveProducto")
+            {
+                TextBox txtClave = (TextBox)this.Controls.Find("tbClaveProducto", true).FirstOrDefault();
+
+                var clave = txtClave.Text;
+                var consulta = "INSERT IGNORE INTO Productos (ID, ClaveProducto) VALUES";
+                var valores = string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(clave))
+                {
+                    foreach (var producto in productos)
+                    {
+                        valores += $"({producto.Key}, '{clave}'),";
+                        //cn.EjecutarConsulta($"UPDATE Productos SET ClaveProducto = '{clave}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(valores))
+                    {
+                        valores = valores.TrimEnd(',');
+
+                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), ClaveProducto = VALUES(ClaveProducto);";
+
+                        cn.EjecutarConsulta(consulta);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese la clave de producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else if (propiedad == "ClaveUnidad")
+            {
+                TextBox txtClave = (TextBox)this.Controls.Find("tbClaveUnidad", true).FirstOrDefault();
+                ComboBox combo = (ComboBox)this.Controls.Find("cbClaveUnidad", true).FirstOrDefault();
+
+                var claveUnidad = txtClave.Text;
+                var claveCombo = combo.SelectedValue.ToString();
+
+                if (claveUnidad.Equals(claveCombo))
+                {
+                    foreach (var producto in productos)
+                    {
+                        cn.EjecutarConsulta($"UPDATE Productos SET UnidadMedida = '{claveUnidad}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("La clave de unidad no es válida", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else if (propiedad == "CorreosProducto")
+            {
+                var checkPrimero = (CheckBox)Controls.Find("CorreoPrecioProducto", true).First();
+                var checkSegundo = (CheckBox)Controls.Find("CorreoStockProducto", true).First();
+                var checkTercero = (CheckBox)Controls.Find("CorreoStockMinimo", true).First();
+                var checkCuarto = (CheckBox)Controls.Find("CorreoVentaProducto", true).First();
+
+                var correoPrecioProducto = Convert.ToInt16(checkPrimero.Checked);
+                var correoStockProducto = Convert.ToInt16(checkSegundo.Checked);
+                var correoStockMinimo = Convert.ToInt16(checkTercero.Checked);
+                var correoVentaProducto = Convert.ToInt16(checkCuarto.Checked);
+
+                foreach (var producto in productos)
+                {
+                    // Comprobar si existe registro en la tabla de correos
+                    var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM CorreosProducto WHERE IDProducto = {producto.Key}"));
+
+                    if (comprobar > 0)
+                    {
+                        // UPDATE
+                        cn.EjecutarConsulta($"UPDATE CorreosProducto SET CorreoPrecioProducto = {correoPrecioProducto}, CorreoStockProducto = {correoStockProducto}, CorreoStockMinimo = {correoStockMinimo}, CorreoVentaProducto = {correoVentaProducto} WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}");
+                    }
+                    else
+                    {
+                        // INSERT
+                        cn.EjecutarConsulta($"INSERT INTO CorreosProducto (IDUsuario, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo, CorreoVentaProducto) VALUES ('{FormPrincipal.userID}', '{producto.Key}', '{correoPrecioProducto}', '{correoStockProducto}', '{correoStockMinimo}', '{correoVentaProducto}')");
+                    }
+                }
+            }
+            else if (propiedad == "Proveedor")
+            {
+                // Acceder al combobox de proveedores
+                ComboBox combo = (ComboBox)this.Controls.Find("cbProveedor", true)[0];
+
+                var idProveedor = Convert.ToInt32(combo.SelectedValue.ToString());
+                var proveedor = combo.Text;
+
+                if (idProveedor > 0)
+                {
+                    foreach (var producto in productos)
+                    {
+                        // Comprobar si existe registro en la tabla DetallesProducto
+                        var existe = mb.DetallesProducto(producto.Key, FormPrincipal.userID);
+
+                        datos = new string[] {
+                        producto.Key.ToString(), FormPrincipal.userID.ToString(),
+                        proveedor, idProveedor.ToString()
+                    };
+
+                        if (existe.Length > 0)
+                        {
+                            // Hacemos un UPDATE
+                            cn.EjecutarConsulta(cs.GuardarProveedorProducto(datos, 1));
                         }
                         else
                         {
-                            // INSERT tabla DetallesProductoGenerales
-                            datos = new string[] {
-                            producto.Key.ToString(), FormPrincipal.userID.ToString(),
-                            idPropiedad, "1", nombrePanel
-                        };
-
-                            cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(datos));
+                            // Hacemos un INSERT
+                            cn.EjecutarConsulta(cs.GuardarProveedorProducto(datos));
                         }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Es necesario seleccionar un proveedor", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+            else
+            {
+                ComboBox combo = (ComboBox)this.Controls.Find("cb" + propiedad, true)[0];
 
-                
-            });
+                var idPropiedad = combo.SelectedValue.ToString();
+                var nombreOpcion = combo.Text;
+                var nombrePanel = "panelContenido" + propiedad;
 
-            //Dispose();
+                foreach (var producto in productos)
+                {
+                    var existe = (bool)cn.EjecutarSelect($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {producto.Key} AND IDUsuario = {FormPrincipal.userID} AND panelContenido = '{nombrePanel}'");
+
+                    if (existe)
+                    {
+                        // UPDATE tabla DetallesProductoGenerales
+                        var info = mb.DetallesProductoGralPorPanel(nombrePanel, FormPrincipal.userID, producto.Key);
+                        var idDetalle = info[3];
+
+                        cn.EjecutarConsulta($"UPDATE DetallesProductoGenerales SET IDDetalleGral = {idPropiedad} WHERE IDProducto = {producto.Key} AND IDUsuario = {FormPrincipal.userID} AND IDDetalleGral = {idDetalle}");
+                    }
+                    else
+                    {
+                        // INSERT tabla DetallesProductoGenerales
+                        datos = new string[] {
+                        producto.Key.ToString(), FormPrincipal.userID.ToString(),
+                        idPropiedad, "1", nombrePanel
+                    };
+
+                        cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(datos));
+                    }
+                }
+            }
         }
 
         private void botonCancelar_Click(object sender, EventArgs e)
