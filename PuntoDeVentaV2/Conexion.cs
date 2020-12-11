@@ -183,6 +183,7 @@ namespace PuntoDeVentaV2
             }
 
             dr.Close();
+            sql_con.Close();
 
             return respuesta;
         }

@@ -827,21 +827,30 @@ namespace PuntoDeVentaV2
                 var correoStockMinimo = Convert.ToInt16(checkTercero.Checked);
                 var correoVentaProducto = Convert.ToInt16(checkCuarto.Checked);
 
+                var consulta = "INSERT IGNORE INTO CorreosProducto (ID, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo, CorreoVentaProducto) VALUES";
+                var valores = string.Empty;
+
                 foreach (var producto in productos)
                 {
                     // Comprobar si existe registro en la tabla de correos
-                    var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM CorreosProducto WHERE IDProducto = {producto.Key}"));
+                    var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM CorreosProducto WHERE IDProducto = {producto.Key}", 1));
 
-                    if (comprobar > 0)
+                    if (id > 0)
                     {
+                        valores += $"({id}, {correoPrecioProducto}, {correoStockProducto}, {correoStockMinimo}, {correoVentaProducto}),";
+
                         // UPDATE
-                        cn.EjecutarConsulta($"UPDATE CorreosProducto SET CorreoPrecioProducto = {correoPrecioProducto}, CorreoStockProducto = {correoStockProducto}, CorreoStockMinimo = {correoStockMinimo}, CorreoVentaProducto = {correoVentaProducto} WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}");
+                        //cn.EjecutarConsulta($"UPDATE CorreosProducto SET CorreoPrecioProducto = {correoPrecioProducto}, CorreoStockProducto = {correoStockProducto}, CorreoStockMinimo = {correoStockMinimo}, CorreoVentaProducto = {correoVentaProducto} WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}");
                     }
-                    else
-                    {
-                        // INSERT
-                        cn.EjecutarConsulta($"INSERT INTO CorreosProducto (IDUsuario, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo, CorreoVentaProducto) VALUES ('{FormPrincipal.userID}', '{producto.Key}', '{correoPrecioProducto}', '{correoStockProducto}', '{correoStockMinimo}', '{correoVentaProducto}')");
-                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(valores))
+                {
+                    valores = valores.TrimEnd(',');
+
+                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), CorreoPrecioProducto = VALUES(CorreoPrecioProducto), CorreoStockProducto = VALUES(CorreoStockProducto), CorreoStockMinimo = VALUES(CorreoStockMinimo), CorreoVentaProducto = VALUES(CorreoVentaProducto);";
+
+                    cn.EjecutarConsulta(consulta);
                 }
             }
             else if (propiedad == "Proveedor")
