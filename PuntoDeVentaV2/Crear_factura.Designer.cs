@@ -520,6 +520,7 @@
             // 
             this.cmb_bx_clientes.FormattingEnabled = true;
             this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
+            this.cmb_bx_clientes.MaxDropDownItems = 12;
             this.cmb_bx_clientes.Name = "cmb_bx_clientes";
             this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
             this.cmb_bx_clientes.TabIndex = 2;
