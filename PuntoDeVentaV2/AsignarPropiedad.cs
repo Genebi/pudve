@@ -789,12 +789,24 @@ namespace PuntoDeVentaV2
 
                 var claveUnidad = txtClave.Text;
                 var claveCombo = combo.SelectedValue.ToString();
+                var consulta = "INSERT IGNORE INTO Productos (ID, UnidadMedida) VALUES";
+                var valores = string.Empty;
 
                 if (claveUnidad.Equals(claveCombo))
                 {
                     foreach (var producto in productos)
                     {
-                        cn.EjecutarConsulta($"UPDATE Productos SET UnidadMedida = '{claveUnidad}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
+                        valores += $"({producto.Key}, '{claveUnidad}'),";
+                        //cn.EjecutarConsulta($"UPDATE Productos SET UnidadMedida = '{claveUnidad}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(valores))
+                    {
+                        valores = valores.TrimEnd(',');
+
+                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), UnidadMedida = VALUES(UnidadMedida);";
+
+                        cn.EjecutarConsulta(consulta);
                     }
                 }
                 else
