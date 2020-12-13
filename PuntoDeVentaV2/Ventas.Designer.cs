@@ -214,6 +214,7 @@
             this.Impuesto});
             this.DGVentas.Location = new System.Drawing.Point(3, 114);
             this.DGVentas.Name = "DGVentas";
+            this.DGVentas.ReadOnly = true;
             this.DGVentas.RowHeadersVisible = false;
             this.DGVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVentas.Size = new System.Drawing.Size(646, 203);
