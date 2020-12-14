@@ -841,7 +841,7 @@ namespace PuntoDeVentaV2
                 var correoStockMinimo = Convert.ToInt16(checkTercero.Checked);
                 var correoVentaProducto = Convert.ToInt16(checkCuarto.Checked);
 
-                var consulta = "INSERT IGNORE INTO CorreosProducto (ID, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo, CorreoVentaProducto) VALUES";
+                var consulta = "INSERT IGNORE INTO CorreosProducto (ID, IDUsuario, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo, CorreoVentaProducto) VALUES";
                 var valores = string.Empty;
 
                 foreach (var producto in productos)
@@ -851,10 +851,11 @@ namespace PuntoDeVentaV2
 
                     if (id > 0)
                     {
-                        valores += $"({id}, {correoPrecioProducto}, {correoStockProducto}, {correoStockMinimo}, {correoVentaProducto}),";
-
-                        // UPDATE
-                        //cn.EjecutarConsulta($"UPDATE CorreosProducto SET CorreoPrecioProducto = {correoPrecioProducto}, CorreoStockProducto = {correoStockProducto}, CorreoStockMinimo = {correoStockMinimo}, CorreoVentaProducto = {correoVentaProducto} WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}");
+                        valores += $"({id}, {FormPrincipal.userID}, {producto.Key}, {correoPrecioProducto}, {correoStockProducto}, {correoStockMinimo}, {correoVentaProducto}),";
+                    }
+                    else
+                    {
+                        valores += $"(null, {FormPrincipal.userID}, {producto.Key}, {correoPrecioProducto}, {correoStockProducto}, {correoStockMinimo}, {correoVentaProducto}),";
                     }
                 }
 
@@ -862,7 +863,7 @@ namespace PuntoDeVentaV2
                 {
                     valores = valores.TrimEnd(',');
 
-                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), CorreoPrecioProducto = VALUES(CorreoPrecioProducto), CorreoStockProducto = VALUES(CorreoStockProducto), CorreoStockMinimo = VALUES(CorreoStockMinimo), CorreoVentaProducto = VALUES(CorreoVentaProducto);";
+                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), CorreoPrecioProducto = VALUES(CorreoPrecioProducto), CorreoStockProducto = VALUES(CorreoStockProducto), CorreoStockMinimo = VALUES(CorreoStockMinimo), CorreoVentaProducto = VALUES(CorreoVentaProducto);";
 
                     cn.EjecutarConsulta(consulta);
                 }
