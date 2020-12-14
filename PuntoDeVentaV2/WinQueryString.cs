@@ -2629,10 +2629,10 @@ namespace PuntoDeVentaV2
             cbTipoFiltroImagen_SelectedIndexChanged(sender, e);
             filtroImagen = chkBoxImagen.Checked;
 
-            DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección", "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            //DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección", "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
-            if (result == DialogResult.Yes)
-            {
+            //if (result == DialogResult.Yes)
+            //{
                 if (filtroStock.Equals(true))
                 {
                     strTxtStock = txtCantStock.Text;
@@ -2832,15 +2832,15 @@ namespace PuntoDeVentaV2
                 saveDictionary();
 
                 this.Close();
-            }
-            else if (result == DialogResult.No)
-            {
-                this.Close();
-            }
-            else if (result == DialogResult.Cancel)
-            {
-                txtCantStock.Focus();
-            }
+            //}
+            //else if (result == DialogResult.No)
+            //{
+            //    this.Close();
+            //}
+            //else if (result == DialogResult.Cancel)
+            //{
+            //    txtCantStock.Focus();
+            //}
         }
 
         private void saveConfigGarlDB()
