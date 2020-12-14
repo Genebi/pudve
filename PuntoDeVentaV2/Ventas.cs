@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.Threading;
+using static System.Windows.Forms.DataGridView;
 
 namespace PuntoDeVentaV2
 {
@@ -827,14 +828,14 @@ namespace PuntoDeVentaV2
             }
 
             // Cantidad
-            if (columna.Equals(5))
-            {
-                if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
-                {
-                    DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
-                    cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
-                }
-            }
+            //if (columna.Equals(5))
+            //{
+            //    if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
+            //    {
+            //        DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
+            //        cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
+            //    }
+            //}
 
             // Descuento
             if (columna.Equals(8))
@@ -4957,17 +4958,33 @@ namespace PuntoDeVentaV2
             var columna = DGVentas.CurrentCell.ColumnIndex;
 
             // Cantidad
-            if (columna.Equals(5))
-            {
-                DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
-                cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
-            }
+            //if (columna.Equals(5))
+            //{
+            //    DGVentas.Rows[celda].Cells["Cantidad"].ReadOnly = false;
+            //    cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
+            //}
 
-            //// Descuento
+            // Descuento
             //if (e.ColumnIndex == 8)
             //{
             //    DGVentas.Rows[celda].Cells["Descuento"].ReadOnly = false;
             //}
+        }
+
+        private void DGVentas_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                HitTestInfo hitTestInfo = DGVentas.HitTest(e.X, e.Y);
+                if (hitTestInfo.Type == DataGridViewHitTestType.Cell)
+                {
+                    DGVentas.BeginEdit(true);
+                }
+                else
+                {
+                    DGVentas.EndEdit();
+                }
+            }
         }
 
         private void DGVentas_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -4975,24 +4992,24 @@ namespace PuntoDeVentaV2
             var celda = e.RowIndex;
 
             // Cantidad
-            if (e.ColumnIndex == 5)
-            {
-                decimal cantiad = 0;
+            //if (e.ColumnIndex == 5)
+            //{
+            //    decimal cantiad = 0;
 
-                bool isDecimal = Decimal.TryParse(DGVentas.Rows[celda].Cells[5].Value.ToString(), out cantiad);
+            //    bool isDecimal = Decimal.TryParse(DGVentas.Rows[celda].Cells[5].Value.ToString(), out cantiad);
 
-                if (isDecimal)
-                {
-                    DGVentas.Rows[celda].Cells[9].Value = (cantiad * Convert.ToDecimal(DGVentas.Rows[celda].Cells[6].Value));
-                }
-                else
-                {
-                    DGVentas.Rows[celda].Cells[5].Value = cantidadAnterior;
-                    MessageBox.Show("El formato que introdujo no es el correcto; los siguientes son los permitidos:\n0.5(cualquier número despues del punto decimal)\n.5(cualquier número despues del punto decimal)");
-                    return;
-                }
-                CantidadesFinalesVenta();
-            }
+            //    if (isDecimal)
+            //    {
+            //        DGVentas.Rows[celda].Cells[9].Value = (cantiad * Convert.ToDecimal(DGVentas.Rows[celda].Cells[6].Value));
+            //    }
+            //    else
+            //    {
+            //        DGVentas.Rows[celda].Cells[5].Value = cantidadAnterior;
+            //        MessageBox.Show("El formato que introdujo no es el correcto; los siguientes son los permitidos:\n0.5(cualquier número despues del punto decimal)\n.5(cualquier número despues del punto decimal)");
+            //        return;
+            //    }
+            //    CantidadesFinalesVenta();
+            //}
         }
 
         private void timer_img_producto_Tick(object sender, EventArgs e)
@@ -5009,11 +5026,11 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_SelectionChanged(object sender, EventArgs e)
         {
-            if (!DGVentas.Rows.Count.Equals(0))
-            {
-                DGVentas.CurrentCell = DGVentas.CurrentRow.Cells["Cantidad"];
-                DGVentas.BeginEdit(true);
-            }
+            //if (!DGVentas.Rows.Count.Equals(0))
+            //{
+            //    DGVentas.CurrentCell = DGVentas.CurrentRow.Cells["Cantidad"];
+            //    DGVentas.BeginEdit(true);
+            //}
         }
 
         private void Ventas_FormClosed(object sender, FormClosedEventArgs e)
