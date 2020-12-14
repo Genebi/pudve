@@ -921,6 +921,8 @@ namespace PuntoDeVentaV2
                 var idPropiedad = combo.SelectedValue.ToString();
                 var nombreOpcion = combo.Text;
                 var nombrePanel = "panelContenido" + propiedad;
+                var consulta = "INSERT IGNORE INTO DetallesproductoGenerales (ID, IDProducto, IDUsuario, IDDetalleGral, StatusDetalleGral, panelContenido) VALUES";
+                var valores = string.Empty;
 
                 foreach (var producto in productos)
                 {
@@ -930,20 +932,32 @@ namespace PuntoDeVentaV2
                     {
                         // UPDATE tabla DetallesProductoGenerales
                         var info = mb.DetallesProductoGralPorPanel(nombrePanel, FormPrincipal.userID, producto.Key);
-                        var idDetalle = info[3];
+                        //var idDetalle = info[3];
 
-                        cn.EjecutarConsulta($"UPDATE DetallesProductoGenerales SET IDDetalleGral = {idPropiedad} WHERE IDProducto = {producto.Key} AND IDUsuario = {FormPrincipal.userID} AND IDDetalleGral = {idDetalle}");
+                        //cn.EjecutarConsulta($"UPDATE DetallesProductoGenerales SET IDDetalleGral = {idPropiedad} WHERE IDProducto = {producto.Key} AND IDUsuario = {FormPrincipal.userID} AND IDDetalleGral = {idDetalle}");
+
+                        valores += $"({info[0]}, {producto.Key}, {FormPrincipal.userID}, {idPropiedad}, {info[4]}, '{nombrePanel}'),";
                     }
                     else
                     {
+                        valores += $"(null, {producto.Key}, {FormPrincipal.userID}, {idPropiedad}, '1', '{nombrePanel}'),";
                         // INSERT tabla DetallesProductoGenerales
-                        datos = new string[] {
-                            producto.Key.ToString(), FormPrincipal.userID.ToString(),
-                            idPropiedad, "1", nombrePanel
-                        };
+                        //datos = new string[] {
+                        //    producto.Key.ToString(), FormPrincipal.userID.ToString(),
+                        //    idPropiedad, "1", nombrePanel
+                        //};
 
-                        cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(datos));
+                        //cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(datos));
                     }
+                }
+
+                if (!string.IsNullOrWhiteSpace(valores))
+                {
+                    valores = valores.TrimEnd(',');
+
+                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDProducto = VALUES(IDProducto), IDUsuario = VALUES(IDUsuario), IDDetalleGral = VALUES(IDDetalleGral), StatusDetalleGral = VALUES(StatusDetalleGral), panelContenido = VALUES(panelContenido);";
+
+                    cn.EjecutarConsulta(consulta);
                 }
             }
         }
