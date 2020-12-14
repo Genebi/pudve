@@ -453,7 +453,7 @@ namespace PuntoDeVentaV2
                 TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
 
                 var mensaje = txtMensaje.Text;
-                var consulta = "INSERT IGNORE INTO MensajesInventario (ID, Mensaje) VALUES";
+                var consulta = "INSERT IGNORE INTO MensajesInventario (ID, IDUsuario, IDProducto, Mensaje) VALUES";
                 var valores = string.Empty;
 
                 if (string.IsNullOrWhiteSpace(mensaje))
@@ -469,9 +469,11 @@ namespace PuntoDeVentaV2
 
                     if (id > 0)
                     {
-                        valores += $"({id}, '{mensaje}'),";
-                        // UPDATE
-                        //cn.EjecutarConsulta($"UPDATE MensajesInventario SET Mensaje = '{mensaje}' WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}");
+                        valores += $"({id}, {FormPrincipal.userID}, {producto.Key}, '{mensaje}'),";
+                    }
+                    else
+                    {
+                        valores += $"(null, {FormPrincipal.userID}, {producto.Key}, '{mensaje}'),";
                     }
                 }
 
