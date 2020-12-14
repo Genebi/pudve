@@ -56,11 +56,11 @@ namespace PuntoDeVentaV2
         {
             if (CajaN.totCorte != "")
             {
-                 convertEfectivo = float.Parse(CajaN.efectivoCorte);
-                 convertTarjeta = float.Parse(CajaN.tarjetaCorte);
-                 convertCheque = float.Parse(CajaN.chequeCorte);
-                 convertVales = float.Parse(CajaN.valesCorte);
-                 convertTrans = float.Parse(CajaN.transCorte);
+                convertEfectivo = float.Parse(CajaN.efectivoCorte);
+                convertTarjeta = float.Parse(CajaN.tarjetaCorte);
+                convertCheque = float.Parse(CajaN.chequeCorte);
+                convertVales = float.Parse(CajaN.valesCorte);
+                convertTrans = float.Parse(CajaN.transCorte);
             }
         }
 
@@ -103,10 +103,10 @@ namespace PuntoDeVentaV2
 
             CargarConceptos();
 
-            
+
         }
 
-        
+
         private void CargarConceptos()
         {
             var conceptos = mb.ObtenerConceptosDinamicos(origen: "CAJA");
@@ -261,11 +261,11 @@ namespace PuntoDeVentaV2
 
             int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
-            //Thread AgregarRetiroDinero = new Thread(
-            //    () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
-            //);
+            Thread AgregarRetiroDinero = new Thread(
+                () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
+            );
 
-            //AgregarRetiroDinero.Start();
+            AgregarRetiroDinero.Start();
 
             if (resultado > 0)
             {
@@ -306,7 +306,7 @@ namespace PuntoDeVentaV2
                     // forma de pago antes de que se haga el corte de caja
                     if (CajaN.totCorte != "0")
                     {
-                        
+
 
                         efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
                         tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
@@ -336,6 +336,12 @@ namespace PuntoDeVentaV2
                     };
 
                     cn.EjecutarConsulta(cs.OperacionCaja(datos));
+
+                    //Thread CorteDinero = new Thread(
+                    //    () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
+                    //);
+
+                    //CorteDinero.Start();
 
                     CajaN.botones = true;
                 }
@@ -552,7 +558,7 @@ namespace PuntoDeVentaV2
                 if (obtenerTxt.Equals("."))
                 {
                     txtEfectivo.Text = "0.";
-                    txtEfectivo.Select(txtEfectivo.Text.Length,0);
+                    txtEfectivo.Select(txtEfectivo.Text.Length, 0);
                 }
                 else
                 {
