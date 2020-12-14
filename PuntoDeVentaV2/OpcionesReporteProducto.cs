@@ -57,6 +57,7 @@ namespace PuntoDeVentaV2
             opcionesDefault.Add("Proveedor", new Tuple<string, float>("Proveedor", 180));
             opcionesDefault.Add("CantidadPedir", new Tuple<string, float>("Cantidad a pedir", 50));
             opcionesDefault.Add("Tipo", new Tuple<string, float>("Tipo", 50));
+            opcionesDefault.Add("NumeroRevision", new Tuple<string, float>("Número de Revisión", 70));
 
             ObtenerDetalles();
             VisualizarDetalles();
