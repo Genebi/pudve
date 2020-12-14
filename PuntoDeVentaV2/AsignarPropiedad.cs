@@ -417,7 +417,7 @@ namespace PuntoDeVentaV2
                 TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensaje", true)[0];
 
                 var mensaje = txtMensaje.Text;
-                var consulta = "INSERT IGNORE INTO ProductMessage (ID, ProductOfMessage) VALUES";
+                var consulta = "INSERT IGNORE INTO ProductMessage (ID, IDProducto, ProductOfMessage) VALUES";
                 var valores = string.Empty;
 
                 if (string.IsNullOrWhiteSpace(mensaje))
@@ -433,9 +433,11 @@ namespace PuntoDeVentaV2
 
                     if (id > 0)
                     {
-                        valores += $"({id}, '{mensaje}'),";
-                        // UPDATE
-                        //cn.EjecutarConsulta($"UPDATE ProductMessage SET ProductOfMessage = '{mensaje}' WHERE IDProducto = {producto.Key}");
+                        valores += $"({id}, {producto.Key}, '{mensaje}'),";
+                    }
+                    else
+                    {
+                        valores += $"(null, {producto.Key}, '{mensaje}'),";
                     }
                 }
 
@@ -443,7 +445,7 @@ namespace PuntoDeVentaV2
                 {
                     valores = valores.TrimEnd(',');
 
-                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), ProductOfMessage = VALUES(ProductOfMessage);";
+                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDProducto = VALUES(IDProducto), ProductOfMessage = VALUES(ProductOfMessage);";
 
                     cn.EjecutarConsulta(consulta);
                 }
@@ -481,7 +483,7 @@ namespace PuntoDeVentaV2
                 {
                     valores = valores.TrimEnd(',');
 
-                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Mensaje = VALUES(Mensaje);";
+                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), Mensaje = VALUES(Mensaje);";
 
                     cn.EjecutarConsulta(consulta);
                 }
