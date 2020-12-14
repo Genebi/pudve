@@ -875,7 +875,7 @@ namespace PuntoDeVentaV2
 
                 var idProveedor = Convert.ToInt32(combo.SelectedValue.ToString());
                 var proveedor = combo.Text;
-                var consulta = "INSERT IGNORE INTO DetallesProducto (ID, Proveedor, IDProveedor) VALUES";
+                var consulta = "INSERT IGNORE INTO DetallesProducto (ID, IDProducto, IDUsuario, Proveedor, IDProveedor) VALUES";
                 var valores = string.Empty;
 
                 if (idProveedor > 0)
@@ -887,7 +887,11 @@ namespace PuntoDeVentaV2
 
                         if (existe.Length > 0)
                         {
-                            valores += $"({existe[0]}, '{proveedor}', {idProveedor}),";
+                            valores += $"({existe[0]}, {producto.Key}, {FormPrincipal.userID}, '{proveedor}', {idProveedor}),";
+                        }
+                        else
+                        {
+                            valores += $"(null, {producto.Key}, {FormPrincipal.userID}, '{proveedor}', {idProveedor}),";
                         }
                     }
 
@@ -895,7 +899,7 @@ namespace PuntoDeVentaV2
                     {
                         valores = valores.TrimEnd(',');
 
-                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Proveedor = VALUES(Proveedor), IDProveedor = VALUES(IDProveedor);";
+                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDProducto = VALUES(IDProducto), IDUsuario = VALUES(IDUsuario), Proveedor = VALUES(Proveedor), IDProveedor = VALUES(IDProveedor);";
 
                         cn.EjecutarConsulta(consulta);
                     }
@@ -930,9 +934,9 @@ namespace PuntoDeVentaV2
                     {
                         // INSERT tabla DetallesProductoGenerales
                         datos = new string[] {
-                        producto.Key.ToString(), FormPrincipal.userID.ToString(),
-                        idPropiedad, "1", nombrePanel
-                    };
+                            producto.Key.ToString(), FormPrincipal.userID.ToString(),
+                            idPropiedad, "1", nombrePanel
+                        };
 
                         cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(datos));
                     }
