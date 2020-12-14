@@ -264,7 +264,6 @@
             // 
             this.Cantidad.HeaderText = "Cantidad";
             this.Cantidad.Name = "Cantidad";
-            this.Cantidad.ReadOnly = false;
             this.Cantidad.Width = 55;
             // 
             // Precio
@@ -285,7 +284,6 @@
             // 
             this.Descuento.HeaderText = "Descuento";
             this.Descuento.Name = "Descuento";
-            this.Descuento.ReadOnly = false;
             this.Descuento.Width = 75;
             // 
             // Importe
