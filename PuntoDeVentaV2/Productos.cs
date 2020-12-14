@@ -3220,10 +3220,10 @@ namespace PuntoDeVentaV2
             string name = string.Empty, newtext = string.Empty;
             name = btnTag.Name.Remove(0, 8);
 
-            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (result == DialogResult.Yes)
-            {
+            //if (result == DialogResult.Yes)
+            //{
                 foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
                 {
                     if (item is Panel)
@@ -3279,11 +3279,11 @@ namespace PuntoDeVentaV2
                 verificarBotonLimpiarTags();
 
                 txtBusqueda.Focus();
-            }
-            else if (result == DialogResult.No)
-            {
-                txtBusqueda.Focus();
-            }
+            //}
+            //else if (result == DialogResult.No)
+            //{
+            //    txtBusqueda.Focus();
+            //}
         }
 
         private void filtroOrdenarPor()
