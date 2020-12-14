@@ -5297,7 +5297,7 @@ namespace PuntoDeVentaV2
         {
             FormDetalleProducto = Application.OpenForms.OfType<AgregarDetalleProducto>().FirstOrDefault();
 
-            if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
+            if (DatosSourceFinal == 1 || DatosSourceFinal == 3 || DatosSourceFinal == 4)
             {
                 //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
                 if (FormDetalleProducto == null)
