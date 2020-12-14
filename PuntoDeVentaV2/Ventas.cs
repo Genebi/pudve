@@ -909,7 +909,7 @@ namespace PuntoDeVentaV2
                     int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
                     int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celda].Cells["DescuentoTipo"].Value);
                     var precio = float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
-                    int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value) + 1;
+                    float cantidad = float.Parse(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString()) + 1;
 
                     float importe = cantidad * precio;
 
@@ -937,7 +937,7 @@ namespace PuntoDeVentaV2
                     if (tipoDescuento > 0)
                     {
                         string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                        CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
+                        CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, celda);
                     }
                 }
             }
@@ -947,7 +947,7 @@ namespace PuntoDeVentaV2
             {
                 if(!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
-                    int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value);
+                    float cantidad = float.Parse(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
                     cantidad -= 1;
 
                     if (cantidad > 0)
@@ -1032,7 +1032,7 @@ namespace PuntoDeVentaV2
                         if (tipoDescuento > 0)
                         {
                             string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                            CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
+                            CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, celda);
                         }
                     }
                     else
@@ -5007,6 +5007,10 @@ namespace PuntoDeVentaV2
                 if ((hitTestInfo.Type == DataGridViewHitTestType.Cell) && (indexColumn.Equals(5) || indexColumn.Equals(8)))
                 {
                     DGVentas.BeginEdit(true);
+                    if (indexColumn.Equals(5))
+                    {
+                        cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[indexRow].Cells[indexColumn].Value.ToString());
+                    }
                 }
                 else
                 {
