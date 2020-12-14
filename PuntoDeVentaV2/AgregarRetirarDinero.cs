@@ -261,6 +261,12 @@ namespace PuntoDeVentaV2
 
             int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
+            //Thread AgregarRetiroDinero = new Thread(
+            //    () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
+            //);
+
+            //AgregarRetiroDinero.Start();
+
             if (resultado > 0)
             {
                 // Para generar Ticket al depositar dinero

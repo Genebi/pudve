@@ -241,27 +241,27 @@ namespace PuntoDeVentaV2
                 AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
 
                 corte.FormClosed += delegate
-{
-    if (botones == true)
-    {
-        cn.EjecutarConsulta($"UPDATE Anticipos Set AnticipoAplicado = 0 WHERE IDUsuario = '{FormPrincipal.userID}'");
-        if (Utilidades.AdobeReaderInstalado())
-        {
-            GenerarReporte();
-        }
-        else
-        {
-            Utilidades.MensajeAdobeReader();
-        }
+                {
+                    if (botones == true)
+                    {
+                        cn.EjecutarConsulta($"UPDATE Anticipos Set AnticipoAplicado = 0 WHERE IDUsuario = '{FormPrincipal.userID}'");
+                        if (Utilidades.AdobeReaderInstalado())
+                        {
+                            GenerarReporte();
+                        }
+                        else
+                        {
+                            Utilidades.MensajeAdobeReader();
+                        }
 
-        botones = false;
-    }
+                        botones = false;
+                    }
 
-    CargarSaldoInicial();
-    CargarSaldo();
+                    CargarSaldoInicial();
+                    CargarSaldo();
 
 
-};
+                };
 
                 corte.Show();
 
@@ -323,7 +323,7 @@ namespace PuntoDeVentaV2
         {
             this.Focus();
             //verificarCantidadAbonos();
-            
+
 
             MySqlConnection sql_con;
             MySqlCommand consultaUno, consultaDos;
@@ -518,8 +518,8 @@ namespace PuntoDeVentaV2
                             abonos = (abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI);
                         }
                     }
-                       
-                    
+
+
 
                     //Obtenemos la cantidad de Devoluciones realizados despues del ultimo corte de caja
                     using (var obtenerDevoluciones = cn.CargarDatos($@"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'"))
@@ -560,8 +560,8 @@ namespace PuntoDeVentaV2
                             totCorte = devoluciones.ToString();
                         }
                     }
-                        
-                    
+
+
                 }
             }
             catch
@@ -638,14 +638,14 @@ namespace PuntoDeVentaV2
             sql_con.Close();
 
             var credi = (vCredito - retiroCredito);
-            if (credi < 0 ) { credi = 0; }
+            if (credi < 0) { credi = 0; }
             // Apartado VENTAS
             lbTEfectivo.Text = "$" + vEfectivo.ToString("0.00");
             lbTTarjeta.Text = "$" + vTarjeta.ToString("0.00");
             lbTVales.Text = "$" + vVales.ToString("0.00");
             lbTCheque.Text = "$" + vCheque.ToString("0.00");
             lbTTrans.Text = "$" + vTrans.ToString("0.00");
-            lbTCredito.Text = "$" + credi.ToString("0.00"); 
+            lbTCredito.Text = "$" + credi.ToString("0.00");
             //lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
             lbTAnticipos.Text = "$" + anticiposAplicados.ToString("0.00");
             lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00");
@@ -693,16 +693,16 @@ namespace PuntoDeVentaV2
             vales = (vVales + aVales + dVales + abonoValesI) - rVales; if (vales < 0) { vales = 0; }
             cheque = (vCheque + aCheque + dCheque + abonoChequeI) - rCheque; if (cheque < 0) { cheque = 0; }
             trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia; if (trans < 0) { trans = 0; }
-            credito = vCredito; 
+            credito = vCredito;
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
             subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + saldoInicial /*+ vCredito*/)/* - devoluciones*/; if (subtotal < 0) { subtotal = 0; }
 
-            var totalF = (efectivo - retiroEfectivo); if (totalF<0) { totalF = 0; }
-            var totalTa = (tarjeta - retiroTarjeta); if (totalTa<0) { totalTa = 0; }
-            var totalV = (vales - retiroVales); if (totalV<0) { totalV = 0; }
-            var totalC = (cheque - retiroCheque); if (totalC<0) { totalC = 0; }
-            var totalTr = (trans - retiroTrans); if (totalTr<0) { totalTr = 0; }
+            var totalF = (efectivo - retiroEfectivo); if (totalF < 0) { totalF = 0; }
+            var totalTa = (tarjeta - retiroTarjeta); if (totalTa < 0) { totalTa = 0; }
+            var totalV = (vales - retiroVales); if (totalV < 0) { totalV = 0; }
+            var totalC = (cheque - retiroCheque); if (totalC < 0) { totalC = 0; }
+            var totalTr = (trans - retiroTrans); if (totalTr < 0) { totalTr = 0; }
 
             lbTEfectivoC.Text = "$" + (totalF).ToString("0.00");
             lbTTarjetaC.Text = "$" + (totalTa).ToString("0.00");
@@ -1986,8 +1986,8 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.F2)
             {
-                    Ventas mostrarVentas = new Ventas();
-                    mostrarVentas.Show();
+                Ventas mostrarVentas = new Ventas();
+                mostrarVentas.Show();
             }
         }
 

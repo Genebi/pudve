@@ -1111,6 +1111,12 @@ namespace PuntoDeVentaV2
             }
         }
 
+        /// <summary>
+        /// Metodo para envio de correo de Productos Eliminados
+        /// </summary>
+        /// <param name="productoEliminado">Lista de Productos en la lista de Productos Eliminados</param>
+        /// <param name="fechaSistema">Fecha de operacion de eliminacion de los productos del listdo de ventas</param>
+        /// <param name="datosUsuario">Datos del usuario que realiza la venta</param>
         public static void ventaProductDeleteEmail(List<string> productoEliminado, string fechaSistema, string[] datosUsuario)
         {
             decimal monto = 0;
@@ -1194,6 +1200,12 @@ namespace PuntoDeVentaV2
             return cantidad;
         }
 
+        /// <summary>
+        /// Metodo para envio de correo del Ultimo Producto Agregado fue Eliminado
+        /// </summary>
+        /// <param name="productoUltimoAgregadoEliminado">Listado de Productos que se han eliminado</param>
+        /// <param name="fechaSistema">Fecha de operacion de eliminacion de los productos del listdo de ventas</param>
+        /// <param name="datosUsuario">Datos del usuario que realiza la venta</param>
         public static void ventaBtnUltimoEliminadoEmail(List<string> productoUltimoAgregadoEliminado, string fechaSistema, string[] datosUsuario)
         {
             decimal monto = 0;
@@ -1263,12 +1275,12 @@ namespace PuntoDeVentaV2
         }
 
         /// <summary>
-        /// 
+        /// Metodo para envio de correo del Listado de Productos fue eliminado
         /// </summary>
-        /// <param name="productosNoVendidos"></param>
-        /// <param name="fechaSistema"></param>
-        /// <param name="importeTotal"></param>
-        /// <param name="datosUsuario"></param>
+        /// <param name="productosNoVendidos">Lista de Productos en la lista de Productos Eliminados</param>
+        /// <param name="fechaSistema">Fecha de operacion de eliminacion de los productos del listdo de ventas</param>
+        /// <param name="importeTotal">Importe total de la vent no realizada</param>
+        /// <param name="datosUsuario">Datos del usuario que realiza la venta</param>
         public static void ventaBtnClarAllItemSaleEmail(List<string> productosNoVendidos, string fechaSistema, string importeTotal, string[] datosUsuario)
         {
             string[] words;
@@ -1332,6 +1344,70 @@ namespace PuntoDeVentaV2
             if (!correo.Equals(""))
             {
                 EnviarEmail(correoHTML, asunto, correo);
+            }
+        }
+
+        /// <summary>
+        /// Metodo para envio de correo de Dinero Agregado, Retirado y Corte en Caja
+        /// </summary>
+        /// <param name="datosOperacion">Listado de datos de la operacion que se realizo</param>
+        public static void cajaBtnAgregarRetiroCorteDineroCajaEmail(string[] datosOperacion)
+        {
+            string[] datosUsuario = FormPrincipal.datosUsuario;
+            string[] datosEnvioCorreo = datosOperacion;
+
+            string OperacionRealizada = datosEnvioCorreo[0].ToString(), 
+                    CantidadDeOperacion = datosEnvioCorreo[1].ToString(), 
+                    SaldoDeOperacion = datosEnvioCorreo[2].ToString(), 
+                    ConceptoDeOperacion = datosEnvioCorreo[3].ToString(), 
+                    FechaDeOperacion = datosEnvioCorreo[4].ToString(), 
+                    IDUsuarioDeOperacion = datosEnvioCorreo[5].ToString(), 
+                    MontoEfectivoDeOperacion = datosEnvioCorreo[6].ToString(), 
+                    MontoTarjetaDeOperacion = datosEnvioCorreo[7].ToString(), 
+                    MontoValesDeOperacion = datosEnvioCorreo[8].ToString(), 
+                    MontoChequesDeOperacion = datosEnvioCorreo[9].ToString(), 
+                    MontoTransferenciaDeOperacion = datosEnvioCorreo[10].ToString(), 
+                    MontoCreditoDeOperacion = datosEnvioCorreo[11].ToString(), 
+                    MontoAnticipoDeOperacion = datosEnvioCorreo[12].ToString();
+
+            string NombreUsuario = datosUsuario[0].ToString(), 
+                    CalleUsuario = datosUsuario[1].ToString(), 
+                    NoExteriorUsuario = datosUsuario[2].ToString(), 
+                    NoInteriorUsuario = datosUsuario[3].ToString(), 
+                    MunicipioUsuario = datosUsuario[4].ToString(), 
+                    EstadoUsuario = datosUsuario[5].ToString(), 
+                    ColoniaUsuario = datosUsuario[6].ToString(), 
+                    CodigoPostal = datosUsuario[7].ToString(), 
+                    RFCUsuario = datosUsuario[8].ToString(), 
+                    EmailUsuario = datosUsuario[9].ToString(), 
+                    TelefonoUsuario = datosUsuario[10].ToString(), 
+                    LogoUsuario = datosUsuario[11].ToString(), 
+                    VerificadoUsuario = datosUsuario[12].ToString(), 
+                    IDUsuario = datosUsuario[13].ToString(), 
+                    PasswordUsuario = datosUsuario[14].ToString(), 
+                    FechaHoyUsuario = datosUsuario[15].ToString();
+
+            string cuerpoHTML = string.Empty,
+                    encabezadoHTML = string.Empty,
+                    pieHTML = string.Empty,
+                    correoHTML = string.Empty,
+                    asunto = string.Empty,
+                    correo = string.Empty;
+
+            if (OperacionRealizada.Equals("deposito"))
+            {
+                encabezadoHTML = @"<h1 style='text-align: center; color: blue;'>DEPOSITO DE DINERO CAJA (Click en botón Agregar Dinero) EN EL SISTEMA</h1><br>
+                                <p>Registro de agregar dinero en el sistema; la siguiente información es la registrada en dicha operación:</p>";
+            }
+            else if (OperacionRealizada.Equals("retiro"))
+            {
+                encabezadoHTML = @"<h1 style='text-align: center; color: red;'>RETIRO DE DINERO CAJA (Click en botón Retirar Dinero) EN EL SISTEMA</h1><br>
+                                <p>Registro de retiro de dinero en el sistema; la siguiente información es la registrada en dicha operación:</p>";
+            }
+            else if (OperacionRealizada.Equals("corte"))
+            {
+                encabezadoHTML = @"<h1 style='text-align: center; color: black;'>CORTE DE CAJA (Click en botón Corte de Caja) EN EL SISTEMA</h1><br>
+                                <p>Registro de corte de caja en el sistema; la siguiente información es la registrada en dicha operación:</p>";
             }
         }
     }
