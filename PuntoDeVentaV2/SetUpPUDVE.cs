@@ -38,6 +38,7 @@ namespace PuntoDeVentaV2
         int opcion13 = 1; // Mostrar codigo de producto
         int opcion14 = 1; // Activar precio mayoreo
         int opcion15 = 1; // Avisar productos no vendidos
+        int opcion16 = 1; // Correo Agregar Dinero Caja
 
         bool check5 = false;
         bool check6 = false;
@@ -50,6 +51,7 @@ namespace PuntoDeVentaV2
         bool check13 = false;
         bool check14 = false;
         bool check15 = false;
+        bool check16 = false;
 
         public SetUpPUDVE()
         {
@@ -96,6 +98,7 @@ namespace PuntoDeVentaV2
                 opcion13 = permisos[12];
                 opcion14 = permisos[13];
                 opcion15 = permisos[14];
+                opcion16 = permisos[15];
             }
             this.Focus();
         }
@@ -162,6 +165,9 @@ namespace PuntoDeVentaV2
                 checkNoVendidos.Checked = Convert.ToBoolean(datosConfig[11]);
                 check15 = checkNoVendidos.Checked;
                 txtNoVendidos.Text = datosConfig[12].ToString();
+
+                cbCorreoAgregarDineroCaja.Checked = Convert.ToBoolean(datosConfig[13]);
+                check16 = cbCorreoAgregarDineroCaja.Checked;
             }
             else
             {
@@ -653,6 +659,27 @@ namespace PuntoDeVentaV2
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
             }
+        }
+
+        private void cbCorreoAgregarDineroCaja_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opcion16.Equals(0))
+            {
+                cbCorreoAgregarDineroCaja.CheckedChanged -= cbCorreoAgregarDineroCaja_CheckedChanged;
+                cbCorreoAgregarDineroCaja.Checked = check16;
+                Utilidades.MensajePermiso();
+                cbCorreoAgregarDineroCaja.CheckedChanged += cbCorreoAgregarDineroCaja_CheckedChanged;
+                return;
+            }
+
+            var habilitado = 0;
+
+            if (cbCorreoAgregarDineroCaja.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoAgregarDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }
