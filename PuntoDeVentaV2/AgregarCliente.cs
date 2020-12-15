@@ -26,6 +26,7 @@ namespace PuntoDeVentaV2
         private int tipo = 0;
         private int idCliente = 0;
         private int idVenta = 0;
+        bool validarRFC = false;
 
         //idVenta como parametro es para cuando se agrega un cliente al momento de querer timbrar
         //una venta, de esta manera se asigna el ID del cliente al terminar el registro de esta manera
@@ -133,100 +134,142 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            var razon = txtRazonSocial.Text;
-            var comercial = txtNombreComercial.Text;
-            var rfc = txtRFC.Text;
-            var usoCFDI = cbUsoCFDI.SelectedValue;
-            var pais = txtPais.Text;
-            var estado = txtEstado.Text;
-            var municipio = txtMunicipio.Text;
-            var localidad = txtLocalidad.Text;
-            var cp = txtCP.Text;
-            var colonia = txtColonia.Text;
-            var calle = txtCalle.Text;
-            var noExt = txtNumExt.Text;
-            var noInt = txtNumInt.Text;
-            var regimen = string.Empty; //Esta vacio porque no se utiliza actualmente el campo de regimen
-            var email = txtEmail.Text;
-            var telefono = txtTelefono.Text;
-            var tipoCliente = cbTipoCliente.SelectedValue.ToString();
-            var numeroCliente = GenerarNumeroCliente();
-            var formaPago = "01"; //cbFormaPago.SelectedValue;
-            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            valdarRFCExistente();
 
-            if (tipo != 2)
+            if (validarRFC == true || cbCliente.Checked)
             {
-                int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}' ORDER BY FechaOperacion DESC LIMIT 1", 1));
-            }
+                var razon = txtRazonSocial.Text;
+                var comercial = txtNombreComercial.Text;
+                var rfc = txtRFC.Text;
+                var usoCFDI = cbUsoCFDI.SelectedValue;
+                var pais = txtPais.Text;
+                var estado = txtEstado.Text;
+                var municipio = txtMunicipio.Text;
+                var localidad = txtLocalidad.Text;
+                var cp = txtCP.Text;
+                var colonia = txtColonia.Text;
+                var calle = txtCalle.Text;
+                var noExt = txtNumExt.Text;
+                var noInt = txtNumInt.Text;
+                var regimen = string.Empty; //Esta vacio porque no se utiliza actualmente el campo de regimen
+                var email = txtEmail.Text;
+                var telefono = txtTelefono.Text;
+                var tipoCliente = cbTipoCliente.SelectedValue.ToString();
+                var numeroCliente = GenerarNumeroCliente();
+                var formaPago = "01"; //cbFormaPago.SelectedValue;
+                var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            if (string.IsNullOrWhiteSpace(razon))
-            {
-                MessageBox.Show("La razón social es obligatoria", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                return;
-            }
-
-            /*if (string.IsNullOrWhiteSpace(rfc))
-            {
-                MessageBox.Show("El RFC es un campo obligatorio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                return;
-            }
-
-            // Valida longitud y formato del RFC
-            if (txtRFC.TextLength < 12)
-            {
-                MessageBox.Show("La longitud del RFC es incorrecta.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            else
-            {
-                string formato_rfc = "^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$";
-
-                Regex exp = new Regex(formato_rfc);
-
-                if (exp.IsMatch(txtRFC.Text))
+                if (tipo != 2)
                 {
+                    int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}' ORDER BY FechaOperacion DESC LIMIT 1", 1));
                 }
-                else
+
+                if (string.IsNullOrWhiteSpace(razon))
                 {
-                    MessageBox.Show("El formato del RFC no es valido.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("La razón social es obligatoria", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return;
                 }
-            }*/
-            
 
-            string[] datos = new string[]
-            {
+                /*if (string.IsNullOrWhiteSpace(rfc))
+                {
+                    MessageBox.Show("El RFC es un campo obligatorio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
+                // Valida longitud y formato del RFC
+                if (txtRFC.TextLength < 12)
+                {
+                    MessageBox.Show("La longitud del RFC es incorrecta.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    string formato_rfc = "^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$";
+
+                    Regex exp = new Regex(formato_rfc);
+
+                    if (exp.IsMatch(txtRFC.Text))
+                    {
+                    }
+                    else
+                    {
+                        MessageBox.Show("El formato del RFC no es valido.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return;
+                    }
+                }*/
+
+
+                string[] datos = new string[]
+                {
                 FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI.ToString(), pais, estado, municipio, localidad,
                 cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago, fechaOperacion, idCliente.ToString(),
                 tipoCliente, numeroCliente
-            };
+                };
 
-            //Si el checkbox de agregar cliente repetido esta marcado
-            if (cbCliente.Checked)
-            {
-                bool respuesta = (bool)cn.EjecutarSelect($"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}'");
-
-                if (respuesta)
+                //Si el checkbox de agregar cliente repetido esta marcado
+                if (cbCliente.Checked)
                 {
-                    var mensaje = MessageBox.Show("Ya existe un cliente registrado con el mismo RFC.\n\n¿Desea actualizarlo con esta información?", "Mensaje del Sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    bool respuesta = (bool)cn.EjecutarSelect($"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}'");
 
-                    if (mensaje == DialogResult.Yes)
+                    if (respuesta)
                     {
-                        //Si selecciona SI se hace una actualizacion con la informacion del formulario al usuario que tiene el mismo RFC
-                        int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
+                        var mensaje = MessageBox.Show("Ya existe un cliente registrado con el mismo RFC.\n\n¿Desea actualizarlo con esta información?", "Mensaje del Sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                        if (mensaje == DialogResult.Yes)
+                        {
+                            //Si selecciona SI se hace una actualizacion con la informacion del formulario al usuario que tiene el mismo RFC
+                            int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
+
+                            if (resultado > 0)
+                            {
+                                this.Close();
+                            }
+                        }
+                        else if (mensaje == DialogResult.No)
+                        {
+                            //Si selecciona NO se hace un nuevo registro
+
+                            //Insertar
+                            int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
+
+                            if (resultado > 0)
+                            {
+                                if (idVenta > 0)
+                                {
+                                    AsignarCliente(idVenta);
+                                }
+
+                                this.Close();
+                            }
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        //Insertar
+                        int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
 
                         if (resultado > 0)
                         {
+                            if (idVenta > 0)
+                            {
+                                AsignarCliente(idVenta);
+                            }
+
                             this.Close();
                         }
                     }
-                    else if (mensaje == DialogResult.No)
+                }
+                else
+                {
+                    if (tipo == 1)
                     {
-                        //Si selecciona NO se hace un nuevo registro
-
                         //Insertar
                         int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
 
@@ -242,51 +285,36 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        return;
-                    }
-                }
-                else
-                {
-                    //Insertar
-                    int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
+                        //Actualizar
+                        int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
 
-                    if (resultado > 0)
-                    {
-                        if (idVenta > 0)
+                        if (resultado > 0)
                         {
-                            AsignarCliente(idVenta);
+                            this.Close();
                         }
-
-                        this.Close();
                     }
                 }
             }
             else
             {
-                if (tipo == 1)
+                MessageBox.Show("Esta RFC ya esta registrada con otro cliente", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
+        }
+
+        private void valdarRFCExistente()
+        {
+            var rfc = txtRFC.Text;
+
+            using (var buscarRfc = cn.CargarDatos($"SELECT RFC FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RFC = '{rfc}'"))
+            {
+                if (!buscarRfc.Rows.Count.Equals(0))
                 {
-                    //Insertar
-                    int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
-
-                    if (resultado > 0)
-                    {
-                        if (idVenta > 0)
-                        {
-                            AsignarCliente(idVenta);
-                        }
-
-                        this.Close();
-                    }
+                    validarRFC = false;
                 }
                 else
                 {
-                    //Actualizar
-                    int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
-
-                    if (resultado > 0)
-                    {
-                        this.Close();
-                    }
+                    validarRFC = true;
                 }
             }
         }
