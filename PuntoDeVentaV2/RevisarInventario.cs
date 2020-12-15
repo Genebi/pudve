@@ -964,30 +964,76 @@ namespace PuntoDeVentaV2
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
-            var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{txtCodigoBarras.Text}' OR ClaveInterna = '{txtCodigoBarras.Text}'");
             var idBueno = string.Empty;
-            if (!idActual.Rows.Count.Equals(0))
+            var obteniendoId = string.Empty;
+            var validarAnterior = false;
+
+            using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{txtCodigoBarras.Text}' OR ClaveInterna = '{txtCodigoBarras.Text}'"))
             {
-                foreach (DataRow dato in idActual.Rows)
+                if (!idActual.Rows.Count.Equals(0))
                 {
-                    idBueno = dato["ID"].ToString();
+                    foreach (DataRow dato in idActual.Rows)
+                    {
+                        idBueno = dato["ID"].ToString();
+                    }
+
+                    //Aqui tenemos la posicion de la lista en que esta el ID
+                    int getIndice = id.FindIndex(y => y == idBueno);
+
+                    for (int x = 0; x <= id.Count; x++)
+                    {
+                        if (x == getIndice)
+                        {
+                            if (x != 0)
+                            {
+                                obteniendoId = id[x - 1].ToString();
+                                validarAnterior = true;
+                            }
+                            else
+                            {
+                                validarAnterior = false;
+                                MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (validarAnterior == true)
+            {
+                var mostrarDatos = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{obteniendoId}'");
+                if (!mostrarDatos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow datosObtenidos in mostrarDatos.Rows)
+                    {
+                        if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
+                        {
+                            LimpiarCampos();
+                            txtBoxBuscarCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
+                            txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
+                            txtCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
+                            lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
+                            lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
+                            lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
+                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
+                            txtCantidadStock.Focus();
+                        }
+                        else
+                        {
+                            LimpiarCampos();
+                            txtBoxBuscarCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
+                            txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
+                            txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
+                            lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
+                            lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
+                            lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
+                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
+                            txtCantidadStock.Focus();
+                        }
+                    }
                 }
             }
             
-            //Aqui tenemos la posicion de la lista en que esta el ID
-            int getIndice = id.FindIndex(y => y == idBueno);
-
-            var obteniendoId = string.Empty;
-
-            for (int x = 0; x <= id.Count; x++)
-            {
-                if (x == getIndice)
-                {
-                    obteniendoId = id[x - 1].ToString();
-                }
-            }
-
-            var z = 0;
 
             //var codeBarras = txtCodigoBarras.Text;
 
