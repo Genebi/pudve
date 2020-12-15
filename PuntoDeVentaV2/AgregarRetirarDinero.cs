@@ -261,11 +261,20 @@ namespace PuntoDeVentaV2
 
             int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
-            Thread AgregarRetiroDinero = new Thread(
-                () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
-            );
+            // Ejecutr hilo para enviarnotificación
+            var datosConfig = mb.ComprobarConfiguracion();
 
-            AgregarRetiroDinero.Start();
+            if (datosConfig.Count > 0)
+            {
+                if (Convert.ToInt32(datosConfig[13]).Equals(1))
+                {
+                    Thread AgregarRetiroDinero = new Thread(
+                        () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
+                    );
+
+                    AgregarRetiroDinero.Start();
+                }
+            }
 
             if (resultado > 0)
             {
