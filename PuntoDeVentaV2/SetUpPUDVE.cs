@@ -165,6 +165,9 @@ namespace PuntoDeVentaV2
                 checkNoVendidos.Checked = Convert.ToBoolean(datosConfig[11]);
                 check15 = checkNoVendidos.Checked;
                 txtNoVendidos.Text = datosConfig[12].ToString();
+
+                cbCorreoAgregarDineroCaja.Checked = Convert.ToBoolean(datosConfig[13]);
+                check16 = cbCorreoAgregarDineroCaja.Checked;
             }
             else
             {
