@@ -1402,66 +1402,68 @@ namespace PuntoDeVentaV2
             {
                 encabezadoHTML = @"<h1 style='text-align: center; color: red;'>RETIRO DE DINERO CAJA (Click en botón Retirar Dinero) EN EL SISTEMA</h1><br>
                                 <p>Registro de retiro de dinero en el sistema; la siguiente información es la registrada en dicha operación:</p>";
-                cuerpoHTML = $@"<table style = 'width:100%'>
-                                    <tr>
-                                        <th style = 'text-align: center;' colspan = '3'>Cantidad a Retirada</th>
-                                    </tr>";
+                cuerpoHTML = $@"<div style = 'text-align: center;'>
+                                    <table style = 'width:50%; margin: 0 auto; text-align: left;'>
+                                        <tr>
+                                            <th style = 'text-align: center;' colspan = '3'>Cantidad a Retirada</th>
+                                        </tr>";
             }
 
-                  cuerpoHTML += $@"<tr>
-                                        <th style = 'text-align: left;'>
-                                            Efectivo:
-                                        </th>
-                                        <th style = 'text-align: center;'>
-                                            <span style='color: blue;'>{MontoEfectivoDeOperacion}</span>
-                                        </th>
-                                        <th style = 'text-align: left;'>
-                                            Cheque:
-                                        </th>
-                                        <th style = 'text-align: center;'>
-                                            <span style='color: blue;'>{MontoChequesDeOperacion}</span>
-                                        </th>
-                                   </tr>
-                                   <tr>
-                                        <th style = 'text-align: left;'>
-                                            Tarjeta:
-                                        </th>
-                                        <th style = 'text-align: center;'>
-                                            <span style='color: blue;'>{MontoTarjetaDeOperacion}</span>
-                                        </th>
-                                        <th style = 'text-align: left;'>
-                                            Transferencia:
-                                        </th>
-                                        <th style = 'text-align: center;'>
-                                            <span style='color: blue;'>{MontoTransferenciaDeOperacion}</span>
-                                        </th>
-                                   </tr>
-                                   <tr>
-                                        <th style = 'text-align: left;'>
-                                            Vales:
-                                        </th>
-                                        <th style = 'text-align: center;'>
-                                            <span style='color: blue;'>{MontoValesDeOperacion}</span>
-                                        </th>
-                                        <th style = 'text-align: left;'>
-                                            Crédito:
-                                        </th>
-                                        <th style = 'text-align: center;'>
-                                            <span style='color: blue;'>{MontoCreditoDeOperacion}</span>
-                                        </th>
-                                   </tr>
-                                   <tr>
-                                        <th style = 'text-align: center;' colspan = '3'>
-                                            Concepto del {OperacionRealizada}:
-                                        </th>
-                                   </tr>
+                  cuerpoHTML += $@"     <tr>
+                                            <th style = 'text-align: left;'>
+                                                Efectivo:
+                                            </th>
+                                            <th style = 'text-align: center;'>
+                                                <span style='color: blue;'>{MontoEfectivoDeOperacion}</span>
+                                            </th>
+                                            <th style = 'text-align: left;'>
+                                                Cheque:
+                                            </th>
+                                            <th style = 'text-align: center;'>
+                                                <span style='color: blue;'>{MontoChequesDeOperacion}</span>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style = 'text-align: left;'>
+                                                Tarjeta:
+                                            </th>
+                                            <th style = 'text-align: center;'>
+                                                <span style='color: blue;'>{MontoTarjetaDeOperacion}</span>
+                                            </th>
+                                            <th style = 'text-align: left;'>
+                                                Transferencia:
+                                            </th>
+                                            <th style = 'text-align: center;'>
+                                                <span style='color: blue;'>{MontoTransferenciaDeOperacion}</span>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style = 'text-align: left;'>
+                                                Vales:
+                                            </th>
+                                            <th style = 'text-align: center;'>
+                                                <span style='color: blue;'>{MontoValesDeOperacion}</span>
+                                            </th>
+                                            <th style = 'text-align: left;'>
+                                                Crédito:
+                                            </th>
+                                            <th style = 'text-align: center;'>
+                                                <span style='color: blue;'>{MontoCreditoDeOperacion}</span>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style = 'text-align: center;' colspan = '3'>
+                                                Concepto del {OperacionRealizada}:
+                                            </th>
+                                        </tr>
 
-                                   <tr>
-                                        <th style = 'text-align: center;' colspan = '3'>
-                                            <span style='color: blue;'>{ConceptoDeOperacion}</span>
-                                        </th>
-                                   </tr>
-                                </table>";
+                                        <tr>
+                                            <th style = 'text-align: center;' colspan = '3'>
+                                                <span style='color: blue;'>{ConceptoDeOperacion}</span>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </div>";
 
             pieHTML = $@"<p>Está operación fue realizada con <span style='color:red;'>fecha de {FechaDeOperacion}</span> por el <span style='color: red'>usuario = {NombreUsuario}</span></p>";
 
