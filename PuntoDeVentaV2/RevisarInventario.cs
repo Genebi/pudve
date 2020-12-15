@@ -41,11 +41,14 @@ namespace PuntoDeVentaV2
 
         bool validarAnterior = true;
         int convertirId = 0;
-        int numFilasExistentes = 0;
+        int numFilasExistentes = -1;
 
         Dictionary<int, string> listaProductos;
 
         List<int> idDeProductos = new List<int>();
+
+        List<string> id = new List<string>();
+        int contador = 1;
 
 
         public RevisarInventario(string[] datos)
@@ -200,6 +203,11 @@ namespace PuntoDeVentaV2
 
         private void buscarCodigoBarras()
         {
+            // variableSin = SIN
+            // 
+            id.Clear();
+
+
             var busqueda = txtBoxBuscarCodigoBarras.Text;
 
             if (tipoFiltro != "Normal")
@@ -210,7 +218,6 @@ namespace PuntoDeVentaV2
             if (busqueda != string.Empty)
             {
                 List<string> listaCodigosBarras = new List<string>();
-
                 var aplicar = false;
 
                 var codigo = txtBoxBuscarCodigoBarras.Text;
@@ -225,7 +232,7 @@ namespace PuntoDeVentaV2
                             if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
                             {
                                 using (DataTable dtListaProductosSinProveedor = cn.CargarDatos(cs.ListarProductosSinProveedor(FormPrincipal.userID, 1)))
-                                {
+                                { // En este las busquedas solo son con idUsuario y status = 1
                                     if (!dtListaProductosSinProveedor.Rows.Count.Equals(0))
                                     {
                                         foreach (DataRow drListaProductosSinProveedor in dtListaProductosSinProveedor.Rows)
@@ -233,10 +240,12 @@ namespace PuntoDeVentaV2
                                             if (!string.IsNullOrWhiteSpace(drListaProductosSinProveedor["CodigoBarras"].ToString()))
                                             {
                                                 listaCodigosBarras.Add(drListaProductosSinProveedor["CodigoBarras"].ToString());
+                                                id.Add(drListaProductosSinProveedor["ID"].ToString());
                                             }
                                             else
                                             {
                                                 listaCodigosBarras.Add(drListaProductosSinProveedor["ClaveInterna"].ToString());
+                                                id.Add(drListaProductosSinProveedor["ID"].ToString());
                                             }
                                         }
                                     }
@@ -245,7 +254,7 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 using (DataTable dtListaProductosProveedor = cn.CargarDatos(cs.ListarProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1)))
-                                {
+                                {// Esta es con idUsuario, nombreProvedor, status =1
                                     if (!dtListaProductosProveedor.Rows.Count.Equals(0))
                                     {
                                         foreach (DataRow drListaProductosProveedor in dtListaProductosProveedor.Rows)
@@ -253,10 +262,12 @@ namespace PuntoDeVentaV2
                                             if (!string.IsNullOrWhiteSpace(drListaProductosProveedor["CodigoBarras"].ToString()))
                                             {
                                                 listaCodigosBarras.Add(drListaProductosProveedor["CodigoBarras"].ToString());
+                                                id.Add(drListaProductosProveedor["ID"].ToString());
                                             }
                                             else
                                             {
                                                 listaCodigosBarras.Add(drListaProductosProveedor["ClaveInterna"].ToString());
+                                                id.Add(drListaProductosProveedor["ID"].ToString());
                                             }
                                         }
                                     }
@@ -269,7 +280,7 @@ namespace PuntoDeVentaV2
                             if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
                             {
                                 using (DataTable dtListaProductosSinConceptoDinamico = cn.CargarDatos(cs.ListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1)))
-                                {
+                                {// Este es sin conceptoDinamico y con idUsuario y status = 1
                                     if (!dtListaProductosSinConceptoDinamico.Rows.Count.Equals(0))
                                     {
                                         foreach (DataRow drListaProductosSinConceptoDinamico in dtListaProductosSinConceptoDinamico.Rows)
@@ -277,10 +288,12 @@ namespace PuntoDeVentaV2
                                             if (!string.IsNullOrWhiteSpace(drListaProductosSinConceptoDinamico["CodigoBarras"].ToString()))
                                             {
                                                 listaCodigosBarras.Add(drListaProductosSinConceptoDinamico["CodigoBarras"].ToString());
+                                                id.Add(drListaProductosSinConceptoDinamico["ID"].ToString());
                                             }
                                             else
                                             {
                                                 listaCodigosBarras.Add(drListaProductosSinConceptoDinamico["ClaveInterna"].ToString());
+                                                id.Add(drListaProductosSinConceptoDinamico["ID"].ToString());
                                             }
                                         }
                                     }
@@ -289,7 +302,7 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 using (DataTable dtListaProductosConceptoDinamico = cn.CargarDatos(cs.ListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1)))
-                                {
+                                {// Este es con conceptoDinamico, idusuario y status 1
                                     if (!dtListaProductosConceptoDinamico.Rows.Count.Equals(0))
                                     {
                                         foreach (DataRow drListaProductosConceptoDinamico in dtListaProductosConceptoDinamico.Rows)
@@ -297,10 +310,12 @@ namespace PuntoDeVentaV2
                                             if (!string.IsNullOrWhiteSpace(drListaProductosConceptoDinamico["CodigoBarras"].ToString()))
                                             {
                                                 listaCodigosBarras.Add(drListaProductosConceptoDinamico["CodigoBarras"].ToString());
+                                                id.Add(drListaProductosConceptoDinamico["ID"].ToString());
                                             }
                                             else
                                             {
                                                 listaCodigosBarras.Add(drListaProductosConceptoDinamico["ClaveInterna"].ToString());
+                                                id.Add(drListaProductosConceptoDinamico["ID"].ToString());
                                             }
                                         }
                                     }
@@ -603,6 +618,7 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
+            contador++;
             var busqueda = txtBoxBuscarCodigoBarras.Text;
 
             if (tipoFiltro != "Normal")
@@ -948,152 +964,102 @@ namespace PuntoDeVentaV2
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
-            //if (validarAnterior == true)
+            var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{txtCodigoBarras.Text}' OR ClaveInterna = '{txtCodigoBarras.Text}'");
+            var idBueno = string.Empty;
+            if (!idActual.Rows.Count.Equals(0))
+            {
+                foreach (DataRow dato in idActual.Rows)
+                {
+                    idBueno = dato["ID"].ToString();
+                }
+            }
+            
+            //Aqui tenemos la posicion de la lista en que esta el ID
+            int getIndice = id.FindIndex(y => y == idBueno);
+
+            var obteniendoId = string.Empty;
+
+            for (int x = 0; x <= id.Count; x++)
+            {
+                if (x == getIndice)
+                {
+                    obteniendoId = id[x - 1].ToString();
+                }
+            }
+
+            var z = 0;
+
+            //var codeBarras = txtCodigoBarras.Text;
+
+            //var idActual = cn.CargarDatos($"SELECT IDAlmacen FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND ClaveInterna = '{codeBarras}'");
+            //if (!idActual.Rows.Count.Equals(0))
             //{
-            //    validarAnterior = false;
-            //    using (var datoAnterior = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY ID DESC LIMIT 1"))
+            //    var getId = Convert.ToInt32(idActual.Rows[0]["IDAlmacen"].ToString());
+            //    var datosId = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{(getId-1)}'");
+
+            //    foreach (DataRow datosObtenidos in datosId.Rows)
             //    {
-            //        if (!datoAnterior.Rows.Count.Equals(0))
+            //        if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
             //        {
-            //            var result = datoAnterior.Rows[0]["ID"].ToString();
-            //            convertirId = Convert.ToInt32(result);
-
-            //            var restaId = cn.CargarDatos($"SELECT COUNT(*) AS Count FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}'");
-
-            //            numFilasExistentes = Convert.ToInt32(restaId.Rows[0]["Count"].ToString());
+            //            LimpiarCampos();
+            //            txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
+            //            txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
+            //            lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
+            //            lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
+            //            lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
+            //            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
+            //            txtCantidadStock.Focus();
+            //        }
+            //        //else if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
+            //        //{
+            //        //    txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
+            //        //}
+            //        //buscarCodigoBarras();
+            //    }
+            //}
+            //else 
+            //{
+            //    var idActual2 = cn.CargarDatos($"SELECT IDAlmacen FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codeBarras}'");
+            //    if (!idActual2.Rows.Count.Equals(0))
+            //    {
+            //        var getId = Convert.ToInt32(idActual2.Rows[0]["IDalmacen"].ToString());
+            //        var datosId = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{(getId - 1)}'");
+            //        if (!datosId.Rows.Count.Equals(0))
+            //        {
+            //            foreach (DataRow datosObtenidos in datosId.Rows)
+            //            {
+            //                if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
+            //                {
+            //                    LimpiarCampos();
+            //                    txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
+            //                    txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
+            //                    lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
+            //                    lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
+            //                    lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
+            //                    txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
+            //                }
+            //                else
+            //                {
+            //                    MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //                }
+            //                //else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
+            //                //{
+            //                //    txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
+            //                //}
+            //                //buscarCodigoBarras();
+            //            }
             //        }
             //        else
             //        {
-            //            MessageBox.Show("No hay productos revisados anteriormente", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //            MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //        }
+
             //    }
-            //}
-            //var idStatico = (convertirId - numFilasExistentes);
-
-            //if ((convertirId - numFilasExistentes) <= idStatico && (convertirId - numFilasExistentes) != 0/*convertirId > 0*/)
-            //{
-            //    //MessageBox.Show($"Id:{convertirId}");
-            //    var informacionProducto = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{convertirId}'");
-
-            //    foreach (DataRow datosObtenidos in informacionProducto.Rows)
+            //    else
             //    {
-            //        if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
-            //        {
-            //            txtBoxBuscarCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
-            //        }
-            //        else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
-            //        {
-            //            txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
-            //        }
-            //        buscarCodigoBarras();
-            //    }
-
-            //    //convertirId--; == Esta dentro de un mbox con una variabble llamada respuesta dentro del metodo "buscarCodigoBarras()" en este mismo form
-            //}
-            //else
-            //{
-            //    MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
-
-
-
-            //var idMafufo = 0;
-            //for (int x = 0; x < idDeProductos.Count; x++)
-            //{
-            //    idMafufo = idDeProductos[x];
-            //}
-            //idProductoAux = (idMafufo - 1);
-
-
-            //var datosId = cn.CargarDatos($"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idMafufo}'");
-            //if (!datosId.Rows.Count.Equals(0))
-            //{
-            //    foreach (DataRow datosObtenidos in datosId.Rows)
-            //    {
-            //        if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
-            //        {
-            //            txtBoxBuscarCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
-            //        }
-            //        else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
-            //        {
-            //            txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
-            //        }
-            //        buscarCodigoBarras();
+            //        MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //    }
             //}
-
-            var codeBarras = txtCodigoBarras.Text;
-
-            var idActual = cn.CargarDatos($"SELECT IDAlmacen FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND ClaveInterna = '{codeBarras}'");
-            if (!idActual.Rows.Count.Equals(0))
-            {
-                var getId = Convert.ToInt32(idActual.Rows[0]["IDAlmacen"].ToString());
-                var datosId = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{(getId-1)}'");
-
-                foreach (DataRow datosObtenidos in datosId.Rows)
-                {
-                    if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
-                    {
-                        LimpiarCampos();
-                        txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
-                        txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
-                        lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
-                        lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
-                        lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-                        txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
-                        txtCantidadStock.Focus();
-                    }
-                    //else if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
-                    //{
-                    //    txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
-                    //}
-                    //buscarCodigoBarras();
-                }
-            }
-            else 
-            {
-                var idActual2 = cn.CargarDatos($"SELECT IDAlmacen FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codeBarras}'");
-                if (!idActual2.Rows.Count.Equals(0))
-                {
-                    var getId = Convert.ToInt32(idActual2.Rows[0]["IDalmacen"].ToString());
-                    var datosId = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{(getId - 1)}'");
-                    if (!datosId.Rows.Count.Equals(0))
-                    {
-                        foreach (DataRow datosObtenidos in datosId.Rows)
-                        {
-                            if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
-                            {
-                                LimpiarCampos();
-                                txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
-                                txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
-                                lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
-                                lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
-                                lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-                                txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
-                            }
-                            else
-                            {
-                                MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                            //else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
-                            //{
-                            //    txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
-                            //}
-                            //buscarCodigoBarras();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-
-                }
-                else
-                {
-                    MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                
-            }
         }
 
         private void btnBusqueda_Click(object sender, EventArgs e)
