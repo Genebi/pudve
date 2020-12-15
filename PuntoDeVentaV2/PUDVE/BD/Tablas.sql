@@ -878,4 +878,8 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- -- Final sección de Index, Unique Index, y Foreign Key  --
 -- -----------------------------------------------------------
 
+-- Agregar Columna (CorreoAgregarDineroCaja) a la tabla de Configuracion si es que no tiene dicha columna 
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoAgregarDineroCaja tinyint(1) DEFAULT 0;
+
+-- Agregar Columna (CorreoAgregarDineroCaja) a la tabla de Configuracion si es que no tiene dicha columna 
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoRetiroDineroCaja tinyint(1) DEFAULT 0;

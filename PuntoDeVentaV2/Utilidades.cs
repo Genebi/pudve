@@ -1476,7 +1476,6 @@ namespace PuntoDeVentaV2
             pieHTML = $@"<p>Está operación fue realizada con <span style='color:red;'>fecha de {FechaDeOperacion}</span> por el <span style='color: red'>usuario = {NombreUsuario}</span></p>";
 
             correoHTML = encabezadoHTML + cuerpoHTML + pieHTML;
-
             
             correo = EmailUsuario;
 
