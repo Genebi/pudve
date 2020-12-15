@@ -56,6 +56,10 @@
             this.txtNoVendidos = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbStockNegativo
@@ -63,7 +67,7 @@
             this.cbStockNegativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbStockNegativo.AutoSize = true;
             this.cbStockNegativo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStockNegativo.Location = new System.Drawing.Point(48, 365);
+            this.cbStockNegativo.Location = new System.Drawing.Point(56, 400);
             this.cbStockNegativo.Name = "cbStockNegativo";
             this.cbStockNegativo.Size = new System.Drawing.Size(177, 21);
             this.cbStockNegativo.TabIndex = 1;
@@ -205,53 +209,49 @@
             // 
             // cbCorreoPrecioProducto
             // 
-            this.cbCorreoPrecioProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoPrecioProducto.AutoSize = true;
             this.cbCorreoPrecioProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(48, 218);
+            this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(17, 22);
             this.cbCorreoPrecioProducto.Name = "cbCorreoPrecioProducto";
-            this.cbCorreoPrecioProducto.Size = new System.Drawing.Size(239, 21);
+            this.cbCorreoPrecioProducto.Size = new System.Drawing.Size(150, 21);
             this.cbCorreoPrecioProducto.TabIndex = 111;
-            this.cbCorreoPrecioProducto.Text = "Enviar correo al modificar precio";
+            this.cbCorreoPrecioProducto.Text = "Al modificar precio";
             this.cbCorreoPrecioProducto.UseVisualStyleBackColor = true;
             this.cbCorreoPrecioProducto.CheckedChanged += new System.EventHandler(this.cbCorreoPrecioProducto_CheckedChanged);
             // 
             // cbCorreoStockProducto
             // 
-            this.cbCorreoStockProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoStockProducto.AutoSize = true;
             this.cbCorreoStockProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockProducto.Location = new System.Drawing.Point(48, 254);
+            this.cbCorreoStockProducto.Location = new System.Drawing.Point(17, 48);
             this.cbCorreoStockProducto.Name = "cbCorreoStockProducto";
-            this.cbCorreoStockProducto.Size = new System.Drawing.Size(232, 21);
+            this.cbCorreoStockProducto.Size = new System.Drawing.Size(143, 21);
             this.cbCorreoStockProducto.TabIndex = 112;
-            this.cbCorreoStockProducto.Text = "Enviar correo al modificar stock";
+            this.cbCorreoStockProducto.Text = "Al modificar stock";
             this.cbCorreoStockProducto.UseVisualStyleBackColor = true;
             this.cbCorreoStockProducto.CheckedChanged += new System.EventHandler(this.cbCorreoStockProducto_CheckedChanged);
             // 
             // cbCorreoStockMinimo
             // 
-            this.cbCorreoStockMinimo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoStockMinimo.AutoSize = true;
             this.cbCorreoStockMinimo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(48, 290);
+            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(17, 72);
             this.cbCorreoStockMinimo.Name = "cbCorreoStockMinimo";
-            this.cbCorreoStockMinimo.Size = new System.Drawing.Size(259, 21);
+            this.cbCorreoStockMinimo.Size = new System.Drawing.Size(170, 21);
             this.cbCorreoStockMinimo.TabIndex = 113;
-            this.cbCorreoStockMinimo.Text = "Enviar correo al llegar stock minimo";
+            this.cbCorreoStockMinimo.Text = "Al llegar stock minimo";
             this.cbCorreoStockMinimo.UseVisualStyleBackColor = true;
             this.cbCorreoStockMinimo.CheckedChanged += new System.EventHandler(this.cbCorreoStockMinimo_CheckedChanged);
             // 
             // cbCorreoVenderProducto
             // 
-            this.cbCorreoVenderProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoVenderProducto.AutoSize = true;
             this.cbCorreoVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(48, 327);
+            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(17, 97);
             this.cbCorreoVenderProducto.Name = "cbCorreoVenderProducto";
-            this.cbCorreoVenderProducto.Size = new System.Drawing.Size(255, 21);
+            this.cbCorreoVenderProducto.Size = new System.Drawing.Size(166, 21);
             this.cbCorreoVenderProducto.TabIndex = 114;
-            this.cbCorreoVenderProducto.Text = "Enviar correo al venderse producto";
+            this.cbCorreoVenderProducto.Text = "Al venderse producto";
             this.cbCorreoVenderProducto.UseVisualStyleBackColor = true;
             this.cbCorreoVenderProducto.CheckedChanged += new System.EventHandler(this.cbCorreoVenderProducto_CheckedChanged);
             // 
@@ -418,11 +418,51 @@
             this.label3.TabIndex = 127;
             this.label3.Text = "días";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.cbCorreoPrecioProducto);
+            this.groupBox1.Controls.Add(this.cbCorreoStockProducto);
+            this.groupBox1.Controls.Add(this.cbCorreoStockMinimo);
+            this.groupBox1.Controls.Add(this.cbCorreoVenderProducto);
+            this.groupBox1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(37, 213);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(219, 181);
+            this.groupBox1.TabIndex = 128;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Envio de Corre:";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.checkBox1.Location = new System.Drawing.Point(17, 124);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(193, 21);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Al agregar dinero en caja";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.checkBox2.Location = new System.Drawing.Point(18, 152);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(178, 21);
+            this.checkBox2.TabIndex = 115;
+            this.checkBox2.Text = "Al retirar dinero en caja";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(934, 561);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNoVendidos);
@@ -436,10 +476,6 @@
             this.Controls.Add(this.cbMostrarCB);
             this.Controls.Add(this.cbMostrarPrecio);
             this.Controls.Add(this.pagWeb);
-            this.Controls.Add(this.cbCorreoVenderProducto);
-            this.Controls.Add(this.cbCorreoStockMinimo);
-            this.Controls.Add(this.cbCorreoStockProducto);
-            this.Controls.Add(this.cbCorreoPrecioProducto);
             this.Controls.Add(this.checkCBVenta);
             this.Controls.Add(this.btnGuardarRevision);
             this.Controls.Add(this.txtNumeroRevision);
@@ -456,6 +492,8 @@
             this.Load += new System.EventHandler(this.SetUpPUDVE_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.SetUpPUDVE_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SetUpPUDVE_KeyDown);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -490,5 +528,8 @@
         private System.Windows.Forms.TextBox txtNoVendidos;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
