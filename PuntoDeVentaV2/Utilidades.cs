@@ -1398,6 +1398,11 @@ namespace PuntoDeVentaV2
             {
                 encabezadoHTML = @"<h1 style='text-align: center; color: blue;'>AGREGAR DINERO A CAJA (Click en botón Retirar Dinero) EN EL SISTEMA</h1><br>
                                 <p>Registro de deposito de dinero en el sistema; la siguiente información es la registrada en dicha operación:</p>";
+                cuerpoHTML = $@"<div style = 'text-align: center;'>
+                                    <table style = 'width:50%; margin: 0 auto; text-align: left;'>
+                                        <tr>
+                                            <th style = 'text-align: center;' colspan = '3'>Cantidad fue Agregada</th>
+                                        </tr>";
             }
             else if (OperacionRealizada.Equals("retiro"))
             {
