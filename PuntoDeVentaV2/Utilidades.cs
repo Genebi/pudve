@@ -1403,6 +1403,7 @@ namespace PuntoDeVentaV2
                                         <tr>
                                             <th style = 'text-align: center;' colspan = '3'>Cantidad fue Agregada</th>
                                         </tr>";
+                asunto = "Agregar Dinero a Caja en el sistema";
             }
             else if (OperacionRealizada.Equals("retiro"))
             {
@@ -1413,6 +1414,7 @@ namespace PuntoDeVentaV2
                                         <tr>
                                             <th style = 'text-align: center;' colspan = '3'>Cantidad a Retirada</th>
                                         </tr>";
+                asunto = "Retiro Dinero a Caja en el sistema";
             }
 
                   cuerpoHTML += $@"     <tr>
@@ -1475,7 +1477,7 @@ namespace PuntoDeVentaV2
 
             correoHTML = encabezadoHTML + cuerpoHTML + pieHTML;
 
-            asunto = "Retiro de Dinero de la Caja en el sistema";
+            
             correo = EmailUsuario;
 
             if (!correo.Equals(""))
