@@ -57,8 +57,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -422,7 +422,7 @@
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox1.Controls.Add(this.checkBox2);
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.cbCorreoAgregarDineroCaja);
             this.groupBox1.Controls.Add(this.cbCorreoPrecioProducto);
             this.groupBox1.Controls.Add(this.cbCorreoStockProducto);
             this.groupBox1.Controls.Add(this.cbCorreoStockMinimo);
@@ -435,17 +435,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envio de Corre:";
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.checkBox1.Location = new System.Drawing.Point(17, 124);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(193, 21);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Al agregar dinero en caja";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
@@ -456,6 +445,17 @@
             this.checkBox2.TabIndex = 115;
             this.checkBox2.Text = "Al retirar dinero en caja";
             this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // cbCorreoAgregarDineroCaja
+            // 
+            this.cbCorreoAgregarDineroCaja.AutoSize = true;
+            this.cbCorreoAgregarDineroCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoAgregarDineroCaja.Location = new System.Drawing.Point(17, 124);
+            this.cbCorreoAgregarDineroCaja.Name = "cbCorreoAgregarDineroCaja";
+            this.cbCorreoAgregarDineroCaja.Size = new System.Drawing.Size(193, 21);
+            this.cbCorreoAgregarDineroCaja.TabIndex = 0;
+            this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
+            this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             // 
             // SetUpPUDVE
             // 
@@ -529,7 +529,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbCorreoAgregarDineroCaja;
         private System.Windows.Forms.CheckBox checkBox2;
     }
 }
