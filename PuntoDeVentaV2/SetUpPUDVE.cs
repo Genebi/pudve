@@ -660,5 +660,26 @@ namespace PuntoDeVentaV2
                 mostrarVentas.Show();
             }
         }
+
+        private void cbCorreoAgregarDineroCaja_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opcion16.Equals(0))
+            {
+                cbCorreoAgregarDineroCaja.CheckedChanged -= cbCorreoAgregarDineroCaja_CheckedChanged;
+                cbCorreoAgregarDineroCaja.Checked = check16;
+                Utilidades.MensajePermiso();
+                cbCorreoAgregarDineroCaja.CheckedChanged += cbCorreoAgregarDineroCaja_CheckedChanged;
+                return;
+            }
+
+            var habilitado = 0;
+
+            if (cbCorreoAgregarDineroCaja.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoAgregarDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
     }
 }

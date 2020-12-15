@@ -456,6 +456,7 @@
             this.cbCorreoAgregarDineroCaja.TabIndex = 0;
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
+            this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
             // 
             // SetUpPUDVE
             // 
