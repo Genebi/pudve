@@ -662,5 +662,31 @@ namespace PuntoDeVentaV2
         {
             filtroAbierto = false;
         }
+
+        private void cbSeleccionarTodas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbSeleccionarTodas.Checked)
+            {
+                MarcarDesmarcar();
+            }
+            else
+            {
+                MarcarDesmarcar(false);
+            }
+        }
+
+        private void MarcarDesmarcar(bool activo = true)
+        {
+            foreach (Control panel in panelContenedor.Controls)
+            {
+                foreach (Control cb in panel.Controls)
+                {
+                    if (cb is CheckBox)
+                    {
+                        ((CheckBox)cb).Checked = activo;
+                    }
+                }
+            }
+        }
     }
 }
