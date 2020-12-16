@@ -2724,7 +2724,7 @@ namespace PuntoDeVentaV2
             #endregion Final de Sección Origen (Forma Manual / XML), (Editar) ó ( Hacer Copia)
 
             #region Inicio Sección De Agregar Producto, Combo ó Servicio Desde XML / Botón manual
-            if (DatosSourceFinal == 3 || DatosSourceFinal == 1 || DatosSourceFinal == 5)
+            if (DatosSourceFinal == 3 || DatosSourceFinal == 1 || DatosSourceFinal == 5 || DatosSourceFinal == 4)
             {
                 #region Inicio Sección que el precio no sea menor al precio original del producto servicio/combo
                 //Validar que el precio no sea menor al precio original del producto/servicio
