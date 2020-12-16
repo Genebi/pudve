@@ -88,6 +88,7 @@
             this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbPaginasSeleccionadas = new System.Windows.Forms.Label();
             this.txtIrPagina = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -107,7 +108,6 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.lbPaginasSeleccionadas = new System.Windows.Forms.Label();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -862,6 +862,15 @@
             this.panel2.Size = new System.Drawing.Size(941, 65);
             this.panel2.TabIndex = 17;
             // 
+            // lbPaginasSeleccionadas
+            // 
+            this.lbPaginasSeleccionadas.AutoSize = true;
+            this.lbPaginasSeleccionadas.Location = new System.Drawing.Point(8, 20);
+            this.lbPaginasSeleccionadas.Name = "lbPaginasSeleccionadas";
+            this.lbPaginasSeleccionadas.Size = new System.Drawing.Size(0, 13);
+            this.lbPaginasSeleccionadas.TabIndex = 25;
+            this.lbPaginasSeleccionadas.Visible = false;
+            // 
             // txtIrPagina
             // 
             this.txtIrPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -1092,22 +1101,13 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 26);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Total de productos \r\nregistrados :";
+            this.label1.Text = "Total de productos \r\nencontrados:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timer1
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // lbPaginasSeleccionadas
-            // 
-            this.lbPaginasSeleccionadas.AutoSize = true;
-            this.lbPaginasSeleccionadas.Location = new System.Drawing.Point(8, 20);
-            this.lbPaginasSeleccionadas.Name = "lbPaginasSeleccionadas";
-            this.lbPaginasSeleccionadas.Size = new System.Drawing.Size(0, 13);
-            this.lbPaginasSeleccionadas.TabIndex = 25;
-            this.lbPaginasSeleccionadas.Visible = false;
             // 
             // Productos
             // 
