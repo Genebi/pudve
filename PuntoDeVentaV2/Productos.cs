@@ -5757,9 +5757,9 @@ namespace PuntoDeVentaV2
 
                     am.FormClosed += delegate
                     {
-                        //CargarDatos();
+                        CargarDatos(busquedaEnProductos: txtBusqueda.Text.Trim());
                         //actualizarDatosDespuesDeAgregarProducto();
-                        linkLblPaginaActual_Click_1(sender, e);
+                        //linkLblPaginaActual_Click_1(sender, e);
 
                         productosSeleccionados.Clear();
 
