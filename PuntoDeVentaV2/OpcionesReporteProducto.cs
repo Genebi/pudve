@@ -485,13 +485,12 @@ namespace PuntoDeVentaV2
                         {
                             var precioCompraTmp = float.Parse(valor);
 
+                            valor = "$ " + valor;
+
                             if (precioCompraTmp == 0)
                             {
-                                var precioCompra = float.Parse(listaProductos.Rows[i]["Precio"].ToString()) / 1.60;
-                                valor = precioCompra.ToString("N2");
+                                valor = "---";
                             }
-
-                            valor = "$ " + valor;
 
                             PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
                             //rowCustom.BorderWidth = 0;
