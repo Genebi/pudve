@@ -134,7 +134,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            valdarRFCExistente();
+                valdarRFCExistente();
 
             if (validarRFC == true || cbCliente.Checked)
             {
@@ -283,16 +283,16 @@ namespace PuntoDeVentaV2
                             this.Close();
                         }
                     }
-                    //else
-                    //{
-                    //    //Actualizar
-                    //    int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
+                    else
+                    {
+                        //Actualizar
+                        int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
 
-                    //    if (resultado > 0)
-                    //    {
-                    //        this.Close();
-                    //    }
-                    //}
+                        if (resultado > 0)
+                        {
+                            this.Close();
+                        }
+                    }
                 //}
             }
             else
@@ -305,17 +305,23 @@ namespace PuntoDeVentaV2
         private void valdarRFCExistente()
         {
             var rfc = txtRFC.Text;
-
-            using (var buscarRfc = cn.CargarDatos($"SELECT RFC FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RFC = '{rfc}'"))
+            if(Clientes.editarFor != 0)
             {
-                if (!buscarRfc.Rows.Count.Equals(0))
+                using (var buscarRfc = cn.CargarDatos($"SELECT RFC FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RFC = '{rfc}'"))
                 {
-                    validarRFC = false;
+                    if (!buscarRfc.Rows.Count.Equals(0))
+                    {
+                        validarRFC = false;
+                    }
+                    else
+                    {
+                        validarRFC = true;
+                    }
                 }
-                else
-                {
-                    validarRFC = true;
-                }
+            }
+            else
+            {
+                validarRFC = true;
             }
         }
 
