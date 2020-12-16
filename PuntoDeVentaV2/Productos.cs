@@ -2225,10 +2225,10 @@ namespace PuntoDeVentaV2
 
             name = btnTag.Name.Remove(0, 8);
 
-            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (result == DialogResult.Yes)
-            {
+            //if (result == DialogResult.Yes)
+            //{
                 foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
                 {
                     if (item is Panel)
@@ -2307,11 +2307,11 @@ namespace PuntoDeVentaV2
 
                 actualizarBtnFiltro();
                 txtBusqueda.Focus();
-            }
-            else if (result == DialogResult.No)
-            {
-                txtBusqueda.Focus();
-            }
+            //}
+            //else if (result == DialogResult.No)
+            //{
+            //    txtBusqueda.Focus();
+            //}
         }
 
         public void cargarListaSetUpVaribale()
@@ -5562,9 +5562,9 @@ namespace PuntoDeVentaV2
             Button btnTag = (Button)sender;
             string name = string.Empty, newtext = string.Empty;
             name = btnTag.Name.Remove(0, 8);
-            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
+            //DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //if (result == DialogResult.Yes)
+            //{
                 foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
                 {
                     if (item is Panel)
@@ -5607,11 +5607,11 @@ namespace PuntoDeVentaV2
                 txtBusqueda.Focus();
 
                 verificarBotonLimpiarTags();
-            }
-            else if (result == DialogResult.No)
-            {
-                txtBusqueda.Focus();
-            }
+            //}
+            //else if (result == DialogResult.No)
+            //{
+            //    txtBusqueda.Focus();
+            //}
         }
 
         private void picBoxTagTex_Paint(object sender, PaintEventArgs e)
