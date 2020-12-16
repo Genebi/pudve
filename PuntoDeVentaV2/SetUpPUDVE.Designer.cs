@@ -57,10 +57,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbCorreoRestarProductosVenta = new System.Windows.Forms.CheckBox();
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
-            this.cbCorreoRestarProductosVenta = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -439,6 +439,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envio de Corre:";
             // 
+            // cbCorreoRestarProductosVenta
+            // 
+            this.cbCorreoRestarProductosVenta.AutoSize = true;
+            this.cbCorreoRestarProductosVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoRestarProductosVenta.Location = new System.Drawing.Point(15, 204);
+            this.cbCorreoRestarProductosVenta.Name = "cbCorreoRestarProductosVenta";
+            this.cbCorreoRestarProductosVenta.Size = new System.Drawing.Size(211, 21);
+            this.cbCorreoRestarProductosVenta.TabIndex = 117;
+            this.cbCorreoRestarProductosVenta.Text = "Al restar producto de ventas";
+            this.cbCorreoRestarProductosVenta.UseVisualStyleBackColor = true;
+            this.cbCorreoRestarProductosVenta.CheckedChanged += new System.EventHandler(this.cbCorreoRestarProductosVenta_CheckedChanged);
+            // 
             // cbCorreoCerrarVentanaVentas
             // 
             this.cbCorreoCerrarVentanaVentas.AutoSize = true;
@@ -474,17 +486,6 @@
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
-            // 
-            // cbCorreoRestarProductosVenta
-            // 
-            this.cbCorreoRestarProductosVenta.AutoSize = true;
-            this.cbCorreoRestarProductosVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoRestarProductosVenta.Location = new System.Drawing.Point(15, 204);
-            this.cbCorreoRestarProductosVenta.Name = "cbCorreoRestarProductosVenta";
-            this.cbCorreoRestarProductosVenta.Size = new System.Drawing.Size(211, 21);
-            this.cbCorreoRestarProductosVenta.TabIndex = 117;
-            this.cbCorreoRestarProductosVenta.Text = "Al restar producto de ventas";
-            this.cbCorreoRestarProductosVenta.UseVisualStyleBackColor = true;
             // 
             // SetUpPUDVE
             // 

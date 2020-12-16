@@ -1868,7 +1868,7 @@ namespace PuntoDeVentaV2
                 var correoDineroAgregadoCaja = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoAgregarDineroCaja")));
                 var correoDineroRetiradoCaja = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoRetiroDineroCaja")));
                 var correoCerrarVentanaVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoCerrarVentanaVentas")));
-                var correoRestarProductoVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoRestarProductoVenta")));
+                var correoRestarProductoVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoRestarProductoVentas")));
 
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1
