@@ -1867,6 +1867,7 @@ namespace PuntoDeVentaV2
                 var diasNoVendidos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("diasNoVendidos")));
                 var correoDineroAgregadoCaja = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoAgregarDineroCaja")));
                 var correoDineroRetiradoCaja = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoRetiroDineroCaja")));
+                var correoCerrarVentanaVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoCerrarVentanaVentas")));
 
                 config.Add(correoPrecio);
                 config.Add(correoStock);
@@ -1883,6 +1884,7 @@ namespace PuntoDeVentaV2
                 config.Add(diasNoVendidos);
                 config.Add(correoDineroAgregadoCaja);
                 config.Add(correoDineroRetiradoCaja);
+                config.Add(correoCerrarVentanaVentas);
             }
 
             dr.Close();

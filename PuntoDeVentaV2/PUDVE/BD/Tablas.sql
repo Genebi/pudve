@@ -883,3 +883,6 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoAgregarDineroCaja tinyi
 
 -- Agregar Columna (CorreoAgregarDineroCaja) a la tabla de Configuracion si es que no tiene dicha columna 
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoRetiroDineroCaja tinyint(1) DEFAULT 0;
+
+-- Agregar Columna (CorreoCerrarVentanaVentas) a la tabla de Configuracion si es que no tiene dicha columna
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoCerrarVentanaVentas tinyint(1) DEFAULT 0;
