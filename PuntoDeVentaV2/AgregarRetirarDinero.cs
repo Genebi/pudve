@@ -266,13 +266,21 @@ namespace PuntoDeVentaV2
 
             if (datosConfig.Count > 0)
             {
-                if (Convert.ToInt32(datosConfig[13]).Equals(1))
+                if (Convert.ToInt32(datosConfig[13]).Equals(1) && datos[0].ToString().Equals("deposito"))
                 {
                     Thread AgregarRetiroDinero = new Thread(
                         () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
                     );
 
                     AgregarRetiroDinero.Start();
+                }
+                else if (Convert.ToInt32(datosConfig[14]).Equals(1) && datos[0].ToString().Equals("retiro"))
+                {
+                    Thread AgregarAgregarDinero = new Thread(
+                        () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
+                    );
+
+                    AgregarAgregarDinero.Start();
                 }
             }
 
