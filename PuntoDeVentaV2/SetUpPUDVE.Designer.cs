@@ -445,6 +445,7 @@
             this.cbCorreoRetirarDineroCaja.TabIndex = 115;
             this.cbCorreoRetirarDineroCaja.Text = "Al retirar dinero en caja";
             this.cbCorreoRetirarDineroCaja.UseVisualStyleBackColor = true;
+            this.cbCorreoRetirarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoRetirarDineroCaja_CheckedChanged);
             // 
             // cbCorreoAgregarDineroCaja
             // 

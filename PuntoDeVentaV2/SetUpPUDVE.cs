@@ -687,5 +687,26 @@ namespace PuntoDeVentaV2
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoAgregarDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
+
+        private void cbCorreoRetirarDineroCaja_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opcion17.Equals(0))
+            {
+                cbCorreoRetirarDineroCaja.CheckedChanged -= cbCorreoRetirarDineroCaja_CheckedChanged;
+                cbCorreoRetirarDineroCaja.Checked = check17;
+                Utilidades.MensajePermiso();
+                cbCorreoRetirarDineroCaja.CheckedChanged += cbCorreoRetirarDineroCaja_CheckedChanged;
+                return;
+            }
+
+            var habilitado = 0;
+
+            if (cbCorreoRetirarDineroCaja.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRetiroDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
     }
 }
