@@ -304,6 +304,10 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["PrecioCompra"].ToString()); // Precio Compra  11
                 lista.Add(dr["PrecioMayoreo"].ToString()); //12
                 lista.Add(dr["Impuesto"].ToString()); //13
+                lista.Add(dr["Categoria"].ToString()); //14
+                lista.Add(dr["ProdImage"].ToString()); //15
+                lista.Add(dr["ClaveProducto"].ToString()); //16
+                lista.Add(dr["UnidadMedida"].ToString()); //17
             }
 
             dr.Close();
