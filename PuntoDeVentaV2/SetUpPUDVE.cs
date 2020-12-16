@@ -41,6 +41,7 @@ namespace PuntoDeVentaV2
         int opcion16 = 1; // Correo Agregar Dinero Caja
         int opcion17 = 1; // Correo Retirar Dinero Caja
         int opcion18 = 1; // Correo Cerrar Ventana Ventas
+        int opcion19 = 1; // Correo Restar Productos Ventas
 
         bool check5 = false;
         bool check6 = false;
@@ -56,6 +57,7 @@ namespace PuntoDeVentaV2
         bool check16 = false;
         bool check17 = false;
         bool check18 = false;
+        bool check19 = false;
 
         public SetUpPUDVE()
         {
@@ -105,6 +107,7 @@ namespace PuntoDeVentaV2
                 opcion16 = permisos[15];
                 opcion17 = permisos[16];
                 opcion18 = permisos[17];
+                opcion19 = permisos[18];
             }
             this.Focus();
         }
@@ -180,6 +183,9 @@ namespace PuntoDeVentaV2
 
                 cbCorreoCerrarVentanaVentas.Checked = Convert.ToBoolean(datosConfig[15]);
                 check18 = cbCorreoCerrarVentanaVentas.Checked;
+
+                cbCorreoRestarProductosVenta.Checked = Convert.ToBoolean(datosConfig[16]);
+                check18 = cbCorreoRestarProductosVenta.Checked;
             }
             else
             {
@@ -734,6 +740,27 @@ namespace PuntoDeVentaV2
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCerrarVentanaVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void cbCorreoRestarProductosVenta_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opcion19.Equals(0))
+            {
+                cbCorreoRestarProductosVenta.CheckedChanged -= cbCorreoRestarProductosVenta_CheckedChanged;
+                cbCorreoRestarProductosVenta.Checked = check19;
+                Utilidades.MensajePermiso();
+                cbCorreoRestarProductosVenta.CheckedChanged += cbCorreoRestarProductosVenta_CheckedChanged;
+                return;
+            }
+
+            var habilitado = 0;
+
+            if (cbCorreoRestarProductosVenta.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRestarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }
