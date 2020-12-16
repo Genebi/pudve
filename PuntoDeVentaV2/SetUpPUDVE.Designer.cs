@@ -59,6 +59,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
+            this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +68,7 @@
             this.cbStockNegativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbStockNegativo.AutoSize = true;
             this.cbStockNegativo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStockNegativo.Location = new System.Drawing.Point(56, 400);
+            this.cbStockNegativo.Location = new System.Drawing.Point(354, 213);
             this.cbStockNegativo.Name = "cbStockNegativo";
             this.cbStockNegativo.Size = new System.Drawing.Size(177, 21);
             this.cbStockNegativo.TabIndex = 1;
@@ -199,7 +200,7 @@
             this.checkCBVenta.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.checkCBVenta.AutoSize = true;
             this.checkCBVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCBVenta.Location = new System.Drawing.Point(355, 218);
+            this.checkCBVenta.Location = new System.Drawing.Point(354, 243);
             this.checkCBVenta.Name = "checkCBVenta";
             this.checkCBVenta.Size = new System.Drawing.Size(245, 21);
             this.checkCBVenta.TabIndex = 110;
@@ -211,7 +212,7 @@
             // 
             this.cbCorreoPrecioProducto.AutoSize = true;
             this.cbCorreoPrecioProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(17, 22);
+            this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(15, 22);
             this.cbCorreoPrecioProducto.Name = "cbCorreoPrecioProducto";
             this.cbCorreoPrecioProducto.Size = new System.Drawing.Size(150, 21);
             this.cbCorreoPrecioProducto.TabIndex = 111;
@@ -223,7 +224,7 @@
             // 
             this.cbCorreoStockProducto.AutoSize = true;
             this.cbCorreoStockProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockProducto.Location = new System.Drawing.Point(17, 48);
+            this.cbCorreoStockProducto.Location = new System.Drawing.Point(15, 48);
             this.cbCorreoStockProducto.Name = "cbCorreoStockProducto";
             this.cbCorreoStockProducto.Size = new System.Drawing.Size(143, 21);
             this.cbCorreoStockProducto.TabIndex = 112;
@@ -235,7 +236,7 @@
             // 
             this.cbCorreoStockMinimo.AutoSize = true;
             this.cbCorreoStockMinimo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(17, 72);
+            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(15, 72);
             this.cbCorreoStockMinimo.Name = "cbCorreoStockMinimo";
             this.cbCorreoStockMinimo.Size = new System.Drawing.Size(170, 21);
             this.cbCorreoStockMinimo.TabIndex = 113;
@@ -247,7 +248,7 @@
             // 
             this.cbCorreoVenderProducto.AutoSize = true;
             this.cbCorreoVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(17, 97);
+            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(15, 97);
             this.cbCorreoVenderProducto.Name = "cbCorreoVenderProducto";
             this.cbCorreoVenderProducto.Size = new System.Drawing.Size(166, 21);
             this.cbCorreoVenderProducto.TabIndex = 114;
@@ -260,7 +261,7 @@
             this.pagWeb.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pagWeb.AutoSize = true;
             this.pagWeb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pagWeb.Location = new System.Drawing.Point(355, 254);
+            this.pagWeb.Location = new System.Drawing.Point(354, 279);
             this.pagWeb.Name = "pagWeb";
             this.pagWeb.Size = new System.Drawing.Size(267, 21);
             this.pagWeb.TabIndex = 115;
@@ -273,7 +274,7 @@
             this.cbMostrarPrecio.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbMostrarPrecio.AutoSize = true;
             this.cbMostrarPrecio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarPrecio.Location = new System.Drawing.Point(355, 291);
+            this.cbMostrarPrecio.Location = new System.Drawing.Point(354, 316);
             this.cbMostrarPrecio.Name = "cbMostrarPrecio";
             this.cbMostrarPrecio.Size = new System.Drawing.Size(277, 21);
             this.cbMostrarPrecio.TabIndex = 116;
@@ -286,7 +287,7 @@
             this.cbMostrarCB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbMostrarCB.AutoSize = true;
             this.cbMostrarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarCB.Location = new System.Drawing.Point(355, 328);
+            this.cbMostrarCB.Location = new System.Drawing.Point(354, 353);
             this.cbMostrarCB.Name = "cbMostrarCB";
             this.cbMostrarCB.Size = new System.Drawing.Size(283, 21);
             this.cbMostrarCB.TabIndex = 117;
@@ -340,7 +341,7 @@
             this.checkMayoreo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.checkMayoreo.AutoSize = true;
             this.checkMayoreo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkMayoreo.Location = new System.Drawing.Point(355, 365);
+            this.checkMayoreo.Location = new System.Drawing.Point(354, 390);
             this.checkMayoreo.Name = "checkMayoreo";
             this.checkMayoreo.Size = new System.Drawing.Size(273, 21);
             this.checkMayoreo.TabIndex = 121;
@@ -353,7 +354,7 @@
             this.txtMinimoMayoreo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtMinimoMayoreo.Enabled = false;
             this.txtMinimoMayoreo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMinimoMayoreo.Location = new System.Drawing.Point(507, 386);
+            this.txtMinimoMayoreo.Location = new System.Drawing.Point(506, 411);
             this.txtMinimoMayoreo.Name = "txtMinimoMayoreo";
             this.txtMinimoMayoreo.Size = new System.Drawing.Size(69, 21);
             this.txtMinimoMayoreo.TabIndex = 122;
@@ -365,7 +366,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(369, 388);
+            this.label1.Location = new System.Drawing.Point(368, 413);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 17);
             this.label1.TabIndex = 123;
@@ -421,6 +422,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox1.Controls.Add(this.cbCorreoCerrarVentanaVentas);
             this.groupBox1.Controls.Add(this.cbCorreoRetirarDineroCaja);
             this.groupBox1.Controls.Add(this.cbCorreoAgregarDineroCaja);
             this.groupBox1.Controls.Add(this.cbCorreoPrecioProducto);
@@ -430,7 +432,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(37, 213);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(219, 181);
+            this.groupBox1.Size = new System.Drawing.Size(245, 282);
             this.groupBox1.TabIndex = 128;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envio de Corre:";
@@ -439,7 +441,7 @@
             // 
             this.cbCorreoRetirarDineroCaja.AutoSize = true;
             this.cbCorreoRetirarDineroCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoRetirarDineroCaja.Location = new System.Drawing.Point(18, 152);
+            this.cbCorreoRetirarDineroCaja.Location = new System.Drawing.Point(15, 152);
             this.cbCorreoRetirarDineroCaja.Name = "cbCorreoRetirarDineroCaja";
             this.cbCorreoRetirarDineroCaja.Size = new System.Drawing.Size(178, 21);
             this.cbCorreoRetirarDineroCaja.TabIndex = 115;
@@ -451,13 +453,24 @@
             // 
             this.cbCorreoAgregarDineroCaja.AutoSize = true;
             this.cbCorreoAgregarDineroCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoAgregarDineroCaja.Location = new System.Drawing.Point(17, 124);
+            this.cbCorreoAgregarDineroCaja.Location = new System.Drawing.Point(15, 124);
             this.cbCorreoAgregarDineroCaja.Name = "cbCorreoAgregarDineroCaja";
             this.cbCorreoAgregarDineroCaja.Size = new System.Drawing.Size(193, 21);
             this.cbCorreoAgregarDineroCaja.TabIndex = 0;
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
+            // 
+            // cbCorreoCerrarVentanaVentas
+            // 
+            this.cbCorreoCerrarVentanaVentas.AutoSize = true;
+            this.cbCorreoCerrarVentanaVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoCerrarVentanaVentas.Location = new System.Drawing.Point(15, 179);
+            this.cbCorreoCerrarVentanaVentas.Name = "cbCorreoCerrarVentanaVentas";
+            this.cbCorreoCerrarVentanaVentas.Size = new System.Drawing.Size(223, 21);
+            this.cbCorreoCerrarVentanaVentas.TabIndex = 116;
+            this.cbCorreoCerrarVentanaVentas.Text = "Al cerrar la ventana de ventas";
+            this.cbCorreoCerrarVentanaVentas.UseVisualStyleBackColor = true;
             // 
             // SetUpPUDVE
             // 
@@ -533,5 +546,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox cbCorreoAgregarDineroCaja;
         private System.Windows.Forms.CheckBox cbCorreoRetirarDineroCaja;
+        private System.Windows.Forms.CheckBox cbCorreoCerrarVentanaVentas;
     }
 }

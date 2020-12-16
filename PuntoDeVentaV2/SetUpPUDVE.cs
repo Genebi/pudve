@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
         int opcion15 = 1; // Avisar productos no vendidos
         int opcion16 = 1; // Correo Agregar Dinero Caja
         int opcion17 = 1; // Correo Retirar Dinero Caja
+        int opcion18 = 1; // Correo Cerrar Ventana Ventas
 
         bool check5 = false;
         bool check6 = false;
