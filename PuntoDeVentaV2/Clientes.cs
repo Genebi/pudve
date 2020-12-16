@@ -22,6 +22,8 @@ namespace PuntoDeVentaV2
         int maximo_x_pagina = 17;
         int clickBoton = 0;
 
+       public static int editarFor { get; set; } 
+
         // Permisos botones
         int opcion1 = 1; // Boton buscar
         int opcion2 = 1; // Nuevo tipo cliente
@@ -161,10 +163,12 @@ namespace PuntoDeVentaV2
                 if (e.ColumnIndex == 7)
                 {
                     AgregarCliente editar = new AgregarCliente(2, idCliente);
+                    editarFor = 0;
 
                     editar.FormClosed += delegate
                     {
                         CargarDatos();
+                        editarFor = 1;
                     };
 
                     editar.ShowDialog();
