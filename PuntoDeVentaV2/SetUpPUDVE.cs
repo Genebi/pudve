@@ -171,6 +171,9 @@ namespace PuntoDeVentaV2
 
                 cbCorreoAgregarDineroCaja.Checked = Convert.ToBoolean(datosConfig[13]);
                 check16 = cbCorreoAgregarDineroCaja.Checked;
+
+                cbCorreoRetirarDineroCaja.Checked = Convert.ToBoolean(datosConfig[14]);
+                check17 = cbCorreoRetirarDineroCaja.Checked;
             }
             else
             {
