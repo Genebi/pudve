@@ -39,6 +39,7 @@ namespace PuntoDeVentaV2
         int opcion14 = 1; // Activar precio mayoreo
         int opcion15 = 1; // Avisar productos no vendidos
         int opcion16 = 1; // Correo Agregar Dinero Caja
+        int opcion17 = 1; // Correo Retirar Dinero Caja
 
         bool check5 = false;
         bool check6 = false;
