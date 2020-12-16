@@ -104,6 +104,7 @@ namespace PuntoDeVentaV2
                 opcion15 = permisos[14];
                 opcion16 = permisos[15];
                 opcion17 = permisos[16];
+                opcion18 = permisos[17];
             }
             this.Focus();
         }
@@ -176,6 +177,9 @@ namespace PuntoDeVentaV2
 
                 cbCorreoRetirarDineroCaja.Checked = Convert.ToBoolean(datosConfig[14]);
                 check17 = cbCorreoRetirarDineroCaja.Checked;
+
+                cbCorreoCerrarVentanaVentas.Checked = Convert.ToBoolean(datosConfig[15]);
+                check18 = cbCorreoCerrarVentanaVentas.Checked;
             }
             else
             {
