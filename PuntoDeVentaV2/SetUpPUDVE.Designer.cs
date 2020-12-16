@@ -57,9 +57,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
-            this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -437,6 +437,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envio de Corre:";
             // 
+            // cbCorreoCerrarVentanaVentas
+            // 
+            this.cbCorreoCerrarVentanaVentas.AutoSize = true;
+            this.cbCorreoCerrarVentanaVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoCerrarVentanaVentas.Location = new System.Drawing.Point(15, 179);
+            this.cbCorreoCerrarVentanaVentas.Name = "cbCorreoCerrarVentanaVentas";
+            this.cbCorreoCerrarVentanaVentas.Size = new System.Drawing.Size(223, 21);
+            this.cbCorreoCerrarVentanaVentas.TabIndex = 116;
+            this.cbCorreoCerrarVentanaVentas.Text = "Al cerrar la ventana de ventas";
+            this.cbCorreoCerrarVentanaVentas.UseVisualStyleBackColor = true;
+            this.cbCorreoCerrarVentanaVentas.CheckedChanged += new System.EventHandler(this.cbCorreoCerrarVentanaVentas_CheckedChanged);
+            // 
             // cbCorreoRetirarDineroCaja
             // 
             this.cbCorreoRetirarDineroCaja.AutoSize = true;
@@ -460,17 +472,6 @@
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
-            // 
-            // cbCorreoCerrarVentanaVentas
-            // 
-            this.cbCorreoCerrarVentanaVentas.AutoSize = true;
-            this.cbCorreoCerrarVentanaVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoCerrarVentanaVentas.Location = new System.Drawing.Point(15, 179);
-            this.cbCorreoCerrarVentanaVentas.Name = "cbCorreoCerrarVentanaVentas";
-            this.cbCorreoCerrarVentanaVentas.Size = new System.Drawing.Size(223, 21);
-            this.cbCorreoCerrarVentanaVentas.TabIndex = 116;
-            this.cbCorreoCerrarVentanaVentas.Text = "Al cerrar la ventana de ventas";
-            this.cbCorreoCerrarVentanaVentas.UseVisualStyleBackColor = true;
             // 
             // SetUpPUDVE
             // 

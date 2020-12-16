@@ -714,5 +714,26 @@ namespace PuntoDeVentaV2
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRetiroDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
+
+        private void cbCorreoCerrarVentanaVentas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opcion18.Equals(0))
+            {
+                cbCorreoCerrarVentanaVentas.CheckedChanged -= cbCorreoCerrarVentanaVentas_CheckedChanged;
+                cbCorreoCerrarVentanaVentas.Checked = check18;
+                Utilidades.MensajePermiso();
+                cbCorreoCerrarVentanaVentas.CheckedChanged += cbCorreoCerrarVentanaVentas_CheckedChanged;
+                return;
+            }
+
+            var habilitado = 0;
+
+            if (cbCorreoCerrarVentanaVentas.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCerrarVentanaVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
     }
 }
