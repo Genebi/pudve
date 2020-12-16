@@ -60,6 +60,7 @@
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -422,6 +423,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.cbCorreoCerrarVentanaVentas);
             this.groupBox1.Controls.Add(this.cbCorreoRetirarDineroCaja);
             this.groupBox1.Controls.Add(this.cbCorreoAgregarDineroCaja);
@@ -472,6 +474,17 @@
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.checkBox1.Location = new System.Drawing.Point(15, 204);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(211, 21);
+            this.checkBox1.TabIndex = 117;
+            this.checkBox1.Text = "Al restar producto de ventas";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // SetUpPUDVE
             // 
@@ -548,5 +561,6 @@
         private System.Windows.Forms.CheckBox cbCorreoAgregarDineroCaja;
         private System.Windows.Forms.CheckBox cbCorreoRetirarDineroCaja;
         private System.Windows.Forms.CheckBox cbCorreoCerrarVentanaVentas;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
