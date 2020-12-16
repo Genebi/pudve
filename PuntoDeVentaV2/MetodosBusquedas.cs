@@ -1869,22 +1869,22 @@ namespace PuntoDeVentaV2
                 var correoDineroRetiradoCaja = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoRetiroDineroCaja")));
                 var correoCerrarVentanaVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoCerrarVentanaVentas")));
 
-                config.Add(correoPrecio);
-                config.Add(correoStock);
-                config.Add(correoStockMinimo);
-                config.Add(correoVentaProducto);
-                config.Add(ticketVenta);
-                config.Add(iniciarProceso);
-                config.Add(mostrarPrecio);
-                config.Add(mostrarCB);
-                config.Add(porcentajeProducto);
-                config.Add(precioMayoreo);
-                config.Add(minimoMayoreo);
-                config.Add(checkNoVendidos);
-                config.Add(diasNoVendidos);
-                config.Add(correoDineroAgregadoCaja);
-                config.Add(correoDineroRetiradoCaja);
-                config.Add(correoCerrarVentanaVentas);
+                config.Add(correoPrecio);                   // 0
+                config.Add(correoStock);                    // 1
+                config.Add(correoStockMinimo);              // 2
+                config.Add(correoVentaProducto);            // 3
+                config.Add(ticketVenta);                    // 4
+                config.Add(iniciarProceso);                 // 5
+                config.Add(mostrarPrecio);                  // 6
+                config.Add(mostrarCB);                      // 7
+                config.Add(porcentajeProducto);             // 8
+                config.Add(precioMayoreo);                  // 9
+                config.Add(minimoMayoreo);                  // 10
+                config.Add(checkNoVendidos);                // 11
+                config.Add(diasNoVendidos);                 // 12
+                config.Add(correoDineroAgregadoCaja);       // 13
+                config.Add(correoDineroRetiradoCaja);       // 14
+                config.Add(correoCerrarVentanaVentas);      // 15
             }
 
             dr.Close();

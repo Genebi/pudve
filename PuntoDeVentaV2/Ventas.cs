@@ -2985,21 +2985,30 @@ namespace PuntoDeVentaV2
                 {
                     if (ventaFinalizada.Equals(false))
                     {
-                        List<string> productosNoVendidos = new List<string>();
-                        string fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), importeTotal = string.Empty;
+                        // Ejecutar hilo para enviar notificación por correo
+                        var datosConfig = mb.ComprobarConfiguracion();
 
-                        foreach (DataGridViewRow dgvRenglon in DGVentas.Rows)
+                        if (datosConfig.Count > 0)
                         {
-                            productosNoVendidos.Add(dgvRenglon.Cells["Cantidad"].Value.ToString() + "|" + dgvRenglon.Cells["Precio"].Value.ToString() + "|" + dgvRenglon.Cells["Descripcion"].Value.ToString() + "|" + dgvRenglon.Cells["Descuento"].Value.ToString() + "|" + dgvRenglon.Cells["Importe"].Value.ToString());
+                            if (Convert.ToInt32(datosConfig[15]).Equals(1))
+                            {
+                                List<string> productosNoVendidos = new List<string>();
+                                string fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), importeTotal = string.Empty;
+
+                                foreach (DataGridViewRow dgvRenglon in DGVentas.Rows)
+                                {
+                                    productosNoVendidos.Add(dgvRenglon.Cells["Cantidad"].Value.ToString() + "|" + dgvRenglon.Cells["Precio"].Value.ToString() + "|" + dgvRenglon.Cells["Descripcion"].Value.ToString() + "|" + dgvRenglon.Cells["Descuento"].Value.ToString() + "|" + dgvRenglon.Cells["Importe"].Value.ToString());
+                                }
+
+                                importeTotal = cTotal.Text.ToString();
+
+                                Thread NotSuccessfulSale = new Thread(
+                                    () => Utilidades.ventaNotSuccessfulFinalizadaEmail(productosNoVendidos, fechaSistema, importeTotal, FormPrincipal.datosUsuario)
+                                );
+
+                                NotSuccessfulSale.Start();
+                            }
                         }
-
-                        importeTotal = cTotal.Text.ToString();
-
-                        Thread NotSuccessfulSale = new Thread(
-                            () => Utilidades.ventaNotSuccessfulFinalizadaEmail(productosNoVendidos, fechaSistema, importeTotal, FormPrincipal.datosUsuario)
-                        );
-
-                        NotSuccessfulSale.Start();
 
                         mostrarVenta = 0;
                         listaAnticipos = string.Empty;
