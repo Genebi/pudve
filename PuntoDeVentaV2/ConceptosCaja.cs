@@ -269,7 +269,7 @@ namespace PuntoDeVentaV2
 
                 foreach (var iterar in separarPalabras)
                 {
-                    using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = '{status}' AND Concepto LIKE '%{iterar}%'"))
+                    using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Origen = 'CAJA' AND Status = '{status}' AND Concepto LIKE '%{iterar}%'"))
                     {
                         if (!buscarDatos.Rows.Count.Equals(0))
                         {
@@ -308,7 +308,7 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("Ingrese el nombre de algun producto", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 //txtConcepto.Focus();
-                using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = '{status}'"))
+                using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Origen = 'CAJA' AND Status = '{status}'"))
                 {
                     if (!buscarDatos.Rows.Count.Equals(0))
                     {
