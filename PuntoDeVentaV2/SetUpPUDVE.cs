@@ -53,6 +53,7 @@ namespace PuntoDeVentaV2
         bool check14 = false;
         bool check15 = false;
         bool check16 = false;
+        bool check17 = false;
 
         public SetUpPUDVE()
         {
