@@ -305,7 +305,7 @@ namespace PuntoDeVentaV2
                     {
                         seleccionadoDato = 1;
                         numerofila = e.RowIndex;
-                        obtenerDatosDGVProductos(numerofila);
+                        obtenerDatosDGVProductos(numerofila, idProducto);
                         origenDeLosDatos = 2;
                     }
 
@@ -344,6 +344,8 @@ namespace PuntoDeVentaV2
 
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
 
+            //MessageBox.Show(idProducto.ToString());
+
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
@@ -359,11 +361,14 @@ namespace PuntoDeVentaV2
                     {
                         seleccionadoDato = 1;
                         numerofila = e.RowIndex;
-                        obtenerDatosDGVProductos(numerofila);
+                        obtenerDatosDGVProductos(numerofila, idProducto);
                         origenDeLosDatos = 2;
                     }
+
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), Convert.ToInt32(id));
+
                     string typeProduct = producto[5];
+
                     if (typeProduct == "S")
                     {
                         btnAgregarServicio.PerformClick();
@@ -1226,22 +1231,31 @@ namespace PuntoDeVentaV2
             //actualizarDatosDespuesDeAgregarProducto();
         }
 
-        public void obtenerDatosDGVProductos(int fila)
+        public void obtenerDatosDGVProductos(int fila, int idProducto = 0)
         {
-            Nombre = DGVProductos.Rows[fila].Cells["Column1"].Value.ToString();
-            Stock = DGVProductos.Rows[fila].Cells["Column2"].Value.ToString();
-            Precio = DGVProductos.Rows[fila].Cells["Column3"].Value.ToString();
-            //ProductoCategoria = DGVProductos.Rows[fila].Cells["Column4"].Value.ToString();
-            ProductoCategoria = DGVProductos.Rows[fila].Cells["Categoria"].Value.ToString();
-            ClaveInterna = DGVProductos.Rows[fila].Cells["Column5"].Value.ToString();
-            CodigoBarras = DGVProductos.Rows[fila].Cells["Column6"].Value.ToString();
-            savePath = DGVProductos.Rows[fila].Cells["Column15"].Value.ToString();
-            ClaveProducto = DGVProductos.Rows[fila].Cells["_ClavProdXML"].Value.ToString();
-            UnidadMedida = DGVProductos.Rows[fila].Cells["_ClavUnidMedXML"].Value.ToString();
-            id = FormPrincipal.userID.ToString();
             idProductoEditar = DGVProductos.Rows[fila].Cells["_IDProducto"].Value.ToString();
-            //MessageBox.Show("ID: " + idProductoEditar + "\nProducto: " + Nombre, "Alerta Del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            impuestoProducto = DGVProductos.Rows[fila].Cells["Impuesto"].Value.ToString();
+
+            if (idProducto > 0)
+            {
+                idProductoEditar = idProducto.ToString();
+            }
+
+            var datosProducto = cn.BuscarProducto(Convert.ToInt32(idProductoEditar), FormPrincipal.userID);
+
+            if (datosProducto.Count() > 0)
+            {
+                Nombre = datosProducto[1];// DGVProductos.Rows[fila].Cells["Column1"].Value.ToString();
+                Stock = datosProducto[4];// DGVProductos.Rows[fila].Cells["Column2"].Value.ToString();
+                Precio = datosProducto[2];// DGVProductos.Rows[fila].Cells["Column3"].Value.ToString();
+                ProductoCategoria = datosProducto[14];// DGVProductos.Rows[fila].Cells["Categoria"].Value.ToString();
+                ClaveInterna = datosProducto[6];// DGVProductos.Rows[fila].Cells["Column5"].Value.ToString();
+                CodigoBarras = datosProducto[7];// DGVProductos.Rows[fila].Cells["Column6"].Value.ToString();
+                savePath = datosProducto[15];// DGVProductos.Rows[fila].Cells["Column15"].Value.ToString();
+                ClaveProducto = datosProducto[16];// DGVProductos.Rows[fila].Cells["_ClavProdXML"].Value.ToString();
+                UnidadMedida = datosProducto[17];// DGVProductos.Rows[fila].Cells["_ClavUnidMedXML"].Value.ToString();
+                id = FormPrincipal.userID.ToString();
+                impuestoProducto = datosProducto[13];// DGVProductos.Rows[fila].Cells["Impuesto"].Value.ToString();
+            }
         }
 
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
