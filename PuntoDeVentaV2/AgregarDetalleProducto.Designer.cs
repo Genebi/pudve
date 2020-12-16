@@ -71,7 +71,7 @@
             this.btnGuardarDetalles.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardarDetalles.FlatAppearance.BorderSize = 0;
             this.btnGuardarDetalles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardarDetalles.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarDetalles.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btnGuardarDetalles.Location = new System.Drawing.Point(44, 17);
             this.btnGuardarDetalles.Name = "btnGuardarDetalles";
@@ -138,6 +138,7 @@
             this.txtStockMinimo.Name = "txtStockMinimo";
             this.txtStockMinimo.Size = new System.Drawing.Size(120, 20);
             this.txtStockMinimo.TabIndex = 5;
+            this.txtStockMinimo.Visible = false;
             // 
             // label5
             // 
@@ -148,6 +149,7 @@
             this.label5.Size = new System.Drawing.Size(85, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "Stock Mínimo";
+            this.label5.Visible = false;
             // 
             // label4
             // 
@@ -158,6 +160,7 @@
             this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Stock Máximo";
+            this.label4.Visible = false;
             // 
             // txtStockNecesario
             // 
@@ -165,6 +168,7 @@
             this.txtStockNecesario.Name = "txtStockNecesario";
             this.txtStockNecesario.Size = new System.Drawing.Size(120, 20);
             this.txtStockNecesario.TabIndex = 2;
+            this.txtStockNecesario.Visible = false;
             this.txtStockNecesario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtStockNecesario_KeyUp);
             // 
             // label3
@@ -194,7 +198,7 @@
             this.btnAddDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddDetalle.FlatAppearance.BorderSize = 0;
             this.btnAddDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnAddDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnAddDetalle.ForeColor = System.Drawing.Color.White;
             this.btnAddDetalle.Location = new System.Drawing.Point(10, 30);
             this.btnAddDetalle.Name = "btnAddDetalle";
@@ -222,7 +226,7 @@
             this.btnDeleteDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDeleteDetalle.FlatAppearance.BorderSize = 0;
             this.btnDeleteDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnDeleteDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnDeleteDetalle.ForeColor = System.Drawing.Color.White;
             this.btnDeleteDetalle.Location = new System.Drawing.Point(146, 65);
             this.btnDeleteDetalle.Name = "btnDeleteDetalle";
@@ -238,7 +242,7 @@
             this.btnRenameDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRenameDetalle.FlatAppearance.BorderSize = 0;
             this.btnRenameDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRenameDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnRenameDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnRenameDetalle.ForeColor = System.Drawing.Color.White;
             this.btnRenameDetalle.Location = new System.Drawing.Point(10, 65);
             this.btnRenameDetalle.Name = "btnRenameDetalle";
@@ -264,7 +268,7 @@
             this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.FlatAppearance.BorderSize = 0;
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrar.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
             this.btnCerrar.Location = new System.Drawing.Point(44, 65);
             this.btnCerrar.Name = "btnCerrar";
