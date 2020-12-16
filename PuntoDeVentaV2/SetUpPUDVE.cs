@@ -39,6 +39,7 @@ namespace PuntoDeVentaV2
         int opcion14 = 1; // Activar precio mayoreo
         int opcion15 = 1; // Avisar productos no vendidos
         int opcion16 = 1; // Correo Agregar Dinero Caja
+        int opcion17 = 1; // Correo Retirar Dinero Caja
 
         bool check5 = false;
         bool check6 = false;
@@ -52,6 +53,7 @@ namespace PuntoDeVentaV2
         bool check14 = false;
         bool check15 = false;
         bool check16 = false;
+        bool check17 = false;
 
         public SetUpPUDVE()
         {
@@ -99,6 +101,7 @@ namespace PuntoDeVentaV2
                 opcion14 = permisos[13];
                 opcion15 = permisos[14];
                 opcion16 = permisos[15];
+                opcion17 = permisos[16];
             }
             this.Focus();
         }
@@ -168,6 +171,9 @@ namespace PuntoDeVentaV2
 
                 cbCorreoAgregarDineroCaja.Checked = Convert.ToBoolean(datosConfig[13]);
                 check16 = cbCorreoAgregarDineroCaja.Checked;
+
+                cbCorreoRetirarDineroCaja.Checked = Convert.ToBoolean(datosConfig[14]);
+                check17 = cbCorreoRetirarDineroCaja.Checked;
             }
             else
             {
@@ -680,6 +686,27 @@ namespace PuntoDeVentaV2
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoAgregarDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void cbCorreoRetirarDineroCaja_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opcion17.Equals(0))
+            {
+                cbCorreoRetirarDineroCaja.CheckedChanged -= cbCorreoRetirarDineroCaja_CheckedChanged;
+                cbCorreoRetirarDineroCaja.Checked = check17;
+                Utilidades.MensajePermiso();
+                cbCorreoRetirarDineroCaja.CheckedChanged += cbCorreoRetirarDineroCaja_CheckedChanged;
+                return;
+            }
+
+            var habilitado = 0;
+
+            if (cbCorreoRetirarDineroCaja.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRetiroDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }

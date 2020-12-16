@@ -57,7 +57,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -421,7 +421,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.cbCorreoRetirarDineroCaja);
             this.groupBox1.Controls.Add(this.cbCorreoAgregarDineroCaja);
             this.groupBox1.Controls.Add(this.cbCorreoPrecioProducto);
             this.groupBox1.Controls.Add(this.cbCorreoStockProducto);
@@ -435,16 +435,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envio de Corre:";
             // 
-            // checkBox2
+            // cbCorreoRetirarDineroCaja
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.checkBox2.Location = new System.Drawing.Point(18, 152);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(178, 21);
-            this.checkBox2.TabIndex = 115;
-            this.checkBox2.Text = "Al retirar dinero en caja";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.cbCorreoRetirarDineroCaja.AutoSize = true;
+            this.cbCorreoRetirarDineroCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoRetirarDineroCaja.Location = new System.Drawing.Point(18, 152);
+            this.cbCorreoRetirarDineroCaja.Name = "cbCorreoRetirarDineroCaja";
+            this.cbCorreoRetirarDineroCaja.Size = new System.Drawing.Size(178, 21);
+            this.cbCorreoRetirarDineroCaja.TabIndex = 115;
+            this.cbCorreoRetirarDineroCaja.Text = "Al retirar dinero en caja";
+            this.cbCorreoRetirarDineroCaja.UseVisualStyleBackColor = true;
+            this.cbCorreoRetirarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoRetirarDineroCaja_CheckedChanged);
             // 
             // cbCorreoAgregarDineroCaja
             // 
@@ -531,6 +532,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox cbCorreoAgregarDineroCaja;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox cbCorreoRetirarDineroCaja;
     }
 }
