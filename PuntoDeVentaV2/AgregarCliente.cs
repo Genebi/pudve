@@ -210,64 +210,64 @@ namespace PuntoDeVentaV2
                 };
 
                 //Si el checkbox de agregar cliente repetido esta marcado
-                if (cbCliente.Checked)
-                {
-                    bool respuesta = (bool)cn.EjecutarSelect($"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}'");
+                //if (cbCliente.Checked)
+                //{
+                //    bool respuesta = (bool)cn.EjecutarSelect($"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}'");
 
-                    if (respuesta)
-                    {
-                        var mensaje = MessageBox.Show("Ya existe un cliente registrado con el mismo RFC.\n\n¿Desea actualizarlo con esta información?", "Mensaje del Sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                //    if (respuesta)
+                //    {
+                //        var mensaje = MessageBox.Show("Ya existe un cliente registrado con el mismo RFC.\n\n¿Desea actualizarlo con esta información?", "Mensaje del Sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
-                        if (mensaje == DialogResult.Yes)
-                        {
-                            //Si selecciona SI se hace una actualizacion con la informacion del formulario al usuario que tiene el mismo RFC
-                            int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
+                //        if (mensaje == DialogResult.Yes)
+                //        {
+                //            //Si selecciona SI se hace una actualizacion con la informacion del formulario al usuario que tiene el mismo RFC
+                //            int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
 
-                            if (resultado > 0)
-                            {
-                                this.Close();
-                            }
-                        }
-                        else if (mensaje == DialogResult.No)
-                        {
-                            //Si selecciona NO se hace un nuevo registro
+                //            if (resultado > 0)
+                //            {
+                //                this.Close();
+                //            }
+                //        }
+                //        else if (mensaje == DialogResult.No)
+                //        {
+                //            //Si selecciona NO se hace un nuevo registro
 
-                            //Insertar
-                            int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
+                //            //Insertar
+                //            int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
 
-                            if (resultado > 0)
-                            {
-                                if (idVenta > 0)
-                                {
-                                    AsignarCliente(idVenta);
-                                }
+                //            if (resultado > 0)
+                //            {
+                //                if (idVenta > 0)
+                //                {
+                //                    AsignarCliente(idVenta);
+                //                }
 
-                                this.Close();
-                            }
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        //Insertar
-                        int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
+                //                this.Close();
+                //            }
+                //        }
+                //        else
+                //        {
+                //            return;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        //Insertar
+                //        int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
 
-                        if (resultado > 0)
-                        {
-                            if (idVenta > 0)
-                            {
-                                AsignarCliente(idVenta);
-                            }
+                //        if (resultado > 0)
+                //        {
+                //            if (idVenta > 0)
+                //            {
+                //                AsignarCliente(idVenta);
+                //            }
 
-                            this.Close();
-                        }
-                    }
-                }
-                else
-                {
+                //            this.Close();
+                //        }
+                //    }
+                //}
+                //else
+                //{
                     if (tipo == 1)
                     {
                         //Insertar
@@ -283,23 +283,23 @@ namespace PuntoDeVentaV2
                             this.Close();
                         }
                     }
-                    else
-                    {
-                        //Actualizar
-                        int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
+                    //else
+                    //{
+                    //    //Actualizar
+                    //    int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
 
-                        if (resultado > 0)
-                        {
-                            this.Close();
-                        }
-                    }
-                }
+                    //    if (resultado > 0)
+                    //    {
+                    //        this.Close();
+                    //    }
+                    //}
+                //}
             }
             else
             {
                 MessageBox.Show("Esta RFC ya esta registrada con otro cliente", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
+
         }
 
         private void valdarRFCExistente()
