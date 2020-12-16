@@ -2189,10 +2189,15 @@ namespace PuntoDeVentaV2
             if (cbTodos.Checked)
             {
                 MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+
+                lbPaginasSeleccionadas.Visible = true;
+                lbPaginasSeleccionadas.Text = $"Páginas seleccionadas: {p.countPag()}";
             }
             else
             {
                 checkboxMarcados.Clear();
+                lbPaginasSeleccionadas.Visible = false;
+                lbPaginasSeleccionadas.Text = string.Empty;
 
                 MarcarCheckBoxes(filtroConSinFiltroAvanzado);
 
