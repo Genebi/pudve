@@ -1870,6 +1870,7 @@ namespace PuntoDeVentaV2
                 var correoCerrarVentanaVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoCerrarVentanaVentas")));
                 var correoRestarProductoVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoRestarProductoVentas")));
                 var correoEliminarProductoVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoEliminarProductoVentas")));
+                var correoEliminarUltimoProductoAgregadoVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoEliminarUltimoProductoAgregadoVentas")));
 
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1
@@ -1889,6 +1890,7 @@ namespace PuntoDeVentaV2
                 config.Add(correoCerrarVentanaVentas);      // 15
                 config.Add(correoRestarProductoVentas);     // 16
                 config.Add(correoEliminarProductoVentas);   // 17
+                config.Add(correoEliminarUltimoProductoAgregadoVentas);     // 18
             }
 
             dr.Close();
