@@ -2579,7 +2579,7 @@ namespace PuntoDeVentaV2
 
                                 namepanelContenido = contItemSubHijo.Name.ToString().Remove(0, 9);
 
-                                if (finalOrigenProdServCombo.Equals(1))
+                                if (finalOrigenProdServCombo.Equals(1) || finalOrigenProdServCombo.Equals(4))
                                 {
                                     string rowDataList = string.Empty;
                                     var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto);
@@ -2816,7 +2816,7 @@ namespace PuntoDeVentaV2
                                         nameConcepto = contItemSubHijo.Name.ToString().Remove(0, 9);
                                         textoConcepto = contItemSubHijo.Text;
 
-                                        if (finalOrigenProdServCombo.Equals(1))
+                                        if (finalOrigenProdServCombo.Equals(1) || finalOrigenProdServCombo.Equals(4))
                                         {
                                             var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto);
                                             int contieneDetalleProveedor = idFound.Length;
