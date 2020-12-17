@@ -499,6 +499,7 @@
             this.cbCorreoEliminarProductoVentas.TabIndex = 118;
             this.cbCorreoEliminarProductoVentas.Text = "Al eliminar producto de ventas";
             this.cbCorreoEliminarProductoVentas.UseVisualStyleBackColor = true;
+            this.cbCorreoEliminarProductoVentas.CheckedChanged += new System.EventHandler(this.cbCorreoEliminarProductoVentas_CheckedChanged);
             // 
             // SetUpPUDVE
             // 
