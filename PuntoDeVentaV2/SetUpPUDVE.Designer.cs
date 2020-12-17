@@ -434,9 +434,9 @@
             this.groupBox1.Controls.Add(this.cbCorreoStockMinimo);
             this.groupBox1.Controls.Add(this.cbCorreoVenderProducto);
             this.groupBox1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(37, 213);
+            this.groupBox1.Location = new System.Drawing.Point(37, 196);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(250, 282);
+            this.groupBox1.Size = new System.Drawing.Size(250, 308);
             this.groupBox1.TabIndex = 128;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envio de Corre:";
@@ -445,7 +445,7 @@
             // 
             this.cbCorreoRestarProductosVenta.AutoSize = true;
             this.cbCorreoRestarProductosVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoRestarProductosVenta.Location = new System.Drawing.Point(15, 204);
+            this.cbCorreoRestarProductosVenta.Location = new System.Drawing.Point(15, 206);
             this.cbCorreoRestarProductosVenta.Name = "cbCorreoRestarProductosVenta";
             this.cbCorreoRestarProductosVenta.Size = new System.Drawing.Size(211, 21);
             this.cbCorreoRestarProductosVenta.TabIndex = 117;
@@ -493,7 +493,7 @@
             // 
             this.cbCorreoEliminarProductoVentas.AutoSize = true;
             this.cbCorreoEliminarProductoVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoEliminarProductoVentas.Location = new System.Drawing.Point(15, 228);
+            this.cbCorreoEliminarProductoVentas.Location = new System.Drawing.Point(15, 234);
             this.cbCorreoEliminarProductoVentas.Name = "cbCorreoEliminarProductoVentas";
             this.cbCorreoEliminarProductoVentas.Size = new System.Drawing.Size(227, 21);
             this.cbCorreoEliminarProductoVentas.TabIndex = 118;
