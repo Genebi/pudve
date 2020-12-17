@@ -187,7 +187,10 @@ namespace PuntoDeVentaV2
                 check18 = cbCorreoCerrarVentanaVentas.Checked;
 
                 cbCorreoRestarProductosVenta.Checked = Convert.ToBoolean(datosConfig[16]);
-                check18 = cbCorreoRestarProductosVenta.Checked;
+                check19 = cbCorreoRestarProductosVenta.Checked;
+
+                cbCorreoEliminarProductoVentas.Checked = Convert.ToBoolean(datosConfig[17]);
+                check20 = cbCorreoEliminarProductoVentas.Checked;
             }
             else
             {
