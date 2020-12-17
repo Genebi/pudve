@@ -63,6 +63,7 @@
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
+            this.cbCorreoEliminarListaProductosVentas = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -425,6 +426,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox1.Controls.Add(this.cbCorreoEliminarListaProductosVentas);
             this.groupBox1.Controls.Add(this.cbCorreoEliminaUltimoProductoAgregadoVentas);
             this.groupBox1.Controls.Add(this.cbCorreoEliminarProductoVentas);
             this.groupBox1.Controls.Add(this.cbCorreoRestarProductosVenta);
@@ -513,6 +515,16 @@
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
             // 
+            // cbCorreoEliminarListaProductosVentas
+            // 
+            this.cbCorreoEliminarListaProductosVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoEliminarListaProductosVentas.Location = new System.Drawing.Point(15, 290);
+            this.cbCorreoEliminarListaProductosVentas.Name = "cbCorreoEliminarListaProductosVentas";
+            this.cbCorreoEliminarListaProductosVentas.Size = new System.Drawing.Size(223, 43);
+            this.cbCorreoEliminarListaProductosVentas.TabIndex = 120;
+            this.cbCorreoEliminarListaProductosVentas.Text = "Al eliminar listado de productos agregados de ventas";
+            this.cbCorreoEliminarListaProductosVentas.UseVisualStyleBackColor = true;
+            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -591,5 +603,6 @@
         private System.Windows.Forms.CheckBox cbCorreoRestarProductosVenta;
         private System.Windows.Forms.CheckBox cbCorreoEliminarProductoVentas;
         private System.Windows.Forms.CheckBox cbCorreoEliminaUltimoProductoAgregadoVentas;
+        private System.Windows.Forms.CheckBox cbCorreoEliminarListaProductosVentas;
     }
 }

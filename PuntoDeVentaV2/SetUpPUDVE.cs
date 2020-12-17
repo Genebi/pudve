@@ -201,6 +201,8 @@ namespace PuntoDeVentaV2
 
                 cbCorreoEliminaUltimoProductoAgregadoVentas.Checked = Convert.ToBoolean(datosConfig[18]);
                 check21 = cbCorreoEliminaUltimoProductoAgregadoVentas.Checked;
+
+                
             }
             else
             {
