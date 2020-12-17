@@ -2221,11 +2221,20 @@ namespace PuntoDeVentaV2
                     {
                         if (productoUltimoAgregadoEliminado.Any())
                         {
-                            Thread ProductDeleteLast = new Thread(
-                                () => Utilidades.ventaBtnUltimoEliminadoEmail(productoUltimoAgregadoEliminado, fechaSistema, FormPrincipal.datosUsuario)
-                            );
+                            // Ejecutamos hilo para envió notificación
+                            var datosConfig = mb.ComprobarConfiguracion();
 
-                            ProductDeleteLast.Start();
+                            if (datosConfig.Count > 0)
+                            {
+                                if (Convert.ToInt32(datosConfig[18]).Equals(1))
+                                {
+                                    Thread ProductDeleteLast = new Thread(
+                                        () => Utilidades.ventaBtnUltimoEliminadoEmail(productoUltimoAgregadoEliminado, fechaSistema, FormPrincipal.datosUsuario)
+                                    );
+
+                                    ProductDeleteLast.Start();
+                                }
+                            }
                         }
 
                         primerClickBtnUltimoEliminado = false;
