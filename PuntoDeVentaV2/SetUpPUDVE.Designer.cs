@@ -61,6 +61,7 @@
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
+            this.cbCorreoEliminarProductoVentas = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -423,6 +424,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox1.Controls.Add(this.cbCorreoEliminarProductoVentas);
             this.groupBox1.Controls.Add(this.cbCorreoRestarProductosVenta);
             this.groupBox1.Controls.Add(this.cbCorreoCerrarVentanaVentas);
             this.groupBox1.Controls.Add(this.cbCorreoRetirarDineroCaja);
@@ -434,7 +436,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(37, 213);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(245, 282);
+            this.groupBox1.Size = new System.Drawing.Size(250, 282);
             this.groupBox1.TabIndex = 128;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envio de Corre:";
@@ -486,6 +488,17 @@
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
+            // 
+            // cbCorreoEliminarProductoVentas
+            // 
+            this.cbCorreoEliminarProductoVentas.AutoSize = true;
+            this.cbCorreoEliminarProductoVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoEliminarProductoVentas.Location = new System.Drawing.Point(15, 228);
+            this.cbCorreoEliminarProductoVentas.Name = "cbCorreoEliminarProductoVentas";
+            this.cbCorreoEliminarProductoVentas.Size = new System.Drawing.Size(227, 21);
+            this.cbCorreoEliminarProductoVentas.TabIndex = 118;
+            this.cbCorreoEliminarProductoVentas.Text = "Al eliminar producto de ventas";
+            this.cbCorreoEliminarProductoVentas.UseVisualStyleBackColor = true;
             // 
             // SetUpPUDVE
             // 
@@ -563,5 +576,6 @@
         private System.Windows.Forms.CheckBox cbCorreoRetirarDineroCaja;
         private System.Windows.Forms.CheckBox cbCorreoCerrarVentanaVentas;
         private System.Windows.Forms.CheckBox cbCorreoRestarProductosVenta;
+        private System.Windows.Forms.CheckBox cbCorreoEliminarProductoVentas;
     }
 }
