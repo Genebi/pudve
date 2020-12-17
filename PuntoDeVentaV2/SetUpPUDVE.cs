@@ -795,5 +795,26 @@ namespace PuntoDeVentaV2
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
+
+        private void cbCorreoEliminaUltimoProductoAgregadoVentas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opcion21.Equals(0))
+            {
+                cbCorreoEliminaUltimoProductoAgregadoVentas.CheckedChanged -= cbCorreoEliminaUltimoProductoAgregadoVentas_CheckedChanged;
+                cbCorreoEliminaUltimoProductoAgregadoVentas.Checked = check21;
+                Utilidades.MensajePermiso();
+                cbCorreoEliminaUltimoProductoAgregadoVentas.CheckedChanged += cbCorreoEliminaUltimoProductoAgregadoVentas_CheckedChanged;
+                return;
+            }
+
+            var habilitado = 0;
+
+            if (cbCorreoEliminaUltimoProductoAgregadoVentas.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarUltimoProductoAgregadoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
     }
 }

@@ -57,12 +57,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoEliminarProductoVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRestarProductosVenta = new System.Windows.Forms.CheckBox();
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -443,6 +443,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envio de Corre:";
             // 
+            // cbCorreoEliminaUltimoProductoAgregadoVentas
+            // 
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Location = new System.Drawing.Point(15, 245);
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Name = "cbCorreoEliminaUltimoProductoAgregadoVentas";
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Size = new System.Drawing.Size(223, 42);
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas.TabIndex = 119;
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Text = "Al eliminar ultimo producto agregado de ventas";
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas.UseVisualStyleBackColor = true;
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas.CheckedChanged += new System.EventHandler(this.cbCorreoEliminaUltimoProductoAgregadoVentas_CheckedChanged);
+            // 
             // cbCorreoEliminarProductoVentas
             // 
             this.cbCorreoEliminarProductoVentas.AutoSize = true;
@@ -501,16 +512,6 @@
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
-            // 
-            // cbCorreoEliminaUltimoProductoAgregadoVentas
-            // 
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Location = new System.Drawing.Point(15, 245);
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Name = "cbCorreoEliminaUltimoProductoAgregadoVentas";
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Size = new System.Drawing.Size(223, 42);
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.TabIndex = 119;
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Text = "Al eliminar ultimo producto agregado de ventas";
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.UseVisualStyleBackColor = true;
             // 
             // SetUpPUDVE
             // 
