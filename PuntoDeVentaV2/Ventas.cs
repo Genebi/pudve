@@ -2198,11 +2198,20 @@ namespace PuntoDeVentaV2
                     {
                         if (productoEliminado.Any())
                         {
-                            Thread ProductDeleteSale = new Thread(
-                                () => Utilidades.ventaProductDeleteEmail(productoEliminado, fechaSistema, FormPrincipal.datosUsuario)
-                            );
+                            // Ejecutamos hilo para envió notificación
+                            var datosConfig = mb.ComprobarConfiguracion();
 
-                            ProductDeleteSale.Start();
+                            if (datosConfig.Count > 0)
+                            {
+                                if (Convert.ToInt32(datosConfig[17]).Equals(1))
+                                {
+                                    Thread ProductDeleteSale = new Thread(
+                                        () => Utilidades.ventaProductDeleteEmail(productoEliminado, fechaSistema, FormPrincipal.datosUsuario)
+                                    );
+
+                                    ProductDeleteSale.Start();
+                                }
+                            } 
                         }
 
                         primerClickEliminarIndividual = false;
