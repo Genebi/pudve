@@ -116,6 +116,7 @@ namespace PuntoDeVentaV2
                 opcion19 = permisos[18];
                 opcion20 = permisos[19];
                 opcion21 = permisos[20];
+                opcion22 = permisos[21];
             }
             this.Focus();
         }
