@@ -23,25 +23,26 @@ namespace PuntoDeVentaV2
         public static bool recargarDatos = false;
 
         // Permiso de botones
-        int opcion1 = 1; // Servidor
-        int opcion2 = 1; // Numero revision
-        int opcion3 = 1; // Porcentaje ganancia
-        int opcion4 = 1; // Respaldar informacion
-        int opcion5 = 1; // Correo modificar precio
-        int opcion6 = 1; // Correo modificar stock
-        int opcion7 = 1; // Correo stock minimo
-        int opcion8 = 1; // Correo vender producto
-        int opcion9 = 1; // Permitir stock negativo
-        int opcion10 = 1; // Codigo barra ticket
-        int opcion11 = 1; // Informacion pagina web
-        int opcion12 = 1; // Mostrar precio de producto
-        int opcion13 = 1; // Mostrar codigo de producto
-        int opcion14 = 1; // Activar precio mayoreo
-        int opcion15 = 1; // Avisar productos no vendidos
-        int opcion16 = 1; // Correo Agregar Dinero Caja
-        int opcion17 = 1; // Correo Retirar Dinero Caja
-        int opcion18 = 1; // Correo Cerrar Ventana Ventas
-        int opcion19 = 1; // Correo Restar Productos Ventas
+        int opcion1 = 1;    // Servidor
+        int opcion2 = 1;    // Numero revision
+        int opcion3 = 1;    // Porcentaje ganancia
+        int opcion4 = 1;    // Respaldar informacion
+        int opcion5 = 1;    // Correo modificar precio
+        int opcion6 = 1;    // Correo modificar stock
+        int opcion7 = 1;    // Correo stock minimo
+        int opcion8 = 1;    // Correo vender producto
+        int opcion9 = 1;    // Permitir stock negativo
+        int opcion10 = 1;   // Codigo barra ticket
+        int opcion11 = 1;   // Informacion pagina web
+        int opcion12 = 1;   // Mostrar precio de producto
+        int opcion13 = 1;   // Mostrar codigo de producto
+        int opcion14 = 1;   // Activar precio mayoreo
+        int opcion15 = 1;   // Avisar productos no vendidos
+        int opcion16 = 1;   // Correo Agregar Dinero Caja
+        int opcion17 = 1;   // Correo Retirar Dinero Caja
+        int opcion18 = 1;   // Correo Cerrar Ventana Ventas
+        int opcion19 = 1;   // Correo Restar Productos Ventas
+        int opcion20 = 1;   // Correo Eliminar Producto Lista Ventas
 
         bool check5 = false;
         bool check6 = false;
