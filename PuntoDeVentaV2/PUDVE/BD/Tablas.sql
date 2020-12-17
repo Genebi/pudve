@@ -835,6 +835,9 @@ CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_CodigoBarrasGenerado ON CodigoBarrasG
 -- Index Unico de ConceptosDinamicos
 CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_ConceptosDinamicos ON ConceptosDinamicos (ID);
 
+-- Index de Caja
+CREATE INDEX IF NOT EXISTS IN_FechaOperacion_Caja ON Caja (Operacion); 
+
 
 -- -------------------------------------
 -- Creación de Claves Foraneas de tablas
