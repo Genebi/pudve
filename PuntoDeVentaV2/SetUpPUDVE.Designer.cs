@@ -524,6 +524,7 @@
             this.cbCorreoEliminarListaProductosVentas.TabIndex = 120;
             this.cbCorreoEliminarListaProductosVentas.Text = "Al eliminar listado de productos agregados de ventas";
             this.cbCorreoEliminarListaProductosVentas.UseVisualStyleBackColor = true;
+            this.cbCorreoEliminarListaProductosVentas.CheckedChanged += new System.EventHandler(this.cbCorreoEliminarListaProductosVentas_CheckedChanged);
             // 
             // SetUpPUDVE
             // 
