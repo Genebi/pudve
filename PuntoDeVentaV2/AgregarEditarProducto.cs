@@ -1575,7 +1575,13 @@ namespace PuntoDeVentaV2
                 tipoProdServ = SearchProdResult.Rows[0]["Tipo"].ToString();
                 queryBuscarCodBarExt = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
                 SearchCodBarExtResult = cn.CargarDatos(queryBuscarCodBarExt);
-                cargarCodBarExt();
+
+                // Para que no cargue los codigo de barra extra cuando sea un producto copiado
+                if (DatosSourceFinal != 4)
+                {
+                    cargarCodBarExt();
+                }
+                
                 queryBuscarDescuentoCliente = $"SELECT * FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
                 SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
                 queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
