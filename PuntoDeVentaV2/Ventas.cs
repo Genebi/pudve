@@ -2175,11 +2175,20 @@ namespace PuntoDeVentaV2
                     {
                         if (productoRestado.Any())
                         {
-                            Thread ProductLessSale = new Thread(
-                                   () => Utilidades.ventaProductLessEmail(productoRestado, fechaSistema, FormPrincipal.datosUsuario)
-                            );
+                            // Ejecutamos hilo para envió notificación
+                            var datosConfig = mb.ComprobarConfiguracion();
 
-                            ProductLessSale.Start();
+                            if (datosConfig.Count > 0)
+                            {
+                                if (Convert.ToInt32(datosConfig[16]).Equals(1))
+                                {
+                                    Thread ProductLessSale = new Thread(
+                                        () => Utilidades.ventaProductLessEmail(productoRestado, fechaSistema, FormPrincipal.datosUsuario)
+                                    );
+
+                                    ProductLessSale.Start();
+                                }
+                            }
                         }
 
                         primerClickRestarIndividual = false;
