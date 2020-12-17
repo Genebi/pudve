@@ -887,5 +887,8 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoRetiroDineroCaja tinyin
 -- Agregar Columna (CorreoCerrarVentanaVentas) a la tabla de Configuracion si es que no tiene dicha columna
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoCerrarVentanaVentas tinyint(1) DEFAULT 0;
 
--- Agregar Columna () a la tabla de Configuracion si es que no tiene dicha columna
+-- Agregar Columna (CorreoRestarProductoVentas) a la tabla de Configuracion si es que no tiene dicha columna
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoRestarProductoVentas tinyint(1) DEFAULT 0;
+
+-- Agregar Columna (CorreoEliminarProductoVentas) a la tabla de Configuracion si es que no tiene dicha columna
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoEliminarProductoVentas tinyint(1) DEFAULT 0;
