@@ -895,3 +895,6 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoEliminarProductoVentas 
 
 -- Agregar Columna (CorreoEliminarUltimoProductoAgregadoVentas) a la tbla de Configuracion si es que no tiene dicha columna
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoEliminarUltimoProductoAgregadoVentas tinyint(1) DEFAULT 0;
+
+-- Agregar Clumna (CorreoEliminarListaProductoVentas) a la tabla de Configuracion si s que no tiene dicha columna
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoEliminarListaProductoVentas tinyint(1) DEFAULT 0;
