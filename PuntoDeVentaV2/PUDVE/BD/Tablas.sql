@@ -837,6 +837,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_ConceptosDinamicos ON ConceptosDinami
 
 -- Index de Caja
 CREATE INDEX IF NOT EXISTS IN_FechaOperacion_Caja ON Caja (Operacion); 
+CREATE INDEX IF NOT EXISTS INDEX_FechaOperacion_Caja ON Caja (FechaOperacion);
 
 
 -- -------------------------------------
