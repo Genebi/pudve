@@ -61,6 +61,7 @@
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
+            this.cbCorreoEliminarProductoVentas = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -423,6 +424,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox1.Controls.Add(this.cbCorreoEliminarProductoVentas);
             this.groupBox1.Controls.Add(this.cbCorreoRestarProductosVenta);
             this.groupBox1.Controls.Add(this.cbCorreoCerrarVentanaVentas);
             this.groupBox1.Controls.Add(this.cbCorreoRetirarDineroCaja);
@@ -432,9 +434,9 @@
             this.groupBox1.Controls.Add(this.cbCorreoStockMinimo);
             this.groupBox1.Controls.Add(this.cbCorreoVenderProducto);
             this.groupBox1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(37, 213);
+            this.groupBox1.Location = new System.Drawing.Point(37, 196);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(245, 282);
+            this.groupBox1.Size = new System.Drawing.Size(250, 308);
             this.groupBox1.TabIndex = 128;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envio de Corre:";
@@ -443,7 +445,7 @@
             // 
             this.cbCorreoRestarProductosVenta.AutoSize = true;
             this.cbCorreoRestarProductosVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoRestarProductosVenta.Location = new System.Drawing.Point(15, 204);
+            this.cbCorreoRestarProductosVenta.Location = new System.Drawing.Point(15, 206);
             this.cbCorreoRestarProductosVenta.Name = "cbCorreoRestarProductosVenta";
             this.cbCorreoRestarProductosVenta.Size = new System.Drawing.Size(211, 21);
             this.cbCorreoRestarProductosVenta.TabIndex = 117;
@@ -486,6 +488,18 @@
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
+            // 
+            // cbCorreoEliminarProductoVentas
+            // 
+            this.cbCorreoEliminarProductoVentas.AutoSize = true;
+            this.cbCorreoEliminarProductoVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoEliminarProductoVentas.Location = new System.Drawing.Point(15, 234);
+            this.cbCorreoEliminarProductoVentas.Name = "cbCorreoEliminarProductoVentas";
+            this.cbCorreoEliminarProductoVentas.Size = new System.Drawing.Size(227, 21);
+            this.cbCorreoEliminarProductoVentas.TabIndex = 118;
+            this.cbCorreoEliminarProductoVentas.Text = "Al eliminar producto de ventas";
+            this.cbCorreoEliminarProductoVentas.UseVisualStyleBackColor = true;
+            this.cbCorreoEliminarProductoVentas.CheckedChanged += new System.EventHandler(this.cbCorreoEliminarProductoVentas_CheckedChanged);
             // 
             // SetUpPUDVE
             // 
@@ -563,5 +577,6 @@
         private System.Windows.Forms.CheckBox cbCorreoRetirarDineroCaja;
         private System.Windows.Forms.CheckBox cbCorreoCerrarVentanaVentas;
         private System.Windows.Forms.CheckBox cbCorreoRestarProductosVenta;
+        private System.Windows.Forms.CheckBox cbCorreoEliminarProductoVentas;
     }
 }

@@ -23,25 +23,26 @@ namespace PuntoDeVentaV2
         public static bool recargarDatos = false;
 
         // Permiso de botones
-        int opcion1 = 1; // Servidor
-        int opcion2 = 1; // Numero revision
-        int opcion3 = 1; // Porcentaje ganancia
-        int opcion4 = 1; // Respaldar informacion
-        int opcion5 = 1; // Correo modificar precio
-        int opcion6 = 1; // Correo modificar stock
-        int opcion7 = 1; // Correo stock minimo
-        int opcion8 = 1; // Correo vender producto
-        int opcion9 = 1; // Permitir stock negativo
-        int opcion10 = 1; // Codigo barra ticket
-        int opcion11 = 1; // Informacion pagina web
-        int opcion12 = 1; // Mostrar precio de producto
-        int opcion13 = 1; // Mostrar codigo de producto
-        int opcion14 = 1; // Activar precio mayoreo
-        int opcion15 = 1; // Avisar productos no vendidos
-        int opcion16 = 1; // Correo Agregar Dinero Caja
-        int opcion17 = 1; // Correo Retirar Dinero Caja
-        int opcion18 = 1; // Correo Cerrar Ventana Ventas
-        int opcion19 = 1; // Correo Restar Productos Ventas
+        int opcion1 = 1;    // Servidor
+        int opcion2 = 1;    // Numero revision
+        int opcion3 = 1;    // Porcentaje ganancia
+        int opcion4 = 1;    // Respaldar informacion
+        int opcion5 = 1;    // Correo modificar precio
+        int opcion6 = 1;    // Correo modificar stock
+        int opcion7 = 1;    // Correo stock minimo
+        int opcion8 = 1;    // Correo vender producto
+        int opcion9 = 1;    // Permitir stock negativo
+        int opcion10 = 1;   // Codigo barra ticket
+        int opcion11 = 1;   // Informacion pagina web
+        int opcion12 = 1;   // Mostrar precio de producto
+        int opcion13 = 1;   // Mostrar codigo de producto
+        int opcion14 = 1;   // Activar precio mayoreo
+        int opcion15 = 1;   // Avisar productos no vendidos
+        int opcion16 = 1;   // Correo Agregar Dinero Caja
+        int opcion17 = 1;   // Correo Retirar Dinero Caja
+        int opcion18 = 1;   // Correo Cerrar Ventana Ventas
+        int opcion19 = 1;   // Correo Restar Productos Ventas
+        int opcion20 = 1;   // Correo Eliminar Producto Lista Ventas
 
         bool check5 = false;
         bool check6 = false;
@@ -58,6 +59,7 @@ namespace PuntoDeVentaV2
         bool check17 = false;
         bool check18 = false;
         bool check19 = false;
+        bool check20 = false;
 
         public SetUpPUDVE()
         {
@@ -185,7 +187,10 @@ namespace PuntoDeVentaV2
                 check18 = cbCorreoCerrarVentanaVentas.Checked;
 
                 cbCorreoRestarProductosVenta.Checked = Convert.ToBoolean(datosConfig[16]);
-                check18 = cbCorreoRestarProductosVenta.Checked;
+                check19 = cbCorreoRestarProductosVenta.Checked;
+
+                cbCorreoEliminarProductoVentas.Checked = Convert.ToBoolean(datosConfig[17]);
+                check20 = cbCorreoEliminarProductoVentas.Checked;
             }
             else
             {
@@ -761,6 +766,27 @@ namespace PuntoDeVentaV2
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRestarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void cbCorreoEliminarProductoVentas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (opcion20.Equals(0))
+            {
+                cbCorreoEliminarProductoVentas.CheckedChanged -= cbCorreoEliminarProductoVentas_CheckedChanged;
+                cbCorreoEliminarProductoVentas.Checked = check20;
+                Utilidades.MensajePermiso();
+                cbCorreoEliminarProductoVentas.CheckedChanged += cbCorreoEliminarProductoVentas_CheckedChanged;
+                return;
+            }
+
+            var habilitado = 0;
+
+            if (cbCorreoEliminarProductoVentas.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }
