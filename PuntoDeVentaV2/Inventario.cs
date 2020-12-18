@@ -94,7 +94,8 @@ namespace PuntoDeVentaV2
 
         private void btnRevisar_Click(object sender, EventArgs e)
         {
-            gBSeleccionActualizarInventario.Visible = true;
+            gBSeleccionActualizarInventario.Visible = false;
+            panelContenedor.Visible = false;
 
             if (opcion1 == 0)
             {
