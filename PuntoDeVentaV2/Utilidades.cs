@@ -1484,5 +1484,75 @@ namespace PuntoDeVentaV2
                 EnviarEmail(correoHTML, asunto, correo);
             }
         }
+
+        public static void enviarCorreoCorteCaja(string correo, string[] datos)
+        {
+            var asunto = "SE HA REALIZADO CORTE DE CAJA";
+            var html = $@"
+                        <h3>SE HA REALIZADO CORTE DE CAJA!</h3>
+                        <p>  
+                            
+                        </p>
+                        <tr>
+                             <th style = 'text-align: left;'>
+                                  Efectivo
+                                  </th>
+                                  <th style = 'text-align: center;'>
+                                      <span style='color: black;'>{datos[0]}</span>
+                                   </th>
+                                       <th style = 'text-align: left;'>
+                                       Tarjeta
+                                       </th>
+                                   <th style = 'text-align: center;'>
+                                       <span style='color: black;'>{datos[1]}</span>
+                                   </th>
+                              <th style = 'text-align: left;'>
+                                  Vales
+                                  </th>
+                                  <th style = 'text-align: center;'>
+                                      <span style='color: black;'>{datos[2]}</span>
+                                   </th>
+                               <th style = 'text-align: left;'>
+                                  Cheque
+                                  </th>
+                                  <th style = 'text-align: center;'>
+                                      <span style='color: black;'>{datos[3]}</span>
+                                   </th>
+                               <th style = 'text-align: left;'>
+                                  Transferencia
+                                  </th>
+                                  <th style = 'text-align: center;'>
+                                      <span style='color: black;'>{datos[4]}</span>
+                                   </th>
+                               <th style = 'text-align: left;'>
+                                  Credito
+                                  </th>
+                                  <th style = 'text-align: center;'>
+                                      <span style='color: black;'>{datos[5]}</span>
+                                   </th>
+                               <th style = 'text-align: left;'>
+                                  Abonos
+                                  </th>
+                                  <th style = 'text-align: center;'>
+                                      <span style='color: black;'>{datos[6]}</span>
+                                   </th>
+                               <th style = 'text-align: left;'>
+                                  Anticipos Utilizados al Corte
+                                  </th>
+                                  <th style = 'text-align: center;'>
+                                      <span style='color: black;'>{datos[7]}</span>
+                                   </th>
+                               <th style = 'text-align: left;'>
+                                  Total de Ventas
+                                  </th>
+                                  <th style = 'text-align: center;'>
+                                      <span style='color: black;'>{datos[8]}</span>
+                                   </th>
+                        </tr>";
+
+            EnviarEmail(html, asunto, correo);
+        }
+
+
     }
 }

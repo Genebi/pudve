@@ -42,7 +42,6 @@ namespace PuntoDeVentaV2
         public static string totCorte { get; set; }
         public static string date { get; set; }
 
-
         //float anticiposAplicados = 0f;
         float abonos = 0f;
         float devoluciones = 0f;
@@ -220,6 +219,18 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private string correoUdiario()
+        {
+            var dato = string.Empty;
+            var consulta = cn.CargarDatos($"SELECT Email FROM Usuarios WHERE ID = '{FormPrincipal.userID}' AND Usuario = '{FormPrincipal.userNickName}'");
+            if (!consulta.Rows.Count.Equals(0))
+            {
+                dato = consulta.Rows[0]["Email"].ToString();
+            }
+
+            return dato;
+        }
+
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
             var f = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -260,7 +271,9 @@ namespace PuntoDeVentaV2
                     CargarSaldoInicial();
                     CargarSaldo();
 
-
+                    var correo = correoUdiario();
+                    var correoCantidades = cargarDatosCorteCaja();
+                    Utilidades.enviarCorreoCorteCaja(correo, correoCantidades);
                 };
 
                 corte.Show();
@@ -268,6 +281,61 @@ namespace PuntoDeVentaV2
                 //GenerarTicket();
             }
             abonos = 0;
+        }
+
+        private string[] cargarDatosCorteCaja()
+        {
+            List<string> lista = new List<string>();
+
+            //Apartado Ventas
+            lista.Add(lbTEfectivo.Text);
+            lista.Add(lbTTarjeta.Text);
+            lista.Add(lbTVales.Text);
+            lista.Add(lbTCheque.Text);
+            lista.Add(lbTTrans.Text);
+            lista.Add(lbTCredito.Text);
+            lista.Add(lbTCreditoC.Text);
+            lista.Add(lbTAnticipos.Text);
+            lista.Add(lbTVentas.Text);
+
+            //Apartado Anticipos Recibidos
+            lista.Add(lbTEfectivoA.Text);
+            lista.Add(lbTTarjetaA.Text);
+            lista.Add(lbTValesA.Text);
+            lista.Add(lbTChequeA.Text);
+            lista.Add(lbTTransA.Text);
+            lista.Add(lbTAnticiposA.Text);
+
+            //Apartado Dinero Agregado
+            lista.Add(lbTEfectivoD.Text);
+            lista.Add(lbTTarjetaD.Text);
+            lista.Add(lbTValesD.Text);
+            lista.Add(lbTChequeD.Text);
+            lista.Add(lbTTransD.Text);
+            lista.Add(lbTAgregado.Text);
+
+            //Apartado Dinero Retirado
+            lista.Add(lbEfectivoR.Text);
+            lista.Add(lbTarjetaR.Text);
+            lista.Add(lbValesR.Text);
+            lista.Add(lbChequeR.Text);
+            lista.Add(lbTransferenciaR.Text);
+            lista.Add(lbTAnticiposC.Text);
+            lista.Add(lbDevoluciones.Text);
+            lista.Add(lbTRetirado.Text);
+
+            //Apartado Total Caja
+            lista.Add(lbTEfectivoC.Text);
+            lista.Add(lbTTarjetaC.Text);
+            lista.Add(lbTValesC.Text);
+            lista.Add(lbTChequeC.Text);
+            lista.Add(lbTTransC.Text);
+            lista.Add(lbTSaldoInicial.Text);
+            lista.Add(lbTCreditoTotal.Text);
+            lista.Add(lbTTotalCaja.Text);
+
+
+            return lista.ToArray();
         }
 
         private string[] ObtenerCantidades()
