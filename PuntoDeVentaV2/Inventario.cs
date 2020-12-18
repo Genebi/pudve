@@ -193,6 +193,8 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            gBSeleccionActualizarInventario.Visible = true;
+
             panelContenedor.Visible = true;
 
             txtBusqueda.Focus();
