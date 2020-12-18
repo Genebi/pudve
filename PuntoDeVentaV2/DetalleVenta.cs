@@ -444,13 +444,21 @@ namespace PuntoDeVentaV2
 
         private void CalcularCambio()
         {
-            //El total del campo efecto + la suma de los otros metodos de pago - total de venta
-            double cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos + credito) - total);
+            double cambio = 0;
 
-
-            if (cambio < 0)
+            if (credito >= total)
             {
                 cambio = 0;
+            }
+            else
+            {
+                //El total del campo efecto + la suma de los otros metodos de pago - total de venta
+                cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos + credito) - total);
+                
+                if (cambio < 0)
+                {
+                    cambio = 0;
+                }
             }
 
             lbTotalCambio.Text = "$" + cambio.ToString("0.00");
