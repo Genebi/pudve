@@ -49,9 +49,13 @@
             this.Clave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gBSeleccionActualizarInventario = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.panelBotones.SuspendLayout();
             this.panelContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
+            this.gBSeleccionActualizarInventario.SuspendLayout();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -59,7 +63,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(388, 27);
+            this.tituloSeccion.Location = new System.Drawing.Point(388, 18);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(137, 25);
             this.tituloSeccion.TabIndex = 6;
@@ -77,7 +81,7 @@
             this.btnRevisar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRevisar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRevisar.ForeColor = System.Drawing.Color.White;
-            this.btnRevisar.Location = new System.Drawing.Point(3, 22);
+            this.btnRevisar.Location = new System.Drawing.Point(3, 7);
             this.btnRevisar.Name = "btnRevisar";
             this.btnRevisar.Size = new System.Drawing.Size(230, 30);
             this.btnRevisar.TabIndex = 101;
@@ -97,7 +101,7 @@
             this.btnActualizarXML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarXML.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarXML.ForeColor = System.Drawing.Color.White;
-            this.btnActualizarXML.Location = new System.Drawing.Point(612, 22);
+            this.btnActualizarXML.Location = new System.Drawing.Point(612, 7);
             this.btnActualizarXML.Name = "btnActualizarXML";
             this.btnActualizarXML.Size = new System.Drawing.Size(230, 30);
             this.btnActualizarXML.TabIndex = 102;
@@ -117,7 +121,7 @@
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizar.ForeColor = System.Drawing.Color.White;
-            this.btnActualizar.Location = new System.Drawing.Point(314, 22);
+            this.btnActualizar.Location = new System.Drawing.Point(314, 7);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(230, 30);
             this.btnActualizar.TabIndex = 103;
@@ -130,12 +134,13 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.gBSeleccionActualizarInventario);
             this.panelBotones.Controls.Add(this.btnRevisar);
             this.panelBotones.Controls.Add(this.btnActualizarXML);
             this.panelBotones.Controls.Add(this.btnActualizar);
-            this.panelBotones.Location = new System.Drawing.Point(12, 73);
+            this.panelBotones.Location = new System.Drawing.Point(12, 75);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(845, 72);
+            this.panelBotones.Size = new System.Drawing.Size(845, 77);
             this.panelBotones.TabIndex = 104;
             // 
             // panelContenedor
@@ -319,6 +324,41 @@
             this.Fecha.ReadOnly = true;
             this.Fecha.Width = 135;
             // 
+            // gBSeleccionActualizarInventario
+            // 
+            this.gBSeleccionActualizarInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gBSeleccionActualizarInventario.Controls.Add(this.radioButton2);
+            this.gBSeleccionActualizarInventario.Controls.Add(this.radioButton1);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(314, 40);
+            this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
+            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 31);
+            this.gBSeleccionActualizarInventario.TabIndex = 104;
+            this.gBSeleccionActualizarInventario.TabStop = false;
+            this.gBSeleccionActualizarInventario.Text = "Producto";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(27, 12);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(70, 17);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Aumentar";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(135, 12);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(67, 17);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Disminuir";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
             // Inventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -339,6 +379,8 @@
             this.panelContenedor.ResumeLayout(false);
             this.panelContenedor.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).EndInit();
+            this.gBSeleccionActualizarInventario.ResumeLayout(false);
+            this.gBSeleccionActualizarInventario.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -366,5 +408,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Clave;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.GroupBox gBSeleccionActualizarInventario;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
