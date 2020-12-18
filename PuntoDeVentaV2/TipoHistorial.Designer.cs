@@ -66,6 +66,7 @@
             this.btnHistorialVentas.TabIndex = 104;
             this.btnHistorialVentas.Text = "Historial de Ventas";
             this.btnHistorialVentas.UseVisualStyleBackColor = false;
+            this.btnHistorialVentas.Visible = false;
             this.btnHistorialVentas.Click += new System.EventHandler(this.btnHistorialVentas_Click);
             // 
             // TipoHistorial
