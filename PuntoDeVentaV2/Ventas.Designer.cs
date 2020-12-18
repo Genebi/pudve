@@ -299,6 +299,7 @@
             this.AgregarMultiple.Name = "AgregarMultiple";
             this.AgregarMultiple.ReadOnly = true;
             this.AgregarMultiple.Width = 25;
+            this.AgregarMultiple.Visible = false;
             // 
             // AgregarIndividual
             // 
