@@ -2437,7 +2437,7 @@ namespace PuntoDeVentaV2
                             idVenta, IDProducto, Nombre, Cantidad, Precio,
                             DescuentoGeneral, DescuentoIndividual, ImporteIndividual,
                             Descuento, Total, Folio, AnticipoUtilizado, TipoDescuento,
-                            formaDePagoDeVenta, cliente, referencia
+                            formaDePagoDeVenta, cliente, referencia, idClienteTmp
                         };
 
                         // Guardar info de los productos
@@ -3244,9 +3244,77 @@ namespace PuntoDeVentaV2
             domicilio.Alignment = Element.ALIGN_CENTER;
             domicilio.SetLeading(espacio, 0);
 
-            Paragraph cliente = new Paragraph($"Cliente: {productos[0][14]}", fuenteNormal);
+
+            Paragraph cliente = new Paragraph($"{productos[0][14]}", fuenteNormal);
+
+            string datosCliente = string.Empty;
+
+            if (!productos[0][16].Equals("0"))
+            {
+                var infoCliente = mb.ObtenerDatosCliente(Convert.ToInt32(productos[0][16]), FormPrincipal.userID);
+
+                if (infoCliente.Length > 0)
+                {
+                    datosCliente += $"RFC: {infoCliente[1]}\n";
+                    datosCliente += $"Domicilio: ";
+
+                    if (!string.IsNullOrWhiteSpace(infoCliente[10]))
+                    {
+                        datosCliente += $"{infoCliente[10]}, ";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoCliente[11]))
+                    {
+                        datosCliente += $"{infoCliente[11]}, ";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoCliente[12]))
+                    {
+                        datosCliente += $"Int. {infoCliente[12]}, ";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoCliente[9]))
+                    {
+                        datosCliente += $"Col. {infoCliente[9]}, ";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoCliente[8]))
+                    {
+                        datosCliente += $"C.P. {infoCliente[8]}, ";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoCliente[7]))
+                    {
+                        datosCliente += $"{infoCliente[7]}, ";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoCliente[6]))
+                    {
+                        datosCliente += $"{infoCliente[6]}, ";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoCliente[5]))
+                    {
+                        datosCliente += $"{infoCliente[5]}, ";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoCliente[4]))
+                    {
+                        datosCliente += $"{infoCliente[4]}";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoCliente[13]))
+                    {
+                        datosCliente += $"\nCorreo: {infoCliente[13]}";
+                    }
+
+                    datosCliente = datosCliente.TrimEnd(',');
+                }
+            }
+
+            Paragraph colCliente = new Paragraph($"{datosCliente}", fuenteNormal);
             Paragraph referencia = new Paragraph($"Referencia: {productos[0][15]}", fuenteNormal);
-            Paragraph FormPago = new Paragraph(txtFormaPago + " " + productos[0][13], fuenteNormal);
+            Paragraph FormPago = new Paragraph(txtFormaPago + " " + productos[0][13] + "\n\n", fuenteNormal);
 
             /**************************************
              ** Tabla con los productos vendidos **
@@ -3400,6 +3468,11 @@ namespace PuntoDeVentaV2
             if (!string.IsNullOrWhiteSpace(productos[0][14]))
             {
                 ticket.Add(cliente);
+            }
+
+            if (!string.IsNullOrWhiteSpace(datosCliente))
+            {
+                ticket.Add(colCliente);
             }
 
             if (!string.IsNullOrWhiteSpace(productos[0][15]))
