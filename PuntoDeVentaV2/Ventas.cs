@@ -3280,6 +3280,8 @@ namespace PuntoDeVentaV2
                     {
                         datosCliente += $"\nCorreo: {infoCliente[13]}";
                     }
+
+                    datosCliente = datosCliente.TrimEnd(',');
                 }
             }
 
