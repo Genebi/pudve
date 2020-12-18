@@ -3735,6 +3735,7 @@ namespace PuntoDeVentaV2
                 if (!txtBusquedaString.Equals(""))
                 {
                     var coincidencias = mb.BusquedaCoincidencias(txtBusquedaString.Trim());
+
                     // Si hay concidencias de la busqueda de la palabra
                     if (coincidencias.Count > 0)
                     {
@@ -4348,7 +4349,8 @@ namespace PuntoDeVentaV2
                     {
                         if (!queryHeadAdvancedProveedor.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
+                            //filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
+                            filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + queryAndAdvancedProveedor;
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
