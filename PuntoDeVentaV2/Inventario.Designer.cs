@@ -329,12 +329,13 @@
             this.gBSeleccionActualizarInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.gBSeleccionActualizarInventario.Controls.Add(this.radioButton2);
             this.gBSeleccionActualizarInventario.Controls.Add(this.radioButton1);
-            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(314, 40);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 39);
             this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
             this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 31);
             this.gBSeleccionActualizarInventario.TabIndex = 104;
             this.gBSeleccionActualizarInventario.TabStop = false;
             this.gBSeleccionActualizarInventario.Text = "Producto";
+            this.gBSeleccionActualizarInventario.Visible = false;
             // 
             // radioButton1
             // 
