@@ -94,6 +94,8 @@ namespace PuntoDeVentaV2
 
         private void btnRevisar_Click(object sender, EventArgs e)
         {
+            gBSeleccionActualizarInventario.Visible = true;
+
             if (opcion1 == 0)
             {
                 Utilidades.MensajePermiso();
