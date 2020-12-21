@@ -666,7 +666,7 @@ namespace PuntoDeVentaV2
                         cbProveedor.SelectedValue = "0";
 
                         // Cuando se da click en la opcion editar producto
-                        if (AgregarEditarProducto.DatosSourceFinal == 2)
+                        if (AgregarEditarProducto.DatosSourceFinal == 2 || AgregarEditarProducto.DatosSourceFinal == 4)
                         {
                             // Obtenemos el idProducto
                             var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
@@ -863,7 +863,7 @@ namespace PuntoDeVentaV2
                     fLPCentralDetalle.Controls.Add(panelContenedor);
 
                     // Cuando se da click en la opcion editar producto
-                    if (AgregarEditarProducto.DatosSourceFinal == 2)
+                    if (AgregarEditarProducto.DatosSourceFinal == 2 || AgregarEditarProducto.DatosSourceFinal == 4)
                     {
                         string Descripcion = string.Empty;
 
