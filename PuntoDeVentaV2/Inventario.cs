@@ -748,20 +748,39 @@ namespace PuntoDeVentaV2
                 diferenciaUnidades = decrementar;
             }
 
-            DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
-
-            if (!aumentar.Equals("0"))
+            if (rbAumentarProducto.Checked)
             {
-                DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.DodgerBlue;
+                if (!aumentar.Equals(0))
+                {
+                    DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
+                    DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.DodgerBlue;
+                }
             }
-            else if (!decrementar.Equals("0"))
+            else if (rbDisminuirProducto.Checked)
             {
-                DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.OrangeRed;
+                if (!decrementar.Equals(0))
+                {
+                    DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
+                    DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.OrangeRed;
+                }
             }
 
             DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
             DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
-            DGVInventario.ClearSelection(); 
+            DGVInventario.ClearSelection();
+
+            //if (!aumentar.Equals("0"))
+            //{
+            //    DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.DodgerBlue;
+            //}
+            //else if (!decrementar.Equals("0"))
+            //{
+            //    DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.OrangeRed;
+            //}
+
+            //DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
+            //DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
+            //DGVInventario.ClearSelection(); 
         }
 
         private void bntTerminar_Click(object sender, EventArgs e)
@@ -1038,11 +1057,13 @@ namespace PuntoDeVentaV2
 
         private void rbAumentarProducto_CheckedChanged(object sender, EventArgs e)
         {
+            DGVInventario.Rows.Clear();
             txtBusqueda.Focus();
         }
 
         private void rbDisminuirProducto_CheckedChanged(object sender, EventArgs e)
         {
+            DGVInventario.Rows.Clear();
             txtBusqueda.Focus();
         }
     }
