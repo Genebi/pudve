@@ -35,14 +35,27 @@ namespace PuntoDeVentaV2
         public int cantidadPasadaProductoCombo { set; get; }
         public static int cantidadProductoCombo = 0;
 
+        private int tipoOperacion = 0;
+
         //apartado 1 = Productos
         //apartado 2 = Inventario
-        public AjustarProducto(int IDProducto, int apartado = 1)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IDProducto">ID de Producto a Modificar</param>
+        /// <param name="apartado">apartado=1(Sección Productos) apartado=2(Sección Invetario)</param>
+        /// <param name="operacion"></param>
+        public AjustarProducto(int IDProducto, int apartado = 1, int operacion = 0)
         {
             InitializeComponent();
 
             this.IDProducto = IDProducto;
             this.apartado = apartado;
+
+            if (operacion > 0)
+            {
+                this.tipoOperacion = operacion;
+            }
         }
 
         private void AjustarProducto_Load(object sender, EventArgs e)
@@ -85,6 +98,14 @@ namespace PuntoDeVentaV2
                 {
                     cantidadProductoCombo = cantidadPasadaProductoCombo;
                     txtCantidadCompra.Text = cantidadProductoCombo.ToString();
+                    if (tipoOperacion.Equals(1))
+                    {
+                        rbProducto.Checked = true;
+                    }
+                    else if (tipoOperacion.Equals(2))
+                    {
+                        rbAjustar.Checked = true;
+                    }
                 }
             }
             else

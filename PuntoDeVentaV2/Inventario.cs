@@ -52,7 +52,7 @@ namespace PuntoDeVentaV2
         int opcion5 = 1; // Boton terminar
 
         // tipo de selección Aumentar, Disminuir
-        int tipoSeleccion=0;
+        int tipoSeleccion = 0;
 
         public Inventario()
         {
@@ -693,7 +693,16 @@ namespace PuntoDeVentaV2
             var productoSeleccionado = listaProductos.Items[listaProductos.SelectedIndex].ToString();
             var idProducto = productos.FirstOrDefault(x => x.Value == productoSeleccionado).Key;
 
-            AjustarProducto ap = new AjustarProducto(idProducto, 2);
+            if (rbAumentarProducto.Checked)
+            {
+                tipoSeleccion = 1;
+            }
+            else if (rbDisminuirProducto.Checked)
+            {
+                tipoSeleccion = 2;
+            }
+
+            AjustarProducto ap = new AjustarProducto(idProducto, 2, tipoSeleccion);
 
             ap.FormClosed += delegate
             {
@@ -1024,22 +1033,6 @@ namespace PuntoDeVentaV2
             {
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
-            }
-        }
-
-        private void rbAumentarProducto_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbAumentarProducto.Checked)
-            {
-                tipoSeleccion = 1;
-            }
-        }
-
-        private void rbDisminuirProducto_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbDisminuirProducto.Checked)
-            {
-                tipoSeleccion = 2;
             }
         }
     }
