@@ -98,14 +98,18 @@ namespace PuntoDeVentaV2
                 {
                     cantidadProductoCombo = cantidadPasadaProductoCombo;
                     txtCantidadCompra.Text = cantidadProductoCombo.ToString();
+                    pnlMensajeOperacionInventario.BringToFront();
                     if (tipoOperacion.Equals(1))
                     {
                         rbProducto.Checked = true;
+                        lblOperacionInventario.Text = "Aumentar Producto(s)";
                     }
                     else if (tipoOperacion.Equals(2))
                     {
                         rbAjustar.Checked = true;
                         txtAumentar.Visible = false;
+                        lbAumentar.Visible = false;
+                        lblOperacionInventario.Text = "Reducir Producto(s)";
                     }
                 }
             }
