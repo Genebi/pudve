@@ -34,8 +34,8 @@
             this.btnActualizar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.gBSeleccionActualizarInventario = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.rbDisminuirProducto = new System.Windows.Forms.RadioButton();
+            this.rbAumentarProducto = new System.Windows.Forms.RadioButton();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.bntTerminar = new System.Windows.Forms.Button();
@@ -146,8 +146,8 @@
             // gBSeleccionActualizarInventario
             // 
             this.gBSeleccionActualizarInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.gBSeleccionActualizarInventario.Controls.Add(this.radioButton2);
-            this.gBSeleccionActualizarInventario.Controls.Add(this.radioButton1);
+            this.gBSeleccionActualizarInventario.Controls.Add(this.rbDisminuirProducto);
+            this.gBSeleccionActualizarInventario.Controls.Add(this.rbAumentarProducto);
             this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 39);
             this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
             this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 31);
@@ -156,28 +156,30 @@
             this.gBSeleccionActualizarInventario.Text = "Producto";
             this.gBSeleccionActualizarInventario.Visible = false;
             // 
-            // radioButton2
+            // rbDisminuirProducto
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(135, 11);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(67, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Disminuir";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rbDisminuirProducto.AutoSize = true;
+            this.rbDisminuirProducto.Location = new System.Drawing.Point(135, 11);
+            this.rbDisminuirProducto.Name = "rbDisminuirProducto";
+            this.rbDisminuirProducto.Size = new System.Drawing.Size(67, 17);
+            this.rbDisminuirProducto.TabIndex = 1;
+            this.rbDisminuirProducto.TabStop = true;
+            this.rbDisminuirProducto.Text = "Disminuir";
+            this.rbDisminuirProducto.UseVisualStyleBackColor = true;
+            this.rbDisminuirProducto.CheckedChanged += new System.EventHandler(this.rbDisminuirProducto_CheckedChanged);
             // 
-            // radioButton1
+            // rbAumentarProducto
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(27, 11);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(70, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Aumentar";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rbAumentarProducto.AutoSize = true;
+            this.rbAumentarProducto.Checked = true;
+            this.rbAumentarProducto.Location = new System.Drawing.Point(27, 11);
+            this.rbAumentarProducto.Name = "rbAumentarProducto";
+            this.rbAumentarProducto.Size = new System.Drawing.Size(70, 17);
+            this.rbAumentarProducto.TabIndex = 0;
+            this.rbAumentarProducto.TabStop = true;
+            this.rbAumentarProducto.Text = "Aumentar";
+            this.rbAumentarProducto.UseVisualStyleBackColor = true;
+            this.rbAumentarProducto.CheckedChanged += new System.EventHandler(this.rbAumentarProducto_CheckedChanged);
             // 
             // panelContenedor
             // 
@@ -410,7 +412,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.GroupBox gBSeleccionActualizarInventario;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rbDisminuirProducto;
+        private System.Windows.Forms.RadioButton rbAumentarProducto;
     }
 }

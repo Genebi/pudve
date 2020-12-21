@@ -52,7 +52,7 @@ namespace PuntoDeVentaV2
         int opcion5 = 1; // Boton terminar
 
         // tipo de selección Aumentar, Disminuir
-        int tipoSeleccion = 0;
+        int tipoSeleccion=0;
 
         public Inventario()
         {
@@ -200,6 +200,8 @@ namespace PuntoDeVentaV2
             }
 
             gBSeleccionActualizarInventario.Visible = true;
+
+            tipoSeleccion = 0;
 
             panelContenedor.Visible = true;
 
@@ -1022,6 +1024,22 @@ namespace PuntoDeVentaV2
             {
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
+            }
+        }
+
+        private void rbAumentarProducto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbAumentarProducto.Checked)
+            {
+                tipoSeleccion = 1;
+            }
+        }
+
+        private void rbDisminuirProducto_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbDisminuirProducto.Checked)
+            {
+                tipoSeleccion = 2;
             }
         }
     }
