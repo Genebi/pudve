@@ -115,6 +115,8 @@
             // cbSeleccionados
             // 
             this.cbSeleccionados.AutoSize = true;
+            this.cbSeleccionados.Checked = true;
+            this.cbSeleccionados.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbSeleccionados.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSeleccionados.Location = new System.Drawing.Point(7, 13);
             this.cbSeleccionados.Name = "cbSeleccionados";
