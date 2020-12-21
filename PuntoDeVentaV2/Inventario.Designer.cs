@@ -33,6 +33,9 @@
             this.btnActualizarXML = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.gBSeleccionActualizarInventario = new System.Windows.Forms.GroupBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.bntTerminar = new System.Windows.Forms.Button();
@@ -49,13 +52,10 @@
             this.Clave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gBSeleccionActualizarInventario = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.panelBotones.SuspendLayout();
+            this.gBSeleccionActualizarInventario.SuspendLayout();
             this.panelContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
-            this.gBSeleccionActualizarInventario.SuspendLayout();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -142,6 +142,42 @@
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(845, 77);
             this.panelBotones.TabIndex = 104;
+            // 
+            // gBSeleccionActualizarInventario
+            // 
+            this.gBSeleccionActualizarInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gBSeleccionActualizarInventario.Controls.Add(this.radioButton2);
+            this.gBSeleccionActualizarInventario.Controls.Add(this.radioButton1);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 39);
+            this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
+            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 31);
+            this.gBSeleccionActualizarInventario.TabIndex = 104;
+            this.gBSeleccionActualizarInventario.TabStop = false;
+            this.gBSeleccionActualizarInventario.Text = "Producto";
+            this.gBSeleccionActualizarInventario.Visible = false;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(135, 11);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(67, 17);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Disminuir";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(27, 11);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(70, 17);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Aumentar";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // panelContenedor
             // 
@@ -324,42 +360,6 @@
             this.Fecha.ReadOnly = true;
             this.Fecha.Width = 135;
             // 
-            // gBSeleccionActualizarInventario
-            // 
-            this.gBSeleccionActualizarInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.gBSeleccionActualizarInventario.Controls.Add(this.radioButton2);
-            this.gBSeleccionActualizarInventario.Controls.Add(this.radioButton1);
-            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 39);
-            this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
-            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 31);
-            this.gBSeleccionActualizarInventario.TabIndex = 104;
-            this.gBSeleccionActualizarInventario.TabStop = false;
-            this.gBSeleccionActualizarInventario.Text = "Producto";
-            this.gBSeleccionActualizarInventario.Visible = false;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(27, 12);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(70, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Aumentar";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(135, 12);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(67, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Disminuir";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
             // Inventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -377,11 +377,11 @@
             this.Load += new System.EventHandler(this.Inventario_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Inventario_KeyDown);
             this.panelBotones.ResumeLayout(false);
+            this.gBSeleccionActualizarInventario.ResumeLayout(false);
+            this.gBSeleccionActualizarInventario.PerformLayout();
             this.panelContenedor.ResumeLayout(false);
             this.panelContenedor.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).EndInit();
-            this.gBSeleccionActualizarInventario.ResumeLayout(false);
-            this.gBSeleccionActualizarInventario.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

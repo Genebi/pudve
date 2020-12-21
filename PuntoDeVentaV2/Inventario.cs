@@ -51,6 +51,9 @@ namespace PuntoDeVentaV2
         int opcion4 = 1; // Boton buscar
         int opcion5 = 1; // Boton terminar
 
+        // tipo de selección Aumentar, Disminuir
+        int tipoSeleccion = 0;
+
         public Inventario()
         {
             InitializeComponent();
@@ -217,6 +220,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                gBSeleccionActualizarInventario.Visible = false;
                 panelContenedor.Visible = false;
 
                 AgregarStockXML inventarioXML = new AgregarStockXML();
