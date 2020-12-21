@@ -105,6 +105,7 @@ namespace PuntoDeVentaV2
                     else if (tipoOperacion.Equals(2))
                     {
                         rbAjustar.Checked = true;
+                        txtAumentar.Visible = false;
                     }
                 }
             }
