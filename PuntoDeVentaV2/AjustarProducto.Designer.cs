@@ -546,9 +546,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 412);
+            this.Controls.Add(this.panelAjustar);
             this.Controls.Add(this.pnlOpcionesRadioButtons);
             this.Controls.Add(this.panelComprado);
-            this.Controls.Add(this.panelAjustar);
             this.Controls.Add(this.btnActualiza);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.lbEditarPrecio);

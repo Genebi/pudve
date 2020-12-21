@@ -107,8 +107,12 @@ namespace PuntoDeVentaV2
                     else if (tipoOperacion.Equals(2))
                     {
                         rbAjustar.Checked = true;
-                        txtAumentar.Visible = false;
-                        lbAumentar.Visible = false;
+
+                        txtAumentar.Enabled = false;
+                        lbAumentar.Enabled = false;
+
+                        txtDisminuir.Focus();
+
                         lblOperacionInventario.Text = "Reducir Producto(s)";
                     }
                 }
@@ -542,19 +546,35 @@ namespace PuntoDeVentaV2
 
         private void txtDisminuir_KeyUp(object sender, KeyEventArgs e)
         {
-            if (txtDisminuir.Text != "")
+            if (tipoOperacion.Equals(2))
             {
-                txtAumentar.Enabled = false;
-                lb_disminuir_stock.Visible = true;
-                lb_disminuir_stock_total.Visible = true;
+                if (!txtDisminuir.Text.Equals(string.Empty))
+                {
+                    lb_disminuir_stock.Visible = true;
+                    lb_disminuir_stock_total.Visible = true;
+                }
+                else if (txtDisminuir.Text.Equals(string.Empty))
+                {
+                    lb_disminuir_stock.Visible = false;
+                    lb_disminuir_stock_total.Visible = false;
+                }
             }
-            else
+            else if (tipoOperacion.Equals(0))
             {
-                txtAumentar.Enabled = true;
-                lb_disminuir_stock.Visible = false;
-                lb_disminuir_stock_total.Visible = false;
+                if (txtDisminuir.Text != "")
+                {
+                    txtAumentar.Enabled = false;
+                    lb_disminuir_stock.Visible = true;
+                    lb_disminuir_stock_total.Visible = true;
+                }
+                else
+                {
+                    txtAumentar.Enabled = true;
+                    lb_disminuir_stock.Visible = false;
+                    lb_disminuir_stock_total.Visible = false;
+                }
             }
-
+            
             suma_resta_stock(2);
         }
 
