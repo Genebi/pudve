@@ -98,23 +98,6 @@ namespace PuntoDeVentaV2
                 {
                     cantidadProductoCombo = cantidadPasadaProductoCombo;
                     txtCantidadCompra.Text = cantidadProductoCombo.ToString();
-                    pnlMensajeOperacionInventario.BringToFront();
-                    if (tipoOperacion.Equals(1))
-                    {
-                        rbProducto.Checked = true;
-                        lblOperacionInventario.Text = "Aumentar Producto(s)";
-                    }
-                    else if (tipoOperacion.Equals(2))
-                    {
-                        rbAjustar.Checked = true;
-
-                        txtAumentar.Enabled = false;
-                        lbAumentar.Enabled = false;
-
-                        txtDisminuir.Focus();
-
-                        lblOperacionInventario.Text = "Reducir Producto(s)";
-                    }
                 }
             }
             else
@@ -148,6 +131,35 @@ namespace PuntoDeVentaV2
             txtPrecio.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
             CargarConceptos();
+
+            if (apartado.Equals(2))
+            {
+                pnlMensajeOperacionInventario.BringToFront();
+
+                if (tipoOperacion.Equals(1))
+                {
+                    rbProducto.Checked = true;
+                    lblOperacionInventario.Text = "Aumentar Producto(s)";
+                }
+                else if (tipoOperacion.Equals(2))
+                {
+                    rbAjustar.Checked = true;
+
+                    txtAumentar.Visible = false;
+                    lbAumentar.Visible = false;
+
+                    txtAumentar.TabStop = true;
+                    txtDisminuir.TabStop = true;
+
+                    txtAumentar.TabIndex = 1;
+                    txtDisminuir.TabIndex = 0;
+                    
+                    txtDisminuir.Focus();
+                    txtDisminuir.Select();
+                    
+                    lblOperacionInventario.Text = "Reducir Producto(s)";
+                }
+            }
         }
 
         private void CargarConceptos()
