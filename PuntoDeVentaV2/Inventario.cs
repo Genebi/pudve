@@ -1035,5 +1035,15 @@ namespace PuntoDeVentaV2
                 mostrarVentas.Show();
             }
         }
+
+        private void rbAumentarProducto_CheckedChanged(object sender, EventArgs e)
+        {
+            txtBusqueda.Focus();
+        }
+
+        private void rbDisminuirProducto_CheckedChanged(object sender, EventArgs e)
+        {
+            txtBusqueda.Focus();
+        }
     }
 }

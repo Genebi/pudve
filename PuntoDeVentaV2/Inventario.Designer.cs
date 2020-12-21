@@ -166,6 +166,7 @@
             this.rbDisminuirProducto.TabStop = true;
             this.rbDisminuirProducto.Text = "Disminuir";
             this.rbDisminuirProducto.UseVisualStyleBackColor = true;
+            this.rbDisminuirProducto.CheckedChanged += new System.EventHandler(this.rbDisminuirProducto_CheckedChanged);
             // 
             // rbAumentarProducto
             // 
@@ -178,6 +179,7 @@
             this.rbAumentarProducto.TabStop = true;
             this.rbAumentarProducto.Text = "Aumentar";
             this.rbAumentarProducto.UseVisualStyleBackColor = true;
+            this.rbAumentarProducto.CheckedChanged += new System.EventHandler(this.rbAumentarProducto_CheckedChanged);
             // 
             // panelContenedor
             // 
