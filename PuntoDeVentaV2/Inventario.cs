@@ -832,7 +832,8 @@ namespace PuntoDeVentaV2
             }
 
             // se agrego una columna nueva al reporte la de stock anterior ahora son 9 Columnas
-            // Producto=245f, Proveedor=200f, Unidades Compradas=80f, Precio compra=70f, Precio venta=70f, Stock actual=55f, Fecha de compra=80f, Fecha de operación=80f
+            // Producto=245f,       Proveedor=200f,     Unidades Compradas=80f,     Precio compra=70f,      Precio venta=70f,
+            // Stock anterior=55f   Stock actual=55f,   Fecha de compra=80f,        Fecha de operación=80f
             float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 80f };
 
             Document reporte = new Document(PageSize.A3.Rotate());
