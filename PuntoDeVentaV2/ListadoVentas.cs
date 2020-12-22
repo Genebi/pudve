@@ -766,6 +766,7 @@ namespace PuntoDeVentaV2
 
                                                 //Comprovar que se cuente con dinero suficiente
                                                 var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
+
                                                 var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
                                                 if (!obtenerDinero.Rows.Count.Equals(0))
                                                 {
@@ -777,7 +778,7 @@ namespace PuntoDeVentaV2
                                                         //chequeObtenido = getCash["sum(Cheque)"].ToString();
                                                         //transObtenido = getCash["sum(Transferencia)"].ToString();
                                                     }
-                                                    efe = (float.Parse(efectivoObtenido) + sEfectivo);
+                                                    efe = (float.Parse(efectivoObtenido) /*+ sEfectivo*/);
                                                     //tar = (float.Parse(tarjetaObtenido) + sTarjeta);
                                                     //val = (float.Parse(valesObtenido) + sVales);
                                                     //che = (float.Parse(chequeObtenido) + sCheque);
@@ -919,6 +920,8 @@ namespace PuntoDeVentaV2
 
                                 if (mensaje == DialogResult.Yes)
                                 {
+                                    float efe = 0f, tar = 0f, val = 0f, che = 0f, trans = 0f;
+
                                     var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
                                     if (formasPago.Length > 0)
@@ -936,14 +939,54 @@ namespace PuntoDeVentaV2
 
                                         var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                        string[] datos = new string[] {
+                                        var ultimoDate = string.Empty;
+                                        var obtenerFecha = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                                        if (!obtenerFecha.Rows.Count.Equals(0))
+                                        {
+                                            foreach (DataRow fechaUltimoCorte in obtenerFecha.Rows)
+                                            {
+                                                ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
+                                            }
+                                            DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
+
+
+                                            //Comprovar que se cuente con dinero suficiente
+                                            var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
+                                            var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
+
+                                            if (!obtenerDinero.Rows.Count.Equals(0))
+                                            {
+                                                foreach (DataRow getCash in obtenerDinero.Rows)
+                                                {
+                                                    efectivoObtenido = getCash["sum(Efectivo)"].ToString();
+                                                    //tarjetaObtenido = getCash["sum(Tarjeta)"].ToString();
+                                                    //valesObtenido = getCash["sum(Vales)"].ToString();
+                                                    //chequeObtenido = getCash["sum(Cheque)"].ToString();
+                                                    //transObtenido = getCash["sum(Transferencia)"].ToString();
+                                                }
+                                                efe = (float.Parse(efectivoObtenido) /*+ sEfectivo*/);
+                                            }
+                                        }
+
+                                        var totalActual = float.Parse(total1);
+                                        if (efe < totalActual)
+                                        {
+                                            MessageBox.Show("No tiene suficiente dinero en efectivo para retirar", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            //cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+                                            stopCancelar = true;
+                                        }
+                                        else
+                                        {
+                                            string[] datos = new string[] {
                                                         "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(),
                                                         efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
                                                     };
-                                        cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                            cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                            stopCancelar = false;
+                                        }
                                     }
                                 }
-                                stopCancelar = false;
+                                //stopCancelar = false;
                             }
                         }
 
