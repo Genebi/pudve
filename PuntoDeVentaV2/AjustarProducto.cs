@@ -757,7 +757,7 @@ namespace PuntoDeVentaV2
 
         private void txtAumentar_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
             {
                 calcu++;
 
