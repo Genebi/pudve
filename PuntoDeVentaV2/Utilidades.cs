@@ -319,6 +319,7 @@ namespace PuntoDeVentaV2
 
         public static bool EnviarEmailConArchivoPDF(string html, string asunto, string email, string rutaPDF )
         {
+            //Con este metodo se pueden mandar correos con archivos pdf
             var respuesta = false;
 
             try
@@ -330,6 +331,7 @@ namespace PuntoDeVentaV2
                 mensaje.To.Add(new MailAddress(email));
                 mensaje.Subject = asunto;
                 mensaje.IsBodyHtml = true; // para hacer el cuerpo del mensaje como html 
+                mensaje.Attachments.Add(new Attachment(rutaPDF));
                 mensaje.Body = html;
 
                 smtp.Port = 587;
@@ -1520,9 +1522,8 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public static void enviarCorreoCorteCaja(string correo, string[] datos)
+        public static void enviarCorreoCorteCaja(string correo, string[] datos, string ruta)
         {
-            var ruta = string.Empty;
             var asunto = "SE HA REALIZADO CORTE DE CAJA";
             var html = $@"
                 <div style='text-align: center;'>
