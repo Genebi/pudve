@@ -191,6 +191,19 @@ namespace PuntoDeVentaV2
                 if ((bool)DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value == false)
                 {
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = true;
+
+                    var id = Convert.ToInt32(DGVProductos.SelectedRows[e.ColumnIndex].Cells["_IDProducto"].Value);
+                    var tipo = DGVProductos.SelectedRows[e.ColumnIndex].Cells["TipoProducto"].Value.ToString();
+
+                    if (!checkboxMarcados.ContainsKey(id))
+                    {
+                        checkboxMarcados.Add(id, tipo);
+                    }
+
+                    if (!productosSeleccionados.ContainsKey(id))
+                    {
+                        productosSeleccionados.Add(id, tipo);
+                    }
                 }
                 else
                 {
@@ -1632,6 +1645,11 @@ namespace PuntoDeVentaV2
             else
             {
                 productosSeleccionados = lista;
+
+                if (checkboxMarcados.Count > 0)
+                {
+                    productosSeleccionados = checkboxMarcados;
+                }
             }
 
             if (Application.OpenForms.OfType<OpcionesReporteProducto>().Count() == 1)
