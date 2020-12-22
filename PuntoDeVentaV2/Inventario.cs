@@ -831,7 +831,9 @@ namespace PuntoDeVentaV2
                 rutaArchivo = @"C:\Archivos PUDVE\Reportes\Historial\reporte_actualizar_inventario_" + idReporte + ".pdf";
             }
 
-            float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 80f, 80f };
+            // se agrego una columna nueva al reporte la de stock anterior ahora son 9 Columnas
+            // Producto=245f, Proveedor=200f, Unidades Compradas=80f, Precio compra=70f, Precio venta=70f, Stock actual=55f, Fecha de compra=80f, Fecha de operación=80f
+            float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 80f };
 
             Document reporte = new Document(PageSize.A3.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -867,7 +869,7 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            PdfPTable tabla = new PdfPTable(8);
+            PdfPTable tabla = new PdfPTable(9);
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
@@ -891,6 +893,10 @@ namespace PuntoDeVentaV2
             colPrecioVenta.BorderWidth = 1;
             colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
 
+            PdfPCell colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
+            colStockAnterior.BorderWidth = 1;
+            colStockAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+
             PdfPCell colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
             colStock.BorderWidth = 1;
             colStock.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -908,6 +914,7 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colUnidades);
             tabla.AddCell(colPrecioCompra);
             tabla.AddCell(colPrecioVenta);
+            tabla.AddCell(colStockAnterior);
             tabla.AddCell(colStock);
             tabla.AddCell(colFechaCompra);
             tabla.AddCell(colFechaOperacion);
@@ -944,6 +951,8 @@ namespace PuntoDeVentaV2
                 var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                 var stock = tmp[4];
 
+                var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
+
                 DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("FechaLarga"));
                 var fechaCompra = fecha.ToString("yyyy-MM-dd");
 
@@ -970,6 +979,10 @@ namespace PuntoDeVentaV2
                 colPrecioVentaTmp.BorderWidth = 1;
                 colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                PdfPCell colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
+                colStockTmpAnterior.BorderWidth = 1;
+                colStockTmpAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+
                 PdfPCell colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
                 colStockTmp.BorderWidth = 1;
                 colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -987,6 +1000,7 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colUnidadesTmp);
                 tabla.AddCell(colPrecioCompraTmp);
                 tabla.AddCell(colPrecioVentaTmp);
+                tabla.AddCell(colStockTmpAnterior);
                 tabla.AddCell(colStockTmp);
                 tabla.AddCell(colFechaCompraTmp);
                 tabla.AddCell(colFechaOperacionTmp);
