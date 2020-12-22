@@ -752,7 +752,7 @@ namespace PuntoDeVentaV2
             lbTransferenciaR.Text = "$ -" + retiroTrans.ToString("0.00");
             //lbTAnticiposC.Text = "$ -" + vAnticipos.ToString("0.00");
             lbTAnticiposC.Text = "$ -" + anticiposAplicados.ToString("0.00");
-            lbDevoluciones.Text = "$-" + devoluciones.ToString("0.00");
+            lbDevoluciones.Text = "$ -" + devoluciones.ToString("0.00");
             lbTRetirado.Text = "$ -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");
 
             // Apartado TOTAL EN CAJA

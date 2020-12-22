@@ -317,6 +317,41 @@ namespace PuntoDeVentaV2
             return respuesta;
         }
 
+        public static bool EnviarEmailConArchivoPDF(string html, string asunto, string email, string rutaPDF )
+        {
+            var respuesta = false;
+
+            try
+            {
+                MailMessage mensaje = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+
+                mensaje.From = new MailAddress("pudve.contacto@gmail.com", "PUDVE");
+                mensaje.To.Add(new MailAddress(email));
+                mensaje.Subject = asunto;
+                mensaje.IsBodyHtml = true; // para hacer el cuerpo del mensaje como html 
+                mensaje.Body = html;
+
+                smtp.Port = 587;
+                smtp.Host = "smtp.gmail.com"; // para host gmail
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "Steroids12");
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(mensaje);
+
+                respuesta = true;
+            }
+            catch (Exception)
+            {
+                // Se comento el mensaje de exception ya que el usuario no sabe que se le enviara correo
+                // y que no aparezca el messagebox
+                //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return respuesta;
+        }
+
         public static void CambioPrecioProductoEmail(string[] datos, int tipo = 0)
         {
             var correo = FormPrincipal.datosUsuario[9];
@@ -1487,309 +1522,213 @@ namespace PuntoDeVentaV2
 
         public static void enviarCorreoCorteCaja(string correo, string[] datos)
         {
+            var ruta = string.Empty;
             var asunto = "SE HA REALIZADO CORTE DE CAJA";
             var html = $@"
                 <div style='text-align: center;'>
                 <h1 style='color: red;'>SE HA REALIZADO CORTE DE CAJA</h1>
                 </div>
-       <div class='container'>
-        <div class='row'>
-            <div class='col-xs-12 col-sm-12 col-md-2 col-lg-2' style ='display: block;'>
-                <table class='table table-condensed table-bordered'>
-                    <thead>
-                        <tr style='text-align: center;'>
-                            VENTAS
-                        </tr>
-                    <tbody>
-                        <tr>
-                        <tr>
-                            <td>Efectivo</td>
-                            <td><span style='color: black;'>{datos[0]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Tarjeta</td>
-                            <td><span style='color: black;'>{datos[1]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Vales</td>
-                            <td><span style='color: black;'>{datos[2]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Cheque</td>
-                            <td><span style='color: black;'>{datos[3]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Transferemcia</td>
-                            <td><span style='color: black;'>{datos[4]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Credito</td>
-                            <td><span style='color: black;'>{datos[5]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Abonos</td>
-                            <td><span style='color: black;'>{datos[6]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Anticipos Utilizados al Corte</td>
-                            <td><span style='color: black;'>{datos[7]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td style='color: crimson'>Total Ventas</td>
-                            <td><span style='color: crimson;'>{datos[8]}</span></td>
-                        </tr>
-                        </tr>
-                    </tbody>
-                    </thead>
+       
+<div style='display: inline-table;'>
+			<table border='1'>
+				<tr>
+					<th colspan='2'>
+					<span>VENTAS</span>
+					</th>
+				</tr>
+				<tr>
+					<td>Efectivo</td>
+					<td><span style='color: black;'>{datos[0]}</span></td>
+				</tr>
+				<tr>
+					<td>Tarjeta</td>
+					<td><span style='color: black;'>{datos[1]}</span></td>
+				</tr>
+				<tr>
+					<td>Vales</td>
+					<td><span style='color: black;'>{datos[2]}</span></td>
+				</tr>
+				<tr>
+					<td>Cheque</td>
+					<td><span style='color: black;'>{datos[3]}</span></td>
+				</tr>
+				<tr>
+					<td>Transferencia</td>
+					<td><span style='color: black;'>{datos[4]}</span></td>
+				</tr>
+				<tr>
+					<td>Credito</td>
+					<td><span style='color: black;'>{datos[5]}</span></td>
+				</tr>
+				<tr>
+					<td>Abonos</td>
+					<td><span style='color: black;'>{datos[6]}</span></td>
+				</tr>
+				<tr>
+					<td>Anticipos Utilizados al Corte</td>
+					<td><span style='color: black;'>{datos[7]}</span></td>
+				</tr>
+				<tr>
+					<td style='color: crimson'>Total Ventas</td>
+					<td><span style='color: crimson;'>{datos[8]}</span></td>
+				</tr>
+			</table>
+		</div>
 
-                </table>
-            </div>
+		<div style='display: inline-table;'>
+			<table border='1'>
+				<tr>
+					<th colspan='2'>
+					<span>ANTICIPOS RECIBIDOS</span>
+					</th>
+				</tr>
+				<tr>
+					<td>Efectivo</td>
+					<td><span style='color: black;'>{datos[9]}</span></td>
+				</tr>
+				<tr>
+					<td>Tarjeta</td>
+					<td><span style='color: black;'>{datos[10]}</span></td>
+				</tr>
+				<tr>
+					<td>Vales</td>
+					<td><span style='color: black;'>{datos[11]}</span></td>
+				</tr>
+				<tr>
+					<td>Cheque</td>
+					<td><span style='color: black;'>{datos[12]}</span></td>
+				</tr>
+				<tr>
+					<td>Transferencia</td>
+					<td><span style='color: black;'>{datos[13]}</span></td>
+				</tr>
+				<tr>
+					<td style='color: crimson'>Total Ventas</td>
+					<td><span style='color: crimson;'>{datos[14]}</span></td>
+				</tr>
+			</table>
+			</div>
 
-            <div class='col-xs-12 col-sm-12 col-md-2 col-lg-2'>
-                <table class='table table-condensed table-bordered'>
-                    <thead>
-                        <tr style='text-align: center;'>
-                            ANTICIPOS RECIBIDOS
-                        </tr>
-                    <tbody>
-                        <tr>
-                        <tr>
-                            <td>Efectivo</td>
-                            <td><span style='color: black;'>{datos[9]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Tarjeta</td>
-                            <td><span style='color: black;'>{datos[10]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Vales</td>
-                            <td><span style='color: black;'>{datos[11]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Cheque</td>
-                            <td><span style='color: black;'>{datos[12]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Transferemcia</td>
-                            <td><span style='color: black;'>{datos[13]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td style='color: crimson'>Total Anticipos Recibidos</td>
-                            <td><span style='color: crimson;'>{datos[14]}</span></td>
-                        </tr>
-                        </tr>
-                    </tbody>
-                    </thead>
-
-                </table>
-            </div>
-            <div class='col-xs-12 col-sm-12 col-md-2 col-lg-2'>
-
-                <table class='table table-condensed table-bordered'>
-                    <thead>
-                        <tr style='text-align: center;'>
-                            DINERO AGREGADO
-                        </tr>
-                    <tbody>
-                        <tr>
-                        <tr>
-                            <td>Efectivo</td>
-                            <td><span style='color: black;'>{datos[15]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Tarjeta</td>
-                            <td><span style='color: black;'>{datos[16]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Vales</td>
-                            <td><span style='color: black;'>{datos[17]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Cheque</td>
-                            <td><span style='color: black;'>{datos[18]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Transferemcia</td>
-                            <td><span style='color: black;'>{datos[19]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td style='color: crimson'>Total Dinero Agregado</td>
-                            <td><span style='color: crimson;'>{datos[20]}</span></td>
-                        </tr>
-                        </tr>
-                    </tbody>
-                    </thead>
-
-                </table>
-            </div>
-
-            <div class='col-xs-12 col-sm-12 col-md-2 col-lg-2'>
-
-                <table class='table table-condensed table-bordered'>
-                    <thead>
-                        <tr style='text-align: center;'>
-                            DINERO RETIRADO
-                        </tr>
-                    <tbody>
-                        <tr>
-                        <tr>
-                            <td>Efectivo</td>
-                            <td><span style='color: black;'>{datos[21]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Tarjeta</td>
-                            <td><span style='color: black;'>{datos[22]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Vales</td>
-                            <td><span style='color: black;'>{datos[23]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Cheque</td>
-                            <td><span style='color: black;'>{datos[24]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Transferemcia</td>
-                            <td><span style='color: black;'>{datos[25]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Anticipos Utilizados al Corte</td>
-                            <td><span style='color: black;'>{datos[26]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Devoluciones</td>
-                            <td><span style='color: black;'>{datos[27]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td style='color: crimson'>Total Dinero Retirado</td>
-                            <td><span style='color: crimson;'>{datos[28]}</span></td>
-                        </tr>
-                        </tr>
-                    </tbody>
-                    </thead>
-
-                </table>
-            </div>
-
-            <div class='col-xs-12 col-sm-12 col-md-2 col-lg-2'>
-
-                <table class='table table-condensed table-bordered'>
-                    <thead>
-                        <tr style='text-align: center;'>
-                            TOTAL EN CAJA
-                        </tr>
-                    <tbody>
-                        <tr>
-                        <tr>
-                            <td>Efectivo</td>
-                            <td><span style='color: black;'>{datos[29]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Tarjeta</td>
-                            <td><span style='color: black;'>{datos[30]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Vales</td>
-                            <td><span style='color: black;'>{datos[31]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Cheque</td>
-                            <td><span style='color: black;'>{datos[32]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Transferemcia</td>
-                            <td><span style='color: black;'>{datos[33]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Saldo Inicial</td>
-                            <td><span style='color: black;'>{datos[34]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Total Credito</td>
-                            <td><span style='color: black;'>{datos[35]}</span></td>
-                        </tr>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td style='color: crimson'>Total Caja</td>
-                            <td><span style='color: crimson;'>{datos[36]}</span></td>
-                        </tr>
-                        </tr>
-                    </tbody>
-                    </thead>
-
-                </table>
-            </div>
-
-        </div>
-
-
-    </div>
+			<div style='display: inline-table;'>
+				<table border='1'>
+				<tr>
+					<th colspan='2'>
+					<span>DINERO AGREGADO</span>
+					</th>
+				</tr>
+				<tr>
+					<td>Efectivo</td>
+					<td><span style='color: black;'>{datos[15]}</span></td>
+				</tr>
+				<tr>
+					<td>Tarjeta</td>
+					<td><span style='color: black;'>{datos[16]}</span></td>
+				</tr>
+				<tr>
+					<td>Vales</td>
+					<td><span style='color: black;'>{datos[17]}</span></td>
+				</tr>
+				<tr>
+					<td>Cheque</td>
+					<td><span style='color: black;'>{datos[18]}</span></td>
+				</tr>
+				<tr>
+					<td>Transferencia</td>
+					<td><span style='color: black;'>{datos[19]}</span></td>
+				</tr>
+				<tr>
+					<td style='color: crimson'>Total Ventas</td>
+					<td><span style='color: crimson;'>{datos[20]}</span></td>
+				</tr>
+			</table>
+			</div>
+			
+		<div style='display: inline-table;'>
+			<table border='1'>
+				<tr>
+					<th colspan='2'>
+					<span>DINERO RETIRADO</span>
+					</th>
+				</tr>
+				<tr>
+					<td>Efectivo</td>
+					<td><span style='color: black;'>{datos[21]}</span></td>
+				</tr>
+				<tr>
+					<td>Tarjeta</td>
+					<td><span style='color: black;'>{datos[22]}</span></td>
+				</tr>
+				<tr>
+					<td>Vales</td>
+					<td><span style='color: black;'>{datos[23]}</span></td>
+				</tr>
+				<tr>
+					<td>Cheque</td>
+					<td><span style='color: black;'>{datos[24]}</span></td>
+				</tr>
+				<tr>
+					<td>Transferencia</td>
+					<td><span style='color: black;'>{datos[25]}</span></td>
+				</tr>
+				<tr>
+					<td>Anticipos Utilizados al Corte</td>
+					<td><span style='color: black;'>{datos[26]}</span></td>
+				</tr>
+				<tr>
+					<td>Devoluciones</td>
+					<td><span style='color: black;'>{datos[27]}</span></td>
+				</tr>
+				<tr>
+					<td style='color: crimson'>Total Ventas</td>
+					<td><span style='color: crimson;'>{datos[28]}</span></td>
+				</tr>
+			</table>
+		</div>
+			
+			<div style='display: inline-table;'>
+				<table border='1'>
+				<tr>
+					<th colspan='2'>
+					<span>TOTAL EN CAJA</span>
+					</th>
+				</tr>
+				<tr>
+					<td>Efectivo</td>
+					<td><span style='color: black;'>{datos[29]}</span></td>
+				</tr>
+				<tr>
+					<td>Tarjeta</td>
+					<td><span style='color: black;'>{datos[30]}</span></td>
+				</tr>
+				<tr>
+					<td>Vales</td>
+					<td><span style='color: black;'>{datos[31]}</span></td>
+				</tr>
+				<tr>
+					<td>Cheque</td>
+					<td><span style='color: black;'>{datos[32]}</span></td>
+				</tr>
+				<tr>
+					<td>Transferencia</td>
+					<td><span style='color: black;'>{datos[33]}</span></td>
+				</tr>
+				<tr>
+					<td>Saldo Inicial</td>
+					<td><span style='color: black;'>{datos[34]}</span></td>
+				</tr>
+				<tr>
+					<td>Total Credito</td>
+					<td><span style='color: black;'>{datos[35]}</span></td>
+				</tr>
+				<tr>
+					<td style='color: crimson'>Total Ventas</td>
+					<td><span style='color: crimson;'>{datos[36]}</span></td>
+				</tr>
+			</table>	
+			</div>
                         ";
 
-            EnviarEmail(html, asunto, correo);
+            EnviarEmailConArchivoPDF(html, asunto, correo, ruta);
         }
 
 
