@@ -42,6 +42,8 @@ namespace PuntoDeVentaV2
         float convertVales = 0f;
         float convertTrans = 0f;
 
+        public static string obtenerRutaPDF { get; set; }
+
         string idParaComboBox = string.Empty;
 
         public AgregarRetirarDinero(int operacion = 0)

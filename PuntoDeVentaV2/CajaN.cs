@@ -42,6 +42,9 @@ namespace PuntoDeVentaV2
         public static string totCorte { get; set; }
         public static string date { get; set; }
 
+        //Variable que obtiene la ruta del PDF del corte de caja
+        string obtenerRutaPDF = string.Empty;
+
         //float anticiposAplicados = 0f;
         float abonos = 0f;
         float devoluciones = 0f;
@@ -273,7 +276,7 @@ namespace PuntoDeVentaV2
 
                     var correo = correoUdiario();
                     var correoCantidades = cargarDatosCorteCaja();
-                    Utilidades.enviarCorreoCorteCaja(correo, correoCantidades);
+                    Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF);
                 };
 
                 corte.Show();
@@ -897,6 +900,7 @@ namespace PuntoDeVentaV2
             {
                 rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaUltimoCorte.ToString("yyyyMMddHHmmss") + ".pdf";
             }
+            obtenerRutaPDF = rutaArchivo;
 
 
             Document reporte = new Document(PageSize.A3);
