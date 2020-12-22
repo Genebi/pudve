@@ -728,6 +728,10 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
+                btnAceptar.PerformClick();
+            }
+            else if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
                 calcu++;
 
                 if (calcu == 1)
