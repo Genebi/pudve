@@ -65,8 +65,13 @@
             this.lbEditarPrecio = new System.Windows.Forms.Label();
             this.txtPrecio = new System.Windows.Forms.TextBox();
             this.btnActualiza = new System.Windows.Forms.Button();
+            this.pnlOpcionesRadioButtons = new System.Windows.Forms.Panel();
+            this.pnlMensajeOperacionInventario = new System.Windows.Forms.Panel();
+            this.lblOperacionInventario = new System.Windows.Forms.Label();
             this.panelComprado.SuspendLayout();
             this.panelAjustar.SuspendLayout();
+            this.pnlOpcionesRadioButtons.SuspendLayout();
+            this.pnlMensajeOperacionInventario.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbProducto
@@ -84,7 +89,7 @@
             this.rbProducto.AutoSize = true;
             this.rbProducto.Checked = true;
             this.rbProducto.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbProducto.Location = new System.Drawing.Point(137, 87);
+            this.rbProducto.Location = new System.Drawing.Point(116, 6);
             this.rbProducto.Name = "rbProducto";
             this.rbProducto.Size = new System.Drawing.Size(147, 21);
             this.rbProducto.TabIndex = 1;
@@ -97,7 +102,7 @@
             // 
             this.rbAjustar.AutoSize = true;
             this.rbAjustar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbAjustar.Location = new System.Drawing.Point(388, 87);
+            this.rbAjustar.Location = new System.Drawing.Point(341, 6);
             this.rbAjustar.Name = "rbAjustar";
             this.rbAjustar.Size = new System.Drawing.Size(95, 21);
             this.rbAjustar.TabIndex = 2;
@@ -509,13 +514,41 @@
             this.btnActualiza.UseVisualStyleBackColor = false;
             this.btnActualiza.Click += new System.EventHandler(this.btnActualiza_Click);
             // 
+            // pnlOpcionesRadioButtons
+            // 
+            this.pnlOpcionesRadioButtons.Controls.Add(this.rbAjustar);
+            this.pnlOpcionesRadioButtons.Controls.Add(this.rbProducto);
+            this.pnlOpcionesRadioButtons.Location = new System.Drawing.Point(13, 81);
+            this.pnlOpcionesRadioButtons.Name = "pnlOpcionesRadioButtons";
+            this.pnlOpcionesRadioButtons.Size = new System.Drawing.Size(610, 34);
+            this.pnlOpcionesRadioButtons.TabIndex = 34;
+            // 
+            // pnlMensajeOperacionInventario
+            // 
+            this.pnlMensajeOperacionInventario.Controls.Add(this.lblOperacionInventario);
+            this.pnlMensajeOperacionInventario.Location = new System.Drawing.Point(13, 81);
+            this.pnlMensajeOperacionInventario.Name = "pnlMensajeOperacionInventario";
+            this.pnlMensajeOperacionInventario.Size = new System.Drawing.Size(610, 34);
+            this.pnlMensajeOperacionInventario.TabIndex = 35;
+            // 
+            // lblOperacionInventario
+            // 
+            this.lblOperacionInventario.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOperacionInventario.Location = new System.Drawing.Point(4, 5);
+            this.lblOperacionInventario.Name = "lblOperacionInventario";
+            this.lblOperacionInventario.Size = new System.Drawing.Size(603, 23);
+            this.lblOperacionInventario.TabIndex = 0;
+            this.lblOperacionInventario.Text = "label1";
+            this.lblOperacionInventario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // AjustarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 412);
-            this.Controls.Add(this.panelComprado);
             this.Controls.Add(this.panelAjustar);
+            this.Controls.Add(this.pnlOpcionesRadioButtons);
+            this.Controls.Add(this.panelComprado);
             this.Controls.Add(this.btnActualiza);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.lbEditarPrecio);
@@ -525,9 +558,8 @@
             this.Controls.Add(this.lbSeparador1);
             this.Controls.Add(this.lbComentarios);
             this.Controls.Add(this.txtComentarios);
-            this.Controls.Add(this.rbAjustar);
-            this.Controls.Add(this.rbProducto);
             this.Controls.Add(this.lbProducto);
+            this.Controls.Add(this.pnlMensajeOperacionInventario);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "AjustarProducto";
@@ -539,6 +571,9 @@
             this.panelComprado.PerformLayout();
             this.panelAjustar.ResumeLayout(false);
             this.panelAjustar.PerformLayout();
+            this.pnlOpcionesRadioButtons.ResumeLayout(false);
+            this.pnlOpcionesRadioButtons.PerformLayout();
+            this.pnlMensajeOperacionInventario.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -583,5 +618,8 @@
         private System.Windows.Forms.Button btnAgregarConcepto;
         private System.Windows.Forms.ComboBox cbConceptos;
         private System.Windows.Forms.Button btnActualiza;
+        private System.Windows.Forms.Panel pnlOpcionesRadioButtons;
+        private System.Windows.Forms.Panel pnlMensajeOperacionInventario;
+        private System.Windows.Forms.Label lblOperacionInventario;
     }
 }

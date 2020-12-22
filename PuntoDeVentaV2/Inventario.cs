@@ -51,6 +51,9 @@ namespace PuntoDeVentaV2
         int opcion4 = 1; // Boton buscar
         int opcion5 = 1; // Boton terminar
 
+        // tipo de selección Aumentar, Disminuir
+        int tipoSeleccion = 0;
+
         public Inventario()
         {
             InitializeComponent();
@@ -94,6 +97,9 @@ namespace PuntoDeVentaV2
 
         private void btnRevisar_Click(object sender, EventArgs e)
         {
+            gBSeleccionActualizarInventario.Visible = false;
+            panelContenedor.Visible = false;
+
             if (opcion1 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -193,6 +199,10 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            gBSeleccionActualizarInventario.Visible = true;
+
+            tipoSeleccion = 0;
+
             panelContenedor.Visible = true;
 
             txtBusqueda.Focus();
@@ -212,6 +222,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                gBSeleccionActualizarInventario.Visible = false;
                 panelContenedor.Visible = false;
 
                 AgregarStockXML inventarioXML = new AgregarStockXML();
@@ -682,7 +693,16 @@ namespace PuntoDeVentaV2
             var productoSeleccionado = listaProductos.Items[listaProductos.SelectedIndex].ToString();
             var idProducto = productos.FirstOrDefault(x => x.Value == productoSeleccionado).Key;
 
-            AjustarProducto ap = new AjustarProducto(idProducto, 2);
+            if (rbAumentarProducto.Checked)
+            {
+                tipoSeleccion = 1;
+            }
+            else if (rbDisminuirProducto.Checked)
+            {
+                tipoSeleccion = 2;
+            }
+
+            AjustarProducto ap = new AjustarProducto(idProducto, 2, tipoSeleccion);
 
             ap.FormClosed += delegate
             {
@@ -728,20 +748,39 @@ namespace PuntoDeVentaV2
                 diferenciaUnidades = decrementar;
             }
 
-            DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
-
-            if (!aumentar.Equals("0"))
+            if (rbAumentarProducto.Checked)
             {
-                DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.DodgerBlue;
+                if (!aumentar.Equals(0))
+                {
+                    DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
+                    DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.DodgerBlue;
+                }
             }
-            else if (!decrementar.Equals("0"))
+            else if (rbDisminuirProducto.Checked)
             {
-                DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.OrangeRed;
+                if (!decrementar.Equals(0))
+                {
+                    DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
+                    DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.OrangeRed;
+                }
             }
 
             DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
             DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
-            DGVInventario.ClearSelection(); 
+            DGVInventario.ClearSelection();
+
+            //if (!aumentar.Equals("0"))
+            //{
+            //    DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.DodgerBlue;
+            //}
+            //else if (!decrementar.Equals("0"))
+            //{
+            //    DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.OrangeRed;
+            //}
+
+            //DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
+            //DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
+            //DGVInventario.ClearSelection(); 
         }
 
         private void bntTerminar_Click(object sender, EventArgs e)
@@ -792,7 +831,9 @@ namespace PuntoDeVentaV2
                 rutaArchivo = @"C:\Archivos PUDVE\Reportes\Historial\reporte_actualizar_inventario_" + idReporte + ".pdf";
             }
 
-            float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 80f, 80f };
+            // se agrego una columna nueva al reporte la de stock anterior ahora son 9 Columnas
+            // Producto=245f, Proveedor=200f, Unidades Compradas=80f, Precio compra=70f, Precio venta=70f, Stock actual=55f, Fecha de compra=80f, Fecha de operación=80f
+            float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 80f };
 
             Document reporte = new Document(PageSize.A3.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -828,7 +869,7 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            PdfPTable tabla = new PdfPTable(8);
+            PdfPTable tabla = new PdfPTable(9);
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
@@ -852,6 +893,10 @@ namespace PuntoDeVentaV2
             colPrecioVenta.BorderWidth = 1;
             colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
 
+            PdfPCell colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
+            colStockAnterior.BorderWidth = 1;
+            colStockAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+
             PdfPCell colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
             colStock.BorderWidth = 1;
             colStock.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -869,6 +914,7 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colUnidades);
             tabla.AddCell(colPrecioCompra);
             tabla.AddCell(colPrecioVenta);
+            tabla.AddCell(colStockAnterior);
             tabla.AddCell(colStock);
             tabla.AddCell(colFechaCompra);
             tabla.AddCell(colFechaOperacion);
@@ -905,6 +951,8 @@ namespace PuntoDeVentaV2
                 var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                 var stock = tmp[4];
 
+                var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
+
                 DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("FechaLarga"));
                 var fechaCompra = fecha.ToString("yyyy-MM-dd");
 
@@ -931,6 +979,10 @@ namespace PuntoDeVentaV2
                 colPrecioVentaTmp.BorderWidth = 1;
                 colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                PdfPCell colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
+                colStockTmpAnterior.BorderWidth = 1;
+                colStockTmpAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+
                 PdfPCell colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
                 colStockTmp.BorderWidth = 1;
                 colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -948,6 +1000,7 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colUnidadesTmp);
                 tabla.AddCell(colPrecioCompraTmp);
                 tabla.AddCell(colPrecioVentaTmp);
+                tabla.AddCell(colStockTmpAnterior);
                 tabla.AddCell(colStockTmp);
                 tabla.AddCell(colFechaCompraTmp);
                 tabla.AddCell(colFechaOperacionTmp);
@@ -1014,6 +1067,18 @@ namespace PuntoDeVentaV2
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
             }
+        }
+
+        private void rbAumentarProducto_CheckedChanged(object sender, EventArgs e)
+        {
+            DGVInventario.Rows.Clear();
+            txtBusqueda.Focus();
+        }
+
+        private void rbDisminuirProducto_CheckedChanged(object sender, EventArgs e)
+        {
+            DGVInventario.Rows.Clear();
+            txtBusqueda.Focus();
         }
     }
 }

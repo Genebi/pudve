@@ -33,6 +33,9 @@
             this.btnActualizarXML = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.gBSeleccionActualizarInventario = new System.Windows.Forms.GroupBox();
+            this.rbDisminuirProducto = new System.Windows.Forms.RadioButton();
+            this.rbAumentarProducto = new System.Windows.Forms.RadioButton();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.bntTerminar = new System.Windows.Forms.Button();
@@ -50,6 +53,7 @@
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelBotones.SuspendLayout();
+            this.gBSeleccionActualizarInventario.SuspendLayout();
             this.panelContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.SuspendLayout();
@@ -59,7 +63,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(388, 27);
+            this.tituloSeccion.Location = new System.Drawing.Point(388, 18);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(137, 25);
             this.tituloSeccion.TabIndex = 6;
@@ -77,7 +81,7 @@
             this.btnRevisar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRevisar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRevisar.ForeColor = System.Drawing.Color.White;
-            this.btnRevisar.Location = new System.Drawing.Point(3, 22);
+            this.btnRevisar.Location = new System.Drawing.Point(3, 7);
             this.btnRevisar.Name = "btnRevisar";
             this.btnRevisar.Size = new System.Drawing.Size(230, 30);
             this.btnRevisar.TabIndex = 101;
@@ -97,7 +101,7 @@
             this.btnActualizarXML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarXML.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarXML.ForeColor = System.Drawing.Color.White;
-            this.btnActualizarXML.Location = new System.Drawing.Point(612, 22);
+            this.btnActualizarXML.Location = new System.Drawing.Point(612, 7);
             this.btnActualizarXML.Name = "btnActualizarXML";
             this.btnActualizarXML.Size = new System.Drawing.Size(230, 30);
             this.btnActualizarXML.TabIndex = 102;
@@ -117,7 +121,7 @@
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizar.ForeColor = System.Drawing.Color.White;
-            this.btnActualizar.Location = new System.Drawing.Point(314, 22);
+            this.btnActualizar.Location = new System.Drawing.Point(314, 7);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(230, 30);
             this.btnActualizar.TabIndex = 103;
@@ -130,13 +134,52 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.gBSeleccionActualizarInventario);
             this.panelBotones.Controls.Add(this.btnRevisar);
             this.panelBotones.Controls.Add(this.btnActualizarXML);
             this.panelBotones.Controls.Add(this.btnActualizar);
-            this.panelBotones.Location = new System.Drawing.Point(12, 73);
+            this.panelBotones.Location = new System.Drawing.Point(12, 75);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(845, 72);
+            this.panelBotones.Size = new System.Drawing.Size(845, 77);
             this.panelBotones.TabIndex = 104;
+            // 
+            // gBSeleccionActualizarInventario
+            // 
+            this.gBSeleccionActualizarInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gBSeleccionActualizarInventario.Controls.Add(this.rbDisminuirProducto);
+            this.gBSeleccionActualizarInventario.Controls.Add(this.rbAumentarProducto);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 39);
+            this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
+            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 31);
+            this.gBSeleccionActualizarInventario.TabIndex = 104;
+            this.gBSeleccionActualizarInventario.TabStop = false;
+            this.gBSeleccionActualizarInventario.Text = "Producto";
+            this.gBSeleccionActualizarInventario.Visible = false;
+            // 
+            // rbDisminuirProducto
+            // 
+            this.rbDisminuirProducto.AutoSize = true;
+            this.rbDisminuirProducto.Location = new System.Drawing.Point(135, 11);
+            this.rbDisminuirProducto.Name = "rbDisminuirProducto";
+            this.rbDisminuirProducto.Size = new System.Drawing.Size(67, 17);
+            this.rbDisminuirProducto.TabIndex = 1;
+            this.rbDisminuirProducto.TabStop = true;
+            this.rbDisminuirProducto.Text = "Disminuir";
+            this.rbDisminuirProducto.UseVisualStyleBackColor = true;
+            this.rbDisminuirProducto.CheckedChanged += new System.EventHandler(this.rbDisminuirProducto_CheckedChanged);
+            // 
+            // rbAumentarProducto
+            // 
+            this.rbAumentarProducto.AutoSize = true;
+            this.rbAumentarProducto.Checked = true;
+            this.rbAumentarProducto.Location = new System.Drawing.Point(27, 11);
+            this.rbAumentarProducto.Name = "rbAumentarProducto";
+            this.rbAumentarProducto.Size = new System.Drawing.Size(70, 17);
+            this.rbAumentarProducto.TabIndex = 0;
+            this.rbAumentarProducto.TabStop = true;
+            this.rbAumentarProducto.Text = "Aumentar";
+            this.rbAumentarProducto.UseVisualStyleBackColor = true;
+            this.rbAumentarProducto.CheckedChanged += new System.EventHandler(this.rbAumentarProducto_CheckedChanged);
             // 
             // panelContenedor
             // 
@@ -336,6 +379,8 @@
             this.Load += new System.EventHandler(this.Inventario_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Inventario_KeyDown);
             this.panelBotones.ResumeLayout(false);
+            this.gBSeleccionActualizarInventario.ResumeLayout(false);
+            this.gBSeleccionActualizarInventario.PerformLayout();
             this.panelContenedor.ResumeLayout(false);
             this.panelContenedor.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).EndInit();
@@ -366,5 +411,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Clave;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.GroupBox gBSeleccionActualizarInventario;
+        private System.Windows.Forms.RadioButton rbDisminuirProducto;
+        private System.Windows.Forms.RadioButton rbAumentarProducto;
     }
 }

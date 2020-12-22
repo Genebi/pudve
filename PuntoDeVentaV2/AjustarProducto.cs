@@ -35,14 +35,27 @@ namespace PuntoDeVentaV2
         public int cantidadPasadaProductoCombo { set; get; }
         public static int cantidadProductoCombo = 0;
 
+        private int tipoOperacion = 0;
+
         //apartado 1 = Productos
         //apartado 2 = Inventario
-        public AjustarProducto(int IDProducto, int apartado = 1)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IDProducto">ID de Producto a Modificar</param>
+        /// <param name="apartado">apartado=1(Sección Productos) apartado=2(Sección Invetario)</param>
+        /// <param name="operacion"></param>
+        public AjustarProducto(int IDProducto, int apartado = 1, int operacion = 0)
         {
             InitializeComponent();
 
             this.IDProducto = IDProducto;
             this.apartado = apartado;
+
+            if (operacion > 0)
+            {
+                this.tipoOperacion = operacion;
+            }
         }
 
         private void AjustarProducto_Load(object sender, EventArgs e)
@@ -118,6 +131,35 @@ namespace PuntoDeVentaV2
             txtPrecio.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
             CargarConceptos();
+
+            if (apartado.Equals(2))
+            {
+                pnlMensajeOperacionInventario.BringToFront();
+
+                if (tipoOperacion.Equals(1))
+                {
+                    rbProducto.Checked = true;
+                    lblOperacionInventario.Text = "Aumentar Producto(s)";
+                }
+                else if (tipoOperacion.Equals(2))
+                {
+                    rbAjustar.Checked = true;
+
+                    txtAumentar.Visible = false;
+                    lbAumentar.Visible = false;
+
+                    txtAumentar.TabStop = true;
+                    txtDisminuir.TabStop = true;
+
+                    txtAumentar.TabIndex = 1;
+                    txtDisminuir.TabIndex = 0;
+                    
+                    txtDisminuir.Focus();
+                    txtDisminuir.Select();
+                    
+                    lblOperacionInventario.Text = "Reducir Producto(s)";
+                }
+            }
         }
 
         private void CargarConceptos()
@@ -516,19 +558,35 @@ namespace PuntoDeVentaV2
 
         private void txtDisminuir_KeyUp(object sender, KeyEventArgs e)
         {
-            if (txtDisminuir.Text != "")
+            if (tipoOperacion.Equals(2))
             {
-                txtAumentar.Enabled = false;
-                lb_disminuir_stock.Visible = true;
-                lb_disminuir_stock_total.Visible = true;
+                if (!txtDisminuir.Text.Equals(string.Empty))
+                {
+                    lb_disminuir_stock.Visible = true;
+                    lb_disminuir_stock_total.Visible = true;
+                }
+                else if (txtDisminuir.Text.Equals(string.Empty))
+                {
+                    lb_disminuir_stock.Visible = false;
+                    lb_disminuir_stock_total.Visible = false;
+                }
             }
-            else
+            else if (tipoOperacion.Equals(0))
             {
-                txtAumentar.Enabled = true;
-                lb_disminuir_stock.Visible = false;
-                lb_disminuir_stock_total.Visible = false;
+                if (txtDisminuir.Text != "")
+                {
+                    txtAumentar.Enabled = false;
+                    lb_disminuir_stock.Visible = true;
+                    lb_disminuir_stock_total.Visible = true;
+                }
+                else
+                {
+                    txtAumentar.Enabled = true;
+                    lb_disminuir_stock.Visible = false;
+                    lb_disminuir_stock_total.Visible = false;
+                }
             }
-
+            
             suma_resta_stock(2);
         }
 
