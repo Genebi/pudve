@@ -837,7 +837,7 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioCompra_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
             }
@@ -845,7 +845,7 @@ namespace PuntoDeVentaV2
 
         private void txtAumentar_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
             }
@@ -853,15 +853,19 @@ namespace PuntoDeVentaV2
 
         private void txtDisminuir_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+            else if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
             }
         }
 
         private void AjustarProducto_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
             }
