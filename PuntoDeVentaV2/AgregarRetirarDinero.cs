@@ -741,7 +741,7 @@ namespace PuntoDeVentaV2
         {
             int calcu = 0;
 
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
             {
                 calcu++;
 
