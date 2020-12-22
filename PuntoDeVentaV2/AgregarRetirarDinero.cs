@@ -828,7 +828,7 @@ namespace PuntoDeVentaV2
         private void txtCheque_KeyPress(object sender, KeyPressEventArgs e)
         {
             int calcu = 0;
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
             {
                 calcu++;
 
