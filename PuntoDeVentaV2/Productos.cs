@@ -4367,8 +4367,17 @@ namespace PuntoDeVentaV2
                     {
                         if (!queryHeadAdvancedProveedor.Equals(""))
                         {
-                            //filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
-                            filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + queryAndAdvancedProveedor;
+                            // Si el campo de busqueda no esta vacio deja las cadenas como estaban originalmente cuando es busqueda con proveedor como filtro
+                            // De lo contrario se quita la variable extra de la cadena ya que almacena ID's de productos por defecto y hace que no se muestre correctamente
+                            if (txtBusqueda.Text.Trim().Length > 0)
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
+                            }
+                            else
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + queryAndAdvancedProveedor;
+                            } 
+                            
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
