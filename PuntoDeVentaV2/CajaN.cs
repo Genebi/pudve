@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -276,7 +277,10 @@ namespace PuntoDeVentaV2
 
                     var correo = correoUdiario();
                     var correoCantidades = cargarDatosCorteCaja();
-                    Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF);
+                    Thread mandarCorreo = new Thread(
+                        () => Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF));
+
+                    mandarCorreo.Start();
                 };
 
                 corte.Show();
