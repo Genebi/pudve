@@ -43,6 +43,8 @@ namespace PuntoDeVentaV2
         int convertirId = 0;
         int numFilasExistentes = -1;
 
+        bool botonOmitir = false;
+
         Dictionary<int, string> listaProductos;
 
         List<int> idDeProductos = new List<int>();
@@ -639,43 +641,47 @@ namespace PuntoDeVentaV2
             {
                 if (!string.IsNullOrWhiteSpace(txtCantidadStock.Text))
                 {
-                    var cantidadStock = double.Parse(txtCantidadStock.Text);
-
-                    if (cantidadStock >= 1000)
+                    if (botonOmitir == false)
                     {
-                        var respuesta = MessageBox.Show("¿Estás seguro de agregar esta cantidad al stock?\n\nCantidad: " + cantidadStock, "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        var cantidadStock = double.Parse(txtCantidadStock.Text);
 
-                        if (respuesta == DialogResult.No)
+                        if (cantidadStock >= 1000)
                         {
-                            txtCantidadStock.Focus();
-                            return;
+                            var respuesta = MessageBox.Show("¿Estás seguro de agregar esta cantidad al stock?\n\nCantidad: " + cantidadStock, "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                            if (respuesta == DialogResult.No)
+                            {
+                                txtCantidadStock.Focus();
+                                return;
+                            }
                         }
-                    }
 
-                    // Comprobamos si el producto ya fue revisado
-                    var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
-                    idDeProductos.Add(idProducto);
+                        // Comprobamos si el producto ya fue revisado
+                        var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
+                        idDeProductos.Add(idProducto);
 
-                    // Si ya fue inventariado el producto actualizamos informacion
-                    if (existe)
-                    {
-                        var info = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                        var datosProducto = mb.DatosProductoInventariado(idProducto);
 
-                        var stockFisico = txtCantidadStock.Text;
-                        var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        var diferencia = double.Parse(datosProducto[1]) - double.Parse(stockFisico);
-
-                        // Actualizar datos en RevisarInventario
-                        cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockAlmacen = '{info[4]}', StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
-
-                        // Para envio de correo
-                        if (listaProductos.ContainsKey(idProducto))
+                        // Si ya fue inventariado el producto actualizamos informacion
+                        if (existe)
                         {
-                            // Obtenemos los datos del producto para el email
-                            var datosProductoAux = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                            var info = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                            var datosProducto = mb.DatosProductoInventariado(idProducto);
 
-                            var html = $@"<li>
+                            var stockFisico = txtCantidadStock.Text;
+                            var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                            var diferencia = double.Parse(datosProducto[1]) - double.Parse(stockFisico);
+
+
+                            // Actualizar datos en RevisarInventario
+                            cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockAlmacen = '{info[4]}', StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
+
+                            // Para envio de correo
+                            if (listaProductos.ContainsKey(idProducto))
+                            {
+                                // Obtenemos los datos del producto para el email
+                                var datosProductoAux = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+
+                                var html = $@"<li>
                                             <span style='color: red;'>{datosProductoAux[1]}</span> 
                                             --- <b>STOCK ANTERIOR:</b> 
                                             <span style='color: red;'>{datosProductoAux[4]}</span> 
@@ -685,62 +691,65 @@ namespace PuntoDeVentaV2
 
 
 
-                            listaProductos[idProducto] = html;
-                        }
+                                listaProductos[idProducto] = html;
+                            }
 
-                        // Actualizar stock del producto
-                        cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                            // Actualizar stock del producto
+                            cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
-                        LimpiarCampos();
-                        //txtBoxBuscarCodigoBarras.Focus();
+                            LimpiarCampos();
+                            //txtBoxBuscarCodigoBarras.Focus();
 
-                        if (tipoFiltro == "Normal")
-                        {
-                            txtBoxBuscarCodigoBarras.Focus();
+                            if (tipoFiltro == "Normal")
+                            {
+                                txtBoxBuscarCodigoBarras.Focus();
+                            }
+                            else
+                            {
+                                buscarCodigoBarras();
+                                txtCantidadStock.Focus();
+                            }
+
                         }
                         else
                         {
-                            buscarCodigoBarras();
-                            txtCantidadStock.Focus();
-                        }
-                    }
-                    else
-                    {
-                        var info = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                        var stockFisico = txtCantidadStock.Text;
-                        var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                            if (botonOmitir == false)
+                            {
+                                var info = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                                var stockFisico = txtCantidadStock.Text;
+                                var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                        var diferencia = double.Parse(info[4]) - double.Parse(stockFisico);
+                                var diferencia = double.Parse(info[4]) - double.Parse(stockFisico);
 
-                        var datos = new string[]
-                        {
+                                var datos = new string[]
+                                {
                             idProducto.ToString(), info[1], info[6], info[7], info[4], stockFisico, numeroRevision,
                             fecha, "0", diferencia.ToString(), FormPrincipal.userID.ToString(), info[5], "0", "1", info[2],
                             nombrePC
-                        };
+                                };
 
-                        // Guardamos la informacion en la tabla de RevisarInventario
-                        cn.EjecutarConsulta(cs.GuardarRevisarInventario(datos));
+                                // Guardamos la informacion en la tabla de RevisarInventario
+                                cn.EjecutarConsulta(cs.GuardarRevisarInventario(datos));
 
-                        // Para envio de correo
-                        var datosConfig = mb.ComprobarConfiguracion();
+                                // Para envio de correo
+                                var datosConfig = mb.ComprobarConfiguracion();
 
-                        if (datosConfig.Count > 0)
-                        {
-                            if (Convert.ToInt16(datosConfig[1]) == 1)
-                            {
-                                var configProducto = mb.ComprobarCorreoProducto(idProducto);
-
-                                if (configProducto.Count > 0)
+                                if (datosConfig.Count > 0)
                                 {
-                                    if (configProducto[1] == 1)
+                                    if (Convert.ToInt16(datosConfig[1]) == 1)
                                     {
-                                        // Obtenemos los datos del producto para el email
-                                        var datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                                        var configProducto = mb.ComprobarCorreoProducto(idProducto);
 
-                                        if (datosProducto[4] != stockFisico)
+                                        if (configProducto.Count > 0)
                                         {
-                                            var html = $@"<li>
+                                            if (configProducto[1] == 1)
+                                            {
+                                                // Obtenemos los datos del producto para el email
+                                                var datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+
+                                                if (datosProducto[4] != stockFisico)
+                                                {
+                                                    var html = $@"<li>
                                                             <span style='color: red;'>{datosProducto[1]}</span> 
                                                             --- <b>STOCK ANTERIOR:</b> 
                                                             <span style='color: red;'>{datosProducto[4]}</span> 
@@ -748,27 +757,36 @@ namespace PuntoDeVentaV2
                                                             <span style='color: red;'>{stockFisico}</span>
                                                         </li>";
 
-                                            listaProductos.Add(idProducto, html);
+                                                    listaProductos.Add(idProducto, html);
+                                                }
+                                            }
                                         }
                                     }
                                 }
+
+                                // Actualizar stock del producto
+                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+
+                                LimpiarCampos();
+
+                                if (tipoFiltro == "Normal")
+                                {
+                                    txtBoxBuscarCodigoBarras.Focus();
+                                }
+                                else
+                                {
+                                    buscarCodigoBarras();
+                                    txtCantidadStock.Focus();
+                                }
                             }
                         }
-
-                        // Actualizar stock del producto
-                        cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-
+                    }
+                    else
+                    {
                         LimpiarCampos();
-
-                        if (tipoFiltro == "Normal")
-                        {
-                            txtBoxBuscarCodigoBarras.Focus();
-                        }
-                        else
-                        {
-                            buscarCodigoBarras();
-                            txtCantidadStock.Focus();
-                        }
+                        buscarCodigoBarras();
+                        txtCantidadStock.Focus();
+                        botonOmitir = true;
                     }
                 }
             }
@@ -1042,7 +1060,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            
+
 
             //var codeBarras = txtCodigoBarras.Text;
 
@@ -1123,14 +1141,14 @@ namespace PuntoDeVentaV2
 
             busquedaR.FormClosed += delegate
             {
-                
+
                 if (!string.IsNullOrEmpty(BusquedaRevisionInventario.codigoBarras))
                 {
                     var codBar = BusquedaRevisionInventario.codigoBarras.ToString();
                     LimpiarCampos();
                     txtBoxBuscarCodigoBarras.Text = codBar;
                     llenarCampos(codBar);
-                    idProducto =Convert.ToInt32(BusquedaRevisionInventario.id);
+                    idProducto = Convert.ToInt32(BusquedaRevisionInventario.id);
                 }
             };
             busquedaR.ShowDialog();
@@ -1158,13 +1176,16 @@ namespace PuntoDeVentaV2
 
         private void btnOmitir_Click(object sender, EventArgs e)
         {
-            txtBoxBuscarCodigoBarras.Text = string.Empty;
-            txtNombreProducto.Text = string.Empty;
-            txtCodigoBarras.Text = string.Empty;
-            lblPrecioProducto.Text = string.Empty;
-            lblStockMinimo.Text = string.Empty;
-            lblStockMaximo.Text = string.Empty;
-            txtCantidadStock.Text = string.Empty;
+            botonOmitir = true;
+            btnSiguiente.PerformClick();
+
+            //txtBoxBuscarCodigoBarras.Text = string.Empty;
+            //txtNombreProducto.Text = string.Empty;
+            //txtCodigoBarras.Text = string.Empty;
+            //lblPrecioProducto.Text = string.Empty;
+            //lblStockMinimo.Text = string.Empty;
+            //lblStockMaximo.Text = string.Empty;
+            //txtCantidadStock.Text = string.Empty;
         }
     }
 }
