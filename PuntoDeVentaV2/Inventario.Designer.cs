@@ -138,9 +138,9 @@
             this.panelBotones.Controls.Add(this.btnRevisar);
             this.panelBotones.Controls.Add(this.btnActualizarXML);
             this.panelBotones.Controls.Add(this.btnActualizar);
-            this.panelBotones.Location = new System.Drawing.Point(12, 75);
+            this.panelBotones.Location = new System.Drawing.Point(12, 67);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(845, 77);
+            this.panelBotones.Size = new System.Drawing.Size(845, 85);
             this.panelBotones.TabIndex = 104;
             // 
             // gBSeleccionActualizarInventario
@@ -150,16 +150,15 @@
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbAumentarProducto);
             this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 39);
             this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
-            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 31);
+            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 43);
             this.gBSeleccionActualizarInventario.TabIndex = 104;
             this.gBSeleccionActualizarInventario.TabStop = false;
-            this.gBSeleccionActualizarInventario.Text = "Producto";
             this.gBSeleccionActualizarInventario.Visible = false;
             // 
             // rbDisminuirProducto
             // 
             this.rbDisminuirProducto.AutoSize = true;
-            this.rbDisminuirProducto.Location = new System.Drawing.Point(135, 11);
+            this.rbDisminuirProducto.Location = new System.Drawing.Point(135, 16);
             this.rbDisminuirProducto.Name = "rbDisminuirProducto";
             this.rbDisminuirProducto.Size = new System.Drawing.Size(67, 17);
             this.rbDisminuirProducto.TabIndex = 1;
@@ -172,7 +171,7 @@
             // 
             this.rbAumentarProducto.AutoSize = true;
             this.rbAumentarProducto.Checked = true;
-            this.rbAumentarProducto.Location = new System.Drawing.Point(27, 11);
+            this.rbAumentarProducto.Location = new System.Drawing.Point(27, 16);
             this.rbAumentarProducto.Name = "rbAumentarProducto";
             this.rbAumentarProducto.Size = new System.Drawing.Size(70, 17);
             this.rbAumentarProducto.TabIndex = 0;
