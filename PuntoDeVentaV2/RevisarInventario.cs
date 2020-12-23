@@ -205,7 +205,7 @@ namespace PuntoDeVentaV2
         {
             // variableSin = SIN
             // 
-            id.Clear();
+            //id.Clear();
 
 
             var busqueda = txtBoxBuscarCodigoBarras.Text;
@@ -249,6 +249,7 @@ namespace PuntoDeVentaV2
                                             }
                                         }
                                     }
+                                    id.Clear();
                                 }
                             }
                             else
@@ -272,6 +273,7 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
+                                id.Clear();
                             }
                         }
                         else
@@ -298,6 +300,7 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
+                                id.Clear();
                             }
                             else
                             {
@@ -320,6 +323,7 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
+                                id.Clear();
                             }
                         }
                     }
@@ -348,6 +352,11 @@ namespace PuntoDeVentaV2
                     // Verifica si el codigo existe en algun producto y si pertenece al usuario
                     // Si existe se trae la informacion del producto
                     var infoProducto = mb.BuscarCodigoInventario(codigo, aplicar);
+                    var idFiltrado = MetodosBusquedas.idFiltrado.ToString();
+                    if (!string.IsNullOrEmpty(idFiltrado))
+                    {
+                        id.Add(idFiltrado);
+                    }
 
                     if (infoProducto.Length > 0)
                     {

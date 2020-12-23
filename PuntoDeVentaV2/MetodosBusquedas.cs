@@ -21,6 +21,8 @@ namespace PuntoDeVentaV2
         public static float transInicial { get; set; }
         public static float totalSInicial { get; set; }
 
+        public static int idFiltrado { get; set; }
+
         private MySqlConnection sql_con;
         private MySqlCommand sql_cmd;
 
@@ -1309,6 +1311,8 @@ namespace PuntoDeVentaV2
             if (info.Read())
             {
                 idProducto = Convert.ToInt32(info["ID"]);
+
+                idFiltrado = idProducto;
 
                 info.Close();
             }
