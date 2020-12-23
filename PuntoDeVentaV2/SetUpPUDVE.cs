@@ -207,6 +207,9 @@ namespace PuntoDeVentaV2
 
                 cbCorreoEliminarListaProductosVentas.Checked = Convert.ToBoolean(datosConfig[19]);
                 check22 = cbCorreoEliminarListaProductosVentas.Checked;
+
+                cbCorreoCorteCaja.Checked = Convert.ToBoolean(datosConfig[20]);
+                check23 = cbCorreoCorteCaja.Checked;
             }
             else
             {
