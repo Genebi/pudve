@@ -45,6 +45,7 @@ namespace PuntoDeVentaV2
         int opcion20 = 1;   // Correo Eliminar Producto Lista Ventas
         int opcion21 = 1;   // Correo Eliminar Ultimo Producto agregado listado Ventas
         int opcion22 = 1;   // Correo Eliminar Lista Producto de Ventas
+        int opcion23 = 1;   // Correo al hacer Corte de Caja
 
         bool check5 = false;
         bool check6 = false;
