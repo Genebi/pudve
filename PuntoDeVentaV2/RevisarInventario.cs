@@ -1133,6 +1133,8 @@ namespace PuntoDeVentaV2
             //        MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //    }
             //}
+            cantidadRegistrosAux -= 1;
+            lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
         }
 
         private void btnBusqueda_Click(object sender, EventArgs e)
