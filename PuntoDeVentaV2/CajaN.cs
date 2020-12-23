@@ -277,10 +277,21 @@ namespace PuntoDeVentaV2
 
                     var correo = correoUdiario();
                     var correoCantidades = cargarDatosCorteCaja();
-                    Thread mandarCorreo = new Thread(
-                        () => Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF));
 
-                    mandarCorreo.Start();
+                    // Ejecutar hilo para enviar notificación
+                    var datosConfig = mb.ComprobarConfiguracion();
+
+                    if (datosConfig.Count > 0)
+                    {
+                        if (Convert.ToInt32(datosConfig[20]).Equals(1))
+                        {
+                            Thread mandarCorreo = new Thread(
+                                () => Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF)
+                            );
+
+                            mandarCorreo.Start();
+                        }
+                    }
                 };
 
                 corte.Show();
