@@ -2008,7 +2008,7 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
 
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
             {
                 calcu++;
 
