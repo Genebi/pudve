@@ -427,8 +427,10 @@ namespace PuntoDeVentaV2
 
                                     if (respuesta == DialogResult.No)
                                     {
-                                        LimpiarCampos();
-                                        txtBoxBuscarCodigoBarras.Focus();
+                                        //LimpiarCampos();
+                                        //txtBoxBuscarCodigoBarras.Focus();
+                                        btnOmitir.PerformClick();
+                                        txtCantidadStock.Focus();
                                     }
                                 }
                                 txtCantidadStock.Focus();
@@ -560,8 +562,10 @@ namespace PuntoDeVentaV2
 
                             if (respuesta == DialogResult.No)
                             {
-                                LimpiarCampos();
-                                txtBoxBuscarCodigoBarras.Focus();
+                                //LimpiarCampos();
+                                //txtBoxBuscarCodigoBarras.Focus();
+                                btnOmitir.PerformClick();
+                                txtCantidadStock.Focus();
                             }
                         }
                     }
