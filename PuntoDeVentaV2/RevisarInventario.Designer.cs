@@ -39,6 +39,11 @@
             this.lblStockMaximo = new System.Windows.Forms.Label();
             this.lblStockMinimo = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnOmitir = new System.Windows.Forms.Button();
+            this.btnTerminar = new System.Windows.Forms.Button();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblPrecioProducto = new System.Windows.Forms.Label();
@@ -51,17 +56,12 @@
             this.btnReducirStock = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lbBackground = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnAnterior = new System.Windows.Forms.Button();
-            this.btnSiguiente = new System.Windows.Forms.Button();
-            this.btnTerminar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lblNoRevision = new System.Windows.Forms.Label();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.lbCantidadFiltro = new System.Windows.Forms.Label();
             this.btnDeshabilitarProducto = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnOmitir = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -202,6 +202,64 @@
             this.label8.TabIndex = 14;
             this.label8.Text = "Stock Maximo:";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnOmitir);
+            this.groupBox3.Controls.Add(this.btnTerminar);
+            this.groupBox3.Controls.Add(this.btnAnterior);
+            this.groupBox3.Controls.Add(this.btnSiguiente);
+            this.groupBox3.Location = new System.Drawing.Point(0, 358);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(420, 135);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            // 
+            // btnOmitir
+            // 
+            this.btnOmitir.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOmitir.Location = new System.Drawing.Point(23, 83);
+            this.btnOmitir.Name = "btnOmitir";
+            this.btnOmitir.Size = new System.Drawing.Size(171, 48);
+            this.btnOmitir.TabIndex = 8;
+            this.btnOmitir.Text = "Omitir";
+            this.btnOmitir.UseVisualStyleBackColor = true;
+            this.btnOmitir.Click += new System.EventHandler(this.btnOmitir_Click);
+            // 
+            // btnTerminar
+            // 
+            this.btnTerminar.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTerminar.ForeColor = System.Drawing.Color.Red;
+            this.btnTerminar.Location = new System.Drawing.Point(225, 83);
+            this.btnTerminar.Name = "btnTerminar";
+            this.btnTerminar.Size = new System.Drawing.Size(171, 48);
+            this.btnTerminar.TabIndex = 5;
+            this.btnTerminar.Text = "Terminar";
+            this.btnTerminar.UseVisualStyleBackColor = true;
+            this.btnTerminar.Click += new System.EventHandler(this.btnTerminar_Click);
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnterior.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnAnterior.Location = new System.Drawing.Point(23, 19);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(171, 48);
+            this.btnAnterior.TabIndex = 5;
+            this.btnAnterior.Text = "Anterior";
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSiguiente.Location = new System.Drawing.Point(225, 19);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(171, 48);
+            this.btnSiguiente.TabIndex = 4;
+            this.btnSiguiente.Text = "Siguiente";
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -324,53 +382,6 @@
             this.lbBackground.Size = new System.Drawing.Size(176, 32);
             this.lbBackground.TabIndex = 19;
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.btnOmitir);
-            this.groupBox3.Controls.Add(this.btnTerminar);
-            this.groupBox3.Controls.Add(this.btnAnterior);
-            this.groupBox3.Controls.Add(this.btnSiguiente);
-            this.groupBox3.Location = new System.Drawing.Point(0, 358);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(420, 135);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            // 
-            // btnAnterior
-            // 
-            this.btnAnterior.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnterior.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnAnterior.Location = new System.Drawing.Point(23, 19);
-            this.btnAnterior.Name = "btnAnterior";
-            this.btnAnterior.Size = new System.Drawing.Size(171, 48);
-            this.btnAnterior.TabIndex = 5;
-            this.btnAnterior.Text = "Anterior";
-            this.btnAnterior.UseVisualStyleBackColor = true;
-            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
-            // 
-            // btnSiguiente
-            // 
-            this.btnSiguiente.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSiguiente.Location = new System.Drawing.Point(225, 19);
-            this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(171, 48);
-            this.btnSiguiente.TabIndex = 4;
-            this.btnSiguiente.Text = "Siguiente";
-            this.btnSiguiente.UseVisualStyleBackColor = true;
-            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
-            // 
-            // btnTerminar
-            // 
-            this.btnTerminar.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminar.ForeColor = System.Drawing.Color.Red;
-            this.btnTerminar.Location = new System.Drawing.Point(225, 83);
-            this.btnTerminar.Name = "btnTerminar";
-            this.btnTerminar.Size = new System.Drawing.Size(171, 48);
-            this.btnTerminar.TabIndex = 5;
-            this.btnTerminar.Text = "Terminar";
-            this.btnTerminar.UseVisualStyleBackColor = true;
-            this.btnTerminar.Click += new System.EventHandler(this.btnTerminar_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -415,17 +426,6 @@
             this.toolTip1.SetToolTip(this.btnDeshabilitarProducto, "Deshabilitar Producto");
             this.btnDeshabilitarProducto.UseVisualStyleBackColor = true;
             this.btnDeshabilitarProducto.Click += new System.EventHandler(this.btnDeshabilitarProducto_Click);
-            // 
-            // btnOmitir
-            // 
-            this.btnOmitir.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOmitir.Location = new System.Drawing.Point(23, 83);
-            this.btnOmitir.Name = "btnOmitir";
-            this.btnOmitir.Size = new System.Drawing.Size(171, 48);
-            this.btnOmitir.TabIndex = 8;
-            this.btnOmitir.Text = "Omitir";
-            this.btnOmitir.UseVisualStyleBackColor = true;
-            this.btnOmitir.Click += new System.EventHandler(this.btnOmitir_Click);
             // 
             // RevisarInventario
             // 

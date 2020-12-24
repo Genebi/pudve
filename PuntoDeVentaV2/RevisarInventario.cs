@@ -88,79 +88,79 @@ namespace PuntoDeVentaV2
 
         private void RevisarInventario_Load(object sender, EventArgs e)
         {
-            var datosInventario = mb.DatosRevisionInventario();
+            //var datosInventario = mb.DatosRevisionInventario();
 
-            listaProductos = new Dictionary<int, string>();
+            //listaProductos = new Dictionary<int, string>();
 
-            // Si existe un registro en la tabla obtiene los datos de lo contrario hace un insert para
-            // que exista la configuracion necesaria
-            if (datosInventario.Length > 0)
-            {
-                cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET FechaInventario = '{DateTime.Now.ToString("yyyy-MM-dd")}' WHERE IDUsuario = {FormPrincipal.userID}", true);
+            //// Si existe un registro en la tabla obtiene los datos de lo contrario hace un insert para
+            //// que exista la configuracion necesaria
+            //if (datosInventario.Length > 0)
+            //{
+            //    cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET FechaInventario = '{DateTime.Now.ToString("yyyy-MM-dd")}' WHERE IDUsuario = {FormPrincipal.userID}", true);
 
-                datosInventario = mb.DatosRevisionInventario();
-                fechaInventario = datosInventario[0];
-                numeroRevision = datosInventario[1];
-            }
-            else
-            {
-                cn.EjecutarConsulta($"INSERT INTO CodigoBarrasGenerado (IDUsuario, FechaInventario, NoRevision) VALUES ('{FormPrincipal.userID}', '{DateTime.Now.ToString("yyyy-MM-dd")}', '1')", true);
+            //    datosInventario = mb.DatosRevisionInventario();
+            //    fechaInventario = datosInventario[0];
+            //    numeroRevision = datosInventario[1];
+            //}
+            //else
+            //{
+            //    cn.EjecutarConsulta($"INSERT INTO CodigoBarrasGenerado (IDUsuario, FechaInventario, NoRevision) VALUES ('{FormPrincipal.userID}', '{DateTime.Now.ToString("yyyy-MM-dd")}', '1')", true);
 
-                datosInventario = mb.DatosRevisionInventario();
-                fechaInventario = datosInventario[0];
-                numeroRevision = datosInventario[1];
-            }
+            //    datosInventario = mb.DatosRevisionInventario();
+            //    fechaInventario = datosInventario[0];
+            //    numeroRevision = datosInventario[1];
+            //}
 
-            lblNoRevision.Text = numeroRevision;
+            //lblNoRevision.Text = numeroRevision;
 
-            // Asignamos el numero de revision para que cargue los productos en el reporte al cerrar el form
-            Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
-            NoRevision = Convert.ToInt32(numeroRevision);
-            // Obtener el nombre de la computadora
-            nombrePC = Environment.MachineName;
+            //// Asignamos el numero de revision para que cargue los productos en el reporte al cerrar el form
+            //Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
+            //NoRevision = Convert.ToInt32(numeroRevision);
+            //// Obtener el nombre de la computadora
+            //nombrePC = Environment.MachineName;
 
-            // Ejecutar busqueda de productos cuando hay filtro
-            if (tipoFiltro != "Normal")
-            {
-                if (tipoFiltro != "Filtros")
-                {
-                    var consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro}";
-                    cantidadRegistros = mb.CantidadFiltroInventario(consulta);
-                }
-                else
-                {
-                    if (operadorFiltro.Equals("chkProveedor"))
-                    {
-                        if (strFiltroDinamico.Equals("SIN PROVEEDOR"))
-                        {
-                            var consulta = cs.CantidadListaProductosSinProveedor(FormPrincipal.userID, 1);
-                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
-                        }
-                        else
-                        {
-                            var consulta = cs.CantidadListaProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1);
-                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
-                        }
-                    }
-                    else
-                    {
-                        string Seleccionado = "SIN " + operadorFiltro.ToUpper().Remove(0, 3);
-                        if (strFiltroDinamico.Equals(Seleccionado))
-                        {
-                            var consulta = cs.CantidadListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1);
-                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
-                        }
-                        else
-                        {
-                            var consulta = cs.CantidadListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
-                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
-                        }
-                    }
-                }
+            //// Ejecutar busqueda de productos cuando hay filtro
+            //if (tipoFiltro != "Normal")
+            //{
+            //    if (tipoFiltro != "Filtros")
+            //    {
+            //        var consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro}";
+            //        cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+            //    }
+            //    else
+            //    {
+            //        if (operadorFiltro.Equals("chkProveedor"))
+            //        {
+            //            if (strFiltroDinamico.Equals("SIN PROVEEDOR"))
+            //            {
+            //                var consulta = cs.CantidadListaProductosSinProveedor(FormPrincipal.userID, 1);
+            //                cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+            //            }
+            //            else
+            //            {
+            //                var consulta = cs.CantidadListaProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1);
+            //                cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            string Seleccionado = "SIN " + operadorFiltro.ToUpper().Remove(0, 3);
+            //            if (strFiltroDinamico.Equals(Seleccionado))
+            //            {
+            //                var consulta = cs.CantidadListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1);
+            //                cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+            //            }
+            //            else
+            //            {
+            //                var consulta = cs.CantidadListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
+            //                cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+            //            }
+            //        }
+            //    }
 
-                //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
-                buscarCodigoBarras();
-            }
+            //    //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+            //    buscarCodigoBarras();
+            //}
         }
 
         private string AplicarFiltro(int idProducto)
@@ -413,6 +413,7 @@ namespace PuntoDeVentaV2
 
                                 if (infoInventariado.Length > 0)
                                 {
+
                                     var respuesta = MessageBox.Show("Este producto ya fue inventariado\nFecha: " + infoInventariado[2] + " \n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                                     if (respuesta == DialogResult.Yes)
@@ -950,6 +951,80 @@ namespace PuntoDeVentaV2
                 txtCantidadStock.Focus();
                 //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
             }
+
+            var datosInventario = mb.DatosRevisionInventario();
+
+            listaProductos = new Dictionary<int, string>();
+
+            // Si existe un registro en la tabla obtiene los datos de lo contrario hace un insert para
+            // que exista la configuracion necesaria
+            if (datosInventario.Length > 0)
+            {
+                cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET FechaInventario = '{DateTime.Now.ToString("yyyy-MM-dd")}' WHERE IDUsuario = {FormPrincipal.userID}", true);
+
+                datosInventario = mb.DatosRevisionInventario();
+                fechaInventario = datosInventario[0];
+                numeroRevision = datosInventario[1];
+            }
+            else
+            {
+                cn.EjecutarConsulta($"INSERT INTO CodigoBarrasGenerado (IDUsuario, FechaInventario, NoRevision) VALUES ('{FormPrincipal.userID}', '{DateTime.Now.ToString("yyyy-MM-dd")}', '1')", true);
+
+                datosInventario = mb.DatosRevisionInventario();
+                fechaInventario = datosInventario[0];
+                numeroRevision = datosInventario[1];
+            }
+
+            lblNoRevision.Text = numeroRevision;
+
+            // Asignamos el numero de revision para que cargue los productos en el reporte al cerrar el form
+            Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
+            NoRevision = Convert.ToInt32(numeroRevision);
+            // Obtener el nombre de la computadora
+            nombrePC = Environment.MachineName;
+
+            // Ejecutar busqueda de productos cuando hay filtro
+            if (tipoFiltro != "Normal")
+            {
+                if (tipoFiltro != "Filtros")
+                {
+                    var consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro}";
+                    cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                }
+                else
+                {
+                    if (operadorFiltro.Equals("chkProveedor"))
+                    {
+                        if (strFiltroDinamico.Equals("SIN PROVEEDOR"))
+                        {
+                            var consulta = cs.CantidadListaProductosSinProveedor(FormPrincipal.userID, 1);
+                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                        }
+                        else
+                        {
+                            var consulta = cs.CantidadListaProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1);
+                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                        }
+                    }
+                    else
+                    {
+                        string Seleccionado = "SIN " + operadorFiltro.ToUpper().Remove(0, 3);
+                        if (strFiltroDinamico.Equals(Seleccionado))
+                        {
+                            var consulta = cs.CantidadListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1);
+                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                        }
+                        else
+                        {
+                            var consulta = cs.CantidadListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1);
+                            cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                        }
+                    }
+                }
+                //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+                buscarCodigoBarras();
+            }
+
         }
 
         private void btnVerCBExtra_Click(object sender, EventArgs e)
