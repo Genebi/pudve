@@ -43,6 +43,12 @@ namespace PuntoDeVentaV2
         int convertirId = 0;
         int numFilasExistentes = -1;
 
+        string codBarras = string.Empty;
+
+        //Validar la busqueda de el boton siguiente con el boton Anterior
+        int idActualAnterior = 0;
+
+        //Valifacion para el boton de Omitir
         bool botonOmitir = false;
 
         Dictionary<int, string> listaProductos;
@@ -205,6 +211,7 @@ namespace PuntoDeVentaV2
 
         private void buscarCodigoBarras()
         {
+            
             // variableSin = SIN
             // 
             //id.Clear();
@@ -331,8 +338,26 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        codigo = AplicarFiltro(idProductoAux);
-                        aplicar = true;
+                        //var idNormal = idProductoAux;
+                        if (idActualAnterior != 0)
+                        {
+                            var mostrarIDActual = 0;
+                            var idParaSiguiente = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}'");
+
+                            if (!idParaSiguiente.Rows.Count.Equals(0))
+                            {
+                                mostrarIDActual = Convert.ToInt32(idParaSiguiente.Rows[0]["ID"]);
+
+                                codigo = AplicarFiltro(mostrarIDActual);
+                                aplicar = true;
+                            }
+                        }
+                        else
+                        {
+                            codigo = AplicarFiltro(idProductoAux);
+                            aplicar = true;
+                        }
+                        
                     }
                 }
 
@@ -634,6 +659,8 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
+            codBarras = txtBoxBuscarCodigoBarras.Text;
+
             contador++;
             var busqueda = txtBoxBuscarCodigoBarras.Text;
 
@@ -1074,6 +1101,8 @@ namespace PuntoDeVentaV2
             var obteniendoId = string.Empty;
             var validarAnterior = false;
 
+            
+
             using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{txtCodigoBarras.Text}' OR ClaveInterna = '{txtCodigoBarras.Text}'"))
             {
                 if (!idActual.Rows.Count.Equals(0))
@@ -1082,6 +1111,11 @@ namespace PuntoDeVentaV2
                     {
                         idBueno = dato["ID"].ToString();
                     }
+
+                    idActualAnterior = Convert.ToInt32(idBueno);
+
+                    ////Se elimina el ultimo item ingresado a la lista ya que es uno que se repire
+                    //id.RemoveAt(id.Count -1);
 
                     //Aqui tenemos la posicion de la lista en que esta el ID
                     int getIndice = id.FindIndex(y => y == idBueno);
@@ -1140,80 +1174,14 @@ namespace PuntoDeVentaV2
                 }
             }
 
-
-            //var codeBarras = txtCodigoBarras.Text;
-
-            //var idActual = cn.CargarDatos($"SELECT IDAlmacen FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND ClaveInterna = '{codeBarras}'");
-            //if (!idActual.Rows.Count.Equals(0))
-            //{
-            //    var getId = Convert.ToInt32(idActual.Rows[0]["IDAlmacen"].ToString());
-            //    var datosId = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{(getId-1)}'");
-
-            //    foreach (DataRow datosObtenidos in datosId.Rows)
-            //    {
-            //        if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
-            //        {
-            //            LimpiarCampos();
-            //            txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
-            //            txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
-            //            lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
-            //            lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
-            //            lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-            //            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
-            //            txtCantidadStock.Focus();
-            //        }
-            //        //else if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
-            //        //{
-            //        //    txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
-            //        //}
-            //        //buscarCodigoBarras();
-            //    }
-            //}
-            //else 
-            //{
-            //    var idActual2 = cn.CargarDatos($"SELECT IDAlmacen FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codeBarras}'");
-            //    if (!idActual2.Rows.Count.Equals(0))
-            //    {
-            //        var getId = Convert.ToInt32(idActual2.Rows[0]["IDalmacen"].ToString());
-            //        var datosId = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{(getId - 1)}'");
-            //        if (!datosId.Rows.Count.Equals(0))
-            //        {
-            //            foreach (DataRow datosObtenidos in datosId.Rows)
-            //            {
-            //                if (!datosObtenidos["CodigoBarras"].ToString().Equals(0))
-            //                {
-            //                    LimpiarCampos();
-            //                    txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
-            //                    txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
-            //                    lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
-            //                    lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
-            //                    lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-            //                    txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
-            //                }
-            //                else
-            //                {
-            //                    MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //                }
-            //                //else if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
-            //                //{
-            //                //    txtBoxBuscarCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
-            //                //}
-            //                //buscarCodigoBarras();
-            //            }
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    }
-            //}
             cantidadRegistrosAux -= 1;
             lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+
+            //Se elimina el ultimo item ingresado a la lista ya que es uno que se repire
+            if (!id.Count.Equals(0))
+            {
+                id.RemoveAt(id.Count - 1);
+            }
         }
 
         private void btnBusqueda_Click(object sender, EventArgs e)
