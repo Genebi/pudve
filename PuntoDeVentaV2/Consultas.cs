@@ -1266,5 +1266,42 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string InsertIntoNoRevAumentarInventario(string NoRev)
+        {
+            var consulta = string.Empty;
+            
+            using (DataTable dtNoRevision = cn.CargarDatos("SELECT * FROM NoRevisionAumentarInventario"))
+            {
+                if (!dtNoRevision.Rows.Count.Equals(0))
+                {
+                    consulta = $"UPDATE NoRevisionAumentarInventario SET NoRevisionAumentarInventario = {NoRev} WHERE id = 1";
+                }
+                else if (dtNoRevision.Rows.Count.Equals(0))
+                {
+                    consulta = $"INSERT INTO NoRevisionAumentarInventario (NoRevisionAumentarInventario) VALUES ({NoRev})";
+                }
+            }
+
+            return consulta;
+        }
+
+        public string GetNoRevAumentarInventario()
+        {
+            var NoRevision = string.Empty;
+
+            using (DataTable dtNoRevision = cn.CargarDatos("SELECT * FROM NoRevisionAumentarInventario"))
+            {
+                if (!dtNoRevision.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drNoRev in dtNoRevision.Rows)
+                    {
+                        NoRevision = drNoRev["NoRevisionAumentarInventario"].ToString();
+                    }
+                }
+            }
+
+            return NoRevision;
+        }
     }
 }

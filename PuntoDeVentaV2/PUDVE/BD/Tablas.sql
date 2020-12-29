@@ -785,6 +785,7 @@ CREATE TABLE IF NOT EXISTS Devoluciones(
     FechaOperacion DATETIME NOT NULL
 );
 
+-- 48 Tabla de DGVAumentarInventario
 CREATE TABLE IF NOT EXISTS DGVAumentarInventario(
 	id	INTEGER	PRIMARY KEY	AUTO_INCREMENT,
 	IdProducto	VARCHAR(10)	NOT NULL	DEFAULT(0),
@@ -799,6 +800,12 @@ CREATE TABLE IF NOT EXISTS DGVAumentarInventario(
 	Aumentar	VARCHAR(10)	NOT NULL	DEFAULT(0),
 	NoRevision	VARCHAR(10)	NOT NULL	DEFAULT(0),
 	StatusActualizacion	VARCHAR(10)	NOT NULL	DEFAULT(0)
+);
+
+-- 49 Tabla de NoRevisionAumentarInventario
+CREATE TABLE IF NOT EXISTS NoRevisionAumentarInventario(
+	id INTEGER	PRIMARY KEY	AUTO_INCREMENT,
+	NoRevisionAumentarInventario INTEGER NOT NULL
 );
 
 -- ------------------------------------------

@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
     public partial class Inventario : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         public static int NumRevActivo = 0;
@@ -724,6 +725,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarProductoDGV(string[] producto)
         {
+            var NoRev = cs.GetNoRevAumentarInventario();
+
             var id = producto[0];
             var nombre = producto[1];
             var stockActual = Convert.ToString(stockAnterior);
