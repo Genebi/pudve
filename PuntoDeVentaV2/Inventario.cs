@@ -725,8 +725,6 @@ namespace PuntoDeVentaV2
 
         private void AgregarProductoDGV(string[] producto)
         {
-            var NoRev = cs.GetNoRevAumentarInventario();
-
             var id = producto[0];
             var nombre = producto[1];
             var stockActual = Convert.ToString(stockAnterior);
@@ -742,6 +740,8 @@ namespace PuntoDeVentaV2
             var aumentar = string.Empty;
             aumentar = Convert.ToString(suma);
 
+            var NoRev = cs.GetNoRevAumentarInventario();
+
             if (!aumentar.Equals("0"))
             {
                 diferenciaUnidades = aumentar;
@@ -753,6 +753,9 @@ namespace PuntoDeVentaV2
 
             if (rbAumentarProducto.Checked)
             {
+                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1" };
+                var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
+                cn.EjecutarConsulta(insertAumentarInventario);
                 if (!aumentar.Equals(0))
                 {
                     DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
