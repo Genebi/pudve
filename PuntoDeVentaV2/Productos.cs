@@ -9,6 +9,8 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+
 namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
@@ -147,7 +149,7 @@ namespace PuntoDeVentaV2
 
         public static iTextSharp.text.Image imgReporte;
 
-        Timer actualizarDGVProductos = new Timer();
+        System.Timers.Timer actualizarDGVProductos = new System.Timers.Timer();
 
         string nuevoCodigoBarrasDeProducto = string.Empty;
 
@@ -1145,78 +1147,176 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            Thread hiloForm = new Thread(() => new Cargando().ShowDialog());
+            hiloForm.Start();
+
             int estado = 2;
 
-            if (cbMostrar.Text == "Habilitados")
+            if (cbTodos.Checked)
             {
-                estado = 0;
-            }
-            else if (cbMostrar.Text == "Deshabilitados")
-            {
-                estado = 1;
-            }
-
-            foreach (DataGridViewRow row in DGVProductos.Rows)
-            {
-                if ((bool)row.Cells["CheckProducto"].Value == true)
+                if (checkboxMarcados.Count > 0)
                 {
-                    var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+                    var consulta = string.Empty;
 
-                    if (estado < 2)
+                    consulta = "INSERT IGNORE INTO Productos (ID, Status) VALUES";
+                    //int estado = 2;
+
+                    if (cbMostrar.Text == "Habilitados")
                     {
-                        //Verificamos si el codigo de barras o clave ya esta usada en unos de los productos
-                        //actualmente habilitados, si es asi no debe dejar habilitar el producto y mostrara
-                        //un mensaje
-                        if (estado == 1)
+                        estado = 0;
+                    }
+                    else if (cbMostrar.Text == "Deshabilitados")
+                    {
+                        estado = 1;
+                    }
+
+                    foreach (var fila in checkboxMarcados)
+                    {
+
+                        var idProducto = fila.Key;// Convert.ToInt32(row.Cells["_IDProducto"].Value);
+
+                        if (estado < 2)
                         {
-                            var claveCodigos = mb.ObtenerClaveCodigosProducto(idProducto, FormPrincipal.userID);
-
-                            foreach (var codigo in claveCodigos)
+                            //Verificamos si el codigo de barras o clave ya esta usada en unos de los productos
+                            //actualmente habilitados, si es asi no debe dejar habilitar el producto y mostrara
+                            //un mensaje
+                            if (estado == 1)
                             {
-                                if (mb.ComprobarCodigoClave(codigo, FormPrincipal.userID))
-                                {
-                                    MessageBox.Show($"El número de identificación {codigo} ya se esta utilizando\ncomo clave interna o código de barras de algún producto habilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                var claveCodigos = mb.ObtenerClaveCodigosProducto(idProducto, FormPrincipal.userID);
 
-                                    return;
+                                foreach (var codigo in claveCodigos)
+                                {
+                                    if (mb.ComprobarCodigoClave(codigo, FormPrincipal.userID))
+                                    {
+                                        MessageBox.Show($"El número de identificación {codigo} ya se esta utilizando\ncomo clave interna o código de barras de algún producto habilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                        return;
+                                    }
                                 }
                             }
-                        }
 
-                        if (estado == 0)
-                        {
-                            // Comprobar si esta vinculado a un servicio o combo
-                            var vinculado = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
-
-                            if (vinculado)
+                            if (estado == 0)
                             {
-                                var datos = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                                var producto = datos[1];
+                                // Comprobar si esta vinculado a un servicio o combo
+                                var vinculado = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
 
-                                var mensaje = string.Join(
-                                    Environment.NewLine,
-                                    $"El producto {producto}",
-                                    "se encuentra vinculado a un servicio o combo, al",
-                                    "deshabilitar este producto se perderá la vinculación,",
-                                    "¿Estás seguro de deshabilitar el producto?"
-                                );
-
-                                var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                                if (respuesta == DialogResult.Yes)
+                                if (vinculado)
                                 {
-                                    cn.EjecutarConsulta($"DELETE FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
+                                    var datos = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                                    var producto = datos[1];
+
+                                    var mensaje = string.Join(
+                                        Environment.NewLine,
+                                        $"El producto {producto}",
+                                        "se encuentra vinculado a un servicio o combo, al",
+                                        "deshabilitar este producto se perderá la vinculación,",
+                                        "¿Estás seguro de deshabilitar el producto?"
+                                    );
+
+                                    var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                    if (respuesta == DialogResult.Yes)
+                                    {
+                                        cn.EjecutarConsulta($"DELETE FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
                                 }
-                                else
-                                {
-                                    continue;
-                                }
-                            } 
+                            }
+
+                            consulta += $"({idProducto}, {estado}),";
+                            //cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
                         }
+ 
+                    }
 
-                        cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
+                    consulta = consulta.TrimEnd(',');
+
+                    consulta += "ON DUPLICATE KEY UPDATE ID = VALUES(ID), Status = VALUES(Status)";
+
+                    cn.EjecutarConsulta(consulta);
+                }
+            }
+            else
+            {
+                //int estado = 2;
+
+                if (cbMostrar.Text == "Habilitados")
+                {
+                    estado = 0;
+                }
+                else if (cbMostrar.Text == "Deshabilitados")
+                {
+                    estado = 1;
+                }
+
+                foreach (DataGridViewRow row in DGVProductos.Rows)
+                {
+                    if ((bool)row.Cells["CheckProducto"].Value == true)
+                    {
+                        var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+
+                        if (estado < 2)
+                        {
+                            //Verificamos si el codigo de barras o clave ya esta usada en unos de los productos
+                            //actualmente habilitados, si es asi no debe dejar habilitar el producto y mostrara
+                            //un mensaje
+                            if (estado == 1)
+                            {
+                                var claveCodigos = mb.ObtenerClaveCodigosProducto(idProducto, FormPrincipal.userID);
+
+                                foreach (var codigo in claveCodigos)
+                                {
+                                    if (mb.ComprobarCodigoClave(codigo, FormPrincipal.userID))
+                                    {
+                                        MessageBox.Show($"El número de identificación {codigo} ya se esta utilizando\ncomo clave interna o código de barras de algún producto habilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                        return;
+                                    }
+                                }
+                            }
+
+                            if (estado == 0)
+                            {
+                                // Comprobar si esta vinculado a un servicio o combo
+                                var vinculado = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
+
+                                if (vinculado)
+                                {
+                                    var datos = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                                    var producto = datos[1];
+
+                                    var mensaje = string.Join(
+                                        Environment.NewLine,
+                                        $"El producto {producto}",
+                                        "se encuentra vinculado a un servicio o combo, al",
+                                        "deshabilitar este producto se perderá la vinculación,",
+                                        "¿Estás seguro de deshabilitar el producto?"
+                                    );
+
+                                    var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                    if (respuesta == DialogResult.Yes)
+                                    {
+                                        cn.EjecutarConsulta($"DELETE FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                            }
+
+                            cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
+                        }
                     }
                 }
             }
+
+
+            hiloForm.Abort();
 
             if (estado == 0)
             {
