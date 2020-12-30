@@ -58,11 +58,11 @@ namespace PuntoDeVentaV2
         {
             if (CajaN.totCorte != "")
             {
-                convertEfectivo = float.Parse(CajaN.efectivoCorte);
-                convertTarjeta = float.Parse(CajaN.tarjetaCorte);
-                convertCheque = float.Parse(CajaN.chequeCorte);
-                convertVales = float.Parse(CajaN.valesCorte);
-                convertTrans = float.Parse(CajaN.transCorte);
+                if (CajaN.efectivoCorte == null) { convertEfectivo = 0; } else { convertEfectivo = float.Parse(CajaN.efectivoCorte); }
+                if (CajaN.tarjetaCorte == null) { convertTarjeta = 0; } else { convertTarjeta = float.Parse(CajaN.tarjetaCorte); }
+                if (CajaN.chequeCorte == null) { convertCheque = 0; } else { convertCheque = float.Parse(CajaN.chequeCorte); }
+                if (CajaN.valesCorte == null) { convertVales = 0; }else { convertVales = float.Parse(CajaN.valesCorte); }
+                if (CajaN.transCorte == null) { convertTrans = 0; } else { convertTrans = float.Parse(CajaN.transCorte); }
             }
         }
 
