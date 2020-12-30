@@ -892,21 +892,25 @@ namespace PuntoDeVentaV2
                                             //Se busca si se retiro dinero despues del corte
                                             var dineroRetiradoCorte = cn.CargarDatos($"SELECT sum(Cantidad), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'retiro' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
                                             var rTotal = string.Empty;
-                                            if (!dineroRetiradoCorte.Rows.Count.Equals(0))
+                                            if (!dineroRetiradoCorte.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(dineroRetiradoCorte.ToString()))
                                             {
                                                 foreach (DataRow getRetirado in dineroRetiradoCorte.Rows)
                                                 {
                                                     rTotal = getRetirado["sum(Cantidad)"].ToString();
                                                 }
                                             }
+                                            else if(string.IsNullOrWhiteSpace(dineroRetiradoCorte.ToString()))
+                                            {
+                                                rTotal = "0";
+                                            }
 
                                             var cantidadRetirada = float.Parse(rTotal);
 
                                             //Comprovar que se cuente con dinero suficiente
-                                            var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
+                                            var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
                                             var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
 
-                                            if (!obtenerDinero.Rows.Count.Equals(0))
+                                            if (!obtenerDinero.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(obtenerDinero.ToString())*/)
                                             {
                                                 foreach (DataRow getCash in obtenerDinero.Rows)
                                                 {
@@ -917,6 +921,10 @@ namespace PuntoDeVentaV2
                                                     //transObtenido = getCash["sum(Transferencia)"].ToString();
                                                 }
                                                 efe = (float.Parse(efectivoObtenido) - cantidadRetirada /*+ sEfectivo*/);
+                                            }
+                                            else if(string.IsNullOrWhiteSpace(obtenerDinero.ToString()))
+                                            {
+                                                efe = 0;
                                             }
                                         }
 
