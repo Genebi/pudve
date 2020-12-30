@@ -752,16 +752,27 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                lista.Add(dr["ClaveInterna"].ToString());
-                lista.Add(dr["CodigoBarras"].ToString());
+                if (!string.IsNullOrWhiteSpace(dr["ClaveInterna"].ToString()))
+                {
+                    lista.Add(dr["ClaveInterna"].ToString());
+                }
 
+                if (!string.IsNullOrWhiteSpace(dr["CodigoBarras"].ToString()))
+                {
+                    lista.Add(dr["CodigoBarras"].ToString());
+                }
+                
+                
                 DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto}");
 
                 MySqlDataReader info = sql_cmd.ExecuteReader();
 
                 while (info.Read())
                 {
-                    lista.Add(info["CodigoBarraExtra"].ToString());
+                    if (!string.IsNullOrWhiteSpace(info["CodigoBarraExtra"].ToString()))
+                    {
+                        lista.Add(info["CodigoBarraExtra"].ToString());
+                    }
                 }
 
                 info.Close();
