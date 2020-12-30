@@ -306,7 +306,7 @@ namespace PuntoDeVentaV2
             List<string> lista = new List<string>();
 
             //Apartado Ventas
-            lista.Add(lbTEfectivo.Text);
+            lista.Add(lbTEfectivo.Text);//0
             lista.Add(lbTTarjeta.Text);
             lista.Add(lbTVales.Text);
             lista.Add(lbTCheque.Text);
@@ -314,43 +314,43 @@ namespace PuntoDeVentaV2
             lista.Add(lbTCredito.Text);
             lista.Add(lbTCreditoC.Text);
             lista.Add(lbTAnticipos.Text);
-            lista.Add(lbTVentas.Text);
+            lista.Add(lbTVentas.Text);//8
 
             //Apartado Anticipos Recibidos
-            lista.Add(lbTEfectivoA.Text);
+            lista.Add(lbTEfectivoA.Text);//9
             lista.Add(lbTTarjetaA.Text);
             lista.Add(lbTValesA.Text);
             lista.Add(lbTChequeA.Text);
             lista.Add(lbTTransA.Text);
-            lista.Add(lbTAnticiposA.Text);
+            lista.Add(lbTAnticiposA.Text);//14
 
             //Apartado Dinero Agregado
-            lista.Add(lbTEfectivoD.Text);
+            lista.Add(lbTEfectivoD.Text);//15
             lista.Add(lbTTarjetaD.Text);
             lista.Add(lbTValesD.Text);
             lista.Add(lbTChequeD.Text);
             lista.Add(lbTTransD.Text);
-            lista.Add(lbTAgregado.Text);
+            lista.Add(lbTAgregado.Text);//20
 
             //Apartado Dinero Retirado
-            lista.Add(lbEfectivoR.Text);
-            lista.Add(lbTarjetaR.Text);
-            lista.Add(lbValesR.Text);
-            lista.Add(lbChequeR.Text);
-            lista.Add(lbTransferenciaR.Text);
-            lista.Add(lbTAnticiposC.Text);
-            lista.Add(lbDevoluciones.Text);
-            lista.Add(lbTRetirado.Text);
+            lista.Add(lbEfectivoR.Text);//21
+            lista.Add(lbTarjetaR.Text);//22
+            lista.Add(lbValesR.Text);//23
+            lista.Add(lbChequeR.Text);//24
+            lista.Add(lbTransferenciaR.Text);//25
+            lista.Add(lbTAnticiposC.Text);//26
+            lista.Add(lbDevoluciones.Text);//27
+            lista.Add(lbTRetirado.Text);//28
 
             //Apartado Total Caja
-            lista.Add(lbTEfectivoC.Text);
+            lista.Add(lbTEfectivoC.Text);//29
             lista.Add(lbTTarjetaC.Text);
             lista.Add(lbTValesC.Text);
             lista.Add(lbTChequeC.Text);
             lista.Add(lbTTransC.Text);
             lista.Add(lbTSaldoInicial.Text);
             lista.Add(lbTCreditoTotal.Text);
-            lista.Add(lbTTotalCaja.Text);
+            lista.Add(lbTTotalCaja.Text);//36
 
 
             return lista.ToArray();
@@ -890,6 +890,7 @@ namespace PuntoDeVentaV2
 
         private void GenerarReporte()
         {
+            var datosCajaShow = cargarDatosCorteCaja();
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
 
@@ -1019,7 +1020,7 @@ namespace PuntoDeVentaV2
             colEfectivoDineroRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
             colEfectivoDineroRetirado.Padding = 3;
 
-            PdfPCell colEfectivoDineroR = new PdfPCell(new Phrase($"{cantidades[2]}", fuenteNormal));//agregar datos de cantidades
+            PdfPCell colEfectivoDineroR = new PdfPCell(new Phrase($"{datosCajaShow[21]}", fuenteNormal));//agregar datos de cantidades
             colEfectivoDineroR.BorderWidth = 0;
             colEfectivoDineroR.HorizontalAlignment = Element.ALIGN_CENTER;
             colEfectivoDineroR.Padding = 3;
@@ -1082,7 +1083,7 @@ namespace PuntoDeVentaV2
             colTarjetaDineroRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
             colTarjetaDineroRetirado.Padding = 3;
 
-            PdfPCell colTarjetaDineroR = new PdfPCell(new Phrase($"{cantidades[6]}", fuenteNormal));/////////////
+            PdfPCell colTarjetaDineroR = new PdfPCell(new Phrase($"{datosCajaShow[22]}", fuenteNormal));/////////////
             colTarjetaDineroR.BorderWidth = 0;
             colTarjetaDineroR.HorizontalAlignment = Element.ALIGN_CENTER;
             colTarjetaDineroR.Padding = 3;
@@ -1144,7 +1145,7 @@ namespace PuntoDeVentaV2
             colValesDineroRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
             colValesDineroRetirado.Padding = 3;
 
-            PdfPCell colValesDineroR = new PdfPCell(new Phrase($"{cantidades[10]}", fuenteNormal));//////////////
+            PdfPCell colValesDineroR = new PdfPCell(new Phrase($"{datosCajaShow[23]}", fuenteNormal));//////////////
             colValesDineroR.BorderWidth = 0;
             colValesDineroR.HorizontalAlignment = Element.ALIGN_CENTER;
             colValesDineroR.Padding = 3;
@@ -1207,7 +1208,7 @@ namespace PuntoDeVentaV2
             colChequeDineroRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
             colChequeDineroRetirado.Padding = 3;
 
-            PdfPCell colChequeDineroR = new PdfPCell(new Phrase($"{cantidades[14]}", fuenteNormal));/////////////////
+            PdfPCell colChequeDineroR = new PdfPCell(new Phrase($"{datosCajaShow[24]}", fuenteNormal));/////////////////
             colChequeDineroR.BorderWidth = 0;
             colChequeDineroR.HorizontalAlignment = Element.ALIGN_CENTER;
             colChequeDineroR.Padding = 3;
@@ -1270,7 +1271,7 @@ namespace PuntoDeVentaV2
             colTransDineroRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
             colTransDineroRetirado.Padding = 3;
 
-            PdfPCell colTransDineroR = new PdfPCell(new Phrase($"{cantidades[18]}", fuenteNormal));/////////////
+            PdfPCell colTransDineroR = new PdfPCell(new Phrase($"{datosCajaShow[25]}", fuenteNormal));/////////////
             colTransDineroR.BorderWidth = 0;
             colTransDineroR.HorizontalAlignment = Element.ALIGN_CENTER;
             colTransDineroR.Padding = 3;
@@ -1333,7 +1334,7 @@ namespace PuntoDeVentaV2
             colCreditoAnticiposRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
             colCreditoAnticiposRetirado.Padding = 3;
 
-            PdfPCell colCreditoAnticiposTotalRetirado = new PdfPCell(new Phrase($"{cantidades[23]}", fuenteNormal));////////////
+            PdfPCell colCreditoAnticiposTotalRetirado = new PdfPCell(new Phrase($"{datosCajaShow[26]}", fuenteNormal));////////////
             colCreditoAnticiposTotalRetirado.BorderWidth = 0;
             colCreditoAnticiposTotalRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
             colCreditoAnticiposTotalRetirado.Padding = 3;
@@ -1365,7 +1366,7 @@ namespace PuntoDeVentaV2
             colAbonosVentas.HorizontalAlignment = Element.ALIGN_CENTER;
             colAbonosVentas.Padding = 3;
 
-            PdfPCell colAbonosVentasC = new PdfPCell(new Phrase($"{cantidades[22]}", fuenteNormal));
+            PdfPCell colAbonosVentasC = new PdfPCell(new Phrase($"{datosCajaShow[6]}", fuenteNormal));
             colAbonosVentasC.BorderWidth = 0;
             colAbonosVentasC.HorizontalAlignment = Element.ALIGN_CENTER;
             colAbonosVentasC.Padding = 3;
@@ -1395,7 +1396,7 @@ namespace PuntoDeVentaV2
             colAbonosDevolucionesRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
             colAbonosDevolucionesRetirado.Padding = 3;
 
-            PdfPCell colAbonosDevolucionesR = new PdfPCell(new Phrase($"{cantidades[23]}", fuenteNormal));////////////
+            PdfPCell colAbonosDevolucionesR = new PdfPCell(new Phrase($"{datosCajaShow[27]}", fuenteNormal));////////////
             colAbonosDevolucionesR.BorderWidth = 0;
             colAbonosDevolucionesR.HorizontalAlignment = Element.ALIGN_CENTER;
             colAbonosDevolucionesR.Padding = 3;
@@ -1631,6 +1632,18 @@ namespace PuntoDeVentaV2
             colTotalDineroC.Padding = 3;
             colTotalDineroC.BackgroundColor = new BaseColor(Color.Red);
 
+            PdfPCell colTotalDineroRetirado = new PdfPCell(new Phrase($"Total Retirado", fuenteTotales));////////
+            colTotalDineroRetirado.BorderWidth = 0;
+            colTotalDineroRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalDineroRetirado.Padding = 3;
+            colTotalDineroRetirado.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colTotalDineroR = new PdfPCell(new Phrase($"{datosCajaShow[28]}", fuenteTotales));//////////////
+            colTotalDineroR.BorderWidth = 0;
+            colTotalDineroR.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalDineroR.Padding = 3;
+            colTotalDineroR.BackgroundColor = new BaseColor(Color.Red);
+
             PdfPCell colTotalFinal = new PdfPCell(new Phrase($"Total en Caja", fuenteTotales));
             colTotalFinal.BorderWidth = 0;
             colTotalFinal.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -1649,6 +1662,8 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colTotalAnticiposC);
             tabla.AddCell(colTotalDinero);
             tabla.AddCell(colTotalDineroC);
+            tabla.AddCell(colTotalDineroRetirado);
+            tabla.AddCell(colTotalDineroR);
             tabla.AddCell(colTotalFinal);
             tabla.AddCell(colTotalFinalC);
 
