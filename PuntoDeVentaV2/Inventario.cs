@@ -784,7 +784,15 @@ namespace PuntoDeVentaV2
             var aumentar = string.Empty;
             aumentar = Convert.ToString(suma);
 
-            var NoRev = cs.GetNoRevAumentarInventario();
+            var NoRev = string.Empty;
+
+            NoRev = cs.GetNoRevAumentarInventario();
+
+            if (NoRev.Equals(string.Empty))
+            {
+                NoRev = "0";
+                cn.EjecutarConsulta(cs.InsertIntoNoRevAumentarInventario(NoRev));
+            }
 
             if (!aumentar.Equals("0"))
             {
