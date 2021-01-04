@@ -1304,6 +1304,13 @@ GROUP BY Prod.ID";
             return NoRevision;
         }
 
+        public string UpdateNoRevAumentarInventario(int NoRev)
+        {
+            var consulta = $"UPDATE NoRevisionAumentarInventario SET NoRevisionAumentarInventario = {NoRev}";
+
+            return consulta;
+        }
+
         public string InsertIntoAumentarInventario(string[] datosAumentarInventario)
         {
             var consulta = "INSERT INTO DGVAumentarInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion) VALUES";

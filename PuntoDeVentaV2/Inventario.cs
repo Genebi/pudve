@@ -863,6 +863,9 @@ namespace PuntoDeVentaV2
             if (Utilidades.AdobeReaderInstalado())
             {
                 GenerarReporte(idReporte);
+                var NoRev = cs.GetNoRevAumentarInventario();
+                var NewNoRev = Convert.ToInt32(NoRev);
+                cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev+1));
             }
             else
             {

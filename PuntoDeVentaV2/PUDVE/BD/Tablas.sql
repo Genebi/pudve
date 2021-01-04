@@ -804,7 +804,7 @@ CREATE TABLE IF NOT EXISTS DGVAumentarInventario(
 -- 49 Tabla de NoRevisionAumentarInventario
 CREATE TABLE IF NOT EXISTS NoRevisionAumentarInventario(
 	id INTEGER	PRIMARY KEY	AUTO_INCREMENT,
-	NoRevisionAumentarInventario INTEGER NOT NULL
+	NoRevisionAumentarInventario INTEGER NOT NULL DEFAULT(0)
 );
 
 -- ------------------------------------------
