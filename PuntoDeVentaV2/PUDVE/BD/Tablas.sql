@@ -807,6 +807,22 @@ CREATE TABLE IF NOT EXISTS NoRevisionAumentarInventario(
 	NoRevisionAumentarInventario INTEGER NOT NULL DEFAULT(0)
 );
 
+-- 50 Tabla de DGVDisminuirInventario
+CREATE TABLE IF NOT EXISTS DGVDisminuirInventario(
+	id	INTEGER	PRIMARY KEY	AUTO_INCREMENT,
+	IdProducto	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	NombreProducto	VARCHAR(200)	NOT NULL,
+	StockActual	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	DiferenciaUnidades	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	NuevoStock	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	Precio	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	Clave	VARCHAR(20)	NOT NULL	DEFAULT(0),
+	Codigo	VARCHAR(20)	NOT NULL	DEFAULT(0),
+	Fecha	VARCHAR(20)	NOT NULL,
+	NoRevision	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	StatusActualizacion	VARCHAR(10)	NOT NULL	DEFAULT(0)
+);
+
 -- ------------------------------------------
 -- -- Final sección de Tablas del sistema --
 -- ------------------------------------------
