@@ -1311,5 +1311,12 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string GetAumentarInventario()
+        {
+            var consultar = "SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion FROM DGVAumentarInventario";
+
+            return consultar;
+        }
     }
 }
