@@ -118,6 +118,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
         }
 
         private bool ExistenProductos(string nombre)
@@ -824,6 +825,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+                DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
             }
             else if (rbDisminuirProducto.Checked)
             {
