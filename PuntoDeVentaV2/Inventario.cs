@@ -109,6 +109,7 @@ namespace PuntoDeVentaV2
                         row.Cells["Stock"].Value = dr["StockActual"].ToString();
                         row.Cells["DiferenciaUnidades"].Value = dr["DiferenciaUnidades"].ToString();
                         row.Cells["DiferenciaUnidades"].Style.ForeColor = Color.DodgerBlue;
+                        row.Cells["DiferenciaUnidades"].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
                         row.Cells["NuevoStock"].Value = dr["NuevoStock"].ToString();
                         row.Cells["Precio"].Value = dr["Precio"].ToString();
                         row.Cells["Clave"].Value = dr["Clave"].ToString();
@@ -814,6 +815,7 @@ namespace PuntoDeVentaV2
                             row.Cells["Stock"].Value = dr["StockActual"].ToString();
                             row.Cells["DiferenciaUnidades"].Value = dr["DiferenciaUnidades"].ToString();
                             row.Cells["DiferenciaUnidades"].Style.ForeColor = Color.DodgerBlue;
+                            row.Cells["DiferenciaUnidades"].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
                             row.Cells["NuevoStock"].Value = dr["NuevoStock"].ToString();
                             row.Cells["Precio"].Value = dr["Precio"].ToString();
                             row.Cells["Clave"].Value = dr["Clave"].ToString();
@@ -1140,12 +1142,14 @@ namespace PuntoDeVentaV2
         private void rbAumentarProducto_CheckedChanged(object sender, EventArgs e)
         {
             DGVInventario.Rows.Clear();
+            populateAumentarDGVInventario();
             txtBusqueda.Focus();
         }
 
         private void rbDisminuirProducto_CheckedChanged(object sender, EventArgs e)
         {
             DGVInventario.Rows.Clear();
+            populateDisminuirDGVInventario();
             txtBusqueda.Focus();
         }
     }
