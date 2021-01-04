@@ -1321,9 +1321,16 @@ GROUP BY Prod.ID";
 
         public string GetAumentarInventario()
         {
-            var consultar = "SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion FROM DGVAumentarInventario";
+            var consultar = "SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion FROM DGVAumentarInventario WHERE StatusActualizacion = 1";
 
             return consultar;
+        }
+
+        public string UpdateStatusActualizacionAumentarInventario()
+        {
+            var consulta = $"UPDATE DGVAumentarInventario SET StatusActualizacion = 0 WHERE StatusActualizacion = 1";
+
+            return consulta;
         }
     }
 }
