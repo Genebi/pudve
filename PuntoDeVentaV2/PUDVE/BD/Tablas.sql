@@ -823,6 +823,12 @@ CREATE TABLE IF NOT EXISTS DGVDisminuirInventario(
 	StatusActualizacion	VARCHAR(10)	NOT NULL	DEFAULT(0)
 );
 
+-- 51 Tabla de NoRevisionDisminuirInventario
+CREATE TABLE IF NOT EXISTS NoRevisionDisminuirInventario(
+	id INTEGER	PRIMARY KEY	AUTO_INCREMENT,
+	NoRevisionDisminuirInventario INTEGER NOT NULL DEFAULT(0)
+);
+
 -- ------------------------------------------
 -- -- Final sección de Tablas del sistema --
 -- ------------------------------------------
