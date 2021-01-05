@@ -531,8 +531,10 @@ namespace PuntoDeVentaV2
                 }
                 //Obtenemos la fecha del ultimo corte
                 var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                if (!fechaCorteUltima.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
+                if (!fechaCorteUltima.Rows.Count.Equals(0))
                 {
+                    //if (!fechaCorteUltima.Rows.Count.Equals(0)) {  }
+
                     foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
                     {
                         ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();

@@ -111,9 +111,9 @@ namespace PuntoDeVentaV2
                         registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, fechaCreacion) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{fechaCreacion}')";
                         int resultado = registrar.ExecuteNonQuery();
 
-                        //Consulta de SQLite
-                        string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email)";
-                               consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}')";
+                        //Consulta de MySQL local 
+                        string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email, FechaHoy)";
+                               consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}', '{fechaCreacion}')";
 
                         int respuesta = cn.EjecutarConsulta(consulta);
 
@@ -128,6 +128,9 @@ namespace PuntoDeVentaV2
 
                             // Datos para el inicio de sesion
                             int Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'", 1));
+
+                            //Realizar una operacion de corte de caja para cuando sea una ceunta nueva 
+                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('corte', '0.00', '0.00', '', '{fechaCreacion}', '{Id}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
 
                             FormPrincipal fp = new FormPrincipal();
 

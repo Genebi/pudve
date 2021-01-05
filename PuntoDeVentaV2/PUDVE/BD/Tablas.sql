@@ -838,6 +838,12 @@ CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_ConceptosDinamicos ON ConceptosDinami
 -- Index de Caja
 CREATE INDEX IF NOT EXISTS IN_FechaOperacion_Caja ON Caja (Operacion); 
 CREATE INDEX IF NOT EXISTS INDEX_FechaOperacion_Caja ON Caja (FechaOperacion);
+CREATE INDEX IF NOT EXISTS INDEX_sum_Total_Caja ON Caja (Cantidad);
+CREATE INDEX IF NOT EXISTS INDEX_sum_Efectivo_Caja ON Caja (Efectivo);
+CREATE INDEX IF NOT EXISTS INDEX_sum_Tarjeta_Caja ON Caja (Tarjeta);
+CREATE INDEX IF NOT EXISTS INDEX_sum_Vales_Caja ON Caja (Vales);
+CREATE INDEX IF NOT EXISTS INDEX_sum_Cheque_Caja ON Caja (Cheque);
+CREATE INDEX IF NOT EXISTS INDEX_sum_Trans_Caja ON Caja (Transferencia);
 
 
 -- -------------------------------------
@@ -905,3 +911,6 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoEliminarListaProductoVe
 
 -- Agregar Columna () a la tabla de Configuracion si es que no tiene dicha columna
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoCorteDeCaja tinyint(1) DEFAULT 0;
+
+-- Editar el tipo de dato de la Columna FechaHoy en la tabla de usuarios
+ALTER TABLE usuarios MODIFY COLUMN FechaHoy DateTime;
