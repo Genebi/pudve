@@ -856,12 +856,36 @@ namespace PuntoDeVentaV2
                                 var sCheque = MetodosBusquedas.chequeInicial;
                                 var sTrans = MetodosBusquedas.transInicial;
 
+                                //Valida las cantidades para cuando sea una cuenta nueva
+                                var totalUno = string.Empty;  var efectivoUno = string.Empty; var tarjetaUno = string.Empty; var valesUno = string.Empty; var chequeUno = string.Empty; var transUno = string.Empty;
+                                var validarCuentaNuevaCaja = cn.CargarDatos($"SELECT ID FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte'");
+
+                                if (validarCuentaNuevaCaja.Rows.Count.Equals(0))
+                                {
+                                    var cantidandesNuevaCuenta = cn.CargarDatos($"SELECT sum(Cantidad), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM Caja WHERE IDUsuario = {FormPrincipal.userID}");
+
+                                    totalUno = cantidandesNuevaCuenta.Rows[0]["sum(Cantidad)"].ToString();
+                                    efectivoUno = cantidandesNuevaCuenta.Rows[0]["sum(Efectivo)"].ToString();
+                                    tarjetaUno = cantidandesNuevaCuenta.Rows[0]["sum(Tarjeta)"].ToString();
+                                    valesUno = cantidandesNuevaCuenta.Rows[0]["sum(Vales)"].ToString();
+                                    chequeUno = cantidandesNuevaCuenta.Rows[0]["sum(Cheque)"].ToString();
+                                    transUno = cantidandesNuevaCuenta.Rows[0]["sum(Transferencia)"].ToString();
+
+                                    //Agregamos las cantidades que se tienen en caja a estas variables (solo en cuentas nuevas)
+                                    sEfectivo = float.Parse(efectivoUno);
+                                    sTarjeta = float.Parse(tarjetaUno);
+                                    sVales = float.Parse(valesUno);
+                                    sCheque = float.Parse(chequeUno);
+                                    sTrans = float.Parse(transUno);
+
+                                }
+
                                 mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                                 if (mensaje == DialogResult.Yes)
                                 {
                                     float efe = 0f, tar = 0f, val = 0f, che = 0f, trans = 0f;
-
+                                    
                                     var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
                                     if (formasPago.Length > 0)
@@ -928,7 +952,7 @@ namespace PuntoDeVentaV2
                                             }
                                         }
 
-                                        var totalActual = float.Parse(total1);
+                                        var totalActual = float.Parse(total1);////////
                                         if (efe < totalActual)
                                         {
                                             MessageBox.Show("No tiene suficiente dinero en efectivo para retirar", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
