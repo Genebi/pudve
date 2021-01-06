@@ -30,15 +30,15 @@
         {
             this.btnAceptarDetalle = new System.Windows.Forms.Button();
             this.btnCancelarDetalle = new System.Windows.Forms.Button();
-            this.cbLinea1_1 = new System.Windows.Forms.ComboBox();
-            this.cbLinea1_2 = new System.Windows.Forms.ComboBox();
-            this.cbLinea1_3 = new System.Windows.Forms.ComboBox();
-            this.cbLinea1_4 = new System.Windows.Forms.ComboBox();
-            this.tbLinea1_2 = new System.Windows.Forms.TextBox();
+            this.cbLinea1_16 = new System.Windows.Forms.ComboBox();
+            this.cbLinea1_26 = new System.Windows.Forms.ComboBox();
+            this.cbLinea1_36 = new System.Windows.Forms.ComboBox();
+            this.cbLinea1_46 = new System.Windows.Forms.ComboBox();
+            this.tbLinea1_26 = new System.Windows.Forms.TextBox();
             this.btnExtra = new System.Windows.Forms.Button();
             this.btnImpLocal = new System.Windows.Forms.Button();
             this.panelContenedor = new System.Windows.Forms.FlowLayoutPanel();
-            this.tbLinea1_1 = new System.Windows.Forms.TextBox();
+            this.tbLinea1_16 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnClaveGenerica = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -102,51 +102,56 @@
             this.btnCancelarDetalle.UseVisualStyleBackColor = false;
             this.btnCancelarDetalle.Click += new System.EventHandler(this.btnCancelarDetalle_Click);
             // 
-            // cbLinea1_1
+            // cbLinea1_16
             // 
-            this.cbLinea1_1.BackColor = System.Drawing.SystemColors.Window;
-            this.cbLinea1_1.FormattingEnabled = true;
-            this.cbLinea1_1.Items.AddRange(new object[] {
+            this.cbLinea1_16.BackColor = System.Drawing.SystemColors.Window;
+            this.cbLinea1_16.FormattingEnabled = true;
+            this.cbLinea1_16.Items.AddRange(new object[] {
             "...",
             "Traslado",
             "Retención"});
-            this.cbLinea1_1.Location = new System.Drawing.Point(24, 187);
-            this.cbLinea1_1.Name = "cbLinea1_1";
-            this.cbLinea1_1.Size = new System.Drawing.Size(100, 21);
-            this.cbLinea1_1.TabIndex = 26;
+            this.cbLinea1_16.Location = new System.Drawing.Point(248, 4);
+            this.cbLinea1_16.Name = "cbLinea1_16";
+            this.cbLinea1_16.Size = new System.Drawing.Size(100, 21);
+            this.cbLinea1_16.TabIndex = 26;
+            this.cbLinea1_16.Visible = false;
             // 
-            // cbLinea1_2
+            // cbLinea1_26
             // 
-            this.cbLinea1_2.FormattingEnabled = true;
-            this.cbLinea1_2.Location = new System.Drawing.Point(144, 187);
-            this.cbLinea1_2.Name = "cbLinea1_2";
-            this.cbLinea1_2.Size = new System.Drawing.Size(100, 21);
-            this.cbLinea1_2.TabIndex = 27;
+            this.cbLinea1_26.FormattingEnabled = true;
+            this.cbLinea1_26.Location = new System.Drawing.Point(368, 4);
+            this.cbLinea1_26.Name = "cbLinea1_26";
+            this.cbLinea1_26.Size = new System.Drawing.Size(100, 21);
+            this.cbLinea1_26.TabIndex = 27;
+            this.cbLinea1_26.Visible = false;
             // 
-            // cbLinea1_3
+            // cbLinea1_36
             // 
-            this.cbLinea1_3.FormattingEnabled = true;
-            this.cbLinea1_3.Location = new System.Drawing.Point(264, 187);
-            this.cbLinea1_3.Name = "cbLinea1_3";
-            this.cbLinea1_3.Size = new System.Drawing.Size(100, 21);
-            this.cbLinea1_3.TabIndex = 28;
+            this.cbLinea1_36.FormattingEnabled = true;
+            this.cbLinea1_36.Location = new System.Drawing.Point(488, 4);
+            this.cbLinea1_36.Name = "cbLinea1_36";
+            this.cbLinea1_36.Size = new System.Drawing.Size(100, 21);
+            this.cbLinea1_36.TabIndex = 28;
+            this.cbLinea1_36.Visible = false;
             // 
-            // cbLinea1_4
+            // cbLinea1_46
             // 
-            this.cbLinea1_4.FormattingEnabled = true;
-            this.cbLinea1_4.Location = new System.Drawing.Point(384, 187);
-            this.cbLinea1_4.Name = "cbLinea1_4";
-            this.cbLinea1_4.Size = new System.Drawing.Size(100, 21);
-            this.cbLinea1_4.TabIndex = 29;
+            this.cbLinea1_46.FormattingEnabled = true;
+            this.cbLinea1_46.Location = new System.Drawing.Point(608, 4);
+            this.cbLinea1_46.Name = "cbLinea1_46";
+            this.cbLinea1_46.Size = new System.Drawing.Size(100, 21);
+            this.cbLinea1_46.TabIndex = 29;
+            this.cbLinea1_46.Visible = false;
             // 
-            // tbLinea1_2
+            // tbLinea1_26
             // 
-            this.tbLinea1_2.Location = new System.Drawing.Point(624, 188);
-            this.tbLinea1_2.Name = "tbLinea1_2";
-            this.tbLinea1_2.ReadOnly = true;
-            this.tbLinea1_2.Size = new System.Drawing.Size(100, 20);
-            this.tbLinea1_2.TabIndex = 30;
-            this.tbLinea1_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbLinea1_26.Location = new System.Drawing.Point(848, 5);
+            this.tbLinea1_26.Name = "tbLinea1_26";
+            this.tbLinea1_26.ReadOnly = true;
+            this.tbLinea1_26.Size = new System.Drawing.Size(100, 20);
+            this.tbLinea1_26.TabIndex = 30;
+            this.tbLinea1_26.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbLinea1_26.Visible = false;
             // 
             // btnExtra
             // 
@@ -156,11 +161,11 @@
             this.btnExtra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExtra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExtra.ForeColor = System.Drawing.Color.White;
-            this.btnExtra.Location = new System.Drawing.Point(792, 292);
+            this.btnExtra.Location = new System.Drawing.Point(792, 216);
             this.btnExtra.Name = "btnExtra";
             this.btnExtra.Size = new System.Drawing.Size(144, 25);
             this.btnExtra.TabIndex = 31;
-            this.btnExtra.Text = "+ Agregar Extra";
+            this.btnExtra.Text = "+ Agregar Impuesto";
             this.btnExtra.UseVisualStyleBackColor = false;
             this.btnExtra.Click += new System.EventHandler(this.btnExtra_Click);
             // 
@@ -169,7 +174,7 @@
             this.btnImpLocal.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImpLocal.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnImpLocal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImpLocal.Location = new System.Drawing.Point(792, 243);
+            this.btnImpLocal.Location = new System.Drawing.Point(792, 265);
             this.btnImpLocal.Name = "btnImpLocal";
             this.btnImpLocal.Size = new System.Drawing.Size(144, 25);
             this.btnImpLocal.TabIndex = 32;
@@ -181,20 +186,21 @@
             // 
             this.panelContenedor.AutoScroll = true;
             this.panelContenedor.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.panelContenedor.Location = new System.Drawing.Point(6, 227);
+            this.panelContenedor.Location = new System.Drawing.Point(6, 185);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(772, 100);
+            this.panelContenedor.Size = new System.Drawing.Size(772, 142);
             this.panelContenedor.TabIndex = 33;
             this.panelContenedor.WrapContents = false;
             // 
-            // tbLinea1_1
+            // tbLinea1_16
             // 
-            this.tbLinea1_1.Enabled = false;
-            this.tbLinea1_1.Location = new System.Drawing.Point(504, 188);
-            this.tbLinea1_1.Name = "tbLinea1_1";
-            this.tbLinea1_1.Size = new System.Drawing.Size(100, 20);
-            this.tbLinea1_1.TabIndex = 34;
-            this.tbLinea1_1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbLinea1_16.Enabled = false;
+            this.tbLinea1_16.Location = new System.Drawing.Point(728, 5);
+            this.tbLinea1_16.Name = "tbLinea1_16";
+            this.tbLinea1_16.Size = new System.Drawing.Size(100, 20);
+            this.tbLinea1_16.TabIndex = 34;
+            this.tbLinea1_16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbLinea1_16.Visible = false;
             // 
             // label1
             // 
@@ -506,15 +512,15 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnClaveGenerica);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tbLinea1_1);
+            this.Controls.Add(this.tbLinea1_16);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.btnImpLocal);
             this.Controls.Add(this.btnExtra);
-            this.Controls.Add(this.tbLinea1_2);
-            this.Controls.Add(this.cbLinea1_4);
-            this.Controls.Add(this.cbLinea1_3);
-            this.Controls.Add(this.cbLinea1_2);
-            this.Controls.Add(this.cbLinea1_1);
+            this.Controls.Add(this.tbLinea1_26);
+            this.Controls.Add(this.cbLinea1_46);
+            this.Controls.Add(this.cbLinea1_36);
+            this.Controls.Add(this.cbLinea1_26);
+            this.Controls.Add(this.cbLinea1_16);
             this.Controls.Add(this.btnAceptarDetalle);
             this.Controls.Add(this.btnCancelarDetalle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -536,15 +542,15 @@
         #endregion
         private System.Windows.Forms.Button btnAceptarDetalle;
         private System.Windows.Forms.Button btnCancelarDetalle;
-        private System.Windows.Forms.ComboBox cbLinea1_1;
-        private System.Windows.Forms.ComboBox cbLinea1_2;
-        private System.Windows.Forms.ComboBox cbLinea1_3;
-        private System.Windows.Forms.ComboBox cbLinea1_4;
-        private System.Windows.Forms.TextBox tbLinea1_2;
+        private System.Windows.Forms.ComboBox cbLinea1_16;
+        private System.Windows.Forms.ComboBox cbLinea1_26;
+        private System.Windows.Forms.ComboBox cbLinea1_36;
+        private System.Windows.Forms.ComboBox cbLinea1_46;
+        private System.Windows.Forms.TextBox tbLinea1_26;
         private System.Windows.Forms.Button btnExtra;
         private System.Windows.Forms.Button btnImpLocal;
         private System.Windows.Forms.FlowLayoutPanel panelContenedor;
-        private System.Windows.Forms.TextBox tbLinea1_1;
+        private System.Windows.Forms.TextBox tbLinea1_16;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnClaveGenerica;
         private System.Windows.Forms.Label label2;

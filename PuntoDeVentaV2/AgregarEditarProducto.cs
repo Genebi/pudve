@@ -2145,6 +2145,8 @@ namespace PuntoDeVentaV2
             txtCategoriaProducto.Text = "";
             txtClaveProducto.Text = "";
             txtCodigoBarras.Text = "";
+
+            AgregarDetalleFacturacionProducto.id = 1;
         }
 
         private void AgregarEditarProducto_Shown(object sender, EventArgs e)
@@ -2367,6 +2369,7 @@ namespace PuntoDeVentaV2
                 //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
                 if (FormDetalle != null)
                 {
+                    //FormDetalle.id_producto_edit = Convert.ToInt32(idEditarProducto);
                     FormDetalle.txtBoxBase.Text = Convert.ToDouble(precioProducto).ToString("N2");
                     AgregarDetalleFacturacionProducto.ejecutarMetodos = true;
                     FormDetalle.typeOriginData = 2;
@@ -2381,6 +2384,7 @@ namespace PuntoDeVentaV2
                     FormDetalle.typeOriginData = 2;
                     FormDetalle.UnidadMedida = claveUnidadMedida;
                     FormDetalle.ClaveProducto = claveProducto;
+                    FormDetalle.id_producto_edit = Convert.ToInt32(idEditarProducto);
                     FormDetalle.limpiarCampos();
                     FormDetalle.ShowDialog();
                 }
@@ -3692,6 +3696,34 @@ namespace PuntoDeVentaV2
                             claveProducto = string.Empty;
                             claveUnidadMedida = string.Empty;
 
+
+                            //  MIRI.
+                            // °°°°°°°
+                            // Busca si antes de la edición tenia impuestos extras, si es así entonces, los eliminará. 
+                            bool existen_imp_extra = (bool)cn.EjecutarSelect($"SELECT * FROM detallesfacturacionproductos WHERE IDProducto='{idProductoBuscado}'", 0);
+                            
+                            if(existen_imp_extra == true)
+                            {
+                                int elimina_imp_extras = cn.EjecutarConsulta($"DELETE FROM detallesfacturacionproductos WHERE IDProducto= '{idProductoBuscado}'");
+                            }
+
+                            // Comprueba si hay impuestos extra, de ser así se procede al guardado.  
+                            if (datosImpuestos != null)
+                            {
+                                guardarDatosImpuestos(2);
+                            }
+
+                            /*//Se obtiene la ID del último producto agregado
+                                        idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+                                        var claveP = txtClaveProducto.Text;
+                                        #region Inicio de Datos de Impuestos
+                                        //Se realiza el proceso para guardar los detalles de facturación del producto
+                                        if (datosImpuestos != null)
+                                        {
+                                            guardarDatosImpuestos();
+                                        }*/
+
+
                             #region Inicio De Detalle Producto Basicos
                             bool isEmpty = !detalleProductoBasico.Any();
 
@@ -4260,7 +4292,7 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
         }
 
-        private void guardarDatosImpuestos()
+        private void guardarDatosImpuestos(int accion = 0)
         {
             //Cerramos la ventana donde se eligen los impuestos
             FormDetalle.Close();
@@ -4268,9 +4300,16 @@ namespace PuntoDeVentaV2
             string[] listaImpuestos = datosImpuestos.Split('|');
 
             int longitud = listaImpuestos.Length;
-
+            int id_producto_i = idProducto;
+            
             if (longitud > 0)
             {
+                // Si la acción es igual a 2, entonces será una edición y el id del producto cambiara 
+                if(accion == 2)
+                {
+                    id_producto_i = Convert.ToInt32(idProductoBuscado);
+                }
+
                 for (int i = 0; i < longitud; i++)
                 {
                     string[] imp = listaImpuestos[i].Split(',');
@@ -4278,9 +4317,10 @@ namespace PuntoDeVentaV2
                     if (imp[4] == " - ") { imp[4] = "0"; }
                     if (imp[5] == " - ") { imp[5] = "0"; }
                     guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
+
                     try
                     {
-                        cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
+                        cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, id_producto_i));
                     }
                     catch(Exception ex)
                     {
