@@ -145,6 +145,11 @@ namespace PuntoDeVentaV2
 
             hay_productos_habilitados = mb.tiene_productos_habilitados();
             this.Focus();
+
+            string fechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            ////Realizar una operacion de retiro de caja para cuando sea una ceunta nueva 
+            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('retiro', '0.00', '0.00', '', '{fechaCreacion}', '{FormPrincipal.userID}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
         }
 
         private void actualizar()
@@ -884,7 +889,7 @@ namespace PuntoDeVentaV2
 
                                 if (mensaje == DialogResult.Yes)
                                 {
-                                    float efe = 0f, tar = 0f, val = 0f, che = 0f, trans = 0f;
+                                    float tot=0f, efe = 0f, tar = 0f, val = 0f, che = 0f, trans = 0f;
                                     
                                     var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
@@ -915,45 +920,72 @@ namespace PuntoDeVentaV2
 
                                             //Se busca si se retiro dinero despues del corte
                                             var dineroRetiradoCorte = cn.CargarDatos($"SELECT sum(Cantidad), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'retiro' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
-                                            var rTotal = string.Empty;
+                                            var rTotal = string.Empty; var rEfectivo = string.Empty; var rTarjeta = string.Empty; var rVales = string.Empty; var rCheque = string.Empty; var rTrans = string.Empty;
                                             if (!dineroRetiradoCorte.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(dineroRetiradoCorte.ToString()))
                                             {
                                                 foreach (DataRow getRetirado in dineroRetiradoCorte.Rows)
                                                 {
                                                     rTotal = getRetirado["sum(Cantidad)"].ToString();
+                                                    rEfectivo = getRetirado["sum(Cantidad)"].ToString();
+                                                    rTarjeta = getRetirado["sum(Cantidad)"].ToString();
+                                                    rVales = getRetirado["sum(Cantidad)"].ToString();
+                                                    rCheque = getRetirado["sum(Cantidad)"].ToString();
+                                                    rTrans = getRetirado["sum(Cantidad)"].ToString();
                                                 }
                                             }
                                             else if(string.IsNullOrWhiteSpace(dineroRetiradoCorte.ToString()))
                                             {
                                                 rTotal = "0";
+                                                rEfectivo = "0";
+                                                rTarjeta = "0";
+                                                rVales = "0";
+                                                rCheque = "0";
+                                                rTrans = "0";
                                             }
 
                                             var cantidadRetirada = float.Parse(rTotal);
+                                            var efeRetirado = float.Parse(rEfectivo);
+                                            var tarRetirado = float.Parse(rTarjeta);
+                                            var valRetirado = float.Parse(rVales);
+                                            var cheRetirado = float.Parse(rCheque);
+                                            var transRetirado = float.Parse(rTrans);
 
                                             //Comprovar que se cuente con dinero suficiente
-                                            var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
-                                            var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
+                                            var obtenerDinero = cn.CargarDatos($"SELECT sum(Cantidad), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia)  FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
+                                            var cantidadT = string.Empty; var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
 
                                             if (!obtenerDinero.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(obtenerDinero.ToString())*/)
                                             {
                                                 foreach (DataRow getCash in obtenerDinero.Rows)
                                                 {
+                                                    cantidadT = getCash["sum(Cantidad)"].ToString();
                                                     efectivoObtenido = getCash["sum(Efectivo)"].ToString();
-                                                    //tarjetaObtenido = getCash["sum(Tarjeta)"].ToString();
-                                                    //valesObtenido = getCash["sum(Vales)"].ToString();
-                                                    //chequeObtenido = getCash["sum(Cheque)"].ToString();
-                                                    //transObtenido = getCash["sum(Transferencia)"].ToString();
+                                                    tarjetaObtenido = getCash["sum(Tarjeta)"].ToString();
+                                                    valesObtenido = getCash["sum(Vales)"].ToString();
+                                                    chequeObtenido = getCash["sum(Cheque)"].ToString();
+                                                    transObtenido = getCash["sum(Transferencia)"].ToString();
                                                 }
-                                                efe = (float.Parse(efectivoObtenido) - cantidadRetirada /*+ sEfectivo*/);
+                                                tot = (float.Parse(cantidadT) - cantidadRetirada /*+ sEfectivo*/);
+                                                efe = (float.Parse(efectivoObtenido) - efeRetirado /*+ sEfectivo*/);
+                                                tar = (float.Parse(tarjetaObtenido) - tarRetirado /*+ sEfectivo*/);
+                                                val = (float.Parse(valesObtenido) - valRetirado /*+ sEfectivo*/);
+                                                che = (float.Parse(chequeObtenido) - valRetirado /*+ sEfectivo*/);
+                                                trans = (float.Parse(transObtenido) - transRetirado /*+ sEfectivo*/);
+
                                             }
                                             else if(string.IsNullOrWhiteSpace(obtenerDinero.ToString()))
                                             {
+                                                tot = 0;
                                                 efe = 0;
+                                                tar = 0;
+                                                val = 0;
+                                                che = 0;
+                                                trans = 0;
                                             }
                                         }
 
                                         var totalActual = float.Parse(total1);////////
-                                        if (efe < totalActual)
+                                        if (tot < totalActual)
                                         {
                                             MessageBox.Show("No tiene suficiente dinero en efectivo para retirar", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                             //cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
