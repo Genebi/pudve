@@ -215,8 +215,6 @@ namespace PuntoDeVentaV2
             // variableSin = SIN
             // 
             //id.Clear();
-
-
             var busqueda = txtBoxBuscarCodigoBarras.Text;
 
             if (tipoFiltro != "Normal")
@@ -357,7 +355,6 @@ namespace PuntoDeVentaV2
                             codigo = AplicarFiltro(idProductoAux);
                             aplicar = true;
                         }
-                        
                     }
                 }
 
@@ -395,6 +392,7 @@ namespace PuntoDeVentaV2
                             lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
                         }
 
+                        txtBoxBuscarCodigoBarras.Text = infoProducto[4];
                         txtNombreProducto.Text = infoProducto[0];
 
                         if (string.IsNullOrEmpty(infoProducto[3]))
@@ -533,6 +531,7 @@ namespace PuntoDeVentaV2
                     lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
                 }
 
+                //txtBoxBuscarCodigoBarras = 
                 txtNombreProducto.Text = infoProducto[0];
 
                 if (string.IsNullOrEmpty(infoProducto[3]))
@@ -1101,8 +1100,6 @@ namespace PuntoDeVentaV2
             var obteniendoId = string.Empty;
             var validarAnterior = false;
 
-            
-
             using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{txtCodigoBarras.Text}' OR ClaveInterna = '{txtCodigoBarras.Text}'"))
             {
                 if (!idActual.Rows.Count.Equals(0))
@@ -1212,6 +1209,7 @@ namespace PuntoDeVentaV2
                 {
                     foreach (DataRow dato in traerDatos.Rows)
                     {
+                        txtBoxBuscarCodigoBarras.Text = dato["CodigoBarras"].ToString();
                         txtNombreProducto.Text = dato["Nombre"].ToString();
                         txtCodigoBarras.Text = dato["CodigoBarras"].ToString();
                         lblPrecioProducto.Text = dato["Precio"].ToString();
