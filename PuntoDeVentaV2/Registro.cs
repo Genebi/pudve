@@ -132,6 +132,9 @@ namespace PuntoDeVentaV2
                             //Realizar una operacion de corte de caja para cuando sea una ceunta nueva 
                             cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('corte', '0.00', '0.00', '', '{fechaCreacion}', '{Id}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
 
+                            ////Realizar una operacion de retiro de caja para cuando sea una ceunta nueva 
+                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('retiro', '0.00', '0.00', '', '{fechaCreacion}', '{Id}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
+
                             FormPrincipal fp = new FormPrincipal();
 
                             Hide();
