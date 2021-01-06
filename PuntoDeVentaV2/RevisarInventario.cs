@@ -1099,8 +1099,12 @@ namespace PuntoDeVentaV2
             var idBueno = string.Empty;
             var obteniendoId = string.Empty;
             var validarAnterior = false;
+            var codigoB = txtBoxBuscarCodigoBarras.Text;
+            var claveB = txtCodigoBarras.Text;
+            var buscarCode = string.Empty;
+            if (claveB == string.Empty) { buscarCode = codigoB; } else { buscarCode = claveB; }
 
-            using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{txtCodigoBarras.Text}' OR ClaveInterna = '{txtCodigoBarras.Text}'"))
+            using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{buscarCode}' OR ClaveInterna = '{buscarCode}'"))
             {
                 if (!idActual.Rows.Count.Equals(0))
                 {
