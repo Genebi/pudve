@@ -132,7 +132,7 @@ namespace PuntoDeVentaV2
         {
             string consulta = "INSERT INTO DetallesFacturacionProductos (Tipo, Impuesto, TipoFactor, TasaCuota, Definir, Importe, IDProducto)";
                    consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{idProducto}')";
-
+            
             return consulta;
         }
 
@@ -1265,6 +1265,13 @@ WHERE SaleDetail.IDVenta = {idVenta}
 GROUP BY Prod.ID";
 
             return consulta;
+        }
+
+        public string cargar_impuestos_en_editar_producto(int id)
+        {
+            string cons = $"SELECT * FROM detallesfacturacionproductos WHERE IDProducto = {id}";
+
+            return cons;
         }
     }
 }

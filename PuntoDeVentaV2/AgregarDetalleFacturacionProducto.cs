@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
         bool primera = true;
         int seleccionado = 0;
         int valorDefault = 0;
-        static private int id = 2;
+        static public int id = 1;
         public static bool ejecutarMetodos = false;
 
         string tipoImpuesto = null;
@@ -44,10 +44,16 @@ namespace PuntoDeVentaV2
         public int typeOriginData { get; set; }
         public string UnidadMedida { get; set; }
         public string ClaveProducto { get; set; }
+        public int id_producto_edit { get; set; }
 
         static public int typeOriginDataFinal;
         static public string UnidadMedidaFinal;
         static public string ClaveMedidaFinal;
+
+
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+
 
         public void cargarDatos()
         {
@@ -188,32 +194,32 @@ namespace PuntoDeVentaV2
             //al abrir la ventana por primera vez
             precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
-            cbLinea1_1.SelectedIndex = 0;
+            //***cbLinea1_16.SelectedIndex = 0;
 
             cbUnidadMedida.SelectedIndex = valorDefault;
 
-            cbLinea1_2.Enabled = false;
-            cbLinea1_3.Enabled = false;
-            cbLinea1_4.Enabled = false;
+            /***cbLinea1_26.Enabled = false;
+            cbLinea1_36.Enabled = false;
+            cbLinea1_46.Enabled = false;
 
-            cbLinea1_1.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbLinea1_2.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbLinea1_3.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbLinea1_4.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbLinea1_16.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbLinea1_26.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbLinea1_36.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbLinea1_46.DropDownStyle = ComboBoxStyle.DropDownList;*/
             cbUnidadMedida.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            cbLinea1_1.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
-            cbLinea1_2.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
-            cbLinea1_3.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
-            cbLinea1_4.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
+            /***cbLinea1_16.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
+            cbLinea1_26.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
+            cbLinea1_36.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
+            cbLinea1_46.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
 
-            cbLinea1_1.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cbLinea1_2.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cbLinea1_3.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cbLinea1_4.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
+            cbLinea1_16.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
+            cbLinea1_26.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
+            cbLinea1_36.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
+            cbLinea1_46.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
 
-            tbLinea1_1.KeyPress += new KeyPressEventHandler(SoloDecimales);
-            tbLinea1_1.KeyUp += new KeyEventHandler(PorcentajeManual_KeyUp);
+            tbLinea1_16.KeyPress += new KeyPressEventHandler(SoloDecimales);
+            tbLinea1_16.KeyUp += new KeyEventHandler(PorcentajeManual_KeyUp);*/
 
             /***************************
              *** Para los ComboBoxes ***
@@ -270,6 +276,13 @@ namespace PuntoDeVentaV2
                 txtClaveProducto.Text = ClaveMedidaFinal;
                 txtClaveUnidad.Text = UnidadMedidaFinal;
                 CargarClaveUnidad();
+            }
+
+            // Solo para cuando se edite un producto. Carga los impuestos guardados  
+            if (AgregarEditarProducto.DatosSourceFinal == 2)
+            {
+                // Obtiene la lista de impuestos guardados
+                cargar_impuestos();
             }
 
             //if (typeOriginDataFinal == 2)
@@ -571,16 +584,16 @@ namespace PuntoDeVentaV2
 
             string cadenaImpuestos = null;
 
-            if (cbLinea1_1.Text != "...")
+            /***if (cbLinea1_16.Text != "...")
             {
-                cadenaImpuestos += ValidarCampos(cbLinea1_1.Text) + ",";
-                cadenaImpuestos += ValidarCampos(cbLinea1_2.Text) + ",";
-                cadenaImpuestos += ValidarCampos(cbLinea1_3.Text) + ",";
-                cadenaImpuestos += ValidarCampos(cbLinea1_4.Text) + ",";
-                cadenaImpuestos += ValidarCampos(tbLinea1_1.Text) + ",";
-                cadenaImpuestos += ValidarCampos(tbLinea1_2.Text) + "|";
-            }
-            
+                cadenaImpuestos += ValidarCampos(cbLinea1_16.Text) + ",";
+                cadenaImpuestos += ValidarCampos(cbLinea1_26.Text) + ",";
+                cadenaImpuestos += ValidarCampos(cbLinea1_36.Text) + ",";
+                cadenaImpuestos += ValidarCampos(cbLinea1_46.Text) + ",";
+                cadenaImpuestos += ValidarCampos(tbLinea1_16.Text) + ",";
+                cadenaImpuestos += ValidarCampos(tbLinea1_26.Text) + "|";
+            }*/
+
 
             //Leer todos los datos de los ComboBox y TextBox que se hayan agregado para el producto
             if (panelContenedor.Controls.Count > 0)
@@ -1295,12 +1308,12 @@ namespace PuntoDeVentaV2
             string txt_lim_maxmin = "";
 
             // Fila fija 
-            if(cbLinea1_1.Text != "..." & numero_fila_actual == 1)
+            /***if(cbLinea1_16.Text != "..." & numero_fila_actual == 1)
             {
-                cmb_es_actual = cbLinea1_1.GetItemText(cbLinea1_1.SelectedItem);
-                cmb_impuesto_actual = cbLinea1_2.GetItemText(cbLinea1_2.SelectedItem);
-                cmb_tfactor_actual = cbLinea1_3.GetItemText(cbLinea1_3.SelectedItem);
-            }
+                cmb_es_actual = cbLinea1_16.GetItemText(cbLinea1_16.SelectedItem);
+                cmb_impuesto_actual = cbLinea1_26.GetItemText(cbLinea1_26.SelectedItem);
+                cmb_tfactor_actual = cbLinea1_36.GetItemText(cbLinea1_36.SelectedItem);
+            }*/
             // Filas dinamicas
             foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
             {
@@ -1542,23 +1555,23 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            if (cbLinea1_1.Text == "Traslado" || cbLinea1_1.Text == "Loc. Traslado")
+            /***if (cbLinea1_16.Text == "Traslado" || cbLinea1_16.Text == "Loc. Traslado")
             {
                 //totalFinal += float.Parse(tbLinea1_2.Text);
-                if(tbLinea1_2.Text != "")
+                if(tbLinea1_26.Text != "")
                 {
-                    total_tra += Convert.ToDouble(tbLinea1_2.Text);
+                    total_tra += Convert.ToDouble(tbLinea1_26.Text);
                 }
             }
-            else if (cbLinea1_1.Text == "Retención" || cbLinea1_1.Text == "Loc. Retenido")
+            else if (cbLinea1_16.Text == "Retención" || cbLinea1_16.Text == "Loc. Retenido")
             {
                 ///totalFinal -= float.Parse(tbLinea1_2.Text);
                 ///
-                if (tbLinea1_2.Text != "")
+                if (tbLinea1_26.Text != "")
                 {
-                    total_ret += Convert.ToDouble(tbLinea1_2.Text);
+                    total_ret += Convert.ToDouble(tbLinea1_26.Text);
                 }
-            }
+            }*/
 
             //float totalActual = float.Parse(txtTotal.Text) + totalFinal;
             double total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txtBoxBase.Text);
@@ -1574,23 +1587,23 @@ namespace PuntoDeVentaV2
             float cantidadBase = float.Parse(txtBoxBase.Text);
 
             //Fijo
-            if (cbLinea1_1.Text != "...")
+            /***if (cbLinea1_16.Text != "...")
             {
                 var manual = false;
                 var auxiliar = string.Empty;
 
-                if (cbLinea1_4.Text == "Definir %")
+                if (cbLinea1_46.Text == "Definir %")
                 {
                     manual = true;
                 }
                 else
                 {
-                    auxiliar = cbLinea1_4.Text;
+                    auxiliar = cbLinea1_46.Text;
                 }
 
                 if (manual)
                 {
-                    auxiliar = tbLinea1_1.Text;
+                    auxiliar = tbLinea1_16.Text;
                 }
 
                 var porcentajeTmp = auxiliar.Split(' ');
@@ -1598,14 +1611,14 @@ namespace PuntoDeVentaV2
                 // Si el tipo de impuesto es un IEPS y el tipo factor es Cuota,
                 // entonces el calculo para el importe es diferente, se calcula con la cantidad de unidades y no a la base.
                    
-                string cb_linea_1_2 = cbLinea1_2.GetItemText(cbLinea1_2.SelectedItem);
-                string cb_linea_1_3 = cbLinea1_3.GetItemText(cbLinea1_3.SelectedItem);
+                string cb_linea_1_2 = cbLinea1_26.GetItemText(cbLinea1_26.SelectedItem);
+                string cb_linea_1_3 = cbLinea1_36.GetItemText(cbLinea1_36.SelectedItem);
 
                 if (cb_linea_1_2 == "IEPS" & cb_linea_1_3 == "Cuota")
                 {
                     double importe = 1 * Convert.ToDouble(porcentajeTmp[0]);
 
-                    tbLinea1_2.Text = importe.ToString("0.00");
+                    tbLinea1_26.Text = importe.ToString("0.00");
                 }
                 else
                 {
@@ -1613,11 +1626,9 @@ namespace PuntoDeVentaV2
                     double porcentaje = convertir_porcentaje(Convert.ToDouble(porcentajeTmp[0]), cb_linea_1_2);
                     var importe = cantidadBase * porcentaje;
 
-                    tbLinea1_2.Text = importe.ToString("0.00");
+                    tbLinea1_26.Text = importe.ToString("0.00");
                 }
-
-                
-            }
+            }*/
 
             //Dinamicos
             foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
@@ -1674,9 +1685,17 @@ namespace PuntoDeVentaV2
                         {
                             var porcentajeTmp = auxiliar.Split(' ');
 
-                            if(cmb_col_2 == "IEPS" & cmb_col_3== "Cuota")
+                            // Si el tipo de impuesto es un IEPS y el tipo factor es Cuota,
+                            // entonces el calculo para el importe es diferente, se calcula con la cantidad de unidades y no a la base.
+
+                            if (cmb_col_2 == "IEPS" & cmb_col_3== "Cuota")
                             {
-                                double importe = 1 * Convert.ToDouble(porcentajeTmp[0]);
+                                double importe = 0;
+
+                                if (porcentajeTmp[0] != "")
+                                {
+                                    importe = 1 * Convert.ToDouble(porcentajeTmp[0]);
+                                }
 
                                 item.Text = importe.ToString("0.00");
                             }
@@ -1716,6 +1735,93 @@ namespace PuntoDeVentaV2
             }
 
             return r;
+        }
+
+
+        private void cargar_impuestos()
+        {
+            // Busca si tiene mas de un impuesto
+            int cant_impuestos = Convert.ToInt32(cn.EjecutarSelect($"SELECT count(ID) AS ID FROM detallesfacturacionproductos WHERE IDProducto", 1));
+
+
+            if (cant_impuestos > 0)
+            {
+                int i = 1;
+
+                DataTable d_impuestos_ext = cn.CargarDatos(cs.cargar_impuestos_en_editar_producto(id_producto_edit));
+
+                if (d_impuestos_ext.Rows.Count > 0)
+                {
+                    foreach (DataRow r_impuestos_ext in d_impuestos_ext.Rows)
+                    {
+                        string nombre_cb = "";
+                        string nombre_tb = "";
+
+                        if (r_impuestos_ext["Tipo"].ToString() == "Traslado" | r_impuestos_ext["Tipo"].ToString() == "Retención")
+                        {
+                            GenerarCampos(1);
+                            nombre_cb = "cbLinea" + i + "_";
+                            nombre_tb = "tbLinea" + i + "_";
+                        }
+                        if (r_impuestos_ext["Tipo"].ToString() == "Loc. Traslado" | r_impuestos_ext["Tipo"].ToString() == "Loc. Retenido")
+                        {
+                            GenerarCampos(2);
+                            nombre_cb = "cbLineaL" + i + "_";
+                            nombre_tb = "tbLineaL" + i + "_";
+                        }
+
+
+                        // Combobox: Es...
+
+                        ComboBox cb1 = (ComboBox)this.Controls.Find(nombre_cb + 1, true).FirstOrDefault();
+                        cb1.SelectedItem = r_impuestos_ext["Tipo"].ToString();
+                        int index1 = cb1.SelectedIndex;
+
+                        AccederComboBox(nombre_cb + 2, 2, index1, r_impuestos_ext["Tipo"].ToString());
+
+                        // Combobox: impuesto 
+
+                        ComboBox cb2 = (ComboBox)this.Controls.Find(nombre_cb + 2, true).FirstOrDefault();
+                        cb2.SelectedItem = r_impuestos_ext["Impuesto"].ToString();
+                        int index2 = cb2.SelectedIndex;
+
+                        AccederComboBox(nombre_cb + 3, 3, index2, r_impuestos_ext["Impuesto"].ToString());
+
+                        // Combobox: tipo factor 
+
+                        ComboBox cb3 = (ComboBox)this.Controls.Find(nombre_cb + 3, true).FirstOrDefault();
+                        cb3.SelectedItem = r_impuestos_ext["TipoFactor"].ToString();
+                        int index3 = cb3.SelectedIndex;
+
+                        AccederComboBox(nombre_cb + 4, 4, index3, r_impuestos_ext["TipoFactor"].ToString());
+                        
+                        // Combobox: tasa/cuota
+
+                        ComboBox cb4 = (ComboBox)this.Controls.Find(nombre_cb + 4, true).FirstOrDefault();
+                        cb4.SelectedItem = r_impuestos_ext["tasacuota"].ToString();
+                        int index4 = cb4.SelectedIndex;
+
+                        AccederComboBox(nombre_cb, 5, index4, r_impuestos_ext["tasacuota"].ToString());
+
+
+                        // Textbox: Definir impuesto
+
+                        if (r_impuestos_ext["tasacuota"].ToString() == "Definir %")
+                        {
+                            TextBox tb1 = (TextBox)this.Controls.Find(nombre_tb + 1, true).FirstOrDefault();
+                            tb1.Text = r_impuestos_ext["Definir"].ToString();
+                        }
+
+                        // Textbox: Importe
+
+                        TextBox tb2 = (TextBox)this.Controls.Find(nombre_tb + 2, true).FirstOrDefault();
+                        tb2.Text = r_impuestos_ext["Importe"].ToString();
+
+
+                        i++;
+                    }
+                }
+            }
         }
     }
 }
