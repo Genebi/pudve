@@ -175,6 +175,10 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+                else
+                {
+                    MessageBox.Show($"No se encontraron productos con {txtBoxSearchProd.Text}","Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
