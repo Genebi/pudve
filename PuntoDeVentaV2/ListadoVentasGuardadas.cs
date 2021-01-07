@@ -163,6 +163,14 @@ namespace PuntoDeVentaV2
             {
                 Close();
             }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                DGVListaVentasGuardadas_CellClick(this, new DataGridViewCellEventArgs(5, DGVListaVentasGuardadas.CurrentRow.Index));
+            }
+            else if (e.KeyCode == Keys.Delete)
+            {
+                DGVListaVentasGuardadas_CellClick(this, new DataGridViewCellEventArgs(6, DGVListaVentasGuardadas.CurrentRow.Index));
+            }
         }
     }
 }
