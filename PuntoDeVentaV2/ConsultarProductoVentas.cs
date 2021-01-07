@@ -126,6 +126,11 @@ namespace PuntoDeVentaV2
             {
                 BuscarProductos();
             }
+
+            if (e.KeyCode == Keys.Down && !DGVProductos.Rows.Count.Equals(0))
+            {
+                DGVProductos.Focus();
+            }
         }
 
         private void ConsultarProductoVentas_KeyDown(object sender, KeyEventArgs e)
@@ -133,6 +138,14 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 Close();
+            }
+        }
+
+        private void DGVProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up && DGVProductos.CurrentRow.Index == 0)
+            {
+                txtBuscar.Focus();
             }
         }
     }

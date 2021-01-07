@@ -22,6 +22,8 @@ namespace PuntoDeVentaV2
         private int idVenta = 0;
         private int tipo = 0;
 
+        int idClienteGlobal = 0;
+
         // Tipo: 0 = Por defecto
         // Tipo: 1 = Por parte de la ventana Venta
         // Tipo: 2 = Por parte de la ventana DetalleVenta
@@ -99,6 +101,11 @@ namespace PuntoDeVentaV2
             sql_con.Close();
         }
 
+        private void realizarMovimiento()
+        {
+           
+        }
+
         private void DGVClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -106,6 +113,7 @@ namespace PuntoDeVentaV2
                 if (e.ColumnIndex == 4)
                 {
                     var idCliente = Convert.ToInt32(DGVClientes.Rows[e.RowIndex].Cells["ID"].Value);
+                    idClienteGlobal = idCliente;
                     var cliente = DGVClientes.Rows[e.RowIndex].Cells["RazonSocial"].Value.ToString();
 
                     if (tipo == 0)
@@ -128,6 +136,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                     
+                    //Editar
                     if (tipo == 1)
                     {
                         datosCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
@@ -213,6 +222,11 @@ namespace PuntoDeVentaV2
             {
                 Close();
             }
+            else if (e.KeyCode == Keys.Down && !DGVClientes.Rows.Count.Equals(0))
+            {
+                DGVClientes.Focus();
+                DGVClientes.Rows[0].Cells["RFC"].Selected = true;
+            }
         }
 
         private void ListaClientes_Shown(object sender, EventArgs e)
@@ -248,6 +262,18 @@ namespace PuntoDeVentaV2
 
             txtBuscador.Text = string.Empty;
             txtBuscador.Focus();
+        }
+
+        private void DGVClientes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Up)
+            {
+                txtBuscador.Focus();
+            }
+            else if (e.KeyCode==Keys.Enter)
+            {
+                DGVClientes_CellClick(this, new DataGridViewCellEventArgs(4, DGVClientes.CurrentRow.Index));
+            }
         }
     }
 }
