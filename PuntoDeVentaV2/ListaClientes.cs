@@ -266,7 +266,7 @@ namespace PuntoDeVentaV2
 
         private void DGVClientes_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Up)
+            if (e.KeyCode==Keys.Up && DGVClientes.CurrentRow.Index == 0)
             {
                 txtBuscador.Focus();
             }
