@@ -74,6 +74,10 @@ namespace PuntoDeVentaV2
                         AgregarProducto(datos);
                     }
                 }
+                else
+                {
+                    MessageBox.Show($"No se encontraron productos con {txtBuscar.Text}","Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 

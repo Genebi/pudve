@@ -1175,7 +1175,7 @@ namespace PuntoDeVentaV2
             {
                 foreach (var palabra in palabras)
                 {
-                    DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
+                    DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
 
                     var dr = sql_cmd.ExecuteReader();
 
