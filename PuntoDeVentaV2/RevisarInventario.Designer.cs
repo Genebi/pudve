@@ -339,9 +339,9 @@
             this.label5.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(15, 111);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(104, 16);
+            this.label5.Size = new System.Drawing.Size(196, 16);
             this.label5.TabIndex = 6;
-            this.label5.Text = "Código de Barras:";
+            this.label5.Text = "Código de Barras o  Clave Interna:";
             // 
             // btnAumentarStock
             // 

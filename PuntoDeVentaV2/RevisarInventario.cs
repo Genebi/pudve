@@ -1152,7 +1152,7 @@ namespace PuntoDeVentaV2
                             LimpiarCampos();
                             txtBoxBuscarCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
                             txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
-                            txtCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();
+                            txtCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();//
                             lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
                             lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
                             lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
