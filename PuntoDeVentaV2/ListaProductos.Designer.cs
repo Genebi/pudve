@@ -121,6 +121,7 @@
             this.DGVStockProductos.Size = new System.Drawing.Size(934, 504);
             this.DGVStockProductos.TabIndex = 0;
             this.DGVStockProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVStockProductos_CellDoubleClick);
+            this.DGVStockProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVStockProductos_KeyDown);
             // 
             // ID
             // 

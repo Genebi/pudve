@@ -270,7 +270,7 @@ namespace PuntoDeVentaV2
             {
                 txtBuscador.Focus();
             }
-            else if (e.KeyCode==Keys.Enter)
+            else if (e.KeyCode==Keys.Enter && !DGVClientes.Rows.Count.Equals(0))
             {
                 DGVClientes_CellClick(this, new DataGridViewCellEventArgs(4, DGVClientes.CurrentRow.Index));
             }

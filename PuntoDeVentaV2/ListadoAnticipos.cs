@@ -185,7 +185,7 @@ namespace PuntoDeVentaV2
             {
                 Close();
             }
-            else if (e.KeyCode == Keys.Enter)
+            else if (e.KeyCode == Keys.Enter && !DGVListaAnticipos.Rows.Count.Equals(0))
             {
                 DGVListaAnticipos_CellClick(this, new DataGridViewCellEventArgs(5, DGVListaAnticipos.CurrentRow.Index));
             }

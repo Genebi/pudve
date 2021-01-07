@@ -134,6 +134,10 @@ namespace PuntoDeVentaV2
             {
                 BuscarProductos();
             }
+            else if (e.KeyCode == Keys.Down && !DGVStockProductos.Rows.Count.Equals(0))
+            {
+                DGVStockProductos.Focus();
+            }
         }
 
         private void BuscarProductos()
@@ -202,6 +206,18 @@ namespace PuntoDeVentaV2
                 row.Cells["Categoria"].Value = tipo;
                 row.Cells["ClaveInterna"].Value = datos[6];
                 row.Cells["Codigo"].Value = datos[7];
+            }
+        }
+
+        private void DGVStockProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up && DGVStockProductos.CurrentRow.Index == 0)
+            {
+                txtBoxSearchProd.Focus();
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                DGVStockProductos_CellDoubleClick(this, new DataGridViewCellEventArgs(0, DGVStockProductos.CurrentRow.Index));
             }
         }
 
