@@ -1447,6 +1447,10 @@ namespace PuntoDeVentaV2
             //}
         }
 
+        private void lblStockMinimo_MouseEnter(object sender, EventArgs e)
+        {
+        }
+
         private void tLPCombo_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
             //if ((e.Column + e.Row) % 2 == 1)
@@ -2180,6 +2184,12 @@ namespace PuntoDeVentaV2
         public AgregarEditarProducto(string titulo = "")
         {
             InitializeComponent();
+            this.toolTip1.SetToolTip(this.lblStockMinimo, "En este campo puede indicar al sistema el minimo \nde inventario necesario para sus operaciones, \ncon esta información el programa podrá indicarle \ncuando es necesario adquirir mercancía.");
+            this.toolTip1.SetToolTip(this.lbStockMaximo, "En este campo puede indicar al sistema el maximo \nde inventario necesario para sus operaciones, \ncon esta información el programa podrá indicarle \ncuando se tenga un exceso de inventario.");
+            this.toolTip1.SetToolTip(this.lbStock, "En este campo puede indicar el número de \nproductos con los que cuenta actualmente.");
+            this.toolTip1.SetToolTip(this.lbPrecioCompra, "El precio que le costó adquirir el producto.");
+            this.toolTip1.SetToolTip(this.lbPrecioVenta, "El precio que tendrá su producto al público.");
+            this.toolTip1.SetToolTip(this.lbClaveInterna, "En este campo podra ingresar un folio interno, \npara mayor control de sus productos.");
         }
 
         private void txtCodigoBarras_KeyDown(object sender, KeyEventArgs e)
