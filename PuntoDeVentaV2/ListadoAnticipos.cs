@@ -104,6 +104,9 @@ namespace PuntoDeVentaV2
 
             dr.Close();
             sql_con.Close();
+
+            DGVListaAnticipos.Focus();
+            DGVListaAnticipos.Rows[0].Cells["Concepto"].Selected = true;
         }
 
         private void DGVListaAnticipos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -181,6 +184,10 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 Close();
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                DGVListaAnticipos_CellClick(this, new DataGridViewCellEventArgs(5, DGVListaAnticipos.CurrentRow.Index));
             }
         }
     }
