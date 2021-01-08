@@ -51,11 +51,13 @@ namespace PuntoDeVentaV2
                 CargarDatosProveedor(proveedor);
             }
 
-            
-            foreach (Control control in this.Controls)
-            {
-                control.PreviewKeyDown += new PreviewKeyDownEventHandler(AgregarProveedor_PreviewKeyDown);
-            }
+
+            //foreach (Control control in this.Controls)
+            //{
+            //    control.PreviewKeyDown += new PreviewKeyDownEventHandler(AgregarProveedor_PreviewKeyDown);
+            //}
+            AgregarProveedor form = this;
+            Utilidades.EjecutarAtajoKeyPreviewDown(AgregarProveedor_PreviewKeyDown, form);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

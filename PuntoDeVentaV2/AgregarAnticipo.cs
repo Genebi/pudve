@@ -41,6 +41,13 @@ namespace PuntoDeVentaV2
             cbFormaPago.ValueMember = "Key";
 
             txtImporte.KeyPress += new KeyPressEventHandler(SoloDecimales);
+
+            //foreach (Control control in this.Controls)
+            //{
+            //    control.PreviewKeyDown += new PreviewKeyDownEventHandler(AgregarAnticipo_PreviewKeyDown);
+            //}
+            AgregarAnticipo form = this;
+            Utilidades.EjecutarAtajoKeyPreviewDown(AgregarAnticipo_PreviewKeyDown, form);
         }
 
         private void CargarClientes()
@@ -299,6 +306,22 @@ namespace PuntoDeVentaV2
             {
                 txtImporte.Text = "0.";
                 txtImporte.Select(txtImporte.Text.Length, 0);
+            }
+        }
+
+        private void txtComentarios_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void AgregarAnticipo_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
             }
         }
     }

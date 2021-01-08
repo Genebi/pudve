@@ -83,6 +83,14 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public static void EjecutarAtajoKeyPreviewDown(PreviewKeyDownEventHandler ubicacion, Form form)
+        {
+            foreach (Control control in form.Controls)
+            {
+                control.PreviewKeyDown += new PreviewKeyDownEventHandler(ubicacion);
+            }
+        }
+
         public static void GenerarTicketCaja()
         {
             int folioTicket = Properties.Settings.Default.folioAbrirCaja + 1;

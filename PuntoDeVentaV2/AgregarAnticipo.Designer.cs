@@ -137,6 +137,7 @@
             this.txtComentarios.Name = "txtComentarios";
             this.txtComentarios.Size = new System.Drawing.Size(549, 55);
             this.txtComentarios.TabIndex = 15;
+            this.txtComentarios.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtComentarios_KeyDown);
             // 
             // label5
             // 
@@ -247,11 +248,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tituloSeccion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "AgregarAnticipo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Nuevo Anticipo";
             this.Load += new System.EventHandler(this.AgregarAnticipo_Load);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AgregarAnticipo_PreviewKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
