@@ -50,6 +50,12 @@ namespace PuntoDeVentaV2
 
                 CargarDatosProveedor(proveedor);
             }
+
+            
+            foreach (Control control in this.Controls)
+            {
+                control.PreviewKeyDown += new PreviewKeyDownEventHandler(AgregarProveedor_PreviewKeyDown);
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -116,6 +122,22 @@ namespace PuntoDeVentaV2
             txtCodigoPostal.Text = datos[8];
             txtEmail.Text = datos[9];
             txtTelefono.Text = datos[10];
+        }
+
+        private void txtTelefono_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void AgregarProveedor_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
         }
     }
 }

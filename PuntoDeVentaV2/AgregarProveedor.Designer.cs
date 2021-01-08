@@ -291,6 +291,7 @@
             this.txtTelefono.Size = new System.Drawing.Size(181, 22);
             this.txtTelefono.TabIndex = 11;
             this.txtTelefono.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTelefono.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTelefono_KeyDown);
             // 
             // label10
             // 
@@ -370,6 +371,7 @@
             this.Name = "AgregarProveedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.AgregarProveedor_Load);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AgregarProveedor_PreviewKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
