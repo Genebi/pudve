@@ -1299,6 +1299,15 @@ GROUP BY Prod.ID";
                         NoRevision = drNoRev["NoRevisionAumentarInventario"].ToString();
                     }
                 }
+                else if (dtNoRevision.Rows.Count.Equals(0))
+                {
+                    var consulta = string.Empty;
+                    NoRevision = "0";
+
+                    consulta = $"INSERT INTO NoRevisionAumentarInventario (NoRevisionAumentarInventario) VALUES ({NoRevision})";
+
+                    cn.EjecutarConsulta(consulta);
+                }
             }
 
             return NoRevision;
@@ -1364,6 +1373,15 @@ GROUP BY Prod.ID";
                     {
                         NoRevision = drNoRev["NoRevisionDisminuirInventario"].ToString();
                     }
+                }
+                else if (dtNoRevision.Rows.Count.Equals(0))
+                {
+                    var consulta = string.Empty;
+                    NoRevision = "0";
+
+                    consulta = $"INSERT INTO NoRevisionDisminuirInventario (NoRevisionDisminuirInventario) VALUES ({NoRevision})";
+
+                    cn.EjecutarConsulta(consulta);
                 }
             }
 

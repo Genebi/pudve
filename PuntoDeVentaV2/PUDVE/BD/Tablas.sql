@@ -883,6 +883,11 @@ CREATE UNIQUE INDEX IF NOT EXISTS ID_Unico_ConceptosDinamicos ON ConceptosDinami
 CREATE INDEX IF NOT EXISTS IN_FechaOperacion_Caja ON Caja (Operacion); 
 CREATE INDEX IF NOT EXISTS INDEX_FechaOperacion_Caja ON Caja (FechaOperacion);
 
+-- Index de DGVAumentarInventario
+CREATE INDEX IF NOT EXISTS SEARCH_CHECKNUMBER_STATUS_AumentarInventario ON DGVAumentarInventario (NoRevision, StatusActualizacion);
+
+-- Index de DGVDisminuirInventario
+CREATE INDEX IF NOT EXISTS SEARCH_CHECKNUMBER_STATUS_DisminuirInventario ON DGVDisminuirInventario (NoRevision, StatusActualizacion);
 
 -- -------------------------------------
 -- Creación de Claves Foraneas de tablas
