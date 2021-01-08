@@ -330,7 +330,7 @@
             // 
             // NuevoStock
             // 
-            this.NuevoStock.HeaderText = "Nuevo Stock";
+            this.NuevoStock.HeaderText = "Stock Actual";
             this.NuevoStock.Name = "NuevoStock";
             this.NuevoStock.ReadOnly = true;
             // 
