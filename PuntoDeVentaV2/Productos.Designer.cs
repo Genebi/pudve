@@ -108,6 +108,7 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lbCapital = new System.Windows.Forms.Label();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -844,6 +845,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.lbCapital);
             this.panel2.Controls.Add(this.lbPaginasSeleccionadas);
             this.panel2.Controls.Add(this.txtIrPagina);
             this.panel2.Controls.Add(this.label3);
@@ -1109,6 +1111,15 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // lbCapital
+            // 
+            this.lbCapital.AutoSize = true;
+            this.lbCapital.Location = new System.Drawing.Point(14, 20);
+            this.lbCapital.Name = "lbCapital";
+            this.lbCapital.Size = new System.Drawing.Size(51, 13);
+            this.lbCapital.TabIndex = 26;
+            this.lbCapital.Text = "Capital: 0";
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1222,5 +1233,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StockMaximo;
         private System.Windows.Forms.CheckBox cbTodos;
         private System.Windows.Forms.Label lbPaginasSeleccionadas;
+        private System.Windows.Forms.Label lbCapital;
     }
 }

@@ -1586,6 +1586,8 @@ namespace PuntoDeVentaV2
 
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
 
+            lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString();
+
             if (FormPrincipal.id_empleado > 0)
             {
                 var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Productos");

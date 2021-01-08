@@ -1605,9 +1605,9 @@ namespace PuntoDeVentaV2
             return datos;
         }
 
-        public float CalcularCapital()
+        public double CalcularCapital()
         {
-            float total = 0f;
+            double total = 0f;
 
             DatosConexion($"SELECT Stock, Precio FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P'");
 
