@@ -3631,9 +3631,9 @@ namespace PuntoDeVentaV2
                                             if (configProducto[0] == 1)
                                             {
                                                 datos = new string[] {
-                                            nombre, precioAnterior.ToString("N2"),
-                                            precioNuevo.ToString("N2"), "editar producto"
-                                        };
+                                                    nombre, precioAnterior.ToString("N2"),
+                                                    precioNuevo.ToString("N2"), "editar producto"
+                                                };
 
                                                 Thread notificacion = new Thread(
                                                     () => Utilidades.CambioPrecioProductoEmail(datos)

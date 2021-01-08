@@ -317,7 +317,7 @@
             // 
             // Stock
             // 
-            this.Stock.HeaderText = "Stock Actual";
+            this.Stock.HeaderText = "Stock Anterior";
             this.Stock.Name = "Stock";
             this.Stock.ReadOnly = true;
             this.Stock.Width = 135;
@@ -401,6 +401,9 @@
         private System.Windows.Forms.ListBox listaProductos;
         private System.Windows.Forms.Button bntTerminar;
         private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.GroupBox gBSeleccionActualizarInventario;
+        private System.Windows.Forms.RadioButton rbDisminuirProducto;
+        private System.Windows.Forms.RadioButton rbAumentarProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
@@ -410,8 +413,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Clave;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.GroupBox gBSeleccionActualizarInventario;
-        private System.Windows.Forms.RadioButton rbDisminuirProducto;
-        private System.Windows.Forms.RadioButton rbAumentarProducto;
     }
 }
