@@ -1114,7 +1114,7 @@
             // lbCapital
             // 
             this.lbCapital.AutoSize = true;
-            this.lbCapital.Location = new System.Drawing.Point(14, 20);
+            this.lbCapital.Location = new System.Drawing.Point(7, 44);
             this.lbCapital.Name = "lbCapital";
             this.lbCapital.Size = new System.Drawing.Size(51, 13);
             this.lbCapital.TabIndex = 26;
