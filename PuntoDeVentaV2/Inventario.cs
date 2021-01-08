@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
     public partial class Inventario : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         public static int NumRevActivo = 0;
@@ -74,6 +75,73 @@ namespace PuntoDeVentaV2
                 opcion5 = permisos[4];
             }
             this.Focus();
+
+            if (rbAumentarProducto.Checked)
+            {
+                populateAumentarDGVInventario();
+            }
+            else if (rbDisminuirProducto.Checked)
+            {
+                populateDisminuirDGVInventario();
+            }
+        }
+
+        private void populateDisminuirDGVInventario()
+        {
+            using (DataTable dtRetriveDisminuirInventario = cn.CargarDatos(cs.GetDisminuirInventario()))
+            {
+                if (!dtRetriveDisminuirInventario.Rows.Count.Equals(0))
+                {
+                    DGVInventario.Rows.Clear();
+                    foreach (DataRow dr in dtRetriveDisminuirInventario.Rows)
+                    {
+                        int rowId = DGVInventario.Rows.Add();
+                        DataGridViewRow row = DGVInventario.Rows[rowId];
+                        row.Cells["ID"].Value = dr["IdProducto"].ToString();
+                        row.Cells["Nombre"].Value = dr["NombreProducto"].ToString();
+                        row.Cells["Stock"].Value = dr["StockActual"].ToString();
+                        row.Cells["DiferenciaUnidades"].Value = dr["DiferenciaUnidades"].ToString();
+                        row.Cells["DiferenciaUnidades"].Style.ForeColor = Color.OrangeRed;
+                        row.Cells["DiferenciaUnidades"].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
+                        row.Cells["NuevoStock"].Value = dr["NuevoStock"].ToString();
+                        row.Cells["Precio"].Value = dr["Precio"].ToString();
+                        row.Cells["Clave"].Value = dr["Clave"].ToString();
+                        row.Cells["Codigo"].Value = dr["Codigo"].ToString();
+                        row.Cells["Fecha"].Value = dr["Fecha"].ToString();
+                    }
+                }
+            }
+            DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
+        }
+
+        private void populateAumentarDGVInventario()
+        {
+            using (DataTable dtRetriveAumentarInventario = cn.CargarDatos(cs.GetAumentarInventario()))
+            {
+                if (!dtRetriveAumentarInventario.Rows.Count.Equals(0))
+                {
+                    DGVInventario.Rows.Clear();
+                    foreach (DataRow dr in dtRetriveAumentarInventario.Rows)
+                    {
+                        int rowId = DGVInventario.Rows.Add();
+
+                        DataGridViewRow row = DGVInventario.Rows[rowId];
+
+                        row.Cells["ID"].Value = dr["IdProducto"].ToString();
+                        row.Cells["Nombre"].Value = dr["NombreProducto"].ToString();
+                        row.Cells["Stock"].Value = dr["StockActual"].ToString();
+                        row.Cells["DiferenciaUnidades"].Value = dr["DiferenciaUnidades"].ToString();
+                        row.Cells["DiferenciaUnidades"].Style.ForeColor = Color.DodgerBlue;
+                        row.Cells["DiferenciaUnidades"].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
+                        row.Cells["NuevoStock"].Value = dr["NuevoStock"].ToString();
+                        row.Cells["Precio"].Value = dr["Precio"].ToString();
+                        row.Cells["Clave"].Value = dr["Clave"].ToString();
+                        row.Cells["Codigo"].Value = dr["Codigo"].ToString();
+                        row.Cells["Fecha"].Value = dr["Fecha"].ToString();
+                    }
+                }
+            }
+            DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
         }
 
         private bool ExistenProductos(string nombre)
@@ -739,6 +807,8 @@ namespace PuntoDeVentaV2
             var aumentar = string.Empty;
             aumentar = Convert.ToString(suma);
 
+            var NoRev = string.Empty;
+            
             if (!aumentar.Equals("0"))
             {
                 diferenciaUnidades = aumentar;
@@ -750,24 +820,80 @@ namespace PuntoDeVentaV2
 
             if (rbAumentarProducto.Checked)
             {
-                if (!aumentar.Equals(0))
+                NoRev = NoRevAumentarInventario();
+                
+                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1" };
+                var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
+                cn.EjecutarConsulta(insertAumentarInventario);
+                using (DataTable dtRetriveAumentarInventario=cn.CargarDatos(cs.GetAumentarInventario()))
                 {
-                    DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
-                    DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.DodgerBlue;
+                    if (!dtRetriveAumentarInventario.Rows.Count.Equals(0))
+                    {
+                        DGVInventario.Rows.Clear();
+                        foreach(DataRow dr in dtRetriveAumentarInventario.Rows)
+                        {
+                            int rowId = DGVInventario.Rows.Add();
+
+                            DataGridViewRow row = DGVInventario.Rows[rowId];
+
+                            row.Cells["ID"].Value = dr["IdProducto"].ToString();
+                            row.Cells["Nombre"].Value = dr["NombreProducto"].ToString();
+                            row.Cells["Stock"].Value = dr["StockActual"].ToString();
+                            row.Cells["DiferenciaUnidades"].Value = dr["DiferenciaUnidades"].ToString();
+                            row.Cells["DiferenciaUnidades"].Style.ForeColor = Color.DodgerBlue;
+                            row.Cells["DiferenciaUnidades"].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
+                            row.Cells["NuevoStock"].Value = dr["NuevoStock"].ToString();
+                            row.Cells["Precio"].Value = dr["Precio"].ToString();
+                            row.Cells["Clave"].Value = dr["Clave"].ToString();
+                            row.Cells["Codigo"].Value = dr["Codigo"].ToString();
+                            row.Cells["Fecha"].Value = dr["Fecha"].ToString();
+                        }
+                    }
                 }
+                DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
             }
             else if (rbDisminuirProducto.Checked)
             {
-                if (!decrementar.Equals(0))
+                NoRev = NoRevDisminuirInventario();
+
+                string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1" };
+
+                var insertarDisminuirInventario = cs.InsertarIntoDisminuirInventario(datosDisminuirInventario);
+
+                cn.EjecutarConsulta(insertarDisminuirInventario);
+
+                using (DataTable dtRetriveDisminuirInventario = cn.CargarDatos(cs.GetDisminuirInventario()))
                 {
-                    DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
-                    DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.OrangeRed;
+                    if (!dtRetriveDisminuirInventario.Rows.Count.Equals(0))
+                    {
+                        DGVInventario.Rows.Clear();
+                        foreach (DataRow dr in dtRetriveDisminuirInventario.Rows)
+                        {
+                            int rowId = DGVInventario.Rows.Add();
+
+                            DataGridViewRow row = DGVInventario.Rows[rowId];
+
+                            row.Cells["ID"].Value = dr["IdProducto"].ToString();
+                            row.Cells["Nombre"].Value = dr["NombreProducto"].ToString();
+                            row.Cells["Stock"].Value = dr["StockActual"].ToString();
+                            row.Cells["DiferenciaUnidades"].Value = dr["DiferenciaUnidades"].ToString();
+                            row.Cells["DiferenciaUnidades"].Style.ForeColor = Color.OrangeRed;
+                            row.Cells["DiferenciaUnidades"].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
+                            row.Cells["NuevoStock"].Value = dr["NuevoStock"].ToString();
+                            row.Cells["Precio"].Value = dr["Precio"].ToString();
+                            row.Cells["Clave"].Value = dr["Clave"].ToString();
+                            row.Cells["Codigo"].Value = dr["Codigo"].ToString();
+                            row.Cells["Fecha"].Value = dr["Fecha"].ToString();
+                        }
+                    }
                 }
+                DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
             }
 
-            DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
-            DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
             DGVInventario.ClearSelection();
+
+            //DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
+            //DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
 
             //if (!aumentar.Equals("0"))
             //{
@@ -783,6 +909,36 @@ namespace PuntoDeVentaV2
             //DGVInventario.ClearSelection(); 
         }
 
+        private string NoRevAumentarInventario()
+        {
+            var NumRev = string.Empty;
+
+            NumRev = cs.GetNoRevAumentarInventario();
+
+            if (NumRev.Equals(string.Empty))
+            {
+                NumRev = "0";
+                cn.EjecutarConsulta(cs.InsertIntoNoRevAumentarInventario(NumRev));
+            }
+
+            return NumRev;
+        }
+
+        private string NoRevDisminuirInventario()
+        {
+            var NumRev = string.Empty;
+
+            NumRev = cs.GetNoRevDisminuirInventario();
+
+            if (NumRev.Equals(string.Empty))
+            {
+                NumRev = "0";
+                cn.EjecutarConsulta(cs.InsertIntoNoRevDisminuirInvntario(NumRev));
+            }
+
+            return NumRev;
+        }
+
         private void bntTerminar_Click(object sender, EventArgs e)
         {
             if (opcion5 == 0)
@@ -794,6 +950,18 @@ namespace PuntoDeVentaV2
             if (Utilidades.AdobeReaderInstalado())
             {
                 GenerarReporte(idReporte);
+                if (rbAumentarProducto.Checked)
+                {
+                    var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+                    cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
+                    cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
+                }
+                else if (rbDisminuirProducto.Checked)
+                {
+                    var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+                    cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
+                    cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
+                }
             }
             else
             {
@@ -1072,13 +1240,17 @@ namespace PuntoDeVentaV2
 
         private void rbAumentarProducto_CheckedChanged(object sender, EventArgs e)
         {
+            var num = NoRevAumentarInventario();
             DGVInventario.Rows.Clear();
+            populateAumentarDGVInventario();
             txtBusqueda.Focus();
         }
 
         private void rbDisminuirProducto_CheckedChanged(object sender, EventArgs e)
         {
+            var num = NoRevDisminuirInventario();
             DGVInventario.Rows.Clear();
+            populateDisminuirDGVInventario();
             txtBusqueda.Focus();
         }
     }

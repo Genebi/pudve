@@ -785,6 +785,50 @@ CREATE TABLE IF NOT EXISTS Devoluciones(
     FechaOperacion DATETIME NOT NULL
 );
 
+-- 48 Tabla de DGVAumentarInventario
+CREATE TABLE IF NOT EXISTS DGVAumentarInventario(
+	id	INTEGER	PRIMARY KEY	AUTO_INCREMENT,
+	IdProducto	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	NombreProducto	VARCHAR(200)	NOT NULL,
+	StockActual	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	DiferenciaUnidades	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	NuevoStock	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	Precio	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	Clave	VARCHAR(20)	NOT NULL	DEFAULT(0),
+	Codigo	VARCHAR(20)	NOT NULL	DEFAULT(0),
+	Fecha	VARCHAR(20)	NOT NULL,
+	NoRevision	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	StatusActualizacion	VARCHAR(10)	NOT NULL	DEFAULT(0)
+);
+
+-- 49 Tabla de NoRevisionAumentarInventario
+CREATE TABLE IF NOT EXISTS NoRevisionAumentarInventario(
+	id INTEGER	PRIMARY KEY	AUTO_INCREMENT,
+	NoRevisionAumentarInventario INTEGER NOT NULL DEFAULT(0)
+);
+
+-- 50 Tabla de DGVDisminuirInventario
+CREATE TABLE IF NOT EXISTS DGVDisminuirInventario(
+	id	INTEGER	PRIMARY KEY	AUTO_INCREMENT,
+	IdProducto	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	NombreProducto	VARCHAR(200)	NOT NULL,
+	StockActual	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	DiferenciaUnidades	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	NuevoStock	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	Precio	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	Clave	VARCHAR(20)	NOT NULL	DEFAULT(0),
+	Codigo	VARCHAR(20)	NOT NULL	DEFAULT(0),
+	Fecha	VARCHAR(20)	NOT NULL,
+	NoRevision	VARCHAR(10)	NOT NULL	DEFAULT(0),
+	StatusActualizacion	VARCHAR(10)	NOT NULL	DEFAULT(0)
+);
+
+-- 51 Tabla de NoRevisionDisminuirInventario
+CREATE TABLE IF NOT EXISTS NoRevisionDisminuirInventario(
+	id INTEGER	PRIMARY KEY	AUTO_INCREMENT,
+	NoRevisionDisminuirInventario INTEGER NOT NULL DEFAULT(0)
+);
+
 -- ------------------------------------------
 -- -- Final sección de Tablas del sistema --
 -- ------------------------------------------
@@ -845,6 +889,11 @@ CREATE INDEX IF NOT EXISTS INDEX_sum_Vales_Caja ON Caja (Vales);
 CREATE INDEX IF NOT EXISTS INDEX_sum_Cheque_Caja ON Caja (Cheque);
 CREATE INDEX IF NOT EXISTS INDEX_sum_Trans_Caja ON Caja (Transferencia);
 
+-- Index de DGVAumentarInventario
+CREATE INDEX IF NOT EXISTS SEARCH_CHECKNUMBER_STATUS_AumentarInventario ON DGVAumentarInventario (NoRevision, StatusActualizacion);
+
+-- Index de DGVDisminuirInventario
+CREATE INDEX IF NOT EXISTS SEARCH_CHECKNUMBER_STATUS_DisminuirInventario ON DGVDisminuirInventario (NoRevision, StatusActualizacion);
 
 -- -------------------------------------
 -- Creación de Claves Foraneas de tablas
