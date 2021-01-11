@@ -713,6 +713,146 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtNombre_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtRFC_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtCalle_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtColonia_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtEstado_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtEmail_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtNoExt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtNoInt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtMpio_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtCodPost_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtTelefono_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void cbRegimen_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarDatos.PerformClick();
+            }
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarPassword.PerformClick();
+            }
+        }
+
+        private void txtPasswordNuevo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarPassword.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                btnActualizarPassword.PerformClick();
+            }
+        }
+
+        private void txt_certificado_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btn_vnt_subir_archivos.PerformClick();
+            }
+        }
+
+        private void txt_llave_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnActualizarPassword.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                btnActualizarPassword.PerformClick();
+            }
+        }
+
         private void btnSubirArchivo_Click(object sender, EventArgs e)
         {
             if (opcion2 == 0)

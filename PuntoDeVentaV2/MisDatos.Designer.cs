@@ -310,6 +310,7 @@
             this.cbRegimen.Size = new System.Drawing.Size(524, 25);
             this.cbRegimen.TabIndex = 23;
             this.cbRegimen.Click += new System.EventHandler(this.cbRegimen_Click);
+            this.cbRegimen.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbRegimen_KeyDown);
             // 
             // label13
             // 
@@ -334,6 +335,7 @@
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(213, 23);
             this.txtTelefono.TabIndex = 21;
+            this.txtTelefono.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTelefono_KeyDown);
             // 
             // label12
             // 
@@ -357,6 +359,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(233, 23);
             this.txtEmail.TabIndex = 19;
+            this.txtEmail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtEmail_KeyDown);
             // 
             // label11
             // 
@@ -381,6 +384,7 @@
             this.txtCodPost.Name = "txtCodPost";
             this.txtCodPost.Size = new System.Drawing.Size(213, 23);
             this.txtCodPost.TabIndex = 17;
+            this.txtCodPost.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodPost_KeyDown);
             // 
             // label10
             // 
@@ -404,6 +408,7 @@
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.Size = new System.Drawing.Size(234, 23);
             this.txtEstado.TabIndex = 15;
+            this.txtEstado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtEstado_KeyDown);
             // 
             // label9
             // 
@@ -427,6 +432,7 @@
             this.txtMpio.Name = "txtMpio";
             this.txtMpio.Size = new System.Drawing.Size(213, 23);
             this.txtMpio.TabIndex = 13;
+            this.txtMpio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMpio_KeyDown);
             // 
             // label8
             // 
@@ -450,6 +456,7 @@
             this.txtColonia.Name = "txtColonia";
             this.txtColonia.Size = new System.Drawing.Size(234, 23);
             this.txtColonia.TabIndex = 11;
+            this.txtColonia.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtColonia_KeyDown);
             // 
             // label7
             // 
@@ -473,6 +480,7 @@
             this.txtNoInt.Name = "txtNoInt";
             this.txtNoInt.Size = new System.Drawing.Size(80, 23);
             this.txtNoInt.TabIndex = 9;
+            this.txtNoInt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNoInt_KeyDown);
             // 
             // label6
             // 
@@ -496,6 +504,7 @@
             this.txtNoExt.Name = "txtNoExt";
             this.txtNoExt.Size = new System.Drawing.Size(80, 23);
             this.txtNoExt.TabIndex = 7;
+            this.txtNoExt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNoExt_KeyDown);
             // 
             // label5
             // 
@@ -519,6 +528,7 @@
             this.txtCalle.Name = "txtCalle";
             this.txtCalle.Size = new System.Drawing.Size(234, 23);
             this.txtCalle.TabIndex = 5;
+            this.txtCalle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCalle_KeyDown);
             // 
             // label4
             // 
@@ -543,6 +553,7 @@
             this.txtRFC.Name = "txtRFC";
             this.txtRFC.Size = new System.Drawing.Size(234, 23);
             this.txtRFC.TabIndex = 3;
+            this.txtRFC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRFC_KeyDown);
             // 
             // label3
             // 
@@ -566,6 +577,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(524, 23);
             this.txtNombre.TabIndex = 1;
+            this.txtNombre.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNombre_KeyDown);
             // 
             // label2
             // 
@@ -738,6 +750,7 @@
             this.txtPasswordNuevo.PasswordChar = '*';
             this.txtPasswordNuevo.Size = new System.Drawing.Size(187, 23);
             this.txtPasswordNuevo.TabIndex = 81;
+            this.txtPasswordNuevo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPasswordNuevo_KeyDown);
             // 
             // label28
             // 
@@ -762,6 +775,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(187, 23);
             this.txtPassword.TabIndex = 79;
+            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPassword_KeyDown);
             // 
             // label27
             // 
@@ -854,6 +868,7 @@
             this.txt_llave.ReadOnly = true;
             this.txt_llave.Size = new System.Drawing.Size(350, 20);
             this.txt_llave.TabIndex = 5;
+            this.txt_llave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_llave_KeyDown);
             // 
             // txt_certificado
             // 
@@ -863,6 +878,7 @@
             this.txt_certificado.ReadOnly = true;
             this.txt_certificado.Size = new System.Drawing.Size(350, 20);
             this.txt_certificado.TabIndex = 4;
+            this.txt_certificado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_certificado_KeyDown);
             // 
             // label26
             // 
