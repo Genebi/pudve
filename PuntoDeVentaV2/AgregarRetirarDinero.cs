@@ -911,5 +911,45 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void txtEfectivo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtTarjeta_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtVales_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtCheque_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtTrans_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
     }
 }

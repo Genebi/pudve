@@ -172,6 +172,7 @@
             this.txtVales.Size = new System.Drawing.Size(103, 23);
             this.txtVales.TabIndex = 3;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVales.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyDown);
             this.txtVales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtVales_KeyPress);
             this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
             // 
@@ -183,6 +184,7 @@
             this.txtTarjeta.Size = new System.Drawing.Size(103, 23);
             this.txtTarjeta.TabIndex = 2;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTarjeta.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyDown);
             this.txtTarjeta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTarjeta_KeyPress);
             this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
             // 
@@ -194,6 +196,7 @@
             this.txtEfectivo.Size = new System.Drawing.Size(103, 23);
             this.txtEfectivo.TabIndex = 1;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEfectivo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyDown);
             this.txtEfectivo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEfectivo_KeyPress);
             this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 
@@ -218,6 +221,7 @@
             this.txtTrans.Size = new System.Drawing.Size(103, 23);
             this.txtTrans.TabIndex = 5;
             this.txtTrans.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTrans.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTrans_KeyDown);
             this.txtTrans.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTrans_KeyPress);
             this.txtTrans.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTrans_KeyUp);
             // 
@@ -271,6 +275,7 @@
             this.txtCheque.Size = new System.Drawing.Size(103, 23);
             this.txtCheque.TabIndex = 4;
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCheque.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyDown);
             this.txtCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCheque_KeyPress);
             this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
             // 
