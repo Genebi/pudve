@@ -113,6 +113,7 @@
             this.txtDescuento.Name = "txtDescuento";
             this.txtDescuento.Size = new System.Drawing.Size(169, 23);
             this.txtDescuento.TabIndex = 1;
+            this.txtDescuento.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescuento_KeyDown);
             // 
             // txtNombre
             // 
@@ -122,6 +123,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(169, 23);
             this.txtNombre.TabIndex = 0;
+            this.txtNombre.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNombre_KeyDown);
             // 
             // AgregarTipoCliente
             // 
@@ -130,6 +132,7 @@
             this.ClientSize = new System.Drawing.Size(339, 221);
             this.Controls.Add(this.groupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AgregarTipoCliente";
@@ -137,6 +140,7 @@
             this.Text = "PUDVE - Registrar tipo Cliente";
             this.Load += new System.EventHandler(this.AgregarTipoCliente_Load);
             this.Shown += new System.EventHandler(this.AgregarTipoCliente_Shown);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AgregarTipoCliente_PreviewKeyDown);
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
             this.ResumeLayout(false);

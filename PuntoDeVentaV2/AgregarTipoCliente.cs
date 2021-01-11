@@ -45,6 +45,9 @@ namespace PuntoDeVentaV2
             }
 
             txtDescuento.KeyPress += new KeyPressEventHandler(SoloDecimales);
+
+            AgregarTipoCliente form = this;
+            Utilidades.EjecutarAtajoKeyPreviewDown(AgregarTipoCliente_PreviewKeyDown, form);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -130,6 +133,35 @@ namespace PuntoDeVentaV2
             {
                 txtNombre.Select(txtNombre.Text.Length, 0);
                 txtNombre.Focus();
+            }
+        }
+
+        private void txtDescuento_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+            else if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void AgregarTipoCliente_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+            
+        }
+
+        private void txtNombre_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
             }
         }
     }
