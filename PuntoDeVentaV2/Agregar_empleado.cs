@@ -31,6 +31,10 @@ namespace PuntoDeVentaV2
 
             this.tipo = tipo;
             this.empleado = empleado;
+
+            Agregar_empleado form = this;
+            Utilidades.EjecutarAtajoKeyPreviewDown(Agregar_empleado_PreviewKeyDown, form);
+
         }
 
         private void Agregar_empleado_Load(object sender, EventArgs e)
@@ -366,6 +370,30 @@ namespace PuntoDeVentaV2
             txt_autorizar.Visible = true;
 
             actualizar_contraseña = 1;
+        }
+
+        private void txt_autorizar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btn_aceptar.PerformClick();
+            }
+        }
+
+        private void Agregar_empleado_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btn_aceptar.PerformClick();
+            }
+        }
+
+        private void txt_conttraseña_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btn_aceptar.PerformClick();
+            }
         }
     }
 }

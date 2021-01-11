@@ -132,6 +132,7 @@
             this.txt_conttraseña.Size = new System.Drawing.Size(190, 22);
             this.txt_conttraseña.TabIndex = 7;
             this.txt_conttraseña.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt_conttraseña.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_conttraseña_KeyDown);
             this.txt_conttraseña.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.solo_letras_digitos);
             // 
             // lb_usuario_completo
@@ -209,6 +210,7 @@
             this.txt_autorizar.TabIndex = 14;
             this.txt_autorizar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txt_autorizar.Visible = false;
+            this.txt_autorizar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_autorizar_KeyDown);
             // 
             // picturebx_editar
             // 
@@ -244,6 +246,7 @@
             this.Controls.Add(this.lbTitulo);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -251,6 +254,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Agregar Empleado";
             this.Load += new System.EventHandler(this.Agregar_empleado_Load);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Agregar_empleado_PreviewKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.picturebx_editar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
