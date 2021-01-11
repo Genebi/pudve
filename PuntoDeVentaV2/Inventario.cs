@@ -1000,9 +1000,9 @@ namespace PuntoDeVentaV2
             }
 
             // se agrego una columna nueva al reporte la de stock anterior ahora son 9 Columnas
-            // Producto=245f,       Proveedor=200f,     Unidades Compradas=80f,     Precio compra=70f,      Precio venta=70f,
-            // Stock anterior=55f   Stock actual=55f,   Fecha de compra=80f,        Fecha de operación=80f
-            float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 80f };
+            // Producto = 245f,       Proveedor = 200f,     Unidades Compradas = 80f,     Precio compra = 70f,      Precio venta = 70f,
+            // Stock anterior = 55f   Stock actual = 55f,   Fecha de compra = 80f,        Fecha de operación = 80f  Comentarios = 200f
+            float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 80f, 200f };
 
             Document reporte = new Document(PageSize.A3.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -1027,7 +1027,16 @@ namespace PuntoDeVentaV2
             }
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            Paragraph subTitulo = new Paragraph("");
+            //Paragraph subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            if (rbAumentarProducto.Checked)
+            {
+                subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Aumentar)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            }
+            else if (rbDisminuirProducto.Checked)
+            {
+                subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Disminuir)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            }
             //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
@@ -1038,7 +1047,7 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            PdfPTable tabla = new PdfPTable(9);
+            PdfPTable tabla = new PdfPTable(10);
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
@@ -1078,6 +1087,10 @@ namespace PuntoDeVentaV2
             colFechaOperacion.BorderWidth = 1;
             colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
+            PdfPCell colComentarios = new PdfPCell(new Phrase("Comentarios", fuenteNegrita));
+            colComentarios.BorderWidth = 1;
+            colComentarios.HorizontalAlignment = Element.ALIGN_CENTER;
+
             tabla.AddCell(colProducto);
             tabla.AddCell(colProveedor);
             tabla.AddCell(colUnidades);
@@ -1087,6 +1100,7 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colStock);
             tabla.AddCell(colFechaCompra);
             tabla.AddCell(colFechaOperacion);
+            tabla.AddCell(colComentarios);
 
 
             //Consulta para obtener los registros del Historial de compras
@@ -1128,6 +1142,8 @@ namespace PuntoDeVentaV2
                 DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
                 var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
 
+                var comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
+
                 PdfPCell colProductoTmp = new PdfPCell(new Phrase(producto, fuenteNormal));
                 colProductoTmp.BorderWidth = 1;
                 colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -1164,6 +1180,10 @@ namespace PuntoDeVentaV2
                 colFechaOperacionTmp.BorderWidth = 1;
                 colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                PdfPCell colComentariosTmp = new PdfPCell(new Phrase(comentarios, fuenteNormal));
+                colComentariosTmp.BorderWidth = 1;
+                colComentariosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
                 tabla.AddCell(colProductoTmp);
                 tabla.AddCell(colProveedorTmp);
                 tabla.AddCell(colUnidadesTmp);
@@ -1173,6 +1193,7 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colStockTmp);
                 tabla.AddCell(colFechaCompraTmp);
                 tabla.AddCell(colFechaOperacionTmp);
+                tabla.AddCell(colComentariosTmp);
             }
 
             /******************************************
