@@ -32,6 +32,7 @@ namespace PuntoDeVentaV2
             else if (e.KeyCode == Keys.Down && !dgvRevisarInventario.Rows.Count.Equals(0))
             {
                 dgvRevisarInventario.Focus();
+                dgvRevisarInventario.FirstDisplayedScrollingRowIndex = dgvRevisarInventario.Rows.Count - 1;
             }
         }
 

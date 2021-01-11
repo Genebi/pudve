@@ -225,7 +225,8 @@ namespace PuntoDeVentaV2
             else if (e.KeyCode == Keys.Down && !DGVClientes.Rows.Count.Equals(0))
             {
                 DGVClientes.Focus();
-                DGVClientes.Rows[0].Cells["RFC"].Selected = true;
+                //DGVClientes.Rows[0].Cells["RFC"].Selected = true;
+                DGVClientes.CurrentRow.Selected = true;
             }
         }
 

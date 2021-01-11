@@ -89,6 +89,8 @@ namespace PuntoDeVentaV2
 
             dr.Close();
             sql_con.Close();
+
+
         }
 
         private void DGVListaVentasGuardadas_CellClick(object sender, DataGridViewCellEventArgs e)

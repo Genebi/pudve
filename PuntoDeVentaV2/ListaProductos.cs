@@ -206,6 +206,9 @@ namespace PuntoDeVentaV2
                 row.Cells["Categoria"].Value = tipo;
                 row.Cells["ClaveInterna"].Value = datos[6];
                 row.Cells["Codigo"].Value = datos[7];
+
+                DGVStockProductos.Focus();
+                DGVStockProductos.CurrentRow.Selected = true;
             }
         }
 

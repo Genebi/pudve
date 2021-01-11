@@ -98,6 +98,7 @@ namespace PuntoDeVentaV2
 
                     row.Cells["Aplicar"].ToolTipText = "Aplicar";
                 }
+
             }
 
             DGVListaAnticipos.ClearSelection();
@@ -106,7 +107,9 @@ namespace PuntoDeVentaV2
             sql_con.Close();
 
             DGVListaAnticipos.Focus();
-            DGVListaAnticipos.Rows[0].Cells["Concepto"].Selected = true;
+            //DGVListaAnticipos.Rows[0].Cells["Concepto"].Selected = true;
+            DGVListaAnticipos.CurrentRow.Selected = true;
+
         }
 
         private void DGVListaAnticipos_CellClick(object sender, DataGridViewCellEventArgs e)
