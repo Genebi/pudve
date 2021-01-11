@@ -52,6 +52,14 @@ namespace PuntoDeVentaV2
             cargarDatos();
         }
 
+        private void txtNombre_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
         private void cargarDatos()
         {
             IdUsr = getIdUsr;

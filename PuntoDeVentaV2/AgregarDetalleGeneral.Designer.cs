@@ -43,6 +43,7 @@
             this.txtNombre.Size = new System.Drawing.Size(294, 22);
             this.txtNombre.TabIndex = 64;
             this.txtNombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtNombre.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNombre_KeyDown);
             // 
             // label1
             // 

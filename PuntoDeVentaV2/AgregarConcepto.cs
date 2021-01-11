@@ -56,5 +56,13 @@ namespace PuntoDeVentaV2
         {
             this.Close();
         }
+
+        private void txtConcepto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAgregar.PerformClick();
+            }
+        }
     }
 }

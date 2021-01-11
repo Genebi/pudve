@@ -50,6 +50,7 @@
             this.txtConcepto.Size = new System.Drawing.Size(294, 20);
             this.txtConcepto.TabIndex = 1;
             this.txtConcepto.TextChanged += new System.EventHandler(this.txtConcepto_TextChanged);
+            this.txtConcepto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtConcepto_KeyDown);
             // 
             // btnAgregar
             // 
