@@ -256,7 +256,7 @@ namespace PuntoDeVentaV2
                                             }
                                         }
                                     }
-                                    id.Clear();
+                                    //id.Clear();
                                 }
                             }
                             else
@@ -280,7 +280,7 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
-                                id.Clear();
+                                //id.Clear();
                             }
                         }
                         else
@@ -307,7 +307,7 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
-                                id.Clear();
+                                //id.Clear();
                             }
                             else
                             {
@@ -330,7 +330,7 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
-                                id.Clear();
+                                //id.Clear();
                             }
                         }
                     }
