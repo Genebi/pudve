@@ -122,6 +122,9 @@ namespace PuntoDeVentaV2
                 opcion23 = permisos[22];
             }
             this.Focus();
+
+            SetUpPUDVE form = this;
+            Utilidades.EjecutarAtajoKeyPreviewDown(SetUpPUDVE_PreviewKeyDown, form);
         }
 
         private void VerificarDatosInventario()
@@ -869,6 +872,26 @@ namespace PuntoDeVentaV2
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCorteDeCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void SetUpPUDVE_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtNombreServidor.Focus())
+                {
+                    btnGuardarServidor.PerformClick();
+                }
+                else if (txtNumeroRevision.Focus())
+                {
+                    btnGuardarRevision.PerformClick();
+                }
+                else if (txtPorcentajeProducto.Focus())
+                {
+                    btnGuardarPorcentaje.PerformClick();
+                }
+
+            }
         }
     }
 }

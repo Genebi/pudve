@@ -570,11 +570,13 @@
             this.Controls.Add(this.btnRespaldo);
             this.Controls.Add(this.cbStockNegativo);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.KeyPreview = true;
             this.Name = "SetUpPUDVE";
             this.Text = "PUDVE - Configuración";
             this.Load += new System.EventHandler(this.SetUpPUDVE_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.SetUpPUDVE_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SetUpPUDVE_KeyDown);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.SetUpPUDVE_PreviewKeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
