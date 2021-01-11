@@ -42,6 +42,9 @@ namespace PuntoDeVentaV2
 
         private void AgregarCliente_Load(object sender, EventArgs e)
         {
+            AgregarCliente form = this;
+            Utilidades.EjecutarAtajoKeyPreviewDown(gbContenedor_PreviewKeyDown, form);
+
             DatosAgregarCliente();
         }
 
@@ -428,6 +431,155 @@ namespace PuntoDeVentaV2
         {
 
             DatosAgregarCliente();
+        }
+
+        private void txtTelefono_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void gbContenedor_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            
+        }
+
+        private void AgregarCliente_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtRazonSocial_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtNombreComercial_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtRFC_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtPais_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void cbCliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtEstado_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtMunicipio_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtCP_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtCalle_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtEmail_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void cbTipoCliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtLocalidad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtColonia_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtNumExt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtNumInt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void cbUsoCFDI_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.End)
+            {
+                btnAceptar.PerformClick();
+            }
         }
     }
 }
