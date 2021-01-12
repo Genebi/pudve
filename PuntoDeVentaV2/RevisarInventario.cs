@@ -458,6 +458,7 @@ namespace PuntoDeVentaV2
                                     {
                                         //LimpiarCampos();
                                         //txtBoxBuscarCodigoBarras.Focus();
+                                        txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
                                         btnOmitir.PerformClick();
                                         txtCantidadStock.Focus();
                                     }
