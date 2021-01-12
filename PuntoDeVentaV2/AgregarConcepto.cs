@@ -12,6 +12,8 @@ namespace PuntoDeVentaV2
 {
     public partial class AgregarConcepto : Form
     {
+        Conexion cn = new Conexion();
+
         public static string query { get; set; }
         public static int empty { get; set; }
         public AgregarConcepto()
@@ -36,6 +38,7 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Ingrese el nombre del concepto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                empty = 1;
 
                 query = "INSERT INTO ConceptosDinamicos (IDUsuario, Concepto, Origen, FechaOperacion)";
                 query += $"VALUES ('{FormPrincipal.userID}', '{concepto}', '{ConceptosCaja.pasarOrigen}', '{fechaOperacion}')";
@@ -61,7 +64,14 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
-                btnAgregar.PerformClick();
+                if (!string.IsNullOrWhiteSpace(txtConcepto.Text))
+                {
+                    btnAgregar.PerformClick();
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese el concepto", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
     }
