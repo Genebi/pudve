@@ -50,6 +50,8 @@ namespace PuntoDeVentaV2
         static public string UnidadMedidaFinal;
         static public string ClaveMedidaFinal;
 
+        static public bool editado = false;
+
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -651,6 +653,10 @@ namespace PuntoDeVentaV2
             AgregarEditarProducto.ivaProducto = txtIVA.Text;
             AgregarEditarProducto.impuestoProducto = impuesto;
 
+            // Se agrega variable para identificar si al momento de editar se guardan los cambios o se cancelan.
+            // Esto es para evitar que se eliminen los impuestos si no se da clic en este botón 
+            editado = true;
+              
             this.Hide();
         }
 
@@ -1703,7 +1709,13 @@ namespace PuntoDeVentaV2
                             {
                                 //var porcentaje = CantidadPorcentaje(porcentajeTmp[0]);
 
-                                double porcentaje = convertir_porcentaje(Convert.ToDouble(porcentajeTmp[0]), cmb_col_2);
+                                double porcentaje = 0;
+
+                                if (porcentajeTmp[0] != "")
+                                {
+                                    porcentaje = convertir_porcentaje(Convert.ToDouble(porcentajeTmp[0]), cmb_col_2);
+                                }
+
                                 var importe = cantidadBase * porcentaje;
 
                                 item.Text = importe.ToString("0.00");

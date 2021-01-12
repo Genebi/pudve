@@ -1587,6 +1587,7 @@ namespace PuntoDeVentaV2
             double totalIVA8 = 0;
             double totalAnticipos = 0;
             double totalOtrosImpuestos = 0;
+            double total_impuestos_retenidos = 0;
 
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
@@ -1595,20 +1596,60 @@ namespace PuntoDeVentaV2
                 var descuentoClienteAux = 0f;
                 var esDescuentoDirecto = false;
 
+
+                // MIRI.
+                // Busca si tiene impuestos extra (Traslado).
+
+                DataTable dbusca_impuestos = cn.CargarDatos(cs.cargar_impuestos_en_editar_producto(idProducto));
+
+                if(dbusca_impuestos.Rows.Count > 0)
+                {
+                    double cantidad_producto = Convert.ToDouble(fila.Cells["Cantidad"].Value.ToString());
+
+                    
+                    foreach (DataRow rbusca_impuestos in dbusca_impuestos.Rows)
+                    {
+                        var precioOriginalAux = float.Parse(fila.Cells["PrecioOriginal"].Value.ToString());
+
+                        if (rbusca_impuestos["tipo"].ToString() == "Traslado" | rbusca_impuestos["tipo"].ToString() == "Loc. Traslado")
+                        {
+                            double impt = cantidad_producto * Convert.ToDouble(rbusca_impuestos["Importe"].ToString());
+                            totalOtrosImpuestos += impt;
+
+                            // Se suma el impuesto a las filas de precio, no se el porque
+                            // se haga esto pero yo sigo el mismo paso que hacen con el IEPS. 
+                            fila.Cells["Precio"].Value = precioOriginalAux + Convert.ToDouble(rbusca_impuestos["Importe"].ToString());
+                            fila.Cells["PrecioOriginal"].Value = precioOriginalAux + Convert.ToDouble(rbusca_impuestos["Importe"].ToString());
+                        }
+                        if (rbusca_impuestos["tipo"].ToString() == "Retención" | rbusca_impuestos["tipo"].ToString() == "Loc. Retenido")
+                        {
+                            double impr = cantidad_producto * Convert.ToDouble(rbusca_impuestos["Importe"].ToString());
+                            total_impuestos_retenidos += impr;
+
+                            // Se suma el impuesto a las filas de precio, no se el porque
+                            // se haga esto pero yo sigo el mismo paso que hacen con el IEPS
+                            fila.Cells["Precio"].Value = precioOriginalAux - Convert.ToDouble(rbusca_impuestos["Importe"].ToString());
+                            fila.Cells["PrecioOriginal"].Value = precioOriginalAux - Convert.ToDouble(rbusca_impuestos["Importe"].ToString());
+                        }
+                    }
+                }
+
+                
+                 
                 // Buscar si tiene IEPS para la etiqueta otros impuestos
-                var ieps = mb.ObtenerImpuestoProducto(idProducto);
+                /*var ieps = mb.ObtenerImpuestoProducto(idProducto);
 
                 if (ieps > 0)
                 {
                     var cantidadAux = float.Parse(fila.Cells["Cantidad"].Value.ToString());
 
-                    totalOtrosImpuestos += (ieps * cantidadAux);
+                    //totalOtrosImpuestos += (ieps * cantidadAux);
 
                     var precioOriginalAux = float.Parse(fila.Cells["PrecioOriginal"].Value.ToString());
 
                     fila.Cells["Precio"].Value = precioOriginalAux + ieps;
                     fila.Cells["PrecioOriginal"].Value = precioOriginalAux + ieps;
-                }
+                }*/
 
                 var impuesto = fila.Cells["Impuesto"].Value.ToString();
 
@@ -1860,25 +1901,47 @@ namespace PuntoDeVentaV2
 
                 // Se vuelve a restaurar el valor original despues de haber hecho los calculos
                 // cuando el producto tiene detalle de facturacion en especifico tiene IEPS
-                if (ieps > 0)
+                /*if (ieps > 0)
                 {
                     var precioOriginalAux = float.Parse(fila.Cells["PrecioOriginal"].Value.ToString());
 
                     fila.Cells["PrecioOriginal"].Value = precioOriginalAux - ieps;
+                }*/
+
+                // MIRI.
+                // Aquí se va a quitar los imuestos extras, no se porque pero sigo el mismo procedimiento que hicieron con el IEPS. 
+
+                //DataTable dbusca_impuestosq = cn.CargarDatos(cs.cargar_impuestos_en_editar_producto(idProducto));
+
+                if (dbusca_impuestos.Rows.Count > 0)
+                {
+                    foreach (DataRow rbusca_impuestos in dbusca_impuestos.Rows)
+                    {
+                        var precioOriginalAux = float.Parse(fila.Cells["PrecioOriginal"].Value.ToString());
+
+                        if (rbusca_impuestos["tipo"].ToString() == "Traslado" | rbusca_impuestos["tipo"].ToString() == "Loc. Traslado")
+                        {
+                            fila.Cells["PrecioOriginal"].Value = precioOriginalAux - Convert.ToDouble(rbusca_impuestos["Importe"].ToString());
+                        }
+                        if (rbusca_impuestos["tipo"].ToString() == "Retención" | rbusca_impuestos["tipo"].ToString() == "Loc. Retenido")
+                        {
+                            fila.Cells["PrecioOriginal"].Value = precioOriginalAux + Convert.ToDouble(rbusca_impuestos["Importe"].ToString());
+                        }
+                    }
                 }
             }
 
             // Calculo del subtotal al 16
             if (totalImporte > 0)
             {
-                totalSubtotal = (totalImporte - totalOtrosImpuestos) / 1.16;
+                totalSubtotal = ((totalImporte - totalOtrosImpuestos) + total_impuestos_retenidos) / 1.16;
                 totalIVA16 = totalSubtotal * 0.16;
             }
 
             // Calculo del subtotal al 8
             if (totalImporte8 > 0)
             {
-                totalSubtotal8 = (totalImporte8 - totalOtrosImpuestos) / 1.08;
+                totalSubtotal8 = ((totalImporte8 - totalOtrosImpuestos) + total_impuestos_retenidos) / 1.08;
                 totalIVA8 = totalSubtotal8 * 0.08;
             }
 
@@ -2011,7 +2074,20 @@ namespace PuntoDeVentaV2
                 cOtrosImpuestos.Visible = false;
             }
 
+            // Retenciones
+            if (total_impuestos_retenidos > 0)
+            {
+                lb_impuestos_retenidos.Visible = true;
+                lb_cant_impuestos_retenidos.Visible = true;
+            }
+            else
+            {
+                lb_impuestos_retenidos.Visible = false;
+                lb_cant_impuestos_retenidos.Visible = false;
+            }
+
             cOtrosImpuestos.Text = totalOtrosImpuestos.ToString("0.00");
+            lb_cant_impuestos_retenidos.Text = total_impuestos_retenidos.ToString("0.00");
             cAnticipo.Text = totalAnticipos.ToString("0.00");
             cDescuento.Text = totalDescuento.ToString("0.00");
             cNumeroArticulos.Text = totalArticulos.ToString();
@@ -5112,6 +5188,36 @@ namespace PuntoDeVentaV2
                 }
                 CantidadesFinalesVenta();
             }
+        }
+
+        private void cOtrosImpuestos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cIVA8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cIVA_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cSubtotal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cNumeroArticulos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cAnticipo_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void DGVentas_MouseUp(object sender, MouseEventArgs e)

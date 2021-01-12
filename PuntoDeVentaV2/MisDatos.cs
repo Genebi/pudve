@@ -376,8 +376,26 @@ namespace PuntoDeVentaV2
         {
             if (txtNombre.Text.Trim() == "")
             {
+                MessageBox.Show("El nombre no debe estar vacío.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txtRFC.Text.Trim() == "")
+            {
                 MessageBox.Show("El RFC no debe estar vacío.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
+            }
+            else
+            {
+                int rfc_valido = 0;
+
+                if (txtRFC.Text.Length == 12){ rfc_valido = 1; }
+                if (txtRFC.Text.Length == 13){ rfc_valido = 1; }
+
+                if (rfc_valido == 0)
+                {
+                    MessageBox.Show("La longitud del RFC es incorrecta.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
             }
             if (txtCodPost.Text.Trim() == "")
             {
