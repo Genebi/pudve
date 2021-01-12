@@ -3709,19 +3709,23 @@ namespace PuntoDeVentaV2
 
                             //  MIRI.
                             // °°°°°°°
-                            // Busca si antes de la edición tenia impuestos extras, si es así entonces, los eliminará. 
-                            bool existen_imp_extra = (bool)cn.EjecutarSelect($"SELECT * FROM detallesfacturacionproductos WHERE IDProducto='{idProductoBuscado}'", 0);
-                            
-                            if(existen_imp_extra == true)
-                            {
-                                int elimina_imp_extras = cn.EjecutarConsulta($"DELETE FROM detallesfacturacionproductos WHERE IDProducto= '{idProductoBuscado}'");
-                            }
 
-                            // Comprueba si hay impuestos extra, de ser así se procede al guardado.  
-                            if (datosImpuestos != null)
+                            if(AgregarDetalleFacturacionProducto.editado == true)
                             {
-                                guardarDatosImpuestos(2);
-                            }
+                                // Busca si antes de la edición tenia impuestos extras, si es así entonces, los eliminará. 
+                                bool existen_imp_extra = (bool)cn.EjecutarSelect($"SELECT * FROM detallesfacturacionproductos WHERE IDProducto='{idProductoBuscado}'", 0);
+
+                                if (existen_imp_extra == true)
+                                {
+                                    int elimina_imp_extras = cn.EjecutarConsulta($"DELETE FROM detallesfacturacionproductos WHERE IDProducto= '{idProductoBuscado}'");
+                                }
+
+                                // Comprueba si hay impuestos extra, de ser así se procede al guardado.  
+                                if (datosImpuestos != null)
+                                {
+                                    guardarDatosImpuestos(2);
+                                }
+                            }                            
 
                             /*//Se obtiene la ID del último producto agregado
                                         idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
