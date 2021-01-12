@@ -837,7 +837,7 @@ namespace PuntoDeVentaV2
 
                 NoRev = NoRevAumentarInventario();
 
-                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1" };
+                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios };
                 var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
                 cn.EjecutarConsulta(insertAumentarInventario);
                 using (DataTable dtRetriveAumentarInventario = cn.CargarDatos(cs.GetAumentarInventario()))
