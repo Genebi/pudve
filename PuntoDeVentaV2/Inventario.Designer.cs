@@ -52,6 +52,7 @@
             this.Clave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comentarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelBotones.SuspendLayout();
             this.gBSeleccionActualizarInventario.SuspendLayout();
             this.panelContenedor.SuspendLayout();
@@ -293,7 +294,8 @@
             this.Precio,
             this.Clave,
             this.Codigo,
-            this.Fecha});
+            this.Fecha,
+            this.Comentarios});
             this.DGVInventario.Location = new System.Drawing.Point(0, 86);
             this.DGVInventario.Name = "DGVInventario";
             this.DGVInventario.ReadOnly = true;
@@ -320,46 +322,55 @@
             this.Stock.HeaderText = "Stock Anterior";
             this.Stock.Name = "Stock";
             this.Stock.ReadOnly = true;
-            this.Stock.Width = 135;
+            this.Stock.Width = 70;
             // 
             // DiferenciaUnidades
             // 
             this.DiferenciaUnidades.HeaderText = "Diferencia de Unidades";
             this.DiferenciaUnidades.Name = "DiferenciaUnidades";
             this.DiferenciaUnidades.ReadOnly = true;
+            this.DiferenciaUnidades.Width = 90;
             // 
             // NuevoStock
             // 
             this.NuevoStock.HeaderText = "Stock Actual";
             this.NuevoStock.Name = "NuevoStock";
             this.NuevoStock.ReadOnly = true;
+            this.NuevoStock.Width = 70;
             // 
             // Precio
             // 
             this.Precio.HeaderText = "Precio";
             this.Precio.Name = "Precio";
             this.Precio.ReadOnly = true;
-            this.Precio.Width = 135;
+            this.Precio.Width = 70;
             // 
             // Clave
             // 
             this.Clave.HeaderText = "Clave";
             this.Clave.Name = "Clave";
             this.Clave.ReadOnly = true;
-            this.Clave.Width = 135;
             // 
             // Codigo
             // 
             this.Codigo.HeaderText = "Código";
             this.Codigo.Name = "Codigo";
             this.Codigo.ReadOnly = true;
+            this.Codigo.Width = 95;
             // 
             // Fecha
             // 
             this.Fecha.HeaderText = "Fecha";
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 135;
+            this.Fecha.Width = 95;
+            // 
+            // Comentarios
+            // 
+            this.Comentarios.HeaderText = "Comentarios";
+            this.Comentarios.Name = "Comentarios";
+            this.Comentarios.ReadOnly = true;
+            this.Comentarios.Visible = false;
             // 
             // Inventario
             // 
@@ -413,5 +424,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Clave;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Comentarios;
     }
 }
