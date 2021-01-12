@@ -1423,5 +1423,19 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string SearchDGVAumentarInventario(int userID, int NoRev)
+        {
+            var consulta = $@"SELECT RecordSale.IDProducto, PlusInv.NombreProducto Concepto, RecordSale.NomEmisor, RecordSale.Cantidad, 	RecordSale.ValorUnitario, RecordSale.Precio, RecordSale.FechaLarga, RecordSale.FechaOperacion, RecordSale.Comentarios FROM HistorialCompras AS RecordSale INNER JOIN DGVAumentarInventario AS PlusInv ON PlusInv.IdProducto = RecordSale.IDProducto WHERE RecordSale.IDUsuario = {userID} AND PlusInv.NoRevision = {NoRev} AND PlusInv.StatusActualizacion = 1; ";
+
+            return consulta;
+        }
+
+        public string NomEmisorComentariosHistorialCompras(string IdProducto)
+        {
+            var consulta = $"SELECT ID, NomEmisor, Comentarios FROM HistorialCompras WHERE IDProducto = {IdProducto} GROUP BY ID DESC LIMIT 1";
+
+            return consulta;
+        }
     }
 }
