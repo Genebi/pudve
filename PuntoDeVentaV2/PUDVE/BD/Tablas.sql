@@ -982,3 +982,6 @@ ALTER TABLE DGVDisminuirInventario ADD COLUMN IF NOT EXISTS NombreEmisor VARCHAR
 -- Agregar Columna (Comntarios) a la tabla DGVDisminuirInventario si es que no tiene dicha columna
 ALTER TABLE DGVDisminuirInventario ADD COLUMN IF NOT EXISTS Comentarios VARCHAR(150);
 
+-- Agregar Columna (ValorUnitario) a la tabla DGVDisminuirInventario si es que no tiene dicha columna
+ALTER TABLE DGVDisminuirInventario ADD COLUMN IF NOT EXISTS ValorUnitario VARCHAR(100) DEFAULT ('0');
+
