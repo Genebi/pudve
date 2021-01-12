@@ -258,6 +258,7 @@ namespace PuntoDeVentaV2
                                     }
                                     //id.Clear();
                                 }
+                                txtCantidadStock.SelectAll();
                             }
                             else
                             {
@@ -281,6 +282,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 //id.Clear();
+                                txtCantidadStock.SelectAll();
                             }
                         }
                         else
@@ -308,6 +310,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 //id.Clear();
+                                txtCantidadStock.SelectAll();
                             }
                             else
                             {
@@ -331,6 +334,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 //id.Clear();
+                                txtCantidadStock.SelectAll();
                             }
                         }
                     }
@@ -355,6 +359,7 @@ namespace PuntoDeVentaV2
                             codigo = AplicarFiltro(idProductoAux);
                             aplicar = true;
                         }
+                        txtCantidadStock.SelectAll();
                     }
                 }
 
@@ -370,6 +375,7 @@ namespace PuntoDeVentaV2
 
                         countListaCodigosBarras++;
                     }
+                    txtCantidadStock.SelectAll();
                 }
                 else
                 {
@@ -511,6 +517,7 @@ namespace PuntoDeVentaV2
                             MessageBox.Show("Producto no encontrado / Deshabilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
+                    txtCantidadStock.SelectAll();
                 }
             }
             //txtCantidadStock.SelectAll();
@@ -683,6 +690,7 @@ namespace PuntoDeVentaV2
                             if (respuesta == DialogResult.No)
                             {
                                 txtCantidadStock.Focus();
+                                txtCantidadStock.SelectAll();
                                 return;
                             }
                         }
@@ -739,6 +747,7 @@ namespace PuntoDeVentaV2
                             {
                                 buscarCodigoBarras();
                                 txtCantidadStock.Focus();
+                                txtCantidadStock.SelectAll();
                             }
 
                         }
@@ -808,6 +817,7 @@ namespace PuntoDeVentaV2
                                 {
                                     buscarCodigoBarras();
                                     txtCantidadStock.Focus();
+                                    txtCantidadStock.SelectAll();
                                 }
                             }
                         }
@@ -817,6 +827,7 @@ namespace PuntoDeVentaV2
                         LimpiarCampos();
                         buscarCodigoBarras();
                         txtCantidadStock.Focus();
+                        txtCantidadStock.SelectAll();
                         botonOmitir = true;
                     }
                 }
