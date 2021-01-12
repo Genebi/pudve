@@ -3759,15 +3759,23 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            var idVenta = cn.EjecutarSelect($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY ID DESC LIMIT 1", 1).ToString();
+            try
+            {
+                var idVenta = cn.EjecutarSelect($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY ID DESC LIMIT 1", 1).ToString();
 
-            if (Utilidades.AdobeReaderInstalado())
-            {
-                ImprimirTicket(idVenta);
+                if (Utilidades.AdobeReaderInstalado())
+                {
+                    ImprimirTicket(idVenta);
+                }
+                else
+                {
+                    Utilidades.MensajeAdobeReader();
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                Utilidades.MensajeAdobeReader();
+                MessageBox.Show("Aun no se han creado Tickets", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

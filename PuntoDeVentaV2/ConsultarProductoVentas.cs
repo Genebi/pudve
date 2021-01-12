@@ -112,7 +112,8 @@ namespace PuntoDeVentaV2
 
                     row.Cells[propiedad.Key].Value = valor;
                     //DGVProductos.Focus();
-                    DGVProductos.CurrentRow.Selected = true;
+                    //DGVProductos.CurrentRow.Selected = true;
+                    DGVProductos.ClearSelection();
                 }
             }
         }
@@ -132,7 +133,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Down && !DGVProductos.Rows.Count.Equals(0))
             {
                 DGVProductos.Focus();
-                //DGVProductos.CurrentRow.Selected = true;
+                DGVProductos.CurrentRow.Selected = true;
             }
         }
 
@@ -149,6 +150,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Up && DGVProductos.CurrentRow.Index == 0)
             {
                 txtBuscar.Focus();
+                DGVProductos.ClearSelection();
             }
         }
     }

@@ -224,9 +224,13 @@ namespace PuntoDeVentaV2
             }
             else if (e.KeyCode == Keys.Down && !DGVClientes.Rows.Count.Equals(0))
             {
-                DGVClientes.Focus();
+                
                 //DGVClientes.Rows[0].Cells["RFC"].Selected = true;
-                DGVClientes.CurrentRow.Selected = true;
+                if (DGVClientes.Rows.Count != 0)
+                {
+                    DGVClientes.Focus();
+                    DGVClientes.CurrentRow.Selected = true;
+                }
             }
         }
 
@@ -269,6 +273,7 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode==Keys.Up && DGVClientes.CurrentRow.Index == 0)
             {
+                DGVClientes.ClearSelection();
                 txtBuscador.Focus();
             }
             else if (e.KeyCode==Keys.Enter && !DGVClientes.Rows.Count.Equals(0))

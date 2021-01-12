@@ -87,10 +87,19 @@ namespace PuntoDeVentaV2
                 row.Cells["Eliminar"].Value = imgEliminar;
             }
 
+            DGVListaVentasGuardadas.ClearSelection();
+
+            if (DGVListaVentasGuardadas.Rows.Count != 0)
+            {
+                DGVListaVentasGuardadas.Focus();
+
+                //DGVListaVentasGuardadas.CurrentRow.Selected = true;
+            }
+
             dr.Close();
             sql_con.Close();
 
-
+            
         }
 
         private void DGVListaVentasGuardadas_CellClick(object sender, DataGridViewCellEventArgs e)

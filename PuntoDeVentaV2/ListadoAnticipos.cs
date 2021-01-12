@@ -105,11 +105,14 @@ namespace PuntoDeVentaV2
 
             dr.Close();
             sql_con.Close();
-
-            DGVListaAnticipos.Focus();
+            
             //DGVListaAnticipos.Rows[0].Cells["Concepto"].Selected = true;
-            DGVListaAnticipos.CurrentRow.Selected = true;
+            if (DGVListaAnticipos.Rows.Count != 0)
+            {
+                DGVListaAnticipos.Focus();
 
+                //DGVListaAnticipos.CurrentRow.Selected = true;
+            }
         }
 
         private void DGVListaAnticipos_CellClick(object sender, DataGridViewCellEventArgs e)
