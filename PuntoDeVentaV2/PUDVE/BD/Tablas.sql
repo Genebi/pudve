@@ -969,3 +969,13 @@ ALTER TABLE DGVAumentarInventario ADD COLUMN IF NOT EXISTS NombreEmisor VARCHAR(
 
 -- Agregar Columna (Comentarios) a la tabla DGVAumentarInventario si es que no tiene dicha columna 
 ALTER TABLE DGVAumentarInventario ADD COLUMN IF NOT EXISTS Comentarios VARCHAR(150);
+
+-- Agregar Columna (ValorUnitario) a la tabla DGVAumentarInventario si es que no tiene dicha columna
+ALTER TABLE DGVAumentarInventario ADD COLUMN IF NOT EXISTS ValorUnitario VARCHAR(100) DEFAULT ('0');
+
+-- Modificar la Columna de Fecha a DateTime en la tabla de DGVAumentarInventario
+ALTER TABLE DGVAumentarInventario MODIFY Fecha datetime;
+
+-- Agregar Columna (NombreEmisor) a la tabla DGVDisminuirInventario si es que no tiene dicha columna
+ALTER TABLE DGVDisminuirInventario ADD COLUMN IF NOT EXISTS NombreEmisor VARCHAR(150);
+

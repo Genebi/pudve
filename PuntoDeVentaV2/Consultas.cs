@@ -1329,15 +1329,15 @@ GROUP BY Prod.ID";
 
         public string InsertIntoAumentarInventario(string[] datosAumentarInventario)
         {
-            var consulta = "INSERT INTO DGVAumentarInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios) VALUES";
-            consulta += $"('{datosAumentarInventario[0]}', '{datosAumentarInventario[1]}', '{datosAumentarInventario[2]}', '{datosAumentarInventario[3]}', '{datosAumentarInventario[4]}', '{datosAumentarInventario[5]}', '{datosAumentarInventario[6]}', '{datosAumentarInventario[7]}', '{datosAumentarInventario[8]}', '{datosAumentarInventario[9]}', '{datosAumentarInventario[10]}', '{datosAumentarInventario[11]}', '{datosAumentarInventario[12]}')";
+            var consulta = "INSERT INTO DGVAumentarInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario) VALUES";
+            consulta += $"('{datosAumentarInventario[0]}', '{datosAumentarInventario[1]}', '{datosAumentarInventario[2]}', '{datosAumentarInventario[3]}', '{datosAumentarInventario[4]}', '{datosAumentarInventario[5]}', '{datosAumentarInventario[6]}', '{datosAumentarInventario[7]}', '{datosAumentarInventario[8]}', '{datosAumentarInventario[9]}', '{datosAumentarInventario[10]}', '{datosAumentarInventario[11]}', '{datosAumentarInventario[12]}', '{datosAumentarInventario[13]}')";
 
             return consulta;
         }
 
         public string GetAumentarInventario()
         {
-            var consultar = "SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion FROM DGVAumentarInventario WHERE StatusActualizacion = 1";
+            var consultar = "SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario FROM DGVAumentarInventario WHERE StatusActualizacion = 1";
 
             return consultar;
         }
@@ -1424,16 +1424,16 @@ GROUP BY Prod.ID";
             return consulta;
         }
 
-        public string SearchDGVAumentarInventario(int userID, int NoRev)
+        public string SearchDGVAumentarInventario(int NoRev)
         {
-            var consulta = $@"SELECT RecordSale.IDProducto, PlusInv.NombreProducto Concepto, RecordSale.NomEmisor, RecordSale.Cantidad, 	RecordSale.ValorUnitario, RecordSale.Precio, RecordSale.FechaLarga, RecordSale.FechaOperacion, RecordSale.Comentarios FROM HistorialCompras AS RecordSale INNER JOIN DGVAumentarInventario AS PlusInv ON PlusInv.IdProducto = RecordSale.IDProducto WHERE RecordSale.IDUsuario = {userID} AND PlusInv.NoRevision = {NoRev} AND PlusInv.StatusActualizacion = 1; ";
+            var consulta = $"SELECT * FROM DGVAumentarInventario WHERE NoRevision = {NoRev} AND StatusActualizacion = 1";
 
             return consulta;
         }
 
         public string NomEmisorComentariosHistorialCompras(string IdProducto)
         {
-            var consulta = $"SELECT ID, NomEmisor, Comentarios FROM HistorialCompras WHERE IDProducto = {IdProducto} GROUP BY ID DESC LIMIT 1";
+            var consulta = $"SELECT ID, NomEmisor, Comentarios, ValorUnitario FROM HistorialCompras WHERE IDProducto = {IdProducto} GROUP BY ID DESC LIMIT 1";
 
             return consulta;
         }

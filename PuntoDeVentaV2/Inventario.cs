@@ -138,6 +138,11 @@ namespace PuntoDeVentaV2
                         row.Cells["Clave"].Value = dr["Clave"].ToString();
                         row.Cells["Codigo"].Value = dr["Codigo"].ToString();
                         row.Cells["Fecha"].Value = dr["Fecha"].ToString();
+                        if (!dr["Comentarios"].ToString().Equals(""))
+                        {
+                            DGVInventario.Columns["Comentarios"].Visible = true;
+                            row.Cells["Comentarios"].Value = dr["Comentarios"].ToString();
+                        }
                     }
                 }
             }
@@ -811,6 +816,7 @@ namespace PuntoDeVentaV2
 
             var NombreEmisor = string.Empty;
             var Comentarios = string.Empty;
+            var ValorUnitario = string.Empty;
 
             if (!aumentar.Equals("0"))
             {
@@ -831,13 +837,14 @@ namespace PuntoDeVentaV2
                         {
                             NombreEmisor = drEmisorComentario["NomEmisor"].ToString();
                             Comentarios = drEmisorComentario["Comentarios"].ToString();
+                            ValorUnitario = drEmisorComentario["ValorUnitario"].ToString();
                         }
                     }
                 }
 
                 NoRev = NoRevAumentarInventario();
 
-                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios };
+                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario };
                 var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
                 cn.EjecutarConsulta(insertAumentarInventario);
                 using (DataTable dtRetriveAumentarInventario = cn.CargarDatos(cs.GetAumentarInventario()))
@@ -862,6 +869,11 @@ namespace PuntoDeVentaV2
                             row.Cells["Clave"].Value = dr["Clave"].ToString();
                             row.Cells["Codigo"].Value = dr["Codigo"].ToString();
                             row.Cells["Fecha"].Value = dr["Fecha"].ToString();
+                            if (!dr["Comentarios"].ToString().Equals(""))
+                            {
+                                DGVInventario.Columns["Comentarios"].Visible = true;
+                                row.Cells["Comentarios"].Value = dr["Comentarios"].ToString();
+                            }
                         }
                     }
                 }
@@ -1139,16 +1151,16 @@ namespace PuntoDeVentaV2
             {
                 var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
 
-                sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(FormPrincipal.userID, NoRev), sql_con);
+                sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(NoRev), sql_con);
 
                 dr = sql_cmd.ExecuteReader();
 
                 while (dr.Read())
                 {
-                    var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
-                    var producto = dr.GetValue(dr.GetOrdinal("Concepto")).ToString();
-                    var proveedor = dr.GetValue(dr.GetOrdinal("NomEmisor")).ToString();
-                    var unidades = dr.GetValue(dr.GetOrdinal("Cantidad")).ToString();
+                    var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
+                    var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
+                    var proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
+                    var unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
                     var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
                     var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
 
@@ -1157,10 +1169,10 @@ namespace PuntoDeVentaV2
 
                     var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
 
-                    DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("FechaLarga"));
+                    DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
                     var fechaCompra = fecha.ToString("yyyy-MM-dd");
 
-                    DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
+                    DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
                     var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
 
                     var comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
