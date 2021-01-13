@@ -27,7 +27,7 @@ namespace PuntoDeVentaV2
         public bool limpiarTabla { get; set; }
 
         bool IsEmpty;
-        int CantidadAlmacen, CantidadFisico, Diferencias;
+        float CantidadAlmacen, CantidadFisico, Diferencias;
         string queryFiltroReporteStock, tabla, queryUpdateCalculos, FechaRevision, soloFechaRevision, fechaActual;
 
         string consultaStockPaqServ = string.Empty;
@@ -109,8 +109,10 @@ namespace PuntoDeVentaV2
 
             foreach (DataGridViewRow row in DGVRevisionStock.Rows)
             {
-                CantidadAlmacen = Convert.ToInt32(row.Cells["StockAlmacen"].Value);
-                CantidadFisico = Convert.ToInt32(row.Cells["StockFisico"].Value);
+                //CantidadAlmacen = Convert.ToInt32(row.Cells["StockAlmacen"].Value);
+                //CantidadFisico = Convert.ToInt32(row.Cells["StockFisico"].Value);
+                CantidadAlmacen = float.Parse(row.Cells["StockAlmacen"].Value.ToString());
+                CantidadFisico = float.Parse(row.Cells["StockFisico"].Value.ToString());
                 FechaRevision = row.Cells["Fecha"].Value.ToString();
                 soloFechaRevision = FechaRevision.Substring(0, 10);
                 fechaActual = DateTime.Now.ToString("dd/MM/yyyy");
@@ -196,9 +198,11 @@ namespace PuntoDeVentaV2
                     {
                         var idProducto = Convert.ToInt32(row.Cells["IDAlmacen"].Value);
 
-                        row.Cells["StockAlmacen"].Value = Utilidades.RemoverCeroStock(row.Cells["StockAlmacen"].Value.ToString());
-                        row.Cells["StockFisico"].Value = Utilidades.RemoverCeroStock(row.Cells["StockFisico"].Value.ToString());
-                                                
+                        //row.Cells["StockAlmacen"].Value = Utilidades.RemoverCeroStock(row.Cells["StockAlmacen"].Value.ToString());
+                        //row.Cells["StockFisico"].Value = Utilidades.RemoverCeroStock(row.Cells["StockFisico"].Value.ToString());
+                        row.Cells["StockAlmacen"].Value = row.Cells["StockAlmacen"].Value.ToString();
+                        row.Cells["StockFisico"].Value = row.Cells["StockFisico"].Value.ToString();
+
                         cn.EjecutarConsulta($"UPDATE Productos SET NumeroRevision = {FilterNumActiveRecord} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
                         var infoGetPaqServ = mb.ObtenerPaqueteServicioAsignado(Convert.ToInt32(idProducto.ToString()), FormPrincipal.userID);
@@ -366,8 +370,10 @@ namespace PuntoDeVentaV2
                 var nombre = row.Cells["Nombre"].Value.ToString();
                 var clave = row.Cells["ClaveInterna"].Value.ToString();
                 var codigo = row.Cells["CodigoBarras"].Value.ToString();
-                var almacen = Utilidades.RemoverCeroStock(row.Cells["StockAlmacen"].Value.ToString());
-                var fisico = Utilidades.RemoverCeroStock(row.Cells["StockFisico"].Value.ToString());
+                //var almacen = Utilidades.RemoverCeroStock(row.Cells["StockAlmacen"].Value.ToString());
+                //var fisico = Utilidades.RemoverCeroStock(row.Cells["StockFisico"].Value.ToString());
+                var almacen = row.Cells["StockAlmacen"].Value.ToString();
+                var fisico = row.Cells["StockFisico"].Value.ToString();
                 var fecha = row.Cells["Fecha"].Value.ToString();
                 var diferencia = row.Cells["Diferencia"].Value.ToString();
                 var precio = float.Parse(row.Cells["PrecioProducto"].Value.ToString());
