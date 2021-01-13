@@ -145,6 +145,7 @@ namespace PuntoDeVentaV2
                 {
                     rbAjustar.Checked = true;
 
+                    btnActualiza.Visible = false;
                     txtAumentar.Visible = false;
                     lbAumentar.Visible = false;
 
