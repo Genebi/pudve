@@ -628,8 +628,23 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyData == Keys.Enter)
             {
-                btnAceptar.PerformClick();
-            }else if (e.KeyCode == Keys.Escape)
+                if (!txtCantidadCompra.Text.Equals(string.Empty))
+                {
+                    float cantidadAumentar = 0;
+                    cantidadAumentar = float.Parse(txtCantidadCompra.Text);
+                    if (cantidadAumentar.Equals(0))
+                    {
+                        MessageBox.Show("La cantidad comprada debe de ser mayor a Cero", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    else if (!cantidadAumentar.Equals(0))
+                    {
+                        btnAceptar.PerformClick();
+                    }
+                }
+                //btnAceptar.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
             }
