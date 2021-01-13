@@ -564,6 +564,10 @@ namespace PuntoDeVentaV2
             {
                 if (!txtDisminuir.Text.Equals(string.Empty))
                 {
+                    if (txtDisminuir.Text.Equals(".") || txtDisminuir.Text.Equals("0.") || txtDisminuir.Text.Equals("0.0"))
+                    {
+                        return;
+                    }
                     lb_disminuir_stock.Visible = true;
                     lb_disminuir_stock_total.Visible = true;
                 }
