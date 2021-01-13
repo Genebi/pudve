@@ -147,6 +147,7 @@ namespace PuntoDeVentaV2
 
                     btnActualiza.Visible = false;
                     txtAumentar.Visible = false;
+                    lbEditarPrecio.Visible = false;
                     lbAumentar.Visible = false;
 
                     txtAumentar.TabStop = true;
