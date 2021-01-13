@@ -1588,6 +1588,8 @@ namespace PuntoDeVentaV2
             double totalAnticipos = 0;
             double totalOtrosImpuestos = 0;
             double total_impuestos_retenidos = 0;
+            double total_importe_cero_exe = 0;
+            double total_subtotal_cero_exe = 0;
 
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
@@ -1598,7 +1600,7 @@ namespace PuntoDeVentaV2
 
 
                 // MIRI.
-                // Busca si tiene impuestos extra (Traslado).
+                // Busca si tiene impuestos extra (Traslado, Retención, Locales).
 
                 DataTable dbusca_impuestos = cn.CargarDatos(cs.cargar_impuestos_en_editar_producto(idProducto));
 
@@ -1696,6 +1698,14 @@ namespace PuntoDeVentaV2
                     {
                         totalImporte8 += Convert.ToDouble(fila.Cells["Importe"].Value);
                     }
+                    else
+                    {
+                        // MIRI.
+                        // Se agrega para el caso de IVA 0% y exento. 
+                        // Si no se crea esta nueva variable entonces el total final mostrará cero porque nunca se le asigna nada a las variables "totalImporte" y "totalImporte8".
+
+                        total_importe_cero_exe += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    }
 
                     //totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                     totalArticulos += cantidadProducto;
@@ -1771,6 +1781,14 @@ namespace PuntoDeVentaV2
                         {
                             totalImporte8 += Convert.ToDouble(fila.Cells["Importe"].Value);
                         }
+                        else
+                        {
+                            // MIRI.
+                            // Se agrega para el caso de IVA 0% y exento. 
+                            // Si no se crea esta nueva variable entonces el total final mostrará cero porque nunca se le asigna nada a las variables "totalImporte" y "totalImporte8".
+
+                            total_importe_cero_exe += Convert.ToDouble(fila.Cells["Importe"].Value);
+                        }
 
                         //totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                         totalArticulos += cantidadProducto;
@@ -1793,6 +1811,14 @@ namespace PuntoDeVentaV2
                         else if (impuesto.Equals("8%"))
                         {
                             totalImporte8 += Convert.ToDouble(fila.Cells["Importe"].Value);
+                        }
+                        else
+                        {
+                            // MIRI.
+                            // Se agrega para el caso de IVA 0% y exento. 
+                            // Si no se crea esta nueva variable entonces el total final mostrará cero porque nunca se le asigna nada a las variables "totalImporte" y "totalImporte8".
+
+                            total_importe_cero_exe += Convert.ToDouble(fila.Cells["Importe"].Value);
                         }
 
                         //totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
@@ -1855,6 +1881,14 @@ namespace PuntoDeVentaV2
                     {
                         totalImporte8 += Convert.ToDouble(fila.Cells["Importe"].Value);
                     }
+                    else
+                    {
+                        // MIRI.
+                        // Se agrega para el caso de IVA 0% y exento. 
+                        // Si no se crea esta nueva variable entonces el total final mostrará cero porque nunca se le asigna nada a las variables "totalImporte" y "totalImporte8".
+
+                        total_importe_cero_exe += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    }
 
                     //totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                     totalArticulos += cantidadProducto;
@@ -1884,6 +1918,14 @@ namespace PuntoDeVentaV2
                     else if (impuesto.Equals("8%"))
                     {
                         totalImporte8 += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    }
+                    else
+                    {
+                        // MIRI.
+                        // Se agrega para el caso de IVA 0% y exento. 
+                        // Si no se crea esta nueva variable entonces el total final mostrará cero porque nunca se le asigna nada a las variables "totalImporte" y "totalImporte8".
+
+                        total_importe_cero_exe += Convert.ToDouble(fila.Cells["Importe"].Value);
                     }
 
                     //totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
@@ -1945,13 +1987,19 @@ namespace PuntoDeVentaV2
                 totalIVA8 = totalSubtotal8 * 0.08;
             }
 
+            // Cálculo subtotal, IVA 0% y exento
+            if(total_importe_cero_exe > 0)
+            {
+                total_subtotal_cero_exe = (total_importe_cero_exe - totalOtrosImpuestos) + total_impuestos_retenidos;
+            }
+
             //totalSubtotal = totalImporte / 1.16;
             //totalIVA16    = totalSubtotal * 0.16;
 
             totalAnticipos = Convert.ToDouble(cAnticipo.Text);
             totalAnticipos += importeAnticipo;
 
-            var sumaImportes = totalImporte + totalImporte8;
+            var sumaImportes = totalImporte + totalImporte8 + total_importe_cero_exe;
 
             pasarTotalAnticipos = totalAnticipos;
             pasarSumaImportes = sumaImportes;
@@ -2034,7 +2082,7 @@ namespace PuntoDeVentaV2
             cIVA.Text = totalIVA16.ToString("0.00");
             cIVA8.Text = totalIVA8.ToString("0.00");
             cTotal.Text = sumaImportes.ToString("0.00");
-            cSubtotal.Text = (totalSubtotal + totalSubtotal8).ToString("0.00");
+            cSubtotal.Text = (totalSubtotal + totalSubtotal8 + total_subtotal_cero_exe).ToString("0.00");
 
             // Se ocultan si las cantidades de este campo son igual a 0
             if (totalAnticipos > 0)

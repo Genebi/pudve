@@ -79,6 +79,7 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lb_cant_impuestos_retenidos = new System.Windows.Forms.Label();
             this.lb_impuestos_retenidos = new System.Windows.Forms.Label();
             this.cOtrosImpuestos = new System.Windows.Forms.Label();
             this.lbOtrosImpuestos = new System.Windows.Forms.Label();
@@ -108,7 +109,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lFolio = new System.Windows.Forms.TextBox();
             this.timer_img_producto = new System.Windows.Forms.Timer(this.components);
-            this.lb_cant_impuestos_retenidos = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -678,6 +678,16 @@
             this.panel1.Size = new System.Drawing.Size(1221, 402);
             this.panel1.TabIndex = 34;
             // 
+            // lb_cant_impuestos_retenidos
+            // 
+            this.lb_cant_impuestos_retenidos.AutoSize = true;
+            this.lb_cant_impuestos_retenidos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_cant_impuestos_retenidos.Location = new System.Drawing.Point(898, 223);
+            this.lb_cant_impuestos_retenidos.Name = "lb_cant_impuestos_retenidos";
+            this.lb_cant_impuestos_retenidos.Size = new System.Drawing.Size(48, 22);
+            this.lb_cant_impuestos_retenidos.TabIndex = 61;
+            this.lb_cant_impuestos_retenidos.Text = "0.00";
+            // 
             // lb_impuestos_retenidos
             // 
             this.lb_impuestos_retenidos.AutoSize = true;
@@ -687,6 +697,7 @@
             this.lb_impuestos_retenidos.Size = new System.Drawing.Size(196, 22);
             this.lb_impuestos_retenidos.TabIndex = 60;
             this.lb_impuestos_retenidos.Text = "Impuestos retenidos:";
+            this.lb_impuestos_retenidos.Visible = false;
             // 
             // cOtrosImpuestos
             // 
@@ -1021,16 +1032,6 @@
             // 
             this.timer_img_producto.Interval = 7000;
             this.timer_img_producto.Tick += new System.EventHandler(this.timer_img_producto_Tick);
-            // 
-            // lb_cant_impuestos_retenidos
-            // 
-            this.lb_cant_impuestos_retenidos.AutoSize = true;
-            this.lb_cant_impuestos_retenidos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_cant_impuestos_retenidos.Location = new System.Drawing.Point(898, 223);
-            this.lb_cant_impuestos_retenidos.Name = "lb_cant_impuestos_retenidos";
-            this.lb_cant_impuestos_retenidos.Size = new System.Drawing.Size(48, 22);
-            this.lb_cant_impuestos_retenidos.TabIndex = 61;
-            this.lb_cant_impuestos_retenidos.Text = "0.00";
             // 
             // Ventas
             // 
