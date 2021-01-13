@@ -1188,7 +1188,14 @@ namespace PuntoDeVentaV2
             }
 
             cantidadRegistrosAux -= 1;
-            lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+            if (cantidadRegistrosAux > 1)
+            {
+                lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+            }
+            else
+            {
+                lbCantidadFiltro.Text = $"1 de {cantidadRegistros}";
+            }
 
             //Se elimina el ultimo item ingresado a la lista ya que es uno que se repire
             if (!id.Count.Equals(0))
