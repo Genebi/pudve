@@ -1127,9 +1127,6 @@ namespace PuntoDeVentaV2
 
                     idActualAnterior = Convert.ToInt32(idBueno);
 
-                    ////Se elimina el ultimo item ingresado a la lista ya que es uno que se repire
-                    //id.RemoveAt(id.Count -1);
-
                     //Aqui tenemos la posicion de la lista en que esta el ID
                     int getIndice = id.FindIndex(y => y == idBueno);
 
@@ -1141,6 +1138,9 @@ namespace PuntoDeVentaV2
                             {
                                 obteniendoId = id[x - 1].ToString();
                                 validarAnterior = true;
+
+                                //Se modifica el id(Esto es para el boton Siguiente)
+                                idProducto = Convert.ToInt32(obteniendoId);
                             }
                             else
                             {
@@ -1201,6 +1201,12 @@ namespace PuntoDeVentaV2
             if (!id.Count.Equals(0))
             {
                 id.RemoveAt(id.Count - 1);
+            }
+
+            //Se Elimina el ultimo item de la lista idDeProductos para validar el boton anterior
+            if (!idDeProductos.Count.Equals(0))
+            {
+                idDeProductos.RemoveAt(id.Count - 1);
             }
         }
 
