@@ -734,7 +734,40 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                btnAceptar.PerformClick();
+                if (rbProducto.Checked)
+                {
+                    if (!txtAumentar.Text.Equals(string.Empty))
+                    {
+                        float cantidadAumentar = 0;
+                        cantidadAumentar = float.Parse(txtAumentar.Text);
+                        if (cantidadAumentar.Equals(0))
+                        {
+                            MessageBox.Show("La cantidad comprada debe de ser mayor a Cero", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        else if (!cantidadAumentar.Equals(0))
+                        {
+                            btnAceptar.PerformClick();
+                        }
+                    }
+                }
+                if (rbAjustar.Checked)
+                {
+                    if (!txtDisminuir.Text.Equals(string.Empty))
+                    {
+                        float cantidadDisminuir = 0;
+                        cantidadDisminuir = float.Parse(txtDisminuir.Text);
+                        if (cantidadDisminuir.Equals(0))
+                        {
+                            MessageBox.Show("La cantidad a disminuir debe de ser mayor a Cero", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        else if (!cantidadDisminuir.Equals(0))
+                        {
+                            btnAceptar.PerformClick();
+                        }
+                    }
+                }
             }
             else if (e.KeyChar == Convert.ToChar(Keys.Space))
             {
