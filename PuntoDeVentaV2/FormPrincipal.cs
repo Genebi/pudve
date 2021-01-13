@@ -33,6 +33,9 @@ namespace PuntoDeVentaV2
 
         IEnumerable<Ventas> FormVenta = Application.OpenForms.OfType<Ventas>();//Revisar esta linea
 
+        //Obtener el nombre de la maquina
+        public static string nameThisComputer = Environment.MachineName.ToString();
+
         // declaramos la variable que se pasara entre los dos formularios
         // FormPrincipal y MisDatos
         public static int userID;
@@ -367,6 +370,20 @@ namespace PuntoDeVentaV2
             VentanaLogin.ShowDialog();
         }
 
+        private void FormPrincipal_Paint(object sender, PaintEventArgs e)
+        {
+            var nameMachineServer = ObtenreComputadoraServidor();
+
+            if (!string.IsNullOrWhiteSpace(nameMachineServer))
+            {
+                this.Text = $"PUDVE - Punto de Venta |  Usuario: {userNickName}  | Asociada a: {nameMachineServer}";
+            }
+            else
+            {
+                this.Text = $"PUDVE - Punto de Venta |  Usuario: {userNickName}";
+            }
+        }
+
         readonly ConnectionHandler _conHandler = new ConnectionHandler();
 
         public FormPrincipal()
@@ -410,8 +427,6 @@ namespace PuntoDeVentaV2
                 //loadFormConfig();
                 //loadFromConfigDB();
             }
-
-            this.Text = "PUDVE - Punto de Venta | " + userNickName;
 
             // Obtiene ID del empleado, y los permisos que tenga asignados.
 
@@ -529,6 +544,16 @@ namespace PuntoDeVentaV2
         {
             datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
         }
+
+        public string ObtenreComputadoraServidor()
+        {
+            var nameComputerServer = string.Empty;
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                nameComputerServer = Properties.Settings.Default.Hosting;
+            }
+            return nameComputerServer;
+        } 
 
         private void btnProductos_Click(object sender, EventArgs e)
         {
