@@ -1195,7 +1195,15 @@ namespace PuntoDeVentaV2
                     var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
                     var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
                     var proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
-                    var unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                    var unidades = string.Empty;
+                    if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                    {
+                        unidades = "0.00";
+                    }
+                    else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                    {
+                        unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                    }
                     var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
                     var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
 
@@ -1277,7 +1285,15 @@ namespace PuntoDeVentaV2
                     var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
                     var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
                     var proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
-                    var unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                    var unidades = string.Empty;
+                    if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                    {
+                        unidades = "0.00";
+                    }
+                    else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                    {
+                        unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                    }
                     var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
                     var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
 
