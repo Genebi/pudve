@@ -1330,11 +1330,11 @@ namespace PuntoDeVentaV2
                     colPrecioVentaTmp.BorderWidth = 1;
                     colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colStockTmpAnterior = new PdfPCell(new Phrase(stock, fuenteNormal));
+                    PdfPCell colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
                     colStockTmpAnterior.BorderWidth = 1;
                     colStockTmpAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colStockTmp = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
+                    PdfPCell colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
                     colStockTmp.BorderWidth = 1;
                     colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
