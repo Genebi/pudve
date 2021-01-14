@@ -250,7 +250,7 @@ namespace PuntoDeVentaV2
                 status = 1;
 
             }
-            else if (rbHabilitados.Checked)
+            else if (rbDeshabilitados.Checked)
             {
                 status = 0;
             }
@@ -301,33 +301,37 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+                        else
+                        {
+                            MessageBox.Show($"No se encontraron conceptos con: {txtConcepto.Text}", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                 }
             }
             else
             {
-                //MessageBox.Show("Ingrese el nombre de algun producto", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                //txtConcepto.Focus();
-                using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Origen = 'CAJA' AND Status = '{status}'"))
-                {
-                    if (!buscarDatos.Rows.Count.Equals(0))
-                    {
-                        DGVConceptos.Rows.Clear();
-                        foreach (DataRow llenarCampos in buscarDatos.Rows)
-                        {
-                            int number_of_rows = DGVConceptos.Rows.Add();
-                            DataGridViewRow row = DGVConceptos.Rows[number_of_rows];
+                MessageBox.Show("Ingrese el nombre de algun concepto", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtConcepto.Focus();
+                //using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Origen = 'CAJA' AND Status = '{status}'"))
+                //{
+                //    if (!buscarDatos.Rows.Count.Equals(0))
+                //    {
+                //        DGVConceptos.Rows.Clear();
+                //        foreach (DataRow llenarCampos in buscarDatos.Rows)
+                //        {
+                //            int number_of_rows = DGVConceptos.Rows.Add();
+                //            DataGridViewRow row = DGVConceptos.Rows[number_of_rows];
 
-                            row.Cells["ID"].Value = llenarCampos["ID"].ToString();
-                            row.Cells["Concepto"].Value = llenarCampos["Concepto"].ToString();
-                            row.Cells["Fecha"].Value = llenarCampos["FechaOperacion"].ToString();
-                            row.Cells["Habilitar"].Value = imgHabilitar;
-                            row.Cells["Deshabilitar"].Value = imgDeshabilitar;
+                //            row.Cells["ID"].Value = llenarCampos["ID"].ToString();
+                //            row.Cells["Concepto"].Value = llenarCampos["Concepto"].ToString();
+                //            row.Cells["Fecha"].Value = llenarCampos["FechaOperacion"].ToString();
+                //            row.Cells["Habilitar"].Value = imgHabilitar;
+                //            row.Cells["Deshabilitar"].Value = imgDeshabilitar;
 
-                            //DGVConceptos.Rows.Add(llenarCampos["ID"].ToString(), llenarCampos["Concepto"].ToString(), llenarCampos["FechaOperacion"]);
-                        }
-                    }
-                }
+                //            //DGVConceptos.Rows.Add(llenarCampos["ID"].ToString(), llenarCampos["Concepto"].ToString(), llenarCampos["FechaOperacion"]);
+                //        }
+                //    }
+                //}
             }
         }
 
