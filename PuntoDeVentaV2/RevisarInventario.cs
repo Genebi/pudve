@@ -1114,6 +1114,9 @@ namespace PuntoDeVentaV2
             var codigoB = txtBoxBuscarCodigoBarras.Text;
             var claveB = txtCodigoBarras.Text;
             var buscarCode = string.Empty;
+
+            var mensajeNoHayAnterior = false;
+
             if (claveB == string.Empty) { buscarCode = codigoB; } else { buscarCode = claveB; }
 
             using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{buscarCode}' OR ClaveInterna = '{buscarCode}'"))
@@ -1145,7 +1148,7 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 validarAnterior = false;
-                                MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                //mensajeNoHayAnterior = true;
                             }
                         }
                     }
@@ -1206,7 +1209,17 @@ namespace PuntoDeVentaV2
             //Se Elimina el ultimo item de la lista idDeProductos para validar el boton anterior
             if (!idDeProductos.Count.Equals(0))
             {
-                idDeProductos.RemoveAt(id.Count - 1);
+                idDeProductos.RemoveAt(idDeProductos.Count - 1);
+            }
+
+            //if (mensajeNoHayAnterior == true)
+            //{
+            //    MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
+            if (cantidadRegistrosAux < 1)
+            {
+                cantidadRegistrosAux = 1;
+                MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -1252,8 +1265,18 @@ namespace PuntoDeVentaV2
 
         private void btnOmitir_Click(object sender, EventArgs e)
         {
-            botonOmitir = false;
+            //Lo ponemos en true para que no haga toda la funcionalidad del boton siguiente
+            botonOmitir = true;
+
+            //Agregamos el id del producto a una lista temporal para cuando sse haca el decremento en el boton anterior
+            idDeProductos.Add(idProducto);
+
+            //Ejecutamos el evento click de el bonton siguiente
             btnSiguiente.PerformClick();
+
+            //ponemos la variable en false para que despues no de problemas con dar click en el boton siguiente
+            botonOmitir = false;
+
 
             //txtBoxBuscarCodigoBarras.Text = string.Empty;
             //txtNombreProducto.Text = string.Empty;
