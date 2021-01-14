@@ -620,6 +620,9 @@ namespace PuntoDeVentaV2
                         {
                             txtBusqueda.Text = string.Empty;
                             var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                            suma = getSuma;
+                            resta = getResta;
+                            stockAnterior = getStockAnterior;
                             AgregarProductoDGV(producto);
                             botonAceptar = false;
                             idProductoDelCombo.Clear();
