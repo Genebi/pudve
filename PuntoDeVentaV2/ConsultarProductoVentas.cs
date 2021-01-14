@@ -18,7 +18,8 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
         private List<string> propiedades = new List<string>();
 
-        public static List<string> datosProducto = new List<string>();
+        public static List<string> datosDeProducto = new List<string>();
+        public static int idABuscar { get; set; }
 
         public ConsultarProductoVentas()
         {
@@ -165,25 +166,57 @@ namespace PuntoDeVentaV2
         {
             if (!DGVProductos.Rows.Count.Equals(0))
             {
-                var id = DGVProductos.CurrentRow.Cells[0].Value.ToString();
-                var stock = DGVProductos.CurrentRow.Cells[1].Value.ToString();
-                var precioOriginal = DGVProductos.CurrentRow.Cells[2].Value.ToString();
-                var tipoDescuento = DGVProductos.CurrentRow.Cells[3].Value.ToString();
-                var cantidad = DGVProductos.CurrentRow.Cells[4].Value.ToString();
-                var precio = DGVProductos.CurrentRow.Cells[5].Value.ToString();
-                var descripcion = DGVProductos.CurrentRow.Cells[6].Value.ToString();
-                var descuento = DGVProductos.CurrentRow.Cells[7].Value.ToString();
-                var importe = DGVProductos.CurrentRow.Cells[8].Value.ToString();
+                var codigoProd = DGVProductos.CurrentRow.Cells[4].Value.ToString();
+                //idABuscar = Convert.ToInt32(idProd);
 
-                datosProducto.Add(id);
-                datosProducto.Add(stock);
-                datosProducto.Add(precioOriginal);
-                datosProducto.Add(tipoDescuento);
-                datosProducto.Add(cantidad);
-                datosProducto.Add(precio);
-                datosProducto.Add(descripcion);
-                datosProducto.Add(descuento);
-                datosProducto.Add(importe);
+                var datosProducto = cn.CargarDatos($"SELECT ID, Nombre, Precio, TipoDescuento, Stock, Tipo, ClaveInterna, CodigoBarras, StockNecesario, ProdImage, StockMinimo, PrecioCompra, PrecioMayoreo, Impuesto, Categoria, ProdImage, ClaveProducto, UnidadMedida  FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigoProd}'");
+
+                var id = string.Empty; var nombre = string.Empty; var precio = string.Empty; var tipoDescuento = string.Empty; var stock = string.Empty; var tipo = string.Empty; var claveInterna = string.Empty; var codigoBarras = string.Empty; var stockNecesario = string.Empty; var prodImage = string.Empty; var stockMinimo = string.Empty; var precioCompra = string.Empty; var precioMayoreo = string.Empty; var impuesto = string.Empty; var categoria = string.Empty; var prodimage = string.Empty; var claveProducto = string.Empty; var unidadMedida = string.Empty;
+
+                if (!datosProducto.Rows.Count.Equals(0))
+                {
+                    id = datosProducto.Rows[0]["ID"].ToString();
+                    nombre = datosProducto.Rows[0]["Nombre"].ToString();
+                    precio = datosProducto.Rows[0]["Precio"].ToString();
+                    tipoDescuento = datosProducto.Rows[0]["TipoDescuento"].ToString();
+                    stock = datosProducto.Rows[0]["Stock"].ToString();
+                    tipo = datosProducto.Rows[0]["Tipo"].ToString();
+                    claveInterna = datosProducto.Rows[0]["ClaveInterna"].ToString();
+                    codigoBarras = datosProducto.Rows[0]["CodigoBarras"].ToString();
+                    stockNecesario = datosProducto.Rows[0]["StockNecesario"].ToString();
+                    prodImage = datosProducto.Rows[0]["ProdImage"].ToString();
+                    stockMinimo = datosProducto.Rows[0]["StockMinimo"].ToString();
+                    precioCompra = datosProducto.Rows[0]["PrecioCompra"].ToString();
+                    precioMayoreo = datosProducto.Rows[0]["PrecioMayoreo"].ToString();
+                    impuesto = datosProducto.Rows[0]["Impuesto"].ToString();
+                    categoria = datosProducto.Rows[0]["Categoria"].ToString();
+                    prodimage = datosProducto.Rows[0]["ProdImage"].ToString();
+                    claveProducto = datosProducto.Rows[0]["ClaveProducto"].ToString();
+                    unidadMedida = datosProducto.Rows[0]["UnidadMedida"].ToString();
+
+                }
+                datosProducto.Clear();
+
+                datosDeProducto.Add(id);
+                datosDeProducto.Add(nombre);
+                datosDeProducto.Add(precio);
+                datosDeProducto.Add(tipoDescuento);
+                datosDeProducto.Add(stock);
+                datosDeProducto.Add(tipo);
+                datosDeProducto.Add(claveInterna);
+                datosDeProducto.Add(codigoBarras);
+                datosDeProducto.Add(stockNecesario);
+                datosDeProducto.Add(prodImage);
+                datosDeProducto.Add(stockMinimo);
+                datosDeProducto.Add(precioCompra);
+                datosDeProducto.Add(precioMayoreo);
+                datosDeProducto.Add(impuesto);
+                datosDeProducto.Add(categoria);
+                datosDeProducto.Add(prodimage);
+                datosDeProducto.Add(claveProducto);
+                datosDeProducto.Add(unidadMedida);
+
+                this.Close();
             }
         }
 
