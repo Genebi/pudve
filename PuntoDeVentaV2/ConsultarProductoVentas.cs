@@ -18,6 +18,8 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
         private List<string> propiedades = new List<string>();
 
+        public static List<string> datosProducto = new List<string>();
+
         public ConsultarProductoVentas()
         {
             InitializeComponent();
@@ -111,6 +113,7 @@ namespace PuntoDeVentaV2
                     }
 
                     row.Cells[propiedad.Key].Value = valor;
+
                     //DGVProductos.Focus();
                     //DGVProductos.CurrentRow.Selected = true;
                     DGVProductos.ClearSelection();
@@ -152,6 +155,41 @@ namespace PuntoDeVentaV2
                 txtBuscar.Focus();
                 DGVProductos.ClearSelection();
             }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                obtenerDatoProductoSeleccionado();
+            }
+        }
+
+        private void obtenerDatoProductoSeleccionado()
+        {
+            if (!DGVProductos.Rows.Count.Equals(0))
+            {
+                var id = DGVProductos.CurrentRow.Cells[0].Value.ToString();
+                var stock = DGVProductos.CurrentRow.Cells[1].Value.ToString();
+                var precioOriginal = DGVProductos.CurrentRow.Cells[2].Value.ToString();
+                var tipoDescuento = DGVProductos.CurrentRow.Cells[3].Value.ToString();
+                var cantidad = DGVProductos.CurrentRow.Cells[4].Value.ToString();
+                var precio = DGVProductos.CurrentRow.Cells[5].Value.ToString();
+                var descripcion = DGVProductos.CurrentRow.Cells[6].Value.ToString();
+                var descuento = DGVProductos.CurrentRow.Cells[7].Value.ToString();
+                var importe = DGVProductos.CurrentRow.Cells[8].Value.ToString();
+
+                datosProducto.Add(id);
+                datosProducto.Add(stock);
+                datosProducto.Add(precioOriginal);
+                datosProducto.Add(tipoDescuento);
+                datosProducto.Add(cantidad);
+                datosProducto.Add(precio);
+                datosProducto.Add(descripcion);
+                datosProducto.Add(descuento);
+                datosProducto.Add(importe);
+            }
+        }
+
+        private void DGVProductos_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            obtenerDatoProductoSeleccionado();
         }
     }
 }

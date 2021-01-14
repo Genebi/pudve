@@ -60,6 +60,7 @@
             this.DGVProductos.RowHeadersVisible = false;
             this.DGVProductos.Size = new System.Drawing.Size(1208, 373);
             this.DGVProductos.TabIndex = 0;
+            this.DGVProductos.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DGVProductos_CellMouseDoubleClick);
             this.DGVProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVProductos_KeyDown);
             // 
             // Nombre

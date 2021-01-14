@@ -4636,6 +4636,10 @@ namespace PuntoDeVentaV2
             {
                 var consulta = new ConsultarProductoVentas();
 
+                consulta.FormClosing += delegate
+                {
+                    var datoObtenidoBuscador = ConsultarProductoVentas.datosProducto;
+                };
                 consulta.Show();
             }
         }
