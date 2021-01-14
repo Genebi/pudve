@@ -1252,7 +1252,7 @@ namespace PuntoDeVentaV2
 
         private void btnOmitir_Click(object sender, EventArgs e)
         {
-            botonOmitir = true;
+            botonOmitir = false;
             btnSiguiente.PerformClick();
 
             //txtBoxBuscarCodigoBarras.Text = string.Empty;
