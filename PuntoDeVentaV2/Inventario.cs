@@ -1300,7 +1300,8 @@ namespace PuntoDeVentaV2
                     var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                     var stock = tmp[4];
 
-                    var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
+                    //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
+                    var stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
 
                     DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
                     var fechaCompra = fecha.ToString("yyyy-MM-dd");
