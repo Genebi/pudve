@@ -4638,10 +4638,17 @@ namespace PuntoDeVentaV2
 
                 consulta.FormClosing += delegate
                 {
-                    var datoObtenidoBuscador = ConsultarProductoVentas.datosProducto;
+                    mostrarDatosTraidosBuscador();
                 };
                 consulta.Show();
             }
+        }
+
+        private void mostrarDatosTraidosBuscador()
+        {
+            var datoObtenidoBuscador = ConsultarProductoVentas.datosDeProducto;
+
+            AgregarProducto(datoObtenidoBuscador.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
