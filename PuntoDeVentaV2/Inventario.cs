@@ -1298,7 +1298,15 @@ namespace PuntoDeVentaV2
                 {
                     var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
                     var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
-                    var proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
+                    var proveedor = string.Empty;
+                    if (dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
+                    {
+                        proveedor = string.Empty;
+                    }
+                    else if (!dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
+                    {
+                        proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
+                    }
                     var unidades = string.Empty;
                     if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
                     {
