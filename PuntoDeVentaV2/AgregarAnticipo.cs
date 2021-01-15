@@ -162,7 +162,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Seleccione un cleinte", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Seleccione un cliente", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
