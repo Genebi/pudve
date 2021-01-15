@@ -2336,7 +2336,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                if (DatosSourceFinal == 2 || DatosSourceFinal == 4)
+                if (DatosSourceFinal == 2 || DatosSourceFinal == 4 || DatosSourceFinal.Equals(1))
                 {
                     precioProducto = txtPrecioProducto.Text;
                 }
