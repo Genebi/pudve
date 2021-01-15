@@ -409,12 +409,27 @@ namespace PuntoDeVentaV2
                     {
                         idProducto = mb.BuscarComboInventario(datosSeparados[1].Trim());
 
+                        var datosProd = mb.ObtenerDatosProductoPaqueteServicio(idProducto, FormPrincipal.userID);
+
                         // si es que encontro algún Combo relacionado
                         if (idProducto > 0)
                         {
                             // Almacenamos los datos del Combo
                             var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
-                            if (!datosCombo.Equals(null) || datosCombo.Count() > 0)
+                            if (datosCombo.Count().Equals(0) && (datosProd[4].ToString().Equals("PQ") || datosProd[4].ToString().Equals("S")))
+                            {
+                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n\n" + "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                if (result == DialogResult.Yes)
+                                {
+
+                                }
+                                else if (result == DialogResult.No)
+                                {
+                                    idProducto = 0;
+                                }
+                            }
+                            else if (datosCombo.Count() > 0)
                             {
                                 if (datosCombo.Count().Equals(1))
                                 {
@@ -486,12 +501,27 @@ namespace PuntoDeVentaV2
                             }
                         }
 
+                        var datosProd = mb.ObtenerDatosProductoPaqueteServicio(idProducto, FormPrincipal.userID);
+
                         // si es que encontro algún Combo relacionado
                         if (idProducto > 0)
                         {
                             // Almacenamos los datos del Combo
                             var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
-                            if (!datosCombo.Equals(null) || datosCombo.Count() > 0)
+                            if (datosCombo.Count().Equals(0) && (datosProd[4].ToString().Equals("PQ") || datosProd[4].ToString().Equals("S")))
+                            {
+                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n\n" + "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                if (result == DialogResult.Yes)
+                                {
+
+                                }
+                                else if (result == DialogResult.No)
+                                {
+                                    idProducto = 0;
+                                }
+                            }
+                            else if (datosCombo.Count() > 0)
                             {
                                 if (datosCombo.Count().Equals(1))
                                 {
@@ -544,12 +574,27 @@ namespace PuntoDeVentaV2
                     {
                         idProducto = mb.BuscarComboInventario(datosSeparados[0].Trim());
 
+                        var datosProd = mb.ObtenerDatosProductoPaqueteServicio(idProducto, FormPrincipal.userID);
+
                         // si es que encontro algún Combo relacionado
                         if (idProducto > 0)
                         {
                             // Almacenamos los datos del Combo
                             var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
-                            if (!datosCombo.Equals(null) || datosCombo.Count() > 0)
+                            if (datosCombo.Count().Equals(0) && (datosProd[4].ToString().Equals("PQ") || datosProd[4].ToString().Equals("S")))
+                            {
+                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n\n"+ "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                if (result == DialogResult.Yes)
+                                {
+                                    
+                                }
+                                else if (result == DialogResult.No)
+                                {
+                                    idProducto = 0;
+                                }
+                            }
+                            else if (datosCombo.Count() > 0)
                             {
                                 if (datosCombo.Count().Equals(1))
                                 {
@@ -563,7 +608,7 @@ namespace PuntoDeVentaV2
                                         idProductoDelCombo.Add(str[1].ToString());
                                         idProductoDelCombo.Add(str[3].ToString());
                                     }
-                                    DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un combo\nEl producto relacionado es:\n\n" + nombresProductos[0].ToString() + "\n\nDesea actualizar el Stock",
+                                    DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nEl producto relacionado es:\n\n" + nombresProductos[0].ToString() + "\n\nDesea actualizar el Stock",
                                                                           "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                                     if (result == DialogResult.Yes)
@@ -592,7 +637,7 @@ namespace PuntoDeVentaV2
 
                                     nombresProductos.Clear();
 
-                                    MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message,
+                                    MessageBox.Show("Resultado del Código o Clave buscada pertenece a un Paquete;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message,
                                                     "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     return;
                                 }
@@ -634,18 +679,18 @@ namespace PuntoDeVentaV2
                     {
                         if (datosSeparados.Length > 1)
                         {
-                            ap.cantidadPasadaProductoCombo = Convert.ToInt32(datosSeparados[0].ToString().Trim()) * Convert.ToInt32(idProductoDelCombo[1].ToString());
+                            ap.cantidadPasadaProductoCombo = (int)Convert.ToDouble(datosSeparados[0].ToString().Trim()) * (int)Convert.ToDouble(idProductoDelCombo[1].ToString());
                         }
                         else if (datosSeparados.Length == 1)
                         {
-                            ap.cantidadPasadaProductoCombo = Convert.ToInt32(idProductoDelCombo[1].ToString()) * 1;
+                            ap.cantidadPasadaProductoCombo = (int)Convert.ToDouble(idProductoDelCombo[1].ToString()) * 1;
                         }
                     }
                     if (idProductoDelCombo.Count == 0)
                     {
                         if (datosSeparados.Length > 1)
                         {
-                            ap.cantidadPasadaProductoCombo = Convert.ToInt32(datosSeparados[0].ToString().Trim()) * 1;
+                            ap.cantidadPasadaProductoCombo = (int)Convert.ToDouble(datosSeparados[0].ToString().Trim()) * 1;
                         }
                         else if (datosSeparados.Length == 1)
                         {

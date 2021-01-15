@@ -97,7 +97,14 @@ namespace PuntoDeVentaV2
                 if (apartado.Equals(2))
                 {
                     cantidadProductoCombo = cantidadPasadaProductoCombo;
-                    txtCantidadCompra.Text = cantidadProductoCombo.ToString();
+                    if (tipoOperacion.Equals(1))
+                    {
+                        txtCantidadCompra.Text = cantidadProductoCombo.ToString();
+                    }
+                    else if (tipoOperacion.Equals(2))
+                    {
+                        txtDisminuir.Text = cantidadPasadaProductoCombo.ToString();
+                    }
                 }
             }
             else
@@ -136,10 +143,13 @@ namespace PuntoDeVentaV2
             {
                 pnlMensajeOperacionInventario.BringToFront();
 
+                //cantidadProductoCombo = cantidadPasadaProductoCombo;
+                
                 if (tipoOperacion.Equals(1))
                 {
                     rbProducto.Checked = true;
                     lblOperacionInventario.Text = "Aumentar Producto(s)";
+                    txtCantidadCompra.Text = cantidadProductoCombo.ToString();
                 }
                 else if (tipoOperacion.Equals(2))
                 {
@@ -160,6 +170,8 @@ namespace PuntoDeVentaV2
                     txtDisminuir.Select();
                     
                     lblOperacionInventario.Text = "Reducir Producto(s)";
+
+                    txtDisminuir.Text = cantidadPasadaProductoCombo.ToString();
                 }
             }
         }

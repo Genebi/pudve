@@ -558,8 +558,8 @@
             this.Controls.Add(this.txtComentarios);
             this.Controls.Add(this.lbProducto);
             this.Controls.Add(this.pnlMensajeOperacionInventario);
-            this.Controls.Add(this.panelComprado);
             this.Controls.Add(this.panelAjustar);
+            this.Controls.Add(this.panelComprado);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "AjustarProducto";
