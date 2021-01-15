@@ -164,6 +164,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Seleccione un cliente", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
         }
 
 
