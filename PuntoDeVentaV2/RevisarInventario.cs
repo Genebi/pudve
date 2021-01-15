@@ -58,6 +58,10 @@ namespace PuntoDeVentaV2
         List<string> id = new List<string>();
         int contador = 1;
 
+        bool validarSiguienteTerminar = false;
+        string mensajeNoHay = string.Empty;
+        int terminarRev = 0;
+
 
         public RevisarInventario(string[] datos)
         {
@@ -211,318 +215,334 @@ namespace PuntoDeVentaV2
 
         private void buscarCodigoBarras()
         {
-            
-            // variableSin = SIN
-            // 
-            //id.Clear();
-            var busqueda = txtBoxBuscarCodigoBarras.Text;
-
-            if (tipoFiltro != "Normal")
+            if (cantidadRegistrosAux != cantidadRegistros)
             {
-                busqueda = "auxiliar";
-            }
-
-            if (busqueda != string.Empty)
-            {
-                List<string> listaCodigosBarras = new List<string>();
-                var aplicar = false;
-
-                var codigo = txtBoxBuscarCodigoBarras.Text;
+                // variableSin = SIN
+                // 
+                //id.Clear();
+                var busqueda = txtBoxBuscarCodigoBarras.Text;
 
                 if (tipoFiltro != "Normal")
                 {
-                    if (tipoFiltro.Equals("Filtros"))
+                    busqueda = "auxiliar";
+                }
+
+                if (busqueda != string.Empty)
+                {
+                    List<string> listaCodigosBarras = new List<string>();
+                    var aplicar = false;
+
+                    var codigo = txtBoxBuscarCodigoBarras.Text;
+
+                    if (tipoFiltro != "Normal")
                     {
-                        if (operadorFiltro.Equals("chkProveedor"))
+                        if (tipoFiltro.Equals("Filtros"))
                         {
-                            listaCodigosBarras.Clear();
-                            if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
+                            if (operadorFiltro.Equals("chkProveedor"))
                             {
-                                using (DataTable dtListaProductosSinProveedor = cn.CargarDatos(cs.ListarProductosSinProveedor(FormPrincipal.userID, 1)))
-                                { // En este las busquedas solo son con idUsuario y status = 1
-                                    if (!dtListaProductosSinProveedor.Rows.Count.Equals(0))
-                                    {
-                                        foreach (DataRow drListaProductosSinProveedor in dtListaProductosSinProveedor.Rows)
+                                listaCodigosBarras.Clear();
+                                if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
+                                {
+                                    using (DataTable dtListaProductosSinProveedor = cn.CargarDatos(cs.ListarProductosSinProveedor(FormPrincipal.userID, 1)))
+                                    { // En este las busquedas solo son con idUsuario y status = 1
+                                        if (!dtListaProductosSinProveedor.Rows.Count.Equals(0))
                                         {
-                                            if (!string.IsNullOrWhiteSpace(drListaProductosSinProveedor["CodigoBarras"].ToString()))
+                                            foreach (DataRow drListaProductosSinProveedor in dtListaProductosSinProveedor.Rows)
                                             {
-                                                listaCodigosBarras.Add(drListaProductosSinProveedor["CodigoBarras"].ToString());
-                                                id.Add(drListaProductosSinProveedor["ID"].ToString());
+                                                if (!string.IsNullOrWhiteSpace(drListaProductosSinProveedor["CodigoBarras"].ToString()))
+                                                {
+                                                    listaCodigosBarras.Add(drListaProductosSinProveedor["CodigoBarras"].ToString());
+                                                    id.Add(drListaProductosSinProveedor["ID"].ToString());
+                                                }
+                                                else
+                                                {
+                                                    listaCodigosBarras.Add(drListaProductosSinProveedor["ClaveInterna"].ToString());
+                                                    id.Add(drListaProductosSinProveedor["ID"].ToString());
+                                                }
                                             }
-                                            else
+                                        }
+                                        //id.Clear();
+                                    }
+                                    txtCantidadStock.SelectAll();
+                                }
+                                else
+                                {
+                                    using (DataTable dtListaProductosProveedor = cn.CargarDatos(cs.ListarProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1)))
+                                    {// Esta es con idUsuario, nombreProvedor, status =1
+                                        if (!dtListaProductosProveedor.Rows.Count.Equals(0))
+                                        {
+                                            foreach (DataRow drListaProductosProveedor in dtListaProductosProveedor.Rows)
                                             {
-                                                listaCodigosBarras.Add(drListaProductosSinProveedor["ClaveInterna"].ToString());
-                                                id.Add(drListaProductosSinProveedor["ID"].ToString());
+                                                if (!string.IsNullOrWhiteSpace(drListaProductosProveedor["CodigoBarras"].ToString()))
+                                                {
+                                                    listaCodigosBarras.Add(drListaProductosProveedor["CodigoBarras"].ToString());
+                                                    id.Add(drListaProductosProveedor["ID"].ToString());
+                                                }
+                                                else
+                                                {
+                                                    listaCodigosBarras.Add(drListaProductosProveedor["ClaveInterna"].ToString());
+                                                    id.Add(drListaProductosProveedor["ID"].ToString());
+                                                }
                                             }
                                         }
                                     }
                                     //id.Clear();
+                                    txtCantidadStock.SelectAll();
                                 }
-                                txtCantidadStock.SelectAll();
                             }
                             else
                             {
-                                using (DataTable dtListaProductosProveedor = cn.CargarDatos(cs.ListarProductosProveedor(FormPrincipal.userID, strFiltroDinamico, 1)))
-                                {// Esta es con idUsuario, nombreProvedor, status =1
-                                    if (!dtListaProductosProveedor.Rows.Count.Equals(0))
-                                    {
-                                        foreach (DataRow drListaProductosProveedor in dtListaProductosProveedor.Rows)
+                                listaCodigosBarras.Clear();
+                                if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
+                                {
+                                    using (DataTable dtListaProductosSinConceptoDinamico = cn.CargarDatos(cs.ListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1)))
+                                    {// Este es sin conceptoDinamico y con idUsuario y status = 1
+                                        if (!dtListaProductosSinConceptoDinamico.Rows.Count.Equals(0))
                                         {
-                                            if (!string.IsNullOrWhiteSpace(drListaProductosProveedor["CodigoBarras"].ToString()))
+                                            foreach (DataRow drListaProductosSinConceptoDinamico in dtListaProductosSinConceptoDinamico.Rows)
                                             {
-                                                listaCodigosBarras.Add(drListaProductosProveedor["CodigoBarras"].ToString());
-                                                id.Add(drListaProductosProveedor["ID"].ToString());
-                                            }
-                                            else
-                                            {
-                                                listaCodigosBarras.Add(drListaProductosProveedor["ClaveInterna"].ToString());
-                                                id.Add(drListaProductosProveedor["ID"].ToString());
+                                                if (!string.IsNullOrWhiteSpace(drListaProductosSinConceptoDinamico["CodigoBarras"].ToString()))
+                                                {
+                                                    listaCodigosBarras.Add(drListaProductosSinConceptoDinamico["CodigoBarras"].ToString());
+                                                    id.Add(drListaProductosSinConceptoDinamico["ID"].ToString());
+                                                }
+                                                else
+                                                {
+                                                    listaCodigosBarras.Add(drListaProductosSinConceptoDinamico["ClaveInterna"].ToString());
+                                                    id.Add(drListaProductosSinConceptoDinamico["ID"].ToString());
+                                                }
                                             }
                                         }
                                     }
+                                    //id.Clear();
+                                    txtCantidadStock.SelectAll();
                                 }
-                                //id.Clear();
-                                txtCantidadStock.SelectAll();
+                                else
+                                {
+                                    using (DataTable dtListaProductosConceptoDinamico = cn.CargarDatos(cs.ListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1)))
+                                    {// Este es con conceptoDinamico, idusuario y status 1
+                                        if (!dtListaProductosConceptoDinamico.Rows.Count.Equals(0))
+                                        {
+                                            foreach (DataRow drListaProductosConceptoDinamico in dtListaProductosConceptoDinamico.Rows)
+                                            {
+                                                if (!string.IsNullOrWhiteSpace(drListaProductosConceptoDinamico["CodigoBarras"].ToString()))
+                                                {
+                                                    listaCodigosBarras.Add(drListaProductosConceptoDinamico["CodigoBarras"].ToString());
+                                                    id.Add(drListaProductosConceptoDinamico["ID"].ToString());
+                                                }
+                                                else
+                                                {
+                                                    listaCodigosBarras.Add(drListaProductosConceptoDinamico["ClaveInterna"].ToString());
+                                                    id.Add(drListaProductosConceptoDinamico["ID"].ToString());
+                                                }
+                                            }
+                                        }
+                                    }
+                                    //id.Clear();
+                                    txtCantidadStock.SelectAll();
+                                }
                             }
                         }
                         else
                         {
-                            listaCodigosBarras.Clear();
-                            if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
+                            //var idNormal = idProductoAux;
+                            if (idActualAnterior != 0)
                             {
-                                using (DataTable dtListaProductosSinConceptoDinamico = cn.CargarDatos(cs.ListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1)))
-                                {// Este es sin conceptoDinamico y con idUsuario y status = 1
-                                    if (!dtListaProductosSinConceptoDinamico.Rows.Count.Equals(0))
-                                    {
-                                        foreach (DataRow drListaProductosSinConceptoDinamico in dtListaProductosSinConceptoDinamico.Rows)
-                                        {
-                                            if (!string.IsNullOrWhiteSpace(drListaProductosSinConceptoDinamico["CodigoBarras"].ToString()))
-                                            {
-                                                listaCodigosBarras.Add(drListaProductosSinConceptoDinamico["CodigoBarras"].ToString());
-                                                id.Add(drListaProductosSinConceptoDinamico["ID"].ToString());
-                                            }
-                                            else
-                                            {
-                                                listaCodigosBarras.Add(drListaProductosSinConceptoDinamico["ClaveInterna"].ToString());
-                                                id.Add(drListaProductosSinConceptoDinamico["ID"].ToString());
-                                            }
-                                        }
-                                    }
+                                var mostrarIDActual = 0;
+                                var idParaSiguiente = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}'");
+
+                                if (!idParaSiguiente.Rows.Count.Equals(0))
+                                {
+                                    mostrarIDActual = Convert.ToInt32(idParaSiguiente.Rows[0]["ID"]);
+
+                                    codigo = AplicarFiltro(mostrarIDActual);
+                                    aplicar = true;
                                 }
-                                //id.Clear();
-                                txtCantidadStock.SelectAll();
                             }
                             else
                             {
-                                using (DataTable dtListaProductosConceptoDinamico = cn.CargarDatos(cs.ListarProductosConceptoDinamico(FormPrincipal.userID, strFiltroDinamico, 1)))
-                                {// Este es con conceptoDinamico, idusuario y status 1
-                                    if (!dtListaProductosConceptoDinamico.Rows.Count.Equals(0))
-                                    {
-                                        foreach (DataRow drListaProductosConceptoDinamico in dtListaProductosConceptoDinamico.Rows)
-                                        {
-                                            if (!string.IsNullOrWhiteSpace(drListaProductosConceptoDinamico["CodigoBarras"].ToString()))
-                                            {
-                                                listaCodigosBarras.Add(drListaProductosConceptoDinamico["CodigoBarras"].ToString());
-                                                id.Add(drListaProductosConceptoDinamico["ID"].ToString());
-                                            }
-                                            else
-                                            {
-                                                listaCodigosBarras.Add(drListaProductosConceptoDinamico["ClaveInterna"].ToString());
-                                                id.Add(drListaProductosConceptoDinamico["ID"].ToString());
-                                            }
-                                        }
-                                    }
-                                }
-                                //id.Clear();
-                                txtCantidadStock.SelectAll();
+                                codigo = AplicarFiltro(idProductoAux);
+                                aplicar = true;
                             }
+                            txtCantidadStock.SelectAll();
                         }
+                    }
+
+                    if (listaCodigosBarras.Count > 0)
+                    {
+                        if (countListaCodigosBarras >= 0 && countListaCodigosBarras < listaCodigosBarras.Count)
+                        {
+                            txtBoxBuscarCodigoBarras.Text = listaCodigosBarras[countListaCodigosBarras].ToString();
+
+                            codigo = txtBoxBuscarCodigoBarras.Text;
+
+                            realizarBusqueda(codigo, aplicar);
+
+                            countListaCodigosBarras++;
+                        }
+                        txtCantidadStock.SelectAll();
                     }
                     else
                     {
-                        //var idNormal = idProductoAux;
-                        if (idActualAnterior != 0)
+                        // Verifica si el codigo existe en algun producto y si pertenece al usuario
+                        // Si existe se trae la informacion del producto
+                        var infoProducto = mb.BuscarCodigoInventario(codigo, aplicar);
+                        var idFiltrado = MetodosBusquedas.idFiltrado.ToString();
+                        if (!string.IsNullOrEmpty(idFiltrado))
                         {
-                            var mostrarIDActual = 0;
-                            var idParaSiguiente = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}'");
+                            id.Add(idFiltrado);
+                        }
 
-                            if (!idParaSiguiente.Rows.Count.Equals(0))
+                        if (infoProducto.Length > 0)
+                        {
+                            // Para mostrar el numero de registro en el que va el proceso de revision
+                            if (tipoFiltro != "Normal")
                             {
-                                mostrarIDActual = Convert.ToInt32(idParaSiguiente.Rows[0]["ID"]);
+                                cantidadRegistrosAux += 1;
 
-                                codigo = AplicarFiltro(mostrarIDActual);
-                                aplicar = true;
+                                lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+                            }
+
+                            txtBoxBuscarCodigoBarras.Text = infoProducto[4];
+                            txtNombreProducto.Text = infoProducto[0];
+
+                            if (string.IsNullOrEmpty(infoProducto[3]))
+                            {
+                                txtCodigoBarras.Text = infoProducto[4]; //codigo;
+                            }
+                            else
+                            {
+                                txtCodigoBarras.Text = infoProducto[3];
+                            }
+
+                            lblPrecioProducto.Text = infoProducto[2];
+
+                            lblStockMinimo.Text = infoProducto[8];
+                            lblStockMaximo.Text = infoProducto[7];
+
+                            idProducto = Convert.ToInt32(infoProducto[5]);
+
+                            if (tipoFiltro != "Normal")
+                            {
+                                idProductoAux = idProducto;
+                            }
+
+                            // Verificar si es un producto
+                            if (infoProducto[6] == "P")
+                            {
+                                // Verificar si el producto tiene un mensaje para mostrarse al realizar inventario
+                                var mensajeInventario = mb.MensajeInventario(idProducto, 1);
+
+                                if (!string.IsNullOrEmpty(mensajeInventario))
+                                {
+                                    MessageBox.Show(mensajeInventario, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+
+                                // Verificar si este producto ya fue inventariado
+                                var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
+
+                                if (inventariado)
+                                {
+                                    var infoInventariado = mb.DatosProductoInventariado(idProducto);
+
+                                    if (infoInventariado.Length > 0)
+                                    {
+
+                                        var respuesta = MessageBox.Show("Este producto ya fue inventariado\nFecha: " + infoInventariado[2] + " \n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                        if (respuesta == DialogResult.Yes)
+                                        {
+                                            //Decrementa el Id utilizar el boton de anterior 
+                                            convertirId--;
+
+                                            // Se asigna el stock registrado en la tabla RevisarInventario
+                                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
+                                        }
+
+                                        if (respuesta == DialogResult.No)
+                                        {
+                                            //LimpiarCampos();
+                                            //txtBoxBuscarCodigoBarras.Focus();
+                                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
+                                            btnOmitir.PerformClick();
+                                            txtCantidadStock.Focus();
+                                        }
+                                    }
+                                    txtCantidadStock.Focus();
+                                }
+                                else
+                                {
+                                    // Se asigna el stock registrado en la tabla Productos
+                                    txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoProducto[1]);
+                                }
+
+                                txtCantidadStock.Focus();
+                                //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                            }
+                            else
+                            {
+                                var nombreProductos = string.Empty;
+
+                                var productosRelacionados = mb.ProductosServicio(idProducto);
+
+                                if (productosRelacionados.Count > 0)
+                                {
+                                    nombreProductos += "Contiene los siguientes productos:\n\n";
+
+                                    foreach (var relacionado in productosRelacionados)
+                                    {
+                                        nombreProductos += "Producto: " + relacionado.Value.Item1 + " Cantidad: " + relacionado.Value.Item2 + "\n";
+                                    }
+                                }
+
+                                // Verificar si es un servicio o combo y mostrar los productos relacionados
+                                if (infoProducto[6] == "S")
+                                {
+                                    MessageBox.Show($"El código de barras pertenece a un SERVICIO\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+
+                                if (infoProducto[6] == "PQ")
+                                {
+                                    MessageBox.Show($"El código de barras pertenece a un COMBO\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+
+                                LimpiarCampos();
+                                txtBoxBuscarCodigoBarras.Focus();
                             }
                         }
                         else
                         {
-                            codigo = AplicarFiltro(idProductoAux);
-                            aplicar = true;
+                            if (tipoFiltro != "Normal")
+                            {
+                                MessageBox.Show("No se encontraron productos o no hay más con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                //btnSiguiente.PerformClick();
+                                //btnTerminar.PerformClick();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Producto no encontrado / Deshabilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                         txtCantidadStock.SelectAll();
                     }
                 }
+                //txtCantidadStock.SelectAll();
+                //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+            }
+            else
+            {
+                //mensajeNoHay = "No existen mas productos con los filtros aplpicados \n¿Desea terminar la revisión?";
+                //var mensajeTerminar = MessageBox.Show("No existen mas productos con los filtros aplpicados \n¿Desea terminar la revisión?", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                if (listaCodigosBarras.Count > 0)
+                //if (mensajeTerminar == DialogResult.Yes)
+                //{
+                //}
+
+                if (terminarRev == 0)
                 {
-                    if (countListaCodigosBarras >= 0 && countListaCodigosBarras < listaCodigosBarras.Count)
-                    {
-                        txtBoxBuscarCodigoBarras.Text = listaCodigosBarras[countListaCodigosBarras].ToString();
-
-                        codigo = txtBoxBuscarCodigoBarras.Text;
-
-                        realizarBusqueda(codigo, aplicar);
-
-                        countListaCodigosBarras++;
-                    }
-                    txtCantidadStock.SelectAll();
-                }
-                else
-                {
-                    // Verifica si el codigo existe en algun producto y si pertenece al usuario
-                    // Si existe se trae la informacion del producto
-                    var infoProducto = mb.BuscarCodigoInventario(codigo, aplicar);
-                    var idFiltrado = MetodosBusquedas.idFiltrado.ToString();
-                    if (!string.IsNullOrEmpty(idFiltrado))
-                    {
-                        id.Add(idFiltrado);
-                    }
-
-                    if (infoProducto.Length > 0)
-                    {
-                        // Para mostrar el numero de registro en el que va el proceso de revision
-                        if (tipoFiltro != "Normal")
-                        {
-                            cantidadRegistrosAux += 1;
-
-                            lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
-                        }
-
-                        txtBoxBuscarCodigoBarras.Text = infoProducto[4];
-                        txtNombreProducto.Text = infoProducto[0];
-
-                        if (string.IsNullOrEmpty(infoProducto[3]))
-                        {
-                            txtCodigoBarras.Text = infoProducto[4]; //codigo;
-                        }
-                        else
-                        {
-                            txtCodigoBarras.Text = infoProducto[3];
-                        }
-
-                        lblPrecioProducto.Text = infoProducto[2];
-
-                        lblStockMinimo.Text = infoProducto[8];
-                        lblStockMaximo.Text = infoProducto[7];
-
-                        idProducto = Convert.ToInt32(infoProducto[5]);
-
-                        if (tipoFiltro != "Normal")
-                        {
-                            idProductoAux = idProducto;
-                        }
-
-                        // Verificar si es un producto
-                        if (infoProducto[6] == "P")
-                        {
-                            // Verificar si el producto tiene un mensaje para mostrarse al realizar inventario
-                            var mensajeInventario = mb.MensajeInventario(idProducto, 1);
-
-                            if (!string.IsNullOrEmpty(mensajeInventario))
-                            {
-                                MessageBox.Show(mensajeInventario, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-
-                            // Verificar si este producto ya fue inventariado
-                            var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
-
-                            if (inventariado)
-                            {
-                                var infoInventariado = mb.DatosProductoInventariado(idProducto);
-
-                                if (infoInventariado.Length > 0)
-                                {
-
-                                    var respuesta = MessageBox.Show("Este producto ya fue inventariado\nFecha: " + infoInventariado[2] + " \n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                                    if (respuesta == DialogResult.Yes)
-                                    {
-                                        //Decrementa el Id utilizar el boton de anterior 
-                                        convertirId--;
-
-                                        // Se asigna el stock registrado en la tabla RevisarInventario
-                                        txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
-                                    }
-
-                                    if (respuesta == DialogResult.No)
-                                    {
-                                        //LimpiarCampos();
-                                        //txtBoxBuscarCodigoBarras.Focus();
-                                        txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
-                                        btnOmitir.PerformClick();
-                                        txtCantidadStock.Focus();
-                                    }
-                                }
-                                txtCantidadStock.Focus();
-                            }
-                            else
-                            {
-                                // Se asigna el stock registrado en la tabla Productos
-                                txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoProducto[1]);
-                            }
-
-                            txtCantidadStock.Focus();
-                            //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
-                        }
-                        else
-                        {
-                            var nombreProductos = string.Empty;
-
-                            var productosRelacionados = mb.ProductosServicio(idProducto);
-
-                            if (productosRelacionados.Count > 0)
-                            {
-                                nombreProductos += "Contiene los siguientes productos:\n\n";
-
-                                foreach (var relacionado in productosRelacionados)
-                                {
-                                    nombreProductos += "Producto: " + relacionado.Value.Item1 + " Cantidad: " + relacionado.Value.Item2 + "\n";
-                                }
-                            }
-
-                            // Verificar si es un servicio o combo y mostrar los productos relacionados
-                            if (infoProducto[6] == "S")
-                            {
-                                MessageBox.Show($"El código de barras pertenece a un SERVICIO\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-
-                            if (infoProducto[6] == "PQ")
-                            {
-                                MessageBox.Show($"El código de barras pertenece a un COMBO\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-
-                            LimpiarCampos();
-                            txtBoxBuscarCodigoBarras.Focus();
-                        }
-                    }
-                    else
-                    {
-                        if (tipoFiltro != "Normal")
-                        {
-                            MessageBox.Show("No se encontraron productos o no hay más con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            //btnSiguiente.PerformClick();
-                            //btnTerminar.PerformClick();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Producto no encontrado / Deshabilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    txtCantidadStock.SelectAll();
+                    btnTerminar.PerformClick();
                 }
             }
-            //txtCantidadStock.SelectAll();
-            //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
         }
 
         private void realizarBusqueda(string codigo, bool aplicar)
@@ -927,12 +947,27 @@ namespace PuntoDeVentaV2
 
         private void btnTerminar_Click(object sender, EventArgs e)
         {
-            btnSiguiente.PerformClick();
+            string terminar = "¿Desea terminar la revisión?";
+            string mensajeMostrar = string.Empty;
 
-            DialogResult deseaTernimar = MessageBox.Show("Desea Terminar la Revision", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (string.IsNullOrEmpty(mensajeNoHay))
+            {
+                mensajeMostrar = terminar;
+            }
+            else
+            {
+                mensajeMostrar = mensajeNoHay;
+            }
+
+                DialogResult deseaTernimar = MessageBox.Show($"{mensajeMostrar}", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (deseaTernimar == DialogResult.Yes)
             {
+                terminarRev = 1;
+                validarSiguienteTerminar = true;
+
+                btnSiguiente.PerformClick();
+
                 // Guardamos los dos Datos de las variables del sistema
                 //Properties.Settings.Default.InicioFinInventario = 2;
                 //Properties.Settings.Default.Save();
@@ -1218,8 +1253,8 @@ namespace PuntoDeVentaV2
             //}
             if (cantidadRegistrosAux < 1)
             {
-                cantidadRegistrosAux = 1;
-                MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    lbCantidadFiltro.Text = $"{cantidadRegistros} de {cantidadRegistros}";
+                    MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
