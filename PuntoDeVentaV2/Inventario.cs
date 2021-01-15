@@ -184,6 +184,7 @@ namespace PuntoDeVentaV2
         private void btnRevisar_Click(object sender, EventArgs e)
         {
             gBSeleccionActualizarInventario.Visible = false;
+            btnConceptosReporte.Visible = false;
             panelContenedor.Visible = false;
 
             if (opcion1 == 0)
@@ -286,6 +287,7 @@ namespace PuntoDeVentaV2
             }
 
             gBSeleccionActualizarInventario.Visible = true;
+            btnConceptosReporte.Visible = true;
 
             tipoSeleccion = 0;
 
@@ -309,6 +311,7 @@ namespace PuntoDeVentaV2
             else
             {
                 gBSeleccionActualizarInventario.Visible = false;
+                btnConceptosReporte.Visible = false;
                 panelContenedor.Visible = false;
 
                 AgregarStockXML inventarioXML = new AgregarStockXML();
@@ -1522,6 +1525,18 @@ namespace PuntoDeVentaV2
             DGVInventario.Rows.Clear();
             populateDisminuirDGVInventario();
             txtBusqueda.Focus();
+        }
+
+        private void btnConceptosReporte_Click(object sender, EventArgs e)
+        {
+            SeleccionarConceptosReporteActualizarInventario SCRA = new SeleccionarConceptosReporteActualizarInventario();
+
+            SCRA.FormClosed += delegate
+            {
+
+            };
+
+            SCRA.ShowDialog();
         }
     }
 }

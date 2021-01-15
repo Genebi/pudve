@@ -774,6 +774,12 @@
     <Compile Include="SeccionPermisos.Designer.cs">
       <DependentUpon>SeccionPermisos.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeleccionarConceptosReporteActualizarInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionarConceptosReporteActualizarInventario.Designer.cs">
+      <DependentUpon>SeleccionarConceptosReporteActualizarInventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Service References\ServiceReferenceTPrueba\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1150,6 +1156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SeccionPermisos.resx">
       <DependentUpon>SeccionPermisos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeleccionarConceptosReporteActualizarInventario.resx">
+      <DependentUpon>SeleccionarConceptosReporteActualizarInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetUpPUDVE.resx">
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
