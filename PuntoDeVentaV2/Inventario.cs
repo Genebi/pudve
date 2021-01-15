@@ -678,50 +678,22 @@ namespace PuntoDeVentaV2
                     {
                         if (datosSeparados.Length > 1)
                         {
-                            if (rbAumentarProducto.Checked)
-                            {
-                                ap.cantidadPasadaProductoCombo = (int)Convert.ToDouble(datosSeparados[0].ToString().Trim()) * (int)Convert.ToDouble(idProductoDelCombo[1].ToString());
-                            }
-                            else if (rbDisminuirProducto.Checked)
-                            {
-
-                            }
+                            ap.cantidadPasadaProductoCombo = (int)Convert.ToDouble(datosSeparados[0].ToString().Trim()) * (int)Convert.ToDouble(idProductoDelCombo[1].ToString());
                         }
                         else if (datosSeparados.Length == 1)
                         {
-                            if (rbAumentarProducto.Checked)
-                            {
-                                ap.cantidadPasadaProductoCombo = (int)Convert.ToDouble(idProductoDelCombo[1].ToString()) * 1;
-                            }
-                            else if (rbDisminuirProducto.Checked)
-                            {
-                                ap.cantidadPasadaProductoCombo = (int)Convert.ToDouble(idProductoDelCombo[1].ToString()) * (-1);
-                            }
+                            ap.cantidadPasadaProductoCombo = (int)Convert.ToDouble(idProductoDelCombo[1].ToString()) * 1;
                         }
                     }
                     if (idProductoDelCombo.Count == 0)
                     {
                         if (datosSeparados.Length > 1)
                         {
-                            if (rbAumentarProducto.Checked)
-                            {
-                                ap.cantidadPasadaProductoCombo = (int)Convert.ToDouble(datosSeparados[0].ToString().Trim()) * 1;
-                            }
-                            else if (rbDisminuirProducto.Checked)
-                            {
-
-                            }
+                            ap.cantidadPasadaProductoCombo = (int)Convert.ToDouble(datosSeparados[0].ToString().Trim()) * 1;
                         }
                         else if (datosSeparados.Length == 1)
                         {
-                            if (rbAumentarProducto.Checked)
-                            {
-                                ap.cantidadPasadaProductoCombo = 0;
-                            }
-                            else if (rbDisminuirProducto.Checked)
-                            {
-
-                            }
+                            ap.cantidadPasadaProductoCombo = 0;
                         }
                     }
                     ap.ShowDialog();
