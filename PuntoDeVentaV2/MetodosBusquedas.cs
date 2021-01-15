@@ -2333,6 +2333,29 @@ namespace PuntoDeVentaV2
             return resultado;
         }
 
+        public string[] ObtenerDatosProductoPaqueteServicio(int IdProd, int IdUser)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Productos WHERE ID = {IdProd} AND IDUsuario = {IdUser} AND Status = 1");
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr["ID"].ToString());         // 0
+                lista.Add(dr["Nombre"].ToString());     // 1
+                lista.Add(dr["Categoria"].ToString());  // 2
+                lista.Add(dr["Status"].ToString());     // 3
+                lista.Add(dr["Tipo"].ToString());       // 4
+            }
+
+            dr.Close();
+            CerrarConexion();
+
+            return lista.ToArray();
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);
