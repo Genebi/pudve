@@ -603,7 +603,16 @@ namespace PuntoDeVentaV2
                 // Si es mayor a cero es un producto y lo mostramos directamente en la ventana de ajustar
                 if (idProducto > 0)
                 {
-                    AjustarProducto ap = new AjustarProducto(idProducto, 2);
+                    if (rbAumentarProducto.Checked)
+                    {
+                        tipoSeleccion = 1;
+                    }
+                    else if (rbDisminuirProducto.Checked)
+                    {
+                        tipoSeleccion = 2;
+                    }
+
+                    AjustarProducto ap = new AjustarProducto(idProducto, 2, tipoSeleccion);
 
                     ap.FormClosed += delegate
                     {
@@ -611,6 +620,9 @@ namespace PuntoDeVentaV2
                         {
                             txtBusqueda.Text = string.Empty;
                             var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                            suma = getSuma;
+                            resta = getResta;
+                            stockAnterior = getStockAnterior;
                             AgregarProductoDGV(producto);
                             botonAceptar = false;
                             idProductoDelCombo.Clear();
