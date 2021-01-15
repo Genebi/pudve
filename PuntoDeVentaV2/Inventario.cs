@@ -890,14 +890,15 @@ namespace PuntoDeVentaV2
                             row.Cells["DiferenciaUnidades"].Style.ForeColor = Color.DodgerBlue;
                             row.Cells["DiferenciaUnidades"].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
                             row.Cells["NuevoStock"].Value = dr["NuevoStock"].ToString();
-                            if (!dr["ValorUnitario"].ToString().Equals("0.00"))
-                            {
-                                row.Cells["Precio"].Value = dr["ValorUnitario"].ToString();
-                            }
-                            else if (dr["ValorUnitario"].ToString().Equals("0.00"))
-                            {
-                                row.Cells["Precio"].Value = dr["Precio"].ToString();
-                            }
+                            //if (!dr["ValorUnitario"].ToString().Equals("0.00"))
+                            //{
+                            //    row.Cells["Precio"].Value = dr["ValorUnitario"].ToString();
+                            //}
+                            //else if (dr["ValorUnitario"].ToString().Equals("0.00"))
+                            //{
+                            //    row.Cells["Precio"].Value = dr["Precio"].ToString();
+                            //}
+                            row.Cells["Precio"].Value = dr["Precio"].ToString();
                             row.Cells["Clave"].Value = dr["Clave"].ToString();
                             row.Cells["Codigo"].Value = dr["Codigo"].ToString();
                             row.Cells["Fecha"].Value = dr["Fecha"].ToString();
