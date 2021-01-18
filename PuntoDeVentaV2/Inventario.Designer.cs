@@ -33,6 +33,7 @@
             this.btnActualizarXML = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnConceptosReporte = new System.Windows.Forms.Button();
             this.gBSeleccionActualizarInventario = new System.Windows.Forms.GroupBox();
             this.rbDisminuirProducto = new System.Windows.Forms.RadioButton();
             this.rbAumentarProducto = new System.Windows.Forms.RadioButton();
@@ -53,7 +54,6 @@
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comentarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnConceptosReporte = new System.Windows.Forms.Button();
             this.panelBotones.SuspendLayout();
             this.gBSeleccionActualizarInventario.SuspendLayout();
             this.panelContenedor.SuspendLayout();
@@ -146,14 +146,32 @@
             this.panelBotones.Size = new System.Drawing.Size(845, 115);
             this.panelBotones.TabIndex = 104;
             // 
+            // btnConceptosReporte
+            // 
+            this.btnConceptosReporte.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnConceptosReporte.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnConceptosReporte.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConceptosReporte.FlatAppearance.BorderSize = 0;
+            this.btnConceptosReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConceptosReporte.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConceptosReporte.ForeColor = System.Drawing.Color.White;
+            this.btnConceptosReporte.Location = new System.Drawing.Point(316, 79);
+            this.btnConceptosReporte.Name = "btnConceptosReporte";
+            this.btnConceptosReporte.Size = new System.Drawing.Size(227, 31);
+            this.btnConceptosReporte.TabIndex = 105;
+            this.btnConceptosReporte.Text = "Conceptos del Reporte";
+            this.btnConceptosReporte.UseVisualStyleBackColor = false;
+            this.btnConceptosReporte.Visible = false;
+            this.btnConceptosReporte.Click += new System.EventHandler(this.btnConceptosReporte_Click);
+            // 
             // gBSeleccionActualizarInventario
             // 
             this.gBSeleccionActualizarInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbDisminuirProducto);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbAumentarProducto);
-            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 39);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 38);
             this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
-            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 43);
+            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 36);
             this.gBSeleccionActualizarInventario.TabIndex = 104;
             this.gBSeleccionActualizarInventario.TabStop = false;
             this.gBSeleccionActualizarInventario.Visible = false;
@@ -161,7 +179,7 @@
             // rbDisminuirProducto
             // 
             this.rbDisminuirProducto.AutoSize = true;
-            this.rbDisminuirProducto.Location = new System.Drawing.Point(135, 16);
+            this.rbDisminuirProducto.Location = new System.Drawing.Point(135, 12);
             this.rbDisminuirProducto.Name = "rbDisminuirProducto";
             this.rbDisminuirProducto.Size = new System.Drawing.Size(67, 17);
             this.rbDisminuirProducto.TabIndex = 1;
@@ -174,7 +192,7 @@
             // 
             this.rbAumentarProducto.AutoSize = true;
             this.rbAumentarProducto.Checked = true;
-            this.rbAumentarProducto.Location = new System.Drawing.Point(27, 16);
+            this.rbAumentarProducto.Location = new System.Drawing.Point(27, 12);
             this.rbAumentarProducto.Name = "rbAumentarProducto";
             this.rbAumentarProducto.Size = new System.Drawing.Size(70, 17);
             this.rbAumentarProducto.TabIndex = 0;
@@ -374,24 +392,6 @@
             this.Comentarios.Name = "Comentarios";
             this.Comentarios.ReadOnly = true;
             this.Comentarios.Visible = false;
-            // 
-            // btnConceptosReporte
-            // 
-            this.btnConceptosReporte.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnConceptosReporte.BackColor = System.Drawing.SystemColors.Highlight;
-            this.btnConceptosReporte.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConceptosReporte.FlatAppearance.BorderSize = 0;
-            this.btnConceptosReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConceptosReporte.Font = new System.Drawing.Font("Century", 9F);
-            this.btnConceptosReporte.ForeColor = System.Drawing.Color.White;
-            this.btnConceptosReporte.Location = new System.Drawing.Point(316, 86);
-            this.btnConceptosReporte.Name = "btnConceptosReporte";
-            this.btnConceptosReporte.Size = new System.Drawing.Size(227, 23);
-            this.btnConceptosReporte.TabIndex = 105;
-            this.btnConceptosReporte.Text = "Conceptos del Reporte";
-            this.btnConceptosReporte.UseVisualStyleBackColor = false;
-            this.btnConceptosReporte.Visible = false;
-            this.btnConceptosReporte.Click += new System.EventHandler(this.btnConceptosReporte_Click);
             // 
             // Inventario
             // 

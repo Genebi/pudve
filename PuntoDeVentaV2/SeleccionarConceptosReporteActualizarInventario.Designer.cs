@@ -43,7 +43,7 @@
             this.CLBConceptosExistentes.FormattingEnabled = true;
             this.CLBConceptosExistentes.Location = new System.Drawing.Point(12, 157);
             this.CLBConceptosExistentes.Name = "CLBConceptosExistentes";
-            this.CLBConceptosExistentes.Size = new System.Drawing.Size(200, 154);
+            this.CLBConceptosExistentes.Size = new System.Drawing.Size(234, 154);
             this.CLBConceptosExistentes.TabIndex = 0;
             // 
             // btnAceptar
@@ -53,7 +53,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century", 9.75F);
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(137, 322);
+            this.btnAceptar.Location = new System.Drawing.Point(171, 323);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 1;
@@ -66,7 +66,7 @@
             this.label1.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(200, 65);
+            this.label1.Size = new System.Drawing.Size(233, 69);
             this.label1.TabIndex = 3;
             this.label1.Text = "Selecciona los  conceptos que deseas que salgan en el repote";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -77,7 +77,7 @@
             this.groupBox1.Controls.Add(this.chkSelectOnly);
             this.groupBox1.Location = new System.Drawing.Point(12, 81);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 66);
+            this.groupBox1.Size = new System.Drawing.Size(234, 66);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
@@ -109,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(229, 358);
+            this.ClientSize = new System.Drawing.Size(257, 358);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAceptar);

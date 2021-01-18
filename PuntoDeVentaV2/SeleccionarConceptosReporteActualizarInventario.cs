@@ -12,7 +12,6 @@ namespace PuntoDeVentaV2
 {
     public partial class SeleccionarConceptosReporteActualizarInventario : Form
     {
-        int index = 0;
         string[] itemsCLBConceptosExistentes;
         List<string> listaConceptos;
 
@@ -66,11 +65,17 @@ namespace PuntoDeVentaV2
             {
                 CheckAllListCLBExistentes();
                 chkSelectAllOrNot.Text = "Deseleccionar todas las opciones";
+                chkSelectAllOrNot.Font = new Font(chkSelectAllOrNot.Font, System.Drawing.FontStyle.Bold);
+                chkSelectOnly.Checked = false;
+                chkSelectOnly.Enabled = false;
             }
             else if (chkSelectAllOrNot.Checked.Equals(false))
             {
                 unCheckAllListCLBExistentes();
                 chkSelectAllOrNot.Text = "Seleccionar todas las opciones";
+                chkSelectAllOrNot.Font = new Font(chkSelectAllOrNot.Font, System.Drawing.FontStyle.Regular);
+                chkSelectOnly.Checked = true;
+                chkSelectOnly.Enabled = true;
             }
         }
     }
