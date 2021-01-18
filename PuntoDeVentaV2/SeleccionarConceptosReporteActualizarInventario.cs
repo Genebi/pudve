@@ -13,7 +13,6 @@ namespace PuntoDeVentaV2
     public partial class SeleccionarConceptosReporteActualizarInventario : Form
     {
         string[] itemsCLBConceptosExistentes;
-        List<string> listaConceptos;
 
         private void unCheckAllListCLBExistentes()
         {
@@ -42,14 +41,13 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            listaConceptos = new List<string>();
-
             if (!CLBConceptosExistentes.CheckedItems.Count.Equals(0))
             {
                 for (int x = 0; x <= CLBConceptosExistentes.CheckedItems.Count - 1; x++)
                 {
-                    listaConceptos.Add(CLBConceptosExistentes.CheckedItems[x].ToString());
+                    Inventario.listaConceptosSeleccionados.Add(CLBConceptosExistentes.CheckedItems[x].ToString());
                 }
+                this.Close();
             }
             else if (CLBConceptosExistentes.CheckedItems.Count.Equals(0))
             {

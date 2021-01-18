@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
         // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
         Dictionary<int, string> productos;
 
-        List<string> idProductoDelCombo;
+        static public List<string> idProductoDelCombo;
 
         public int GetNumRevActive { get; set; }
 
@@ -55,8 +55,25 @@ namespace PuntoDeVentaV2
         // tipo de selección Aumentar, Disminuir
         int tipoSeleccion = 0;
 
+        // Lista para pasar conceptos seleccionados desde la venta de selección conceptos
+        public static List<string> listaConceptosSeleccionados;
+
+        // variables para ber que conceptos son los que estaran activos para el reporte
+        bool Producto = false;
+        bool Proveedor = false;
+        bool UnidadesCompradas = false;
+        bool UnidadesDisminuidas = false;
+        bool PrecioCompra = false;
+        bool PrecioVenta = false;
+        bool StockAnterior = false;
+        bool StockActual = false;
+        bool FechaCompra = false;
+        bool FechaOperacion = false;
+        bool Comentario = false;
+
         public Inventario()
         {
+            listaConceptosSeleccionados = new List<string>();
             InitializeComponent();
         }
 
@@ -1533,10 +1550,68 @@ namespace PuntoDeVentaV2
 
             SCRA.FormClosed += delegate
             {
-
+                ConceptosSeleccionados();
             };
 
             SCRA.ShowDialog();
+        }
+
+        private void ConceptosSeleccionados()
+        {
+            if (!listaConceptosSeleccionados.Count.Equals(0))
+            {
+                foreach(var item in listaConceptosSeleccionados)
+                {
+                    //MessageBox.Show("Concepto: " + item.ToString());
+                    if (item.Equals("Producto"))
+                    {
+                        Producto = true;
+                    }
+                    else if (item.Equals("Proveedor"))
+                    {
+                        Proveedor = true;
+                    }
+                    else if(item.Equals("Unidades Compradas/Disminuidas"))
+                    {
+                        if (rbAumentarProducto.Checked)
+                        {
+                            UnidadesCompradas = true;
+                        }
+                        else if (rbDisminuirProducto.Checked)
+                        {
+                            UnidadesDisminuidas = true;
+                        }
+                    }
+                    else if(item.Equals("Precio Compra"))
+                    {
+                        PrecioCompra = true;
+                    }
+                    else if(item.Equals("Precio Venta"))
+                    {
+                        PrecioVenta = true;
+                    }
+                    else if(item.Equals("Stock Anterior"))
+                    {
+                        StockAnterior = true;
+                    }
+                    else if(item.Equals("Stock Actual"))
+                    {
+                        StockActual = true;
+                    }
+                    else if(item.Equals("Fecha de Compra"))
+                    {
+                        FechaCompra = true;
+                    }
+                    else if(item.Equals("Fecha de Operacion"))
+                    {
+                        FechaOperacion = true;
+                    }
+                    else if (item.Equals("Comentarios"))
+                    {
+                        Comentario = true;
+                    }
+                }
+            }
         }
     }
 }
