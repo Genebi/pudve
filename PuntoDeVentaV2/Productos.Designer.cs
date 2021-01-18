@@ -88,6 +88,7 @@
             this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbCapital = new System.Windows.Forms.Label();
             this.lbPaginasSeleccionadas = new System.Windows.Forms.Label();
             this.txtIrPagina = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -108,7 +109,6 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.lbCapital = new System.Windows.Forms.Label();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -864,6 +864,15 @@
             this.panel2.Size = new System.Drawing.Size(941, 65);
             this.panel2.TabIndex = 17;
             // 
+            // lbCapital
+            // 
+            this.lbCapital.AutoSize = true;
+            this.lbCapital.Location = new System.Drawing.Point(7, 44);
+            this.lbCapital.Name = "lbCapital";
+            this.lbCapital.Size = new System.Drawing.Size(51, 13);
+            this.lbCapital.TabIndex = 26;
+            this.lbCapital.Text = "Capital: 0";
+            // 
             // lbPaginasSeleccionadas
             // 
             this.lbPaginasSeleccionadas.AutoSize = true;
@@ -1110,15 +1119,6 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // lbCapital
-            // 
-            this.lbCapital.AutoSize = true;
-            this.lbCapital.Location = new System.Drawing.Point(7, 44);
-            this.lbCapital.Name = "lbCapital";
-            this.lbCapital.Size = new System.Drawing.Size(51, 13);
-            this.lbCapital.TabIndex = 26;
-            this.lbCapital.Text = "Capital: 0";
             // 
             // Productos
             // 

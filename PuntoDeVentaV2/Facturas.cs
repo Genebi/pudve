@@ -77,7 +77,8 @@ namespace PuntoDeVentaV2
             //datagv_facturas.ClearSelection();
             clickBoton = 0;
             actualizar();
-            btn_ultima_pag.PerformClick();
+            //+++btn_ultima_pag.PerformClick();
+            btn_primera_pag.PerformClick();
 
 
             if (FormPrincipal.id_empleado > 0)
@@ -274,6 +275,7 @@ namespace PuntoDeVentaV2
             }
 
             cargar_lista_facturas(1);
+            btn_primera_pag.PerformClick();
         }
 
         private void buscar_tipo_factura(object sender, EventArgs e)
@@ -666,217 +668,223 @@ namespace PuntoDeVentaV2
             }
 
 
-            XmlSerializer serializer = new XmlSerializer(typeof(Comprobante));
-
-            // Desserealizar el xml
-            using (StreamReader sr = new StreamReader(ruta_xml))
+            if (!File.Exists(ruta_xml))
             {
-                comprobante = (Comprobante)serializer.Deserialize(sr);
+                MessageBox.Show("No se encuentró el documento que intenta abrir.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(Comprobante));
 
-                // Dessearializar complementos
-                foreach (var complementos in comprobante.Complemento)
+                // Desserealizar el xml
+                using (StreamReader sr = new StreamReader(ruta_xml))
                 {
-                    foreach (var complemento in complementos.Any)
+                    comprobante = (Comprobante)serializer.Deserialize(sr);
+
+                    // Dessearializar complementos
+                    foreach (var complementos in comprobante.Complemento)
                     {
-                        if (complemento.Name.Contains("TimbreFiscalDigital"))
+                        foreach (var complemento in complementos.Any)
                         {
-                            XmlSerializer serializer_complemento = new XmlSerializer(typeof(TimbreFiscalDigital));
-
-                            using (var sr_c = new StringReader(complemento.OuterXml))
+                            if (complemento.Name.Contains("TimbreFiscalDigital"))
                             {
-                                comprobante.timbre_fiscal_digital = (TimbreFiscalDigital)serializer_complemento.Deserialize(sr_c);
-                            }
-                        }
+                                XmlSerializer serializer_complemento = new XmlSerializer(typeof(TimbreFiscalDigital));
 
-                        if (complemento.Name.Contains("Pagos"))
-                        {
-                            XmlSerializer serializer_complemento_pagos = new XmlSerializer(typeof(Pagos));
-
-                            using (var sr_cp = new StringReader(complemento.OuterXml))
-                            {
-                                comprobante.cpagos = (Pagos)serializer_complemento_pagos.Deserialize(sr_cp);
-
-
-                                foreach (var cpagos_pg in comprobante.cpagos.Pago)
+                                using (var sr_c = new StringReader(complemento.OuterXml))
                                 {
-                                    comprobante.cpagos.cpagos_pago = cpagos_pg;
+                                    comprobante.timbre_fiscal_digital = (TimbreFiscalDigital)serializer_complemento.Deserialize(sr_c);
+                                }
+                            }
 
-                                    foreach (var cpagos_pg_docrel in comprobante.cpagos.cpagos_pago.DoctoRelacionado)
+                            if (complemento.Name.Contains("Pagos"))
+                            {
+                                XmlSerializer serializer_complemento_pagos = new XmlSerializer(typeof(Pagos));
+
+                                using (var sr_cp = new StringReader(complemento.OuterXml))
+                                {
+                                    comprobante.cpagos = (Pagos)serializer_complemento_pagos.Deserialize(sr_cp);
+
+
+                                    foreach (var cpagos_pg in comprobante.cpagos.Pago)
                                     {
-                                        comprobante.cpagos.cpagos_pago_docrelacionado = cpagos_pg_docrel;
+                                        comprobante.cpagos.cpagos_pago = cpagos_pg;
+
+                                        foreach (var cpagos_pg_docrel in comprobante.cpagos.cpagos_pago.DoctoRelacionado)
+                                        {
+                                            comprobante.cpagos.cpagos_pago_docrelacionado = cpagos_pg_docrel;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            // Comprueba si el comprobante esta cancelado.
-            // Obtiene el domicilio del receptor.
-            DataTable d_factura = cn.CargarDatos(cs.cargar_datos_venta_xml(1, id_fct, id_usuario));
-            DataRow r_factura = d_factura.Rows[0];
+                // Comprueba si el comprobante esta cancelado.
+                // Obtiene el domicilio del receptor.
+                DataTable d_factura = cn.CargarDatos(cs.cargar_datos_venta_xml(1, id_fct, id_usuario));
+                DataRow r_factura = d_factura.Rows[0];
 
-            if(Convert.ToInt32(r_factura["cancelada"]) == 1)
-            {
-                comprobante.CanceladaSpecified = true;
-                comprobante.Cancelada = 1;
-            }
-
-            string domicilio_receptor = "";
-            string correo_tel_receptor = "";
-
-            if(r_factura["r_calle"].ToString() != "")
-            {
-                domicilio_receptor = r_factura["r_calle"].ToString();
-            }
-            if (r_factura["r_num_ext"].ToString() != "")
-            {
-                if(domicilio_receptor != "") { domicilio_receptor += ", "; }
-
-                domicilio_receptor += r_factura["r_num_ext"].ToString();
-            }
-            if (r_factura["r_num_int"].ToString() != "")
-            {
-                if (domicilio_receptor != "") { domicilio_receptor += ", int. "; }
-
-                domicilio_receptor += r_factura["r_num_int"].ToString();
-            }
-            if (r_factura["r_colonia"].ToString() != "")
-            {
-                if (domicilio_receptor != "") { domicilio_receptor += ", Col. "; }
-
-                domicilio_receptor += r_factura["r_colonia"].ToString();
-            }
-            if (r_factura["r_cp"].ToString() != "")
-            {
-                if (domicilio_receptor != "") { domicilio_receptor += ", CP. "; }
-
-                domicilio_receptor += r_factura["r_cp"].ToString();
-            }
-            if (r_factura["r_localidad"].ToString() != "")
-            {
-                if (domicilio_receptor != "") { domicilio_receptor += ", "; }
-
-                domicilio_receptor += r_factura["r_localidad"].ToString();
-            }
-            if (r_factura["r_municipio"].ToString() != "")
-            {
-                if (domicilio_receptor != "") { domicilio_receptor += ", "; }
-
-                domicilio_receptor += r_factura["r_municipio"].ToString();
-            }
-            if (r_factura["r_estado"].ToString() != "")
-            {
-                if (domicilio_receptor != "") { domicilio_receptor += ", "; }
-
-                domicilio_receptor += r_factura["r_estado"].ToString();
-            }
-            if (r_factura["r_pais"].ToString() != "")
-            {
-                if (domicilio_receptor != "") { domicilio_receptor += ", "; }
-
-                domicilio_receptor += r_factura["r_pais"].ToString();
-            }
-            if (domicilio_receptor != "")
-            {
-                comprobante.Receptor.domicilioReceptorSpecified = true;
-                comprobante.Receptor.DomicilioReceptor = domicilio_receptor;
-            }
-            // Correo y telefono
-            if (r_factura["r_correo"].ToString() != "")
-            {
-                correo_tel_receptor = "Correo:" + r_factura["r_correo"].ToString();
-            }
-            if (r_factura["r_telefono"].ToString() != "")
-            {
-                if (correo_tel_receptor != "") { correo_tel_receptor += ", "; }
-
-                correo_tel_receptor = "Tel.:" + r_factura["r_telefono"].ToString();
-            }
-            if(correo_tel_receptor != "")
-            {
-                comprobante.Receptor.correoTelefonoReceptorSpecified = true;
-                comprobante.Receptor.CorreoTelefonoReceptor = correo_tel_receptor;
-            }
-
-
-
-
-
-
-            // .....................................................................
-            // .    Inicia con la generación de la plantilla y conversión a PDF    .
-            // .....................................................................
-
-            string origen_pdf_temp = nombre_xml + ".pdf";
-            string destino_pdf = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
-
-            string ruta = AppDomain.CurrentDomain.BaseDirectory + "/";
-            // Creación de un arhivo html temporal
-            string ruta_html_temp = ruta + "facturahtml.html";
-            // Plantilla que contiene el acomodo del PDF
-            string ruta_plantilla_html = ruta + "Plantilla_factura.html";
-            string s_html = GetStringOfFile(ruta_plantilla_html);
-            string result_html = "";
-
-            result_html = RazorEngine.Razor.Parse(s_html, comprobante);
-
-
-            // La ruta cambiará si la variable servidor tiene algo
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                destino_pdf = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
-            }
-
-
-            // Configuracion de footer y header
-            var _footerSettings = new FooterSettings
-            {
-                ContentSpacing = 10,
-                FontSize = 10,
-                RightText = "[page] / [topage]"
-            };
-            var _headerSettings = new HeaderSettings
-            {
-                ContentSpacing = 8,
-                FontSize = 9,
-                FontName = "Lucida Sans",
-                LeftText = "Folio " + comprobante.Folio + "  Serie " + comprobante.Serie
-            };
-
-
-            var document = new HtmlToPdfDocument
-            {
-                GlobalSettings =
+                if (Convert.ToInt32(r_factura["cancelada"]) == 1)
                 {
-                    ProduceOutline = true,
-                    PaperSize = PaperKind.Letter,
-                    Margins =
-                    {
-                        Top = 2.3,
-                        Right = 1.2,
-                        Bottom = 2.3,
-                        Left = 1.2,
-                        Unit = Unit.Centimeters,
-                    }
-                },
-                Objects = {
-                    new ObjectSettings
-                    {
-                        HtmlText = result_html,
-                        HeaderSettings = _headerSettings,
-                        FooterSettings = _footerSettings
-                    }
+                    comprobante.CanceladaSpecified = true;
+                    comprobante.Cancelada = 1;
                 }
-            };
+
+                string domicilio_receptor = "";
+                string correo_tel_receptor = "";
+
+                if (r_factura["r_calle"].ToString() != "")
+                {
+                    domicilio_receptor = r_factura["r_calle"].ToString();
+                }
+                if (r_factura["r_num_ext"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                    domicilio_receptor += r_factura["r_num_ext"].ToString();
+                }
+                if (r_factura["r_num_int"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", int. "; }
+
+                    domicilio_receptor += r_factura["r_num_int"].ToString();
+                }
+                if (r_factura["r_colonia"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", Col. "; }
+
+                    domicilio_receptor += r_factura["r_colonia"].ToString();
+                }
+                if (r_factura["r_cp"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", CP. "; }
+
+                    domicilio_receptor += r_factura["r_cp"].ToString();
+                }
+                if (r_factura["r_localidad"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                    domicilio_receptor += r_factura["r_localidad"].ToString();
+                }
+                if (r_factura["r_municipio"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                    domicilio_receptor += r_factura["r_municipio"].ToString();
+                }
+                if (r_factura["r_estado"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                    domicilio_receptor += r_factura["r_estado"].ToString();
+                }
+                if (r_factura["r_pais"].ToString() != "")
+                {
+                    if (domicilio_receptor != "") { domicilio_receptor += ", "; }
+
+                    domicilio_receptor += r_factura["r_pais"].ToString();
+                }
+                if (domicilio_receptor != "")
+                {
+                    comprobante.Receptor.domicilioReceptorSpecified = true;
+                    comprobante.Receptor.DomicilioReceptor = domicilio_receptor;
+                }
+                // Correo y telefono
+                if (r_factura["r_correo"].ToString() != "")
+                {
+                    correo_tel_receptor = "Correo:" + r_factura["r_correo"].ToString();
+                }
+                if (r_factura["r_telefono"].ToString() != "")
+                {
+                    if (correo_tel_receptor != "") { correo_tel_receptor += ", "; }
+
+                    correo_tel_receptor = "Tel.:" + r_factura["r_telefono"].ToString();
+                }
+                if (correo_tel_receptor != "")
+                {
+                    comprobante.Receptor.correoTelefonoReceptorSpecified = true;
+                    comprobante.Receptor.CorreoTelefonoReceptor = correo_tel_receptor;
+                }
 
 
-            // Convertir el documento
-            byte[] result = converter.Convert(document);
 
-            ByteArrayToFile(result, destino_pdf);
 
+
+
+                // .....................................................................
+                // .    Inicia con la generación de la plantilla y conversión a PDF    .
+                // .....................................................................
+
+                string origen_pdf_temp = nombre_xml + ".pdf";
+                string destino_pdf = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
+
+                string ruta = AppDomain.CurrentDomain.BaseDirectory + "/";
+                // Creación de un arhivo html temporal
+                string ruta_html_temp = ruta + "facturahtml.html";
+                // Plantilla que contiene el acomodo del PDF
+                string ruta_plantilla_html = ruta + "Plantilla_factura.html";
+                string s_html = GetStringOfFile(ruta_plantilla_html);
+                string result_html = "";
+
+                result_html = RazorEngine.Razor.Parse(s_html, comprobante);
+
+
+                // La ruta cambiará si la variable servidor tiene algo
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    destino_pdf = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
+                }
+
+
+                // Configuracion de footer y header
+                var _footerSettings = new FooterSettings
+                {
+                    ContentSpacing = 10,
+                    FontSize = 10,
+                    RightText = "[page] / [topage]"
+                };
+                var _headerSettings = new HeaderSettings
+                {
+                    ContentSpacing = 8,
+                    FontSize = 9,
+                    FontName = "Lucida Sans",
+                    LeftText = "Folio " + comprobante.Folio + "  Serie " + comprobante.Serie
+                };
+
+
+                var document = new HtmlToPdfDocument
+                {
+                    GlobalSettings =
+                    {
+                        ProduceOutline = true,
+                        PaperSize = PaperKind.Letter,
+                        Margins =
+                        {
+                            Top = 2.3,
+                            Right = 1.2,
+                            Bottom = 2.3,
+                            Left = 1.2,
+                            Unit = Unit.Centimeters,
+                        }
+                    },
+                    Objects = {
+                        new ObjectSettings
+                        {
+                            HtmlText = result_html,
+                            HeaderSettings = _headerSettings,
+                            FooterSettings = _footerSettings
+                        }
+                    }
+                };
+
+
+                // Convertir el documento
+                byte[] result = converter.Convert(document);
+
+                ByteArrayToFile(result, destino_pdf);
+            }
 
             // .    CODIGO DE LA LIBRERIA WKHTMLTOPDF   .
             // ..........................................
@@ -1393,6 +1401,8 @@ namespace PuntoDeVentaV2
             {
                 cargar_lista_facturas(0, 2);
                 volver_a_recargar_datos = false;
+
+                btn_primera_pag.PerformClick();
             }
 
             cmb_bx_tipo_factura.SelectedIndex = 2;
