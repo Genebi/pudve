@@ -1379,10 +1379,12 @@ namespace PuntoDeVentaV2
                     var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
 
                     var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                    var stock = tmp[4];
+                    //var stock = tmp[4];
+                    var stock = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("NuevoStock"))).ToString("0.00");
 
                     //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
-                    var stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
+                    //var stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
+                    var stockAnterior = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("StockActual"))).ToString("0.00");
 
                     DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
                     var fechaCompra = fecha.ToString("yyyy-MM-dd");
