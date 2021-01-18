@@ -50,7 +50,10 @@ namespace PuntoDeVentaV2
         static public string UnidadMedidaFinal;
         static public string ClaveMedidaFinal;
 
-        static public bool editado = false;
+        static public bool editado = false; // Indicará si se dio clic en botón aceptar 
+        static public double tmp_edit_base = 0;
+        static public double tmp_edit_IVA = 0;
+        static public string tmp_edit_impuesto = "";
 
 
         Conexion cn = new Conexion();
@@ -74,7 +77,7 @@ namespace PuntoDeVentaV2
         public void checarRadioButtons()
         {
             //Editar
-            if (typeOriginData == 2)
+            /*if (typeOriginData == 2)
             {
                 var impuestoSeleccionado = AgregarEditarProducto.impuestoProductoFinal;
 
@@ -94,7 +97,7 @@ namespace PuntoDeVentaV2
                 {
                     rbExcento.Checked = true;
                 }
-            }
+            }*/
 
             double porcentajeTmp = 0;
             double precioTmp = 0;
@@ -285,6 +288,27 @@ namespace PuntoDeVentaV2
             {
                 // Obtiene la lista de impuestos guardados
                 cargar_impuestos();
+
+
+                // Este fragmento de código es cambiado aquí, y quitado en "checarRadioButtons()". Se hizo para que al momento de querer seleccionar otro te permita hacerlo, porque no dejaba elegir otro.   
+                var impuestoSeleccionado = AgregarEditarProducto.impuestoProductoFinal;
+
+                if (impuestoSeleccionado == "0%")
+                {
+                    rb0porCiento.Checked = true;
+                }
+                else if (impuestoSeleccionado == "16%")
+                {
+                    rb16porCiento.Checked = true;
+                }
+                else if (impuestoSeleccionado == "8%")
+                {
+                    rb8porCiento.Checked = true;
+                }
+                else if (impuestoSeleccionado == "Exento")
+                {
+                    rbExcento.Checked = true;
+                }
             }
 
             //if (typeOriginDataFinal == 2)
@@ -652,7 +676,13 @@ namespace PuntoDeVentaV2
             AgregarEditarProducto.baseProducto = txtBoxBase.Text;
             AgregarEditarProducto.ivaProducto = txtIVA.Text;
             AgregarEditarProducto.impuestoProducto = impuesto;
-
+            
+            // Agregado para que al momento de editar el producto también se guarde el impuesto que se cambio de los radio.
+            tmp_edit_base = Convert.ToDouble(txtBoxBase.Text);
+            tmp_edit_IVA = Convert.ToDouble(txtIVA.Text);
+            tmp_edit_impuesto = impuesto;
+            
+            
             // Se agrega variable para identificar si al momento de editar se guardan los cambios o se cancelan.
             // Esto es para evitar que se eliminen los impuestos si no se da clic en este botón 
             editado = true;

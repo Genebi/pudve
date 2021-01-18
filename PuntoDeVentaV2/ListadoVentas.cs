@@ -126,7 +126,8 @@ namespace PuntoDeVentaV2
             existenProductos = mb.TieneProductos();
             CargarDatos();
             actualizar();
-            btnUltimaPagina.PerformClick();
+            //btnUltimaPagina.PerformClick();
+            btnPrimeraPagina.PerformClick();
 
             // Si es un empleado obtiene los permisos de los botones
             if (FormPrincipal.id_empleado > 0)
@@ -229,7 +230,7 @@ namespace PuntoDeVentaV2
 
                     if (string.IsNullOrWhiteSpace(buscador))
                     {
-                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
+                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
                     }
                     else
                     {
@@ -246,14 +247,14 @@ namespace PuntoDeVentaV2
                             extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
                         }
 
-                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra}";
+                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
 
                         txtBuscador.Text = string.Empty;
                     }
                 }
                 else
                 {
-                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
+                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
                 }
 
                 FiltroAvanzado = consulta;
@@ -453,7 +454,7 @@ namespace PuntoDeVentaV2
 
             CargarDatos(busqueda: true);
             btnPrimeraPagina.PerformClick();
-            btnUltimaPagina.PerformClick();
+            //+++btnUltimaPagina.PerformClick();
         }
 
         public void btnNuevaVenta_Click(object sender, EventArgs e)
@@ -494,7 +495,8 @@ namespace PuntoDeVentaV2
                             CargarDatos();
                             actualizar();
 
-                            btnUltimaPagina.PerformClick();
+                            //+++btnUltimaPagina.PerformClick();
+                            btnPrimeraPagina.PerformClick();
                         };
 
                         venta.Show();
@@ -1391,7 +1393,8 @@ namespace PuntoDeVentaV2
 
                 recargarDatos = false;
 
-                btnUltimaPagina.PerformClick();
+                //+++btnUltimaPagina.PerformClick();
+                btnPrimeraPagina.PerformClick();
 
                 hay_productos_habilitados = mb.tiene_productos_habilitados();
                 cbTipoVentas.SelectedIndex = 0;

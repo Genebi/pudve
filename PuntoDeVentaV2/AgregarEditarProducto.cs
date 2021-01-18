@@ -3700,8 +3700,8 @@ namespace PuntoDeVentaV2
                                                 StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}',
                                                 PrecioMayoreo = '{precioMayoreo}'
                                                 WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
-
-                            respuesta = cn.EjecutarConsulta(queryUpdateProd);
+                            
+                                            respuesta = cn.EjecutarConsulta(queryUpdateProd);
 
                             claveProducto = string.Empty;
                             claveUnidadMedida = string.Empty;
@@ -3712,6 +3712,18 @@ namespace PuntoDeVentaV2
 
                             if(AgregarDetalleFacturacionProducto.editado == true)
                             {
+                                // Modifica tabla producto
+                                string edit_p = $@"UPDATE Productos SET Base='{AgregarDetalleFacturacionProducto.tmp_edit_base}',
+                                                IVA='{AgregarDetalleFacturacionProducto.tmp_edit_IVA}',
+                                                Impuesto='{AgregarDetalleFacturacionProducto.tmp_edit_impuesto}'
+                                                WHERE ID='{idProductoBuscado}' AND IDUsuario={FormPrincipal.userID}";
+
+                                cn.EjecutarConsulta(edit_p);
+
+                                AgregarDetalleFacturacionProducto.tmp_edit_base = 0;
+                                AgregarDetalleFacturacionProducto.tmp_edit_IVA = 0;
+                                AgregarDetalleFacturacionProducto.tmp_edit_impuesto = "";
+
                                 // Busca si antes de la edición tenia impuestos extras, si es así entonces, los eliminará. 
                                 bool existen_imp_extra = (bool)cn.EjecutarSelect($"SELECT * FROM detallesfacturacionproductos WHERE IDProducto='{idProductoBuscado}'", 0);
 
