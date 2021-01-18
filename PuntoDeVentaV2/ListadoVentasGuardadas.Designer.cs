@@ -146,6 +146,7 @@
             this.Name = "ListadoVentasGuardadas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Ventas Guardadas";
+            this.Load += new System.EventHandler(this.ListadoVentasGuardadas_Load);
             this.Shown += new System.EventHandler(this.ListadoVentasGuardadas_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListadoVentasGuardadas_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaVentasGuardadas)).EndInit();
