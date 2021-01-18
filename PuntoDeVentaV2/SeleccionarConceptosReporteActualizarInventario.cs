@@ -65,10 +65,12 @@ namespace PuntoDeVentaV2
             if (chkSelectAllOrNot.Checked.Equals(true))
             {
                 CheckAllListCLBExistentes();
+                chkSelectAllOrNot.Text = "Deseleccionar todas las opciones";
             }
             else if (chkSelectAllOrNot.Checked.Equals(false))
             {
                 unCheckAllListCLBExistentes();
+                chkSelectAllOrNot.Text = "Seleccionar todas las opciones";
             }
         }
     }
