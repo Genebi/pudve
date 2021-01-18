@@ -1142,10 +1142,142 @@ namespace PuntoDeVentaV2
                 rutaArchivo = @"C:\Archivos PUDVE\Reportes\Historial\reporte_actualizar_inventario_" + idReporte + ".pdf";
             }
 
-            // se agrego una columna nueva al reporte la de stock anterior ahora son 9 Columnas
             // Producto = 245f,       Proveedor = 200f,     Unidades Compradas = 80f,     Precio compra = 70f,      Precio venta = 70f,
             // Stock anterior = 55f   Stock actual = 55f,   Fecha de compra = 80f,        Fecha de operación = 80f  Comentarios = 200f
-            float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
+            //float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
+            float[] anchoColumnas = new float[] { };
+            var position = 0;
+
+            if (Producto)
+            {
+                if (anchoColumnas.Count().Equals(0))
+                {
+                    position = 0;
+                }
+                else if (anchoColumnas.Count() > 0)
+                {
+                    position = anchoColumnas.Count() + 1;
+                }
+
+                anchoColumnas[anchoColumnas.Count() + 1] = 245f;
+            }
+            else if (Proveedor)
+            {
+                if (anchoColumnas.Count().Equals(0))
+                {
+                    position = 0;
+                }
+                else if (anchoColumnas.Count() > 0)
+                {
+                    position = anchoColumnas.Count() + 1;
+                }
+
+                anchoColumnas[anchoColumnas.Count() + 1] = 200f;
+            }
+            else if (UnidadesCompradas.Equals(true) || UnidadesDisminuidas.Equals(true))
+            {
+                if (anchoColumnas.Count().Equals(0))
+                {
+                    position = 0;
+                }
+                else if (anchoColumnas.Count() > 0)
+                {
+                    position = anchoColumnas.Count() + 1;
+                }
+
+                anchoColumnas[anchoColumnas.Count() + 1] = 80f;
+            }
+            else if (PrecioCompra)
+            {
+                if (anchoColumnas.Count().Equals(0))
+                {
+                    position = 0;
+                }
+                else if (anchoColumnas.Count() > 0)
+                {
+                    position = anchoColumnas.Count() + 1;
+                }
+
+                anchoColumnas[anchoColumnas.Count() + 1] = 70f;
+            }
+            else if (PrecioVenta)
+            {
+                if (anchoColumnas.Count().Equals(0))
+                {
+                    position = 0;
+                }
+                else if (anchoColumnas.Count() > 0)
+                {
+                    position = anchoColumnas.Count() + 1;
+                }
+
+                anchoColumnas[anchoColumnas.Count() + 1] = 70f;
+            }
+            else if (StockAnterior)
+            {
+                if (anchoColumnas.Count().Equals(0))
+                {
+                    position = 0;
+                }
+                else if (anchoColumnas.Count() > 0)
+                {
+                    position = anchoColumnas.Count() + 1;
+                }
+
+                anchoColumnas[anchoColumnas.Count() + 1] = 55f;
+            }
+            else if (StockActual)
+            {
+                if (anchoColumnas.Count().Equals(0))
+                {
+                    position = 0;
+                }
+                else if (anchoColumnas.Count() > 0)
+                {
+                    position = anchoColumnas.Count() + 1;
+                }
+
+                anchoColumnas[anchoColumnas.Count() + 1] = 55f;
+            }
+            else if (FechaCompra)
+            {
+                if (anchoColumnas.Count().Equals(0))
+                {
+                    position = 0;
+                }
+                else if (anchoColumnas.Count() > 0)
+                {
+                    position = anchoColumnas.Count() + 1;
+                }
+
+                anchoColumnas[anchoColumnas.Count() + 1] = 80f;
+            }
+            else if (FechaOperacion)
+            {
+                if (anchoColumnas.Count().Equals(0))
+                {
+                    position = 0;
+                }
+                else if (anchoColumnas.Count() > 0)
+                {
+                    position = anchoColumnas.Count() + 1;
+                }
+
+                anchoColumnas[anchoColumnas.Count() + 1] = 80f;
+            }
+            else if (Comentario)
+            {
+                if (anchoColumnas.Count().Equals(0))
+                {
+                    position = 0;
+                }
+                else if (anchoColumnas.Count() > 0)
+                {
+                    position = anchoColumnas.Count() + 1;
+                }
+
+                anchoColumnas[anchoColumnas.Count() + 1] = 200f;
+            }
 
             Document reporte = new Document(PageSize.A3.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -1190,7 +1322,7 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            PdfPTable tabla = new PdfPTable(10);
+            PdfPTable tabla = new PdfPTable(anchoColumnas.Count());
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
