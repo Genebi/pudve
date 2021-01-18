@@ -22,8 +22,6 @@ namespace PuntoDeVentaV2
         public ListadoVentasGuardadas()
         {
             InitializeComponent();
-
-            CargarDatos();
         }
 
 
@@ -93,7 +91,7 @@ namespace PuntoDeVentaV2
             {
                 DGVListaVentasGuardadas.Focus();
 
-                //DGVListaVentasGuardadas.CurrentRow.Selected = true;
+                DGVListaVentasGuardadas.CurrentRow.Selected = true;
             }
 
             dr.Close();
@@ -182,6 +180,11 @@ namespace PuntoDeVentaV2
             {
                 DGVListaVentasGuardadas_CellClick(this, new DataGridViewCellEventArgs(6, DGVListaVentasGuardadas.CurrentRow.Index));
             }
+        }
+
+        private void ListadoVentasGuardadas_Load(object sender, EventArgs e)
+        {
+            CargarDatos();
         }
     }
 }
