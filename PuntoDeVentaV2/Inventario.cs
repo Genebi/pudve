@@ -71,6 +71,8 @@ namespace PuntoDeVentaV2
         bool FechaOperacion = false;
         bool Comentario = false;
 
+        int columnasConcepto = 0;
+
         public Inventario()
         {
             listaConceptosSeleccionados = new List<string>();
@@ -1145,138 +1147,59 @@ namespace PuntoDeVentaV2
             // Producto = 245f,       Proveedor = 200f,     Unidades Compradas = 80f,     Precio compra = 70f,      Precio venta = 70f,
             // Stock anterior = 55f   Stock actual = 55f,   Fecha de compra = 80f,        Fecha de operación = 80f  Comentarios = 200f
             //float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
-            float[] anchoColumnas = new float[] { };
+            string[] ValueConceptos = new string[] { "245", "200", "80", "70", "70", "55", "55", "80", "80", "200" };
+            float[] anchoColumnas = new float[columnasConcepto];
             var position = 0;
 
             if (Producto)
             {
-                if (anchoColumnas.Count().Equals(0))
-                {
-                    position = 0;
-                }
-                else if (anchoColumnas.Count() > 0)
-                {
-                    position = anchoColumnas.Count() + 1;
-                }
-
-                anchoColumnas[anchoColumnas.Count() + 1] = 245f;
+                anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[0].ToString());
+                position++;
             }
-            else if (Proveedor)
+            if (Proveedor)
             {
-                if (anchoColumnas.Count().Equals(0))
-                {
-                    position = 0;
-                }
-                else if (anchoColumnas.Count() > 0)
-                {
-                    position = anchoColumnas.Count() + 1;
-                }
-
-                anchoColumnas[anchoColumnas.Count() + 1] = 200f;
+                anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[1].ToString());
+                position++;
             }
-            else if (UnidadesCompradas.Equals(true) || UnidadesDisminuidas.Equals(true))
+            if (UnidadesCompradas.Equals(true) || UnidadesDisminuidas.Equals(true))
             {
-                if (anchoColumnas.Count().Equals(0))
-                {
-                    position = 0;
-                }
-                else if (anchoColumnas.Count() > 0)
-                {
-                    position = anchoColumnas.Count() + 1;
-                }
-
-                anchoColumnas[anchoColumnas.Count() + 1] = 80f;
+                anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[2].ToString());
+                position++;
             }
-            else if (PrecioCompra)
+            if (PrecioCompra)
             {
-                if (anchoColumnas.Count().Equals(0))
-                {
-                    position = 0;
-                }
-                else if (anchoColumnas.Count() > 0)
-                {
-                    position = anchoColumnas.Count() + 1;
-                }
-
-                anchoColumnas[anchoColumnas.Count() + 1] = 70f;
+                anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[3].ToString());
+                position++;
             }
-            else if (PrecioVenta)
+            if (PrecioVenta)
             {
-                if (anchoColumnas.Count().Equals(0))
-                {
-                    position = 0;
-                }
-                else if (anchoColumnas.Count() > 0)
-                {
-                    position = anchoColumnas.Count() + 1;
-                }
-
-                anchoColumnas[anchoColumnas.Count() + 1] = 70f;
+                anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[4].ToString());
+                position++;
             }
-            else if (StockAnterior)
+            if (StockAnterior)
             {
-                if (anchoColumnas.Count().Equals(0))
-                {
-                    position = 0;
-                }
-                else if (anchoColumnas.Count() > 0)
-                {
-                    position = anchoColumnas.Count() + 1;
-                }
-
-                anchoColumnas[anchoColumnas.Count() + 1] = 55f;
+                anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[5].ToString());
+                position++;
             }
-            else if (StockActual)
+            if (StockActual)
             {
-                if (anchoColumnas.Count().Equals(0))
-                {
-                    position = 0;
-                }
-                else if (anchoColumnas.Count() > 0)
-                {
-                    position = anchoColumnas.Count() + 1;
-                }
-
-                anchoColumnas[anchoColumnas.Count() + 1] = 55f;
+                anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[6].ToString());
+                position++;
             }
-            else if (FechaCompra)
+            if (FechaCompra)
             {
-                if (anchoColumnas.Count().Equals(0))
-                {
-                    position = 0;
-                }
-                else if (anchoColumnas.Count() > 0)
-                {
-                    position = anchoColumnas.Count() + 1;
-                }
-
-                anchoColumnas[anchoColumnas.Count() + 1] = 80f;
+                anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[7].ToString());
+                position++;
             }
-            else if (FechaOperacion)
+            if (FechaOperacion)
             {
-                if (anchoColumnas.Count().Equals(0))
-                {
-                    position = 0;
-                }
-                else if (anchoColumnas.Count() > 0)
-                {
-                    position = anchoColumnas.Count() + 1;
-                }
-
-                anchoColumnas[anchoColumnas.Count() + 1] = 80f;
+                anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[8].ToString());
+                position++;
             }
-            else if (Comentario)
+            if (Comentario)
             {
-                if (anchoColumnas.Count().Equals(0))
-                {
-                    position = 0;
-                }
-                else if (anchoColumnas.Count() > 0)
-                {
-                    position = anchoColumnas.Count() + 1;
-                }
-
-                anchoColumnas[anchoColumnas.Count() + 1] = 200f;
+                anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[9].ToString());
+                position++;
             }
 
             Document reporte = new Document(PageSize.A3.Rotate());
@@ -1698,41 +1621,50 @@ namespace PuntoDeVentaV2
                     if (item.Equals("Producto"))
                     {
                         Producto = true;
+                        columnasConcepto++;
                     }
                     else if (item.Equals("Proveedor"))
                     {
                         Proveedor = true;
+                        columnasConcepto++;
                     }
                     else if(item.Equals("Unidades Compradas/Disminuidas"))
                     {
                         if (rbAumentarProducto.Checked)
                         {
                             UnidadesCompradas = true;
+                            columnasConcepto++;
                         }
                         else if (rbDisminuirProducto.Checked)
                         {
                             UnidadesDisminuidas = true;
+                            columnasConcepto++;
                         }
                     }
                     else if(item.Equals("Precio Compra"))
                     {
                         PrecioCompra = true;
+                        columnasConcepto++;
                     }
                     else if(item.Equals("Precio Venta"))
                     {
                         PrecioVenta = true;
+                        columnasConcepto++;
                     }
                     else if(item.Equals("Stock Anterior"))
                     {
                         StockAnterior = true;
+                        columnasConcepto++;
                     }
                     else if(item.Equals("Stock Actual"))
                     {
                         StockActual = true;
+                        columnasConcepto++;
                     }
                     else if(item.Equals("Fecha de Compra"))
                     {
                         FechaCompra = true;
+                        columnasConcepto++;
                     }
                     else if(item.Equals("Fecha de Operacion"))
                     {
@@ -1741,6 +1673,7 @@ namespace PuntoDeVentaV2
                     else if (item.Equals("Comentarios"))
                     {
                         Comentario = true;
+                        columnasConcepto++;
                     }
                 }
             }
