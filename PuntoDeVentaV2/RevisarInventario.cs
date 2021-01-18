@@ -1236,13 +1236,13 @@ namespace PuntoDeVentaV2
             }
 
             //Se elimina el ultimo item ingresado a la lista ya que es uno que se repire
-            if (!id.Count.Equals(0))
+            if (!id.Count.Equals(0) && cantidadRegistrosAux > 1)
             {
                 id.RemoveAt(id.Count - 1);
             }
 
             //Se Elimina el ultimo item de la lista idDeProductos para validar el boton anterior
-            if (!idDeProductos.Count.Equals(0))
+            if (!idDeProductos.Count.Equals(0) && cantidadRegistrosAux > 1)
             {
                 idDeProductos.RemoveAt(idDeProductos.Count - 1);
             }
@@ -1253,8 +1253,9 @@ namespace PuntoDeVentaV2
             //}
             if (cantidadRegistrosAux < 1)
             {
-                    lbCantidadFiltro.Text = $"{cantidadRegistros} de {cantidadRegistros}";
-                    MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cantidadRegistrosAux = 1;
+                //lbCantidadFiltro.Text = $"{cantidadRegistros} de {cantidadRegistros}";
+                MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
