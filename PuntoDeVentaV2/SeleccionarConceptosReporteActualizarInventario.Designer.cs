@@ -30,16 +30,18 @@
         {
             this.CLBConceptosExistentes = new System.Windows.Forms.CheckedListBox();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkSelectOnly = new System.Windows.Forms.CheckBox();
+            this.chkSelectAllOrNot = new System.Windows.Forms.CheckBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // CLBConceptosExistentes
             // 
             this.CLBConceptosExistentes.CheckOnClick = true;
             this.CLBConceptosExistentes.FormattingEnabled = true;
-            this.CLBConceptosExistentes.Location = new System.Drawing.Point(12, 117);
+            this.CLBConceptosExistentes.Location = new System.Drawing.Point(12, 157);
             this.CLBConceptosExistentes.Name = "CLBConceptosExistentes";
             this.CLBConceptosExistentes.Size = new System.Drawing.Size(200, 154);
             this.CLBConceptosExistentes.TabIndex = 0;
@@ -51,7 +53,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century", 9.75F);
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(137, 278);
+            this.btnAceptar.Location = new System.Drawing.Point(137, 322);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 1;
@@ -59,46 +61,57 @@
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // btnCancelar
-            // 
-            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Century", 9.75F);
-            this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(56, 278);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 2;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(12, 18);
+            this.label1.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(200, 35);
+            this.label1.Size = new System.Drawing.Size(200, 65);
             this.label1.TabIndex = 3;
             this.label1.Text = "Selecciona los  conceptos que deseas que salgan en el repote";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(12, 56);
+            this.groupBox1.Controls.Add(this.chkSelectAllOrNot);
+            this.groupBox1.Controls.Add(this.chkSelectOnly);
+            this.groupBox1.Location = new System.Drawing.Point(12, 81);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 55);
+            this.groupBox1.Size = new System.Drawing.Size(200, 66);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
+            // 
+            // chkSelectOnly
+            // 
+            this.chkSelectOnly.AutoSize = true;
+            this.chkSelectOnly.Checked = true;
+            this.chkSelectOnly.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSelectOnly.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.chkSelectOnly.Location = new System.Drawing.Point(6, 19);
+            this.chkSelectOnly.Name = "chkSelectOnly";
+            this.chkSelectOnly.Size = new System.Drawing.Size(170, 17);
+            this.chkSelectOnly.TabIndex = 0;
+            this.chkSelectOnly.Text = "Aplicar solo selccionados";
+            this.chkSelectOnly.UseVisualStyleBackColor = true;
+            // 
+            // chkSelectAllOrNot
+            // 
+            this.chkSelectAllOrNot.AutoSize = true;
+            this.chkSelectAllOrNot.Location = new System.Drawing.Point(6, 42);
+            this.chkSelectAllOrNot.Name = "chkSelectAllOrNot";
+            this.chkSelectAllOrNot.Size = new System.Drawing.Size(173, 17);
+            this.chkSelectAllOrNot.TabIndex = 1;
+            this.chkSelectAllOrNot.Text = "Seleccionar todas las opciones";
+            this.chkSelectAllOrNot.UseVisualStyleBackColor = true;
+            this.chkSelectAllOrNot.CheckedChanged += new System.EventHandler(this.chkSelectAllOrNot_CheckedChanged);
             // 
             // SeleccionarConceptosReporteActualizarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(229, 313);
+            this.ClientSize = new System.Drawing.Size(229, 358);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.CLBConceptosExistentes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -108,6 +121,8 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Coenceptos";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -116,8 +131,9 @@
 
         private System.Windows.Forms.CheckedListBox CLBConceptosExistentes;
         private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox chkSelectAllOrNot;
+        private System.Windows.Forms.CheckBox chkSelectOnly;
     }
 }

@@ -60,10 +60,16 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void chkSelectAllOrNot_CheckedChanged(object sender, EventArgs e)
         {
-            CLBConceptosExistentes.Items.Clear();
-            CLBConceptosExistentes.Items.AddRange(itemsCLBConceptosExistentes);
+            if (chkSelectAllOrNot.Checked.Equals(true))
+            {
+                CheckAllListCLBExistentes();
+            }
+            else if (chkSelectAllOrNot.Checked.Equals(false))
+            {
+                unCheckAllListCLBExistentes();
+            }
         }
     }
 }
