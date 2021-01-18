@@ -164,6 +164,8 @@ namespace PuntoDeVentaV2
 
         private void obtenerDatoProductoSeleccionado()
         {
+            datosDeProducto.Clear();
+
             if (!DGVProductos.Rows.Count.Equals(0))
             {
                 var codigoProd = DGVProductos.CurrentRow.Cells[4].Value.ToString();
