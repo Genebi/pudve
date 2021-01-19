@@ -1197,7 +1197,7 @@ namespace PuntoDeVentaV2
 
             if (validarAnterior == true)
             {
-                var mostrarDatos = cn.CargarDatos($"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND IDAlmacen = '{obteniendoId}'");
+                var mostrarDatos = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{obteniendoId}'");
                 if (!mostrarDatos.Rows.Count.Equals(0))
                 {
                     foreach (DataRow datosObtenidos in mostrarDatos.Rows)
@@ -1210,10 +1210,10 @@ namespace PuntoDeVentaV2
                             txtBoxBuscarCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
                             txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
                             txtCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();//
-                            lblPrecioProducto.Text = datosObtenidos["PrecioProducto"].ToString();
-                            //lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
-                            //lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["StockFisico"].ToString());
+                            lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
+                            lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
+                            lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
+                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
                             txtCantidadStock.Focus();
                         }
                         else
@@ -1222,10 +1222,10 @@ namespace PuntoDeVentaV2
                             txtBoxBuscarCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
                             txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
                             txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
-                            lblPrecioProducto.Text = datosObtenidos["PrecioProducto"].ToString();
-                            //lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
-                            //lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["StockFisico"].ToString());
+                            lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
+                            lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
+                            lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
+                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
                             txtCantidadStock.Focus();
                         }
                     }
