@@ -720,6 +720,11 @@ namespace PuntoDeVentaV2
                         var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
                         idDeProductos.Add(idProducto);
 
+                        if (id.Count.Equals(0))
+                        {
+                            id.Add(idProducto.ToString());
+                        }
+
 
                         // Si ya fue inventariado el producto actualizamos informacion
                         if (existe)
@@ -1192,21 +1197,23 @@ namespace PuntoDeVentaV2
 
             if (validarAnterior == true)
             {
-                var mostrarDatos = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{obteniendoId}'");
+                var mostrarDatos = cn.CargarDatos($"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND IDAlmacen = '{obteniendoId}'");
                 if (!mostrarDatos.Rows.Count.Equals(0))
                 {
                     foreach (DataRow datosObtenidos in mostrarDatos.Rows)
                     {
-                        if (!datosObtenidos["ClaveInterna"].ToString().Equals(0))
+                        var contenidoCodigoClave = mostrarDatos.Rows[0]["ClaveInterna"].ToString();
+
+                        if (/*!datosObtenidos["ClaveInterna"].ToString().Equals(0)*/!string.IsNullOrWhiteSpace(contenidoCodigoClave))
                         {
                             LimpiarCampos();
                             txtBoxBuscarCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
                             txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
                             txtCodigoBarras.Text = datosObtenidos["ClaveInterna"].ToString();//
-                            lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
-                            lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
-                            lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
+                            lblPrecioProducto.Text = datosObtenidos["PrecioProducto"].ToString();
+                            //lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
+                            //lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
+                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["StockFisico"].ToString());
                             txtCantidadStock.Focus();
                         }
                         else
@@ -1215,10 +1222,10 @@ namespace PuntoDeVentaV2
                             txtBoxBuscarCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
                             txtNombreProducto.Text = datosObtenidos["Nombre"].ToString();
                             txtCodigoBarras.Text = datosObtenidos["CodigoBarras"].ToString();
-                            lblPrecioProducto.Text = datosObtenidos["Precio"].ToString();
-                            lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
-                            lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
-                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["Stock"].ToString());
+                            lblPrecioProducto.Text = datosObtenidos["PrecioProducto"].ToString();
+                            //lblStockMinimo.Text = datosObtenidos["StockMinimo"].ToString();
+                            //lblStockMaximo.Text = datosObtenidos["StockNecesario"].ToString();
+                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(datosObtenidos["StockFisico"].ToString());
                             txtCantidadStock.Focus();
                         }
                     }
@@ -1236,13 +1243,13 @@ namespace PuntoDeVentaV2
             }
 
             //Se elimina el ultimo item ingresado a la lista ya que es uno que se repire
-            if (!id.Count.Equals(0) && cantidadRegistrosAux > 1)
+            if (!id.Count.Equals(0) && cantidadRegistrosAux >= 0)
             {
                 id.RemoveAt(id.Count - 1);
             }
 
             //Se Elimina el ultimo item de la lista idDeProductos para validar el boton anterior
-            if (!idDeProductos.Count.Equals(0) && cantidadRegistrosAux > 1)
+            if (!idDeProductos.Count.Equals(0) && cantidadRegistrosAux >= 0)
             {
                 idDeProductos.RemoveAt(idDeProductos.Count - 1);
             }
@@ -1321,6 +1328,11 @@ namespace PuntoDeVentaV2
             //lblStockMinimo.Text = string.Empty;
             //lblStockMaximo.Text = string.Empty;
             //txtCantidadStock.Text = string.Empty;
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
