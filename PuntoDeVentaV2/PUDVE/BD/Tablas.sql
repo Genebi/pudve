@@ -988,5 +988,8 @@ ALTER TABLE DGVDisminuirInventario ADD COLUMN IF NOT EXISTS ValorUnitario VARCHA
 -- Modificar la Columna de Fecha a DateTime en la tabla de DGVDisminuirInventario
 ALTER TABLE DGVDisminuirInventario MODIFY Fecha datetime;
 
--- Agregar Column (IdUsuario)a la tabla DGVAumentarInventario si es que no tiene dicha columna
+-- Agregar Columna (IdUsuario) a la tabla DGVAumentarInventario si es que no tiene dicha columna
 ALTER TABLE DGVAumentarInventario ADD COLUMN IF NOT EXISTS IdUsuario VARCHAR(20);
+
+-- Agregar Columna (IdUsuario) a la tabla DGVDisminuirInventario si es que no tiene dicha columna
+ALTER TABLE DGVDisminuirInventario ADD COLUMN IF NOT EXISTS IdUsuario VARCHAR(20);
