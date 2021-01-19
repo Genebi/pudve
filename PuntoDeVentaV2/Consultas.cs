@@ -1278,15 +1278,15 @@ GROUP BY Prod.ID";
         {
             var consulta = string.Empty;
             
-            using (DataTable dtNoRevision = cn.CargarDatos("SELECT * FROM NoRevisionAumentarInventario"))
+            using (DataTable dtNoRevision = cn.CargarDatos($"SELECT * FROM NoRevisionAumentarInventario WHERE IdUsuario = {FormPrincipal.userID}"))
             {
                 if (!dtNoRevision.Rows.Count.Equals(0))
                 {
-                    consulta = $"UPDATE NoRevisionAumentarInventario SET NoRevisionAumentarInventario = {NoRev} WHERE id = 1";
+                    consulta = $"UPDATE NoRevisionAumentarInventario SET NoRevisionAumentarInventario = {NoRev} WHERE id = 1 AND IdUsuario = {FormPrincipal.userID}";
                 }
                 else if (dtNoRevision.Rows.Count.Equals(0))
                 {
-                    consulta = $"INSERT INTO NoRevisionAumentarInventario (NoRevisionAumentarInventario) VALUES ({NoRev})";
+                    consulta = $"INSERT INTO NoRevisionAumentarInventario (NoRevisionAumentarInventario, IdUsuario) VALUES ('{NoRev}', '{FormPrincipal.userID}')";
                 }
             }
 
@@ -1297,7 +1297,7 @@ GROUP BY Prod.ID";
         {
             var NoRevision = string.Empty;
 
-            using (DataTable dtNoRevision = cn.CargarDatos("SELECT * FROM NoRevisionAumentarInventario"))
+            using (DataTable dtNoRevision = cn.CargarDatos($"SELECT * FROM NoRevisionAumentarInventario WHERE IdUsuario = {FormPrincipal.userID}"))
             {
                 if (!dtNoRevision.Rows.Count.Equals(0))
                 {
@@ -1311,7 +1311,7 @@ GROUP BY Prod.ID";
                     var consulta = string.Empty;
                     NoRevision = "0";
 
-                    consulta = $"INSERT INTO NoRevisionAumentarInventario (NoRevisionAumentarInventario) VALUES ({NoRevision})";
+                    consulta = $"INSERT INTO NoRevisionAumentarInventario (NoRevisionAumentarInventario, IdUsuario) VALUES ('{NoRevision}', '{FormPrincipal.userID}')";
 
                     cn.EjecutarConsulta(consulta);
                 }
@@ -1322,29 +1322,29 @@ GROUP BY Prod.ID";
 
         public string UpdateNoRevAumentarInventario(int NoRev)
         {
-            var consulta = $"UPDATE NoRevisionAumentarInventario SET NoRevisionAumentarInventario = {NoRev}";
+            var consulta = $"UPDATE NoRevisionAumentarInventario SET NoRevisionAumentarInventario = {NoRev} WHERE IdUsuario = {FormPrincipal.userID}";
 
             return consulta;
         }
 
         public string InsertIntoAumentarInventario(string[] datosAumentarInventario)
         {
-            var consulta = "INSERT INTO DGVAumentarInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario) VALUES";
-            consulta += $"('{datosAumentarInventario[0]}', '{datosAumentarInventario[1]}', '{datosAumentarInventario[2]}', '{datosAumentarInventario[3]}', '{datosAumentarInventario[4]}', '{datosAumentarInventario[5]}', '{datosAumentarInventario[6]}', '{datosAumentarInventario[7]}', '{datosAumentarInventario[8]}', '{datosAumentarInventario[9]}', '{datosAumentarInventario[10]}', '{datosAumentarInventario[11]}', '{datosAumentarInventario[12]}', '{datosAumentarInventario[13]}')";
+            var consulta = "INSERT INTO DGVAumentarInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IdUsuario) VALUES";
+            consulta += $"('{datosAumentarInventario[0]}', '{datosAumentarInventario[1]}', '{datosAumentarInventario[2]}', '{datosAumentarInventario[3]}', '{datosAumentarInventario[4]}', '{datosAumentarInventario[5]}', '{datosAumentarInventario[6]}', '{datosAumentarInventario[7]}', '{datosAumentarInventario[8]}', '{datosAumentarInventario[9]}', '{datosAumentarInventario[10]}', '{datosAumentarInventario[11]}', '{datosAumentarInventario[12]}', '{datosAumentarInventario[13]}', '{datosAumentarInventario[14]}')";
 
             return consulta;
         }
 
         public string GetAumentarInventario()
         {
-            var consultar = "SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario FROM DGVAumentarInventario WHERE StatusActualizacion = 1";
+            var consultar = $"SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario FROM DGVAumentarInventario WHERE StatusActualizacion = 1 AND IdUsuario = {FormPrincipal.userID}";
 
             return consultar;
         }
 
         public string UpdateStatusActualizacionAumentarInventario()
         {
-            var consulta = $"UPDATE DGVAumentarInventario SET StatusActualizacion = 0 WHERE StatusActualizacion = 1";
+            var consulta = $"UPDATE DGVAumentarInventario SET StatusActualizacion = 0 WHERE StatusActualizacion = 1 AND IdUsuario = {FormPrincipal.userID}";
 
             return consulta;
         }
@@ -1353,15 +1353,15 @@ GROUP BY Prod.ID";
         {
             var consulta = string.Empty;
 
-            using (DataTable dtNoRevision = cn.CargarDatos("SELECT * FROM DGVDisminuirInventario"))
+            using (DataTable dtNoRevision = cn.CargarDatos($"SELECT * FROM DGVDisminuirInventario WHERE IdUsuario = {FormPrincipal.userID}"))
             {
                 if (!dtNoRevision.Rows.Count.Equals(0))
                 {
-                    consulta = $"UPDATE NoRevisionDisminuirInventario SET NoRevisionDisminuirInventario = {NoRev} WHERE id = 1";
+                    consulta = $"UPDATE NoRevisionDisminuirInventario SET NoRevisionDisminuirInventario = {NoRev} WHERE id = 1 AND IdUsuario = {FormPrincipal.userID}";
                 }
                 else if (dtNoRevision.Rows.Count.Equals(0))
                 {
-                    consulta = $"INSERT INTO NoRevisionDisminuirInventario (NoRevisionDisminuirInventario) VALUES ({NoRev})";
+                    consulta = $"INSERT INTO NoRevisionDisminuirInventario (NoRevisionDisminuirInventario, IdUsuario) VALUES ('{NoRev}', '{FormPrincipal.userID}')";
                 }
             }
 
@@ -1372,7 +1372,7 @@ GROUP BY Prod.ID";
         {
             var NoRevision = string.Empty;
 
-            using (DataTable dtNoRevision = cn.CargarDatos("SELECT * FROM NoRevisionDisminuirInventario"))
+            using (DataTable dtNoRevision = cn.CargarDatos($"SELECT * FROM NoRevisionDisminuirInventario WHERE IdUsuario = {FormPrincipal.userID}"))
             {
                 if (!dtNoRevision.Rows.Count.Equals(0))
                 {
@@ -1386,7 +1386,7 @@ GROUP BY Prod.ID";
                     var consulta = string.Empty;
                     NoRevision = "0";
 
-                    consulta = $"INSERT INTO NoRevisionDisminuirInventario (NoRevisionDisminuirInventario) VALUES ({NoRevision})";
+                    consulta = $"INSERT INTO NoRevisionDisminuirInventario (NoRevisionDisminuirInventario, IdUsuario) VALUES ('{NoRevision}', '{FormPrincipal.userID}')";
 
                     cn.EjecutarConsulta(consulta);
                 }
@@ -1397,29 +1397,29 @@ GROUP BY Prod.ID";
 
         public string UpdateNoRevDisminuirInventario(int NoRev)
         {
-            var consulta = $"UPDATE NoRevisionDisminuirInventario SET NoRevisionDisminuirInventario = {NoRev}";
+            var consulta = $"UPDATE NoRevisionDisminuirInventario SET NoRevisionDisminuirInventario = {NoRev} WHERE IdUsuario = {FormPrincipal.userID}";
 
             return consulta;
         }
 
         public string InsertarIntoDisminuirInventario(string[] datosDisminuirInventario)
         {
-            var consulta = "INSERT INTO DGVDisminuirInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario) VALUES";
-            consulta += $"('{datosDisminuirInventario[0]}', '{datosDisminuirInventario[1]}', '{datosDisminuirInventario[2]}', '{datosDisminuirInventario[3]}', '{datosDisminuirInventario[4]}', '{datosDisminuirInventario[5]}', '{datosDisminuirInventario[6]}', '{datosDisminuirInventario[7]}', '{datosDisminuirInventario[8]}', '{datosDisminuirInventario[9]}', '{datosDisminuirInventario[10]}', '{datosDisminuirInventario[11]}', '{datosDisminuirInventario[12]}', '{datosDisminuirInventario[13]}')";
+            var consulta = "INSERT INTO DGVDisminuirInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IdUsuario) VALUES";
+            consulta += $"('{datosDisminuirInventario[0]}', '{datosDisminuirInventario[1]}', '{datosDisminuirInventario[2]}', '{datosDisminuirInventario[3]}', '{datosDisminuirInventario[4]}', '{datosDisminuirInventario[5]}', '{datosDisminuirInventario[6]}', '{datosDisminuirInventario[7]}', '{datosDisminuirInventario[8]}', '{datosDisminuirInventario[9]}', '{datosDisminuirInventario[10]}', '{datosDisminuirInventario[11]}', '{datosDisminuirInventario[12]}', '{datosDisminuirInventario[13]}', '{datosDisminuirInventario[14]}')";
 
             return consulta;
         }
 
         public string GetDisminuirInventario()
         {
-            var consulta = "SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario FROM DGVDisminuirInventario WHERE StatusActualizacion = 1";
+            var consulta = $"SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario FROM DGVDisminuirInventario WHERE StatusActualizacion = 1 AND IdUsuario = {FormPrincipal.userID}";
 
             return consulta;
         }
 
         public string UpdateStatusActualizacionDisminuirInventario()
         {
-            var consulta = $"UPDATE DGVDisminuirInventario SET StatusActualizacion = 0 WHERE StatusActualizacion = 1";
+            var consulta = $"UPDATE DGVDisminuirInventario SET StatusActualizacion = 0 WHERE StatusActualizacion = 1 AND IdUsuario = {FormPrincipal.userID}";
 
             return consulta;
         }
@@ -1433,7 +1433,7 @@ GROUP BY Prod.ID";
 
         public string NomEmisorComentariosHistorialCompras(string IdProducto)
         {
-            var consulta = $"SELECT ID, NomEmisor, Comentarios, ValorUnitario FROM HistorialCompras WHERE IDProducto = {IdProducto} GROUP BY ID DESC LIMIT 1";
+            var consulta = $"SELECT ID, NomEmisor, Comentarios, ValorUnitario FROM HistorialCompras WHERE IDProducto = {IdProducto} AND IDUsuario = {FormPrincipal.userID} GROUP BY ID DESC LIMIT 1";
 
             return consulta;
         }

@@ -993,3 +993,9 @@ ALTER TABLE DGVAumentarInventario ADD COLUMN IF NOT EXISTS IdUsuario VARCHAR(20)
 
 -- Agregar Columna (IdUsuario) a la tabla DGVDisminuirInventario si es que no tiene dicha columna
 ALTER TABLE DGVDisminuirInventario ADD COLUMN IF NOT EXISTS IdUsuario VARCHAR(20);
+
+-- Agregar Columna (IdUsuario) a la tabla NoRevisionAumentarInventario si es que no tiene dicha columna
+ALTER TABLE NoRevisionAumentarInventario ADD COLUMN IF NOT EXISTS IdUsuario VARCHAR(20);
+
+-- Agregar Columna (IdUsuario) a la tabla NoRevisionDisminuirInventario si es que no tiene dicha columna
+ALTER TABLE NoRevisionDisminuirInventario ADD COLUMN IF NOT EXISTS IdUsuario VARCHAR(20);

@@ -914,7 +914,7 @@ namespace PuntoDeVentaV2
 
                 NoRev = NoRevAumentarInventario();
 
-                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario };
+                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString() };
                 var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
                 cn.EjecutarConsulta(insertAumentarInventario);
                 using (DataTable dtRetriveAumentarInventario = cn.CargarDatos(cs.GetAumentarInventario()))
@@ -974,7 +974,7 @@ namespace PuntoDeVentaV2
 
                 NoRev = NoRevDisminuirInventario();
 
-                string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario };
+                string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString() };
 
                 var insertarDisminuirInventario = cs.InsertarIntoDisminuirInventario(datosDisminuirInventario);
 
