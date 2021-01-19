@@ -1245,19 +1245,29 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
+            //PdfPTable tabla = new PdfPTable(10);
             PdfPTable tabla = new PdfPTable(anchoColumnas.Count());
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
-            PdfPCell colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
+            PdfPCell colProducto = new PdfPCell(new Phrase("", fuenteNegrita));
+            PdfPCell colProveedor = new PdfPCell(new Phrase("", fuenteNegrita));
+            PdfPCell colUnidades = new PdfPCell(new Phrase("", fuenteNegrita));
+            PdfPCell colPrecioCompra = new PdfPCell(new Phrase("", fuenteNegrita));
+            PdfPCell colPrecioVenta = new PdfPCell(new Phrase("", fuenteNegrita));
+            PdfPCell colStockAnterior = new PdfPCell(new Phrase("", fuenteNegrita));
+            PdfPCell colStock = new PdfPCell(new Phrase("", fuenteNegrita));
+            PdfPCell colFechaCompra = new PdfPCell(new Phrase("", fuenteNegrita));
+            PdfPCell colFechaOperacion = new PdfPCell(new Phrase("", fuenteNegrita));
+            PdfPCell colComentarios = new PdfPCell(new Phrase("", fuenteNegrita));
+
+            colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
             colProducto.BorderWidth = 1;
             colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colProveedor = new PdfPCell(new Phrase("Proveedor", fuenteNegrita));
+            colProveedor = new PdfPCell(new Phrase("Proveedor", fuenteNegrita));
             colProveedor.BorderWidth = 1;
             colProveedor.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colUnidades = new PdfPCell(new Phrase("", fuenteNegrita));
 
             if (rbAumentarProducto.Checked)
             {
@@ -1273,31 +1283,31 @@ namespace PuntoDeVentaV2
             }
             
 
-            PdfPCell colPrecioCompra = new PdfPCell(new Phrase("Precio compra", fuenteNegrita));
+            colPrecioCompra = new PdfPCell(new Phrase("Precio compra", fuenteNegrita));
             colPrecioCompra.BorderWidth = 1;
             colPrecioCompra.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colPrecioVenta = new PdfPCell(new Phrase("Precio venta", fuenteNegrita));
+            colPrecioVenta = new PdfPCell(new Phrase("Precio venta", fuenteNegrita));
             colPrecioVenta.BorderWidth = 1;
             colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
+            colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
             colStockAnterior.BorderWidth = 1;
             colStockAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
+            colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
             colStock.BorderWidth = 1;
             colStock.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colFechaCompra = new PdfPCell(new Phrase("Fecha de compra", fuenteNegrita));
+            colFechaCompra = new PdfPCell(new Phrase("Fecha de compra", fuenteNegrita));
             colFechaCompra.BorderWidth = 1;
             colFechaCompra.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colFechaOperacion = new PdfPCell(new Phrase("Fecha de operación", fuenteNegrita));
+            colFechaOperacion = new PdfPCell(new Phrase("Fecha de operación", fuenteNegrita));
             colFechaOperacion.BorderWidth = 1;
             colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colComentarios = new PdfPCell(new Phrase("Comentarios", fuenteNegrita));
+            colComentarios = new PdfPCell(new Phrase("Comentarios", fuenteNegrita));
             colComentarios.BorderWidth = 1;
             colComentarios.HorizontalAlignment = Element.ALIGN_CENTER;
 
@@ -1311,8 +1321,7 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colFechaCompra);
             tabla.AddCell(colFechaOperacion);
             tabla.AddCell(colComentarios);
-
-
+            
             //Consulta para obtener los registros del Historial de compras
             MySqlConnection sql_con;
             MySqlCommand sql_cmd;
