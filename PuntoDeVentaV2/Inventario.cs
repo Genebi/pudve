@@ -1261,66 +1261,100 @@ namespace PuntoDeVentaV2
             PdfPCell colFechaOperacion = new PdfPCell(new Phrase("", fuenteNegrita));
             PdfPCell colComentarios = new PdfPCell(new Phrase("", fuenteNegrita));
 
-            colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
-            colProducto.BorderWidth = 1;
-            colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            colProveedor = new PdfPCell(new Phrase("Proveedor", fuenteNegrita));
-            colProveedor.BorderWidth = 1;
-            colProveedor.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            if (rbAumentarProducto.Checked)
+            if (Producto)
             {
-                colUnidades = new PdfPCell(new Phrase("Unidades compradas", fuenteNegrita));
-                colUnidades.BorderWidth = 1;
-                colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
+                colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
+                colProducto.BorderWidth = 1;
+                colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+                tabla.AddCell(colProducto);
             }
-            else if (rbDisminuirProducto.Checked)
+            if (Proveedor)
             {
-                colUnidades = new PdfPCell(new Phrase("Unidades disminuidas", fuenteNegrita));
-                colUnidades.BorderWidth = 1;
-                colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
+                colProveedor = new PdfPCell(new Phrase("Proveedor", fuenteNegrita));
+                colProveedor.BorderWidth = 1;
+                colProveedor.HorizontalAlignment = Element.ALIGN_CENTER;
+                tabla.AddCell(colProveedor);
+            }
+            if (UnidadesCompradas)
+            {
+                if (rbAumentarProducto.Checked)
+                {
+                    colUnidades = new PdfPCell(new Phrase("Unidades compradas", fuenteNegrita));
+                    colUnidades.BorderWidth = 1;
+                    colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colUnidades);
+                }
+            }
+            if (UnidadesDisminuidas)
+            {
+                if (rbDisminuirProducto.Checked)
+                {
+                    colUnidades = new PdfPCell(new Phrase("Unidades disminuidas", fuenteNegrita));
+                    colUnidades.BorderWidth = 1;
+                    colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colUnidades);
+                }
+            }
+            if (PrecioCompra)
+            {
+                colPrecioCompra = new PdfPCell(new Phrase("Precio compra", fuenteNegrita));
+                colPrecioCompra.BorderWidth = 1;
+                colPrecioCompra.HorizontalAlignment = Element.ALIGN_CENTER;
+                tabla.AddCell(colPrecioCompra);
+            }
+            if (PrecioVenta)
+            {
+                colPrecioVenta = new PdfPCell(new Phrase("Precio venta", fuenteNegrita));
+                colPrecioVenta.BorderWidth = 1;
+                colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
+                tabla.AddCell(colPrecioVenta);
+            }
+            if (StockAnterior)
+            {
+                colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
+                colStockAnterior.BorderWidth = 1;
+                colStockAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+                tabla.AddCell(colStockAnterior);
+            }
+            if (StockActual)
+            {
+                colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
+                colStock.BorderWidth = 1;
+                colStock.HorizontalAlignment = Element.ALIGN_CENTER;
+                tabla.AddCell(colStock);
+            }
+            if (FechaCompra)
+            {
+                colFechaCompra = new PdfPCell(new Phrase("Fecha de compra", fuenteNegrita));
+                colFechaCompra.BorderWidth = 1;
+                colFechaCompra.HorizontalAlignment = Element.ALIGN_CENTER;
+                tabla.AddCell(colFechaCompra);
+            }
+            if (FechaOperacion)
+            {
+                colFechaOperacion = new PdfPCell(new Phrase("Fecha de operación", fuenteNegrita));
+                colFechaOperacion.BorderWidth = 1;
+                colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
+                tabla.AddCell(colFechaOperacion);
+            }
+            if (Comentario)
+            {
+                colComentarios = new PdfPCell(new Phrase("Comentarios", fuenteNegrita));
+                colComentarios.BorderWidth = 1;
+                colComentarios.HorizontalAlignment = Element.ALIGN_CENTER;
+                tabla.AddCell(colComentarios);
             }
             
-
-            colPrecioCompra = new PdfPCell(new Phrase("Precio compra", fuenteNegrita));
-            colPrecioCompra.BorderWidth = 1;
-            colPrecioCompra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            colPrecioVenta = new PdfPCell(new Phrase("Precio venta", fuenteNegrita));
-            colPrecioVenta.BorderWidth = 1;
-            colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
-            colStockAnterior.BorderWidth = 1;
-            colStockAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
-            colStock.BorderWidth = 1;
-            colStock.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            colFechaCompra = new PdfPCell(new Phrase("Fecha de compra", fuenteNegrita));
-            colFechaCompra.BorderWidth = 1;
-            colFechaCompra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            colFechaOperacion = new PdfPCell(new Phrase("Fecha de operación", fuenteNegrita));
-            colFechaOperacion.BorderWidth = 1;
-            colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            colComentarios = new PdfPCell(new Phrase("Comentarios", fuenteNegrita));
-            colComentarios.BorderWidth = 1;
-            colComentarios.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            tabla.AddCell(colProducto);
-            tabla.AddCell(colProveedor);
-            tabla.AddCell(colUnidades);
-            tabla.AddCell(colPrecioCompra);
-            tabla.AddCell(colPrecioVenta);
-            tabla.AddCell(colStockAnterior);
-            tabla.AddCell(colStock);
-            tabla.AddCell(colFechaCompra);
-            tabla.AddCell(colFechaOperacion);
-            tabla.AddCell(colComentarios);
+            //tabla.AddCell(colProducto);
+            //tabla.AddCell(colProveedor);
+            //tabla.AddCell(colUnidades);
+            //tabla.AddCell(colPrecioCompra);
+            //tabla.AddCell(colPrecioVenta);
+            //tabla.AddCell(colStockAnterior);
+            //tabla.AddCell(colStock);
+            //tabla.AddCell(colFechaCompra);
+            //tabla.AddCell(colFechaOperacion);
+            //tabla.AddCell(colComentarios);
             
             //Consulta para obtener los registros del Historial de compras
             MySqlConnection sql_con;
