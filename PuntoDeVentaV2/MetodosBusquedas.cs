@@ -67,6 +67,10 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        //public List<string> stockMinimoMaximo(string id)
+        //{
+        //     DatosConexion($"SELECT StockMinimo, StockNecesario FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND");
+        //}
 
         public float ObtenerTotalAbonado(int idVenta, int idUsuario)
         {
