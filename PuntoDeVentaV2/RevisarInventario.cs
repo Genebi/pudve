@@ -181,7 +181,7 @@ namespace PuntoDeVentaV2
             {
                 if (tipoFiltro != "Filtros")
                 {
-                    consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND ID > {idProducto} ORDER BY ID ASC LIMIT 1";
+                    consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND ID > {idProducto} AND (CodigoBarras != '' OR ClaveInterna != '') ORDER BY ID ASC LIMIT 1";
                 }
                 else
                 {
@@ -349,7 +349,7 @@ namespace PuntoDeVentaV2
                             if (idActualAnterior != 0)
                             {
                                 var mostrarIDActual = 0;
-                                var idParaSiguiente = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}'");
+                                var idParaSiguiente = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}' AND (CodigoBarras != '' OR ClaveInterna != '')");
 
                                 if (!idParaSiguiente.Rows.Count.Equals(0))
                                 {
@@ -439,7 +439,7 @@ namespace PuntoDeVentaV2
                                 }
 
                                 // Verificar si este producto ya fue inventariado
-                                var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
+                                var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}' AND (CodigoBarras != '' OR ClaveInterna != '')");
 
                                 if (inventariado)
                                 {
@@ -595,7 +595,7 @@ namespace PuntoDeVentaV2
                     }
 
                     // Verificar si este producto ya fue inventariado
-                    var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
+                    var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}' AND (CodigoBarras != '' OR ClaveInterna != '')");
 
                     if (inventariado)
                     {
@@ -717,7 +717,7 @@ namespace PuntoDeVentaV2
                         }
 
                         // Comprobamos si el producto ya fue revisado
-                        var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
+                        var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}' AND (CodigoBarras != '' OR ClaveInterna != '')");
                         idDeProductos.Add(idProducto);
 
                         if (id.Count.Equals(0))
@@ -1070,7 +1070,7 @@ namespace PuntoDeVentaV2
             {
                 if (tipoFiltro != "Filtros")
                 {
-                    var consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro}";
+                    var consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND (CodigoBarras != '' OR ClaveInterna != '')";
                     cantidadRegistros = mb.CantidadFiltroInventario(consulta);
                 }
                 else
@@ -1171,7 +1171,7 @@ namespace PuntoDeVentaV2
 
             if (claveB == string.Empty) { buscarCode = codigoB; } else { buscarCode = claveB; }
 
-            using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{buscarCode}' OR ClaveInterna = '{buscarCode}' AND Status = 1"))
+            using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{buscarCode}' OR ClaveInterna = '{buscarCode}' AND Status = 1 AND (CodigoBarras != '' OR ClaveInterna != '')"))
             {
                 if (!idActual.Rows.Count.Equals(0))
                 {
@@ -1209,7 +1209,7 @@ namespace PuntoDeVentaV2
 
             if (validarAnterior == true)
             {
-                var mostrarDatos = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{obteniendoId}' AND  Status = 1");
+                var mostrarDatos = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{obteniendoId}' AND  Status = 1 AND (CodigoBarras != '' OR ClaveInterna != '')");
                 if (!mostrarDatos.Rows.Count.Equals(0))
                 {
                     foreach (DataRow datosObtenidos in mostrarDatos.Rows)
@@ -1300,7 +1300,7 @@ namespace PuntoDeVentaV2
 
         private void llenarCampos(string codigo)
         {
-            using (var traerDatos = cn.CargarDatos($"SELECT Nombre, CodigoBarras, Precio, StockMinimo, StockNecesario, Stock FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigo}'"))
+            using (var traerDatos = cn.CargarDatos($"SELECT Nombre, CodigoBarras, Precio, StockMinimo, StockNecesario, Stock FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigo}' AND (CodigoBarras != '' OR ClaveInterna != '')"))
             {
                 if (!traerDatos.Rows.Count.Equals(0))
                 {

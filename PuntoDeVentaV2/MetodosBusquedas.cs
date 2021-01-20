@@ -611,7 +611,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto}");
+            DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto} AND (CodigoBarras != '' OR ClaveInterna != '')");
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 
@@ -1312,7 +1312,7 @@ namespace PuntoDeVentaV2
 
             if (!filtro)
             {
-                consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras = '{codigo}' OR ClaveInterna = '{codigo}') AND Status = 1";
+                consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras = '{codigo}' OR ClaveInterna = '{codigo}') AND Status = 1 AND (CodigoBarras != '' OR ClaveInterna != '')";
             }
             else
             {
