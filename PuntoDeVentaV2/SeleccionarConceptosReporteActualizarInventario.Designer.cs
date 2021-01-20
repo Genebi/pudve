@@ -32,8 +32,8 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkSelectOnly = new System.Windows.Forms.CheckBox();
             this.chkSelectAllOrNot = new System.Windows.Forms.CheckBox();
+            this.chkSelectOnly = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,6 +81,17 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
+            // chkSelectAllOrNot
+            // 
+            this.chkSelectAllOrNot.AutoSize = true;
+            this.chkSelectAllOrNot.Location = new System.Drawing.Point(6, 42);
+            this.chkSelectAllOrNot.Name = "chkSelectAllOrNot";
+            this.chkSelectAllOrNot.Size = new System.Drawing.Size(173, 17);
+            this.chkSelectAllOrNot.TabIndex = 1;
+            this.chkSelectAllOrNot.Text = "Seleccionar todas las opciones";
+            this.chkSelectAllOrNot.UseVisualStyleBackColor = true;
+            this.chkSelectAllOrNot.CheckedChanged += new System.EventHandler(this.chkSelectAllOrNot_CheckedChanged);
+            // 
             // chkSelectOnly
             // 
             this.chkSelectOnly.AutoSize = true;
@@ -93,17 +104,6 @@
             this.chkSelectOnly.TabIndex = 0;
             this.chkSelectOnly.Text = "Aplicar solo selccionados";
             this.chkSelectOnly.UseVisualStyleBackColor = true;
-            // 
-            // chkSelectAllOrNot
-            // 
-            this.chkSelectAllOrNot.AutoSize = true;
-            this.chkSelectAllOrNot.Location = new System.Drawing.Point(6, 42);
-            this.chkSelectAllOrNot.Name = "chkSelectAllOrNot";
-            this.chkSelectAllOrNot.Size = new System.Drawing.Size(173, 17);
-            this.chkSelectAllOrNot.TabIndex = 1;
-            this.chkSelectAllOrNot.Text = "Seleccionar todas las opciones";
-            this.chkSelectAllOrNot.UseVisualStyleBackColor = true;
-            this.chkSelectAllOrNot.CheckedChanged += new System.EventHandler(this.chkSelectAllOrNot_CheckedChanged);
             // 
             // SeleccionarConceptosReporteActualizarInventario
             // 
@@ -120,7 +120,7 @@
             this.Name = "SeleccionarConceptosReporteActualizarInventario";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Coenceptos";
+            this.Text = "Conceptos";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
