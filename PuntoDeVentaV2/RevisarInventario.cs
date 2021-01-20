@@ -1137,12 +1137,24 @@ namespace PuntoDeVentaV2
 
             if (confirmarDesicion == DialogResult.Yes)
             {
-                //lbBackground.Text = string.Empty;
-                //LimpiarCampos();
-                //txtBoxBuscarCodigoBarras.Focus();
-                btnSiguiente.PerformClick();
+                //Se cambia el status de el producto a 0
                 cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE IDUsuario = {FormPrincipal.userID} AND ID = {idObtenido}");
-                cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
+                //cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
+
+                //Se elimina el ultimo dato en guardarse en esta lista
+                id.RemoveAt(id.Count - 1);
+
+                //Se elimina el ultimo dato en guardarse en esta lista (esta linea debe estar abajo de "btnOmitir.PerformClick();")
+                idDeProductos.RemoveAt(idDeProductos.Count - 1);
+
+                btnOmitir.PerformClick();
+                
+                
+
+                cantidadRegistros--;
+                cantidadRegistrosAux--;
+                lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+
             }
         }
 
@@ -1159,7 +1171,7 @@ namespace PuntoDeVentaV2
 
             if (claveB == string.Empty) { buscarCode = codigoB; } else { buscarCode = claveB; }
 
-            using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{buscarCode}' OR ClaveInterna = '{buscarCode}'"))
+            using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{buscarCode}' OR ClaveInterna = '{buscarCode}' AND Status = 1"))
             {
                 if (!idActual.Rows.Count.Equals(0))
                 {
@@ -1197,7 +1209,7 @@ namespace PuntoDeVentaV2
 
             if (validarAnterior == true)
             {
-                var mostrarDatos = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{obteniendoId}'");
+                var mostrarDatos = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{obteniendoId}' AND  Status = 1");
                 if (!mostrarDatos.Rows.Count.Equals(0))
                 {
                     foreach (DataRow datosObtenidos in mostrarDatos.Rows)
