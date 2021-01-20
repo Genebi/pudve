@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.Drawing.Printing;
 using MySql.Data.MySqlClient;
+using System.Threading;
 
 namespace PuntoDeVentaV2
 {
@@ -354,11 +355,22 @@ namespace PuntoDeVentaV2
                         ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
                     }
 
+                    Thread hilo;
+
                     if (!File.Exists(ruta_archivo))
                     {
-                        MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
+                        //MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
                         //Generar_PDF_factura.generar_PDF(nombre_xml);
-                        generar_PDF(nombre_xml, id_factura);
+                        //generar_PDF(nombre_xml, id_factura);
+
+                        hilo = new Thread(() => mnsj());
+                        hilo.Start();
+
+                        hilo = new Thread(() => generarPDF(nombre_xml, id_factura));
+                        hilo.Start();
+
+
+                        hilo.Join();
                     }
 
                     // Ver PDF de factura
@@ -484,6 +496,16 @@ namespace PuntoDeVentaV2
 
                 datagv_facturas.ClearSelection();
             }
+        }
+
+        public void mnsj()
+        {
+            MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
+        }
+
+        private void generarPDF(string nombre_xml, int id_f)
+        {
+            generar_PDF(nombre_xml, id_f);
         }
 
         private void cursor_en_icono(object sender, DataGridViewCellEventArgs e)

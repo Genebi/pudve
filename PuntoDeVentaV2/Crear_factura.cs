@@ -1167,7 +1167,7 @@ namespace PuntoDeVentaV2
 
                                      decimal descuento_xcantidad = Convert.ToDecimal(descuento_xproducto) / cantidad;
 
-                                     decimal pu_desc = precio_unit - dos_seis_decimales(descuento_xcantidad, 2);
+                                     decimal pu_desc = precio_unit - dos_seis_decimales(descuento_xcantidad, 6);
                                      decimal nbase = pu_desc;
 
                                      if (timpuesto == "16%")
