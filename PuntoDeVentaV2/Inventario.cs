@@ -103,6 +103,11 @@ namespace PuntoDeVentaV2
             {
                 populateDisminuirDGVInventario();
             }
+
+            if (columnasConcepto.Equals(0))
+            {
+                columnasConcepto = 10;
+            }
         }
 
         private void populateDisminuirDGVInventario()
