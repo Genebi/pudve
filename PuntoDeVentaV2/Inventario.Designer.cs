@@ -33,6 +33,7 @@
             this.btnActualizarXML = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnConceptosReporte = new System.Windows.Forms.Button();
             this.gBSeleccionActualizarInventario = new System.Windows.Forms.GroupBox();
             this.rbDisminuirProducto = new System.Windows.Forms.RadioButton();
             this.rbAumentarProducto = new System.Windows.Forms.RadioButton();
@@ -135,23 +136,42 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.btnConceptosReporte);
             this.panelBotones.Controls.Add(this.gBSeleccionActualizarInventario);
             this.panelBotones.Controls.Add(this.btnRevisar);
             this.panelBotones.Controls.Add(this.btnActualizarXML);
             this.panelBotones.Controls.Add(this.btnActualizar);
             this.panelBotones.Location = new System.Drawing.Point(12, 67);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(845, 85);
+            this.panelBotones.Size = new System.Drawing.Size(845, 115);
             this.panelBotones.TabIndex = 104;
+            // 
+            // btnConceptosReporte
+            // 
+            this.btnConceptosReporte.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnConceptosReporte.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnConceptosReporte.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConceptosReporte.FlatAppearance.BorderSize = 0;
+            this.btnConceptosReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConceptosReporte.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConceptosReporte.ForeColor = System.Drawing.Color.White;
+            this.btnConceptosReporte.Location = new System.Drawing.Point(316, 79);
+            this.btnConceptosReporte.Name = "btnConceptosReporte";
+            this.btnConceptosReporte.Size = new System.Drawing.Size(227, 31);
+            this.btnConceptosReporte.TabIndex = 105;
+            this.btnConceptosReporte.Text = "Conceptos del Reporte";
+            this.btnConceptosReporte.UseVisualStyleBackColor = false;
+            this.btnConceptosReporte.Visible = false;
+            this.btnConceptosReporte.Click += new System.EventHandler(this.btnConceptosReporte_Click);
             // 
             // gBSeleccionActualizarInventario
             // 
             this.gBSeleccionActualizarInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbDisminuirProducto);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbAumentarProducto);
-            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 39);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 38);
             this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
-            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 43);
+            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 36);
             this.gBSeleccionActualizarInventario.TabIndex = 104;
             this.gBSeleccionActualizarInventario.TabStop = false;
             this.gBSeleccionActualizarInventario.Visible = false;
@@ -159,7 +179,7 @@
             // rbDisminuirProducto
             // 
             this.rbDisminuirProducto.AutoSize = true;
-            this.rbDisminuirProducto.Location = new System.Drawing.Point(135, 16);
+            this.rbDisminuirProducto.Location = new System.Drawing.Point(135, 12);
             this.rbDisminuirProducto.Name = "rbDisminuirProducto";
             this.rbDisminuirProducto.Size = new System.Drawing.Size(67, 17);
             this.rbDisminuirProducto.TabIndex = 1;
@@ -172,7 +192,7 @@
             // 
             this.rbAumentarProducto.AutoSize = true;
             this.rbAumentarProducto.Checked = true;
-            this.rbAumentarProducto.Location = new System.Drawing.Point(27, 16);
+            this.rbAumentarProducto.Location = new System.Drawing.Point(27, 12);
             this.rbAumentarProducto.Name = "rbAumentarProducto";
             this.rbAumentarProducto.Size = new System.Drawing.Size(70, 17);
             this.rbAumentarProducto.TabIndex = 0;
@@ -192,9 +212,10 @@
             this.panelContenedor.Controls.Add(this.tituloBusqueda);
             this.panelContenedor.Controls.Add(this.txtBusqueda);
             this.panelContenedor.Controls.Add(this.DGVInventario);
-            this.panelContenedor.Location = new System.Drawing.Point(12, 161);
+            this.panelContenedor.Cursor = System.Windows.Forms.Cursors.Default;
+            this.panelContenedor.Location = new System.Drawing.Point(12, 182);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(845, 388);
+            this.panelContenedor.Size = new System.Drawing.Size(845, 367);
             this.panelContenedor.TabIndex = 105;
             this.panelContenedor.Visible = false;
             // 
@@ -207,7 +228,7 @@
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.Location = new System.Drawing.Point(726, 46);
+            this.btnBuscar.Location = new System.Drawing.Point(726, 36);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(105, 23);
             this.btnBuscar.TabIndex = 105;
@@ -227,7 +248,7 @@
             this.bntTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntTerminar.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bntTerminar.ForeColor = System.Drawing.Color.White;
-            this.bntTerminar.Location = new System.Drawing.Point(695, 319);
+            this.bntTerminar.Location = new System.Drawing.Point(695, 332);
             this.bntTerminar.Name = "bntTerminar";
             this.bntTerminar.Size = new System.Drawing.Size(150, 30);
             this.bntTerminar.TabIndex = 104;
@@ -243,7 +264,7 @@
             this.listaProductos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listaProductos.FormattingEnabled = true;
             this.listaProductos.ItemHeight = 17;
-            this.listaProductos.Location = new System.Drawing.Point(125, 69);
+            this.listaProductos.Location = new System.Drawing.Point(125, 59);
             this.listaProductos.Name = "listaProductos";
             this.listaProductos.Size = new System.Drawing.Size(595, 140);
             this.listaProductos.TabIndex = 12;
@@ -256,7 +277,7 @@
             this.tituloBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(277, 18);
+            this.tituloBusqueda.Location = new System.Drawing.Point(277, 8);
             this.tituloBusqueda.Name = "tituloBusqueda";
             this.tituloBusqueda.Size = new System.Drawing.Size(264, 20);
             this.tituloBusqueda.TabIndex = 10;
@@ -269,7 +290,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(125, 46);
+            this.txtBusqueda.Location = new System.Drawing.Point(125, 36);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(595, 23);
             this.txtBusqueda.TabIndex = 11;
@@ -296,11 +317,11 @@
             this.Codigo,
             this.Fecha,
             this.Comentarios});
-            this.DGVInventario.Location = new System.Drawing.Point(0, 86);
+            this.DGVInventario.Location = new System.Drawing.Point(0, 65);
             this.DGVInventario.Name = "DGVInventario";
             this.DGVInventario.ReadOnly = true;
             this.DGVInventario.RowHeadersVisible = false;
-            this.DGVInventario.Size = new System.Drawing.Size(845, 217);
+            this.DGVInventario.Size = new System.Drawing.Size(845, 261);
             this.DGVInventario.TabIndex = 9;
             // 
             // ID
@@ -425,5 +446,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Comentarios;
+        private System.Windows.Forms.Button btnConceptosReporte;
     }
 }

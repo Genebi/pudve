@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
         // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
         Dictionary<int, string> productos;
 
-        List<string> idProductoDelCombo;
+        static public List<string> idProductoDelCombo;
 
         public int GetNumRevActive { get; set; }
 
@@ -55,8 +55,27 @@ namespace PuntoDeVentaV2
         // tipo de selección Aumentar, Disminuir
         int tipoSeleccion = 0;
 
+        // Lista para pasar conceptos seleccionados desde la venta de selección conceptos
+        public static List<string> listaConceptosSeleccionados;
+
+        // variables para ber que conceptos son los que estaran activos para el reporte
+        bool Producto = false;
+        bool Proveedor = false;
+        bool UnidadesCompradas = false;
+        bool UnidadesDisminuidas = false;
+        bool PrecioCompra = false;
+        bool PrecioVenta = false;
+        bool StockAnterior = false;
+        bool StockActual = false;
+        bool FechaCompra = false;
+        bool FechaOperacion = false;
+        bool Comentario = false;
+
+        int columnasConcepto = 0;
+
         public Inventario()
         {
+            listaConceptosSeleccionados = new List<string>();
             InitializeComponent();
         }
 
@@ -184,6 +203,7 @@ namespace PuntoDeVentaV2
         private void btnRevisar_Click(object sender, EventArgs e)
         {
             gBSeleccionActualizarInventario.Visible = false;
+            btnConceptosReporte.Visible = false;
             panelContenedor.Visible = false;
 
             if (opcion1 == 0)
@@ -286,6 +306,7 @@ namespace PuntoDeVentaV2
             }
 
             gBSeleccionActualizarInventario.Visible = true;
+            btnConceptosReporte.Visible = true;
 
             tipoSeleccion = 0;
 
@@ -309,6 +330,7 @@ namespace PuntoDeVentaV2
             else
             {
                 gBSeleccionActualizarInventario.Visible = false;
+                btnConceptosReporte.Visible = false;
                 panelContenedor.Visible = false;
 
                 AgregarStockXML inventarioXML = new AgregarStockXML();
@@ -1125,347 +1147,840 @@ namespace PuntoDeVentaV2
             // se agrego una columna nueva al reporte la de stock anterior ahora son 9 Columnas
             // Producto = 245f,       Proveedor = 200f,     Unidades Compradas = 80f,     Precio compra = 70f,      Precio venta = 70f,
             // Stock anterior = 55f   Stock actual = 55f,   Fecha de compra = 80f,        Fecha de operación = 80f  Comentarios = 200f
-            float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
+            // float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
+            string[] ValueConceptos = new string[] { "245", "200", "80", "70", "70", "55", "55", "80", "80", "200" };
+            float[] anchoColumnas;
+            var position = 0;
 
-            Document reporte = new Document(PageSize.A3.Rotate());
-            PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
-
-            string logotipo = datos[11];
-            //string encabezado = $"\n{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
-
-            reporte.Open();
-
-            //Validación para verificar si existe logotipo
-            if (logotipo != "")
+            if (columnasConcepto >= 10)
             {
-                logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+                anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
 
-                if (File.Exists(logotipo))
+                Document reporte = new Document(PageSize.A3.Rotate());
+                PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+
+                string logotipo = datos[11];
+                //string encabezado = $"\n{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
+
+                reporte.Open();
+
+                //Validación para verificar si existe logotipo
+                if (logotipo != "")
                 {
-                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logotipo);
-                    logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
-                    logo.ScaleAbsolute(anchoLogo, altoLogo);
-                    reporte.Add(logo);
+                    logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+
+                    if (File.Exists(logotipo))
+                    {
+                        iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logotipo);
+                        logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                        logo.ScaleAbsolute(anchoLogo, altoLogo);
+                        reporte.Add(logo);
+                    }
                 }
-            }
 
-            Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("");
-            //Paragraph subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
-            if (rbAumentarProducto.Checked)
-            {
-                subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Aumentar)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
-            }
-            else if (rbDisminuirProducto.Checked)
-            {
-                subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Disminuir)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
-            }
-            //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
-
-            titulo.Alignment = Element.ALIGN_CENTER;
-            subTitulo.Alignment = Element.ALIGN_CENTER;
-            //domicilio.Alignment = Element.ALIGN_CENTER;
-            //domicilio.SetLeading(10, 0);
-
-            /***************************************
-             ** Tabla con los productos ajustados **
-             ***************************************/
-            PdfPTable tabla = new PdfPTable(10);
-            tabla.WidthPercentage = 100;
-            tabla.SetWidths(anchoColumnas);
-
-            PdfPCell colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
-            colProducto.BorderWidth = 1;
-            colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colProveedor = new PdfPCell(new Phrase("Proveedor", fuenteNegrita));
-            colProveedor.BorderWidth = 1;
-            colProveedor.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colUnidades = new PdfPCell(new Phrase("", fuenteNegrita));
-
-            if (rbAumentarProducto.Checked)
-            {
-                colUnidades = new PdfPCell(new Phrase("Unidades compradas", fuenteNegrita));
-                colUnidades.BorderWidth = 1;
-                colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
-            }
-            else if (rbDisminuirProducto.Checked)
-            {
-                colUnidades = new PdfPCell(new Phrase("Unidades disminuidas", fuenteNegrita));
-                colUnidades.BorderWidth = 1;
-                colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
-            }
-            
-
-            PdfPCell colPrecioCompra = new PdfPCell(new Phrase("Precio compra", fuenteNegrita));
-            colPrecioCompra.BorderWidth = 1;
-            colPrecioCompra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colPrecioVenta = new PdfPCell(new Phrase("Precio venta", fuenteNegrita));
-            colPrecioVenta.BorderWidth = 1;
-            colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
-            colStockAnterior.BorderWidth = 1;
-            colStockAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
-            colStock.BorderWidth = 1;
-            colStock.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colFechaCompra = new PdfPCell(new Phrase("Fecha de compra", fuenteNegrita));
-            colFechaCompra.BorderWidth = 1;
-            colFechaCompra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colFechaOperacion = new PdfPCell(new Phrase("Fecha de operación", fuenteNegrita));
-            colFechaOperacion.BorderWidth = 1;
-            colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colComentarios = new PdfPCell(new Phrase("Comentarios", fuenteNegrita));
-            colComentarios.BorderWidth = 1;
-            colComentarios.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            tabla.AddCell(colProducto);
-            tabla.AddCell(colProveedor);
-            tabla.AddCell(colUnidades);
-            tabla.AddCell(colPrecioCompra);
-            tabla.AddCell(colPrecioVenta);
-            tabla.AddCell(colStockAnterior);
-            tabla.AddCell(colStock);
-            tabla.AddCell(colFechaCompra);
-            tabla.AddCell(colFechaOperacion);
-            tabla.AddCell(colComentarios);
-
-
-            //Consulta para obtener los registros del Historial de compras
-            MySqlConnection sql_con;
-            MySqlCommand sql_cmd;
-            MySqlDataReader dr;
-
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                sql_con = new MySqlConnection("datasource=" + servidor + ";port=6666;username=root;password=;database=pudve;");
-            }
-            else
-            {
-                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
-
-            }
-
-            sql_con.Open();
-            //sql_cmd = new MySqlCommand($"SELECT * FROM HistorialCompras WHERE IDUsuario = {FormPrincipal.userID} AND IDReporte = {idReporte}", sql_con);
-            if (rbAumentarProducto.Checked)
-            {
-                var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-
-                sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(NoRev), sql_con);
-
-                dr = sql_cmd.ExecuteReader();
-
-                while (dr.Read())
+                Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+                Paragraph subTitulo = new Paragraph("");
+                //Paragraph subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                if (rbAumentarProducto.Checked)
                 {
-                    var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
-                    var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
-                    var proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
-                    var unidades = string.Empty;
-                    if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
-                    {
-                        unidades = "0.00";
-                    }
-                    else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
-                    {
-                        unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
-                    }
-                    var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
-                    var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
-
-                    var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                    //var stock = tmp[4];
-                    var stock = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("NuevoStock"))).ToString("0.00");
-
-                    //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
-                    //var stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
-                    var stockAnterior = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("StockActual"))).ToString("0.00");
-
-                    DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
-                    var fechaCompra = fecha.ToString("yyyy-MM-dd");
-
-                    DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
-                    var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
-
-                    var comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
-
-                    PdfPCell colProductoTmp = new PdfPCell(new Phrase(producto, fuenteNormal));
-                    colProductoTmp.BorderWidth = 1;
-                    colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colProveedorTmp = new PdfPCell(new Phrase(proveedor, fuenteNormal));
-                    colProveedorTmp.BorderWidth = 1;
-                    colProveedorTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
-                    colUnidadesTmp.BorderWidth = 1;
-                    colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colPrecioCompraTmp = new PdfPCell(new Phrase("$" + compra, fuenteNormal));
-                    colPrecioCompraTmp.BorderWidth = 1;
-                    colPrecioCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colPrecioVentaTmp = new PdfPCell(new Phrase("$" + venta, fuenteNormal));
-                    colPrecioVentaTmp.BorderWidth = 1;
-                    colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
-                    colStockTmpAnterior.BorderWidth = 1;
-                    colStockTmpAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
-                    colStockTmp.BorderWidth = 1;
-                    colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colFechaCompraTmp = new PdfPCell(new Phrase(fechaCompra, fuenteNormal));
-                    colFechaCompraTmp.BorderWidth = 1;
-                    colFechaCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
-                    colFechaOperacionTmp.BorderWidth = 1;
-                    colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colComentariosTmp = new PdfPCell(new Phrase(comentarios, fuenteNormal));
-                    colComentariosTmp.BorderWidth = 1;
-                    colComentariosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    tabla.AddCell(colProductoTmp);
-                    tabla.AddCell(colProveedorTmp);
-                    tabla.AddCell(colUnidadesTmp);
-                    tabla.AddCell(colPrecioCompraTmp);
-                    tabla.AddCell(colPrecioVentaTmp);
-                    tabla.AddCell(colStockTmpAnterior);
-                    tabla.AddCell(colStockTmp);
-                    tabla.AddCell(colFechaCompraTmp);
-                    tabla.AddCell(colFechaOperacionTmp);
-                    tabla.AddCell(colComentariosTmp);
+                    subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Aumentar)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 }
-            }
-            else if (rbDisminuirProducto.Checked)
-            {
-                var NoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
-
-                sql_cmd = new MySqlCommand(cs.SearchDGVDisminuirInventario(NoRev), sql_con);
-
-                dr = sql_cmd.ExecuteReader();
-
-                while (dr.Read())
+                else if (rbDisminuirProducto.Checked)
                 {
-                    var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
-                    var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
-                    var proveedor = string.Empty;
-                    if (dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
+                    subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Disminuir)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                }
+                //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
+
+                titulo.Alignment = Element.ALIGN_CENTER;
+                subTitulo.Alignment = Element.ALIGN_CENTER;
+                //domicilio.Alignment = Element.ALIGN_CENTER;
+                //domicilio.SetLeading(10, 0);
+
+                /***************************************
+                ** Tabla con los productos ajustados **
+                ***************************************/
+                PdfPTable tabla = new PdfPTable(10);
+                tabla.WidthPercentage = 100;
+                tabla.SetWidths(anchoColumnas);
+
+                PdfPCell colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
+                colProducto.BorderWidth = 1;
+                colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colProveedor = new PdfPCell(new Phrase("Proveedor", fuenteNegrita));
+                colProveedor.BorderWidth = 1;
+                colProveedor.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colUnidades = new PdfPCell(new Phrase("", fuenteNegrita));
+
+                if (rbAumentarProducto.Checked)
+                {
+                    colUnidades = new PdfPCell(new Phrase("Unidades compradas", fuenteNegrita));
+                    colUnidades.BorderWidth = 1;
+                    colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
+                }
+                else if (rbDisminuirProducto.Checked)
+                {
+                    colUnidades = new PdfPCell(new Phrase("Unidades disminuidas", fuenteNegrita));
+                    colUnidades.BorderWidth = 1;
+                    colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
+                }
+
+
+                PdfPCell colPrecioCompra = new PdfPCell(new Phrase("Precio compra", fuenteNegrita));
+                colPrecioCompra.BorderWidth = 1;
+                colPrecioCompra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colPrecioVenta = new PdfPCell(new Phrase("Precio venta", fuenteNegrita));
+                colPrecioVenta.BorderWidth = 1;
+                colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
+                colStockAnterior.BorderWidth = 1;
+                colStockAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
+                colStock.BorderWidth = 1;
+                colStock.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colFechaCompra = new PdfPCell(new Phrase("Fecha de compra", fuenteNegrita));
+                colFechaCompra.BorderWidth = 1;
+                colFechaCompra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colFechaOperacion = new PdfPCell(new Phrase("Fecha de operación", fuenteNegrita));
+                colFechaOperacion.BorderWidth = 1;
+                colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colComentarios = new PdfPCell(new Phrase("Comentarios", fuenteNegrita));
+                colComentarios.BorderWidth = 1;
+                colComentarios.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                tabla.AddCell(colProducto);
+                tabla.AddCell(colProveedor);
+                tabla.AddCell(colUnidades);
+                tabla.AddCell(colPrecioCompra);
+                tabla.AddCell(colPrecioVenta);
+                tabla.AddCell(colStockAnterior);
+                tabla.AddCell(colStock);
+                tabla.AddCell(colFechaCompra);
+                tabla.AddCell(colFechaOperacion);
+                tabla.AddCell(colComentarios);
+
+
+                //Consulta para obtener los registros del Historial de compras
+                MySqlConnection sql_con;
+                MySqlCommand sql_cmd;
+                MySqlDataReader dr;
+
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    sql_con = new MySqlConnection("datasource=" + servidor + ";port=6666;username=root;password=;database=pudve;");
+                }
+                else
+                {
+                    sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
+
+                }
+
+                sql_con.Open();
+                //sql_cmd = new MySqlCommand($"SELECT * FROM HistorialCompras WHERE IDUsuario = {FormPrincipal.userID} AND IDReporte = {idReporte}", sql_con);
+                if (rbAumentarProducto.Checked)
+                {
+                    var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+
+                    sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(NoRev), sql_con);
+
+                    dr = sql_cmd.ExecuteReader();
+
+                    while (dr.Read())
                     {
-                        proveedor = string.Empty;
+                        var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
+                        var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
+                        var proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
+                        var unidades = string.Empty;
+                        if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                        {
+                            unidades = "0.00";
+                        }
+                        else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                        {
+                            unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                        }
+                        var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
+                        var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
+
+                        var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                        //var stock = tmp[4];
+                        var stock = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("NuevoStock"))).ToString("0.00");
+
+                        //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
+                        //var stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
+                        var stockAnterior = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("StockActual"))).ToString("0.00");
+
+                        DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                        var fechaCompra = fecha.ToString("yyyy-MM-dd");
+
+                        DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                        var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+
+                        var comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
+
+                        PdfPCell colProductoTmp = new PdfPCell(new Phrase(producto, fuenteNormal));
+                        colProductoTmp.BorderWidth = 1;
+                        colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colProveedorTmp = new PdfPCell(new Phrase(proveedor, fuenteNormal));
+                        colProveedorTmp.BorderWidth = 1;
+                        colProveedorTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
+                        colUnidadesTmp.BorderWidth = 1;
+                        colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colPrecioCompraTmp = new PdfPCell(new Phrase("$" + compra, fuenteNormal));
+                        colPrecioCompraTmp.BorderWidth = 1;
+                        colPrecioCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colPrecioVentaTmp = new PdfPCell(new Phrase("$" + venta, fuenteNormal));
+                        colPrecioVentaTmp.BorderWidth = 1;
+                        colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
+                        colStockTmpAnterior.BorderWidth = 1;
+                        colStockTmpAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
+                        colStockTmp.BorderWidth = 1;
+                        colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colFechaCompraTmp = new PdfPCell(new Phrase(fechaCompra, fuenteNormal));
+                        colFechaCompraTmp.BorderWidth = 1;
+                        colFechaCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
+                        colFechaOperacionTmp.BorderWidth = 1;
+                        colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colComentariosTmp = new PdfPCell(new Phrase(comentarios, fuenteNormal));
+                        colComentariosTmp.BorderWidth = 1;
+                        colComentariosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        tabla.AddCell(colProductoTmp);
+                        tabla.AddCell(colProveedorTmp);
+                        tabla.AddCell(colUnidadesTmp);
+                        tabla.AddCell(colPrecioCompraTmp);
+                        tabla.AddCell(colPrecioVentaTmp);
+                        tabla.AddCell(colStockTmpAnterior);
+                        tabla.AddCell(colStockTmp);
+                        tabla.AddCell(colFechaCompraTmp);
+                        tabla.AddCell(colFechaOperacionTmp);
+                        tabla.AddCell(colComentariosTmp);
                     }
-                    else if (!dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
+                }
+                else if (rbDisminuirProducto.Checked)
+                {
+                    var NoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+
+                    sql_cmd = new MySqlCommand(cs.SearchDGVDisminuirInventario(NoRev), sql_con);
+
+                    dr = sql_cmd.ExecuteReader();
+
+                    while (dr.Read())
                     {
+                        var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
+                        var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
+                        var proveedor = string.Empty;
+                        if (dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
+                        {
+                            proveedor = string.Empty;
+                        }
+                        else if (!dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
+                        {
+                            proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
+                        }
+                        var unidades = string.Empty;
+                        if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                        {
+                            unidades = "0.00";
+                        }
+                        else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                        {
+                            unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                        }
+                        var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
+                        var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
+
+                        var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                        //var stock = tmp[4];
+                        var stock = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("NuevoStock"))).ToString("0.00");
+
+                        //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
+                        //var stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
+                        var stockAnterior = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("StockActual"))).ToString("0.00");
+
+                        DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                        var fechaCompra = fecha.ToString("yyyy-MM-dd");
+
+                        DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                        var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+
+                        var comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
+
+                        PdfPCell colProductoTmp = new PdfPCell(new Phrase(producto, fuenteNormal));
+                        colProductoTmp.BorderWidth = 1;
+                        colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colProveedorTmp = new PdfPCell(new Phrase(proveedor, fuenteNormal));
+                        colProveedorTmp.BorderWidth = 1;
+                        colProveedorTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
+                        colUnidadesTmp.BorderWidth = 1;
+                        colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colPrecioCompraTmp = new PdfPCell(new Phrase("$" + compra, fuenteNormal));
+                        colPrecioCompraTmp.BorderWidth = 1;
+                        colPrecioCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colPrecioVentaTmp = new PdfPCell(new Phrase("$" + venta, fuenteNormal));
+                        colPrecioVentaTmp.BorderWidth = 1;
+                        colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
+                        colStockTmpAnterior.BorderWidth = 1;
+                        colStockTmpAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
+                        colStockTmp.BorderWidth = 1;
+                        colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colFechaCompraTmp = new PdfPCell(new Phrase(fechaCompra, fuenteNormal));
+                        colFechaCompraTmp.BorderWidth = 1;
+                        colFechaCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
+                        colFechaOperacionTmp.BorderWidth = 1;
+                        colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colComentariosTmp = new PdfPCell(new Phrase(comentarios, fuenteNormal));
+                        colComentariosTmp.BorderWidth = 1;
+                        colComentariosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        tabla.AddCell(colProductoTmp);
+                        tabla.AddCell(colProveedorTmp);
+                        tabla.AddCell(colUnidadesTmp);
+                        tabla.AddCell(colPrecioCompraTmp);
+                        tabla.AddCell(colPrecioVentaTmp);
+                        tabla.AddCell(colStockTmpAnterior);
+                        tabla.AddCell(colStockTmp);
+                        tabla.AddCell(colFechaCompraTmp);
+                        tabla.AddCell(colFechaOperacionTmp);
+                        tabla.AddCell(colComentariosTmp);
+                    }
+                }
+
+                /******************************************
+                ** Fin de la tabla                      **
+                ******************************************/
+
+                reporte.Add(titulo);
+                reporte.Add(subTitulo);
+                //reporte.Add(domicilio);
+                reporte.Add(tabla);
+
+                reporte.AddTitle("Reporte Historial");
+                reporte.AddAuthor("PUDVE");
+                reporte.Close();
+                writer.Close();
+
+                VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+                vr.ShowDialog();
+            }
+            else if (columnasConcepto < 10)
+            {
+                anchoColumnas = new float[columnasConcepto];
+
+                if (Producto)
+                {
+                    anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[0].ToString());
+                    position++;
+                }
+                if (Proveedor)
+                {
+                    anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[1].ToString());
+                    position++;
+                }
+                if (UnidadesCompradas.Equals(true) || UnidadesDisminuidas.Equals(true))
+                {
+                    anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[2].ToString());
+                    position++;
+                }
+                if (PrecioCompra)
+                {
+                    anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[3].ToString());
+                    position++;
+                }
+                if (PrecioVenta)
+                {
+                    anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[4].ToString());
+                    position++;
+                }
+                if (StockAnterior)
+                {
+                    anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[5].ToString());
+                    position++;
+                }
+                if (StockActual)
+                {
+                    anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[6].ToString());
+                    position++;
+                }
+                if (FechaCompra)
+                {
+                    anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[7].ToString());
+                    position++;
+                }
+                if (FechaOperacion)
+                {
+                    anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[8].ToString());
+                    position++;
+                }
+                if (Comentario)
+                {
+                    anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[9].ToString());
+                    position++;
+                }
+
+                Document reporte = new Document(PageSize.A3.Rotate());
+                PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+
+                string logotipo = datos[11];
+                //string encabezado = $"\n{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
+
+                reporte.Open();
+
+                //Validación para verificar si existe logotipo
+                if (logotipo != "")
+                {
+                    logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+
+                    if (File.Exists(logotipo))
+                    {
+                        iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logotipo);
+                        logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                        logo.ScaleAbsolute(anchoLogo, altoLogo);
+                        reporte.Add(logo);
+                    }
+                }
+
+                Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+                Paragraph subTitulo = new Paragraph("");
+                //Paragraph subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                if (rbAumentarProducto.Checked)
+                {
+                    subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Aumentar)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                }
+                else if (rbDisminuirProducto.Checked)
+                {
+                    subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Disminuir)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                }
+                //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
+
+                titulo.Alignment = Element.ALIGN_CENTER;
+                subTitulo.Alignment = Element.ALIGN_CENTER;
+                //domicilio.Alignment = Element.ALIGN_CENTER;
+                //domicilio.SetLeading(10, 0);
+
+                /***************************************
+                 ** Tabla con los productos ajustados **
+                 ***************************************/
+                //PdfPTable tabla = new PdfPTable(10);
+                PdfPTable tabla = new PdfPTable(anchoColumnas.Count());
+                tabla.WidthPercentage = 100;
+                tabla.SetWidths(anchoColumnas);
+
+                PdfPCell colProducto = new PdfPCell(new Phrase("", fuenteNegrita));
+                PdfPCell colProveedor = new PdfPCell(new Phrase("", fuenteNegrita));
+                PdfPCell colUnidades = new PdfPCell(new Phrase("", fuenteNegrita));
+                PdfPCell colPrecioCompra = new PdfPCell(new Phrase("", fuenteNegrita));
+                PdfPCell colPrecioVenta = new PdfPCell(new Phrase("", fuenteNegrita));
+                PdfPCell colStockAnterior = new PdfPCell(new Phrase("", fuenteNegrita));
+                PdfPCell colStock = new PdfPCell(new Phrase("", fuenteNegrita));
+                PdfPCell colFechaCompra = new PdfPCell(new Phrase("", fuenteNegrita));
+                PdfPCell colFechaOperacion = new PdfPCell(new Phrase("", fuenteNegrita));
+                PdfPCell colComentarios = new PdfPCell(new Phrase("", fuenteNegrita));
+
+                if (Producto)
+                {
+                    colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
+                    colProducto.BorderWidth = 1;
+                    colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colProducto);
+                }
+                if (Proveedor)
+                {
+                    colProveedor = new PdfPCell(new Phrase("Proveedor", fuenteNegrita));
+                    colProveedor.BorderWidth = 1;
+                    colProveedor.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colProveedor);
+                }
+                if (UnidadesCompradas)
+                {
+                    if (rbAumentarProducto.Checked || rbDisminuirProducto.Checked)
+                    {
+                        colUnidades = new PdfPCell(new Phrase("Unidades compradas", fuenteNegrita));
+                        colUnidades.BorderWidth = 1;
+                        colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
+                        tabla.AddCell(colUnidades);
+                    }
+                    else if (rbDisminuirProducto.Checked)
+                    {
+                        colUnidades = new PdfPCell(new Phrase("Unidades disminuidas", fuenteNegrita));
+                        colUnidades.BorderWidth = 1;
+                        colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
+                        tabla.AddCell(colUnidades);
+                    }
+                }
+                if (PrecioCompra)
+                {
+                    colPrecioCompra = new PdfPCell(new Phrase("Precio compra", fuenteNegrita));
+                    colPrecioCompra.BorderWidth = 1;
+                    colPrecioCompra.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colPrecioCompra);
+                }
+                if (PrecioVenta)
+                {
+                    colPrecioVenta = new PdfPCell(new Phrase("Precio venta", fuenteNegrita));
+                    colPrecioVenta.BorderWidth = 1;
+                    colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colPrecioVenta);
+                }
+                if (StockAnterior)
+                {
+                    colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
+                    colStockAnterior.BorderWidth = 1;
+                    colStockAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colStockAnterior);
+                }
+                if (StockActual)
+                {
+                    colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
+                    colStock.BorderWidth = 1;
+                    colStock.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colStock);
+                }
+                if (FechaCompra)
+                {
+                    colFechaCompra = new PdfPCell(new Phrase("Fecha de compra", fuenteNegrita));
+                    colFechaCompra.BorderWidth = 1;
+                    colFechaCompra.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colFechaCompra);
+                }
+                if (FechaOperacion)
+                {
+                    colFechaOperacion = new PdfPCell(new Phrase("Fecha de operación", fuenteNegrita));
+                    colFechaOperacion.BorderWidth = 1;
+                    colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colFechaOperacion);
+                }
+                if (Comentario)
+                {
+                    colComentarios = new PdfPCell(new Phrase("Comentarios", fuenteNegrita));
+                    colComentarios.BorderWidth = 1;
+                    colComentarios.HorizontalAlignment = Element.ALIGN_CENTER;
+                    tabla.AddCell(colComentarios);
+                }
+
+                //Consulta para obtener los registros del Historial de compras
+                MySqlConnection sql_con;
+                MySqlCommand sql_cmd;
+                MySqlDataReader dr;
+
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    sql_con = new MySqlConnection("datasource=" + servidor + ";port=6666;username=root;password=;database=pudve;");
+                }
+                else
+                {
+                    sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
+
+                }
+
+                sql_con.Open();
+                //sql_cmd = new MySqlCommand($"SELECT * FROM HistorialCompras WHERE IDUsuario = {FormPrincipal.userID} AND IDReporte = {idReporte}", sql_con);
+
+                if (rbAumentarProducto.Checked)
+                {
+                    var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+
+                    sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(NoRev), sql_con);
+
+                    dr = sql_cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        int idProducto = 0;
+                        string producto = string.Empty, proveedor = string.Empty, unidades = string.Empty, compra = string.Empty, venta = string.Empty, stockAnterior = string.Empty, fechaCompra = string.Empty, fechaOperacion = string.Empty, comentarios = string.Empty;
+
+                        idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
+                        producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
                         proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
+                        if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                        {
+                            unidades = "0.00";
+                        }
+                        else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                        {
+                            unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                        }
+                        compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
+                        venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
+
+                        var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                        var stock = tmp[4];
+
+                        stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
+
+                        DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                        fechaCompra = fecha.ToString("yyyy-MM-dd");
+
+                        DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                        fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+
+                        comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
+
+                        PdfPCell colProductoTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colProveedorTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colUnidadesTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colPrecioCompraTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colPrecioVentaTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colStockTmpAnterior = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colStockTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colFechaCompraTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colComentariosTmp = new PdfPCell(new Phrase("", fuenteNormal));
+
+                        if (Producto)
+                        {
+                            colProductoTmp = new PdfPCell(new Phrase(producto, fuenteNormal));
+                            colProductoTmp.BorderWidth = 1;
+                            colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colProductoTmp);
+                        }
+                        if (Proveedor)
+                        {
+                            colProveedorTmp = new PdfPCell(new Phrase(proveedor, fuenteNormal));
+                            colProveedorTmp.BorderWidth = 1;
+                            colProveedorTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colProveedorTmp);
+                        }
+                        if (UnidadesCompradas)
+                        {
+                            colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
+                            colUnidadesTmp.BorderWidth = 1;
+                            colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colUnidadesTmp);
+                        }
+                        if (PrecioCompra)
+                        {
+                            colPrecioCompraTmp = new PdfPCell(new Phrase("$" + compra, fuenteNormal));
+                            colPrecioCompraTmp.BorderWidth = 1;
+                            colPrecioCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colPrecioCompraTmp);
+                        }
+                        if (PrecioVenta)
+                        {
+                            colPrecioVentaTmp = new PdfPCell(new Phrase("$" + venta, fuenteNormal));
+                            colPrecioVentaTmp.BorderWidth = 1;
+                            colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colPrecioVentaTmp);
+                        }
+                        if (StockAnterior)
+                        {
+                            colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
+                            colStockTmpAnterior.BorderWidth = 1;
+                            colStockTmpAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colStockTmpAnterior);
+                        }
+                        if (StockActual)
+                        {
+                            colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
+                            colStockTmp.BorderWidth = 1;
+                            colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colStockTmp);
+                        }
+                        if (FechaCompra)
+                        {
+                            colFechaCompraTmp = new PdfPCell(new Phrase(fechaCompra, fuenteNormal));
+                            colFechaCompraTmp.BorderWidth = 1;
+                            colFechaCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colFechaCompraTmp);
+                        }
+                        if (FechaOperacion)
+                        {
+                            colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
+                            colFechaOperacionTmp.BorderWidth = 1;
+                            colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colFechaOperacionTmp);
+                        }
+                        if (Comentario)
+                        {
+                            colComentariosTmp = new PdfPCell(new Phrase(comentarios, fuenteNormal));
+                            colComentariosTmp.BorderWidth = 1;
+                            colComentariosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colComentariosTmp);
+                        }
                     }
-                    var unidades = string.Empty;
-                    if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
-                    {
-                        unidades = "0.00";
-                    }
-                    else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
-                    {
-                        unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
-                    }
-                    var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
-                    var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
-
-                    var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                    //var stock = tmp[4];
-                    var stock = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("NuevoStock"))).ToString("0.00");
-
-                    //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
-                    //var stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
-                    var stockAnterior = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("StockActual"))).ToString("0.00");
-
-                    DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
-                    var fechaCompra = fecha.ToString("yyyy-MM-dd");
-
-                    DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
-                    var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
-
-                    var comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
-
-                    PdfPCell colProductoTmp = new PdfPCell(new Phrase(producto, fuenteNormal));
-                    colProductoTmp.BorderWidth = 1;
-                    colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colProveedorTmp = new PdfPCell(new Phrase(proveedor, fuenteNormal));
-                    colProveedorTmp.BorderWidth = 1;
-                    colProveedorTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
-                    colUnidadesTmp.BorderWidth = 1;
-                    colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colPrecioCompraTmp = new PdfPCell(new Phrase("$" + compra, fuenteNormal));
-                    colPrecioCompraTmp.BorderWidth = 1;
-                    colPrecioCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colPrecioVentaTmp = new PdfPCell(new Phrase("$" + venta, fuenteNormal));
-                    colPrecioVentaTmp.BorderWidth = 1;
-                    colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
-                    colStockTmpAnterior.BorderWidth = 1;
-                    colStockTmpAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
-                    colStockTmp.BorderWidth = 1;
-                    colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colFechaCompraTmp = new PdfPCell(new Phrase(fechaCompra, fuenteNormal));
-                    colFechaCompraTmp.BorderWidth = 1;
-                    colFechaCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
-                    colFechaOperacionTmp.BorderWidth = 1;
-                    colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    PdfPCell colComentariosTmp = new PdfPCell(new Phrase(comentarios, fuenteNormal));
-                    colComentariosTmp.BorderWidth = 1;
-                    colComentariosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                    tabla.AddCell(colProductoTmp);
-                    tabla.AddCell(colProveedorTmp);
-                    tabla.AddCell(colUnidadesTmp);
-                    tabla.AddCell(colPrecioCompraTmp);
-                    tabla.AddCell(colPrecioVentaTmp);
-                    tabla.AddCell(colStockTmpAnterior);
-                    tabla.AddCell(colStockTmp);
-                    tabla.AddCell(colFechaCompraTmp);
-                    tabla.AddCell(colFechaOperacionTmp);
-                    tabla.AddCell(colComentariosTmp);
                 }
+                else if (rbDisminuirProducto.Checked)
+                {
+                    var NoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+
+                    sql_cmd = new MySqlCommand(cs.SearchDGVDisminuirInventario(NoRev), sql_con);
+
+                    dr = sql_cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        int idProducto = 0;
+                        string producto = string.Empty, proveedor = string.Empty, unidades = string.Empty, compra = string.Empty, venta = string.Empty, stockAnterior = string.Empty, fechaCompra = string.Empty, fechaOperacion = string.Empty, comentarios = string.Empty;
+
+                        idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
+                        producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
+                        if (dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
+                        {
+                            proveedor = string.Empty;
+                        }
+                        else if (!dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
+                        {
+                            proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
+                        }
+                        if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                        {
+                            unidades = "0.00";
+                        }
+                        else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                        {
+                            unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                        }
+                        compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
+                        venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
+
+                        var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                        var stock = tmp[4];
+
+                        //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
+                        stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
+
+                        DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                        fechaCompra = fecha.ToString("yyyy-MM-dd");
+
+                        DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                        fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+
+                        comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
+
+                        PdfPCell colProductoTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colProveedorTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colUnidadesTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colPrecioCompraTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colPrecioVentaTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colStockTmpAnterior = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colStockTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colFechaCompraTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase("", fuenteNormal));
+                        PdfPCell colComentariosTmp = new PdfPCell(new Phrase("", fuenteNormal));
+
+                        if (Producto)
+                        {
+                            colProductoTmp = new PdfPCell(new Phrase(producto, fuenteNormal));
+                            colProductoTmp.BorderWidth = 1;
+                            colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colProductoTmp);
+                        }
+                        if (Proveedor)
+                        {
+                            colProveedorTmp = new PdfPCell(new Phrase(proveedor, fuenteNormal));
+                            colProveedorTmp.BorderWidth = 1;
+                            colProveedorTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colProveedorTmp);
+                        }
+                        if (UnidadesCompradas)
+                        {
+                            colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
+                            colUnidadesTmp.BorderWidth = 1;
+                            colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colUnidadesTmp);
+                        }
+                        if (PrecioCompra)
+                        {
+                            colPrecioCompraTmp = new PdfPCell(new Phrase("$" + compra, fuenteNormal));
+                            colPrecioCompraTmp.BorderWidth = 1;
+                            colPrecioCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colPrecioCompraTmp);
+                        }
+                        if (PrecioVenta)
+                        {
+                            colPrecioVentaTmp = new PdfPCell(new Phrase("$" + venta, fuenteNormal));
+                            colPrecioVentaTmp.BorderWidth = 1;
+                            colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colPrecioVentaTmp);
+                        }
+                        if (StockAnterior)
+                        {
+                            colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
+                            colStockTmpAnterior.BorderWidth = 1;
+                            colStockTmpAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colStockTmpAnterior);
+                        }
+                        if (StockActual)
+                        {
+                            colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
+                            colStockTmp.BorderWidth = 1;
+                            colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colStockTmp);
+                        }
+                        if (FechaCompra)
+                        {
+                            colFechaCompraTmp = new PdfPCell(new Phrase(fechaCompra, fuenteNormal));
+                            colFechaCompraTmp.BorderWidth = 1;
+                            colFechaCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colFechaCompraTmp);
+                        }
+                        if (FechaOperacion)
+                        {
+                            colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
+                            colFechaOperacionTmp.BorderWidth = 1;
+                            colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colFechaOperacionTmp);
+                        }
+                        if (Comentario)
+                        {
+                            colComentariosTmp = new PdfPCell(new Phrase(comentarios, fuenteNormal));
+                            colComentariosTmp.BorderWidth = 1;
+                            colComentariosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colComentariosTmp);
+                        }
+                    }
+                }
+
+                /******************************************
+                 ** Fin de la tabla                      **
+                 ******************************************/
+
+                reporte.Add(titulo);
+                reporte.Add(subTitulo);
+                //reporte.Add(domicilio);
+                reporte.Add(tabla);
+
+                reporte.AddTitle("Reporte Historial");
+                reporte.AddAuthor("PUDVE");
+                reporte.Close();
+                writer.Close();
+
+                VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+                vr.ShowDialog();
             }
-
-            /******************************************
-             ** Fin de la tabla                      **
-             ******************************************/
-
-            reporte.Add(titulo);
-            reporte.Add(subTitulo);
-            //reporte.Add(domicilio);
-            reporte.Add(tabla);
-
-            reporte.AddTitle("Reporte Historial");
-            reporte.AddAuthor("PUDVE");
-            reporte.Close();
-            writer.Close();
-
-            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-            vr.ShowDialog();
         }
 
         private void btnRevisar_KeyDown(object sender, KeyEventArgs e)
@@ -1527,6 +2042,104 @@ namespace PuntoDeVentaV2
             DGVInventario.Rows.Clear();
             populateDisminuirDGVInventario();
             txtBusqueda.Focus();
+        }
+
+        private void btnConceptosReporte_Click(object sender, EventArgs e)
+        {
+            SeleccionarConceptosReporteActualizarInventario SCRA = new SeleccionarConceptosReporteActualizarInventario();
+
+            SCRA.FormClosed += delegate
+            {
+                ConceptosSeleccionados();
+            };
+
+            SCRA.ShowDialog();
+        }
+
+        private void ConceptosSeleccionados()
+        {
+            columnasConcepto = 0;
+            iniciarVariablesBool();
+
+            if (!listaConceptosSeleccionados.Count.Equals(0))
+            {
+                foreach (var item in listaConceptosSeleccionados)
+                {
+                    //MessageBox.Show("Concepto: " + item.ToString());
+                    if (item.Equals("Producto") && Producto.Equals(false))
+                    {
+                        Producto = true;
+                        columnasConcepto++;
+                    }
+                    else if (item.Equals("Proveedor") && Proveedor.Equals(false))
+                    {
+                        Proveedor = true;
+                        columnasConcepto++;
+                    }
+                    else if(item.Equals("Unidades Compradas/Disminuidas"))
+                    {
+                        if ((rbAumentarProducto.Checked && UnidadesCompradas.Equals(false)) || 
+                            (rbDisminuirProducto.Checked && UnidadesCompradas.Equals(false)))
+                        {
+                            UnidadesCompradas = true;
+                            columnasConcepto++;
+                        }
+                    }
+                    else if(item.Equals("Precio Compra") && PrecioCompra.Equals(false))
+                    {
+                        PrecioCompra = true;
+                        columnasConcepto++;
+                    }
+                    else if(item.Equals("Precio Venta") && PrecioVenta.Equals(false))
+                    {
+                        PrecioVenta = true;
+                        columnasConcepto++;
+                    }
+                    else if(item.Equals("Stock Anterior") && StockAnterior.Equals(false))
+                    {
+                        StockAnterior = true;
+                        columnasConcepto++;
+                    }
+                    else if(item.Equals("Stock Actual") && StockActual.Equals(false))
+                    {
+                        StockActual = true;
+                        columnasConcepto++;
+                    }
+                    else if(item.Equals("Fecha de Compra") && FechaCompra.Equals(false))
+                    {
+                        FechaCompra = true;
+                        columnasConcepto++;
+                    }
+                    else if(item.Equals("Fecha de Operacion") && FechaOperacion.Equals(false))
+                    {
+                        FechaOperacion = true;
+                        columnasConcepto++;
+                    }
+                    else if (item.Equals("Comentarios") && Comentario.Equals(false))
+                    {
+                        Comentario = true;
+                        columnasConcepto++;
+                    }
+                }
+            }
+            else if (listaConceptosSeleccionados.Count.Equals(0))
+            {
+                columnasConcepto = 10;
+            }
+        }
+
+        private void iniciarVariablesBool()
+        {
+            Producto = false;
+            Proveedor = false;
+            UnidadesCompradas = false;
+            PrecioCompra = false;
+            PrecioVenta = false;
+            StockAnterior = false;
+            StockActual = false;
+            FechaCompra = false;
+            FechaOperacion = false;
+            Comentario = false;
         }
     }
 }
