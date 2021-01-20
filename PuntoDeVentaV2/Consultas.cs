@@ -1426,7 +1426,7 @@ GROUP BY Prod.ID";
 
         public string SearchDGVAumentarInventario(int NoRev)
         {
-            var consulta = $"SELECT * FROM DGVAumentarInventario WHERE NoRevision = {NoRev} AND StatusActualizacion = 1";
+            var consulta = $"SELECT * FROM DGVAumentarInventario WHERE NoRevision = {NoRev} AND StatusActualizacion = 1 AND IDUsuario = {FormPrincipal.userID}";
 
             return consulta;
         }
@@ -1440,7 +1440,7 @@ GROUP BY Prod.ID";
 
         public string SearchDGVDisminuirInventario(int NoRev)
         {
-            var consulta = $"SELECT * FROM DGVDisminuirInventario WHERE NoRevision = {NoRev} AND StatusActualizacion = 1";
+            var consulta = $"SELECT * FROM DGVDisminuirInventario WHERE NoRevision = {NoRev} AND StatusActualizacion = 1 AND IDUsuario = {FormPrincipal.userID}";
 
             return consulta;
         }
