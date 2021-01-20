@@ -5253,6 +5253,20 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("El formato que introdujo no es el correcto; los siguientes son los permitidos:\n0.5(cualquier número despues del punto decimal)\n.5(cualquier número despues del punto decimal)");
                     return;
                 }
+
+                // Se agrego esta parte de descuento
+                int idProducto = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
+                int tipoDescuento = Convert.ToInt32(DGVentas.Rows[0].Cells["DescuentoTipo"].Value);
+
+                if (tipoDescuento > 0)
+                {
+                    string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                    CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, 0);
+                }
+
+                CalculoMayoreo();
+                CantidadesFinalesVenta();
+
                 CantidadesFinalesVenta();
             }
         }
