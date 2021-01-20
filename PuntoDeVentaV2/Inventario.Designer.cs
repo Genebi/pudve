@@ -143,7 +143,7 @@
             this.panelBotones.Controls.Add(this.btnActualizar);
             this.panelBotones.Location = new System.Drawing.Point(12, 67);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(845, 115);
+            this.panelBotones.Size = new System.Drawing.Size(845, 83);
             this.panelBotones.TabIndex = 104;
             // 
             // btnConceptosReporte
@@ -155,7 +155,7 @@
             this.btnConceptosReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConceptosReporte.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConceptosReporte.ForeColor = System.Drawing.Color.White;
-            this.btnConceptosReporte.Location = new System.Drawing.Point(316, 79);
+            this.btnConceptosReporte.Location = new System.Drawing.Point(83, 43);
             this.btnConceptosReporte.Name = "btnConceptosReporte";
             this.btnConceptosReporte.Size = new System.Drawing.Size(227, 31);
             this.btnConceptosReporte.TabIndex = 105;
@@ -213,9 +213,9 @@
             this.panelContenedor.Controls.Add(this.txtBusqueda);
             this.panelContenedor.Controls.Add(this.DGVInventario);
             this.panelContenedor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.panelContenedor.Location = new System.Drawing.Point(12, 182);
+            this.panelContenedor.Location = new System.Drawing.Point(12, 154);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(845, 367);
+            this.panelContenedor.Size = new System.Drawing.Size(845, 395);
             this.panelContenedor.TabIndex = 105;
             this.panelContenedor.Visible = false;
             // 
@@ -248,7 +248,7 @@
             this.bntTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntTerminar.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bntTerminar.ForeColor = System.Drawing.Color.White;
-            this.bntTerminar.Location = new System.Drawing.Point(695, 332);
+            this.bntTerminar.Location = new System.Drawing.Point(695, 360);
             this.bntTerminar.Name = "bntTerminar";
             this.bntTerminar.Size = new System.Drawing.Size(150, 30);
             this.bntTerminar.TabIndex = 104;
@@ -321,7 +321,7 @@
             this.DGVInventario.Name = "DGVInventario";
             this.DGVInventario.ReadOnly = true;
             this.DGVInventario.RowHeadersVisible = false;
-            this.DGVInventario.Size = new System.Drawing.Size(845, 261);
+            this.DGVInventario.Size = new System.Drawing.Size(845, 289);
             this.DGVInventario.TabIndex = 9;
             // 
             // ID
