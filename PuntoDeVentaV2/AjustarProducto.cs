@@ -191,6 +191,10 @@ namespace PuntoDeVentaV2
             panelAjustar.Visible = false;
             panelComprado.Visible = true;
             RestaurarValores(1);
+
+            txtPrecio.Enabled = true;
+            lbEditarPrecio.Enabled = true;
+            btnActualiza.Enabled = true;
         }
 
         private void rbAjustar_CheckedChanged(object sender, EventArgs e)
@@ -198,6 +202,10 @@ namespace PuntoDeVentaV2
             panelComprado.Visible = false; 
             panelAjustar.Visible = true; 
             RestaurarValores(2);
+
+            txtPrecio.Enabled = false;
+            lbEditarPrecio.Enabled = false;
+            btnActualiza.Enabled = false;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
