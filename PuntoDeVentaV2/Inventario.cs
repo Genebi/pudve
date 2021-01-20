@@ -1626,17 +1626,14 @@ namespace PuntoDeVentaV2
                 }
                 if (UnidadesCompradas)
                 {
-                    if (rbAumentarProducto.Checked)
+                    if (rbAumentarProducto.Checked || rbDisminuirProducto.Checked)
                     {
                         colUnidades = new PdfPCell(new Phrase("Unidades compradas", fuenteNegrita));
                         colUnidades.BorderWidth = 1;
                         colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
                         tabla.AddCell(colUnidades);
                     }
-                }
-                if (UnidadesDisminuidas)
-                {
-                    if (rbDisminuirProducto.Checked)
+                    else if (rbDisminuirProducto.Checked)
                     {
                         colUnidades = new PdfPCell(new Phrase("Unidades disminuidas", fuenteNegrita));
                         colUnidades.BorderWidth = 1;
@@ -1779,23 +1776,10 @@ namespace PuntoDeVentaV2
                         }
                         if (UnidadesCompradas)
                         {
-                            if (rbAumentarProducto.Checked)
-                            {
-                                colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
-                                colUnidadesTmp.BorderWidth = 1;
-                                colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-                                tabla.AddCell(colUnidadesTmp);
-                            }
-                        }
-                        if (UnidadesDisminuidas)
-                        {
-                            if (rbDisminuirProducto.Checked)
-                            {
-                                colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
-                                colUnidadesTmp.BorderWidth = 1;
-                                colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-                                tabla.AddCell(colUnidadesTmp);
-                            }
+                            colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
+                            colUnidadesTmp.BorderWidth = 1;
+                            colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colUnidadesTmp);
                         }
                         if (PrecioCompra)
                         {
@@ -1863,7 +1847,6 @@ namespace PuntoDeVentaV2
 
                         idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
                         producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
-                        proveedor = string.Empty;
                         if (dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
                         {
                             proveedor = string.Empty;
@@ -1924,23 +1907,10 @@ namespace PuntoDeVentaV2
                         }
                         if (UnidadesCompradas)
                         {
-                            if (rbAumentarProducto.Checked)
-                            {
-                                colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
-                                colUnidadesTmp.BorderWidth = 1;
-                                colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-                                tabla.AddCell(colUnidadesTmp);
-                            }
-                        }
-                        if (UnidadesDisminuidas)
-                        {
-                            if (rbDisminuirProducto.Checked)
-                            {
-                                colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
-                                colUnidadesTmp.BorderWidth = 1;
-                                colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-                                tabla.AddCell(colUnidadesTmp);
-                            }
+                            colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
+                            colUnidadesTmp.BorderWidth = 1;
+                            colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tabla.AddCell(colUnidadesTmp);
                         }
                         if (PrecioCompra)
                         {
@@ -2108,14 +2078,10 @@ namespace PuntoDeVentaV2
                     }
                     else if(item.Equals("Unidades Compradas/Disminuidas"))
                     {
-                        if (rbAumentarProducto.Checked && UnidadesCompradas.Equals(false))
+                        if ((rbAumentarProducto.Checked && UnidadesCompradas.Equals(false)) || 
+                            (rbDisminuirProducto.Checked && UnidadesCompradas.Equals(false)))
                         {
                             UnidadesCompradas = true;
-                            columnasConcepto++;
-                        }
-                        else if (rbDisminuirProducto.Checked && UnidadesDisminuidas.Equals(false))
-                        {
-                            UnidadesDisminuidas = true;
                             columnasConcepto++;
                         }
                     }
@@ -2167,7 +2133,6 @@ namespace PuntoDeVentaV2
             Producto = false;
             Proveedor = false;
             UnidadesCompradas = false;
-            UnidadesDisminuidas = false;
             PrecioCompra = false;
             PrecioVenta = false;
             StockAnterior = false;
