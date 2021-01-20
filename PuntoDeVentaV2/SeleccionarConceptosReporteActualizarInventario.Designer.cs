@@ -41,9 +41,9 @@
             // 
             this.CLBConceptosExistentes.CheckOnClick = true;
             this.CLBConceptosExistentes.FormattingEnabled = true;
-            this.CLBConceptosExistentes.Location = new System.Drawing.Point(12, 157);
+            this.CLBConceptosExistentes.Location = new System.Drawing.Point(12, 142);
             this.CLBConceptosExistentes.Name = "CLBConceptosExistentes";
-            this.CLBConceptosExistentes.Size = new System.Drawing.Size(234, 154);
+            this.CLBConceptosExistentes.Size = new System.Drawing.Size(234, 169);
             this.CLBConceptosExistentes.TabIndex = 0;
             // 
             // btnAceptar
@@ -77,14 +77,14 @@
             this.groupBox1.Controls.Add(this.chkSelectOnly);
             this.groupBox1.Location = new System.Drawing.Point(12, 81);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(234, 66);
+            this.groupBox1.Size = new System.Drawing.Size(234, 45);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
             // chkSelectAllOrNot
             // 
             this.chkSelectAllOrNot.AutoSize = true;
-            this.chkSelectAllOrNot.Location = new System.Drawing.Point(6, 42);
+            this.chkSelectAllOrNot.Location = new System.Drawing.Point(6, 15);
             this.chkSelectAllOrNot.Name = "chkSelectAllOrNot";
             this.chkSelectAllOrNot.Size = new System.Drawing.Size(173, 17);
             this.chkSelectAllOrNot.TabIndex = 1;
@@ -98,12 +98,13 @@
             this.chkSelectOnly.Checked = true;
             this.chkSelectOnly.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSelectOnly.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.chkSelectOnly.Location = new System.Drawing.Point(6, 19);
+            this.chkSelectOnly.Location = new System.Drawing.Point(6, 14);
             this.chkSelectOnly.Name = "chkSelectOnly";
             this.chkSelectOnly.Size = new System.Drawing.Size(170, 17);
             this.chkSelectOnly.TabIndex = 0;
             this.chkSelectOnly.Text = "Aplicar solo selccionados";
             this.chkSelectOnly.UseVisualStyleBackColor = true;
+            this.chkSelectOnly.Visible = false;
             // 
             // SeleccionarConceptosReporteActualizarInventario
             // 
