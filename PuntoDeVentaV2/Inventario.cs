@@ -107,6 +107,7 @@ namespace PuntoDeVentaV2
             if (columnasConcepto.Equals(0))
             {
                 columnasConcepto = 10;
+                listaConceptosSeleccionados.Clear();
             }
         }
 
@@ -1637,7 +1638,7 @@ namespace PuntoDeVentaV2
                 }
                 if (UnidadesCompradas)
                 {
-                    if (rbAumentarProducto.Checked || rbDisminuirProducto.Checked)
+                    if (rbAumentarProducto.Checked)
                     {
                         colUnidades = new PdfPCell(new Phrase("Unidades compradas", fuenteNegrita));
                         colUnidades.BorderWidth = 1;

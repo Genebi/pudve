@@ -43,14 +43,17 @@ namespace PuntoDeVentaV2
         {
             if (!CLBConceptosExistentes.CheckedItems.Count.Equals(0))
             {
+                Inventario.listaConceptosSeleccionados.Clear();
                 for (int x = 0; x <= CLBConceptosExistentes.CheckedItems.Count - 1; x++)
                 {
                     Inventario.listaConceptosSeleccionados.Add(CLBConceptosExistentes.CheckedItems[x].ToString());
                 }
+                unCheckAllListCLBExistentes();
                 this.Close();
             }
             else if (CLBConceptosExistentes.CheckedItems.Count.Equals(0))
             {
+                Inventario.listaConceptosSeleccionados.Clear();
                 var cant = CLBConceptosExistentes.CheckedItems.Count;
 
                 MessageBox.Show("Cantidad de conceptos seleccionados debe de ser mayor a: " + cant + "\nFavor de seleccionar al menos uno de los conceptos", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
