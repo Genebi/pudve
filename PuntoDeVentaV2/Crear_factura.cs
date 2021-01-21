@@ -89,9 +89,7 @@ namespace PuntoDeVentaV2
 
         private void Crear_factura_Load(object sender, EventArgs e)
         {
-
-            //txt_buscarcliente.AutoCompleteCustomSource = cargar_clientes();
-
+            
             // Obtiene los clientes
 
             DataTable d_clientes;
@@ -362,6 +360,11 @@ namespace PuntoDeVentaV2
             groupb_monto_max.Visible = false;
             groupb_pago.Visible = false;
 
+            // Total
+
+            double total_v = Convert.ToDouble(cn.EjecutarSelect($"SELECT Total FROM Ventas WHERE ID='{id_venta}'", 14));
+            lb_total_n.Text = total_v.ToString();
+
 
             // Verifica si se asigno un cliente a la venta.
             // Si la nota fue hecha a público en general, entonces agrega esos datos por default
@@ -394,46 +397,22 @@ namespace PuntoDeVentaV2
                     cmb_bx_uso_cfdi.ValueMember = "Key";
                     cmb_bx_uso_cfdi.SelectedValue = "G03";
                 }
-                
+                else
+                {
+                    int id_c = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDCliente FROM Ventas WHERE ID='{id_venta}'", 6));
+
+                    // Con cliente asignado
+                    if (id_c > 0)
+                    {
+                        cargar_datos_cliente(id_c);
+                    }
+                }
+
                 pnl_datos_cliente.Visible = true;
                 btn_facturar.Enabled = true;
             }
-            else
-            {
-                int id_c = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDCliente FROM Ventas WHERE ID='{id_venta}'", 6));
-                
-                // Con cliente asignado
-                if (id_c > 0)
-                {
-                    cargar_datos_cliente(id_c);
-
-                    pnl_datos_cliente.Visible = true;
-                    btn_facturar.Enabled = true;
-                }
-            }
         }
 
-        /*private AutoCompleteStringCollection cargar_clientes()
-        {
-            AutoCompleteStringCollection cclientes = new AutoCompleteStringCollection();
-            string[][] coleccion;
-            
-            DataTable d_clientes = cn.CargarDatos(cs.cargar_datos_venta_xml(7, 0, Convert.ToInt32(FormPrincipal.userID)));
-
-            if (d_clientes.Rows.Count > 0)
-            {
-                int ta = d_clientes.Rows.Count;
-                coleccion = new string[ta][];
-
-                foreach (DataRow r_clientes in d_clientes.Rows)
-                {
-                    //cclientes.AddRange(coleccion);
-                    //cclientes.Add(r_clientes["RFC"].ToString() + " - " + r_clientes["RazonSocial"].ToString());
-                }
-            }
-
-            return cclientes;
-        }*/
 
         private void ir_a_clientes(object sender, EventArgs e)
         {
@@ -507,6 +486,7 @@ namespace PuntoDeVentaV2
             txt_cuenta.Text = "(Opcional) No. cuenta";
             txt_tipo_cambio.ReadOnly = true;
             txt_tipo_cambio.Text = "1.000000";
+            lb_total_n.Text = "0.0";
 
             limpiar_campos_dcliente();
         }
@@ -737,6 +717,9 @@ namespace PuntoDeVentaV2
 
                 groupb_monto_max.Visible = true;
                 groupb_pago.Visible = true;
+
+                lb_total.Visible = true;
+                lb_total_n.Visible = true;
 
                 if (ListadoVentas.faltantes_productos.Length > 0)
                 {
@@ -1598,7 +1581,10 @@ namespace PuntoDeVentaV2
                 groupb_monto_max.Visible = false;
                 groupb_pago.Visible = false;
                 groupb_productos.Visible = false;
-                
+
+                lb_total.Visible = false;
+                lb_total_n.Visible = false;
+
                 paso = 1;
             }
         }

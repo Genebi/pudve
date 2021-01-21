@@ -168,6 +168,10 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["UUID"];
                 }
+                if (tipo == 14)
+                {
+                    respuesta = dr["Total"];
+                }
             }
 
             if (tipo == 0)
