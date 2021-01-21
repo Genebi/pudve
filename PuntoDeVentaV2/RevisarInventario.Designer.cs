@@ -217,6 +217,7 @@
             // 
             // btnOmitir
             // 
+            this.btnOmitir.Enabled = false;
             this.btnOmitir.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOmitir.Location = new System.Drawing.Point(23, 83);
             this.btnOmitir.Name = "btnOmitir";
@@ -240,6 +241,7 @@
             // 
             // btnAnterior
             // 
+            this.btnAnterior.Enabled = false;
             this.btnAnterior.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAnterior.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnAnterior.Location = new System.Drawing.Point(23, 19);

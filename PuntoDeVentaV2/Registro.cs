@@ -115,6 +115,7 @@ namespace PuntoDeVentaV2
                         string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email, FechaHoy)";
                                consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}', '{fechaCreacion}')";
 
+
                         int respuesta = cn.EjecutarConsulta(consulta);
 
                         if (respuesta > 0 && resultado > 0)
@@ -143,6 +144,8 @@ namespace PuntoDeVentaV2
                             fp.passwordUsuario = password;
                             fp.ShowDialog();
                             Close();
+
+                            UsuariosN(usuario);
                         }
                         else
                         {
@@ -163,6 +166,19 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No hay conexión a Internet", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        public void UsuariosN(string usuario)
+        {
+            // 0 Usuarios despues de quitar la clave interna
+            // 1 Usuarios antes de quitar la clave interna
+
+            var query = cn.CargarDatos($"SELECT ID FROM Usuarios ORDER BY ID DESC LIMIT 1");
+
+            var dato = query.Rows[0]["ID"].ToString();
+
+            var validarClaveInterna = cn.EjecutarConsulta($"UPDATE Usuarios SET SinClaveInterna = '0' WHERE ID = '{dato}'"); 
+
         }
 
         private bool VerificarUsuario(string usuario)
