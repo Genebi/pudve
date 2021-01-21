@@ -355,7 +355,14 @@ namespace PuntoDeVentaV2
                     row.Cells["Factura"].Value = factura;
                     row.Cells["Ticket"].Value = ticket;
                     row.Cells["Abono"].Value = credito;
+
                     row.Cells["Timbrar"].Value = timbrar;
+                    // Ventas canceladas
+                    if(estado == 3)
+                    {
+                        row.Cells["Timbrar"].Value = sinImagen;
+                    }
+
                     row.Cells["cInformacion"].Value = informacion;
                     row.Cells["retomarVenta"].Value = reusarVentas;
 
@@ -1140,7 +1147,7 @@ namespace PuntoDeVentaV2
 
                     ver_nota.ShowDialog();
                 }
-                #region 
+ 
                 //Ver ticket
                 if (e.ColumnIndex == 12)
                 {
@@ -1273,6 +1280,13 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    // Si la nota ya ha sido cancelada entonces no será facturada
+                    if (opcion == "VC")
+                    {
+                        //MessageBox.Show("Las notas canceladas ya no pueden ser facturadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    } 
+
                     // Se valida que la nota no tenga ya una factura creada
                     int r = Convert.ToInt32(cn.EjecutarSelect($"SELECT Timbrada FROM Ventas WHERE ID={idVenta}", 8));
 
@@ -1322,7 +1336,7 @@ namespace PuntoDeVentaV2
 
                     retomarVentasCanceladas = 0;
                 }
-                #endregion
+   
                 DGVListadoVentas.ClearSelection();
             }
         }

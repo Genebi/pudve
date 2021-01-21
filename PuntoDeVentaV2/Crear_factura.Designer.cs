@@ -69,7 +69,7 @@
             this.lb_facturando = new System.Windows.Forms.Label();
             this.tab_control = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.cmb_bx_clientes = new CustomControlPUDVE.ComboBoxPUDVE();
+            this.lb_total = new System.Windows.Forms.Label();
             this.groupb_monto_max = new System.Windows.Forms.GroupBox();
             this.txt_cantidad_max = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
@@ -89,8 +89,9 @@
             this.cmb_bx_metodo_pago = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txt_buscarcliente = new System.Windows.Forms.TextBox();
+            this.cmb_bx_clientes = new CustomControlPUDVE.ComboBoxPUDVE();
             this.btn_anterior = new System.Windows.Forms.Button();
+            this.lb_total_n = new System.Windows.Forms.Label();
             this.pnl_datos_cliente.SuspendLayout();
             this.tab_control.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -494,14 +495,16 @@
             // tab_control
             // 
             this.tab_control.Controls.Add(this.tabPage1);
-            this.tab_control.Location = new System.Drawing.Point(12, 73);
+            this.tab_control.Location = new System.Drawing.Point(12, 61);
             this.tab_control.Name = "tab_control";
             this.tab_control.SelectedIndex = 0;
-            this.tab_control.Size = new System.Drawing.Size(856, 455);
+            this.tab_control.Size = new System.Drawing.Size(856, 475);
             this.tab_control.TabIndex = 15;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lb_total_n);
+            this.tabPage1.Controls.Add(this.lb_total);
             this.tabPage1.Controls.Add(this.groupb_monto_max);
             this.tabPage1.Controls.Add(this.groupb_productos);
             this.tabPage1.Controls.Add(this.pnl_datos_cliente);
@@ -511,21 +514,22 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(848, 425);
+            this.tabPage1.Size = new System.Drawing.Size(848, 445);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Cliente";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // cmb_bx_clientes
+            // lb_total
             // 
-            this.cmb_bx_clientes.FormattingEnabled = true;
-            this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
-            this.cmb_bx_clientes.MaxDropDownItems = 12;
-            this.cmb_bx_clientes.Name = "cmb_bx_clientes";
-            this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
-            this.cmb_bx_clientes.TabIndex = 2;
-            this.cmb_bx_clientes.SelectedIndexChanged += new System.EventHandler(this.sel_clientes);
-            this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
+            this.lb_total.AutoSize = true;
+            this.lb_total.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_total.ForeColor = System.Drawing.Color.Black;
+            this.lb_total.Location = new System.Drawing.Point(666, 415);
+            this.lb_total.Name = "lb_total";
+            this.lb_total.Size = new System.Drawing.Size(64, 23);
+            this.lb_total.TabIndex = 15;
+            this.lb_total.Text = "TOTAL";
+            this.lb_total.Visible = false;
             // 
             // groupb_monto_max
             // 
@@ -533,7 +537,7 @@
             this.groupb_monto_max.Controls.Add(this.label27);
             this.groupb_monto_max.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupb_monto_max.ForeColor = System.Drawing.Color.Navy;
-            this.groupb_monto_max.Location = new System.Drawing.Point(8, 16);
+            this.groupb_monto_max.Location = new System.Drawing.Point(8, 13);
             this.groupb_monto_max.Name = "groupb_monto_max";
             this.groupb_monto_max.Size = new System.Drawing.Size(825, 63);
             this.groupb_monto_max.TabIndex = 18;
@@ -571,9 +575,9 @@
             this.groupb_productos.Controls.Add(this.label6);
             this.groupb_productos.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupb_productos.ForeColor = System.Drawing.Color.Navy;
-            this.groupb_productos.Location = new System.Drawing.Point(8, 223);
+            this.groupb_productos.Location = new System.Drawing.Point(8, 213);
             this.groupb_productos.Name = "groupb_productos";
-            this.groupb_productos.Size = new System.Drawing.Size(833, 196);
+            this.groupb_productos.Size = new System.Drawing.Size(833, 194);
             this.groupb_productos.TabIndex = 17;
             this.groupb_productos.TabStop = false;
             this.groupb_productos.Text = "Productos";
@@ -583,7 +587,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label9.Location = new System.Drawing.Point(21, 40);
+            this.label9.Location = new System.Drawing.Point(21, 38);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 15);
             this.label9.TabIndex = 14;
@@ -594,7 +598,7 @@
             this.pnl_productos.AutoScroll = true;
             this.pnl_productos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnl_productos.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pnl_productos.Location = new System.Drawing.Point(10, 64);
+            this.pnl_productos.Location = new System.Drawing.Point(10, 55);
             this.pnl_productos.Name = "pnl_productos";
             this.pnl_productos.Size = new System.Drawing.Size(813, 132);
             this.pnl_productos.TabIndex = 0;
@@ -604,7 +608,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label7.Location = new System.Drawing.Point(87, 35);
+            this.label7.Location = new System.Drawing.Point(87, 33);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(90, 15);
             this.label7.TabIndex = 12;
@@ -615,7 +619,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label8.Location = new System.Drawing.Point(333, 35);
+            this.label8.Location = new System.Drawing.Point(333, 33);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(72, 15);
             this.label8.TabIndex = 13;
@@ -626,7 +630,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label6.Location = new System.Drawing.Point(24, 27);
+            this.label6.Location = new System.Drawing.Point(24, 25);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 15);
             this.label6.TabIndex = 11;
@@ -645,7 +649,7 @@
             this.groupb_pago.Controls.Add(this.label3);
             this.groupb_pago.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupb_pago.ForeColor = System.Drawing.Color.Navy;
-            this.groupb_pago.Location = new System.Drawing.Point(8, 87);
+            this.groupb_pago.Location = new System.Drawing.Point(8, 81);
             this.groupb_pago.Name = "groupb_pago";
             this.groupb_pago.Size = new System.Drawing.Size(833, 121);
             this.groupb_pago.TabIndex = 10;
@@ -758,15 +762,16 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Método  pago";
             // 
-            // txt_buscarcliente
+            // cmb_bx_clientes
             // 
-            this.txt_buscarcliente.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txt_buscarcliente.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txt_buscarcliente.Location = new System.Drawing.Point(841, 62);
-            this.txt_buscarcliente.Name = "txt_buscarcliente";
-            this.txt_buscarcliente.Size = new System.Drawing.Size(20, 22);
-            this.txt_buscarcliente.TabIndex = 18;
-            this.txt_buscarcliente.Visible = false;
+            this.cmb_bx_clientes.FormattingEnabled = true;
+            this.cmb_bx_clientes.Location = new System.Drawing.Point(13, 23);
+            this.cmb_bx_clientes.MaxDropDownItems = 12;
+            this.cmb_bx_clientes.Name = "cmb_bx_clientes";
+            this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
+            this.cmb_bx_clientes.TabIndex = 2;
+            this.cmb_bx_clientes.SelectedIndexChanged += new System.EventHandler(this.sel_clientes);
+            this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
             // 
             // btn_anterior
             // 
@@ -784,12 +789,22 @@
             this.btn_anterior.UseVisualStyleBackColor = false;
             this.btn_anterior.Click += new System.EventHandler(this.btn_anterior_Click);
             // 
+            // lb_total_n
+            // 
+            this.lb_total_n.AutoSize = true;
+            this.lb_total_n.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_total_n.Location = new System.Drawing.Point(736, 415);
+            this.lb_total_n.Name = "lb_total_n";
+            this.lb_total_n.Size = new System.Drawing.Size(37, 23);
+            this.lb_total_n.TabIndex = 19;
+            this.lb_total_n.Text = "0.0";
+            this.lb_total_n.Visible = false;
+            // 
             // Crear_factura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(880, 589);
-            this.Controls.Add(this.txt_buscarcliente);
             this.Controls.Add(this.tab_control);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_facturar);
@@ -808,6 +823,7 @@
             this.pnl_datos_cliente.PerformLayout();
             this.tab_control.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.groupb_monto_max.ResumeLayout(false);
             this.groupb_monto_max.PerformLayout();
             this.groupb_productos.ResumeLayout(false);
@@ -879,10 +895,11 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txt_buscarcliente;
         private System.Windows.Forms.GroupBox groupb_monto_max;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox txt_cantidad_max;
         private CustomControlPUDVE.ComboBoxPUDVE cmb_bx_clientes;
+        private System.Windows.Forms.Label lb_total;
+        private System.Windows.Forms.Label lb_total_n;
     }
 }
