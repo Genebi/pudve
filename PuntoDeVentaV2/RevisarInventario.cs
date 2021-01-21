@@ -1134,30 +1134,37 @@ namespace PuntoDeVentaV2
 
         private void btnDeshabilitarProducto_Click(object sender, EventArgs e)
         {
-            var idObtenido = idProducto;
-
-            DialogResult confirmarDesicion = MessageBox.Show("¿Desea Deshabilitar este producto?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (confirmarDesicion == DialogResult.Yes)
+            if (!string.IsNullOrEmpty(txtBoxBuscarCodigoBarras.Text))
             {
-                //Se cambia el status de el producto a 0
-                cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE IDUsuario = {FormPrincipal.userID} AND ID = {idObtenido}");
-                //cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
+                var idObtenido = idProducto;
 
-                //Se elimina el ultimo dato en guardarse en esta lista
-                id.RemoveAt(id.Count - 1);
+                DialogResult confirmarDesicion = MessageBox.Show("¿Desea Deshabilitar este producto?", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                //Se elimina el ultimo dato en guardarse en esta lista (esta linea debe estar abajo de "btnOmitir.PerformClick();")
-                idDeProductos.RemoveAt(idDeProductos.Count - 1);
+                if (confirmarDesicion == DialogResult.Yes)
+                {
+                    //Se cambia el status de el producto a 0
+                    cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE IDUsuario = {FormPrincipal.userID} AND ID = {idObtenido}");
+                    //cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
 
-                btnOmitir.PerformClick();
-                
-                
+                    //Se elimina el ultimo dato en guardarse en esta lista
+                    id.RemoveAt(id.Count - 1);
 
-                cantidadRegistros--;
-                cantidadRegistrosAux--;
-                lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+                    //Se elimina el ultimo dato en guardarse en esta lista (esta linea debe estar abajo de "btnOmitir.PerformClick();")
+                    idDeProductos.RemoveAt(idDeProductos.Count - 1);
 
+                    btnOmitir.PerformClick();
+
+
+
+                    cantidadRegistros--;
+                    cantidadRegistrosAux--;
+                    lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("No existe producto seleccionado para deshabilitar","Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
