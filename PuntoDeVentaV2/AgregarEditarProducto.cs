@@ -6120,6 +6120,22 @@ namespace PuntoDeVentaV2
                     btnAgregarDescuento.Enabled = true;
                 }
             }
+
+            validarClave();
+        }
+
+        public void validarClave()
+        {
+            var mostrarClave = FormPrincipal.clave;
+
+            if (mostrarClave == 0)
+            {
+                txtClaveProducto.Visible = false;
+            }
+            else if (mostrarClave == 1) 
+            {
+                txtClaveProducto.Visible = true;
+            }
         }
 
         /// <summary>

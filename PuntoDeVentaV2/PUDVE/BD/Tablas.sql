@@ -999,3 +999,6 @@ ALTER TABLE NoRevisionAumentarInventario ADD COLUMN IF NOT EXISTS IdUsuario VARC
 
 -- Agregar Columna (IdUsuario) a la tabla NoRevisionDisminuirInventario si es que no tiene dicha columna
 ALTER TABLE NoRevisionDisminuirInventario ADD COLUMN IF NOT EXISTS IdUsuario VARCHAR(20);
+
+-- Agregar Columna (SinClaveInterna) a la tabla de usuarios para solo dejar clave interna a usuarios que ya existian
+ALTER TABLE Usuarios ADD COLUMN IF NOT EXISTS SinClaveInterna INT DEFAULT (1);

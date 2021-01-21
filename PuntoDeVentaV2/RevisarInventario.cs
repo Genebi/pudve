@@ -26,6 +26,7 @@ namespace PuntoDeVentaV2
         int idProducto = 0;
         int idProductoAux = 0;
         int countListaCodigosBarras = 0;
+        bool busquedaNormal = false;
 
         // Variable para verproductos anteriormente revisados
         int anterior = 0;
@@ -215,7 +216,7 @@ namespace PuntoDeVentaV2
 
         private void buscarCodigoBarras()
         {
-            if (cantidadRegistrosAux != cantidadRegistros)
+            if (cantidadRegistrosAux != cantidadRegistros || busquedaNormal == true)
             {
                 // variableSin = SIN
                 // 
@@ -680,7 +681,9 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyData == Keys.Enter)
             {
+                busquedaNormal = true;
                 buscarCodigoBarras();
+                busquedaNormal = false;
             }
         }
 

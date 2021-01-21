@@ -65,6 +65,9 @@ namespace PuntoDeVentaV2
         private int servicios = 1;
         private int ventas = 1;
 
+        //Variable para usuarios sin/con clave interna
+        public static int clave { get; set; }
+
         // variables para poder tomar los datos que se pasaron del login a esta forma
         public int IdUsuario { get; set; }
         public string nickUsuario { get; set; }
@@ -478,6 +481,17 @@ namespace PuntoDeVentaV2
                 Application.Exit();
             }
             validarCierreDeSesion++;
+
+
+            obtenerDatoClaveInterna(userID);
+        }
+
+
+        private void obtenerDatoClaveInterna(int idUsuario)
+        {
+            var consulta = cn.CargarDatos($"SELECT SinClaveInterna FROM Usuarios WHERE ID = '{idUsuario}'");
+
+            clave = Convert.ToInt32(consulta.Rows[0]["SinClaveInterna"].ToString());
 
         }
 
