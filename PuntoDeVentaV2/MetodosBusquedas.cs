@@ -607,11 +607,28 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public string[] ObtenerCodigoBarrasExtras(int idProducto)
+        /// <summary>
+        /// Metodo de Obtener Codigo de barras Extras
+        /// </summary>
+        /// <param name="idProducto">Número con que esta registrado el producto</param>
+        /// <param name="opcion">Opcion=0(Llamado de las formas PedidoPorProducto y Revisar Inventario) Opcion=1(Llamado del Form OpcionesReporteProducto)</param>
+        /// <returns></returns>
+        public string[] ObtenerCodigoBarrasExtras(int idProducto, int opcion = 0)
         {
+            /*
+             opcion = 0 (Llamado de las formas PedidoPorProducto y Revisar Inventario)
+             opcion = 1 (Llamado del Form OpcionesReporteProducto)
+             */
             List<string> lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto} AND (CodigoBarras != '' OR ClaveInterna != '')");
+            if (opcion.Equals(0))
+            {
+                DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto} AND (CodigoBarras != '' OR ClaveInterna != '')");
+            }
+            else if (opcion.Equals(1))
+            {
+                DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto}");
+            }
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 

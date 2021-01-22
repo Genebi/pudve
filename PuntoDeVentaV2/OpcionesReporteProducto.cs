@@ -570,7 +570,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (opcion.Key == "CodigoBarraExtra")
                         {
-                            var datosCodigos = mb.ObtenerCodigoBarrasExtras(idProducto);
+                            var datosCodigos = mb.ObtenerCodigoBarrasExtras(idProducto, 1);
 
                             if (datosCodigos.Length > 0)
                             {
