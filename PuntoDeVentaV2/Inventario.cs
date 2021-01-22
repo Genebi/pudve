@@ -1106,19 +1106,34 @@ namespace PuntoDeVentaV2
 
             if (Utilidades.AdobeReaderInstalado())
             {
-                GenerarReporte(idReporte);
-                if (rbAumentarProducto.Checked)
+                var servidor = Properties.Settings.Default.Hosting;
+                var rutaArchivo = string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(servidor))
                 {
-                    var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-                    cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
-                    cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
-                }
-                else if (rbDisminuirProducto.Checked)
-                {
-                    var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
-                    cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
-                    cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
-                }
+                    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\";
+                    if (Directory.Exists(rutaArchivo))
+                    {
+                        GenerarReporte(idReporte);
+                        if (rbAumentarProducto.Checked)
+                        {
+                            var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+                            cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
+                            cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
+                        }
+                        else if (rbDisminuirProducto.Checked)
+                        {
+                            var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+                            cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
+                            cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
+                        }
+                    }
+                    else if (!Directory.Exists(rutaArchivo))
+                    {
+                        MessageBox.Show("Verificar si las carpetas en la MAQUINA SERVIDOR\nestan compartidas para almacenar los archivos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }   
             }
             else
             {
@@ -1149,7 +1164,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\reporte_actualizar_inventario_" + idReporte + ".pdf";
+                rutaArchivo += $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\reporte_actualizar_inventario_" + idReporte + ".pdf";
             }
             else
             {
