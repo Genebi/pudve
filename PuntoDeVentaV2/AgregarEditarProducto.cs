@@ -6131,10 +6131,14 @@ namespace PuntoDeVentaV2
             if (mostrarClave == 0)
             {
                 txtClaveProducto.Visible = false;
+                lbClaveInterna.Visible = false;
+                label5.Visible = false; //Esta es la etiquta que dice que es clave interna
             }
             else if (mostrarClave == 1) 
             {
                 txtClaveProducto.Visible = true;
+                lbClaveInterna.Visible = true;
+                label5.Visible = true; //Esta es la etiquta que dice que es clave interna
             }
         }
 

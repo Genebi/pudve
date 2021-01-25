@@ -138,6 +138,8 @@ namespace PuntoDeVentaV2
 
                             FormPrincipal fp = new FormPrincipal();
 
+                            UsuariosN(usuario);
+
                             Hide();
                             fp.IdUsuario = Id;
                             fp.nickUsuario = usuario;
@@ -145,7 +147,6 @@ namespace PuntoDeVentaV2
                             fp.ShowDialog();
                             Close();
 
-                            UsuariosN(usuario);
                         }
                         else
                         {
@@ -170,8 +171,8 @@ namespace PuntoDeVentaV2
 
         public void UsuariosN(string usuario)
         {
-            // 0 Usuarios despues de quitar la clave interna
-            // 1 Usuarios antes de quitar la clave interna
+            // 0 =  Usuarios sin clave interna
+            // 1 =  Usuarios con clave interna
 
             var query = cn.CargarDatos($"SELECT ID FROM Usuarios ORDER BY ID DESC LIMIT 1");
 
