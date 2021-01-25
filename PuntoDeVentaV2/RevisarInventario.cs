@@ -350,7 +350,7 @@ namespace PuntoDeVentaV2
                             if (idActualAnterior != 0)
                             {
                                 var mostrarIDActual = 0;
-                                var idParaSiguiente = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}' AND (CodigoBarras != '' OR ClaveInterna != '')");
+                                var idParaSiguiente = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}' AND Status = 1 AND (CodigoBarras != '' OR ClaveInterna != '')");
 
                                 if (!idParaSiguiente.Rows.Count.Equals(0))
                                 {
@@ -763,6 +763,7 @@ namespace PuntoDeVentaV2
                             }
 
                             // Actualizar stock del producto
+
                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
                             LimpiarCampos();
@@ -1181,7 +1182,7 @@ namespace PuntoDeVentaV2
 
             if (claveB == string.Empty) { buscarCode = codigoB; } else { buscarCode = claveB; }
 
-            using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{buscarCode}' OR ClaveInterna = '{buscarCode}' AND Status = 1 AND (CodigoBarras != '' OR ClaveInterna != '')"))
+            using (var idActual = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND (CodigoBarras = '{buscarCode}' OR ClaveInterna = '{buscarCode}') AND Status = 1 AND (CodigoBarras != '' OR ClaveInterna != '')"))
             {
                 if (!idActual.Rows.Count.Equals(0))
                 {
