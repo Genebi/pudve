@@ -4648,7 +4648,10 @@ namespace PuntoDeVentaV2
         {
             var datoObtenidoBuscador = ConsultarProductoVentas.datosDeProducto;
 
-            AgregarProducto(datoObtenidoBuscador.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+            if (!datoObtenidoBuscador.Count.Equals(0))
+            {
+                AgregarProducto(datoObtenidoBuscador.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+            }
         }
 
         private void btnClientes_Click(object sender, EventArgs e)

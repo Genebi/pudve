@@ -51,7 +51,7 @@
             this.lblNoRegistro = new System.Windows.Forms.Label();
             this.txtCantidadStock = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lCodigoClave = new System.Windows.Forms.Label();
             this.btnAumentarStock = new System.Windows.Forms.Button();
             this.btnReducirStock = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -120,7 +120,7 @@
             this.groupBox2.Controls.Add(this.lblNoRegistro);
             this.groupBox2.Controls.Add(this.txtCantidadStock);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.lCodigoClave);
             this.groupBox2.Controls.Add(this.btnAumentarStock);
             this.groupBox2.Controls.Add(this.btnReducirStock);
             this.groupBox2.Controls.Add(this.label1);
@@ -334,15 +334,15 @@
             this.label6.TabIndex = 7;
             this.label6.Text = "Stock Existente:";
             // 
-            // label5
+            // lCodigoClave
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(15, 111);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(196, 16);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Código de Barras o  Clave Interna:";
+            this.lCodigoClave.AutoSize = true;
+            this.lCodigoClave.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lCodigoClave.Location = new System.Drawing.Point(15, 111);
+            this.lCodigoClave.Name = "lCodigoClave";
+            this.lCodigoClave.Size = new System.Drawing.Size(193, 16);
+            this.lCodigoClave.TabIndex = 6;
+            this.lCodigoClave.Text = "Código de Barras o Clave Interna:";
             // 
             // btnAumentarStock
             // 
@@ -470,7 +470,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnSiguiente;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lCodigoClave;
         private System.Windows.Forms.TextBox txtCantidadStock;
         private System.Windows.Forms.Button btnTerminar;
         private System.Windows.Forms.Label lblNoRegistro;

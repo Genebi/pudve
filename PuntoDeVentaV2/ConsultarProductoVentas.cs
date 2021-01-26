@@ -29,6 +29,17 @@ namespace PuntoDeVentaV2
         private void ConsultarProductoVentas_Load(object sender, EventArgs e)
         {
             GenerarColumnas();
+
+            var mostrarClave = FormPrincipal.clave;
+
+            if (mostrarClave == 0)
+            {
+                DGVProductos.Columns[3].Visible = false;
+            }
+            else if (mostrarClave == 1)
+            {
+                DGVProductos.Columns[3].Visible = true;
+            }
         }
 
         private void GenerarColumnas()

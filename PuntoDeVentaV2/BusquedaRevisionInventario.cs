@@ -116,5 +116,19 @@ namespace PuntoDeVentaV2
                 txtBuscar.Focus();
             }
         }
+
+        private void BusquedaRevisionInventario_Load(object sender, EventArgs e)
+        {
+            var mostrarClave = FormPrincipal.clave;
+
+            if (mostrarClave == 0)
+            {
+                dgvRevisarInventario.Columns[5].Visible = false;
+            }
+            else if (mostrarClave == 1)
+            {
+                dgvRevisarInventario.Columns[5].Visible = true;
+            }
+        }
     }
 }

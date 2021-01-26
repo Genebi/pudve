@@ -109,6 +109,17 @@ namespace PuntoDeVentaV2
                 columnasConcepto = 10;
                 listaConceptosSeleccionados.Clear();
             }
+
+            var mostrarClave = FormPrincipal.clave;
+
+            if (mostrarClave == 0)
+            {
+                DGVInventario.Columns[6].Visible = false;
+            }
+            else if (mostrarClave == 1)
+            {
+                DGVInventario.Columns[6].Visible = true;
+            }
         }
 
         private void populateDisminuirDGVInventario()

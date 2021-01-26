@@ -66,7 +66,16 @@ namespace PuntoDeVentaV2
 
                 if (Utilidades.AdobeReaderInstalado())
                 {
-                    GenerarReporte();
+                    var mostrarClave = FormPrincipal.clave;
+
+                    if (mostrarClave == 0)
+                    {
+                        GenerarReporteSinCLaveInterna();
+                    }
+                    else if (mostrarClave == 1)
+                    {
+                        GenerarReporte();
+                    }
                 }
                 else
                 {
@@ -81,7 +90,16 @@ namespace PuntoDeVentaV2
             {
                 if (Utilidades.AdobeReaderInstalado())
                 {
-                    GenerarReporte();
+                    var mostrarClave = FormPrincipal.clave;
+
+                    if (mostrarClave == 0)
+                    {
+                        GenerarReporteSinCLaveInterna();
+                    }
+                    else if (mostrarClave == 1)
+                    {
+                        GenerarReporte();
+                    }
                 }
                 else
                 {
@@ -97,9 +115,11 @@ namespace PuntoDeVentaV2
 
         private void hacerCalculosDGVRevisionStock()
         {
+            var mostrarClave = FormPrincipal.clave;
+
             DGVRevisionStock.Columns["IDAlmacen"].Width = 65;
             DGVRevisionStock.Columns["Nombre"].Width = 190;
-            DGVRevisionStock.Columns["ClaveInterna"].Width = 65;
+            if (mostrarClave == 0) { } else if (mostrarClave == 1) { DGVRevisionStock.Columns["ClaveInterna"].Width = 65; } 
             DGVRevisionStock.Columns["CodigoBarras"].Width = 65;
             DGVRevisionStock.Columns["StockAlmacen"].Width = 65;
             DGVRevisionStock.Columns["StockFisico"].Width = 65;
@@ -157,6 +177,8 @@ namespace PuntoDeVentaV2
 
         private void OcultarColumnasDGV()
         {
+            var mostrarClave = FormPrincipal.clave;
+
             // Ocultamos las columnas que no seran de utilidad para el usuario
             DGVRevisionStock.Columns["ID"].Visible = false;
             DGVRevisionStock.Columns["NoRevision"].Visible = false;
@@ -166,10 +188,11 @@ namespace PuntoDeVentaV2
             DGVRevisionStock.Columns["StatusInventariado"].Visible = false;
             DGVRevisionStock.Columns["Vendido"].Visible = false;
             DGVRevisionStock.Columns["IDComputadora"].Visible = false;
+            if (mostrarClave == 0) { DGVRevisionStock.Columns["ClaveInterna"].Visible = false; } else if (mostrarClave == 1) { DGVRevisionStock.Columns["ClaveInterna"].Visible = true; }
 
-            // Cambiamos el texto de la columbas para mejor visualizacion
-            DGVRevisionStock.Columns["IDAlmacen"].HeaderText = "ID";
-            DGVRevisionStock.Columns["ClaveInterna"].HeaderText = "Clave";
+                // Cambiamos el texto de la columbas para mejor visualizacion
+                DGVRevisionStock.Columns["IDAlmacen"].HeaderText = "ID";
+            if (mostrarClave == 0) { } else if (mostrarClave == 1) { DGVRevisionStock.Columns["ClaveInterna"].HeaderText = "Clave"; }
             DGVRevisionStock.Columns["CodigoBarras"].HeaderText = "Código";
             DGVRevisionStock.Columns["StockAlmacen"].HeaderText = "Punto de Venta";
             DGVRevisionStock.Columns["StockFisico"].HeaderText = "Stock Físico";
@@ -240,6 +263,8 @@ namespace PuntoDeVentaV2
 
         private void GenerarReporte()
         {
+            var mostrarClave = FormPrincipal.clave;
+
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
 
@@ -422,6 +447,219 @@ namespace PuntoDeVentaV2
 
                 tablaInventario.AddCell(colNombreTmp);
                 tablaInventario.AddCell(colClaveTmp);
+                tablaInventario.AddCell(colCodigoTmp);
+                tablaInventario.AddCell(colPuntoVentaTmp);
+                tablaInventario.AddCell(colStockFisicoTmp);
+                tablaInventario.AddCell(colFechaTmp);
+                tablaInventario.AddCell(colDiferenciaTmp);
+                tablaInventario.AddCell(colPrecioTmp);
+                tablaInventario.AddCell(colPerdidaTmp);
+                tablaInventario.AddCell(colRecuperadaTmp);
+            }
+
+            reporte.Add(titulo);
+            reporte.Add(subTitulo);
+            reporte.Add(tablaInventario);
+
+            //================================
+            //=== FIN TABLA DE INVENTARIO  ===
+            //================================
+
+            reporte.AddTitle("Reporte Inventario");
+            reporte.AddAuthor("PUDVE");
+            reporte.Close();
+            writer.Close();
+
+            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            vr.Show();
+        }
+
+        private void GenerarReporteSinCLaveInterna()
+        {
+            var mostrarClave = FormPrincipal.clave;
+
+            // Datos del usuario
+            var datos = FormPrincipal.datosUsuario;
+
+            // Fuentes y Colores
+            var colorFuenteNegrita = new BaseColor(Color.Black);
+            var colorFuenteBlanca = new BaseColor(Color.White);
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteBlanca);
+
+            // Ruta donde se creara el archivo PDF
+            //var servidor = Properties.Settings.Default.Hosting;
+            //var rutaArchivo = string.Empty;
+            /*if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\reporte_inventario.pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Reportes\reporte_inventario.pdf";
+            }*/
+
+            var fechaHoy = DateTime.Now;
+            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\reporte_inventario.pdf";
+
+            Document reporte = new Document(PageSize.A3.Rotate());
+            PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+
+            reporte.Open();
+
+            Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+            Paragraph subTitulo = new Paragraph("REPORTE INVENTARIO\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
+
+
+            float[] anchoColumnas = new float[] { 270f, 80f, 80f, 80f, 80f, 90f, 70f, 70f, 80f, 100f };
+
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+
+            //============================
+            //=== TABLA DE INVENTARIO  ===
+            //============================
+
+            PdfPTable tablaInventario = new PdfPTable(10);
+            tablaInventario.WidthPercentage = 100;
+            tablaInventario.SetWidths(anchoColumnas);
+
+            PdfPCell colNombre = new PdfPCell(new Phrase("NOMBRE", fuenteTotales));
+            colNombre.BorderWidth = 0;
+            colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
+            colNombre.Padding = 3;
+            colNombre.BackgroundColor = new BaseColor(Color.Black);
+
+            //PdfPCell colClave = new PdfPCell(new Phrase("CLAVE", fuenteTotales));
+            //colClave.BorderWidth = 0;
+            //colClave.HorizontalAlignment = Element.ALIGN_CENTER;
+            //colClave.Padding = 3;
+            //colClave.BackgroundColor = new BaseColor(Color.Black);
+
+            PdfPCell colCodigo = new PdfPCell(new Phrase("CÓDIGO", fuenteTotales));
+            colCodigo.BorderWidth = 0;
+            colCodigo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCodigo.Padding = 3;
+            colCodigo.BackgroundColor = new BaseColor(Color.Black);
+
+            PdfPCell colPuntoVenta = new PdfPCell(new Phrase("PUNTO DE VENTA", fuenteTotales));
+            colPuntoVenta.BorderWidth = 0;
+            colPuntoVenta.HorizontalAlignment = Element.ALIGN_CENTER;
+            colPuntoVenta.Padding = 3;
+            colPuntoVenta.BackgroundColor = new BaseColor(Color.Black);
+
+            PdfPCell colStockFisico = new PdfPCell(new Phrase("STOCK FISICO", fuenteTotales));
+            colStockFisico.BorderWidth = 0;
+            colStockFisico.HorizontalAlignment = Element.ALIGN_CENTER;
+            colStockFisico.Padding = 3;
+            colStockFisico.BackgroundColor = new BaseColor(Color.Black);
+
+            PdfPCell colFecha = new PdfPCell(new Phrase("FECHA", fuenteTotales));
+            colFecha.BorderWidth = 0;
+            colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
+            colFecha.Padding = 3;
+            colFecha.BackgroundColor = new BaseColor(Color.Black);
+
+            PdfPCell colDiferencia = new PdfPCell(new Phrase("DIFERENCIA", fuenteTotales));
+            colDiferencia.BorderWidth = 0;
+            colDiferencia.HorizontalAlignment = Element.ALIGN_CENTER;
+            colDiferencia.Padding = 3;
+            colDiferencia.BackgroundColor = new BaseColor(Color.Black);
+
+            PdfPCell colPrecio = new PdfPCell(new Phrase("PRECIO", fuenteTotales));
+            colPrecio.BorderWidth = 0;
+            colPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
+            colPrecio.Padding = 3;
+            colPrecio.BackgroundColor = new BaseColor(Color.Black);
+
+            PdfPCell colPerdida = new PdfPCell(new Phrase("CANTIDAD PERDIDA", fuenteTotales));
+            colPerdida.BorderWidth = 0;
+            colPerdida.HorizontalAlignment = Element.ALIGN_CENTER;
+            colPerdida.Padding = 3;
+            colPerdida.BackgroundColor = new BaseColor(Color.Black);
+
+            PdfPCell colRecuperada = new PdfPCell(new Phrase("CANTIDAD RECUPERADA", fuenteTotales));
+            colRecuperada.BorderWidth = 0;
+            colRecuperada.HorizontalAlignment = Element.ALIGN_CENTER;
+            colRecuperada.Padding = 3;
+            colRecuperada.BackgroundColor = new BaseColor(Color.Black);
+
+            tablaInventario.AddCell(colNombre);
+            //tablaInventario.AddCell(colClave);
+            tablaInventario.AddCell(colCodigo);
+            tablaInventario.AddCell(colPuntoVenta);
+            tablaInventario.AddCell(colStockFisico);
+            tablaInventario.AddCell(colFecha);
+            tablaInventario.AddCell(colDiferencia);
+            tablaInventario.AddCell(colPrecio);
+            tablaInventario.AddCell(colPerdida);
+            tablaInventario.AddCell(colRecuperada);
+
+
+            foreach (DataGridViewRow row in DGVRevisionStock.Rows)
+            {
+                var nombre = row.Cells["Nombre"].Value.ToString();
+                //var clave = row.Cells["ClaveInterna"].Value.ToString();
+                var codigo = row.Cells["CodigoBarras"].Value.ToString();
+                //var almacen = Utilidades.RemoverCeroStock(row.Cells["StockAlmacen"].Value.ToString());
+                //var fisico = Utilidades.RemoverCeroStock(row.Cells["StockFisico"].Value.ToString());
+                var almacen = row.Cells["StockAlmacen"].Value.ToString();
+                var fisico = row.Cells["StockFisico"].Value.ToString();
+                var fecha = row.Cells["Fecha"].Value.ToString();
+                var diferencia = row.Cells["Diferencia"].Value.ToString();
+                var precio = float.Parse(row.Cells["PrecioProducto"].Value.ToString());
+                var perdida = row.Cells["Perdida"].Value.ToString();
+                var recuperada = row.Cells["Recuperada"].Value.ToString();
+
+                PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre, fuenteNormal));
+                colNombreTmp.BorderWidth = 0;
+                colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                //PdfPCell colClaveTmp = new PdfPCell(new Phrase(clave, fuenteNormal));
+                //colClaveTmp.BorderWidth = 0;
+                //colClaveTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colCodigoTmp = new PdfPCell(new Phrase(codigo, fuenteNormal));
+                colCodigoTmp.BorderWidth = 0;
+                colCodigoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colPuntoVentaTmp = new PdfPCell(new Phrase(almacen, fuenteNormal));
+                colPuntoVentaTmp.BorderWidth = 0;
+                colPuntoVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colStockFisicoTmp = new PdfPCell(new Phrase(fisico, fuenteNormal));
+                colStockFisicoTmp.BorderWidth = 0;
+                colStockFisicoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
+                colFechaTmp.BorderWidth = 0;
+                colFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colDiferenciaTmp = new PdfPCell(new Phrase(diferencia, fuenteNormal));
+                colDiferenciaTmp.BorderWidth = 0;
+                colDiferenciaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colPrecioTmp = new PdfPCell(new Phrase(precio.ToString("0.00"), fuenteNormal));
+                colPrecioTmp.BorderWidth = 0;
+                colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colPerdidaTmp = new PdfPCell(new Phrase(perdida, fuenteNormal));
+                colPerdidaTmp.BorderWidth = 0;
+                colPerdidaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colRecuperadaTmp = new PdfPCell(new Phrase(recuperada, fuenteNormal));
+                colRecuperadaTmp.BorderWidth = 0;
+                colRecuperadaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                tablaInventario.AddCell(colNombreTmp);
+                //tablaInventario.AddCell(colClaveTmp);
                 tablaInventario.AddCell(colCodigoTmp);
                 tablaInventario.AddCell(colPuntoVentaTmp);
                 tablaInventario.AddCell(colStockFisicoTmp);

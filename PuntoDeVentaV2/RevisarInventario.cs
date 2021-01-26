@@ -99,6 +99,17 @@ namespace PuntoDeVentaV2
 
         private void RevisarInventario_Load(object sender, EventArgs e)
         {
+            var mostrarClave = FormPrincipal.clave;
+
+            if (mostrarClave == 0)
+            {
+                lCodigoClave.Text = "Código de Barras:";
+            }
+            else if (mostrarClave == 1)
+            {
+                lCodigoClave.Text = "Código de Barras o Clave Interna:";
+            }
+
             //var datosInventario = mb.DatosRevisionInventario();
 
             //listaProductos = new Dictionary<int, string>();

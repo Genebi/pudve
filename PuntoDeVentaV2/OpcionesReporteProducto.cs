@@ -38,6 +38,8 @@ namespace PuntoDeVentaV2
 
         private void OpcionesReporteProducto_Load(object sender, EventArgs e)
         {
+            var mostrarClave = FormPrincipal.clave;
+
             filtroReporte = new FiltroReporteProductos();
 
             filtros = new Dictionary<string, Tuple<string, float>>();
@@ -51,7 +53,7 @@ namespace PuntoDeVentaV2
             opcionesDefault.Add("Stock", new Tuple<string, float>("Stock", 50));
             opcionesDefault.Add("StockMinimo", new Tuple<string, float>("Stock mínimo", 50));
             opcionesDefault.Add("StockNecesario", new Tuple<string, float>("Stock máximo", 50));
-            opcionesDefault.Add("ClaveInterna", new Tuple<string, float>("Clave de producto", 70));
+            if (mostrarClave == 0) { } else if (mostrarClave == 1) { opcionesDefault.Add("ClaveInterna", new Tuple<string, float>("Clave de producto", 70)); }
             opcionesDefault.Add("CodigoBarras", new Tuple<string, float>("Código de barras", 70));
             opcionesDefault.Add("CodigoBarraExtra", new Tuple<string, float>("Código de barras extra", 70));
             opcionesDefault.Add("Proveedor", new Tuple<string, float>("Proveedor", 180));
