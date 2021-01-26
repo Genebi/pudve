@@ -279,6 +279,9 @@ namespace PuntoDeVentaV2
             else if (e.KeyCode==Keys.Enter && !DGVClientes.Rows.Count.Equals(0))
             {
                 DGVClientes_CellClick(this, new DataGridViewCellEventArgs(4, DGVClientes.CurrentRow.Index));
+
+                //Evitar el salto de linea en el GDV
+                e.Handled = true;
             }
         }
     }
