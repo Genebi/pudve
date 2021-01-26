@@ -759,9 +759,26 @@ namespace PuntoDeVentaV2
         {
             using (var conceptos = new ConceptosCaja("AJUSTAR"))
             {
+                conceptos.FormClosed += delegate
+                {
+                    var idParaComboBox = ConceptosCaja.id;
+                    CargarConceptos();
+
+                    var x = string.Empty;
+
+                    var getConcepto = cn.CargarDatos($"SELECT Concepto FROM ConceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idParaComboBox}'");
+                    if (!getConcepto.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow concepto in getConcepto.Rows)
+                        {
+                            x = concepto["Concepto"].ToString();
+                        }
+                    }
+                    cbConceptos.SelectedIndex = cbConceptos.FindString(x);
+
+                };
                 conceptos.ShowDialog();
 
-                CargarConceptos();
             }
         }
 
