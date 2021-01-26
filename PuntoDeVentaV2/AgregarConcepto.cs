@@ -14,12 +14,15 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
 
+        private string origen;
+
         public static string query { get; set; }
         public static int empty { get; set; }
-        public AgregarConcepto()
+        public AgregarConcepto(string origen)
         {
             InitializeComponent();
             txtConcepto.Select();
+            this.origen = origen;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -41,7 +44,7 @@ namespace PuntoDeVentaV2
                 empty = 1;
 
                 query = "INSERT INTO ConceptosDinamicos (IDUsuario, Concepto, Origen, FechaOperacion)";
-                query += $"VALUES ('{FormPrincipal.userID}', '{concepto}', '{ConceptosCaja.pasarOrigen}', '{fechaOperacion}')";
+                query += $"VALUES ('{FormPrincipal.userID}', '{concepto}', '{origen}', '{fechaOperacion}')";
                 this.Close();
             }
             else

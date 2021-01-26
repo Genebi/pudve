@@ -135,7 +135,7 @@ namespace PuntoDeVentaV2
             //            CargarDatos();
             //        }
             //}
-            AgregarConcepto addConcepto = new AgregarConcepto();
+            AgregarConcepto addConcepto = new AgregarConcepto(origen);
 
             addConcepto.FormClosed += delegate
             {
@@ -269,7 +269,7 @@ namespace PuntoDeVentaV2
 
                 foreach (var iterar in separarPalabras)
                 {
-                    using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND (Origen = 'CAJA' OR Origen = 'AJUSTAR') AND Status = '{status}' AND Concepto LIKE '%{iterar}%'"))
+                    using (var buscarDatos = cn.CargarDatos($"SELECT ID, Concepto, FechaOperacion FROM conceptosDinamicos WHERE IDUsuario = '{FormPrincipal.userID}' AND Origen = '{origen}'  AND Status = '{status}' AND Concepto LIKE '%{iterar}%'"))
                     {
                         if (!buscarDatos.Rows.Count.Equals(0))
                         {
