@@ -3870,6 +3870,11 @@ namespace PuntoDeVentaV2
                     }
                 }
 
+                if (!numBusqueda.Length.Equals(0))
+                {
+                    txtBusquedaString += numBusqueda;
+                }
+
                 if (!txtBusquedaString.Equals(""))
                 {
                     var coincidencias = mb.BusquedaCoincidencias(txtBusquedaString.Trim());
@@ -4183,7 +4188,15 @@ namespace PuntoDeVentaV2
                                 }
                                 else if (palabras[0].Equals("0"))
                                 {
-                                    nuevosCodigos += palabras[1].ToString() + " ";
+                                    //nuevosCodigos += palabras[1].ToString() + " ";
+                                    if ((palabras[1].Length >= 5) && (!txtBusquedaString.Equals("")))
+                                    {
+                                        nuevosCodigos += palabras[1].ToString() + " ";
+                                    }
+                                    else if ((palabras[1].Length >= 5) && (txtBusquedaString.Equals("")))
+                                    {
+                                        nuevosCodigos += palabras[1].ToString() + " ";
+                                    }
                                 }
                             }
                             extra = string.Empty;
@@ -4222,7 +4235,15 @@ namespace PuntoDeVentaV2
                                 }
                                 else if (palabras[0].Equals("0"))
                                 {
-                                    nuevosCodigos += palabras[1].ToString() + " ";
+                                    //nuevosCodigos += palabras[1].ToString() + " ";
+                                    if ((palabras[1].Length >= 5) && (!txtBusquedaString.Equals("")))
+                                    {
+                                        nuevosCodigos += palabras[1].ToString() + " ";
+                                    }
+                                    else if ((palabras[1].Length >= 5) && (txtBusquedaString.Equals("")))
+                                    {
+                                        nuevosCodigos += palabras[1].ToString() + " ";
+                                    }
                                 }
                             }
                             Array.Clear(palabras, 0, palabras.Length);
@@ -4262,6 +4283,7 @@ namespace PuntoDeVentaV2
                                 quitarEspacioEnBlanco();
                                 agregarEspacioAlFinal();
                                 txtBusqueda.Text = busqueda.Trim();
+                                txtBusqueda.Text = nuevosCodigos.Trim();
                                 nuevosCodigos = string.Empty;
                             }
                         }
