@@ -140,7 +140,7 @@
             this.invi.HeaderText = "";
             this.invi.Name = "invi";
             this.invi.ReadOnly = true;
-            this.invi.Width = 20;
+            this.invi.Width = 60;
             // 
             // Empleados
             // 
