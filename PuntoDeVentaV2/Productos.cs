@@ -4275,6 +4275,7 @@ namespace PuntoDeVentaV2
                                 quitarEspacioEnBlanco();
                                 agregarEspacioAlFinal();
                                 txtBusqueda.Text = busqueda.Trim();
+                                txtBusqueda.Text = nuevosCodigos.Trim();
                                 nuevosCodigos = string.Empty;
                             }
                         }
