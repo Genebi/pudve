@@ -2463,6 +2463,14 @@ namespace PuntoDeVentaV2
             //}
         }
 
+        private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) )
+            {
+                e.Handled = true;
+            }
+        }
+
         public void cargarListaSetUpVaribale()
         {
             string queryFiltroProducto = string.Empty;

@@ -872,6 +872,7 @@
             this.lbCapital.Size = new System.Drawing.Size(51, 13);
             this.lbCapital.TabIndex = 26;
             this.lbCapital.Text = "Capital: 0";
+            this.lbCapital.Visible = false;
             // 
             // lbPaginasSeleccionadas
             // 
@@ -1081,6 +1082,7 @@
             this.txtMaximoPorPagina.TabIndex = 7;
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMaximoPorPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaximoPorPagina_KeyDown);
+            this.txtMaximoPorPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMaximoPorPagina_KeyPress);
             // 
             // label7
             // 
