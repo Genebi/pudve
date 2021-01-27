@@ -1144,7 +1144,24 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("Verificar si las carpetas en la MAQUINA SERVIDOR\nestan compartidas para almacenar los archivos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                }   
+                }
+
+                if (string.IsNullOrWhiteSpace(servidor))
+                {
+                    GenerarReporte(idReporte);
+                    if (rbAumentarProducto.Checked)
+                    {
+                        var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+                        cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
+                        cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
+                    }
+                    else if (rbDisminuirProducto.Checked)
+                    {
+                        var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+                        cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
+                        cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
+                    }
+                }
             }
             else
             {
