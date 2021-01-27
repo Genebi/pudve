@@ -896,7 +896,7 @@ CREATE INDEX IF NOT EXISTS SEARCH_CHECKNUMBER_STATUS_AumentarInventario ON DGVAu
 CREATE INDEX IF NOT EXISTS SEARCH_CHECKNUMBER_STATUS_DisminuirInventario ON DGVDisminuirInventario (NoRevision, StatusActualizacion);
 
 -- Agregari indice para no duplicar consulta de la tabla catalogo_monedas
-ALTER IGNORE TABLE catalogo_monedas ADD UNIQUE INDEX (clave_moneda, descripcion, cant_decimales);
+--ALTER IGNORE TABLE catalogo_monedas ADD UNIQUE INDEX (clave_moneda, descripcion, cant_decimales);
 
 -- -------------------------------------
 -- Creación de Claves Foraneas de tablas
