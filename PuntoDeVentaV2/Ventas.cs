@@ -357,8 +357,6 @@ namespace PuntoDeVentaV2
                     {
                         var idVenta = Convert.ToInt32(cn.EjecutarSelect(consulta, 1));
                         mostrarVenta = idVenta;
-                        CargarVentaGuardada();
-                        mostrarVenta = 0;
 
                         // Cancelar la venta
                         var resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
@@ -413,6 +411,9 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+                        //Cargar la venta cancelada 
+                        CargarVentaGuardada();
+                        mostrarVenta = 0;
                     }
                 }
 
