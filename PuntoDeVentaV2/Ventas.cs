@@ -499,16 +499,23 @@ namespace PuntoDeVentaV2
 
         private void ReproducirSonido()
         {
-            var rutaSonido = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Sounds\sonido_alarma.wav";
+            try
+            {
+                var rutaSonido = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Sounds\sonido_alarma.wav";
 
-            var archivo = new AudioFileReader(rutaSonido);
-            var trimmed = new OffsetSampleProvider(archivo);
-            trimmed.SkipOver = TimeSpan.FromSeconds(0);
-            trimmed.Take = TimeSpan.FromSeconds(2);
+                var archivo = new AudioFileReader(rutaSonido);
+                var trimmed = new OffsetSampleProvider(archivo);
+                trimmed.SkipOver = TimeSpan.FromSeconds(0);
+                trimmed.Take = TimeSpan.FromSeconds(2);
 
-            var player = new WaveOutEvent();
-            player.Init(trimmed);
-            player.Play();
+                var player = new WaveOutEvent();
+                player.Init(trimmed);
+                player.Play();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show($"El produto(código o clave) escaneado:\n\n{txtBuscadorProducto.Text}\n\nNo se encuentra registrado en el Sistema", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void AgregarProducto(string[] datosProducto, decimal cnt = 1)
