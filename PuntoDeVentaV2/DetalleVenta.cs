@@ -214,8 +214,18 @@ namespace PuntoDeVentaV2
                     Ventas.statusVenta = "1";
                 }
 
-                Ventas.cliente = cliente;
-                Ventas.idCliente = idCliente.ToString();
+                if (Ventas.etiqeutaCliente == "vacio")
+                {
+                    Ventas.cliente = "PUBLICO GENERAL";
+                    Ventas.idCliente = "0";
+                }
+                else if (Ventas.etiqeutaCliente != "vacio")
+                {
+                    Ventas.cliente = cliente;
+                    Ventas.idCliente = idCliente.ToString();
+                }
+
+                
                 Ventas.credito = credito.ToString();
                 Ventas.botonAceptar = true;
 

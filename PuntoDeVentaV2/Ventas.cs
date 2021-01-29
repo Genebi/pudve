@@ -29,6 +29,9 @@ namespace PuntoDeVentaV2
         public static double pasarSumaImportes { get; set; }
         public static double pasarTotalAnticipos { get; set; }
         private bool aplicarDescuentoG { get; set; }
+
+        public static string etiqeutaCliente { get; set; }
+
         // Almacena los ID de los productos a los que se aplica descuento general
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
         float porcentajeGeneral = 0;
@@ -2298,6 +2301,15 @@ namespace PuntoDeVentaV2
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(lbDatosCliente.Text))
+            {
+                etiqeutaCliente = "vacio";
+            }
+            else
+            {
+                etiqeutaCliente = "lleno";
+            }
+
             if (opcion20 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -2431,7 +2443,7 @@ namespace PuntoDeVentaV2
         {
             if (!string.IsNullOrWhiteSpace(idCliente))
             {
-                if (idCliente != "0")
+                if (idCliente != "0" && !string.IsNullOrEmpty(lbDatosCliente.Text))
                 {
                     var datos = mb.ObtenerDatosCliente(Convert.ToInt32(idCliente), FormPrincipal.userID);
                     var cliente = datos[0];
@@ -2562,6 +2574,11 @@ namespace PuntoDeVentaV2
                             {
                                 TipoDescuento = "3";
                             }
+                        }
+
+                        if (string.IsNullOrEmpty(lbDatosCliente.Text))
+                        {
+                            cliente = "";
                         }
 
                         // A partir de la variable DescuentoGeneral esos valores y datos se toman solo para el ticket de venta
