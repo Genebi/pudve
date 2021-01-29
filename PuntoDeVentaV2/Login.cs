@@ -426,6 +426,8 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
             Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
 
+
+
             pathsOrigen = new string[] {_Assets,
                                         _BarCode,
                                         _BD,

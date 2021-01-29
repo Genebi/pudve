@@ -829,6 +829,20 @@ CREATE TABLE IF NOT EXISTS NoRevisionDisminuirInventario(
 	NoRevisionDisminuirInventario INTEGER NOT NULL DEFAULT(0)
 );
 
+-- 52 Tabla de AppVersionRecord
+CREATE TABLE
+IF
+	NOT EXISTS AppVersionRecord (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		AppName VARCHAR ( 200 ) NULL DEFAULT ( '' ),
+		AppVersion VARCHAR ( 90 ) NOT NULL DEFAULT ( '0.0.0.0' ),
+		AppMajorVersion VARCHAR ( 20 ) NOT NULL DEFAULT ( '0' ),
+		AppMinorVersion VARCHAR ( 20 ) NOT NULL DEFAULT ( '0' ),
+		AppBuildNumber VARCHAR ( 20 ) NOT NULL DEFAULT ( '0' ),
+		AppRevision VARCHAR ( 20 ) NOT NULL DEFAULT ( '0' ),
+		AppDateVersion DATE 
+	);
+
 -- ------------------------------------------
 -- -- Final sección de Tablas del sistema --
 -- ------------------------------------------
