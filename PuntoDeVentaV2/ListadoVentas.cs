@@ -930,7 +930,9 @@ namespace PuntoDeVentaV2
                                             //Se busca si se retiro dinero despues del corte
                                             var dineroRetiradoCorte = cn.CargarDatos($"SELECT sum(Cantidad), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'retiro' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
                                             var rTotal = string.Empty; var rEfectivo = string.Empty; var rTarjeta = string.Empty; var rVales = string.Empty; var rCheque = string.Empty; var rTrans = string.Empty;
-                                            if (!dineroRetiradoCorte.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(dineroRetiradoCorte.ToString()))
+
+
+                                            if (!dineroRetiradoCorte.Rows.Count.Equals(0)/* && !string.IsNullOrWhiteSpace(dineroRetiradoCorte.ToString())*/)
                                             {
                                                 foreach (DataRow getRetirado in dineroRetiradoCorte.Rows)
                                                 {
