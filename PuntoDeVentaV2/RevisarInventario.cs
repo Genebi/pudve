@@ -250,6 +250,8 @@ namespace PuntoDeVentaV2
                     {
                         if (tipoFiltro.Equals("Filtros"))
                         {
+                            id.Clear();
+
                             if (operadorFiltro.Equals("chkProveedor"))
                             {
                                 listaCodigosBarras.Clear();
@@ -1367,6 +1369,11 @@ namespace PuntoDeVentaV2
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtBoxBuscarCodigoBarras_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = e.KeyChar == Convert.ToChar(Keys.Space);
         }
     }
 }
