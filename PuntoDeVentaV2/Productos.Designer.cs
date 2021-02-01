@@ -88,6 +88,7 @@
             this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbCantidadSeleccionada = new System.Windows.Forms.Label();
             this.lbCapital = new System.Windows.Forms.Label();
             this.lbPaginasSeleccionadas = new System.Windows.Forms.Label();
             this.txtIrPagina = new System.Windows.Forms.TextBox();
@@ -281,6 +282,7 @@
             this.DGVProductos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGVProductos_CellFormatting);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
             this.DGVProductos.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseLeave);
+            this.DGVProductos.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellValueChanged);
             this.DGVProductos.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DGVProductos_RowPostPaint);
             this.DGVProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVProductos_KeyDown);
             // 
@@ -845,6 +847,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.lbCantidadSeleccionada);
             this.panel2.Controls.Add(this.lbCapital);
             this.panel2.Controls.Add(this.lbPaginasSeleccionadas);
             this.panel2.Controls.Add(this.txtIrPagina);
@@ -864,10 +867,20 @@
             this.panel2.Size = new System.Drawing.Size(941, 65);
             this.panel2.TabIndex = 17;
             // 
+            // lbCantidadSeleccionada
+            // 
+            this.lbCantidadSeleccionada.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbCantidadSeleccionada.AutoSize = true;
+            this.lbCantidadSeleccionada.Location = new System.Drawing.Point(8, 52);
+            this.lbCantidadSeleccionada.Name = "lbCantidadSeleccionada";
+            this.lbCantidadSeleccionada.Size = new System.Drawing.Size(35, 13);
+            this.lbCantidadSeleccionada.TabIndex = 27;
+            this.lbCantidadSeleccionada.Text = "label4";
+            // 
             // lbCapital
             // 
             this.lbCapital.AutoSize = true;
-            this.lbCapital.Location = new System.Drawing.Point(7, 44);
+            this.lbCapital.Location = new System.Drawing.Point(142, 52);
             this.lbCapital.Name = "lbCapital";
             this.lbCapital.Size = new System.Drawing.Size(51, 13);
             this.lbCapital.TabIndex = 26;
@@ -1236,5 +1249,6 @@
         private System.Windows.Forms.CheckBox cbTodos;
         private System.Windows.Forms.Label lbPaginasSeleccionadas;
         private System.Windows.Forms.Label lbCapital;
+        private System.Windows.Forms.Label lbCantidadSeleccionada;
     }
 }

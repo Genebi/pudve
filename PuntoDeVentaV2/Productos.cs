@@ -876,10 +876,14 @@ namespace PuntoDeVentaV2
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
+                var cantidadProductosSeleccionados = 0;
+
                 // CheckBox del producto
                 if (e.ColumnIndex == 0)
                 {
                     numerofila = e.RowIndex;
+
+                    
                 }
                 else if (e.ColumnIndex == 7)
                 {
@@ -2468,6 +2472,31 @@ namespace PuntoDeVentaV2
             if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) )
             {
                 e.Handled = true;
+            }
+        }
+
+        private void DGVProductos_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            int cantSelected = 0;
+
+            foreach (DataGridViewRow row in DGVProductos.Rows)
+            {
+                bool seleccionado = Convert.ToBoolean(row.Cells[0].Value);
+
+                if (seleccionado)
+                {
+                    cantSelected++;
+                }
+
+                if (cantSelected > 0)
+                {
+                    lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
+                }
+                else
+                {
+                    //lbCantidadSeleccionada.Text = string.Empty;
+                    lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
+                }
             }
         }
 
