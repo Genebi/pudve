@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Data.SQLite;
 using System.Net.NetworkInformation;
+using System.Deployment.Application;
 
 namespace PuntoDeVentaV2
 {
@@ -71,6 +72,7 @@ namespace PuntoDeVentaV2
 
         //public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         Conexion cn = new Conexion();
+        checarVersion vs = new checarVersion();
 
         string usuario;
         string password;
@@ -170,6 +172,8 @@ namespace PuntoDeVentaV2
         private void btnEntrar_Click(object sender, EventArgs e)
         {
             var servidor = Properties.Settings.Default.Hosting;
+
+            vs.printProductVersion();
 
             if (!VerificarServidor())
             {
@@ -406,6 +410,20 @@ namespace PuntoDeVentaV2
 
         private void Login_Load(object sender, EventArgs e)
         {
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                try
+                {
+                    ApplicationDeployment ad = ApplicationDeployment.CurrentDeployment;
+
+                    this.Text += "Versión del Sistema: " + ad.CurrentVersion.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Aviso de la operacion\nde optención de la versión del sistema\n\nReferencia: " + ex.Message.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+
             //iniciarVariablesSistema();
 
             //verificarVentanasAbiertas();
@@ -531,6 +549,11 @@ namespace PuntoDeVentaV2
             {
                 btnEntrar.Focus();
                 checkBoxRecordarDatos.Checked = true;
+            }
+
+            if (!Properties.Settings.Default.Hosting.Equals(string.Empty))
+            {
+                vs.printProductVersion();
             }
         }
 
