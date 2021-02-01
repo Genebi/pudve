@@ -428,6 +428,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="cfdv33_tdCFDI_catCFDI.cs" />
+    <Compile Include="checarVersion.cs" />
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
     </Compile>

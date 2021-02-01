@@ -1739,7 +1739,5 @@ namespace PuntoDeVentaV2
 
             EnviarEmailConArchivoPDF(html, asunto, correo, ruta);
         }
-
-
     }
 }

@@ -1444,5 +1444,26 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string getRetriveVersion()
+        {
+            var consulta = $"SELECT * FROM AppVersionRecord ORDER BY ID DESC LIMIT 1";
+
+            return consulta;
+        }
+
+        public string insertAppVersion(string appName, string appVersion, string appMajorVersion, string appMinorVersion, string appBuildNumber, string appRevision, string appDateVersion)
+        {
+            var consulta = $"INSERT INTO AppVersionRecord(AppName, AppVersion, AppMajorVersion, AppMinorVersion, AppBuildNumber, AppRevision, AppDateVersion) VALUES('{appName}','{appVersion}','{appMajorVersion}','{appMinorVersion}','{appBuildNumber}','{appRevision}','{appDateVersion}')";
+
+            return consulta;
+        }
+
+        public string isExistsTable(string tableName)
+        {
+            var consulta = $@"SELECT COUNT( TABLE_NAME ) Resultado FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'pudve' AND TABLE_NAME = '{tableName}';";
+
+            return consulta;
+        }
     }
 }
