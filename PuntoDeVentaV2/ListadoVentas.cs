@@ -942,9 +942,19 @@ namespace PuntoDeVentaV2
                                                     rVales = getRetirado["sum(Cantidad)"].ToString();
                                                     rCheque = getRetirado["sum(Cantidad)"].ToString();
                                                     rTrans = getRetirado["sum(Cantidad)"].ToString();
+
+                                                    if (string.IsNullOrEmpty(rTotal))
+                                                    {
+                                                        rTotal = "0";
+                                                        rEfectivo = "0";
+                                                        rTarjeta = "0";
+                                                        rVales = "0";
+                                                        rCheque = "0";
+                                                        rTrans = "0";
+                                                    }
                                                 }
                                             }
-                                            else if(string.IsNullOrWhiteSpace(dineroRetiradoCorte.ToString()))
+                                            else if(dineroRetiradoCorte.Rows.Count.Equals(0))
                                             {
                                                 rTotal = "0";
                                                 rEfectivo = "0";
