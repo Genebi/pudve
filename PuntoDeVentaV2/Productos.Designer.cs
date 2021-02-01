@@ -873,9 +873,9 @@
             this.lbCantidadSeleccionada.AutoSize = true;
             this.lbCantidadSeleccionada.Location = new System.Drawing.Point(8, 52);
             this.lbCantidadSeleccionada.Name = "lbCantidadSeleccionada";
-            this.lbCantidadSeleccionada.Size = new System.Drawing.Size(35, 13);
+            this.lbCantidadSeleccionada.Size = new System.Drawing.Size(99, 13);
             this.lbCantidadSeleccionada.TabIndex = 27;
-            this.lbCantidadSeleccionada.Text = "label4";
+            this.lbCantidadSeleccionada.Text = "Cantidad productos";
             // 
             // lbCapital
             // 
