@@ -565,7 +565,7 @@ IF
 	);
 
 -- 33 Tabla de DetallesFacturacionProductos
-<<<<<<< HEAD
+
 CREATE TABLE 
 IF 
 	NOT EXISTS DetallesFacturacionProductos (
@@ -573,14 +573,14 @@ IF
 		Tipo TEXT,
 		Impuesto TEXT,
 		TipoFactor TEXT,
-		TasaCuota DECIMAL (16, 2) DEFAULT (0),
+		TasaCuota TEXT,
 		Definir DECIMAL (16, 2) DEFAULT (0),
 		Importe DECIMAL (16, 2) DEFAULT (0),
 		IDProducto INTEGER,
 		FOREIGN KEY (IDProducto)
 		REFERENCES Productos (ID) ON UPDATE CASCADE ON DELETE CASCADE
 	);
-=======
+
 CREATE TABLE IF NOT EXISTS DetallesFacturacionProductos (
     ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
     Tipo TEXT,
@@ -593,7 +593,7 @@ CREATE TABLE IF NOT EXISTS DetallesFacturacionProductos (
     FOREIGN KEY (IDProducto)
     REFERENCES Productos (ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
->>>>>>> revisionRetencionesProductosDisVentas
+
 
 -- 34 Tabla de EmpleadosPermisos
 CREATE TABLE 
