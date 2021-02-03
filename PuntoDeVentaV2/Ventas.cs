@@ -1102,7 +1102,25 @@ namespace PuntoDeVentaV2
                         if (!descripcionEncontrada)
                         {
                             var count = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
-                            productoEliminado.Add(count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
+
+                            // MIRI.
+                            // Primero debe eliminar de la cadena el porcentaje del descuento para que no de error al momento de convertirlo a decimal.
+                            var cad_descuento = DGVentas.Rows[celda].Cells["Descuento"].Value.ToString();
+                            var res = cad_descuento.IndexOf("-");
+                            decimal descuento_conv = 0;
+
+                            if (res >= 0)
+                            {
+                                var d = cad_descuento.Split('-');
+                                descuento_conv = Convert.ToDecimal(d[0]);
+                            }
+                            else
+                            {
+                                descuento_conv = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString());
+                            }
+
+                            productoEliminado.Add(count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - descuento_conv));
+                            //productoEliminado.Add(count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
                         }
                     }
 
@@ -2162,6 +2180,12 @@ namespace PuntoDeVentaV2
                 importeAnticipo = 0f;
                 cAnticipo.Text = "0.00";
                 cAnticipoUtilizado.Text = "0.00";
+
+                // MIRI.
+                lbAnticipo.Visible = false;
+                lbAnticipoUtilizado.Visible = false;
+                cAnticipo.Visible = false;
+                cAnticipoUtilizado.Visible = false;
             }
         }
 
