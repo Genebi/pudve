@@ -79,23 +79,25 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnAplicarDescuento = new System.Windows.Forms.Button();
+            this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
+            this.btnEliminarDescuentos = new System.Windows.Forms.Button();
+            this.lbEliminarCliente = new System.Windows.Forms.Label();
+            this.lbDatosCliente = new System.Windows.Forms.Label();
+            this.lbMayoreo = new System.Windows.Forms.Label();
+            this.lbPS = new System.Windows.Forms.Label();
+            this.nudCantidadPS = new System.Windows.Forms.NumericUpDown();
+            this.lbCantidad = new System.Windows.Forms.Label();
             this.lb_cant_impuestos_retenidos = new System.Windows.Forms.Label();
             this.lb_impuestos_retenidos = new System.Windows.Forms.Label();
             this.cOtrosImpuestos = new System.Windows.Forms.Label();
             this.lbOtrosImpuestos = new System.Windows.Forms.Label();
-            this.lbEliminarCliente = new System.Windows.Forms.Label();
             this.cAnticipoUtilizado = new System.Windows.Forms.Label();
             this.lbAnticipoUtilizado = new System.Windows.Forms.Label();
-            this.lbDatosCliente = new System.Windows.Forms.Label();
-            this.lbMayoreo = new System.Windows.Forms.Label();
-            this.btnEliminarDescuentos = new System.Windows.Forms.Button();
-            this.btnAplicarDescuento = new System.Windows.Forms.Button();
             this.PBImagen = new System.Windows.Forms.PictureBox();
-            this.lbPS = new System.Windows.Forms.Label();
-            this.nudCantidadPS = new System.Windows.Forms.NumericUpDown();
-            this.lbCantidad = new System.Windows.Forms.Label();
             this.btnTerminarVenta = new System.Windows.Forms.Button();
-            this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.checkCancelar = new System.Windows.Forms.CheckBox();
             this.btnConsultar = new System.Windows.Forms.Button();
@@ -109,15 +111,22 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lFolio = new System.Windows.Forms.TextBox();
             this.timer_img_producto = new System.Windows.Forms.Timer(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
+            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidadPS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tituloSeccion
             // 
-            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tituloSeccion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tituloSeccion.Location = new System.Drawing.Point(537, 14);
@@ -126,61 +135,75 @@
             this.tituloSeccion.TabIndex = 4;
             this.tituloSeccion.Text = "NUEVA VENTA";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.tituloSeccion.Visible = false;
             // 
             // btnEliminarAnticipos
             // 
+            this.btnEliminarAnticipos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(149)))), ((int)(((byte)(11)))));
             this.btnEliminarAnticipos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEliminarAnticipos.Location = new System.Drawing.Point(451, 80);
+            this.btnEliminarAnticipos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminarAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarAnticipos.ForeColor = System.Drawing.Color.White;
+            this.btnEliminarAnticipos.Location = new System.Drawing.Point(289, 316);
             this.btnEliminarAnticipos.Name = "btnEliminarAnticipos";
-            this.btnEliminarAnticipos.Size = new System.Drawing.Size(105, 28);
+            this.btnEliminarAnticipos.Size = new System.Drawing.Size(122, 25);
             this.btnEliminarAnticipos.TabIndex = 10;
             this.btnEliminarAnticipos.Text = "Eliminar Anticipos";
             this.tituloBoton.SetToolTip(this.btnEliminarAnticipos, "Eliminar todos los anticipos de esta venta");
-            this.btnEliminarAnticipos.UseVisualStyleBackColor = true;
+            this.btnEliminarAnticipos.UseVisualStyleBackColor = false;
             this.btnEliminarAnticipos.Visible = false;
             this.btnEliminarAnticipos.Click += new System.EventHandler(this.btnEliminarAnticipos_Click);
             // 
             // btnEliminarUltimo
             // 
+            this.btnEliminarUltimo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(41)))), ((int)(((byte)(20)))));
             this.btnEliminarUltimo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEliminarUltimo.Location = new System.Drawing.Point(562, 80);
+            this.btnEliminarUltimo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminarUltimo.ForeColor = System.Drawing.Color.White;
+            this.btnEliminarUltimo.Location = new System.Drawing.Point(3, 7);
             this.btnEliminarUltimo.Name = "btnEliminarUltimo";
-            this.btnEliminarUltimo.Size = new System.Drawing.Size(40, 28);
+            this.btnEliminarUltimo.Size = new System.Drawing.Size(40, 26);
             this.btnEliminarUltimo.TabIndex = 7;
             this.tituloBoton.SetToolTip(this.btnEliminarUltimo, "Eliminar último agregado");
-            this.btnEliminarUltimo.UseVisualStyleBackColor = true;
+            this.btnEliminarUltimo.UseVisualStyleBackColor = false;
             this.btnEliminarUltimo.Click += new System.EventHandler(this.btnEliminarUltimo_Click);
             // 
             // btnEliminarTodos
             // 
+            this.btnEliminarTodos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(41)))), ((int)(((byte)(20)))));
             this.btnEliminarTodos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEliminarTodos.Location = new System.Drawing.Point(608, 80);
+            this.btnEliminarTodos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminarTodos.ForeColor = System.Drawing.Color.White;
+            this.btnEliminarTodos.Location = new System.Drawing.Point(49, 7);
             this.btnEliminarTodos.Name = "btnEliminarTodos";
-            this.btnEliminarTodos.Size = new System.Drawing.Size(40, 28);
+            this.btnEliminarTodos.Size = new System.Drawing.Size(40, 26);
             this.btnEliminarTodos.TabIndex = 8;
             this.tituloBoton.SetToolTip(this.btnEliminarTodos, "Eliminar todos los agregados");
-            this.btnEliminarTodos.UseVisualStyleBackColor = true;
+            this.btnEliminarTodos.UseVisualStyleBackColor = false;
             this.btnEliminarTodos.Click += new System.EventHandler(this.btnEliminarTodos_Click);
             // 
             // btnUltimoTicket
             // 
             this.btnUltimoTicket.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUltimoTicket.BackColor = System.Drawing.Color.PaleGreen;
             this.btnUltimoTicket.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(854, 47);
+            this.btnUltimoTicket.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUltimoTicket.ForeColor = System.Drawing.Color.White;
+            this.btnUltimoTicket.Location = new System.Drawing.Point(529, 25);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
             this.btnUltimoTicket.Size = new System.Drawing.Size(37, 40);
             this.btnUltimoTicket.TabIndex = 18;
             this.tituloBoton.SetToolTip(this.btnUltimoTicket, "Imprimir último ticket");
-            this.btnUltimoTicket.UseVisualStyleBackColor = true;
+            this.btnUltimoTicket.UseVisualStyleBackColor = false;
             this.btnUltimoTicket.Click += new System.EventHandler(this.btnUltimoTicket_Click);
             // 
             // txtBuscadorProducto
             // 
             this.txtBuscadorProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBuscadorProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscadorProducto.Location = new System.Drawing.Point(94, 31);
+            this.txtBuscadorProducto.Location = new System.Drawing.Point(94, 29);
             this.txtBuscadorProducto.Name = "txtBuscadorProducto";
-            this.txtBuscadorProducto.Size = new System.Drawing.Size(855, 23);
+            this.txtBuscadorProducto.Size = new System.Drawing.Size(790, 23);
             this.txtBuscadorProducto.TabIndex = 5;
             this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
             this.txtBuscadorProducto.TextChanged += new System.EventHandler(this.txtBuscadorProducto_TextChanged);
@@ -214,11 +237,11 @@
             this.PrecioAuxiliar,
             this.TipoDescuento,
             this.Impuesto});
-            this.DGVentas.Location = new System.Drawing.Point(3, 114);
+            this.DGVentas.Location = new System.Drawing.Point(7, 81);
             this.DGVentas.Name = "DGVentas";
             this.DGVentas.RowHeadersVisible = false;
             this.DGVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVentas.Size = new System.Drawing.Size(646, 203);
+            this.DGVentas.Size = new System.Drawing.Size(877, 222);
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
             this.DGVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellContentClick);
@@ -380,7 +403,7 @@
             this.btnCancelarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.reply1;
             this.btnCancelarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelarVenta.Location = new System.Drawing.Point(897, 47);
+            this.btnCancelarVenta.Location = new System.Drawing.Point(279, 20);
             this.btnCancelarVenta.Name = "btnCancelarVenta";
             this.btnCancelarVenta.Size = new System.Drawing.Size(105, 40);
             this.btnCancelarVenta.TabIndex = 13;
@@ -391,50 +414,56 @@
             // 
             // btnGuardarVenta
             // 
-            this.btnGuardarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGuardarVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(165)))), ((int)(((byte)(137)))));
             this.btnGuardarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGuardarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarVenta.ForeColor = System.Drawing.Color.White;
             this.btnGuardarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
-            this.btnGuardarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardarVenta.Location = new System.Drawing.Point(506, 47);
+            this.btnGuardarVenta.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnGuardarVenta.Location = new System.Drawing.Point(352, 9);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
-            this.btnGuardarVenta.Size = new System.Drawing.Size(181, 40);
+            this.btnGuardarVenta.Size = new System.Drawing.Size(155, 75);
             this.btnGuardarVenta.TabIndex = 14;
-            this.btnGuardarVenta.Text = "Guardar / Presupuesto";
-            this.btnGuardarVenta.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.btnGuardarVenta.UseVisualStyleBackColor = true;
+            this.btnGuardarVenta.Text = "Guardar / Presupuesto\r\nCtrl + G";
+            this.btnGuardarVenta.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnGuardarVenta.UseVisualStyleBackColor = false;
             this.btnGuardarVenta.Click += new System.EventHandler(this.btnGuardarVenta_Click);
             // 
             // btnAnticipos
             // 
-            this.btnAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAnticipos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(172)))), ((int)(((byte)(13)))));
             this.btnAnticipos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnticipos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnticipos.ForeColor = System.Drawing.Color.White;
             this.btnAnticipos.Image = global::PuntoDeVentaV2.Properties.Resources.handshake_o1;
-            this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAnticipos.Location = new System.Drawing.Point(277, 47);
+            this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAnticipos.Location = new System.Drawing.Point(107, 10);
             this.btnAnticipos.Name = "btnAnticipos";
-            this.btnAnticipos.Size = new System.Drawing.Size(112, 40);
+            this.btnAnticipos.Size = new System.Drawing.Size(93, 75);
             this.btnAnticipos.TabIndex = 15;
-            this.btnAnticipos.Text = "Anticipos";
-            this.btnAnticipos.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.btnAnticipos.UseVisualStyleBackColor = true;
+            this.btnAnticipos.Text = "Anticipos\r\nCtrl + A";
+            this.btnAnticipos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAnticipos.UseVisualStyleBackColor = false;
             this.btnAnticipos.Click += new System.EventHandler(this.btnAnticipos_Click);
             // 
             // btnAbrirCaja
             // 
-            this.btnAbrirCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAbrirCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(67)))), ((int)(((byte)(53)))));
             this.btnAbrirCaja.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAbrirCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAbrirCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAbrirCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAbrirCaja.ForeColor = System.Drawing.Color.White;
             this.btnAbrirCaja.Image = global::PuntoDeVentaV2.Properties.Resources.hdd_o1;
-            this.btnAbrirCaja.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAbrirCaja.Location = new System.Drawing.Point(395, 47);
+            this.btnAbrirCaja.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAbrirCaja.Location = new System.Drawing.Point(12, 10);
             this.btnAbrirCaja.Name = "btnAbrirCaja";
-            this.btnAbrirCaja.Size = new System.Drawing.Size(105, 40);
+            this.btnAbrirCaja.Size = new System.Drawing.Size(89, 75);
             this.btnAbrirCaja.TabIndex = 16;
-            this.btnAbrirCaja.Text = "Abrir Caja";
-            this.btnAbrirCaja.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.btnAbrirCaja.UseVisualStyleBackColor = true;
+            this.btnAbrirCaja.Text = "Abrir Caja\r\n   F2";
+            this.btnAbrirCaja.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAbrirCaja.UseVisualStyleBackColor = false;
             this.btnAbrirCaja.Click += new System.EventHandler(this.btnAbrirCaja_Click);
             // 
             // btnVentasGuardadas
@@ -444,7 +473,7 @@
             this.btnVentasGuardadas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVentasGuardadas.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard1;
             this.btnVentasGuardadas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentasGuardadas.Location = new System.Drawing.Point(693, 47);
+            this.btnVentasGuardadas.Location = new System.Drawing.Point(118, 20);
             this.btnVentasGuardadas.Name = "btnVentasGuardadas";
             this.btnVentasGuardadas.Size = new System.Drawing.Size(155, 40);
             this.btnVentasGuardadas.TabIndex = 17;
@@ -458,9 +487,9 @@
             this.listaProductos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listaProductos.FormattingEnabled = true;
             this.listaProductos.ItemHeight = 17;
-            this.listaProductos.Location = new System.Drawing.Point(94, 53);
+            this.listaProductos.Location = new System.Drawing.Point(94, 51);
             this.listaProductos.Name = "listaProductos";
-            this.listaProductos.Size = new System.Drawing.Size(855, 21);
+            this.listaProductos.Size = new System.Drawing.Size(790, 21);
             this.listaProductos.TabIndex = 9;
             this.listaProductos.Visible = false;
             this.listaProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listaProductos_KeyDown);
@@ -469,10 +498,9 @@
             // 
             // lbNumeroArticulos
             // 
-            this.lbNumeroArticulos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbNumeroArticulos.AutoSize = true;
             this.lbNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNumeroArticulos.Location = new System.Drawing.Point(679, 90);
+            this.lbNumeroArticulos.Location = new System.Drawing.Point(7, 240);
             this.lbNumeroArticulos.Name = "lbNumeroArticulos";
             this.lbNumeroArticulos.Size = new System.Drawing.Size(198, 22);
             this.lbNumeroArticulos.TabIndex = 20;
@@ -483,7 +511,7 @@
             this.lbSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSubtotal.AutoSize = true;
             this.lbSubtotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubtotal.Location = new System.Drawing.Point(680, 112);
+            this.lbSubtotal.Location = new System.Drawing.Point(7, 279);
             this.lbSubtotal.Name = "lbSubtotal";
             this.lbSubtotal.Size = new System.Drawing.Size(91, 22);
             this.lbSubtotal.TabIndex = 21;
@@ -494,7 +522,7 @@
             this.lbIVA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbIVA.AutoSize = true;
             this.lbIVA.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbIVA.Location = new System.Drawing.Point(680, 134);
+            this.lbIVA.Location = new System.Drawing.Point(7, 324);
             this.lbIVA.Name = "lbIVA";
             this.lbIVA.Size = new System.Drawing.Size(92, 22);
             this.lbIVA.TabIndex = 22;
@@ -505,7 +533,7 @@
             this.lbAnticipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbAnticipo.AutoSize = true;
             this.lbAnticipo.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAnticipo.Location = new System.Drawing.Point(680, 245);
+            this.lbAnticipo.Location = new System.Drawing.Point(7, 438);
             this.lbAnticipo.Name = "lbAnticipo";
             this.lbAnticipo.Size = new System.Drawing.Size(171, 22);
             this.lbAnticipo.TabIndex = 23;
@@ -517,7 +545,7 @@
             this.lbDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDescuento.AutoSize = true;
             this.lbDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDescuento.Location = new System.Drawing.Point(680, 290);
+            this.lbDescuento.Location = new System.Drawing.Point(7, 301);
             this.lbDescuento.Name = "lbDescuento";
             this.lbDescuento.Size = new System.Drawing.Size(115, 22);
             this.lbDescuento.TabIndex = 24;
@@ -526,10 +554,10 @@
             // 
             // lbTotal
             // 
-            this.lbTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTotal.AutoSize = true;
             this.lbTotal.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotal.Location = new System.Drawing.Point(676, 317);
+            this.lbTotal.Location = new System.Drawing.Point(7, 494);
             this.lbTotal.Name = "lbTotal";
             this.lbTotal.Size = new System.Drawing.Size(125, 39);
             this.lbTotal.TabIndex = 25;
@@ -537,10 +565,9 @@
             // 
             // cNumeroArticulos
             // 
-            this.cNumeroArticulos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cNumeroArticulos.AutoSize = true;
             this.cNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cNumeroArticulos.Location = new System.Drawing.Point(898, 92);
+            this.cNumeroArticulos.Location = new System.Drawing.Point(226, 242);
             this.cNumeroArticulos.Name = "cNumeroArticulos";
             this.cNumeroArticulos.Size = new System.Drawing.Size(21, 22);
             this.cNumeroArticulos.TabIndex = 26;
@@ -552,7 +579,7 @@
             this.cSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cSubtotal.AutoSize = true;
             this.cSubtotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cSubtotal.Location = new System.Drawing.Point(898, 112);
+            this.cSubtotal.Location = new System.Drawing.Point(225, 279);
             this.cSubtotal.Name = "cSubtotal";
             this.cSubtotal.Size = new System.Drawing.Size(48, 22);
             this.cSubtotal.TabIndex = 27;
@@ -564,7 +591,7 @@
             this.cIVA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cIVA.AutoSize = true;
             this.cIVA.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cIVA.Location = new System.Drawing.Point(898, 134);
+            this.cIVA.Location = new System.Drawing.Point(225, 324);
             this.cIVA.Name = "cIVA";
             this.cIVA.Size = new System.Drawing.Size(48, 22);
             this.cIVA.TabIndex = 28;
@@ -576,7 +603,7 @@
             this.cAnticipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cAnticipo.AutoSize = true;
             this.cAnticipo.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cAnticipo.Location = new System.Drawing.Point(898, 245);
+            this.cAnticipo.Location = new System.Drawing.Point(225, 438);
             this.cAnticipo.Name = "cAnticipo";
             this.cAnticipo.Size = new System.Drawing.Size(48, 22);
             this.cAnticipo.TabIndex = 29;
@@ -589,7 +616,7 @@
             this.cDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cDescuento.AutoSize = true;
             this.cDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cDescuento.Location = new System.Drawing.Point(898, 290);
+            this.cDescuento.Location = new System.Drawing.Point(225, 301);
             this.cDescuento.Name = "cDescuento";
             this.cDescuento.Size = new System.Drawing.Size(48, 22);
             this.cDescuento.TabIndex = 30;
@@ -598,10 +625,10 @@
             // 
             // cTotal
             // 
-            this.cTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cTotal.AutoSize = true;
             this.cTotal.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cTotal.Location = new System.Drawing.Point(780, 317);
+            this.cTotal.Location = new System.Drawing.Point(151, 494);
             this.cTotal.Name = "cTotal";
             this.cTotal.Size = new System.Drawing.Size(80, 39);
             this.cTotal.TabIndex = 31;
@@ -612,7 +639,7 @@
             this.lbIVA8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbIVA8.AutoSize = true;
             this.lbIVA8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbIVA8.Location = new System.Drawing.Point(680, 156);
+            this.lbIVA8.Location = new System.Drawing.Point(7, 348);
             this.lbIVA8.Name = "lbIVA8";
             this.lbIVA8.Size = new System.Drawing.Size(81, 22);
             this.lbIVA8.TabIndex = 32;
@@ -624,7 +651,7 @@
             this.cIVA8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cIVA8.AutoSize = true;
             this.cIVA8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cIVA8.Location = new System.Drawing.Point(898, 156);
+            this.cIVA8.Location = new System.Drawing.Point(225, 348);
             this.cIVA8.Name = "cIVA8";
             this.cIVA8.Size = new System.Drawing.Size(48, 22);
             this.cIVA8.TabIndex = 33;
@@ -636,93 +663,92 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.lb_cant_impuestos_retenidos);
-            this.panel1.Controls.Add(this.lb_impuestos_retenidos);
-            this.panel1.Controls.Add(this.cOtrosImpuestos);
-            this.panel1.Controls.Add(this.lbOtrosImpuestos);
+            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel1.Controls.Add(this.panel4);
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.lbEliminarCliente);
-            this.panel1.Controls.Add(this.cAnticipoUtilizado);
-            this.panel1.Controls.Add(this.lbAnticipoUtilizado);
             this.panel1.Controls.Add(this.lbDatosCliente);
             this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Controls.Add(this.lbMayoreo);
-            this.panel1.Controls.Add(this.btnEliminarDescuentos);
-            this.panel1.Controls.Add(this.btnAplicarDescuento);
-            this.panel1.Controls.Add(this.PBImagen);
             this.panel1.Controls.Add(this.lbPS);
             this.panel1.Controls.Add(this.nudCantidadPS);
             this.panel1.Controls.Add(this.lbCantidad);
-            this.panel1.Controls.Add(this.btnTerminarVenta);
-            this.panel1.Controls.Add(this.txtDescuentoGeneral);
             this.panel1.Controls.Add(this.DGVentas);
-            this.panel1.Controls.Add(this.cIVA8);
             this.panel1.Controls.Add(this.txtBuscadorProducto);
-            this.panel1.Controls.Add(this.lbIVA8);
-            this.panel1.Controls.Add(this.btnEliminarUltimo);
-            this.panel1.Controls.Add(this.cTotal);
-            this.panel1.Controls.Add(this.btnEliminarTodos);
-            this.panel1.Controls.Add(this.cDescuento);
             this.panel1.Controls.Add(this.btnEliminarAnticipos);
-            this.panel1.Controls.Add(this.cAnticipo);
-            this.panel1.Controls.Add(this.cIVA);
-            this.panel1.Controls.Add(this.cSubtotal);
-            this.panel1.Controls.Add(this.cNumeroArticulos);
-            this.panel1.Controls.Add(this.lbTotal);
-            this.panel1.Controls.Add(this.lbDescuento);
-            this.panel1.Controls.Add(this.lbAnticipo);
-            this.panel1.Controls.Add(this.lbIVA);
-            this.panel1.Controls.Add(this.lbSubtotal);
-            this.panel1.Controls.Add(this.lbNumeroArticulos);
-            this.panel1.Location = new System.Drawing.Point(7, 93);
+            this.panel1.Location = new System.Drawing.Point(12, 64);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1221, 402);
+            this.panel1.Size = new System.Drawing.Size(890, 389);
             this.panel1.TabIndex = 34;
             // 
-            // lb_cant_impuestos_retenidos
+            // panel4
             // 
-            this.lb_cant_impuestos_retenidos.AutoSize = true;
-            this.lb_cant_impuestos_retenidos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_cant_impuestos_retenidos.Location = new System.Drawing.Point(898, 223);
-            this.lb_cant_impuestos_retenidos.Name = "lb_cant_impuestos_retenidos";
-            this.lb_cant_impuestos_retenidos.Size = new System.Drawing.Size(48, 22);
-            this.lb_cant_impuestos_retenidos.TabIndex = 61;
-            this.lb_cant_impuestos_retenidos.Text = "0.00";
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Controls.Add(this.btnEliminarTodos);
+            this.panel4.Controls.Add(this.btnEliminarUltimo);
+            this.panel4.Location = new System.Drawing.Point(792, 307);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(92, 40);
+            this.panel4.TabIndex = 59;
             // 
-            // lb_impuestos_retenidos
+            // panel3
             // 
-            this.lb_impuestos_retenidos.AutoSize = true;
-            this.lb_impuestos_retenidos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_impuestos_retenidos.Location = new System.Drawing.Point(681, 223);
-            this.lb_impuestos_retenidos.Name = "lb_impuestos_retenidos";
-            this.lb_impuestos_retenidos.Size = new System.Drawing.Size(196, 22);
-            this.lb_impuestos_retenidos.TabIndex = 60;
-            this.lb_impuestos_retenidos.Text = "Impuestos retenidos:";
-            this.lb_impuestos_retenidos.Visible = false;
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.btnAplicarDescuento);
+            this.panel3.Controls.Add(this.txtDescuentoGeneral);
+            this.panel3.Controls.Add(this.btnEliminarDescuentos);
+            this.panel3.Location = new System.Drawing.Point(423, 307);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(353, 40);
+            this.panel3.TabIndex = 58;
             // 
-            // cOtrosImpuestos
+            // btnAplicarDescuento
             // 
-            this.cOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cOtrosImpuestos.AutoSize = true;
-            this.cOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cOtrosImpuestos.Location = new System.Drawing.Point(898, 201);
-            this.cOtrosImpuestos.Name = "cOtrosImpuestos";
-            this.cOtrosImpuestos.Size = new System.Drawing.Size(48, 22);
-            this.cOtrosImpuestos.TabIndex = 59;
-            this.cOtrosImpuestos.Text = "0.00";
-            this.cOtrosImpuestos.Visible = false;
-            this.cOtrosImpuestos.Click += new System.EventHandler(this.cOtrosImpuestos_Click);
+            this.btnAplicarDescuento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(65)))), ((int)(((byte)(131)))));
+            this.btnAplicarDescuento.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAplicarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAplicarDescuento.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAplicarDescuento.ForeColor = System.Drawing.Color.White;
+            this.btnAplicarDescuento.Location = new System.Drawing.Point(113, 7);
+            this.btnAplicarDescuento.Name = "btnAplicarDescuento";
+            this.btnAplicarDescuento.Size = new System.Drawing.Size(114, 25);
+            this.btnAplicarDescuento.TabIndex = 43;
+            this.btnAplicarDescuento.Text = "Aplicar (Alt + 3)";
+            this.btnAplicarDescuento.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAplicarDescuento.UseVisualStyleBackColor = false;
+            this.btnAplicarDescuento.Click += new System.EventHandler(this.btnAplicarDescuento_Click);
             // 
-            // lbOtrosImpuestos
+            // txtDescuentoGeneral
             // 
-            this.lbOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbOtrosImpuestos.AutoSize = true;
-            this.lbOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbOtrosImpuestos.Location = new System.Drawing.Point(680, 179);
-            this.lbOtrosImpuestos.Name = "lbOtrosImpuestos";
-            this.lbOtrosImpuestos.Size = new System.Drawing.Size(154, 44);
-            this.lbOtrosImpuestos.TabIndex = 58;
-            this.lbOtrosImpuestos.Text = "Otros impuestos\r\ntraslados:";
-            this.lbOtrosImpuestos.Visible = false;
+            this.txtDescuentoGeneral.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescuentoGeneral.Location = new System.Drawing.Point(8, 8);
+            this.txtDescuentoGeneral.Multiline = true;
+            this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
+            this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 23);
+            this.txtDescuentoGeneral.TabIndex = 35;
+            this.txtDescuentoGeneral.Text = "% descuento";
+            this.txtDescuentoGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDescuentoGeneral.Enter += new System.EventHandler(this.txtDescuentoGeneral_Enter);
+            this.txtDescuentoGeneral.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyUp);
+            // 
+            // btnEliminarDescuentos
+            // 
+            this.btnEliminarDescuentos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(83)))), ((int)(((byte)(136)))));
+            this.btnEliminarDescuentos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEliminarDescuentos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminarDescuentos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarDescuentos.ForeColor = System.Drawing.Color.White;
+            this.btnEliminarDescuentos.Location = new System.Drawing.Point(233, 7);
+            this.btnEliminarDescuentos.Name = "btnEliminarDescuentos";
+            this.btnEliminarDescuentos.Size = new System.Drawing.Size(113, 25);
+            this.btnEliminarDescuentos.TabIndex = 44;
+            this.btnEliminarDescuentos.Text = "Eliminar (Alt + 1)";
+            this.btnEliminarDescuentos.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnEliminarDescuentos.UseVisualStyleBackColor = false;
+            this.btnEliminarDescuentos.Click += new System.EventHandler(this.btnEliminarDescuentos_Click);
             // 
             // lbEliminarCliente
             // 
@@ -730,7 +756,7 @@
             this.lbEliminarCliente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbEliminarCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEliminarCliente.ForeColor = System.Drawing.Color.Red;
-            this.lbEliminarCliente.Location = new System.Drawing.Point(256, 8);
+            this.lbEliminarCliente.Location = new System.Drawing.Point(17, 360);
             this.lbEliminarCliente.Name = "lbEliminarCliente";
             this.lbEliminarCliente.Size = new System.Drawing.Size(17, 16);
             this.lbEliminarCliente.TabIndex = 57;
@@ -739,35 +765,11 @@
             this.lbEliminarCliente.Visible = false;
             this.lbEliminarCliente.Click += new System.EventHandler(this.lbEliminarCliente_Click);
             // 
-            // cAnticipoUtilizado
-            // 
-            this.cAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cAnticipoUtilizado.AutoSize = true;
-            this.cAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cAnticipoUtilizado.Location = new System.Drawing.Point(898, 268);
-            this.cAnticipoUtilizado.Name = "cAnticipoUtilizado";
-            this.cAnticipoUtilizado.Size = new System.Drawing.Size(48, 22);
-            this.cAnticipoUtilizado.TabIndex = 56;
-            this.cAnticipoUtilizado.Text = "0.00";
-            this.cAnticipoUtilizado.Visible = false;
-            // 
-            // lbAnticipoUtilizado
-            // 
-            this.lbAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbAnticipoUtilizado.AutoSize = true;
-            this.lbAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAnticipoUtilizado.Location = new System.Drawing.Point(680, 268);
-            this.lbAnticipoUtilizado.Name = "lbAnticipoUtilizado";
-            this.lbAnticipoUtilizado.Size = new System.Drawing.Size(171, 22);
-            this.lbAnticipoUtilizado.TabIndex = 55;
-            this.lbAnticipoUtilizado.Text = "Anticipo utilizado:";
-            this.lbAnticipoUtilizado.Visible = false;
-            // 
             // lbDatosCliente
             // 
             this.lbDatosCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDatosCliente.ForeColor = System.Drawing.Color.Red;
-            this.lbDatosCliente.Location = new System.Drawing.Point(271, 5);
+            this.lbDatosCliente.Location = new System.Drawing.Point(32, 357);
             this.lbDatosCliente.Name = "lbDatosCliente";
             this.lbDatosCliente.Size = new System.Drawing.Size(621, 23);
             this.lbDatosCliente.TabIndex = 45;
@@ -779,54 +781,18 @@
             this.lbMayoreo.ForeColor = System.Drawing.Color.DarkGreen;
             this.lbMayoreo.Image = global::PuntoDeVentaV2.Properties.Resources.check1;
             this.lbMayoreo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbMayoreo.Location = new System.Drawing.Point(3, 95);
+            this.lbMayoreo.Location = new System.Drawing.Point(13, 309);
             this.lbMayoreo.Name = "lbMayoreo";
             this.lbMayoreo.Size = new System.Drawing.Size(138, 16);
             this.lbMayoreo.TabIndex = 45;
             this.lbMayoreo.Text = "Mayoreo aplicado";
             this.lbMayoreo.Visible = false;
             // 
-            // btnEliminarDescuentos
-            // 
-            this.btnEliminarDescuentos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEliminarDescuentos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarDescuentos.Location = new System.Drawing.Point(311, 321);
-            this.btnEliminarDescuentos.Name = "btnEliminarDescuentos";
-            this.btnEliminarDescuentos.Size = new System.Drawing.Size(113, 25);
-            this.btnEliminarDescuentos.TabIndex = 44;
-            this.btnEliminarDescuentos.Text = "Eliminar (Alt + 1)";
-            this.btnEliminarDescuentos.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEliminarDescuentos.UseVisualStyleBackColor = true;
-            this.btnEliminarDescuentos.Click += new System.EventHandler(this.btnEliminarDescuentos_Click);
-            // 
-            // btnAplicarDescuento
-            // 
-            this.btnAplicarDescuento.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAplicarDescuento.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAplicarDescuento.Location = new System.Drawing.Point(535, 321);
-            this.btnAplicarDescuento.Name = "btnAplicarDescuento";
-            this.btnAplicarDescuento.Size = new System.Drawing.Size(114, 25);
-            this.btnAplicarDescuento.TabIndex = 43;
-            this.btnAplicarDescuento.Text = "Aplicar (Alt + 3)";
-            this.btnAplicarDescuento.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAplicarDescuento.UseVisualStyleBackColor = true;
-            this.btnAplicarDescuento.Click += new System.EventHandler(this.btnAplicarDescuento_Click);
-            // 
-            // PBImagen
-            // 
-            this.PBImagen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PBImagen.Location = new System.Drawing.Point(998, 99);
-            this.PBImagen.Name = "PBImagen";
-            this.PBImagen.Size = new System.Drawing.Size(220, 220);
-            this.PBImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.PBImagen.TabIndex = 42;
-            this.PBImagen.TabStop = false;
-            // 
             // lbPS
             // 
             this.lbPS.AutoSize = true;
             this.lbPS.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPS.Location = new System.Drawing.Point(91, 11);
+            this.lbPS.Location = new System.Drawing.Point(91, 9);
             this.lbPS.Name = "lbPS";
             this.lbPS.Size = new System.Drawing.Size(121, 17);
             this.lbPS.TabIndex = 41;
@@ -836,7 +802,7 @@
             // 
             this.nudCantidadPS.DecimalPlaces = 2;
             this.nudCantidadPS.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudCantidadPS.Location = new System.Drawing.Point(3, 31);
+            this.nudCantidadPS.Location = new System.Drawing.Point(7, 29);
             this.nudCantidadPS.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -861,38 +827,109 @@
             // 
             this.lbCantidad.AutoSize = true;
             this.lbCantidad.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCantidad.Location = new System.Drawing.Point(3, 11);
+            this.lbCantidad.Location = new System.Drawing.Point(7, 9);
             this.lbCantidad.Name = "lbCantidad";
             this.lbCantidad.Size = new System.Drawing.Size(64, 17);
             this.lbCantidad.TabIndex = 39;
             this.lbCantidad.Text = "Cantidad";
             // 
+            // lb_cant_impuestos_retenidos
+            // 
+            this.lb_cant_impuestos_retenidos.AutoSize = true;
+            this.lb_cant_impuestos_retenidos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_cant_impuestos_retenidos.Location = new System.Drawing.Point(224, 415);
+            this.lb_cant_impuestos_retenidos.Name = "lb_cant_impuestos_retenidos";
+            this.lb_cant_impuestos_retenidos.Size = new System.Drawing.Size(48, 22);
+            this.lb_cant_impuestos_retenidos.TabIndex = 61;
+            this.lb_cant_impuestos_retenidos.Text = "0.00";
+            // 
+            // lb_impuestos_retenidos
+            // 
+            this.lb_impuestos_retenidos.AutoSize = true;
+            this.lb_impuestos_retenidos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_impuestos_retenidos.Location = new System.Drawing.Point(7, 415);
+            this.lb_impuestos_retenidos.Name = "lb_impuestos_retenidos";
+            this.lb_impuestos_retenidos.Size = new System.Drawing.Size(196, 22);
+            this.lb_impuestos_retenidos.TabIndex = 60;
+            this.lb_impuestos_retenidos.Text = "Impuestos retenidos:";
+            this.lb_impuestos_retenidos.Visible = false;
+            // 
+            // cOtrosImpuestos
+            // 
+            this.cOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cOtrosImpuestos.AutoSize = true;
+            this.cOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cOtrosImpuestos.Location = new System.Drawing.Point(225, 393);
+            this.cOtrosImpuestos.Name = "cOtrosImpuestos";
+            this.cOtrosImpuestos.Size = new System.Drawing.Size(48, 22);
+            this.cOtrosImpuestos.TabIndex = 59;
+            this.cOtrosImpuestos.Text = "0.00";
+            this.cOtrosImpuestos.Visible = false;
+            this.cOtrosImpuestos.Click += new System.EventHandler(this.cOtrosImpuestos_Click);
+            // 
+            // lbOtrosImpuestos
+            // 
+            this.lbOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbOtrosImpuestos.AutoSize = true;
+            this.lbOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOtrosImpuestos.Location = new System.Drawing.Point(7, 371);
+            this.lbOtrosImpuestos.Name = "lbOtrosImpuestos";
+            this.lbOtrosImpuestos.Size = new System.Drawing.Size(154, 44);
+            this.lbOtrosImpuestos.TabIndex = 58;
+            this.lbOtrosImpuestos.Text = "Otros impuestos\r\ntraslados:";
+            this.lbOtrosImpuestos.Visible = false;
+            // 
+            // cAnticipoUtilizado
+            // 
+            this.cAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cAnticipoUtilizado.AutoSize = true;
+            this.cAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cAnticipoUtilizado.Location = new System.Drawing.Point(225, 461);
+            this.cAnticipoUtilizado.Name = "cAnticipoUtilizado";
+            this.cAnticipoUtilizado.Size = new System.Drawing.Size(48, 22);
+            this.cAnticipoUtilizado.TabIndex = 56;
+            this.cAnticipoUtilizado.Text = "0.00";
+            this.cAnticipoUtilizado.Visible = false;
+            // 
+            // lbAnticipoUtilizado
+            // 
+            this.lbAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbAnticipoUtilizado.AutoSize = true;
+            this.lbAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAnticipoUtilizado.Location = new System.Drawing.Point(7, 461);
+            this.lbAnticipoUtilizado.Name = "lbAnticipoUtilizado";
+            this.lbAnticipoUtilizado.Size = new System.Drawing.Size(171, 22);
+            this.lbAnticipoUtilizado.TabIndex = 55;
+            this.lbAnticipoUtilizado.Text = "Anticipo utilizado:";
+            this.lbAnticipoUtilizado.Visible = false;
+            // 
+            // PBImagen
+            // 
+            this.PBImagen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PBImagen.Location = new System.Drawing.Point(57, 5);
+            this.PBImagen.Name = "PBImagen";
+            this.PBImagen.Size = new System.Drawing.Size(220, 220);
+            this.PBImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PBImagen.TabIndex = 42;
+            this.PBImagen.TabStop = false;
+            // 
             // btnTerminarVenta
             // 
-            this.btnTerminarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTerminarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTerminarVenta.BackColor = System.Drawing.Color.LimeGreen;
             this.btnTerminarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTerminarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminarVenta.Location = new System.Drawing.Point(820, 364);
+            this.btnTerminarVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTerminarVenta.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTerminarVenta.ForeColor = System.Drawing.Color.White;
+            this.btnTerminarVenta.Location = new System.Drawing.Point(14, 543);
             this.btnTerminarVenta.Name = "btnTerminarVenta";
-            this.btnTerminarVenta.Size = new System.Drawing.Size(105, 25);
+            this.btnTerminarVenta.Size = new System.Drawing.Size(285, 33);
             this.btnTerminarVenta.TabIndex = 37;
             this.btnTerminarVenta.Text = "Terminar \"Fin\"";
-            this.btnTerminarVenta.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnTerminarVenta.UseVisualStyleBackColor = true;
+            this.btnTerminarVenta.UseVisualStyleBackColor = false;
             this.btnTerminarVenta.Click += new System.EventHandler(this.btnTerminarVenta_Click);
-            // 
-            // txtDescuentoGeneral
-            // 
-            this.txtDescuentoGeneral.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescuentoGeneral.Location = new System.Drawing.Point(430, 322);
-            this.txtDescuentoGeneral.Multiline = true;
-            this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
-            this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 23);
-            this.txtDescuentoGeneral.TabIndex = 35;
-            this.txtDescuentoGeneral.Text = "% descuento";
-            this.txtDescuentoGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtDescuentoGeneral.Enter += new System.EventHandler(this.txtDescuentoGeneral_Enter);
-            this.txtDescuentoGeneral.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyUp);
             // 
             // timerBusqueda
             // 
@@ -903,7 +940,7 @@
             // 
             this.checkCancelar.AutoSize = true;
             this.checkCancelar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCancelar.Location = new System.Drawing.Point(1097, 47);
+            this.checkCancelar.Location = new System.Drawing.Point(589, 26);
             this.checkCancelar.Name = "checkCancelar";
             this.checkCancelar.Size = new System.Drawing.Size(123, 21);
             this.checkCancelar.TabIndex = 35;
@@ -917,7 +954,7 @@
             this.btnConsultar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConsultar.Image = global::PuntoDeVentaV2.Properties.Resources.search1;
             this.btnConsultar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConsultar.Location = new System.Drawing.Point(5, 47);
+            this.btnConsultar.Location = new System.Drawing.Point(12, 20);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(100, 40);
             this.btnConsultar.TabIndex = 43;
@@ -928,24 +965,27 @@
             // 
             // btnClientes
             // 
+            this.btnClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(111)))), ((int)(((byte)(30)))));
             this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClientes.ForeColor = System.Drawing.Color.White;
             this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.discount;
-            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClientes.Location = new System.Drawing.Point(111, 47);
+            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnClientes.Location = new System.Drawing.Point(206, 10);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(160, 40);
+            this.btnClientes.Size = new System.Drawing.Size(140, 75);
             this.btnClientes.TabIndex = 44;
-            this.btnClientes.Text = "Descuento cliente";
-            this.btnClientes.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.Text = "Descuento cliente\r\nCtrl + D";
+            this.btnClientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnClientes.UseVisualStyleBackColor = false;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label1.Location = new System.Drawing.Point(49, 68);
+            this.label1.Location = new System.Drawing.Point(56, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 45;
@@ -956,18 +996,19 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label2.Location = new System.Drawing.Point(177, 68);
+            this.label2.Location = new System.Drawing.Point(860, 556);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 46;
             this.label2.Text = "Ctrl + D";
+            this.label2.Visible = false;
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label3.Location = new System.Drawing.Point(945, 68);
+            this.label3.Location = new System.Drawing.Point(327, 41);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(28, 13);
             this.label3.TabIndex = 47;
@@ -978,40 +1019,43 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label4.Location = new System.Drawing.Point(576, 68);
+            this.label4.Location = new System.Drawing.Point(860, 576);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 48;
             this.label4.Text = "Ctrl + G";
+            this.label4.Visible = false;
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label5.Location = new System.Drawing.Point(330, 68);
+            this.label5.Location = new System.Drawing.Point(861, 540);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 13);
             this.label5.TabIndex = 49;
             this.label5.Text = "Ctrl + A";
+            this.label5.Visible = false;
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label6.Location = new System.Drawing.Point(455, 68);
+            this.label6.Location = new System.Drawing.Point(868, 519);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(19, 13);
             this.label6.TabIndex = 50;
             this.label6.Text = "F2";
+            this.label6.Visible = false;
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label7.Location = new System.Drawing.Point(758, 68);
+            this.label7.Location = new System.Drawing.Point(183, 41);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(43, 13);
             this.label7.TabIndex = 51;
@@ -1020,7 +1064,7 @@
             // 
             // lFolio
             // 
-            this.lFolio.Location = new System.Drawing.Point(1097, 67);
+            this.lFolio.Location = new System.Drawing.Point(589, 46);
             this.lFolio.Name = "lFolio";
             this.lFolio.Size = new System.Drawing.Size(123, 20);
             this.lFolio.TabIndex = 52;
@@ -1033,35 +1077,79 @@
             this.timer_img_producto.Interval = 7000;
             this.timer_img_producto.Tick += new System.EventHandler(this.timer_img_producto_Tick);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel2.Controls.Add(this.PBImagen);
+            this.panel2.Controls.Add(this.lb_cant_impuestos_retenidos);
+            this.panel2.Controls.Add(this.cOtrosImpuestos);
+            this.panel2.Controls.Add(this.lb_impuestos_retenidos);
+            this.panel2.Controls.Add(this.btnTerminarVenta);
+            this.panel2.Controls.Add(this.cAnticipoUtilizado);
+            this.panel2.Controls.Add(this.lbNumeroArticulos);
+            this.panel2.Controls.Add(this.lbAnticipoUtilizado);
+            this.panel2.Controls.Add(this.lbOtrosImpuestos);
+            this.panel2.Controls.Add(this.cNumeroArticulos);
+            this.panel2.Controls.Add(this.cTotal);
+            this.panel2.Controls.Add(this.lbTotal);
+            this.panel2.Controls.Add(this.lbIVA);
+            this.panel2.Controls.Add(this.lbSubtotal);
+            this.panel2.Controls.Add(this.cSubtotal);
+            this.panel2.Controls.Add(this.cIVA);
+            this.panel2.Controls.Add(this.lbIVA8);
+            this.panel2.Controls.Add(this.cIVA8);
+            this.panel2.Controls.Add(this.lbAnticipo);
+            this.panel2.Controls.Add(this.cAnticipo);
+            this.panel2.Controls.Add(this.cDescuento);
+            this.panel2.Controls.Add(this.lbDescuento);
+            this.panel2.Location = new System.Drawing.Point(908, 15);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(312, 585);
+            this.panel2.TabIndex = 62;
+            // 
+            // panel5
+            // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel5.Controls.Add(this.btnAbrirCaja);
+            this.panel5.Controls.Add(this.btnAnticipos);
+            this.panel5.Controls.Add(this.btnClientes);
+            this.panel5.Controls.Add(this.lFolio);
+            this.panel5.Controls.Add(this.btnGuardarVenta);
+            this.panel5.Controls.Add(this.btnUltimoTicket);
+            this.panel5.Controls.Add(this.checkCancelar);
+            this.panel5.Location = new System.Drawing.Point(77, 480);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(724, 95);
+            this.panel5.TabIndex = 63;
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1232, 596);
-            this.Controls.Add(this.lFolio);
-            this.Controls.Add(this.label7);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.ClientSize = new System.Drawing.Size(1232, 608);
+            this.Controls.Add(this.panel5);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnClientes);
             this.Controls.Add(this.btnConsultar);
-            this.Controls.Add(this.checkCancelar);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.btnCancelarVenta);
-            this.Controls.Add(this.btnGuardarVenta);
-            this.Controls.Add(this.btnAnticipos);
-            this.Controls.Add(this.btnAbrirCaja);
             this.Controls.Add(this.btnVentasGuardadas);
-            this.Controls.Add(this.btnUltimoTicket);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(1027, 597);
             this.Name = "Ventas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "NUEVA VENTA";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Ventas_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ventas_FormClosed);
             this.Load += new System.EventHandler(this.Ventas_Load);
@@ -1071,8 +1159,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidadPS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1160,5 +1255,9 @@
         private System.Windows.Forms.Timer timer_img_producto;
         private System.Windows.Forms.Label lb_impuestos_retenidos;
         private System.Windows.Forms.Label lb_cant_impuestos_retenidos;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel5;
     }
 }

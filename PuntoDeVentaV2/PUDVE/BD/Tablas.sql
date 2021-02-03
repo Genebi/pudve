@@ -506,7 +506,7 @@ CREATE TABLE IF NOT EXISTS DetallesFacturacionProductos (
     Tipo TEXT,
     Impuesto TEXT,
     TipoFactor TEXT,
-    TasaCuota DECIMAL (16, 2) DEFAULT (0),
+    TasaCuota TEXT,
     Definir DECIMAL (16, 2) DEFAULT (0),
     Importe DECIMAL (16, 2) DEFAULT (0),
     IDProducto INTEGER,
