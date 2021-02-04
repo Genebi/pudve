@@ -79,6 +79,17 @@ namespace PuntoDeVentaV2
             DataSet datos = paginar.cargar();
             DataTable dtDatos = datos.Tables[0];
 
+
+            if (status == 1)
+            {
+                DGVClientes.Columns["Eliminar"].HeaderText = "Deshabilitar";
+            }
+            else
+            {
+                DGVClientes.Columns["Eliminar"].HeaderText = "Habilitar";
+            }
+
+
             foreach (DataRow fila in dtDatos.Rows)
             {
                 int rowId = DGVClientes.Rows.Add();
@@ -108,8 +119,15 @@ namespace PuntoDeVentaV2
                 row.Cells["Fecha"].Value = Convert.ToDateTime(fila["FechaOperacion"]).ToString("yyyy-MM-dd HH:mm:ss");
                 //var idClientesPorID = row.Cells["ID"].Value = fila["ID"];
 
+                string nombreIcono = "remove.png";
+
+                if (status == 2)
+                {
+                    nombreIcono = "check.png";
+                }
+
                 Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
-                Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
+                Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\" + nombreIcono);
 
                 row.Cells["Editar"].Value = editar;
                 row.Cells["Eliminar"].Value = eliminar;
@@ -179,11 +197,22 @@ namespace PuntoDeVentaV2
                 //Eliminar cliente
                 if (e.ColumnIndex == 8)
                 {
-                    var respuesta = MessageBox.Show("¿Estás seguro de deshabilitar este cliente?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    int status = 2;
+
+                    string textoStatus = "deshabilitar";
+
+                    if (cbStatus.SelectedIndex + 1 == 2)
+                    {
+                        status = 1;
+
+                        textoStatus = "habilitar";
+                    }
+
+                    var respuesta = MessageBox.Show($"¿Estás seguro de {textoStatus} este cliente?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (respuesta == DialogResult.Yes)
                     {
-                        string[] datos = new string[] { idCliente.ToString(), FormPrincipal.userID.ToString() };
+                        string[] datos = new string[] { idCliente.ToString(), FormPrincipal.userID.ToString(), status.ToString() };
 
                         int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 2));
 
