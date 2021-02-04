@@ -127,6 +127,7 @@
             this.txtNombreServidor.Size = new System.Drawing.Size(190, 23);
             this.txtNombreServidor.TabIndex = 104;
             this.txtNombreServidor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtNombreServidor.Visible = false;
             // 
             // btnGuardarServidor
             // 
@@ -145,6 +146,7 @@
             this.btnGuardarServidor.TabIndex = 105;
             this.btnGuardarServidor.Text = "Guardar";
             this.btnGuardarServidor.UseVisualStyleBackColor = false;
+            this.btnGuardarServidor.Visible = false;
             this.btnGuardarServidor.Click += new System.EventHandler(this.btnGuardarServidor_Click);
             this.btnGuardarServidor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnGuardarServidor_KeyDown);
             // 
@@ -158,6 +160,7 @@
             this.lbNombreServidor.Size = new System.Drawing.Size(158, 17);
             this.lbNombreServidor.TabIndex = 103;
             this.lbNombreServidor.Text = "Computadora Servidor";
+            this.lbNombreServidor.Visible = false;
             // 
             // btnGuardarRevision
             // 
@@ -176,6 +179,7 @@
             this.btnGuardarRevision.TabIndex = 108;
             this.btnGuardarRevision.Text = "Guardar";
             this.btnGuardarRevision.UseVisualStyleBackColor = false;
+            this.btnGuardarRevision.Visible = false;
             this.btnGuardarRevision.Click += new System.EventHandler(this.btnGuardarRevision_Click);
             this.btnGuardarRevision.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnGuardarRevision_KeyDown);
             // 
@@ -188,6 +192,7 @@
             this.txtNumeroRevision.Size = new System.Drawing.Size(190, 23);
             this.txtNumeroRevision.TabIndex = 107;
             this.txtNumeroRevision.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtNumeroRevision.Visible = false;
             // 
             // lbNumeroRevision
             // 
@@ -199,6 +204,7 @@
             this.lbNumeroRevision.Size = new System.Drawing.Size(181, 17);
             this.lbNumeroRevision.TabIndex = 106;
             this.lbNumeroRevision.Text = "Número revisión inventario";
+            this.lbNumeroRevision.Visible = false;
             // 
             // checkCBVenta
             // 
@@ -439,13 +445,13 @@
             this.groupBox1.Controls.Add(this.cbCorreoStockProducto);
             this.groupBox1.Controls.Add(this.cbCorreoStockMinimo);
             this.groupBox1.Controls.Add(this.cbCorreoVenderProducto);
-            this.groupBox1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(37, 181);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(510, 239);
             this.groupBox1.TabIndex = 128;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Envio de Corre:";
+            this.groupBox1.Text = "Envio de Correo:";
             // 
             // cbCorreoCorteCaja
             // 
