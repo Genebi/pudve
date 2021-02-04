@@ -4687,7 +4687,7 @@ namespace PuntoDeVentaV2
             DGVProductos.Columns["Column11"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column12"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column13"].Visible = mostrarColumnas;
-            DGVProductos.Columns["Ajustar"].Visible = mostrarColumnas;
+            DGVProductos.Columns["Ajustar"].Visible = false;
 
 
             // Pixel en blanco para poner en las columnas que no va a mostrar un icono
