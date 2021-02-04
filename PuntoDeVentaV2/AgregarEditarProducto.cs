@@ -1333,13 +1333,13 @@ namespace PuntoDeVentaV2
 
                     if ((minimo.Equals(0)) && (maximo.Equals(0)))
                     {
-                        MessageBox.Show("El stock máximo y mínimo no puede ser cero", "Mensaje del Sistema Stock Cero", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show("El stock máximo y mínimo no puede ser cero", "Mensaje del Sistema Stock Cero", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        var numero = Convert.ToInt32(minimo);
-                        var agregar = numero + 1;
-                        txtStockMaximo.Text = agregar.ToString();
-                        txtStockMaximo.Focus();
-                        return;
+                        //var numero = Convert.ToInt32(minimo);
+                        //var agregar = numero + 1;
+                        //txtStockMaximo.Text = agregar.ToString();
+                        //txtStockMaximo.Focus();
+                        //return;
                     }
                     else if (maximo <= minimo)
                     {
