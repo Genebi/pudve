@@ -40,26 +40,27 @@ namespace PuntoDeVentaV2
 
         private void btnHistorialVentas_Click(object sender, EventArgs e)
         {
-            using (var fechas = new FechasReportes())
-            {
-                var respuesta = fechas.ShowDialog();
+            MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //using (var fechas = new FechasReportes())
+            //{
+            //    var respuesta = fechas.ShowDialog();
 
-                if (respuesta == DialogResult.OK)
-                {
-                    tipoRespuesta = 2;
-                    fechaInicial = fechas.fechaInicial;
-                    fechaFinal = fechas.fechaFinal;
+            //    if (respuesta == DialogResult.OK)
+            //    {
+            //        tipoRespuesta = 2;
+            //        fechaInicial = fechas.fechaInicial;
+            //        fechaFinal = fechas.fechaFinal;
 
-                    if (Utilidades.AdobeReaderInstalado())
-                    {
-                        GenerarReporte();
-                    }
-                    else
-                    {
-                        Utilidades.MensajeAdobeReader();
-                    }
-                }
-            }
+            //        if (Utilidades.AdobeReaderInstalado())
+            //        {
+            //            GenerarReporte();
+            //        }
+            //        else
+            //        {
+            //            Utilidades.MensajeAdobeReader();
+            //        }
+            //    }
+            //}
         }
 
 

@@ -52,11 +52,11 @@
             // 
             // btnHistorialVentas
             // 
-            this.btnHistorialVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnHistorialVentas.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnHistorialVentas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnHistorialVentas.FlatAppearance.BorderSize = 0;
-            this.btnHistorialVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnHistorialVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnHistorialVentas.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnHistorialVentas.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.HotTrack;
             this.btnHistorialVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHistorialVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHistorialVentas.ForeColor = System.Drawing.Color.White;
@@ -66,7 +66,6 @@
             this.btnHistorialVentas.TabIndex = 104;
             this.btnHistorialVentas.Text = "Historial de Ventas";
             this.btnHistorialVentas.UseVisualStyleBackColor = false;
-            this.btnHistorialVentas.Visible = false;
             this.btnHistorialVentas.Click += new System.EventHandler(this.btnHistorialVentas_Click);
             // 
             // TipoHistorial
