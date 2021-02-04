@@ -34,7 +34,10 @@ namespace PuntoDeVentaV2
 
         private void Proveedores_Load(object sender, EventArgs e)
         {
+            cbStatus.SelectedIndex = 0;
+
             CargarDatos();
+
             ActualizarPaginador();
 
             if (FormPrincipal.id_empleado > 0)
@@ -46,20 +49,19 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void CargarDatos(string busqueda = "")
+        private void CargarDatos(string busqueda = "", int status = 1)
         {
-            this.Focus();
             var consulta = string.Empty;
 
             if (string.IsNullOrWhiteSpace(busqueda))
             {
-                consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+                consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = {status}";
             }
             else
             {
                 var extra = $"AND (Nombre LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR Email LIKE '%{busqueda}%' OR Telefono LIKE '%{busqueda}%')";
 
-                consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 {extra}";
+                consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = {status} {extra}";
             }
 
             if (DGVProveedores.Rows.Count.Equals(0) || clickBoton.Equals(0))
@@ -72,8 +74,23 @@ namespace PuntoDeVentaV2
             DataSet datos = p.cargar();
             DataTable dtDatos = datos.Tables[0];
 
+
+
+            string nombreIcono = "remove.png";
+
+            if (status == 1)
+            {
+                DGVProveedores.Columns["Eliminar"].HeaderText = "Deshabilitar";
+            }
+
+            if (status == 2)
+            {
+                DGVProveedores.Columns["Eliminar"].HeaderText = "Habilitar";
+                nombreIcono = "check.png";
+            }
+
             Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
-            Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
+            Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\" + nombreIcono);
 
             foreach (DataRow fila in dtDatos.Rows)
             {
@@ -96,6 +113,7 @@ namespace PuntoDeVentaV2
             DGVProveedores.ClearSelection();
 
             ActualizarPaginador();
+
             if (dtDatos.Rows.Count > 0)
             {
                 datoEncontrado = 1;
@@ -205,11 +223,29 @@ namespace PuntoDeVentaV2
                 //Eliminar
                 if (e.ColumnIndex == 7)
                 {
-                    var respuesta = MessageBox.Show("¿Estás seguro de deshabilitar este proveedor?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    int status = 0;
+
+                    string textoStatus = string.Empty;
+                    
+                    if (cbStatus.SelectedIndex + 1 == 1)
+                    {
+                        textoStatus = "deshabilitar";
+
+                        status = 2;
+                    }
+                    else
+                    {
+                        textoStatus = "habilitar";
+
+                        status = 1;
+                    }
+
+                    var respuesta = MessageBox.Show($"¿Estás seguro de {textoStatus} este proveedor?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (respuesta == DialogResult.Yes)
                     {
-                        string[] datos = new string[] { idProveedor.ToString(), FormPrincipal.userID.ToString() };
+
+                        string[] datos = new string[] { idProveedor.ToString(), FormPrincipal.userID.ToString(), status.ToString() };
 
                         int resultado = cn.EjecutarConsulta(cs.GuardarProveedor(datos, 2));
 
@@ -373,6 +409,13 @@ namespace PuntoDeVentaV2
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
             }
+        }
+
+        private void cbStatus_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            int status = cbStatus.SelectedIndex + 1;
+
+            CargarDatos(status: status);
         }
     }
 }

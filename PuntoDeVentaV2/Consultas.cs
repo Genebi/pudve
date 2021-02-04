@@ -274,7 +274,7 @@ namespace PuntoDeVentaV2
             //Deshabilitar
             if (tipo == 2)
             {
-                consulta = $"UPDATE Proveedores SET Status = 2 WHERE ID = {datos[0]} AND IDUsuario = {datos[1]}";
+                consulta = $"UPDATE Proveedores SET Status = {datos[2]} WHERE ID = {datos[0]} AND IDUsuario = {datos[1]}";
             }
 
             return consulta;
