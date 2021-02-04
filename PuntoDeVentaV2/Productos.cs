@@ -73,6 +73,9 @@ namespace PuntoDeVentaV2
         public static Dictionary<int, string> productosSeleccionados;
         // Lista que guarda los ID de los productos para cuando se marca el checkbox seleccionar todos
         public static Dictionary<int, string> checkboxMarcados;
+        // Lista para que guarde los ID de todos los productos seleccionados por pagina
+        public static Dictionary<int, string> checkPaginasCompletas = new Dictionary<int, string>();
+
         // Variables para saber si uso el boton de cambiar tipo
         public int idProductoCambio { get; set; }
         public bool cambioProducto { get; set; }
@@ -212,6 +215,8 @@ namespace PuntoDeVentaV2
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
                 }
             }
+
+            updateCheckBoxes();
         }
         
         private void TTipButtonText_Draw(object sender, DrawToolTipEventArgs e)
@@ -268,6 +273,8 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+
+            updateCheckBoxes();
         }
 
         private void searchPhotoProdActivo()
@@ -876,14 +883,12 @@ namespace PuntoDeVentaV2
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
-                var cantidadProductosSeleccionados = 0;
+                //var cantidadProductosSeleccionados = 0;
 
                 // CheckBox del producto
                 if (e.ColumnIndex == 0)
                 {
                     numerofila = e.RowIndex;
-
-                    
                 }
                 else if (e.ColumnIndex == 7)
                 {
@@ -1936,6 +1941,8 @@ namespace PuntoDeVentaV2
         private void linkLblPaginaActual_Click_1(object sender, EventArgs e)
         {
             actualizar();
+
+            updateCheckBoxes();
         }
 
         public void FiltroDinamicoLoad()
@@ -2179,6 +2186,8 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+
+            updateCheckBoxes();
         }
 
         private void Productos_Shown(object sender, EventArgs e)
@@ -2494,8 +2503,8 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    //lbCantidadSeleccionada.Text = string.Empty;
-                    lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
+                    lbCantidadSeleccionada.Text = string.Empty;
+                    //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
                 }
             }
         }
@@ -2553,6 +2562,11 @@ namespace PuntoDeVentaV2
                 }
             }
             crearEtiquetaSetUpVariable();
+        }
+
+        private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
         }
 
         private void crearEtiquetaSetUpVariable()
@@ -3759,6 +3773,52 @@ namespace PuntoDeVentaV2
             {
                 DGVProductos.Rows[i].Cells[0].Value = headerBox.Checked;
             }
+
+            int id = 0;
+            string name = string.Empty;
+
+            if (headerBox.Checked)
+            {
+                foreach (DataGridViewRow dato in DGVProductos.Rows)
+                {
+                    id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
+                    name = dato.Cells["Column1"].Value.ToString();
+
+                    checkPaginasCompletas.Add(id, name);
+                }
+            }
+            else
+            {
+                checkPaginasCompletas.Clear();
+            }
+        }
+
+        private void updateCheckBoxes()
+        {
+            //if (checkPaginasCompletas.Count > 0)
+            //{
+            //    for (int x = 0; x < checkPaginasCompletas.Count; x++)
+            //    {
+            //        DGVProductos.Rows[x].Cells[0].Value = true;
+            //    }
+            //}
+
+            int id = 0;
+            string name = string.Empty;
+            foreach (DataGridViewRow dato in DGVProductos.Rows)
+            {
+                id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
+                name = dato.Cells["Column1"].Value.ToString();
+
+                if (checkPaginasCompletas.ContainsKey(id))
+                {
+                    for (int x = 0; x < checkPaginasCompletas.Count; x++)
+                    {
+                        DGVProductos.Rows[x].Cells[0].Value = true;
+                    }
+                }
+            }
+
         }
 
         /// <summary>
@@ -4989,6 +5049,8 @@ namespace PuntoDeVentaV2
             CargarDatos();
             //actualizarDatosDespuesDeAgregarProducto();
             actualizar();
+
+            updateCheckBoxes();
         }
 
         private void btnAnterior_Click(object sender, EventArgs e)
@@ -4998,6 +5060,8 @@ namespace PuntoDeVentaV2
             CargarDatos();
             //actualizarDatosDespuesDeAgregarProducto();
             actualizar();
+
+            updateCheckBoxes();
         }
 
         private void btnSiguiente_Click(object sender, EventArgs e)
@@ -5006,6 +5070,8 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+
+            updateCheckBoxes();
         }
 
         private void btnUltimaPagina_Click(object sender, EventArgs e)
@@ -5014,6 +5080,8 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+
+            updateCheckBoxes();
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
