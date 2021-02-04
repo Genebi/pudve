@@ -4218,11 +4218,11 @@ namespace PuntoDeVentaV2
                                 else if (palabras[0].Equals("0"))
                                 {
                                     //nuevosCodigos += palabras[1].ToString() + " ";
-                                    if ((palabras[1].Length >= 5) && (!txtBusquedaString.Equals("")))
+                                    if ((palabras[1].Length >= 4) && (!txtBusquedaString.Equals("")))
                                     {
                                         nuevosCodigos += palabras[1].ToString() + " ";
                                     }
-                                    else if ((palabras[1].Length >= 5) && (txtBusquedaString.Equals("")))
+                                    else if ((palabras[1].Length >= 4) && (txtBusquedaString.Equals("")))
                                     {
                                         nuevosCodigos += palabras[1].ToString() + " ";
                                     }
@@ -4265,11 +4265,11 @@ namespace PuntoDeVentaV2
                                 else if (palabras[0].Equals("0"))
                                 {
                                     //nuevosCodigos += palabras[1].ToString() + " ";
-                                    if ((palabras[1].Length >= 5) && (!txtBusquedaString.Equals("")))
+                                    if ((palabras[1].Length >= 4) && (!txtBusquedaString.Equals("")))
                                     {
                                         nuevosCodigos += palabras[1].ToString() + " ";
                                     }
-                                    else if ((palabras[1].Length >= 5) && (txtBusquedaString.Equals("")))
+                                    else if ((palabras[1].Length >= 4) && (txtBusquedaString.Equals("")))
                                     {
                                         nuevosCodigos += palabras[1].ToString() + " ";
                                     }
