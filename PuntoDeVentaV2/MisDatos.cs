@@ -136,6 +136,9 @@ namespace PuntoDeVentaV2
             // si el campo de la base de datos es difrente a null
             if (logoTipo != "")
             {
+                btnSubirArchivo.Visible = false;
+                btnBorrarImg.Visible = true;
+
                 if (System.IO.File.Exists(saveDirectoryImg + logoTipo))
                 {
                     // usamos temporalmente el objeto File
@@ -151,6 +154,11 @@ namespace PuntoDeVentaV2
                 {
                     pictureBox1.Image = null;
                 }
+            
+            } else
+            {
+                btnSubirArchivo.Visible = true;
+                btnBorrarImg.Visible = false;
             }
 
             /********************************
@@ -898,6 +906,9 @@ namespace PuntoDeVentaV2
                         oldDirectory = info.DirectoryName;				// obtenemos el directorio origen de la imagen
                         File.Dispose();									// liberamos el objeto File
                     }
+
+                    btnSubirArchivo.Visible = false;
+                    btnBorrarImg.Visible = true;
                 }
             }
             if (!Directory.Exists(saveDirectoryImg))	// verificamos que si no existe el directorio
@@ -1014,6 +1025,9 @@ namespace PuntoDeVentaV2
                 pictureBox1.Image = null;
                 // Llamamos a la Funcion consulta
                 //consulta();
+
+                btnSubirArchivo.Visible = true;
+                btnBorrarImg.Visible = false;
             }
         }
 
