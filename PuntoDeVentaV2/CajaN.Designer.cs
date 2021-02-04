@@ -177,6 +177,7 @@
             this.btnReporteRetirar.TabIndex = 107;
             this.btnReporteRetirar.Text = "Reporte";
             this.btnReporteRetirar.UseVisualStyleBackColor = false;
+            this.btnReporteRetirar.Visible = false;
             this.btnReporteRetirar.Click += new System.EventHandler(this.btnReporteRetirar_Click);
             this.btnReporteRetirar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnReporteRetirar_KeyDown);
             // 
@@ -196,6 +197,7 @@
             this.btnReporteAgregar.TabIndex = 106;
             this.btnReporteAgregar.Text = "Reporte";
             this.btnReporteAgregar.UseVisualStyleBackColor = false;
+            this.btnReporteAgregar.Visible = false;
             this.btnReporteAgregar.Click += new System.EventHandler(this.btnReporteAgregar_Click);
             this.btnReporteAgregar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnReporteAgregar_KeyDown);
             // 

@@ -829,6 +829,7 @@
             this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.TTipButtonText.SetToolTip(this.btnAgregarXML, "Ctrl + X");
             this.btnAgregarXML.UseVisualStyleBackColor = false;
+            this.btnAgregarXML.Visible = false;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
             // TTipButtonText

@@ -39,6 +39,8 @@ namespace PuntoDeVentaV2
 
         private void Clientes_Load(object sender, EventArgs e)
         {
+            cbStatus.SelectedIndex = 0;
+
             CargarDatos();
 
             if (FormPrincipal.id_empleado > 0)
@@ -52,20 +54,19 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void CargarDatos(string busqueda = "")
+        private void CargarDatos(string busqueda = "", int status = 1)
         {
-            this.Focus();
-            var consulta = string.Empty;
+            string consulta = string.Empty;
 
             if (string.IsNullOrWhiteSpace(busqueda))
             {
-                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = {status}";
             }
             else
             {
-                var extra = $"AND (RazonSocial LIKE '%{busqueda}%' OR NombreComercial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%')";
+                string extra = $"AND (RazonSocial LIKE '%{busqueda}%' OR NombreComercial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%')";
 
-                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 {extra}";
+                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = {status} {extra}";
             }
 
             if (DGVClientes.Rows.Count.Equals(0) || clickBoton.Equals(0))
@@ -84,10 +85,11 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVClientes.Rows[rowId];
 
-                var tipoClienteAux = Convert.ToInt16(fila["TipoCliente"]);
-                var tipoCliente = string.Empty;
+                int tipoClienteAux = Convert.ToInt16(fila["TipoCliente"]);
+                string tipoCliente = string.Empty;
 
                 var datosTipoCliente = mb.ObtenerTipoCliente(tipoClienteAux);
+
                 if (datosTipoCliente.Length > 0)
                 {
                     tipoCliente = datosTipoCliente[0];
@@ -104,7 +106,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Tipo"].Value = tipoCliente;
                 row.Cells["NoCliente"].Value = fila["NumeroCliente"];
                 row.Cells["Fecha"].Value = Convert.ToDateTime(fila["FechaOperacion"]).ToString("yyyy-MM-dd HH:mm:ss");
-                var idClientesPorID = row.Cells["ID"].Value = fila["ID"];/////////////////////////////////////////////////////////////////
+                //var idClientesPorID = row.Cells["ID"].Value = fila["ID"];
 
                 Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
                 Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
@@ -457,6 +459,15 @@ namespace PuntoDeVentaV2
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
             }
+        }
+
+        private void cbStatus_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            // Se le suma 1 para que coincida con los valores guardados en la base de datos
+            // 1 o 2, ya que se obtiene el index del combobox como 0 para habilitados y 1 para deshabilitados
+            int status = cbStatus.SelectedIndex + 1;
+
+            CargarDatos(status: status);
         }
     }
 }
