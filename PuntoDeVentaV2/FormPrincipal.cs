@@ -28,7 +28,7 @@ namespace PuntoDeVentaV2
         MetodosGenerales mg = new MetodosGenerales();
         MetodosBusquedas mb = new MetodosBusquedas();
         Consultas cs = new Consultas();
-        checarVersion vs = new checarVersion();
+        //checarVersion vs = new checarVersion();
 
         public static string[] datosUsuario = new string[] { };
         private bool cerrarAplicacion = false;
@@ -401,21 +401,21 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            if (ApplicationDeployment.IsNetworkDeployed)
-            {
-                try
-                {
-                    ApplicationDeployment ad = ApplicationDeployment.CurrentDeployment;
+            //if (ApplicationDeployment.IsNetworkDeployed)
+            //{
+            //    try
+            //    {
+            //        ApplicationDeployment ad = ApplicationDeployment.CurrentDeployment;
 
-                    this.Text += "Versión: " + ad.CurrentVersion.ToString(); 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Aviso de la operacion\nde optención de la versión del sistema\n\nReferencia: " + ex.Message.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
+            //        this.Text += "Versión: " + ad.CurrentVersion.ToString(); 
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Aviso de la operacion\nde optención de la versión del sistema\n\nReferencia: " + ex.Message.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
 
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             // CargarSaldoInicial();
             //Envio de datos de Caja con el Timer
@@ -589,7 +589,7 @@ namespace PuntoDeVentaV2
 
         private void btnProductos_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (productos == 1)
             {
@@ -617,7 +617,7 @@ namespace PuntoDeVentaV2
         {
             //Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "ListadoVentas").SingleOrDefault<Form>();
 
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (veces == 1)
             {
@@ -654,7 +654,7 @@ namespace PuntoDeVentaV2
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (clientes == 1)
             {
@@ -669,7 +669,7 @@ namespace PuntoDeVentaV2
 
         private void btnProveedores_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (proveedores == 1)
             {
@@ -710,7 +710,7 @@ namespace PuntoDeVentaV2
 
         private void btnMisDatos_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (misdatos == 1)
             {
@@ -725,7 +725,7 @@ namespace PuntoDeVentaV2
 
         private void btnEmpresas_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (empresas == 1)
             {
@@ -740,7 +740,7 @@ namespace PuntoDeVentaV2
 
         private void btnAnticipos_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (anticipos == 1)
             {
@@ -757,7 +757,7 @@ namespace PuntoDeVentaV2
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (config == 1)
             {
@@ -774,7 +774,7 @@ namespace PuntoDeVentaV2
 
         private void btnCaja_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (caja == 1)
             {
@@ -791,7 +791,7 @@ namespace PuntoDeVentaV2
 
         private void btnInventario_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (inventarios == 1)
             {
@@ -806,7 +806,7 @@ namespace PuntoDeVentaV2
 
         private void btnEmpleados_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (empleados == 1)
             {
@@ -821,7 +821,7 @@ namespace PuntoDeVentaV2
 
         private void btnReportes_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (reportes == 1)
             {
@@ -832,7 +832,7 @@ namespace PuntoDeVentaV2
 
         private void btnFacturas_Click(object sender, EventArgs e)
         {
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (facturas == 1)
             {
