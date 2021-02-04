@@ -823,11 +823,14 @@ namespace PuntoDeVentaV2
         {
             //vs.printProductVersion();
 
-            if (reportes == 1)
-            {
-                AbrirFormulario<Reportes>();
-            }
-            validarVentasVentanas(); ;
+            //==================================================
+            // Solo descomentar lo de abajo cuando sea necesario
+            //if (reportes == 1)
+            //{
+            //    AbrirFormulario<Reportes>();
+            //}
+
+            //validarVentasVentanas();
         }
 
         private void btnFacturas_Click(object sender, EventArgs e)
