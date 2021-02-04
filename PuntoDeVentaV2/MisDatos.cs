@@ -365,19 +365,63 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarDatos_Click(object sender, EventArgs e)
         {
-            if (opcion1 == 0)
+            if (opcion1 == 0 || opcion4 == 0)
             {
                 Utilidades.MensajePermiso();
                 return;
             }
 
             bool result = ActualizarDatos();
+            bool respuesta = ActualizarPassword();
 
-            if(result == true)
+            if (result == true && respuesta == true)
             {
                 FormPrincipal.datosUsuario = cn.DatosUsuario(IDUsuario: FormPrincipal.userID, tipo: 0);
                 MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private bool ActualizarPassword()
+        {
+            var datos = cn.DatosUsuario(IDUsuario: FormPrincipal.userID);
+            var passwordActual = datos[14];
+            var password = txtPassword.Text.Trim();
+            var passwordNuevo = txtPasswordNuevo.Text.Trim();
+
+            bool resultado = true;
+
+            if (!string.IsNullOrWhiteSpace(password) && !string.IsNullOrWhiteSpace(passwordNuevo))
+            {
+                if (passwordActual.Equals(password))
+                {
+                    // Actualizar password en SQLite y MySQL
+                    var respuesta = cn.EjecutarConsulta($"UPDATE Usuarios SET Password = '{passwordNuevo}' WHERE ID = {FormPrincipal.userID}");
+
+                    if (respuesta > 0)
+                    {
+                        Thread hilo = new Thread(
+                            () => ActualizarPasswordMySQL(passwordNuevo)
+                        );
+
+                        hilo.Start();
+
+                        txtPassword.Text = string.Empty;
+                        txtPasswordNuevo.Text = string.Empty;
+                        //MessageBox.Show("La contraseña ha sido actualizada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        resultado = true;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("La contraseña actual es incorrecta", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPassword.Focus();
+
+                    resultado = false;
+                }
+            }
+
+            return resultado;
         }
 
         private bool ActualizarDatos(int tipo = 0)
@@ -622,47 +666,6 @@ namespace PuntoDeVentaV2
             cargarComboBox();
         }
 
-        private void btnActualizarPassword_Click(object sender, EventArgs e)
-        {
-            if (opcion4 == 0)
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
-
-            var datos = cn.DatosUsuario(IDUsuario: FormPrincipal.userID);
-            var passwordActual = datos[14];
-            var password = txtPassword.Text.Trim();
-            var passwordNuevo = txtPasswordNuevo.Text.Trim();
-
-            if (!string.IsNullOrWhiteSpace(password) && !string.IsNullOrWhiteSpace(passwordNuevo))
-            {
-                if (passwordActual.Equals(password))
-                {
-                    // Actualizar password en SQLite y MySQL
-                    var respuesta = cn.EjecutarConsulta($"UPDATE Usuarios SET Password = '{passwordNuevo}' WHERE ID = {FormPrincipal.userID}");
-
-                    if (respuesta > 0)
-                    {
-                        Thread hilo = new Thread(
-                            () => ActualizarPasswordMySQL(passwordNuevo)
-                        );
-
-                        hilo.Start();
-
-                        txtPassword.Text = string.Empty;
-                        txtPasswordNuevo.Text = string.Empty;
-                        MessageBox.Show("La contraseña ha sido actualizada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("La contraseña actual es incorrecta", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtPassword.Focus();
-                }
-            }
-        }
-
         private void ActualizarPasswordMySQL(string password)
         {
             using (var conexion = new MySqlConnection())
@@ -841,22 +844,12 @@ namespace PuntoDeVentaV2
 
         private void txtPassword_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.End)
-            {
-                btnActualizarPassword.PerformClick();
-            }
+
         }
 
         private void txtPasswordNuevo_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.End)
-            {
-                btnActualizarPassword.PerformClick();
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                btnActualizarPassword.PerformClick();
-            }
+
         }
 
         private void txt_certificado_KeyDown(object sender, KeyEventArgs e)
@@ -869,14 +862,7 @@ namespace PuntoDeVentaV2
 
         private void txt_llave_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.End)
-            {
-                btnActualizarPassword.PerformClick();
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                btnActualizarPassword.PerformClick();
-            }
+            
         }
 
         private void btnSubirArchivo_Click(object sender, EventArgs e)

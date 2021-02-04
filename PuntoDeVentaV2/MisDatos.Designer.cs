@@ -75,7 +75,6 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnActualizarPassword = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.txtPasswordNuevo = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
@@ -598,7 +597,7 @@
             this.btnActualizarDatos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarDatos.ForeColor = System.Drawing.Color.SeaShell;
             this.btnActualizarDatos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnActualizarDatos.Location = new System.Drawing.Point(226, 467);
+            this.btnActualizarDatos.Location = new System.Drawing.Point(399, 468);
             this.btnActualizarDatos.Margin = new System.Windows.Forms.Padding(2);
             this.btnActualizarDatos.Name = "btnActualizarDatos";
             this.btnActualizarDatos.Size = new System.Drawing.Size(165, 36);
@@ -698,7 +697,6 @@
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Controls.Add(this.btnActualizarPassword);
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.label14);
             this.panel3.Controls.Add(this.panel1);
@@ -708,23 +706,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(974, 517);
             this.panel3.TabIndex = 4;
-            // 
-            // btnActualizarPassword
-            // 
-            this.btnActualizarPassword.BackColor = System.Drawing.Color.Green;
-            this.btnActualizarPassword.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnActualizarPassword.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnActualizarPassword.ForeColor = System.Drawing.Color.SeaShell;
-            this.btnActualizarPassword.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnActualizarPassword.Location = new System.Drawing.Point(725, 467);
-            this.btnActualizarPassword.Margin = new System.Windows.Forms.Padding(2);
-            this.btnActualizarPassword.Name = "btnActualizarPassword";
-            this.btnActualizarPassword.Size = new System.Drawing.Size(165, 36);
-            this.btnActualizarPassword.TabIndex = 23;
-            this.btnActualizarPassword.Text = "Actualizar";
-            this.btnActualizarPassword.UseVisualStyleBackColor = false;
-            this.btnActualizarPassword.Click += new System.EventHandler(this.btnActualizarPassword_Click);
-            this.btnActualizarPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnActualizarPassword_KeyDown);
             // 
             // panel5
             // 
@@ -1014,7 +995,6 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Button btnActualizarPassword;
         public System.Windows.Forms.TextBox txt_certificado;
     }
 }
