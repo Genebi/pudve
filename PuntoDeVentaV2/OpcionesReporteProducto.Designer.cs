@@ -124,6 +124,7 @@
             this.cbSeleccionados.TabIndex = 24;
             this.cbSeleccionados.Text = "Aplicar solo a los seleccionados";
             this.cbSeleccionados.UseVisualStyleBackColor = true;
+            this.cbSeleccionados.Visible = false;
             // 
             // label1
             // 
