@@ -4670,6 +4670,26 @@ namespace PuntoDeVentaV2
                 }
             }
 
+
+
+            bool mostrarColumnas = true;
+
+            // Se cambia el valor a false para ocultar las columnas de los productos deshabilitados
+            if (status == 0)
+            {
+                mostrarColumnas = false;
+            }
+
+            DGVProductos.Columns["Column7"].Visible = mostrarColumnas;
+            DGVProductos.Columns["Column8"].Visible = mostrarColumnas;
+            DGVProductos.Columns["Column9"].Visible = mostrarColumnas;
+            DGVProductos.Columns["Column10"].Visible = mostrarColumnas;
+            DGVProductos.Columns["Column11"].Visible = mostrarColumnas;
+            DGVProductos.Columns["Column12"].Visible = mostrarColumnas;
+            DGVProductos.Columns["Column13"].Visible = mostrarColumnas;
+            DGVProductos.Columns["Ajustar"].Visible = mostrarColumnas;
+
+
             // Pixel en blanco para poner en las columnas que no va a mostrar un icono
             Bitmap sinImagen = new Bitmap(1, 1);
             sinImagen.SetPixel(0, 0, Color.White);
@@ -4779,9 +4799,11 @@ namespace PuntoDeVentaV2
                 System.Drawing.Image servicio = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio01.png");
                 System.Drawing.Image ajustar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\cog.png");
 
+
                 row.Cells["Column7"].Value = editar;
 
                 string estado = filaDatos["Status"].ToString();
+
                 if (estado == "1")
                 {
                     row.Cells["Column8"].Value = estado1;
@@ -4796,6 +4818,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Column10"].Value = generar;
 
                 string ImgPath = filaDatos["ProdImage"].ToString();
+
                 if (ImgPath == "" || ImgPath == null)
                 {
                     row.Cells["Column11"].Value = imagen1;
@@ -4808,6 +4831,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Column12"].Value = etiqueta;
 
                 row.Cells["Column13"].Value = copy;
+
 
 
                 if (TipoProd == "P")
