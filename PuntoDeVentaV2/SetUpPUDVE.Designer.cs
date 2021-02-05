@@ -352,6 +352,7 @@
             this.checkMayoreo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.checkMayoreo.AutoSize = true;
             this.checkMayoreo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkMayoreo.ForeColor = System.Drawing.SystemColors.Highlight;
             this.checkMayoreo.Location = new System.Drawing.Point(584, 370);
             this.checkMayoreo.Name = "checkMayoreo";
             this.checkMayoreo.Size = new System.Drawing.Size(273, 21);
@@ -359,6 +360,7 @@
             this.checkMayoreo.Text = "Activar precio por mayoreo en ventas";
             this.checkMayoreo.UseVisualStyleBackColor = true;
             this.checkMayoreo.CheckedChanged += new System.EventHandler(this.checkMayoreo_CheckedChanged);
+            this.checkMayoreo.Click += new System.EventHandler(this.checkMayoreo_Click);
             // 
             // txtMinimoMayoreo
             // 
@@ -377,6 +379,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label1.Location = new System.Drawing.Point(598, 393);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 17);
@@ -388,6 +391,7 @@
             this.checkNoVendidos.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.checkNoVendidos.AutoSize = true;
             this.checkNoVendidos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkNoVendidos.ForeColor = System.Drawing.SystemColors.Highlight;
             this.checkNoVendidos.Location = new System.Drawing.Point(584, 421);
             this.checkNoVendidos.Name = "checkNoVendidos";
             this.checkNoVendidos.Size = new System.Drawing.Size(240, 21);
@@ -395,6 +399,7 @@
             this.checkNoVendidos.Text = "Avisar de productos no vendidos";
             this.checkNoVendidos.UseVisualStyleBackColor = true;
             this.checkNoVendidos.CheckedChanged += new System.EventHandler(this.checkNoVendidos_CheckedChanged);
+            this.checkNoVendidos.Click += new System.EventHandler(this.checkNoVendidos_Click);
             // 
             // txtNoVendidos
             // 
@@ -413,6 +418,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label2.Location = new System.Drawing.Point(598, 443);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 17);
@@ -424,6 +430,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label3.Location = new System.Drawing.Point(733, 443);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 17);
@@ -457,6 +464,7 @@
             // 
             this.cbCorreoCorteCaja.AutoSize = true;
             this.cbCorreoCorteCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoCorteCaja.ForeColor = System.Drawing.SystemColors.Highlight;
             this.cbCorreoCorteCaja.Location = new System.Drawing.Point(219, 203);
             this.cbCorreoCorteCaja.Name = "cbCorreoCorteCaja";
             this.cbCorreoCorteCaja.Size = new System.Drawing.Size(172, 21);
