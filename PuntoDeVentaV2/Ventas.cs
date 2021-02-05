@@ -2432,10 +2432,16 @@ namespace PuntoDeVentaV2
                                 idCliente = buscarIdCliente(DetalleVenta.nameClienteNameVenta);
                                 DetalleVenta.nameClienteNameVenta = string.Empty;
                             }
-                            else//Aqui es para cuando el cliente tiene un descuento
+                            else//Aqui es para cuando el cliente tiene un descuento o para cuando se trae un cliente de ventas guardadas
                             {
-                                idCliente = idClienteDescuento.ToString();
-
+                                if (!string.IsNullOrEmpty(lbDatosCliente.Text))
+                                {
+                                    idCliente = buscarIdCliente(lbDatosCliente.Text);
+                                }
+                                else
+                                {
+                                    idCliente = idClienteDescuento.ToString();
+                                }
                             }
 
                             DatosVenta();
@@ -2492,7 +2498,7 @@ namespace PuntoDeVentaV2
         {
             if (!string.IsNullOrWhiteSpace(idCliente))
             {
-                if (idCliente != "0" && !string.IsNullOrEmpty(lbDatosCliente.Text))
+                if (idCliente != "0" && !string.IsNullOrEmpty(lbDatosCliente.Text) || statusVenta == "2")
                 {
                     var datos = mb.ObtenerDatosCliente(Convert.ToInt32(idCliente), FormPrincipal.userID);
                     var cliente = datos[0];
@@ -3094,6 +3100,8 @@ namespace PuntoDeVentaV2
 
             // Cuando la venta guardada tiene descuento por cliente
             var idClienteDesc = Convert.ToInt32(datos[8]);
+            var nombreCliente = datos[9].ToString();
+
 
             if (idClienteDesc > 0)
             {
@@ -3111,6 +3119,8 @@ namespace PuntoDeVentaV2
                 lbDatosCliente.Text = cliente;
                 lbEliminarCliente.Visible = true;
             }
+
+            lbDatosCliente.Text = nombreCliente;
 
             //Verificar si tiene productos la venta
             bool tieneProductos = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosVenta WHERE IDVenta = '{mostrarVenta}'");

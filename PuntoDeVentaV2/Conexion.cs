@@ -386,6 +386,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["Serie"].ToString());
                 lista.Add(dr["FechaOperacion"].ToString());
                 lista.Add(dr["IDClienteDescuento"].ToString());
+                lista.Add(dr["Cliente"].ToString());
             }
 
             dr.Close();
