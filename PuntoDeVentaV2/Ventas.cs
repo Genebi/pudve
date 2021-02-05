@@ -2427,10 +2427,11 @@ namespace PuntoDeVentaV2
                     {
                         if (botonAceptar)
                         {
+                            idCliente = idClienteDescuento.ToString();//////////////////////////////////////////////////////////////////////
                             DatosVenta();
                             botonAceptar = false;
-                            idCliente = string.Empty;
-                            DetalleVenta.idCliente = 0;
+                            //idCliente = string.Empty;
+                            //DetalleVenta.idCliente = 0;
                             DetalleVenta.cliente = string.Empty;
                             AsignarCreditoVenta.idCliente = 0;
                             AsignarCreditoVenta.cliente = string.Empty;
