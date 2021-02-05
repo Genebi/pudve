@@ -1959,34 +1959,39 @@ namespace PuntoDeVentaV2
 
         public void dictionaryLoad()
         {
+            /* 
+             * se carga los datos del contenido de la tabla FiltrosDinamicosVetanaFiltros
+             * tabla en la cual se guardan el filtro de Proveedor y los conceptos dinamicos
+             */
             using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID)))
             {
-                if (dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
+                if (dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))   // verificacmos que si es que esta vacia la tabla
                 {
-                    borrarEtiquetasDinamicasSetUpDinamicos();
-                    setUpDinamicos.Clear();
+                    borrarEtiquetasDinamicasSetUpDinamicos();   // ver el metodo ya tiene comentarios
+                    setUpDinamicos.Clear();                     // Borramos el diccionario que almacena los filrtos de la tabla
                 }
-                else if (!dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
+                else if (!dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0)) // si contiene Rows(Filas) la tabla 
                 {
-                    borrarEtiquetasDinamicasSetUpDinamicos();
-                    setUpDinamicos.Clear();
+                    borrarEtiquetasDinamicasSetUpDinamicos();   // ver el metodo ya tiene comentarios
+                    setUpDinamicos.Clear();                     // Borramos el diccionario que almacena los filrtos de la tabla
 
-                    foreach (DataRow drFiltrosDinamicos in dtFiltrosDinamicosVetanaFiltros.Rows)
+                    foreach (DataRow drFiltrosDinamicos in dtFiltrosDinamicosVetanaFiltros.Rows)    // si la tabla tiene Rows(filas)
                     {
-                        string valueChkBox = string.Empty;
+                        string valueChkBox = string.Empty;  // para almacenar el valor si esta activo o no el filtro
 
-                        if (drFiltrosDinamicos["checkBoxValue"].ToString().Equals("1"))
+                        if (drFiltrosDinamicos["checkBoxValue"].ToString().Equals("1"))     // si esta activado el filrto
                         {
                             valueChkBox = "True";
                         }
-                        else if (drFiltrosDinamicos["checkBoxValue"].ToString().Equals("0"))
+                        else if (drFiltrosDinamicos["checkBoxValue"].ToString().Equals("0"))    // si no esta activo el filtro
                         {
                             valueChkBox = "False";
                         }
+                        // agregamos al diccionario la nueva Row del diccionario
                         setUpDinamicos.Add(drFiltrosDinamicos["ID"].ToString(), new Tuple<string, string, string, string>("chkBoxchk" + drFiltrosDinamicos["concepto"].ToString(), valueChkBox.ToString(), drFiltrosDinamicos["strFiltro"].ToString(), "cbchk" + drFiltrosDinamicos["concepto"].ToString()));
                     }
 
-                    crearEtiquetaDinamicaSetUpDinamicos();
+                    crearEtiquetaDinamicaSetUpDinamicos();  // metodo para crear las etiquetas dinamicas 
                 }
             }
 
@@ -2064,20 +2069,20 @@ namespace PuntoDeVentaV2
 
             List<string> listDictionary = new List<string>();
 
-            listDictionary.Clear();
+            listDictionary.Clear(); // limpiar el diccionario
 
-            foreach (var itemSetUpDinamicos in setUpDinamicos)
+            foreach (var itemSetUpDinamicos in setUpDinamicos)  // recorremos el diccionario 
             {
-                nameTag = itemSetUpDinamicos.Value.Item1.Remove(0, 9);
-                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                nameTag = itemSetUpDinamicos.Value.Item1.Remove(0, 9);  // tomamos el nombre del diccionario
+                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>()) // recorremos el panel dinamico par quitar lo dinamico
                 {
                     if (item is Panel)
                     {
-                        if (item.Name.Equals("pEtiqueta" + nameTag))
+                        if (item.Name.Equals("pEtiqueta" + nameTag)) // verificamos si hay una etiqueta igual nombre que el de Diccionario
                         {
                             try
                             {
-                                fLPDynamicTags.Controls.Remove(item);
+                                fLPDynamicTags.Controls.Remove(item);   // se remueve la etiqueta
                             }
                             catch (Exception ex)
                             {
@@ -2087,7 +2092,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            setUpDinamicos.Clear();
+            setUpDinamicos.Clear(); // limpiamos el diccionario
         }
 
         private void crearEtiquetaDinamicaSetUpDinamicos()
@@ -3777,6 +3782,7 @@ namespace PuntoDeVentaV2
 
             bool siFiltrar = false;
 
+            // ver metodo ya tine comentarios
             dictionaryLoad();
 
             busqueda = string.Empty;
@@ -3795,61 +3801,69 @@ namespace PuntoDeVentaV2
 
             queryHeadAdvancedProveedor = string.Empty;
 
+            // retorna la cantidad de false en el diccionario
             countFalse = contarCamposFalsos(setUpDinamicos);
 
-            if (countFalse.Equals(setUpDinamicos.Count))
+            if (countFalse.Equals(setUpDinamicos.Count))    // si es que la cantidad de false son igual a la filas del Diccionario
             {
-                siFiltrar = false;
+                siFiltrar = false;  // almacenamos el valor false
             }
-            else if (countFalse < setUpDinamicos.Count)
+            else if (countFalse < setUpDinamicos.Count) // si es que la cantidad de false es menor que a las filas del diccionario
             {
-                siFiltrar = true;
+                siFiltrar = true;   // almacenamos el valor true
             }
 
-            if ((setUpDinamicos.Count > 0) && (siFiltrar.Equals(true)))
+            if ((setUpDinamicos.Count > 0) && (siFiltrar.Equals(true))) // si el diccionario tiene 1 o mas filas y siFiltrar es igual a true
             {
                 queryHead = "SELECT DISTINCT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID ";
                 queryAndAdvancedOtherTagsBegin = "AND (";
                 queryAndAdvancedOtherTagsEnd = ") ";
 
-                foreach (var item in setUpDinamicos)
+                foreach (var item in setUpDinamicos)    // recorremos el diccionario
                 {
-                    nameTag = item.Value.Item1.Remove(0, 9);
-                    if (item.Value.Item2.Equals("True") && nameTag.Equals("Proveedor"))
+                    nameTag = item.Value.Item1.Remove(0, 9);    // tomamos el nombre del concepto dinamico
+                    if (item.Value.Item2.Equals("True") && nameTag.Equals("Proveedor")) // verifica que sea true Y Nombre sea Proveedor
                     {
                         queryHeadAdvancedProveedor = "INNER JOIN DetallesProducto AS ProdDetail ON ProdDetail.IDProducto = P.ID INNER JOIN Proveedores AS Prove ON Prove.ID = ProdDetail.IDProveedor ";
                         queryAndAdvancedProveedor = $"AND ProdDetail.Proveedor = '{item.Value.Item3.ToString()}' ";
                     }
-                    else if (item.Value.Item2.Equals("True") && !nameTag.Equals("Proveedor"))
+                    else if (item.Value.Item2.Equals("True") && !nameTag.Equals("Proveedor")) // verifica que sea true Y sea diferente Nombre a Proveedor
                     {
-                        if (countSetUpDinamicos.Equals(0))
+                        if (countSetUpDinamicos.Equals(0))  // si la cuenta va en cero
                         {
                             queryHeadAdvancedOtherTags = "INNER JOIN DetallesProductoGenerales AS GralProdDetail ON GralProdDetail.IDProducto = P.ID INNER JOIN DetalleGeneral AS GralDetail ON GralDetail.ID = GralProdDetail.IDDetalleGral ";
-                            if (queryAndAdvancedOtherTags.Equals(string.Empty))
+                            if (queryAndAdvancedOtherTags.Equals(string.Empty)) // si la variable esta vacia
                             {
+                                // se asigna el valor
                                 queryAndAdvancedOtherTags = $"GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
                             }
-                            else if (!queryAndAdvancedOtherTags.Equals(""))
+                            else if (!queryAndAdvancedOtherTags.Equals("")) // si la variable no esta vacia
                             {
+                                // se le asigna y concatena el valor
                                 queryAndAdvancedOtherTags += $"OR GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
                             }
-                            countSetUpDinamicos++;
+                            countSetUpDinamicos++;  // incremenatamos en uno
                         }
-                        else if (!countSetUpDinamicos.Equals(0))
+                        else if (!countSetUpDinamicos.Equals(0))    // si la variable no esta vacia
                         {
+                            // si la variable esta null o vacia 
                             if (queryHeadAdvancedOtherTags.Equals(string.Empty) || queryHeadAdvancedOtherTags.Equals(""))
                             {
+                                // se le asigna lo siguiente
                                 queryHeadAdvancedOtherTags = "INNER JOIN DetallesProductoGenerales AS GralProdDetail ON GralProdDetail.IDProducto = P.ID INNER JOIN DetalleGeneral AS GralDetail ON GralDetail.ID = GralProdDetail.IDDetalleGral ";
                             }
+                            // se le concatena lo siguiente
                             queryAndAdvancedOtherTags += $"OR GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
                             //queryAndAdvancedOtherTags += $"AND GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
-                            countSetUpDinamicos++;
+                            countSetUpDinamicos++;  // incrementa en uno
                         }
+                        // se asigna la siguiente concatenacion
                         queryResultOtherTags = queryAndAdvancedOtherTagsBegin + queryAndAdvancedOtherTags + queryAndAdvancedOtherTagsEnd;
                         //queryResultOtherTags = queryAndAdvancedOtherTags;
                     }
                 }
             }
+            // si diccionario esta en cero ó (diccionario tiene 1 o mas filas Y siFiltrar es False)
             else if ((setUpDinamicos.Count <= 0) || (setUpDinamicos.Count > 0 && siFiltrar.Equals(false)))
             {
                 queryHead = "SELECT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID ";
@@ -3858,25 +3872,25 @@ namespace PuntoDeVentaV2
                 queryResultOtherTags = string.Empty;
             } 
 
-            if (status.Equals(0))   // Productos Desactivados
+            if (status.Equals(0))   // Productos Desactivados (ComboBox = Deshabilitados)
             {
                 queryWhereAnd = $"WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = {status} ";
             }
-            else if (status.Equals(1))  // Productos Activos
+            else if (status.Equals(1))  // Productos Activos (ComboBox = Habilitados)
             {
                 queryWhereAnd = $"WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = {status} ";
             }
-            else if (status.Equals(2))  // Productos Activos y Desactivados
+            else if (status.Equals(2))  // Productos Activos y Desactivados (ComboBox = Todos)
             {
                 queryWhereAnd = $"WHERE U.ID = '{FormPrincipal.userID}' ";
             }
 
-            if (!string.IsNullOrWhiteSpace(busqueda))
+            if (!string.IsNullOrWhiteSpace(busqueda))   // si la busqueda no esta en vacio
             {
                 extra = string.Empty;
                 extra2 = string.Empty;
 
-                listaCoincidenciasAux.Clear();
+                listaCoincidenciasAux.Clear(); // limpiamos Diccionario
 
                 string txtBusquedaString = string.Empty;
                 string NvoTxtBusquedaString = string.Empty;
@@ -3884,42 +3898,44 @@ namespace PuntoDeVentaV2
                 string[] separatingStrings = { ") ORDER BY CASE P.ID ", "END " };
                 string[] words;
 
-                words = busqueda.Split(' ');
+                words = busqueda.Split(' ');    // separamos las palabras de la busqueda
 
-                foreach (var item in words)
+                foreach (var item in words) // recorremos palabra por palabra
                 {
-                    theNumberAsAString = item;
-                    if (long.TryParse(theNumberAsAString, out theNumber))
+                    theNumberAsAString = item;  // asignamos cada palabra
+                    if (long.TryParse(theNumberAsAString, out theNumber))   // se trata de convertir a entero(long)
                     {
-                        numBusqueda += theNumberAsAString + " ";
+                        numBusqueda += theNumberAsAString + " ";    // se asigna y concatena a numBusqueda
                     }
-                    else
+                    else    // si no se pudo hacer la conversion
                     {
-                        txtBusquedaString += theNumberAsAString + " ";
+                        txtBusquedaString += theNumberAsAString + " ";  // se asigna y concatena a txtBusquedaString
                     }
                 }
 
-                if (!numBusqueda.Length.Equals(0))
+                if (!numBusqueda.Length.Equals(0))  // si numBusquda contiene algo
                 {
-                    txtBusquedaString += numBusqueda;
+                    txtBusquedaString += numBusqueda;   // se concatena y asgina a la variable ttBusqueda
                 }
 
-                if (!txtBusquedaString.Equals(""))
+                if (!txtBusquedaString.Equals(""))  // si la busqueda es diferente a vacio
                 {
+                    // retorna un diccionario con las coincidencias que hubo en la base de datos
                     var coincidencias = mb.BusquedaCoincidencias(txtBusquedaString.Trim());
 
                     // Si hay concidencias de la busqueda de la palabra
-                    if (coincidencias.Count > 0)
+                    if (coincidencias.Count > 0)    // si el diccionario tiene 1 o mas registros
                     {
                         // recorremos diccionario para eliminar coincidencias de la busqueda
                         foreach (KeyValuePair<int, int> prod in coincidencias)
                         {
                             //MessageBox.Show("ID del Producto: " + prod.Key);
+                            // obtenemos los datos de cada uno de los productos en una tabla para procesarlo
                             using (DataTable dtCoincidenciaProducto = cn.CargarDatos($"SELECT ID, Nombre FROM Productos WHERE ID = '{prod.Key.ToString()}'"))
                             {
-                                if (!dtCoincidenciaProducto.Rows.Count.Equals(0))
+                                if (!dtCoincidenciaProducto.Rows.Count.Equals(0))   // si la tabla tiene algun registro
                                 {
-                                    foreach (DataRow drProd in dtCoincidenciaProducto.Rows)
+                                    foreach (DataRow drProd in dtCoincidenciaProducto.Rows) // recorremos cada una de los filas de la tabla
                                     {
                                         bool found = false;
                                         int begin, end;
@@ -3927,16 +3943,16 @@ namespace PuntoDeVentaV2
                                         string auxTxtBusquedaString = string.Empty;
                                         string[] wordSearch;
 
-                                        wordSearch = txtBusquedaString.Trim().Split(' ');
+                                        wordSearch = txtBusquedaString.Trim().Split(' ');   // separamos las palabras de la busqueda
 
-                                        foreach (var item in wordSearch)
+                                        foreach (var item in wordSearch) // recorremos cada una de las palabras
                                         {
-                                            found = producto.Contains(item);
-                                            if (found)
+                                            found = producto.Contains(item);    // verificamos que se se encuentra en el nombre del producto
+                                            if (found)  // si es true la busqueda 
                                             {
-                                                begin = txtBusquedaString.IndexOf(item);
-                                                end = item.Length;
-                                                auxTxtBusquedaString = txtBusquedaString.Remove(begin, end);
+                                                begin = txtBusquedaString.IndexOf(item);    // tomamos el inicio de la palabra en el nombre
+                                                end = item.Length;  // tomamos el final de la palabra en el nombre
+                                                auxTxtBusquedaString = txtBusquedaString.Remove(begin, end); // removemos la palabra de la busqueda
                                                 txtBusquedaString.Trim();
                                                 auxTxtBusquedaString.Trim();
                                                 NvoTxtBusquedaString = auxTxtBusquedaString;
@@ -3956,61 +3972,68 @@ namespace PuntoDeVentaV2
                         // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
                         extra2 = string.Empty;
                         contadorTmp = 1;
+                        // almacenamos las coincidencias en el diccionario
                         var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
                         listaCoincidenciasAux = listaCoincidenciasAux.Concat(coincidencias).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
+                        // aui se inicia el reordenamiento de las coincidencias
                         extra += "AND P.ID IN (";
-                        foreach (var producto in listaCoincidencias)
+                        foreach (var producto in listaCoincidencias)    // recorremos el diccionario
                         {
-                            extra += $"{producto.Key},";
-                            extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
+                            extra += $"{producto.Key},";    // almacenamos y concatenamos el ID del producto
+                            extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";   // almacenamos y concatenamos el numero de priodad
                             contadorTmp++;
                         }
                         // Eliminamos el último caracter que es una coma (,)
                         extra = extra.Remove(extra.Length - 1);
-                        extra += ") ORDER BY CASE P.ID ";
+                        extra += ") ORDER BY CASE P.ID ";   
                         extra2 += "END ";
                         // Concatenamos las dos variables para formar por completo la sentencia sql
                         extra += extra2;
                     }
                     else
                     {
-                        if (!string.IsNullOrWhiteSpace(busqueda))
+                        if (!string.IsNullOrWhiteSpace(busqueda))   // si busqueda no esta vacia 
                         {
-                            // Original
+                            // Original terminación del statament SQL
                             extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
                         }       
                     }
 
                     int doChecarFiltroDinamicoDelSisttema = 0;
 
+                    // nos traemos la tabla de filtros dinamicos
                     using (DataTable dtFiltrosAtSystem = cn.CargarDatos(cs.VerificarContenidoFiltroProducto(FormPrincipal.userID)))
                     {
-                        foreach (DataRow drFiltrosAtSystem in dtFiltrosAtSystem.Rows)
+                        if (!dtFiltrosAtSystem.Rows.Count.Equals(0))    // Verificamos que tenga al menos de 1 o mas filas la tabla
                         {
-                            int checkValue = 0;
-                            checkValue = Convert.ToInt32(drFiltrosAtSystem["checkBoxConcepto"].ToString());
-                            if (checkValue.Equals(1))
+                            foreach (DataRow drFiltrosAtSystem in dtFiltrosAtSystem.Rows)   // recorremos la tabla fila por fila
                             {
-                                doChecarFiltroDinamicoDelSisttema = checkValue;
-                                break;
-                            }
-                            else
-                            {
-                                doChecarFiltroDinamicoDelSisttema = checkValue;
+                                int checkValue = 0;
+                                checkValue = Convert.ToInt32(drFiltrosAtSystem["checkBoxConcepto"].ToString()); // almacenamos el valor del campo checkBoxConcepto
+                                if (checkValue.Equals(1))   // si es el valor 1
+                                {
+                                    doChecarFiltroDinamicoDelSisttema = checkValue;
+                                    break;
+                                }
+                                else    // si es el valor 2
+                                {
+                                    doChecarFiltroDinamicoDelSisttema = checkValue;
+                                }
                             }
                         }
                     }
 
-                    if (doChecarFiltroDinamicoDelSisttema.Equals(1))
+                    if (doChecarFiltroDinamicoDelSisttema.Equals(1))    // si el valor almacenado es 1
                     {
-                        ChecarFiltroDinamicoDelSistema();
+                        ChecarFiltroDinamicoDelSistema();   // se checa de nuevo los filtros dinamisco OJO ver esto hace de nueva busqueda
                     }
                     else
                     {
-                        if (extra.Equals("") && extra2.Equals(""))
+                        if (extra.Equals("") && extra2.Equals(""))  // si los dos estan vacios
                         {
-                            if (!string.IsNullOrWhiteSpace(busqueda))
+                            if (!string.IsNullOrWhiteSpace(busqueda))   // busqueda no este vacia
                             {
+                                // se le asigna esto al Statement
                                 extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
                             }    
                         }
@@ -4019,6 +4042,7 @@ namespace PuntoDeVentaV2
 
                 string txtAndNumSearch = string.Empty;
 
+                // rehacemos la busqueda 
                 if (!NvoTxtBusquedaString.Equals(""))
                 {
                     txtAndNumSearch += NvoTxtBusquedaString.Trim();
@@ -4028,6 +4052,7 @@ namespace PuntoDeVentaV2
                     txtAndNumSearch += " " + numBusqueda.Trim();
                 }
 
+                // si la cadena a buscar no esta vacia
                 if (!txtAndNumSearch.Trim().Equals(""))
                 {
                     // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
@@ -4038,15 +4063,16 @@ namespace PuntoDeVentaV2
 
                     if (resultadoCodBarClavInt.Length > 0)
                     {
+                        // verificamos que si esta vacia la lista
                         bool isEmpty = (listaCoincidenciasAux.Count == 0);
 
-                        if (!isEmpty)
+                        if (!isEmpty)   
                         {
                             foreach (var infoId in resultadoCodBarClavInt)
                             {
                                 string[] palabras = infoId.Split('|');
 
-                                if (palabras[0].Equals("1"))
+                                if (palabras[0].Equals("1"))    // si fue encontrado en las coincidencias
                                 {
                                     // Verificar que el ID del producto pertenezca al usuasio
                                     var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(palabras[1].ToString()), FormPrincipal.userID);
@@ -4059,11 +4085,12 @@ namespace PuntoDeVentaV2
 
                                         if (!contieneIDProducto)
                                         {
+                                            // agregamos el ID del producto
                                             listaCoincidenciasAux.Add(Convert.ToInt32(palabras[1].ToString()), 1);
                                         }
                                     }
                                 }
-                                else if (palabras[0].Equals("0"))
+                                else if (palabras[0].Equals("0"))    // si no fue encontrado en las coincidencias
                                 {
                                     string nvoTheNumberAsAString = string.Empty;
                                     long nvoTheNumber;
@@ -4072,6 +4099,7 @@ namespace PuntoDeVentaV2
                                     if (long.TryParse(nvoTheNumberAsAString, out nvoTheNumber))
                                     {
                                         //numBusqueda += nvoTheNumberAsAString + " ";
+                                        // Concatenamos el ID del producto
                                         buscarCodigosBarraExtra += palabras[1].ToString() + " ";
                                     }
                                     else
@@ -4086,7 +4114,7 @@ namespace PuntoDeVentaV2
                             extra2 = string.Empty;
                             contadorTmp = 1;
                             var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
-                            extra += "AND P.ID IN (";
+                            extra += "AND P.ID IN (";   // hacer el reordenamiento de los ID de productos
                             foreach (var producto in listaCoincidencias)
                             {
                                 extra += $"{producto.Key},";
@@ -4120,12 +4148,14 @@ namespace PuntoDeVentaV2
 
                                         if (!contieneIDProducto)
                                         {
+                                            // agregamos el ID del producto
                                             listaCoincidenciasAux.Add(Convert.ToInt32(palabras[1].ToString()), 1);
                                         }
                                     }
                                 }
                                 else if (palabras[0].Equals("0"))
                                 {
+                                    // concatenamos el valor
                                     buscarCodigosBarraExtra += palabras[1].ToString() + " ";
                                 }
                             }
@@ -4142,7 +4172,7 @@ namespace PuntoDeVentaV2
                                 extra2 = string.Empty;
                                 contadorTmp = 1;
                                 var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
-                                extra += "AND P.ID IN (";
+                                extra += "AND P.ID IN (";   // hacer el reordenamiento de los ID de productos
                                 foreach (var producto in listaCoincidencias)
                                 {
                                     extra += $"{producto.Key},";
@@ -4902,19 +4932,21 @@ namespace PuntoDeVentaV2
             }
         }
 
+        // metodo que recibe un diccionario
         private int contarCamposFalsos(Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos)
         {
             int count = 0;
 
+            // recorremos el diccionario fila por fila
             foreach (KeyValuePair<string, Tuple<string, string, string, string>> item in setUpDinamicos)
             {
-                if (item.Value.Item2.Equals("False"))
+                if (item.Value.Item2.Equals("False"))   // si la columna esta en False
                 {
-                    count++;
+                    count++;    // aumentamos en uno
                 }
             }
 
-            return count;
+            return count;   // retorna la sumatoria
         }
 
         /// <summary>
