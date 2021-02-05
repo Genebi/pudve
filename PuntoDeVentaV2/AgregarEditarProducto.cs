@@ -2326,39 +2326,55 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarDescuento_Click(object sender, EventArgs e)
         {
-            if (txtPrecioProducto.Text == "")
+            List<string> usuariosPermitidos = new List<string>()
             {
-                MessageBox.Show("Es necesario agregar el precio del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (txtStockProducto.Text == "")
-            {
-                MessageBox.Show("Es necesario agregar el stock del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                if (DatosSourceFinal == 2 || DatosSourceFinal == 4 || DatosSourceFinal.Equals(1))
-                {
-                    precioProducto = txtPrecioProducto.Text;
-                }
+                "HOUSEDEPOTAUTLAN",
+                "HOUSEDEPOTGRULLO",
+                "HOUSEDEPOTREPARTO"
+            };
 
-                if (FormAgregar != null)
+            
+            if (usuariosPermitidos.Contains(FormPrincipal.userNickName))
+            {
+                if (txtPrecioProducto.Text == "")
                 {
-                    try
-                    {
-                        FormAgregar.Show();
-                        FormAgregar.BringToFront();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Excepción: " + ex.Message.ToString(), "Advertencia " + this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    MessageBox.Show("Es necesario agregar el precio del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (txtStockProducto.Text == "")
+                {
+                    MessageBox.Show("Es necesario agregar el stock del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    FormAgregar = new AgregarDescuentoProducto();
-                    FormAgregar.Show();
+                    if (DatosSourceFinal == 2 || DatosSourceFinal == 4 || DatosSourceFinal.Equals(1))
+                    {
+                        precioProducto = txtPrecioProducto.Text;
+                    }
+
+                    if (FormAgregar != null)
+                    {
+                        try
+                        {
+                            FormAgregar.Show();
+                            FormAgregar.BringToFront();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Excepción: " + ex.Message.ToString(), "Advertencia " + this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        FormAgregar = new AgregarDescuentoProducto();
+                        FormAgregar.Show();
+                    }
                 }
             }
+            else
+            {
+                MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
         }
 
         private void btnDetalleFacturacion_Click(object sender, EventArgs e)
