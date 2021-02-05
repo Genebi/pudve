@@ -3767,6 +3767,11 @@ namespace PuntoDeVentaV2
 
         private void checkBoxMaster_CheckedChanged(object sender, EventArgs e)
         {
+            //    if ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0])
+            //    {
+
+            //    }
+
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
 
             for (int i = 0; i < DGVProductos.RowCount; i++)
@@ -3779,6 +3784,7 @@ namespace PuntoDeVentaV2
 
             if (headerBox.Checked)
             {
+                //Recorre el DGV y agrega el id y el nombre de cada fila a un diccionario
                 foreach (DataGridViewRow dato in DGVProductos.Rows)
                 {
                     id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
@@ -3795,30 +3801,24 @@ namespace PuntoDeVentaV2
 
         private void updateCheckBoxes()
         {
-            //if (checkPaginasCompletas.Count > 0)
-            //{
-            //    for (int x = 0; x < checkPaginasCompletas.Count; x++)
-            //    {
-            //        DGVProductos.Rows[x].Cells[0].Value = true;
-            //    }
-            //}
-
             int id = 0;
             string name = string.Empty;
+
+            //Recorre el DGV para obtener los ID de cada fila del DGV
             foreach (DataGridViewRow dato in DGVProductos.Rows)
             {
                 id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
-                name = dato.Cells["Column1"].Value.ToString();
+                //name = dato.Cells["Column1"].Value.ToString();
 
                 if (checkPaginasCompletas.ContainsKey(id))
                 {
+                    //Recorre el Diccionario y marca en true los checkbox de todad la pagina
                     for (int x = 0; x < checkPaginasCompletas.Count; x++)
                     {
                         DGVProductos.Rows[x].Cells[0].Value = true;
                     }
                 }
             }
-
         }
 
         /// <summary>
