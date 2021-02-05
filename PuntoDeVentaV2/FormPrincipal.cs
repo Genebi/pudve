@@ -831,6 +831,8 @@ namespace PuntoDeVentaV2
             //}
 
             //validarVentasVentanas();
+
+            MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnFacturas_Click(object sender, EventArgs e)
