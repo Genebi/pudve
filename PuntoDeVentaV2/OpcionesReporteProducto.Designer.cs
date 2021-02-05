@@ -110,7 +110,6 @@
             this.btnFiltroReporte.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFiltroReporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnFiltroReporte.UseVisualStyleBackColor = false;
-            this.btnFiltroReporte.Visible = false;
             this.btnFiltroReporte.Click += new System.EventHandler(this.btnFiltroReporte_Click);
             // 
             // cbSeleccionados
