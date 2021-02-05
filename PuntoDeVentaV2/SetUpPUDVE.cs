@@ -582,42 +582,42 @@ namespace PuntoDeVentaV2
 
         private void checkMayoreo_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion14 == 0)
-            {
-                checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
-                checkMayoreo.Checked = check14;
-                Utilidades.MensajePermiso();
-                checkMayoreo.CheckedChanged += checkMayoreo_CheckedChanged;
-                return;
-            }
+            //if (opcion14 == 0)
+            //{
+            //    checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
+            //    checkMayoreo.Checked = check14;
+            //    Utilidades.MensajePermiso();
+            //    checkMayoreo.CheckedChanged += checkMayoreo_CheckedChanged;
+            //    return;
+            //}
 
-            var habilitado = 0;
+            //var habilitado = 0;
 
-            if (checkMayoreo.Checked)
-            {
-                habilitado = 1;
-                txtMinimoMayoreo.Enabled = true;
-                txtMinimoMayoreo.Focus();
-                cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-            }
-            else
-            {
-                txtMinimoMayoreo.Enabled = false;
-                txtMinimoMayoreo.Text = string.Empty;
-                cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
-            }
+            //if (checkMayoreo.Checked)
+            //{
+            //    habilitado = 1;
+            //    txtMinimoMayoreo.Enabled = true;
+            //    txtMinimoMayoreo.Focus();
+            //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            //}
+            //else
+            //{
+            //    txtMinimoMayoreo.Enabled = false;
+            //    txtMinimoMayoreo.Text = string.Empty;
+            //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+            //}
         }
 
         private void txtMinimoMayoreo_KeyUp(object sender, KeyEventArgs e)
         {
-            var cantidad = txtMinimoMayoreo.Text.Trim();
+            //var cantidad = txtMinimoMayoreo.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(cantidad))
-            {
-                cantidad = "0";
-            }
+            //if (string.IsNullOrWhiteSpace(cantidad))
+            //{
+            //    cantidad = "0";
+            //}
 
-            cn.EjecutarConsulta($"UPDATE Configuracion SET MinimoMayoreo = {cantidad} WHERE IDUsuario = {FormPrincipal.userID}");
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET MinimoMayoreo = {cantidad} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void checkNoVendidos_CheckedChanged(object sender, EventArgs e)
@@ -649,16 +649,16 @@ namespace PuntoDeVentaV2
 
         private void txtNoVendidos_KeyUp(object sender, KeyEventArgs e)
         {
-            var cantidad = txtNoVendidos.Text.Trim();
+            //var cantidad = txtNoVendidos.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(cantidad))
-            {
-                cantidad = "0";
-            }
+            //if (string.IsNullOrWhiteSpace(cantidad))
+            //{
+            //    cantidad = "0";
+            //}
 
-            FormPrincipal.diasNoVendidos = Convert.ToInt32(cantidad);
+            //FormPrincipal.diasNoVendidos = Convert.ToInt32(cantidad);
 
-            cn.EjecutarConsulta($"UPDATE Configuracion SET diasNoVendidos = {cantidad} WHERE IDUsuario = {FormPrincipal.userID}");
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET diasNoVendidos = {cantidad} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void SetUpPUDVE_KeyDown(object sender, KeyEventArgs e)
@@ -855,23 +855,38 @@ namespace PuntoDeVentaV2
 
         private void cbCorreoCorteCaja_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion23.Equals(0))
+            List<string> usuariosPermitidos = new List<string>()
             {
-                cbCorreoCorteCaja.CheckedChanged -= cbCorreoCorteCaja_CheckedChanged;
-                cbCorreoCorteCaja.Checked = check23;
-                Utilidades.MensajePermiso();
-                cbCorreoCorteCaja.CheckedChanged += cbCorreoCorteCaja_CheckedChanged;
-                return;
-            }
+                "HOUSEDEPOTAUTLAN",
+                "HOUSEDEPOTGRULLO",
+                "HOUSEDEPOTREPARTO"
+            };
 
-            var habilitado = 0;
-
-            if (cbCorreoCorteCaja.Checked)
+            if (usuariosPermitidos.Contains(FormPrincipal.userNickName))
             {
-                habilitado = 1;
-            }
+                if (opcion23.Equals(0))
+                {
+                    cbCorreoCorteCaja.CheckedChanged -= cbCorreoCorteCaja_CheckedChanged;
+                    cbCorreoCorteCaja.Checked = check23;
+                    Utilidades.MensajePermiso();
+                    cbCorreoCorteCaja.CheckedChanged += cbCorreoCorteCaja_CheckedChanged;
+                    return;
+                }
 
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCorteDeCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                var habilitado = 0;
+
+                if (cbCorreoCorteCaja.Checked)
+                {
+                    habilitado = 1;
+                }
+
+                cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCorteDeCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            }
+            else
+            {
+                MessageBox.Show("Estamos trabajando en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
         }
 
         private void SetUpPUDVE_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -892,6 +907,16 @@ namespace PuntoDeVentaV2
                 }
 
             }
+        }
+
+        private void checkMayoreo_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void checkNoVendidos_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
