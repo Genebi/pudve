@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
 
         public static string cliente = string.Empty;
+        public static string nameClienteNameVenta = string.Empty;
         public static int idCliente = 0;
         public static float credito = 0f;
 
@@ -76,6 +77,8 @@ namespace PuntoDeVentaV2
             txtTransferencia.KeyUp += new KeyEventHandler(SumaMetodosPago);
 
             txtEfectivo.Text = total.ToString("0.00");
+            lbCliente.Text = "Asignar cliente";
+
         }
 
         private double getMayorNumber(List<string> listaNumeros)
@@ -202,6 +205,7 @@ namespace PuntoDeVentaV2
 
                 if (idCliente == 0)
                 {
+                    //validarCliente = cliente;
                     cliente = string.Empty;
                 }
 
@@ -271,6 +275,8 @@ namespace PuntoDeVentaV2
                 }
             }
             //validarNoDuplicarVentas = 0;
+
+            
         }
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -296,6 +302,8 @@ namespace PuntoDeVentaV2
             };
 
             clientes.ShowDialog();
+
+            nameClienteNameVenta = lbCliente.Text;
         }
 
         private void btnCredito_Click(object sender, EventArgs e)

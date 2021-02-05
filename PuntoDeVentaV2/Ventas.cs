@@ -2427,7 +2427,17 @@ namespace PuntoDeVentaV2
                     {
                         if (botonAceptar)
                         {
-                            idCliente = idClienteDescuento.ToString();//////////////////////////////////////////////////////////////////////
+                            if (DetalleVenta.nameClienteNameVenta != "")//aqui para cuando se asigna un cliente en detalle ventas
+                            {
+                                idCliente = buscarIdCliente(DetalleVenta.nameClienteNameVenta);
+                                DetalleVenta.nameClienteNameVenta = string.Empty;
+                            }
+                            else//Aqui es para cuando el cliente tiene un descuento
+                            {
+                                idCliente = idClienteDescuento.ToString();
+
+                            }
+
                             DatosVenta();
                             botonAceptar = false;
                             //idCliente = string.Empty;
@@ -2451,6 +2461,20 @@ namespace PuntoDeVentaV2
                     noDuplicadoVentas = 1;
                 }
             }
+        }
+
+        private string buscarIdCliente(string nameCliente)
+        {
+            string result = string.Empty;
+
+            var queryCliente = cn.CargarDatos($"SELECT ID FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RazonSocial = '{nameCliente}'");
+
+            if (!queryCliente.Rows.Count.Equals(0))
+            {
+                result = queryCliente.Rows[0]["ID"].ToString();
+            }
+
+            return result;
         }
 
         //Se procesa la informacion de los detalles de la venta para guardarse
