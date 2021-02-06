@@ -77,8 +77,14 @@ namespace PuntoDeVentaV2
             txtTransferencia.KeyUp += new KeyEventHandler(SumaMetodosPago);
 
             txtEfectivo.Text = total.ToString("0.00");
-            lbCliente.Text = "Asignar cliente";
-
+            if (!idCliente.Equals(0))
+            {
+                lbCliente.Text = cliente;
+            }
+            else
+            {
+                lbCliente.Text = "Asignar cliente";
+            }
         }
 
         private double getMayorNumber(List<string> listaNumeros)
