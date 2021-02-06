@@ -220,8 +220,16 @@ namespace PuntoDeVentaV2
 
                 if (Ventas.etiqeutaCliente == "vacio")
                 {
-                    Ventas.cliente = "PUBLICO GENERAL";
-                    Ventas.idCliente = "0";
+                    if (!cliente.Equals(string.Empty))
+                    {
+                        Ventas.cliente = cliente;
+                        Ventas.idCliente = idCliente.ToString();
+                    }
+                    else
+                    {
+                        Ventas.cliente = "PUBLICO GENERAL";
+                        Ventas.idCliente = "0";
+                    }
                 }
                 else if (Ventas.etiqeutaCliente != "vacio")
                 {

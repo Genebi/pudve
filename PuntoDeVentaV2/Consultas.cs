@@ -1465,5 +1465,12 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string getRazonNombreRfcCliente(string idCliente)
+        {
+            var consulta = $"SELECT * FROM Clientes WHERE ID = {idCliente}";
+
+            return consulta;
+        }
     }
 }

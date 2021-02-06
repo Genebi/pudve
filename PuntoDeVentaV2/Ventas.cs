@@ -168,6 +168,15 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(lbDatosCliente.Text))
+            {
+                etiqeutaCliente = "vacio";
+            }
+            else
+            {
+                etiqeutaCliente = "lleno";
+            }
+
             label1.BackColor = Color.FromArgb(229, 231, 233);
             label2.BackColor = Color.FromArgb(229, 231, 233);
             label3.BackColor = Color.FromArgb(229, 231, 233);
@@ -2446,8 +2455,8 @@ namespace PuntoDeVentaV2
 
                             DatosVenta();
                             botonAceptar = false;
-                            //idCliente = string.Empty;
-                            //DetalleVenta.idCliente = 0;
+                            idCliente = string.Empty;
+                            DetalleVenta.idCliente = 0;
                             DetalleVenta.cliente = string.Empty;
                             AsignarCreditoVenta.idCliente = 0;
                             AsignarCreditoVenta.cliente = string.Empty;
@@ -2486,6 +2495,19 @@ namespace PuntoDeVentaV2
         //Se procesa la informacion de los detalles de la venta para guardarse
         private void DetallesVenta(string IDVenta)
         {
+            var cliente = string.Empty;
+
+            using (DataTable dtClientInfo = cn.CargarDatos(cs.getRazonNombreRfcCliente(idCliente)))
+            {
+                if (!dtClientInfo.Rows.Count.Equals(0))
+                {
+                    foreach(DataRow drInfoCliente in dtClientInfo.Rows)
+                    {
+                        cliente = drInfoCliente["RazonSocial"].ToString();
+                    }
+                }
+            }
+
             string[] info = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales,
                 cheque, transferencia, credito, referencia, idCliente, cliente
@@ -2498,7 +2520,7 @@ namespace PuntoDeVentaV2
         {
             if (!string.IsNullOrWhiteSpace(idCliente))
             {
-                if (idCliente != "0" && !string.IsNullOrEmpty(lbDatosCliente.Text) || statusVenta == "2")
+                if (idCliente != "0" && !string.IsNullOrEmpty(lbDatosCliente.Text.Trim()))
                 {
                     var datos = mb.ObtenerDatosCliente(Convert.ToInt32(idCliente), FormPrincipal.userID);
                     var cliente = datos[0];
@@ -2510,12 +2532,24 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    var info = new string[] {
-                        "PUBLICO GENERAL", "XAXX010101000", idVenta,
-                        FormPrincipal.userID.ToString()
-                    };
+                    if (!idCliente.Equals("0"))
+                    {
+                        var datos = mb.ObtenerDatosCliente(Convert.ToInt32(idCliente), FormPrincipal.userID);
+                        var cliente = datos[0];
+                        var rfc = datos[1];
 
-                    cn.EjecutarConsulta(cs.ActualizarClienteVenta(info));
+                        var info = new string[] { cliente, rfc, idVenta, FormPrincipal.userID.ToString() };
+
+                        cn.EjecutarConsulta(cs.ActualizarClienteVenta(info));
+                    }
+                    else if(idCliente.Equals("0"))
+                    {
+                        var info = new string[] {
+                            "PUBLICO GENERAL", "XAXX010101000", idVenta,
+                            FormPrincipal.userID.ToString()
+                        };
+                        cn.EjecutarConsulta(cs.ActualizarClienteVenta(info));
+                    }
                 }
             }
         }
@@ -2559,6 +2593,11 @@ namespace PuntoDeVentaV2
 
             aumentoFolio();
             Folio = Contenido;
+
+            if (formaDePagoDeVenta.Equals(string.Empty))
+            {
+                formaDePagoDeVenta = "Presupuesto";
+            }
 
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
@@ -2631,9 +2670,9 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        if (string.IsNullOrEmpty(lbDatosCliente.Text))
+                        if (string.IsNullOrEmpty(lbDatosCliente.Text) && idClienteTmp.Equals("0"))
                         {
-                            cliente = "";
+                            cliente = "PUBLICO GENERAL";
                         }
 
                         // A partir de la variable DescuentoGeneral esos valores y datos se toman solo para el ticket de venta
@@ -2785,6 +2824,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
+                            DetallesVenta(idVenta);
                             DetallesCliente(idVenta);
                         }
                     }
