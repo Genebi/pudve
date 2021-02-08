@@ -3184,15 +3184,27 @@ namespace PuntoDeVentaV2
                 var auxSegundo = string.IsNullOrWhiteSpace(datosCliente[1]);
                 var auxTercero = string.IsNullOrWhiteSpace(datosCliente[17]);
 
-                if (!auxPrimero) { cliente += $"Cliente: {datosCliente[0]}"; }
-                if (!auxSegundo) { cliente += $" --- RFC: {datosCliente[1]}"; }
-                if (!auxTercero) { cliente += $" --- No. {datosCliente[17]}"; }
+                if (!auxPrimero)
+                {
+                    cliente += $"Cliente: {datosCliente[0]}";
+                }
+                if (!auxSegundo)
+                {
+                    cliente += $" --- RFC: {datosCliente[1]}";
+                }
+                if (!auxTercero)
+                {
+                    cliente += $" --- No. {datosCliente[17]}";
+                }
 
                 lbDatosCliente.Text = cliente;
                 lbEliminarCliente.Visible = true;
             }
-
-            lbDatosCliente.Text = nombreCliente;
+            else
+            {
+                lbDatosCliente.Text = nombreCliente;
+                lbDatosCliente.Visible = false;
+            }
 
             //Verificar si tiene productos la venta
             bool tieneProductos = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosVenta WHERE IDVenta = '{mostrarVenta}'");
