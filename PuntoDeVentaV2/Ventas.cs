@@ -178,11 +178,7 @@ namespace PuntoDeVentaV2
             }
 
             label1.BackColor = Color.FromArgb(229, 231, 233);
-            label2.BackColor = Color.FromArgb(229, 231, 233);
             label3.BackColor = Color.FromArgb(229, 231, 233);
-            label4.BackColor = Color.FromArgb(229, 231, 233);
-            label5.BackColor = Color.FromArgb(229, 231, 233);
-            label6.BackColor = Color.FromArgb(229, 231, 233);
             label7.BackColor = Color.FromArgb(229, 231, 233);
 
             txtBuscadorProducto.GotFocus += new EventHandler(BuscarTieneFoco);
@@ -976,7 +972,24 @@ namespace PuntoDeVentaV2
 
                         if (primerClickRestarIndividual.Equals(false))
                         {
-                            productoRestado.Add("1|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((1 * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
+
+                            // MIRI.
+                            // Primero debe eliminar de la cadena el porcentaje del descuento para que no de error al momento de convertirlo a decimal.
+                            var cad_descuento = DGVentas.Rows[celda].Cells["Descuento"].Value.ToString();
+                            var res = cad_descuento.IndexOf("-");
+                            decimal descuento_conv = 0;
+
+                            if (res >= 0)
+                            {
+                                var d = cad_descuento.Split('-');
+                                descuento_conv = Convert.ToDecimal(d[0]);
+                            }
+                            else
+                            {
+                                descuento_conv = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString());
+                            }
+
+                            productoRestado.Add("1|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((1 * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - descuento_conv));
                             primerClickRestarIndividual = true;
                         }
                         else
@@ -993,7 +1006,24 @@ namespace PuntoDeVentaV2
                                 {
                                     var count = Convert.ToDecimal(word[0].ToString());
                                     count++;
-                                    productoRestado[i] = count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString()));
+
+                                    // MIRI.
+                                    // Primero debe eliminar de la cadena el porcentaje del descuento para que no de error al momento de convertirlo a decimal.
+                                    var cad_descuento = DGVentas.Rows[celda].Cells["Descuento"].Value.ToString();
+                                    var res = cad_descuento.IndexOf("-");
+                                    decimal descuento_conv = 0;
+
+                                    if (res >= 0)
+                                    {
+                                        var d = cad_descuento.Split('-');
+                                        descuento_conv = Convert.ToDecimal(d[0]);
+                                    }
+                                    else
+                                    {
+                                        descuento_conv = Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString());
+                                    }
+
+                                    productoRestado[i] = count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - descuento_conv);
                                     break;
                                 }
                             }
@@ -5274,26 +5304,6 @@ namespace PuntoDeVentaV2
             btnConsultar.PerformClick();
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-            btnClientes.PerformClick();
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-            btnAnticipos.PerformClick();
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-            btnAbrirCaja.PerformClick();
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-            btnGuardarVenta.PerformClick();
-        }
-
         private void label7_Click(object sender, EventArgs e)
         {
             btnVentasGuardadas.PerformClick();
@@ -5477,6 +5487,22 @@ namespace PuntoDeVentaV2
         private void cAnticipo_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_cancelar_venta_Click(object sender, EventArgs e)
+        {
+            Ventana_cancelar_venta vnt_cancelar = new Ventana_cancelar_venta();
+
+            vnt_cancelar.FormClosed += delegate 
+            {
+                //Cargar la venta cancelada 
+                CargarVentaGuardada();
+
+                mostrarVenta = 0;
+                txtBuscadorProducto.Text = string.Empty;
+            };
+
+            vnt_cancelar.ShowDialog();
         }
 
         private void DGVentas_MouseUp(object sender, MouseEventArgs e)

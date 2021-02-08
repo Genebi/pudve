@@ -103,16 +103,13 @@
             this.btnConsultar = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lFolio = new System.Windows.Forms.TextBox();
             this.timer_img_producto = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btn_cancelar_venta = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -926,7 +923,7 @@
             this.btnTerminarVenta.Name = "btnTerminarVenta";
             this.btnTerminarVenta.Size = new System.Drawing.Size(285, 33);
             this.btnTerminarVenta.TabIndex = 37;
-            this.btnTerminarVenta.Text = "Terminar \"Fin\"";
+            this.btnTerminarVenta.Text = "Terminar \"Fn\"";
             this.btnTerminarVenta.UseVisualStyleBackColor = false;
             this.btnTerminarVenta.Click += new System.EventHandler(this.btnTerminarVenta_Click);
             // 
@@ -939,12 +936,13 @@
             // 
             this.checkCancelar.AutoSize = true;
             this.checkCancelar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCancelar.Location = new System.Drawing.Point(589, 26);
+            this.checkCancelar.Location = new System.Drawing.Point(724, 579);
             this.checkCancelar.Name = "checkCancelar";
             this.checkCancelar.Size = new System.Drawing.Size(123, 21);
             this.checkCancelar.TabIndex = 35;
             this.checkCancelar.Text = "Cancelar VENTA";
             this.checkCancelar.UseVisualStyleBackColor = true;
+            this.checkCancelar.Visible = false;
             this.checkCancelar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkCancelar_MouseClick);
             // 
             // btnConsultar
@@ -991,18 +989,6 @@
             this.label1.Text = "Ctrl + B";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label2.Location = new System.Drawing.Point(860, 556);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 13);
-            this.label2.TabIndex = 46;
-            this.label2.Text = "Ctrl + D";
-            this.label2.Visible = false;
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -1013,42 +999,6 @@
             this.label3.TabIndex = 47;
             this.label3.Text = "ESC";
             this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label4.Location = new System.Drawing.Point(860, 576);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 13);
-            this.label4.TabIndex = 48;
-            this.label4.Text = "Ctrl + G";
-            this.label4.Visible = false;
-            this.label4.Click += new System.EventHandler(this.label4_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label5.Location = new System.Drawing.Point(861, 540);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
-            this.label5.TabIndex = 49;
-            this.label5.Text = "Ctrl + A";
-            this.label5.Visible = false;
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label6.Location = new System.Drawing.Point(868, 519);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(19, 13);
-            this.label6.TabIndex = 50;
-            this.label6.Text = "F2";
-            this.label6.Visible = false;
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
@@ -1063,9 +1013,9 @@
             // 
             // lFolio
             // 
-            this.lFolio.Location = new System.Drawing.Point(589, 46);
+            this.lFolio.Location = new System.Drawing.Point(853, 580);
             this.lFolio.Name = "lFolio";
-            this.lFolio.Size = new System.Drawing.Size(123, 20);
+            this.lFolio.Size = new System.Drawing.Size(43, 20);
             this.lFolio.TabIndex = 52;
             this.lFolio.Visible = false;
             this.lFolio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lFolio_KeyDown);
@@ -1078,7 +1028,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
             this.panel2.Controls.Add(this.PBImagen);
             this.panel2.Controls.Add(this.lb_cant_impuestos_retenidos);
             this.panel2.Controls.Add(this.cOtrosImpuestos);
@@ -1111,17 +1061,31 @@
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.panel5.Controls.Add(this.btn_cancelar_venta);
             this.panel5.Controls.Add(this.btnAbrirCaja);
             this.panel5.Controls.Add(this.btnAnticipos);
             this.panel5.Controls.Add(this.btnClientes);
-            this.panel5.Controls.Add(this.lFolio);
             this.panel5.Controls.Add(this.btnGuardarVenta);
             this.panel5.Controls.Add(this.btnUltimoTicket);
-            this.panel5.Controls.Add(this.checkCancelar);
             this.panel5.Location = new System.Drawing.Point(77, 480);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(724, 95);
             this.panel5.TabIndex = 63;
+            // 
+            // btn_cancelar_venta
+            // 
+            this.btn_cancelar_venta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.btn_cancelar_venta.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_cancelar_venta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_cancelar_venta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancelar_venta.ForeColor = System.Drawing.Color.White;
+            this.btn_cancelar_venta.Location = new System.Drawing.Point(591, 25);
+            this.btn_cancelar_venta.Name = "btn_cancelar_venta";
+            this.btn_cancelar_venta.Size = new System.Drawing.Size(110, 40);
+            this.btn_cancelar_venta.TabIndex = 64;
+            this.btn_cancelar_venta.Text = "Cancelar Venta";
+            this.btn_cancelar_venta.UseVisualStyleBackColor = false;
+            this.btn_cancelar_venta.Click += new System.EventHandler(this.btn_cancelar_venta_Click);
             // 
             // Ventas
             // 
@@ -1130,15 +1094,13 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
             this.ClientSize = new System.Drawing.Size(1232, 608);
             this.Controls.Add(this.panel5);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lFolio);
+            this.Controls.Add(this.checkCancelar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnConsultar);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.btnCancelarVenta);
@@ -1166,7 +1128,6 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1239,11 +1200,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Impuesto;
         private System.Windows.Forms.Label lbMayoreo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox lFolio;
         private System.Windows.Forms.Label cAnticipoUtilizado;
@@ -1258,5 +1215,6 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button btn_cancelar_venta;
     }
 }
