@@ -3774,7 +3774,6 @@ namespace PuntoDeVentaV2
 
         private void checkBoxMaster_CheckedChanged(object sender, EventArgs e)
         {
-
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
 
             for (int i = 0; i < DGVProductos.RowCount; i++)
@@ -3793,12 +3792,24 @@ namespace PuntoDeVentaV2
                     id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
                     name = dato.Cells["Column1"].Value.ToString();
 
-                    checkPaginasCompletas.Add(id, name);
+                    if (!checkPaginasCompletas.ContainsKey(id))
+                    {
+                        checkPaginasCompletas.Add(id, name);
+                    }
                 }
             }
-            else if(headerBox.Checked = false)
+            else if (headerBox.Checked == false)
             {
-                checkPaginasCompletas.Clear();
+                foreach (DataGridViewRow dato in DGVProductos.Rows)
+                {
+                    id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
+                    name = dato.Cells["Column1"].Value.ToString();
+
+                    if (checkPaginasCompletas.ContainsKey(id))
+                    {
+                        checkPaginasCompletas.Remove(id);
+                    }
+                }
             }
         }
 
@@ -3831,6 +3842,8 @@ namespace PuntoDeVentaV2
                             DGVProductos.Rows[x].Cells[0].Value = true;
                         }
                     }
+                    CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                    headerBox.Checked = true;
                 }
                 else
                 {
