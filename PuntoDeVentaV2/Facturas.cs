@@ -66,6 +66,10 @@ namespace PuntoDeVentaV2
             cmb_bx_tipo_factura.ValueMember = "Key";*/
             cmb_bx_tipo_factura.SelectedIndex = 2;
 
+            // Placeholder del campo buscar por...
+            txt_buscar_por.GotFocus += new EventHandler(buscar_por_confoco);
+            txt_buscar_por.LostFocus += new EventHandler(buscar_por_sinfoco);
+
             // Crea un checkbox en la cabecera de la tabla. Será para seleccionar todo.
             ag_checkb_header();
 
@@ -102,6 +106,7 @@ namespace PuntoDeVentaV2
             int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
             var fecha_inicial = datetp_fecha_inicial.Value.ToString("yyyy-MM-dd");
             var fecha_final = datetp_fecha_final.Value.ToString("yyyy-MM-dd");
+            var buscar_por = txt_buscar_por.Text.Trim();
 
             if(opc_tipo_f == 2)
             {
@@ -113,6 +118,7 @@ namespace PuntoDeVentaV2
                 string cons = "";
                 string condicional_fecha_i_f = "";
                 string condicional_xempleado = "";
+                string condicional_buscarpor = "";
                                 
                 // Comprueba si la sesión esta activa por un empleado o no
 
@@ -128,27 +134,34 @@ namespace PuntoDeVentaV2
                     condicional_fecha_i_f = "AND DATE(fecha_certificacion) BETWEEN '" + fecha_inicial + "' AND '" + fecha_final + "'";
                 }
 
+                // Se busca por folio, razón social o RFC cuando es desde el botón de buscar
+
+                if (tipo == 1)
+                {
+                    condicional_buscarpor = "AND (folio LIKE '%" + buscar_por + "%' OR r_rfc LIKE '%" + buscar_por + "%' OR r_razon_social LIKE '%" + buscar_por + "%')";
+                }
+
                 // Por pagar
                 if (opc_tipo_factura == 0)
                 {
-                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PPD' OR forma_pago='99') AND con_complementos=0 " + condicional_fecha_i_f + " ORDER BY ID DESC";
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PPD' OR forma_pago='99') AND con_complementos=0 " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
                 }
                 // Abonadas
                 if (opc_tipo_factura == 1)
                 {
-                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND con_complementos=1 AND resta_cpago>0 " + condicional_fecha_i_f + " ORDER BY ID DESC";
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND con_complementos=1 AND resta_cpago>0 " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
                 }
                 // Pagadas
                 if (opc_tipo_factura == 2)
                 {
-                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND ( (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) ) " + condicional_fecha_i_f + " ORDER BY ID DESC";
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND ( (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) ) " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
                 } 
                 // Canceladas
                 if (opc_tipo_factura == 3)
                 {
-                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND timbrada=1 AND cancelada=1 " + condicional_fecha_i_f + " ORDER BY ID DESC";
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND timbrada=1 AND cancelada=1 " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
                 }
-
+                
                 FiltroAvanzado = cons;
 
                 p = new Paginar(FiltroAvanzado, DataMemberDGV, maximo_x_pagina);
@@ -282,6 +295,17 @@ namespace PuntoDeVentaV2
         private void buscar_tipo_factura(object sender, EventArgs e)
         {
             cargar_lista_facturas();
+        }
+
+        private void buscar_por(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (opcion5 == 1)
+                {
+                    btn_buscar.PerformClick();
+                }
+            }
         }
 
         private void click_en_icono(object sender, DataGridViewCellEventArgs e)
@@ -1505,6 +1529,22 @@ namespace PuntoDeVentaV2
             // Obtenemos la cantidad de timbres
             int timbres_disponibles = mb.obtener_cantidad_timbres();
             lb_timbres.Text = timbres_disponibles.ToString();
+        }
+
+        private void buscar_por_confoco(object sender, EventArgs e)
+        {
+            if (txt_buscar_por.Text == "Buscar por folio, razón social o RFC")
+            {
+                txt_buscar_por.Text = "";
+            }
+        }
+
+        private void buscar_por_sinfoco(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txt_buscar_por.Text))
+            {
+                txt_buscar_por.Text = "Buscar por folio, razón social o RFC";
+            }
         }
 
         private void datagv_facturas_KeyDown(object sender, KeyEventArgs e)

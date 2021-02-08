@@ -57,6 +57,9 @@
             this.pBar1 = new System.Windows.Forms.ProgressBar();
             this.lb_texto_descarga = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.linklb_pag_siguiente = new System.Windows.Forms.LinkLabel();
+            this.linklb_pag_actual = new System.Windows.Forms.LinkLabel();
+            this.linklb_pag_anterior = new System.Windows.Forms.LinkLabel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btn_pag_siguiente = new System.Windows.Forms.Button();
             this.btn_ultima_pag = new System.Windows.Forms.Button();
@@ -70,9 +73,7 @@
             this.btn_comprar_timbres = new System.Windows.Forms.Button();
             this.btn_actualizar_timbres = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.linklb_pag_anterior = new System.Windows.Forms.LinkLabel();
-            this.linklb_pag_actual = new System.Windows.Forms.LinkLabel();
-            this.linklb_pag_siguiente = new System.Windows.Forms.LinkLabel();
+            this.txt_buscar_por = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -252,7 +253,7 @@
             "Facturas abonadas",
             "Facturas pagadas",
             "Facturas canceladas"});
-            this.cmb_bx_tipo_factura.Location = new System.Drawing.Point(8, 12);
+            this.cmb_bx_tipo_factura.Location = new System.Drawing.Point(3, 37);
             this.cmb_bx_tipo_factura.Name = "cmb_bx_tipo_factura";
             this.cmb_bx_tipo_factura.Size = new System.Drawing.Size(199, 25);
             this.cmb_bx_tipo_factura.TabIndex = 2;
@@ -263,7 +264,7 @@
             // 
             this.datetp_fecha_inicial.CustomFormat = "yyyy-MM-dd";
             this.datetp_fecha_inicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datetp_fecha_inicial.Location = new System.Drawing.Point(231, 14);
+            this.datetp_fecha_inicial.Location = new System.Drawing.Point(211, 38);
             this.datetp_fecha_inicial.MaxDate = new System.DateTime(3000, 12, 31, 0, 0, 0, 0);
             this.datetp_fecha_inicial.MinDate = new System.DateTime(1960, 1, 1, 0, 0, 0, 0);
             this.datetp_fecha_inicial.Name = "datetp_fecha_inicial";
@@ -275,7 +276,7 @@
             // 
             this.datetp_fecha_final.CustomFormat = "yyyy-MM-dd";
             this.datetp_fecha_final.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datetp_fecha_final.Location = new System.Drawing.Point(349, 14);
+            this.datetp_fecha_final.Location = new System.Drawing.Point(329, 38);
             this.datetp_fecha_final.MaxDate = new System.DateTime(3000, 12, 31, 0, 0, 0, 0);
             this.datetp_fecha_final.MinDate = new System.DateTime(1960, 1, 1, 0, 0, 0, 0);
             this.datetp_fecha_final.Name = "datetp_fecha_final";
@@ -289,7 +290,7 @@
             this.btn_buscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_buscar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_buscar.ForeColor = System.Drawing.Color.White;
-            this.btn_buscar.Location = new System.Drawing.Point(467, 9);
+            this.btn_buscar.Location = new System.Drawing.Point(460, 33);
             this.btn_buscar.Name = "btn_buscar";
             this.btn_buscar.Size = new System.Drawing.Size(105, 30);
             this.btn_buscar.TabIndex = 5;
@@ -334,14 +335,14 @@
             // 
             // panel1
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.btn_buscar);
             this.panel1.Controls.Add(this.datetp_fecha_final);
+            this.panel1.Controls.Add(this.txt_buscar_por);
             this.panel1.Controls.Add(this.datetp_fecha_inicial);
             this.panel1.Controls.Add(this.cmb_bx_tipo_factura);
-            this.panel1.Location = new System.Drawing.Point(12, 119);
+            this.panel1.Location = new System.Drawing.Point(12, 107);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(585, 50);
+            this.panel1.Size = new System.Drawing.Size(585, 67);
             this.panel1.TabIndex = 8;
             // 
             // TTMensaje
@@ -390,6 +391,48 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(927, 49);
             this.panel2.TabIndex = 11;
+            // 
+            // linklb_pag_siguiente
+            // 
+            this.linklb_pag_siguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linklb_pag_siguiente.AutoSize = true;
+            this.linklb_pag_siguiente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linklb_pag_siguiente.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linklb_pag_siguiente.Location = new System.Drawing.Point(491, 17);
+            this.linklb_pag_siguiente.Name = "linklb_pag_siguiente";
+            this.linklb_pag_siguiente.Size = new System.Drawing.Size(17, 20);
+            this.linklb_pag_siguiente.TabIndex = 15;
+            this.linklb_pag_siguiente.TabStop = true;
+            this.linklb_pag_siguiente.Text = "3";
+            this.linklb_pag_siguiente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklb_pag_siguiente_LinkClicked);
+            // 
+            // linklb_pag_actual
+            // 
+            this.linklb_pag_actual.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linklb_pag_actual.AutoSize = true;
+            this.linklb_pag_actual.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linklb_pag_actual.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linklb_pag_actual.Location = new System.Drawing.Point(456, 17);
+            this.linklb_pag_actual.Name = "linklb_pag_actual";
+            this.linklb_pag_actual.Size = new System.Drawing.Size(17, 20);
+            this.linklb_pag_actual.TabIndex = 14;
+            this.linklb_pag_actual.TabStop = true;
+            this.linklb_pag_actual.Text = "2";
+            this.linklb_pag_actual.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklb_pag_actual_LinkClicked);
+            // 
+            // linklb_pag_anterior
+            // 
+            this.linklb_pag_anterior.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linklb_pag_anterior.AutoSize = true;
+            this.linklb_pag_anterior.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linklb_pag_anterior.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linklb_pag_anterior.Location = new System.Drawing.Point(422, 17);
+            this.linklb_pag_anterior.Name = "linklb_pag_anterior";
+            this.linklb_pag_anterior.Size = new System.Drawing.Size(17, 20);
+            this.linklb_pag_anterior.TabIndex = 13;
+            this.linklb_pag_anterior.TabStop = true;
+            this.linklb_pag_anterior.Text = "1";
+            this.linklb_pag_anterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklb_pag_anterior_LinkClicked);
             // 
             // panel4
             // 
@@ -560,47 +603,14 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Timbres restantes:";
             // 
-            // linklb_pag_anterior
+            // txt_buscar_por
             // 
-            this.linklb_pag_anterior.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.linklb_pag_anterior.AutoSize = true;
-            this.linklb_pag_anterior.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linklb_pag_anterior.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linklb_pag_anterior.Location = new System.Drawing.Point(422, 17);
-            this.linklb_pag_anterior.Name = "linklb_pag_anterior";
-            this.linklb_pag_anterior.Size = new System.Drawing.Size(17, 20);
-            this.linklb_pag_anterior.TabIndex = 13;
-            this.linklb_pag_anterior.TabStop = true;
-            this.linklb_pag_anterior.Text = "1";
-            this.linklb_pag_anterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklb_pag_anterior_LinkClicked);
-            // 
-            // linklb_pag_actual
-            // 
-            this.linklb_pag_actual.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.linklb_pag_actual.AutoSize = true;
-            this.linklb_pag_actual.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linklb_pag_actual.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linklb_pag_actual.Location = new System.Drawing.Point(456, 17);
-            this.linklb_pag_actual.Name = "linklb_pag_actual";
-            this.linklb_pag_actual.Size = new System.Drawing.Size(17, 20);
-            this.linklb_pag_actual.TabIndex = 14;
-            this.linklb_pag_actual.TabStop = true;
-            this.linklb_pag_actual.Text = "2";
-            this.linklb_pag_actual.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklb_pag_actual_LinkClicked);
-            // 
-            // linklb_pag_siguiente
-            // 
-            this.linklb_pag_siguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.linklb_pag_siguiente.AutoSize = true;
-            this.linklb_pag_siguiente.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linklb_pag_siguiente.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linklb_pag_siguiente.Location = new System.Drawing.Point(491, 17);
-            this.linklb_pag_siguiente.Name = "linklb_pag_siguiente";
-            this.linklb_pag_siguiente.Size = new System.Drawing.Size(17, 20);
-            this.linklb_pag_siguiente.TabIndex = 15;
-            this.linklb_pag_siguiente.TabStop = true;
-            this.linklb_pag_siguiente.Text = "3";
-            this.linklb_pag_siguiente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklb_pag_siguiente_LinkClicked);
+            this.txt_buscar_por.Location = new System.Drawing.Point(3, 4);
+            this.txt_buscar_por.Name = "txt_buscar_por";
+            this.txt_buscar_por.Size = new System.Drawing.Size(438, 22);
+            this.txt_buscar_por.TabIndex = 4;
+            this.txt_buscar_por.Text = "Buscar por folio, razón social o RFC";
+            this.txt_buscar_por.KeyDown += new System.Windows.Forms.KeyEventHandler(this.buscar_por);
             // 
             // Facturas
             // 
@@ -626,6 +636,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Facturas_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -683,5 +694,6 @@
         private System.Windows.Forms.LinkLabel linklb_pag_anterior;
         private System.Windows.Forms.LinkLabel linklb_pag_actual;
         private System.Windows.Forms.LinkLabel linklb_pag_siguiente;
+        private System.Windows.Forms.TextBox txt_buscar_por;
     }
 }

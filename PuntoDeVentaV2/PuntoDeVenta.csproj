@@ -841,6 +841,12 @@
     <Compile Include="VentanaDetalleFotoProducto.Designer.cs">
       <DependentUpon>VentanaDetalleFotoProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ventana_cancelar_venta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventana_cancelar_venta.Designer.cs">
+      <DependentUpon>Ventana_cancelar_venta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ventas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1178,6 +1184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaDetalleFotoProducto.resx">
       <DependentUpon>VentanaDetalleFotoProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventana_cancelar_venta.resx">
+      <DependentUpon>Ventana_cancelar_venta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>
