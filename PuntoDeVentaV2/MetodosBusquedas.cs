@@ -72,6 +72,41 @@ namespace PuntoDeVentaV2
         //     DatosConexion($"SELECT StockMinimo, StockNecesario FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND");
         //}
 
+
+        public string ObtenerFechaUltimoCorte()
+        {
+            string fechaCorte = string.Empty;
+            DatosConexion($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1");
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();   
+
+            if (dr.Read())
+            {
+                fechaCorte = dr[0].ToString();
+            }
+
+
+            return fechaCorte;
+        }
+
+        public string ObtenerFechaVenta(int id)
+        {
+            string fechaVenta = string.Empty;
+            DatosConexion($"SELECT FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{id}'");
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                fechaVenta = dr[0].ToString();
+            }
+
+            dr.Close();
+            CerrarConexion();
+
+            return fechaVenta;
+        }
+
         public float ObtenerTotalAbonado(int idVenta, int idUsuario)
         {
             float cantidad = 0f;
@@ -89,6 +124,28 @@ namespace PuntoDeVentaV2
             CerrarConexion();
 
             return cantidad;
+        }
+
+        public int obtenerIdDelFolio(string folio)
+        {
+            var idObtenido = 0;
+            var id = string.Empty;
+
+            DatosConexion($"SELECT ID FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio = '{folio}'");
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                id = dr[0].ToString();
+            }
+
+            idObtenido = Convert.ToInt32(id);
+
+            dr.Close();
+            CerrarConexion();
+
+            return idObtenido;
         }
 
         public float[] ObtenerFormasPagoVenta(int idVenta, int idUsuario)
