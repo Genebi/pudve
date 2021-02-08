@@ -2481,7 +2481,17 @@ namespace PuntoDeVentaV2
                                     }
                                     else
                                     {
-                                        idCliente = buscarIdCliente(lbDatosCliente.Text);
+                                        if (lbDatosCliente.Text.Contains("-"))
+                                        {
+                                            String datos = lbDatosCliente.Text;
+                                            datos = datos.Replace("---", "|");
+                                            string[] words = datos.Split('|');
+                                            idCliente = buscarIdCliente(words[0].Replace("Cliente:", string.Empty).Trim());
+                                        }
+                                        else
+                                        {
+                                            idCliente = buscarIdCliente(lbDatosCliente.Text);
+                                        }
                                     }
                                 }
                                 else
