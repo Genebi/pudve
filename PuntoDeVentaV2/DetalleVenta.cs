@@ -512,6 +512,7 @@ namespace PuntoDeVentaV2
         {
             credito = 0;
             idCliente = 0;
+            nameClienteNameVenta = string.Empty;
             lbTotalCredito.Text = "0.00";
             lbEliminarCliente.Visible = false;
             lbCliente.Text = "Asignar cliente";

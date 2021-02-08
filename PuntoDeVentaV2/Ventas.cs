@@ -2445,7 +2445,14 @@ namespace PuntoDeVentaV2
                             {
                                 if (!string.IsNullOrEmpty(lbDatosCliente.Text))
                                 {
-                                    idCliente = buscarIdCliente(lbDatosCliente.Text);
+                                    if (DetalleVenta.nameClienteNameVenta.Equals(string.Empty))
+                                    {
+                                        idCliente = buscarIdCliente("PUBLICO GENERAL");
+                                    }
+                                    else
+                                    {
+                                        idCliente = buscarIdCliente(lbDatosCliente.Text);
+                                    }
                                 }
                                 else
                                 {
