@@ -5505,11 +5505,14 @@ namespace PuntoDeVentaV2
 
             vnt_cancelar.FormClosed += delegate 
             {
-                //Cargar la venta cancelada 
-                CargarVentaGuardada();
+                if (mostrarVenta > 0)
+                {
+                    //Cargar la venta cancelada 
+                    CargarVentaGuardada();
 
-                mostrarVenta = 0;
-                txtBuscadorProducto.Text = string.Empty;
+                    mostrarVenta = 0;
+                    txtBuscadorProducto.Text = string.Empty;
+                }
             };
 
             vnt_cancelar.ShowDialog();
