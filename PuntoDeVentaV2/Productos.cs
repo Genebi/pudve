@@ -80,6 +80,8 @@ namespace PuntoDeVentaV2
         public int idProductoCambio { get; set; }
         public bool cambioProducto { get; set; }
 
+        bool paginacompletaMarcada;
+
         //public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
         public AgregarStockXML FormXML = new AgregarStockXML();
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
@@ -3772,10 +3774,6 @@ namespace PuntoDeVentaV2
 
         private void checkBoxMaster_CheckedChanged(object sender, EventArgs e)
         {
-            //    if ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0])
-            //    {
-
-            //    }
 
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
 
@@ -3798,7 +3796,7 @@ namespace PuntoDeVentaV2
                     checkPaginasCompletas.Add(id, name);
                 }
             }
-            else
+            else if(headerBox.Checked = false)
             {
                 checkPaginasCompletas.Clear();
             }
@@ -3808,6 +3806,12 @@ namespace PuntoDeVentaV2
         {
             int id = 0;
             string name = string.Empty;
+            int cantidadFila = 0;
+
+            for (int x = 0; x < DGVProductos.Rows.Count; x++)
+            {
+                cantidadFila = x;
+            }
 
             //Recorre el DGV para obtener los ID de cada fila del DGV
             foreach (DataGridViewRow dato in DGVProductos.Rows)
@@ -3817,11 +3821,23 @@ namespace PuntoDeVentaV2
 
                 if (checkPaginasCompletas.ContainsKey(id))
                 {
-                    //Recorre el Diccionario y marca en true los checkbox de todad la pagina
-                    for (int x = 0; x < checkPaginasCompletas.Count; x++)
+                    paginacompletaMarcada = true;
+
+                    //Recorre el Diccionario y marca en true los checkbox de toda la pagina
+                    for (int x = 0; x < checkPaginasCompletas.Count(); x++)
                     {
-                        DGVProductos.Rows[x].Cells[0].Value = true;
+                        if (x < (cantidadFila+1))
+                        {
+                            DGVProductos.Rows[x].Cells[0].Value = true;
+                        }
                     }
+                }
+                else
+                {
+                    paginacompletaMarcada = false;
+
+                    CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                    headerBox.Checked = false;
                 }
             }
         }
