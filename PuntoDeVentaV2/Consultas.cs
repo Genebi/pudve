@@ -1472,5 +1472,12 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string getIdCliente(string nombreCliente)
+        {
+            var consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RazonSocial = '{nombreCliente}'";
+
+            return consulta;
+        }
     }
 }

@@ -2436,7 +2436,7 @@ namespace PuntoDeVentaV2
                     {
                         if (botonAceptar)
                         {
-                            if (DetalleVenta.nameClienteNameVenta != "")//aqui para cuando se asigna un cliente en detalle ventas
+                            if (!DetalleVenta.nameClienteNameVenta.Equals(string.Empty) && !DetalleVenta.nameClienteNameVenta.Equals("PUBLICO GENERAL"))//aqui para cuando se asigna un cliente en detalle ventas
                             {
                                 idCliente = buscarIdCliente(DetalleVenta.nameClienteNameVenta);
                                 DetalleVenta.nameClienteNameVenta = string.Empty;
@@ -2589,6 +2589,20 @@ namespace PuntoDeVentaV2
                 {
                     idClienteTmp = "0";
                 }
+                else if (!cliente.Equals(string.Empty))
+                {
+                    using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(cliente)))
+                    {
+                        if (!dtIdCliente.Rows.Count.Equals(0))
+                        {
+                            foreach(DataRow drIdCliente in dtIdCliente.Rows)
+                            {
+                                idClienteTmp = drIdCliente["ID"].ToString();
+                                idCliente = drIdCliente["ID"].ToString();
+                            }
+                        }
+                    }
+                }
             }
 
             aumentoFolio();
@@ -2673,6 +2687,19 @@ namespace PuntoDeVentaV2
                         if (string.IsNullOrEmpty(lbDatosCliente.Text) && idClienteTmp.Equals("0"))
                         {
                             cliente = "PUBLICO GENERAL";
+                        }
+                        else
+                        {
+                            using (DataTable dtCliente = cn.CargarDatos(cs.getRazonNombreRfcCliente(idCliente)))
+                            {
+                                if (!dtCliente.Rows.Count.Equals(0))
+                                {
+                                    foreach(DataRow drCliente in dtCliente.Rows)
+                                    {
+                                        cliente = drCliente["RazonSocial"].ToString();
+                                    }
+                                }
+                            }
                         }
 
                         // A partir de la variable DescuentoGeneral esos valores y datos se toman solo para el ticket de venta
@@ -2913,6 +2940,9 @@ namespace PuntoDeVentaV2
             txtDescuentoGeneral.Text = "% descuento";
             productosDescuentoG.Clear();
             descuentosDirectos.Clear();
+
+            idCliente = string.Empty;
+            cliente = string.Empty;
         }
 
         private void aumentoFolio()
@@ -2974,6 +3004,8 @@ namespace PuntoDeVentaV2
                         idCliente = string.Empty;
                         statusVenta = string.Empty;
                         ventaGuardada = false;
+                        DetalleVenta.idCliente = 0;
+                        DetalleVenta.cliente = string.Empty;
                     }
                 };
 

@@ -126,6 +126,7 @@ namespace PuntoDeVentaV2
                         {
                             DetalleVenta.idCliente = idCliente;
                             DetalleVenta.cliente = cliente;
+                            DetalleVenta.nameClienteNameVenta = cliente;
 
                             AsignarCreditoVenta.idCliente = idCliente;
                             AsignarCreditoVenta.cliente = cliente;
@@ -152,6 +153,7 @@ namespace PuntoDeVentaV2
                     {
                         DetalleVenta.idCliente = idCliente;
                         DetalleVenta.cliente = cliente;
+                        DetalleVenta.nameClienteNameVenta = cliente;
 
                         AsignarCreditoVenta.idCliente = idCliente;
                         AsignarCreditoVenta.cliente = cliente;

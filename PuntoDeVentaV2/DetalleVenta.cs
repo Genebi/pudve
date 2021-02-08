@@ -45,6 +45,7 @@ namespace PuntoDeVentaV2
 
                     DetalleVenta.idCliente = idClienteTmp;
                     DetalleVenta.cliente = infoCliente[0];
+                    idCliente = string.Empty;
                 }
             }
         }
@@ -254,6 +255,9 @@ namespace PuntoDeVentaV2
                     lstVentas.cbTipoVentas.Text = "Ventas pagadas";
                     lstVentas.CargarDatos();
                 }
+
+                idCliente = 0 ;
+                nameClienteNameVenta = string.Empty;
 
                 this.Hide();
                 this.Close();
