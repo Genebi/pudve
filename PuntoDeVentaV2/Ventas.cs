@@ -2481,7 +2481,7 @@ namespace PuntoDeVentaV2
                                     }
                                     else
                                     {
-                                        if (lbDatosCliente.Text.Contains("-"))
+                                        if (lbDatosCliente.Text.Contains("---"))
                                         {
                                             String datos = lbDatosCliente.Text;
                                             datos = datos.Replace("---", "|");
