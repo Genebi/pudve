@@ -3261,7 +3261,9 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            MessageBox.Show("ID CLiente: " + idCliente);
+
+
+            //MessageBox.Show("ID CLiente: " + idCliente);
 
             //Verificar si tiene productos la venta
             bool tieneProductos = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosVenta WHERE IDVenta = '{mostrarVenta}'");
