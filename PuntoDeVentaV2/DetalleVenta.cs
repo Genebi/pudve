@@ -256,8 +256,8 @@ namespace PuntoDeVentaV2
                     lstVentas.CargarDatos();
                 }
 
-                idCliente = 0 ;
-                nameClienteNameVenta = string.Empty;
+                //idCliente = 0 ;
+                //nameClienteNameVenta = string.Empty;
 
                 this.Hide();
                 this.Close();

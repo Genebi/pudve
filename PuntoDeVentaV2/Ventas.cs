@@ -2488,9 +2488,13 @@ namespace PuntoDeVentaV2
                                             string[] words = datos.Split('|');
                                             idCliente = buscarIdCliente(words[0].Replace("Cliente:", string.Empty).Trim());
                                         }
-                                        else
+                                        else if (!idCliente.Equals("0"))
                                         {
                                             idCliente = buscarIdCliente(lbDatosCliente.Text);
+                                        }
+                                        else
+                                        {
+                                            idCliente = idClienteDescuento.ToString();
                                         }
                                     }
                                 }
@@ -2531,11 +2535,15 @@ namespace PuntoDeVentaV2
 
             var queryCliente = cn.CargarDatos($"SELECT ID FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RazonSocial = '{nameCliente}'");
 
-            if (!queryCliente.Rows.Count.Equals(0))
+            if (queryCliente.Rows.Count.Equals(0) || idCliente.Equals(0))
+            {
+                result = "0";
+            }
+            else if (!queryCliente.Rows.Count.Equals(0))
             {
                 result = queryCliente.Rows[0]["ID"].ToString();
             }
-
+            
             return result;
         }
 
@@ -2636,20 +2644,20 @@ namespace PuntoDeVentaV2
                 {
                     idClienteTmp = "0";
                 }
-                else if (!cliente.Equals(string.Empty))
-                {
-                    using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(cliente)))
-                    {
-                        if (!dtIdCliente.Rows.Count.Equals(0))
-                        {
-                            foreach(DataRow drIdCliente in dtIdCliente.Rows)
-                            {
-                                idClienteTmp = drIdCliente["ID"].ToString();
-                                idCliente = drIdCliente["ID"].ToString();
-                            }
-                        }
-                    }
-                }
+                //else if (!cliente.Equals(string.Empty))
+                //{
+                //    using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(cliente)))
+                //    {
+                //        if (!dtIdCliente.Rows.Count.Equals(0))
+                //        {
+                //            foreach(DataRow drIdCliente in dtIdCliente.Rows)
+                //            {
+                //                idClienteTmp = drIdCliente["ID"].ToString();
+                //                idCliente = drIdCliente["ID"].ToString();
+                //            }
+                //        }
+                //    }
+                //}
             }
 
             aumentoFolio();
@@ -2735,19 +2743,19 @@ namespace PuntoDeVentaV2
                         {
                             cliente = "PUBLICO GENERAL";
                         }
-                        else
-                        {
-                            using (DataTable dtCliente = cn.CargarDatos(cs.getRazonNombreRfcCliente(idCliente)))
-                            {
-                                if (!dtCliente.Rows.Count.Equals(0))
-                                {
-                                    foreach(DataRow drCliente in dtCliente.Rows)
-                                    {
-                                        cliente = drCliente["RazonSocial"].ToString();
-                                    }
-                                }
-                            }
-                        }
+                        //else
+                        //{
+                        //    using (DataTable dtCliente = cn.CargarDatos(cs.getRazonNombreRfcCliente(idCliente)))
+                        //    {
+                        //        if (!dtCliente.Rows.Count.Equals(0))
+                        //        {
+                        //            foreach(DataRow drCliente in dtCliente.Rows)
+                        //            {
+                        //                cliente = drCliente["RazonSocial"].ToString();
+                        //            }
+                        //        }
+                        //    }
+                        //}
 
                         // A partir de la variable DescuentoGeneral esos valores y datos se toman solo para el ticket de venta
                         guardar = new string[] {
@@ -3253,16 +3261,14 @@ namespace PuntoDeVentaV2
                 lbDatosCliente.Visible = false;
             }
 
-            using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(nombreCliente)))
-            {
-                if (!dtIdCliente.Rows.Count.Equals(0))
-                {
-                    idCliente = dtIdCliente.Rows[0]["ID"].ToString();
-                }
-            }
-
-
-
+            //using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(nombreCliente)))
+            //{
+            //    if (!dtIdCliente.Rows.Count.Equals(0))
+            //    {
+            //        idCliente = dtIdCliente.Rows[0]["ID"].ToString();
+            //    }
+            //}
+            
             //MessageBox.Show("ID CLiente: " + idCliente);
 
             //Verificar si tiene productos la venta
