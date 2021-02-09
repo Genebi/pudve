@@ -3253,6 +3253,16 @@ namespace PuntoDeVentaV2
                 lbDatosCliente.Visible = false;
             }
 
+            using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(nombreCliente)))
+            {
+                if (!dtIdCliente.Rows.Count.Equals(0))
+                {
+                    idCliente = dtIdCliente.Rows[0]["ID"].ToString();
+                }
+            }
+
+            MessageBox.Show("ID CLiente: " + idCliente);
+
             //Verificar si tiene productos la venta
             bool tieneProductos = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosVenta WHERE IDVenta = '{mostrarVenta}'");
 
