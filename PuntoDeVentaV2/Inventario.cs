@@ -619,11 +619,11 @@ namespace PuntoDeVentaV2
                             var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
                             if (datosCombo.Count().Equals(0) && (datosProd[4].ToString().Equals("PQ") || datosProd[4].ToString().Equals("S")))
                             {
-                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n\n"+ "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n\n" + "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                                 if (result == DialogResult.Yes)
                                 {
-                                    
+
                                 }
                                 else if (result == DialogResult.No)
                                 {
@@ -1235,14 +1235,28 @@ namespace PuntoDeVentaV2
 
                 Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
                 Paragraph subTitulo = new Paragraph("");
+
+                string UsuarioActivo = string.Empty;
+
+                using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+                {
+                    if (!dtDataUsr.Rows.Count.Equals(0))
+                    {
+                        foreach(DataRow drDataUsr in dtDataUsr.Rows)
+                        {
+                            UsuarioActivo = drDataUsr["Usuario"].ToString();
+                        }
+                    }
+                }
+
                 //Paragraph subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 if (rbAumentarProducto.Checked)
                 {
-                    subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Aumentar)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                    subTitulo = new Paragraph("USUARIO: " + UsuarioActivo + "\nREPORTE DE ACTUALIZAR INVENTARIO\nSECCIÓN DE AUMENTAR\n\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 }
                 else if (rbDisminuirProducto.Checked)
                 {
-                    subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Disminuir)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                    subTitulo = new Paragraph("REPORTE DE ACTUALIZAR INVENTARIO (Disminuir)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 }
                 //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
@@ -2131,41 +2145,41 @@ namespace PuntoDeVentaV2
                         Proveedor = true;
                         columnasConcepto++;
                     }
-                    else if(item.Equals("Unidades Compradas/Disminuidas"))
+                    else if (item.Equals("Unidades Compradas/Disminuidas"))
                     {
-                        if ((rbAumentarProducto.Checked && UnidadesCompradas.Equals(false)) || 
+                        if ((rbAumentarProducto.Checked && UnidadesCompradas.Equals(false)) ||
                             (rbDisminuirProducto.Checked && UnidadesCompradas.Equals(false)))
                         {
                             UnidadesCompradas = true;
                             columnasConcepto++;
                         }
                     }
-                    else if(item.Equals("Precio Compra") && PrecioCompra.Equals(false))
+                    else if (item.Equals("Precio Compra") && PrecioCompra.Equals(false))
                     {
                         PrecioCompra = true;
                         columnasConcepto++;
                     }
-                    else if(item.Equals("Precio Venta") && PrecioVenta.Equals(false))
+                    else if (item.Equals("Precio Venta") && PrecioVenta.Equals(false))
                     {
                         PrecioVenta = true;
                         columnasConcepto++;
                     }
-                    else if(item.Equals("Stock Anterior") && StockAnterior.Equals(false))
+                    else if (item.Equals("Stock Anterior") && StockAnterior.Equals(false))
                     {
                         StockAnterior = true;
                         columnasConcepto++;
                     }
-                    else if(item.Equals("Stock Actual") && StockActual.Equals(false))
+                    else if (item.Equals("Stock Actual") && StockActual.Equals(false))
                     {
                         StockActual = true;
                         columnasConcepto++;
                     }
-                    else if(item.Equals("Fecha de Compra") && FechaCompra.Equals(false))
+                    else if (item.Equals("Fecha de Compra") && FechaCompra.Equals(false))
                     {
                         FechaCompra = true;
                         columnasConcepto++;
                     }
-                    else if(item.Equals("Fecha de Operacion") && FechaOperacion.Equals(false))
+                    else if (item.Equals("Fecha de Operacion") && FechaOperacion.Equals(false))
                     {
                         FechaOperacion = true;
                         columnasConcepto++;

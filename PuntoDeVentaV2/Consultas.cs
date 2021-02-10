@@ -1479,5 +1479,12 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string UsuarioRazonSocialNombreCompleto(string _idUsr)
+        {
+            var consulta = $"SELECT Usuario, RazonSocial, NombreCompleto FROM Usuarios WHERE ID = {_idUsr}";
+
+            return consulta;
+        }
     }
 }
