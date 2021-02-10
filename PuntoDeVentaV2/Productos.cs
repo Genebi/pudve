@@ -75,12 +75,23 @@ namespace PuntoDeVentaV2
         public static Dictionary<int, string> checkboxMarcados;
         // Lista para que guarde los ID de todos los productos seleccionados por pagina
         public static Dictionary<int, string> checkPaginasCompletas = new Dictionary<int, string>();
+        // Lista para contar la cantidad de productos seleccionados
+        public static Dictionary<int, string> contarProductosSeleccionados = new Dictionary<int, string>();
+        //Lista para los checkbox que se desmarcan cuando estan todos marcados
+        public static Dictionary<int, string> quitarProductosDeseleccionados = new Dictionary<int, string>();
 
         // Variables para saber si uso el boton de cambiar tipo
         public int idProductoCambio { get; set; }
         public bool cambioProducto { get; set; }
 
-        bool paginacompletaMarcada;
+        int paginacompletaMarcada = -1;
+
+        //Variable para los checkbox que se desmarcan cuando todos estan seleccionados
+        bool validarTodosDesmarcados = false;
+        bool ponerTrue = false;
+
+        //Contador para el total de productos
+        int contador = 0;
 
         //public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
         public AgregarStockXML FormXML = new AgregarStockXML();
@@ -195,12 +206,16 @@ namespace PuntoDeVentaV2
         {
             if (e.ColumnIndex == 0)
             {
+                validarTodosDesmarcados = true;
+
                 if ((bool)DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value == false)
                 {
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = true;
 
                     var id = Convert.ToInt32(DGVProductos.SelectedRows[e.ColumnIndex].Cells["_IDProducto"].Value);
                     var tipo = DGVProductos.SelectedRows[e.ColumnIndex].Cells["TipoProducto"].Value.ToString();
+                    var name = DGVProductos.SelectedRows[e.ColumnIndex].Cells["Column1"].Value.ToString();
+
 
                     if (!checkboxMarcados.ContainsKey(id))
                     {
@@ -211,11 +226,43 @@ namespace PuntoDeVentaV2
                     {
                         productosSeleccionados.Add(id, tipo);
                     }
+
+                    if (!contarProductosSeleccionados.ContainsKey(id))
+                    {
+                        contarProductosSeleccionados.Add(id, name);
+                        contador += 1;
+                    }
+
                 }
                 else
                 {
+                    var id = Convert.ToInt32(DGVProductos.SelectedRows[e.ColumnIndex].Cells["_IDProducto"].Value);
+                    var name = DGVProductos.SelectedRows[e.ColumnIndex].Cells["Column1"].Value.ToString();
+
+                    if (contarProductosSeleccionados.ContainsKey(id))
+                    {
+                        contarProductosSeleccionados.Remove(id);
+                        contador -= 1;
+                    }
+
+                    if (!quitarProductosDeseleccionados.ContainsKey(id))
+                    {
+                        quitarProductosDeseleccionados.Add(id, name);
+                    }
+
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
                 }
+
+                if (contador > 0)
+                {
+                    lbCantidadSeleccionada.Text = $"Productos seleccionados: {contador}";
+                }
+                else
+                {
+                    lbCantidadSeleccionada.Text = string.Empty;
+                    //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
+                }
+
             }
 
             updateCheckBoxes();
@@ -1622,6 +1669,8 @@ namespace PuntoDeVentaV2
             {
                 DGVProductos.Columns[5].Visible = true;
             }
+
+            CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
         }
 
         private void validarConexionServidor()
@@ -2350,15 +2399,25 @@ namespace PuntoDeVentaV2
 
         private void cbTodos_CheckedChanged(object sender, EventArgs e)
         {
+            quitarProductosDeseleccionados.Clear();
+
             if (cbTodos.Checked)
             {
+                validarTodosDesmarcados = true;
+
                 MarcarCheckBoxes(filtroConSinFiltroAvanzado);
 
                 lbPaginasSeleccionadas.Visible = true;
                 lbPaginasSeleccionadas.Text = $"Páginas seleccionadas: {p.countPag()}";
+
+                //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                //headerBox.Checked = true;
+                ponerTrue = true;
             }
             else
             {
+                validarTodosDesmarcados = false;
+
                 checkboxMarcados.Clear();
                 lbPaginasSeleccionadas.Visible = false;
                 lbPaginasSeleccionadas.Text = string.Empty;
@@ -2375,7 +2434,12 @@ namespace PuntoDeVentaV2
                         row.Cells["CheckProducto"].Value = false;
                     } 
                 }
+                //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                //headerBox.Checked = false;
+                ponerTrue = false;
             }
+            checkPaginasCompletas.Clear();
+            contarProductosSeleccionados.Clear();
         }
 
         private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
@@ -2493,27 +2557,27 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            int cantSelected = 0;
+            //int cantSelected = 0;
 
-            foreach (DataGridViewRow row in DGVProductos.Rows)
-            {
-                bool seleccionado = Convert.ToBoolean(row.Cells[0].Value);
+            //foreach (DataGridViewRow row in DGVProductos.Rows)
+            //{
+            //    bool seleccionado = Convert.ToBoolean(row.Cells[0].Value);
 
-                if (seleccionado)
-                {
-                    cantSelected++;
-                }
+            //    if (seleccionado)
+            //    {
+            //        cantSelected++;
+            //    }
 
-                if (cantSelected > 0)
-                {
-                    lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
-                }
-                else
-                {
-                    lbCantidadSeleccionada.Text = string.Empty;
-                    //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
-                }
-            }
+            //    if (cantSelected > 0)
+            //    {
+            //        lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
+            //    }
+            //    else
+            //    {
+            //        lbCantidadSeleccionada.Text = string.Empty;
+            //        //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
+            //    }
+            //}
         }
 
         public void cargarListaSetUpVaribale()
@@ -3781,36 +3845,80 @@ namespace PuntoDeVentaV2
                 DGVProductos.Rows[i].Cells[0].Value = headerBox.Checked;
             }
 
-            int id = 0;
-            string name = string.Empty;
-
-            if (headerBox.Checked)
+            if (validarTodosDesmarcados != true)
             {
-                //Recorre el DGV y agrega el id y el nombre de cada fila a un diccionario
-                foreach (DataGridViewRow dato in DGVProductos.Rows)
-                {
-                    id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
-                    name = dato.Cells["Column1"].Value.ToString();
 
-                    if (!checkPaginasCompletas.ContainsKey(id))
+                int id = 0;
+                string name = string.Empty;
+
+                if (headerBox.Checked)
+                {
+                    //Recorre el DGV y agrega el id y el nombre de cada fila a un diccionario
+                    foreach (DataGridViewRow dato in DGVProductos.Rows)
                     {
-                        checkPaginasCompletas.Add(id, name);
+                        id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
+                        name = dato.Cells["Column1"].Value.ToString();
+
+                        if (!checkPaginasCompletas.ContainsKey(id))
+                        {
+                            checkPaginasCompletas.Add(id, name);
+                        }
+                    }
+                }
+                else if (headerBox.Checked == false)
+                {
+                    foreach (DataGridViewRow dato in DGVProductos.Rows)
+                    {
+                        id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
+                        name = dato.Cells["Column1"].Value.ToString();
+
+                        if (checkPaginasCompletas.ContainsKey(id))
+                        {
+                            checkPaginasCompletas.Remove(id);
+                            if (!quitarProductosDeseleccionados.ContainsKey(id))
+                            {
+                                quitarProductosDeseleccionados.Add(id, name);
+
+                            }
+                        }
                     }
                 }
             }
-            else if (headerBox.Checked == false)
+            else
             {
-                foreach (DataGridViewRow dato in DGVProductos.Rows)
-                {
-                    id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
-                    name = dato.Cells["Column1"].Value.ToString();
+                int id = 0;
+                string name = string.Empty;
+                //bool statusCheckBox = false;
 
-                    if (checkPaginasCompletas.ContainsKey(id))
+                if (cbTodos.Checked && paginacompletaMarcada == 1)
+                {
+                    //headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
+                    //Desmarcar todos los checkbox en caso de seleccionar el checkbox header cuando estan seleccionados todos los productos
+                    foreach (DataGridViewRow dato in DGVProductos.Rows)
                     {
-                        checkPaginasCompletas.Remove(id);
+                        var statusCheckBox = Convert.ToBoolean(dato.Cells["CheckProducto"].Value.ToString());
+                        id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
+                        name = dato.Cells["Column1"].Value.ToString();
+
+                        if (!quitarProductosDeseleccionados.ContainsKey(id) && statusCheckBox == false)
+                        {
+                            quitarProductosDeseleccionados.Add(id, name);
+                        }
                     }
                 }
             }
+        }
+
+        private bool validarSiEstaSeleccionado()
+        {
+            bool statusCheckBox = false;
+
+            foreach (DataGridViewRow dato in DGVProductos.Rows)
+            {
+                statusCheckBox = Convert.ToBoolean(dato.Cells["CheckProducto"].Value.ToString());
+            }
+
+            return statusCheckBox;
         }
 
         private void updateCheckBoxes()
@@ -3824,6 +3932,8 @@ namespace PuntoDeVentaV2
                 cantidadFila = x;
             }
 
+            
+
             //Recorre el DGV para obtener los ID de cada fila del DGV
             foreach (DataGridViewRow dato in DGVProductos.Rows)
             {
@@ -3832,7 +3942,6 @@ namespace PuntoDeVentaV2
 
                 if (checkPaginasCompletas.ContainsKey(id))
                 {
-                    paginacompletaMarcada = true;
 
                     //Recorre el Diccionario y marca en true los checkbox de toda la pagina
                     for (int x = 0; x < checkPaginasCompletas.Count(); x++)
@@ -3847,11 +3956,24 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    paginacompletaMarcada = false;
-
-                    CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                    CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
                     headerBox.Checked = false;
                 }
+            }
+
+            if (ponerTrue == true)
+            {
+                paginacompletaMarcada = 0;
+
+                CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                headerBox.Checked = true;
+            }
+            else
+            {
+                paginacompletaMarcada = 1;
+
+                CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
+                headerBox.Checked = false;
             }
         }
 
@@ -4998,8 +5120,14 @@ namespace PuntoDeVentaV2
                             {
                                 var id = Convert.ToInt32(fila["ID"].ToString());
                                 var tipoProducto = fila["Tipo"].ToString();
+                                var name = fila["Nombre"].ToString();
+                               
+                                    checkboxMarcados.Add(id, name);
 
-                                checkboxMarcados.Add(id, tipoProducto);
+                                //if (quitarProductosDeseleccionados.ContainsKey(id))
+                                //{
+                                //    checkboxMarcados.Remove(id);
+                                //}
                             }
 
                             foreach (DataGridViewRow row in DGVProductos.Rows)
@@ -5009,6 +5137,8 @@ namespace PuntoDeVentaV2
                                 if (checkboxMarcados.ContainsKey(idProducto))
                                 {
                                     row.Cells["CheckProducto"].Value = true;
+                                    CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                                    headerBox.Checked = true;
                                 }
                                 else
                                 {
