@@ -125,25 +125,25 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                lista.Add(dr[2].ToString()); //Razon social
-                lista.Add(dr[4].ToString()); //RFC
-                lista.Add(dr[3].ToString()); //Nombre comercial
-                lista.Add(dr[5].ToString()); //Uso CFDI
-                lista.Add(dr[6].ToString()); //Pais
-                lista.Add(dr[7].ToString()); //Estado
-                lista.Add(dr[8].ToString()); //Municipio
-                lista.Add(dr[9].ToString()); //Localidad
-                lista.Add(dr[10].ToString()); //Codigo postal
-                lista.Add(dr[11].ToString()); //Colonia
-                lista.Add(dr[12].ToString()); //Calle
-                lista.Add(dr[13].ToString()); //No. exterior
-                lista.Add(dr[14].ToString()); //No. interior
-                //lista.Add(dr[15].ToString()); //Regimen fiscal
-                lista.Add(dr[16].ToString()); //Email
-                lista.Add(dr[17].ToString()); //Telefono
-                lista.Add(dr[18].ToString()); //Forma de pago
-                lista.Add(dr[21].ToString()); //TipoCliente
-                lista.Add(dr[22].ToString()); //NumeroCliente
+                lista.Add(dr[2].ToString()); //Razon social         0
+                lista.Add(dr[4].ToString()); //RFC                  1
+                lista.Add(dr[3].ToString()); //Nombre comercial     2
+                lista.Add(dr[5].ToString()); //Uso CFDI             3
+                lista.Add(dr[6].ToString()); //Pais                 4
+                lista.Add(dr[7].ToString()); //Estado               5
+                lista.Add(dr[8].ToString()); //Municipio            6
+                lista.Add(dr[9].ToString()); //Localidad            7
+                lista.Add(dr[10].ToString()); //Codigo postal       8
+                lista.Add(dr[11].ToString()); //Colonia             9
+                lista.Add(dr[12].ToString()); //Calle               10
+                lista.Add(dr[13].ToString()); //No. exterior        11
+                lista.Add(dr[14].ToString()); //No. interior        12
+                //lista.Add(dr[15].ToString()); //Regimen fiscal    
+                lista.Add(dr[16].ToString()); //Email               13
+                lista.Add(dr[17].ToString()); //Telefono            14
+                lista.Add(dr[18].ToString()); //Forma de pago       15
+                lista.Add(dr[21].ToString()); //TipoCliente         16
+                lista.Add(dr[22].ToString()); //NumeroCliente       17
             }
 
             dr.Close();

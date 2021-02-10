@@ -4910,6 +4910,8 @@ namespace PuntoDeVentaV2
                     var datos = clientes.datosCliente;
                     var cliente = string.Empty;
 
+                    idCliente = datos[18];
+
                     var auxPrimero = string.IsNullOrWhiteSpace(datos[0]);
                     var auxSegundo = string.IsNullOrWhiteSpace(datos[1]);
                     var auxTercero = string.IsNullOrWhiteSpace(datos[17]);
