@@ -3841,7 +3841,7 @@ namespace PuntoDeVentaV2
         {
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
 
-            if (validarDesmarcar == true)
+            if (validarDesmarcar == true || !checkPaginasCompletas.Count.Equals(0))
             {
                 for (int i = 0; i < DGVProductos.RowCount; i++)
                 {
@@ -3981,19 +3981,22 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            if (ponerTrue == true)
+            if (checkPaginasCompletas.Count.Equals(0))
             {
-                paginacompletaMarcada = 0;
+                if (ponerTrue == true)
+                {
+                    paginacompletaMarcada = 0;
 
-                CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
-                headerBox.Checked = true;
-            }
-            else
-            {
-                paginacompletaMarcada = 1;
+                    CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                    headerBox.Checked = true;
+                }
+                else
+                {
+                    paginacompletaMarcada = 1;
 
-                CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
-                headerBox.Checked = false;
+                    CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
+                    headerBox.Checked = false;
+                }
             }
         }
 
