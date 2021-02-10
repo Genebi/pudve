@@ -1256,7 +1256,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (rbDisminuirProducto.Checked)
                 {
-                    subTitulo = new Paragraph("REPORTE DE ACTUALIZAR INVENTARIO (Disminuir)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                    subTitulo = new Paragraph("USUARIO: " + UsuarioActivo + "\nREPORTE DE ACTUALIZAR INVENTARIO\nSECCIÓN DE DISMINUIR\n\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 }
                 //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
