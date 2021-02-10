@@ -923,7 +923,7 @@
             this.btnTerminarVenta.Name = "btnTerminarVenta";
             this.btnTerminarVenta.Size = new System.Drawing.Size(285, 33);
             this.btnTerminarVenta.TabIndex = 37;
-            this.btnTerminarVenta.Text = "Terminar \"Fn\"";
+            this.btnTerminarVenta.Text = "Terminar \"Fin\"";
             this.btnTerminarVenta.UseVisualStyleBackColor = false;
             this.btnTerminarVenta.Click += new System.EventHandler(this.btnTerminarVenta_Click);
             // 
