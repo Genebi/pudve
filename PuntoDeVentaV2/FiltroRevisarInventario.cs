@@ -55,20 +55,30 @@ namespace PuntoDeVentaV2
         }
 
         private void FiltroRevisarInventario_Load(object sender, EventArgs e)
-        {
-            filtros.Add("Normal", "Revision Normal");
-            filtros.Add("Stock", "Stock");
-            filtros.Add("StockMinimo", "Stock Mínimo");
-            filtros.Add("StockNecesario", "Stock Máximo");
-            filtros.Add("NumeroRevision", "Número de Revisión");
-            filtros.Add("Filtros", "Por Filtros");
+        {   
+            //Esta condicion es para que solo se muestren todos los tipos de filtros para los primeros usuarios y para los demas solo tenga el filtro normal
+            if (FormPrincipal.clave == 1)
+            {
+                filtros.Add("Normal", "Revision Normal");
+                filtros.Add("Stock", "Stock");
+                filtros.Add("StockMinimo", "Stock Mínimo");
+                filtros.Add("StockNecesario", "Stock Máximo");
+                filtros.Add("NumeroRevision", "Número de Revisión");
+                filtros.Add("Filtros", "Por Filtros");
 
-            operadores.Add("NA", "Seleccionar opción...");
-            operadores.Add(">=", "Mayor o igual que");
-            operadores.Add("<=", "Menor o igual que");
-            operadores.Add("=", "Igual que");
-            operadores.Add(">", "Mayor que");
-            operadores.Add("<", "Menor que");
+                operadores.Add("NA", "Seleccionar opción...");
+                operadores.Add(">=", "Mayor o igual que");
+                operadores.Add("<=", "Menor o igual que");
+                operadores.Add("=", "Igual que");
+                operadores.Add(">", "Mayor que");
+                operadores.Add("<", "Menor que");
+            }
+            else
+            {
+                filtros.Add("Normal", "Revision Normal");
+
+            }
+            
 
             filtroDinamico.Add("NA", "Selecciona filtro...");
 
