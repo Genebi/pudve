@@ -202,6 +202,10 @@ namespace PuntoDeVentaV2
 
         public int retornoAgregarEditarProductoDatosSourceFinal;
 
+        // Imagenes para el boton habilitar/deshabilitar productos
+        System.Drawing.Image deshabilitarIcon = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
+        System.Drawing.Image habilitarIcon = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\arrow-up.png");
+
         //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1672,6 +1676,7 @@ namespace PuntoDeVentaV2
             }
 
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+            btnModificarEstado.Image = deshabilitarIcon;
         }
 
         private void validarConexionServidor()
@@ -2344,7 +2349,8 @@ namespace PuntoDeVentaV2
             if (filtro == "Habilitados")                            // comparamos si el valor a filtrar es Habilitados
             {
                 btnModificarEstado.Enabled = true;
-                btnModificarEstado.Text = "Deshabilitar seleccionados";
+                btnModificarEstado.Image = deshabilitarIcon;
+                //btnModificarEstado.Text = "Deshabilitar seleccionados";
 
                 if (panelShowDGVProductosView.Visible == true)
                 {
@@ -2361,7 +2367,8 @@ namespace PuntoDeVentaV2
             else if (filtro == "Deshabilitados")                    // comparamos si el valor a filtrar es Deshabilitados
             {
                 btnModificarEstado.Enabled = true;
-                btnModificarEstado.Text = "Habilitar seleccionados";
+                btnModificarEstado.Image = habilitarIcon;
+                //btnModificarEstado.Text = "Habilitar seleccionados";
 
                 if (panelShowDGVProductosView.Visible == true)
                 {

@@ -801,14 +801,12 @@
             // 
             this.btnModificarEstado.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnModificarEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.list_alt;
-            this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModificarEstado.Location = new System.Drawing.Point(11, 149);
+            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.trash;
+            this.btnModificarEstado.Location = new System.Drawing.Point(156, 149);
             this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificarEstado.Name = "btnModificarEstado";
-            this.btnModificarEstado.Size = new System.Drawing.Size(205, 28);
+            this.btnModificarEstado.Size = new System.Drawing.Size(60, 28);
             this.btnModificarEstado.TabIndex = 10;
-            this.btnModificarEstado.Text = "Deshabilitar seleccionados";
             this.btnModificarEstado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.TTipButtonText.SetToolTip(this.btnModificarEstado, "Deshabilitar (Ctrl + D)");
             this.btnModificarEstado.UseVisualStyleBackColor = true;
