@@ -3092,7 +3092,7 @@ namespace PuntoDeVentaV2
                         // Es producto
                         if (tipoPS == "P")
                         {
-                            if (stock < cantidad)
+                            if (stock < cantidad && statusVenta != "2")
                             {
                                 var producto = fila.Cells["Descripcion"].Value;
 
