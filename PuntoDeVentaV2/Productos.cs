@@ -3947,6 +3947,7 @@ namespace PuntoDeVentaV2
             int id = 0;
             string name = string.Empty;
             int cantidadFila = 0;
+            bool validarPagina = false;
 
                 for (int x = 0; x < DGVProductos.Rows.Count; x++)
                 {
@@ -3958,10 +3959,21 @@ namespace PuntoDeVentaV2
             {
                 id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
                 //name = dato.Cells["Column1"].Value.ToString();
+                var datoId = quitarProductosDeseleccionados.ContainsKey(id);
+
+                if (datoId == false)
+                {
+                    validarPagina = true;
+
+                }
+                else
+                {
+                    validarPagina = false;
+
+                }
 
                 if (checkPaginasCompletas.ContainsKey(id))
                 {
-
                     //Recorre el Diccionario y marca en true los checkbox de toda la pagina
                     for (int x = 0; x < checkPaginasCompletas.Count(); x++)
                     {
@@ -3970,11 +3982,13 @@ namespace PuntoDeVentaV2
                             DGVProductos.Rows[x].Cells[0].Value = true;
                         }
                     }
+
                     CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                     headerBox.Checked = true;
                 }
                 else
                 {
+
                     validarDesmarcar = false;
                     CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
                     headerBox.Checked = false;
@@ -3983,14 +3997,14 @@ namespace PuntoDeVentaV2
 
             if (checkPaginasCompletas.Count.Equals(0))
             {
-                if (ponerTrue == true)
+                if (ponerTrue == true && checkPaginasCompletas.Count.Equals(0) && validarPagina == true)
                 {
                     paginacompletaMarcada = 0;
 
                     CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                     headerBox.Checked = true;
                 }
-                else
+                else 
                 {
                     paginacompletaMarcada = 1;
 
