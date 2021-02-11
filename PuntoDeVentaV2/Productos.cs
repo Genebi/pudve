@@ -4965,6 +4965,7 @@ namespace PuntoDeVentaV2
             DGVProductos.Columns["Column11"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column12"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column13"].Visible = mostrarColumnas;
+            DGVProductos.Columns["Column8"].Visible = false;
             DGVProductos.Columns["Ajustar"].Visible = false;
 
 
