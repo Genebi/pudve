@@ -1190,6 +1190,8 @@ namespace PuntoDeVentaV2
             var servidor = Properties.Settings.Default.Hosting;
             var rutaArchivo = string.Empty;
 
+            var numRow = 0;
+
             if (!string.IsNullOrWhiteSpace(servidor))
             {
                 rutaArchivo += $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\reporte_actualizar_inventario_" + idReporte + ".pdf";
@@ -1203,13 +1205,13 @@ namespace PuntoDeVentaV2
             // Producto = 245f,       Proveedor = 200f,     Unidades Compradas = 80f,     Precio compra = 70f,      Precio venta = 70f,
             // Stock anterior = 55f   Stock actual = 55f,   Fecha de compra = 80f,        Fecha de operación = 80f  Comentarios = 200f
             // float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
-            string[] ValueConceptos = new string[] { "245", "200", "80", "70", "70", "55", "55", "80", "80", "200" };
+            string[] ValueConceptos = new string[] {  "30", "245", "200", "80", "70", "70", "55", "55", "80", "80", "200" };
             float[] anchoColumnas;
             var position = 0;
 
             if (columnasConcepto >= 10)
             {
-                anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
+                anchoColumnas = new float[] { 30f, 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
 
                 Document reporte = new Document(PageSize.A3.Rotate());
                 PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -1268,9 +1270,13 @@ namespace PuntoDeVentaV2
                 /***************************************
                 ** Tabla con los productos ajustados **
                 ***************************************/
-                PdfPTable tabla = new PdfPTable(10);
+                PdfPTable tabla = new PdfPTable(11);
                 tabla.WidthPercentage = 100;
                 tabla.SetWidths(anchoColumnas);
+
+                PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
+                colNoConcepto.BorderWidth = 1;
+                colNoConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
                 colProducto.BorderWidth = 1;
@@ -1324,6 +1330,7 @@ namespace PuntoDeVentaV2
                 colComentarios.BorderWidth = 1;
                 colComentarios.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                tabla.AddCell(colNoConcepto);
                 tabla.AddCell(colProducto);
                 tabla.AddCell(colProveedor);
                 tabla.AddCell(colUnidades);
@@ -1367,6 +1374,7 @@ namespace PuntoDeVentaV2
                         var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
                         var proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
                         var unidades = string.Empty;
+
                         if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
                         {
                             unidades = "0.00";
@@ -1375,6 +1383,7 @@ namespace PuntoDeVentaV2
                         {
                             unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
                         }
+
                         var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
                         var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
 
@@ -1393,6 +1402,12 @@ namespace PuntoDeVentaV2
                         var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
 
                         var comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
+
+                        numRow++;
+
+                        PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                        colNoConceptoTmp.BorderWidth = 1;
+                        colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                         PdfPCell colProductoTmp = new PdfPCell(new Phrase(producto, fuenteNormal));
                         colProductoTmp.BorderWidth = 1;
@@ -1434,6 +1449,7 @@ namespace PuntoDeVentaV2
                         colComentariosTmp.BorderWidth = 1;
                         colComentariosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                        tabla.AddCell(colNoConceptoTmp);
                         tabla.AddCell(colProductoTmp);
                         tabla.AddCell(colProveedorTmp);
                         tabla.AddCell(colUnidadesTmp);

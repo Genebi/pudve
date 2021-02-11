@@ -276,7 +276,7 @@ namespace PuntoDeVentaV2
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
             var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteBlanca);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
 
             // Ruta donde se creara el archivo PDF
             //var servidor = Properties.Settings.Default.Hosting;
@@ -322,61 +322,61 @@ namespace PuntoDeVentaV2
             colNombre.BorderWidth = 0;
             colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
             colNombre.Padding = 3;
-            colNombre.BackgroundColor = new BaseColor(Color.Black);
+            //colNombre.BackgroundColor = new BaseColor(Color.Black);
 
             PdfPCell colClave = new PdfPCell(new Phrase("CLAVE", fuenteTotales));
             colClave.BorderWidth = 0;
             colClave.HorizontalAlignment = Element.ALIGN_CENTER;
             colClave.Padding = 3;
-            colClave.BackgroundColor = new BaseColor(Color.Black);
+            //colClave.BackgroundColor = new BaseColor(Color.Black);
 
             PdfPCell colCodigo = new PdfPCell(new Phrase("CÓDIGO", fuenteTotales));
             colCodigo.BorderWidth = 0;
             colCodigo.HorizontalAlignment = Element.ALIGN_CENTER;
             colCodigo.Padding = 3;
-            colCodigo.BackgroundColor = new BaseColor(Color.Black);
+            //colCodigo.BackgroundColor = new BaseColor(Color.Black);
 
             PdfPCell colPuntoVenta = new PdfPCell(new Phrase("PUNTO DE VENTA", fuenteTotales));
             colPuntoVenta.BorderWidth = 0;
             colPuntoVenta.HorizontalAlignment = Element.ALIGN_CENTER;
             colPuntoVenta.Padding = 3;
-            colPuntoVenta.BackgroundColor = new BaseColor(Color.Black);
+            //colPuntoVenta.BackgroundColor = new BaseColor(Color.Black);
 
             PdfPCell colStockFisico = new PdfPCell(new Phrase("STOCK FISICO", fuenteTotales));
             colStockFisico.BorderWidth = 0;
             colStockFisico.HorizontalAlignment = Element.ALIGN_CENTER;
             colStockFisico.Padding = 3;
-            colStockFisico.BackgroundColor = new BaseColor(Color.Black);
+            //colStockFisico.BackgroundColor = new BaseColor(Color.Black);
 
             PdfPCell colFecha = new PdfPCell(new Phrase("FECHA", fuenteTotales));
             colFecha.BorderWidth = 0;
             colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
             colFecha.Padding = 3;
-            colFecha.BackgroundColor = new BaseColor(Color.Black);
+            //colFecha.BackgroundColor = new BaseColor(Color.Black);
 
             PdfPCell colDiferencia = new PdfPCell(new Phrase("DIFERENCIA", fuenteTotales));
             colDiferencia.BorderWidth = 0;
             colDiferencia.HorizontalAlignment = Element.ALIGN_CENTER;
             colDiferencia.Padding = 3;
-            colDiferencia.BackgroundColor = new BaseColor(Color.Black);
+            //colDiferencia.BackgroundColor = new BaseColor(Color.Black);
 
             PdfPCell colPrecio = new PdfPCell(new Phrase("PRECIO", fuenteTotales));
             colPrecio.BorderWidth = 0;
             colPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
             colPrecio.Padding = 3;
-            colPrecio.BackgroundColor = new BaseColor(Color.Black);
+            //colPrecio.BackgroundColor = new BaseColor(Color.Black);
 
             PdfPCell colPerdida = new PdfPCell(new Phrase("CANTIDAD PERDIDA", fuenteTotales));
             colPerdida.BorderWidth = 0;
             colPerdida.HorizontalAlignment = Element.ALIGN_CENTER;
             colPerdida.Padding = 3;
-            colPerdida.BackgroundColor = new BaseColor(Color.Black);
+            //colPerdida.BackgroundColor = new BaseColor(Color.Black);
 
             PdfPCell colRecuperada = new PdfPCell(new Phrase("CANTIDAD RECUPERADA", fuenteTotales));
             colRecuperada.BorderWidth = 0;
             colRecuperada.HorizontalAlignment = Element.ALIGN_CENTER;
             colRecuperada.Padding = 3;
-            colRecuperada.BackgroundColor = new BaseColor(Color.Black);
+            //colRecuperada.BackgroundColor = new BaseColor(Color.Black);
 
             tablaInventario.AddCell(colNombre);
             tablaInventario.AddCell(colClave);
@@ -489,7 +489,7 @@ namespace PuntoDeVentaV2
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
             var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteBlanca);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
 
             // Ruta donde se creara el archivo PDF
             //var servidor = Properties.Settings.Default.Hosting;
