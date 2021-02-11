@@ -1191,6 +1191,11 @@ namespace PuntoDeVentaV2
             var rutaArchivo = string.Empty;
 
             var numRow = 0;
+            int unitsBoughtDiminished = 0;
+            float   boughtPrice = 0, 
+                    salesPrice = 0, 
+                    lastStock = 0, 
+                    currentStock = 0;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
@@ -1236,6 +1241,7 @@ namespace PuntoDeVentaV2
                 }
 
                 Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+                Paragraph Usuario = new Paragraph("");
                 Paragraph subTitulo = new Paragraph("");
 
                 string UsuarioActivo = string.Empty;
@@ -1251,18 +1257,21 @@ namespace PuntoDeVentaV2
                     }
                 }
 
+                Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+
                 //Paragraph subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 if (rbAumentarProducto.Checked)
                 {
-                    subTitulo = new Paragraph("USUARIO: " + UsuarioActivo + "\nREPORTE DE ACTUALIZAR INVENTARIO\nSECCIÓN DE AUMENTAR\n\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                    subTitulo = new Paragraph("REPORTE DE ACTUALIZAR INVENTARIO\nSECCIÓN DE AUMENTAR\n\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 }
                 else if (rbDisminuirProducto.Checked)
                 {
-                    subTitulo = new Paragraph("USUARIO: " + UsuarioActivo + "\nREPORTE DE ACTUALIZAR INVENTARIO\nSECCIÓN DE DISMINUIR\n\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                    subTitulo = new Paragraph("REPORTE DE ACTUALIZAR INVENTARIO\nSECCIÓN DE DISMINUIR\n\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 }
                 //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
                 titulo.Alignment = Element.ALIGN_CENTER;
+                Usuario.Alignment = Element.ALIGN_CENTER;
                 subTitulo.Alignment = Element.ALIGN_CENTER;
                 //domicilio.Alignment = Element.ALIGN_CENTER;
                 //domicilio.SetLeading(10, 0);
@@ -1276,14 +1285,17 @@ namespace PuntoDeVentaV2
 
                 PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
                 colNoConcepto.BorderWidth = 1;
+                colNoConcepto.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colNoConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
                 colProducto.BorderWidth = 1;
+                colProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colProveedor = new PdfPCell(new Phrase("Proveedor", fuenteNegrita));
                 colProveedor.BorderWidth = 1;
+                colProveedor.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colProveedor.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colUnidades = new PdfPCell(new Phrase("", fuenteNegrita));
@@ -1292,42 +1304,51 @@ namespace PuntoDeVentaV2
                 {
                     colUnidades = new PdfPCell(new Phrase("Unidades compradas", fuenteNegrita));
                     colUnidades.BorderWidth = 1;
+                    colUnidades.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
                 }
                 else if (rbDisminuirProducto.Checked)
                 {
                     colUnidades = new PdfPCell(new Phrase("Unidades disminuidas", fuenteNegrita));
                     colUnidades.BorderWidth = 1;
+                    colUnidades.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
                 }
 
 
                 PdfPCell colPrecioCompra = new PdfPCell(new Phrase("Precio compra", fuenteNegrita));
                 colPrecioCompra.BorderWidth = 1;
+                colPrecioCompra.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colPrecioCompra.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colPrecioVenta = new PdfPCell(new Phrase("Precio venta", fuenteNegrita));
                 colPrecioVenta.BorderWidth = 1;
+                colPrecioVenta.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
                 colStockAnterior.BorderWidth = 1;
+                colStockAnterior.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colStockAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
                 colStock.BorderWidth = 1;
+                colStock.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colStock.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colFechaCompra = new PdfPCell(new Phrase("Fecha de compra", fuenteNegrita));
                 colFechaCompra.BorderWidth = 1;
+                colFechaCompra.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colFechaCompra.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colFechaOperacion = new PdfPCell(new Phrase("Fecha de operación", fuenteNegrita));
                 colFechaOperacion.BorderWidth = 1;
+                colFechaOperacion.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colComentarios = new PdfPCell(new Phrase("Comentarios", fuenteNegrita));
                 colComentarios.BorderWidth = 1;
+                colComentarios.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colComentarios.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 tabla.AddCell(colNoConcepto);
@@ -1437,6 +1458,7 @@ namespace PuntoDeVentaV2
                         if (!unidades.Equals(string.Empty))
                         {
                             colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
+                            unitsBoughtDiminished += Convert.ToInt32(unidades);
                         }
                         else
                         {
@@ -1449,6 +1471,7 @@ namespace PuntoDeVentaV2
                         if (!compra.Equals(string.Empty))
                         {
                             colPrecioCompraTmp = new PdfPCell(new Phrase("$" + compra, fuenteNormal));
+                            boughtPrice += (float)Convert.ToDouble(compra);
                         }
                         else
                         {
@@ -1461,6 +1484,7 @@ namespace PuntoDeVentaV2
                         if (!venta.Equals(string.Empty))
                         {
                             colPrecioVentaTmp = new PdfPCell(new Phrase("$" + venta, fuenteNormal));
+                            salesPrice += (float)Convert.ToDouble(venta);
                         }
                         else
                         {
@@ -1473,6 +1497,7 @@ namespace PuntoDeVentaV2
                         if (!stockAnterior.Equals(string.Empty))
                         {
                             colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
+                            lastStock += (float)Convert.ToDouble(stockAnterior);
                         }
                         else
                         {
@@ -1485,6 +1510,7 @@ namespace PuntoDeVentaV2
                         if (!stock.Equals(string.Empty))
                         {
                             colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
+                            currentStock += (float)Convert.ToDouble(stock);
                         }
                         else
                         {
@@ -1540,6 +1566,85 @@ namespace PuntoDeVentaV2
                         tabla.AddCell(colFechaCompraTmp);
                         tabla.AddCell(colFechaOperacionTmp);
                         tabla.AddCell(colComentariosTmp);
+                    }
+
+                    if (unitsBoughtDiminished > 0 || boughtPrice > 0)
+                    {
+                        PdfPCell colNoConceptoTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                        colNoConceptoTmpExtra.BorderWidth = 0;
+                        colNoConceptoTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colProductoTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                        colProductoTmpExtra.BorderWidth = 0;
+                        colProductoTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colProveedorTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                        colProveedorTmpExtra.BorderWidth = 0;
+                        colProveedorTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colUnidadesTmpExtra = new PdfPCell(new Phrase(unitsBoughtDiminished.ToString("N2"), fuenteNormal));
+                        colUnidadesTmpExtra.BorderWidthTop = 0;
+                        colUnidadesTmpExtra.BorderWidthLeft = 0;
+                        colUnidadesTmpExtra.BorderWidthRight = 0;
+                        colUnidadesTmpExtra.BorderWidthBottom = 1;
+                        colUnidadesTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                        colUnidadesTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colPrecioCompraTmpExtra = new PdfPCell(new Phrase(boughtPrice.ToString("C"), fuenteNormal));
+                        colPrecioCompraTmpExtra.BorderWidthTop = 0;
+                        colPrecioCompraTmpExtra.BorderWidthLeft = 0;
+                        colPrecioCompraTmpExtra.BorderWidthRight = 0;
+                        colPrecioCompraTmpExtra.BorderWidthBottom = 1;
+                        colPrecioCompraTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                        colPrecioCompraTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colPrecioVentaTmpExtra = new PdfPCell(new Phrase(salesPrice.ToString("C"), fuenteNormal));
+                        colPrecioVentaTmpExtra.BorderWidthTop = 0;
+                        colPrecioVentaTmpExtra.BorderWidthLeft = 0;
+                        colPrecioVentaTmpExtra.BorderWidthRight = 0;
+                        colPrecioVentaTmpExtra.BorderWidthBottom = 1;
+                        colPrecioVentaTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                        colPrecioVentaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colStockTmpAnteriorExtra = new PdfPCell(new Phrase(lastStock.ToString("N2"), fuenteNormal));
+                        colStockTmpAnteriorExtra.BorderWidthTop = 0;
+                        colStockTmpAnteriorExtra.BorderWidthLeft = 0;
+                        colStockTmpAnteriorExtra.BorderWidthRight = 0;
+                        colStockTmpAnteriorExtra.BorderWidthBottom = 1;
+                        colStockTmpAnteriorExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                        colStockTmpAnteriorExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colStockTmpExtra = new PdfPCell(new Phrase(currentStock.ToString("N2"), fuenteNormal));
+                        colStockTmpExtra.BorderWidthTop = 0;
+                        colStockTmpExtra.BorderWidthLeft = 0;
+                        colStockTmpExtra.BorderWidthRight = 0;
+                        colStockTmpExtra.BorderWidthBottom = 1;
+                        colStockTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                        colStockTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colFechaCompraTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                        colFechaCompraTmpExtra.BorderWidth = 0;
+                        colFechaCompraTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colFechaOperacionTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                        colFechaOperacionTmpExtra.BorderWidth = 0;
+                        colFechaOperacionTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colComentariosTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                        colComentariosTmpExtra.BorderWidth = 0;
+                        colComentariosTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        tabla.AddCell(colNoConceptoTmpExtra);
+                        tabla.AddCell(colProductoTmpExtra);
+                        tabla.AddCell(colProveedorTmpExtra);
+                        tabla.AddCell(colUnidadesTmpExtra);
+                        tabla.AddCell(colPrecioCompraTmpExtra);
+                        tabla.AddCell(colPrecioVentaTmpExtra);
+                        tabla.AddCell(colStockTmpAnteriorExtra);
+                        tabla.AddCell(colStockTmpExtra);
+                        tabla.AddCell(colFechaCompraTmpExtra);
+                        tabla.AddCell(colFechaOperacionTmpExtra);
+                        tabla.AddCell(colComentariosTmpExtra);
                     }
                 }
                 else if (rbDisminuirProducto.Checked)
@@ -1738,6 +1843,7 @@ namespace PuntoDeVentaV2
                 ******************************************/
 
                 reporte.Add(titulo);
+                reporte.Add(Usuario);
                 reporte.Add(subTitulo);
                 //reporte.Add(domicilio);
                 reporte.Add(tabla);
