@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
     public partial class ReporteFinalRevisarInventario : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         DataTable dtFinalReportCheckStockToDay;
 
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -278,6 +279,8 @@ namespace PuntoDeVentaV2
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
 
+            var numRow = 0;
+
             // Ruta donde se creara el archivo PDF
             //var servidor = Properties.Settings.Default.Hosting;
             //var rutaArchivo = string.Empty;
@@ -299,13 +302,65 @@ namespace PuntoDeVentaV2
             reporte.Open();
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("REPORTE INVENTARIO\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+
+            Paragraph Usuario = new Paragraph("");
+
+            string UsuarioActivo = string.Empty;
+
+            string  tipoReporte = string.Empty,
+                    encabezadoTipoReporte = string.Empty;
+
+            tipoReporte = Inventario.filtradoParaRealizar;
+
+            if (!tipoReporte.Equals(string.Empty))
+            {
+                if (tipoReporte.Equals("Normal"))
+                {
+                    encabezadoTipoReporte = "Normal";
+                }
+                if (tipoReporte.Equals("Stock"))
+                {
+                    encabezadoTipoReporte = "Stock";
+                }
+                if (tipoReporte.Equals("StockMinimo"))
+                {
+                    encabezadoTipoReporte = "Stock Minimo";
+                }
+                if (tipoReporte.Equals("StockNecesario"))
+                {
+                    encabezadoTipoReporte = "Stock Necesario";
+                }
+                if (tipoReporte.Equals("NumeroRevision"))
+                {
+                    encabezadoTipoReporte = "Numero Revision";
+                }
+                if (tipoReporte.Equals("Filtros"))
+                {
+                    encabezadoTipoReporte = "Filtros";
+                }
+            }
+
+            using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+            {
+                if (!dtDataUsr.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drDataUsr in dtDataUsr.Rows)
+                    {
+                        UsuarioActivo = drDataUsr["Usuario"].ToString();
+                    }
+                }
+            }
+
+            Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+
+            Paragraph subTitulo = new Paragraph("REPORTE DE REVISAR INVENTARIO\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
 
-            float[] anchoColumnas = new float[] { 270f, 80f, 80f, 80f, 80f, 90f, 70f, 70f, 80f, 100f };
+            float[] anchoColumnas = new float[] { 30f, 270f, 80f, 80f, 80f, 80f, 90f, 70f, 70f, 80f, 100f };
 
             // Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -314,70 +369,76 @@ namespace PuntoDeVentaV2
             //=== TABLA DE INVENTARIO  ===
             //============================
 
-            PdfPTable tablaInventario = new PdfPTable(10);
+            PdfPTable tablaInventario = new PdfPTable(11);
             tablaInventario.WidthPercentage = 100;
             tablaInventario.SetWidths(anchoColumnas);
 
+            PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
+            colNoConcepto.BorderWidth = 1;
+            colNoConcepto.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colNoConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
+
             PdfPCell colNombre = new PdfPCell(new Phrase("NOMBRE", fuenteTotales));
-            colNombre.BorderWidth = 0;
+            colNombre.BorderWidth = 1;
             colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
             colNombre.Padding = 3;
-            //colNombre.BackgroundColor = new BaseColor(Color.Black);
+            colNombre.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colClave = new PdfPCell(new Phrase("CLAVE", fuenteTotales));
-            colClave.BorderWidth = 0;
+            colClave.BorderWidth = 1;
             colClave.HorizontalAlignment = Element.ALIGN_CENTER;
             colClave.Padding = 3;
-            //colClave.BackgroundColor = new BaseColor(Color.Black);
+            colClave.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colCodigo = new PdfPCell(new Phrase("CÓDIGO", fuenteTotales));
-            colCodigo.BorderWidth = 0;
+            colCodigo.BorderWidth = 1;
             colCodigo.HorizontalAlignment = Element.ALIGN_CENTER;
             colCodigo.Padding = 3;
-            //colCodigo.BackgroundColor = new BaseColor(Color.Black);
+            colCodigo.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colPuntoVenta = new PdfPCell(new Phrase("PUNTO DE VENTA", fuenteTotales));
-            colPuntoVenta.BorderWidth = 0;
+            colPuntoVenta.BorderWidth = 1;
             colPuntoVenta.HorizontalAlignment = Element.ALIGN_CENTER;
             colPuntoVenta.Padding = 3;
-            //colPuntoVenta.BackgroundColor = new BaseColor(Color.Black);
+            colPuntoVenta.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colStockFisico = new PdfPCell(new Phrase("STOCK FISICO", fuenteTotales));
-            colStockFisico.BorderWidth = 0;
+            colStockFisico.BorderWidth = 1;
             colStockFisico.HorizontalAlignment = Element.ALIGN_CENTER;
             colStockFisico.Padding = 3;
-            //colStockFisico.BackgroundColor = new BaseColor(Color.Black);
+            colStockFisico.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colFecha = new PdfPCell(new Phrase("FECHA", fuenteTotales));
-            colFecha.BorderWidth = 0;
+            colFecha.BorderWidth = 1;
             colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
             colFecha.Padding = 3;
-            //colFecha.BackgroundColor = new BaseColor(Color.Black);
+            colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colDiferencia = new PdfPCell(new Phrase("DIFERENCIA", fuenteTotales));
-            colDiferencia.BorderWidth = 0;
+            colDiferencia.BorderWidth = 1;
             colDiferencia.HorizontalAlignment = Element.ALIGN_CENTER;
             colDiferencia.Padding = 3;
-            //colDiferencia.BackgroundColor = new BaseColor(Color.Black);
+            colDiferencia.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colPrecio = new PdfPCell(new Phrase("PRECIO", fuenteTotales));
-            colPrecio.BorderWidth = 0;
+            colPrecio.BorderWidth = 1;
             colPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
             colPrecio.Padding = 3;
-            //colPrecio.BackgroundColor = new BaseColor(Color.Black);
+            colPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colPerdida = new PdfPCell(new Phrase("CANTIDAD PERDIDA", fuenteTotales));
-            colPerdida.BorderWidth = 0;
+            colPerdida.BorderWidth = 1;
             colPerdida.HorizontalAlignment = Element.ALIGN_CENTER;
             colPerdida.Padding = 3;
-            //colPerdida.BackgroundColor = new BaseColor(Color.Black);
+            colPerdida.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colRecuperada = new PdfPCell(new Phrase("CANTIDAD RECUPERADA", fuenteTotales));
-            colRecuperada.BorderWidth = 0;
+            colRecuperada.BorderWidth = 1;
             colRecuperada.HorizontalAlignment = Element.ALIGN_CENTER;
             colRecuperada.Padding = 3;
-            //colRecuperada.BackgroundColor = new BaseColor(Color.Black);
+            colRecuperada.BackgroundColor = new BaseColor(Color.SkyBlue);
 
+            tablaInventario.AddCell(colNoConcepto);
             tablaInventario.AddCell(colNombre);
             tablaInventario.AddCell(colClave);
             tablaInventario.AddCell(colCodigo);
@@ -388,7 +449,6 @@ namespace PuntoDeVentaV2
             tablaInventario.AddCell(colPrecio);
             tablaInventario.AddCell(colPerdida);
             tablaInventario.AddCell(colRecuperada);
-
 
             foreach (DataGridViewRow row in DGVRevisionStock.Rows)
             {
@@ -405,46 +465,52 @@ namespace PuntoDeVentaV2
                 var perdida = row.Cells["Perdida"].Value.ToString();
                 var recuperada = row.Cells["Recuperada"].Value.ToString();
 
+                numRow++;
+                PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                colNoConceptoTmp.BorderWidth = 1;
+                colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                
                 PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre, fuenteNormal));
-                colNombreTmp.BorderWidth = 0;
+                colNombreTmp.BorderWidth = 1;
                 colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colClaveTmp = new PdfPCell(new Phrase(clave, fuenteNormal));
-                colClaveTmp.BorderWidth = 0;
+                colClaveTmp.BorderWidth = 1;
                 colClaveTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colCodigoTmp = new PdfPCell(new Phrase(codigo, fuenteNormal));
-                colCodigoTmp.BorderWidth = 0;
+                colCodigoTmp.BorderWidth = 1;
                 colCodigoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colPuntoVentaTmp = new PdfPCell(new Phrase(almacen, fuenteNormal));
-                colPuntoVentaTmp.BorderWidth = 0;
+                colPuntoVentaTmp.BorderWidth = 1;
                 colPuntoVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colStockFisicoTmp = new PdfPCell(new Phrase(fisico, fuenteNormal));
-                colStockFisicoTmp.BorderWidth = 0;
+                colStockFisicoTmp.BorderWidth = 1;
                 colStockFisicoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
-                colFechaTmp.BorderWidth = 0;
+                colFechaTmp.BorderWidth = 1;
                 colFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colDiferenciaTmp = new PdfPCell(new Phrase(diferencia, fuenteNormal));
-                colDiferenciaTmp.BorderWidth = 0;
+                colDiferenciaTmp.BorderWidth = 1;
                 colDiferenciaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colPrecioTmp = new PdfPCell(new Phrase(precio.ToString("0.00"), fuenteNormal));
-                colPrecioTmp.BorderWidth = 0;
+                colPrecioTmp.BorderWidth = 1;
                 colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colPerdidaTmp = new PdfPCell(new Phrase(perdida, fuenteNormal));
-                colPerdidaTmp.BorderWidth = 0;
+                colPerdidaTmp.BorderWidth = 1;
                 colPerdidaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colRecuperadaTmp = new PdfPCell(new Phrase(recuperada, fuenteNormal));
-                colRecuperadaTmp.BorderWidth = 0;
+                colRecuperadaTmp.BorderWidth = 1;
                 colRecuperadaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                tablaInventario.AddCell(colNoConceptoTmp);
                 tablaInventario.AddCell(colNombreTmp);
                 tablaInventario.AddCell(colClaveTmp);
                 tablaInventario.AddCell(colCodigoTmp);
@@ -458,6 +524,7 @@ namespace PuntoDeVentaV2
             }
 
             reporte.Add(titulo);
+            reporte.Add(Usuario);
             reporte.Add(subTitulo);
             reporte.Add(tablaInventario);
 
