@@ -262,6 +262,8 @@ namespace PuntoDeVentaV2
             // Obtenemos todos los productos del usuario ordenado alfabéticamente
             var consulta = string.Empty;
 
+            var numRow = 0;
+
             if (cbSeleccionados.Checked)
             {
                 var productos = Productos.productosSeleccionados;
@@ -328,7 +330,7 @@ namespace PuntoDeVentaV2
                     {
                         if (conceptosFiltros.Equals(string.Empty))
                         {
-                            conceptosFiltros += "Stock";
+                            conceptosFiltros += "FILTRADO POR (Stock";
                         }
                         else
                         {
@@ -339,7 +341,7 @@ namespace PuntoDeVentaV2
                     {
                         if (conceptosFiltros.Equals(string.Empty))
                         {
-                            conceptosFiltros += "Stock Minimo";
+                            conceptosFiltros += "FILTRADO POR (Stock Minimo";
                         }
                         else
                         {
@@ -350,7 +352,7 @@ namespace PuntoDeVentaV2
                     {
                         if (conceptosFiltros.Equals(string.Empty))
                         {
-                            conceptosFiltros += "Stock Necesario";
+                            conceptosFiltros += "FILTRADO POR (Stock Necesario";
                         }
                         else
                         {
@@ -361,7 +363,7 @@ namespace PuntoDeVentaV2
                     {
                         if (conceptosFiltros.Equals(string.Empty))
                         {
-                            conceptosFiltros += "Precio";
+                            conceptosFiltros += "FILTRADO POR (Precio";
                         }
                         else
                         {
@@ -372,7 +374,7 @@ namespace PuntoDeVentaV2
                     {
                         if (conceptosFiltros.Equals(string.Empty))
                         {
-                            conceptosFiltros += "Número de Revisión";
+                            conceptosFiltros += "FILTRADO POR (Número de Revisión";
                         }
                         else
                         {
@@ -383,7 +385,7 @@ namespace PuntoDeVentaV2
                     {
                         if (conceptosFiltros.Equals(string.Empty))
                         {
-                            conceptosFiltros += "Cantidad a Pedir";
+                            conceptosFiltros += "FILTRADO POR (Cantidad a Pedir";
                         }
                         else
                         {
@@ -394,7 +396,7 @@ namespace PuntoDeVentaV2
                     {
                         if (conceptosFiltros.Equals(string.Empty))
                         {
-                            conceptosFiltros += "Proveedor";
+                            conceptosFiltros += "FILTRADO POR (Proveedor";
                         }
                         else
                         {
@@ -405,7 +407,7 @@ namespace PuntoDeVentaV2
                     {
                         if (conceptosFiltros.Equals(string.Empty))
                         {
-                            conceptosFiltros += "Tipo";
+                            conceptosFiltros += "FILTRADO POR (Tipo";
                         }
                         else
                         {
@@ -416,7 +418,7 @@ namespace PuntoDeVentaV2
                     {
                         if (conceptosFiltros.Equals(string.Empty))
                         {
-                            conceptosFiltros += "Imagen";
+                            conceptosFiltros += "FILTRADO POR (Imagen";
                         }
                         else
                         {
@@ -427,10 +429,19 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                conceptosFiltros = "Reporte general";
+                conceptosFiltros = "general";
             }
 
-            Paragraph subTitulo = new Paragraph("REPORTE DE PRODUCTOS\nFILTRADO POR (" + conceptosFiltros.ToUpper() + ")\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            Paragraph subTitulo = new Paragraph(string.Empty);
+
+            if(!conceptosFiltros.Equals("general"))
+            {
+                subTitulo = new Paragraph("REPORTE DE PRODUCTOS\n" + conceptosFiltros.ToUpper() + ")\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            }
+            else
+            {
+                subTitulo = new Paragraph("REPORTE DE PRODUCTOS\n" + conceptosFiltros.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            }
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
