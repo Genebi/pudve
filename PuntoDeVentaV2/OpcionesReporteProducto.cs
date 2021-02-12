@@ -299,7 +299,120 @@ namespace PuntoDeVentaV2
             reporte.Open();
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("REPORTE DE PRODUCTOS\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+
+            string conceptosFiltros = string.Empty;
+
+            if (filtros.Count > 0)
+            {
+                foreach(var filtro in filtros)
+                {
+                    if (filtro.Key.Equals("Stock"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "Stock";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Stock";
+                        }
+                    }
+                    if (filtro.Key.Equals("StockMinimo"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "Stock Minimo";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Stock Minimo";
+                        }
+                    }
+                    if (filtro.Key.Equals("StockNecesario"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "Stock Necesario";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Stock Necesario";
+                        }
+                    }
+                    if (filtro.Key.Equals("Precio"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "Precio";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Precio";
+                        }
+                    }
+                    if (filtro.Key.Equals("NumeroRevision"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "Número de Revisión";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Número de Revisión";
+                        }
+                    }
+                    if (filtro.Key.Equals("CantidadPedir"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "Cantidad a Pedir";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Cantidad a Pedir";
+                        }
+                    }
+                    if (filtro.Key.Equals("Proveedor"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "Proveedor";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Proveedor";
+                        }
+                    }
+                    if (filtro.Key.Equals("Tipo"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "Tipo";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Tipo";
+                        }
+                    }
+                    if (filtro.Key.Equals("Imagen"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "Imagen";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Imagen";
+                        }
+                    }
+                }
+            }
+            else
+            {
+                conceptosFiltros = "Reporte general";
+            }
+
+            Paragraph subTitulo = new Paragraph("REPORTE DE PRODUCTOS\nFILTRADO POR (" + conceptosFiltros.ToUpper() + ")\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;

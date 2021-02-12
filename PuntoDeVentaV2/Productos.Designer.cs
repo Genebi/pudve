@@ -901,9 +901,9 @@
             // 
             this.txtIrPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtIrPagina.ForeColor = System.Drawing.Color.Blue;
-            this.txtIrPagina.Location = new System.Drawing.Point(432, 40);
+            this.txtIrPagina.Location = new System.Drawing.Point(426, 40);
             this.txtIrPagina.Name = "txtIrPagina";
-            this.txtIrPagina.Size = new System.Drawing.Size(53, 20);
+            this.txtIrPagina.Size = new System.Drawing.Size(66, 20);
             this.txtIrPagina.TabIndex = 24;
             this.txtIrPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtIrPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtIrPagina_KeyDown);
