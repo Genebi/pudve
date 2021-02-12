@@ -252,7 +252,7 @@ namespace PuntoDeVentaV2
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
             var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteBlanca);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
 
             // Ruta donde se creara el archivo PDF
             var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\reporte_pedido_usuario_" + FormPrincipal.userID + "_fecha_" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".pdf";
@@ -447,9 +447,11 @@ namespace PuntoDeVentaV2
             Usuario.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
-            float[] anchoColumnas = new float[opciones.Count];
+            float[] anchoColumnas = new float[opciones.Count + 1];
 
-            var contador = 0;
+            anchoColumnas[0] = 30f;
+
+            var contador = 1;
 
             foreach (var ancho in opciones)
             {
@@ -465,9 +467,17 @@ namespace PuntoDeVentaV2
             //=== TABLA DE PRODUCTOS  ===
             //===========================
 
-            PdfPTable tablaProductos = new PdfPTable(opciones.Count);
+            PdfPTable tablaProductos = new PdfPTable(opciones.Count + 1);
             //tablaProductos.WidthPercentage = 100;
             tablaProductos.SetWidths(anchoColumnas);
+
+            PdfPCell colNoProducto = new PdfPCell(new Phrase("No:", fuenteTotales));
+            colNoProducto.BorderWidth = 0;
+            colNoProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+            colNoProducto.Padding = 3;
+            colNoProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            tablaProductos.AddCell(colNoProducto);
 
             // Se generan las columnas dinamicamente
             foreach (var opcion in opciones)
@@ -476,7 +486,7 @@ namespace PuntoDeVentaV2
                 colCustom.BorderWidth = 0;
                 colCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                 colCustom.Padding = 3;
-                colCustom.BackgroundColor = new BaseColor(Color.Black);
+                colCustom.BackgroundColor = new BaseColor(Color.SkyBlue);
 
                 tablaProductos.AddCell(colCustom);
             }
@@ -599,15 +609,19 @@ namespace PuntoDeVentaV2
                     continue;
                 }
 
+                numRow++;
+                PdfPCell rowNumCount = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                tablaProductos.AddCell(rowNumCount);
+
                 // Verificamos que solo muestre las columnas para el reporte que selecciono el cliente
                 foreach (var opcion in opciones)
                 {
                     int idProducto = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
-
+                    
                     if (listaProductos.Columns.Contains(opcion.Key))
                     {
                         var valor = listaProductos.Rows[i][opcion.Key].ToString();
-
+                        
                         if (opcion.Key == "Nombre")
                         {
                             PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
