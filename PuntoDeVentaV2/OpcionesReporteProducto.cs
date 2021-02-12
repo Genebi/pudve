@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
     public partial class OpcionesReporteProducto : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private Dictionary<string, Tuple<string, float>> opcionesDefault;
@@ -300,6 +301,23 @@ namespace PuntoDeVentaV2
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
 
+            Paragraph Usuario = new Paragraph("");
+
+            string UsuarioActivo = string.Empty;
+
+            using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+            {
+                if (!dtDataUsr.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drDataUsr in dtDataUsr.Rows)
+                    {
+                        UsuarioActivo = drDataUsr["Usuario"].ToString();
+                    }
+                }
+            }
+
+            Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+
             string conceptosFiltros = string.Empty;
 
             if (filtros.Count > 0)
@@ -415,6 +433,7 @@ namespace PuntoDeVentaV2
             Paragraph subTitulo = new Paragraph("REPORTE DE PRODUCTOS\nFILTRADO POR (" + conceptosFiltros.ToUpper() + ")\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
             float[] anchoColumnas = new float[opciones.Count];
@@ -722,6 +741,7 @@ namespace PuntoDeVentaV2
             }
 
             reporte.Add(titulo);
+            reporte.Add(Usuario);
             reporte.Add(subTitulo);
             reporte.Add(tablaProductos);
 
