@@ -860,97 +860,129 @@ namespace PuntoDeVentaV2
                 PdfPCell rowNumCountExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
                 rowNumCountExtra.BorderWidth = 0;
                 rowNumCountExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowNomProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-                rowNomProdExtra.BorderWidth = 0;
-                rowNomProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowPrecioVentaProdExtra = new PdfPCell(new Phrase(salesPrice.ToString("C"), fuenteNormal));
-                rowPrecioVentaProdExtra.BorderWidthTop = 0;
-                rowPrecioVentaProdExtra.BorderWidthLeft = 0;
-                rowPrecioVentaProdExtra.BorderWidthRight = 0;
-                rowPrecioVentaProdExtra.BorderWidthBottom = 1;
-                rowPrecioVentaProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-                rowPrecioVentaProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowPrecioCompraProdExtra = new PdfPCell(new Phrase(boughtPrice.ToString("C"), fuenteNormal));
-                rowPrecioCompraProdExtra.BorderWidthTop = 0;
-                rowPrecioCompraProdExtra.BorderWidthLeft = 0;
-                rowPrecioCompraProdExtra.BorderWidthRight = 0;
-                rowPrecioCompraProdExtra.BorderWidthBottom = 1;
-                rowPrecioCompraProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-                rowPrecioCompraProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowStockProdExtra = new PdfPCell(new Phrase(Stock.ToString("N2"), fuenteNormal));
-                rowStockProdExtra.BorderWidthTop = 0;
-                rowStockProdExtra.BorderWidthLeft = 0;
-                rowStockProdExtra.BorderWidthRight = 0;
-                rowStockProdExtra.BorderWidthBottom = 1;
-                rowStockProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-                rowStockProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowMinimumStockProdExtra = new PdfPCell(new Phrase(minimumStock.ToString("N2"), fuenteNormal));
-                rowMinimumStockProdExtra.BorderWidthTop = 0;
-                rowMinimumStockProdExtra.BorderWidthLeft = 0;
-                rowMinimumStockProdExtra.BorderWidthRight = 0;
-                rowMinimumStockProdExtra.BorderWidthBottom = 1;
-                rowMinimumStockProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-                rowMinimumStockProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowMaximumStockProdExtra = new PdfPCell(new Phrase(maximumStock.ToString("N2"), fuenteNormal));
-                rowMaximumStockProdExtra.BorderWidthTop = 0;
-                rowMaximumStockProdExtra.BorderWidthLeft = 0;
-                rowMaximumStockProdExtra.BorderWidthRight = 0;
-                rowMaximumStockProdExtra.BorderWidthBottom = 1;
-                rowMaximumStockProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-                rowMaximumStockProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowClaveProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-                rowClaveProdExtra.BorderWidth = 0;
-                rowClaveProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowBarCodeProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-                rowBarCodeProdExtra.BorderWidth = 0;
-                rowBarCodeProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowBarCodePlusProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-                rowBarCodePlusProdExtra.BorderWidth = 0;
-                rowBarCodePlusProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowProveedorProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-                rowProveedorProdExtra.BorderWidth = 0;
-                rowProveedorProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowQuantityToOrderProdExtra = new PdfPCell(new Phrase(QuantityToOrder.ToString("N2"), fuenteNormal));
-                rowQuantityToOrderProdExtra.BorderWidthTop = 0;
-                rowQuantityToOrderProdExtra.BorderWidthLeft = 0;
-                rowQuantityToOrderProdExtra.BorderWidthRight = 0;
-                rowQuantityToOrderProdExtra.BorderWidthBottom = 1;
-                rowQuantityToOrderProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-                rowQuantityToOrderProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowTypeProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-                rowTypeProdExtra.BorderWidth = 0;
-                rowTypeProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell rowIventoryNumProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-                rowIventoryNumProdExtra.BorderWidth = 0;
-                rowIventoryNumProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
                 tablaProductos.AddCell(rowNumCountExtra);               // 01 No
-                tablaProductos.AddCell(rowNomProdExtra);                // 02 Nom Prod
-                tablaProductos.AddCell(rowPrecioVentaProdExtra);        // 03 Precio Venta
-                tablaProductos.AddCell(rowPrecioCompraProdExtra);       // 04 Precio Compra
-                tablaProductos.AddCell(rowStockProdExtra);              // 05 Stock
-                tablaProductos.AddCell(rowMinimumStockProdExtra);       // 06 Stock Minimo
-                tablaProductos.AddCell(rowMaximumStockProdExtra);       // 07 Stock Máximo
-                tablaProductos.AddCell(rowClaveProdExtra);              // 08 Clave Prod
-                tablaProductos.AddCell(rowBarCodeProdExtra);            // 09 Código Barras
-                tablaProductos.AddCell(rowBarCodePlusProdExtra);        // 10 Código barras extra
-                tablaProductos.AddCell(rowProveedorProdExtra);          // 11 Proveedor
-                tablaProductos.AddCell(rowQuantityToOrderProdExtra);    // 12 Cantidad a pedir
-                tablaProductos.AddCell(rowTypeProdExtra);               // 13 Tipo de Producto
-                tablaProductos.AddCell(rowIventoryNumProdExtra);        // 14 Numero Revision
+
+                foreach (var opcion in opciones)
+                {
+                    if (listaProductos.Columns.Contains(opcion.Key))
+                    {
+                        if (opcion.Key.Equals("Nombre"))
+                        {
+                            PdfPCell rowNomProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                            rowNomProdExtra.BorderWidth = 0;
+                            rowNomProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowNomProdExtra);                // 02 Nom Prod
+                        }
+                        else if (opcion.Equals("Precio"))
+                        {
+                            PdfPCell rowPrecioVentaProdExtra = new PdfPCell(new Phrase(salesPrice.ToString("C"), fuenteNormal));
+                            rowPrecioVentaProdExtra.BorderWidthTop = 0;
+                            rowPrecioVentaProdExtra.BorderWidthLeft = 0;
+                            rowPrecioVentaProdExtra.BorderWidthRight = 0;
+                            rowPrecioVentaProdExtra.BorderWidthBottom = 1;
+                            rowPrecioVentaProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                            rowPrecioVentaProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowPrecioVentaProdExtra);        // 03 Precio Venta
+                        }
+                        else if (opcion.Equals("PrecioCompra"))
+                        {
+                            PdfPCell rowPrecioCompraProdExtra = new PdfPCell(new Phrase(boughtPrice.ToString("C"), fuenteNormal));
+                            rowPrecioCompraProdExtra.BorderWidthTop = 0;
+                            rowPrecioCompraProdExtra.BorderWidthLeft = 0;
+                            rowPrecioCompraProdExtra.BorderWidthRight = 0;
+                            rowPrecioCompraProdExtra.BorderWidthBottom = 1;
+                            rowPrecioCompraProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                            rowPrecioCompraProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowPrecioCompraProdExtra);       // 04 Precio Compra
+                        }
+                        else if (opcion.Equals("Stock"))
+                        {
+                            PdfPCell rowStockProdExtra = new PdfPCell(new Phrase(Stock.ToString("N2"), fuenteNormal));
+                            rowStockProdExtra.BorderWidthTop = 0;
+                            rowStockProdExtra.BorderWidthLeft = 0;
+                            rowStockProdExtra.BorderWidthRight = 0;
+                            rowStockProdExtra.BorderWidthBottom = 1;
+                            rowStockProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                            rowStockProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowStockProdExtra);              // 05 Stock
+                        }
+                        else if (opcion.Equals("StockMinimo"))
+                        {
+                            PdfPCell rowMinimumStockProdExtra = new PdfPCell(new Phrase(minimumStock.ToString("N2"), fuenteNormal));
+                            rowMinimumStockProdExtra.BorderWidthTop = 0;
+                            rowMinimumStockProdExtra.BorderWidthLeft = 0;
+                            rowMinimumStockProdExtra.BorderWidthRight = 0;
+                            rowMinimumStockProdExtra.BorderWidthBottom = 1;
+                            rowMinimumStockProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                            rowMinimumStockProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowMinimumStockProdExtra);       // 06 Stock Minimo
+                        }
+                        else if (opcion.Equals("StockNecesario"))
+                        {
+                            PdfPCell rowMaximumStockProdExtra = new PdfPCell(new Phrase(maximumStock.ToString("N2"), fuenteNormal));
+                            rowMaximumStockProdExtra.BorderWidthTop = 0;
+                            rowMaximumStockProdExtra.BorderWidthLeft = 0;
+                            rowMaximumStockProdExtra.BorderWidthRight = 0;
+                            rowMaximumStockProdExtra.BorderWidthBottom = 1;
+                            rowMaximumStockProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                            rowMaximumStockProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowMaximumStockProdExtra);       // 07 Stock Máximo
+                        }
+                        else if (opcion.Equals("ClaveInterna"))
+                        {
+                            PdfPCell rowClaveProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                            rowClaveProdExtra.BorderWidth = 0;
+                            rowClaveProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowClaveProdExtra);              // 08 Clave Prod
+                        }
+                        else if (opcion.Equals("CodigoBarras"))
+                        {
+                            PdfPCell rowBarCodeProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                            rowBarCodeProdExtra.BorderWidth = 0;
+                            rowBarCodeProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowBarCodeProdExtra);            // 09 Código Barras
+                        }
+                        else if (opcion.Equals("CodigoBarraExtra"))
+                        {
+                            PdfPCell rowBarCodePlusProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                            rowBarCodePlusProdExtra.BorderWidth = 0;
+                            rowBarCodePlusProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowBarCodePlusProdExtra);        // 10 Código barras extra
+                        }
+                        else if (opcion.Equals("Proveedor"))
+                        {
+                            PdfPCell rowProveedorProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                            rowProveedorProdExtra.BorderWidth = 0;
+                            rowProveedorProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowProveedorProdExtra);          // 11 Proveedor
+                        }
+                        else if (opcion.Equals("CantidadPedir"))
+                        {
+                            PdfPCell rowQuantityToOrderProdExtra = new PdfPCell(new Phrase(QuantityToOrder.ToString("N2"), fuenteNormal));
+                            rowQuantityToOrderProdExtra.BorderWidthTop = 0;
+                            rowQuantityToOrderProdExtra.BorderWidthLeft = 0;
+                            rowQuantityToOrderProdExtra.BorderWidthRight = 0;
+                            rowQuantityToOrderProdExtra.BorderWidthBottom = 1;
+                            rowQuantityToOrderProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                            rowQuantityToOrderProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowQuantityToOrderProdExtra);    // 12 Cantidad a pedir
+                        }
+                        else if (opcion.Equals("Tipo"))
+                        {
+                            PdfPCell rowTypeProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                            rowTypeProdExtra.BorderWidth = 0;
+                            rowTypeProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowTypeProdExtra);               // 13 Tipo de Producto
+                        }
+                        else if (opcion.Equals("NumeroRevision"))
+                        {
+                            PdfPCell rowIventoryNumProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                            rowIventoryNumProdExtra.BorderWidth = 0;
+                            rowIventoryNumProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowIventoryNumProdExtra);        // 14 Numero Revision
+                        }
+                    }
+                }
             }
 
             reporte.Add(titulo);
