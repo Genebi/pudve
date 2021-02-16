@@ -473,22 +473,22 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                lista.Add(dr[7].ToString()); //Nombre completo
-                lista.Add(dr[8].ToString()); //Calle
-                lista.Add(dr[9].ToString()); //No. Exterior
-                lista.Add(dr[10].ToString()); //No. Interior
-                lista.Add(dr[12].ToString()); //Municipio
-                lista.Add(dr[13].ToString()); //Estado
-                lista.Add(dr[11].ToString()); //Colonia
-                lista.Add(dr[14].ToString()); //Codigo Postal
-                lista.Add(dr[4].ToString()); //RFC
-                lista.Add(dr[6].ToString()); //Email
-                lista.Add(dr[5].ToString()); //Telefono
-                lista.Add(dr[17].ToString()); //Logo
-                lista.Add(dr["VerificacionNS"].ToString());
-                lista.Add(dr["ID"].ToString());
-                lista.Add(dr["Password"].ToString());
-                lista.Add(dr["FechaHoy"].ToString());
+                lista.Add(dr[7].ToString());                    // 0  Nombre completo
+                lista.Add(dr[8].ToString());                    // 1  Calle
+                lista.Add(dr[9].ToString());                    // 2  No. Exterior
+                lista.Add(dr[10].ToString());                   // 3  No. Interior
+                lista.Add(dr[12].ToString());                   // 4  Municipio
+                lista.Add(dr[13].ToString());                   // 5  Estado
+                lista.Add(dr[11].ToString());                   // 6  Colonia
+                lista.Add(dr[14].ToString());                   // 7  Codigo Postal
+                lista.Add(dr[4].ToString());                    // 8  RFC
+                lista.Add(dr[6].ToString());                    // 9  Email
+                lista.Add(dr[5].ToString());                    // 10 Telefono
+                lista.Add(dr[17].ToString());                   // 11 Logo
+                lista.Add(dr["VerificacionNS"].ToString());     // 12 Verificación de Licencia
+                lista.Add(dr["ID"].ToString());                 // 13 Número de Usuario
+                lista.Add(dr["Password"].ToString());           // 14 Contraseña
+                lista.Add(dr["FechaHoy"].ToString());           // 15 FechaHoy
             }
 
             dr.Close();

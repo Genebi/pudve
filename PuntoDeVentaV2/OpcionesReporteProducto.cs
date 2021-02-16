@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
     public partial class OpcionesReporteProducto : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private Dictionary<string, Tuple<string, float>> opcionesDefault;
@@ -47,19 +48,19 @@ namespace PuntoDeVentaV2
             seleccionados = new List<string>();
             opcionesDefault = new Dictionary<string, Tuple<string, float>>();
 
-            opcionesDefault.Add("Nombre", new Tuple<string, float>("Nombre producto", 250));
-            opcionesDefault.Add("Precio", new Tuple<string, float>("Precio de venta", 60));
-            opcionesDefault.Add("PrecioCompra", new Tuple<string, float>("Precio de compra", 60));
-            opcionesDefault.Add("Stock", new Tuple<string, float>("Stock", 50));
-            opcionesDefault.Add("StockMinimo", new Tuple<string, float>("Stock mínimo", 50));
-            opcionesDefault.Add("StockNecesario", new Tuple<string, float>("Stock máximo", 50));
+            opcionesDefault.Add("Nombre", new Tuple<string, float>("Nombre producto", 210));
+            opcionesDefault.Add("Precio", new Tuple<string, float>("Precio de venta", 80));
+            opcionesDefault.Add("PrecioCompra", new Tuple<string, float>("Precio de compra", 80));
+            opcionesDefault.Add("Stock", new Tuple<string, float>("Stock", 80));
+            opcionesDefault.Add("StockMinimo", new Tuple<string, float>("Stock mínimo", 80));
+            opcionesDefault.Add("StockNecesario", new Tuple<string, float>("Stock máximo", 80));
             if (mostrarClave == 0) { } else if (mostrarClave == 1) { opcionesDefault.Add("ClaveInterna", new Tuple<string, float>("Clave de producto", 70)); }
             opcionesDefault.Add("CodigoBarras", new Tuple<string, float>("Código de barras", 70));
             opcionesDefault.Add("CodigoBarraExtra", new Tuple<string, float>("Código de barras extra", 70));
-            opcionesDefault.Add("Proveedor", new Tuple<string, float>("Proveedor", 180));
-            opcionesDefault.Add("CantidadPedir", new Tuple<string, float>("Cantidad a pedir", 50));
-            opcionesDefault.Add("Tipo", new Tuple<string, float>("Tipo", 50));
-            opcionesDefault.Add("NumeroRevision", new Tuple<string, float>("Número de Revisión", 70));
+            opcionesDefault.Add("Proveedor", new Tuple<string, float>("Proveedor", 160));
+            opcionesDefault.Add("CantidadPedir", new Tuple<string, float>("Cantidad a pedir", 70));
+            opcionesDefault.Add("Tipo", new Tuple<string, float>("Tipo", 40));
+            opcionesDefault.Add("NumeroRevision", new Tuple<string, float>("Número de Revisión", 60));
 
             ObtenerDetalles();
             VisualizarDetalles();
@@ -251,7 +252,7 @@ namespace PuntoDeVentaV2
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
             var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteBlanca);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
 
             // Ruta donde se creara el archivo PDF
             var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\reporte_pedido_usuario_" + FormPrincipal.userID + "_fecha_" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".pdf";
@@ -260,6 +261,15 @@ namespace PuntoDeVentaV2
 
             // Obtenemos todos los productos del usuario ordenado alfabéticamente
             var consulta = string.Empty;
+
+            var numRow = 0;
+
+            float   boughtPrice = 0,
+                    salesPrice = 0,
+                    Stock = 0,
+                    minimumStock = 0,
+                    maximumStock = 0,
+                    QuantityToOrder = 0;
 
             if (cbSeleccionados.Checked)
             {
@@ -299,14 +309,156 @@ namespace PuntoDeVentaV2
             reporte.Open();
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("REPORTE DE PRODUCTOS\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+
+            Paragraph Usuario = new Paragraph("");
+
+            string UsuarioActivo = string.Empty;
+
+            using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+            {
+                if (!dtDataUsr.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drDataUsr in dtDataUsr.Rows)
+                    {
+                        UsuarioActivo = drDataUsr["Usuario"].ToString();
+                    }
+                }
+            }
+
+            Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+
+            string conceptosFiltros = string.Empty;
+
+            if (filtros.Count > 0)
+            {
+                foreach(var filtro in filtros)
+                {
+                    if (filtro.Key.Equals("Stock"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "FILTRADO POR (Stock";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Stock";
+                        }
+                    }
+                    if (filtro.Key.Equals("StockMinimo"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "FILTRADO POR (Stock Minimo";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Stock Minimo";
+                        }
+                    }
+                    if (filtro.Key.Equals("StockNecesario"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "FILTRADO POR (Stock Máximo";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Stock Máximo";
+                        }
+                    }
+                    if (filtro.Key.Equals("Precio"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "FILTRADO POR (Precio";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Precio";
+                        }
+                    }
+                    if (filtro.Key.Equals("CantidadPedir"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "FILTRADO POR (Cantidad a pedir";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Cantidad a pedir";
+                        }
+                    }
+                    if (filtro.Key.Equals("NumeroRevision"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "FILTRADO POR (Número revisión";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Número revisión";
+                        }
+                    }
+                    if (filtro.Key.Equals("Proveedor"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "FILTRADO POR (Proveedor";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Proveedor";
+                        }
+                    }
+                    if (filtro.Key.Equals("Tipo"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "FILTRADO POR (Tipo";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Tipo";
+                        }
+                    }
+                    if (filtro.Key.Equals("Imagen"))
+                    {
+                        if (conceptosFiltros.Equals(string.Empty))
+                        {
+                            conceptosFiltros += "FILTRADO POR (Imagen";
+                        }
+                        else
+                        {
+                            conceptosFiltros += ", Imagen";
+                        }
+                    }
+                }
+            }
+            else
+            {
+                conceptosFiltros = "general";
+            }
+
+            Paragraph subTitulo = new Paragraph(string.Empty);
+
+            if(!conceptosFiltros.Equals("general"))
+            {
+                subTitulo = new Paragraph("REPORTE DE PRODUCTOS\n" + conceptosFiltros.ToUpper() + ")\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            }
+            else
+            {
+                subTitulo = new Paragraph("REPORTE DE PRODUCTOS\n" + conceptosFiltros.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            }
 
             titulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
-            float[] anchoColumnas = new float[opciones.Count];
+            float[] anchoColumnas = new float[opciones.Count + 1];
 
-            var contador = 0;
+            anchoColumnas[0] = 30f;
+
+            var contador = 1;
 
             foreach (var ancho in opciones)
             {
@@ -322,9 +474,17 @@ namespace PuntoDeVentaV2
             //=== TABLA DE PRODUCTOS  ===
             //===========================
 
-            PdfPTable tablaProductos = new PdfPTable(opciones.Count);
+            PdfPTable tablaProductos = new PdfPTable(opciones.Count + 1);
             //tablaProductos.WidthPercentage = 100;
             tablaProductos.SetWidths(anchoColumnas);
+
+            PdfPCell colNoProducto = new PdfPCell(new Phrase("No:", fuenteTotales));
+            colNoProducto.BorderWidth = 0;
+            colNoProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+            colNoProducto.Padding = 3;
+            colNoProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            tablaProductos.AddCell(colNoProducto);
 
             // Se generan las columnas dinamicamente
             foreach (var opcion in opciones)
@@ -333,7 +493,7 @@ namespace PuntoDeVentaV2
                 colCustom.BorderWidth = 0;
                 colCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                 colCustom.Padding = 3;
-                colCustom.BackgroundColor = new BaseColor(Color.Black);
+                colCustom.BackgroundColor = new BaseColor(Color.SkyBlue);
 
                 tablaProductos.AddCell(colCustom);
             }
@@ -456,15 +616,21 @@ namespace PuntoDeVentaV2
                     continue;
                 }
 
+                numRow++;
+                PdfPCell rowNumCount = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                tablaProductos.AddCell(rowNumCount);
+
                 // Verificamos que solo muestre las columnas para el reporte que selecciono el cliente
                 foreach (var opcion in opciones)
                 {
-                    int idProducto = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
+                    bool isNumber = false;
 
+                    int idProducto = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
+                    
                     if (listaProductos.Columns.Contains(opcion.Key))
                     {
                         var valor = listaProductos.Rows[i][opcion.Key].ToString();
-
+                        
                         if (opcion.Key == "Nombre")
                         {
                             PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
@@ -475,6 +641,8 @@ namespace PuntoDeVentaV2
                         else if (opcion.Key == "Precio")
                         {
                             var precio = float.Parse(listaProductos.Rows[i]["Precio"].ToString());
+
+                            salesPrice += precio;
 
                             valor = "$ " + precio.ToString("N2");
 
@@ -487,6 +655,8 @@ namespace PuntoDeVentaV2
                         {
                             var precioCompraTmp = float.Parse(valor);
 
+                            boughtPrice += precioCompraTmp;
+
                             valor = "$ " + valor;
 
                             if (precioCompraTmp == 0)
@@ -496,6 +666,77 @@ namespace PuntoDeVentaV2
 
                             PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
                             //rowCustom.BorderWidth = 0;
+                            rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowCustom);
+                        }
+                        //else if (opcion.Key == "Stock")
+                        //{
+                        //    var stockTmp = 0;
+
+                        //    isNumber = int.TryParse(valor, out stockTmp);
+
+                        //    PdfPCell rowCustom;
+
+                        //    if (isNumber)
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase(stockTmp.ToString("N2"), fuenteNormal));
+                        //        Stock += (float)stockTmp;
+                        //    }
+                        //    else
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase("---", fuenteNormal));
+                        //        Stock += 0;
+                        //    }
+
+                        //    rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                        //    tablaProductos.AddCell(rowCustom);
+                        //}
+                        //else if (opcion.Key == "StockMinimo")
+                        //{
+                        //    var stockMinimoTmp = 0;
+
+                        //    isNumber = int.TryParse(valor, out stockMinimoTmp);
+
+                        //    PdfPCell rowCustom;
+
+                        //    if (isNumber)
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase(stockMinimoTmp.ToString("N2"), fuenteNormal));
+                        //        minimumStock += (float)stockMinimoTmp;
+                        //    }
+                        //    else
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase("---", fuenteNormal));
+                        //        minimumStock += 0;
+                        //    }
+                        //}
+                        //else if (opcion.Key == "StockNecesario")
+                        //{
+                        //    var stockMaximoTmp = 0;
+
+                        //    isNumber = int.TryParse(valor, out stockMaximoTmp);
+
+                        //    PdfPCell rowCustom;
+
+                        //    if (isNumber)
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase(stockMaximoTmp.ToString("N2"), fuenteNormal));
+                        //        maximumStock += (float)stockMaximoTmp;
+                        //    }
+                        //    else
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase("---", fuenteNormal));
+                        //        maximumStock += 0;
+                        //    }
+                        //}
+                        else if (opcion.Key == "ClaveInterna")
+                        {
+                            if (valor == "")
+                            {
+                                valor = "---";
+                            }
+
+                            PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
                             rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                             tablaProductos.AddCell(rowCustom);
                         }
@@ -539,15 +780,21 @@ namespace PuntoDeVentaV2
                             var stockMinimo = Convert.ToInt32(listaProductos.Rows[i]["StockMinimo"]);
                             var stockMaximo = Convert.ToInt32(listaProductos.Rows[i]["StockNecesario"]);
 
+                            minimumStock += (float)stockMinimo;
+                            maximumStock += (float)stockMaximo;
+
                             if (stockMinimo > stockActual)
                             {
                                 var cantidadPedir = stockMaximo - stockActual;
+
+                                QuantityToOrder += cantidadPedir;
 
                                 resultado = cantidadPedir.ToString();
                             }
                             else
                             {
                                 resultado = "0";
+                                QuantityToOrder += (float)Convert.ToDouble(resultado);
                             }
                         }
                         else if (opcion.Key == "Proveedor")
@@ -607,8 +854,107 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            
+            if (longitud > 0)
+            {
+                PdfPCell rowNumCountExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                rowNumCountExtra.BorderWidth = 0;
+                rowNumCountExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowNomProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                rowNomProdExtra.BorderWidth = 0;
+                rowNomProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowPrecioVentaProdExtra = new PdfPCell(new Phrase(salesPrice.ToString("C"), fuenteNormal));
+                rowPrecioVentaProdExtra.BorderWidthTop = 0;
+                rowPrecioVentaProdExtra.BorderWidthLeft = 0;
+                rowPrecioVentaProdExtra.BorderWidthRight = 0;
+                rowPrecioVentaProdExtra.BorderWidthBottom = 1;
+                rowPrecioVentaProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                rowPrecioVentaProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowPrecioCompraProdExtra = new PdfPCell(new Phrase(boughtPrice.ToString("C"), fuenteNormal));
+                rowPrecioCompraProdExtra.BorderWidthTop = 0;
+                rowPrecioCompraProdExtra.BorderWidthLeft = 0;
+                rowPrecioCompraProdExtra.BorderWidthRight = 0;
+                rowPrecioCompraProdExtra.BorderWidthBottom = 1;
+                rowPrecioCompraProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                rowPrecioCompraProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowStockProdExtra = new PdfPCell(new Phrase(Stock.ToString("N2"), fuenteNormal));
+                rowStockProdExtra.BorderWidthTop = 0;
+                rowStockProdExtra.BorderWidthLeft = 0;
+                rowStockProdExtra.BorderWidthRight = 0;
+                rowStockProdExtra.BorderWidthBottom = 1;
+                rowStockProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                rowStockProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowMinimumStockProdExtra = new PdfPCell(new Phrase(minimumStock.ToString("N2"), fuenteNormal));
+                rowMinimumStockProdExtra.BorderWidthTop = 0;
+                rowMinimumStockProdExtra.BorderWidthLeft = 0;
+                rowMinimumStockProdExtra.BorderWidthRight = 0;
+                rowMinimumStockProdExtra.BorderWidthBottom = 1;
+                rowMinimumStockProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                rowMinimumStockProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowMaximumStockProdExtra = new PdfPCell(new Phrase(maximumStock.ToString("N2"), fuenteNormal));
+                rowMaximumStockProdExtra.BorderWidthTop = 0;
+                rowMaximumStockProdExtra.BorderWidthLeft = 0;
+                rowMaximumStockProdExtra.BorderWidthRight = 0;
+                rowMaximumStockProdExtra.BorderWidthBottom = 1;
+                rowMaximumStockProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                rowMaximumStockProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowClaveProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                rowClaveProdExtra.BorderWidth = 0;
+                rowClaveProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowBarCodeProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                rowBarCodeProdExtra.BorderWidth = 0;
+                rowBarCodeProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowBarCodePlusProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                rowBarCodePlusProdExtra.BorderWidth = 0;
+                rowBarCodePlusProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowProveedorProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                rowProveedorProdExtra.BorderWidth = 0;
+                rowProveedorProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowQuantityToOrderProdExtra = new PdfPCell(new Phrase(QuantityToOrder.ToString("N2"), fuenteNormal));
+                rowQuantityToOrderProdExtra.BorderWidthTop = 0;
+                rowQuantityToOrderProdExtra.BorderWidthLeft = 0;
+                rowQuantityToOrderProdExtra.BorderWidthRight = 0;
+                rowQuantityToOrderProdExtra.BorderWidthBottom = 1;
+                rowQuantityToOrderProdExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                rowQuantityToOrderProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowTypeProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                rowTypeProdExtra.BorderWidth = 0;
+                rowTypeProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell rowIventoryNumProdExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                rowIventoryNumProdExtra.BorderWidth = 0;
+                rowIventoryNumProdExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                tablaProductos.AddCell(rowNumCountExtra);               // 01 No
+                tablaProductos.AddCell(rowNomProdExtra);                // 02 Nom Prod
+                tablaProductos.AddCell(rowPrecioVentaProdExtra);        // 03 Precio Venta
+                tablaProductos.AddCell(rowPrecioCompraProdExtra);       // 04 Precio Compra
+                tablaProductos.AddCell(rowStockProdExtra);              // 05 Stock
+                tablaProductos.AddCell(rowMinimumStockProdExtra);       // 06 Stock Minimo
+                tablaProductos.AddCell(rowMaximumStockProdExtra);       // 07 Stock Máximo
+                tablaProductos.AddCell(rowClaveProdExtra);              // 08 Clave Prod
+                tablaProductos.AddCell(rowBarCodeProdExtra);            // 09 Código Barras
+                tablaProductos.AddCell(rowBarCodePlusProdExtra);        // 10 Código barras extra
+                tablaProductos.AddCell(rowProveedorProdExtra);          // 11 Proveedor
+                tablaProductos.AddCell(rowQuantityToOrderProdExtra);    // 12 Cantidad a pedir
+                tablaProductos.AddCell(rowTypeProdExtra);               // 13 Tipo de Producto
+                tablaProductos.AddCell(rowIventoryNumProdExtra);        // 14 Numero Revision
+            }
 
             reporte.Add(titulo);
+            reporte.Add(Usuario);
             reporte.Add(subTitulo);
             reporte.Add(tablaProductos);
 
