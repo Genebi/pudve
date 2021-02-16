@@ -2020,19 +2020,37 @@ namespace PuntoDeVentaV2
                 }
 
                 Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+                Paragraph Usuario = new Paragraph("");
                 Paragraph subTitulo = new Paragraph("");
+
+                string UsuarioActivo = string.Empty;
+
+                using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+                {
+                    if (!dtDataUsr.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drDataUsr in dtDataUsr.Rows)
+                        {
+                            UsuarioActivo = drDataUsr["Usuario"].ToString();
+                        }
+                    }
+                }
+
+                Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+                
                 //Paragraph subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 if (rbAumentarProducto.Checked)
                 {
-                    subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Aumentar)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                    subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Aumentar)\n\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 }
                 else if (rbDisminuirProducto.Checked)
                 {
-                    subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Disminuir)\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                    subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO (Disminuir)\n\nFecha:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 }
                 //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
                 titulo.Alignment = Element.ALIGN_CENTER;
+                Usuario.Alignment = Element.ALIGN_CENTER;
                 subTitulo.Alignment = Element.ALIGN_CENTER;
                 //domicilio.Alignment = Element.ALIGN_CENTER;
                 //domicilio.SetLeading(10, 0);
@@ -2060,6 +2078,7 @@ namespace PuntoDeVentaV2
                 {
                     colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
                     colProducto.BorderWidth = 1;
+                    colProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
                     tabla.AddCell(colProducto);
                 }
@@ -2067,6 +2086,7 @@ namespace PuntoDeVentaV2
                 {
                     colProveedor = new PdfPCell(new Phrase("Proveedor", fuenteNegrita));
                     colProveedor.BorderWidth = 1;
+                    colProveedor.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colProveedor.HorizontalAlignment = Element.ALIGN_CENTER;
                     tabla.AddCell(colProveedor);
                 }
@@ -2076,6 +2096,7 @@ namespace PuntoDeVentaV2
                     {
                         colUnidades = new PdfPCell(new Phrase("Unidades compradas", fuenteNegrita));
                         colUnidades.BorderWidth = 1;
+                        colUnidades.BackgroundColor = new BaseColor(Color.SkyBlue);
                         colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
                         tabla.AddCell(colUnidades);
                     }
@@ -2083,6 +2104,7 @@ namespace PuntoDeVentaV2
                     {
                         colUnidades = new PdfPCell(new Phrase("Unidades disminuidas", fuenteNegrita));
                         colUnidades.BorderWidth = 1;
+                        colUnidades.BackgroundColor = new BaseColor(Color.SkyBlue);
                         colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
                         tabla.AddCell(colUnidades);
                     }
@@ -2091,6 +2113,7 @@ namespace PuntoDeVentaV2
                 {
                     colPrecioCompra = new PdfPCell(new Phrase("Precio compra", fuenteNegrita));
                     colPrecioCompra.BorderWidth = 1;
+                    colPrecioCompra.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colPrecioCompra.HorizontalAlignment = Element.ALIGN_CENTER;
                     tabla.AddCell(colPrecioCompra);
                 }
@@ -2098,6 +2121,7 @@ namespace PuntoDeVentaV2
                 {
                     colPrecioVenta = new PdfPCell(new Phrase("Precio venta", fuenteNegrita));
                     colPrecioVenta.BorderWidth = 1;
+                    colPrecioVenta.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
                     tabla.AddCell(colPrecioVenta);
                 }
@@ -2105,6 +2129,7 @@ namespace PuntoDeVentaV2
                 {
                     colStockAnterior = new PdfPCell(new Phrase("Stock anterior", fuenteNegrita));
                     colStockAnterior.BorderWidth = 1;
+                    colStockAnterior.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colStockAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
                     tabla.AddCell(colStockAnterior);
                 }
@@ -2112,6 +2137,7 @@ namespace PuntoDeVentaV2
                 {
                     colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
                     colStock.BorderWidth = 1;
+                    colStock.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colStock.HorizontalAlignment = Element.ALIGN_CENTER;
                     tabla.AddCell(colStock);
                 }
@@ -2119,6 +2145,7 @@ namespace PuntoDeVentaV2
                 {
                     colFechaCompra = new PdfPCell(new Phrase("Fecha de compra", fuenteNegrita));
                     colFechaCompra.BorderWidth = 1;
+                    colFechaCompra.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colFechaCompra.HorizontalAlignment = Element.ALIGN_CENTER;
                     tabla.AddCell(colFechaCompra);
                 }
@@ -2126,6 +2153,7 @@ namespace PuntoDeVentaV2
                 {
                     colFechaOperacion = new PdfPCell(new Phrase("Fecha de operación", fuenteNegrita));
                     colFechaOperacion.BorderWidth = 1;
+                    colFechaOperacion.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
                     tabla.AddCell(colFechaOperacion);
                 }
@@ -2133,6 +2161,7 @@ namespace PuntoDeVentaV2
                 {
                     colComentarios = new PdfPCell(new Phrase("Comentarios", fuenteNegrita));
                     colComentarios.BorderWidth = 1;
+                    colComentarios.BackgroundColor = new BaseColor(Color.SkyBlue);
                     colComentarios.HorizontalAlignment = Element.ALIGN_CENTER;
                     tabla.AddCell(colComentarios);
                 }
@@ -2415,6 +2444,7 @@ namespace PuntoDeVentaV2
                  ******************************************/
 
                 reporte.Add(titulo);
+                reporte.Add(Usuario);
                 reporte.Add(subTitulo);
                 //reporte.Add(domicilio);
                 reporte.Add(tabla);
