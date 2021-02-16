@@ -623,6 +623,8 @@ namespace PuntoDeVentaV2
                 // Verificamos que solo muestre las columnas para el reporte que selecciono el cliente
                 foreach (var opcion in opciones)
                 {
+                    bool isNumber = false;
+
                     int idProducto = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
                     
                     if (listaProductos.Columns.Contains(opcion.Key))
@@ -667,6 +669,77 @@ namespace PuntoDeVentaV2
                             rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                             tablaProductos.AddCell(rowCustom);
                         }
+                        //else if (opcion.Key == "Stock")
+                        //{
+                        //    var stockTmp = 0;
+
+                        //    isNumber = int.TryParse(valor, out stockTmp);
+
+                        //    PdfPCell rowCustom;
+
+                        //    if (isNumber)
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase(stockTmp.ToString("N2"), fuenteNormal));
+                        //        Stock += (float)stockTmp;
+                        //    }
+                        //    else
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase("---", fuenteNormal));
+                        //        Stock += 0;
+                        //    }
+
+                        //    rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                        //    tablaProductos.AddCell(rowCustom);
+                        //}
+                        //else if (opcion.Key == "StockMinimo")
+                        //{
+                        //    var stockMinimoTmp = 0;
+
+                        //    isNumber = int.TryParse(valor, out stockMinimoTmp);
+
+                        //    PdfPCell rowCustom;
+
+                        //    if (isNumber)
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase(stockMinimoTmp.ToString("N2"), fuenteNormal));
+                        //        minimumStock += (float)stockMinimoTmp;
+                        //    }
+                        //    else
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase("---", fuenteNormal));
+                        //        minimumStock += 0;
+                        //    }
+                        //}
+                        //else if (opcion.Key == "StockNecesario")
+                        //{
+                        //    var stockMaximoTmp = 0;
+
+                        //    isNumber = int.TryParse(valor, out stockMaximoTmp);
+
+                        //    PdfPCell rowCustom;
+
+                        //    if (isNumber)
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase(stockMaximoTmp.ToString("N2"), fuenteNormal));
+                        //        maximumStock += (float)stockMaximoTmp;
+                        //    }
+                        //    else
+                        //    {
+                        //        rowCustom = new PdfPCell(new Phrase("---", fuenteNormal));
+                        //        maximumStock += 0;
+                        //    }
+                        //}
+                        else if (opcion.Key == "ClaveInterna")
+                        {
+                            if (valor == "")
+                            {
+                                valor = "---";
+                            }
+
+                            PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
+                            rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowCustom);
+                        }
                         else if (opcion.Key == "Tipo")
                         {
                             var tipo = listaProductos.Rows[i]["Tipo"].ToString();
@@ -707,7 +780,6 @@ namespace PuntoDeVentaV2
                             var stockMinimo = Convert.ToInt32(listaProductos.Rows[i]["StockMinimo"]);
                             var stockMaximo = Convert.ToInt32(listaProductos.Rows[i]["StockNecesario"]);
 
-                            Stock += (float)stockActual;
                             minimumStock += (float)stockMinimo;
                             maximumStock += (float)stockMaximo;
 
