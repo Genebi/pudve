@@ -291,7 +291,7 @@ namespace PuntoDeVentaV2
                 CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
                 headerBox.Checked = false;
             }
-            else
+            else if(totalMarcados == totalRows)
             {
                 CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                 headerBox.Checked = true;
