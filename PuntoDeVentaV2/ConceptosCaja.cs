@@ -162,14 +162,21 @@ namespace PuntoDeVentaV2
 
         private void txtConcepto_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Enter)
+            if (txtConcepto.Text.Equals(string.Empty))
             {
-                //btnAgregar.PerformClick();
-                btnBuscar.PerformClick();
+                CargarDatos();
             }
-            else if (e.KeyCode == Keys.Down)
+            else if (!txtConcepto.Text.Equals(string.Empty))
             {
-                DGVConceptos.Focus();
+                if (e.KeyData == Keys.Enter)
+                {
+                    //btnAgregar.PerformClick();
+                    btnBuscar.PerformClick();
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    DGVConceptos.Focus();
+                }
             } 
         }
 
