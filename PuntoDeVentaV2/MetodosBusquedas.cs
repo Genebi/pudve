@@ -89,6 +89,21 @@ namespace PuntoDeVentaV2
             return fechaCorte;
         }
 
+        public int buscarIDConFolio(string folio)
+        {
+            int idVenta = 0;
+            DatosConexion($"SELECT ID FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio = '{folio}'");
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                idVenta = Convert.ToInt32(dr[0].ToString());
+            }
+
+            return idVenta;
+        }
+
         public string ObtenerFechaVenta(int id)
         {
             string fechaVenta = string.Empty;
