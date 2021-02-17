@@ -269,8 +269,36 @@ namespace PuntoDeVentaV2
                 }
             }
             updateCheckBoxes();
+     
         }
         
+        private void validarCabeceraCheckBox()
+        {
+            var totalRows = 0;
+            var totalMarcados = 0;
+            foreach (DataGridViewRow dgv in DGVProductos.Rows)
+            {
+                var idARecorrer = Convert.ToInt32(dgv.Cells["_IDProducto"].Value.ToString());
+                totalRows += 1;
+                if (checkPaginasCompletas.ContainsKey(idARecorrer))
+                {
+                    totalMarcados += 1;
+                }
+            }
+
+            if (totalMarcados != totalRows && totalMarcados > 0)
+            {
+                CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
+                headerBox.Checked = false;
+            }
+            else
+            {
+                CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                headerBox.Checked = true;
+            }
+            
+        }
+
         private void TTipButtonText_Draw(object sender, DrawToolTipEventArgs e)
         {
             e.DrawBackground();
@@ -3848,7 +3876,7 @@ namespace PuntoDeVentaV2
         {
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
 
-            if (validarDesmarcar == true || !checkPaginasCompletas.Count.Equals(0) || headerBox.Checked)
+            if (validarDesmarcar == true || !checkPaginasCompletas.Count.Equals(0) /*|| headerBox.Checked*/)
             {
                 for (int i = 0; i < DGVProductos.RowCount; i++)
                 {
@@ -3978,29 +4006,29 @@ namespace PuntoDeVentaV2
                 if (checkPaginasCompletas.ContainsKey(id))
                 {
                     //Recorre el Diccionario y marca en true los checkbox de toda la pagina
-                    for (int x = 0; x < checkPaginasCompletas.Count(); x++)
-                    {
-                        if (x < (cantidadFila+1))
-                        {
-                            DGVProductos.Rows[x].Cells[0].Value = true;
-                        }
-                    }
-                    CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
-                    headerBox.Checked = true;
+                    //for (int x = 0; x < checkPaginasCompletas.Count(); x++)
+                    //{
+                    //    if (x < (cantidadFila+1))
+                    //    {
+                    //        DGVProductos.Rows[x].Cells[0].Value = true;
+                    //    }
+                    //}
+                    //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                    //headerBox.Checked = true;
                 }
                 else
                 {
-                    if (!checkPaginasCompletas.ContainsKey(id) && !checkboxMarcados.ContainsKey(id))
+                    if (!checkPaginasCompletas.ContainsKey(id) && !checkboxMarcados.ContainsKey(id) )
                     {
                         validarDesmarcar = false;
                     }
 
-                    CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
-                    headerBox.Checked = false;
+                    //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
+                    //headerBox.Checked = false;
                 }
             }
 
-            if (checkPaginasCompletas.Count.Equals(0))
+                if (checkPaginasCompletas.Count.Equals(0))
             {
                 if (ponerTrue == true && checkPaginasCompletas.Count.Equals(0) && validarPagina == true)
                 {
@@ -4017,6 +4045,8 @@ namespace PuntoDeVentaV2
                     headerBox.Checked = false;
                 }
             }
+
+            validarCabeceraCheckBox();
         }
 
         /// <summary>
