@@ -1193,11 +1193,11 @@ namespace PuntoDeVentaV2
             var rutaArchivo = string.Empty;
 
             var numRow = 0;
-            int unitsBoughtDiminished = 0;
-            float   boughtPrice = 0, 
-                    salesPrice = 0, 
-                    lastStock = 0, 
-                    currentStock = 0;
+            float unitsBoughtDiminished = 0,
+                  boughtPrice = 0, 
+                  salesPrice = 0, 
+                  lastStock = 0, 
+                  currentStock = 0;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
@@ -1460,7 +1460,7 @@ namespace PuntoDeVentaV2
                         if (!unidades.Equals(string.Empty))
                         {
                             colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
-                            unitsBoughtDiminished += Convert.ToInt32(unidades);
+                            unitsBoughtDiminished += (float)Convert.ToDouble(unidades);
                         }
                         else
                         {
@@ -1734,7 +1734,7 @@ namespace PuntoDeVentaV2
                         if (!unidades.Equals(string.Empty))
                         {
                             colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
-                            unitsBoughtDiminished += Convert.ToInt32(unidades);
+                            unitsBoughtDiminished += (float)Convert.ToDouble(unidades);
                         }
                         else
                         {
@@ -2272,7 +2272,7 @@ namespace PuntoDeVentaV2
                             colUnidadesTmp.BorderWidth = 1;
                             colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
                             tabla.AddCell(colUnidadesTmp);
-                            unitsBoughtDiminished += Convert.ToInt32(unidades);
+                            unitsBoughtDiminished += (float)Convert.ToDouble(unidades);
                         }
                         if (PrecioCompra)
                         {
@@ -2512,7 +2512,7 @@ namespace PuntoDeVentaV2
                             colUnidadesTmp.BorderWidth = 1;
                             colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
                             tabla.AddCell(colUnidadesTmp);
-                            unitsBoughtDiminished += Convert.ToInt32(unidades);
+                            unitsBoughtDiminished += (float)Convert.ToDouble(unidades);
                         }
                         if (PrecioCompra)
                         {
