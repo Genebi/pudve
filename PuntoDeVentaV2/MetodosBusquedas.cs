@@ -76,7 +76,7 @@ namespace PuntoDeVentaV2
         public string ObtenerFechaUltimoCorte()
         {
             string fechaCorte = string.Empty;
-            DatosConexion($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1");
+            DatosConexion($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();   
 

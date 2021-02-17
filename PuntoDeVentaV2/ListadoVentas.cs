@@ -665,7 +665,6 @@ namespace PuntoDeVentaV2
 
                     if (validarFechaVenta > validarFechaCorte)
                     {
-
                         var datoREsultado = string.Empty;
 
                         if (opcion1 == 0)
