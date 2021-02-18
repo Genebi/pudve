@@ -285,6 +285,8 @@ namespace PuntoDeVentaV2
         {
             var totalRows = 0;
             var totalMarcados = 0;
+            var estadoHeader = 0;
+
             foreach (DataGridViewRow dgv in DGVProductos.Rows)
             {
                 var idARecorrer = Convert.ToInt32(dgv.Cells["_IDProducto"].Value.ToString());
@@ -293,9 +295,14 @@ namespace PuntoDeVentaV2
                 {
                     totalMarcados += 1;
                 }
+
+                if (quitarProductosDeseleccionados.ContainsKey(idARecorrer) && cbTodos.Checked)
+                {
+                    estadoHeader += 1;
+                }
             }
 
-            if (totalMarcados != totalRows && totalMarcados > 0 )
+            if (totalMarcados != totalRows && totalMarcados > 0 || estadoHeader == totalRows)
             {
                 CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
                 headerBox.Checked = false;
