@@ -305,7 +305,6 @@ namespace PuntoDeVentaV2
                 CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                 headerBox.Checked = true;
             }
-            
         }
 
         private void TTipButtonText_Draw(object sender, DrawToolTipEventArgs e)
@@ -2485,6 +2484,8 @@ namespace PuntoDeVentaV2
             }
             checkPaginasCompletas.Clear();
             contarProductosSeleccionados.Clear();
+
+            validarCabeceraCheckBox();
         }
 
         private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
@@ -3890,14 +3891,21 @@ namespace PuntoDeVentaV2
                 for (int i = 0; i < DGVProductos.RowCount; i++)
                 {
                     DGVProductos.Rows[i].Cells[0].Value = headerBox.Checked;
-                    contador += 1;
+                    if (headerBox.Checked)
+                    {
+                        contador += 1;
+                    }
+                    else
+                    {
+                        contador -= 1;
+                    }
                 }
             }
             else
             {
                 for (int i = 0; i < DGVProductos.RowCount; i++)
                 {
-                    contador -= 1;
+                    //contador -= 1;
                 }
             }
 
@@ -3917,7 +3925,7 @@ namespace PuntoDeVentaV2
                         if (!checkPaginasCompletas.ContainsKey(id))
                         {
                             checkPaginasCompletas.Add(id, name);
-                            contador += 1;
+                            //contador += 1;
                         }
                     }
                 }
@@ -3934,7 +3942,7 @@ namespace PuntoDeVentaV2
                             if (!quitarProductosDeseleccionados.ContainsKey(id))
                             {
                                 quitarProductosDeseleccionados.Add(id, name);
-                                contador -= 1;
+                                //contador -= 1;
                             }
                         }
                     }
@@ -3959,10 +3967,11 @@ namespace PuntoDeVentaV2
                         if (!quitarProductosDeseleccionados.ContainsKey(id) && statusCheckBox == false)
                         {
                             quitarProductosDeseleccionados.Add(id, name);
-
                         }
 
                     }
+
+                    //Recorrer el DGV y poner el checkBox si tiene in id guardado en el diccionario quitarProductosDeseleccionados
                     foreach (DataGridViewRow dgv in DGVProductos.Rows)
                     {
                         var idDgv = Convert.ToInt32(dgv.Cells["_IDProducto"].Value.ToString());
@@ -3996,7 +4005,7 @@ namespace PuntoDeVentaV2
         }
 
         private void mostrarCantidadProductos()
-        {
+        {//Muestra la cantidad de productos seleccionados
             if (contador > 0)
             {
                 lbCantidadSeleccionada.Text = $"Productos seleccionados: {contador}";
