@@ -5316,7 +5316,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show("No es posible cancelar ventas \nanteriores ha al cote de caja", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No es posible cancelar ventas \nanteriores al cote de caja", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

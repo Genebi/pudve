@@ -232,41 +232,50 @@ namespace PuntoDeVentaV2
                         productosSeleccionados.Add(id, tipo);
                     }
 
-                    if (!contarProductosSeleccionados.ContainsKey(id))
+                    if (!cbTodos.Checked)
                     {
-                        contarProductosSeleccionados.Add(id, name);
-                        contador += 1;
+                        //Contar los productos seleccionados 1 por 1
+                        if (!contarProductosSeleccionados.ContainsKey(id))
+                        {
+                            contarProductosSeleccionados.Add(id, name);
+                            contador += 1;
+                        }
                     }
-
                 }
                 else
                 {
                     var id = Convert.ToInt32(DGVProductos.SelectedRows[e.ColumnIndex].Cells["_IDProducto"].Value);
                     var name = DGVProductos.SelectedRows[e.ColumnIndex].Cells["Column1"].Value.ToString();
 
+                    //Contar los productos seleccionados 1 por 1
                     if (contarProductosSeleccionados.ContainsKey(id))
                     {
                         contarProductosSeleccionados.Remove(id);
-                        contador -= 1;
                     }
 
                     if (!quitarProductosDeseleccionados.ContainsKey(id))
                     {
                         quitarProductosDeseleccionados.Add(id, name);
+                        contador -= 1;
                     }
 
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
                 }
 
-                if (contador > 0)
-                {
-                    lbCantidadSeleccionada.Text = $"Productos seleccionados: {contador}";
-                }
-                else
-                {
-                    lbCantidadSeleccionada.Text = string.Empty;
-                    //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
-                }
+                
+                ////Solo entra a contar uno por uno cuando no esta seleccionadondo todas las paginas
+                //    if (contador > 0)
+                //    {
+                //        lbCantidadSeleccionada.Text = $"Productos seleccionados: {contador}";
+                //    }
+                //    else
+                //    {
+                //        lbCantidadSeleccionada.Text = string.Empty;
+                //        //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
+                //    }
+                mostrarCantidadProductos();
+
+
             }
             updateCheckBoxes();
      
@@ -3881,6 +3890,14 @@ namespace PuntoDeVentaV2
                 for (int i = 0; i < DGVProductos.RowCount; i++)
                 {
                     DGVProductos.Rows[i].Cells[0].Value = headerBox.Checked;
+                    contador += 1;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < DGVProductos.RowCount; i++)
+                {
+                    contador -= 1;
                 }
             }
 
@@ -3900,6 +3917,7 @@ namespace PuntoDeVentaV2
                         if (!checkPaginasCompletas.ContainsKey(id))
                         {
                             checkPaginasCompletas.Add(id, name);
+                            contador += 1;
                         }
                     }
                 }
@@ -3916,6 +3934,7 @@ namespace PuntoDeVentaV2
                             if (!quitarProductosDeseleccionados.ContainsKey(id))
                             {
                                 quitarProductosDeseleccionados.Add(id, name);
+                                contador -= 1;
                             }
                         }
                     }
@@ -3940,6 +3959,7 @@ namespace PuntoDeVentaV2
                         if (!quitarProductosDeseleccionados.ContainsKey(id) && statusCheckBox == false)
                         {
                             quitarProductosDeseleccionados.Add(id, name);
+
                         }
 
                     }
@@ -3961,19 +3981,32 @@ namespace PuntoDeVentaV2
                 }
             }
             validarDesmarcar = true;
+
+            mostrarCantidadProductos();
+
+            //if (contador > 0)
+            //{
+            //    lbCantidadSeleccionada.Text = $"Productos seleccionados: {contador}";
+            //}
+            //else
+            //{
+            //    lbCantidadSeleccionada.Text = string.Empty;
+            //    //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
+            //}
         }
 
-        //private bool validarSiEstaSeleccionado()
-        //{
-        //    //bool statusCheckBox = false;
-
-        //    //foreach (DataGridViewRow dato in DGVProductos.Rows)
-        //    //{
-        //    //    statusCheckBox = Convert.ToBoolean(dato.Cells["CheckProducto"].Value.ToString());
-        //    //}
-
-        //    //return statusCheckBox;
-        //}
+        private void mostrarCantidadProductos()
+        {
+            if (contador > 0)
+            {
+                lbCantidadSeleccionada.Text = $"Productos seleccionados: {contador}";
+            }
+            else
+            {
+                lbCantidadSeleccionada.Text = string.Empty;
+                //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
+            }
+        }
 
         private void updateCheckBoxes()
         {
@@ -5185,6 +5218,8 @@ namespace PuntoDeVentaV2
                 {
                     using (var datos = cn.CargarDatos(consulta))
                     {
+                        contador = datos.Rows.Count;
+
                         if (datos.Rows.Count > 0)
                         {
                             checkboxMarcados.Clear();
@@ -5219,9 +5254,28 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+                        else
+                        {
+                            contador = 0;
+                        }
                     }
                 }
             }
+            else
+            {
+                
+            }
+
+            mostrarCantidadProductos();
+            //if (contador > 0)
+            //{
+            //    lbCantidadSeleccionada.Text = $"Productos seleccionados: {contador}";
+            //}
+            //else
+            //{
+            //    lbCantidadSeleccionada.Text = string.Empty;
+            //    //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
+            //}
         }
 
         // metodo que recibe un diccionario

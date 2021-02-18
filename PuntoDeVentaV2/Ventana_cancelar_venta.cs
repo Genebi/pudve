@@ -34,89 +34,103 @@ namespace PuntoDeVentaV2
 
         private void CancelarVenta(string numFolio)
         {
-            var folio = numFolio.Trim();
+            var id = mb.buscarIDConFolio(numFolio); 
+            var ultimaFechaCorte = mb.ObtenerFechaUltimoCorte();
+            var fechaVenta = mb.ObtenerFechaVenta(id);
 
-            if (!string.IsNullOrWhiteSpace(folio))
+            DateTime validarFechaCorte = Convert.ToDateTime(ultimaFechaCorte);
+            DateTime validarFechaVenta = Convert.ToDateTime(fechaVenta);
+
+            if (validarFechaVenta > validarFechaCorte)
             {
-                var consulta = $"SELECT ID FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Folio = {folio} AND Status = 1";
-                // Verificar y obtener ID de la venta utilizando el folio
-                var existe = (bool)cn.EjecutarSelect(consulta);
+                var folio = numFolio.Trim();
 
-                if (existe)
+                if (!string.IsNullOrWhiteSpace(folio))
                 {
-                    var respuesta = MessageBox.Show("¿Desea cancelar la venta?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    var consulta = $"SELECT ID FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Folio = {folio} AND Status = 1";
+                    // Verificar y obtener ID de la venta utilizando el folio
+                    var existe = (bool)cn.EjecutarSelect(consulta);
 
-                    if (respuesta == DialogResult.Yes)
+                    if (existe)
                     {
-                        txt_folio_nota.Enabled = false;
-                        btn_aceptar.Enabled = false;
+                        var respuesta = MessageBox.Show("¿Desea cancelar la venta?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                        var idVenta = Convert.ToInt32(cn.EjecutarSelect(consulta, 1));
-                        Ventas.mostrarVenta = idVenta;
-
-                        // Cancelar la venta
-                        var resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
-
-                        if (resultado > 0)
+                        if (respuesta == DialogResult.Yes)
                         {
-                            // Regresar la cantidad de producto vendido al stock
-                            var productos = cn.ObtenerProductosVenta(idVenta);
+                            txt_folio_nota.Enabled = false;
+                            btn_aceptar.Enabled = false;
 
-                            if (productos.Length > 0)
+                            var idVenta = Convert.ToInt32(cn.EjecutarSelect(consulta, 1));
+                            Ventas.mostrarVenta = idVenta;
+
+                            // Cancelar la venta
+                            var resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+
+                            if (resultado > 0)
                             {
-                                foreach (var producto in productos)
-                                {
-                                    var info = producto.Split('|');
-                                    var idProducto = info[0];
-                                    var cantidad = float.Parse(info[2]);
+                                // Regresar la cantidad de producto vendido al stock
+                                var productos = cn.ObtenerProductosVenta(idVenta);
 
-                                    cn.EjecutarConsulta($"UPDATE Productos SET Stock =  Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                if (productos.Length > 0)
+                                {
+                                    foreach (var producto in productos)
+                                    {
+                                        var info = producto.Split('|');
+                                        var idProducto = info[0];
+                                        var cantidad = float.Parse(info[2]);
+
+                                        cn.EjecutarConsulta($"UPDATE Productos SET Stock =  Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                    }
                                 }
-                            }
 
-                            // Agregamos marca de agua al PDF del ticket de la venta cancelada
-                            Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
+                                // Agregamos marca de agua al PDF del ticket de la venta cancelada
+                                Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
 
-                            var mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                var mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                            if (mensaje == DialogResult.Yes)
-                            {
-                                var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
-
-                                // Operacion para que la devolucion del dinero afecte al apartado Caja
-                                if (formasPago.Length > 0)
+                                if (mensaje == DialogResult.Yes)
                                 {
-                                    var total = formasPago.Sum().ToString();
-                                    var efectivo = formasPago[0].ToString();
-                                    var tarjeta = formasPago[1].ToString();
-                                    var vales = formasPago[2].ToString();
-                                    var cheque = formasPago[3].ToString();
-                                    var transferencia = formasPago[4].ToString();
-                                    var credito = formasPago[5].ToString();
-                                    var anticipo = "0";
+                                    var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
-                                    var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                    var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+                                    // Operacion para que la devolucion del dinero afecte al apartado Caja
+                                    if (formasPago.Length > 0)
+                                    {
+                                        var total = formasPago.Sum().ToString();
+                                        var efectivo = formasPago[0].ToString();
+                                        var tarjeta = formasPago[1].ToString();
+                                        var vales = formasPago[2].ToString();
+                                        var cheque = formasPago[3].ToString();
+                                        var transferencia = formasPago[4].ToString();
+                                        var credito = formasPago[5].ToString();
+                                        var anticipo = "0";
 
-                                    string[] datos = new string[] {
+                                        var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                        var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+
+                                        string[] datos = new string[] {
                                             "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                                             efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
                                         };
 
-                                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                        cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                    }
                                 }
+
+                                venta_cancelada = 1;
                             }
 
-                            venta_cancelada = 1;
+                            this.Dispose();
                         }
-                        
-                        this.Dispose();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Folio no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Folio no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            else
+            {
+                MessageBox.Show("No es posible cancelar ventas \nanteriores al cote de caja", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -125,6 +139,14 @@ namespace PuntoDeVentaV2
             if (!char.IsNumber(e.KeyChar) && (e.KeyChar != (char)Keys.Back))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void txt_folio_nota_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btn_aceptar.PerformClick();
             }
         }
     }

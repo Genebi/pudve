@@ -54,6 +54,7 @@
             this.txt_folio_nota.Size = new System.Drawing.Size(246, 22);
             this.txt_folio_nota.TabIndex = 1;
             this.txt_folio_nota.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt_folio_nota.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_folio_nota_KeyDown);
             this.txt_folio_nota.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.solo_digitos);
             // 
             // btn_aceptar
