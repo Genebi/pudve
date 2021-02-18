@@ -5303,14 +5303,14 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            contador = 0;
+                            //contador = 0;
                         }
                     }
                 }
             }
             else
             {
-                
+                contador = 0;
             }
 
             mostrarCantidadProductos();
