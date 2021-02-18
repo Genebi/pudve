@@ -1244,8 +1244,8 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            Thread hiloForm = new Thread(() => new Cargando().ShowDialog());
-            hiloForm.Start();
+            Cargando cargando = new Cargando();
+            cargando.Show();
 
             int estado = 2;
 
@@ -1413,7 +1413,7 @@ namespace PuntoDeVentaV2
             }
 
 
-            hiloForm.Abort();
+            cargando.Close();
 
             if (estado == 0)
             {
