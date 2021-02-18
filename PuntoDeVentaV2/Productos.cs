@@ -295,7 +295,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            if (totalMarcados != totalRows && totalMarcados > 0)
+            if (totalMarcados != totalRows && totalMarcados > 0 )
             {
                 CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
                 headerBox.Checked = false;
@@ -3886,27 +3886,55 @@ namespace PuntoDeVentaV2
         {
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
 
+            var idProd = 0;
+            
+
             if (validarDesmarcar == true || !checkPaginasCompletas.Count.Equals(0) /*|| headerBox.Checked*/)
             {
                 for (int i = 0; i < DGVProductos.RowCount; i++)
                 {
                     DGVProductos.Rows[i].Cells[0].Value = headerBox.Checked;
+                    //if (headerBox.Checked && )
+                    //{
+                    //    contador += 1;
+                    //}
+                    //else
+                    //{
+                    //    contador -= 1;
+                    //}
+                }
+                foreach (DataGridViewRow dato in DGVProductos.Rows)
+                {
+                    idProd = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
                     if (headerBox.Checked)
                     {
-                        contador += 1;
+                        if (Convert.ToBoolean(dato.Cells["CheckProducto"].Value.ToString()) == true && !checkPaginasCompletas.ContainsKey(idProd))
+                        {
+                            contador += 1;
+                        }
                     }
                     else
                     {
-                        contador -= 1;
+                        if (Convert.ToBoolean(dato.Cells["CheckProducto"].Value.ToString()) == false && checkPaginasCompletas.ContainsKey(idProd))
+                        {
+                            contador -= 1;
+                        }
                     }
                 }
             }
             else
             {
-                for (int i = 0; i < DGVProductos.RowCount; i++)
-                {
-                    //contador -= 1;
-                }
+                //for (int i = 0; i < DGVProductos.RowCount; i++)
+                //{
+                //    if (headerBox.Checked)
+                //    {
+                //        contador += 1;
+                //    }
+                //    else
+                //    {
+                //        contador -= 1;
+                //    }
+                //}
             }
 
             if (validarTodosDesmarcados != true)
@@ -3991,6 +4019,9 @@ namespace PuntoDeVentaV2
             }
             validarDesmarcar = true;
 
+
+            
+
             mostrarCantidadProductos();
 
             //if (contador > 0)
@@ -4070,7 +4101,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-                if (checkPaginasCompletas.Count.Equals(0))
+                if (!checkPaginasCompletas.Count.Equals(0))
             {
                 if (ponerTrue == true && checkPaginasCompletas.Count.Equals(0) && validarPagina == true)
                 {
