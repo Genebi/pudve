@@ -66,6 +66,7 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbProcesando = new System.Windows.Forms.Label();
             this.cbTodos = new System.Windows.Forms.CheckBox();
             this.lAtajo = new System.Windows.Forms.Label();
             this.btnCambiarTipo = new System.Windows.Forms.Button();
@@ -498,6 +499,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.lbProcesando);
             this.panel1.Controls.Add(this.cbTodos);
             this.panel1.Controls.Add(this.lAtajo);
             this.panel1.Controls.Add(this.btnCambiarTipo);
@@ -523,6 +525,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(942, 215);
             this.panel1.TabIndex = 15;
+            // 
+            // lbProcesando
+            // 
+            this.lbProcesando.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProcesando.ForeColor = System.Drawing.Color.Firebrick;
+            this.lbProcesando.Location = new System.Drawing.Point(191, 189);
+            this.lbProcesando.Name = "lbProcesando";
+            this.lbProcesando.Size = new System.Drawing.Size(523, 21);
+            this.lbProcesando.TabIndex = 26;
+            this.lbProcesando.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbProcesando.Visible = false;
             // 
             // cbTodos
             // 
@@ -619,9 +632,9 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.ForeColor = System.Drawing.Color.White;
-            this.btnImprimir.Location = new System.Drawing.Point(452, 180);
+            this.btnImprimir.Location = new System.Drawing.Point(842, 188);
             this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(85, 28);
+            this.btnImprimir.Size = new System.Drawing.Size(85, 24);
             this.btnImprimir.TabIndex = 19;
             this.btnImprimir.Text = "Imprimir";
             this.TTipButtonText.SetToolTip(this.btnImprimir, "Imprimir Reporte (Ctrl + P)");
@@ -648,9 +661,9 @@
             this.btnEtiqueta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEtiqueta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEtiqueta.ForeColor = System.Drawing.Color.White;
-            this.btnEtiqueta.Location = new System.Drawing.Point(341, 180);
+            this.btnEtiqueta.Location = new System.Drawing.Point(731, 188);
             this.btnEtiqueta.Name = "btnEtiqueta";
-            this.btnEtiqueta.Size = new System.Drawing.Size(105, 28);
+            this.btnEtiqueta.Size = new System.Drawing.Size(105, 25);
             this.btnEtiqueta.TabIndex = 17;
             this.btnEtiqueta.Text = "Etiqueta";
             this.TTipButtonText.SetToolTip(this.btnEtiqueta, "Personalizar etiqueta(Ctrl + E)");
@@ -1250,5 +1263,6 @@
         private System.Windows.Forms.Label lbPaginasSeleccionadas;
         private System.Windows.Forms.Label lbCapital;
         private System.Windows.Forms.Label lbCantidadSeleccionada;
+        private System.Windows.Forms.Label lbProcesando;
     }
 }
