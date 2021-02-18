@@ -750,6 +750,7 @@ namespace PuntoDeVentaV2
                 }
 
                 dr.Close();
+                CerrarConexion();
 
                 // Obtener todos los codigos de la tabla de codigos de barra extra
                 DatosConexion($"SELECT CB.CodigoBarraExtra FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {idUsuario} AND CB.IDProducto = {idProductoTMP}");
@@ -819,6 +820,7 @@ namespace PuntoDeVentaV2
                             }
 
                             info2.Close();
+                            CerrarConexion();
                         }
                     }
                     else
@@ -827,9 +829,11 @@ namespace PuntoDeVentaV2
                     }
 
                     info.Close();
+                    CerrarConexion();
                 }
 
                 dr.Close();
+                CerrarConexion();
             }
             
             return respuesta;
@@ -853,13 +857,19 @@ namespace PuntoDeVentaV2
                 if (!string.IsNullOrWhiteSpace(dr["CodigoBarras"].ToString()))
                 {
                     lista.Add(dr["CodigoBarras"].ToString());
-                }
-                
-                
-                DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto}");
+                } 
+            }
 
-                MySqlDataReader info = sql_cmd.ExecuteReader();
+            dr.Close();
+            CerrarConexion();
 
+
+            DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto}");
+
+            MySqlDataReader info = sql_cmd.ExecuteReader();
+
+            if (info.HasRows)
+            {
                 while (info.Read())
                 {
                     if (!string.IsNullOrWhiteSpace(info["CodigoBarraExtra"].ToString()))
@@ -867,11 +877,9 @@ namespace PuntoDeVentaV2
                         lista.Add(info["CodigoBarraExtra"].ToString());
                     }
                 }
-
-                info.Close();
             }
-
-            dr.Close();
+            
+            info.Close();
             CerrarConexion();
 
             return lista.ToArray();

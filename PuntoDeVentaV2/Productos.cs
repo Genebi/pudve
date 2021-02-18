@@ -285,6 +285,8 @@ namespace PuntoDeVentaV2
         {
             var totalRows = 0;
             var totalMarcados = 0;
+            var estadoHeader = 0;
+
             foreach (DataGridViewRow dgv in DGVProductos.Rows)
             {
                 var idARecorrer = Convert.ToInt32(dgv.Cells["_IDProducto"].Value.ToString());
@@ -293,9 +295,14 @@ namespace PuntoDeVentaV2
                 {
                     totalMarcados += 1;
                 }
+
+                if (quitarProductosDeseleccionados.ContainsKey(idARecorrer) && cbTodos.Checked)
+                {
+                    estadoHeader += 1;
+                }
             }
 
-            if (totalMarcados != totalRows && totalMarcados > 0)
+            if (totalMarcados != totalRows && totalMarcados > 0 || estadoHeader == totalRows)
             {
                 CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
                 headerBox.Checked = false;
@@ -305,7 +312,6 @@ namespace PuntoDeVentaV2
                 CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                 headerBox.Checked = true;
             }
-            
         }
 
         private void TTipButtonText_Draw(object sender, DrawToolTipEventArgs e)
@@ -1245,8 +1251,8 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            Thread hiloForm = new Thread(() => new Cargando().ShowDialog());
-            hiloForm.Start();
+            Cargando cargando = new Cargando();
+            cargando.Show();
 
             int estado = 2;
 
@@ -1414,7 +1420,7 @@ namespace PuntoDeVentaV2
             }
 
 
-            hiloForm.Abort();
+            cargando.Close();
 
             if (estado == 0)
             {
@@ -2485,6 +2491,8 @@ namespace PuntoDeVentaV2
             }
             checkPaginasCompletas.Clear();
             contarProductosSeleccionados.Clear();
+
+            validarCabeceraCheckBox();
         }
 
         private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
@@ -3885,20 +3893,55 @@ namespace PuntoDeVentaV2
         {
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
 
+            var idProd = 0;
+            
+
             if (validarDesmarcar == true || !checkPaginasCompletas.Count.Equals(0) /*|| headerBox.Checked*/)
             {
                 for (int i = 0; i < DGVProductos.RowCount; i++)
                 {
                     DGVProductos.Rows[i].Cells[0].Value = headerBox.Checked;
-                    contador += 1;
+                    //if (headerBox.Checked && )
+                    //{
+                    //    contador += 1;
+                    //}
+                    //else
+                    //{
+                    //    contador -= 1;
+                    //}
+                }
+                foreach (DataGridViewRow dato in DGVProductos.Rows)
+                {
+                    idProd = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
+                    if (headerBox.Checked)
+                    {
+                        if (Convert.ToBoolean(dato.Cells["CheckProducto"].Value.ToString()) == true && !checkPaginasCompletas.ContainsKey(idProd))
+                        {
+                            contador += 1;
+                        }
+                    }
+                    else
+                    {
+                        if (Convert.ToBoolean(dato.Cells["CheckProducto"].Value.ToString()) == false && checkPaginasCompletas.ContainsKey(idProd))
+                        {
+                            contador -= 1;
+                        }
+                    }
                 }
             }
             else
             {
-                for (int i = 0; i < DGVProductos.RowCount; i++)
-                {
-                    contador -= 1;
-                }
+                //for (int i = 0; i < DGVProductos.RowCount; i++)
+                //{
+                //    if (headerBox.Checked)
+                //    {
+                //        contador += 1;
+                //    }
+                //    else
+                //    {
+                //        contador -= 1;
+                //    }
+                //}
             }
 
             if (validarTodosDesmarcados != true)
@@ -3917,7 +3960,7 @@ namespace PuntoDeVentaV2
                         if (!checkPaginasCompletas.ContainsKey(id))
                         {
                             checkPaginasCompletas.Add(id, name);
-                            contador += 1;
+                            //contador += 1;
                         }
                     }
                 }
@@ -3934,7 +3977,7 @@ namespace PuntoDeVentaV2
                             if (!quitarProductosDeseleccionados.ContainsKey(id))
                             {
                                 quitarProductosDeseleccionados.Add(id, name);
-                                contador -= 1;
+                                //contador -= 1;
                             }
                         }
                     }
@@ -3959,10 +4002,11 @@ namespace PuntoDeVentaV2
                         if (!quitarProductosDeseleccionados.ContainsKey(id) && statusCheckBox == false)
                         {
                             quitarProductosDeseleccionados.Add(id, name);
-
                         }
 
                     }
+
+                    //Recorrer el DGV y poner el checkBox si tiene in id guardado en el diccionario quitarProductosDeseleccionados
                     foreach (DataGridViewRow dgv in DGVProductos.Rows)
                     {
                         var idDgv = Convert.ToInt32(dgv.Cells["_IDProducto"].Value.ToString());
@@ -3982,6 +4026,9 @@ namespace PuntoDeVentaV2
             }
             validarDesmarcar = true;
 
+
+            
+
             mostrarCantidadProductos();
 
             //if (contador > 0)
@@ -3996,7 +4043,7 @@ namespace PuntoDeVentaV2
         }
 
         private void mostrarCantidadProductos()
-        {
+        {//Muestra la cantidad de productos seleccionados
             if (contador > 0)
             {
                 lbCantidadSeleccionada.Text = $"Productos seleccionados: {contador}";
@@ -4061,7 +4108,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-                if (checkPaginasCompletas.Count.Equals(0))
+                if (!checkPaginasCompletas.Count.Equals(0))
             {
                 if (ponerTrue == true && checkPaginasCompletas.Count.Equals(0) && validarPagina == true)
                 {
@@ -5256,14 +5303,14 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            contador = 0;
+                            //contador = 0;
                         }
                     }
                 }
             }
             else
             {
-                
+                contador = 0;
             }
 
             mostrarCantidadProductos();
