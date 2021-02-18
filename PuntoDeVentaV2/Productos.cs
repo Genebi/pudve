@@ -282,7 +282,7 @@ namespace PuntoDeVentaV2
         }
         
         private void validarCabeceraCheckBox()
-        {
+        {//Metodo para validar el checkBox que esta a un lado de el nombre segun corresponde
             var totalRows = 0;
             var totalMarcados = 0;
             var estadoHeader = 0;
@@ -302,7 +302,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            if (totalMarcados != totalRows && totalMarcados > 0 || estadoHeader == totalRows)
+            if (totalMarcados != totalRows && totalMarcados > 0 || estadoHeader == totalRows || !cbTodos.Checked && contarProductosSeleccionados.Count.Equals(0))
             {
                 CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
                 headerBox.Checked = false;
@@ -4003,7 +4003,6 @@ namespace PuntoDeVentaV2
                         {
                             quitarProductosDeseleccionados.Add(id, name);
                         }
-
                     }
 
                     //Recorrer el DGV y poner el checkBox si tiene in id guardado en el diccionario quitarProductosDeseleccionados
@@ -4020,14 +4019,10 @@ namespace PuntoDeVentaV2
                         {
                             dgv.Cells[0].Value = false;
                         }
-
                     }
                 }
             }
             validarDesmarcar = true;
-
-
-            
 
             mostrarCantidadProductos();
 
