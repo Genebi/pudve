@@ -66,10 +66,16 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+<<<<<<< HEAD
             this.lbProcesando = new System.Windows.Forms.Label();
+=======
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnListView = new System.Windows.Forms.Button();
+            this.btnPhotoView = new System.Windows.Forms.Button();
+>>>>>>> bordesB
             this.cbTodos = new System.Windows.Forms.CheckBox();
-            this.lAtajo = new System.Windows.Forms.Label();
             this.btnCambiarTipo = new System.Windows.Forms.Button();
+            this.lAtajo = new System.Windows.Forms.Label();
             this.btnPedido = new System.Windows.Forms.Button();
             this.btnCleanFilter = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -82,8 +88,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnAgregarServicio = new System.Windows.Forms.Button();
             this.btnAgregarPaquete = new System.Windows.Forms.Button();
-            this.btnListView = new System.Windows.Forms.Button();
-            this.btnPhotoView = new System.Windows.Forms.Button();
             this.btnModificarEstado = new System.Windows.Forms.Button();
             this.btnAgregarXML = new System.Windows.Forms.Button();
             this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
@@ -115,6 +119,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -134,9 +139,9 @@
             this.btnAgregarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(8, 14);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(9, 15);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
-            this.btnAgregarProducto.Size = new System.Drawing.Size(105, 61);
+            this.btnAgregarProducto.Size = new System.Drawing.Size(105, 57);
             this.btnAgregarProducto.TabIndex = 1;
             this.btnAgregarProducto.Text = "Producto";
             this.btnAgregarProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -158,12 +163,11 @@
             // 
             // tituloBusqueda
             // 
-            this.tituloBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloBusqueda.AutoSize = true;
-            this.tituloBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(348, 23);
+            this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 9F);
+            this.tituloBusqueda.Location = new System.Drawing.Point(171, 122);
             this.tituloBusqueda.Name = "tituloBusqueda";
-            this.tituloBusqueda.Size = new System.Drawing.Size(215, 16);
+            this.tituloBusqueda.Size = new System.Drawing.Size(212, 17);
             this.tituloBusqueda.TabIndex = 4;
             this.tituloBusqueda.Text = "Búsqueda avanzada de productos";
             this.tituloBusqueda.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -174,9 +178,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(91, 43);
+            this.txtBusqueda.Location = new System.Drawing.Point(173, 142);
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(755, 22);
+            this.txtBusqueda.Size = new System.Drawing.Size(679, 22);
             this.txtBusqueda.TabIndex = 5;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBusqueda.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBusqueda_KeyDown);
@@ -195,10 +199,10 @@
             "Z - A",
             "Mayor precio",
             "Menor precio"});
-            this.cbOrden.Location = new System.Drawing.Point(10, 16);
+            this.cbOrden.Location = new System.Drawing.Point(6, 14);
             this.cbOrden.Name = "cbOrden";
             this.cbOrden.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbOrden.Size = new System.Drawing.Size(137, 24);
+            this.cbOrden.Size = new System.Drawing.Size(132, 24);
             this.cbOrden.TabIndex = 6;
             this.cbOrden.SelectedIndexChanged += new System.EventHandler(this.cbOrden_SelectedIndexChanged);
             this.cbOrden.SelectionChangeCommitted += new System.EventHandler(this.cbOrden_SelectionChangeCommitted);
@@ -214,10 +218,10 @@
             "Habilitados",
             "Deshabilitados",
             "Todos"});
-            this.cbMostrar.Location = new System.Drawing.Point(10, 47);
+            this.cbMostrar.Location = new System.Drawing.Point(6, 43);
             this.cbMostrar.Name = "cbMostrar";
             this.cbMostrar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbMostrar.Size = new System.Drawing.Size(137, 24);
+            this.cbMostrar.Size = new System.Drawing.Size(132, 24);
             this.cbMostrar.TabIndex = 7;
             this.cbMostrar.SelectedIndexChanged += new System.EventHandler(this.cbMostrar_SelectedIndexChanged);
             this.cbMostrar.SelectionChangeCommitted += new System.EventHandler(this.cbMostrar_SelectionChangeCommitted);
@@ -499,10 +503,15 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+<<<<<<< HEAD
             this.panel1.Controls.Add(this.lbProcesando);
+=======
+            this.panel1.Controls.Add(this.groupBox3);
+>>>>>>> bordesB
             this.panel1.Controls.Add(this.cbTodos);
-            this.panel1.Controls.Add(this.lAtajo);
             this.panel1.Controls.Add(this.btnCambiarTipo);
+            this.panel1.Controls.Add(this.tituloBusqueda);
+            this.panel1.Controls.Add(this.lAtajo);
             this.panel1.Controls.Add(this.btnPedido);
             this.panel1.Controls.Add(this.btnCleanFilter);
             this.panel1.Controls.Add(this.label2);
@@ -514,10 +523,7 @@
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.tituloSeccion);
-            this.panel1.Controls.Add(this.tituloBusqueda);
             this.panel1.Controls.Add(this.txtBusqueda);
-            this.panel1.Controls.Add(this.btnListView);
-            this.panel1.Controls.Add(this.btnPhotoView);
             this.panel1.Controls.Add(this.btnModificarEstado);
             this.panel1.Controls.Add(this.btnAgregarXML);
             this.panel1.Location = new System.Drawing.Point(12, 6);
@@ -526,6 +532,7 @@
             this.panel1.Size = new System.Drawing.Size(942, 215);
             this.panel1.TabIndex = 15;
             // 
+<<<<<<< HEAD
             // lbProcesando
             // 
             this.lbProcesando.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -536,18 +543,81 @@
             this.lbProcesando.TabIndex = 26;
             this.lbProcesando.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbProcesando.Visible = false;
+=======
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnListView);
+            this.groupBox3.Controls.Add(this.btnPhotoView);
+            this.groupBox3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(360, 37);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(107, 78);
+            this.groupBox3.TabIndex = 26;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "VISTA";
+            // 
+            // btnListView
+            // 
+            this.btnListView.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
+            this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnListView.Location = new System.Drawing.Point(10, 16);
+            this.btnListView.Margin = new System.Windows.Forms.Padding(2);
+            this.btnListView.Name = "btnListView";
+            this.btnListView.Size = new System.Drawing.Size(88, 27);
+            this.btnListView.TabIndex = 12;
+            this.btnListView.Text = "Lista";
+            this.btnListView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.TTipButtonText.SetToolTip(this.btnListView, "Mostrar en Lista (Ctrl + L)");
+            this.btnListView.UseVisualStyleBackColor = true;
+            this.btnListView.Click += new System.EventHandler(this.btnListView_Click);
+            // 
+            // btnPhotoView
+            // 
+            this.btnPhotoView.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPhotoView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th_large;
+            this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPhotoView.Location = new System.Drawing.Point(10, 45);
+            this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPhotoView.Name = "btnPhotoView";
+            this.btnPhotoView.Size = new System.Drawing.Size(88, 27);
+            this.btnPhotoView.TabIndex = 11;
+            this.btnPhotoView.Text = "Mosaico";
+            this.btnPhotoView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.TTipButtonText.SetToolTip(this.btnPhotoView, "Mostrar en Mosaico (Ctrl + M)");
+            this.btnPhotoView.UseVisualStyleBackColor = true;
+            this.btnPhotoView.Click += new System.EventHandler(this.btnPhotoView_Click);
+>>>>>>> bordesB
             // 
             // cbTodos
             // 
             this.cbTodos.AutoSize = true;
-            this.cbTodos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTodos.Location = new System.Drawing.Point(11, 188);
+            this.cbTodos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTodos.Location = new System.Drawing.Point(19, 199);
             this.cbTodos.Name = "cbTodos";
-            this.cbTodos.Size = new System.Drawing.Size(167, 17);
+            this.cbTodos.Size = new System.Drawing.Size(188, 20);
             this.cbTodos.TabIndex = 25;
             this.cbTodos.Text = "Seleccionar todas las páginas";
             this.cbTodos.UseVisualStyleBackColor = true;
             this.cbTodos.CheckedChanged += new System.EventHandler(this.cbTodos_CheckedChanged);
+            // 
+            // btnCambiarTipo
+            // 
+            this.btnCambiarTipo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCambiarTipo.FlatAppearance.BorderSize = 0;
+            this.btnCambiarTipo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnCambiarTipo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnCambiarTipo.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnCambiarTipo.Location = new System.Drawing.Point(11, 51);
+            this.btnCambiarTipo.Name = "btnCambiarTipo";
+            this.btnCambiarTipo.Size = new System.Drawing.Size(195, 27);
+            this.btnCambiarTipo.TabIndex = 23;
+            this.btnCambiarTipo.Text = "Cambiar tipo";
+            this.TTipButtonText.SetToolTip(this.btnCambiarTipo, "Modificar Producto (Ctrl + T)");
+            this.btnCambiarTipo.UseVisualStyleBackColor = false;
+            this.btnCambiarTipo.Click += new System.EventHandler(this.btnCambiarTipo_Click);
             // 
             // lAtajo
             // 
@@ -555,38 +625,20 @@
             this.lAtajo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lAtajo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lAtajo.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.lAtajo.Location = new System.Drawing.Point(829, 5);
+            this.lAtajo.Location = new System.Drawing.Point(841, 5);
             this.lAtajo.Name = "lAtajo";
-            this.lAtajo.Size = new System.Drawing.Size(100, 23);
+            this.lAtajo.Size = new System.Drawing.Size(90, 23);
             this.lAtajo.TabIndex = 24;
             this.lAtajo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lAtajo.Visible = false;
             // 
-            // btnCambiarTipo
-            // 
-            this.btnCambiarTipo.BackColor = System.Drawing.Color.Green;
-            this.btnCambiarTipo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCambiarTipo.FlatAppearance.BorderSize = 0;
-            this.btnCambiarTipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCambiarTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCambiarTipo.ForeColor = System.Drawing.Color.White;
-            this.btnCambiarTipo.Location = new System.Drawing.Point(341, 149);
-            this.btnCambiarTipo.Name = "btnCambiarTipo";
-            this.btnCambiarTipo.Size = new System.Drawing.Size(196, 28);
-            this.btnCambiarTipo.TabIndex = 23;
-            this.btnCambiarTipo.Text = "Cambiar tipo";
-            this.TTipButtonText.SetToolTip(this.btnCambiarTipo, "Modificar Producto (Ctrl + T)");
-            this.btnCambiarTipo.UseVisualStyleBackColor = false;
-            this.btnCambiarTipo.Click += new System.EventHandler(this.btnCambiarTipo_Click);
-            // 
             // btnPedido
             // 
             this.btnPedido.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPedido.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnPedido.Image = global::PuntoDeVentaV2.Properties.Resources.print;
-            this.btnPedido.Location = new System.Drawing.Point(452, 117);
+            this.btnPedido.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnPedido.Location = new System.Drawing.Point(222, 83);
             this.btnPedido.Name = "btnPedido";
-            this.btnPedido.Size = new System.Drawing.Size(85, 28);
+            this.btnPedido.Size = new System.Drawing.Size(105, 27);
             this.btnPedido.TabIndex = 22;
             this.btnPedido.Text = "Reporte";
             this.btnPedido.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -597,18 +649,17 @@
             // btnCleanFilter
             // 
             this.btnCleanFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCleanFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnCleanFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
             this.btnCleanFilter.FlatAppearance.BorderSize = 0;
             this.btnCleanFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCleanFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCleanFilter.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnCleanFilter.ForeColor = System.Drawing.Color.White;
             this.btnCleanFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCleanFilter.Location = new System.Drawing.Point(859, 72);
+            this.btnCleanFilter.Location = new System.Drawing.Point(861, 167);
             this.btnCleanFilter.Name = "btnCleanFilter";
             this.btnCleanFilter.Size = new System.Drawing.Size(68, 23);
             this.btnCleanFilter.TabIndex = 21;
             this.btnCleanFilter.Text = "Borrar";
-            this.btnCleanFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.TTipButtonText.SetToolTip(this.btnCleanFilter, "Borrar Filtrado (ESC)");
             this.btnCleanFilter.UseVisualStyleBackColor = false;
             this.btnCleanFilter.Click += new System.EventHandler(this.btnCleanFilter_Click);
@@ -617,7 +668,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(8, 13);
+            this.label2.Location = new System.Drawing.Point(8, 5);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 16);
             this.label2.TabIndex = 20;
@@ -632,7 +683,11 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.ForeColor = System.Drawing.Color.White;
+<<<<<<< HEAD
             this.btnImprimir.Location = new System.Drawing.Point(842, 188);
+=======
+            this.btnImprimir.Location = new System.Drawing.Point(574, 66);
+>>>>>>> bordesB
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(85, 24);
             this.btnImprimir.TabIndex = 19;
@@ -648,9 +703,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fLPDynamicTags.AutoScroll = true;
             this.fLPDynamicTags.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPDynamicTags.Location = new System.Drawing.Point(90, 66);
+            this.fLPDynamicTags.Location = new System.Drawing.Point(173, 165);
             this.fLPDynamicTags.Name = "fLPDynamicTags";
-            this.fLPDynamicTags.Size = new System.Drawing.Size(756, 38);
+            this.fLPDynamicTags.Size = new System.Drawing.Size(679, 30);
             this.fLPDynamicTags.TabIndex = 18;
             // 
             // btnEtiqueta
@@ -661,7 +716,11 @@
             this.btnEtiqueta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEtiqueta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEtiqueta.ForeColor = System.Drawing.Color.White;
+<<<<<<< HEAD
             this.btnEtiqueta.Location = new System.Drawing.Point(731, 188);
+=======
+            this.btnEtiqueta.Location = new System.Drawing.Point(561, 100);
+>>>>>>> bordesB
             this.btnEtiqueta.Name = "btnEtiqueta";
             this.btnEtiqueta.Size = new System.Drawing.Size(105, 25);
             this.btnEtiqueta.TabIndex = 17;
@@ -673,15 +732,15 @@
             // 
             // btnAsignarMultiple
             // 
-            this.btnAsignarMultiple.BackColor = System.Drawing.Color.Green;
+            this.btnAsignarMultiple.BackColor = System.Drawing.SystemColors.Control;
             this.btnAsignarMultiple.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAsignarMultiple.FlatAppearance.BorderSize = 0;
-            this.btnAsignarMultiple.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAsignarMultiple.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAsignarMultiple.ForeColor = System.Drawing.Color.White;
-            this.btnAsignarMultiple.Location = new System.Drawing.Point(230, 149);
+            this.btnAsignarMultiple.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnAsignarMultiple.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnAsignarMultiple.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnAsignarMultiple.Location = new System.Drawing.Point(222, 50);
             this.btnAsignarMultiple.Name = "btnAsignarMultiple";
-            this.btnAsignarMultiple.Size = new System.Drawing.Size(105, 28);
+            this.btnAsignarMultiple.Size = new System.Drawing.Size(105, 27);
             this.btnAsignarMultiple.TabIndex = 16;
             this.btnAsignarMultiple.Text = "Asignar";
             this.TTipButtonText.SetToolTip(this.btnAsignarMultiple, "Asignar Cambios (Ctrl + A)");
@@ -691,20 +750,18 @@
             // btnFilterSearch
             // 
             this.btnFilterSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFilterSearch.BackColor = System.Drawing.Color.YellowGreen;
+            this.btnFilterSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(166)))));
             this.btnFilterSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFilterSearch.FlatAppearance.BorderSize = 0;
             this.btnFilterSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFilterSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnFilterSearch.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnFilterSearch.ForeColor = System.Drawing.Color.White;
-            this.btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
             this.btnFilterSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFilterSearch.Location = new System.Drawing.Point(861, 43);
+            this.btnFilterSearch.Location = new System.Drawing.Point(861, 142);
             this.btnFilterSearch.Name = "btnFilterSearch";
             this.btnFilterSearch.Size = new System.Drawing.Size(68, 23);
             this.btnFilterSearch.TabIndex = 15;
             this.btnFilterSearch.Text = "Filtro";
-            this.btnFilterSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFilterSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.TTipButtonText.SetToolTip(this.btnFilterSearch, "Realizar Filtrado  (Ctrl  + F)");
             this.btnFilterSearch.UseVisualStyleBackColor = false;
@@ -712,12 +769,11 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.cbOrden);
             this.groupBox2.Controls.Add(this.cbMostrar);
-            this.groupBox2.Location = new System.Drawing.Point(546, 105);
+            this.groupBox2.Location = new System.Drawing.Point(11, 115);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(156, 80);
+            this.groupBox2.Size = new System.Drawing.Size(145, 75);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             // 
@@ -727,9 +783,10 @@
             this.groupBox1.Controls.Add(this.btnAgregarServicio);
             this.groupBox1.Controls.Add(this.btnAgregarPaquete);
             this.groupBox1.Controls.Add(this.btnAgregarProducto);
-            this.groupBox1.Location = new System.Drawing.Point(705, 105);
+            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(698, 42);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(231, 82);
+            this.groupBox1.Size = new System.Drawing.Size(231, 78);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " AGREGAR ";
@@ -745,7 +802,7 @@
             this.btnAgregarServicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarServicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnAgregarServicio.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarServicio.Location = new System.Drawing.Point(118, 48);
+            this.btnAgregarServicio.Location = new System.Drawing.Point(119, 45);
             this.btnAgregarServicio.Name = "btnAgregarServicio";
             this.btnAgregarServicio.Size = new System.Drawing.Size(105, 27);
             this.btnAgregarServicio.TabIndex = 3;
@@ -766,7 +823,7 @@
             this.btnAgregarPaquete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarPaquete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnAgregarPaquete.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarPaquete.Location = new System.Drawing.Point(118, 14);
+            this.btnAgregarPaquete.Location = new System.Drawing.Point(119, 15);
             this.btnAgregarPaquete.Name = "btnAgregarPaquete";
             this.btnAgregarPaquete.Size = new System.Drawing.Size(105, 27);
             this.btnAgregarPaquete.TabIndex = 2;
@@ -776,49 +833,24 @@
             this.btnAgregarPaquete.UseVisualStyleBackColor = false;
             this.btnAgregarPaquete.Click += new System.EventHandler(this.btnAgregarPaquete_Click);
             // 
-            // btnListView
-            // 
-            this.btnListView.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
-            this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListView.Location = new System.Drawing.Point(230, 117);
-            this.btnListView.Margin = new System.Windows.Forms.Padding(2);
-            this.btnListView.Name = "btnListView";
-            this.btnListView.Size = new System.Drawing.Size(105, 28);
-            this.btnListView.TabIndex = 12;
-            this.btnListView.Text = "Lista";
-            this.btnListView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.TTipButtonText.SetToolTip(this.btnListView, "Mostrar en Lista (Ctrl + L)");
-            this.btnListView.UseVisualStyleBackColor = true;
-            this.btnListView.Click += new System.EventHandler(this.btnListView_Click);
-            // 
-            // btnPhotoView
-            // 
-            this.btnPhotoView.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPhotoView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th_large;
-            this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPhotoView.Location = new System.Drawing.Point(341, 117);
-            this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2);
-            this.btnPhotoView.Name = "btnPhotoView";
-            this.btnPhotoView.Size = new System.Drawing.Size(105, 28);
-            this.btnPhotoView.TabIndex = 11;
-            this.btnPhotoView.Text = "Mosaico";
-            this.btnPhotoView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.TTipButtonText.SetToolTip(this.btnPhotoView, "Mostrar en Mosaico (Ctrl + M)");
-            this.btnPhotoView.UseVisualStyleBackColor = true;
-            this.btnPhotoView.Click += new System.EventHandler(this.btnPhotoView_Click);
-            // 
             // btnModificarEstado
             // 
             this.btnModificarEstado.Cursor = System.Windows.Forms.Cursors.Hand;
+<<<<<<< HEAD
             this.btnModificarEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.trash;
             this.btnModificarEstado.Location = new System.Drawing.Point(156, 149);
             this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificarEstado.Name = "btnModificarEstado";
             this.btnModificarEstado.Size = new System.Drawing.Size(60, 28);
+=======
+            this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnModificarEstado.Location = new System.Drawing.Point(11, 83);
+            this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
+            this.btnModificarEstado.Name = "btnModificarEstado";
+            this.btnModificarEstado.Size = new System.Drawing.Size(195, 27);
+>>>>>>> bordesB
             this.btnModificarEstado.TabIndex = 10;
             this.btnModificarEstado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.TTipButtonText.SetToolTip(this.btnModificarEstado, "Deshabilitar (Ctrl + D)");
@@ -831,7 +863,7 @@
             this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarXML.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
-            this.btnAgregarXML.Location = new System.Drawing.Point(11, 117);
+            this.btnAgregarXML.Location = new System.Drawing.Point(58, 1);
             this.btnAgregarXML.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregarXML.Name = "btnAgregarXML";
             this.btnAgregarXML.Size = new System.Drawing.Size(205, 28);
@@ -1169,6 +1201,7 @@
             this.panelShowPhotoView.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -1263,6 +1296,10 @@
         private System.Windows.Forms.Label lbPaginasSeleccionadas;
         private System.Windows.Forms.Label lbCapital;
         private System.Windows.Forms.Label lbCantidadSeleccionada;
+<<<<<<< HEAD
         private System.Windows.Forms.Label lbProcesando;
+=======
+        private System.Windows.Forms.GroupBox groupBox3;
+>>>>>>> bordesB
     }
 }

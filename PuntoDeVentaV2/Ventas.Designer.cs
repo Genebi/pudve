@@ -104,7 +104,6 @@
             this.btnClientes = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.lFolio = new System.Windows.Forms.TextBox();
             this.timer_img_producto = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
@@ -145,7 +144,7 @@
             this.btnEliminarAnticipos.Name = "btnEliminarAnticipos";
             this.btnEliminarAnticipos.Size = new System.Drawing.Size(122, 25);
             this.btnEliminarAnticipos.TabIndex = 10;
-            this.btnEliminarAnticipos.Text = "Eliminar Anticipos";
+            this.btnEliminarAnticipos.Text = "Eliminar anticipos";
             this.tituloBoton.SetToolTip(this.btnEliminarAnticipos, "Eliminar todos los anticipos de esta venta");
             this.btnEliminarAnticipos.UseVisualStyleBackColor = false;
             this.btnEliminarAnticipos.Visible = false;
@@ -186,7 +185,7 @@
             this.btnUltimoTicket.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUltimoTicket.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUltimoTicket.ForeColor = System.Drawing.Color.White;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(529, 25);
+            this.btnUltimoTicket.Location = new System.Drawing.Point(688, 25);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
             this.btnUltimoTicket.Size = new System.Drawing.Size(37, 40);
             this.btnUltimoTicket.TabIndex = 18;
@@ -400,7 +399,7 @@
             this.btnCancelarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.reply1;
             this.btnCancelarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelarVenta.Location = new System.Drawing.Point(279, 20);
+            this.btnCancelarVenta.Location = new System.Drawing.Point(127, 20);
             this.btnCancelarVenta.Name = "btnCancelarVenta";
             this.btnCancelarVenta.Size = new System.Drawing.Size(105, 40);
             this.btnCancelarVenta.TabIndex = 13;
@@ -458,7 +457,7 @@
             this.btnAbrirCaja.Name = "btnAbrirCaja";
             this.btnAbrirCaja.Size = new System.Drawing.Size(89, 75);
             this.btnAbrirCaja.TabIndex = 16;
-            this.btnAbrirCaja.Text = "Abrir Caja\r\n   F2";
+            this.btnAbrirCaja.Text = "Abrir caja\r\n   F2";
             this.btnAbrirCaja.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAbrirCaja.UseVisualStyleBackColor = false;
             this.btnAbrirCaja.Click += new System.EventHandler(this.btnAbrirCaja_Click);
@@ -466,17 +465,20 @@
             // btnVentasGuardadas
             // 
             this.btnVentasGuardadas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVentasGuardadas.BackColor = System.Drawing.Color.PaleVioletRed;
             this.btnVentasGuardadas.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnVentasGuardadas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVentasGuardadas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVentasGuardadas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVentasGuardadas.ForeColor = System.Drawing.Color.White;
             this.btnVentasGuardadas.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard1;
-            this.btnVentasGuardadas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentasGuardadas.Location = new System.Drawing.Point(118, 20);
+            this.btnVentasGuardadas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnVentasGuardadas.Location = new System.Drawing.Point(513, 9);
             this.btnVentasGuardadas.Name = "btnVentasGuardadas";
-            this.btnVentasGuardadas.Size = new System.Drawing.Size(155, 40);
+            this.btnVentasGuardadas.Size = new System.Drawing.Size(140, 75);
             this.btnVentasGuardadas.TabIndex = 17;
-            this.btnVentasGuardadas.Text = "Ventas guardadas";
-            this.btnVentasGuardadas.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.btnVentasGuardadas.UseVisualStyleBackColor = true;
+            this.btnVentasGuardadas.Text = "Ventas guardadas\r\nCtrl + M";
+            this.btnVentasGuardadas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnVentasGuardadas.UseVisualStyleBackColor = false;
             this.btnVentasGuardadas.Click += new System.EventHandler(this.btnVentasGuardadas_Click);
             // 
             // listaProductos
@@ -914,7 +916,7 @@
             // 
             this.btnTerminarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTerminarVenta.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnTerminarVenta.BackColor = System.Drawing.Color.Green;
             this.btnTerminarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTerminarVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTerminarVenta.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -993,23 +995,12 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label3.Location = new System.Drawing.Point(327, 41);
+            this.label3.Location = new System.Drawing.Point(175, 41);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(28, 13);
             this.label3.TabIndex = 47;
             this.label3.Text = "ESC";
             this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label7.Location = new System.Drawing.Point(183, 41);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
-            this.label7.TabIndex = 51;
-            this.label7.Text = "Ctrl + M";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // lFolio
             // 
@@ -1067,23 +1058,25 @@
             this.panel5.Controls.Add(this.btnClientes);
             this.panel5.Controls.Add(this.btnGuardarVenta);
             this.panel5.Controls.Add(this.btnUltimoTicket);
-            this.panel5.Location = new System.Drawing.Point(77, 480);
+            this.panel5.Controls.Add(this.btnVentasGuardadas);
+            this.panel5.Location = new System.Drawing.Point(22, 480);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(724, 95);
+            this.panel5.Size = new System.Drawing.Size(855, 95);
             this.panel5.TabIndex = 63;
             // 
             // btn_cancelar_venta
             // 
+            this.btn_cancelar_venta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_cancelar_venta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
             this.btn_cancelar_venta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_cancelar_venta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar_venta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar_venta.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar_venta.Location = new System.Drawing.Point(591, 25);
+            this.btn_cancelar_venta.Location = new System.Drawing.Point(735, 25);
             this.btn_cancelar_venta.Name = "btn_cancelar_venta";
             this.btn_cancelar_venta.Size = new System.Drawing.Size(110, 40);
             this.btn_cancelar_venta.TabIndex = 64;
-            this.btn_cancelar_venta.Text = "Cancelar Venta";
+            this.btn_cancelar_venta.Text = "Cancelar venta";
             this.btn_cancelar_venta.UseVisualStyleBackColor = false;
             this.btn_cancelar_venta.Click += new System.EventHandler(this.btn_cancelar_venta_Click);
             // 
@@ -1095,7 +1088,6 @@
             this.ClientSize = new System.Drawing.Size(1232, 608);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.lFolio);
             this.Controls.Add(this.checkCancelar);
             this.Controls.Add(this.label3);
@@ -1104,7 +1096,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.btnCancelarVenta);
-            this.Controls.Add(this.btnVentasGuardadas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(1027, 597);
@@ -1201,7 +1192,6 @@
         private System.Windows.Forms.Label lbMayoreo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox lFolio;
         private System.Windows.Forms.Label cAnticipoUtilizado;
         private System.Windows.Forms.Label lbAnticipoUtilizado;

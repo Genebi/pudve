@@ -14,6 +14,7 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.Threading;
 using static System.Windows.Forms.DataGridView;
+using System.Drawing.Drawing2D;
 
 namespace PuntoDeVentaV2
 {
@@ -179,7 +180,6 @@ namespace PuntoDeVentaV2
 
             label1.BackColor = Color.FromArgb(229, 231, 233);
             label3.BackColor = Color.FromArgb(229, 231, 233);
-            label7.BackColor = Color.FromArgb(229, 231, 233);
 
             txtBuscadorProducto.GotFocus += new EventHandler(BuscarTieneFoco);
             txtBuscadorProducto.LostFocus += new EventHandler(BuscarPierdeFoco);
@@ -5348,11 +5348,6 @@ namespace PuntoDeVentaV2
             btnConsultar.PerformClick();
         }
 
-        private void label7_Click(object sender, EventArgs e)
-        {
-            btnVentasGuardadas.PerformClick();
-        }
-
         private void label3_Click(object sender, EventArgs e)
         {
             btnCancelarVenta.PerformClick();
@@ -5584,7 +5579,7 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void DGVentas_SelectionChanged(object sender, EventArgs e)
@@ -5603,5 +5598,33 @@ namespace PuntoDeVentaV2
                 Application.OpenForms.OfType<ListadoVentasGuardadas>().First().Close();
             }
         }
+
+
+        /*private void DrawEllipseInt(PaintEventArgs e)
+        {
+            // Create pen.
+            Pen blackPen = new Pen(Color.Black, 3);
+
+            // Create location and size of ellipse.
+            int x = 0;
+            int y = 0;
+            int width = 20;
+            int height = 10;
+
+            // Draw ellipse to screen.
+            e.Graphics.DrawEllipse(blackPen, x, y, width, height);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            Graphics graphics = e.Graphics;
+            Pen myPen = new Pen(Color.Black);
+            Brush myBrush = new HatchBrush(HatchStyle.DottedDiamond, Color.RosyBrown, Color.Brown);
+            SolidBrush textBrush = new SolidBrush(Color.Yellow);
+            // Draw the button in the form of a rectangle
+            graphics.FillRectangle(myBrush, 0, 0, 80, 45);
+            graphics.DrawString("Display Drawings", new System.Drawing.Font("Verdana", 11), textBrush, 10, 10);
+            myPen.Dispose();
+        }*/
     }
 }
