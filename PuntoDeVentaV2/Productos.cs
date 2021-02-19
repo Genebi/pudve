@@ -5262,10 +5262,11 @@ namespace PuntoDeVentaV2
                 {
                     using (var datos = cn.CargarDatos(consulta))
                     {
-                        contador = datos.Rows.Count;
 
                         if (datos.Rows.Count > 0)
                         {
+                            contador = datos.Rows.Count;
+
                             checkboxMarcados.Clear();
 
                             foreach (DataRow fila in datos.Rows)
@@ -5300,14 +5301,10 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            //contador = 0;
+                            contador -= 1;
                         }
                     }
                 }
-            }
-            else
-            {
-                contador = 0;
             }
 
             mostrarCantidadProductos();
