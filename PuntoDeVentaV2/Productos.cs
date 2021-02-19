@@ -1916,7 +1916,7 @@ namespace PuntoDeVentaV2
         {
             if (auxWord.Count == 0 && setUpVariable.Count == 0 && setUpDinamicos.Count == 0)
             {
-                btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
+                //btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
                 btnCleanFilter.Enabled = false;
             }
             else
@@ -1924,17 +1924,17 @@ namespace PuntoDeVentaV2
                 btnCleanFilter.Visible = true;
                 if (fLPDynamicTags.Controls.Count == 1)
                 {
-                    btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
+                    //btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
                     btnCleanFilter.Enabled = true;
                 }
                 else if (fLPDynamicTags.Controls.Count > 1)
                 {
-                    btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tags;
+                    //btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tags;
                     btnCleanFilter.Enabled = true;
                 }
                 else if (fLPDynamicTags.Controls.Count <= 0)
                 {
-                    btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
+                    //btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
                     btnCleanFilter.Enabled = false;
                 }
             }
@@ -2575,6 +2575,7 @@ namespace PuntoDeVentaV2
         {
 
         }
+        
 
         private void crearEtiquetaSetUpVariable()
         {
@@ -3732,7 +3733,7 @@ namespace PuntoDeVentaV2
                     {
                         if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                         {
-                            btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
+                            //btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
                         }
                     }
                 }
@@ -3746,7 +3747,7 @@ namespace PuntoDeVentaV2
                     {
                         if (drVerificarVentanaFiltros["checkBoxValue"].ToString().Equals("1"))
                         {
-                            btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
+                            //btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
                         }
                     }
                 }
@@ -3754,7 +3755,7 @@ namespace PuntoDeVentaV2
 
             if (setUpVariable.Count.Equals(0))
             {
-                btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
+                //btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
             }
         }
 
