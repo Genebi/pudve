@@ -4050,7 +4050,6 @@ namespace PuntoDeVentaV2
                 }
             }
 
-
             validarDesmarcar = true;
 
             mostrarCantidadProductos();
@@ -4137,6 +4136,31 @@ namespace PuntoDeVentaV2
 
                     CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", false)[0]);
                     headerBox.Checked = false;
+                }
+            }
+
+            foreach (DataGridViewRow noSeleccionarCheck in DGVProductos.Rows)
+            {
+                var idNoSeleccionado = Convert.ToInt32(noSeleccionarCheck.Cells["_IDProducto"].Value.ToString());
+
+                if (quitarProductosDeseleccionados.ContainsKey(idNoSeleccionado))
+                {
+                    //Recorrer el DGV y poner el checkBox si tiene in id guardado en el diccionario quitarProductosDeseleccionados
+                    foreach (DataGridViewRow dgv in DGVProductos.Rows)
+                    {
+                        var idDgv = Convert.ToInt32(dgv.Cells["_IDProducto"].Value.ToString());
+
+                        if (quitarProductosDeseleccionados.ContainsKey(idDgv))
+                        {
+                            dgv.Cells[0].Value = false;
+                            //dgv.Cells[0].Value = true;
+                        }
+                        //else
+
+                        //{
+                        //    dgv.Cells[0].Value = false;
+                        //}
+                    }
                 }
             }
 
