@@ -3896,14 +3896,33 @@ namespace PuntoDeVentaV2
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
 
             var idProd = 0;
+            var buscarId = 0;
+            var cantidadProd = 0;
+            var deseleccion = false;
+
+            foreach (DataGridViewRow iterar in DGVProductos.Rows)
+            {
+                buscarId = Convert.ToInt32(iterar.Cells["_IDProducto"].Value.ToString());
+                cantidadProd += 1;
+
+                if (checkPaginasCompletas.ContainsKey(buscarId))
+                {
+                    cantidadProd -= 1;
+                }
+            }
+
+            if (cantidadProd == 0)
+            {
+                deseleccion = true;
+            }
             
-            if (validarDesmarcar == true || !checkPaginasCompletas.Count.Equals(0) /*|| headerBox.Checked*/)
+            if (validarDesmarcar == true || !checkPaginasCompletas.Count.Equals(0) || checkPaginasCompletas.Count.Equals(0) /*|| headerBox.Checked*/)
             {
                 for (int i = 0; i < DGVProductos.RowCount; i++)
                 {
-                    if (headerBox.Checked == false && paginacompletaMarcada == 1)
+                    if (headerBox.Checked == false && paginacompletaMarcada == 1 && deseleccion == false)
                     {
-
+                        
                     }
                     else
                     {
@@ -4011,8 +4030,27 @@ namespace PuntoDeVentaV2
                             dgv.Cells[0].Value = false;
                         }
                     }
+                }else if (headerBox.Checked == false)
+                {
+                    foreach (DataGridViewRow dato in DGVProductos.Rows)
+                    {
+                        id = Convert.ToInt32(dato.Cells["_IDProducto"].Value.ToString());
+                        name = dato.Cells["Column1"].Value.ToString();
+
+                        if (checkPaginasCompletas.ContainsKey(id))
+                        {
+                            checkPaginasCompletas.Remove(id);
+                            if (!quitarProductosDeseleccionados.ContainsKey(id))
+                            {
+                                quitarProductosDeseleccionados.Add(id, name);
+                                //contador -= 1;
+                            }
+                        }
+                    }
                 }
             }
+
+
             validarDesmarcar = true;
 
             mostrarCantidadProductos();
