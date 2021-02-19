@@ -90,7 +90,9 @@ namespace PuntoDeVentaV2
             }
 
             Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
-            Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\" + nombreIcono);
+            //Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\" + nombreIcono);
+            System.Drawing.Image deshabilitar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
+            System.Drawing.Image habilitar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\arrow-up.png");
 
             foreach (DataRow fila in dtDatos.Rows)
             {
@@ -105,7 +107,16 @@ namespace PuntoDeVentaV2
                 row.Cells["Telefono"].Value = fila["Telefono"].ToString();
                 row.Cells["Fecha"].Value = Convert.ToDateTime(fila["FechaOperacion"]).ToString("yyyy-MM-dd HH:mm:ss");
                 row.Cells["Editar"].Value = editar;
-                row.Cells["Eliminar"].Value = eliminar;
+
+                if (status == 1)
+                {
+                    row.Cells["Eliminar"].Value = deshabilitar;
+                }else
+                {
+                    row.Cells["Eliminar"].Value = habilitar;
+                }
+
+                
             }
 
             clickBoton = 0;

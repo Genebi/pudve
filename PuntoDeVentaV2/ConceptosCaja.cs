@@ -67,8 +67,10 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVConceptos.Rows[rowId];
 
-                Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
-                Image imgDeshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
+                //Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
+                //Image imgDeshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
+                System.Drawing.Image imgDeshabilitar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
+                System.Drawing.Image imgHabilitar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\arrow-up.png");
 
                 row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["Concepto"].Value = dr.GetValue(dr.GetOrdinal("Concepto"));
