@@ -4455,10 +4455,11 @@ namespace PuntoDeVentaV2
                 }
 
                 // si la cadena a buscar no esta vacia
-                if (!txtAndNumSearch.Trim().Equals(""))
+                if (/*!numBusqueda.Trim().Equals("")*/!txtAndNumSearch.Trim().Equals(""))
                 {
                     // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
                     var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(txtAndNumSearch.Trim());
+                    //var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(numBusqueda.Trim());
 
                     buscarCodigosBarraExtra = string.Empty;
                     nuevosCodigos = string.Empty;
