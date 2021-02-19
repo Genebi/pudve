@@ -79,5 +79,10 @@ namespace PuntoDeVentaV2
                 chkSelectOnly.Enabled = true;
             }
         }
+
+        private void SeleccionarConceptosReporteActualizarInventario_Load(object sender, EventArgs e)
+        {
+            chkSelectAllOrNot.Checked = true;
+        }
     }
 }
