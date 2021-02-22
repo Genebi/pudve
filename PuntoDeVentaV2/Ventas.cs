@@ -143,7 +143,7 @@ namespace PuntoDeVentaV2
 
         string fechaSistema = string.Empty;
 
-        bool primerClickRestarIndividual = false, 
+        bool primerClickRestarIndividual = false,
              primerClickEliminarIndividual = false,
              primerClickBtnUltimoEliminado = false;
 
@@ -662,6 +662,7 @@ namespace PuntoDeVentaV2
 
             CalculoMayoreo();
             CantidadesFinalesVenta();
+            //validarStockDGV();
         }
 
         private void AgregarProductoLista(string[] datosProducto, decimal cantidad = 1, bool ignorar = false)
@@ -818,6 +819,62 @@ namespace PuntoDeVentaV2
             DGVentas.Sort(DGVentas.Columns["NumeroColumna"], System.ComponentModel.ListSortDirection.Descending);
             DGVentas.ClearSelection();
             indiceColumna++;
+        }
+
+        private void validarStockDGV()
+        {
+            var idClient = 0;
+
+            var celda = DGVentas.CurrentCell.RowIndex;
+            var columna = DGVentas.CurrentCell.ColumnIndex;
+
+            DGVentas.Columns["Descripcion"].DefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 9.75F, FontStyle.Regular);
+
+            foreach (DataGridViewRow dgv in DGVentas.Rows)
+            {
+
+                idClient = Convert.ToInt32(dgv.Cells["IDProducto"].Value.ToString());
+                var resultado = buscarInfo(idClient);
+                var stockObtenido = float.Parse(resultado[0].ToString());//Stock
+                var stockMinimoObtenido = float.Parse(resultado[1].ToString());//Stock Minimo
+                var nombreProducto = resultado[2].ToString();//Nombre del Producto
+
+                if (stockObtenido <= stockMinimoObtenido)
+                {
+                    //DGVentas.Columns["Descripcion"].DefaultCellStyle.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
+                    DGVentas.Rows[celda].Cells["Descripcion"].Style.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
+                }
+                else if (stockObtenido < 1)
+                {
+
+                }
+                else
+                {
+                    //DGVentas.Columns["Descripcion"].DefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 9.75F, FontStyle.Regular);
+                    DGVentas.Rows[celda].Cells["Descripcion"].Style.Font = new System.Drawing.Font("Century Gothic", 9.75F, FontStyle.Regular);
+                }
+            }
+        }
+
+        private string[] buscarInfo(int idDelPRoducto)
+        {
+            List<string> lista = new List<string>();
+            var nombreProd = string.Empty; var cantidadStock = string.Empty; var cantidadStockMinimo = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT Nombre, Stock, StockMinimo FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idDelPRoducto}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                cantidadStock = query.Rows[0]["Stock"].ToString();
+                cantidadStockMinimo = query.Rows[0]["StockMinimo"].ToString();
+                nombreProd = query.Rows[0]["Nombre"].ToString();
+            }
+
+            lista.Add(cantidadStock);
+            lista.Add(cantidadStockMinimo);
+            lista.Add(nombreProd);
+
+            return lista.ToArray(); ;
         }
 
         private void DGVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
