@@ -200,6 +200,13 @@ namespace PuntoDeVentaV2
         int opcion21 = 1; // Opcion copiar
         int opcion22 = 1; // Opcion ajustar
 
+        List<string> usuarios = new List<string>()
+        {
+            "HOUSEDEPOTAUTLAN",
+            "HOUSEDEPOTREPARTO",
+            "HOUSEDEPOTGRULLO"
+        };
+
         public int retornoAgregarEditarProductoDatosSourceFinal;
 
         // Imagenes para el boton habilitar/deshabilitar productos
@@ -5122,6 +5129,15 @@ namespace PuntoDeVentaV2
             DGVProductos.Columns["Column13"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column8"].Visible = false;
             DGVProductos.Columns["Ajustar"].Visible = false;
+
+
+            if (!usuarios.Contains(FormPrincipal.userNickName))
+            {
+                // Clave interna, generar codigo y etiqueta
+                DGVProductos.Columns["Column5"].Visible = false;
+                DGVProductos.Columns["Column10"].Visible = false;
+                DGVProductos.Columns["Column12"].Visible = false;
+            }
 
 
             // Pixel en blanco para poner en las columnas que no va a mostrar un icono
