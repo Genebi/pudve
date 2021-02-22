@@ -2900,6 +2900,11 @@ namespace PuntoDeVentaV2
                                         //Se obtiene la ID del último producto agregado
                                         idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
                                         var claveP = txtClaveProducto.Text;
+
+
+                                        // Crear registro en tabla de correos para que por defecto se habilite la opcion de enviar correo al hacer venta
+                                        cn.EjecutarConsulta($"INSERTO INTO CorreosProducto (IDUsuario, IDProducto, CorreoVentaProducto) VALUES ('{FormPrincipal.userID}', '{idProducto}', 1)");
+
                                         #region Inicio de Datos de Impuestos
                                         //Se realiza el proceso para guardar los detalles de facturación del producto
                                         if (datosImpuestos != null)

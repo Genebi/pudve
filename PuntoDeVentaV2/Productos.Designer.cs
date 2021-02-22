@@ -66,7 +66,6 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lbProcesando = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnListView = new System.Windows.Forms.Button();
             this.btnPhotoView = new System.Windows.Forms.Button();
@@ -500,7 +499,6 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.lbProcesando);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.cbTodos);
             this.panel1.Controls.Add(this.btnCambiarTipo);
@@ -526,16 +524,6 @@
             this.panel1.Size = new System.Drawing.Size(942, 215);
             this.panel1.TabIndex = 15;
             // 
-            // lbProcesando
-            // 
-            this.lbProcesando.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbProcesando.ForeColor = System.Drawing.Color.Firebrick;
-            this.lbProcesando.Location = new System.Drawing.Point(191, 189);
-            this.lbProcesando.Name = "lbProcesando";
-            this.lbProcesando.Size = new System.Drawing.Size(523, 21);
-            this.lbProcesando.TabIndex = 26;
-            this.lbProcesando.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbProcesando.Visible = false;
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnListView);
@@ -674,7 +662,6 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.ForeColor = System.Drawing.Color.White;
-            this.btnImprimir.Location = new System.Drawing.Point(842, 188);
             this.btnImprimir.Location = new System.Drawing.Point(574, 66);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(85, 24);
@@ -704,7 +691,6 @@
             this.btnEtiqueta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEtiqueta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEtiqueta.ForeColor = System.Drawing.Color.White;
-            this.btnEtiqueta.Location = new System.Drawing.Point(731, 188);
             this.btnEtiqueta.Location = new System.Drawing.Point(561, 100);
             this.btnEtiqueta.Name = "btnEtiqueta";
             this.btnEtiqueta.Size = new System.Drawing.Size(105, 25);
@@ -821,13 +807,8 @@
             // btnModificarEstado
             // 
             this.btnModificarEstado.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnModificarEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.trash;
-            this.btnModificarEstado.Location = new System.Drawing.Point(156, 149);
-            this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
-            this.btnModificarEstado.Name = "btnModificarEstado";
-            this.btnModificarEstado.Size = new System.Drawing.Size(60, 28);
             this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.trash;
             this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnModificarEstado.Location = new System.Drawing.Point(11, 83);
             this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
@@ -1278,7 +1259,6 @@
         private System.Windows.Forms.Label lbPaginasSeleccionadas;
         private System.Windows.Forms.Label lbCapital;
         private System.Windows.Forms.Label lbCantidadSeleccionada;
-        private System.Windows.Forms.Label lbProcesando;
         private System.Windows.Forms.GroupBox groupBox3;
     }
 }

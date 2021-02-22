@@ -1244,7 +1244,7 @@ namespace PuntoDeVentaV2
                   
         }
 
-        private async void btnModificarEstado_Click(object sender, EventArgs e)
+        private void btnModificarEstado_Click(object sender, EventArgs e)
         {
             ///Mostrar Mensaje ne la etiqueta de atajos
             timer1.Start();
@@ -1258,8 +1258,15 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            lbProcesando.Visible = true;
-            lbProcesando.Text = "ESTE PROCESO PUEDE TARDAR UNOS MINUTOS...";
+
+            // Cantidad de productos seleccionados
+            Thread cargando = new Thread(() => new Cargando().ShowDialog());
+
+            if (contador >= 50)
+            {
+                cargando.Start();
+            }
+
 
             int estado = 2;
 
@@ -1426,9 +1433,13 @@ namespace PuntoDeVentaV2
                 }
             }
 
-
-            lbProcesando.Visible = false;
-            lbProcesando.Text = string.Empty;
+            if (contador >= 50)
+            {
+                if (cargando.IsAlive)
+                {
+                    cargando.Abort();
+                }
+            }
 
             if (estado == 0)
             {
