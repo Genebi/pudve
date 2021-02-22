@@ -534,11 +534,13 @@ namespace PuntoDeVentaV2
                 if (cnt >= 1)
                 {
                     AgregarProductoLista(datosProducto);
+                    validarStockDGV();
                 }
                 else if (cnt < 1)
                 {
                     var ignorar = false;
                     AgregarProductoLista(datosProducto, cnt, ignorar);
+                    validarStockDGV();
                 }
             }
             else if (DGVentas.Rows.Count > 0)
@@ -646,6 +648,7 @@ namespace PuntoDeVentaV2
                     }
 
                     AgregarProductoLista(datosProducto, cnt, ignorar);
+                    validarStockDGV();
                 }
             }
             else
@@ -658,6 +661,7 @@ namespace PuntoDeVentaV2
                 }
 
                 AgregarProductoLista(datosProducto, cnt, ignorar);
+                validarStockDGV();
             }
 
             CalculoMayoreo();
@@ -839,14 +843,15 @@ namespace PuntoDeVentaV2
                 var stockMinimoObtenido = float.Parse(resultado[1].ToString());//Stock Minimo
                 var nombreProducto = resultado[2].ToString();//Nombre del Producto
 
-                if (stockObtenido <= stockMinimoObtenido)
+                if (stockObtenido <= stockMinimoObtenido && stockObtenido > 0)
                 {
                     //DGVentas.Columns["Descripcion"].DefaultCellStyle.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
                     DGVentas.Rows[celda].Cells["Descripcion"].Style.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
                 }
                 else if (stockObtenido < 1)
                 {
-
+                    DGVentas.Rows[celda].Cells["Descripcion"].Value = $"**{nombreProducto}";
+                    DGVentas.Rows[celda].Cells["Descripcion"].Style.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
                 }
                 else
                 {
