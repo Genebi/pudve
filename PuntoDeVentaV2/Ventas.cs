@@ -338,6 +338,7 @@ namespace PuntoDeVentaV2
 
                     //txtBuscadorProducto_KeyUp(sender, e);
                     OperacionBusqueda(1);
+                    funteListBox();
 
                     sumarProducto = false;
                     restarProducto = false;
@@ -4919,6 +4920,7 @@ namespace PuntoDeVentaV2
             timerBusqueda.Interval = 1000;
             timerBusqueda.Stop();
             OperacionBusqueda();
+            funteListBox();
         }
 
         private void btnConsultar_Click(object sender, EventArgs e)
@@ -5607,6 +5609,93 @@ namespace PuntoDeVentaV2
             };
 
             vnt_cancelar.ShowDialog();
+        }
+
+        private void listaProductos_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            //Brush fuente = Brushes.Black;
+
+            //foreach (var fila in listaProductos.Items)
+            //{
+            //    var stockObtenido = 0f;
+            //    var stockMinim = 0f;
+
+            //    string[] datos = buscarProductoPorCodigoClave(fila.ToString());
+
+            //    stockObtenido = float.Parse(datos[1]);
+            //    stockMinim = float.Parse(datos[2]);
+
+            //    if (stockObtenido <= stockMinim)
+            //    {
+            //        // e.Graphics.DrawString(listaProductos.Items[e.Index].ToString(), e.Font, fuente, e.Bounds, StringFormat.GenericDefault);
+            //    }
+            //    else if (stockObtenido < 1)
+            //    {
+
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //}
+        }
+
+        private void funteListBox()
+        {
+            Brush fuente = Brushes.Black;
+
+            foreach (var fila in listaProductos.Items)
+            {
+                var stockObtenido = 0f;
+                var stockMinim = 0f;
+                var name = string.Empty;
+
+                string[] datos = buscarProductoPorCodigoClave(fila.ToString());
+
+                name = datos[0].ToString();
+                stockObtenido = float.Parse(datos[1]);
+                stockMinim = float.Parse(datos[2]);
+
+                if (stockObtenido <= stockMinim)
+                {
+                    // e.Graphics.DrawString(listaProductos.Items[e.Index].ToString(), e.Font, fuente, e.Bounds, StringFormat.GenericDefault);
+                }
+                else if (stockObtenido < 1)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        private string[] buscarProductoPorCodigoClave(string fila)
+        {
+            List<string> lista = new List<string>();
+
+            var nombre = string.Empty; var stock = string.Empty; var stockMinimo = string.Empty;
+
+            char delimitador = ':';
+            string[] words = fila.Split(delimitador);
+
+            var palabra = words[1].Trim().ToString();
+
+            var query = cn.CargarDatos($"SELECT Nombre, Stock, StockMinimo FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{palabra}' OR ClaveProducto = '{palabra}' AND Status = 1");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                nombre = query.Rows[0]["Nombre"].ToString();
+                stock = query.Rows[0]["Stock"].ToString();
+                stockMinimo = query.Rows[0]["StockMinimo"].ToString();
+
+                lista.Add(nombre);
+                lista.Add(stock);
+                lista.Add(stockMinimo);
+            }
+
+            return lista.ToArray();
         }
 
         private void DGVentas_MouseUp(object sender, MouseEventArgs e)

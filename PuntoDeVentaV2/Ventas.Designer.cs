@@ -491,6 +491,7 @@
             this.listaProductos.Size = new System.Drawing.Size(790, 21);
             this.listaProductos.TabIndex = 9;
             this.listaProductos.Visible = false;
+            this.listaProductos.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listaProductos_DrawItem);
             this.listaProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listaProductos_KeyDown);
             this.listaProductos.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listaProductos_MouseDoubleClick);
             this.listaProductos.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.listaProductos_PreviewKeyDown);
