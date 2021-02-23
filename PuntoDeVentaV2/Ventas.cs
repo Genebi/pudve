@@ -828,38 +828,38 @@ namespace PuntoDeVentaV2
 
         private void validarStockDGV()
         {
-            var idClient = 0;
+            //var idClient = 0;
 
-            var celda = DGVentas.CurrentCell.RowIndex;
-            var columna = DGVentas.CurrentCell.ColumnIndex;
+            //var celda = DGVentas.CurrentCell.RowIndex;
+            //var columna = DGVentas.CurrentCell.ColumnIndex;
 
-            DGVentas.Columns["Descripcion"].DefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 9.75F, FontStyle.Regular);
+            //DGVentas.Columns["Descripcion"].DefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 9.75F, FontStyle.Regular);
 
-            foreach (DataGridViewRow dgv in DGVentas.Rows)
-            {
+            //foreach (DataGridViewRow dgv in DGVentas.Rows)
+            //{
 
-                idClient = Convert.ToInt32(dgv.Cells["IDProducto"].Value.ToString());
-                var resultado = buscarInfo(idClient);
-                var stockObtenido = float.Parse(resultado[0].ToString());//Stock
-                var stockMinimoObtenido = float.Parse(resultado[1].ToString());//Stock Minimo
-                var nombreProducto = resultado[2].ToString();//Nombre del Producto
+            //    idClient = Convert.ToInt32(dgv.Cells["IDProducto"].Value.ToString());
+            //    var resultado = buscarInfo(idClient);
+            //    var stockObtenido = float.Parse(resultado[0].ToString());//Stock
+            //    var stockMinimoObtenido = float.Parse(resultado[1].ToString());//Stock Minimo
+            //    var nombreProducto = resultado[2].ToString();//Nombre del Producto
 
-                if (stockObtenido <= stockMinimoObtenido && stockObtenido > 0)
-                {
-                    //DGVentas.Columns["Descripcion"].DefaultCellStyle.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
-                    DGVentas.Rows[celda].Cells["Descripcion"].Style.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
-                }
-                else if (stockObtenido < 1)
-                {
-                    DGVentas.Rows[celda].Cells["Descripcion"].Value = $"**{nombreProducto}";
-                    DGVentas.Rows[celda].Cells["Descripcion"].Style.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
-                }
-                else
-                {
-                    //DGVentas.Columns["Descripcion"].DefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 9.75F, FontStyle.Regular);
-                    DGVentas.Rows[celda].Cells["Descripcion"].Style.Font = new System.Drawing.Font("Century Gothic", 9.75F, FontStyle.Regular);
-                }
-            }
+            //    if (stockObtenido <= stockMinimoObtenido && stockObtenido > 0)
+            //    {
+            //        //DGVentas.Columns["Descripcion"].DefaultCellStyle.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
+            //        DGVentas.Rows[celda].Cells["Descripcion"].Style.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
+            //    }
+            //    else if (stockObtenido < 1)
+            //    {
+            //        DGVentas.Rows[celda].Cells["Descripcion"].Value = $"**{nombreProducto}";
+            //        DGVentas.Rows[celda].Cells["Descripcion"].Style.Font = new System.Drawing.Font("Verdana", 12F, FontStyle.Bold);
+            //    }
+            //    else
+            //    {
+            //        //DGVentas.Columns["Descripcion"].DefaultCellStyle.Font = new System.Drawing.Font("Century Gothic", 9.75F, FontStyle.Regular);
+            //        DGVentas.Rows[celda].Cells["Descripcion"].Style.Font = new System.Drawing.Font("Century Gothic", 9.75F, FontStyle.Regular);
+            //    }
+            //}
         }
 
         private string[] buscarInfo(int idDelPRoducto)
@@ -4784,6 +4784,38 @@ namespace PuntoDeVentaV2
                         listaProductos.Visible = true;
                         listaProductos.SelectedIndex = 0;
                     }
+
+
+                    //foreach (var item in listaProductos.Items)
+                    //{
+                    //    var stockObtenido = 0f;
+                    //    var stockMinim = 0f;
+                    //    var name = string.Empty;
+
+                    //    string[] datos = buscarProductoPorCodigoClave(item.ToString());
+
+                    //    name = datos[0].ToString();
+                    //    stockObtenido = float.Parse(datos[1]);
+                    //    stockMinim = float.Parse(datos[2]);
+
+                    //    if (stockObtenido <= stockMinim)
+                    //    {
+                    //        listaProductos.Font = new System.Drawing.Font("Century Gothic", 9F, FontStyle.Bold);
+                    //        //listaProductos.Items[1].;
+
+                    //    }
+                    //    else if (stockObtenido < 1)
+                    //    {
+
+                    //    }
+                    //    else
+                    //    {
+                    //        //listaProductos.Font = new System.Drawing.Font("Century Gothic", 8F);
+
+                    //    }
+                    //}
+
+
                 }
                 else
                 {
@@ -4827,6 +4859,35 @@ namespace PuntoDeVentaV2
                     this.KeyPreview = true;
                 }
             }
+        }
+
+
+        private string[] buscarProductoPorCodigoClave(string fila)
+        {
+            List<string> lista = new List<string>();
+
+            var nombre = string.Empty; var stock = string.Empty; var stockMinimo = string.Empty;
+
+            char delimitador = ':';
+            string[] words = fila.Split(delimitador);
+            var eliminarCaracter = words[1].Replace("]", "");
+
+            var palabra = eliminarCaracter.Trim().ToString();
+
+            var query = cn.CargarDatos($"SELECT Nombre, Stock, StockMinimo FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{palabra}' OR ClaveProducto = '{palabra}' AND Status = 1");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                nombre = query.Rows[0]["Nombre"].ToString();
+                stock = query.Rows[0]["Stock"].ToString();
+                stockMinimo = query.Rows[0]["StockMinimo"].ToString();
+
+                lista.Add(nombre);
+                lista.Add(stock);
+                lista.Add(stockMinimo);
+            }
+
+            return lista.ToArray();
         }
 
         private void txtBuscadorProducto_KeyUp(object sender, KeyEventArgs e)
@@ -5611,17 +5672,46 @@ namespace PuntoDeVentaV2
             vnt_cancelar.ShowDialog();
         }
 
-        private void listaProductos_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            //Brush fuente = Brushes.Black;
+        //private void listaProductos_DrawItem(object sender, DrawItemEventArgs e)
+        //{
+        //    Brush fuente = Brushes.Black;
 
+        //    foreach (var fila in listaProductos.Items)
+        //    {
+        //        var stockObtenido = 0f;
+        //        var stockMinim = 0f;
+
+        //        string[] datos = buscarProductoPorCodigoClave(fila.ToString());
+
+        //        stockObtenido = float.Parse(datos[1]);
+        //        stockMinim = float.Parse(datos[2]);
+
+        //        if (stockObtenido <= stockMinim)
+        //        {
+        //            // e.Graphics.DrawString(listaProductos.Items[e.Index].ToString(), e.Font, fuente, e.Bounds, StringFormat.GenericDefault);
+        //        }
+        //        else if (stockObtenido < 1)
+        //        {
+
+        //        }
+        //        else
+        //        {
+
+        //        }
+        //    }
+        //}
+
+        private void funteListBox()
+        {
             //foreach (var fila in listaProductos.Items)
             //{
             //    var stockObtenido = 0f;
             //    var stockMinim = 0f;
+            //    var name = string.Empty;
 
             //    string[] datos = buscarProductoPorCodigoClave(fila.ToString());
 
+            //    name = datos[0].ToString();
             //    stockObtenido = float.Parse(datos[1]);
             //    stockMinim = float.Parse(datos[2]);
 
@@ -5640,63 +5730,32 @@ namespace PuntoDeVentaV2
             //}
         }
 
-        private void funteListBox()
-        {
-            Brush fuente = Brushes.Black;
+        //private string[] buscarProductoPorCodigoClave(string fila)
+        //{
+        //    List<string> lista = new List<string>();
 
-            foreach (var fila in listaProductos.Items)
-            {
-                var stockObtenido = 0f;
-                var stockMinim = 0f;
-                var name = string.Empty;
+        //    var nombre = string.Empty; var stock = string.Empty; var stockMinimo = string.Empty;
 
-                string[] datos = buscarProductoPorCodigoClave(fila.ToString());
+        //    char delimitador = ':';
+        //    string[] words = fila.Split(delimitador);
 
-                name = datos[0].ToString();
-                stockObtenido = float.Parse(datos[1]);
-                stockMinim = float.Parse(datos[2]);
+        //    var palabra = words[1].Trim().ToString();
 
-                if (stockObtenido <= stockMinim)
-                {
-                    // e.Graphics.DrawString(listaProductos.Items[e.Index].ToString(), e.Font, fuente, e.Bounds, StringFormat.GenericDefault);
-                }
-                else if (stockObtenido < 1)
-                {
+        //    var query = cn.CargarDatos($"SELECT Nombre, Stock, StockMinimo FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{palabra}' OR ClaveProducto = '{palabra}' AND Status = 1");
 
-                }
-                else
-                {
+        //    if (!query.Rows.Count.Equals(0))
+        //    {
+        //        nombre = query.Rows[0]["Nombre"].ToString();
+        //        stock = query.Rows[0]["Stock"].ToString();
+        //        stockMinimo = query.Rows[0]["StockMinimo"].ToString();
 
-                }
-            }
-        }
+        //        lista.Add(nombre);
+        //        lista.Add(stock);
+        //        lista.Add(stockMinimo);
+        //    }
 
-        private string[] buscarProductoPorCodigoClave(string fila)
-        {
-            List<string> lista = new List<string>();
-
-            var nombre = string.Empty; var stock = string.Empty; var stockMinimo = string.Empty;
-
-            char delimitador = ':';
-            string[] words = fila.Split(delimitador);
-
-            var palabra = words[1].Trim().ToString();
-
-            var query = cn.CargarDatos($"SELECT Nombre, Stock, StockMinimo FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{palabra}' OR ClaveProducto = '{palabra}' AND Status = 1");
-
-            if (!query.Rows.Count.Equals(0))
-            {
-                nombre = query.Rows[0]["Nombre"].ToString();
-                stock = query.Rows[0]["Stock"].ToString();
-                stockMinimo = query.Rows[0]["StockMinimo"].ToString();
-
-                lista.Add(nombre);
-                lista.Add(stock);
-                lista.Add(stockMinimo);
-            }
-
-            return lista.ToArray();
-        }
+        //    return lista.ToArray();
+        //}
 
         private void DGVentas_MouseUp(object sender, MouseEventArgs e)
         {
