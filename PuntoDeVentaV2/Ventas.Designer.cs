@@ -185,7 +185,7 @@
             this.btnUltimoTicket.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUltimoTicket.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUltimoTicket.ForeColor = System.Drawing.Color.White;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(688, 25);
+            this.btnUltimoTicket.Location = new System.Drawing.Point(698, 25);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
             this.btnUltimoTicket.Size = new System.Drawing.Size(37, 40);
             this.btnUltimoTicket.TabIndex = 18;
@@ -417,7 +417,7 @@
             this.btnGuardarVenta.ForeColor = System.Drawing.Color.White;
             this.btnGuardarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
             this.btnGuardarVenta.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGuardarVenta.Location = new System.Drawing.Point(352, 9);
+            this.btnGuardarVenta.Location = new System.Drawing.Point(367, 10);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
             this.btnGuardarVenta.Size = new System.Drawing.Size(155, 75);
             this.btnGuardarVenta.TabIndex = 14;
@@ -435,9 +435,9 @@
             this.btnAnticipos.ForeColor = System.Drawing.Color.White;
             this.btnAnticipos.Image = global::PuntoDeVentaV2.Properties.Resources.handshake_o1;
             this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAnticipos.Location = new System.Drawing.Point(107, 10);
+            this.btnAnticipos.Location = new System.Drawing.Point(115, 10);
             this.btnAnticipos.Name = "btnAnticipos";
-            this.btnAnticipos.Size = new System.Drawing.Size(93, 75);
+            this.btnAnticipos.Size = new System.Drawing.Size(100, 75);
             this.btnAnticipos.TabIndex = 15;
             this.btnAnticipos.Text = "Anticipos\r\nCtrl + A";
             this.btnAnticipos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -453,9 +453,9 @@
             this.btnAbrirCaja.ForeColor = System.Drawing.Color.White;
             this.btnAbrirCaja.Image = global::PuntoDeVentaV2.Properties.Resources.hdd_o1;
             this.btnAbrirCaja.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAbrirCaja.Location = new System.Drawing.Point(12, 10);
+            this.btnAbrirCaja.Location = new System.Drawing.Point(9, 10);
             this.btnAbrirCaja.Name = "btnAbrirCaja";
-            this.btnAbrirCaja.Size = new System.Drawing.Size(89, 75);
+            this.btnAbrirCaja.Size = new System.Drawing.Size(100, 75);
             this.btnAbrirCaja.TabIndex = 16;
             this.btnAbrirCaja.Text = "Abrir caja\r\n   F2";
             this.btnAbrirCaja.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -472,7 +472,7 @@
             this.btnVentasGuardadas.ForeColor = System.Drawing.Color.White;
             this.btnVentasGuardadas.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard1;
             this.btnVentasGuardadas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnVentasGuardadas.Location = new System.Drawing.Point(513, 9);
+            this.btnVentasGuardadas.Location = new System.Drawing.Point(528, 10);
             this.btnVentasGuardadas.Name = "btnVentasGuardadas";
             this.btnVentasGuardadas.Size = new System.Drawing.Size(140, 75);
             this.btnVentasGuardadas.TabIndex = 17;
@@ -971,7 +971,7 @@
             this.btnClientes.ForeColor = System.Drawing.Color.White;
             this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.discount;
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnClientes.Location = new System.Drawing.Point(206, 10);
+            this.btnClientes.Location = new System.Drawing.Point(221, 10);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(140, 75);
             this.btnClientes.TabIndex = 44;
@@ -1059,9 +1059,9 @@
             this.panel5.Controls.Add(this.btnGuardarVenta);
             this.panel5.Controls.Add(this.btnUltimoTicket);
             this.panel5.Controls.Add(this.btnVentasGuardadas);
-            this.panel5.Location = new System.Drawing.Point(22, 480);
+            this.panel5.Location = new System.Drawing.Point(12, 480);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(855, 95);
+            this.panel5.Size = new System.Drawing.Size(865, 95);
             this.panel5.TabIndex = 63;
             // 
             // btn_cancelar_venta
@@ -1072,7 +1072,7 @@
             this.btn_cancelar_venta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar_venta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar_venta.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar_venta.Location = new System.Drawing.Point(735, 25);
+            this.btn_cancelar_venta.Location = new System.Drawing.Point(745, 25);
             this.btn_cancelar_venta.Name = "btn_cancelar_venta";
             this.btn_cancelar_venta.Size = new System.Drawing.Size(110, 40);
             this.btn_cancelar_venta.TabIndex = 64;
@@ -1098,6 +1098,7 @@
             this.Controls.Add(this.btnCancelarVenta);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1027, 597);
             this.Name = "Ventas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

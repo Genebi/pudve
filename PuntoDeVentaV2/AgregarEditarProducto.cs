@@ -2222,7 +2222,7 @@ namespace PuntoDeVentaV2
 
             TextBox tb = new TextBox();
             tb.Name = "textboxGenerado" + id;
-            if (this.Text.Trim() == "Agregar Producto" | this.Text.Trim() == "Editar Producto" | this.Text.Trim() == "Copiar Producto")
+            if (this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO")
             {
                 tb.Width = 122;
             }
@@ -2707,7 +2707,7 @@ namespace PuntoDeVentaV2
             filtroTipoSerPaq = Convert.ToString(cbTipo.SelectedItem);
             tipoServPaq = filtroTipoSerPaq;
             nombre = txtNombreProducto.Text;
-            if (this.Text.Trim() == "Agregar Producto" | this.Text.Trim() == "Editar Producto" | this.Text.Trim() == "Copiar Producto")
+            if (this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO")
             {
                 validarDecimales(txtStockProducto.Text.ToString());
             }
@@ -2865,7 +2865,7 @@ namespace PuntoDeVentaV2
                     #endregion Final de Descuento seleccionado
 
                     #region Inicio de Sección de Productos
-                    if (this.Text.Trim() == "Agregar Producto" | this.Text.Trim() == "Editar Producto" | this.Text.Trim() == "Copiar Producto")
+                    if (this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO")
                     {
                         bool bValidNombreProducto = ValidateNombreProducto();
                         bool bValidPrecioProducto = ValidatePrecioProducto();
@@ -3095,7 +3095,7 @@ namespace PuntoDeVentaV2
                     }
                     #endregion Final de Sección de Productos
                     #region Inicio de Sección de Combos y Servicios
-                    else if (this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios")
+                    else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS")
                     {
                         bool bValidNombreProducto = ValidateNombreProducto();
                         bool bValidPrecioProducto = ValidatePrecioProducto();
@@ -3113,12 +3113,12 @@ namespace PuntoDeVentaV2
                                 #region Inicio Saber si es Servicio ó Combo
                                 string FuenteServPaq = string.Empty;
 
-                                if (this.Text.Trim() == "Servicios")
+                                if (this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS")
                                 {
                                     ProdServPaq = "S";
                                     FuenteServPaq = "Servicio";
                                 }
-                                else if (this.Text.Trim() == "Combos")
+                                else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS")
                                 {
                                     ProdServPaq = "PQ";
                                     FuenteServPaq = "Combo";
@@ -3706,7 +3706,7 @@ namespace PuntoDeVentaV2
                             }
                             #endregion Final Seccion Descuentos
 
-                            if (!(this.Text.Trim() == "Agregar Producto" | this.Text.Trim() == "Editar Producto" | this.Text.Trim() == "Copiar Producto"))
+                            if (!(this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO"))
                             {
                                 stock = "0";
                             }
@@ -3785,7 +3785,7 @@ namespace PuntoDeVentaV2
                             #endregion Final De Detalle Producto Basicos
 
                             #region Inicio de Seccion Productos
-                            if (this.Text.Trim() == "Agregar Producto" | this.Text.Trim() == "Editar Producto" | this.Text.Trim() == "Copiar Producto")
+                            if (this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO")
                             {
                                 if (!CBNombProd.Equals("") || !CBIdProd.Equals(""))
                                 {
@@ -3829,7 +3829,7 @@ namespace PuntoDeVentaV2
                             #endregion Final de Seccion Productos
 
                             #region Inicio de Seccion Combos y Servicios
-                            else if (this.Text.Trim().Equals("Combos") || this.Text.Trim().Equals("Servicios"))
+                            else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS")
                             {
                                 // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
                                 if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
@@ -5556,11 +5556,11 @@ namespace PuntoDeVentaV2
         {
             ListaProductos ListStock = new ListaProductos();
             ListStock.nombreProducto += new ListaProductos.pasarProducto(ejecutar);
-            if (this.Text.Trim() == "Agregar Producto" | this.Text.Trim() == "Editar Producto" | this.Text.Trim() == "Copiar Producto")
+            if (this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO")
             {
                 ListStock.TypeStock = "Combos";
             }
-            else if (this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios")
+            else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS")
             {
                 ListStock.TypeStock = "Productos";
             }
@@ -5574,7 +5574,7 @@ namespace PuntoDeVentaV2
             int numero = 0;
             if (!int.TryParse(CBNombProd, out numero))
             {
-                if ((this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios") && DatosSourceFinal == 1)
+                if ((this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS") && DatosSourceFinal == 1)
                 {
                     btnAdd.Visible = true;
                     CargarDatos();
@@ -5585,7 +5585,7 @@ namespace PuntoDeVentaV2
                     }
                     GenerarPanelProductosServPlus();
                 }
-                else if ((this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios") && DatosSourceFinal == 2)
+                else if ((this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS") && DatosSourceFinal == 2)
                 {
                     string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idEditarProducto}", $"{CBIdProd}", $"{CBNombProd}", $"{txtCantPaqServ.Text}" };
                     cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
@@ -5601,7 +5601,7 @@ namespace PuntoDeVentaV2
                     GenerarPanelProductosServPlus();
                 }
             }
-            else if ((this.Text.Trim() == "Agregar Producto" | this.Text.Trim() == "Editar Producto" | this.Text.Trim() == "Copiar Producto") && DatosSourceFinal == 1)
+            else if ((this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO") && DatosSourceFinal == 1)
             {
                 
             }
@@ -5616,7 +5616,7 @@ namespace PuntoDeVentaV2
         {
             if (ejecutarMetodos)
             {
-                if (this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios")
+                if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS")
                 {
                     if (Hided)  // Si su valor es True
                     {
