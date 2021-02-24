@@ -135,9 +135,9 @@
             this.btnAgregarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(9, 15);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(6, 19);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
-            this.btnAgregarProducto.Size = new System.Drawing.Size(105, 57);
+            this.btnAgregarProducto.Size = new System.Drawing.Size(105, 27);
             this.btnAgregarProducto.TabIndex = 1;
             this.btnAgregarProducto.Text = "Producto";
             this.btnAgregarProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -161,7 +161,7 @@
             // 
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 9F);
-            this.tituloBusqueda.Location = new System.Drawing.Point(171, 122);
+            this.tituloBusqueda.Location = new System.Drawing.Point(171, 113);
             this.tituloBusqueda.Name = "tituloBusqueda";
             this.tituloBusqueda.Size = new System.Drawing.Size(212, 17);
             this.tituloBusqueda.TabIndex = 4;
@@ -174,7 +174,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(173, 142);
+            this.txtBusqueda.Location = new System.Drawing.Point(173, 133);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(679, 22);
             this.txtBusqueda.TabIndex = 5;
@@ -529,9 +529,9 @@
             this.groupBox3.Controls.Add(this.btnListView);
             this.groupBox3.Controls.Add(this.btnPhotoView);
             this.groupBox3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(360, 37);
+            this.groupBox3.Location = new System.Drawing.Point(360, 47);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(107, 78);
+            this.groupBox3.Size = new System.Drawing.Size(195, 53);
             this.groupBox3.TabIndex = 26;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "VISTA";
@@ -542,7 +542,7 @@
             this.btnListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
             this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListView.Location = new System.Drawing.Point(10, 16);
+            this.btnListView.Location = new System.Drawing.Point(8, 17);
             this.btnListView.Margin = new System.Windows.Forms.Padding(2);
             this.btnListView.Name = "btnListView";
             this.btnListView.Size = new System.Drawing.Size(88, 27);
@@ -559,7 +559,7 @@
             this.btnPhotoView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th_large;
             this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPhotoView.Location = new System.Drawing.Point(10, 45);
+            this.btnPhotoView.Location = new System.Drawing.Point(100, 17);
             this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2);
             this.btnPhotoView.Name = "btnPhotoView";
             this.btnPhotoView.Size = new System.Drawing.Size(88, 27);
@@ -574,7 +574,7 @@
             // 
             this.cbTodos.AutoSize = true;
             this.cbTodos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTodos.Location = new System.Drawing.Point(19, 199);
+            this.cbTodos.Location = new System.Drawing.Point(59, 193);
             this.cbTodos.Name = "cbTodos";
             this.cbTodos.Size = new System.Drawing.Size(188, 20);
             this.cbTodos.TabIndex = 25;
@@ -589,9 +589,9 @@
             this.btnCambiarTipo.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCambiarTipo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnCambiarTipo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnCambiarTipo.Location = new System.Drawing.Point(11, 51);
+            this.btnCambiarTipo.Location = new System.Drawing.Point(122, 63);
             this.btnCambiarTipo.Name = "btnCambiarTipo";
-            this.btnCambiarTipo.Size = new System.Drawing.Size(195, 27);
+            this.btnCambiarTipo.Size = new System.Drawing.Size(110, 27);
             this.btnCambiarTipo.TabIndex = 23;
             this.btnCambiarTipo.Text = "Cambiar tipo";
             this.TTipButtonText.SetToolTip(this.btnCambiarTipo, "Modificar Producto (Ctrl + T)");
@@ -615,7 +615,7 @@
             // 
             this.btnPedido.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPedido.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnPedido.Location = new System.Drawing.Point(222, 83);
+            this.btnPedido.Location = new System.Drawing.Point(238, 63);
             this.btnPedido.Name = "btnPedido";
             this.btnPedido.Size = new System.Drawing.Size(105, 27);
             this.btnPedido.TabIndex = 22;
@@ -634,7 +634,7 @@
             this.btnCleanFilter.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnCleanFilter.ForeColor = System.Drawing.Color.White;
             this.btnCleanFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCleanFilter.Location = new System.Drawing.Point(861, 167);
+            this.btnCleanFilter.Location = new System.Drawing.Point(861, 158);
             this.btnCleanFilter.Name = "btnCleanFilter";
             this.btnCleanFilter.Size = new System.Drawing.Size(68, 23);
             this.btnCleanFilter.TabIndex = 21;
@@ -662,7 +662,7 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.ForeColor = System.Drawing.Color.White;
-            this.btnImprimir.Location = new System.Drawing.Point(574, 66);
+            this.btnImprimir.Location = new System.Drawing.Point(182, 7);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(85, 24);
             this.btnImprimir.TabIndex = 19;
@@ -678,7 +678,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fLPDynamicTags.AutoScroll = true;
             this.fLPDynamicTags.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPDynamicTags.Location = new System.Drawing.Point(173, 165);
+            this.fLPDynamicTags.Location = new System.Drawing.Point(173, 156);
             this.fLPDynamicTags.Name = "fLPDynamicTags";
             this.fLPDynamicTags.Size = new System.Drawing.Size(679, 30);
             this.fLPDynamicTags.TabIndex = 18;
@@ -691,7 +691,7 @@
             this.btnEtiqueta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEtiqueta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEtiqueta.ForeColor = System.Drawing.Color.White;
-            this.btnEtiqueta.Location = new System.Drawing.Point(561, 100);
+            this.btnEtiqueta.Location = new System.Drawing.Point(720, 6);
             this.btnEtiqueta.Name = "btnEtiqueta";
             this.btnEtiqueta.Size = new System.Drawing.Size(105, 25);
             this.btnEtiqueta.TabIndex = 17;
@@ -709,7 +709,7 @@
             this.btnAsignarMultiple.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnAsignarMultiple.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnAsignarMultiple.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnAsignarMultiple.Location = new System.Drawing.Point(222, 50);
+            this.btnAsignarMultiple.Location = new System.Drawing.Point(11, 63);
             this.btnAsignarMultiple.Name = "btnAsignarMultiple";
             this.btnAsignarMultiple.Size = new System.Drawing.Size(105, 27);
             this.btnAsignarMultiple.TabIndex = 16;
@@ -728,7 +728,7 @@
             this.btnFilterSearch.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnFilterSearch.ForeColor = System.Drawing.Color.White;
             this.btnFilterSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFilterSearch.Location = new System.Drawing.Point(861, 142);
+            this.btnFilterSearch.Location = new System.Drawing.Point(861, 133);
             this.btnFilterSearch.Name = "btnFilterSearch";
             this.btnFilterSearch.Size = new System.Drawing.Size(68, 23);
             this.btnFilterSearch.TabIndex = 15;
@@ -742,7 +742,7 @@
             // 
             this.groupBox2.Controls.Add(this.cbOrden);
             this.groupBox2.Controls.Add(this.cbMostrar);
-            this.groupBox2.Location = new System.Drawing.Point(11, 115);
+            this.groupBox2.Location = new System.Drawing.Point(11, 106);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(145, 75);
             this.groupBox2.TabIndex = 14;
@@ -755,9 +755,9 @@
             this.groupBox1.Controls.Add(this.btnAgregarPaquete);
             this.groupBox1.Controls.Add(this.btnAgregarProducto);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(698, 42);
+            this.groupBox1.Location = new System.Drawing.Point(590, 47);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(231, 78);
+            this.groupBox1.Size = new System.Drawing.Size(339, 54);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " AGREGAR ";
@@ -773,7 +773,7 @@
             this.btnAgregarServicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarServicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnAgregarServicio.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarServicio.Location = new System.Drawing.Point(119, 45);
+            this.btnAgregarServicio.Location = new System.Drawing.Point(117, 19);
             this.btnAgregarServicio.Name = "btnAgregarServicio";
             this.btnAgregarServicio.Size = new System.Drawing.Size(105, 27);
             this.btnAgregarServicio.TabIndex = 3;
@@ -794,7 +794,7 @@
             this.btnAgregarPaquete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarPaquete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnAgregarPaquete.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarPaquete.Location = new System.Drawing.Point(119, 15);
+            this.btnAgregarPaquete.Location = new System.Drawing.Point(228, 19);
             this.btnAgregarPaquete.Name = "btnAgregarPaquete";
             this.btnAgregarPaquete.Size = new System.Drawing.Size(105, 27);
             this.btnAgregarPaquete.TabIndex = 2;
@@ -809,11 +809,10 @@
             this.btnModificarEstado.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.trash;
-            this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModificarEstado.Location = new System.Drawing.Point(11, 83);
+            this.btnModificarEstado.Location = new System.Drawing.Point(15, 187);
             this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificarEstado.Name = "btnModificarEstado";
-            this.btnModificarEstado.Size = new System.Drawing.Size(195, 27);
+            this.btnModificarEstado.Size = new System.Drawing.Size(29, 27);
             this.btnModificarEstado.TabIndex = 10;
             this.btnModificarEstado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.TTipButtonText.SetToolTip(this.btnModificarEstado, "Deshabilitar (Ctrl + D)");
@@ -829,7 +828,7 @@
             this.btnAgregarXML.Location = new System.Drawing.Point(58, 1);
             this.btnAgregarXML.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregarXML.Name = "btnAgregarXML";
-            this.btnAgregarXML.Size = new System.Drawing.Size(205, 28);
+            this.btnAgregarXML.Size = new System.Drawing.Size(119, 28);
             this.btnAgregarXML.TabIndex = 8;
             this.btnAgregarXML.Text = "Agregar XML";
             this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
