@@ -687,6 +687,7 @@ namespace PuntoDeVentaV2
         /// <returns></returns>
         public string[] ObtenerCodigoBarrasExtras(int idProducto, int opcion = 0)
         {
+            //PONER COMO SEGUNDO PARAMETRO AL UTILIZAR UN METODO (1)
             /*
              opcion = 0 (Llamado de las formas PedidoPorProducto y Revisar Inventario)
              opcion = 1 (Llamado del Form OpcionesReporteProducto)

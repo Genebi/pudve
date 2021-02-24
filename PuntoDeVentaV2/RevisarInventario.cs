@@ -46,6 +46,9 @@ namespace PuntoDeVentaV2
 
         string codBarras = string.Empty;
 
+        //variable para validar la consulta de los productos cuando se deshabilita un producto
+        bool deshabilitarEsteProducto = false;
+
         //Validar la busqueda de el boton siguiente con el boton Anterior
         int idActualAnterior = 0;
 
@@ -363,7 +366,16 @@ namespace PuntoDeVentaV2
                             if (idActualAnterior != 0)
                             {
                                 var mostrarIDActual = 0;
-                                var idParaSiguiente = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}' AND Status = 1 AND (CodigoBarras != '' OR ClaveInterna != '')");
+                                var idParaSiguiente = new DataTable();
+
+                                if (deshabilitarEsteProducto == false)
+                                {
+                                    idParaSiguiente = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}' AND Status = 1 AND (CodigoBarras != '' OR ClaveInterna != '')");
+                                }
+                                else if (deshabilitarEsteProducto == true)
+                                {
+                                    idParaSiguiente = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}' AND Status = 0 AND (CodigoBarras != '' OR ClaveInterna != '')");
+                                }
 
                                 if (!idParaSiguiente.Rows.Count.Equals(0))
                                 {
@@ -1156,6 +1168,8 @@ namespace PuntoDeVentaV2
 
                 if (confirmarDesicion == DialogResult.Yes)
                 {
+                    deshabilitarEsteProducto = true;
+
                     //Se cambia el status de el producto a 0
                     cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE IDUsuario = {FormPrincipal.userID} AND ID = {idObtenido}");
                     //cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
@@ -1163,17 +1177,16 @@ namespace PuntoDeVentaV2
                     //Se elimina el ultimo dato en guardarse en esta lista
                     id.RemoveAt(id.Count - 1);
 
-                    //Se elimina el ultimo dato en guardarse en esta lista (esta linea debe estar abajo de "btnOmitir.PerformClick();")
-                    idDeProductos.RemoveAt(idDeProductos.Count - 1);
-
                     btnOmitir.PerformClick();
 
-
+                    //Se elimina el ultimo dato en guardarse en esta lista (esta linea debe estar abajo de "btnOmitir.PerformClick();")
+                    idDeProductos.RemoveAt(idDeProductos.Count - 1);
 
                     cantidadRegistros--;
                     cantidadRegistrosAux--;
                     lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
 
+                    deshabilitarEsteProducto = false;
                 }
             }
             else
