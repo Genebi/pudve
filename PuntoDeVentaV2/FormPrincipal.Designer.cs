@@ -33,6 +33,7 @@
             this.panelMaestro = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.menuVertical = new System.Windows.Forms.Panel();
+            this.btnImpresoras = new System.Windows.Forms.Button();
             this.btnEmpleados = new System.Windows.Forms.Button();
             this.btnReportes = new System.Windows.Forms.Button();
             this.btnSesion = new System.Windows.Forms.Button();
@@ -76,6 +77,7 @@
             // menuVertical
             // 
             this.menuVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.menuVertical.Controls.Add(this.btnImpresoras);
             this.menuVertical.Controls.Add(this.btnEmpleados);
             this.menuVertical.Controls.Add(this.btnReportes);
             this.menuVertical.Controls.Add(this.btnSesion);
@@ -95,6 +97,26 @@
             this.menuVertical.Name = "menuVertical";
             this.menuVertical.Size = new System.Drawing.Size(230, 602);
             this.menuVertical.TabIndex = 0;
+            // 
+            // btnImpresoras
+            // 
+            this.btnImpresoras.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImpresoras.FlatAppearance.BorderSize = 0;
+            this.btnImpresoras.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
+            this.btnImpresoras.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnImpresoras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImpresoras.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImpresoras.ForeColor = System.Drawing.Color.White;
+            this.btnImpresoras.Image = global::PuntoDeVentaV2.Properties.Resources.weighingMachine;
+            this.btnImpresoras.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnImpresoras.Location = new System.Drawing.Point(0, 463);
+            this.btnImpresoras.Name = "btnImpresoras";
+            this.btnImpresoras.Size = new System.Drawing.Size(115, 71);
+            this.btnImpresoras.TabIndex = 111;
+            this.btnImpresoras.Text = "Basculas";
+            this.btnImpresoras.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnImpresoras.UseVisualStyleBackColor = true;
+            this.btnImpresoras.Click += new System.EventHandler(this.btnImpresoras_Click);
             // 
             // btnEmpleados
             // 
@@ -429,6 +451,7 @@
         private System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer timerProductos;
         private System.Windows.Forms.Button btnSesion;
+        private System.Windows.Forms.Button btnImpresoras;
     }
 }
 

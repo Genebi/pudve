@@ -5113,4 +5113,22 @@
   <data name="Tablas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\BD\Tablas.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="printer16Pixeles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\printer16Pixeles.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="printer24Pixeles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\printer24Pixeles.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="printer32Pixeles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\printer32Pixeles.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="printer48Pixeles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\printer48Pixeles.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="printer64Pixeles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\printer64Pixeles.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="weighingMachine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\weighingMachine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

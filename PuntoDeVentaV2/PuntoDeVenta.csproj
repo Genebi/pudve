@@ -227,6 +227,12 @@
     <Compile Include="AgregarAnticipo.Designer.cs">
       <DependentUpon>AgregarAnticipo.cs</DependentUpon>
     </Compile>
+    <Compile Include="AgregarBasculas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarBasculas.Designer.cs">
+      <DependentUpon>AgregarBasculas.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarCategoria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -904,6 +910,9 @@
     <EmbeddedResource Include="AgregarAnticipo.resx">
       <DependentUpon>AgregarAnticipo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AgregarBasculas.resx">
+      <DependentUpon>AgregarBasculas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarCategoria.resx">
       <DependentUpon>AgregarCategoria.cs</DependentUpon>
     </EmbeddedResource>
@@ -1394,7 +1403,25 @@
     <Content Include="PUDVE\assets\PDVE.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\assets\printer16Pixeles.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\assets\printer24Pixeles.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\assets\printer32Pixeles.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\assets\printer48Pixeles.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\assets\printer64Pixeles.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\assets\Registered problem.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\assets\weighingMachine.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\assets\Work_area.png">
