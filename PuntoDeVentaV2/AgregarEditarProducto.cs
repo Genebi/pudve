@@ -2903,7 +2903,7 @@ namespace PuntoDeVentaV2
 
 
                                         // Crear registro en tabla de correos para que por defecto se habilite la opcion de enviar correo al hacer venta
-                                        cn.EjecutarConsulta($"INSERTO INTO CorreosProducto (IDUsuario, IDProducto, CorreoVentaProducto) VALUES ('{FormPrincipal.userID}', '{idProducto}', 1)");
+                                        cn.EjecutarConsulta($"INSERT INTO CorreosProducto (IDUsuario, IDProducto, CorreoVentaProducto) VALUES ('{FormPrincipal.userID}', '{idProducto}', 1);");
 
                                         #region Inicio de Datos de Impuestos
                                         //Se realiza el proceso para guardar los detalles de facturación del producto
