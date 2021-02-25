@@ -309,7 +309,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
-
+            CambiarCheckBoxMaster();
             //updateCheckBoxes();
         }
 
@@ -1992,7 +1992,7 @@ namespace PuntoDeVentaV2
         private void linkLblPaginaActual_Click_1(object sender, EventArgs e)
         {
             actualizar();
-
+            CambiarCheckBoxMaster();
             //updateCheckBoxes();
         }
 
@@ -2242,7 +2242,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
-
+            CambiarCheckBoxMaster();
             //updateCheckBoxes();
         }
 
@@ -3854,10 +3854,13 @@ namespace PuntoDeVentaV2
                 {
                     int id = Convert.ToInt32(row.Cells["_IDProducto"].Value);
                     string tipo = row.Cells["TipoProducto"].Value.ToString();
-                    //bool checkbox = (bool)row.Cells["checkProducto"].Value;
 
                     row.Cells["checkProducto"].Value = true;
-                    productosSeleccionados.Add(id, tipo);
+
+                    if (!productosSeleccionados.ContainsKey(id))
+                    {
+                        productosSeleccionados.Add(id, tipo);
+                    }
                 }
             }
             else
@@ -3865,17 +3868,25 @@ namespace PuntoDeVentaV2
                 foreach (DataGridViewRow row in DGVProductos.Rows)
                 {
                     int id = Convert.ToInt32(row.Cells["_IDProducto"].Value);
-                    string tipo = row.Cells["TipoProducto"].Value.ToString();
-                    //bool checkbox = (bool)row.Cells["checkProducto"].Value;
 
                     row.Cells["checkProducto"].Value = false;
-                    productosSeleccionados.Remove(id);
+
+                    if (productosSeleccionados.ContainsKey(id))
+                    {
+                        productosSeleccionados.Remove(id);
+                    }
                 }
             }
 
-            //DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = true;
-
             mostrarCantidadProductos();
+        }
+
+        private void CambiarCheckBoxMaster(bool estado = false)
+        {
+            CheckBox master = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+            master.CheckedChanged -= checkBoxMaster_CheckedChanged;
+            master.Checked = estado;
+            master.CheckedChanged += checkBoxMaster_CheckedChanged;
         }
 
         private void mostrarCantidadProductos()
@@ -5183,7 +5194,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
             //actualizarDatosDespuesDeAgregarProducto();
             actualizar();
-
+            CambiarCheckBoxMaster();
             //updateCheckBoxes();
         }
 
@@ -5194,7 +5205,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
             //actualizarDatosDespuesDeAgregarProducto();
             actualizar();
-
+            CambiarCheckBoxMaster();
             //updateCheckBoxes();
         }
 
@@ -5204,7 +5215,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
-
+            CambiarCheckBoxMaster();
             //updateCheckBoxes();
         }
 
@@ -5214,7 +5225,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
-
+            CambiarCheckBoxMaster();
             //updateCheckBoxes();
         }
 

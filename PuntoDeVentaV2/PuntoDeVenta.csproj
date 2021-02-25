@@ -6206,6 +6206,16 @@
     <Content Include="PUDVE\icon\black\youtube-square.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\botones\abrir_caja.png" />
+    <Content Include="PUDVE\icon\botones\agregar_descuento.png" />
+    <Content Include="PUDVE\icon\botones\anticipos.png" />
+    <Content Include="PUDVE\icon\botones\descuento_cliente.png" />
+    <Content Include="PUDVE\icon\botones\detalle_facturacion.png" />
+    <Content Include="PUDVE\icon\botones\detalle_producto.png" />
+    <Content Include="PUDVE\icon\botones\guardar_presupuesto.png" />
+    <Content Include="PUDVE\icon\botones\guardar_producto.png" />
+    <Content Include="PUDVE\icon\botones\relacionar_combo_servicio_producto.png" />
+    <Content Include="PUDVE\icon\botones\ventas_guardadas.png" />
     <Content Include="PUDVE\icon\gifs\cargando.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
