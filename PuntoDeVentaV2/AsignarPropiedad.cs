@@ -242,14 +242,14 @@ namespace PuntoDeVentaV2
                 tercerCB.Width = 300;
                 tercerCB.Font = fuenteChica;
 
-                CheckBox cuartoCB = new CheckBox();
-                cuartoCB.Text = "Correo al hacer venta de producto";
-                cuartoCB.Location = new Point(40, 100);
-                cuartoCB.Name = "CorreoVentaProducto";
-                cuartoCB.Width = 300;
-                cuartoCB.Font = fuenteChica;
+                //CheckBox cuartoCB = new CheckBox();
+                //cuartoCB.Text = "Correo al hacer venta de producto";
+                //cuartoCB.Location = new Point(40, 100);
+                //cuartoCB.Name = "CorreoVentaProducto";
+                //cuartoCB.Width = 300;
+                //cuartoCB.Font = fuenteChica;
 
-                var checkboxes = new CheckBox[] { primerCB, segundoCB, tercerCB, cuartoCB };
+                var checkboxes = new CheckBox[] { primerCB, segundoCB, tercerCB };
 
                 panelContenedor.Controls.AddRange(checkboxes);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarCorreos", 150));
@@ -838,14 +838,14 @@ namespace PuntoDeVentaV2
                 var checkPrimero = (CheckBox)Controls.Find("CorreoPrecioProducto", true).First();
                 var checkSegundo = (CheckBox)Controls.Find("CorreoStockProducto", true).First();
                 var checkTercero = (CheckBox)Controls.Find("CorreoStockMinimo", true).First();
-                var checkCuarto = (CheckBox)Controls.Find("CorreoVentaProducto", true).First();
+                //var checkCuarto = (CheckBox)Controls.Find("CorreoVentaProducto", true).First();
 
                 var correoPrecioProducto = Convert.ToInt16(checkPrimero.Checked);
                 var correoStockProducto = Convert.ToInt16(checkSegundo.Checked);
                 var correoStockMinimo = Convert.ToInt16(checkTercero.Checked);
-                var correoVentaProducto = Convert.ToInt16(checkCuarto.Checked);
+                //var correoVentaProducto = Convert.ToInt16(checkCuarto.Checked);
 
-                var consulta = "INSERT IGNORE INTO CorreosProducto (ID, IDUsuario, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo, CorreoVentaProducto) VALUES";
+                var consulta = "INSERT IGNORE INTO CorreosProducto (ID, IDUsuario, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo) VALUES";
                 var valores = string.Empty;
 
                 foreach (var producto in productos)
@@ -855,11 +855,11 @@ namespace PuntoDeVentaV2
 
                     if (id > 0)
                     {
-                        valores += $"({id}, {FormPrincipal.userID}, {producto.Key}, {correoPrecioProducto}, {correoStockProducto}, {correoStockMinimo}, {correoVentaProducto}),";
+                        valores += $"({id}, {FormPrincipal.userID}, {producto.Key}, {correoPrecioProducto}, {correoStockProducto}, {correoStockMinimo}),";
                     }
                     else
                     {
-                        valores += $"(null, {FormPrincipal.userID}, {producto.Key}, {correoPrecioProducto}, {correoStockProducto}, {correoStockMinimo}, {correoVentaProducto}),";
+                        valores += $"(null, {FormPrincipal.userID}, {producto.Key}, {correoPrecioProducto}, {correoStockProducto}, {correoStockMinimo}),";
                     }
                 }
 
@@ -867,7 +867,7 @@ namespace PuntoDeVentaV2
                 {
                     valores = valores.TrimEnd(',');
 
-                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), CorreoPrecioProducto = VALUES(CorreoPrecioProducto), CorreoStockProducto = VALUES(CorreoStockProducto), CorreoStockMinimo = VALUES(CorreoStockMinimo), CorreoVentaProducto = VALUES(CorreoVentaProducto);";
+                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), CorreoPrecioProducto = VALUES(CorreoPrecioProducto), CorreoStockProducto = VALUES(CorreoStockProducto), CorreoStockMinimo = VALUES(CorreoStockMinimo);";
 
                     cn.EjecutarConsulta(consulta);
                 }
