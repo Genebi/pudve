@@ -65,6 +65,7 @@
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -235,7 +236,7 @@
             // 
             this.cbCorreoStockProducto.AutoSize = true;
             this.cbCorreoStockProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockProducto.Location = new System.Drawing.Point(15, 63);
+            this.cbCorreoStockProducto.Location = new System.Drawing.Point(15, 59);
             this.cbCorreoStockProducto.Name = "cbCorreoStockProducto";
             this.cbCorreoStockProducto.Size = new System.Drawing.Size(143, 21);
             this.cbCorreoStockProducto.TabIndex = 112;
@@ -247,7 +248,7 @@
             // 
             this.cbCorreoStockMinimo.AutoSize = true;
             this.cbCorreoStockMinimo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(15, 90);
+            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(15, 86);
             this.cbCorreoStockMinimo.Name = "cbCorreoStockMinimo";
             this.cbCorreoStockMinimo.Size = new System.Drawing.Size(170, 21);
             this.cbCorreoStockMinimo.TabIndex = 113;
@@ -259,7 +260,7 @@
             // 
             this.cbCorreoVenderProducto.AutoSize = true;
             this.cbCorreoVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(15, 124);
+            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(15, 115);
             this.cbCorreoVenderProducto.Name = "cbCorreoVenderProducto";
             this.cbCorreoVenderProducto.Size = new System.Drawing.Size(166, 21);
             this.cbCorreoVenderProducto.TabIndex = 114;
@@ -440,6 +441,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cbCorreoCorteCaja);
             this.groupBox1.Controls.Add(this.cbCorreoEliminarListaProductosVentas);
             this.groupBox1.Controls.Add(this.cbCorreoEliminaUltimoProductoAgregadoVentas);
@@ -465,7 +467,7 @@
             this.cbCorreoCorteCaja.AutoSize = true;
             this.cbCorreoCorteCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.cbCorreoCorteCaja.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(219, 203);
+            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(247, 203);
             this.cbCorreoCorteCaja.Name = "cbCorreoCorteCaja";
             this.cbCorreoCorteCaja.Size = new System.Drawing.Size(172, 21);
             this.cbCorreoCorteCaja.TabIndex = 121;
@@ -476,9 +478,9 @@
             // cbCorreoEliminarListaProductosVentas
             // 
             this.cbCorreoEliminarListaProductosVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoEliminarListaProductosVentas.Location = new System.Drawing.Point(219, 156);
+            this.cbCorreoEliminarListaProductosVentas.Location = new System.Drawing.Point(247, 156);
             this.cbCorreoEliminarListaProductosVentas.Name = "cbCorreoEliminarListaProductosVentas";
-            this.cbCorreoEliminarListaProductosVentas.Size = new System.Drawing.Size(283, 43);
+            this.cbCorreoEliminarListaProductosVentas.Size = new System.Drawing.Size(240, 43);
             this.cbCorreoEliminarListaProductosVentas.TabIndex = 120;
             this.cbCorreoEliminarListaProductosVentas.Text = "Al eliminar listado de productos agregados de ventas";
             this.cbCorreoEliminarListaProductosVentas.UseVisualStyleBackColor = true;
@@ -487,9 +489,9 @@
             // cbCorreoEliminaUltimoProductoAgregadoVentas
             // 
             this.cbCorreoEliminaUltimoProductoAgregadoVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Location = new System.Drawing.Point(219, 113);
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Location = new System.Drawing.Point(247, 113);
             this.cbCorreoEliminaUltimoProductoAgregadoVentas.Name = "cbCorreoEliminaUltimoProductoAgregadoVentas";
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Size = new System.Drawing.Size(283, 42);
+            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Size = new System.Drawing.Size(257, 42);
             this.cbCorreoEliminaUltimoProductoAgregadoVentas.TabIndex = 119;
             this.cbCorreoEliminaUltimoProductoAgregadoVentas.Text = "Al eliminar ultimo producto agregado de ventas";
             this.cbCorreoEliminaUltimoProductoAgregadoVentas.UseVisualStyleBackColor = true;
@@ -499,7 +501,7 @@
             // 
             this.cbCorreoEliminarProductoVentas.AutoSize = true;
             this.cbCorreoEliminarProductoVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoEliminarProductoVentas.Location = new System.Drawing.Point(219, 90);
+            this.cbCorreoEliminarProductoVentas.Location = new System.Drawing.Point(247, 90);
             this.cbCorreoEliminarProductoVentas.Name = "cbCorreoEliminarProductoVentas";
             this.cbCorreoEliminarProductoVentas.Size = new System.Drawing.Size(227, 21);
             this.cbCorreoEliminarProductoVentas.TabIndex = 118;
@@ -511,7 +513,7 @@
             // 
             this.cbCorreoRestarProductosVenta.AutoSize = true;
             this.cbCorreoRestarProductosVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoRestarProductosVenta.Location = new System.Drawing.Point(219, 63);
+            this.cbCorreoRestarProductosVenta.Location = new System.Drawing.Point(247, 63);
             this.cbCorreoRestarProductosVenta.Name = "cbCorreoRestarProductosVenta";
             this.cbCorreoRestarProductosVenta.Size = new System.Drawing.Size(211, 21);
             this.cbCorreoRestarProductosVenta.TabIndex = 117;
@@ -522,9 +524,9 @@
             // cbCorreoCerrarVentanaVentas
             // 
             this.cbCorreoCerrarVentanaVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoCerrarVentanaVentas.Location = new System.Drawing.Point(219, 22);
+            this.cbCorreoCerrarVentanaVentas.Location = new System.Drawing.Point(247, 22);
             this.cbCorreoCerrarVentanaVentas.Name = "cbCorreoCerrarVentanaVentas";
-            this.cbCorreoCerrarVentanaVentas.Size = new System.Drawing.Size(283, 41);
+            this.cbCorreoCerrarVentanaVentas.Size = new System.Drawing.Size(257, 41);
             this.cbCorreoCerrarVentanaVentas.TabIndex = 116;
             this.cbCorreoCerrarVentanaVentas.Text = "Al cerrar la ventana de ventas cuando tiene productos";
             this.cbCorreoCerrarVentanaVentas.UseVisualStyleBackColor = true;
@@ -534,7 +536,7 @@
             // 
             this.cbCorreoRetirarDineroCaja.AutoSize = true;
             this.cbCorreoRetirarDineroCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoRetirarDineroCaja.Location = new System.Drawing.Point(15, 203);
+            this.cbCorreoRetirarDineroCaja.Location = new System.Drawing.Point(15, 194);
             this.cbCorreoRetirarDineroCaja.Name = "cbCorreoRetirarDineroCaja";
             this.cbCorreoRetirarDineroCaja.Size = new System.Drawing.Size(178, 21);
             this.cbCorreoRetirarDineroCaja.TabIndex = 115;
@@ -553,6 +555,17 @@
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label4.Location = new System.Drawing.Point(8, 139);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(220, 16);
+            this.label4.TabIndex = 122;
+            this.label4.Text = " (producto previamente seleccionado)";
             // 
             // SetUpPUDVE
             // 
@@ -636,5 +649,6 @@
         private System.Windows.Forms.CheckBox cbCorreoEliminaUltimoProductoAgregadoVentas;
         private System.Windows.Forms.CheckBox cbCorreoEliminarListaProductosVentas;
         private System.Windows.Forms.CheckBox cbCorreoCorteCaja;
+        private System.Windows.Forms.Label label4;
     }
 }
