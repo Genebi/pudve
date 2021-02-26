@@ -55,6 +55,8 @@ namespace PuntoDeVentaV2
         //Valifacion para el boton de Omitir
         bool botonOmitir = false;
 
+        public static Dictionary<int, string> IdAgregados = new Dictionary<int, string>();
+
         Dictionary<int, string> listaProductos;
 
         List<int> idDeProductos = new List<int>();
@@ -381,7 +383,28 @@ namespace PuntoDeVentaV2
                                 {
                                     mostrarIDActual = Convert.ToInt32(idParaSiguiente.Rows[0]["ID"]);
 
-                                    codigo = AplicarFiltro(mostrarIDActual);
+                                    //Valida cuando el filtrado es por stock, para cuando se modifica el stock cuando la consulta era (igual que)
+                                    if (IdAgregados.ContainsKey(mostrarIDActual) && tipoFiltro == "Stock")
+                                    {
+                                        var convertirDiccionario = IdAgregados.ToArray();
+
+                                        var index = Array.FindIndex(convertirDiccionario, row => row.Key == mostrarIDActual);
+
+                                        var idaBuscar = (index + 1);
+                                        var idActual = convertirDiccionario[idaBuscar].ToString();
+
+                                        string[] words = idActual.Split(',');
+                                        string palabra = words[0].Replace("[","");
+
+                                        var idObtenido =  buscarProducto(palabra);
+                                        codigo = idObtenido;
+                                    }
+                                    else
+                                    {
+                                        codigo = AplicarFiltro(mostrarIDActual);
+                                    }
+
+                                    
                                     aplicar = true;
                                 }
                             }
@@ -417,6 +440,10 @@ namespace PuntoDeVentaV2
                         if (!string.IsNullOrEmpty(idFiltrado))
                         {
                             id.Add(idFiltrado);
+                            if (!IdAgregados.ContainsKey(Convert.ToInt32(idFiltrado)))
+                            {
+                                IdAgregados.Add(Convert.ToInt32(idFiltrado), infoProducto[0].ToString());
+                            }
                         }
 
                         if (infoProducto.Length > 0)
@@ -569,6 +596,36 @@ namespace PuntoDeVentaV2
                     btnTerminar.PerformClick();
                 }
             }
+        }
+
+        private string buscarProducto(string idProducto)
+        {
+            var result = string.Empty;
+
+            var cod = string.Empty;
+            var cla = string.Empty;
+
+            var consulta = $"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}' AND Status = 1";
+
+            //var query = cn.CargarDatos(consulta);
+
+            //if (!query.Rows.Count.Equals(0))
+            //{
+            //    cod = query.Rows[0]["CodigoBarras"].ToString();
+            //    cla = query.Rows[0]["ClaveInterna"].ToString();
+
+            //if (!string.IsNullOrEmpty(cod))
+            //{
+            //    result = cod;
+            //}
+            //else
+            //{
+            //    result = cla;
+            //}
+            //}
+
+            //return result;
+            return consulta;
         }
 
         private void realizarBusqueda(string codigo, bool aplicar)
@@ -1194,6 +1251,8 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("No existe producto seleccionado para deshabilitar","Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
