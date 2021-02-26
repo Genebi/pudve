@@ -1234,7 +1234,12 @@ namespace PuntoDeVentaV2
                     //Se elimina el ultimo dato en guardarse en esta lista
                     id.RemoveAt(id.Count - 1);
 
+                    var idDeshabilitado = idADeshabilitar(txtBoxBuscarCodigoBarras.Text);
+
                     btnOmitir.PerformClick();
+
+                    //Elimina el id de el producto que se deshabilitara
+                    IdAgregados.Remove(idDeshabilitado);
 
                     //Se elimina el ultimo dato en guardarse en esta lista (esta linea debe estar abajo de "btnOmitir.PerformClick();")
                     idDeProductos.RemoveAt(idDeProductos.Count - 1);
@@ -1252,7 +1257,19 @@ namespace PuntoDeVentaV2
             }
         }
 
-        
+        private int idADeshabilitar(string codigo)
+        {
+            var result = 0;
+
+            var query = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigo}' OR ClaveInterna = '{codigo}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToInt32(query.Rows[0]["ID"].ToString());
+            }
+
+            return result;
+        }
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
