@@ -391,13 +391,21 @@ namespace PuntoDeVentaV2
                                         var index = Array.FindIndex(convertirDiccionario, row => row.Key == mostrarIDActual);
 
                                         var idaBuscar = (index + 1);
-                                        var idActual = convertirDiccionario[idaBuscar].ToString();
 
-                                        string[] words = idActual.Split(',');
-                                        string palabra = words[0].Replace("[","");
+                                        try
+                                        {//caundo se pasa el index buscado, mostrara lo de la consulta normal
+                                            var idActual = convertirDiccionario[idaBuscar].ToString();
 
-                                        var idObtenido =  buscarProducto(palabra);
-                                        codigo = idObtenido;
+                                            string[] words = idActual.Split(',');
+                                            string palabra = words[0].Replace("[", "");
+
+                                            var idObtenido = buscarProducto(palabra);
+                                            codigo = idObtenido;
+                                        }
+                                        catch
+                                        {
+                                            codigo = AplicarFiltro(mostrarIDActual);
+                                        }
                                     }
                                     else
                                     {
