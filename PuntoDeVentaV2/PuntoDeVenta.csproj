@@ -1421,6 +1421,12 @@
     <Content Include="PUDVE\assets\Registered problem.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\assets\saveNew.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\assets\scale.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\assets\weighingMachine.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

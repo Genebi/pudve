@@ -5131,4 +5131,10 @@
   <data name="weighingMachine" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\assets\weighingMachine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="scale" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\scale.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="saveNew" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\saveNew.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

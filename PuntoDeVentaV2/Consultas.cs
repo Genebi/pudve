@@ -1486,5 +1486,12 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string getBasculasRegistradas(int IdUsr)
+        {
+            var consulta = $"SELECT * FROM basculas WHERE IdUsuario = {IdUsr} ORDER BY nombreBascula ASC";
+
+            return consulta;
+        }
     }
 }

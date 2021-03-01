@@ -945,6 +945,24 @@ IF
 		AppDateVersion DATE 
 	);
 
+-- 53 Tabla de Basculas
+CREATE TABLE
+IF
+	NOT EXISTS basculas (
+		idBascula INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+		nombreBascula VARCHAR ( 255 ) NOT NULL,
+		puerto VARCHAR ( 100 ) NOT NULL,
+		baudRate VARCHAR ( 100 ) NOT NULL,
+		dataBits VARCHAR ( 50 ) NOT NULL,
+		handshake VARCHAR ( 100 ) NOT NULL,
+		parity VARCHAR ( 100 ) NOT NULL,
+		stopBits VARCHAR ( 100 ) NOT NULL,
+		sendData VARCHAR ( 100 ) NOT NULL,
+		idUsuario INTEGER NOT NULL,
+		UNIQUE INDEX unique_NombreBascula ( nombreBascula ),
+	CONSTRAINT Basculas_IdUsuario FOREIGN KEY ( idUsuario ) REFERENCES usuarios ( ID ) ON DELETE CASCADE ON UPDATE CASCADE 
+	);
+
 -- ------------------------------------------
 -- -- Final sección de Tablas del sistema --
 -- ------------------------------------------
