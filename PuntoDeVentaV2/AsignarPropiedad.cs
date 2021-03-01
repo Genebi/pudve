@@ -221,35 +221,35 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "CorreosProducto")
             {
-                CheckBox primerCB = new CheckBox();
-                primerCB.Text = "Correo al modificar precio de producto";
-                primerCB.Location = new Point(40, 40);
-                primerCB.Name = "CorreoPrecioProducto";
-                primerCB.Width = 300;
-                primerCB.Font = fuenteChica;
+                //CheckBox primerCB = new CheckBox();
+                //primerCB.Text = "Correo al modificar precio de producto";
+                //primerCB.Location = new Point(40, 40);
+                //primerCB.Name = "CorreoPrecioProducto";
+                //primerCB.Width = 300;
+                //primerCB.Font = fuenteChica;
 
-                CheckBox segundoCB = new CheckBox();
-                segundoCB.Text = "Correo al modificar stock de producto";
-                segundoCB.Location = new Point(40, 60);
-                segundoCB.Name = "CorreoStockProducto";
-                segundoCB.Width = 300;
-                segundoCB.Font = fuenteChica;
+                //CheckBox segundoCB = new CheckBox();
+                //segundoCB.Text = "Correo al modificar stock de producto";
+                //segundoCB.Location = new Point(40, 60);
+                //segundoCB.Name = "CorreoStockProducto";
+                //segundoCB.Width = 300;
+                //segundoCB.Font = fuenteChica;
 
-                CheckBox tercerCB = new CheckBox();
-                tercerCB.Text = "Correo al llegar a stock minimo";
-                tercerCB.Location = new Point(40, 80);
-                tercerCB.Name = "CorreoStockMinimo";
-                tercerCB.Width = 300;
-                tercerCB.Font = fuenteChica;
+                //CheckBox tercerCB = new CheckBox();
+                //tercerCB.Text = "Correo al llegar a stock minimo";
+                //tercerCB.Location = new Point(40, 80);
+                //tercerCB.Name = "CorreoStockMinimo";
+                //tercerCB.Width = 300;
+                //tercerCB.Font = fuenteChica;
 
-                //CheckBox cuartoCB = new CheckBox();
-                //cuartoCB.Text = "Correo al hacer venta de producto";
-                //cuartoCB.Location = new Point(40, 100);
-                //cuartoCB.Name = "CorreoVentaProducto";
-                //cuartoCB.Width = 300;
-                //cuartoCB.Font = fuenteChica;
+                CheckBox cuartoCB = new CheckBox();
+                cuartoCB.Text = "Correo al hacer venta de producto";
+                cuartoCB.Location = new Point(40, 100);
+                cuartoCB.Name = "CorreoVentaProducto";
+                cuartoCB.Width = 300;
+                cuartoCB.Font = fuenteChica;
 
-                var checkboxes = new CheckBox[] { primerCB, segundoCB, tercerCB };
+                var checkboxes = new CheckBox[] { cuartoCB };
 
                 panelContenedor.Controls.AddRange(checkboxes);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarCorreos", 150));
@@ -835,17 +835,17 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "CorreosProducto")
             {
-                var checkPrimero = (CheckBox)Controls.Find("CorreoPrecioProducto", true).First();
-                var checkSegundo = (CheckBox)Controls.Find("CorreoStockProducto", true).First();
-                var checkTercero = (CheckBox)Controls.Find("CorreoStockMinimo", true).First();
-                //var checkCuarto = (CheckBox)Controls.Find("CorreoVentaProducto", true).First();
+                //var checkPrimero = (CheckBox)Controls.Find("CorreoPrecioProducto", true).First();
+                //var checkSegundo = (CheckBox)Controls.Find("CorreoStockProducto", true).First();
+                //var checkTercero = (CheckBox)Controls.Find("CorreoStockMinimo", true).First();
+                var checkCuarto = (CheckBox)Controls.Find("CorreoVentaProducto", true).First();
 
-                var correoPrecioProducto = Convert.ToInt16(checkPrimero.Checked);
-                var correoStockProducto = Convert.ToInt16(checkSegundo.Checked);
-                var correoStockMinimo = Convert.ToInt16(checkTercero.Checked);
-                //var correoVentaProducto = Convert.ToInt16(checkCuarto.Checked);
+                //var correoPrecioProducto = Convert.ToInt16(checkPrimero.Checked);
+                //var correoStockProducto = Convert.ToInt16(checkSegundo.Checked);
+                //var correoStockMinimo = Convert.ToInt16(checkTercero.Checked);
+                var correoVentaProducto = Convert.ToInt16(checkCuarto.Checked);
 
-                var consulta = "INSERT IGNORE INTO CorreosProducto (ID, IDUsuario, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo) VALUES";
+                var consulta = "INSERT IGNORE INTO CorreosProducto (ID, IDUsuario, IDProducto, CorreoVentaProducto) VALUES";
                 var valores = string.Empty;
 
                 foreach (var producto in productos)
@@ -855,11 +855,11 @@ namespace PuntoDeVentaV2
 
                     if (id > 0)
                     {
-                        valores += $"({id}, {FormPrincipal.userID}, {producto.Key}, {correoPrecioProducto}, {correoStockProducto}, {correoStockMinimo}),";
+                        valores += $"({id}, {FormPrincipal.userID}, {producto.Key}, {correoVentaProducto}),";
                     }
                     else
                     {
-                        valores += $"(null, {FormPrincipal.userID}, {producto.Key}, {correoPrecioProducto}, {correoStockProducto}, {correoStockMinimo}),";
+                        valores += $"(null, {FormPrincipal.userID}, {producto.Key}, {correoVentaProducto}),";
                     }
                 }
 
