@@ -722,6 +722,30 @@ namespace PuntoDeVentaV2
         private void btnReporteInventario_Click(object sender, EventArgs e)
         {
             Panel.Visible = true;
+            cargarDatos();
+        }
+
+        private void cargarDatos()
+        {
+            var numRevision = string.Empty;
+            var nameUser = string.Empty;
+            var fecha = string.Empty;
+            System.Drawing.Image icono = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
+
+
+            var query = cn.CargarDatos($"SELECT NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY NoRevision ORDER BY Fecha DESC");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                foreach (DataRow id in query.Rows)
+                {
+                    numRevision = id["NoRevision"].ToString();
+                    nameUser = id["NameUsr"].ToString();
+                    fecha = id["Fecha"].ToString();
+
+                    DGVInventario.Rows.Add(numRevision, nameUser, fecha, icono);
+                }
+            }
         }
     }
 }

@@ -855,6 +855,7 @@ CREATE TABLE
 IF 
 	NOT EXISTS RevisarInventarioReportes (
 		ID INTEGER  PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		NameUsr            TEXT     NOT NULL, 
 		IDAlmacen          TEXT     NOT NULL,
 		Nombre             TEXT     NOT NULL,
 		ClaveInterna       TEXT,
