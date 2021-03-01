@@ -6214,6 +6214,8 @@
     <Content Include="PUDVE\icon\botones\detalle_producto.png" />
     <Content Include="PUDVE\icon\botones\guardar_presupuesto.png" />
     <Content Include="PUDVE\icon\botones\guardar_producto.png" />
+    <Content Include="PUDVE\icon\botones\historial_compras.png" />
+    <Content Include="PUDVE\icon\botones\historial_ventas.png" />
     <Content Include="PUDVE\icon\botones\relacionar_combo_servicio_producto.png" />
     <Content Include="PUDVE\icon\botones\ventas_guardadas.png" />
     <Content Include="PUDVE\icon\gifs\cargando.gif">

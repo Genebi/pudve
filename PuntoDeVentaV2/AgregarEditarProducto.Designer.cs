@@ -259,20 +259,20 @@
             // btnAgregarDescuento
             // 
             this.btnAgregarDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAgregarDescuento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(172)))), ((int)(((byte)(13)))));
+            this.btnAgregarDescuento.BackColor = System.Drawing.Color.Transparent;
+            this.btnAgregarDescuento.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAgregarDescuento.BackgroundImage")));
+            this.btnAgregarDescuento.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAgregarDescuento.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarDescuento.FlatAppearance.BorderSize = 0;
             this.btnAgregarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarDescuento.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarDescuento.Image = global::PuntoDeVentaV2.Properties.Resources.discount;
             this.btnAgregarDescuento.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAgregarDescuento.Location = new System.Drawing.Point(206, 35);
+            this.btnAgregarDescuento.Location = new System.Drawing.Point(197, 35);
             this.btnAgregarDescuento.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregarDescuento.Name = "btnAgregarDescuento";
-            this.btnAgregarDescuento.Size = new System.Drawing.Size(144, 70);
+            this.btnAgregarDescuento.Size = new System.Drawing.Size(145, 75);
             this.btnAgregarDescuento.TabIndex = 11;
-            this.btnAgregarDescuento.Text = "Agregar descuento";
             this.btnAgregarDescuento.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAgregarDescuento.UseVisualStyleBackColor = false;
             this.btnAgregarDescuento.Click += new System.EventHandler(this.btnAgregarDescuento_Click);
@@ -280,19 +280,19 @@
             // btnDetalleProducto
             // 
             this.btnDetalleProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDetalleProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(89)))), ((int)(((byte)(182)))));
+            this.btnDetalleProducto.BackColor = System.Drawing.Color.Transparent;
+            this.btnDetalleProducto.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDetalleProducto.BackgroundImage")));
+            this.btnDetalleProducto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDetalleProducto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDetalleProducto.FlatAppearance.BorderSize = 0;
             this.btnDetalleProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetalleProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetalleProducto.ForeColor = System.Drawing.Color.White;
-            this.btnDetalleProducto.Image = global::PuntoDeVentaV2.Properties.Resources.product_hunt1;
             this.btnDetalleProducto.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnDetalleProducto.Location = new System.Drawing.Point(357, 35);
+            this.btnDetalleProducto.Location = new System.Drawing.Point(351, 35);
             this.btnDetalleProducto.Name = "btnDetalleProducto";
-            this.btnDetalleProducto.Size = new System.Drawing.Size(150, 70);
+            this.btnDetalleProducto.Size = new System.Drawing.Size(150, 75);
             this.btnDetalleProducto.TabIndex = 12;
-            this.btnDetalleProducto.Text = "Detalle de producto";
             this.btnDetalleProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnDetalleProducto.UseVisualStyleBackColor = false;
             this.btnDetalleProducto.Click += new System.EventHandler(this.btnDetalleProducto_Click);
@@ -300,19 +300,19 @@
             // btnDetalleFacturacion
             // 
             this.btnDetalleFacturacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDetalleFacturacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(153)))), ((int)(((byte)(199)))));
+            this.btnDetalleFacturacion.BackColor = System.Drawing.Color.Transparent;
+            this.btnDetalleFacturacion.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDetalleFacturacion.BackgroundImage")));
+            this.btnDetalleFacturacion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDetalleFacturacion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDetalleFacturacion.FlatAppearance.BorderSize = 0;
             this.btnDetalleFacturacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetalleFacturacion.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetalleFacturacion.ForeColor = System.Drawing.Color.White;
-            this.btnDetalleFacturacion.Image = global::PuntoDeVentaV2.Properties.Resources.bell1;
             this.btnDetalleFacturacion.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnDetalleFacturacion.Location = new System.Drawing.Point(513, 35);
+            this.btnDetalleFacturacion.Location = new System.Drawing.Point(509, 35);
             this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
-            this.btnDetalleFacturacion.Size = new System.Drawing.Size(169, 70);
+            this.btnDetalleFacturacion.Size = new System.Drawing.Size(150, 75);
             this.btnDetalleFacturacion.TabIndex = 13;
-            this.btnDetalleFacturacion.Text = "Detalle de facturación";
             this.btnDetalleFacturacion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnDetalleFacturacion.UseVisualStyleBackColor = false;
             this.btnDetalleFacturacion.Click += new System.EventHandler(this.btnDetalleFacturacion_Click);
@@ -320,19 +320,19 @@
             // btnGuardarProducto
             // 
             this.btnGuardarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnGuardarProducto.BackColor = System.Drawing.Color.Green;
+            this.btnGuardarProducto.BackColor = System.Drawing.Color.Transparent;
+            this.btnGuardarProducto.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGuardarProducto.BackgroundImage")));
+            this.btnGuardarProducto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnGuardarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardarProducto.FlatAppearance.BorderSize = 0;
             this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnGuardarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
             this.btnGuardarProducto.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(688, 35);
+            this.btnGuardarProducto.Location = new System.Drawing.Point(667, 35);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
-            this.btnGuardarProducto.Size = new System.Drawing.Size(140, 70);
+            this.btnGuardarProducto.Size = new System.Drawing.Size(145, 75);
             this.btnGuardarProducto.TabIndex = 14;
-            this.btnGuardarProducto.Text = "Guardar producto";
             this.btnGuardarProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnGuardarProducto.UseVisualStyleBackColor = false;
             this.btnGuardarProducto.Click += new System.EventHandler(this.btnGuardarProducto_Click);
@@ -547,19 +547,19 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(109)))), ((int)(((byte)(126)))));
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.hdd_o1;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.Location = new System.Drawing.Point(42, 35);
+            this.button1.Location = new System.Drawing.Point(38, 35);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(157, 70);
+            this.button1.Size = new System.Drawing.Size(150, 75);
             this.button1.TabIndex = 2;
-            this.button1.Text = "Relacionar combo/servicio";
             this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);

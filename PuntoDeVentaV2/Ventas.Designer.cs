@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ventas));
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.tituloBoton = new System.Windows.Forms.ToolTip(this.components);
             this.btnEliminarAnticipos = new System.Windows.Forms.Button();
@@ -185,7 +186,7 @@
             this.btnUltimoTicket.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUltimoTicket.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUltimoTicket.ForeColor = System.Drawing.Color.White;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(698, 25);
+            this.btnUltimoTicket.Location = new System.Drawing.Point(714, 25);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
             this.btnUltimoTicket.Size = new System.Drawing.Size(37, 40);
             this.btnUltimoTicket.TabIndex = 18;
@@ -410,54 +411,54 @@
             // 
             // btnGuardarVenta
             // 
-            this.btnGuardarVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(165)))), ((int)(((byte)(137)))));
+            this.btnGuardarVenta.BackColor = System.Drawing.Color.Transparent;
+            this.btnGuardarVenta.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGuardarVenta.BackgroundImage")));
+            this.btnGuardarVenta.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnGuardarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardarVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarVenta.ForeColor = System.Drawing.Color.White;
-            this.btnGuardarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
             this.btnGuardarVenta.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGuardarVenta.Location = new System.Drawing.Point(367, 10);
+            this.btnGuardarVenta.Location = new System.Drawing.Point(387, 10);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
             this.btnGuardarVenta.Size = new System.Drawing.Size(155, 75);
             this.btnGuardarVenta.TabIndex = 14;
-            this.btnGuardarVenta.Text = "Guardar / Presupuesto\r\nCtrl + G";
             this.btnGuardarVenta.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnGuardarVenta.UseVisualStyleBackColor = false;
             this.btnGuardarVenta.Click += new System.EventHandler(this.btnGuardarVenta_Click);
             // 
             // btnAnticipos
             // 
-            this.btnAnticipos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(172)))), ((int)(((byte)(13)))));
+            this.btnAnticipos.BackColor = System.Drawing.Color.Transparent;
+            this.btnAnticipos.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAnticipos.BackgroundImage")));
+            this.btnAnticipos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAnticipos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAnticipos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAnticipos.ForeColor = System.Drawing.Color.White;
-            this.btnAnticipos.Image = global::PuntoDeVentaV2.Properties.Resources.handshake_o1;
             this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAnticipos.Location = new System.Drawing.Point(115, 10);
+            this.btnAnticipos.Location = new System.Drawing.Point(125, 10);
             this.btnAnticipos.Name = "btnAnticipos";
-            this.btnAnticipos.Size = new System.Drawing.Size(100, 75);
+            this.btnAnticipos.Size = new System.Drawing.Size(110, 75);
             this.btnAnticipos.TabIndex = 15;
-            this.btnAnticipos.Text = "Anticipos\r\nCtrl + A";
             this.btnAnticipos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAnticipos.UseVisualStyleBackColor = false;
             this.btnAnticipos.Click += new System.EventHandler(this.btnAnticipos_Click);
             // 
             // btnAbrirCaja
             // 
-            this.btnAbrirCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(67)))), ((int)(((byte)(53)))));
+            this.btnAbrirCaja.BackColor = System.Drawing.Color.Transparent;
+            this.btnAbrirCaja.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAbrirCaja.BackgroundImage")));
+            this.btnAbrirCaja.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAbrirCaja.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAbrirCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAbrirCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAbrirCaja.ForeColor = System.Drawing.Color.White;
-            this.btnAbrirCaja.Image = global::PuntoDeVentaV2.Properties.Resources.hdd_o1;
             this.btnAbrirCaja.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnAbrirCaja.Location = new System.Drawing.Point(9, 10);
             this.btnAbrirCaja.Name = "btnAbrirCaja";
-            this.btnAbrirCaja.Size = new System.Drawing.Size(100, 75);
+            this.btnAbrirCaja.Size = new System.Drawing.Size(110, 75);
             this.btnAbrirCaja.TabIndex = 16;
-            this.btnAbrirCaja.Text = "Abrir caja\r\n   F2";
             this.btnAbrirCaja.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAbrirCaja.UseVisualStyleBackColor = false;
             this.btnAbrirCaja.Click += new System.EventHandler(this.btnAbrirCaja_Click);
@@ -465,18 +466,18 @@
             // btnVentasGuardadas
             // 
             this.btnVentasGuardadas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnVentasGuardadas.BackColor = System.Drawing.Color.PaleVioletRed;
+            this.btnVentasGuardadas.BackColor = System.Drawing.Color.Transparent;
+            this.btnVentasGuardadas.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnVentasGuardadas.BackgroundImage")));
+            this.btnVentasGuardadas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnVentasGuardadas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVentasGuardadas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVentasGuardadas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVentasGuardadas.ForeColor = System.Drawing.Color.White;
-            this.btnVentasGuardadas.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard1;
             this.btnVentasGuardadas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnVentasGuardadas.Location = new System.Drawing.Point(528, 10);
+            this.btnVentasGuardadas.Location = new System.Drawing.Point(548, 10);
             this.btnVentasGuardadas.Name = "btnVentasGuardadas";
             this.btnVentasGuardadas.Size = new System.Drawing.Size(140, 75);
             this.btnVentasGuardadas.TabIndex = 17;
-            this.btnVentasGuardadas.Text = "Ventas guardadas\r\nCtrl + M";
             this.btnVentasGuardadas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnVentasGuardadas.UseVisualStyleBackColor = false;
             this.btnVentasGuardadas.Click += new System.EventHandler(this.btnVentasGuardadas_Click);
@@ -964,18 +965,18 @@
             // 
             // btnClientes
             // 
-            this.btnClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(111)))), ((int)(((byte)(30)))));
+            this.btnClientes.BackColor = System.Drawing.Color.Transparent;
+            this.btnClientes.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClientes.BackgroundImage")));
+            this.btnClientes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClientes.ForeColor = System.Drawing.Color.White;
-            this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.discount;
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnClientes.Location = new System.Drawing.Point(221, 10);
+            this.btnClientes.Location = new System.Drawing.Point(241, 10);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(140, 75);
             this.btnClientes.TabIndex = 44;
-            this.btnClientes.Text = "Descuento cliente\r\nCtrl + D";
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnClientes.UseVisualStyleBackColor = false;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
@@ -1061,7 +1062,7 @@
             this.panel5.Controls.Add(this.btnVentasGuardadas);
             this.panel5.Location = new System.Drawing.Point(12, 480);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(865, 95);
+            this.panel5.Size = new System.Drawing.Size(881, 95);
             this.panel5.TabIndex = 63;
             // 
             // btn_cancelar_venta
@@ -1072,7 +1073,7 @@
             this.btn_cancelar_venta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar_venta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar_venta.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar_venta.Location = new System.Drawing.Point(745, 25);
+            this.btn_cancelar_venta.Location = new System.Drawing.Point(761, 25);
             this.btn_cancelar_venta.Name = "btn_cancelar_venta";
             this.btn_cancelar_venta.Size = new System.Drawing.Size(110, 40);
             this.btn_cancelar_venta.TabIndex = 64;
@@ -1102,7 +1103,7 @@
             this.MinimumSize = new System.Drawing.Size(1027, 597);
             this.Name = "Ventas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NUEVA VENTA";
+            this.Text = "Nueva venta";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Ventas_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ventas_FormClosed);
             this.Load += new System.EventHandler(this.Ventas_Load);

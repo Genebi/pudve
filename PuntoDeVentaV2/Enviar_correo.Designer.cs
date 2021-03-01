@@ -39,7 +39,7 @@
             // txt_correo
             // 
             this.txt_correo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txt_correo.Location = new System.Drawing.Point(19, 91);
+            this.txt_correo.Location = new System.Drawing.Point(19, 21);
             this.txt_correo.Name = "txt_correo";
             this.txt_correo.Size = new System.Drawing.Size(273, 22);
             this.txt_correo.TabIndex = 0;
@@ -51,7 +51,7 @@
             this.btn_agregar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_agregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_agregar.ForeColor = System.Drawing.Color.White;
-            this.btn_agregar.Location = new System.Drawing.Point(309, 89);
+            this.btn_agregar.Location = new System.Drawing.Point(309, 19);
             this.btn_agregar.Name = "btn_agregar";
             this.btn_agregar.Size = new System.Drawing.Size(85, 27);
             this.btn_agregar.TabIndex = 2;
@@ -67,7 +67,7 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(158, 280);
+            this.btn_cancelar.Location = new System.Drawing.Point(158, 228);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(110, 29);
             this.btn_cancelar.TabIndex = 4;
@@ -83,7 +83,7 @@
             this.btn_enviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_enviar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_enviar.ForeColor = System.Drawing.Color.White;
-            this.btn_enviar.Location = new System.Drawing.Point(284, 280);
+            this.btn_enviar.Location = new System.Drawing.Point(284, 228);
             this.btn_enviar.Name = "btn_enviar";
             this.btn_enviar.Size = new System.Drawing.Size(110, 29);
             this.btn_enviar.TabIndex = 5;
@@ -96,9 +96,9 @@
             this.pnl_principal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.pnl_principal.AutoScroll = true;
             this.pnl_principal.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnl_principal.Location = new System.Drawing.Point(19, 129);
+            this.pnl_principal.Location = new System.Drawing.Point(19, 57);
             this.pnl_principal.Name = "pnl_principal";
-            this.pnl_principal.Size = new System.Drawing.Size(375, 131);
+            this.pnl_principal.Size = new System.Drawing.Size(375, 153);
             this.pnl_principal.TabIndex = 6;
             this.pnl_principal.WrapContents = false;
             // 
@@ -106,19 +106,20 @@
             // 
             this.lb_titulo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_titulo.AutoSize = true;
-            this.lb_titulo.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_titulo.Location = new System.Drawing.Point(115, 28);
+            this.lb_titulo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_titulo.Location = new System.Drawing.Point(1, 5);
             this.lb_titulo.Name = "lb_titulo";
-            this.lb_titulo.Size = new System.Drawing.Size(153, 25);
+            this.lb_titulo.Size = new System.Drawing.Size(81, 15);
             this.lb_titulo.TabIndex = 7;
             this.lb_titulo.Text = "Enviar factura";
             this.lb_titulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lb_titulo.Visible = false;
             // 
             // Enviar_correo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 321);
+            this.ClientSize = new System.Drawing.Size(413, 269);
             this.Controls.Add(this.lb_titulo);
             this.Controls.Add(this.pnl_principal);
             this.Controls.Add(this.btn_enviar);
@@ -129,6 +130,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Enviar_correo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enviar correo";
