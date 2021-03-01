@@ -850,6 +850,31 @@ IF
 		REFERENCES USuarios (ID) 
 	);
 
+	-- 45 Tabla de RevisarInventarioReportes
+CREATE TABLE 
+IF 
+	NOT EXISTS RevisarInventarioReportes (
+		ID INTEGER  PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDAlmacen          TEXT     NOT NULL,
+		Nombre             TEXT     NOT NULL,
+		ClaveInterna       TEXT,
+		CodigoBarras       TEXT,
+		StockAlmacen       DECIMAL (16, 2) DEFAULT (0),
+		StockFisico        DECIMAL (16, 2) DEFAULT (0),
+		NoRevision         INT      DEFAULT (0),
+		Fecha              DATETIME,
+		Vendido            INT      DEFAULT (0),
+		Diferencia         INT      DEFAULT (0),
+		IDUsuario          INTEGER,
+		Tipo               TEXT,
+		StatusRevision     INT      DEFAULT (0),
+		StatusInventariado INT      DEFAULT (0),
+		PrecioProducto     DECIMAL (16, 2) DEFAULT (0),
+		IDComputadora      TEXT,
+		FOREIGN KEY (IDUsuario)
+		REFERENCES USuarios (ID) 
+	);
+
 -- 46 Tabla de TipoClientes
 CREATE TABLE 
 IF 

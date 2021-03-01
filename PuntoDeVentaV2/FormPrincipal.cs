@@ -825,14 +825,18 @@ namespace PuntoDeVentaV2
 
             //==================================================
             // Solo descomentar lo de abajo cuando sea necesario
-            //if (reportes == 1)
-            //{
-            //    AbrirFormulario<Reportes>();
-            //}
+            if (reportes == 1)
+            {
+                AbrirFormulario<Reportes>();
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
 
-            //validarVentasVentanas();
+            validarVentasVentanas();
 
-            MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnFacturas_Click(object sender, EventArgs e)

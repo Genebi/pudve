@@ -713,5 +713,15 @@ namespace PuntoDeVentaV2
                 mostrarVentas.Show();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReporteInventario_Click(object sender, EventArgs e)
+        {
+            Panel.Visible = true;
+        }
     }
 }

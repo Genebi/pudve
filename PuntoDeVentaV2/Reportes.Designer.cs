@@ -33,7 +33,16 @@
             this.btnHistorialPrecios = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnHistorialDineroAgregado = new System.Windows.Forms.Button();
+            this.btnReporteInventario = new System.Windows.Forms.Button();
+            this.Panel = new System.Windows.Forms.Panel();
+            this.DGVInventario = new System.Windows.Forms.DataGridView();
+            this.folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mostrar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
+            this.Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -105,11 +114,88 @@
             this.btnHistorialDineroAgregado.Click += new System.EventHandler(this.btnHistorialDineroAgregado_Click);
             this.btnHistorialDineroAgregado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnHistorialDineroAgregado_KeyDown);
             // 
+            // btnReporteInventario
+            // 
+            this.btnReporteInventario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnReporteInventario.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReporteInventario.FlatAppearance.BorderSize = 0;
+            this.btnReporteInventario.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnReporteInventario.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnReporteInventario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReporteInventario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReporteInventario.ForeColor = System.Drawing.Color.White;
+            this.btnReporteInventario.Location = new System.Drawing.Point(579, 91);
+            this.btnReporteInventario.Name = "btnReporteInventario";
+            this.btnReporteInventario.Size = new System.Drawing.Size(190, 30);
+            this.btnReporteInventario.TabIndex = 105;
+            this.btnReporteInventario.Text = "Reportes de Inventario";
+            this.btnReporteInventario.UseVisualStyleBackColor = false;
+            this.btnReporteInventario.Click += new System.EventHandler(this.btnReporteInventario_Click);
+            // 
+            // Panel
+            // 
+            this.Panel.Controls.Add(this.DGVInventario);
+            this.Panel.Location = new System.Drawing.Point(42, 216);
+            this.Panel.Name = "Panel";
+            this.Panel.Size = new System.Drawing.Size(900, 433);
+            this.Panel.TabIndex = 106;
+            this.Panel.Visible = false;
+            // 
+            // DGVInventario
+            // 
+            this.DGVInventario.AllowUserToAddRows = false;
+            this.DGVInventario.AllowUserToDeleteRows = false;
+            this.DGVInventario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVInventario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.folio,
+            this.usuario,
+            this.fecha,
+            this.mostrar});
+            this.DGVInventario.Location = new System.Drawing.Point(0, 0);
+            this.DGVInventario.Name = "DGVInventario";
+            this.DGVInventario.RowHeadersVisible = false;
+            this.DGVInventario.Size = new System.Drawing.Size(900, 430);
+            this.DGVInventario.TabIndex = 0;
+            // 
+            // folio
+            // 
+            this.folio.HeaderText = "Folio";
+            this.folio.Name = "folio";
+            this.folio.ReadOnly = true;
+            this.folio.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.folio.Width = 60;
+            // 
+            // usuario
+            // 
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.ReadOnly = true;
+            this.usuario.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.usuario.Width = 642;
+            // 
+            // fecha
+            // 
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
+            this.fecha.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.fecha.Width = 120;
+            // 
+            // mostrar
+            // 
+            this.mostrar.HeaderText = "Mostrar";
+            this.mostrar.Name = "mostrar";
+            this.mostrar.ReadOnly = true;
+            this.mostrar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.mostrar.Width = 75;
+            // 
             // Reportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.Panel);
+            this.Controls.Add(this.btnReporteInventario);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnHistorialPrecios);
             this.Controls.Add(this.tituloSeccion);
@@ -119,6 +205,8 @@
             this.Load += new System.EventHandler(this.Reportes_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reportes_KeyDown);
             this.groupBox1.ResumeLayout(false);
+            this.Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -130,5 +218,12 @@
         private System.Windows.Forms.Button btnHistorialPrecios;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnHistorialDineroAgregado;
+        private System.Windows.Forms.Button btnReporteInventario;
+        private System.Windows.Forms.Panel Panel;
+        private System.Windows.Forms.DataGridView DGVInventario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn folio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn mostrar;
     }
 }
