@@ -85,8 +85,66 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void agregarDatosTabla()
+        {
+            var id = string.Empty;  
+		    var idAlmacen = string.Empty;
+            var nombre = string.Empty;
+            var claveInterna = string.Empty;
+            var codigoBarras = string.Empty;
+            var stockAlmacen = string.Empty;
+            var stockFisico = string.Empty;
+            var noRevision = string.Empty;
+            var fecha = string.Empty;
+            var vendido = string.Empty;
+            var diferencia = string.Empty;
+            var idUsuario = string.Empty;
+            var tipo = string.Empty;
+            var statusRevision = string.Empty;
+            var statusInventariado = string.Empty;
+            var precioProducto = string.Empty;
+            var idComputadora = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{FilterNumActiveRecord}' AND IDComputadora = '{nombrePC}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                foreach (DataRow iterador in query.Rows)
+                {
+                    id = iterador["ID"].ToString(); 
+                    idAlmacen = iterador["IDAlmacen"].ToString(); 
+                    nombre = iterador["Nombre"].ToString(); 
+                    claveInterna = iterador["ClaveInterna"].ToString(); 
+                    codigoBarras = iterador["CodigoBarras"].ToString(); 
+                    stockAlmacen = iterador["StockAlmacen"].ToString(); 
+                    stockFisico = iterador["StockFisico"].ToString(); 
+                    noRevision = iterador["NoRevision"].ToString(); 
+                    fecha = iterador["Fecha"].ToString();
+                    DateTime date = Convert.ToDateTime(fecha); 
+                    vendido = iterador["Vendido"].ToString(); 
+                    diferencia = iterador["Diferencia"].ToString(); 
+                    idUsuario = iterador["IDUsuario"].ToString(); 
+                    tipo = iterador["Tipo"].ToString(); 
+                    statusRevision = iterador["StatusRevision"].ToString(); 
+                    statusInventariado = iterador["StatusInventariado"].ToString();
+                    precioProducto = iterador["PrecioProducto"].ToString(); 
+                    idComputadora = iterador["IDComputadora"].ToString();
+
+                    using (DataTable dtReportesInventario = cn.CargarDatos($"SELECT ID FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{id}'"))
+                    {
+                        if (dtReportesInventario.Rows.Count.Equals(0))
+                        {
+                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora) VALUES ('{id}','{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}')");
+                        }
+                    }
+                }
+            }
+        }
+
         private void btnGenerarPDF_Click(object sender, EventArgs e)
         {
+            agregarDatosTabla();
+
             if (DGVRevisionStock.RowCount > 0)
             {
                 if (Utilidades.AdobeReaderInstalado())
