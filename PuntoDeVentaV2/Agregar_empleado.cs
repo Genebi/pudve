@@ -41,8 +41,8 @@ namespace PuntoDeVentaV2
         {
             if (tipo == 1)
             {
-                Text = "PUDVE - Agregar Empleado";
-                lbTitulo.Text = "NUEVO EMPLEADO";
+                Text = "Agregar empleado";
+                //lbTitulo.Text = "NUEVO EMPLEADO";
                 lb_permisos_contraseña.Text = "Asignar permisos";
                 txt_autorizar.Visible = false;
                 cmb_bx_permisos.Visible = true;
@@ -52,8 +52,8 @@ namespace PuntoDeVentaV2
 
             if (tipo == 2)
             {
-                Text = "PUDVE - Editar Empleado";
-                lbTitulo.Text = "EDITAR EMPLEADO";
+                Text = "Editar empleado";
+                ///lbTitulo.Text = "EDITAR EMPLEADO";
 
                 lb_permisos_contraseña.Visible = false;
                 cmb_bx_permisos.Visible = false;

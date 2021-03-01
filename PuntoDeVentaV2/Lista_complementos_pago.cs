@@ -299,22 +299,22 @@ namespace PuntoDeVentaV2
 
                 if (e.ColumnIndex == 8)
                 {
-                    coordenadaX = 70;
+                    coordenadaX = 60;
                     txt_toolt = "Ver factura";
                 }
                 if (e.ColumnIndex == 9)
                 {
-                    coordenadaX = 105;
+                    coordenadaX = 95;
                     txt_toolt = "Descargar factura";
                 }
                 if (e.ColumnIndex == 10)
                 {
-                    coordenadaX = 100;
+                    coordenadaX = 90;
                     txt_toolt = "Cancelar factura";
                 }
                 if (e.ColumnIndex == 11)
                 {
-                    coordenadaX = 80;
+                    coordenadaX = 70;
                     txt_toolt = "Información";
                 }
 

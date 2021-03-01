@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmb_bx_forma_pago = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,21 +46,10 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(73, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(345, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "CREAR COMPLEMENTO DE PAGO";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(57, 106);
+            this.label2.Location = new System.Drawing.Point(20, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 17);
             this.label2.TabIndex = 1;
@@ -71,7 +59,7 @@
             // 
             this.cmb_bx_forma_pago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_bx_forma_pago.FormattingEnabled = true;
-            this.cmb_bx_forma_pago.Location = new System.Drawing.Point(146, 103);
+            this.cmb_bx_forma_pago.Location = new System.Drawing.Point(109, 35);
             this.cmb_bx_forma_pago.Name = "cmb_bx_forma_pago";
             this.cmb_bx_forma_pago.Size = new System.Drawing.Size(294, 25);
             this.cmb_bx_forma_pago.TabIndex = 2;
@@ -80,7 +68,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(57, 180);
+            this.label3.Location = new System.Drawing.Point(20, 112);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 17);
             this.label3.TabIndex = 5;
@@ -90,7 +78,7 @@
             // 
             this.datetime_fecha_pago.CustomFormat = "yyyy-MM-dd";
             this.datetime_fecha_pago.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datetime_fecha_pago.Location = new System.Drawing.Point(146, 178);
+            this.datetime_fecha_pago.Location = new System.Drawing.Point(109, 110);
             this.datetime_fecha_pago.Name = "datetime_fecha_pago";
             this.datetime_fecha_pago.Size = new System.Drawing.Size(104, 22);
             this.datetime_fecha_pago.TabIndex = 6;
@@ -104,7 +92,7 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.ForeColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(60, 231);
+            this.panel1.Location = new System.Drawing.Point(23, 163);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(378, 30);
             this.panel1.TabIndex = 5;
@@ -141,7 +129,7 @@
             // pnl_info
             // 
             this.pnl_info.AutoScroll = true;
-            this.pnl_info.Location = new System.Drawing.Point(60, 267);
+            this.pnl_info.Location = new System.Drawing.Point(23, 199);
             this.pnl_info.Name = "pnl_info";
             this.pnl_info.Size = new System.Drawing.Size(378, 117);
             this.pnl_info.TabIndex = 9;
@@ -154,7 +142,7 @@
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(304, 408);
+            this.btn_aceptar.Location = new System.Drawing.Point(223, 346);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(180, 30);
             this.btn_aceptar.TabIndex = 7;
@@ -170,7 +158,7 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(179, 408);
+            this.btn_cancelar.Location = new System.Drawing.Point(98, 346);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(110, 30);
             this.btn_cancelar.TabIndex = 8;
@@ -181,7 +169,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(261, 180);
+            this.label6.Location = new System.Drawing.Point(224, 112);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 17);
             this.label6.TabIndex = 7;
@@ -191,7 +179,7 @@
             // 
             this.datetime_hora_pago.CustomFormat = "hh:mm tt";
             this.datetime_hora_pago.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.datetime_hora_pago.Location = new System.Drawing.Point(338, 180);
+            this.datetime_hora_pago.Location = new System.Drawing.Point(301, 112);
             this.datetime_hora_pago.Name = "datetime_hora_pago";
             this.datetime_hora_pago.ShowUpDown = true;
             this.datetime_hora_pago.Size = new System.Drawing.Size(102, 22);
@@ -200,7 +188,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(56, 145);
+            this.label7.Location = new System.Drawing.Point(19, 77);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(84, 17);
             this.label7.TabIndex = 3;
@@ -209,7 +197,7 @@
             // txt_cuenta
             // 
             this.txt_cuenta.Enabled = false;
-            this.txt_cuenta.Location = new System.Drawing.Point(146, 142);
+            this.txt_cuenta.Location = new System.Drawing.Point(109, 74);
             this.txt_cuenta.Name = "txt_cuenta";
             this.txt_cuenta.Size = new System.Drawing.Size(294, 22);
             this.txt_cuenta.TabIndex = 4;
@@ -218,7 +206,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 450);
+            this.ClientSize = new System.Drawing.Size(426, 388);
             this.Controls.Add(this.txt_cuenta);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.datetime_hora_pago);
@@ -231,11 +219,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmb_bx_forma_pago);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Complemento_pago";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Crear complemento de pago";
@@ -248,8 +236,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmb_bx_forma_pago;
         private System.Windows.Forms.Label label3;

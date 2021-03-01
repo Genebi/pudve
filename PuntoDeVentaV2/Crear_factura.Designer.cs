@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.pnl_datos_cliente = new System.Windows.Forms.Panel();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -69,6 +68,7 @@
             this.lb_facturando = new System.Windows.Forms.Label();
             this.tab_control = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lb_total_n = new System.Windows.Forms.Label();
             this.lb_total = new System.Windows.Forms.Label();
             this.groupb_monto_max = new System.Windows.Forms.GroupBox();
             this.txt_cantidad_max = new System.Windows.Forms.TextBox();
@@ -91,7 +91,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cmb_bx_clientes = new CustomControlPUDVE.ComboBoxPUDVE();
             this.btn_anterior = new System.Windows.Forms.Button();
-            this.lb_total_n = new System.Windows.Forms.Label();
             this.pnl_datos_cliente.SuspendLayout();
             this.tab_control.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -99,17 +98,6 @@
             this.groupb_productos.SuspendLayout();
             this.groupb_pago.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(312, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(192, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Datos facturación";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // pnl_datos_cliente
             // 
@@ -455,7 +443,7 @@
             this.btn_facturar.Enabled = false;
             this.btn_facturar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_facturar.ForeColor = System.Drawing.Color.White;
-            this.btn_facturar.Location = new System.Drawing.Point(749, 547);
+            this.btn_facturar.Location = new System.Drawing.Point(749, 529);
             this.btn_facturar.Name = "btn_facturar";
             this.btn_facturar.Size = new System.Drawing.Size(119, 30);
             this.btn_facturar.TabIndex = 11;
@@ -470,7 +458,7 @@
             this.btn_cancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(479, 547);
+            this.btn_cancelar.Location = new System.Drawing.Point(479, 529);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
             this.btn_cancelar.TabIndex = 12;
@@ -484,7 +472,7 @@
             this.lb_facturando.BackColor = System.Drawing.Color.Green;
             this.lb_facturando.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_facturando.ForeColor = System.Drawing.Color.White;
-            this.lb_facturando.Location = new System.Drawing.Point(593, 543);
+            this.lb_facturando.Location = new System.Drawing.Point(593, 524);
             this.lb_facturando.Name = "lb_facturando";
             this.lb_facturando.Padding = new System.Windows.Forms.Padding(80, 10, 80, 10);
             this.lb_facturando.Size = new System.Drawing.Size(271, 39);
@@ -495,10 +483,10 @@
             // tab_control
             // 
             this.tab_control.Controls.Add(this.tabPage1);
-            this.tab_control.Location = new System.Drawing.Point(12, 61);
+            this.tab_control.Location = new System.Drawing.Point(12, 17);
             this.tab_control.Name = "tab_control";
             this.tab_control.SelectedIndex = 0;
-            this.tab_control.Size = new System.Drawing.Size(856, 475);
+            this.tab_control.Size = new System.Drawing.Size(856, 485);
             this.tab_control.TabIndex = 15;
             // 
             // tabPage1
@@ -514,17 +502,28 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(848, 445);
+            this.tabPage1.Size = new System.Drawing.Size(848, 455);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Cliente";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lb_total_n
+            // 
+            this.lb_total_n.AutoSize = true;
+            this.lb_total_n.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_total_n.Location = new System.Drawing.Point(736, 424);
+            this.lb_total_n.Name = "lb_total_n";
+            this.lb_total_n.Size = new System.Drawing.Size(37, 23);
+            this.lb_total_n.TabIndex = 19;
+            this.lb_total_n.Text = "0.0";
+            this.lb_total_n.Visible = false;
             // 
             // lb_total
             // 
             this.lb_total.AutoSize = true;
             this.lb_total.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_total.ForeColor = System.Drawing.Color.Black;
-            this.lb_total.Location = new System.Drawing.Point(666, 415);
+            this.lb_total.Location = new System.Drawing.Point(666, 424);
             this.lb_total.Name = "lb_total";
             this.lb_total.Size = new System.Drawing.Size(64, 23);
             this.lb_total.TabIndex = 15;
@@ -537,7 +536,7 @@
             this.groupb_monto_max.Controls.Add(this.label27);
             this.groupb_monto_max.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupb_monto_max.ForeColor = System.Drawing.Color.Navy;
-            this.groupb_monto_max.Location = new System.Drawing.Point(8, 13);
+            this.groupb_monto_max.Location = new System.Drawing.Point(8, 15);
             this.groupb_monto_max.Name = "groupb_monto_max";
             this.groupb_monto_max.Size = new System.Drawing.Size(825, 63);
             this.groupb_monto_max.TabIndex = 18;
@@ -575,9 +574,9 @@
             this.groupb_productos.Controls.Add(this.label6);
             this.groupb_productos.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupb_productos.ForeColor = System.Drawing.Color.Navy;
-            this.groupb_productos.Location = new System.Drawing.Point(8, 213);
+            this.groupb_productos.Location = new System.Drawing.Point(8, 218);
             this.groupb_productos.Name = "groupb_productos";
-            this.groupb_productos.Size = new System.Drawing.Size(833, 194);
+            this.groupb_productos.Size = new System.Drawing.Size(833, 197);
             this.groupb_productos.TabIndex = 17;
             this.groupb_productos.TabStop = false;
             this.groupb_productos.Text = "Productos";
@@ -600,7 +599,7 @@
             this.pnl_productos.ForeColor = System.Drawing.SystemColors.ControlText;
             this.pnl_productos.Location = new System.Drawing.Point(10, 55);
             this.pnl_productos.Name = "pnl_productos";
-            this.pnl_productos.Size = new System.Drawing.Size(813, 132);
+            this.pnl_productos.Size = new System.Drawing.Size(813, 135);
             this.pnl_productos.TabIndex = 0;
             // 
             // label7
@@ -649,7 +648,7 @@
             this.groupb_pago.Controls.Add(this.label3);
             this.groupb_pago.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupb_pago.ForeColor = System.Drawing.Color.Navy;
-            this.groupb_pago.Location = new System.Drawing.Point(8, 81);
+            this.groupb_pago.Location = new System.Drawing.Point(8, 85);
             this.groupb_pago.Name = "groupb_pago";
             this.groupb_pago.Size = new System.Drawing.Size(833, 121);
             this.groupb_pago.TabIndex = 10;
@@ -781,7 +780,7 @@
             this.btn_anterior.Enabled = false;
             this.btn_anterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_anterior.ForeColor = System.Drawing.Color.White;
-            this.btn_anterior.Location = new System.Drawing.Point(614, 547);
+            this.btn_anterior.Location = new System.Drawing.Point(614, 529);
             this.btn_anterior.Name = "btn_anterior";
             this.btn_anterior.Size = new System.Drawing.Size(119, 30);
             this.btn_anterior.TabIndex = 16;
@@ -789,26 +788,14 @@
             this.btn_anterior.UseVisualStyleBackColor = false;
             this.btn_anterior.Click += new System.EventHandler(this.btn_anterior_Click);
             // 
-            // lb_total_n
-            // 
-            this.lb_total_n.AutoSize = true;
-            this.lb_total_n.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_total_n.Location = new System.Drawing.Point(736, 415);
-            this.lb_total_n.Name = "lb_total_n";
-            this.lb_total_n.Size = new System.Drawing.Size(37, 23);
-            this.lb_total_n.TabIndex = 19;
-            this.lb_total_n.Text = "0.0";
-            this.lb_total_n.Visible = false;
-            // 
             // Crear_factura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 589);
+            this.ClientSize = new System.Drawing.Size(880, 571);
             this.Controls.Add(this.tab_control);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_facturar);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_anterior);
             this.Controls.Add(this.lb_facturando);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -817,7 +804,7 @@
             this.MaximizeBox = false;
             this.Name = "Crear_factura";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PUDVE - Crear Factura";
+            this.Text = "Crear factura";
             this.Load += new System.EventHandler(this.Crear_factura_Load);
             this.pnl_datos_cliente.ResumeLayout(false);
             this.pnl_datos_cliente.PerformLayout();
@@ -836,8 +823,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_facturar;
         private System.Windows.Forms.Button btn_cancelar;
         private System.Windows.Forms.Button btn_crear_cliente;
