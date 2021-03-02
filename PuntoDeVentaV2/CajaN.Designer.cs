@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.primerSeparador = new System.Windows.Forms.Label();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.btnReporteRetirar = new System.Windows.Forms.Button();
             this.btnReporteAgregar = new System.Windows.Forms.Button();
@@ -131,35 +130,27 @@
             this.btnImprimir = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lbSaldoInicialInfo = new System.Windows.Forms.Label();
-            this.panelFondo.SuspendLayout();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroRetirado.SuspendLayout();
             this.panelDineroAgregado.SuspendLayout();
             this.panelAnticipos.SuspendLayout();
             this.panelTotales.SuspendLayout();
             this.panelVentas.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // primerSeparador
-            // 
-            this.primerSeparador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.primerSeparador.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.primerSeparador.Location = new System.Drawing.Point(20, 59);
-            this.primerSeparador.Name = "primerSeparador";
-            this.primerSeparador.Size = new System.Drawing.Size(1097, 10);
-            this.primerSeparador.TabIndex = 21;
-            this.primerSeparador.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // tituloSeccion
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(116, 7);
+            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSeccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(67)))), ((int)(((byte)(96)))));
+            this.tituloSeccion.Location = new System.Drawing.Point(9, 20);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(900, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(183, 53);
             this.tituloSeccion.TabIndex = 22;
-            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnReporteRetirar
             // 
@@ -171,7 +162,7 @@
             this.btnReporteRetirar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReporteRetirar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReporteRetirar.ForeColor = System.Drawing.Color.White;
-            this.btnReporteRetirar.Location = new System.Drawing.Point(223, 125);
+            this.btnReporteRetirar.Location = new System.Drawing.Point(518, 624);
             this.btnReporteRetirar.Name = "btnReporteRetirar";
             this.btnReporteRetirar.Size = new System.Drawing.Size(190, 25);
             this.btnReporteRetirar.TabIndex = 107;
@@ -191,7 +182,7 @@
             this.btnReporteAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReporteAgregar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReporteAgregar.ForeColor = System.Drawing.Color.White;
-            this.btnReporteAgregar.Location = new System.Drawing.Point(223, 77);
+            this.btnReporteAgregar.Location = new System.Drawing.Point(322, 607);
             this.btnReporteAgregar.Name = "btnReporteAgregar";
             this.btnReporteAgregar.Size = new System.Drawing.Size(190, 25);
             this.btnReporteAgregar.TabIndex = 106;
@@ -211,9 +202,9 @@
             this.btnAgregarDinero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarDinero.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarDinero.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarDinero.Location = new System.Drawing.Point(20, 77);
+            this.btnAgregarDinero.Location = new System.Drawing.Point(20, 107);
             this.btnAgregarDinero.Name = "btnAgregarDinero";
-            this.btnAgregarDinero.Size = new System.Drawing.Size(190, 25);
+            this.btnAgregarDinero.Size = new System.Drawing.Size(160, 32);
             this.btnAgregarDinero.TabIndex = 104;
             this.btnAgregarDinero.Text = "Agregar Dinero";
             this.btnAgregarDinero.UseVisualStyleBackColor = false;
@@ -230,9 +221,9 @@
             this.btnRetirarDinero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRetirarDinero.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRetirarDinero.ForeColor = System.Drawing.Color.White;
-            this.btnRetirarDinero.Location = new System.Drawing.Point(20, 125);
+            this.btnRetirarDinero.Location = new System.Drawing.Point(186, 107);
             this.btnRetirarDinero.Name = "btnRetirarDinero";
-            this.btnRetirarDinero.Size = new System.Drawing.Size(190, 25);
+            this.btnRetirarDinero.Size = new System.Drawing.Size(160, 32);
             this.btnRetirarDinero.TabIndex = 105;
             this.btnRetirarDinero.Text = "Retirar Dinero";
             this.btnRetirarDinero.UseVisualStyleBackColor = false;
@@ -242,10 +233,9 @@
             // panelFondo
             // 
             this.panelFondo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.panelFondo.Controls.Add(this.btnCorteCaja);
-            this.panelFondo.Location = new System.Drawing.Point(92, 600);
+            this.panelFondo.Location = new System.Drawing.Point(226, 607);
             this.panelFondo.Name = "panelFondo";
-            this.panelFondo.Size = new System.Drawing.Size(900, 54);
+            this.panelFondo.Size = new System.Drawing.Size(84, 42);
             this.panelFondo.TabIndex = 110;
             // 
             // btnCorteCaja
@@ -257,11 +247,11 @@
             this.btnCorteCaja.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnCorteCaja.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnCorteCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCorteCaja.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCorteCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCorteCaja.ForeColor = System.Drawing.Color.White;
-            this.btnCorteCaja.Location = new System.Drawing.Point(355, 10);
+            this.btnCorteCaja.Location = new System.Drawing.Point(352, 107);
             this.btnCorteCaja.Name = "btnCorteCaja";
-            this.btnCorteCaja.Size = new System.Drawing.Size(190, 30);
+            this.btnCorteCaja.Size = new System.Drawing.Size(160, 32);
             this.btnCorteCaja.TabIndex = 111;
             this.btnCorteCaja.Text = "Corte de Caja";
             this.btnCorteCaja.UseVisualStyleBackColor = false;
@@ -1376,9 +1366,9 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.ForeColor = System.Drawing.Color.White;
-            this.btnImprimir.Location = new System.Drawing.Point(427, 125);
+            this.btnImprimir.Location = new System.Drawing.Point(518, 107);
             this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(120, 25);
+            this.btnImprimir.Size = new System.Drawing.Size(160, 32);
             this.btnImprimir.TabIndex = 112;
             this.btnImprimir.Text = "Abrir Caja";
             this.btnImprimir.UseVisualStyleBackColor = false;
@@ -1388,7 +1378,7 @@
             // 
             this.lbSaldoInicialInfo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbSaldoInicialInfo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbSaldoInicialInfo.Location = new System.Drawing.Point(552, 30);
+            this.lbSaldoInicialInfo.Location = new System.Drawing.Point(976, 18);
             this.lbSaldoInicialInfo.Name = "lbSaldoInicialInfo";
             this.lbSaldoInicialInfo.Size = new System.Drawing.Size(30, 26);
             this.lbSaldoInicialInfo.TabIndex = 39;
@@ -1396,11 +1386,35 @@
             this.lbSaldoInicialInfo.Visible = false;
             this.lbSaldoInicialInfo.Click += new System.EventHandler(this.label2_Click);
             // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(522, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 25);
+            this.label2.TabIndex = 113;
+            this.label2.Text = "CAJA";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(231)))), ((int)(((byte)(239)))));
+            this.panel1.Controls.Add(this.tituloSeccion);
+            this.panel1.Location = new System.Drawing.Point(917, 70);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 90);
+            this.panel1.TabIndex = 114;
+            // 
             // CajaN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1135, 661);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnCorteCaja);
             this.Controls.Add(this.lbSaldoInicialInfo);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.tablaContenedor);
@@ -1409,15 +1423,12 @@
             this.Controls.Add(this.btnReporteAgregar);
             this.Controls.Add(this.btnAgregarDinero);
             this.Controls.Add(this.btnRetirarDinero);
-            this.Controls.Add(this.tituloSeccion);
-            this.Controls.Add(this.primerSeparador);
             this.Name = "CajaN";
             this.Text = "CajaN";
             this.Load += new System.EventHandler(this.CajaN_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.CajaN_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CajaN_KeyDown);
             this.Resize += new System.EventHandler(this.CajaN_Resize);
-            this.panelFondo.ResumeLayout(false);
             this.tablaContenedor.ResumeLayout(false);
             this.panelDineroRetirado.ResumeLayout(false);
             this.panelDineroRetirado.PerformLayout();
@@ -1429,13 +1440,13 @@
             this.panelTotales.PerformLayout();
             this.panelVentas.ResumeLayout(false);
             this.panelVentas.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label primerSeparador;
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.Button btnReporteRetirar;
         private System.Windows.Forms.Button btnReporteAgregar;
@@ -1537,5 +1548,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbCambioDevoluciones;
         private System.Windows.Forms.Label lbSaldoInicialInfo;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

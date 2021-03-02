@@ -128,7 +128,7 @@ namespace PuntoDeVentaV2
         private void CargarSaldoInicial()
         {
             saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
-            tituloSeccion.Text = "SALDO INICIAL: $" + saldoInicial.ToString("0.00");
+            tituloSeccion.Text = "SALDO INICIAL: \r\n $" + saldoInicial.ToString("0.00");
         }
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)

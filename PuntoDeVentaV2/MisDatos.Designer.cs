@@ -346,7 +346,7 @@
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(53, 16);
             this.label12.TabIndex = 20;
-            this.label12.Text = "Telefono";
+            this.label12.Text = "Teléfono";
             // 
             // txtEmail
             // 
@@ -370,7 +370,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(106, 16);
             this.label11.TabIndex = 18;
-            this.label11.Text = "Correo Electronico";
+            this.label11.Text = "Correo Electrónico";
             // 
             // txtCodPost
             // 
@@ -634,12 +634,13 @@
             // 
             this.btnBorrarImg.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnBorrarImg.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBorrarImg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBorrarImg.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrarImg.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBorrarImg.Location = new System.Drawing.Point(211, 234);
             this.btnBorrarImg.Margin = new System.Windows.Forms.Padding(2);
             this.btnBorrarImg.Name = "btnBorrarImg";
-            this.btnBorrarImg.Size = new System.Drawing.Size(146, 37);
+            this.btnBorrarImg.Size = new System.Drawing.Size(146, 30);
             this.btnBorrarImg.TabIndex = 5;
             this.btnBorrarImg.Text = "Eliminar imagen";
             this.btnBorrarImg.UseVisualStyleBackColor = true;
@@ -649,14 +650,15 @@
             // btnSubirArchivo
             // 
             this.btnSubirArchivo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnSubirArchivo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnSubirArchivo.BackColor = System.Drawing.SystemColors.Control;
             this.btnSubirArchivo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSubirArchivo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubirArchivo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubirArchivo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSubirArchivo.Location = new System.Drawing.Point(22, 234);
             this.btnSubirArchivo.Margin = new System.Windows.Forms.Padding(2);
             this.btnSubirArchivo.Name = "btnSubirArchivo";
-            this.btnSubirArchivo.Size = new System.Drawing.Size(146, 37);
+            this.btnSubirArchivo.Size = new System.Drawing.Size(146, 30);
             this.btnSubirArchivo.TabIndex = 2;
             this.btnSubirArchivo.Text = "Subir imagen";
             this.btnSubirArchivo.UseVisualStyleBackColor = false;
