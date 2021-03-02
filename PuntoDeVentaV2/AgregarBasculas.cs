@@ -385,7 +385,21 @@ namespace PuntoDeVentaV2
 
         private void btnAddEditBascula_Click(object sender, EventArgs e)
         {
+            if (Application.OpenForms.OfType<AgregarEditarBascula>().Count().Equals(1))
+            {
+                Application.OpenForms.OfType<AgregarEditarBascula>().First().BringToFront();
+            }
+            else
+            {
+                var addBascula = new AgregarEditarBascula();
 
+                addBascula.FormClosed += delegate
+                {
+
+                };
+
+                addBascula.Show();
+            }
         }
 
         private void limpiarCampos()
