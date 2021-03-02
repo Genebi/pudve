@@ -959,6 +959,7 @@ IF
 		stopBits VARCHAR ( 100 ) NOT NULL,
 		sendData VARCHAR ( 100 ) NOT NULL,
 		idUsuario INTEGER NOT NULL,
+		predeterminada INTEGER NOT NULL DEFAULT (0),
 		UNIQUE INDEX unique_NombreBascula ( nombreBascula ),
 	CONSTRAINT Basculas_IdUsuario FOREIGN KEY ( idUsuario ) REFERENCES usuarios ( ID ) ON DELETE CASCADE ON UPDATE CASCADE 
 	);

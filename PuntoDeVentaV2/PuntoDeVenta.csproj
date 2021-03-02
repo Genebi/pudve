@@ -281,6 +281,12 @@
     <Compile Include="AgregarDetalleProducto.Designer.cs">
       <DependentUpon>AgregarDetalleProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="AgregarEditarBascula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarEditarBascula.Designer.cs">
+      <DependentUpon>AgregarEditarBascula.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarEditarProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -936,6 +942,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarDetalleProducto.resx">
       <DependentUpon>AgregarDetalleProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgregarEditarBascula.resx">
+      <DependentUpon>AgregarEditarBascula.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarEditarProducto.resx">
       <DependentUpon>AgregarEditarProducto.cs</DependentUpon>

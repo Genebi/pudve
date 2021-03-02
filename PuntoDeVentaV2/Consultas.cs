@@ -1489,7 +1489,14 @@ GROUP BY Prod.ID";
 
         public string getBasculasRegistradas(int IdUsr)
         {
-            var consulta = $"SELECT * FROM basculas WHERE IdUsuario = {IdUsr} ORDER BY nombreBascula ASC";
+            var consulta = $"SELECT nombreBascula FROM basculas WHERE IdUsuario = '{IdUsr}' ORDER BY nombreBascula ASC";
+
+            return consulta;
+        }
+
+        public string getDatosBasculaRegistrada(string nameWeighingMachine)
+        {
+            var consulta = $"SELECT * FROM basculas WHERE IdUsuario = '{FormPrincipal.userID}' AND nombreBascula = '{nameWeighingMachine}'";
 
             return consulta;
         }

@@ -16,7 +16,9 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
-        bool isOpen = false;
+        string firtsItemBasculasRegistradas = "REGISTRADAS...";
+
+        bool isOpen = false, isExists = false;
 
         #region DISPOSITIVO-LECTOR BASCULA
         public SerialPort PuertoSerieBascula;
@@ -75,15 +77,17 @@ namespace PuntoDeVentaV2
                     try
                     {
                         PuertoSerieBascula.Open();
+                        isExists = true;
                     }
                     catch (Exception error)
                     {
-                        MessageBox.Show("Error al abrir el dispositivo (Bascula) ...\r" + error.Message.ToString());
+                        isExists = false;
+                        MessageBox.Show("Error al abrir el dispositivo (Bascula) ...\r" + error.Message.ToString(), "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("El puerto está abierto...");
+                    MessageBox.Show("El puerto está abierto...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -93,19 +97,19 @@ namespace PuntoDeVentaV2
             switch (e.EventType)
             {
                 case SerialError.Frame:
-                    MessageBox.Show("Error de Trama...");
+                    MessageBox.Show("Error de Trama...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
                 case SerialError.Overrun:
-                    MessageBox.Show("Saturación de buffer...");
+                    MessageBox.Show("Saturación de buffer...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
                 case SerialError.RXOver:
-                    MessageBox.Show("Desboradamiento de buffer de entrada");
+                    MessageBox.Show("Desboradamiento de buffer de entrada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
                 case SerialError.RXParity:
-                    MessageBox.Show("Error de paridad...");
+                    MessageBox.Show("Error de paridad...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
                 case SerialError.TXFull:
-                    MessageBox.Show("Buffer lleno...");
+                    MessageBox.Show("Buffer lleno...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
 
@@ -129,7 +133,7 @@ namespace PuntoDeVentaV2
         private void getBasculasRegistradas()
         {
             cbBasculaRegistrada.Items.Clear();
-            cbBasculaRegistrada.Items.Add("Selecciona una...");
+            cbBasculaRegistrada.Items.Add(firtsItemBasculasRegistradas);
 
             using (DataTable dtBasculas = cn.CargarDatos(cs.getBasculasRegistradas(FormPrincipal.userID)))
             {
@@ -285,7 +289,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Selecciona un puerto especifico");
+                MessageBox.Show("Selecciona un puerto especifico", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cbPuerto.Focus();
                 return;
             }
@@ -297,7 +301,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Selecciona un BaudRate especifico");
+                MessageBox.Show("Selecciona un BaudRate especifico", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cbBaudRate.Focus();
                 return;
             }
@@ -329,19 +333,12 @@ namespace PuntoDeVentaV2
         {
             lblPeso.Text = string.Empty;
 
-            try
+            if (isOpen.Equals(false))
             {
-                if (isOpen.Equals(false))
-                {
-                    doConecction();
-                }
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show("Error: " + error.Message.ToString());
+                doConecction();
             }
 
-            try
+            if (isExists.Equals(true))
             {
                 if (!txtSendData.Text.Equals(string.Empty))
                 {
@@ -349,13 +346,72 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show("Favor de ingresar un valor a enviar al puerto");
+                    MessageBox.Show("Favor de ingresar un valor a enviar al puerto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            catch (Exception error)
+            else
             {
-                MessageBox.Show("Error: " + error.Message.ToString());
+                limpiarCampos();
             }
+        }
+
+        private void cbBasculaRegistrada_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void cbBasculaRegistrada_TextChanged(object sender, EventArgs e)
+        {
+            using (DataTable dtBasculaRegistrada = cn.CargarDatos(cs.getDatosBasculaRegistrada(cbBasculaRegistrada.Text)))
+            {
+                if (!dtBasculaRegistrada.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drBasculaRegistradaData in dtBasculaRegistrada.Rows)
+                    {
+                        if (!cbPuerto.Text.Equals(firtsItemBasculasRegistradas))
+                        {
+                            cbPuerto.Text = drBasculaRegistradaData["puerto"].ToString();
+                            cbBaudRate.Text = drBasculaRegistradaData["baudRate"].ToString();
+                            cbDatos.Text = drBasculaRegistradaData["dataBits"].ToString();
+                            cbHandshake.Text = drBasculaRegistradaData["handshake"].ToString();
+                            cbParidad.Text = drBasculaRegistradaData["parity"].ToString();
+                            cbStopBits.Text = drBasculaRegistradaData["stopBits"].ToString();
+                            txtSendData.Text = drBasculaRegistradaData["sendData"].ToString();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnAddEditBascula_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void limpiarCampos()
+        {
+            cbPuerto.Text = string.Empty;
+            cbPuerto.SelectedIndex = 0;
+
+            cbBaudRate.Text = string.Empty;
+            cbBaudRate.SelectedIndex = 0;
+
+            cbDatos.Text = string.Empty;
+            cbDatos.SelectedIndex = 0;
+
+            cbHandshake.Text = string.Empty;
+            cbHandshake.SelectedIndex = 0;
+
+            cbParidad.Text = string.Empty;
+            cbParidad.SelectedIndex = 0;
+
+            cbStopBits.Text = string.Empty;
+            cbStopBits.SelectedIndex = 0;
+
+            cbBasculaRegistrada.Text = string.Empty;
+            cbBasculaRegistrada.SelectedIndex = 0;
+            
+            txtSendData.Clear();
         }
     }
 }

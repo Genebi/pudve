@@ -29,12 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAddEditBascula = new System.Windows.Forms.Button();
             this.cbBasculaRegistrada = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.btnTomarPeso = new System.Windows.Forms.Button();
             this.lblPeso = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -59,7 +58,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnAddEditBascula);
             this.groupBox1.Controls.Add(this.cbBasculaRegistrada);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 68);
@@ -69,25 +68,34 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Basculas Registradas: ";
             // 
-            // button1
+            // btnAddEditBascula
             // 
-            this.button1.Font = new System.Drawing.Font("Century", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.weighingMachine;
-            this.button1.Location = new System.Drawing.Point(294, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(174, 68);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Otra";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAddEditBascula.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(153)))), ((int)(((byte)(199)))));
+            this.btnAddEditBascula.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddEditBascula.FlatAppearance.BorderSize = 0;
+            this.btnAddEditBascula.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddEditBascula.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddEditBascula.ForeColor = System.Drawing.Color.White;
+            this.btnAddEditBascula.Image = global::PuntoDeVentaV2.Properties.Resources.weighingMachine;
+            this.btnAddEditBascula.Location = new System.Drawing.Point(294, 19);
+            this.btnAddEditBascula.Name = "btnAddEditBascula";
+            this.btnAddEditBascula.Size = new System.Drawing.Size(197, 68);
+            this.btnAddEditBascula.TabIndex = 2;
+            this.btnAddEditBascula.Text = "Agregar / Editar";
+            this.btnAddEditBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.btnAddEditBascula.UseVisualStyleBackColor = false;
+            this.btnAddEditBascula.Click += new System.EventHandler(this.btnAddEditBascula_Click);
             // 
             // cbBasculaRegistrada
             // 
+            this.cbBasculaRegistrada.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBasculaRegistrada.FormattingEnabled = true;
             this.cbBasculaRegistrada.Location = new System.Drawing.Point(77, 45);
             this.cbBasculaRegistrada.Name = "cbBasculaRegistrada";
             this.cbBasculaRegistrada.Size = new System.Drawing.Size(185, 21);
             this.cbBasculaRegistrada.TabIndex = 1;
+            this.cbBasculaRegistrada.SelectedIndexChanged += new System.EventHandler(this.cbBasculaRegistrada_SelectedIndexChanged);
+            this.cbBasculaRegistrada.TextChanged += new System.EventHandler(this.cbBasculaRegistrada_TextChanged);
             // 
             // label2
             // 
@@ -110,7 +118,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.btnTomarPeso);
             this.groupBox2.Controls.Add(this.lblPeso);
             this.groupBox2.Controls.Add(this.label10);
@@ -135,29 +142,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Configuración Bascula: ";
             // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Century", 11.25F);
-            this.button2.Image = global::PuntoDeVentaV2.Properties.Resources.saveNew;
-            this.button2.Location = new System.Drawing.Point(384, 189);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(152, 61);
-            this.button2.TabIndex = 17;
-            this.button2.Text = "Configuración";
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // btnTomarPeso
             // 
-            this.btnTomarPeso.Font = new System.Drawing.Font("Century", 11.25F);
+            this.btnTomarPeso.BackColor = System.Drawing.Color.Green;
+            this.btnTomarPeso.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTomarPeso.FlatAppearance.BorderSize = 0;
+            this.btnTomarPeso.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTomarPeso.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTomarPeso.ForeColor = System.Drawing.Color.White;
             this.btnTomarPeso.Image = global::PuntoDeVentaV2.Properties.Resources.scale;
-            this.btnTomarPeso.Location = new System.Drawing.Point(133, 189);
+            this.btnTomarPeso.Location = new System.Drawing.Point(185, 185);
             this.btnTomarPeso.Name = "btnTomarPeso";
-            this.btnTomarPeso.Size = new System.Drawing.Size(152, 61);
+            this.btnTomarPeso.Size = new System.Drawing.Size(275, 72);
             this.btnTomarPeso.TabIndex = 16;
             this.btnTomarPeso.Text = "Tomar Peso";
+            this.btnTomarPeso.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnTomarPeso.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnTomarPeso.UseVisualStyleBackColor = true;
+            this.btnTomarPeso.UseVisualStyleBackColor = false;
             this.btnTomarPeso.Click += new System.EventHandler(this.btnTomarPeso_Click);
             // 
             // lblPeso
@@ -300,12 +301,13 @@
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(553, 36);
+            this.label11.Font = new System.Drawing.Font("Century Gothic", 18F);
+            this.label11.Location = new System.Drawing.Point(556, 22);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(41, 13);
+            this.label11.Size = new System.Drawing.Size(554, 30);
             this.label11.TabIndex = 3;
-            this.label11.Text = "label11";
+            this.label11.Text = "Datos de Configuración";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AgregarBasculas
             // 
@@ -324,7 +326,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -334,7 +335,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbBasculaRegistrada;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAddEditBascula;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox cbPuerto;
         private System.Windows.Forms.Label label3;
@@ -353,7 +354,6 @@
         private System.Windows.Forms.Label lblPeso;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnTomarPeso;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label11;
     }
 }
