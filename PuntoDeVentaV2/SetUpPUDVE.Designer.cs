@@ -57,6 +57,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.cbCorreoCorteCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoEliminarListaProductosVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoEliminaUltimoProductoAgregadoVentas = new System.Windows.Forms.CheckBox();
@@ -65,7 +66,6 @@
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -462,6 +462,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envio de Correo:";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label4.Location = new System.Drawing.Point(8, 139);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(220, 16);
+            this.label4.TabIndex = 122;
+            this.label4.Text = " (producto previamente seleccionado)";
+            // 
             // cbCorreoCorteCaja
             // 
             this.cbCorreoCorteCaja.AutoSize = true;
@@ -474,6 +485,7 @@
             this.cbCorreoCorteCaja.Text = "Al hacer corte de caja";
             this.cbCorreoCorteCaja.UseVisualStyleBackColor = true;
             this.cbCorreoCorteCaja.CheckedChanged += new System.EventHandler(this.cbCorreoCorteCaja_CheckedChanged);
+            this.cbCorreoCorteCaja.Click += new System.EventHandler(this.cbCorreoCorteCaja_Click);
             // 
             // cbCorreoEliminarListaProductosVentas
             // 
@@ -555,17 +567,6 @@
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label4.Location = new System.Drawing.Point(8, 139);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(220, 16);
-            this.label4.TabIndex = 122;
-            this.label4.Text = " (producto previamente seleccionado)";
             // 
             // SetUpPUDVE
             // 
