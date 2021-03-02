@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,46 +41,46 @@ namespace PuntoDeVentaV2
 
         private void btnHistorialVentas_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //using (var fechas = new FechasReportes())
-            //{
-            //    var respuesta = fechas.ShowDialog();
+            //MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (var fechas = new FechasReportes())
+            {
+                var respuesta = fechas.ShowDialog();
 
-            //    if (respuesta == DialogResult.OK)
-            //    {
-            //        tipoRespuesta = 2;
-            //        fechaInicial = fechas.fechaInicial;
-            //        fechaFinal = fechas.fechaFinal;
+                if (respuesta == DialogResult.OK)
+                {
+                    tipoRespuesta = 2;
+                    fechaInicial = fechas.fechaInicial;
+                    fechaFinal = fechas.fechaFinal;
 
-            //        if (Utilidades.AdobeReaderInstalado())
-            //        {
-            //            GenerarReporte();
-            //        }
-            //        else
-            //        {
-            //            Utilidades.MensajeAdobeReader();
-            //        }
-            //    }
-            //}
+                    if (Utilidades.AdobeReaderInstalado())
+                    {
+                        GenerarReporte();
+                    }
+                    else
+                    {
+                        Utilidades.MensajeAdobeReader();
+                    }
+                }
+            }
         }
 
 
         private void GenerarReporte()
         {
             //Consulta para obtener los registros del Historial de ventas del producto
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
+            MySqlConnection sql_con;
+            MySqlCommand sql_cmd;
+            MySqlDataReader dr;
 
             var servidor = Properties.Settings.Default.Hosting;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                sql_con = new SQLiteConnection("Data source=//" + servidor + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection($"datasource={servidor};port=6666;username=root;password=;database=pudve;");
             }
             else
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new MySqlConnection($"datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
 
 
@@ -91,7 +92,7 @@ namespace PuntoDeVentaV2
                               AND P.IDProducto = {idProducto}";
 
             sql_con.Open();
-            sql_cmd = new SQLiteCommand(consulta, sql_con);
+            sql_cmd = new MySqlCommand(consulta, sql_con);
             dr = sql_cmd.ExecuteReader();
 
 
