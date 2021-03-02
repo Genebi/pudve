@@ -1242,7 +1242,10 @@ namespace PuntoDeVentaV2
                     //cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
 
                     //Se elimina el ultimo dato en guardarse en esta lista
-                    id.RemoveAt(id.Count - 1);
+                    if (id.Count != 0)
+                    {
+                        id.RemoveAt(id.Count - 1);
+                    }
 
                     var idDeshabilitado = idADeshabilitar(txtBoxBuscarCodigoBarras.Text);
 
