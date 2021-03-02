@@ -43,7 +43,6 @@
             this.label20 = new System.Windows.Forms.Label();
             this.lb_fecha_caducidad = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.txt_subir_archivos = new System.Windows.Forms.TextBox();
             this.btn_subir_archivos = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -171,7 +170,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txt_llave);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(12, 151);
+            this.panel1.Location = new System.Drawing.Point(12, 119);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(367, 313);
             this.panel1.TabIndex = 8;
@@ -232,18 +231,6 @@
             this.label6.TabIndex = 8;
             this.label6.Text = "Fecha caducidad del certificado";
             // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(286, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(227, 25);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "ARCHIVOS DIGITALES";
-            // 
             // txt_subir_archivos
             // 
             this.txt_subir_archivos.Cursor = System.Windows.Forms.Cursors.No;
@@ -273,7 +260,7 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.txt_subir_archivos);
             this.panel2.Controls.Add(this.btn_subir_archivos);
-            this.panel2.Location = new System.Drawing.Point(410, 169);
+            this.panel2.Location = new System.Drawing.Point(410, 137);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(361, 78);
             this.panel2.TabIndex = 12;
@@ -291,7 +278,7 @@
             this.panel3.Controls.Add(this.label8);
             this.panel3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel3.ForeColor = System.Drawing.Color.DarkRed;
-            this.panel3.Location = new System.Drawing.Point(410, 269);
+            this.panel3.Location = new System.Drawing.Point(410, 237);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(361, 151);
             this.panel3.TabIndex = 13;
@@ -364,7 +351,7 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.panel5);
-            this.panel4.Location = new System.Drawing.Point(12, 470);
+            this.panel4.Location = new System.Drawing.Point(12, 438);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(759, 55);
             this.panel4.TabIndex = 14;
@@ -416,7 +403,7 @@
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(652, 541);
+            this.btn_aceptar.Location = new System.Drawing.Point(652, 519);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(119, 30);
             this.btn_aceptar.TabIndex = 15;
@@ -432,7 +419,7 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(517, 541);
+            this.btn_cancelar.Location = new System.Drawing.Point(517, 519);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
             this.btn_cancelar.TabIndex = 16;
@@ -451,7 +438,7 @@
             this.panel6.Controls.Add(this.label16);
             this.panel6.Controls.Add(this.label7);
             this.panel6.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.panel6.Location = new System.Drawing.Point(12, 65);
+            this.panel6.Location = new System.Drawing.Point(12, 29);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(759, 82);
             this.panel6.TabIndex = 17;
@@ -516,22 +503,22 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(783, 583);
+            this.ClientSize = new System.Drawing.Size(783, 561);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Subir_archivos_digitales";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PUDVE- Actualizar Archivos";
+            this.Text = "Actualizar archivos digitales";
             this.Load += new System.EventHandler(this.cargar_datos);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -545,7 +532,6 @@
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -560,7 +546,6 @@
         private System.Windows.Forms.TextBox txt_password;
         private System.Windows.Forms.TextBox txt_rfc;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txt_subir_archivos;
         private System.Windows.Forms.Button btn_subir_archivos;
         private System.Windows.Forms.Panel panel2;

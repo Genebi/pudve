@@ -300,6 +300,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Ocurrio un error al abrir el enlace: " + ex, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+   
 
         private void guardar_password(object sender, EventArgs e)
         {

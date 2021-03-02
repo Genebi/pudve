@@ -34,13 +34,13 @@ namespace PuntoDeVentaV2
             //El titulo que se mostrara al abrir el form
             if (tipo == 1)
             {
-                this.Text = "PUDVE - Nuevo Proveedor";
-                tituloSeccion.Text = "NUEVO PROVEEDOR";
+                this.Text = "Nuevo Proveedor";
+                //tituloSeccion.Text = "NUEVO PROVEEDOR";
             }
             else
             {
-                this.Text = "PUDVE - Editar Proveedor";
-                tituloSeccion.Text = "EDITAR PROVEEDOR";
+                this.Text = "Editar Proveedor";
+                //tituloSeccion.Text = "EDITAR PROVEEDOR";
             }
 
             //Si viene de la opcion editar buscamos los datos actuales del proveedor

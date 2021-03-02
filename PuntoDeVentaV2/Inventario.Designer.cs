@@ -229,7 +229,7 @@
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.Location = new System.Drawing.Point(726, 36);
+            this.btnBuscar.Location = new System.Drawing.Point(612, 26);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(105, 23);
             this.btnBuscar.TabIndex = 105;
@@ -265,7 +265,7 @@
             this.listaProductos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listaProductos.FormattingEnabled = true;
             this.listaProductos.ItemHeight = 17;
-            this.listaProductos.Location = new System.Drawing.Point(125, 59);
+            this.listaProductos.Location = new System.Drawing.Point(0, 49);
             this.listaProductos.Name = "listaProductos";
             this.listaProductos.Size = new System.Drawing.Size(595, 140);
             this.listaProductos.TabIndex = 12;
@@ -275,10 +275,9 @@
             // 
             // tituloBusqueda
             // 
-            this.tituloBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(277, 8);
+            this.tituloBusqueda.Location = new System.Drawing.Point(-4, 3);
             this.tituloBusqueda.Name = "tituloBusqueda";
             this.tituloBusqueda.Size = new System.Drawing.Size(264, 20);
             this.tituloBusqueda.TabIndex = 10;
@@ -291,7 +290,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(125, 36);
+            this.txtBusqueda.Location = new System.Drawing.Point(0, 26);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(595, 23);
             this.txtBusqueda.TabIndex = 11;
