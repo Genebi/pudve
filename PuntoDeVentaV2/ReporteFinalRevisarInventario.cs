@@ -143,7 +143,7 @@ namespace PuntoDeVentaV2
 
         private void btnGenerarPDF_Click(object sender, EventArgs e)
         {
-            agregarDatosTabla();
+            //agregarDatosTabla();
 
             if (DGVRevisionStock.RowCount > 0)
             {
