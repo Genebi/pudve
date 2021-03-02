@@ -66,7 +66,10 @@
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
+<<<<<<< HEAD
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+=======
+>>>>>>> cambios
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -477,6 +480,17 @@
             this.label4.TabIndex = 122;
             this.label4.Text = " (producto previamente seleccionado)";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label4.Location = new System.Drawing.Point(8, 139);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(220, 16);
+            this.label4.TabIndex = 122;
+            this.label4.Text = " (producto previamente seleccionado)";
+            // 
             // cbCorreoCorteCaja
             // 
             this.cbCorreoCorteCaja.AutoSize = true;
@@ -489,6 +503,7 @@
             this.cbCorreoCorteCaja.Text = "Al hacer corte de caja";
             this.cbCorreoCorteCaja.UseVisualStyleBackColor = true;
             this.cbCorreoCorteCaja.CheckedChanged += new System.EventHandler(this.cbCorreoCorteCaja_CheckedChanged);
+            this.cbCorreoCorteCaja.Click += new System.EventHandler(this.cbCorreoCorteCaja_Click);
             // 
             // cbCorreoEliminarListaProductosVentas
             // 
@@ -576,6 +591,7 @@
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
             // 
+<<<<<<< HEAD
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -600,6 +616,8 @@
             this.groupBox2.TabIndex = 129;
             this.groupBox2.TabStop = false;
             // 
+=======
+>>>>>>> cambios
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

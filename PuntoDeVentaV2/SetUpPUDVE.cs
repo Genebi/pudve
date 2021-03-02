@@ -67,6 +67,13 @@ namespace PuntoDeVentaV2
         bool check22 = false;
         bool check23 = false;
 
+        List<string> usuariosPermitidos = new List<string>()
+        {
+            "HOUSEDEPOTAUTLAN",
+            "HOUSEDEPOTGRULLO",
+            "HOUSEDEPOTREPARTO"
+        };
+
         public SetUpPUDVE()
         {
             InitializeComponent();
@@ -121,8 +128,14 @@ namespace PuntoDeVentaV2
                 opcion22 = permisos[21];
                 opcion23 = permisos[22];
             }
-            this.Focus();
 
+
+            if (!usuariosPermitidos.Contains(FormPrincipal.userNickName))
+            {
+                cbCorreoCorteCaja.Enabled = false;
+            }
+
+            this.Focus();
             SetUpPUDVE form = this;
             Utilidades.EjecutarAtajoKeyPreviewDown(SetUpPUDVE_PreviewKeyDown, form);
         }
@@ -855,13 +868,6 @@ namespace PuntoDeVentaV2
 
         private void cbCorreoCorteCaja_CheckedChanged(object sender, EventArgs e)
         {
-            List<string> usuariosPermitidos = new List<string>()
-            {
-                "HOUSEDEPOTAUTLAN",
-                "HOUSEDEPOTGRULLO",
-                "HOUSEDEPOTREPARTO"
-            };
-
             if (usuariosPermitidos.Contains(FormPrincipal.userNickName))
             {
                 if (opcion23.Equals(0))
@@ -881,12 +887,7 @@ namespace PuntoDeVentaV2
                 }
 
                 cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCorteDeCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-            }
-            else
-            {
-                MessageBox.Show("Estamos trabajando en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            
+            }            
         }
 
         private void SetUpPUDVE_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -917,6 +918,14 @@ namespace PuntoDeVentaV2
         private void checkNoVendidos_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void cbCorreoCorteCaja_Click(object sender, EventArgs e)
+        {
+            if (!usuariosPermitidos.Contains(FormPrincipal.userNickName))
+            {
+                MessageBox.Show("Estamos trabajando en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
