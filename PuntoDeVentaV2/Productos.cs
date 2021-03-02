@@ -242,13 +242,17 @@ namespace PuntoDeVentaV2
                 {
                     var id = Convert.ToInt32(DGVProductos.SelectedRows[e.ColumnIndex].Cells["_IDProducto"].Value);
 
+                    if (productosSeleccionados.ContainsKey(id))
+                    {
+                        productosSeleccionados.Remove(id);
+                    }
+
+                    DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
                     //Contar los productos seleccionados 1 por 1
                     //if (contarProductosSeleccionados.ContainsKey(id))
                     //{
                     //    contarProductosSeleccionados.Remove(id);
                     //}
-
-                    DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
                 }
 
                 mostrarCantidadProductos();
