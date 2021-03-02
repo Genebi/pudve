@@ -728,6 +728,8 @@ namespace PuntoDeVentaV2
 
         private void cargarDatos()
         {
+            DGVInventario.Rows.Clear();
+
             var numRevision = string.Empty;
             var nameUser = string.Empty;
             var fecha = string.Empty;
