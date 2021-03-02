@@ -156,6 +156,9 @@
             this.DGVInventario.RowHeadersVisible = false;
             this.DGVInventario.Size = new System.Drawing.Size(897, 444);
             this.DGVInventario.TabIndex = 0;
+            this.DGVInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellClick);
+            this.DGVInventario.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellMouseEnter);
+            this.DGVInventario.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellMouseLeave);
             // 
             // numRevision
             // 
