@@ -2446,7 +2446,7 @@ namespace PuntoDeVentaV2
                 //headerBox.Checked = false;
                 ponerTrue = false;
             }
-            checkPaginasCompletas.Clear();
+            //checkPaginasCompletas.Clear();
             contarProductosSeleccionados.Clear();
 
             //validarCabeceraCheckBox();
@@ -5080,8 +5080,8 @@ namespace PuntoDeVentaV2
                                 if (checkboxMarcados.ContainsKey(idProducto))
                                 {
                                     row.Cells["CheckProducto"].Value = true;
-                                    CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
-                                    headerBox.Checked = true;
+                                    //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+                                    //headerBox.Checked = true;
                                 }
                                 else
                                 {
