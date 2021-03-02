@@ -247,6 +247,11 @@ namespace PuntoDeVentaV2
                         productosSeleccionados.Remove(id);
                     }
 
+                    if (checkboxMarcados.ContainsKey(id))
+                    {
+                        checkboxMarcados.Remove(id);
+                    }
+
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
                     //Contar los productos seleccionados 1 por 1
                     //if (contarProductosSeleccionados.ContainsKey(id))
@@ -5040,7 +5045,14 @@ namespace PuntoDeVentaV2
             }
 
             actualizar();
-            MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+
+            if (!cbTodos.Checked)
+            {
+                MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+            }
+
+            //MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+
             clickBoton = 0;
         }
 
@@ -5065,7 +5077,7 @@ namespace PuntoDeVentaV2
                                 var tipoProducto = fila["Tipo"].ToString();
                                 var name = fila["Nombre"].ToString();
                                
-                                    checkboxMarcados.Add(id, name);
+                                checkboxMarcados.Add(id, name);
 
                                 if (quitarProductosDeseleccionados.ContainsKey(id))
                                 {

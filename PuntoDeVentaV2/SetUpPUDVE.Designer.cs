@@ -66,10 +66,7 @@
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
-<<<<<<< HEAD
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-=======
->>>>>>> cambios
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -590,10 +587,7 @@
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
             this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
-            // 
-<<<<<<< HEAD
-            // groupBox2
-            // 
+
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
@@ -615,11 +609,7 @@
             this.groupBox2.Size = new System.Drawing.Size(869, 130);
             this.groupBox2.TabIndex = 129;
             this.groupBox2.TabStop = false;
-            // 
-=======
->>>>>>> cambios
-            // SetUpPUDVE
-            // 
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(934, 561);
