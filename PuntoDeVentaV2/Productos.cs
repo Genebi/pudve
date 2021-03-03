@@ -5077,7 +5077,7 @@ namespace PuntoDeVentaV2
                                 var tipoProducto = fila["Tipo"].ToString();
                                 var name = fila["Nombre"].ToString();
                                
-                                checkboxMarcados.Add(id, name);
+                                checkboxMarcados.Add(id, tipoProducto);
 
                                 if (quitarProductosDeseleccionados.ContainsKey(id))
                                 {
