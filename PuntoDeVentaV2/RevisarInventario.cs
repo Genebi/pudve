@@ -879,37 +879,39 @@ namespace PuntoDeVentaV2
                                 var stockFisico = txtCantidadStock.Text;
                                 var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                var diferencia = double.Parse(info[4]) - double.Parse(stockFisico);
-
-                                var datos = new string[]
+                                if (info.Length > 0)
                                 {
+                                    var diferencia = double.Parse(info[4]) - double.Parse(stockFisico);
+
+                                    var datos = new string[]
+                                    {
                             idProducto.ToString(), info[1], info[6], info[7], info[4], stockFisico, numeroRevision,
                             fecha, "0", diferencia.ToString(), FormPrincipal.userID.ToString(), info[5], "0", "1", info[2],
                             nombrePC
-                                };
+                                    };
 
-                                // Guardamos la informacion en la tabla de RevisarInventario
-                                cn.EjecutarConsulta(cs.GuardarRevisarInventario(datos));
+                                    // Guardamos la informacion en la tabla de RevisarInventario
+                                    cn.EjecutarConsulta(cs.GuardarRevisarInventario(datos));
 
-                                // Para envio de correo
-                                var datosConfig = mb.ComprobarConfiguracion();
+                                    // Para envio de correo
+                                    var datosConfig = mb.ComprobarConfiguracion();
 
-                                if (datosConfig.Count > 0)
-                                {
-                                    if (Convert.ToInt16(datosConfig[1]) == 1)
+                                    if (datosConfig.Count > 0)
                                     {
-                                        var configProducto = mb.ComprobarCorreoProducto(idProducto);
-
-                                        if (configProducto.Count > 0)
+                                        if (Convert.ToInt16(datosConfig[1]) == 1)
                                         {
-                                            if (configProducto[1] == 1)
-                                            {
-                                                // Obtenemos los datos del producto para el email
-                                                var datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                                            var configProducto = mb.ComprobarCorreoProducto(idProducto);
 
-                                                if (datosProducto[4] != stockFisico)
+                                            if (configProducto.Count > 0)
+                                            {
+                                                if (configProducto[1] == 1)
                                                 {
-                                                    var html = $@"<li>
+                                                    // Obtenemos los datos del producto para el email
+                                                    var datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+
+                                                    if (datosProducto[4] != stockFisico)
+                                                    {
+                                                        var html = $@"<li>
                                                             <span style='color: red;'>{datosProducto[1]}</span> 
                                                             --- <b>STOCK ANTERIOR:</b> 
                                                             <span style='color: red;'>{datosProducto[4]}</span> 
@@ -917,29 +919,31 @@ namespace PuntoDeVentaV2
                                                             <span style='color: red;'>{stockFisico}</span>
                                                         </li>";
 
-                                                    listaProductos.Add(idProducto, html);
+                                                        listaProductos.Add(idProducto, html);
+                                                    }
                                                 }
                                             }
                                         }
                                     }
-                                }
 
-                                // Actualizar stock del producto
-                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                    // Actualizar stock del producto
+                                    cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
-                                LimpiarCampos();
+                                    LimpiarCampos();
 
-                                if (tipoFiltro == "Normal")
-                                {
-                                    txtBoxBuscarCodigoBarras.Focus();
-                                }
-                                else
-                                {
-                                    buscarCodigoBarras();
-                                    txtCantidadStock.Focus();
-                                    txtCantidadStock.SelectAll();
+                                    if (tipoFiltro == "Normal")
+                                    {
+                                        txtBoxBuscarCodigoBarras.Focus();
+                                    }
+                                    else
+                                    {
+                                        buscarCodigoBarras();
+                                        txtCantidadStock.Focus();
+                                        txtCantidadStock.SelectAll();
+                                    }
                                 }
                             }
+
                         }
                     }
                     else
