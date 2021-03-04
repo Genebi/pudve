@@ -1436,6 +1436,9 @@
     <Content Include="PUDVE\assets\scale.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\assets\scale1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\assets\weighingMachine.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
