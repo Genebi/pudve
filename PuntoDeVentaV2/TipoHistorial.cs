@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
     public partial class TipoHistorial : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
 
         public int tipoRespuesta { get; set; }
 
@@ -67,7 +68,7 @@ namespace PuntoDeVentaV2
 
         private void GenerarReporte()
         {
-            //Consulta para obtener los registros del Historial de ventas del producto
+            //Consulta para obtener los registros del historial de ventas del producto
             MySqlConnection sql_con;
             MySqlCommand sql_cmd;
             MySqlDataReader dr;
@@ -83,18 +84,11 @@ namespace PuntoDeVentaV2
                 sql_con = new MySqlConnection($"datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
 
-
-            var consulta = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio FROM Ventas V 
-                              INNER JOIN ProductosVenta P ON V.ID = P.IDVenta 
-                              WHERE V.IDUsuario = {FormPrincipal.userID} 
-                              AND V.Status = 1 
-                              AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' 
-                              AND P.IDProducto = {idProducto}";
+            var consulta = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = {idProducto}";
 
             sql_con.Open();
             sql_cmd = new MySqlCommand(consulta, sql_con);
             dr = sql_cmd.ExecuteReader();
-
 
             if (dr.HasRows)
             {
@@ -137,20 +131,37 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-
-
                 Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-                Paragraph subTitulo = new Paragraph("REPORTE HISTORIAL VENTA PRODUCTO\nFecha: " + fechaActual.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                Paragraph Usuario = new Paragraph("");
+                Paragraph subTitulo = new Paragraph("");
+
+                string UsuarioActivo = string.Empty;
+
+                using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+                {
+                    if (!dtDataUsr.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drDataUsr in dtDataUsr.Rows)
+                        {
+                            UsuarioActivo = drDataUsr["Usuario"].ToString();
+                        }
+                    }
+                }
+
+                Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+
+                subTitulo = new Paragraph("REPORTE HISTORIAL VENTA PRODUCTO\nFecha: " + fechaActual.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
                 titulo.Alignment = Element.ALIGN_CENTER;
+                Usuario.Alignment = Element.ALIGN_CENTER;
                 subTitulo.Alignment = Element.ALIGN_CENTER;
                 //domicilio.Alignment = Element.ALIGN_CENTER;
                 //domicilio.SetLeading(10, 0);
 
                 /***************************************
-                 ** Tabla con los productos ajustados **
-                 ***************************************/
+		         ** Tabla con los productos ajustados **
+		         ***************************************/
                 float[] anchoColumnas = new float[] { 300f, 80f, 80f, 80f, 80f, 100f };
 
                 PdfPTable tabla = new PdfPTable(6);
@@ -271,6 +282,7 @@ namespace PuntoDeVentaV2
                  ******************************************/
 
                 reporte.Add(titulo);
+                reporte.Add(Usuario);
                 reporte.Add(subTitulo);
                 //reporte.Add(domicilio);
                 reporte.Add(tabla);
