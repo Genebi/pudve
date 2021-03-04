@@ -601,7 +601,15 @@ namespace PuntoDeVentaV2
 
                 if (terminarRev == 0)
                 {
-                    btnTerminar.PerformClick();
+                    if (tipoFiltro != "normmal" && cantidadRegistrosAux != cantidadRegistros)
+                    {
+                        btnTerminar.PerformClick();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron productos \ncon este filtro", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        this.Close();
+                    }
                 }
             }
         }
