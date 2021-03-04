@@ -4703,7 +4703,7 @@ namespace PuntoDeVentaV2
             {
                 btnAnticipos.PerformClick();
             }
-            else if (e.KeyCode == Keys.F2)//Boton Abrir Caja
+            else if (e.KeyCode == Keys.F5)//Boton Abrir Caja
             {
                 btnAbrirCaja.PerformClick();
             }

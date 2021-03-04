@@ -1351,7 +1351,7 @@ namespace PuntoDeVentaV2
                     }
                     else if (retomarVentasCanceladas == 1 && opcion == "VG")
                     {
-                        MessageBox.Show("Para retomar la venta debe ir a la ventana \n\"Nueva Venta F2\">boton ventas guardadas ", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Para retomar la venta debe ir a la ventana \"Nueva Venta (F5)\" \nen el botón \"Ventas Guardadas (ctrol + M)\"", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     retomarVentasCanceladas = 0;
