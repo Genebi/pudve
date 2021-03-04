@@ -106,6 +106,8 @@ namespace PuntoDeVentaV2
                 int anchoLogo = 110;
                 int altoLogo = 60;
 
+                var numRow = 0;
+
                 var fechaActual = DateTime.Now;
                 var rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\reporte_historial_venta_producto.pdf";
 
@@ -162,11 +164,15 @@ namespace PuntoDeVentaV2
                 /***************************************
 		         ** Tabla con los productos ajustados **
 		         ***************************************/
-                float[] anchoColumnas = new float[] { 300f, 80f, 80f, 80f, 80f, 100f };
+                float[] anchoColumnas = new float[] { 30f, 300f, 80f, 80f, 80f, 80f, 100f };
 
-                PdfPTable tabla = new PdfPTable(6);
+                PdfPTable tabla = new PdfPTable(7);
                 tabla.WidthPercentage = 100;
                 tabla.SetWidths(anchoColumnas);
+
+                PdfPCell colNumProducto = new PdfPCell(new Phrase("No:", fuenteNegrita));
+                colNumProducto.BorderWidth = 1;
+                colNumProducto.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colProducto = new PdfPCell(new Phrase("Producto / Servicio / Combo", fuenteNegrita));
                 colProducto.BorderWidth = 1;
@@ -192,6 +198,7 @@ namespace PuntoDeVentaV2
                 colFechaOperacion.BorderWidth = 1;
                 colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                tabla.AddCell(colNumProducto);
                 tabla.AddCell(colProducto);
                 tabla.AddCell(colCantidad);
                 tabla.AddCell(colPrecio);
@@ -216,7 +223,13 @@ namespace PuntoDeVentaV2
                     totalCantidad += float.Parse(cantidad);
                     totalPrecio += precio;
 
+                    numRow++;
+
                     //=========================================================================================
+                    PdfPCell colNumProductoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                    colNumProductoTmp.BorderWidth = 1;
+                    colNumProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
                     PdfPCell colProductoTmp = new PdfPCell(new Phrase(nombre, fuenteNormal));
                     colProductoTmp.BorderWidth = 1;
                     colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -241,6 +254,7 @@ namespace PuntoDeVentaV2
                     colFechaOperacionTmp.BorderWidth = 1;
                     colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                    tabla.AddCell(colNumProductoTmp);
                     tabla.AddCell(colProductoTmp);
                     tabla.AddCell(colCantidadTmp);
                     tabla.AddCell(colPrecioTmp);
@@ -251,6 +265,7 @@ namespace PuntoDeVentaV2
 
                 PdfPCell colAuxiliar1 = new PdfPCell();
                 colAuxiliar1.BorderWidth = 0;
+                colAuxiliar1.Colspan = 2;
                 colAuxiliar1.BackgroundColor = new BaseColor(Color.Red);
                 colAuxiliar1.Padding = 3;
 
