@@ -496,6 +496,7 @@ namespace PuntoDeVentaV2
                 var html = string.Empty;
 
                 var consulta = "INSERT IGNORE INTO Productos (ID, Stock) VALUES";
+                var segundaConsulta = "INSERT IGNORE INTO RevisarInventario (ID, StockFisico) VALUES";
                 var valores = string.Empty;
 
                 if (!string.IsNullOrWhiteSpace(stock))
@@ -545,7 +546,10 @@ namespace PuntoDeVentaV2
 
                         consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Stock = VALUES(Stock);";
 
+                        segundaConsulta += valores + "ON DUPLICATE KEY UPDATE ID = VALUES(ID), StockFisico = VALUES(StockFisico);";
+
                         cn.EjecutarConsulta(consulta);
+                        cn.EjecutarConsulta(segundaConsulta);
                     }
 
                     if (!string.IsNullOrWhiteSpace(html))
