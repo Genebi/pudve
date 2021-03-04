@@ -2311,7 +2311,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            if (e.KeyCode == Keys.F2)
+            if (e.KeyCode == Keys.F5)
             {
                 btnNuevaVenta.PerformClick();
             }
