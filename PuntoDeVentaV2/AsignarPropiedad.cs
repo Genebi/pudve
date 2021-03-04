@@ -534,9 +534,9 @@ namespace PuntoDeVentaV2
 
                             valores += $"({producto.Key}, {stock}),";
 
-                            datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
+                            //datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
 
-                            cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+                            //cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
                         }
                     }
 
