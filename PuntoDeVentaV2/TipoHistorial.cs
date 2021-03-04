@@ -150,7 +150,7 @@ namespace PuntoDeVentaV2
 
                 Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
 
-                subTitulo = new Paragraph("REPORTE HISTORIAL VENTA PRODUCTO\nFecha: " + fechaActual.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                subTitulo = new Paragraph("REPORTE HISTORIAL VENTA PRODUCTO\nSECCION DE PRODUCTOS\n\nFecha: " + fechaActual.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
                 titulo.Alignment = Element.ALIGN_CENTER;
