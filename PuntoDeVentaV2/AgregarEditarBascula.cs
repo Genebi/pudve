@@ -130,6 +130,19 @@ namespace PuntoDeVentaV2
         #endregion
 
         #region Campos ComboBox y TextBox
+        private void getTodasLasBasculas()
+        {
+            DGVListaBasculas.Rows.Clear();
+
+            using (DataTable dtGetAllBasculas = cn.CargarDatos(cs.getTodasLasBasculas()))
+            {
+                if (!dtGetAllBasculas.Rows.Count.Equals(0))
+                {
+                    DGVListaBasculas.DataSource = dtGetAllBasculas;
+                }
+            }
+        }
+
         private void getBasculasRegistradas()
         {
             //cbBasculaRegistrada.Items.Clear();
@@ -327,6 +340,7 @@ namespace PuntoDeVentaV2
             getParidadData();           //Rango ParidadData
             getHandshake();             //Rango Handshake
             getStopBits();              //Rango StopBits
+            getTodasLasBasculas();      //LLenar listado de basculas registradas
         }
     }
 }

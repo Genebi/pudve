@@ -1500,5 +1500,12 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string getTodasLasBasculas()
+        {
+            var consulta = $"SELECT nombreBascula FROM basculas WHERE IdUsuario = '{FormPrincipal.userID}' ORDER BY nombreBascula ASC";
+
+            return consulta;
+        }
     }
 }

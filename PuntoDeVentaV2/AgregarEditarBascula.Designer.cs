@@ -51,9 +51,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DGVListaBasculas = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVListaBasculas)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -260,7 +260,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.DGVListaBasculas);
             this.groupBox1.Location = new System.Drawing.Point(761, 28);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(301, 269);
@@ -268,13 +268,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Basculas Registradas ";
             // 
-            // dataGridView1
+            // DGVListaBasculas
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(19, 24);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(268, 231);
-            this.dataGridView1.TabIndex = 0;
+            this.DGVListaBasculas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVListaBasculas.Location = new System.Drawing.Point(19, 24);
+            this.DGVListaBasculas.Name = "DGVListaBasculas";
+            this.DGVListaBasculas.Size = new System.Drawing.Size(268, 231);
+            this.DGVListaBasculas.TabIndex = 0;
             // 
             // AgregarEditarBascula
             // 
@@ -313,7 +313,7 @@
             this.Text = "Agregar o editar basculas en el sistema";
             this.Load += new System.EventHandler(this.AgregarEditarBascula_Load);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVListaBasculas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,6 +344,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DGVListaBasculas;
     }
 }
