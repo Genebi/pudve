@@ -746,6 +746,11 @@ namespace PuntoDeVentaV2
                     row.Cells["Descuento"].Value = datosProducto[14];
                     row.Cells["TipoDescuento"].Value = "0";
                 }
+                else if (datosProducto.Length.Equals(19))
+                {
+                    row.Cells["Descuento"].Value = datosProducto[18];
+                    row.Cells["TipoDescuento"].Value = "0";
+                }
                 else
                 {
                     row.Cells["Descuento"].Value = "0.00";
