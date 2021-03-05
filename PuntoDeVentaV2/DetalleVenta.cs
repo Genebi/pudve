@@ -40,12 +40,15 @@ namespace PuntoDeVentaV2
                 {
                     var infoCliente = mb.ObtenerDatosCliente(idClienteTmp, FormPrincipal.userID);
 
-                    lbCliente.Text = infoCliente[0];
-                    lbEliminarCliente.Visible = true;
+                    if (!infoCliente.Count().Equals(0))
+                    {
+                        lbCliente.Text = infoCliente[0];
+                        lbEliminarCliente.Visible = true;
 
-                    DetalleVenta.idCliente = idClienteTmp;
-                    DetalleVenta.cliente = infoCliente[0];
-                    idCliente = string.Empty;
+                        DetalleVenta.idCliente = idClienteTmp;
+                        DetalleVenta.cliente = infoCliente[0];
+                        idCliente = string.Empty;
+                    }
                 }
             }
         }
