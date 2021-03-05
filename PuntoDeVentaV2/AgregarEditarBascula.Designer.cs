@@ -270,9 +270,11 @@
             // 
             // DGVListaBasculas
             // 
+            this.DGVListaBasculas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVListaBasculas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVListaBasculas.Location = new System.Drawing.Point(19, 24);
             this.DGVListaBasculas.Name = "DGVListaBasculas";
+            this.DGVListaBasculas.RowHeadersVisible = false;
             this.DGVListaBasculas.Size = new System.Drawing.Size(268, 231);
             this.DGVListaBasculas.TabIndex = 0;
             // 

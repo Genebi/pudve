@@ -132,6 +132,8 @@ namespace PuntoDeVentaV2
         #region Campos ComboBox y TextBox
         private void getTodasLasBasculas()
         {
+            string nombreColumna = "Nombre de Bascula";
+
             DGVListaBasculas.Rows.Clear();
 
             using (DataTable dtGetAllBasculas = cn.CargarDatos(cs.getTodasLasBasculas()))
@@ -141,6 +143,8 @@ namespace PuntoDeVentaV2
                     DGVListaBasculas.DataSource = dtGetAllBasculas;
                 }
             }
+
+            DGVListaBasculas.Columns[0].HeaderText = nombreColumna;
         }
 
         private void getBasculasRegistradas()
