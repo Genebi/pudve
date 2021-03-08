@@ -173,7 +173,7 @@ namespace PuntoDeVentaV2
         {
             var servidor = Properties.Settings.Default.Hosting;
 
-            vs.printProductVersion();
+            //vs.printProductVersion();
 
             if (!VerificarServidor())
             {

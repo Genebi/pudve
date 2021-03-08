@@ -2205,7 +2205,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (texto.Length <= 4)
                 {
-                    MessageBox.Show("Ingrese minimo 5 numeros","Mensaje de Sistema",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Ingrese minimo 5 numeros\npara agregar un código de barra extra", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -6205,7 +6205,7 @@ namespace PuntoDeVentaV2
             }
 
             // creamos 7 filas en el TableLayoutPanel
-            for (int i = 0; i <= 6; i++)
+            for (int i = 0; i <= 8; i++)
             {
                 tLPProducto.RowCount++;
                 tLPProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
@@ -6382,6 +6382,17 @@ namespace PuntoDeVentaV2
 
             #endregion End Row 6
 
+            #region Begin Row 7
+            // Panel para Generar Código de Barra Extra
+            panelContenedor.Visible = true;
+            panelContenedor.Anchor = AnchorStyles.Left;
+            panelContenedor.TabIndex = 10;
+            panelContenedor.TabStop = true;
+
+            tLPProducto.Controls.Add(panelContenedor, 2, 6);
+            tLPProducto.SetColumnSpan(panelContenedor, 3);
+            tLPProducto.SetRowSpan(panelContenedor, 3);
+            #endregion End Row 7
 
             // Celda de imagen del TableLayoutPanel
             // Imagen

@@ -709,7 +709,7 @@
             this.PDetalle.Location = new System.Drawing.Point(2, 2);
             this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
-            this.PDetalle.Size = new System.Drawing.Size(838, 234);
+            this.PDetalle.Size = new System.Drawing.Size(838, 295);
             this.PDetalle.TabIndex = 2;
             // 
             // lbClaveInterna
@@ -806,7 +806,7 @@
             this.tLPProducto.Name = "tLPProducto";
             this.tLPProducto.RowCount = 1;
             this.tLPProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPProducto.Size = new System.Drawing.Size(458, 195);
+            this.tLPProducto.Size = new System.Drawing.Size(458, 290);
             this.tLPProducto.TabIndex = 23;
             this.tLPProducto.Visible = false;
             this.tLPProducto.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
@@ -859,7 +859,7 @@
             this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPType.Location = new System.Drawing.Point(0, 0);
             this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(870, 29);
+            this.fLPType.Size = new System.Drawing.Size(853, 29);
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -869,7 +869,7 @@
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(870, 66);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(853, 66);
             this.fLPDetalleProducto.TabIndex = 36;
             // 
             // fLPContenidoProducto
@@ -879,7 +879,7 @@
             this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 145);
             this.fLPContenidoProducto.Name = "fLPContenidoProducto";
-            this.fLPContenidoProducto.Size = new System.Drawing.Size(870, 80);
+            this.fLPContenidoProducto.Size = new System.Drawing.Size(853, 80);
             this.fLPContenidoProducto.TabIndex = 37;
             // 
             // fLPDetalle
@@ -889,7 +889,7 @@
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 225);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(870, 250);
+            this.fLPDetalle.Size = new System.Drawing.Size(853, 300);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -897,9 +897,9 @@
             this.fLPAccion.Controls.Add(this.PAccion);
             this.fLPAccion.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPAccion.Location = new System.Drawing.Point(0, 475);
+            this.fLPAccion.Location = new System.Drawing.Point(0, 525);
             this.fLPAccion.Name = "fLPAccion";
-            this.fLPAccion.Size = new System.Drawing.Size(870, 120);
+            this.fLPAccion.Size = new System.Drawing.Size(853, 120);
             this.fLPAccion.TabIndex = 39;
             // 
             // fLPDetallesProducto
@@ -908,7 +908,7 @@
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 95);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(870, 50);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(853, 50);
             this.fLPDetallesProducto.TabIndex = 31;
             // 
             // flowLayoutPanel3
