@@ -315,7 +315,7 @@ namespace PuntoDeVentaV2
 
                 respuesta = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Se comento el mensaje de exception ya que el usuario no sabe que se le enviara correo
                 // y que no aparezca el messagebox
