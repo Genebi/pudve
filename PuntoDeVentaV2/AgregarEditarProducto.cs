@@ -3454,20 +3454,20 @@ namespace PuntoDeVentaV2
                                     }
 
                                     #region Inicio Sección Código de Barras Extras
-                                    // recorrido para FlowLayoutPanel para ver cuantos TextBox
-                                    foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
-                                    {
-                                        // hacemos un objeto para ver que tipo control es
-                                        foreach (Control item in panel.Controls)
-                                        {
-                                            // ver si el control es TextBox
-                                            if (item is TextBox)
-                                            {
-                                                var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
-                                                codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
-                                            }
-                                        }
-                                    }
+                                    //// recorrido para FlowLayoutPanel para ver cuantos TextBox
+                                    //foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                                    //{
+                                    //    // hacemos un objeto para ver que tipo control es
+                                    //    foreach (Control item in panel.Controls)
+                                    //    {
+                                    //        // ver si el control es TextBox
+                                    //        if (item is TextBox)
+                                    //        {
+                                    //            var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
+                                    //            codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
+                                    //        }
+                                    //    }
+                                    //}
                                     // verificamos si el List esta con algun registro 
                                     if (codigosBarrras != null || codigosBarrras.Count != 0)
                                     {
