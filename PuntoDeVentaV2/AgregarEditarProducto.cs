@@ -6855,7 +6855,15 @@ namespace PuntoDeVentaV2
             //lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
 
             tLPServicio.Controls.Add(lblCantPaqServ, 0, 4);       // Clave Interna Label
-            
+
+            panelContenedor.Visible = true;
+            panelContenedor.TabIndex = 6;
+            panelContenedor.TabStop = true;
+
+            tLPServicio.Controls.Add(panelContenedor, 2, 4);      // Código de Barras TextBox
+            tLPServicio.SetColumnSpan(panelContenedor, 2);
+            tLPServicio.SetRowSpan(panelContenedor, 2);
+
             #endregion End Row 5
 
             // Sexta Fila del TableLayoutPanel
@@ -6869,17 +6877,17 @@ namespace PuntoDeVentaV2
             txtCantPaqServ.TabStop = true;
             
             tLPServicio.Controls.Add(txtCantPaqServ, 0, 5);       // Clave Interna TextBox
-
+            
             #endregion End Row 6
 
-                        
+
             // Cuarta Fila del TableLayoutPanel
             #region Begin Row 4
 
             // Panel para Imagen del Servicio
             PImagen.Visible = true;
             PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
-            PImagen.TabIndex = 8;
+            PImagen.TabIndex = 7;
             PImagen.TabStop = true;
 
             tLPServicio.Controls.Add(PImagen, 4, 0);              // Imagen del Producto Panel
@@ -6891,7 +6899,7 @@ namespace PuntoDeVentaV2
             // Button para Relacionar Producto para Servicio
             button1.Visible = true;
             //button1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            button1.TabIndex = 6;
+            button1.TabIndex = 8;
             button1.TabStop = true;
             // Panel para Generar Códigos de Barra Extra
             /*panelContenedor.Visible = true;
