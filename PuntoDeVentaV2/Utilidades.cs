@@ -319,7 +319,7 @@ namespace PuntoDeVentaV2
             {
                 // Se comento el mensaje de exception ya que el usuario no sabe que se le enviara correo
                 // y que no aparezca el messagebox
-                //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return respuesta;
