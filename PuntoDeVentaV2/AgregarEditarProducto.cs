@@ -6657,6 +6657,14 @@ namespace PuntoDeVentaV2
             
             tLPCombo.Controls.Add(lblCantPaqServ, 0, 4);       // Relacionar con Combo/Servicio Label
 
+            panelContenedor.Visible = true;
+            //panelContenedor.TabIndex = 8;
+            panelContenedor.TabStop = true;
+
+            tLPCombo.Controls.Add(panelContenedor, 2, 4);      // Contenedor de Código Barras extra Panel
+            tLPCombo.SetColumnSpan(panelContenedor, 2);
+            tLPCombo.SetRowSpan(panelContenedor, 2);
+
             #endregion End Row 3
 
             // Sexta Fila del TableLayoutPanel
