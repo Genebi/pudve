@@ -2277,6 +2277,10 @@ namespace PuntoDeVentaV2
                 {
                     GenerarTextBox();
                 }
+                else if (texto.Length <= 4)
+                {
+                    MessageBox.Show("Ingrese minimo 5 numeros\npara agregar un código de barra extra", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
