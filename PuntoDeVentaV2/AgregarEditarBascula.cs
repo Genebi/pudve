@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
@@ -130,21 +132,27 @@ namespace PuntoDeVentaV2
         #endregion
 
         #region Campos ComboBox y TextBox
+        private void buscarBascula()
+        {
+            DGVListaBasculas.DataSource = PopulateDataGridViewWithParameter();
+        }
+
         private void getTodasLasBasculas()
         {
-            string nombreColumna = "Nombre de Bascula";
+            //string nombreColumna = "Nombre de Bascula";
 
-            DGVListaBasculas.Rows.Clear();
+            //DGVListaBasculas.Rows.Clear();
 
-            using (DataTable dtGetAllBasculas = cn.CargarDatos(cs.getTodasLasBasculas()))
-            {
-                if (!dtGetAllBasculas.Rows.Count.Equals(0))
-                {
-                    DGVListaBasculas.DataSource = dtGetAllBasculas;
-                }
-            }
+            //using (DataTable dtGetAllBasculas = cn.CargarDatos(cs.getTodasLasBasculas()))
+            //{
+            //    if (!dtGetAllBasculas.Rows.Count.Equals(0))
+            //    {
+            //        DGVListaBasculas.DataSource = dtGetAllBasculas;
+            //    }
+            //}
 
-            DGVListaBasculas.Columns[0].HeaderText = nombreColumna;
+            //DGVListaBasculas.Columns[0].HeaderText = nombreColumna;
+            DGVListaBasculas.DataSource = PopulateDataGridView();
         }
 
         private void getBasculasRegistradas()
@@ -332,6 +340,78 @@ namespace PuntoDeVentaV2
         public AgregarEditarBascula()
         {
             InitializeComponent();
+        }
+
+        private DataTable PopulateDataGridView()
+        {
+            string sql_con = string.Empty;
+
+            string query = cs.getTodasLasBasculas();
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                sql_con = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+            }
+            else
+            {
+                sql_con = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+            }
+
+            using (MySqlConnection con = new MySqlConnection(sql_con))
+            {
+                using (MySqlCommand cmd = new MySqlCommand(query, con)) 
+                {
+                    using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        private DataTable PopulateDataGridViewWithParameter()
+        {
+            string sql_con = string.Empty;
+            string usuario = string.Empty;
+
+            usuario = FormPrincipal.userID.ToString();
+            //string query = "SELECT nombreBascula FROM basculas WHERE nombreBascula LIKE '% + @nameBascula + %' AND IdUsuario = '" + usuario + "'";
+            string query = "SELECT nombreBascula FROM basculas WHERE nombreBascula LIKE '%@nameBascula%' AND IdUsuario = '" + usuario + "'";
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                sql_con = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+            }
+            else
+            {
+                sql_con = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+            }
+
+            using (MySqlConnection con = new MySqlConnection(sql_con))
+            {
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@nameBascula", txtBuscarBascula.Text.Trim());
+                    using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        private void btnBuscarBascula_Click(object sender, EventArgs e)
+        {
+            buscarBascula();
+        }
+
+        private void txtBuscarBascula_KeyUp(object sender, KeyEventArgs e)
+        {
+            buscarBascula();
         }
 
         private void AgregarEditarBascula_Load(object sender, EventArgs e)

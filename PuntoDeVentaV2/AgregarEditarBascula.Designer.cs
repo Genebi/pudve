@@ -52,6 +52,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.DGVListaBasculas = new System.Windows.Forms.DataGridView();
+            this.txtBuscarBascula = new System.Windows.Forms.TextBox();
+            this.btnBuscarBascula = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaBasculas)).BeginInit();
             this.SuspendLayout();
@@ -260,6 +262,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnBuscarBascula);
+            this.groupBox1.Controls.Add(this.txtBuscarBascula);
             this.groupBox1.Controls.Add(this.DGVListaBasculas);
             this.groupBox1.Location = new System.Drawing.Point(761, 28);
             this.groupBox1.Name = "groupBox1";
@@ -270,13 +274,36 @@
             // 
             // DGVListaBasculas
             // 
+            this.DGVListaBasculas.AllowUserToAddRows = false;
+            this.DGVListaBasculas.AllowUserToDeleteRows = false;
             this.DGVListaBasculas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVListaBasculas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVListaBasculas.Location = new System.Drawing.Point(19, 24);
             this.DGVListaBasculas.Name = "DGVListaBasculas";
+            this.DGVListaBasculas.ReadOnly = true;
             this.DGVListaBasculas.RowHeadersVisible = false;
-            this.DGVListaBasculas.Size = new System.Drawing.Size(268, 231);
+            this.DGVListaBasculas.Size = new System.Drawing.Size(268, 177);
             this.DGVListaBasculas.TabIndex = 0;
+            // 
+            // txtBuscarBascula
+            // 
+            this.txtBuscarBascula.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtBuscarBascula.Font = new System.Drawing.Font("Century Schoolbook", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscarBascula.Location = new System.Drawing.Point(19, 218);
+            this.txtBuscarBascula.Name = "txtBuscarBascula";
+            this.txtBuscarBascula.Size = new System.Drawing.Size(227, 30);
+            this.txtBuscarBascula.TabIndex = 1;
+            this.txtBuscarBascula.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscarBascula_KeyUp);
+            // 
+            // btnBuscarBascula
+            // 
+            this.btnBuscarBascula.Image = global::PuntoDeVentaV2.Properties.Resources.search;
+            this.btnBuscarBascula.Location = new System.Drawing.Point(252, 218);
+            this.btnBuscarBascula.Name = "btnBuscarBascula";
+            this.btnBuscarBascula.Size = new System.Drawing.Size(35, 30);
+            this.btnBuscarBascula.TabIndex = 2;
+            this.btnBuscarBascula.UseVisualStyleBackColor = true;
+            this.btnBuscarBascula.Click += new System.EventHandler(this.btnBuscarBascula_Click);
             // 
             // AgregarEditarBascula
             // 
@@ -315,6 +342,7 @@
             this.Text = "Agregar o editar basculas en el sistema";
             this.Load += new System.EventHandler(this.AgregarEditarBascula_Load);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaBasculas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -347,5 +375,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView DGVListaBasculas;
+        private System.Windows.Forms.Button btnBuscarBascula;
+        private System.Windows.Forms.TextBox txtBuscarBascula;
     }
 }

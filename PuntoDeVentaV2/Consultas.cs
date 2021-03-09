@@ -1507,5 +1507,12 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string getBasculaParametro()
+        {
+            var consulta = $"SELECT nombreBascula FROM basculas WHERE IdUsuario = '{FormPrincipal.userID}' AND nombreBascula LIKE '%' + @nameBascula + '%' OR @nameBascula = ''";
+
+            return consulta;
+        }
     }
 }
