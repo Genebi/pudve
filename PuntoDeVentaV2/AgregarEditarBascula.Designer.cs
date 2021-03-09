@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtNameBascula = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbPuerto = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,9 +51,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.DGVListaBasculas = new System.Windows.Forms.DataGridView();
-            this.txtBuscarBascula = new System.Windows.Forms.TextBox();
             this.btnBuscarBascula = new System.Windows.Forms.Button();
+            this.txtBuscarBascula = new System.Windows.Forms.TextBox();
+            this.DGVListaBasculas = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaBasculas)).BeginInit();
             this.SuspendLayout();
@@ -67,12 +67,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Marca y Modelos de Bascula:";
             // 
-            // textBox1
+            // txtNameBascula
             // 
-            this.textBox1.Location = new System.Drawing.Point(197, 28);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(539, 20);
-            this.textBox1.TabIndex = 1;
+            this.txtNameBascula.Location = new System.Drawing.Point(197, 28);
+            this.txtNameBascula.Name = "txtNameBascula";
+            this.txtNameBascula.Size = new System.Drawing.Size(539, 20);
+            this.txtNameBascula.TabIndex = 1;
             // 
             // label2
             // 
@@ -272,6 +272,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Basculas Registradas ";
             // 
+            // btnBuscarBascula
+            // 
+            this.btnBuscarBascula.Image = global::PuntoDeVentaV2.Properties.Resources.search;
+            this.btnBuscarBascula.Location = new System.Drawing.Point(252, 218);
+            this.btnBuscarBascula.Name = "btnBuscarBascula";
+            this.btnBuscarBascula.Size = new System.Drawing.Size(35, 30);
+            this.btnBuscarBascula.TabIndex = 2;
+            this.btnBuscarBascula.UseVisualStyleBackColor = true;
+            this.btnBuscarBascula.Click += new System.EventHandler(this.btnBuscarBascula_Click);
+            // 
+            // txtBuscarBascula
+            // 
+            this.txtBuscarBascula.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtBuscarBascula.Font = new System.Drawing.Font("Century Schoolbook", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscarBascula.Location = new System.Drawing.Point(19, 218);
+            this.txtBuscarBascula.Name = "txtBuscarBascula";
+            this.txtBuscarBascula.Size = new System.Drawing.Size(227, 30);
+            this.txtBuscarBascula.TabIndex = 1;
+            this.txtBuscarBascula.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscarBascula_KeyUp);
+            // 
             // DGVListaBasculas
             // 
             this.DGVListaBasculas.AllowUserToAddRows = false;
@@ -284,26 +304,8 @@
             this.DGVListaBasculas.RowHeadersVisible = false;
             this.DGVListaBasculas.Size = new System.Drawing.Size(268, 177);
             this.DGVListaBasculas.TabIndex = 0;
-            // 
-            // txtBuscarBascula
-            // 
-            this.txtBuscarBascula.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBuscarBascula.Font = new System.Drawing.Font("Century Schoolbook", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscarBascula.Location = new System.Drawing.Point(19, 218);
-            this.txtBuscarBascula.Name = "txtBuscarBascula";
-            this.txtBuscarBascula.Size = new System.Drawing.Size(227, 30);
-            this.txtBuscarBascula.TabIndex = 1;
-            this.txtBuscarBascula.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscarBascula_KeyUp);
-            // 
-            // btnBuscarBascula
-            // 
-            this.btnBuscarBascula.Image = global::PuntoDeVentaV2.Properties.Resources.search;
-            this.btnBuscarBascula.Location = new System.Drawing.Point(252, 218);
-            this.btnBuscarBascula.Name = "btnBuscarBascula";
-            this.btnBuscarBascula.Size = new System.Drawing.Size(35, 30);
-            this.btnBuscarBascula.TabIndex = 2;
-            this.btnBuscarBascula.UseVisualStyleBackColor = true;
-            this.btnBuscarBascula.Click += new System.EventHandler(this.btnBuscarBascula_Click);
+            this.DGVListaBasculas.Click += new System.EventHandler(this.DGVListaBasculas_Click);
+            this.DGVListaBasculas.DoubleClick += new System.EventHandler(this.DGVListaBasculas_DoubleClick);
             // 
             // AgregarEditarBascula
             // 
@@ -331,7 +333,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cbPuerto);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtNameBascula);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -352,7 +354,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtNameBascula;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbPuerto;
         private System.Windows.Forms.Label label3;

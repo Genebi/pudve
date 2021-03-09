@@ -377,8 +377,7 @@ namespace PuntoDeVentaV2
             string usuario = string.Empty;
 
             usuario = FormPrincipal.userID.ToString();
-            //string query = "SELECT nombreBascula FROM basculas WHERE nombreBascula LIKE '% + @nameBascula + %' AND IdUsuario = '" + usuario + "'";
-            string query = "SELECT nombreBascula FROM basculas WHERE nombreBascula LIKE '%@nameBascula%' AND IdUsuario = '" + usuario + "'";
+            string query = $"SELECT nombreBascula FROM basculas WHERE nombreBascula LIKE '%{txtBuscarBascula.Text.Trim()}%' AND idUsuario = '" + usuario + "'";
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
@@ -393,12 +392,33 @@ namespace PuntoDeVentaV2
             {
                 using (MySqlCommand cmd = new MySqlCommand(query, con))
                 {
-                    cmd.Parameters.AddWithValue("@nameBascula", txtBuscarBascula.Text.Trim());
                     using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
                     {
                         DataTable dt = new DataTable();
                         sda.Fill(dt);
                         return dt;
+                    }
+                }
+            }
+        }
+
+
+        private void datosBascula(string valorCelda)
+        {
+            using (DataTable dtDataBascula = cn.CargarDatos(cs.getDatosBasculaRegistrada(valorCelda)))
+            {
+                if (!dtDataBascula.Rows.Count.Equals(0))
+                {
+                    foreach(DataRow drDataBascula in dtDataBascula.Rows)
+                    {
+                        txtNameBascula.Text = drDataBascula["nombreBascula"].ToString();
+                        cbPuerto.Text = drDataBascula["puerto"].ToString();
+                        cbBaudRate.Text = drDataBascula["baudRate"].ToString();
+                        cbDatos.Text = drDataBascula["dataBits"].ToString();
+                        cbHandshake.Text = drDataBascula["handshake"].ToString();
+                        cbParidad.Text = drDataBascula["parity"].ToString();
+                        cbStopBits.Text = drDataBascula["stopBits"].ToString();
+                        txtSendData.Text = drDataBascula["sendData"].ToString();
                     }
                 }
             }
@@ -412,6 +432,22 @@ namespace PuntoDeVentaV2
         private void txtBuscarBascula_KeyUp(object sender, KeyEventArgs e)
         {
             buscarBascula();
+        }
+
+        private void DGVListaBasculas_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow GridRow = DGVListaBasculas.CurrentRow;
+            string valorCelda = Convert.ToString(GridRow.Cells[0].Value);
+            //MessageBox.Show("Valor: " + valorCelda);
+            datosBascula(valorCelda);
+        }
+        
+        private void DGVListaBasculas_DoubleClick(object sender, EventArgs e)
+        {
+            DataGridViewRow GridRow = DGVListaBasculas.CurrentRow;
+            string valorCelda = Convert.ToString(GridRow.Cells[0].Value);
+            //MessageBox.Show("Valor: " + valorCelda);
+            datosBascula(valorCelda);
         }
 
         private void AgregarEditarBascula_Load(object sender, EventArgs e)
