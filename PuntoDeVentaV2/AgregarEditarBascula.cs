@@ -20,7 +20,9 @@ namespace PuntoDeVentaV2
 
         string firtsItemBasculasRegistradas = "REGISTRADAS...";
 
-        bool isOpen = false, isExists = false;
+        bool isOpen = false, 
+             isExists = false,
+             saveEdit = false;
 
         #region DISPOSITIVO-LECTOR BASCULA
         public SerialPort PuertoSerieBascula;
@@ -420,6 +422,7 @@ namespace PuntoDeVentaV2
                         cbStopBits.Text = drDataBascula["stopBits"].ToString();
                         txtSendData.Text = drDataBascula["sendData"].ToString();
                     }
+                    saveEdit = true;
                 }
             }
         }
@@ -438,7 +441,6 @@ namespace PuntoDeVentaV2
         {
             DataGridViewRow GridRow = DGVListaBasculas.CurrentRow;
             string valorCelda = Convert.ToString(GridRow.Cells[0].Value);
-            //MessageBox.Show("Valor: " + valorCelda);
             datosBascula(valorCelda);
         }
         
@@ -446,7 +448,6 @@ namespace PuntoDeVentaV2
         {
             DataGridViewRow GridRow = DGVListaBasculas.CurrentRow;
             string valorCelda = Convert.ToString(GridRow.Cells[0].Value);
-            //MessageBox.Show("Valor: " + valorCelda);
             datosBascula(valorCelda);
         }
 
@@ -461,6 +462,19 @@ namespace PuntoDeVentaV2
             getHandshake();             //Rango Handshake
             getStopBits();              //Rango StopBits
             getTodasLasBasculas();      //LLenar listado de basculas registradas
+
+
+
+            if (!saveEdit)
+            {
+                btnAddBascula.Enabled = true;
+                btnSaveEdit.Text = "Guardar";
+            }
+            else
+            {
+                btnAddBascula.Enabled = false;
+                btnSaveEdit.Text = "Guardar";
+            }
         }
     }
 }

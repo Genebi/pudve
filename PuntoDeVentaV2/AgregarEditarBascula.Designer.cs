@@ -46,10 +46,10 @@
             this.txtSendData = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.lblPeso = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnAddBascula = new System.Windows.Forms.Button();
+            this.btnSaveEdit = new System.Windows.Forms.Button();
+            this.btnTakePeso = new System.Windows.Forms.Button();
+            this.btnPredeterminada = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnBuscarBascula = new System.Windows.Forms.Button();
             this.txtBuscarBascula = new System.Windows.Forms.TextBox();
@@ -212,53 +212,53 @@
             this.lblPeso.Text = "0";
             this.lblPeso.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button1
+            // btnAddBascula
             // 
-            this.button1.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square_o1;
-            this.button1.Location = new System.Drawing.Point(26, 228);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(162, 69);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Agregar";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAddBascula.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddBascula.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square_o1;
+            this.btnAddBascula.Location = new System.Drawing.Point(26, 228);
+            this.btnAddBascula.Name = "btnAddBascula";
+            this.btnAddBascula.Size = new System.Drawing.Size(162, 69);
+            this.btnAddBascula.TabIndex = 18;
+            this.btnAddBascula.Text = "Agregar";
+            this.btnAddBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnAddBascula.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnSaveEdit
             // 
-            this.button2.Font = new System.Drawing.Font("Century", 12F);
-            this.button2.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
-            this.button2.Location = new System.Drawing.Point(211, 229);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(162, 69);
-            this.button2.TabIndex = 19;
-            this.button2.Text = "Guardar";
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnSaveEdit.Font = new System.Drawing.Font("Century", 12F);
+            this.btnSaveEdit.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
+            this.btnSaveEdit.Location = new System.Drawing.Point(211, 229);
+            this.btnSaveEdit.Name = "btnSaveEdit";
+            this.btnSaveEdit.Size = new System.Drawing.Size(162, 69);
+            this.btnSaveEdit.TabIndex = 19;
+            this.btnSaveEdit.Text = "Guardar";
+            this.btnSaveEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSaveEdit.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnTakePeso
             // 
-            this.button3.Font = new System.Drawing.Font("Century", 12F);
-            this.button3.Image = global::PuntoDeVentaV2.Properties.Resources.scale1;
-            this.button3.Location = new System.Drawing.Point(394, 228);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(162, 69);
-            this.button3.TabIndex = 20;
-            this.button3.Text = "Tomar Peso";
-            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnTakePeso.Font = new System.Drawing.Font("Century", 12F);
+            this.btnTakePeso.Image = global::PuntoDeVentaV2.Properties.Resources.scale1;
+            this.btnTakePeso.Location = new System.Drawing.Point(394, 228);
+            this.btnTakePeso.Name = "btnTakePeso";
+            this.btnTakePeso.Size = new System.Drawing.Size(162, 69);
+            this.btnTakePeso.TabIndex = 20;
+            this.btnTakePeso.Text = "Tomar Peso";
+            this.btnTakePeso.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTakePeso.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnPredeterminada
             // 
-            this.button4.Font = new System.Drawing.Font("Century", 12F);
-            this.button4.Image = global::PuntoDeVentaV2.Properties.Resources.cogs1;
-            this.button4.Location = new System.Drawing.Point(574, 228);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(162, 69);
-            this.button4.TabIndex = 21;
-            this.button4.Text = "Predeterminado";
-            this.button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnPredeterminada.Font = new System.Drawing.Font("Century", 12F);
+            this.btnPredeterminada.Image = global::PuntoDeVentaV2.Properties.Resources.cogs1;
+            this.btnPredeterminada.Location = new System.Drawing.Point(574, 228);
+            this.btnPredeterminada.Name = "btnPredeterminada";
+            this.btnPredeterminada.Size = new System.Drawing.Size(162, 69);
+            this.btnPredeterminada.TabIndex = 21;
+            this.btnPredeterminada.Text = "Predeterminado";
+            this.btnPredeterminada.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPredeterminada.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -313,10 +313,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1082, 318);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnPredeterminada);
+            this.Controls.Add(this.btnTakePeso);
+            this.Controls.Add(this.btnSaveEdit);
+            this.Controls.Add(this.btnAddBascula);
             this.Controls.Add(this.lblPeso);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtSendData);
@@ -371,10 +371,10 @@
         private System.Windows.Forms.TextBox txtSendData;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblPeso;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnAddBascula;
+        private System.Windows.Forms.Button btnSaveEdit;
+        private System.Windows.Forms.Button btnTakePeso;
+        private System.Windows.Forms.Button btnPredeterminada;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView DGVListaBasculas;
         private System.Windows.Forms.Button btnBuscarBascula;
