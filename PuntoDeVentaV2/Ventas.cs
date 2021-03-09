@@ -2941,8 +2941,8 @@ namespace PuntoDeVentaV2
                                             if (configProducto[2] == 1)
                                             {
                                                 // Obtener el stock minimo del producto
-                                                var stockMinimo = Convert.ToInt32(datosProductoTmp[10]);
-                                                var stockTmp = Convert.ToInt32(datosProductoTmp[4]);
+                                                var stockMinimo = (float)Convert.ToDouble(datosProductoTmp[10]);
+                                                var stockTmp = (float)Convert.ToDouble(datosProductoTmp[4]);
 
                                                 if (stockTmp <= stockMinimo)
                                                 {
