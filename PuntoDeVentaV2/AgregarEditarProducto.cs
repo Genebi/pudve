@@ -3855,7 +3855,7 @@ namespace PuntoDeVentaV2
                                                     string buscar = null;
                                                     string comboBoxText = item.Text;
                                                     string comboBoxValue = null;
-                                                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
+                                                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = '1'";
                                                     dtProductos = cn.CargarDatos(buscar);
                                                     comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
                                                     prodSerPaq += fech + "|";
