@@ -56,6 +56,7 @@ namespace PuntoDeVentaV2
         bool botonOmitir = false;
 
         public static Dictionary<int, string> IdAgregados = new Dictionary<int, string>();
+        public static Dictionary<string, string> CodigoBarrasAgregados = new Dictionary<string, string>();
 
         Dictionary<int, string> listaProductos;
 
@@ -433,6 +434,30 @@ namespace PuntoDeVentaV2
 
                             codigo = txtBoxBuscarCodigoBarras.Text;
 
+                            if (operadorFiltro.Equals("chkProveedor"))
+                            {
+                                if (!CodigoBarrasAgregados.ContainsKey(listaCodigosBarras[cantidadRegistrosAux]))
+                                {
+                                    CodigoBarrasAgregados.Add(codigo, string.Empty);
+                                }
+                                else
+                                {
+                                    var extraerDatos = CodigoBarrasAgregados.ToArray();
+
+                                    var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[cantidadRegistrosAux-1].ToString());
+
+                                    var codigoBuscar = (indice + 1);
+
+                                    var codigoActual = extraerDatos[codigoBuscar].ToString();
+
+                                    string[] words = codigoActual.Split(',');
+                                    string code = words[0].Replace("[", "");
+
+                                    codigo = code;
+                                    //var codigoSecundario = validarfiltroProveedor(codigo);
+                                }
+                            }
+
                             realizarBusqueda(codigo, aplicar);
 
                             countListaCodigosBarras++;
@@ -612,6 +637,27 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private string[] validarfiltroProveedor(string idObtenido)
+        {
+            List<string> datos = new List<string>();
+            var cla = string.Empty; var cod = string.Empty; var name=string.Empty;
+
+            var query = cn.CargarDatos($"SELECT CodigoBarras, ClaveInterna, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idObtenido}' AND Status = 1");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                cod = query.Rows[0]["CodigoBarras"].ToString();
+                cla = query.Rows[0]["ClaveInterna"].ToString();
+                name = query.Rows[0]["Nombre"].ToString();
+            }
+
+            datos.Add(cod);
+            datos.Add(cla);
+            datos.Add(name);
+
+            return datos.ToArray();
         }
 
         private string buscarProducto(string idProducto)
