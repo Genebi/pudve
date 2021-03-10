@@ -223,9 +223,11 @@
             this.btnAddBascula.Text = "Agregar";
             this.btnAddBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnAddBascula.UseVisualStyleBackColor = true;
+            this.btnAddBascula.Click += new System.EventHandler(this.btnAddBascula_Click);
             // 
             // btnSaveEdit
             // 
+            this.btnSaveEdit.Enabled = false;
             this.btnSaveEdit.Font = new System.Drawing.Font("Century", 12F);
             this.btnSaveEdit.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
             this.btnSaveEdit.Location = new System.Drawing.Point(211, 229);
@@ -235,9 +237,11 @@
             this.btnSaveEdit.Text = "Guardar";
             this.btnSaveEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSaveEdit.UseVisualStyleBackColor = true;
+            this.btnSaveEdit.Click += new System.EventHandler(this.btnSaveEdit_Click);
             // 
             // btnTakePeso
             // 
+            this.btnTakePeso.Enabled = false;
             this.btnTakePeso.Font = new System.Drawing.Font("Century", 12F);
             this.btnTakePeso.Image = global::PuntoDeVentaV2.Properties.Resources.scale1;
             this.btnTakePeso.Location = new System.Drawing.Point(394, 228);
@@ -250,6 +254,7 @@
             // 
             // btnPredeterminada
             // 
+            this.btnPredeterminada.Enabled = false;
             this.btnPredeterminada.Font = new System.Drawing.Font("Century", 12F);
             this.btnPredeterminada.Image = global::PuntoDeVentaV2.Properties.Resources.cogs1;
             this.btnPredeterminada.Location = new System.Drawing.Point(574, 228);

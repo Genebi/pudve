@@ -1508,9 +1508,16 @@ GROUP BY Prod.ID";
             return consulta;
         }
 
-        public string getBasculaParametro()
+        public string gardarBascula(string[] datos)
         {
-            var consulta = $"SELECT nombreBascula FROM basculas WHERE IdUsuario = '{FormPrincipal.userID}' AND nombreBascula LIKE '%' + @nameBascula + '%' OR @nameBascula = ''";
+            var consulta = $"INSERT INTO basculas (nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}')";
+
+            return consulta;
+        }
+
+        public string editarBascula(string[] datos)
+        {
+            var consulta = $"UPDATE basculas SET nombreBascula = '{datos[0]}', puerto = '{datos[1]}', baudRate = '{datos[2]}', dataBits = '{datos[3]}', handshake = '{datos[4]}', parity = '{datos[5]}', stopBits = '{datos[6]}', sendData = '{datos[7]}' WHERE idUsuario = '{datos[8]}'";
 
             return consulta;
         }

@@ -22,7 +22,8 @@ namespace PuntoDeVentaV2
 
         bool isOpen = false, 
              isExists = false,
-             saveEdit = false;
+             saveEdit = false,
+             startValue = false;
 
         #region DISPOSITIVO-LECTOR BASCULA
         public SerialPort PuertoSerieBascula;
@@ -434,11 +435,74 @@ namespace PuntoDeVentaV2
             {
                 btnAddBascula.Enabled = true;
                 btnSaveEdit.Text = "Guardar";
+                btnSaveEdit.Enabled = false;
+                btnTakePeso.Enabled = false;
+                btnPredeterminada.Enabled = false;
             }
             else
             {
                 btnAddBascula.Enabled = false;
                 btnSaveEdit.Text = "Editar";
+                btnSaveEdit.Enabled = true;
+                btnTakePeso.Enabled = true;
+                btnPredeterminada.Enabled = true;
+            }
+        }
+
+        private void iniciarValores()
+        {
+            //llenamos los ComboBox
+            //getBasculasRegistradas();   //Basculas Preconfiguradas
+            getComPortNames();          //Puertos Activos
+            getBaudRate();              //Rango BaudRate
+            getDataBits();              //Rango DataBits
+            getParidadData();           //Rango ParidadData
+            getHandshake();             //Rango Handshake
+            getStopBits();              //Rango StopBits
+            getTodasLasBasculas();      //LLenar listado de basculas registradas
+            txtNameBascula.Clear();
+            txtBuscarBascula.Clear();
+        }
+
+        private void inciarCampos()
+        {
+            if (startValue)
+            {
+                txtNameBascula.Clear();
+                txtNameBascula.Enabled = true;
+                cbPuerto.SelectedIndex = 0;
+                cbPuerto.Enabled = true;
+                cbBaudRate.SelectedIndex = 0;
+                cbBaudRate.Enabled = true;
+                cbDatos.SelectedIndex = 0;
+                cbDatos.Enabled = true;
+                cbHandshake.SelectedIndex = 0;
+                cbHandshake.Enabled = true;
+                cbParidad.SelectedIndex = 0;
+                cbParidad.Enabled = true;
+                cbStopBits.SelectedIndex = 0;
+                cbStopBits.Enabled = true;
+                txtSendData.Clear();
+                txtSendData.Enabled = true;
+            }
+            else
+            {
+                txtNameBascula.Clear();
+                txtNameBascula.Enabled = false;
+                cbPuerto.SelectedIndex = 0;
+                cbPuerto.Enabled = false;
+                cbBaudRate.SelectedIndex = 0;
+                cbBaudRate.Enabled = false;
+                cbDatos.SelectedIndex = 0;
+                cbDatos.Enabled = false;
+                cbHandshake.SelectedIndex = 0;
+                cbHandshake.Enabled = false;
+                cbParidad.SelectedIndex = 0;
+                cbParidad.Enabled = false;
+                cbStopBits.SelectedIndex = 0;
+                cbStopBits.Enabled = false;
+                txtSendData.Clear();
+                txtSendData.Enabled = false;
             }
         }
 
@@ -454,31 +518,151 @@ namespace PuntoDeVentaV2
 
         private void DGVListaBasculas_Click(object sender, EventArgs e)
         {
+            saveEdit = true;
+            startValue = true;
+            inciarCampos();
             DataGridViewRow GridRow = DGVListaBasculas.CurrentRow;
             string valorCelda = Convert.ToString(GridRow.Cells[0].Value);
             datosBascula(valorCelda);
+            validarBotones();
         }
-        
+
+        private void btnSaveEdit_Click(object sender, EventArgs e)
+        {
+            int posision = 0;
+            string[] datos = new string[10];
+            if (!txtNameBascula.Text.Equals(string.Empty))
+            {
+                datos[posision] = txtNameBascula.Text.ToString();
+                posision++;
+                if (!cbPuerto.Text.Equals(string.Empty))
+                {
+                    datos[posision] = cbPuerto.Text.ToString();
+                    posision++;
+                    if (!cbBaudRate.Text.Equals(string.Empty))
+                    {
+                        datos[posision] = cbBaudRate.Text.ToString();
+                        posision++;
+                        if (!cbDatos.Text.Equals(string.Empty))
+                        {
+                            datos[posision] = cbDatos.Text.ToString();
+                            posision++;
+                            if (!cbHandshake.Text.Equals(string.Empty))
+                            {
+                                datos[posision] = cbHandshake.Text.ToString();
+                                posision++;
+                                if (!cbParidad.Text.Equals(string.Empty))
+                                {
+                                    datos[posision] = cbParidad.Text.ToString();
+                                    posision++;
+                                    if (!cbStopBits.Text.Equals(string.Empty))
+                                    {
+                                        datos[posision] = cbStopBits.Text.ToString();
+                                        posision++;
+                                        if (!txtSendData.Text.Equals(string.Empty))
+                                        {
+                                            datos[posision] = txtSendData.Text.ToString();
+                                            posision++;
+                                            datos[posision] = FormPrincipal.userID.ToString();
+                                            if (saveEdit)
+                                            {
+                                                try
+                                                {
+                                                    cn.EjecutarConsulta(cs.editarBascula(datos));
+                                                    saveEdit = false;
+                                                    startValue = false;
+                                                    iniciarValores();
+                                                    inciarCampos();
+                                                }
+                                                catch(Exception ex)
+                                                {
+                                                    MessageBox.Show(ex.Message.ToString());
+                                                }
+                                            }
+                                            else if (!saveEdit)
+                                            {
+                                                try
+                                                {
+                                                    cn.EjecutarConsulta(cs.gardarBascula(datos));
+                                                    saveEdit = false;
+                                                    startValue = false;
+                                                    inciarCampos();
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show(ex.Message.ToString());
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Falta el valor Envio hacia la Bascula", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Falta el valor StopBits", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Falta el valor Paridad", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Falta el valor Handshake", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Falta el valor DataBits", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Falta el valor BaudRate", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Falta el Puerto de la Bascula", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Falta el Nombre de la Bascula", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            Array.Clear(datos, 0, datos.Length);
+            posision = 0;
+            getTodasLasBasculas();
+            validarBotones();
+        }
+
+        private void btnAddBascula_Click(object sender, EventArgs e)
+        {
+            btnSaveEdit.Enabled = true;
+            startValue = true;
+            inciarCampos();
+            txtNameBascula.Focus();
+        }
+
         private void DGVListaBasculas_DoubleClick(object sender, EventArgs e)
         {
+            saveEdit = true;
+            startValue = true;
+            inciarCampos();
             DataGridViewRow GridRow = DGVListaBasculas.CurrentRow;
             string valorCelda = Convert.ToString(GridRow.Cells[0].Value);
             datosBascula(valorCelda);
+            validarBotones();
         }
 
         private void AgregarEditarBascula_Load(object sender, EventArgs e)
         {
-            //llenamos los ComboBox
-            //getBasculasRegistradas();   //Basculas Preconfiguradas
-            getComPortNames();          //Puertos Activos
-            getBaudRate();              //Rango BaudRate
-            getDataBits();              //Rango DataBits
-            getParidadData();           //Rango ParidadData
-            getHandshake();             //Rango Handshake
-            getStopBits();              //Rango StopBits
-            getTodasLasBasculas();      //LLenar listado de basculas registradas
-
+            iniciarValores();
             validarBotones();
+            inciarCampos();
         }
     }
 }
