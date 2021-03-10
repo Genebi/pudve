@@ -7130,7 +7130,7 @@ namespace PuntoDeVentaV2
             {
                 datosProductos = new DataTable();
                 //queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
-                queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
+                queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P' AND Status = '1'";
                 datosProductos = cn.CargarDatos(queryProductos);
                 row = datosProductos.NewRow();
                 row["ID"] = -1;
