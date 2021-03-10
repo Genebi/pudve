@@ -423,7 +423,22 @@ namespace PuntoDeVentaV2
                         txtSendData.Text = drDataBascula["sendData"].ToString();
                     }
                     saveEdit = true;
+                    validarBotones();
                 }
+            }
+        }
+
+        private void validarBotones()
+        {
+            if (!saveEdit)
+            {
+                btnAddBascula.Enabled = true;
+                btnSaveEdit.Text = "Guardar";
+            }
+            else
+            {
+                btnAddBascula.Enabled = false;
+                btnSaveEdit.Text = "Editar";
             }
         }
 
@@ -463,18 +478,7 @@ namespace PuntoDeVentaV2
             getStopBits();              //Rango StopBits
             getTodasLasBasculas();      //LLenar listado de basculas registradas
 
-
-
-            if (!saveEdit)
-            {
-                btnAddBascula.Enabled = true;
-                btnSaveEdit.Text = "Guardar";
-            }
-            else
-            {
-                btnAddBascula.Enabled = false;
-                btnSaveEdit.Text = "Guardar";
-            }
+            validarBotones();
         }
     }
 }
