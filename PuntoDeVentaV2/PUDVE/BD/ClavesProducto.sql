@@ -1,7 +1,7 @@
   INSERT IGNORE INTO Catalogo_claves_producto 
   (ID, clave, descripcion)
   VALUES
-  (1, '1010101', 'No existe en el catálogo'),
+  (1, '01010101', 'No existe en el catálogo'),
   (2, '10101500', 'Animales vivos de granja'),
   (3, '10101501', 'Gatos vivos'),
   (4, '10101502', 'Perros'),
