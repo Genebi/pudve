@@ -1486,5 +1486,26 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string getDatosServCombo(string idServcio)
+        {
+            var consulta = $"SELECT DISTINCT servProd.Fecha, servProd.IDServicio, servProd.Cantidad FROM productosdeservicios AS servProd WHERE servProd.IDServicio = '{idServcio}'";
+
+            return consulta;
+        }
+
+        public string getDatosProducto(string idProducto)
+        {
+            var consulta = $"SELECT prod.ID, prod.Nombre FROM productos AS prod WHERE prod.ID = '{idProducto}' AND prod.IDUsuario = '{FormPrincipal.userID}' AND prod.`Status` = '1' AND prod.Tipo = 'P'";
+
+            return consulta;
+        }
+
+        public string insertarProductosServicios(string[] datos)
+        {
+            var consulta = $"INSERT INTO productosdeservicios (Fecha, IDServicio, IDProducto, NombreProducto, Cantidad) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}')";
+
+            return consulta;
+        }
     }
 }
