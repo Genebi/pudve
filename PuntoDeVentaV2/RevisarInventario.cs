@@ -48,6 +48,10 @@ namespace PuntoDeVentaV2
 
         //variable para validar la consulta de los productos cuando se deshabilita un producto
         bool deshabilitarEsteProducto = false;
+        bool deshabilitarProdProveedor = false;
+        string validarCodigoProv = string.Empty;
+
+        int contadorDeshabilitar = 0;
 
         //Validar la busqueda de el boton siguiente con el boton Anterior
         int idActualAnterior = 0;
@@ -439,15 +443,28 @@ namespace PuntoDeVentaV2
                             {
                                 if (!CodigoBarrasAgregados.ContainsKey(listaCodigosBarras[cantidadRegistrosAux]) && !string.IsNullOrEmpty(codigo))
                                 {
-                                    CodigoBarrasAgregados.Add(codigo, string.Empty);
+                                    if (deshabilitarProdProveedor.Equals(true))
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        CodigoBarrasAgregados.Add(codigo, string.Empty);
+                                    }
                                 }
                                 else
                                 {
+                                    if (deshabilitarProdProveedor.Equals(true))
+                                    {
+                                        listaCodigosBarras.Remove(validarCodigoProv);
+                                    }
+
                                     var extraerDatos = CodigoBarrasAgregados.ToArray();
 
                                     var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[cantidadRegistrosAux-1].ToString());
 
-                                    var codigoBuscar = (indice + 1);
+                                    int codigoBuscar = 0;
+                                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1)-(contadorDeshabilitar); } else { codigoBuscar = (indice + 1); }
 
                                     var codigoActual = extraerDatos[codigoBuscar].ToString();
 
@@ -455,7 +472,11 @@ namespace PuntoDeVentaV2
                                     string code = words[0].Replace("[", "");
 
                                     codigo = code;
-                                    //var codigoSecundario = validarfiltroProveedor(codigo);
+                                    var codigoSecundario = validarfiltroProveedor(codigo);
+                                    if (deshabilitarProdProveedor.Equals(true))
+                                    {
+                                        CodigoBarrasAgregados.Remove(txtBoxBuscarCodigoBarras.Text);
+                                    }
                                 }
                             }
 
@@ -1294,6 +1315,7 @@ namespace PuntoDeVentaV2
 
                 if (confirmarDesicion == DialogResult.Yes)
                 {
+                    contadorDeshabilitar++;
                     deshabilitarEsteProducto = true;
 
                     //Se cambia el status de el producto a 0
@@ -1304,6 +1326,13 @@ namespace PuntoDeVentaV2
                     if (id.Count != 0)
                     {
                         id.RemoveAt(id.Count - 1);
+                    }
+
+                    if (operadorFiltro.Equals("chkProveedor"))
+                    {
+                        deshabilitarProdProveedor = true;
+                        CodigoBarrasAgregados.Remove(txtBoxBuscarCodigoBarras.Text);
+                        validarCodigoProv = txtBoxBuscarCodigoBarras.Text;
                     }
 
                     var idDeshabilitado = idADeshabilitar(txtBoxBuscarCodigoBarras.Text);
@@ -1321,6 +1350,7 @@ namespace PuntoDeVentaV2
                     lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
 
                     deshabilitarEsteProducto = false;
+                    deshabilitarProdProveedor = false;
                 }
             }
             else
@@ -1395,6 +1425,7 @@ namespace PuntoDeVentaV2
             if (validarAnterior == true)
             {
                 var mostrarDatos = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{obteniendoId}' AND  Status = 1 AND (CodigoBarras != '' OR ClaveInterna != '')");
+
                 if (!mostrarDatos.Rows.Count.Equals(0))
                 {
                     foreach (DataRow datosObtenidos in mostrarDatos.Rows)
@@ -1442,7 +1473,14 @@ namespace PuntoDeVentaV2
             //Se elimina el ultimo item ingresado a la lista ya que es uno que se repire
             if (!id.Count.Equals(0) && cantidadRegistrosAux >= 0)
             {
-                id.RemoveAt(id.Count - 1);
+                if (operadorFiltro.Equals("chkProveedor"))
+                {
+                    //id.Remove(idBueno);
+                }
+                else
+                {
+                    id.RemoveAt(id.Count - 1);
+                }
             }
 
             //Se Elimina el ultimo item de la lista idDeProductos para validar el boton anterior
