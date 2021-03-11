@@ -94,7 +94,8 @@ namespace PuntoDeVentaV2
         string[]    listaProveedores = new string[] { },
                     listaCategorias = new string[] { },
                     listaUbicaciones = new string[] { },
-                    listaDetalleGral = new string[] { };
+                    listaDetalleGral = new string[] { },
+                    listaProductoToCombo = new string[1] { "" };
 
         int XPos = 0,
             YPos = 0,
@@ -3726,7 +3727,19 @@ namespace PuntoDeVentaV2
                                                 PrecioMayoreo = '{precioMayoreo}'
                                                 WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                             
-                                            respuesta = cn.EjecutarConsulta(queryUpdateProd);
+                            respuesta = cn.EjecutarConsulta(queryUpdateProd);
+
+                            if (!listaProductoToCombo.Count().Equals(0))
+                            {
+                                string[] datos;
+                                foreach (var item in listaProductoToCombo)
+                                {
+                                    datos = item.Split('|');
+                                    string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                    datos[0] = fech.Trim();
+                                    cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
+                                }
+                            }
 
                             claveProducto = string.Empty;
                             claveUnidadMedida = string.Empty;
@@ -5603,6 +5616,44 @@ namespace PuntoDeVentaV2
                         ocultarPanel();
                     }
                     GenerarPanelProductosServPlus();
+                }
+                else if ((this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO") && DatosSourceFinal == 1)
+                {
+
+                }
+                else if ((this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO") && DatosSourceFinal == 2)
+                {
+                    using (DataTable dtDatosComboServicio = cn.CargarDatos(cs.getDatosServCombo(CBIdProd)))
+                    {
+                        string  fechaServCombo = string.Empty, 
+                                idServCombo = string.Empty, 
+                                cantidadServCombo = string.Empty, 
+                                idProducto = string.Empty, 
+                                nombreProducto = string.Empty;
+
+                        if (!dtDatosComboServicio.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow drComboServ in dtDatosComboServicio.Rows)
+                            {
+                                fechaServCombo = drComboServ["Fecha"].ToString();
+                                idServCombo = drComboServ["IDServicio"].ToString();
+                                cantidadServCombo = drComboServ["Cantidad"].ToString();
+                            }
+
+                            using (DataTable dtDatosProductos = cn.CargarDatos(cs.getDatosProducto(idEditarProducto)))
+                            {
+                                if (!dtDatosProductos.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow drProducto in dtDatosProductos.Rows)
+                                    {
+                                        idProducto = drProducto["ID"].ToString();
+                                        nombreProducto = drProducto["Nombre"].ToString();
+                                    }
+                                }
+                            }
+                        }
+                        listaProductoToCombo[0] = fechaServCombo + "|" + idServCombo + "|" + idProducto + "|" + nombreProducto + "|" + cantidadServCombo;
+                    }
                 }
             }
             else if ((this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO") && DatosSourceFinal == 1)
