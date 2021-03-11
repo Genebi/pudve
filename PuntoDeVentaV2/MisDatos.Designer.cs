@@ -914,6 +914,7 @@
             this.Name = "MisDatos";
             this.Text = "MisDatos";
             this.Load += new System.EventHandler(this.MisDatos_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MisDatos_paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MisDatos_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
