@@ -105,6 +105,7 @@ namespace PuntoDeVentaV2
 
         private void RevisarInventario_Load(object sender, EventArgs e)
         {
+            CodigoBarrasAgregados.Clear();
             var mostrarClave = FormPrincipal.clave;
 
             if (mostrarClave == 0)
@@ -436,7 +437,7 @@ namespace PuntoDeVentaV2
 
                             if (operadorFiltro.Equals("chkProveedor"))
                             {
-                                if (!CodigoBarrasAgregados.ContainsKey(listaCodigosBarras[cantidadRegistrosAux]))
+                                if (!CodigoBarrasAgregados.ContainsKey(listaCodigosBarras[cantidadRegistrosAux]) && !string.IsNullOrEmpty(codigo))
                                 {
                                     CodigoBarrasAgregados.Add(codigo, string.Empty);
                                 }
