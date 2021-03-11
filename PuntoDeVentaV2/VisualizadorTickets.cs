@@ -29,6 +29,49 @@ namespace PuntoDeVentaV2
             this.Text = "PUDVE - " + ticketGenerado;
             axAcroPDF.src = rutaTicketGenerado;
             axAcroPDF.setZoom(75);
+            ImprimirTicket();
+        }
+
+        private void ImprimirTicket()
+        {
+            try
+            {
+                var servidor = Properties.Settings.Default.Hosting;
+                var ruta = string.Empty;
+
+                string[] words = ticketGenerado.Split('\\');
+
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    ruta = $@"\\{servidor}\Archivos PUDVE\Caja\{words[4]}";
+                }
+                else
+                {
+                    ruta = $@"C:\Archivos PUDVE\Reportes\Caja\{words[4]}";
+                }
+
+                ProcessStartInfo info = new ProcessStartInfo();
+                info.Verb = "print";
+                info.FileName = ruta;
+                info.CreateNoWindow = true;
+                info.WindowStyle = ProcessWindowStyle.Hidden;
+
+                Process p = new Process();
+                p.StartInfo = info;
+                p.Start();
+
+                p.WaitForInputIdle();
+                System.Threading.Thread.Sleep(5000);
+
+                if (false == p.CloseMainWindow())
+                {
+                    p.Kill();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Favor de revisar:\nSi tiene una impresora instalada(Predeterminada)\nho Adobe instalado en su equipo", "Error al Imprimir", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
@@ -57,7 +100,7 @@ namespace PuntoDeVentaV2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al Imprimir No: "+ex, "Error al Imprimir", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Favor de revisar:\nSi tiene una impresora instalada(Predeterminada)\nho Adobe instalado en su equipo", "Error al Imprimir", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
