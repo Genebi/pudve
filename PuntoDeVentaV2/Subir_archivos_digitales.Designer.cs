@@ -49,10 +49,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -271,80 +268,54 @@
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panel3.Controls.Add(this.label14);
             this.panel3.Controls.Add(this.label13);
-            this.panel3.Controls.Add(this.label12);
             this.panel3.Controls.Add(this.label11);
-            this.panel3.Controls.Add(this.label10);
-            this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel3.ForeColor = System.Drawing.Color.DarkRed;
-            this.panel3.Location = new System.Drawing.Point(410, 237);
+            this.panel3.Location = new System.Drawing.Point(410, 245);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(361, 151);
+            this.panel3.Size = new System.Drawing.Size(361, 126);
             this.panel3.TabIndex = 13;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 125);
+            this.label14.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(5, 66);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(335, 16);
+            this.label14.Size = new System.Drawing.Size(353, 51);
             this.label14.TabIndex = 14;
-            this.label14.Text = "activarán aproximadamente en 3 dias hábiles (para el SAT).";
+            this.label14.Text = "Si sus archivos digitales recientemente fueron tramitados\r\ny/o actualizados, esto" +
+    "s se activarán aproximadamente en\r\n3 días hábiles (para el SAT).";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(4, 108);
+            this.label13.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(4, 64);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(320, 16);
+            this.label13.Size = new System.Drawing.Size(0, 17);
             this.label13.TabIndex = 5;
-            this.label13.Text = " Recuerda que una vez tramitados/actualizados, estos se";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 83);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(155, 16);
-            this.label12.TabIndex = 4;
-            this.label12.Text = "Ejemplo: CSD_EJEMPLO (2).";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 67);
+            this.label11.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(6, 36);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(318, 16);
+            this.label11.Size = new System.Drawing.Size(312, 17);
             this.label11.TabIndex = 3;
-            this.label11.Text = "No subas ningún archivo que contenga en el nombre (2).";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 43);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(300, 16);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "cambiarla, de lo contrario el sistema no lo reconocerá.";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.Color.DarkRed;
-            this.label9.Location = new System.Drawing.Point(6, 27);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(350, 16);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Si tu archivo .KEY contiene la letra Ñ o ñ en el nombre, favor de";
+            this.label11.Text = "Recuerde subir unicamente el archivo comprimido.";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(5, 8);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(45, 16);
+            this.label8.Size = new System.Drawing.Size(49, 16);
             this.label8.TabIndex = 0;
             this.label8.Text = "NOTA:";
             // 
@@ -393,7 +364,7 @@
             // openfiled_archivos
             // 
             this.openfiled_archivos.FileName = "Seleccionar archivo";
-            this.openfiled_archivos.Filter = "Archivo CER (*.cer)|*.cer";
+            this.openfiled_archivos.Filter = "Archivo ZIP (*.zip)|*.zip";
             // 
             // btn_aceptar
             // 
@@ -462,10 +433,9 @@
             this.label18.ForeColor = System.Drawing.Color.Navy;
             this.label18.Location = new System.Drawing.Point(6, 61);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(652, 17);
+            this.label18.Size = new System.Drawing.Size(421, 17);
             this.label18.TabIndex = 3;
-            this.label18.Text = "Una vez realizado lo anterior descomprimir el archivo descargado y proceder a sub" +
-    "ir los archivos solicitados.";
+            this.label18.Text = "Una vez realizado lo anterior  proceder a subir el archivo comprimido.";
             // 
             // label17
             // 
@@ -475,8 +445,8 @@
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(575, 17);
             this.label17.TabIndex = 2;
-            this.label17.Text = "2 archivos a partir de los CSD, estos nuevos serán utilizados para la cancelación" +
-    " de sus facturas.";
+            this.label17.Text = "generará 2 nuevos archivos, estos archivos serán utilizados para la cancelación d" +
+    "e sus facturas.";
             // 
             // label16
             // 
@@ -484,10 +454,10 @@
             this.label16.ForeColor = System.Drawing.Color.Navy;
             this.label16.Location = new System.Drawing.Point(6, 24);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(747, 17);
+            this.label16.Size = new System.Drawing.Size(741, 17);
             this.label16.TabIndex = 1;
             this.label16.Text = "Le mandará a una página en donde deberá subir su certificado y llave (CSD), los m" +
-    "ismos serán validados y le generaran otros";
+    "ismos serán validados y apartir de ellos le";
             // 
             // label7
             // 
@@ -518,7 +488,7 @@
             this.MinimizeBox = false;
             this.Name = "Subir_archivos_digitales";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Actualizar archivos digitales";
+            this.Text = "Actualizar archivos digitales en 3 dias";
             this.Load += new System.EventHandler(this.cargar_datos);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -552,12 +522,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lb_fecha_caducidad;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;

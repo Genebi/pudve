@@ -864,7 +864,7 @@ namespace PuntoDeVentaV2
         {
             
         }
-
+                
         private void btnSubirArchivo_Click(object sender, EventArgs e)
         {
             if (opcion2 == 0)
@@ -1097,13 +1097,18 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                if(cant_arch == 0 | cant_arch < 4)
+                if(cant_arch == 0 | cant_arch < 5)
                 {
                     txt_certificado.Text = "";
                     txt_llave.Text = "";
                     lb_fvencimiento.Text = "";
                 }
             }
+        }
+
+        private void MisDatos_paint(object sender, PaintEventArgs e)
+        {
+            cargar_archivos();
         }
     }
 }

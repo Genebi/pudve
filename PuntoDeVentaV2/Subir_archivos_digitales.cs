@@ -11,6 +11,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Security;
 using System.Security.Cryptography;
+using System.IO.Compression;
 
 namespace PuntoDeVentaV2
 {
@@ -118,84 +119,130 @@ namespace PuntoDeVentaV2
         private void btn_subir_archivos_Click(object sender, EventArgs e)
         {
             if(openfiled_archivos.ShowDialog() == DialogResult.OK)
-            {
-                
-                // Obtiene solo el nombre del archivo, sin la ruta completa
-                string solo_nombre = openfiled_archivos.SafeFileName;
+            {               
                 // Obtiene la ruta completa del archivo
                 string ruta_origen = openfiled_archivos.FileName;
-                // Se establece la ruta y nombre del archivo a guardar el la carpeta
-                string ruta_destino = ruta_guardar_archivos + solo_nombre;
-                
+               
                 int opc = 0;
-                
+
+
 
                 // Verifica si la carpeta ya fue creada o no, de no ser asi, la crea.
-
+                
                 if (!Directory.Exists(ruta_guardar_archivos))
                 {
                     Directory.CreateDirectory(ruta_guardar_archivos);
                 }
-                
-                // Verifica si existe el archivo, si no existe lo agrega
-                
-                if (!File.Exists(ruta_destino))
-                {                    
-                    File.Copy(ruta_origen, ruta_destino);
-                    txt_subir_archivos.Text = openfiled_archivos.FileName;
 
-                    // Obtiene extención del archivo elegido para determinar el tipo de acción a realizar
 
-                    string extencion = solo_nombre.Substring(solo_nombre.Length - 4, 4);
-                    string extencion_pem = solo_nombre.Substring(solo_nombre.Length -8 , 8);
+                // Descomprime el zip
+
+                ZipFile.ExtractToDirectory(ruta_origen, ruta_guardar_archivos);
+
+
+                // Saca los archivos que estan en la carpeta pudve_gpem y la anidada
+
+                var ruta_carpeta_pem = ruta_guardar_archivos + @"\Pudve_gpem\";
+                
+                DirectoryInfo dir = new DirectoryInfo(ruta_carpeta_pem);
+                
+                foreach (var arch in dir.GetDirectories())
+                {
+                    //string nom_carpeta_anidada = ;
+                    string ruta_carpeta_anidada = ruta_carpeta_pem + arch.Name;
+                    
+                    DirectoryInfo dir_ani = new DirectoryInfo(ruta_carpeta_anidada);
+
+                    foreach(var arch_ani in dir_ani.GetFiles())
+                    {
+                        string nombre_archivo = arch_ani.Name;
+                        string ruta_archivo_csd = ruta_carpeta_anidada + @"\" + nombre_archivo;
+                        
+                        File.Move(ruta_archivo_csd, ruta_guardar_archivos + nombre_archivo);
+                    }
+
+                    arch.Delete();
+                }
+
+                // Eliminar carpeta Pudve_gpem 
+
+                DirectoryInfo dir_csd = new DirectoryInfo(ruta_guardar_archivos);
+
+                foreach (var arch in dir_csd.GetDirectories())
+                {
+                    if (arch.Name.Equals("Pudve_gpem"))
+                    {
+                       arch.Delete();
+                    }
+                }
+
+
+                // Obtiene key del txt y acomoda archivos 
+
+                DirectoryInfo dirar = new DirectoryInfo(ruta_guardar_archivos);
+
+                foreach (var arch in dirar.GetFiles())
+                {
+                    string extencion = arch.Name.Substring(arch.Name.Length - 4, 4);
+                    string extencion_pem = arch.Name.Substring(arch.Name.Length - 8, 8);
 
                     if (extencion == ".cer")
                     {
-                        opc = 1;
-                        nom_cer = solo_nombre;
-                        openfiled_archivos.Filter = "Archivo KEY(*.key) | *.key";
+                        txt_certificado.Text = arch.Name;
+
+                        // Guarda número de certificado y fecha de vencimiento
+
+                        tipo_validacion(1, ruta_guardar_archivos + arch.Name);
                     }
                     if (extencion == ".key")
                     {
-                        opc = 2;
-                        nom_key = solo_nombre;
-                        //btn_subir_archivos.Enabled = false;
-                        openfiled_archivos.Filter = "Archivo CER.PEM(*.cer.pem) | *.cer.pem";
-                    }
+                        txt_llave.Text = arch.Name;
+                    }                    
                     if (extencion_pem == ".cer.pem")
                     {
-                        nom_cer_pem = solo_nombre;
-                        openfiled_archivos.Filter = "Archivo KEY.PEM(*.key.pem) | *.key.pem";
+                        txt_certificado_pem.Text = arch.Name;
                     }
                     if (extencion_pem == ".key.pem")
                     {
-                        nom_key_pem = solo_nombre;
-                        btn_subir_archivos.Enabled = false;
+                        txt_llave_pem.Text = arch.Name;
                     }
 
-
-                    // Guarda número de certificado y fecha de vencimiento
-                    if(opc > 0)
+                    if (extencion == ".txt")
                     {
-                        tipo_validacion(opc, ruta_destino);
-                    }                    
+                        string key= "";
+
+                        try
+                        {
+                            StreamReader sr = new StreamReader(ruta_guardar_archivos + arch.Name);
+                            key = sr.ReadLine();
+                            
+                            sr.Close();
+                        }
+                        catch (Exception ee)
+                        {
+                            Console.WriteLine("Exception: " + ee.Message);
+                        }
 
 
-                    txt_certificado.Text = nom_cer;
-                    txt_llave.Text = nom_key;
-                    txt_certificado_pem.Text = nom_cer_pem;
-                    txt_llave_pem.Text = nom_key_pem;
+                        // Guarda contraseña de los archivos
+
+                        string[] datos = new string[]
+                        {
+                            FormPrincipal.userID.ToString(), key
+                        };
+
+                        cn.EjecutarConsulta(cs.archivos_digitales(datos, 3));
 
 
-                    MessageBox.Show("Archivo subido corrrectamente.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    txt_subir_archivos.Text = string.Empty;
-
+                        txt_password.Text = key;
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("El archivo" + solo_nombre + " ya existe.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+
+                MessageBox.Show("Archivo subido corrrectamente.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                txt_subir_archivos.Text = string.Empty;
+                
             }
 
 
@@ -300,7 +347,6 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Ocurrio un error al abrir el enlace: " + ex, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-   
 
         private void guardar_password(object sender, EventArgs e)
         {
@@ -341,16 +387,7 @@ namespace PuntoDeVentaV2
 
         private void validar_correspondecia(object sender, EventArgs e)
         {
-            /*if(txt_password.Text != "")
-            {
-                string cer = ruta_guardar_archivos + txt_certificado.Text;
-                string key = ruta_guardar_archivos + txt_llave.Text;
-                string clave = txt_password.Text;
-
-                bool r = CFDI.SelloDigital.validarCERKEY(cer, key, clave);
-
-                Console.WriteLine("RESULTADO" + r); //'C:\Users\Miri\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\bin\Debug\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109s.cer
-            }*/
+           
         }
                 
         private void tipo_validacion(int opc, string ruta_destino)
@@ -447,6 +484,102 @@ namespace PuntoDeVentaV2
             }
         }
 
+        /*private void btn_subir_archivos_Click(object sender, EventArgs e)
+        {
+            if (openfiled_archivos.ShowDialog() == DialogResult.OK)
+            {
+
+                // Obtiene solo el nombre del archivo, sin la ruta completa
+                string solo_nombre = openfiled_archivos.SafeFileName;
+                // Obtiene la ruta completa del archivo
+                string ruta_origen = openfiled_archivos.FileName;
+                // Se establece la ruta y nombre del archivo a guardar el la carpeta
+                string ruta_destino = ruta_guardar_archivos + solo_nombre;
+
+                int opc = 0;
+
+
+                // Verifica si la carpeta ya fue creada o no, de no ser asi, la crea.
+
+                if (!Directory.Exists(ruta_guardar_archivos))
+                {
+                    Directory.CreateDirectory(ruta_guardar_archivos);
+                }
+
+                // Verifica si existe el archivo, si no existe lo agrega
+
+                if (!File.Exists(ruta_destino))
+                {
+                    File.Copy(ruta_origen, ruta_destino);
+                    txt_subir_archivos.Text = openfiled_archivos.FileName;
+
+                    // Obtiene extención del archivo elegido para determinar el tipo de acción a realizar
+
+                    string extencion = solo_nombre.Substring(solo_nombre.Length - 4, 4);
+                    string extencion_pem = solo_nombre.Substring(solo_nombre.Length - 8, 8);
+
+                    if (extencion == ".cer")
+                    {
+                        opc = 1;
+                        nom_cer = solo_nombre;
+                        openfiled_archivos.Filter = "Archivo KEY(*.key) | *.key";
+                    }
+                    if (extencion == ".key")
+                    {
+                        opc = 2;
+                        nom_key = solo_nombre;
+                        //btn_subir_archivos.Enabled = false;
+                        openfiled_archivos.Filter = "Archivo CER.PEM(*.cer.pem) | *.cer.pem";
+                    }
+                    if (extencion_pem == ".cer.pem")
+                    {
+                        nom_cer_pem = solo_nombre;
+                        openfiled_archivos.Filter = "Archivo KEY.PEM(*.key.pem) | *.key.pem";
+                    }
+                    if (extencion_pem == ".key.pem")
+                    {
+                        nom_key_pem = solo_nombre;
+                        btn_subir_archivos.Enabled = false;
+                    }
+
+
+                    // Guarda número de certificado y fecha de vencimiento
+                    if (opc > 0)
+                    {
+                        tipo_validacion(opc, ruta_destino);
+                    }
+
+
+                    txt_certificado.Text = nom_cer;
+                    txt_llave.Text = nom_key;
+                    txt_certificado_pem.Text = nom_cer_pem;
+                    txt_llave_pem.Text = nom_key_pem;
+
+
+                    MessageBox.Show("Archivo subido corrrectamente.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    txt_subir_archivos.Text = string.Empty;
+
+                }
+                else
+                {
+                    MessageBox.Show("El archivo" + solo_nombre + " ya existe.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+
+            // Si los datos no son correctos activa bandera para eliminar todos los archivos
+            // y evitar que de errores al momento de querer timbrar o cancelar un CFDI.
+            if (txt_certificado.Text == "" | txt_certificado_pem.Text == "" | txt_llave.Text == "" | txt_llave_pem.Text == "")
+            {
+                ban = true;
+            }
+            else
+            {
+                ban = false;
+            }
+        }
+        */
         /*public bool genera_pem(string clave)
         {
            
