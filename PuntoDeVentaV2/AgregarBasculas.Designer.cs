@@ -94,7 +94,6 @@
             this.cbBasculaRegistrada.Name = "cbBasculaRegistrada";
             this.cbBasculaRegistrada.Size = new System.Drawing.Size(185, 21);
             this.cbBasculaRegistrada.TabIndex = 1;
-            this.cbBasculaRegistrada.SelectedIndexChanged += new System.EventHandler(this.cbBasculaRegistrada_SelectedIndexChanged);
             this.cbBasculaRegistrada.TextChanged += new System.EventHandler(this.cbBasculaRegistrada_TextChanged);
             // 
             // label2
@@ -183,6 +182,7 @@
             // 
             // txtSendData
             // 
+            this.txtSendData.Enabled = false;
             this.txtSendData.Location = new System.Drawing.Point(133, 148);
             this.txtSendData.Name = "txtSendData";
             this.txtSendData.Size = new System.Drawing.Size(152, 20);
@@ -199,6 +199,7 @@
             // 
             // cbStopBits
             // 
+            this.cbStopBits.Enabled = false;
             this.cbStopBits.FormattingEnabled = true;
             this.cbStopBits.Location = new System.Drawing.Point(384, 110);
             this.cbStopBits.Name = "cbStopBits";
@@ -216,6 +217,7 @@
             // 
             // cbParidad
             // 
+            this.cbParidad.Enabled = false;
             this.cbParidad.FormattingEnabled = true;
             this.cbParidad.Location = new System.Drawing.Point(133, 110);
             this.cbParidad.Name = "cbParidad";
@@ -233,6 +235,7 @@
             // 
             // cbHandshake
             // 
+            this.cbHandshake.Enabled = false;
             this.cbHandshake.FormattingEnabled = true;
             this.cbHandshake.Location = new System.Drawing.Point(384, 71);
             this.cbHandshake.Name = "cbHandshake";
@@ -250,6 +253,7 @@
             // 
             // cbDatos
             // 
+            this.cbDatos.Enabled = false;
             this.cbDatos.FormattingEnabled = true;
             this.cbDatos.Location = new System.Drawing.Point(133, 71);
             this.cbDatos.Name = "cbDatos";
@@ -267,6 +271,7 @@
             // 
             // cbBaudRate
             // 
+            this.cbBaudRate.Enabled = false;
             this.cbBaudRate.FormattingEnabled = true;
             this.cbBaudRate.Location = new System.Drawing.Point(384, 35);
             this.cbBaudRate.Name = "cbBaudRate";
@@ -284,6 +289,7 @@
             // 
             // cbPuerto
             // 
+            this.cbPuerto.Enabled = false;
             this.cbPuerto.FormattingEnabled = true;
             this.cbPuerto.Location = new System.Drawing.Point(133, 35);
             this.cbPuerto.Name = "cbPuerto";

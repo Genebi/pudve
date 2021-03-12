@@ -89,7 +89,7 @@ namespace PuntoDeVentaV2
                     catch (Exception error)
                     {
                         isExists = false;
-                        MessageBox.Show("Error al abrir el dispositivo (Bascula) ...\r" + error.Message.ToString(), "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
@@ -663,6 +663,32 @@ namespace PuntoDeVentaV2
             catch (Exception ex)
             {
                 MessageBox.Show("Situación:\nNo se establecio como predeterminada Satisfactoriamente en el sistema.\n\n" + ex.Message.ToString(), "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void btnTakePeso_Click(object sender, EventArgs e)
+        {
+            lblPeso.Text = string.Empty;
+
+            if (isOpen.Equals(false))
+            {
+                doConecction();
+            }
+
+            if (isExists.Equals(true))
+            {
+                if (!txtSendData.Text.Equals(string.Empty))
+                {
+                    PuertoSerieBascula.Write(txtSendData.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Favor de ingresar un valor a enviar al puerto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                inciarCampos();
             }
         }
 

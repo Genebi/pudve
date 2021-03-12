@@ -251,6 +251,7 @@
             this.btnTakePeso.Text = "Tomar Peso";
             this.btnTakePeso.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnTakePeso.UseVisualStyleBackColor = true;
+            this.btnTakePeso.Click += new System.EventHandler(this.btnTakePeso_Click);
             // 
             // btnPredeterminada
             // 

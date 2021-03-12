@@ -82,7 +82,7 @@ namespace PuntoDeVentaV2
                     catch (Exception error)
                     {
                         isExists = false;
-                        MessageBox.Show("Error al abrir el dispositivo (Bascula) ...\r" + error.Message.ToString(), "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
@@ -340,6 +340,7 @@ namespace PuntoDeVentaV2
             getParidadData();           //Rango ParidadData
             getHandshake();             //Rango Handshake
             getStopBits();              //Rango StopBits
+            cbBasculaRegistrada_TextChanged(sender, e);
         }
 
         private void btnTomarPeso_Click(object sender, EventArgs e)
@@ -366,11 +367,6 @@ namespace PuntoDeVentaV2
             {
                 limpiarCampos();
             }
-        }
-
-        private void cbBasculaRegistrada_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
         }
 
         private void cbBasculaRegistrada_TextChanged(object sender, EventArgs e)
