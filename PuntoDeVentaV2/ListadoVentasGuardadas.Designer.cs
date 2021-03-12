@@ -37,7 +37,7 @@
             this.Mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             this.IDCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tituloSeccion = new System.Windows.Forms.Label();
+            this.txt_buscar_por = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaVentasGuardadas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,30 +122,28 @@
             this.IDCliente.ReadOnly = true;
             this.IDCliente.Visible = false;
             // 
-            // tituloSeccion
+            // txt_buscar_por
             // 
-            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tituloSeccion.AutoSize = true;
-            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(151, 24);
-            this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(229, 25);
-            this.tituloSeccion.TabIndex = 5;
-            this.tituloSeccion.Text = "VENTAS GUARDADAS";
-            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.txt_buscar_por.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_buscar_por.Location = new System.Drawing.Point(12, 34);
+            this.txt_buscar_por.Name = "txt_buscar_por";
+            this.txt_buscar_por.Size = new System.Drawing.Size(510, 22);
+            this.txt_buscar_por.TabIndex = 6;
+            this.txt_buscar_por.Text = "Buscar por cliente o folio";
+            this.txt_buscar_por.KeyDown += new System.Windows.Forms.KeyEventHandler(this.buscar_por);
             // 
             // ListadoVentasGuardadas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 261);
-            this.Controls.Add(this.tituloSeccion);
+            this.Controls.Add(this.txt_buscar_por);
             this.Controls.Add(this.DGVListaVentasGuardadas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "ListadoVentasGuardadas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PUDVE - Ventas Guardadas";
+            this.Text = "Ventas guardadas";
             this.Load += new System.EventHandler(this.ListadoVentasGuardadas_Load);
             this.Shown += new System.EventHandler(this.ListadoVentasGuardadas_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListadoVentasGuardadas_KeyDown);
@@ -158,7 +156,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGVListaVentasGuardadas;
-        private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Folio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
@@ -167,5 +164,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Mostrar;
         private System.Windows.Forms.DataGridViewImageColumn Eliminar;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDCliente;
+        private System.Windows.Forms.TextBox txt_buscar_por;
     }
 }
