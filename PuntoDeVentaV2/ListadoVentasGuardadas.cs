@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        bool con_filtro = false;
 
         public ListadoVentasGuardadas()
         {
@@ -41,9 +42,20 @@ namespace PuntoDeVentaV2
             {
                 sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
-            
+
+            // Miri.
+            //Buscar por cliente o folio
+
+            string consulta_buscar_por = "";
+            string buscar_por = txt_buscar_por.Text.Trim();
+
+            if(con_filtro == true)
+            {
+                consulta_buscar_por = "AND (Cliente LIKE '%" + buscar_por + "%' OR Folio LIKE '%" + buscar_por + "%')";
+            }
+
             sql_con.Open();
-            sql_cmd = new MySqlCommand($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 2 ORDER BY FechaOperacion DESC", sql_con);
+            sql_cmd = new MySqlCommand($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 2 " + consulta_buscar_por + " ORDER BY FechaOperacion DESC", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVListaVentasGuardadas.Rows.Clear();
@@ -184,7 +196,38 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentasGuardadas_Load(object sender, EventArgs e)
         {
+            con_filtro = false;
             CargarDatos();
+
+            // Placeholder del campo buscar por...
+            txt_buscar_por.GotFocus += new EventHandler(buscar_por_confoco);
+            txt_buscar_por.LostFocus += new EventHandler(buscar_por_sinfoco);
+        }
+
+        private void buscar_por(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                con_filtro = true;
+                CargarDatos();
+            }
+        }
+
+        private void buscar_por_confoco(object sender, EventArgs e)
+        {
+            if (txt_buscar_por.Text == "Buscar por cliente o folio")
+            {
+                txt_buscar_por.Text = "";
+            }
+        }
+
+        private void buscar_por_sinfoco(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txt_buscar_por.Text))
+            {
+                txt_buscar_por.Text = "Buscar por cliente o folio";
+                con_filtro = false;
+            }
         }
     }
 }
