@@ -1473,14 +1473,14 @@ namespace PuntoDeVentaV2
             //Se elimina el ultimo item ingresado a la lista ya que es uno que se repire
             if (!id.Count.Equals(0) && cantidadRegistrosAux >= 0)
             {
-                if (operadorFiltro.Equals("chkProveedor"))
-                {
-                    //id.Remove(idBueno);
-                }
-                else
-                {
-                    id.RemoveAt(id.Count - 1);
-                }
+                //if (operadorFiltro.Equals("chkProveedor"))
+                //{
+                //    id.Remove(idBueno);
+                //}
+                //else
+                //{
+                id.RemoveAt(id.Count - 1);
+                //}
             }
 
             //Se Elimina el ultimo item de la lista idDeProductos para validar el boton anterior
