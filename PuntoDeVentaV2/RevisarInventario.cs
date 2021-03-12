@@ -1471,7 +1471,7 @@ namespace PuntoDeVentaV2
             }
 
             //Se elimina el ultimo item ingresado a la lista ya que es uno que se repire
-            if (!id.Count.Equals(0) && cantidadRegistrosAux >= 0)
+            if (id.Count > 1 && cantidadRegistrosAux >= 0)
             {
                 //if (operadorFiltro.Equals("chkProveedor"))
                 //{
