@@ -146,7 +146,20 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            cbBasculaRegistrada.SelectedIndex = 0;
+            using (DataTable dtBasculaPredeterminada = cn.CargarDatos(cs.getBasculaPredeterminada()))
+            {
+                if (!dtBasculaPredeterminada.Rows.Count.Equals(0))
+                {
+                    foreach(DataRow drBasculaPredeterminada in dtBasculaPredeterminada.Rows)
+                    {
+                        cbBasculaRegistrada.Text = drBasculaPredeterminada["nombreBascula"].ToString();
+                    }
+                }
+                else
+                {
+                    cbBasculaRegistrada.SelectedIndex = 0;
+                }
+            }
         }
 
         private void getComPortNames()
@@ -395,7 +408,7 @@ namespace PuntoDeVentaV2
 
                 addBascula.FormClosed += delegate
                 {
-
+                    getBasculasRegistradas();   //Basculas Preconfiguradas
                 };
 
                 addBascula.Show();

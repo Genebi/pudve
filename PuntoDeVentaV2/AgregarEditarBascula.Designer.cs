@@ -264,6 +264,7 @@
             this.btnPredeterminada.Text = "Predeterminado";
             this.btnPredeterminada.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnPredeterminada.UseVisualStyleBackColor = true;
+            this.btnPredeterminada.Click += new System.EventHandler(this.btnPredeterminada_Click);
             // 
             // groupBox1
             // 

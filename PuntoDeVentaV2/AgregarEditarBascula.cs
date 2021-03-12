@@ -25,6 +25,8 @@ namespace PuntoDeVentaV2
              saveEdit = false,
              startValue = false;
 
+        int IdBascula = 0;
+
         #region DISPOSITIVO-LECTOR BASCULA
         public SerialPort PuertoSerieBascula;
         public static string informacionBascula;
@@ -138,6 +140,7 @@ namespace PuntoDeVentaV2
         private void buscarBascula()
         {
             DGVListaBasculas.DataSource = PopulateDataGridViewWithParameter();
+            DGVListaBasculas.Columns["idBascula"].Visible = false;
         }
 
         private void getTodasLasBasculas()
@@ -156,6 +159,7 @@ namespace PuntoDeVentaV2
 
             //DGVListaBasculas.Columns[0].HeaderText = nombreColumna;
             DGVListaBasculas.DataSource = PopulateDataGridView();
+            DGVListaBasculas.Columns["idBascula"].Visible = false;
         }
 
         private void getBasculasRegistradas()
@@ -380,7 +384,7 @@ namespace PuntoDeVentaV2
             string usuario = string.Empty;
 
             usuario = FormPrincipal.userID.ToString();
-            string query = $"SELECT nombreBascula FROM basculas WHERE nombreBascula LIKE '%{txtBuscarBascula.Text.Trim()}%' AND idUsuario = '" + usuario + "'";
+            string query = $"SELECT idBascula, nombreBascula FROM basculas WHERE nombreBascula LIKE '%{txtBuscarBascula.Text.Trim()}%' AND idUsuario = '" + usuario + "'";
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
@@ -414,6 +418,7 @@ namespace PuntoDeVentaV2
                 {
                     foreach(DataRow drDataBascula in dtDataBascula.Rows)
                     {
+                        IdBascula = Convert.ToInt32(drDataBascula["idBascula"].ToString());
                         txtNameBascula.Text = drDataBascula["nombreBascula"].ToString();
                         cbPuerto.Text = drDataBascula["puerto"].ToString();
                         cbBaudRate.Text = drDataBascula["baudRate"].ToString();
@@ -522,7 +527,7 @@ namespace PuntoDeVentaV2
             startValue = true;
             inciarCampos();
             DataGridViewRow GridRow = DGVListaBasculas.CurrentRow;
-            string valorCelda = Convert.ToString(GridRow.Cells[0].Value);
+            string valorCelda = Convert.ToString(GridRow.Cells[1].Value);
             datosBascula(valorCelda);
             validarBotones();
         }
@@ -568,7 +573,7 @@ namespace PuntoDeVentaV2
                                             {
                                                 try
                                                 {
-                                                    cn.EjecutarConsulta(cs.editarBascula(datos));
+                                                    cn.EjecutarConsulta(cs.editarBascula(datos, Convert.ToInt32(IdBascula)));
                                                     saveEdit = false;
                                                     startValue = false;
                                                     iniciarValores();
@@ -637,6 +642,28 @@ namespace PuntoDeVentaV2
             posision = 0;
             getTodasLasBasculas();
             validarBotones();
+        }
+
+        private void btnPredeterminada_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var resultadoReset = cn.EjecutarConsulta(cs.resetBasculaPredeterminada());
+
+                if(resultadoReset > 0)
+                {
+                    var resultadoSetPredeterminada = cn.EjecutarConsulta(cs.setBAsculaPrederterminada(IdBascula));
+
+                    if(resultadoSetPredeterminada > 0)
+                    {
+                        MessageBox.Show("Bascula:\n\n" + txtNameBascula.Text + "\n\nse establecio como predeterminada.\nSatisfactoriamente en el sistema", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Situación:\nNo se establecio como predeterminada Satisfactoriamente en el sistema.\n\n" + ex.Message.ToString(), "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void btnAddBascula_Click(object sender, EventArgs e)

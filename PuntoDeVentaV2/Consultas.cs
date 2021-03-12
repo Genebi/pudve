@@ -1503,7 +1503,7 @@ GROUP BY Prod.ID";
 
         public string getTodasLasBasculas()
         {
-            var consulta = $"SELECT nombreBascula FROM basculas WHERE IdUsuario = '{FormPrincipal.userID}' ORDER BY nombreBascula ASC";
+            var consulta = $"SELECT idBascula, nombreBascula FROM basculas WHERE IdUsuario = '{FormPrincipal.userID}' ORDER BY nombreBascula ASC";
 
             return consulta;
         }
@@ -1515,9 +1515,30 @@ GROUP BY Prod.ID";
             return consulta;
         }
 
-        public string editarBascula(string[] datos)
+        public string editarBascula(string[] datos, int idBascula)
         {
-            var consulta = $"UPDATE basculas SET nombreBascula = '{datos[0]}', puerto = '{datos[1]}', baudRate = '{datos[2]}', dataBits = '{datos[3]}', handshake = '{datos[4]}', parity = '{datos[5]}', stopBits = '{datos[6]}', sendData = '{datos[7]}' WHERE idUsuario = '{datos[8]}'";
+            var consulta = $"UPDATE basculas SET nombreBascula = '{datos[0]}', puerto = '{datos[1]}', baudRate = '{datos[2]}', dataBits = '{datos[3]}', handshake = '{datos[4]}', parity = '{datos[5]}', stopBits = '{datos[6]}', sendData = '{datos[7]}' WHERE idUsuario = '{datos[8]}' AND idBascula = '{idBascula}'";
+
+            return consulta;
+        }
+
+        public string getBasculaPredeterminada()
+        {
+            var consulta = $"SELECT * FROM basculas WHERE idUsuario = '{FormPrincipal.userID}' AND predeterminada = '1'";
+
+            return consulta;
+        }
+
+        public string resetBasculaPredeterminada()
+        {
+            var consulta = $"UPDATE basculas SET predeterminada = '0' WHERE idUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
+
+        public string setBAsculaPrederterminada(int idBascula)
+        {
+            var consulta = $"UPDATE basculas SET predeterminada = '1' WHERE idUsuario = '{FormPrincipal.userID}' AND idBascula = '{idBascula}'";
 
             return consulta;
         }
