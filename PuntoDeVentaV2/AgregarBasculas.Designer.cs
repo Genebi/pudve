@@ -326,6 +326,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "AgregarBasculas";
             this.Text = "AgregarBasculas";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarBasculas_FormClosing);
             this.Load += new System.EventHandler(this.AgregarBasculas_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

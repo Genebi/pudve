@@ -21,7 +21,7 @@ namespace PuntoDeVentaV2
         bool isOpen = false, isExists = false;
 
         #region DISPOSITIVO-LECTOR BASCULA
-        public SerialPort PuertoSerieBascula;
+        public SerialPort PuertoSerieBascula = new SerialPort();
         public static string informacionBascula;
 
         public void InicializaPuertoBascula(string puerto, int baud)
@@ -88,6 +88,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     MessageBox.Show("El puerto está abierto...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    PuertoSerieBascula.Close();
                 }
             }
         }
@@ -332,6 +333,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarBasculas_Load(object sender, EventArgs e)
         {
+
             //llenamos los ComboBox
             getBasculasRegistradas();   //Basculas Preconfiguradas
             getComPortNames();          //Puertos Activos
@@ -400,6 +402,12 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                if (PuertoSerieBascula.IsOpen.Equals(true))
+                {
+                    PuertoSerieBascula.Close();
+                    isOpen = false;
+                }
+
                 var addBascula = new AgregarEditarBascula();
 
                 addBascula.FormClosed += delegate
@@ -409,6 +417,11 @@ namespace PuntoDeVentaV2
 
                 addBascula.Show();
             }
+        }
+
+        private void AgregarBasculas_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            PuertoSerieBascula.Close();
         }
 
         private void limpiarCampos()

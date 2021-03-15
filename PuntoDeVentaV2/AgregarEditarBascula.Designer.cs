@@ -349,6 +349,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar o editar basculas en el sistema";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarEditarBascula_FormClosing);
             this.Load += new System.EventHandler(this.AgregarEditarBascula_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

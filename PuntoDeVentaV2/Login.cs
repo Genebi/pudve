@@ -551,10 +551,13 @@ namespace PuntoDeVentaV2
                 checkBoxRecordarDatos.Checked = true;
             }
 
-            if (!Properties.Settings.Default.Hosting.Equals(string.Empty))
-            {
-                vs.printProductVersion();
-            }
+            //if (!Properties.Settings.Default.Hosting.Equals(string.Empty))
+            //{
+            //    vs.printProductVersion();
+            //}
+
+            string script = File.ReadAllText(Properties.Settings.Default.rutaDirectorio+ @"\PUDVE\BD\Basculas.sql");
+            cn.EjecutarConsulta(script);
         }
 
         /// <summary>
