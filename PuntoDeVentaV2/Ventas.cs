@@ -15,6 +15,7 @@ using NAudio.Wave.SampleProviders;
 using System.Threading;
 using static System.Windows.Forms.DataGridView;
 using System.Drawing.Drawing2D;
+using System.IO.Ports;
 
 namespace PuntoDeVentaV2
 {
@@ -143,9 +144,21 @@ namespace PuntoDeVentaV2
 
         string fechaSistema = string.Empty;
 
+        string peso = string.Empty;
+
         bool primerClickRestarIndividual = false,
              primerClickEliminarIndividual = false,
              primerClickBtnUltimoEliminado = false;
+
+        bool isOpen = false, isExists = false;
+
+        string  puerto = string.Empty, 
+                baudRate = string.Empty, 
+                dataBits = string.Empty, 
+                handshake = string.Empty, 
+                parity = string.Empty, 
+                stopBits = string.Empty, 
+                sendData = string.Empty;
 
         public Ventas()
         {
@@ -4708,6 +4721,10 @@ namespace PuntoDeVentaV2
             {
                 btnAnticipos.PerformClick();
             }
+            else if (e.KeyCode == Keys.T && (e.Control))//Boton Tomar Peso desde Bascula
+            {
+                btnBascula.PerformClick();
+            }
             else if (e.KeyCode == Keys.F2)//Boton Abrir Caja
             {
                 btnAbrirCaja.PerformClick();
@@ -5733,6 +5750,164 @@ namespace PuntoDeVentaV2
 
             //    }
             //}
+        }
+
+        #region Procesos de coneccion
+        private void doConecction()
+        {
+            string puertoCom = string.Empty;
+            int _baudRate = 0;
+
+            puertoCom = puerto;
+            _baudRate = Convert.ToInt32(baudRate);
+            
+            InicializaPuertoBascula(puertoCom, _baudRate);
+
+            isOpen = true;
+        }
+        #endregion
+
+        #region DISPOSITIVO-LECTOR BASCULA
+        public SerialPort PuertoSerieBascula = new SerialPort();
+        public static string informacionBascula;
+
+        public void InicializaPuertoBascula(string _puerto, int _baud)
+        {
+            if (_puerto != "" && _puerto != string.Empty)
+            {
+                PuertoSerieBascula = new SerialPort(_puerto, _baud);
+
+                if (!PuertoSerieBascula.IsOpen)
+                {
+                    if (!parity.Equals(string.Empty))
+                    {
+                        PuertoSerieBascula.Parity = (Parity)Enum.Parse(typeof(Parity), parity.ToString());
+                    }
+
+                    if (!stopBits.Equals(string.Empty))
+                    {
+                        PuertoSerieBascula.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits.ToString());
+                    }
+
+                    if (!dataBits.Equals(string.Empty))
+                    {
+                        PuertoSerieBascula.DataBits = (int)Int32.Parse(dataBits.ToString().Replace(" bit", string.Empty));
+                    }
+
+                    if (!handshake.Equals(string.Empty))
+                    {
+                        PuertoSerieBascula.Handshake = (Handshake)Enum.Parse(typeof(Handshake), handshake.ToString());
+                    }
+
+                    PuertoSerieBascula.ReadTimeout = 4800;
+
+                    PuertoSerieBascula.DataReceived += new SerialDataReceivedEventHandler(this.leerBascula);
+
+                    PuertoSerieBascula.ErrorReceived += new SerialErrorReceivedEventHandler(PuertoSerieBascula_ErrorReceived);
+
+                    try
+                    {
+                        PuertoSerieBascula.Open();
+                        isExists = true;
+                    }
+                    catch (Exception error)
+                    {
+                        isExists = false;
+                        MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El puerto está abierto...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    PuertoSerieBascula.Close();
+                }
+            }
+        }
+
+        private void PuertoSerieBascula_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
+        {
+            switch (e.EventType)
+            {
+                case SerialError.Frame:
+                    MessageBox.Show("Error de Trama...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                case SerialError.Overrun:
+                    MessageBox.Show("Saturación de buffer...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                case SerialError.RXOver:
+                    MessageBox.Show("Desboradamiento de buffer de entrada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                case SerialError.RXParity:
+                    MessageBox.Show("Error de paridad...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                case SerialError.TXFull:
+                    MessageBox.Show("Buffer lleno...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        private void leerBascula(object sender, SerialDataReceivedEventArgs e)
+        {
+            informacionBascula += PuertoSerieBascula.ReadExisting();
+            this.Invoke(new EventHandler(ponteTextoBascula));
+        }
+
+        private void ponteTextoBascula(object sender, EventArgs e)
+        {
+            string[] words = informacionBascula.Trim().Split('\r');
+            peso = words[words.Count() - 1].Trim();
+            peso = peso.Replace("kg", string.Empty);
+            peso.Trim();
+        }
+        #endregion
+
+        private void btnBascula_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Boton Bascula");
+            peso = string.Empty;
+            using (DataTable dtBascula = cn.CargarDatos(cs.getBasculaPredeterminada()))
+            {
+                if (!dtBascula.Rows.Count.Equals(0))
+                {
+                    foreach(DataRow drBascula in dtBascula.Rows)
+                    {
+                        puerto = drBascula["puerto"].ToString();
+                        baudRate = drBascula["baudRate"].ToString();
+                        dataBits = drBascula["dataBits"].ToString();
+                        handshake = drBascula["handshake"].ToString();
+                        parity = drBascula["parity"].ToString();
+                        stopBits = drBascula["stopBits"].ToString();
+                        sendData = drBascula["sendData"].ToString();
+                    }
+                }
+            }
+
+            if (PuertoSerieBascula.IsOpen.Equals(true))
+            {
+                PuertoSerieBascula.Close();
+                isOpen = false;
+            }
+
+            if (isOpen.Equals(false))
+            {
+                doConecction();
+            }
+
+            if (isExists.Equals(true))
+            {
+                if (!sendData.Equals(string.Empty))
+                {
+                    PuertoSerieBascula.Write(sendData);
+                }
+                else
+                {
+                    MessageBox.Show("Favor de ingresar un valor a enviar al puerto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+
+            MessageBox.Show("Peso: " + peso);
         }
 
         //private string[] buscarProductoPorCodigoClave(string fila)
