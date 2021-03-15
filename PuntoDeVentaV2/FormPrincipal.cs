@@ -66,6 +66,7 @@ namespace PuntoDeVentaV2
         private int reportes = 1;
         private int servicios = 1;
         private int ventas = 1;
+        private int basculas = 1;
 
         //Variable para usuarios sin/con clave interna
         public static int clave { get; set; }
@@ -390,6 +391,22 @@ namespace PuntoDeVentaV2
         }
 
         readonly ConnectionHandler _conHandler = new ConnectionHandler();
+
+        private void btnImpresoras_Click(object sender, EventArgs e)
+        {
+            //vs.printProductVersion();
+
+            if (basculas == 1)
+            {
+                AbrirFormulario<AgregarBasculas>();
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+            validarVentasVentanas();
+        }
 
         public FormPrincipal()
         {

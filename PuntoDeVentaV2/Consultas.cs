@@ -1494,9 +1494,24 @@ GROUP BY Prod.ID";
             return consulta;
         }
 
+        public string getBasculasRegistradas(int IdUsr)
+        {
+            var consulta = $"SELECT nombreBascula FROM basculas WHERE IdUsuario = '{IdUsr}' ORDER BY nombreBascula ASC";
+
+            return consulta;
+        }
+
+
         public string getDatosProducto(string idProducto)
         {
             var consulta = $"SELECT prod.ID, prod.Nombre FROM productos AS prod WHERE prod.ID = '{idProducto}' AND prod.IDUsuario = '{FormPrincipal.userID}' AND prod.`Status` = '1' AND prod.Tipo = 'P'";
+
+            return consulta;
+        } 
+
+        public string getDatosBasculaRegistrada(string nameWeighingMachine)
+        {
+            var consulta = $"SELECT * FROM basculas WHERE IdUsuario = '{FormPrincipal.userID}' AND nombreBascula = '{nameWeighingMachine}'";
 
             return consulta;
         }
@@ -1504,6 +1519,48 @@ GROUP BY Prod.ID";
         public string insertarProductosServicios(string[] datos)
         {
             var consulta = $"INSERT INTO productosdeservicios (Fecha, IDServicio, IDProducto, NombreProducto, Cantidad) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}')";
+
+            return consulta;
+        }
+
+        public string getTodasLasBasculas()
+        {
+            var consulta = $"SELECT idBascula, nombreBascula FROM basculas WHERE IdUsuario = '{FormPrincipal.userID}' ORDER BY nombreBascula ASC";
+
+            return consulta;
+        }
+
+        public string gardarBascula(string[] datos)
+        {
+            var consulta = $"INSERT INTO basculas (nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}')";
+
+            return consulta;
+        }
+
+        public string editarBascula(string[] datos, int idBascula)
+        {
+            var consulta = $"UPDATE basculas SET nombreBascula = '{datos[0]}', puerto = '{datos[1]}', baudRate = '{datos[2]}', dataBits = '{datos[3]}', handshake = '{datos[4]}', parity = '{datos[5]}', stopBits = '{datos[6]}', sendData = '{datos[7]}' WHERE idUsuario = '{datos[8]}' AND idBascula = '{idBascula}'";
+
+            return consulta;
+        }
+
+        public string getBasculaPredeterminada()
+        {
+            var consulta = $"SELECT * FROM basculas WHERE idUsuario = '{FormPrincipal.userID}' AND predeterminada = '1'";
+
+            return consulta;
+        }
+
+        public string resetBasculaPredeterminada()
+        {
+            var consulta = $"UPDATE basculas SET predeterminada = '0' WHERE idUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
+
+        public string setBAsculaPrederterminada(int idBascula)
+        {
+            var consulta = $"UPDATE basculas SET predeterminada = '1' WHERE idUsuario = '{FormPrincipal.userID}' AND idBascula = '{idBascula}'";
 
             return consulta;
         }
