@@ -445,7 +445,30 @@ namespace PuntoDeVentaV2
                                 {
                                     if (deshabilitarProdProveedor.Equals(true))
                                     {
+                                        if (deshabilitarProdProveedor.Equals(true))
+                                        {
+                                            listaCodigosBarras.Remove(validarCodigoProv);
+                                        }
 
+                                        var extraerDatos = CodigoBarrasAgregados.ToArray();
+
+                                        var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[cantidadRegistrosAux - 1].ToString());
+
+                                        int codigoBuscar = 0;
+                                        if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar); } else { codigoBuscar = (indice + 1); }
+
+                                        if (codigoBuscar < 0) { codigoBuscar = (cantidadRegistrosAux + contadorDeshabilitar); }
+                                        var codigoActual = extraerDatos[codigoBuscar].ToString();
+
+                                        string[] words = codigoActual.Split(',');
+                                        string code = words[0].Replace("[", "");
+
+                                        codigo = code;
+                                        var codigoSecundario = validarfiltroProveedor(codigo);
+                                        if (deshabilitarProdProveedor.Equals(true))
+                                        {
+                                            CodigoBarrasAgregados.Remove(txtBoxBuscarCodigoBarras.Text);
+                                        }
                                     }
                                     else
                                     {
@@ -464,8 +487,9 @@ namespace PuntoDeVentaV2
                                     var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[cantidadRegistrosAux-1].ToString());
 
                                     int codigoBuscar = 0;
-                                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1)-(contadorDeshabilitar); } else { codigoBuscar = (indice + 1); }
+                                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1)-(contadorDeshabilitar + contadorDeshabilitar); } else { codigoBuscar = (indice + 1); }
 
+                                    if (codigoBuscar < 0) { codigoBuscar = (cantidadRegistrosAux); }
                                     var codigoActual = extraerDatos[codigoBuscar].ToString();
 
                                     string[] words = codigoActual.Split(',');
@@ -889,11 +913,13 @@ namespace PuntoDeVentaV2
                         var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}' AND (CodigoBarras != '' OR ClaveInterna != '')");
                         idDeProductos.Add(idProducto);
 
-                        if (id.Count.Equals(0))
+                        if (operadorFiltro.Equals("Stock"))
                         {
-                            id.Add(idProducto.ToString());
+                            if (id.Count.Equals(0))
+                            {
+                                id.Add(idProducto.ToString());
+                            }
                         }
-
 
                         // Si ya fue inventariado el producto actualizamos informacion
                         if (existe)
@@ -1322,17 +1348,21 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE IDUsuario = {FormPrincipal.userID} AND ID = {idObtenido}");
                     //cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
 
-                    //Se elimina el ultimo dato en guardarse en esta lista
-                    if (id.Count != 0)
-                    {
-                        id.RemoveAt(id.Count - 1);
-                    }
-
-                    if (operadorFiltro.Equals("chkProveedor"))
+                    if (!operadorFiltro.Equals("Stock"))
                     {
                         deshabilitarProdProveedor = true;
                         CodigoBarrasAgregados.Remove(txtBoxBuscarCodigoBarras.Text);
                         validarCodigoProv = txtBoxBuscarCodigoBarras.Text;
+
+                        id.Remove(idObtenido.ToString());
+                    }
+                    else
+                    {
+                        //Se elimina el ultimo dato en guardarse en esta lista
+                        if (id.Count != 0)
+                        {
+                            id.RemoveAt(id.Count - 1);
+                        }
                     }
 
                     var idDeshabilitado = idADeshabilitar(txtBoxBuscarCodigoBarras.Text);
@@ -1546,7 +1576,7 @@ namespace PuntoDeVentaV2
             //Lo ponemos en true para que no haga toda la funcionalidad del boton siguiente
             botonOmitir = true;
 
-            //Agregamos el id del producto a una lista temporal para cuando sse haca el decremento en el boton anterior
+            //Agregamos el id del producto a una lista temporal para cuando se haga el decremento en el boton anterior
             idDeProductos.Add(idProducto);
 
             //Ejecutamos el evento click de el bonton siguiente
