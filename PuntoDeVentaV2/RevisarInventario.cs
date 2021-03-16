@@ -588,14 +588,14 @@ namespace PuntoDeVentaV2
                                             convertirId--;
 
                                             // Se asigna el stock registrado en la tabla RevisarInventario
-                                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
+                                            txtCantidadStock.Text = verificarStockActualizado(infoProducto, infoProducto);
                                         }
 
                                         if (respuesta == DialogResult.No)
                                         {
                                             //LimpiarCampos();
                                             //txtBoxBuscarCodigoBarras.Focus();
-                                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
+                                            txtCantidadStock.Text = verificarStockActualizado(infoProducto, infoProducto);
                                             btnOmitir.PerformClick();
                                             txtCantidadStock.Focus();
                                         }
