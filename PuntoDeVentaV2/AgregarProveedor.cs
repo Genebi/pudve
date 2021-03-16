@@ -62,46 +62,55 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            var nombre = txtNombre.Text;
-            var rfc = txtRFC.Text;
-            var calle = txtCalle.Text;
-            var noExt = txtNoExterior.Text;
-            var noInt = txtNoInterior.Text;
-            var colonia = txtColonia.Text;
-            var municipio = txtMunicipio.Text;
-            var estado = txtEstado.Text;
-            var cp = txtCodigoPostal.Text;
-            var email = txtEmail.Text;
-            var telefono = txtTelefono.Text;
-            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var cantidadCamposRFC = txtRFC.Text.Length;
 
-            if (string.IsNullOrWhiteSpace(nombre))
+            if (cantidadCamposRFC > 11 && cantidadCamposRFC < 14)
             {
-                MessageBox.Show("Ingrese un nombre para el proveedor", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                var nombre = txtNombre.Text;
+                var rfc = txtRFC.Text;
+                var calle = txtCalle.Text;
+                var noExt = txtNoExterior.Text;
+                var noInt = txtNoInterior.Text;
+                var colonia = txtColonia.Text;
+                var municipio = txtMunicipio.Text;
+                var estado = txtEstado.Text;
+                var cp = txtCodigoPostal.Text;
+                var email = txtEmail.Text;
+                var telefono = txtTelefono.Text;
+                var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            string[] datos = new string[] { FormPrincipal.userID.ToString(), nombre, rfc, calle, noExt, noInt, colonia, municipio, estado, cp, email, telefono, fechaOperacion, idProveedor.ToString() };
-
-            if (tipo == 1)
-            {
-                //Insertar
-                int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos));
-
-                if (respuesta > 0)
+                if (string.IsNullOrWhiteSpace(nombre))
                 {
-                    Close();
+                    MessageBox.Show("Ingrese un nombre para el proveedor", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string[] datos = new string[] { FormPrincipal.userID.ToString(), nombre, rfc, calle, noExt, noInt, colonia, municipio, estado, cp, email, telefono, fechaOperacion, idProveedor.ToString() };
+
+                if (tipo == 1)
+                {
+                    //Insertar
+                    int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos));
+
+                    if (respuesta > 0)
+                    {
+                        Close();
+                    }
+                }
+                else
+                {
+                    //Actualizar
+                    int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos, 1));
+
+                    if (respuesta > 0)
+                    {
+                        Close();
+                    }
                 }
             }
             else
             {
-                //Actualizar
-                int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos, 1));
-
-                if (respuesta > 0)
-                {
-                    Close();
-                }
+                MessageBox.Show("El RFC no tiene el formato correcto","Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
