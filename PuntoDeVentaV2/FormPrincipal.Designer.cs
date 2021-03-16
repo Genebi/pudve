@@ -107,7 +107,7 @@
             this.btnImpresoras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImpresoras.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImpresoras.ForeColor = System.Drawing.Color.White;
-            this.btnImpresoras.Image = global::PuntoDeVentaV2.Properties.Resources.weighingMachine;
+            this.btnImpresoras.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
             this.btnImpresoras.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnImpresoras.Location = new System.Drawing.Point(0, 463);
             this.btnImpresoras.Name = "btnImpresoras";

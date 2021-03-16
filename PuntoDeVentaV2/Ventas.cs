@@ -249,6 +249,8 @@ namespace PuntoDeVentaV2
                 opcion19 = permisos[18];
                 opcion20 = permisos[19];
             }
+
+            iniciarBasculaPredeterminada();
         }
 
 
@@ -3506,6 +3508,7 @@ namespace PuntoDeVentaV2
                 ventasGuardadas.Clear();
                 descuentosDirectos.Clear();
             }
+            PuertoSerieBascula.Close();
         }
 
         private void GenerarTicket(string[][] productos)
@@ -5755,20 +5758,20 @@ namespace PuntoDeVentaV2
         #region Procesos de coneccion
         private void doConecction()
         {
-            string puertoCom = string.Empty;
+            string _puertoCom = string.Empty;
             int _baudRate = 0;
 
-            puertoCom = puerto;
+            _puertoCom = puerto;
             _baudRate = Convert.ToInt32(baudRate);
             
-            InicializaPuertoBascula(puertoCom, _baudRate);
+            InicializaPuertoBascula(_puertoCom, _baudRate);
 
             isOpen = true;
         }
         #endregion
 
         #region DISPOSITIVO-LECTOR BASCULA
-        public SerialPort PuertoSerieBascula = new SerialPort();
+        public SerialPort PuertoSerieBascula;
         public static string informacionBascula;
 
         public void InicializaPuertoBascula(string _puerto, int _baud)
@@ -5779,30 +5782,14 @@ namespace PuntoDeVentaV2
 
                 if (!PuertoSerieBascula.IsOpen)
                 {
-                    if (!parity.Equals(string.Empty))
-                    {
-                        PuertoSerieBascula.Parity = (Parity)Enum.Parse(typeof(Parity), parity.ToString());
-                    }
-
-                    if (!stopBits.Equals(string.Empty))
-                    {
-                        PuertoSerieBascula.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits.ToString());
-                    }
-
-                    if (!dataBits.Equals(string.Empty))
-                    {
-                        PuertoSerieBascula.DataBits = (int)Int32.Parse(dataBits.ToString().Replace(" bit", string.Empty));
-                    }
-
-                    if (!handshake.Equals(string.Empty))
-                    {
-                        PuertoSerieBascula.Handshake = (Handshake)Enum.Parse(typeof(Handshake), handshake.ToString());
-                    }
+                    PuertoSerieBascula.Parity = (Parity)Enum.Parse(typeof(Parity), parity.ToString());
+                    PuertoSerieBascula.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits.ToString());
+                    PuertoSerieBascula.DataBits = (int)Int32.Parse(dataBits.ToString().Replace(" bit", string.Empty));
+                    PuertoSerieBascula.Handshake = (Handshake)Enum.Parse(typeof(Handshake), handshake.ToString());
 
                     PuertoSerieBascula.ReadTimeout = 4800;
 
                     PuertoSerieBascula.DataReceived += new SerialDataReceivedEventHandler(this.leerBascula);
-
                     PuertoSerieBascula.ErrorReceived += new SerialErrorReceivedEventHandler(PuertoSerieBascula_ErrorReceived);
 
                     try
@@ -5822,6 +5809,19 @@ namespace PuntoDeVentaV2
                     PuertoSerieBascula.Close();
                 }
             }
+        }
+
+        private void leerBascula(object sender, SerialDataReceivedEventArgs e)
+        {
+            informacionBascula += PuertoSerieBascula.ReadExisting();
+            this.Invoke(new EventHandler(ponteTextoBascula));
+        }
+
+        private void ponteTextoBascula(object sender, EventArgs e)
+        {
+            string[] words = informacionBascula.Trim().Split('\r');
+            peso = words[words.Count() - 1].Trim();
+            peso = peso.Replace("kg", string.Empty).Trim();
         }
 
         private void PuertoSerieBascula_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
@@ -5847,43 +5847,12 @@ namespace PuntoDeVentaV2
 
             throw new NotImplementedException();
         }
-
-        private void leerBascula(object sender, SerialDataReceivedEventArgs e)
-        {
-            informacionBascula += PuertoSerieBascula.ReadExisting();
-            this.Invoke(new EventHandler(ponteTextoBascula));
-        }
-
-        private void ponteTextoBascula(object sender, EventArgs e)
-        {
-            string[] words = informacionBascula.Trim().Split('\r');
-            peso = words[words.Count() - 1].Trim();
-            peso = peso.Replace("kg", string.Empty);
-            peso.Trim();
-        }
         #endregion
 
         private void btnBascula_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Boton Bascula");
-            peso = string.Empty;
-            using (DataTable dtBascula = cn.CargarDatos(cs.getBasculaPredeterminada()))
-            {
-                if (!dtBascula.Rows.Count.Equals(0))
-                {
-                    foreach(DataRow drBascula in dtBascula.Rows)
-                    {
-                        puerto = drBascula["puerto"].ToString();
-                        baudRate = drBascula["baudRate"].ToString();
-                        dataBits = drBascula["dataBits"].ToString();
-                        handshake = drBascula["handshake"].ToString();
-                        parity = drBascula["parity"].ToString();
-                        stopBits = drBascula["stopBits"].ToString();
-                        sendData = drBascula["sendData"].ToString();
-                    }
-                }
-            }
-
+            iniciarBasculaPredeterminada();
+            
             if (PuertoSerieBascula.IsOpen.Equals(true))
             {
                 PuertoSerieBascula.Close();
@@ -5907,7 +5876,49 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            MessageBox.Show("Peso: " + peso);
+            agregarPesoDGVentas();
+        }
+
+        private void iniciarBasculaPredeterminada()
+        {
+            using (DataTable dtBascula = cn.CargarDatos(cs.getBasculaPredeterminada()))
+            {
+                if (!dtBascula.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drBascula in dtBascula.Rows)
+                    {
+                        puerto = drBascula["puerto"].ToString();
+                        baudRate = drBascula["baudRate"].ToString();
+                        dataBits = drBascula["dataBits"].ToString();
+                        handshake = drBascula["handshake"].ToString();
+                        parity = drBascula["parity"].ToString();
+                        stopBits = drBascula["stopBits"].ToString();
+                        sendData = drBascula["sendData"].ToString();
+                    }
+
+                    if (isOpen.Equals(false))
+                    {
+                        doConecction();
+                    }
+                }
+                else
+                {
+                    btnBascula.Enabled = false;
+                }
+            }
+        }
+
+        private void agregarPesoDGVentas()
+        {
+            if (!peso.Equals(string.Empty))
+            {
+                if (!DGVentas.Rows.Count.Equals(0))
+                {
+                    DGVentas.Rows[0].Cells["Cantidad"].Value = peso;
+                }
+                peso = string.Empty;
+                CantidadesFinalesVenta();
+            }
         }
 
         //private string[] buscarProductoPorCodigoClave(string fila)

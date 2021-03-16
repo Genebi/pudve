@@ -662,6 +662,39 @@ namespace PuntoDeVentaV2
                     //Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "ListadoVentas").SingleOrDefault<Form>();
                 }
             }
+
+            cerrarAgregarBasculas();
+        }
+
+        private void cerrarAgregarBasculas()
+        {
+            FormCollection formulariosApp = Application.OpenForms;
+            List<Form> formularioCerrar = new List<Form>();
+
+            foreach (Form f in formulariosApp)
+            {
+                if (f.Name.Equals("AgregarBasculas"))
+                {
+                    formularioCerrar.Add(f);
+                }
+            }
+
+            if (!formularioCerrar.Count.Equals(0))
+            {
+                Form toClose = new Form();
+                string name = string.Empty;
+
+                formularioCerrar.Reverse();
+
+                for (int i = 0; i <= formularioCerrar.Count - 1; i++)
+                {
+                    toClose = formularioCerrar[i];
+                    name = toClose.Name;
+                    toClose.Close();
+                }
+
+                formularioCerrar.Clear();
+            }
         }
 
         private void validarVentasVentanas()

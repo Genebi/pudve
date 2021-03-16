@@ -343,6 +343,7 @@ namespace PuntoDeVentaV2
             getHandshake();             //Rango Handshake
             getStopBits();              //Rango StopBits
             cbBasculaRegistrada_TextChanged(sender, e);
+            cbBasculaRegistrada.Focus();
         }
 
         private void btnTomarPeso_Click(object sender, EventArgs e)

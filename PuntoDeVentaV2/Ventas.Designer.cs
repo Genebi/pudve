@@ -1085,7 +1085,7 @@
             // btnBascula
             // 
             this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.scale;
+            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
             this.btnBascula.Location = new System.Drawing.Point(253, 20);
             this.btnBascula.Name = "btnBascula";
             this.btnBascula.Size = new System.Drawing.Size(105, 40);
