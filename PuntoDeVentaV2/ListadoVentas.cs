@@ -763,6 +763,7 @@ namespace PuntoDeVentaV2
 
                                                 if (fechaAbonoRealizado > fechaDelCorteCaja)//Escoger como devolver dinero
                                                 {
+                                                    if (!string.IsNullOrEmpty(abonoObtenido)) { total = float.Parse(abonoObtenido); }
                                                     DevolverAnticipo da = new DevolverAnticipo(idVenta, total, 3, ventaCancelada);
                                                     da.ShowDialog();
                                                     if (DevolverAnticipo.cancel == 1)
