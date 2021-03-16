@@ -129,6 +129,8 @@
             this.txtRFC.Size = new System.Drawing.Size(181, 22);
             this.txtRFC.TabIndex = 2;
             this.txtRFC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRFC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRFC_KeyPress);
+            this.txtRFC.Leave += new System.EventHandler(this.txtRFC_Leave);
             // 
             // txtNombre
             // 

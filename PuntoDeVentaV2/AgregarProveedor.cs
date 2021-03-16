@@ -62,10 +62,6 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            var cantidadCamposRFC = txtRFC.Text.Length;
-
-            if (cantidadCamposRFC > 11 && cantidadCamposRFC < 14)
-            {
                 var nombre = txtNombre.Text;
                 var rfc = txtRFC.Text;
                 var calle = txtCalle.Text;
@@ -107,11 +103,6 @@ namespace PuntoDeVentaV2
                         Close();
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("El RFC no tiene el formato correcto","Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -148,6 +139,38 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.End)
             {
                 btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtRFC_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var cantidadCamposRFC = txtRFC.Text.Length;
+
+            //Es hasta el 13 pero se pone 12 por que el dijito ya fue ingresado (Solo permitir 13 digitos)
+            if (cantidadCamposRFC > 12)
+            {
+                if (Char.IsLetter(e.KeyChar))
+                {
+                    e.Handled = true;
+                }else if (Char.IsNumber(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            }
+            else
+            {
+                e.Handled = false;
+            }
+        }
+
+        private void txtRFC_Leave(object sender, EventArgs e)
+        {
+            var cantidadCamposRFC = txtRFC.Text.Length;
+
+            if (cantidadCamposRFC < 12)
+            {
+                txtRFC.Focus();
+                MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
