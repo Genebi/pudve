@@ -390,7 +390,7 @@ namespace PuntoDeVentaV2
                                     mostrarIDActual = Convert.ToInt32(idParaSiguiente.Rows[0]["ID"]);
 
                                     //Valida cuando el filtrado es por stock, para cuando se modifica el stock cuando la consulta era (igual que)
-                                    if (IdAgregados.ContainsKey(mostrarIDActual) && tipoFiltro == "Stock")
+                                    if (IdAgregados.ContainsKey(mostrarIDActual) && tipoFiltro == "Stock" && operadorFiltro == "=")
                                     {
                                         var convertirDiccionario = IdAgregados.ToArray();
 
@@ -951,7 +951,7 @@ namespace PuntoDeVentaV2
                         var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}' AND (CodigoBarras != '' OR ClaveInterna != '')");
                         idDeProductos.Add(idProducto);
 
-                        if (operadorFiltro.Equals("Stock"))
+                        if (/*operadorFiltro.Equals("Stock")*/tipoFiltro.Equals("Stock"))
                         {
                             if (id.Count.Equals(0))
                             {
@@ -1386,7 +1386,7 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE IDUsuario = {FormPrincipal.userID} AND ID = {idObtenido}");
                     //cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDAlmacen = {idObtenido} AND IDUsuario = {FormPrincipal.userID} AND NoRevision = {NoRevision}");
 
-                    if (!operadorFiltro.Equals("Stock"))
+                    if (/*!operadorFiltro.Equals("Stock")*/!tipoFiltro.Equals("Stock"))
                     {
                         deshabilitarProdProveedor = true;
                         CodigoBarrasAgregados.Remove(txtBoxBuscarCodigoBarras.Text);
