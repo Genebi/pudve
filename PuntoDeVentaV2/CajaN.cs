@@ -514,7 +514,7 @@ namespace PuntoDeVentaV2
             try
             {
                 var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) AS AnticipoAplicado FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
-                if (!segundaConsulta.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(segundaConsulta.ToString()))
+                if (!segundaConsulta.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(segundaConsulta.ToString())*/)
                 {
                     foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
                     {
@@ -546,7 +546,7 @@ namespace PuntoDeVentaV2
                     using (var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'"))
                     {
                         //var abono = "";
-                        if (!fechaMovimientos.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(fechaMovimientos.ToString()))
+                        if (!fechaMovimientos.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(fechaMovimientos.ToString())*/)
                         {
 
                             foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
@@ -612,7 +612,7 @@ namespace PuntoDeVentaV2
                     //Obtenemos la cantidad de Devoluciones realizados despues del ultimo corte de caja
                     using (var obtenerDevoluciones = cn.CargarDatos($@"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'"))
                     {
-                        if (!obtenerDevoluciones.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(obtenerDevoluciones.ToString()))
+                        if (!obtenerDevoluciones.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(obtenerDevoluciones.ToString())*/)
                         {
                             string devolucionTotal = string.Empty, devolucionEfectivo = string.Empty, devolucionTarjeta = string.Empty, devolucionVales = string.Empty, devolucionCheque = string.Empty, devolucionTrans = string.Empty;
                             foreach (DataRow devol in obtenerDevoluciones.Rows)
@@ -2081,7 +2081,7 @@ namespace PuntoDeVentaV2
             try
             {
                 var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                if (!fechaCorteUltima.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
+                if (!fechaCorteUltima.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(fechaCorteUltima.ToString())*/)
                 {
                     foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
                     {
@@ -2092,7 +2092,7 @@ namespace PuntoDeVentaV2
                     var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     var abono = "";
 
-                    if (!fechaMovimientos.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(fechaMovimientos.ToString()))
+                    if (!fechaMovimientos.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(fechaMovimientos.ToString())*/)
                     {
                         foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
                         {
@@ -2131,7 +2131,7 @@ namespace PuntoDeVentaV2
             try
             {
                 var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                if (!fechaCorteUltima.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(fechaCorteUltima.ToString()))
+                if (!fechaCorteUltima.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(fechaCorteUltima.ToString())*/)
                 {
                     foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
                     {
@@ -2142,7 +2142,7 @@ namespace PuntoDeVentaV2
                     var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total FROM devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
                     var devolucion = "";
 
-                    if (!fechaMovimientos.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(fechaMovimientos.ToString()))
+                    if (!fechaMovimientos.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(fechaMovimientos.ToString())*/)
                     {
                         foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
                         {
