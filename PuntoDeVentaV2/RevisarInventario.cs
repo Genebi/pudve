@@ -685,6 +685,43 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private string verificarStockActualizado(string[] codigo, string[] infoInventariado)
+        {//Verificar que el stock en la revision este actualizado
+            var stockProductos = string.Empty;
+            var stockRevision = string.Empty;
+            var result = string.Empty;
+
+            var queryProductos = cn.CargarDatos($"SELECT Stock FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigo[4]}' OR ClaveInterna = '{codigo[3]}' AND (CodigoBarras != '' AND ClaveInterna != '') AND Status = 1 ");
+
+            var queryRevision = cn.CargarDatos($"SELECT StockFisico FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigo[4]}' OR ClaveInterna = '{codigo[3]}' AND (CodigoBarras != '' AND ClaveInterna != '') ");
+
+
+            if (!queryProductos.Rows.Count.Equals(0))
+            {
+                stockProductos = queryProductos.Rows[0]["Stock"].ToString();
+            }
+
+            if (!queryRevision.Rows.Count.Equals(0))
+            {
+                stockRevision = queryRevision.Rows[0]["StockFisico"].ToString();
+            }
+
+
+            if (stockProductos == stockRevision)
+            {
+                var datoStockActualizado = Utilidades.RemoverCeroStock(infoInventariado[1]);
+                var actualizarStockRevision = cn.CargarDatos($"UPDATE RevisarInventario SET StockFisico = '{datoStockActualizado}' WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigo[4]}' OR ClaveInterna = '{codigo[3]}' AND (CodigoBarras != '' AND ClaveInterna != '')");
+
+                result = Utilidades.RemoverCeroStock(infoInventariado[1]);
+            }
+            else
+            {
+                result = Utilidades.RemoverCeroStock(stockProductos);
+            }
+
+            return result;
+        }
+
         private string[] validarfiltroProveedor(string idObtenido)
         {
             List<string> datos = new List<string>();
@@ -799,7 +836,8 @@ namespace PuntoDeVentaV2
                             if (respuesta == DialogResult.Yes)
                             {
                                 // Se asigna el stock registrado en la tabla RevisarInventario
-                                txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
+                                //txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
+                                txtCantidadStock.Text = verificarStockActualizado(infoProducto, infoProducto);
                             }
                             txtCantidadStock.Focus();
 
