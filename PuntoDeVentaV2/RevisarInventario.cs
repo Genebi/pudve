@@ -487,7 +487,7 @@ namespace PuntoDeVentaV2
                                     var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[cantidadRegistrosAux-1].ToString());
 
                                     int codigoBuscar = 0;
-                                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1)-(contadorDeshabilitar + contadorDeshabilitar); } else { codigoBuscar = (indice + 1); }
+                                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1)-(contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice + 1); }
 
                                     if (codigoBuscar < 0) { codigoBuscar = (cantidadRegistrosAux); }
                                     var codigoActual = extraerDatos[codigoBuscar].ToString();
