@@ -1522,7 +1522,7 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
-<<<<<<< HEAD
+
 
         public string getTodasLasBasculas()
         {
@@ -1565,7 +1565,6 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
-=======
                 
         public string productos_relacionados(int id)
         {
@@ -1573,6 +1572,6 @@ GROUP BY Prod.ID";
 
             return cons; 
         } 
->>>>>>> aumentarComboAlCancelarVentaV2
+
     }
 }
