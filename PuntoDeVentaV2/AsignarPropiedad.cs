@@ -242,13 +242,15 @@ namespace PuntoDeVentaV2
                 //tercerCB.Width = 300;
                 //tercerCB.Font = fuenteChica;
 
-                CheckBox cuartoCB = new CheckBox();
-                cuartoCB.Text = "Correo al hacer venta de producto";
-                cuartoCB.Location = new Point(40, 100);
-                cuartoCB.Name = "CorreoVentaProducto";
-                cuartoCB.Width = 300;
-                cuartoCB.Font = fuenteChica;
-
+                CheckBox cuartoCB = new CheckBox
+                {
+                    Text = "Correo al hacer venta de producto",
+                    Location = new Point(40, 100),
+                    Name = "CorreoVentaProducto",
+                    Width = 300,
+                    Font = fuenteChica
+                };
+                
                 var checkboxes = new CheckBox[] { cuartoCB };
 
                 panelContenedor.Controls.AddRange(checkboxes);
@@ -871,7 +873,7 @@ namespace PuntoDeVentaV2
                 {
                     valores = valores.TrimEnd(',');
 
-                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), CorreoPrecioProducto = VALUES(CorreoPrecioProducto), CorreoStockProducto = VALUES(CorreoStockProducto), CorreoStockMinimo = VALUES(CorreoStockMinimo);";
+                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), CorreoVentaProducto = VALUES(CorreoVentaProducto);";
 
                     cn.EjecutarConsulta(consulta);
                 }
