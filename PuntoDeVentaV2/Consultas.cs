@@ -1507,5 +1507,12 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+                
+        public string productos_relacionados(int id)
+        {
+            string cons = $"SELECT IDProducto, Cantidad FROM productosdeservicios WHERE IDServicio='{id}'";
+
+            return cons; 
+        } 
     }
 }
