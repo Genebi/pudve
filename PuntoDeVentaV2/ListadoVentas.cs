@@ -1048,19 +1048,34 @@ namespace PuntoDeVentaV2
 
                                 if (resultado > 0)
                                 {
-                                    // Regresar la cantidad de producto vendido al stock
-                                    var productos = cn.ObtenerProductosVenta(idVenta);
+                                    // Miri. Modificado.
+                                    // Obtiene el id del combo cancelado
+                                    int id_prod = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDProducto AS ID FROM ProductosVenta WHERE IDVenta='{idVenta}'", 1));
+                                    //var productos = cn.ObtenerProductosVenta(idVenta);
 
-                                    if (productos.Length > 0)
+                                    if (id_prod > 0)
                                     {
-                                        foreach (var producto in productos)
+
+                                        // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
+                                        DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
+                                        
+                                        if(dtprod_relacionados.Rows.Count > 0)
+                                        {
+                                            foreach(DataRow drprod_relacionados in dtprod_relacionados.Rows)
+                                            {
+                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {drprod_relacionados["Cantidad"]} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
+                                            }
+                                        } 
+
+
+                                       /* foreach (var producto in productos)
                                         {
                                             var info = producto.Split('|');
                                             var idProducto = info[0];
                                             var cantidad = Convert.ToDecimal(info[2]);
 
                                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-                                        }
+                                        }*/
                                     }
                                     var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 

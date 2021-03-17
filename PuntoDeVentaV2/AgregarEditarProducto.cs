@@ -3517,7 +3517,7 @@ namespace PuntoDeVentaV2
                                 }
                                 catch (Exception ex)
                                 {
-                                    MessageBox.Show("Error al Agregar " + FuenteServPaq + "\n" + origen, "Error Agregar " + FuenteServPaq, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("Error al Agregar " + FuenteServPaq + "\n" + origen + ex.Message, "Error Agregar " + FuenteServPaq, MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                                 #endregion Final de guardado de los datos principales del Servicios o Combos
                             }
