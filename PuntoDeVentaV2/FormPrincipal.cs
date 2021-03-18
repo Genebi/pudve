@@ -396,16 +396,16 @@ namespace PuntoDeVentaV2
         {
             //vs.printProductVersion();
 
-            if (basculas == 1)
-            {
-                AbrirFormulario<AgregarBasculas>();
-            }
-            else
-            {
-                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
+            //if (basculas == 1)
+            //{
+            //AbrirFormulario<AgregarBasculas>();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //}
 
-            validarVentasVentanas();
+            //validarVentasVentanas();
         }
 
         public FormPrincipal()
