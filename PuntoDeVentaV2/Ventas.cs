@@ -15,6 +15,7 @@ using NAudio.Wave.SampleProviders;
 using System.Threading;
 using static System.Windows.Forms.DataGridView;
 using System.Drawing.Drawing2D;
+using System.IO.Ports;
 
 namespace PuntoDeVentaV2
 {
@@ -143,9 +144,68 @@ namespace PuntoDeVentaV2
 
         string fechaSistema = string.Empty;
 
+        string peso = string.Empty;
+
         bool primerClickRestarIndividual = false,
              primerClickEliminarIndividual = false,
              primerClickBtnUltimoEliminado = false;
+
+        bool isOpen = false, isExists = false;
+
+        string  puerto = string.Empty, 
+                baudRate = string.Empty, 
+                dataBits = string.Empty, 
+                handshake = string.Empty, 
+                parity = string.Empty, 
+                stopBits = string.Empty, 
+                sendData = string.Empty;
+
+        #region Proceso de Bascula
+        // Constructores
+        private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
+        public delegate void MostrarRecepcion(string Texto);    // Delegado para asignar el valor recibido
+
+        // al recibir de la bascula los bytesToRead indicara
+        // un valor superior a 0, indicando el numero de caracteres
+        private void Recibir(object sender, SerialDataReceivedEventArgs e)
+        {
+            MostrarRececibidos(BasculaCom.ReadExisting().ToString());
+        }
+
+        // Enviar una solicitud a la bascula
+        public void EnviarDatos()
+        {
+            // enviar una P para Torrey
+            BasculaCom.Write(sendData);
+        }
+
+        // Mostrar los bytes recibidos en el Label recibidos
+        private void MostrarRececibidos(string texto)
+        {
+            bool success = false;
+            float number;
+
+            if (lblPesoRecibido.InvokeRequired)
+            {
+                var delegado = new MostrarRecepcion(MostrarRececibidos);
+                this.Invoke(delegado, new object[] { texto });
+            }
+            else
+            {
+                texto = texto.Replace(System.Environment.NewLine, string.Empty).Trim().Replace(" kg", string.Empty);
+                lblPesoRecibido.Text = texto;
+                if (!DGVentas.Rows.Count.Equals(0))
+                {
+                    success = float.TryParse(lblPesoRecibido.Text, out number);
+                    if (success)
+                    {
+                        DGVentas.Rows[0].Cells["Cantidad"].Value = lblPesoRecibido.Text;
+                        CantidadesFinalesVenta();
+                    }
+                }
+            }
+        }
+        #endregion
 
         public Ventas()
         {
@@ -236,6 +296,8 @@ namespace PuntoDeVentaV2
                 opcion19 = permisos[18];
                 opcion20 = permisos[19];
             }
+
+            iniciarBasculaPredeterminada();
         }
 
 
@@ -3493,6 +3555,7 @@ namespace PuntoDeVentaV2
                 ventasGuardadas.Clear();
                 descuentosDirectos.Clear();
             }
+            //PuertoSerieBascula.Close();
         }
 
         private void GenerarTicket(string[][] productos)
@@ -4708,6 +4771,10 @@ namespace PuntoDeVentaV2
             {
                 btnAnticipos.PerformClick();
             }
+            else if (e.KeyCode == Keys.T && (e.Control))//Boton Tomar Peso desde Bascula
+            {
+                btnBascula.PerformClick();
+            }
             else if (e.KeyCode == Keys.F2)//Boton Abrir Caja
             {
                 btnAbrirCaja.PerformClick();
@@ -5733,6 +5800,70 @@ namespace PuntoDeVentaV2
 
             //    }
             //}
+        }
+
+        private void btnBascula_Click(object sender, EventArgs e)
+        {
+            EnviarDatos();
+        }
+
+        private void iniciarBasculaPredeterminada()
+        {
+            using (DataTable dtBascula = cn.CargarDatos(cs.getBasculaPredeterminada()))
+            {
+                if (!dtBascula.Rows.Count.Equals(0))
+                {
+                    btnBascula.Enabled = true;
+
+                    foreach (DataRow drBascula in dtBascula.Rows)
+                    {
+                        puerto = drBascula["puerto"].ToString();
+                        baudRate = drBascula["baudRate"].ToString();
+                        dataBits = drBascula["dataBits"].ToString();
+                        handshake = drBascula["handshake"].ToString();
+                        parity = drBascula["parity"].ToString();
+                        stopBits = drBascula["stopBits"].ToString();
+                        sendData = drBascula["sendData"].ToString();
+                    }
+                    
+                    try
+                    {
+                        // Ajustar los parámetros de comunicaciones
+                        // adaptándolos a las especificaciones o configuración
+                        // de la bascula en concreto.
+                        BasculaCom.PortName = puerto;                                               // Conectaremos la bascula al puerto
+                        BasculaCom.BaudRate = Convert.ToInt32(baudRate);                            // La velocidad de intercambio
+                        BasculaCom.Parity = (Parity)Enum.Parse(typeof(Parity), parity);             // No verificaremos la paridad
+                        BasculaCom.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits);     // Final de Byte con 1 bit de Stop
+                        BasculaCom.Open();                                                          // Abrir las comunicaciones con la bascula
+
+                        // Dirigir los eventos a las funciones para procesarlos
+                        BasculaCom.DataReceived += new SerialDataReceivedEventHandler(this.Recibir);   // Ejecución de ‘Recibir’ al recibir respuesta de la bascula
+                    }
+                    catch (Exception error)
+                    {
+                        btnBascula.Enabled = false;
+                        //MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }    
+                }
+                else
+                {
+                    btnBascula.Enabled = false;
+                }
+            }
+        }
+
+        private void agregarPesoDGVentas()
+        {
+            if (!peso.Equals(string.Empty))
+            {
+                if (!DGVentas.Rows.Count.Equals(0))
+                {
+                    DGVentas.Rows[0].Cells["Cantidad"].Value = peso;
+                    //peso = string.Empty;
+                    CantidadesFinalesVenta();
+                }
+            }
         }
 
         //private string[] buscarProductoPorCodigoClave(string fila)
