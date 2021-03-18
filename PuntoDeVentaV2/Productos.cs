@@ -1680,6 +1680,12 @@ namespace PuntoDeVentaV2
 
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
             btnModificarEstado.Image = deshabilitarIcon;
+
+            // Solo para dos cuentas
+            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA3")
+            {
+                btnAgregarXML.Visible = true;
+            }
         }
 
         private void validarConexionServidor()
