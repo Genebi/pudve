@@ -457,8 +457,13 @@ namespace PuntoDeVentaV2
                                         int codigoBuscar = 0;
                                         if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar); } else { codigoBuscar = (indice + 1); }
 
+                                        if (CodigoBarrasAgregados.Count.Equals(0)) { codigoBuscar = 0; }
+
                                         if (codigoBuscar < 0) { codigoBuscar = (cantidadRegistrosAux + contadorDeshabilitar); }
-                                        var codigoActual = extraerDatos[codigoBuscar].ToString();
+                                        var codigoActual = string.Empty;
+
+                                        if (!CodigoBarrasAgregados.Count.Equals(0)) { codigoActual = extraerDatos[codigoBuscar].ToString(); }else { codigoActual = listaCodigosBarras[0].ToString(); }
+                                         
 
                                         string[] words = codigoActual.Split(',');
                                         string code = words[0].Replace("[", "");
