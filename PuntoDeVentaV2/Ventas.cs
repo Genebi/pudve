@@ -5826,17 +5826,25 @@ namespace PuntoDeVentaV2
                         sendData = drBascula["sendData"].ToString();
                     }
                     
-                    // Ajustar los parámetros de comunicaciones
-                    // adaptándolos a las especificaciones o configuración
-                    // de la bascula en concreto.
-                    BasculaCom.PortName = puerto;                                               // Conectaremos la bascula al puerto
-                    BasculaCom.BaudRate = Convert.ToInt32(baudRate);                            // La velocidad de intercambio
-                    BasculaCom.Parity = (Parity)Enum.Parse(typeof(Parity), parity);             // No verificaremos la paridad
-                    BasculaCom.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits);     // Final de Byte con 1 bit de Stop
-                    BasculaCom.Open();                                                          // Abrir las comunicaciones con la bascula
+                    try
+                    {
+                        // Ajustar los parámetros de comunicaciones
+                        // adaptándolos a las especificaciones o configuración
+                        // de la bascula en concreto.
+                        BasculaCom.PortName = puerto;                                               // Conectaremos la bascula al puerto
+                        BasculaCom.BaudRate = Convert.ToInt32(baudRate);                            // La velocidad de intercambio
+                        BasculaCom.Parity = (Parity)Enum.Parse(typeof(Parity), parity);             // No verificaremos la paridad
+                        BasculaCom.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits);     // Final de Byte con 1 bit de Stop
+                        BasculaCom.Open();                                                          // Abrir las comunicaciones con la bascula
 
-                    // Dirigir los eventos a las funciones para procesarlos
-                    BasculaCom.DataReceived += new SerialDataReceivedEventHandler(this.Recibir);   // Ejecución de ‘Recibir’ al recibir respuesta de la bascula    
+                        // Dirigir los eventos a las funciones para procesarlos
+                        BasculaCom.DataReceived += new SerialDataReceivedEventHandler(this.Recibir);   // Ejecución de ‘Recibir’ al recibir respuesta de la bascula
+                    }
+                    catch (Exception error)
+                    {
+                        btnBascula.Enabled = false;
+                        //MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }    
                 }
                 else
                 {
