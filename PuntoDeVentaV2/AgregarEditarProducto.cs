@@ -2908,23 +2908,29 @@ namespace PuntoDeVentaV2
 
                                         // Agregar la relacion de producto ya registrado con Combo Servicio
                                         #region Agregar a tabla productosdeservicios
-                                        if (listaProductoToCombo.Count() > 2)
+                                        if (listaProductoToCombo.Count().Equals(1))
                                         {
-                                            string[] datos;
-                                            foreach (var item in listaProductoToCombo)
+                                            if (!listaProductoToCombo[0].ToString().Equals(string.Empty))
                                             {
-                                                datos = item.Split('|');
-                                                string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                datos[0] = fech.Trim();
-                                                using (DataTable dtDatosProducto = cn.CargarDatos(cs.getDatosProducto(Convert.ToString(idProducto))))
+                                                if (this.Text.Trim() == "AGREGAR PRODUCTO")
                                                 {
-                                                    if (!dtDatosProducto.Rows.Count.Equals(0))
+                                                    string[] datos;
+                                                    foreach (var item in listaProductoToCombo)
                                                     {
-                                                        foreach(DataRow drDatosProd in dtDatosProducto.Rows)
+                                                        datos = item.Split('|');
+                                                        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                        datos[0] = fech.Trim();
+                                                        using (DataTable dtDatosProducto = cn.CargarDatos(cs.getDatosProducto(Convert.ToString(idProducto))))
                                                         {
-                                                            datos[2] = drDatosProd["ID"].ToString();
-                                                            datos[3] = drDatosProd["Nombre"].ToString();
-                                                            cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
+                                                            if (!dtDatosProducto.Rows.Count.Equals(0))
+                                                            {
+                                                                foreach (DataRow drDatosProd in dtDatosProducto.Rows)
+                                                                {
+                                                                    datos[2] = drDatosProd["ID"].ToString();
+                                                                    datos[3] = drDatosProd["Nombre"].ToString();
+                                                                    cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -3819,15 +3825,21 @@ namespace PuntoDeVentaV2
                             {
                                 // Agregar la relacion de producto ya registrado con Combo Servicio
                                 #region Agregar a tabla productosdeservicios
-                                if (listaProductoToCombo.Count() > 2)
+                                if (listaProductoToCombo.Count().Equals(1))
                                 {
-                                    string[] datos;
-                                    foreach (var item in listaProductoToCombo)
+                                    if (!listaProductoToCombo[0].ToString().Equals(string.Empty))
                                     {
-                                        datos = item.Split('|');
-                                        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                        datos[0] = fech.Trim();
-                                        cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
+                                        if (this.Text.Trim() == "EDITAR PRODUCTO")
+                                        {
+                                            string[] datos;
+                                            foreach (var item in listaProductoToCombo)
+                                            {
+                                                datos = item.Split('|');
+                                                string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                datos[0] = fech.Trim();
+                                                cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
+                                            }
+                                        }
                                     }
                                 }
                                 #endregion
