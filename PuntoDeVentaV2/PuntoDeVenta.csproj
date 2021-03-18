@@ -227,12 +227,6 @@
     <Compile Include="AgregarAnticipo.Designer.cs">
       <DependentUpon>AgregarAnticipo.cs</DependentUpon>
     </Compile>
-    <Compile Include="AgregarBasculas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AgregarBasculas.Designer.cs">
-      <DependentUpon>AgregarBasculas.cs</DependentUpon>
-    </Compile>
     <Compile Include="AgregarCategoria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -280,12 +274,6 @@
     </Compile>
     <Compile Include="AgregarDetalleProducto.Designer.cs">
       <DependentUpon>AgregarDetalleProducto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AgregarEditarBascula.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AgregarEditarBascula.Designer.cs">
-      <DependentUpon>AgregarEditarBascula.cs</DependentUpon>
     </Compile>
     <Compile Include="AgregarEditarProducto.cs">
       <SubType>Form</SubType>
@@ -916,9 +904,6 @@
     <EmbeddedResource Include="AgregarAnticipo.resx">
       <DependentUpon>AgregarAnticipo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AgregarBasculas.resx">
-      <DependentUpon>AgregarBasculas.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AgregarCategoria.resx">
       <DependentUpon>AgregarCategoria.cs</DependentUpon>
     </EmbeddedResource>
@@ -942,9 +927,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarDetalleProducto.resx">
       <DependentUpon>AgregarDetalleProducto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AgregarEditarBascula.resx">
-      <DependentUpon>AgregarEditarBascula.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarEditarProducto.resx">
       <DependentUpon>AgregarEditarProducto.cs</DependentUpon>
@@ -1412,43 +1394,13 @@
     <Content Include="PUDVE\assets\PDVE.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PUDVE\assets\printer16Pixeles.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\assets\printer24Pixeles.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\assets\printer32Pixeles.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\assets\printer48Pixeles.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\assets\printer64Pixeles.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="PUDVE\assets\Registered problem.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\assets\saveNew.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\assets\scale.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\assets\scale1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\assets\weighingMachine.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\assets\Work_area.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\BarCode\BarCode.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\BD\Basculas.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\BD\CatalogoMonedas.sql">
@@ -6256,12 +6208,13 @@
     </Content>
     <Content Include="PUDVE\icon\botones\abrir_caja.png" />
     <Content Include="PUDVE\icon\botones\agregar_descuento.png" />
-    <Content Include="PUDVE\icon\botones\anticipos.png" />
+    <Content Include="PUDVE\icon\botones\aplicar_anticipo.png" />
+    <Content Include="PUDVE\icon\botones\cancelar_ventas.png" />
     <Content Include="PUDVE\icon\botones\descuento_cliente.png" />
     <Content Include="PUDVE\icon\botones\detalle_facturacion.png" />
     <Content Include="PUDVE\icon\botones\detalle_producto.png" />
-    <Content Include="PUDVE\icon\botones\guardar_presupuesto.png" />
     <Content Include="PUDVE\icon\botones\guardar_producto.png" />
+    <Content Include="PUDVE\icon\botones\guardar_venta_ppto.png" />
     <Content Include="PUDVE\icon\botones\historial_compras.png" />
     <Content Include="PUDVE\icon\botones\historial_ventas.png" />
     <Content Include="PUDVE\icon\botones\relacionar_combo_servicio_producto.png" />
