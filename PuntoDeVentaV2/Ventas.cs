@@ -160,6 +160,53 @@ namespace PuntoDeVentaV2
                 stopBits = string.Empty, 
                 sendData = string.Empty;
 
+        #region Proceso de Bascula
+        // Constructores
+        private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
+        public delegate void MostrarRecepcion(string Texto);    // Delegado para asignar el valor recibido
+
+        // al recibir de la bascula los bytesToRead indicara
+        // un valor superior a 0, indicando el numero de caracteres
+        private void Recibir(object sender, SerialDataReceivedEventArgs e)
+        {
+            MostrarRececibidos(BasculaCom.ReadExisting().ToString());
+        }
+
+        // Enviar una solicitud a la bascula
+        public void EnviarDatos()
+        {
+            // enviar una P para Torrey
+            BasculaCom.Write(sendData);
+        }
+
+        // Mostrar los bytes recibidos en el Label recibidos
+        private void MostrarRececibidos(string texto)
+        {
+            bool success = false;
+            float number;
+
+            if (lblPesoRecibido.InvokeRequired)
+            {
+                var delegado = new MostrarRecepcion(MostrarRececibidos);
+                this.Invoke(delegado, new object[] { texto });
+            }
+            else
+            {
+                texto = texto.Replace(System.Environment.NewLine, string.Empty).Trim().Replace(" kg", string.Empty);
+                lblPesoRecibido.Text = texto;
+                if (!DGVentas.Rows.Count.Equals(0))
+                {
+                    success = float.TryParse(lblPesoRecibido.Text, out number);
+                    if (success)
+                    {
+                        DGVentas.Rows[0].Cells["Cantidad"].Value = lblPesoRecibido.Text;
+                        CantidadesFinalesVenta();
+                    }
+                }
+            }
+        }
+        #endregion
+
         public Ventas()
         {
             InitializeComponent();
@@ -3508,7 +3555,7 @@ namespace PuntoDeVentaV2
                 ventasGuardadas.Clear();
                 descuentosDirectos.Clear();
             }
-            PuertoSerieBascula.Close();
+            //PuertoSerieBascula.Close();
         }
 
         private void GenerarTicket(string[][] productos)
@@ -5755,128 +5802,9 @@ namespace PuntoDeVentaV2
             //}
         }
 
-        #region Procesos de coneccion
-        private void doConecction()
-        {
-            string _puertoCom = string.Empty;
-            int _baudRate = 0;
-
-            _puertoCom = puerto;
-            _baudRate = Convert.ToInt32(baudRate);
-            
-            InicializaPuertoBascula(_puertoCom, _baudRate);
-
-            isOpen = true;
-        }
-        #endregion
-
-        #region DISPOSITIVO-LECTOR BASCULA
-        public SerialPort PuertoSerieBascula;
-        public static string informacionBascula;
-
-        public void InicializaPuertoBascula(string _puerto, int _baud)
-        {
-            if (_puerto != "" && _puerto != string.Empty)
-            {
-                PuertoSerieBascula = new SerialPort(_puerto, _baud);
-
-                if (!PuertoSerieBascula.IsOpen)
-                {
-                    PuertoSerieBascula.Parity = (Parity)Enum.Parse(typeof(Parity), parity.ToString());
-                    PuertoSerieBascula.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits.ToString());
-                    PuertoSerieBascula.DataBits = (int)Int32.Parse(dataBits.ToString().Replace(" bit", string.Empty));
-                    PuertoSerieBascula.Handshake = (Handshake)Enum.Parse(typeof(Handshake), handshake.ToString());
-
-                    PuertoSerieBascula.ReadTimeout = 4800;
-
-                    PuertoSerieBascula.DataReceived += new SerialDataReceivedEventHandler(this.leerBascula);
-                    PuertoSerieBascula.ErrorReceived += new SerialErrorReceivedEventHandler(PuertoSerieBascula_ErrorReceived);
-
-                    try
-                    {
-                        PuertoSerieBascula.Open();
-                        isExists = true;
-                    }
-                    catch (Exception error)
-                    {
-                        isExists = false;
-                        MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("El puerto está abierto...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    PuertoSerieBascula.Close();
-                }
-            }
-        }
-
-        private void leerBascula(object sender, SerialDataReceivedEventArgs e)
-        {
-            informacionBascula += PuertoSerieBascula.ReadExisting();
-            this.Invoke(new EventHandler(ponteTextoBascula));
-        }
-
-        private void ponteTextoBascula(object sender, EventArgs e)
-        {
-            string[] words = informacionBascula.Trim().Split('\r');
-            peso = words[words.Count() - 1].Trim();
-            peso = peso.Replace("kg", string.Empty).Trim();
-        }
-
-        private void PuertoSerieBascula_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
-        {
-            switch (e.EventType)
-            {
-                case SerialError.Frame:
-                    MessageBox.Show("Error de Trama...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-                case SerialError.Overrun:
-                    MessageBox.Show("Saturación de buffer...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-                case SerialError.RXOver:
-                    MessageBox.Show("Desboradamiento de buffer de entrada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-                case SerialError.RXParity:
-                    MessageBox.Show("Error de paridad...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-                case SerialError.TXFull:
-                    MessageBox.Show("Buffer lleno...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-            }
-
-            throw new NotImplementedException();
-        }
-        #endregion
-
         private void btnBascula_Click(object sender, EventArgs e)
         {
-            iniciarBasculaPredeterminada();
-            
-            if (PuertoSerieBascula.IsOpen.Equals(true))
-            {
-                PuertoSerieBascula.Close();
-                isOpen = false;
-            }
-
-            if (isOpen.Equals(false))
-            {
-                doConecction();
-            }
-
-            if (isExists.Equals(true))
-            {
-                if (!sendData.Equals(string.Empty))
-                {
-                    PuertoSerieBascula.Write(sendData);
-                }
-                else
-                {
-                    MessageBox.Show("Favor de ingresar un valor a enviar al puerto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-
-            agregarPesoDGVentas();
+            EnviarDatos();
         }
 
         private void iniciarBasculaPredeterminada()
@@ -5885,6 +5813,8 @@ namespace PuntoDeVentaV2
             {
                 if (!dtBascula.Rows.Count.Equals(0))
                 {
+                    btnBascula.Enabled = true;
+
                     foreach (DataRow drBascula in dtBascula.Rows)
                     {
                         puerto = drBascula["puerto"].ToString();
@@ -5895,11 +5825,18 @@ namespace PuntoDeVentaV2
                         stopBits = drBascula["stopBits"].ToString();
                         sendData = drBascula["sendData"].ToString();
                     }
+                    
+                    // Ajustar los parámetros de comunicaciones
+                    // adaptándolos a las especificaciones o configuración
+                    // de la bascula en concreto.
+                    BasculaCom.PortName = puerto;                                               // Conectaremos la bascula al puerto
+                    BasculaCom.BaudRate = Convert.ToInt32(baudRate);                            // La velocidad de intercambio
+                    BasculaCom.Parity = (Parity)Enum.Parse(typeof(Parity), parity);             // No verificaremos la paridad
+                    BasculaCom.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBits);     // Final de Byte con 1 bit de Stop
+                    BasculaCom.Open();                                                          // Abrir las comunicaciones con la bascula
 
-                    if (isOpen.Equals(false))
-                    {
-                        doConecction();
-                    }
+                    // Dirigir los eventos a las funciones para procesarlos
+                    BasculaCom.DataReceived += new SerialDataReceivedEventHandler(this.Recibir);   // Ejecución de ‘Recibir’ al recibir respuesta de la bascula    
                 }
                 else
                 {
@@ -5915,9 +5852,9 @@ namespace PuntoDeVentaV2
                 if (!DGVentas.Rows.Count.Equals(0))
                 {
                     DGVentas.Rows[0].Cells["Cantidad"].Value = peso;
+                    //peso = string.Empty;
+                    CantidadesFinalesVenta();
                 }
-                peso = string.Empty;
-                CantidadesFinalesVenta();
             }
         }
 
