@@ -418,7 +418,7 @@
             this.MinimumSize = new System.Drawing.Size(1100, 597);
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PUDVE - Punto de Venta";
+            this.Text = "SIFO - Punto de Venta";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormPrincipal_Paint);

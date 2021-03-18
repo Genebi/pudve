@@ -382,11 +382,11 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(nameMachineServer))
             {
-                this.Text = $"PUDVE - Punto de Venta |  Usuario: {userNickName}  | Asociada a: {nameMachineServer}";
+                this.Text += $" |  Usuario: {userNickName}  | Asociada a: {nameMachineServer}";
             }
             else
             {
-                this.Text = $"PUDVE - Punto de Venta |  Usuario: {userNickName}";
+                this.Text += $" |  Usuario: {userNickName}";
             }
         }
 
