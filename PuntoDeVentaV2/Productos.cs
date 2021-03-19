@@ -4202,6 +4202,10 @@ namespace PuntoDeVentaV2
                 {
                     txtAndNumSearch += " " + numBusqueda.Trim();
                 }
+                if (!txtBusquedaString.Equals(string.Empty) && (numBusqueda.Equals(string.Empty) || NvoTxtBusquedaString.Equals(string.Empty)))
+                {
+                    txtAndNumSearch += " " + txtBusquedaString.Trim();
+                }
 
                 // si la cadena a buscar no esta vacia
                 if (/*!numBusqueda.Trim().Equals("")*/!txtAndNumSearch.Trim().Equals(""))
