@@ -2924,6 +2924,11 @@ namespace PuntoDeVentaV2
                                 var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                                 var restantes = (stock - vendidos).ToString();
 
+                                // Actualizar el stock
+                                guardar = new string[] { IDProducto, restantes, FormPrincipal.userID.ToString() };
+
+                                cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
+
                                 // Comprobar si aplica para el envio de correo ya sea de stock minimo, de venta o ambos
                                 if (correoStockMinimo == 1 || correoVentaProducto == 1)
                                 {
@@ -2938,12 +2943,22 @@ namespace PuntoDeVentaV2
                                         {
                                             // Obtener el stock minimo del producto
                                             var stockMinimo = Convert.ToInt32(datosProductoTmp[10]);
-                                            var stockTmp = Convert.ToInt32(stock);
+                                            var stockTmp = Convert.ToDecimal(datosProductoTmp[4]);
 
                                             if (stockTmp <= stockMinimo)
                                             {
                                                 if (!enviarStockMinimo.ContainsKey(Convert.ToInt32(IDProducto)))
                                                 {
+                                                    var terminacion = datosProductoTmp[4].Split('.');
+
+                                                    if (terminacion.Count() > 0)
+                                                    {
+                                                        if (terminacion[1] == "00")
+                                                        {
+                                                            datosProductoTmp[4] = terminacion[0];
+                                                        }
+                                                    }
+
                                                     var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK MINIMO: {datosProductoTmp[10]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
                                                     enviarStockMinimo.Add(Convert.ToInt32(IDProducto), nombre);
                                                 }
@@ -2961,11 +2976,6 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
-
-                                // Actualizar el stock
-                                guardar = new string[] { IDProducto, restantes, FormPrincipal.userID.ToString() };
-
-                                cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
                             }
 
                             // Servicio o paquete
