@@ -2983,6 +2983,26 @@ namespace PuntoDeVentaV2
                             {
                                 var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
 
+                                if (correoVentaProducto == 1)
+                                {
+                                    var configServicio = mb.ComprobarCorreoProducto(Convert.ToInt32(IDProducto));
+
+                                    if (configServicio.Count > 0)
+                                    {
+                                        // Correo venta de servicio o paquete
+                                        if (configServicio[3] == 1)
+                                        {
+                                            if (!enviarVentaProducto.ContainsKey(Convert.ToInt32(IDProducto)))
+                                            {
+                                                var datosServicioTmp = cn.BuscarProducto(Convert.ToInt32(IDProducto), FormPrincipal.userID);
+
+                                                var nombre = $"{datosServicioTmp[1]} --- CÓDIGO BARRAS: {datosServicioTmp[7]}";
+                                                enviarVentaProducto.Add(idProducto, nombre);
+                                            }
+                                        }
+                                    }
+                                }
+
                                 var datosServicio = cn.ObtenerProductosServicio(Convert.ToInt32(IDProducto));
 
                                 foreach (string producto in datosServicio)
