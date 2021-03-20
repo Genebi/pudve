@@ -160,6 +160,8 @@ namespace PuntoDeVentaV2
                 stopBits = string.Empty, 
                 sendData = string.Empty;
 
+        private string FolioVentaCorreo = string.Empty;
+
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -2792,6 +2794,7 @@ namespace PuntoDeVentaV2
 
             aumentoFolio();
             Folio = Contenido;
+            FolioVentaCorreo = Folio;
 
             if (formaDePagoDeVenta.Equals(string.Empty))
             {
@@ -5578,14 +5581,17 @@ namespace PuntoDeVentaV2
         private void CuerpoEmails()
         {
             var correo = FormPrincipal.datosUsuario[9];
-            var asunto = "Información estado de Productos";
+            var asunto = string.Empty;
             var html = string.Empty;
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             if (!string.IsNullOrWhiteSpace(correo))
             {
                 // Comprobar stock minimo
                 if (enviarStockMinimo.Count > 0)
                 {
+                    asunto = "¡AVISO! Stock mínimo alcanzado por ventas.";
+
                     html = @"
                     <div style='margin-bottom: 50px;'>
                         <h4 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h4><hr>
@@ -5596,14 +5602,36 @@ namespace PuntoDeVentaV2
                         html += $"<li>{producto.Value}</li>";
                     }
 
-                    html += @"
-                        </ul>
+                    var footerCorreo = string.Empty;
+
+
+                    if (FormPrincipal.id_empleado > 0)
+                    {
+                        var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
+
+                        string nombreEmpleado = datosEmpleado[14];
+                        string usuarioEmpleado = datosEmpleado[15];
+
+                        var infoEmpleado = usuarioEmpleado.Split('@');
+
+                        footerCorreo = $"<p style='font-size: 12px;'>En la venta con folio <span style='color: red;'>{FolioVentaCorreo}</span> realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                    }
+                    else
+                    {
+                        footerCorreo = $"<p style='font-size: 12px;'>En la venta con folio <span style='color: red;'>{FolioVentaCorreo}</span> realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                    }
+
+                    html += $@"
+                        </ul><hr>
+                        {footerCorreo}
                     </div>";
                 }
 
                 // Comprobar venta producto
                 if (enviarVentaProducto.Count > 0)
                 {
+                    asunto = "Información estado de Productos";
+
                     html += @"
                     <div>
                         <h4 style='text-align: center;'>LISTADO PRODUCTOS VENDIDOS</h4><hr>
