@@ -1448,7 +1448,7 @@ namespace PuntoDeVentaV2
                                         <tr>
                                             <th style = 'text-align: center;' colspan = '3'>Cantidad fue Agregada</th>
                                         </tr>";
-                asunto = "Agregar Dinero a Caja en el sistema";
+                asunto = "Agregar Dinero \"Apartado Caja\"";
             }
             else if (OperacionRealizada.Equals("retiro"))
             {
@@ -1459,7 +1459,7 @@ namespace PuntoDeVentaV2
                                         <tr>
                                             <th style = 'text-align: center;' colspan = '3'>Cantidad a Retirada</th>
                                         </tr>";
-                asunto = "Retiro Dinero a Caja en el sistema";
+                asunto = "Retiro Dinero \"Apartado Caja\"";
             }
 
                   cuerpoHTML += $@"     <tr>
@@ -1518,7 +1518,18 @@ namespace PuntoDeVentaV2
                                     </table>
                                 </div>";
 
-            pieHTML = $@"<p>Está operación fue realizada con <span style='color:red;'>fecha de {FechaDeOperacion}</span> por el <span style='color: red'>usuario = {NombreUsuario}</span></p>";
+            if (!string.IsNullOrWhiteSpace(datosEnvioCorreo[13]))
+            {
+                var datosEmpleado = datosEnvioCorreo[14].Split('@');
+
+                pieHTML = $@"<p>Está operación fue realizada por {datosEnvioCorreo[13]} ({datosEmpleado[1]}) del usuario {datosEmpleado[0]} con <span style='color:red;'>fecha de {FechaDeOperacion}</span></p>";
+            }
+            else
+            {
+                pieHTML = $@"<p>Está operación fue realizada por el ADMIN del usuario {FormPrincipal.userNickName} con <span style='color:red;'>fecha de {FechaDeOperacion}</span></p>";
+            }
+
+            //pieHTML = $@"<p>Está operación fue realizada por con <span style='color:red;'>fecha de {FechaDeOperacion}</span> por el <span style='color: red'>usuario = {NombreUsuario}</span></p>";
 
             correoHTML = encabezadoHTML + cuerpoHTML + pieHTML;
             

@@ -254,11 +254,21 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            string nombreEmpleado = string.Empty;
+            string usuarioEmpleado = string.Empty;
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
+
+                nombreEmpleado = datosEmpleado[14];
+                usuarioEmpleado = datosEmpleado[15];
+            }
 
             string[] datos = new string[] {
                 tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                 efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
-                trans.ToString("0.00"), credito.ToString("0.00"), "0"
+                trans.ToString("0.00"), credito.ToString("0.00"), "0", nombreEmpleado, usuarioEmpleado
             };
 
             int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
