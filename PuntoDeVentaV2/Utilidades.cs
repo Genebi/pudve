@@ -365,16 +365,37 @@ namespace PuntoDeVentaV2
         public static void CambioPrecioProductoEmail(string[] datos, int tipo = 0)
         {
             var correo = FormPrincipal.datosUsuario[9];
-            var asunto = "Cambio de precio(s) para producto(s)";
+            var asunto = "¡ATENCIÓN! Precio(s) de producto(s) modificado(s) (Aumentado o disminuido)";
             var html = string.Empty;
 
             var producto = datos[0];
             var precioAnterior = datos[1];
             var precioNuevo = datos[2];
             var origen = datos[3];
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             if (!string.IsNullOrWhiteSpace(correo))
             {
+                string footerCorreo = string.Empty;
+
+                if (FormPrincipal.id_empleado > 0)
+                {
+                    MetodosBusquedas mb = new MetodosBusquedas();
+
+                    var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
+
+                    string nombreEmpleado = datosEmpleado[14];
+                    string usuarioEmpleado = datosEmpleado[15];
+
+                    var infoEmpleado = usuarioEmpleado.Split('@');
+
+                    footerCorreo = $"<p style='font-size: 0.8em;'>El cambio fue realizado por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> desde {origen} con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                }
+                else
+                {
+                    footerCorreo = $"<p style='font-size: 0.8em;'>El cambio fue realizado por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> desde {origen} con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                }
+
                 if (tipo == 0)
                 {
                     html = $@"
@@ -383,7 +404,7 @@ namespace PuntoDeVentaV2
                         <p>El precio del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
                         {origen}, su precio <b>anterior</b> era de <span style='color: red;'>${precioAnterior}</span> y fue actualizado
                         por el <b>nuevo</b> precio de <span style='color: red;'>${precioNuevo}</span>.</p>
-                        <p style='font-size: 0.8em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
+                        {footerCorreo}
                     </div>";
                 }
 
@@ -395,10 +416,7 @@ namespace PuntoDeVentaV2
                         <ul style='font-size: 0.8em;'>
                             {producto}
                         </ul>
-                        <p style='font-size: 0.8em;'>
-                            <span>NOTA: El precio de los productos fue modificado desde {origen}.</span><br>
-                            <span>Fecha de Modificación: <b>{DateTime.Now}</b></span>
-                        </p>
+                        {footerCorreo}
                     </div>";
                 }
 
