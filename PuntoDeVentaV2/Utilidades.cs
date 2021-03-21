@@ -1076,6 +1076,26 @@ namespace PuntoDeVentaV2
                                     </tr>";
             }
 
+            string footerCorreo = string.Empty;
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                MetodosBusquedas mb = new MetodosBusquedas();
+
+                var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
+
+                string nombreEmpleado = datosEmpleado[14];
+                string usuarioEmpleado = datosEmpleado[15];
+
+                var infoEmpleado = usuarioEmpleado.Split('@');
+
+                footerCorreo = $"<p style='font-size: 0.8em;'>Está operación fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
+            }
+            else
+            {
+                footerCorreo = $"<p style='font-size: 0.8em;'>Está operación fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
+            }
+
             pieHTML = $@"           <tr>
                                         <td colspan='4' style = 'text-align: right;'>
                                             Total =
@@ -1085,11 +1105,12 @@ namespace PuntoDeVentaV2
                                         </td>
                                     </tr>
                                 </table>
-                                <p>Está operación fue realizada con <span style='color:red;'>fecha de {fechaSistema}</span> por el <span style='color: red'>usuario = {datosUsuario[0].ToString()}</span></p>";
+                                <p>La ventana fue cerrada cuando contenia productos agregados en la lista.</p>
+                                {footerCorreo}";
 
             correoHTML = encabezadoHTML + productos + pieHTML;
 
-            asunto = "Venta no realizada en el sistema";
+            asunto = "Venta no realizada en el sistema (Al cerrar la ventana de ventas)";
             correo = datosUsuario[9].ToString();
             correo1 = "micorreoeshouse_1@hotmail.com";
             //correo = "genebi@outlook.com";
