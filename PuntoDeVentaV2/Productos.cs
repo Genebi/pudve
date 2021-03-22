@@ -6168,6 +6168,7 @@ namespace PuntoDeVentaV2
         {
             if (!primeraVez)
             {
+                //MessageBox.Show("Entra al If del Paint");
                 if (recargarDatos)
                 {
                     validarConexionServidor();
@@ -6198,10 +6199,15 @@ namespace PuntoDeVentaV2
 
                     creacionEtiquetasDinamicas();
                 }
+                else if (!recargarDatos)
+                {
+                    recargarDatos = true;
+                }
             }
             else
             {
                 primeraVez = false;
+                //MessageBox.Show("Entra al Else del Paint");
             }
         }
 
