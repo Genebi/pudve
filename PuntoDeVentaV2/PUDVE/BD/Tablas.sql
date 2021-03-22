@@ -1279,3 +1279,17 @@ IF
 ALTER TABLE Usuarios ADD COLUMN 
 IF 
 	NOT EXISTS SinClaveInterna INT DEFAULT (1);
+
+--
+--
+--
+
+-- Borrado de CONSTRAINT 
+ALTER TABLE productosdeservicios DROP CONSTRAINT
+IF
+	EXISTS productosdeservicios_ibfk_1;
+
+-- Borrado de KEY
+ALTER TABLE productosdeservicios DROP KEY
+IF
+	EXISTS IDProducto;
