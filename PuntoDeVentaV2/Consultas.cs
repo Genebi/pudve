@@ -1573,5 +1573,11 @@ GROUP BY Prod.ID";
             return cons; 
         } 
 
+        public string borrarProdRelBlanco(int idServCombo)
+        {
+            var consulta = $"DELETE FROM productosdeservicios WHERE IDServicio = '{idServCombo}' AND IDProducto = '0' AND NombreProducto = ''";
+
+            return consulta;
+        }
     }
 }
