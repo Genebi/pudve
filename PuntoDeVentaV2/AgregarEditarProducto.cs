@@ -3326,17 +3326,17 @@ namespace PuntoDeVentaV2
                                                     }
                                                 }
                                             }
-                                            //if (ProductosDeServicios.Count.Equals(0))
-                                            //{
-                                            //    string[] datos = new string[5];
-                                            //    string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                            //    datos[0] = fech;
-                                            //    datos[1] = idProducto.ToString();
-                                            //    datos[2] = "0";
-                                            //    datos[3] = string.Empty;
-                                            //    datos[4] = txtCantPaqServ.Text;
-                                            //    cn.EjecutarConsulta(cs.GuardarProductosServPaq(datos));
-                                            //}
+                                            if (ProductosDeServicios.Count.Equals(0))
+                                            {
+                                                string[] datos = new string[5];
+                                                string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                datos[0] = fech;
+                                                datos[1] = idProducto.ToString();
+                                                datos[2] = "0";
+                                                datos[3] = string.Empty;
+                                                datos[4] = txtCantPaqServ.Text;
+                                                cn.EjecutarConsulta(cs.GuardarProductosServPaq(datos));
+                                            }
                                             flowLayoutPanel2.Controls.Clear();
                                         }
                                         #endregion Final Seccion de Agregar desde Boton Producto y de Editar Producto
