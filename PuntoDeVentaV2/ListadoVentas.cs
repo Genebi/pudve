@@ -766,6 +766,7 @@ namespace PuntoDeVentaV2
                                                     if (!string.IsNullOrEmpty(abonoObtenido)) { total = float.Parse(abonoObtenido); }
                                                     DevolverAnticipo da = new DevolverAnticipo(idVenta, total, 3, ventaCancelada);
                                                     da.ShowDialog();
+                                                    
                                                     if (DevolverAnticipo.cancel == 1)
                                                     {
                                                         stopCancelar = true;
@@ -774,6 +775,8 @@ namespace PuntoDeVentaV2
                                                     {
                                                         stopCancelar = false;
                                                     }
+                                                    cbTipoVentas.SelectedIndex = 1;
+                                                    cbTipoVentas.SelectedIndex = 3;
                                                 }
                                                 else if (fechaAbonoRealizado < fechaDelCorteCaja)//Devolver dinero en efectivo
                                                 {
