@@ -1053,11 +1053,14 @@ namespace PuntoDeVentaV2
                                 {
                                     // Miri. Modificado.
                                     // Obtiene el id del combo cancelado
-                                    int id_prod = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDProducto AS ID FROM ProductosVenta WHERE IDVenta='{idVenta}'", 1));
+                                    DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
                                     //var productos = cn.ObtenerProductosVenta(idVenta);
 
-                                    if (id_prod > 0)
+                                    if (d_prod_venta.Rows.Count > 0)
                                     {
+                                        DataRow r_prod_venta = d_prod_venta.Rows[0];
+                                        int id_prod = Convert.ToInt32(r_prod_venta["IDProducto"]);
+                                        int cantidad_combo = Convert.ToInt32(r_prod_venta["Cantidad"]);
 
                                         // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
                                         DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
@@ -1066,7 +1069,10 @@ namespace PuntoDeVentaV2
                                         {
                                             foreach(DataRow drprod_relacionados in dtprod_relacionados.Rows)
                                             {
-                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {drprod_relacionados["Cantidad"]} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
+                                                int cantidad_prod_rel = Convert.ToInt32(drprod_relacionados["Cantidad"]);
+                                                int cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
+
+                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
                                             }
                                         } 
 

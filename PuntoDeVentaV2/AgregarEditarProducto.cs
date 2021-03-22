@@ -1878,6 +1878,7 @@ namespace PuntoDeVentaV2
             }
             else if (DatosSourceFinal.Equals(3))
             {
+                txtNombreProducto.Text = ProdNombre;
                 FechaXMLNvoProd = fechaProdXML;
                 FolioXMLNvoProd = FolioProdXML;
                 RFCXMLNvoProd = RFCProdXML;
