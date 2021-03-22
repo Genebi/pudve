@@ -4210,8 +4210,9 @@ namespace PuntoDeVentaV2
                 // si la cadena a buscar no esta vacia
                 if (/*!numBusqueda.Trim().Equals("")*/!txtAndNumSearch.Trim().Equals(""))
                 {
+                    var buscarSinDuplicados = quitarDuplicadosPorBuscar(txtAndNumSearch.Trim());
                     // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
-                    var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(txtAndNumSearch.Trim());
+                    var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(buscarSinDuplicados.Trim());
                     //var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(numBusqueda.Trim());
 
                     buscarCodigosBarraExtra = string.Empty;
@@ -4498,7 +4499,7 @@ namespace PuntoDeVentaV2
                                 quitarEspacioEnBlanco();
                                 agregarEspacioAlFinal();
                                 txtBusqueda.Text = busqueda.Trim();
-                                txtBusqueda.Text = nuevosCodigos.Trim();
+                                //txtBusqueda.Text = nuevosCodigos.Trim();
                                 nuevosCodigos = string.Empty;
                             }
                         }
@@ -5064,6 +5065,22 @@ namespace PuntoDeVentaV2
             //MarcarCheckBoxes(filtroConSinFiltroAvanzado);
 
             clickBoton = 0;
+        }
+
+        private string quitarDuplicadosPorBuscar(string Datos)
+        {
+            var lista = string.Empty;
+
+            string[] words = Datos.Split(' ');
+
+            string[] resultado = words.Distinct().ToArray();
+
+            foreach(var item in resultado)
+            {
+                lista += item + " ";
+            }
+
+            return lista.Trim();
         }
 
         private void MarcarCheckBoxes(string consulta)
