@@ -137,7 +137,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.groupBox5.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Location = new System.Drawing.Point(14, 68);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
@@ -151,7 +151,7 @@
             // label11
             // 
             this.label11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label11.Font = new System.Drawing.Font("Times New Roman", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Font = new System.Drawing.Font("Times New Roman", 34F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(4, 15);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
@@ -167,12 +167,12 @@
             // 
             this.label19.Font = new System.Drawing.Font("Century Schoolbook", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label19.Location = new System.Drawing.Point(10, 17);
+            this.label19.Location = new System.Drawing.Point(6, 22);
             this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(442, 28);
+            this.label19.Size = new System.Drawing.Size(452, 28);
             this.label19.TabIndex = 9;
-            this.label19.Text = "Agregar productos mediante un Archivo XML";
+            this.label19.Text = "Agregar productos mediante un archivo XML";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel12
@@ -188,7 +188,7 @@
             this.panel12.Location = new System.Drawing.Point(8, 284);
             this.panel12.Margin = new System.Windows.Forms.Padding(2);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(920, 254);
+            this.panel12.Size = new System.Drawing.Size(920, 249);
             this.panel12.TabIndex = 14;
             // 
             // panel22
@@ -454,10 +454,10 @@
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Location = new System.Drawing.Point(9, 73);
+            this.panel2.Location = new System.Drawing.Point(8, 73);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(920, 212);
+            this.panel2.Size = new System.Drawing.Size(921, 212);
             this.panel2.TabIndex = 13;
             // 
             // panel11
@@ -710,10 +710,10 @@
             this.panel17.Controls.Add(this.lblPosicionActualXML);
             this.panel17.Controls.Add(this.label23);
             this.panel17.Controls.Add(this.label25);
-            this.panel17.Location = new System.Drawing.Point(8, 6);
+            this.panel17.Location = new System.Drawing.Point(11, 6);
             this.panel17.Margin = new System.Windows.Forms.Padding(2);
             this.panel17.Name = "panel17";
-            this.panel17.Size = new System.Drawing.Size(920, 66);
+            this.panel17.Size = new System.Drawing.Size(917, 66);
             this.panel17.TabIndex = 12;
             // 
             // lblLargodelXML
@@ -781,10 +781,10 @@
             this.panel6.Controls.Add(this.groupBox2);
             this.panel6.Controls.Add(this.groupBox1);
             this.panel6.Controls.Add(this.label1);
-            this.panel6.Location = new System.Drawing.Point(9, 285);
+            this.panel6.Location = new System.Drawing.Point(9, 284);
             this.panel6.Margin = new System.Windows.Forms.Padding(2);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(920, 272);
+            this.panel6.Size = new System.Drawing.Size(920, 273);
             this.panel6.TabIndex = 18;
             // 
             // groupBox2
@@ -899,16 +899,18 @@
             // 
             // btnLoadXML
             // 
-            this.btnLoadXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnLoadXML.BackColor = System.Drawing.Color.Teal;
             this.btnLoadXML.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLoadXML.Font = new System.Drawing.Font("Century Schoolbook", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoadXML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoadXML.Font = new System.Drawing.Font("Century Gothic", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoadXML.ForeColor = System.Drawing.Color.White;
             this.btnLoadXML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLoadXML.Location = new System.Drawing.Point(170, 336);
+            this.btnLoadXML.Location = new System.Drawing.Point(121, 336);
             this.btnLoadXML.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadXML.Name = "btnLoadXML";
-            this.btnLoadXML.Size = new System.Drawing.Size(140, 47);
+            this.btnLoadXML.Size = new System.Drawing.Size(240, 44);
             this.btnLoadXML.TabIndex = 11;
-            this.btnLoadXML.Text = "XML";
+            this.btnLoadXML.Text = "Subir archivo XML";
             this.btnLoadXML.UseVisualStyleBackColor = false;
             this.btnLoadXML.Click += new System.EventHandler(this.btnLoadXML_Click_1);
             // 
@@ -933,7 +935,7 @@
             this.Name = "AgregarStockXML";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PUDVE - Cargar XML";
+            this.Text = "Cargar XML";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarStockXML_FormClosing);
             this.Load += new System.EventHandler(this.AgregarStockXML_Load);
             this.panel1.ResumeLayout(false);

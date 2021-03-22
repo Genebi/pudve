@@ -2234,7 +2234,7 @@ namespace PuntoDeVentaV2
                         fs = new FileStream(f.FileName, FileMode.Open, FileAccess.Read);    // iniciamos el objeto fs para poder leer el archivo XML y no dejarlo en uso
                         ds = (Comprobante)serial.Deserialize(fs);                           // iniciamos el objeto ds y le hacemos un cast con la clase Comprobante y le pasamos la lectura del XML
 
-                        if (ds.Receptor.Rfc == rfc)                                         // comparamos si el RFC-Receptor(del archivo XML) es igual al RFC del usruario del sistema
+                        if (ds.Receptor.Rfc == rfc | ds.Emisor.Rfc == rfc)                                         // comparamos si el RFC-Receptor(del archivo XML) es igual al RFC del usruario del sistema
                         {
                             rutaXML = f.FileName; //Almacenamos el nombre y ruta completa del archivo cargado
                             cantProductos = 0;          // la cantidad de Productos la ponemos en 0
