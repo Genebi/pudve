@@ -435,6 +435,7 @@ namespace PuntoDeVentaV2
                     {
                         if (countListaCodigosBarras >= 0 && countListaCodigosBarras < listaCodigosBarras.Count)
                         {
+                            var codigoAntesCambiar = txtBoxBuscarCodigoBarras.Text;
                             txtBoxBuscarCodigoBarras.Text = listaCodigosBarras[countListaCodigosBarras].ToString();
 
                             codigo = txtBoxBuscarCodigoBarras.Text;
@@ -443,6 +444,7 @@ namespace PuntoDeVentaV2
                             {
                                 if (!CodigoBarrasAgregados.ContainsKey(listaCodigosBarras[cantidadRegistrosAux]) && !string.IsNullOrEmpty(codigo))
                                 {
+                                    var idABuscar = string.Empty;
                                     if (deshabilitarProdProveedor.Equals(true))
                                     {
                                         if (deshabilitarProdProveedor.Equals(true))
@@ -462,13 +464,19 @@ namespace PuntoDeVentaV2
                                         if (codigoBuscar < 0) { codigoBuscar = (cantidadRegistrosAux + contadorDeshabilitar); }
                                         var codigoActual = string.Empty;
 
-                                        if (!CodigoBarrasAgregados.Count.Equals(0)) { codigoActual = extraerDatos[codigoBuscar].ToString(); }else { codigoActual = listaCodigosBarras[0].ToString(); }
+                                        //if (!CodigoBarrasAgregados.Count.Equals(0))
+                                        //{
+                                        //    var separacionArreglo = separarArreglo(extraerDatos[codigoBuscar].ToString());
+                                        //    mostrarId(separacionArreglo);
+                                        //}
+
+                                        if (!CodigoBarrasAgregados.Count.Equals(0) /*&& deshabilitarProdProveedor.Equals(false)*/) { codigoActual = extraerDatos[codigoBuscar].ToString(); }else { codigoActual = listaCodigosBarras[0].ToString(); }
                                          
 
                                         string[] words = codigoActual.Split(',');
                                         string code = words[0].Replace("[", "");
-
-                                        codigo = code;
+                                        var convertirAID = mostrarId(code);
+                                        codigo = convertirAID;
                                         var codigoSecundario = validarfiltroProveedor(codigo);
                                         if (deshabilitarProdProveedor.Equals(true))
                                         {
@@ -482,6 +490,10 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
+                                    string codigoActual = string.Empty;
+                                    var separacionArreglo = string.Empty;
+                                    var idEncontrado = string.Empty;
+
                                     if (deshabilitarProdProveedor.Equals(true))
                                     {
                                         listaCodigosBarras.Remove(validarCodigoProv);
@@ -494,13 +506,27 @@ namespace PuntoDeVentaV2
                                     int codigoBuscar = 0;
                                     if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1)-(contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice + 1); }
 
+                                    if (!CodigoBarrasAgregados.Count.Equals(0))
+                                    {
+                                        separacionArreglo = separarArreglo(extraerDatos[codigoBuscar].ToString());
+                                        idEncontrado = mostrarId(separacionArreglo);
+                                    }
+
                                     if (codigoBuscar < 0) { codigoBuscar = (cantidadRegistrosAux); }
-                                    var codigoActual = extraerDatos[codigoBuscar].ToString();
+                                    if (!CodigoBarrasAgregados.ContainsKey(separacionArreglo) && deshabilitarProdProveedor.Equals(false))
+                                    {
+                                        codigoActual = extraerDatos[codigoBuscar].ToString();
+                                    }
+                                    else
+                                    {
+                                        codigoActual = listaCodigosBarras[codigoBuscar].ToString();
+                                    }
+                                    
 
                                     string[] words = codigoActual.Split(',');
                                     string code = words[0].Replace("[", "");
-
-                                    codigo = code;
+                                    var convertirAID = mostrarId(code);
+                                    codigo = convertirAID;
                                     var codigoSecundario = validarfiltroProveedor(codigo);
                                     if (deshabilitarProdProveedor.Equals(true))
                                     {
@@ -724,6 +750,30 @@ namespace PuntoDeVentaV2
                 result = Utilidades.RemoverCeroStock(stockProductos);
             }
 
+            return result;
+        }
+
+
+        private string mostrarId(string cod)
+        {
+            var resultado = string.Empty;
+            var query = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{cod}' OR ClaveInterna = '{cod}' AND Status = 1 AND (CodigoBarras != '' OR ClaveInterna != '')");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                resultado = query.Rows[0]["ID"].ToString();
+            }
+
+            return resultado;
+        }
+
+        private string separarArreglo(string codigoActual)
+        {
+            var result = string.Empty;
+            string[] words = codigoActual.Split(',');
+            string code = words[0].Replace("[", "");
+
+            result = code;
             return result;
         }
 
