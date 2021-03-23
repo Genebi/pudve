@@ -859,11 +859,7 @@
             this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPType.Location = new System.Drawing.Point(0, 0);
             this.fLPType.Name = "fLPType";
-<<<<<<< HEAD
             this.fLPType.Size = new System.Drawing.Size(870, 29);
-=======
-            this.fLPType.Size = new System.Drawing.Size(868, 29);
->>>>>>> agregarPXMLV2
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -873,11 +869,7 @@
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-<<<<<<< HEAD
             this.fLPDetalleProducto.Size = new System.Drawing.Size(870, 66);
-=======
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(868, 66);
->>>>>>> agregarPXMLV2
             this.fLPDetalleProducto.TabIndex = 36;
             // 
             // fLPContenidoProducto
@@ -887,11 +879,7 @@
             this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 145);
             this.fLPContenidoProducto.Name = "fLPContenidoProducto";
-<<<<<<< HEAD
             this.fLPContenidoProducto.Size = new System.Drawing.Size(870, 80);
-=======
-            this.fLPContenidoProducto.Size = new System.Drawing.Size(868, 80);
->>>>>>> agregarPXMLV2
             this.fLPContenidoProducto.TabIndex = 37;
             // 
             // fLPDetalle
@@ -901,11 +889,7 @@
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 225);
             this.fLPDetalle.Name = "fLPDetalle";
-<<<<<<< HEAD
             this.fLPDetalle.Size = new System.Drawing.Size(870, 300);
-=======
-            this.fLPDetalle.Size = new System.Drawing.Size(868, 300);
->>>>>>> agregarPXMLV2
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -915,11 +899,7 @@
             this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPAccion.Location = new System.Drawing.Point(0, 525);
             this.fLPAccion.Name = "fLPAccion";
-<<<<<<< HEAD
             this.fLPAccion.Size = new System.Drawing.Size(870, 120);
-=======
-            this.fLPAccion.Size = new System.Drawing.Size(868, 120);
->>>>>>> agregarPXMLV2
             this.fLPAccion.TabIndex = 39;
             // 
             // fLPDetallesProducto
@@ -928,11 +908,7 @@
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 95);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-<<<<<<< HEAD
             this.fLPDetallesProducto.Size = new System.Drawing.Size(870, 50);
-=======
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(868, 50);
->>>>>>> agregarPXMLV2
             this.fLPDetallesProducto.TabIndex = 31;
             // 
             // flowLayoutPanel3
@@ -958,11 +934,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-<<<<<<< HEAD
             this.ClientSize = new System.Drawing.Size(887, 599);
-=======
-            this.ClientSize = new System.Drawing.Size(885, 599);
->>>>>>> agregarPXMLV2
             this.Controls.Add(this.fLPAccion);
             this.Controls.Add(this.fLPDetalle);
             this.Controls.Add(this.fLPContenidoProducto);
