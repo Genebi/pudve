@@ -1580,9 +1580,9 @@ GROUP BY Prod.ID";
             return consulta;
         }
 
-        public string registrarBasculas()
+        public string registrarBasculas(int IdUsuario)
         {
-            var consulta = $@"INSERT IGNORE INTO basculas ( idBascula, nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada ) VALUES 	( 1, 'TORREY L-PCR-20 KG', 'COM3', '115200', '8 bit', 'None', 'None', 'One', 'P', '{FormPrincipal.userID}', 0 ), 	( 2, 'TORREY L-PCR-40 KG', 'COM3', '115200', '8 bit', 'None', 'None', 'One', 'P', '{FormPrincipal.userID}', 1 )";
+            var consulta = $@"INSERT IGNORE INTO basculas ( nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada ) VALUES 	( 'TORREY L-PCR-20 KG', 'COM3', '115200', '8 bit', 'None', 'None', 'One', 'P', {IdUsuario}, 0 ), 	( 'TORREY L-PCR-40 KG', 'COM3', '115200', '8 bit', 'None', 'None', 'One', 'P', {IdUsuario}, 1 )";
 
             return consulta;
         }

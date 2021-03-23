@@ -519,6 +519,17 @@ namespace PuntoDeVentaV2
 
 
             obtenerDatoClaveInterna(userID);
+
+            try
+            {
+                //string script = File.ReadAllText(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\Basculas.sql");
+                var script = cs.registrarBasculas(userID);
+                cn.EjecutarConsulta(script);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
 

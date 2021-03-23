@@ -556,17 +556,6 @@ namespace PuntoDeVentaV2
             //{
             //    vs.printProductVersion();
             //}
-
-            try
-            {
-                //string script = File.ReadAllText(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\Basculas.sql");
-                var script = cs.registrarBasculas();
-                cn.EjecutarConsulta(script);
-            }
-            catch (Exception ex)
-            {
-
-            }
         }
 
         /// <summary>
