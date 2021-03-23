@@ -454,10 +454,12 @@ namespace PuntoDeVentaV2
                                             listaCodigosBarras.Remove(validarCodigoProv);
                                         }
 
+                                        if (CodigoBarrasAgregados.Count.Equals(0)) { CodigoBarrasAgregados.Add(listaCodigosBarras[0], string.Empty); }
+
                                         var extraerDatos = CodigoBarrasAgregados.ToArray();
                                         var validarProveedor = CodigoPorProveedor.ToArray();
 
-                                        var indice = Array.FindIndex(validarProveedor, row => row.Key == codigoProveedor[cantidadRegistrosAux - 1].ToString());
+                                        var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[cantidadRegistrosAux - 1].ToString());
 
                                         int codigoBuscar = 0;
                                         if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar); } else { codigoBuscar = (indice + 1); }
@@ -1458,6 +1460,14 @@ namespace PuntoDeVentaV2
 
                 if (confirmarDesicion == DialogResult.Yes)
                 {
+                    if (operadorFiltro.Equals("chkProveedor"))
+                    {
+                        countListaCodigosBarras--;
+                        if (countListaCodigosBarras < 1)
+                        {
+                            countListaCodigosBarras = 0;
+                        }
+                    }
                     contadorDeshabilitar++;
                     deshabilitarEsteProducto = true;
 
@@ -1522,6 +1532,15 @@ namespace PuntoDeVentaV2
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
+            if (operadorFiltro.Equals("chkProveedor"))
+            {
+                countListaCodigosBarras--;
+                if (countListaCodigosBarras < 1)
+                {
+                    countListaCodigosBarras = 1;
+                }
+            }
+
             var idBueno = string.Empty;
             var obteniendoId = string.Empty;
             var validarAnterior = false;
