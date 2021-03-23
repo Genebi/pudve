@@ -4718,6 +4718,10 @@ namespace PuntoDeVentaV2
                 this.Text = Titulo.ToUpper();
                 chkBoxConProductos.Checked = false;
                 chkBoxConProductos.Visible = true;
+
+                // Miri. 
+                btnAdd.Visible = true;
+
                 //if (PStock.Visible == true)
                 //{
                 //    PStock.Visible = false;
@@ -4750,6 +4754,10 @@ namespace PuntoDeVentaV2
                 this.Text = Titulo.ToUpper();
                 chkBoxConProductos.Checked = false;
                 chkBoxConProductos.Visible = true;
+
+                // Miri. 
+                btnAdd.Visible = true;
+
                 //if (PStock.Visible == true)
                 //{
                 //    PStock.Visible = false;
@@ -6059,6 +6067,10 @@ namespace PuntoDeVentaV2
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 cargarDatos();
                 txtPrecioCompra.Enabled = true;
+
+                // Miri. 
+                // Se agrega para que inicialmente no lo muestre puesto que por default es un producto en el select. 
+                btnAdd.Visible = false; 
             }
             // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
             // si el llamado de la ventana proviene del DataGridView (Copiar Producto)
