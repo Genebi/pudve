@@ -61,10 +61,12 @@ namespace PuntoDeVentaV2
 
         public static Dictionary<int, string> IdAgregados = new Dictionary<int, string>();
         public static Dictionary<string, string> CodigoBarrasAgregados = new Dictionary<string, string>();
+        public static Dictionary<string, string> CodigoPorProveedor = new Dictionary<string, string>();
 
         Dictionary<int, string> listaProductos;
 
         List<int> idDeProductos = new List<int>();
+        List<string> codigoProveedor = new List<string>();
 
         List<string> id = new List<string>();
         int contador = 1;
@@ -453,8 +455,9 @@ namespace PuntoDeVentaV2
                                         }
 
                                         var extraerDatos = CodigoBarrasAgregados.ToArray();
+                                        var validarProveedor = CodigoPorProveedor.ToArray();
 
-                                        var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[cantidadRegistrosAux - 1].ToString());
+                                        var indice = Array.FindIndex(validarProveedor, row => row.Key == codigoProveedor[cantidadRegistrosAux - 1].ToString());
 
                                         int codigoBuscar = 0;
                                         if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar); } else { codigoBuscar = (indice + 1); }
@@ -476,8 +479,8 @@ namespace PuntoDeVentaV2
                                         string[] words = codigoActual.Split(',');
                                         string code = words[0].Replace("[", "");
                                         var convertirAID = mostrarId(code);
-                                        codigo = convertirAID;
-                                        var codigoSecundario = validarfiltroProveedor(codigo);
+                                        codigo = code;
+                                        var codigoSecundario = validarfiltroProveedor(convertirAID);
                                         if (deshabilitarProdProveedor.Equals(true))
                                         {
                                             CodigoBarrasAgregados.Remove(txtBoxBuscarCodigoBarras.Text);
@@ -487,6 +490,9 @@ namespace PuntoDeVentaV2
                                     {
                                         CodigoBarrasAgregados.Add(codigo, string.Empty);
                                     }
+
+                                    CodigoPorProveedor.Remove(validarCodigoProv);
+                                    codigoProveedor.Remove(validarCodigoProv);
                                 }
                                 else
                                 {
@@ -500,8 +506,9 @@ namespace PuntoDeVentaV2
                                     }
 
                                     var extraerDatos = CodigoBarrasAgregados.ToArray();
+                                    var validarProveedor = CodigoPorProveedor.ToArray();
 
-                                    var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[cantidadRegistrosAux-1].ToString());
+                                    var indice = Array.FindIndex(validarProveedor, row => row.Key == codigoProveedor[cantidadRegistrosAux-1].ToString());
 
                                     int codigoBuscar = 0;
                                     if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1)-(contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice + 1); }
@@ -526,11 +533,13 @@ namespace PuntoDeVentaV2
                                     string[] words = codigoActual.Split(',');
                                     string code = words[0].Replace("[", "");
                                     var convertirAID = mostrarId(code);
-                                    codigo = convertirAID;
-                                    var codigoSecundario = validarfiltroProveedor(codigo);
+                                    codigo = code;
+                                    var codigoSecundario = validarfiltroProveedor(convertirAID);
                                     if (deshabilitarProdProveedor.Equals(true))
                                     {
-                                        CodigoBarrasAgregados.Remove(txtBoxBuscarCodigoBarras.Text);
+                                        CodigoBarrasAgregados.Remove(validarCodigoProv);
+                                        CodigoPorProveedor.Remove(validarCodigoProv);
+                                        codigoProveedor.Remove(validarCodigoProv);
                                     }
                                 }
                             }
@@ -972,6 +981,8 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
+            verificarCodigoFiltroProveedor();
+
             codBarras = txtBoxBuscarCodigoBarras.Text;
 
             contador++;
@@ -1149,6 +1160,19 @@ namespace PuntoDeVentaV2
                         txtCantidadStock.SelectAll();
                         botonOmitir = true;
                     }
+                }
+            }
+
+        }
+
+        private void verificarCodigoFiltroProveedor()
+        {
+            if (operadorFiltro.Equals("chkProveedor"))
+            {
+                if (!CodigoPorProveedor.ContainsKey(txtBoxBuscarCodigoBarras.Text))
+                {
+                    CodigoPorProveedor.Add(txtBoxBuscarCodigoBarras.Text, string.Empty);
+                    codigoProveedor.Add(txtBoxBuscarCodigoBarras.Text);
                 }
             }
         }
