@@ -2270,6 +2270,107 @@ namespace PuntoDeVentaV2
             HighlightStyle.Font = new System.Drawing.Font(DGVProductos.Font, FontStyle.Bold);
 
             filtroOrdenarPor();
+
+            if (!primeraVez)
+            {
+                //if (primeraVez.Equals(true))
+                //{
+                //    MessageBox.Show("Primera Vez True\n\nif (!primeraVez) de primeraVez...");
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Primera Vez False\n\nif (!primeraVez) de primeraVez...");
+                //}
+
+                if (recargarDatos)
+                {
+                    //if (recargarDatos.Equals(true))
+                    //{
+                    //    MessageBox.Show("Recargar Datos true\nif (recargarDatos) de recargarDatos...");
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Recargar Datos false\nif (recargarDatos) de recargarDatos...");
+                    //}
+
+                    validarConexionServidor();
+
+                    //txtBusqueda.Text = string.Empty;
+
+                    if (txtBusqueda.Text.Equals(""))
+                    {
+                        CargarDatos();
+                        recargarDatos = false;
+                        MessageBox.Show("txtBusquedatxtBusqueda.Text.Equals(\"\")\nrecargarDatos = false");
+                    }
+                    else
+                    {
+                        int opc = 0;
+
+                        if (cbMostrar.Text.Equals("Habilitados"))
+                        {
+                            opc = 1;
+                        }
+                        else if (cbMostrar.Text.Equals("Deshabilitados"))
+                        {
+                            opc = 0;
+                        }
+                        else if (cbMostrar.Text.Equals("Todos"))
+                        {
+                            opc = 2;
+                        }
+
+                        CargarDatos(opc, txtBusqueda.Text.ToString());
+
+                        recargarDatos = false;
+
+                        MessageBox.Show("txtBusquedatxtBusqueda.Text.Equals(conTexto)\nrecargarDatos = false opc=" + opc.ToString());
+                    }
+
+                    //txtBusqueda.Text = string.Empty;
+
+                    borrarAuxWordTags();
+
+                    creacionEtiquetasDinamicas();
+
+                    //cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
+                    //cbOrden_SelectionChangeCommitted(sender, EventArgs.Empty);
+
+                    //if (cbMostrar.Text.Equals("Deshabilitados") || cbMostrar.Text.Equals("Todos"))
+                    //{
+                    //    cbMostrar.Text = "Habilitados";
+                    //}
+
+                    ////cbMostrar_SelectedIndexChanged(sender, EventArgs.Empty);
+                    //cbMostrar_SelectionChangeCommitted(sender, EventArgs.Empty);
+                }
+                else if (!recargarDatos)
+                {
+                    if (recargarDatos.Equals(true))
+                    {
+                        MessageBox.Show("Recargar Datos true\nelse if (!recargarDatos) de recargarDatos...");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Recargar Datos false\nelse if (!recargarDatos) de recargarDatos...");
+                    }
+
+                    recargarDatos = true;
+                }
+            }
+            else
+            {
+                //if (primeraVez.Equals(true))
+                //{
+                //    MessageBox.Show("Primera Vez True\nElse de primeraVez...");
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Primera Vez False\nElse de primeraVez...");
+                //}
+
+                primeraVez = false;
+            }
         }
 
         private void cbOrden_SelectionChangeCommitted(object sender, EventArgs e)
@@ -4202,12 +4303,17 @@ namespace PuntoDeVentaV2
                 {
                     txtAndNumSearch += " " + numBusqueda.Trim();
                 }
+                if (!txtBusquedaString.Equals(string.Empty) && (numBusqueda.Equals(string.Empty) || NvoTxtBusquedaString.Equals(string.Empty)))
+                {
+                    txtAndNumSearch += " " + txtBusquedaString.Trim();
+                }
 
                 // si la cadena a buscar no esta vacia
                 if (/*!numBusqueda.Trim().Equals("")*/!txtAndNumSearch.Trim().Equals(""))
                 {
+                    var buscarSinDuplicados = quitarDuplicadosPorBuscar(txtAndNumSearch.Trim());
                     // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
-                    var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(txtAndNumSearch.Trim());
+                    var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(buscarSinDuplicados.Trim());
                     //var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(numBusqueda.Trim());
 
                     buscarCodigosBarraExtra = string.Empty;
@@ -4400,11 +4506,11 @@ namespace PuntoDeVentaV2
                                 else if (palabras[0].Equals("0"))
                                 {
                                     //nuevosCodigos += palabras[1].ToString() + " ";
-                                    if ((palabras[1].Length >= 4) && (!txtBusquedaString.Equals("")))
+                                    if ((palabras[1].Length >= 5) && (!txtBusquedaString.Equals("")))
                                     {
                                         nuevosCodigos += palabras[1].ToString() + " ";
                                     }
-                                    else if ((palabras[1].Length >= 4) && (txtBusquedaString.Equals("")))
+                                    else if ((palabras[1].Length >= 5) && (txtBusquedaString.Equals("")))
                                     {
                                         nuevosCodigos += palabras[1].ToString() + " ";
                                     }
@@ -4447,11 +4553,11 @@ namespace PuntoDeVentaV2
                                 else if (palabras[0].Equals("0"))
                                 {
                                     //nuevosCodigos += palabras[1].ToString() + " ";
-                                    if ((palabras[1].Length >= 4) && (!txtBusquedaString.Equals("")))
+                                    if ((palabras[1].Length >= 5) && (!txtBusquedaString.Equals("")))
                                     {
                                         nuevosCodigos += palabras[1].ToString() + " ";
                                     }
-                                    else if ((palabras[1].Length >= 4) && (txtBusquedaString.Equals("")))
+                                    else if ((palabras[1].Length >= 5) && (txtBusquedaString.Equals("")))
                                     {
                                         nuevosCodigos += palabras[1].ToString() + " ";
                                     }
@@ -4494,7 +4600,7 @@ namespace PuntoDeVentaV2
                                 quitarEspacioEnBlanco();
                                 agregarEspacioAlFinal();
                                 txtBusqueda.Text = busqueda.Trim();
-                                txtBusqueda.Text = nuevosCodigos.Trim();
+                                //txtBusqueda.Text = nuevosCodigos.Trim();
                                 nuevosCodigos = string.Empty;
                             }
                         }
@@ -5060,6 +5166,22 @@ namespace PuntoDeVentaV2
             //MarcarCheckBoxes(filtroConSinFiltroAvanzado);
 
             clickBoton = 0;
+        }
+
+        private string quitarDuplicadosPorBuscar(string Datos)
+        {
+            var lista = string.Empty;
+
+            string[] words = Datos.Split(' ');
+
+            string[] resultado = words.Distinct().ToArray();
+
+            foreach(var item in resultado)
+            {
+                lista += item + " ";
+            }
+
+            return lista.Trim();
         }
 
         private void MarcarCheckBoxes(string consulta)
@@ -6145,43 +6267,106 @@ namespace PuntoDeVentaV2
 
         private void Productos_Paint(object sender, PaintEventArgs e)
         {
-            if (!primeraVez)
-            {
-                if (recargarDatos)
-                {
-                    validarConexionServidor();
+            //if (!primeraVez)
+            //{
+            //    if (primeraVez.Equals(true))
+            //    {
+            //        MessageBox.Show("Primera Vez True\n\nif (!primeraVez) de primeraVez...");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Primera Vez False\n\nif (!primeraVez) de primeraVez...");
+            //    }
 
-                    txtBusqueda.Text = string.Empty;
+            //    if (recargarDatos)
+            //    {
+            //        if (recargarDatos.Equals(true))
+            //        {
+            //            MessageBox.Show("Recargar Datos true\nif (recargarDatos) de recargarDatos...");
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Recargar Datos false\nif (recargarDatos) de recargarDatos...");
+            //        }
 
-                    if (txtBusqueda.Text.Equals(""))
-                    {
-                        CargarDatos();
-                    }
+            //        validarConexionServidor();
 
-                    recargarDatos = false;
+            //        //txtBusqueda.Text = string.Empty;
 
-                    //cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
-                    //cbOrden_SelectionChangeCommitted(sender, EventArgs.Empty);
+            //        if (txtBusqueda.Text.Equals(""))
+            //        {
+            //            CargarDatos();
+            //            recargarDatos = false;
+            //            MessageBox.Show("txtBusquedatxtBusqueda.Text.Equals(\"\")\nrecargarDatos = false");
+            //        }
+            //        else
+            //        {
+            //            int opc = 0;
 
-                    //if (cbMostrar.Text.Equals("Deshabilitados") || cbMostrar.Text.Equals("Todos"))
-                    //{
-                    //    cbMostrar.Text = "Habilitados";
-                    //}
+            //            if (cbMostrar.Text.Equals("Habilitados"))
+            //            {
+            //                opc = 1;
+            //            }
+            //            else if (cbMostrar.Text.Equals("Deshabilitados"))
+            //            {
+            //                opc = 0;
+            //            }
+            //            else if (cbMostrar.Text.Equals("Todos"))
+            //            {
+            //                opc = 2;
+            //            }
 
-                    ////cbMostrar_SelectedIndexChanged(sender, EventArgs.Empty);
-                    //cbMostrar_SelectionChangeCommitted(sender, EventArgs.Empty);
+            //            CargarDatos(opc, txtBusqueda.Text.ToString());
 
-                    txtBusqueda.Text = string.Empty;
+            //            recargarDatos = false;
 
-                    borrarAuxWordTags();
+            //            MessageBox.Show("txtBusquedatxtBusqueda.Text.Equals(conTexto)\nrecargarDatos = false opc=" + opc.ToString());
+            //        }
 
-                    creacionEtiquetasDinamicas();
-                }
-            }
-            else
-            {
-                primeraVez = false;
-            }
+            //        //txtBusqueda.Text = string.Empty;
+
+            //        borrarAuxWordTags();
+
+            //        creacionEtiquetasDinamicas();
+
+            //        //cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
+            //        //cbOrden_SelectionChangeCommitted(sender, EventArgs.Empty);
+
+            //        //if (cbMostrar.Text.Equals("Deshabilitados") || cbMostrar.Text.Equals("Todos"))
+            //        //{
+            //        //    cbMostrar.Text = "Habilitados";
+            //        //}
+
+            //        ////cbMostrar_SelectedIndexChanged(sender, EventArgs.Empty);
+            //        //cbMostrar_SelectionChangeCommitted(sender, EventArgs.Empty);
+            //    }
+            //    else if (!recargarDatos)
+            //    {
+            //        if (recargarDatos.Equals(true))
+            //        {
+            //            MessageBox.Show("Recargar Datos true\nelse if (!recargarDatos) de recargarDatos...");
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Recargar Datos false\nelse if (!recargarDatos) de recargarDatos...");
+            //        }
+
+            //        recargarDatos = true;
+            //    }
+            //}
+            //else
+            //{
+            //    if (primeraVez.Equals(true))
+            //    {
+            //        MessageBox.Show("Primera Vez True\nElse de primeraVez...");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Primera Vez False\nElse de primeraVez...");
+            //    }
+
+            //    primeraVez = false;
+            //}
         }
 
         private void btnAsignarMultiple_Click(object sender, EventArgs e)
