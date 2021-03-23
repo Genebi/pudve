@@ -2273,26 +2273,8 @@ namespace PuntoDeVentaV2
 
             if (!primeraVez)
             {
-                //if (primeraVez.Equals(true))
-                //{
-                //    MessageBox.Show("Primera Vez True\n\nif (!primeraVez) de primeraVez...");
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Primera Vez False\n\nif (!primeraVez) de primeraVez...");
-                //}
-
                 if (recargarDatos)
                 {
-                    //if (recargarDatos.Equals(true))
-                    //{
-                    //    MessageBox.Show("Recargar Datos true\nif (recargarDatos) de recargarDatos...");
-                    //}
-                    //else
-                    //{
-                    //    MessageBox.Show("Recargar Datos false\nif (recargarDatos) de recargarDatos...");
-                    //}
-
                     validarConexionServidor();
 
                     //txtBusqueda.Text = string.Empty;
@@ -2346,29 +2328,11 @@ namespace PuntoDeVentaV2
                 }
                 else if (!recargarDatos)
                 {
-                    if (recargarDatos.Equals(true))
-                    {
-                        MessageBox.Show("Recargar Datos true\nelse if (!recargarDatos) de recargarDatos...");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Recargar Datos false\nelse if (!recargarDatos) de recargarDatos...");
-                    }
-
                     recargarDatos = true;
                 }
             }
             else
             {
-                //if (primeraVez.Equals(true))
-                //{
-                //    MessageBox.Show("Primera Vez True\nElse de primeraVez...");
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Primera Vez False\nElse de primeraVez...");
-                //}
-
                 primeraVez = false;
             }
         }
