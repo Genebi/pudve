@@ -1376,6 +1376,18 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to INSERT IGNORE INTO basculas ( idBascula, nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada )
+        ///VALUES
+        ///	( 1, &apos;TORREY L-PCR-20 KG&apos;, &apos;COM3&apos;, &apos;115200&apos;, &apos;8 bit&apos;, &apos;None&apos;, &apos;None&apos;, &apos;One&apos;, &apos;P&apos;, 10, 0 ),
+        ///	( 2, &apos;TORREY L-PCR-40 KG&apos;, &apos;COM3&apos;, &apos;115200&apos;, &apos;8 bit&apos;, &apos;None&apos;, &apos;None&apos;, &apos;One&apos;, &apos;P&apos;, 10, 1 );.
+        /// </summary>
+        internal static string Basculas1 {
+            get {
+                return ResourceManager.GetString("Basculas1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap bath {

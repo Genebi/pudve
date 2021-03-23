@@ -73,6 +73,7 @@ namespace PuntoDeVentaV2
         //public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         Conexion cn = new Conexion();
         checarVersion vs = new checarVersion();
+        Consultas cs = new Consultas();
 
         string usuario;
         string password;
@@ -556,8 +557,16 @@ namespace PuntoDeVentaV2
             //    vs.printProductVersion();
             //}
 
-            string script = File.ReadAllText(Properties.Settings.Default.rutaDirectorio+ @"\PUDVE\BD\Basculas.sql");
-            cn.EjecutarConsulta(script);
+            try
+            {
+                //string script = File.ReadAllText(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\Basculas.sql");
+                var script = cs.registrarBasculas();
+                cn.EjecutarConsulta(script);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         /// <summary>
