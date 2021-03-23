@@ -357,7 +357,7 @@
             "Producto",
             "Combo",
             "Servicio"});
-            this.cbTipo.Location = new System.Drawing.Point(75, 0);
+            this.cbTipo.Location = new System.Drawing.Point(54, 0);
             this.cbTipo.Margin = new System.Windows.Forms.Padding(2);
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(165, 21);
@@ -383,7 +383,7 @@
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(459, 3);
+            this.tituloSeccion.Location = new System.Drawing.Point(459, 14);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(129, 18);
             this.tituloSeccion.TabIndex = 21;
@@ -465,7 +465,7 @@
             // chkBoxConProductos
             // 
             this.chkBoxConProductos.AutoSize = true;
-            this.chkBoxConProductos.Location = new System.Drawing.Point(246, 2);
+            this.chkBoxConProductos.Location = new System.Drawing.Point(233, 2);
             this.chkBoxConProductos.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxConProductos.Name = "chkBoxConProductos";
             this.chkBoxConProductos.Size = new System.Drawing.Size(131, 17);
@@ -478,7 +478,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(38, 2);
+            this.label10.Location = new System.Drawing.Point(16, 4);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(34, 17);
@@ -859,7 +859,7 @@
             this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPType.Location = new System.Drawing.Point(0, 0);
             this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(853, 29);
+            this.fLPType.Size = new System.Drawing.Size(868, 29);
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -869,7 +869,7 @@
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(853, 66);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(868, 66);
             this.fLPDetalleProducto.TabIndex = 36;
             // 
             // fLPContenidoProducto
@@ -879,7 +879,7 @@
             this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 145);
             this.fLPContenidoProducto.Name = "fLPContenidoProducto";
-            this.fLPContenidoProducto.Size = new System.Drawing.Size(853, 80);
+            this.fLPContenidoProducto.Size = new System.Drawing.Size(868, 80);
             this.fLPContenidoProducto.TabIndex = 37;
             // 
             // fLPDetalle
@@ -889,7 +889,7 @@
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 225);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(853, 300);
+            this.fLPDetalle.Size = new System.Drawing.Size(868, 300);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -899,7 +899,7 @@
             this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPAccion.Location = new System.Drawing.Point(0, 525);
             this.fLPAccion.Name = "fLPAccion";
-            this.fLPAccion.Size = new System.Drawing.Size(853, 120);
+            this.fLPAccion.Size = new System.Drawing.Size(868, 120);
             this.fLPAccion.TabIndex = 39;
             // 
             // fLPDetallesProducto
@@ -908,7 +908,7 @@
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 95);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(853, 50);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(868, 50);
             this.fLPDetallesProducto.TabIndex = 31;
             // 
             // flowLayoutPanel3
@@ -934,7 +934,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(870, 599);
+            this.ClientSize = new System.Drawing.Size(885, 599);
             this.Controls.Add(this.fLPAccion);
             this.Controls.Add(this.fLPDetalle);
             this.Controls.Add(this.fLPContenidoProducto);

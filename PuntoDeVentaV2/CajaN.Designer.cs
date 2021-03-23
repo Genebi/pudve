@@ -1378,7 +1378,7 @@
             // 
             this.lbSaldoInicialInfo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbSaldoInicialInfo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbSaldoInicialInfo.Location = new System.Drawing.Point(976, 18);
+            this.lbSaldoInicialInfo.Location = new System.Drawing.Point(167, 1);
             this.lbSaldoInicialInfo.Name = "lbSaldoInicialInfo";
             this.lbSaldoInicialInfo.Size = new System.Drawing.Size(30, 26);
             this.lbSaldoInicialInfo.TabIndex = 39;
@@ -1402,6 +1402,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(231)))), ((int)(((byte)(239)))));
             this.panel1.Controls.Add(this.tituloSeccion);
+            this.panel1.Controls.Add(this.lbSaldoInicialInfo);
             this.panel1.Location = new System.Drawing.Point(917, 70);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 90);
@@ -1415,7 +1416,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCorteCaja);
-            this.Controls.Add(this.lbSaldoInicialInfo);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.tablaContenedor);
             this.Controls.Add(this.panelFondo);
