@@ -6168,19 +6168,41 @@ namespace PuntoDeVentaV2
         {
             if (!primeraVez)
             {
-                //MessageBox.Show("Entra al If del Paint");
                 if (recargarDatos)
                 {
                     validarConexionServidor();
 
-                    txtBusqueda.Text = string.Empty;
+                    //txtBusqueda.Text = string.Empty;
 
                     if (txtBusqueda.Text.Equals(""))
                     {
                         CargarDatos();
                     }
+                    else
+                    {
+                        int opc = 0;
 
-                    recargarDatos = false;
+                        if (cbMostrar.Text.Equals("Habilitados"))
+                        {
+                            opc = 1;
+                        }
+                        else if (cbMostrar.Text.Equals("Deshabilitados"))
+                        {
+                            opc = 0;
+                        }
+                        else if (cbMostrar.Text.Equals("Todos"))
+                        {
+                            opc = 2;
+                        }
+
+                        CargarDatos(opc, txtBusqueda.Text.ToString());
+                    }
+
+                    //txtBusqueda.Text = string.Empty;
+
+                    borrarAuxWordTags();
+
+                    creacionEtiquetasDinamicas();
 
                     //cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
                     //cbOrden_SelectionChangeCommitted(sender, EventArgs.Empty);
@@ -6192,12 +6214,6 @@ namespace PuntoDeVentaV2
 
                     ////cbMostrar_SelectedIndexChanged(sender, EventArgs.Empty);
                     //cbMostrar_SelectionChangeCommitted(sender, EventArgs.Empty);
-
-                    txtBusqueda.Text = string.Empty;
-
-                    borrarAuxWordTags();
-
-                    creacionEtiquetasDinamicas();
                 }
                 else if (!recargarDatos)
                 {
@@ -6207,7 +6223,6 @@ namespace PuntoDeVentaV2
             else
             {
                 primeraVez = false;
-                //MessageBox.Show("Entra al Else del Paint");
             }
         }
 
