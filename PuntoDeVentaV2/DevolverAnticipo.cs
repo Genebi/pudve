@@ -29,6 +29,7 @@ namespace PuntoDeVentaV2
 
         public static bool noCash { get; set; }
         public static int cancel { get; set; }
+        public static bool ventaCanceladaCredito { get; set; }
 
         // Variables ventas
         float vEfectivo = 0f;
@@ -112,6 +113,7 @@ namespace PuntoDeVentaV2
 
         private void DevolverAnticipo_Load(object sender, EventArgs e)
         {
+            ventaCanceladaCredito = false;
             if (tipo == 1)
             {
                 this.Text = "PUDVE - Devolver Anticipo";
@@ -126,6 +128,7 @@ namespace PuntoDeVentaV2
 
             if (tipo == 3)
             {
+                ventaCanceladaCredito = true;
                 this.Text = "PUDVE - Devolucion";
                 lbTitulo.Text = "Forma de pago para devolucion";
             }
@@ -521,15 +524,16 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    cancel = 2;
-                                    string[] datos = new string[] {
-                                                        "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(),
-                                                        efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, /*credito*/"0.00", /*anticipo*/"0"
+                                    if (tipo == 3)
+                                    {
+                                        cancel = 2;
+                                        string[] datos = new string[] {
+                                                        "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(), efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, /*credito*/"0.00", /*anticipo*/"0"
                                                     };
-                                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                                    this.Dispose();
+                                        cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                        this.Dispose();
+                                    }
                                 }
-
                             }
                         }
                     }
@@ -577,11 +581,11 @@ namespace PuntoDeVentaV2
 
             var status = false;
 
-            double validarEfectivo = 0;
-            double validarTarjeta = 0;
-            double validarVales = 0;
-            double validarCheque = 0;
-            double validarTrans = 0;
+            efectivoAbonadoADevolver = "0";
+            tarjetaAbonadoADevolver = "0";
+            valesAbonadoADevolver = "0";
+            chequeAbonadoADevolver = "0";
+            transAbonadoADevolver = "0";
 
             if (formaPago == "01")//Efectivo
             {
@@ -596,7 +600,12 @@ namespace PuntoDeVentaV2
                 if ((double.Parse(saldoActual[1]) + float.Parse(cantidadAbono[0])) > (double.Parse(resultadoConsultaAbonos)))
                 {
                     status = true;
+                    efectivoAbonadoADevolver = cantidadAbono[5];
+                }else
+                {
+                    efectivoAbonadoADevolver = "0";
                 }
+
             }
             else if (formaPago == "04")//Tarjeta
             {
@@ -611,6 +620,11 @@ namespace PuntoDeVentaV2
                 if ((double.Parse(saldoActual[2]) + float.Parse(cantidadAbono[1])) > (double.Parse(resultadoConsultaAbonos)))
                 {
                     status = true;
+                    tarjetaAbonadoADevolver = cantidadAbono[5];
+                }
+                else
+                {
+                    tarjetaAbonadoADevolver = "0";
                 }
             }
             else if (formaPago == "08")//Vales
@@ -626,6 +640,11 @@ namespace PuntoDeVentaV2
                 if ((double.Parse(saldoActual[3]) + float.Parse(cantidadAbono[2])) > (double.Parse(resultadoConsultaAbonos)))
                 {
                     status = true;
+                    valesAbonadoADevolver = cantidadAbono[5];
+                }
+                else
+                {
+                    valesAbonadoADevolver = "0";
                 }
             }
             else if (formaPago == "02")//Cheque
@@ -641,6 +660,11 @@ namespace PuntoDeVentaV2
                 if ((double.Parse(saldoActual[4]) + float.Parse(cantidadAbono[3])) > (double.Parse(resultadoConsultaAbonos)))
                 {
                     status = true;
+                    chequeAbonadoADevolver = cantidadAbono[5];
+                }
+                else
+                {
+                    chequeAbonadoADevolver  = "0";
                 }
             }
             else if (formaPago == "03")//Transferencia
@@ -656,14 +680,19 @@ namespace PuntoDeVentaV2
                 if ((double.Parse(saldoActual[5]) + float.Parse(cantidadAbono[4])) > (double.Parse(resultadoConsultaAbonos)))
                 {
                     status = true;
+                    transAbonadoADevolver = cantidadAbono[5];
+                }
+                else
+                {
+                    transAbonadoADevolver = "0";
                 }
             }
 
-            lista.Add(validarEfectivo.ToString());
-            lista.Add(validarTarjeta.ToString());
-            lista.Add(validarVales.ToString());
-            lista.Add(validarCheque.ToString());
-            lista.Add(validarTrans.ToString());
+            lista.Add(efectivoAbonadoADevolver.ToString());
+            lista.Add(tarjetaAbonadoADevolver.ToString());
+            lista.Add(valesAbonadoADevolver.ToString());
+            lista.Add(chequeAbonadoADevolver.ToString());
+            lista.Add(transAbonadoADevolver.ToString());
             lista.Add(status.ToString());
 
             return lista.ToArray();

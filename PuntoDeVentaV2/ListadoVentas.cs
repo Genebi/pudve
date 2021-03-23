@@ -1102,14 +1102,15 @@ namespace PuntoDeVentaV2
 
                                         var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                        string[] datos = new string[] {
+                                        if (!DevolverAnticipo.ventaCanceladaCredito.Equals(true))
+                                        {
+                                            string[] datos = new string[] {
                                                         "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
                                                         efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
                                                     };
-                                        cn.EjecutarConsulta(cs.OperacionCaja(datos));
-
+                                            cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                        }
                                     }
-
 
                                     // Agregamos marca de agua al PDF del ticket de la venta cancelada
                                     Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
