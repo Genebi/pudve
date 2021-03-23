@@ -2283,7 +2283,6 @@ namespace PuntoDeVentaV2
                     {
                         CargarDatos();
                         recargarDatos = false;
-                        MessageBox.Show("txtBusquedatxtBusqueda.Text.Equals(\"\")\nrecargarDatos = false");
                     }
                     else
                     {
@@ -2305,8 +2304,6 @@ namespace PuntoDeVentaV2
                         CargarDatos(opc, txtBusqueda.Text.ToString());
 
                         recargarDatos = false;
-
-                        MessageBox.Show("txtBusquedatxtBusqueda.Text.Equals(conTexto)\nrecargarDatos = false opc=" + opc.ToString());
                     }
 
                     //txtBusqueda.Text = string.Empty;
