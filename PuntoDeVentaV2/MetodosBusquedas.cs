@@ -1486,6 +1486,27 @@ namespace PuntoDeVentaV2
             return datos;
         }
 
+        public string[] DatosCantidadAPedir(string operadorFiltro, int cantidadFiltro)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND Stock < StockMinimo AND Stock {operadorFiltro} {cantidadFiltro} AND (CodigoBarras != '' OR ClaveInterna != '') ORDER BY ID ASC", true);
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                
+            }
+
+            dr.Close();
+            CerrarConexion();
+
+            return lista.ToArray();
+
+
+        }
+
         public string[] DatosRevisionInventario()
         {
             string[] datos = new string[] { };

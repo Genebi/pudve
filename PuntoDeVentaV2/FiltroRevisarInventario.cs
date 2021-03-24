@@ -64,6 +64,7 @@ namespace PuntoDeVentaV2
                 filtros.Add("StockMinimo", "Stock Mínimo");
                 filtros.Add("StockNecesario", "Stock Máximo");
                 filtros.Add("NumeroRevision", "Número de Revisión");
+                filtros.Add("CantidadPedir", "Cantidad a Pedir ");
                 filtros.Add("Filtros", "Por Filtros");
 
                 operadores.Add("NA", "Seleccionar opción...");
