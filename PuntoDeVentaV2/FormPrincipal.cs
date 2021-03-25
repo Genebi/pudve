@@ -382,7 +382,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(nameMachineServer))
             {
-                this.Text += $" |  Usuario: {userNickName}  | Asociada a: {nameMachineServer}";
+                 this.Text += $" |  Usuario: {userNickName}  | Asociada a: {nameMachineServer}";
             }
             else
             {
@@ -684,7 +684,7 @@ namespace PuntoDeVentaV2
 
             foreach (Form f in formulariosApp)
             {
-                if (f.Name.Equals("AgregarBasculas"))
+                if (f.Name.Equals("AgregarBasculas") || f.Name.Equals("Productos"))
                 {
                     formularioCerrar.Add(f);
                 }

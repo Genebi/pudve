@@ -2284,7 +2284,7 @@ namespace PuntoDeVentaV2
                         CargarDatos();
                         recargarDatos = false;
                     }
-                    else
+                    else if(!txtBusqueda.Text.Equals(string.Empty))
                     {
                         int opc = 0;
 
@@ -2303,6 +2303,11 @@ namespace PuntoDeVentaV2
 
                         CargarDatos(opc, txtBusqueda.Text.ToString());
 
+                        recargarDatos = false;
+                    }
+                    else
+                    {
+                        CargarDatos();
                         recargarDatos = false;
                     }
 
