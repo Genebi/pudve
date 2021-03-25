@@ -690,7 +690,7 @@ namespace PuntoDeVentaV2
 
             foreach (Form f in formulariosApp)
             {
-                if (f.Name.Equals("AgregarBasculas"))
+                if (f.Name.Equals("AgregarBasculas") || f.Name.Equals("Productos"))
                 {
                     formularioCerrar.Add(f);
                 }
