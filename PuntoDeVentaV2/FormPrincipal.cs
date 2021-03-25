@@ -382,11 +382,17 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(nameMachineServer))
             {
-                this.Text += $" |  Usuario: {userNickName}  | Asociada a: {nameMachineServer}";
+                string[] temp;
+                string titulo = this.Text += $" |  Usuario: {userNickName}  | Asociada a: {nameMachineServer}";
+                temp = titulo.Split('|');
+                this.Text = $"{temp[0].ToString()} |  Usuario: {userNickName}  | Asociada a: {nameMachineServer}";
             }
             else
             {
-                this.Text += $" |  Usuario: {userNickName}";
+                string[] temp;
+                string titulo = this.Text += $" |  Usuario: {userNickName}";
+                temp = titulo.Split('|');
+                this.Text = $"{temp[0].ToString()} |  Usuario: {userNickName}";
             }
         }
 
