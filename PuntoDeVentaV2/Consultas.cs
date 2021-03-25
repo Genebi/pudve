@@ -1586,5 +1586,20 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
+
+        public string ObtenerProdDeLaVenta(int idVenta)
+        {
+            var consulta = $@"SELECT DISTINCT Prod.ID, Prod.Nombre, Prod.Stock
+FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDetail.IDVenta INNER JOIN usuarios AS Usr ON Usr.ID = Sale.IDUsuario INNER JOIN productosventa AS SaleProd ON SaleProd.IDVenta = Sale.ID  INNER JOIN productos AS Prod ON Prod.ID = SaleProd.IDProducto WHERE SaleDetail.IDVenta = '{idVenta}' GROUP BY Prod.ID";
+
+            return consulta;
+        }
+
+        public string aumentarStockVentaCancelada(int idProd, float cantidad)
+        {
+            var consulta = $"UPDATE Productos SET Stock = '{cantidad}' WHERE ID = '{idProd}' AND IDUsuario = {FormPrincipal.userID}";
+
+            return consulta;
+        }
     }
 }

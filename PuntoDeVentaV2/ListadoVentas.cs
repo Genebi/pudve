@@ -870,7 +870,8 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
-                            } else if (obtenerValorSiSeAbono.Rows.Count.Equals(0))
+                            }
+                            else if (obtenerValorSiSeAbono.Rows.Count.Equals(0))
                             {
                                 if (cbTipoVentas.SelectedIndex == 0)
                                 {
@@ -1074,18 +1075,31 @@ namespace PuntoDeVentaV2
 
                                                 cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
                                             }
-                                        } 
-
-
-                                       /* foreach (var producto in productos)
+                                        }
+                                        else if (dtprod_relacionados.Rows.Count.Equals(0))
                                         {
-                                            var info = producto.Split('|');
-                                            var idProducto = info[0];
-                                            var cantidad = Convert.ToDecimal(info[2]);
+                                            using (DataTable dtProdVenta = cn.CargarDatos(cs.ObtenerProdDeLaVenta(idVenta)))
+                                            {
+                                                if (!dtProdVenta.Rows.Count.Equals(0))
+                                                {
+                                                    foreach (DataRow drProdVenta in dtProdVenta.Rows)
+                                                    {
+                                                        cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), ((float)cantidad_combo + (float)Convert.ToDouble(drProdVenta["Stock"].ToString()))));
+                                                    }
+                                                }
+                                            }
+                                        }
 
-                                            cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-                                        }*/
+                                        /* foreach (var producto in productos)
+                                         {
+                                             var info = producto.Split('|');
+                                             var idProducto = info[0];
+                                             var cantidad = Convert.ToDecimal(info[2]);
+
+                                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                         }*/
                                     }
+                                    
                                     var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
                                     var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
