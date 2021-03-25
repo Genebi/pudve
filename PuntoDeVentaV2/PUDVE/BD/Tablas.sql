@@ -1280,6 +1280,8 @@ ALTER TABLE Usuarios ADD COLUMN
 IF 
 	NOT EXISTS SinClaveInterna INT DEFAULT (1);
 
+ -- Agregar Columna (CantidadPedir) a la tabla de Productos para hacer las revisiones de inventario
+ ALTER TABLE Productos ADD COLUMN IF NOT EXISTS CantidadPedir DECIMAL (16, 2) DEFAULT (0.00); 
 --
 --
 --

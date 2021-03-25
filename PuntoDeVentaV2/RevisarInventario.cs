@@ -209,7 +209,8 @@ namespace PuntoDeVentaV2
 
                     if (tipoFiltro.Equals("CantidadPedir"))
                     {
-                        consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND Stock < StockMinimo AND Stock {operadorFiltro} {cantidadFiltro} AND (CodigoBarras != '' OR ClaveInterna != '') ORDER BY ID ASC LIMIT 1";
+                        
+                        consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND  {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND ID > {idProducto} AND (CodigoBarras != '' OR ClaveInterna != '') ORDER BY ID ASC LIMIT 1";
                     }
                     else
                     {
@@ -747,6 +748,46 @@ namespace PuntoDeVentaV2
                         this.Close();
                     }
                 }
+            }
+        }
+
+        private void verificarAntidadAPedir()
+        {
+            var obtenerStock = 0.00; var obtenerStockMinimo = 0.00; var obtenerStockMaximo = 0.00; var idProducto = string.Empty; var cantidadPedir = 0.00;
+            var query = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND Stock < StockMinimo AND (CodigoBarras != '' OR ClaveInterna != '') ORDER BY ID ASC");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                foreach (DataRow consulta in query.Rows)
+                {
+                    idProducto = consulta["ID"].ToString();
+                    obtenerStock = Convert.ToDouble(consulta["Stock"].ToString());
+                    if (obtenerStock < 0) { obtenerStock = 0; }
+                    obtenerStockMinimo = Convert.ToDouble(consulta["StockMinimo"].ToString());
+                    obtenerStockMaximo = Convert.ToDouble(consulta["StockNecesario"].ToString());
+                    cantidadPedir = Convert.ToDouble(consulta["CantidadPedir"].ToString());
+
+                    if (obtenerStock < obtenerStockMinimo && cantidadPedir == 0.00)
+                    {
+                        cn.EjecutarConsulta($"UPDATE Productos SET CantidadPedir = '{(obtenerStockMaximo - obtenerStock)}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}'");
+                    }
+                    else if (obtenerStock >= obtenerStockMinimo)
+                    {
+                        cn.EjecutarConsulta($"UPDATE Productos SET CantidadPedir = '0.00' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}'");
+                        //MessageBox.Show("Ya valio madre");
+                    }
+                }
+
+                //idProducto = query.Rows[0]["ID"].ToString();
+                //obtenerStock = Convert.ToDouble(query.Rows[0]["Stock"].ToString());
+                //if (obtenerStock < 0) { obtenerStock = 0; }
+                //obtenerStockMinimo = Convert.ToDouble(query.Rows[0]["StockMinimo"].ToString());
+                //obtenerStockMaximo = Convert.ToDouble(query.Rows[0]["StockNecesario"].ToString());
+
+                //if (obtenerStock < obtenerStockMinimo)
+                //{
+                //    var consulta = cn.EjecutarConsulta($"UPDATE Productos SET CantidadPedir = '{(obtenerStockMaximo - obtenerStock)}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}'");
+                //}
             }
         }
 
@@ -1417,7 +1458,8 @@ namespace PuntoDeVentaV2
                     var consulta = string.Empty;
                     if (tipoFiltro.Equals("CantidadPedir"))
                     {
-                        consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND Stock < StockMinimo AND Stock {operadorFiltro} {cantidadFiltro} AND (CodigoBarras != '' OR ClaveInterna != '')";
+                        verificarAntidadAPedir();
+                        consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND Stock < StockMinimo AND (CodigoBarras != '' OR ClaveInterna != '')";
                     }
                     else
                     {
