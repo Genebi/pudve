@@ -454,7 +454,7 @@ namespace PuntoDeVentaV2
                             if (operadorFiltro.Equals("chkProveedor"))
                             {
                                 if (!CodigoBarrasAgregados.ContainsKey(listaCodigosBarras[cantidadRegistrosAux]) && !string.IsNullOrEmpty(codigo))
-                                {
+                                {//Para cuando no se ha guardado el Stock
                                     var idABuscar = string.Empty;
                                     if (deshabilitarProdProveedor.Equals(true))
                                     {
@@ -506,7 +506,7 @@ namespace PuntoDeVentaV2
                                     codigoProveedor.Remove(validarCodigoProv);
                                 }
                                 else
-                                {
+                                {//Para cuando ya se guardo el Stock
                                     string codigoActual = string.Empty;
                                     var separacionArreglo = string.Empty;
                                     var idEncontrado = string.Empty;
@@ -519,10 +519,12 @@ namespace PuntoDeVentaV2
                                     var extraerDatos = CodigoBarrasAgregados.ToArray();
                                     var validarProveedor = CodigoPorProveedor.ToArray();
 
-                                    var indice = Array.FindIndex(validarProveedor, row => row.Key == codigoProveedor[cantidadRegistrosAux - 1].ToString());
+                                    var buscarPosicion = 0;
+                                    if (deshabilitarProdProveedor.Equals(true)) { buscarPosicion = (cantidadRegistrosAux - 1); } else { buscarPosicion = cantidadRegistrosAux; }
+                                    var indice = Array.FindIndex(validarProveedor, row => row.Key == codigoProveedor[buscarPosicion].ToString());
 
                                     int codigoBuscar = 0;
-                                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice + 1); }
+                                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice); }
 
                                     if (!CodigoBarrasAgregados.Count.Equals(0))
                                     {
