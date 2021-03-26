@@ -775,8 +775,9 @@ namespace PuntoDeVentaV2
                                                     {
                                                         stopCancelar = false;
                                                     }
-                                                    cbTipoVentas.SelectedIndex = 1;
-                                                    cbTipoVentas.SelectedIndex = 3;
+                                                    //cbTipoVentas.SelectedIndex = 1;
+                                                    //cbTipoVentas.SelectedIndex = 3;
+                                                    CargarDatos(4);
                                                 }
                                                 else if (fechaAbonoRealizado < fechaDelCorteCaja)//Devolver dinero en efectivo
                                                 {
