@@ -68,20 +68,66 @@ namespace PuntoDeVentaV2
 
                             if (resultado > 0)
                             {
-                                // Regresar la cantidad de producto vendido al stock
-                                var productos = cn.ObtenerProductosVenta(idVenta);
+                                // Obtiene el id del combo cancelado
+                                DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
+                                //var productos = cn.ObtenerProductosVenta(idVenta);
 
-                                if (productos.Length > 0)
+                                if (d_prod_venta.Rows.Count > 0)
                                 {
-                                    foreach (var producto in productos)
-                                    {
-                                        var info = producto.Split('|');
-                                        var idProducto = info[0];
-                                        var cantidad = float.Parse(info[2]);
+                                    DataRow r_prod_venta = d_prod_venta.Rows[0];
+                                    int id_prod = Convert.ToInt32(r_prod_venta["IDProducto"]);
+                                    int cantidad_combo = Convert.ToInt32(r_prod_venta["Cantidad"]);
 
-                                        cn.EjecutarConsulta($"UPDATE Productos SET Stock =  Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                    // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
+                                    DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
+
+                                    if (dtprod_relacionados.Rows.Count > 0)
+                                    {
+                                        foreach (DataRow drprod_relacionados in dtprod_relacionados.Rows)
+                                        {
+                                            int cantidad_prod_rel = Convert.ToInt32(drprod_relacionados["Cantidad"]);
+                                            int cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
+
+                                            cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
+                                        }
                                     }
+                                    else if (dtprod_relacionados.Rows.Count.Equals(0))
+                                    {
+                                        using (DataTable dtProdVenta = cn.CargarDatos(cs.ObtenerProdDeLaVenta(idVenta)))
+                                        {
+                                            if (!dtProdVenta.Rows.Count.Equals(0))
+                                            {
+                                                foreach (DataRow drProdVenta in dtProdVenta.Rows)
+                                                {
+                                                    cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), ((float)cantidad_combo + (float)Convert.ToDouble(drProdVenta["Stock"].ToString()))));
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    /* foreach (var producto in productos)
+                                     {
+                                         var info = producto.Split('|');
+                                         var idProducto = info[0];
+                                         var cantidad = Convert.ToDecimal(info[2]);
+
+                                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                     }*/
                                 }
+                                //// Regresar la cantidad de producto vendido al stock
+                                //var productos = cn.ObtenerProductosVenta(idVenta);
+
+                                //if (productos.Length > 0)
+                                //{
+                                //    foreach (var producto in productos)
+                                //    {
+                                //        var info = producto.Split('|');
+                                //        var idProducto = info[0];
+                                //        var cantidad = float.Parse(info[2]);
+
+                                //        cn.EjecutarConsulta($"UPDATE Productos SET Stock =  Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                //    }
+                                //}
 
                                 // Agregamos marca de agua al PDF del ticket de la venta cancelada
                                 Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
