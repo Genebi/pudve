@@ -113,7 +113,7 @@ namespace PuntoDeVentaV2
 
                                          cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                                      }*/
-                                }
+                                } 
                                 //// Regresar la cantidad de producto vendido al stock
                                 //var productos = cn.ObtenerProductosVenta(idVenta);
 
