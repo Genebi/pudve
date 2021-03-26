@@ -634,52 +634,56 @@ namespace PuntoDeVentaV2
                             // Verificar si es un producto
                             if (infoProducto[6] == "P")
                             {
-                                // Verificar si el producto tiene un mensaje para mostrarse al realizar inventario
-                                var mensajeInventario = mb.MensajeInventario(idProducto, 1);
+                                if (validarSiguienteTerminar.Equals(false))
+                                {
+                                    // Verificar si el producto tiene un mensaje para mostrarse al realizar inventario
+                                    var mensajeInventario = mb.MensajeInventario(idProducto, 1);
 
                                 if (!string.IsNullOrEmpty(mensajeInventario))
                                 {
                                     MessageBox.Show(mensajeInventario, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
 
-                                // Verificar si este producto ya fue inventariado
-                                var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}' AND (CodigoBarras != '' OR ClaveInterna != '')");
+                                
+                                    // Verificar si este producto ya fue inventariado
+                                    var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}' AND (CodigoBarras != '' OR ClaveInterna != '')");
 
-                                if (inventariado)
-                                {
-                                    var infoInventariado = mb.DatosProductoInventariado(idProducto);
-
-                                    if (infoInventariado.Length > 0)
+                                    if (inventariado)
                                     {
+                                        var infoInventariado = mb.DatosProductoInventariado(idProducto);
 
-                                        var respuesta = MessageBox.Show("Este producto ya fue inventariado\nFecha: " + infoInventariado[2] + " \n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                                        if (respuesta == DialogResult.Yes)
+                                        if (infoInventariado.Length > 0)
                                         {
-                                            //Decrementa el Id utilizar el boton de anterior 
-                                            convertirId--;
 
-                                            // Se asigna el stock registrado en la tabla RevisarInventario
-                                            txtCantidadStock.Text = verificarStockActualizado(infoProducto, infoProducto);
-                                        }
+                                            var respuesta = MessageBox.Show("Este producto ya fue inventariado\nFecha: " + infoInventariado[2] + " \n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                                        if (respuesta == DialogResult.No)
-                                        {
-                                            //LimpiarCampos();
-                                            //txtBoxBuscarCodigoBarras.Focus();
-                                            txtCantidadStock.Text = verificarStockActualizado(infoProducto, infoProducto);
-                                            btnOmitir.PerformClick();
-                                            txtCantidadStock.Focus();
+                                            if (respuesta == DialogResult.Yes)
+                                            {
+                                                //Decrementa el Id utilizar el boton de anterior 
+                                                convertirId--;
+
+                                                // Se asigna el stock registrado en la tabla RevisarInventario
+                                                txtCantidadStock.Text = verificarStockActualizado(infoProducto, infoProducto);
+                                            }
+
+                                            if (respuesta == DialogResult.No)
+                                            {
+                                                //LimpiarCampos();
+                                                //txtBoxBuscarCodigoBarras.Focus();
+                                                txtCantidadStock.Text = verificarStockActualizado(infoProducto, infoProducto);
+                                                btnOmitir.PerformClick();
+                                                txtCantidadStock.Focus();
+                                            }
                                         }
+                                        txtCantidadStock.Focus();
                                     }
-                                    txtCantidadStock.Focus();
+                                    else
+                                    {
+                                        // Se asigna el stock registrado en la tabla Productos
+                                        txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoProducto[1]);
+                                    }
                                 }
-                                else
-                                {
-                                    // Se asigna el stock registrado en la tabla Productos
-                                    txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoProducto[1]);
-                                }
-
+                                
                                 txtCantidadStock.Focus();
                                 //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                             }
@@ -950,47 +954,51 @@ namespace PuntoDeVentaV2
                 // Verificar si es un producto
                 if (infoProducto[6] == "P")
                 {
-                    // Verificar si el producto tiene un mensaje para mostrarse al realizar inventario
-                    var mensajeInventario = mb.MensajeInventario(idProducto, 1);
+                    if (validarSiguienteTerminar.Equals(false))
+                    {
+                        // Verificar si el producto tiene un mensaje para mostrarse al realizar inventario
+                        var mensajeInventario = mb.MensajeInventario(idProducto, 1);
 
                     if (!string.IsNullOrEmpty(mensajeInventario))
                     {
                         MessageBox.Show(mensajeInventario, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                    
+                        // Verificar si este producto ya fue inventariado
+                        var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}' AND (CodigoBarras != '' OR ClaveInterna != '')");
 
-                    // Verificar si este producto ya fue inventariado
-                    var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}' AND (CodigoBarras != '' OR ClaveInterna != '')");
-
-                    if (inventariado)
-                    {
-                        var infoInventariado = mb.DatosProductoInventariado(idProducto);
-
-                        if (infoInventariado.Length > 0)
+                        if (inventariado)
                         {
-                            var respuesta = MessageBox.Show("Este producto ya fue inventariado\nFecha: " + infoInventariado[2] + " \n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            var infoInventariado = mb.DatosProductoInventariado(idProducto);
 
-                            if (respuesta == DialogResult.Yes)
+                            if (infoInventariado.Length > 0)
                             {
-                                // Se asigna el stock registrado en la tabla RevisarInventario
-                                //txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
-                                txtCantidadStock.Text = verificarStockActualizado(infoProducto, infoProducto);
-                            }
-                            txtCantidadStock.Focus();
+                                var respuesta = MessageBox.Show("Este producto ya fue inventariado\nFecha: " + infoInventariado[2] + " \n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                            if (respuesta == DialogResult.No)
-                            {
-                                //LimpiarCampos();
-                                //txtBoxBuscarCodigoBarras.Focus();
-                                btnOmitir.PerformClick();
+                                if (respuesta == DialogResult.Yes)
+                                {
+                                    // Se asigna el stock registrado en la tabla RevisarInventario
+                                    //txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoInventariado[0]);
+                                    txtCantidadStock.Text = verificarStockActualizado(infoProducto, infoProducto);
+                                }
                                 txtCantidadStock.Focus();
+
+                                if (respuesta == DialogResult.No)
+                                {
+                                    //LimpiarCampos();
+                                    //txtBoxBuscarCodigoBarras.Focus();
+                                    btnOmitir.PerformClick();
+                                    txtCantidadStock.Focus();
+                                }
                             }
                         }
+                        else
+                        {
+                            // Se asigna el stock registrado en la tabla Productos
+                            txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoProducto[1]);
+                        }
                     }
-                    else
-                    {
-                        // Se asigna el stock registrado en la tabla Productos
-                        txtCantidadStock.Text = Utilidades.RemoverCeroStock(infoProducto[1]);
-                    }
+                    
 
                     txtCantidadStock.Focus();
                     //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
