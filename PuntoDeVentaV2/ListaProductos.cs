@@ -73,6 +73,20 @@ namespace PuntoDeVentaV2
         public delegate void pasarProducto(string nombProd_Paq_Serv, string id_Prod_Paq_Serv = "");
         public event pasarProducto nombreProducto;
 
+        // Estanciar objeto de Clase Paginar
+        // para usarlo
+        private Paginar p;
+
+        #region Sección de variables globales
+        // Variables de tipo String
+        string filtroConSinFiltroAvanzado = string.Empty;
+        string DataMemberDGV = "Productos";
+        string busqueda = string.Empty;
+
+        // Variables de tipo Int
+        int maximo_x_pagina = 17;
+        #endregion
+
         // metodo para poder cargar los datos al inicio
         public void CargarDataGridView()
         {
@@ -120,10 +134,15 @@ namespace PuntoDeVentaV2
 
         private void ListaProductos_Load(object sender, EventArgs e)
         {
+            filtroLoadProductos();
+            txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            linkLblUltimaPagina.Text = p.countPag().ToString();
+            actualizar();
+            CargarDatos();
             // Llamamos el metodo de limpiarDGV
             //LimpiarDGV();
             // Llamamos el metodo CargarDataGridView
-            CargarDataGridView();
+            //CargarDataGridView();
             // Llamamos el metodo consultadoDesdeListProd
             consultadoDesdeListProd = 0;
         }
@@ -132,7 +151,8 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyData == Keys.Enter)
             {
-                BuscarProductos();
+                //BuscarProductos();
+                CargarDatos(1, txtBoxSearchProd.Text);
             }
             else if (e.KeyCode == Keys.Down && !DGVStockProductos.Rows.Count.Equals(0))
             {
@@ -223,6 +243,313 @@ namespace PuntoDeVentaV2
                 DGVStockProductos_CellDoubleClick(this, new DataGridViewCellEventArgs(0, DGVStockProductos.CurrentRow.Index));
             }
         }
+
+        #region Sección de operaciones de paginador
+        public void filtroLoadProductos()
+        {
+            string extra = string.Empty;
+            string typeToSearch = string.Empty;
+
+            typeStockFinal = TypeStock;
+
+            if (typeStockFinal.Equals("Productos"))
+            {
+                typeToSearch = "P";
+            }
+            else if (typeStockFinal.Equals("Combos"))
+            {
+                typeToSearch = "PQ";
+            }
+            else if (typeStockFinal.Equals("Servicios"))
+            {
+                typeToSearch = "S";
+            }
+
+            filtroConSinFiltroAvanzado = cs.searchProductList(typeToSearch, busqueda);
+
+            p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+
+            DGVStockProductos.Rows.Clear();
+        }
+
+        private void actualizar()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
+            lblCantidadRegistros.Text = p.countRow().ToString();
+
+            linkLblPaginaActual.Text = p.numPag().ToString();
+            linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
+            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPrimeraPagina.Visible = false;
+                linkLblPaginaAnterior.Visible = false;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                    linkLblUltimaPagina.Visible = false;
+                }
+            }
+
+            txtMaximoPorPagina.Text = p.limitRow().ToString();
+        }
+
+        private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
+        {
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaActual_Click(object sender, EventArgs e)
+        {
+            actualizar();
+        }
+
+        private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            CargarDatos();
+            actualizar();
+        }
+
+        private void txtMaximoPorPagina_Click(object sender, EventArgs e)
+        {
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            CargarDatos();
+            actualizar();
+        }
+
+        private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                p.actualizarTope(maximo_x_pagina);
+                CargarDatos();
+                actualizar();
+            }
+        }
+
+        private void txtIrPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (!txtIrPagina.Text.Equals(""))
+                {
+                    goToPageNumber(Convert.ToInt32(txtIrPagina.Text));
+                    txtIrPagina.Text = string.Empty;
+                }
+                else if (txtIrPagina.Text.Equals(""))
+                {
+                    MessageBox.Show("Favor de verificar que\nel campo de ir a Página\nno este vacio ó su teclado\nnúmerico este activo", "Favor de verificar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void goToPageNumber(int pageNumber)
+        {
+            if (pageNumber.Equals(p.numPag()))
+            {
+                p.cargar();
+            }
+            else if (!pageNumber.Equals(p.numPag()))
+            {
+                p.primerPagina();
+                p.ultimaPagina();
+                p.irAPagina(pageNumber);
+                p.cargar();
+            }
+            CargarDatos();
+            actualizar();
+        }
+
+        private void txtIrPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // para obligar a que solo se introduzcan números
+            if (Char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                // permitir teclas de control como retroceso
+                if (Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = false;
+                }
+                // el resto de teclas pulsadas se desactivan
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void txtIrPagina_Leave(object sender, EventArgs e)
+        {
+            txtIrPagina.Text = string.Empty;
+        }
+        #endregion
+
+        #region Sección de cargar datos para el DataGridView
+        /// <summary>
+        /// Metodo CargarDatos
+        /// </summary>
+        /// <param name="status">El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos</param>
+        /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
+        public void CargarDatos(int status = 1, string busquedaEnProductos = "")
+        {
+            busqueda = string.Empty;
+
+            busqueda = busquedaEnProductos;
+
+            if (DGVStockProductos.RowCount <= 0 || DGVStockProductos.RowCount >= 0)
+            {
+                if (busqueda == "")
+                {
+                    DGVStockProductos.Rows.Clear();
+                }
+                else if (busqueda != "")
+                {
+                    string typeToSearch = string.Empty;
+
+                    if (typeStockFinal.Equals("Productos"))
+                    {
+                        typeToSearch = "P";
+                    }
+                    else if (typeStockFinal.Equals("Combos"))
+                    {
+                        typeToSearch = "PQ";
+                    }
+                    else if (typeStockFinal.Equals("Servicios"))
+                    {
+                        typeToSearch = "S";
+                    }
+
+                    filtroConSinFiltroAvanzado = cs.searchProductList(typeToSearch, busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+
+                    DataSet datos = p.cargar();
+                    DataTable dtDatos = datos.Tables[0];
+
+                    DGVStockProductos.Rows.Clear();
+
+                    foreach (DataRow filaDatos in dtDatos.Rows)
+                    {
+                        var number_of_rows = DGVStockProductos.Rows.Add();
+                        DataGridViewRow row = DGVStockProductos.Rows[number_of_rows];
+
+                        // Columna IdProducto 
+                        string idProducto = filaDatos["ID"].ToString();
+                        row.Cells["ID"].Value = idProducto;
+
+                        // Columna Nombre
+                        string Nombre = filaDatos["Nombre"].ToString();
+                        row.Cells["Nombre"].Value = Nombre;
+
+                        // Columna Stock
+                        string Stock = filaDatos["Stock"].ToString();
+                        row.Cells["Stock"].Value = Stock;
+
+                        // Columna Precio
+                        string Precio = filaDatos["Precio"].ToString();
+                        row.Cells["Precio"].Value = Precio;
+
+                        // Columna Categoria
+                        string Categoria = filaDatos["Categoria"].ToString();
+                        row.Cells["Categoria"].Value = Categoria;
+
+                        // Columna ClaveInterna
+                        string ClaveInterna = filaDatos["ClaveInterna"].ToString();
+                        row.Cells["ClaveInterna"].Value = ClaveInterna;
+
+                        // Columna CodigBarras
+                        string CodigoBarras = filaDatos["CodigoBarras"].ToString();
+                        row.Cells["Codigo"].Value = CodigoBarras;
+                    }
+
+                    actualizar();
+                }
+            }
+        }
+        #endregion
 
         /*private void txtBoxSearchProd_TextChanged(object sender, EventArgs e)
         {
