@@ -453,7 +453,7 @@ namespace PuntoDeVentaV2
 
                             if (operadorFiltro.Equals("chkProveedor"))
                             {
-                                if (!CodigoBarrasAgregados.ContainsKey(listaCodigosBarras[cantidadRegistrosAux]) && !string.IsNullOrEmpty(codigo))
+                                if (!CodigoBarrasAgregados.ContainsKey(listaCodigosBarras[cantidadRegistrosAux]) && !string.IsNullOrEmpty(codigo) || !CodigoPorProveedor.ContainsKey(codigo))
                                 {//Para cuando no se ha guardado el Stock
                                     var idABuscar = string.Empty;
                                     if (deshabilitarProdProveedor.Equals(true))
@@ -486,7 +486,6 @@ namespace PuntoDeVentaV2
 
                                         if (!CodigoBarrasAgregados.Count.Equals(0) /*&& deshabilitarProdProveedor.Equals(false)*/) { codigoActual = extraerDatos[codigoBuscar].ToString(); } else { codigoActual = listaCodigosBarras[0].ToString(); }
 
-
                                         string[] words = codigoActual.Split(',');
                                         string code = words[0].Replace("[", "");
                                         var convertirAID = mostrarId(code);
@@ -502,8 +501,11 @@ namespace PuntoDeVentaV2
                                         CodigoBarrasAgregados.Add(codigo, string.Empty);
                                     }
 
-                                    CodigoPorProveedor.Remove(validarCodigoProv);
-                                    codigoProveedor.Remove(validarCodigoProv);
+                                    if (deshabilitarProdProveedor.Equals(true))
+                                    {
+                                        CodigoPorProveedor.Remove(validarCodigoProv);
+                                        codigoProveedor.Remove(validarCodigoProv);
+                                    }
                                 }
                                 else
                                 {//Para cuando ya se guardo el Stock
@@ -520,11 +522,13 @@ namespace PuntoDeVentaV2
                                     var validarProveedor = CodigoPorProveedor.ToArray();
 
                                     var buscarPosicion = 0;
-                                    if (deshabilitarProdProveedor.Equals(true)) { buscarPosicion = (cantidadRegistrosAux - 1); } else { buscarPosicion = cantidadRegistrosAux; }
+                                    //if (deshabilitarProdProveedor.Equals(true)) { buscarPosicion = (cantidadRegistrosAux - 1); } else { buscarPosicion = cantidadRegistrosAux; }
+                                    buscarPosicion = (cantidadRegistrosAux - 1);
+
                                     var indice = Array.FindIndex(validarProveedor, row => row.Key == codigoProveedor[buscarPosicion].ToString());
 
                                     int codigoBuscar = 0;
-                                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice); }
+                                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice+1); }
 
                                     if (!CodigoBarrasAgregados.Count.Equals(0))
                                     {
