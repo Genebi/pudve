@@ -60,9 +60,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbCorreoCorteCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoEliminarListaProductosVentas = new System.Windows.Forms.CheckBox();
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas = new System.Windows.Forms.CheckBox();
-            this.cbCorreoEliminarProductoVentas = new System.Windows.Forms.CheckBox();
-            this.cbCorreoRestarProductosVenta = new System.Windows.Forms.CheckBox();
             this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
@@ -447,9 +444,6 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cbCorreoCorteCaja);
             this.groupBox1.Controls.Add(this.cbCorreoEliminarListaProductosVentas);
-            this.groupBox1.Controls.Add(this.cbCorreoEliminaUltimoProductoAgregadoVentas);
-            this.groupBox1.Controls.Add(this.cbCorreoEliminarProductoVentas);
-            this.groupBox1.Controls.Add(this.cbCorreoRestarProductosVenta);
             this.groupBox1.Controls.Add(this.cbCorreoCerrarVentanaVentas);
             this.groupBox1.Controls.Add(this.cbCorreoRetirarDineroCaja);
             this.groupBox1.Controls.Add(this.cbCorreoAgregarDineroCaja);
@@ -499,47 +493,9 @@
             this.cbCorreoEliminarListaProductosVentas.Name = "cbCorreoEliminarListaProductosVentas";
             this.cbCorreoEliminarListaProductosVentas.Size = new System.Drawing.Size(381, 21);
             this.cbCorreoEliminarListaProductosVentas.TabIndex = 120;
-            this.cbCorreoEliminarListaProductosVentas.Text = "Al eliminar listado de productos agregados de ventas";
+            this.cbCorreoEliminarListaProductosVentas.Text = "Al eliminar producto de ventas";
             this.cbCorreoEliminarListaProductosVentas.UseVisualStyleBackColor = true;
             this.cbCorreoEliminarListaProductosVentas.CheckedChanged += new System.EventHandler(this.cbCorreoEliminarListaProductosVentas_CheckedChanged);
-            // 
-            // cbCorreoEliminaUltimoProductoAgregadoVentas
-            // 
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Location = new System.Drawing.Point(468, 115);
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Name = "cbCorreoEliminaUltimoProductoAgregadoVentas";
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Size = new System.Drawing.Size(351, 21);
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.TabIndex = 119;
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.Text = "Al eliminar último producto agregado de ventas";
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.UseVisualStyleBackColor = true;
-            this.cbCorreoEliminaUltimoProductoAgregadoVentas.CheckedChanged += new System.EventHandler(this.cbCorreoEliminaUltimoProductoAgregadoVentas_CheckedChanged);
-            // 
-            // cbCorreoEliminarProductoVentas
-            // 
-            this.cbCorreoEliminarProductoVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoEliminarProductoVentas.AutoSize = true;
-            this.cbCorreoEliminarProductoVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoEliminarProductoVentas.Location = new System.Drawing.Point(468, 88);
-            this.cbCorreoEliminarProductoVentas.Name = "cbCorreoEliminarProductoVentas";
-            this.cbCorreoEliminarProductoVentas.Size = new System.Drawing.Size(227, 21);
-            this.cbCorreoEliminarProductoVentas.TabIndex = 118;
-            this.cbCorreoEliminarProductoVentas.Text = "Al eliminar producto de ventas";
-            this.cbCorreoEliminarProductoVentas.UseVisualStyleBackColor = true;
-            this.cbCorreoEliminarProductoVentas.CheckedChanged += new System.EventHandler(this.cbCorreoEliminarProductoVentas_CheckedChanged);
-            // 
-            // cbCorreoRestarProductosVenta
-            // 
-            this.cbCorreoRestarProductosVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoRestarProductosVenta.AutoSize = true;
-            this.cbCorreoRestarProductosVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoRestarProductosVenta.Location = new System.Drawing.Point(468, 142);
-            this.cbCorreoRestarProductosVenta.Name = "cbCorreoRestarProductosVenta";
-            this.cbCorreoRestarProductosVenta.Size = new System.Drawing.Size(211, 21);
-            this.cbCorreoRestarProductosVenta.TabIndex = 117;
-            this.cbCorreoRestarProductosVenta.Text = "Al restar producto de ventas";
-            this.cbCorreoRestarProductosVenta.UseVisualStyleBackColor = true;
-            this.cbCorreoRestarProductosVenta.CheckedChanged += new System.EventHandler(this.cbCorreoRestarProductosVenta_CheckedChanged);
             // 
             // cbCorreoCerrarVentanaVentas
             // 
@@ -669,9 +625,6 @@
         private System.Windows.Forms.CheckBox cbCorreoAgregarDineroCaja;
         private System.Windows.Forms.CheckBox cbCorreoRetirarDineroCaja;
         private System.Windows.Forms.CheckBox cbCorreoCerrarVentanaVentas;
-        private System.Windows.Forms.CheckBox cbCorreoRestarProductosVenta;
-        private System.Windows.Forms.CheckBox cbCorreoEliminarProductoVentas;
-        private System.Windows.Forms.CheckBox cbCorreoEliminaUltimoProductoAgregadoVentas;
         private System.Windows.Forms.CheckBox cbCorreoEliminarListaProductosVentas;
         private System.Windows.Forms.CheckBox cbCorreoCorteCaja;
         private System.Windows.Forms.Label label4;

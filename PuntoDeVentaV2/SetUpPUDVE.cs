@@ -212,15 +212,6 @@ namespace PuntoDeVentaV2
                 cbCorreoCerrarVentanaVentas.Checked = Convert.ToBoolean(datosConfig[15]);
                 check18 = cbCorreoCerrarVentanaVentas.Checked;
 
-                cbCorreoRestarProductosVenta.Checked = Convert.ToBoolean(datosConfig[16]);
-                check19 = cbCorreoRestarProductosVenta.Checked;
-
-                cbCorreoEliminarProductoVentas.Checked = Convert.ToBoolean(datosConfig[17]);
-                check20 = cbCorreoEliminarProductoVentas.Checked;
-
-                cbCorreoEliminaUltimoProductoAgregadoVentas.Checked = Convert.ToBoolean(datosConfig[18]);
-                check21 = cbCorreoEliminaUltimoProductoAgregadoVentas.Checked;
-
                 cbCorreoEliminarListaProductosVentas.Checked = Convert.ToBoolean(datosConfig[19]);
                 check22 = cbCorreoEliminarListaProductosVentas.Checked;
 
@@ -782,69 +773,6 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCerrarVentanaVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
-        private void cbCorreoRestarProductosVenta_CheckedChanged(object sender, EventArgs e)
-        {
-            if (opcion19.Equals(0))
-            {
-                cbCorreoRestarProductosVenta.CheckedChanged -= cbCorreoRestarProductosVenta_CheckedChanged;
-                cbCorreoRestarProductosVenta.Checked = check19;
-                Utilidades.MensajePermiso();
-                cbCorreoRestarProductosVenta.CheckedChanged += cbCorreoRestarProductosVenta_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoRestarProductosVenta.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRestarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-        }
-
-        private void cbCorreoEliminarProductoVentas_CheckedChanged(object sender, EventArgs e)
-        {
-            if (opcion20.Equals(0))
-            {
-                cbCorreoEliminarProductoVentas.CheckedChanged -= cbCorreoEliminarProductoVentas_CheckedChanged;
-                cbCorreoEliminarProductoVentas.Checked = check20;
-                Utilidades.MensajePermiso();
-                cbCorreoEliminarProductoVentas.CheckedChanged += cbCorreoEliminarProductoVentas_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoEliminarProductoVentas.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-        }
-
-        private void cbCorreoEliminaUltimoProductoAgregadoVentas_CheckedChanged(object sender, EventArgs e)
-        {
-            if (opcion21.Equals(0))
-            {
-                cbCorreoEliminaUltimoProductoAgregadoVentas.CheckedChanged -= cbCorreoEliminaUltimoProductoAgregadoVentas_CheckedChanged;
-                cbCorreoEliminaUltimoProductoAgregadoVentas.Checked = check21;
-                Utilidades.MensajePermiso();
-                cbCorreoEliminaUltimoProductoAgregadoVentas.CheckedChanged += cbCorreoEliminaUltimoProductoAgregadoVentas_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoEliminaUltimoProductoAgregadoVentas.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarUltimoProductoAgregadoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-        }
-
         private void cbCorreoEliminarListaProductosVentas_CheckedChanged(object sender, EventArgs e)
         {
             if (opcion22.Equals(0))
@@ -864,6 +792,12 @@ namespace PuntoDeVentaV2
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarListaProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarUltimoProductoAgregadoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRestarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void cbCorreoCorteCaja_CheckedChanged(object sender, EventArgs e)
