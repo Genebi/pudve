@@ -531,6 +531,7 @@ namespace PuntoDeVentaV2
                                     var indice = Array.FindIndex(validarProveedor, row => row.Key == codigoProveedor[buscarPosicion].ToString());
 
                                     int codigoBuscar = 0;
+                                    if (deshabilitarEsteProducto.Equals(false)) { contadorDeshabilitar = 0; }
                                     if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice+1); }
 
                                     if (!CodigoBarrasAgregados.Count.Equals(0))
