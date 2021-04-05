@@ -498,7 +498,10 @@ namespace PuntoDeVentaV2
                                     }
                                     else
                                     {
-                                        CodigoBarrasAgregados.Add(codigo, string.Empty);
+                                        if (!CodigoBarrasAgregados.ContainsKey(codigo))
+                                        {
+                                            CodigoBarrasAgregados.Add(codigo, string.Empty);
+                                        }
                                     }
 
                                     if (deshabilitarProdProveedor.Equals(true))
@@ -755,6 +758,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         MessageBox.Show("No se encontraron productos \ncon este filtro", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
                         this.Close();
                     }
                 }
