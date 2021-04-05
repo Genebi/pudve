@@ -591,7 +591,7 @@ namespace PuntoDeVentaV2
                         // Si existe se trae la informacion del producto
                         var infoProducto = mb.BuscarCodigoInventario(codigo, aplicar);
                         var idFiltrado = MetodosBusquedas.idFiltrado.ToString();
-                        if (!string.IsNullOrEmpty(idFiltrado))
+                        if (!string.IsNullOrEmpty(idFiltrado) && infoProducto.Length > 0)
                         {
                             id.Add(idFiltrado);
                             if (!IdAgregados.ContainsKey(Convert.ToInt32(idFiltrado)))
