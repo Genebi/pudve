@@ -167,7 +167,7 @@ namespace PuntoDeVentaV2
         {
             var cantidadCamposRFC = txtRFC.Text.Length;
 
-            if (cantidadCamposRFC < 12)
+            if (cantidadCamposRFC > 0 && cantidadCamposRFC < 12)
             {
                 txtRFC.Focus();
                 MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
