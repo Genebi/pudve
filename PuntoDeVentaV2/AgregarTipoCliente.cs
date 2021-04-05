@@ -61,49 +61,59 @@ namespace PuntoDeVentaV2
             var descuento = txtDescuento.Text.Trim();
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            if (string.IsNullOrWhiteSpace(nombre))
-            {
-                MessageBox.Show("El nombre para tipo de cliente es obligatorio", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNombre.Focus();
-                return;
-            }
+            
+                if (string.IsNullOrWhiteSpace(nombre))
+                {
+                    MessageBox.Show("El nombre para tipo de cliente es obligatorio", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtNombre.Focus();
+                    return;
+                }
 
-            if (string.IsNullOrWhiteSpace(descuento))
+                if (string.IsNullOrWhiteSpace(descuento))
+                {
+                    MessageBox.Show("Ingrese la cantidad de porcentaje para descuento", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDescuento.Focus();
+                    return;
+                }
+
+            if (descuento.Equals("."))
             {
-                MessageBox.Show("Ingrese la cantidad de porcentaje para descuento", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDescuento.Text = string.Empty;
                 txtDescuento.Focus();
-                return;
-            }
-
-            var consulta = string.Empty;
-
-            if (tipo == 1)
-            {
-                consulta = $"INSERT INTO TipoClientes (IDUsuario, Nombre, DescuentoPorcentaje, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{nombre}', '{descuento}', '{fechaOperacion}')";
-            }
-
-            if (tipo == 2)
-            {
-                consulta = $"UPDATE TipoClientes SET Nombre = '{nombre}', DescuentoPorcentaje = '{descuento}', FechaOperacion = '{fechaOperacion}' WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID}";
-            }
-
-
-            var resultado = cn.EjecutarConsulta(consulta);
-
-            if (resultado > 0)
-            {
-                Close();
+                MessageBox.Show("Dato incorrecto, ingrese valores numericos", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                var operacion = "registrar";
+                var consulta = string.Empty;
+
+                if (tipo == 1)
+                {
+                    consulta = $"INSERT INTO TipoClientes (IDUsuario, Nombre, DescuentoPorcentaje, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{nombre}', '{descuento}', '{fechaOperacion}')";
+                }
 
                 if (tipo == 2)
                 {
-                    operacion = "actualizar";
+                    consulta = $"UPDATE TipoClientes SET Nombre = '{nombre}', DescuentoPorcentaje = '{descuento}', FechaOperacion = '{fechaOperacion}' WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID}";
                 }
 
-                MessageBox.Show($"Ha ocurrido un error al {operacion} el tipo de cliente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                var resultado = cn.EjecutarConsulta(consulta);
+
+                if (resultado > 0)
+                {
+                    Close();
+                }
+                else
+                {
+                    var operacion = "registrar";
+
+                    if (tipo == 2)
+                    {
+                        operacion = "actualizar";
+                    }
+
+                    MessageBox.Show($"Ha ocurrido un error al {operacion} el tipo de cliente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
