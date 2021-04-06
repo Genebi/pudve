@@ -281,5 +281,13 @@ namespace PuntoDeVentaV2
         {
             Close();
         }
+
+        private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
     }
 }

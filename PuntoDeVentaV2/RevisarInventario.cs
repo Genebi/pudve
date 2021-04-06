@@ -249,6 +249,7 @@ namespace PuntoDeVentaV2
 
         private void buscarCodigoBarras()
         {
+
             if (cantidadRegistrosAux != cantidadRegistros || busquedaNormal == true)
             {
                 // variableSin = SIN
@@ -727,6 +728,7 @@ namespace PuntoDeVentaV2
                             if (tipoFiltro != "Normal")
                             {
                                 MessageBox.Show("No se encontraron productos o no hay más con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                //ultimoProductoRevision(infoProducto);
                                 //btnSiguiente.PerformClick();
                                 //btnTerminar.PerformClick();
                             }
@@ -759,8 +761,9 @@ namespace PuntoDeVentaV2
                     else
                     {
                         MessageBox.Show("No se encontraron productos \ncon este filtro", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        ultimoProductoRevision();
 
-                        this.Close();
+                        //this.Close();
                     }
                 }
             }
@@ -843,6 +846,57 @@ namespace PuntoDeVentaV2
             return result;
         }
 
+        private void ultimoProductoRevision()
+        {
+            //LimpiarCampos();
+            //if (string.IsNullOrEmpty(infoProducto[3]))
+            //{
+            //    txtBoxBuscarCodigoBarras.Text = infoProducto[4];
+            //    txtNombreProducto.Text = infoProducto[0];
+            //    txtCodigoBarras.Text = infoProducto[4];
+            //    lblPrecioProducto.Text = infoProducto[2];
+            //    lblStockMinimo.Text = infoProducto[8];
+            //    lblStockMaximo.Text = infoProducto[7];
+            //    txtCantidadStock.Text = infoProducto[1];
+            //}
+            //else if(string.IsNullOrEmpty(infoProducto[4]))
+            //{
+            //    txtBoxBuscarCodigoBarras.Text = infoProducto[3];
+            //    txtNombreProducto.Text = infoProducto[0];
+            //    txtCodigoBarras.Text = infoProducto[3];
+            //    lblPrecioProducto.Text = infoProducto[2];
+            //    lblStockMinimo.Text = infoProducto[8];
+            //    lblStockMaximo.Text = infoProducto[7];
+            //    txtCantidadStock.Text = infoProducto[1];
+            //}
+
+            var query = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codBarras}' OR ClaveInterna = '{codBarras}' AND Status = 1");
+            LimpiarCampos();
+            if (!query.Rows.Count.Equals(0))
+            {
+                if (string.IsNullOrEmpty(query.Rows[0]["ClaveInterna"].ToString()))
+                {
+                    txtBoxBuscarCodigoBarras.Text = query.Rows[0]["CodigoBarras"].ToString();
+                    txtNombreProducto.Text = query.Rows[0]["Nombre"].ToString();
+                    txtCodigoBarras.Text = query.Rows[0]["CodigoBarras"].ToString();
+                    lblPrecioProducto.Text = query.Rows[0]["Precio"].ToString();
+                    lblStockMinimo.Text = query.Rows[0]["StockMinimo"].ToString();
+                    lblStockMaximo.Text = query.Rows[0]["StockNecesario"].ToString();
+                    txtCantidadStock.Text = Utilidades.RemoverCeroStock(query.Rows[0]["Stock"].ToString());
+                }
+                else if (string.IsNullOrEmpty(query.Rows[0]["CodigoBarras"].ToString()))
+                {
+                    txtBoxBuscarCodigoBarras.Text = query.Rows[0]["ClaveInterna"].ToString();
+                    txtNombreProducto.Text = query.Rows[0]["Nombre"].ToString();
+                    txtCodigoBarras.Text = query.Rows[0]["ClaveInterna"].ToString();
+                    lblPrecioProducto.Text = query.Rows[0]["Precio"].ToString();
+                    lblStockMinimo.Text = query.Rows[0]["StockMinimo"].ToString();
+                    lblStockMaximo.Text = query.Rows[0]["StockNecesario"].ToString();
+                    txtCantidadStock.Text = Utilidades.RemoverCeroStock(query.Rows[0]["Stock"].ToString());
+                }
+            }
+            txtCantidadStock.SelectAll();
+        }
 
         private string mostrarId(string cod)
         {
@@ -1044,6 +1098,7 @@ namespace PuntoDeVentaV2
                 if (tipoFiltro != "Normal")
                 {
                     MessageBox.Show("No se encontraron productos o no hay más con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //ultimoProductoRevision(infoProducto);
                     //btnSiguiente.PerformClick();
                     //btnTerminar.PerformClick();
                 }

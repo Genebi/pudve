@@ -115,6 +115,7 @@
             this.txtCantidad.TabIndex = 124;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidad.Visible = false;
+            this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
             // 
             // cbFiltroDinamico
             // 
