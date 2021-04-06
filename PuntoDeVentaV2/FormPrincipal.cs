@@ -902,8 +902,22 @@ namespace PuntoDeVentaV2
             //}
 
             //validarVentasVentanas();
-
-            MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (nickUsuario.Equals("OXXOCLARA3") || nickUsuario.Equals("ALEXHIT"))
+            {
+                if (reportes == 1)
+                {
+                    AbrirFormulario<Reportes>();
+                    validarVentasVentanas();
+                }
+                else
+                {
+                    MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void btnFacturas_Click(object sender, EventArgs e)
