@@ -1604,7 +1604,7 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
         public string searchProductList(string typeToSearch, string busqueda)
         {
-            var consulta = $"SELECT DISTINCT	P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras  FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.STATUS = '1' AND P.Tipo = '{typeToSearch}' AND ( P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' )";
+            var consulta = $"SELECT DISTINCT	P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras  FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.STATUS = '1' AND ({typeToSearch}) AND ( P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' )";
 
             return consulta;
         }

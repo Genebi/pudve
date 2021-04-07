@@ -84,7 +84,8 @@ namespace PuntoDeVentaV2
         string busqueda = string.Empty;
 
         // Variables de tipo Int
-        int maximo_x_pagina = 17;
+        int maximo_x_pagina = 18;
+        int clickBoton = 0;
         #endregion
 
         // metodo para poder cargar los datos al inicio
@@ -254,15 +255,15 @@ namespace PuntoDeVentaV2
 
             if (typeStockFinal.Equals("Productos"))
             {
-                typeToSearch = "P";
+                typeToSearch = " P.Tipo = 'P' ";
             }
             else if (typeStockFinal.Equals("Combos"))
             {
-                typeToSearch = "PQ";
+                typeToSearch = " P.Tipo = 'PQ' OR P.Tipo = 'S' ";
             }
             else if (typeStockFinal.Equals("Servicios"))
             {
-                typeToSearch = "S";
+                typeToSearch = " P.Tipo = 'S' OR P.Tipo = 'PQ' ";
             }
 
             filtroConSinFiltroAvanzado = cs.searchProductList(typeToSearch, busqueda);
@@ -342,6 +343,7 @@ namespace PuntoDeVentaV2
         private void btnAnterior_Click(object sender, EventArgs e)
         {
             p.atras();
+            clickBoton = 1;
             CargarDatos();
             actualizar();
         }
@@ -349,6 +351,7 @@ namespace PuntoDeVentaV2
         private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
         {
             p.atras();
+            clickBoton = 1;
             CargarDatos();
             actualizar();
         }
@@ -361,6 +364,7 @@ namespace PuntoDeVentaV2
         private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
         {
             p.adelante();
+            clickBoton = 1;
             CargarDatos();
             actualizar();
         }
@@ -368,6 +372,7 @@ namespace PuntoDeVentaV2
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
             p.adelante();
+            clickBoton = 1;
             CargarDatos();
             actualizar();
         }
@@ -375,6 +380,7 @@ namespace PuntoDeVentaV2
         private void btnUltimaPagina_Click(object sender, EventArgs e)
         {
             p.ultimaPagina();
+            clickBoton = 1;
             CargarDatos();
             actualizar();
         }
@@ -479,7 +485,7 @@ namespace PuntoDeVentaV2
 
             busqueda = busquedaEnProductos;
 
-            if (DGVStockProductos.RowCount <= 0 || DGVStockProductos.RowCount >= 0)
+            if (DGVStockProductos.RowCount <= 0)
             {
                 if (busqueda == "")
                 {
@@ -491,63 +497,93 @@ namespace PuntoDeVentaV2
 
                     if (typeStockFinal.Equals("Productos"))
                     {
-                        typeToSearch = "P";
+                        typeToSearch = " P.Tipo = 'P' ";
                     }
                     else if (typeStockFinal.Equals("Combos"))
                     {
-                        typeToSearch = "PQ";
+                        typeToSearch = " P.Tipo = 'PQ' OR P.Tipo = 'S' ";
                     }
                     else if (typeStockFinal.Equals("Servicios"))
                     {
-                        typeToSearch = "S";
+                        typeToSearch = " P.Tipo = 'S' OR P.Tipo = 'PQ' ";
                     }
 
                     filtroConSinFiltroAvanzado = cs.searchProductList(typeToSearch, busqueda);
 
                     p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-
-                    DataSet datos = p.cargar();
-                    DataTable dtDatos = datos.Tables[0];
-
-                    DGVStockProductos.Rows.Clear();
-
-                    foreach (DataRow filaDatos in dtDatos.Rows)
-                    {
-                        var number_of_rows = DGVStockProductos.Rows.Add();
-                        DataGridViewRow row = DGVStockProductos.Rows[number_of_rows];
-
-                        // Columna IdProducto 
-                        string idProducto = filaDatos["ID"].ToString();
-                        row.Cells["ID"].Value = idProducto;
-
-                        // Columna Nombre
-                        string Nombre = filaDatos["Nombre"].ToString();
-                        row.Cells["Nombre"].Value = Nombre;
-
-                        // Columna Stock
-                        string Stock = filaDatos["Stock"].ToString();
-                        row.Cells["Stock"].Value = Stock;
-
-                        // Columna Precio
-                        string Precio = filaDatos["Precio"].ToString();
-                        row.Cells["Precio"].Value = Precio;
-
-                        // Columna Categoria
-                        string Categoria = filaDatos["Categoria"].ToString();
-                        row.Cells["Categoria"].Value = Categoria;
-
-                        // Columna ClaveInterna
-                        string ClaveInterna = filaDatos["ClaveInterna"].ToString();
-                        row.Cells["ClaveInterna"].Value = ClaveInterna;
-
-                        // Columna CodigBarras
-                        string CodigoBarras = filaDatos["CodigoBarras"].ToString();
-                        row.Cells["Codigo"].Value = CodigoBarras;
-                    }
-
-                    actualizar();
                 }
             }
+            else if (DGVStockProductos.RowCount >= 1 && clickBoton == 0)
+            {
+                if (busqueda == "")
+                {
+                    DGVStockProductos.Rows.Clear();
+                }
+                else if (busqueda != "")
+                {
+                    string typeToSearch = string.Empty;
+
+                    if (typeStockFinal.Equals("Productos"))
+                    {
+                        typeToSearch = " P.Tipo = 'P' ";
+                    }
+                    else if (typeStockFinal.Equals("Combos"))
+                    {
+                        typeToSearch = " P.Tipo = 'PQ' OR P.Tipo = 'S' ";
+                    }
+                    else if (typeStockFinal.Equals("Servicios"))
+                    {
+                        typeToSearch = " P.Tipo = 'S' OR P.Tipo = 'PQ' ";
+                    }
+
+                    filtroConSinFiltroAvanzado = cs.searchProductList(typeToSearch, busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+            }
+
+            DataSet datos = p.cargar();
+            DataTable dtDatos = datos.Tables[0];
+
+            DGVStockProductos.Rows.Clear();
+
+            foreach (DataRow filaDatos in dtDatos.Rows)
+            {
+                var number_of_rows = DGVStockProductos.Rows.Add();
+                DataGridViewRow row = DGVStockProductos.Rows[number_of_rows];
+
+                // Columna IdProducto 
+                string idProducto = filaDatos["ID"].ToString();
+                row.Cells["ID"].Value = idProducto;
+
+                // Columna Nombre
+                string Nombre = filaDatos["Nombre"].ToString();
+                row.Cells["Nombre"].Value = Nombre;
+
+                // Columna Stock
+                string Stock = filaDatos["Stock"].ToString();
+                row.Cells["Stock"].Value = Stock;
+
+                // Columna Precio
+                string Precio = filaDatos["Precio"].ToString();
+                row.Cells["Precio"].Value = Precio;
+
+                // Columna Categoria
+                string Categoria = filaDatos["Categoria"].ToString();
+                row.Cells["Categoria"].Value = Categoria;
+
+                // Columna ClaveInterna
+                string ClaveInterna = filaDatos["ClaveInterna"].ToString();
+                row.Cells["ClaveInterna"].Value = ClaveInterna;
+
+                // Columna CodigBarras
+                string CodigoBarras = filaDatos["CodigoBarras"].ToString();
+                row.Cells["Codigo"].Value = CodigoBarras;
+            }
+
+            actualizar();
+
+            clickBoton = 0;
         }
         #endregion
 

@@ -113,10 +113,10 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.DGVStockProductos);
-            this.panel2.Location = new System.Drawing.Point(14, 117);
+            this.panel2.Location = new System.Drawing.Point(14, 106);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(959, 460);
+            this.panel2.Size = new System.Drawing.Size(959, 478);
             this.panel2.TabIndex = 2;
             // 
             // DGVStockProductos
@@ -140,7 +140,7 @@
             this.DGVStockProductos.ReadOnly = true;
             this.DGVStockProductos.RowHeadersVisible = false;
             this.DGVStockProductos.RowTemplate.Height = 24;
-            this.DGVStockProductos.Size = new System.Drawing.Size(934, 446);
+            this.DGVStockProductos.Size = new System.Drawing.Size(934, 457);
             this.DGVStockProductos.TabIndex = 0;
             this.DGVStockProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVStockProductos_CellDoubleClick);
             this.DGVStockProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVStockProductos_KeyDown);
