@@ -150,14 +150,20 @@ namespace PuntoDeVentaV2
 
         private void txtBoxSearchProd_KeyDown(object sender, KeyEventArgs e)
         {
+            string busqueda = txtBoxSearchProd.Text;
+
             if (e.KeyData == Keys.Enter)
             {
                 //BuscarProductos();
-                CargarDatos(1, txtBoxSearchProd.Text);
+                CargarDatos(1, busqueda);
             }
             else if (e.KeyCode == Keys.Down && !DGVStockProductos.Rows.Count.Equals(0))
             {
                 DGVStockProductos.Focus();
+            }
+            else if (DGVStockProductos.Rows.Count >= 1 && busqueda == "")
+            {
+                CargarDatos(1, busqueda);
             }
         }
 
@@ -489,7 +495,27 @@ namespace PuntoDeVentaV2
             {
                 if (busqueda == "")
                 {
-                    DGVStockProductos.Rows.Clear();
+                    //DGVStockProductos.Rows.Clear();
+                    string typeToSearch = string.Empty;
+
+                    typeStockFinal = TypeStock;
+
+                    if (typeStockFinal.Equals("Productos"))
+                    {
+                        typeToSearch = " P.Tipo = 'P' ";
+                    }
+                    else if (typeStockFinal.Equals("Combos"))
+                    {
+                        typeToSearch = " P.Tipo = 'PQ' OR P.Tipo = 'S' ";
+                    }
+                    else if (typeStockFinal.Equals("Servicios"))
+                    {
+                        typeToSearch = " P.Tipo = 'S' OR P.Tipo = 'PQ' ";
+                    }
+
+                    filtroConSinFiltroAvanzado = cs.searchProductList(typeToSearch, busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                 }
                 else if (busqueda != "")
                 {
@@ -517,7 +543,27 @@ namespace PuntoDeVentaV2
             {
                 if (busqueda == "")
                 {
-                    DGVStockProductos.Rows.Clear();
+                    //DGVStockProductos.Rows.Clear();
+                    string typeToSearch = string.Empty;
+
+                    typeStockFinal = TypeStock;
+
+                    if (typeStockFinal.Equals("Productos"))
+                    {
+                        typeToSearch = " P.Tipo = 'P' ";
+                    }
+                    else if (typeStockFinal.Equals("Combos"))
+                    {
+                        typeToSearch = " P.Tipo = 'PQ' OR P.Tipo = 'S' ";
+                    }
+                    else if (typeStockFinal.Equals("Servicios"))
+                    {
+                        typeToSearch = " P.Tipo = 'S' OR P.Tipo = 'PQ' ";
+                    }
+
+                    filtroConSinFiltroAvanzado = cs.searchProductList(typeToSearch, busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                 }
                 else if (busqueda != "")
                 {

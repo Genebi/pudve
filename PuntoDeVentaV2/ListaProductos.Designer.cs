@@ -215,18 +215,19 @@
             this.panel5.Controls.Add(this.label4);
             this.panel5.Location = new System.Drawing.Point(14, 580);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(959, 70);
+            this.panel5.Size = new System.Drawing.Size(959, 48);
             this.panel5.TabIndex = 37;
             // 
             // txtIrPagina
             // 
             this.txtIrPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtIrPagina.ForeColor = System.Drawing.Color.Blue;
-            this.txtIrPagina.Location = new System.Drawing.Point(393, 41);
+            this.txtIrPagina.Location = new System.Drawing.Point(73, 10);
             this.txtIrPagina.Name = "txtIrPagina";
             this.txtIrPagina.Size = new System.Drawing.Size(66, 20);
             this.txtIrPagina.TabIndex = 48;
             this.txtIrPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtIrPagina.Visible = false;
             this.txtIrPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtIrPagina_KeyDown);
             this.txtIrPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIrPagina_KeyPress);
             this.txtIrPagina.Leave += new System.EventHandler(this.txtIrPagina_Leave);
@@ -235,11 +236,12 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(328, 45);
+            this.label3.Location = new System.Drawing.Point(8, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 13);
             this.label3.TabIndex = 47;
             this.label3.Text = "Ir a Página:";
+            this.label3.Visible = false;
             // 
             // panel4
             // 
@@ -457,7 +459,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(989, 657);
+            this.ClientSize = new System.Drawing.Size(989, 636);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label2);
