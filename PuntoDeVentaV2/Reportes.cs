@@ -1578,5 +1578,12 @@ namespace PuntoDeVentaV2
                 DGVInventario.Cursor = Cursors.Default;
             }
         }
+
+        private void btnCaja_Click(object sender, EventArgs e)
+        {
+            BuscarReporteCajaPorFecha reporteCaja = new BuscarReporteCajaPorFecha();
+
+            reporteCaja.Show();
+        }
     }
 }
