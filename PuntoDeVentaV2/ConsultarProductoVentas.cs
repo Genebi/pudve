@@ -150,6 +150,11 @@ namespace PuntoDeVentaV2
                 DGVProductos.Focus();
                 DGVProductos.CurrentRow.Selected = true;
             }
+
+            if (DGVProductos.Rows.Count >= 1 && txtBuscar.Text == "")
+            {
+                BuscarProductos();
+            }
         }
 
         private void ConsultarProductoVentas_KeyDown(object sender, KeyEventArgs e)
