@@ -607,7 +607,7 @@ namespace PuntoDeVentaV2
             tipoPersona = "Moral";
         }
 
-        private void btn_vnt_subir_archivos_Click(object sender, EventArgs e)
+        public void btn_vnt_subir_archivos_Click(object sender, EventArgs e)
         {
             if (opcion5 == 0)
             {
@@ -981,8 +981,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
-
+                
         private void cbRegimen_Click(object sender, EventArgs e)
         {
             // al dar clic en el comboBox se despliega la lista de opciones

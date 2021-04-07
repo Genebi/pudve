@@ -38,14 +38,12 @@
             this.lblImpuestosProd = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
+            this.btn_ver_codbarras_extra = new System.Windows.Forms.Button();
             this.lblCodigoBarrasProd = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
             this.lblPrecioRecomendadoProd = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.panel15 = new System.Windows.Forms.Panel();
-            this.txtBoxClaveInternaProd = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
             this.txtBoxPrecioProd = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
@@ -56,6 +54,9 @@
             this.txtBoxDescripcionProd = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.txtBoxClaveInternaProd = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel11 = new System.Windows.Forms.Panel();
             this.label21 = new System.Windows.Forms.Label();
@@ -101,10 +102,10 @@
             this.panel22.SuspendLayout();
             this.panel13.SuspendLayout();
             this.panel14.SuspendLayout();
-            this.panel15.SuspendLayout();
             this.panel19.SuspendLayout();
             this.panel20.SuspendLayout();
             this.panel21.SuspendLayout();
+            this.panel15.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel11.SuspendLayout();
             this.panel10.SuspendLayout();
@@ -180,7 +181,6 @@
             this.panel12.Controls.Add(this.panel22);
             this.panel12.Controls.Add(this.panel13);
             this.panel12.Controls.Add(this.panel14);
-            this.panel12.Controls.Add(this.panel15);
             this.panel12.Controls.Add(this.panel19);
             this.panel12.Controls.Add(this.panel20);
             this.panel12.Controls.Add(this.panel21);
@@ -196,7 +196,7 @@
             this.panel22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel22.Controls.Add(this.lblImpuestosProd);
             this.panel22.Controls.Add(this.label43);
-            this.panel22.Location = new System.Drawing.Point(16, 204);
+            this.panel22.Location = new System.Drawing.Point(16, 188);
             this.panel22.Margin = new System.Windows.Forms.Padding(2);
             this.panel22.Name = "panel22";
             this.panel22.Size = new System.Drawing.Size(888, 36);
@@ -229,23 +229,40 @@
             // panel13
             // 
             this.panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel13.Controls.Add(this.btn_ver_codbarras_extra);
             this.panel13.Controls.Add(this.lblCodigoBarrasProd);
             this.panel13.Controls.Add(this.label24);
-            this.panel13.Location = new System.Drawing.Point(16, 164);
+            this.panel13.Location = new System.Drawing.Point(15, 139);
             this.panel13.Margin = new System.Windows.Forms.Padding(2);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(888, 36);
+            this.panel13.Size = new System.Drawing.Size(540, 36);
             this.panel13.TabIndex = 6;
+            // 
+            // btn_ver_codbarras_extra
+            // 
+            this.btn_ver_codbarras_extra.BackColor = System.Drawing.Color.Transparent;
+            this.btn_ver_codbarras_extra.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.info_circle;
+            this.btn_ver_codbarras_extra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn_ver_codbarras_extra.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_ver_codbarras_extra.FlatAppearance.BorderSize = 0;
+            this.btn_ver_codbarras_extra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ver_codbarras_extra.ForeColor = System.Drawing.Color.Black;
+            this.btn_ver_codbarras_extra.Location = new System.Drawing.Point(500, 7);
+            this.btn_ver_codbarras_extra.Name = "btn_ver_codbarras_extra";
+            this.btn_ver_codbarras_extra.Size = new System.Drawing.Size(20, 20);
+            this.btn_ver_codbarras_extra.TabIndex = 2;
+            this.btn_ver_codbarras_extra.UseVisualStyleBackColor = false;
+            this.btn_ver_codbarras_extra.Click += new System.EventHandler(this.btn_ver_codbarras_extra_Click);
             // 
             // lblCodigoBarrasProd
             // 
             this.lblCodigoBarrasProd.BackColor = System.Drawing.Color.Silver;
             this.lblCodigoBarrasProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCodigoBarrasProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblCodigoBarrasProd.Location = new System.Drawing.Point(398, 7);
+            this.lblCodigoBarrasProd.Location = new System.Drawing.Point(152, 8);
             this.lblCodigoBarrasProd.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCodigoBarrasProd.Name = "lblCodigoBarrasProd";
-            this.lblCodigoBarrasProd.Size = new System.Drawing.Size(268, 19);
+            this.lblCodigoBarrasProd.Size = new System.Drawing.Size(343, 19);
             this.lblCodigoBarrasProd.TabIndex = 1;
             this.lblCodigoBarrasProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -253,7 +270,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Century", 12F);
-            this.label24.Location = new System.Drawing.Point(248, 7);
+            this.label24.Location = new System.Drawing.Point(8, 7);
             this.label24.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(140, 20);
@@ -266,10 +283,10 @@
             this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel14.Controls.Add(this.lblPrecioRecomendadoProd);
             this.panel14.Controls.Add(this.label26);
-            this.panel14.Location = new System.Drawing.Point(15, 124);
+            this.panel14.Location = new System.Drawing.Point(578, 88);
             this.panel14.Margin = new System.Windows.Forms.Padding(2);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(310, 35);
+            this.panel14.Size = new System.Drawing.Size(326, 38);
             this.panel14.TabIndex = 5;
             // 
             // lblPrecioRecomendadoProd
@@ -277,10 +294,10 @@
             this.lblPrecioRecomendadoProd.BackColor = System.Drawing.Color.Silver;
             this.lblPrecioRecomendadoProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPrecioRecomendadoProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblPrecioRecomendadoProd.Location = new System.Drawing.Point(182, 7);
+            this.lblPrecioRecomendadoProd.Location = new System.Drawing.Point(182, 9);
             this.lblPrecioRecomendadoProd.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPrecioRecomendadoProd.Name = "lblPrecioRecomendadoProd";
-            this.lblPrecioRecomendadoProd.Size = new System.Drawing.Size(110, 19);
+            this.lblPrecioRecomendadoProd.Size = new System.Drawing.Size(128, 19);
             this.lblPrecioRecomendadoProd.TabIndex = 1;
             this.lblPrecioRecomendadoProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -288,7 +305,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Century", 12F);
-            this.label26.Location = new System.Drawing.Point(10, 7);
+            this.label26.Location = new System.Drawing.Point(10, 9);
             this.label26.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(169, 20);
@@ -296,58 +313,24 @@
             this.label26.Text = "Precio Recomendado :";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panel15
-            // 
-            this.panel15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel15.Controls.Add(this.txtBoxClaveInternaProd);
-            this.panel15.Controls.Add(this.label28);
-            this.panel15.Location = new System.Drawing.Point(16, 83);
-            this.panel15.Margin = new System.Windows.Forms.Padding(2);
-            this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(310, 36);
-            this.panel15.TabIndex = 4;
-            // 
-            // txtBoxClaveInternaProd
-            // 
-            this.txtBoxClaveInternaProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.txtBoxClaveInternaProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.txtBoxClaveInternaProd.Location = new System.Drawing.Point(158, 3);
-            this.txtBoxClaveInternaProd.Margin = new System.Windows.Forms.Padding(2);
-            this.txtBoxClaveInternaProd.Name = "txtBoxClaveInternaProd";
-            this.txtBoxClaveInternaProd.Size = new System.Drawing.Size(134, 26);
-            this.txtBoxClaveInternaProd.TabIndex = 2;
-            this.txtBoxClaveInternaProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Century", 12F);
-            this.label28.Location = new System.Drawing.Point(10, 7);
-            this.label28.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(143, 20);
-            this.label28.TabIndex = 0;
-            this.label28.Text = "No Identificación :";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // panel19
             // 
             this.panel19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel19.Controls.Add(this.txtBoxPrecioProd);
             this.panel19.Controls.Add(this.label36);
-            this.panel19.Location = new System.Drawing.Point(334, 80);
+            this.panel19.Location = new System.Drawing.Point(285, 88);
             this.panel19.Margin = new System.Windows.Forms.Padding(2);
             this.panel19.Name = "panel19";
-            this.panel19.Size = new System.Drawing.Size(349, 79);
+            this.panel19.Size = new System.Drawing.Size(270, 38);
             this.panel19.TabIndex = 3;
             // 
             // txtBoxPrecioProd
             // 
             this.txtBoxPrecioProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxPrecioProd.Location = new System.Drawing.Point(54, 43);
+            this.txtBoxPrecioProd.Location = new System.Drawing.Point(73, 5);
             this.txtBoxPrecioProd.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxPrecioProd.Name = "txtBoxPrecioProd";
-            this.txtBoxPrecioProd.Size = new System.Drawing.Size(248, 26);
+            this.txtBoxPrecioProd.Size = new System.Drawing.Size(177, 26);
             this.txtBoxPrecioProd.TabIndex = 1;
             this.txtBoxPrecioProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -355,7 +338,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Century", 12F);
-            this.label36.Location = new System.Drawing.Point(137, 10);
+            this.label36.Location = new System.Drawing.Point(10, 7);
             this.label36.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(59, 20);
@@ -368,10 +351,10 @@
             this.panel20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel20.Controls.Add(this.lblStockProd);
             this.panel20.Controls.Add(this.label38);
-            this.panel20.Location = new System.Drawing.Point(696, 82);
+            this.panel20.Location = new System.Drawing.Point(15, 88);
             this.panel20.Margin = new System.Windows.Forms.Padding(2);
             this.panel20.Name = "panel20";
-            this.panel20.Size = new System.Drawing.Size(206, 36);
+            this.panel20.Size = new System.Drawing.Size(246, 38);
             this.panel20.TabIndex = 2;
             // 
             // lblStockProd
@@ -379,10 +362,10 @@
             this.lblStockProd.BackColor = System.Drawing.Color.Silver;
             this.lblStockProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStockProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblStockProd.Location = new System.Drawing.Point(93, 7);
+            this.lblStockProd.Location = new System.Drawing.Point(97, 10);
             this.lblStockProd.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblStockProd.Name = "lblStockProd";
-            this.lblStockProd.Size = new System.Drawing.Size(98, 19);
+            this.lblStockProd.Size = new System.Drawing.Size(133, 19);
             this.lblStockProd.TabIndex = 1;
             this.lblStockProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -390,7 +373,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Century", 12F);
-            this.label38.Location = new System.Drawing.Point(10, 7);
+            this.label38.Location = new System.Drawing.Point(10, 9);
             this.label38.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(82, 20);
@@ -443,6 +426,41 @@
             this.label41.TabIndex = 0;
             this.label41.Text = "Datos Productos";
             this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel15
+            // 
+            this.panel15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel15.Controls.Add(this.txtBoxClaveInternaProd);
+            this.panel15.Controls.Add(this.label28);
+            this.panel15.Location = new System.Drawing.Point(67, 553);
+            this.panel15.Margin = new System.Windows.Forms.Padding(2);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(310, 36);
+            this.panel15.TabIndex = 4;
+            this.panel15.Visible = false;
+            // 
+            // txtBoxClaveInternaProd
+            // 
+            this.txtBoxClaveInternaProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.txtBoxClaveInternaProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.txtBoxClaveInternaProd.Location = new System.Drawing.Point(158, 3);
+            this.txtBoxClaveInternaProd.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBoxClaveInternaProd.Name = "txtBoxClaveInternaProd";
+            this.txtBoxClaveInternaProd.Size = new System.Drawing.Size(134, 26);
+            this.txtBoxClaveInternaProd.TabIndex = 2;
+            this.txtBoxClaveInternaProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Century", 12F);
+            this.label28.Location = new System.Drawing.Point(10, 7);
+            this.label28.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(143, 20);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "No Identificación :";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel2
             // 
@@ -606,10 +624,10 @@
             // lblPrecioOriginalXML
             // 
             this.lblPrecioOriginalXML.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.lblPrecioOriginalXML.Location = new System.Drawing.Point(180, 7);
+            this.lblPrecioOriginalXML.Location = new System.Drawing.Point(177, 6);
             this.lblPrecioOriginalXML.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPrecioOriginalXML.Name = "lblPrecioOriginalXML";
-            this.lblPrecioOriginalXML.Size = new System.Drawing.Size(153, 19);
+            this.lblPrecioOriginalXML.Size = new System.Drawing.Size(155, 19);
             this.lblPrecioOriginalXML.TabIndex = 1;
             this.lblPrecioOriginalXML.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -620,9 +638,9 @@
             this.label10.Location = new System.Drawing.Point(10, 7);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(125, 20);
+            this.label10.Size = new System.Drawing.Size(117, 20);
             this.label10.TabIndex = 0;
-            this.label10.Text = "Precio Original:";
+            this.label10.Text = "Precio compra:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel4
@@ -781,10 +799,10 @@
             this.panel6.Controls.Add(this.groupBox2);
             this.panel6.Controls.Add(this.groupBox1);
             this.panel6.Controls.Add(this.label1);
-            this.panel6.Location = new System.Drawing.Point(9, 284);
+            this.panel6.Location = new System.Drawing.Point(8, 284);
             this.panel6.Margin = new System.Windows.Forms.Padding(2);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(920, 273);
+            this.panel6.Size = new System.Drawing.Size(920, 258);
             this.panel6.TabIndex = 18;
             // 
             // groupBox2
@@ -854,47 +872,54 @@
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.Teal;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.button3.ForeColor = System.Drawing.Color.Blue;
+            this.button3.ForeColor = System.Drawing.Color.White;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.Location = new System.Drawing.Point(574, 561);
+            this.button3.Location = new System.Drawing.Point(566, 553);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(196, 34);
+            this.button3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.button3.Size = new System.Drawing.Size(196, 30);
             this.button3.TabIndex = 17;
-            this.button3.Text = "Agregar Producto";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Text = "Agregar producto";
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.Green;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.Location = new System.Drawing.Point(779, 561);
+            this.button2.Location = new System.Drawing.Point(840, 553);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(67, 34);
+            this.button2.Size = new System.Drawing.Size(70, 32);
             this.button2.TabIndex = 16;
-            this.button2.Text = "SI";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Text = "SÍ";
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.Red;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Red;
+            this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.Location = new System.Drawing.Point(851, 561);
+            this.button1.Location = new System.Drawing.Point(766, 553);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(76, 34);
+            this.button1.Size = new System.Drawing.Size(70, 32);
             this.button1.TabIndex = 15;
             this.button1.Text = "NO";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnLoadXML
@@ -922,6 +947,7 @@
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
+            this.Controls.Add(this.panel15);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel17);
@@ -948,14 +974,14 @@
             this.panel13.PerformLayout();
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
-            this.panel15.ResumeLayout(false);
-            this.panel15.PerformLayout();
             this.panel19.ResumeLayout(false);
             this.panel19.PerformLayout();
             this.panel20.ResumeLayout(false);
             this.panel20.PerformLayout();
             this.panel21.ResumeLayout(false);
             this.panel21.PerformLayout();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel11.ResumeLayout(false);
@@ -1052,5 +1078,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView DGVSugeridos;
         private System.Windows.Forms.PictureBox picBoxBuscar;
+        private System.Windows.Forms.Button btn_ver_codbarras_extra;
     }
 }

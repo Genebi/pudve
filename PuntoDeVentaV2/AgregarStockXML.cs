@@ -302,7 +302,8 @@ namespace PuntoDeVentaV2
                 FormAgregar.ProdStock = ds.Conceptos[index].Cantidad;                       // pasamos la cantidad del XML
                 FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                  // pasamos el precio recomendado
                 FormAgregar.txtPrecioCompra.Text = precioOriginalConIVA.ToString("N2");     // pasamos el precio origianl del XML
-                FormAgregar.ProdClaveInterna = ds.Conceptos[index].NoIdentificacion;        // pasamos la claveInterna del XML
+                //FormAgregar.ProdClaveInterna = ds.Conceptos[index].NoIdentificacion;        // pasamos la claveInterna del XML
+                FormAgregar.ProdCodBarras = ds.Conceptos[index].NoIdentificacion;           // pasamos la claveInterna del XML
 
                 FormAgregar.claveProductoxml = ds.Conceptos[index].ClaveProdServ;           // pasamos la Clave del producto XML
                 FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index].ClaveUnidad;         // pasamos la Clave de Unidad XML
@@ -424,6 +425,7 @@ namespace PuntoDeVentaV2
         private void button3_Click(object sender, EventArgs e)
         {
             origenDeLosDatos = 3;
+
 
             string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre.Trim()}' AND RFC = '{ds.Emisor.Rfc.Trim()}'";
             dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
@@ -1123,6 +1125,7 @@ namespace PuntoDeVentaV2
             folio = ds.Folio;
             RFCEmisor = ds.Emisor.Rfc;
             nombreEmisor = ds.Emisor.Nombre;
+
             if (index == 0)
             {
                 claveProdEmisor = ds.Conceptos[index].ClaveProdServ;
@@ -1870,11 +1873,75 @@ namespace PuntoDeVentaV2
             }
             else if (seleccionarSugerido == 3)
             {
-                string queryBarrExtSelectSugerido, queryProdAtService, queryUpdateProd;
+                string edit, ag_codigos; //queryBarrExtSelectSugerido, queryProdAtService, queryUpdateProd, 
                 DataRow row, Row;
-                int Resultado, resul;
+                int res_edit, res_ag_codigos; //int Resultado, resul;
+
 
                 Row = dtSelectSugerido.Rows[0];
+
+
+                // Miri.   
+                // Compara el número de identificación con el código de barras, si el ´NoIdentificacion
+                // es diferente al código entonces agrega el número a la lista de códigos de barras extra.
+
+                string add_codigobar_dexml = "";
+                string edi_nombre_producto = "";
+                string edi_precio_producto = ", PrecioCompra='" + lblPrecioOriginalXML.Text + "'";
+                bool codigos_extra = false;
+
+                if (Row["CodigoBarras"].ToString() == "" | Row["CodigoBarras"].ToString() == "0")
+                {
+                    add_codigobar_dexml = ", CodigoBarras='" + lblNoIdentificacionXML.Text + "'";
+                }
+                if (Row["CodigoBarras"].ToString() != "" & Row["CodigoBarras"].ToString() != "0" & lblNoIdentificacionXML.Text != "" & lblNoIdentificacionXML.Text != "0")
+                {
+                    if (Row["CodigoBarras"].ToString() != lblNoIdentificacionXML.Text)
+                    {
+                        var exi_codigo = cn.EjecutarSelect($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra='{lblNoIdentificacionXML.Text}'", 0);
+
+                        if(Convert.ToBoolean(exi_codigo) == false)
+                        {
+                            codigos_extra = true;
+                        }
+                    }                    
+                }
+
+
+                // Si el nombre y precio del producto de la sección "Datos del producto" son modificados, 
+                // entonces, en la edición se pondrán esos datos, de lo contrario los datos del XML.
+
+                if (txtBoxDescripcionProd.Text != "" & txtBoxDescripcionProd.Text != Row["Nombre"].ToString())
+                {
+                    edi_nombre_producto = ", Nombre='" + txtBoxDescripcionProd.Text + "'";
+                }
+
+                if (Convert.ToDecimal(Row["Precio"].ToString()) != Convert.ToDecimal(txtBoxPrecioProd.Text))
+                {
+                    edi_precio_producto = ", Precio='" + txtBoxPrecioProd.Text + "'";
+                }
+
+                // Edita el producto
+                edit = $"UPDATE Productos SET Stock= Stock + '{lblCantXML.Text}'" + edi_precio_producto + edi_nombre_producto + add_codigobar_dexml + $" WHERE IDUsuario= '{FormPrincipal.userID}' AND ID='{Row["ID"]}'";
+                res_edit = cn.EjecutarConsulta(edit);
+
+                if(res_edit <= 0)
+                {
+                    MessageBox.Show("El producto no ha sido actualizado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                if (codigos_extra == true)
+                {
+                    ag_codigos = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto) VALUES('{lblNoIdentificacionXML.Text}', '{Row["ID"]}')";
+                    res_ag_codigos = cn.EjecutarConsulta(ag_codigos);
+
+                    if (res_ag_codigos <= 0)
+                    {
+                        MessageBox.Show("El nuevo código de barras no se ha añadido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                Console.WriteLine("HOLA");
+                /*
 
                 if (Row["ClaveInterna"].ToString() == "" && Row["CodigoBarras"].ToString() == "" && Row["Tipo"].ToString() == "P")
                 {
@@ -1952,7 +2019,7 @@ namespace PuntoDeVentaV2
                     {
                         MessageBox.Show("El Servicio / Paquete / Combo No agregado a codigo de barras extra...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
-                }
+                }*/
             }
             dtConfirmarProdRelXML.Rows.Clear();
             dtConfirmarProdRelXML.Clear();
@@ -1969,6 +2036,17 @@ namespace PuntoDeVentaV2
             // Tomamos el valor del
             // TextBox para hacer la comparacion
             textBoxNoIdentificacion = txtBoxClaveInternaProd.Text;
+
+            // Miri.
+            // Compara si el precio del producto guardado es menor que el del XML. 
+            if (seleccionarSugerido == 3 && txtBoxDescripcionProd.Text != "")
+            {
+                if (Convert.ToDecimal(lblPrecioOriginalXML.Text) > Convert.ToDecimal(txtBoxPrecioProd.Text))
+                {
+                    MessageBox.Show("El precio del producto de su XML es mayor al precio del producto que ya tiene registrado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+
 
             if (consultListProd == 1)       // Si el producto es seleccionado desde la lista del Producto
             {
@@ -2145,6 +2223,9 @@ namespace PuntoDeVentaV2
 
             if (!ListProd.Visible)
             {
+                ListProd.TypeStock = "Productos";
+                ListProd.agregarstockxml = true;
+
                 ListProd.ShowDialog();
             }
             else
@@ -2342,6 +2423,25 @@ namespace PuntoDeVentaV2
             MostrarPanelCarga(); // hacemos visible la ventana de cargar archivo XML
             btnLoadXML.Show(); // hacemos visible el botonXML de la ventana de cargar archivo XML
             consultListProd = 0;
+        }
+
+        private void btn_ver_codbarras_extra_Click(object sender, EventArgs e)
+        {
+            DataRow dr_prod_sug = dtSelectSugerido.Rows[0];
+
+            string[] codigos_extra = mb.ObtenerCodigoBarrasExtras(Convert.ToInt32(dr_prod_sug["ID"].ToString()), 1);
+
+
+            if (codigos_extra.Length > 0)
+            {
+                CodigoBarrasExtraRI vnt_ver_codExtra = new CodigoBarrasExtraRI(codigos_extra);
+
+                vnt_ver_codExtra.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Sin códigos extra que mostrar.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
