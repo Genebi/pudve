@@ -780,7 +780,7 @@
             this.tLPServicio.Name = "tLPServicio";
             this.tLPServicio.RowCount = 1;
             this.tLPServicio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPServicio.Size = new System.Drawing.Size(419, 195);
+            this.tLPServicio.Size = new System.Drawing.Size(728, 258);
             this.tLPServicio.TabIndex = 36;
             this.tLPServicio.Visible = false;
             this.tLPServicio.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPServicio_CellPaint);
@@ -793,7 +793,7 @@
             this.tLPCombo.Name = "tLPCombo";
             this.tLPCombo.RowCount = 1;
             this.tLPCombo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPCombo.Size = new System.Drawing.Size(439, 195);
+            this.tLPCombo.Size = new System.Drawing.Size(746, 272);
             this.tLPCombo.TabIndex = 35;
             this.tLPCombo.Visible = false;
             this.tLPCombo.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPCombo_CellPaint);
@@ -806,7 +806,7 @@
             this.tLPProducto.Name = "tLPProducto";
             this.tLPProducto.RowCount = 1;
             this.tLPProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPProducto.Size = new System.Drawing.Size(458, 290);
+            this.tLPProducto.Size = new System.Drawing.Size(773, 290);
             this.tLPProducto.TabIndex = 23;
             this.tLPProducto.Visible = false;
             this.tLPProducto.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);

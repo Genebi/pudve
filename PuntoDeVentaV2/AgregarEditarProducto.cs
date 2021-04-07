@@ -1251,7 +1251,7 @@ namespace PuntoDeVentaV2
         {
             bool bStatus = true;
 
-            if (txtClaveProducto.Text.Equals(""))
+            if (txtClaveProducto.Text.Trim().Equals(""))
             {
                 bStatus = false;
             }
@@ -1268,7 +1268,7 @@ namespace PuntoDeVentaV2
         {
             bool bStatus = true;
 
-            if (txtCodigoBarras.Text.Equals(""))
+            if (txtCodigoBarras.Text.Trim().Equals(""))
             {
                 bStatus = false;
             }
@@ -1880,7 +1880,13 @@ namespace PuntoDeVentaV2
             txtPrecioProducto.Text = ProdPrecioFinal;
             txtCategoriaProducto.Text = ProdCategoriaFinal;
             if (Productos.noMostrarClave == true) { ProdClaveInternaFinal = string.Empty; }
-            txtClaveProducto.Text = ProdClaveInternaFinal.Trim();
+
+            // Miri.
+            if (DatosSourceFinal != 3)
+            {
+                txtClaveProducto.Text = ProdClaveInternaFinal.Trim();
+            }
+            
 
             if (DatosSourceFinal.Equals(2))
             {
@@ -1888,8 +1894,7 @@ namespace PuntoDeVentaV2
                 cargarDatosExtra();
             }
             else if (DatosSourceFinal.Equals(3))
-            {
-                txtNombreProducto.Text = ProdNombre;
+            {                
                 FechaXMLNvoProd = fechaProdXML;
                 FolioXMLNvoProd = FolioProdXML;
                 RFCXMLNvoProd = RFCProdXML;
@@ -1898,6 +1903,19 @@ namespace PuntoDeVentaV2
                 DescuentoXMLNvoProd = DescuentoProdXML;
                 PrecioCompraXMLNvoProd = PrecioCompraXML;
                 txtPrecioCompra.Text = PrecioCompraXMLNvoProd;
+
+                // Miri.
+                // Agregado para que incluya el nombre del producto.
+                // Clave interna en blanco si en el xml no hay noidentificación, se hizo así para evitar que el producto
+                // sea guardado con una clave 0, o de lo contrario dara problemas en sección "Datos producto" de agregarstockxml.
+
+                txtNombreProducto.Text = ProdNombre;
+                txtCodigoBarras.Text = ProdCodBarrasFinal.Trim();
+
+                if (ProdCodBarrasFinal.Trim() == "" | ProdCodBarrasFinal.Trim() == "0")
+                {
+                    txtCodigoBarras.Text = "";
+                }
             }
             else if (DatosSourceFinal == 4)
             {

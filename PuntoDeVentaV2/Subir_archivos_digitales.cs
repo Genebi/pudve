@@ -22,9 +22,9 @@ namespace PuntoDeVentaV2
         string ruta_guardar_archivos = @"C:\Archivos PUDVE\MisDatos\CSD\";
         // Variables para el certificado
         string num_certificado, x, fecha_caducidad, z;
-        // 
+        /* 
         string nom_cer = "", nom_key = "";
-        string nom_cer_pem = "", nom_key_pem = "";
+        string nom_cer_pem = "", nom_key_pem = "";*/
 
         OpenFileDialog ofd = new OpenFileDialog();
 
@@ -122,11 +122,23 @@ namespace PuntoDeVentaV2
             {               
                 // Obtiene la ruta completa del archivo
                 string ruta_origen = openfiled_archivos.FileName;
-               
+                string ruta_origen_sinzip = "";
                 int opc = 0;
 
 
+                // Obtiene la ruta donde esta almacenado el zip.
 
+                string[] rt= ruta_origen.Split('\\');
+
+                for(int i=0; i<rt.Length; i++)
+                {
+                    if(i < (rt.Length - 1))
+                    {
+                        ruta_origen_sinzip += rt[i] + "\\";
+                    }
+                }
+
+                
                 // Verifica si la carpeta ya fue creada o no, de no ser asi, la crea.
                 
                 if (!Directory.Exists(ruta_guardar_archivos))
@@ -135,9 +147,29 @@ namespace PuntoDeVentaV2
                 }
 
 
-                // Descomprime el zip
+                // Descomprime el zip y lo mueve solo si es el archivo correcto
 
-                ZipFile.ExtractToDirectory(ruta_origen, ruta_guardar_archivos);
+                var ruta_origen_pem = ruta_origen_sinzip + @"Pudve_gpem";
+
+                if (!Directory.Exists(ruta_origen_pem))
+                {
+                    //ZipFile.ExtractToDirectory(ruta_origen, ruta_guardar_archivos);
+                    ZipFile.ExtractToDirectory(ruta_origen, ruta_origen_sinzip);
+                    
+                    if (Directory.Exists(ruta_origen_pem))
+                    {
+                        Directory.Move(ruta_origen_pem, ruta_guardar_archivos + @"Pudve_gpem\");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Archivo comprimido no valido. No incluye archivos CSD.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    // Si ya existe una carpeta con el mismo nombre procede a eliminarla. 
+                }
 
 
                 // Saca los archivos que estan en la carpeta pudve_gpem y la anidada
@@ -145,24 +177,26 @@ namespace PuntoDeVentaV2
                 var ruta_carpeta_pem = ruta_guardar_archivos + @"\Pudve_gpem\";
                 
                 DirectoryInfo dir = new DirectoryInfo(ruta_carpeta_pem);
-                
+
+
                 foreach (var arch in dir.GetDirectories())
                 {
                     //string nom_carpeta_anidada = ;
                     string ruta_carpeta_anidada = ruta_carpeta_pem + arch.Name;
-                    
+
                     DirectoryInfo dir_ani = new DirectoryInfo(ruta_carpeta_anidada);
 
-                    foreach(var arch_ani in dir_ani.GetFiles())
+                    foreach (var arch_ani in dir_ani.GetFiles())
                     {
                         string nombre_archivo = arch_ani.Name;
                         string ruta_archivo_csd = ruta_carpeta_anidada + @"\" + nombre_archivo;
-                        
+
                         File.Move(ruta_archivo_csd, ruta_guardar_archivos + nombre_archivo);
                     }
 
                     arch.Delete();
                 }
+
 
                 // Eliminar carpeta Pudve_gpem 
 
@@ -172,7 +206,7 @@ namespace PuntoDeVentaV2
                 {
                     if (arch.Name.Equals("Pudve_gpem"))
                     {
-                       arch.Delete();
+                        arch.Delete();
                     }
                 }
 
@@ -197,7 +231,7 @@ namespace PuntoDeVentaV2
                     if (extencion == ".key")
                     {
                         txt_llave.Text = arch.Name;
-                    }                    
+                    }
                     if (extencion_pem == ".cer.pem")
                     {
                         txt_certificado_pem.Text = arch.Name;
@@ -209,13 +243,13 @@ namespace PuntoDeVentaV2
 
                     if (extencion == ".txt")
                     {
-                        string key= "";
+                        string key = "";
 
                         try
                         {
                             StreamReader sr = new StreamReader(ruta_guardar_archivos + arch.Name);
                             key = sr.ReadLine();
-                            
+
                             sr.Close();
                         }
                         catch (Exception ee)
@@ -228,7 +262,7 @@ namespace PuntoDeVentaV2
 
                         string[] datos = new string[]
                         {
-                            FormPrincipal.userID.ToString(), key
+                                FormPrincipal.userID.ToString(), key
                         };
 
                         cn.EjecutarConsulta(cs.archivos_digitales(datos, 3));
@@ -239,10 +273,9 @@ namespace PuntoDeVentaV2
                 }
 
 
-                MessageBox.Show("Archivo subido corrrectamente.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Archivo subido corrrectamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 txt_subir_archivos.Text = string.Empty;
-                
             }
 
 
@@ -326,6 +359,9 @@ namespace PuntoDeVentaV2
             if (mnsj == "")
             {
                 ban = false;
+
+                ////btn_vnt_subir_archivos.PerformClick();
+
                 this.Dispose();
                 
             }
@@ -389,7 +425,14 @@ namespace PuntoDeVentaV2
         {
            
         }
-                
+
+        private void cerrando(object sender, FormClosingEventArgs e)
+        {
+            MisDatos md = new MisDatos();
+            md.cargar_archivos();
+
+        }
+
         private void tipo_validacion(int opc, string ruta_destino)
         {
             if(opc == 1)

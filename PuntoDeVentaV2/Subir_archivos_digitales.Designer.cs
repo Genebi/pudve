@@ -489,6 +489,7 @@
             this.Name = "Subir_archivos_digitales";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Actualizar archivos digitales en 3 dias";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.cerrando);
             this.Load += new System.EventHandler(this.cargar_datos);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

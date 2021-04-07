@@ -72,7 +72,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(327, 13);
+            this.tituloSeccion.Location = new System.Drawing.Point(323, 13);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(235, 25);
             this.tituloSeccion.TabIndex = 22;
@@ -116,7 +116,7 @@
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(876, 432);
+            this.panel1.Size = new System.Drawing.Size(868, 418);
             this.panel1.TabIndex = 25;
             // 
             // panel2
@@ -141,7 +141,7 @@
             // 
             // txtPrecioCompra
             // 
-            this.txtPrecioCompra.Location = new System.Drawing.Point(3, 24);
+            this.txtPrecioCompra.Location = new System.Drawing.Point(3, 25);
             this.txtPrecioCompra.Name = "txtPrecioCompra";
             this.txtPrecioCompra.Size = new System.Drawing.Size(107, 20);
             this.txtPrecioCompra.TabIndex = 1;
@@ -190,7 +190,7 @@
             this.PCodigoBarras.Location = new System.Drawing.Point(182, 202);
             this.PCodigoBarras.Margin = new System.Windows.Forms.Padding(2);
             this.PCodigoBarras.Name = "PCodigoBarras";
-            this.PCodigoBarras.Size = new System.Drawing.Size(302, 221);
+            this.PCodigoBarras.Size = new System.Drawing.Size(280, 209);
             this.PCodigoBarras.TabIndex = 5;
             // 
             // label2
@@ -206,7 +206,7 @@
             // 
             this.panelContenedor.AutoScroll = true;
             this.panelContenedor.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.panelContenedor.Location = new System.Drawing.Point(8, 64);
+            this.panelContenedor.Location = new System.Drawing.Point(8, 53);
             this.panelContenedor.Name = "panelContenedor";
             this.panelContenedor.Size = new System.Drawing.Size(230, 149);
             this.panelContenedor.TabIndex = 20;
@@ -230,7 +230,7 @@
             // 
             // txtCodigoBarras
             // 
-            this.txtCodigoBarras.Location = new System.Drawing.Point(14, 22);
+            this.txtCodigoBarras.Location = new System.Drawing.Point(14, 23);
             this.txtCodigoBarras.Name = "txtCodigoBarras";
             this.txtCodigoBarras.Size = new System.Drawing.Size(165, 20);
             this.txtCodigoBarras.TabIndex = 6;
@@ -259,7 +259,7 @@
             // 
             // txtClaveProducto
             // 
-            this.txtClaveProducto.Location = new System.Drawing.Point(3, 21);
+            this.txtClaveProducto.Location = new System.Drawing.Point(3, 22);
             this.txtClaveProducto.Name = "txtClaveProducto";
             this.txtClaveProducto.Size = new System.Drawing.Size(107, 20);
             this.txtClaveProducto.TabIndex = 5;
@@ -287,7 +287,7 @@
             // 
             // txtCategoriaProducto
             // 
-            this.txtCategoriaProducto.Location = new System.Drawing.Point(3, 24);
+            this.txtCategoriaProducto.Location = new System.Drawing.Point(3, 25);
             this.txtCategoriaProducto.Name = "txtCategoriaProducto";
             this.txtCategoriaProducto.Size = new System.Drawing.Size(107, 20);
             this.txtCategoriaProducto.TabIndex = 4;
@@ -306,7 +306,7 @@
             // 
             // txtStockProducto
             // 
-            this.txtStockProducto.Location = new System.Drawing.Point(4, 24);
+            this.txtStockProducto.Location = new System.Drawing.Point(4, 25);
             this.txtStockProducto.Name = "txtStockProducto";
             this.txtStockProducto.Size = new System.Drawing.Size(107, 20);
             this.txtStockProducto.TabIndex = 0;
@@ -344,7 +344,7 @@
             // 
             // txtPrecioVentaProducto
             // 
-            this.txtPrecioVentaProducto.Location = new System.Drawing.Point(3, 24);
+            this.txtPrecioVentaProducto.Location = new System.Drawing.Point(3, 25);
             this.txtPrecioVentaProducto.Name = "txtPrecioVentaProducto";
             this.txtPrecioVentaProducto.Size = new System.Drawing.Size(107, 20);
             this.txtPrecioVentaProducto.TabIndex = 3;
@@ -359,7 +359,7 @@
             this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(658, 451);
+            this.btnGuardarProducto.Location = new System.Drawing.Point(669, 437);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
             this.btnGuardarProducto.Size = new System.Drawing.Size(172, 30);
             this.btnGuardarProducto.TabIndex = 26;
@@ -371,7 +371,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 493);
+            this.ClientSize = new System.Drawing.Size(873, 479);
             this.Controls.Add(this.btnGuardarProducto);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(2);

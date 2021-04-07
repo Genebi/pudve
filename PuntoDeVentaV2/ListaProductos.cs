@@ -66,6 +66,9 @@ namespace PuntoDeVentaV2
         public string TypeStock { get; set; }
         public static string typeStockFinal;
 
+        // Variable para identificar si el llamado se hace desde la ventana de: AgregarStockXML o desde otra.
+        public bool agregarstockxml = false;
+
         // variable de text para poder dirigirnos a la carpeta principal para
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
@@ -298,14 +301,18 @@ namespace PuntoDeVentaV2
             consultadoDesdeListProdFin = consultadoDesdeListProd;   // almacenamos el valor de consultadoDesdeListProd
             opcionGuardarFin = opcionGuardar;                       // almacenamos el valor de opcionGuardar
 
-            if (typeStockFinal == "Productos")
+            if (agregarstockxml == false)
             {
-                nombreProducto(NombreProdStrFin, IdProdStrFin);
+                if (typeStockFinal == "Productos")
+                {
+                    nombreProducto(NombreProdStrFin, IdProdStrFin);
+                }
+                else if (typeStockFinal == "Combos" || typeStockFinal == "Servicios")
+                {
+                    nombreProducto(NombreProdStrFin, IdProdStrFin);
+                }
             }
-            else if (typeStockFinal == "Combos" || typeStockFinal == "Servicios")
-            {
-                nombreProducto(NombreProdStrFin, IdProdStrFin);
-            }
+            
             
             this.Close();
         }

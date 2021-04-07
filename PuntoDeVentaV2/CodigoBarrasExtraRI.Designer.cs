@@ -33,10 +33,12 @@
             // 
             // listBox
             // 
+            this.listBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox.FormattingEnabled = true;
-            this.listBox.Location = new System.Drawing.Point(2, 3);
+            this.listBox.ItemHeight = 15;
+            this.listBox.Location = new System.Drawing.Point(7, 3);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(278, 199);
+            this.listBox.Size = new System.Drawing.Size(268, 199);
             this.listBox.TabIndex = 0;
             this.listBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox_KeyDown);
             // 
@@ -51,7 +53,7 @@
             this.MinimizeBox = false;
             this.Name = "CodigoBarrasExtraRI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PUDVE - Info Extra";
+            this.Text = "Info Extra";
             this.Load += new System.EventHandler(this.CodigoBarrasExtraRI_Load);
             this.ResumeLayout(false);
 

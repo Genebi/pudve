@@ -122,6 +122,13 @@ namespace PuntoDeVentaV2
             {
                 DGVInventario.Columns[6].Visible = true;
             }
+
+
+            // Solo para dos cuentas
+            if (FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA3")
+            {
+                btnActualizarXML.Visible = true;
+            }
         }
 
         private void populateDisminuirDGVInventario()
