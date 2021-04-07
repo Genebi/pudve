@@ -265,11 +265,50 @@ namespace PuntoDeVentaV2
                 usuarioEmpleado = datosEmpleado[15];
             }
 
-            string[] datos = new string[] {
+            string[] datos;
+
+            if (operacion.Equals(2))
+            {
+                if (CajaN.totCorte != "0")
+                {
+
+
+                    efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
+                    tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
+                    cheque = (totalCheque - cheque - convertCheque);// - CajaN.retiroCheque;
+                    vales = (totalVales - vales - convertVales);// - CajaN.retiroVales;
+                    trans = (totalTransferencia - trans - convertTrans);// - CajaN.retiroTrans;
+                    credito = totalCredito - credito;
+                }
+                else
+                {
+                    efectivo = (totalEfectivo - efectivo);// - CajaN.retiroEfectivo;
+                    tarjeta = (totalTarjeta - tarjeta);// - CajaN.retiroTarjeta;
+                    cheque = (totalCheque - cheque);// - CajaN.retiroCheque;
+                    vales = (totalVales - vales);// - CajaN.retiroVales;
+                    trans = (totalTransferencia - trans);// - CajaN.retiroTrans;
+                    credito = totalCredito - credito;
+                }
+
+                cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
+
+                fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                datos = new string[] {
+                        "corte", cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                        efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
+                        trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString()
+                    };
+                CajaN.botones = true;
+            }
+            else
+            {
+                datos = new string[] {
                 tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                 efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
-                trans.ToString("0.00"), credito.ToString("0.00"), "0", nombreEmpleado, usuarioEmpleado
+                trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), nombreEmpleado, usuarioEmpleado
             };
+            }
 
             int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
@@ -333,38 +372,38 @@ namespace PuntoDeVentaV2
                     // Solo cuando es corte se hace esta resta, al total de cada forma de pago
                     // se le resta lo que el usuario quiere retirar menos el total retirado de cada
                     // forma de pago antes de que se haga el corte de caja
-                    if (CajaN.totCorte != "0")
-                    {
+                    //if (CajaN.totCorte != "0")
+                    //{
 
 
-                        efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
-                        tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
-                        cheque = (totalCheque - cheque - convertCheque);// - CajaN.retiroCheque;
-                        vales = (totalVales - vales - convertVales);// - CajaN.retiroVales;
-                        trans = (totalTransferencia - trans - convertTrans);// - CajaN.retiroTrans;
-                        credito = totalCredito - credito;
-                    }
-                    else
-                    {
-                        efectivo = (totalEfectivo - efectivo);// - CajaN.retiroEfectivo;
-                        tarjeta = (totalTarjeta - tarjeta);// - CajaN.retiroTarjeta;
-                        cheque = (totalCheque - cheque);// - CajaN.retiroCheque;
-                        vales = (totalVales - vales);// - CajaN.retiroVales;
-                        trans = (totalTransferencia - trans);// - CajaN.retiroTrans;
-                        credito = totalCredito - credito;
-                    }
+                    //    efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
+                    //    tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
+                    //    cheque = (totalCheque - cheque - convertCheque);// - CajaN.retiroCheque;
+                    //    vales = (totalVales - vales - convertVales);// - CajaN.retiroVales;
+                    //    trans = (totalTransferencia - trans - convertTrans);// - CajaN.retiroTrans;
+                    //    credito = totalCredito - credito;
+                    //}
+                    //else
+                    //{
+                    //    efectivo = (totalEfectivo - efectivo);// - CajaN.retiroEfectivo;
+                    //    tarjeta = (totalTarjeta - tarjeta);// - CajaN.retiroTarjeta;
+                    //    cheque = (totalCheque - cheque);// - CajaN.retiroCheque;
+                    //    vales = (totalVales - vales);// - CajaN.retiroVales;
+                    //    trans = (totalTransferencia - trans);// - CajaN.retiroTrans;
+                    //    credito = totalCredito - credito;
+                    //}
 
-                    cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
+                    //cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
 
-                    fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    //fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                    datos = new string[] {
-                        "venta", cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
-                        efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
-                        trans.ToString("0.00"), credito.ToString("0.00"), "0"
-                    };
+                    //datos = new string[] {
+                    //    "venta", cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                    //    efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
+                    //    trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString()
+                    //};
 
-                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                    //cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
                     //Thread CorteDinero = new Thread(
                     //    () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
@@ -372,7 +411,15 @@ namespace PuntoDeVentaV2
 
                     //CorteDinero.Start();
 
-                    CajaN.botones = true;
+                    //CajaN.botones = true;
+                    //if (Utilidades.AdobeReaderInstalado())
+                    //{
+                    //    GenerarTicket(datos);
+                    //}
+                    //else
+                    //{
+                    //    Utilidades.MensajeAdobeReader();
+                    //}
                 }
 
                 Close();

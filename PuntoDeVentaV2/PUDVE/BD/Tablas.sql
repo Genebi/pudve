@@ -1282,7 +1282,9 @@ IF
 
  -- Agregar Columna (CantidadPedir) a la tabla de Productos para hacer las revisiones de inventario
  ALTER TABLE Productos ADD COLUMN IF NOT EXISTS CantidadPedir DECIMAL (16, 2) DEFAULT (0.00); 
---
+
+ -- Agregar columna (empleado) a la tabla de Caja para los reportes de caja
+ ALTER TABLE Caja ADD COLUMN IF NOT EXISTS IdEmpleado int DEFAULT (0);
 --
 --
 

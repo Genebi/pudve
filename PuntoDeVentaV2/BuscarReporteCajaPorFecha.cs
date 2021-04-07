@@ -35,25 +35,42 @@ namespace PuntoDeVentaV2
 
         private void cargarDGVInicial()
         {
-            var fecha = string.Empty; var user = string.Empty; var idCorte = string.Empty;
-            var consulta = cn.CargarDatos($"SELECT * FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC");
+            var name = string.Empty; var fecha = string.Empty; var user = string.Empty; var idCorte = string.Empty;  var idEmpleado = 0;
+            var consulta = cn.CargarDatos($"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID WHERE CJ.IDUsuario = '14' AND CJ.Operacion = 'corte' ORDER BY CJ.FechaOperacion DESC; ");
 
             if (!consulta.Rows.Count.Equals(0))
             {
                 foreach (DataRow iterar in consulta.Rows)
                 {
                     idCorte = iterar["ID"].ToString();
-                    user = iterar["IDUsuario"].ToString();
                     fecha = iterar["FechaOPeracion"].ToString();
+                    idEmpleado = Convert.ToInt32(iterar["IdEmpleado"].ToString());
+                    user = iterar["nombre"].ToString();
 
-                    DGVReporteCaja.Rows.Add(idCorte, user, fecha, pdf, pdf, pdf);
+                    if (idEmpleado > 0)
+                    {
+                        name = user;
+                    }
+                    else
+                    {
+                        name = FormPrincipal.userNickName.ToString();
+                    }
+
+                    //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
+
+                    DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
                 }
             }
         }
 
-        private void cargarDGV()
+        private string validarEmpleado(int idEmpleado)
         {
+            var empleado = string.Empty;
+            var query = cn.CargarDatos($"");
 
+
+
+            return empleado;
         }
     }
 }
