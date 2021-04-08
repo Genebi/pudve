@@ -26,7 +26,6 @@ namespace PuntoDeVentaV2
         private void BuscarReporteCajaPorFecha_Load(object sender, EventArgs e)
         {
             cargarDGVInicial();
-            txtBuscador.Focus();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -36,7 +35,7 @@ namespace PuntoDeVentaV2
             var datoBuscar = txtBuscador.Text;
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
             var nombreUser = string.Empty;
-            var querry = cn.CargarDatos($"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre, USR.Usuario FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID LEFT JOIN Usuarios AS USR ON USR.ID = CJ.IDUsuario WHERE CJ.IDUsuario = '14' AND CJ.Operacion = 'corte' AND(USR.Usuario LIKE '%{datoBuscar}%' OR EMP.nombre LIKE '%{datoBuscar}%') ORDER BY CJ.FechaOperacion DESC");
+            var querry = cn.CargarDatos($"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre, USR.Usuario FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID LEFT JOIN Usuarios AS USR ON USR.ID = CJ.IDUsuario WHERE CJ.IDUsuario = '14' AND CJ.Operacion = 'corte' AND((USR.Usuario LIKE '%{datoBuscar}%' AND CJ.IdEmpleado = 0) OR EMP.nombre LIKE '%{datoBuscar}%') ORDER BY CJ.FechaOperacion DESC");
 
             if (!querry.Rows.Count.Equals(0))
             {
@@ -48,40 +47,37 @@ namespace PuntoDeVentaV2
                     empleado = iterar["nombre"].ToString();
                     nombreUser = iterar["Usuario"].ToString();
 
-                    //if (idEmpleado > 0 && !string.IsNullOrEmpty(user))
-                    //{
-                    //    //if ()
-                    //    //{
-                    //        name = user;
-                    //        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
-                    //    //}
-                    //}
-                    //else if (idEmpleado.Equals(0))
+                    if (idEmpleado > 0 )//Cuando es Empleado
+                    {
+                        name = empleado;
+                        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
+                        
+                    }
+                    else if (idEmpleado.Equals(0)) //Cuando es Admin
+                    {
+                        name = $"ADMIN ({nombreUser})";
+                        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
+                    }
+
+                    //if (string.IsNullOrEmpty(empleado)) // Cuando es Admin
                     //{
                     //    name = nombreUser;
                     //    DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
                     //}
-
-                    if (string.IsNullOrEmpty(empleado)) // Cuando es Admin
-                    {
-                        if (idEmpleado.Equals(0))
-                        {
-                            name = nombreUser;
-                            DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
-                        }
-                        
-                    }
-                    else if (idEmpleado > 0)  // Cuando es Empleado
-                    {
-                        name = empleado;
-                        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
-                    }
-
+                    //else if (idEmpleado > 0)  // Cuando es Empleado
+                    //{
+                    //    if (idEmpleado > 0 && string.IsNullOrEmpty(empleado))
+                    //    {
+                    //        name = empleado;
+                    //        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
+                    //    }
+                    //}
                 }
             }
             else
             {
-                MessageBox.Show("No se encontraron resultados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"No se encontraron resultados con: {datoBuscar}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBuscador.Focus();
             }
         }
 
@@ -105,7 +101,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        name = FormPrincipal.userNickName.ToString();
+                        name = $"ADMIN {FormPrincipal.userNickName.ToString()}";
                     }
 
                     //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
@@ -176,7 +172,7 @@ namespace PuntoDeVentaV2
                     {
                         if (idEmpleado.Equals(0))
                         {
-                            name = nombreUser;
+                            name = $"ADMIN {nombreUser}";
                             DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
                         }
 
@@ -194,6 +190,11 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("No se encontraron resultados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
+        }
+
+        private void BuscarReporteCajaPorFecha_Shown(object sender, EventArgs e)
+        {
+            txtBuscador.Focus();
         }
     }
 }
