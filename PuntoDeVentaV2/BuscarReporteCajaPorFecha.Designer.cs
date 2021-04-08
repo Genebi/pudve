@@ -145,6 +145,7 @@
             this.segundoDatePicker.Name = "segundoDatePicker";
             this.segundoDatePicker.Size = new System.Drawing.Size(181, 23);
             this.segundoDatePicker.TabIndex = 9;
+            this.segundoDatePicker.ValueChanged += new System.EventHandler(this.segundoDatePicker_ValueChanged);
             // 
             // txtBuscador
             // 
@@ -152,6 +153,7 @@
             this.txtBuscador.Name = "txtBuscador";
             this.txtBuscador.Size = new System.Drawing.Size(343, 20);
             this.txtBuscador.TabIndex = 10;
+            this.txtBuscador.TextChanged += new System.EventHandler(this.txtBuscador_TextChanged);
             this.txtBuscador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscador_KeyDown);
             // 
             // btnBuscar
