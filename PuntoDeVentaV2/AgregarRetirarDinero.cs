@@ -194,6 +194,7 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             var tipoOperacion = string.Empty;
+            bool tipoCorte = true;
 
             // Depositar
             if (operacion == 0)
@@ -269,6 +270,7 @@ namespace PuntoDeVentaV2
 
             if (operacion.Equals(2))
             {
+                
                 if (CajaN.totCorte != "0")
                 {
 
@@ -310,7 +312,8 @@ namespace PuntoDeVentaV2
             };
             }
 
-            int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
+            int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+            tipoCorte = false;
 
             // Ejecutr hilo para enviarnotificación
             var datosConfig = mb.ComprobarConfiguracion();

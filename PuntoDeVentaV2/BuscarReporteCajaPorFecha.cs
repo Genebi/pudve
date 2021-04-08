@@ -30,13 +30,46 @@ namespace PuntoDeVentaV2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            DGVReporteCaja.Rows.Clear();
+
             var datoBuscar = txtBuscador.Text;
+            var name = string.Empty; var fecha = string.Empty; var user = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
+            var nombreUser = string.Empty;
+            var querry = cn.CargarDatos($"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre, USR.Usuario FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID LEFT JOIN Usuarios AS USR ON USR.ID = CJ.IDUsuario WHERE CJ.IDUsuario = '14' AND CJ.Operacion = 'corte' AND(USR.Usuario LIKE '%{datoBuscar}%' OR EMP.nombre LIKE '%{datoBuscar}%') ORDER BY CJ.FechaOperacion DESC");
+
+            if (!querry.Rows.Count.Equals(0))
+            {
+                foreach (DataRow iterar in querry.Rows)
+                {
+                    idCorte = iterar["ID"].ToString();
+                    fecha = iterar["FechaOPeracion"].ToString();
+                    idEmpleado = Convert.ToInt32(iterar["IdEmpleado"].ToString());
+                    user = iterar["nombre"].ToString();
+                    nombreUser = iterar["Usuario"].ToString();
+
+                    if (idEmpleado > 0)
+                    {
+                        name = user;
+                    }
+                    else
+                    {
+                        name = nombreUser; ;
+                    }
+
+                    if (name == nombreUser)
+                    {
+
+                    }
+
+                    DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
+                }
+            }
         }
 
         private void cargarDGVInicial()
         {
-            var name = string.Empty; var fecha = string.Empty; var user = string.Empty; var idCorte = string.Empty;  var idEmpleado = 0;
-            var consulta = cn.CargarDatos($"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID WHERE CJ.IDUsuario = '14' AND CJ.Operacion = 'corte' ORDER BY CJ.FechaOperacion DESC; ");
+            var name = string.Empty; var fecha = string.Empty; var user = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
+            var consulta = cn.CargarDatos($"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID WHERE CJ.IDUsuario = '14' AND CJ.Operacion = 'corte' ORDER BY CJ.FechaOperacion DESC");
 
             if (!consulta.Rows.Count.Equals(0))
             {
@@ -71,6 +104,14 @@ namespace PuntoDeVentaV2
 
 
             return empleado;
+        }
+
+        private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnBuscar.PerformClick();
+            }
         }
     }
 }
