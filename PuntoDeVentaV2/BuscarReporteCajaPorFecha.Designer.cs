@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.DGVReporteCaja = new System.Windows.Forms.DataGridView();
-            this.primerDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.segundoDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.txtBuscador = new System.Windows.Forms.TextBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.User = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.corteCaja = new System.Windows.Forms.DataGridViewImageColumn();
             this.dineroAgregado = new System.Windows.Forms.DataGridViewImageColumn();
             this.dineroRetirado = new System.Windows.Forms.DataGridViewImageColumn();
+            this.primerDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.segundoDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.txtBuscador = new System.Windows.Forms.TextBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVReporteCaja)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,59 +62,7 @@
             this.DGVReporteCaja.RowHeadersVisible = false;
             this.DGVReporteCaja.Size = new System.Drawing.Size(1018, 245);
             this.DGVReporteCaja.TabIndex = 3;
-            // 
-            // primerDatePicker
-            // 
-            this.primerDatePicker.CalendarFont = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.primerDatePicker.CustomFormat = "yyyy-MM-dd";
-            this.primerDatePicker.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.primerDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.primerDatePicker.Location = new System.Drawing.Point(549, 116);
-            this.primerDatePicker.Name = "primerDatePicker";
-            this.primerDatePicker.Size = new System.Drawing.Size(103, 23);
-            this.primerDatePicker.TabIndex = 8;
-            // 
-            // segundoDatePicker
-            // 
-            this.segundoDatePicker.CalendarFont = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.segundoDatePicker.CustomFormat = "yyyy-MM-dd";
-            this.segundoDatePicker.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.segundoDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.segundoDatePicker.Location = new System.Drawing.Point(670, 116);
-            this.segundoDatePicker.Name = "segundoDatePicker";
-            this.segundoDatePicker.Size = new System.Drawing.Size(101, 23);
-            this.segundoDatePicker.TabIndex = 9;
-            this.segundoDatePicker.ValueChanged += new System.EventHandler(this.segundoDatePicker_ValueChanged);
-            // 
-            // txtBuscador
-            // 
-            this.txtBuscador.Location = new System.Drawing.Point(12, 116);
-            this.txtBuscador.Multiline = true;
-            this.txtBuscador.Name = "txtBuscador";
-            this.txtBuscador.Size = new System.Drawing.Size(513, 23);
-            this.txtBuscador.TabIndex = 10;
-            this.txtBuscador.TextChanged += new System.EventHandler(this.txtBuscador_TextChanged);
-            this.txtBuscador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscador_KeyDown);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Image = global::PuntoDeVentaV2.Properties.Resources.search;
-            this.btnBuscar.Location = new System.Drawing.Point(799, 116);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(63, 23);
-            this.btnBuscar.TabIndex = 11;
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 82);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(214, 16);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Realiza la busqueda de un reporte";
+            this.DGVReporteCaja.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVReporteCaja_CellClick);
             // 
             // id
             // 
@@ -159,6 +107,58 @@
             this.dineroRetirado.HeaderText = "Dinero Retirado";
             this.dineroRetirado.Name = "dineroRetirado";
             this.dineroRetirado.ReadOnly = true;
+            // 
+            // primerDatePicker
+            // 
+            this.primerDatePicker.CalendarFont = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.primerDatePicker.CustomFormat = "yyyy-MM-dd";
+            this.primerDatePicker.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.primerDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.primerDatePicker.Location = new System.Drawing.Point(549, 116);
+            this.primerDatePicker.Name = "primerDatePicker";
+            this.primerDatePicker.Size = new System.Drawing.Size(103, 23);
+            this.primerDatePicker.TabIndex = 8;
+            // 
+            // segundoDatePicker
+            // 
+            this.segundoDatePicker.CalendarFont = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.segundoDatePicker.CustomFormat = "yyyy-MM-dd";
+            this.segundoDatePicker.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.segundoDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.segundoDatePicker.Location = new System.Drawing.Point(670, 116);
+            this.segundoDatePicker.Name = "segundoDatePicker";
+            this.segundoDatePicker.Size = new System.Drawing.Size(101, 23);
+            this.segundoDatePicker.TabIndex = 9;
+            // 
+            // txtBuscador
+            // 
+            this.txtBuscador.Location = new System.Drawing.Point(12, 116);
+            this.txtBuscador.Multiline = true;
+            this.txtBuscador.Name = "txtBuscador";
+            this.txtBuscador.Size = new System.Drawing.Size(513, 23);
+            this.txtBuscador.TabIndex = 10;
+            this.txtBuscador.TextChanged += new System.EventHandler(this.txtBuscador_TextChanged);
+            this.txtBuscador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscador_KeyDown);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Image = global::PuntoDeVentaV2.Properties.Resources.search;
+            this.btnBuscar.Location = new System.Drawing.Point(799, 116);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(63, 23);
+            this.btnBuscar.TabIndex = 11;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(12, 82);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(214, 16);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Realiza la busqueda de un reporte";
             // 
             // BuscarReporteCajaPorFecha
             // 

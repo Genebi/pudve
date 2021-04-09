@@ -30,7 +30,7 @@ namespace PuntoDeVentaV2
             segundoDatePicker.Value = DateTime.Now;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
             DGVReporteCaja.Rows.Clear();
 
@@ -40,7 +40,7 @@ namespace PuntoDeVentaV2
 
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
             var nombreUser = string.Empty;
-            var querry = cn.CargarDatos($"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre, USR.Usuario FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID LEFT JOIN Usuarios AS USR ON USR.ID = CJ.IDUsuario WHERE CJ.IDUsuario = '14' AND CJ.Operacion = 'corte' AND((USR.Usuario LIKE '%{datoBuscar}%' AND CJ.IdEmpleado = 0) OR EMP.nombre LIKE '%{datoBuscar}%') AND(CJ.FechaOperacion BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY CJ.FechaOperacion DESC");
+            var querry = cn.CargarDatos(cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha));
 
             if (!querry.Rows.Count.Equals(0))
             {
@@ -76,12 +76,12 @@ namespace PuntoDeVentaV2
         }
 
         private void cargarDGVInicial()
-        {
+        {//Cargar el DGV al Abrir el Form
             var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
             var segundaFecha = segundoDatePicker.Value.ToString("yyyy/MM/dd");
 
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
-            var consulta = cn.CargarDatos($"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID WHERE CJ.IDUsuario = '14' AND CJ.Operacion = 'corte' AND(CJ.FechaOperacion BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY CJ.FechaOperacion DESC");
+            var consulta = cn.CargarDatos(cs.CargarDatosIniciarFormReportesCaja(primerFecha, segundaFecha));
 
             if (!consulta.Rows.Count.Equals(0))
             {
@@ -121,67 +121,27 @@ namespace PuntoDeVentaV2
             txtBuscador.CharacterCasing = CharacterCasing.Upper;
         }
 
-        private void segundoDatePicker_ValueChanged(object sender, EventArgs e)
-        {//Busqueda por fechas
-            //DGVReporteCaja.Rows.Clear();
-            //var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
-            //var segundaFecha = segundoDatePicker.Value.ToString("yyyy/MM/dd");
-
-            //var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
-            //var nombreUser = string.Empty;
-            //var querry = cn.CargarDatos($"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre, USR.Usuario FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID LEFT JOIN Usuarios AS USR ON USR.ID = CJ.IDUsuario WHERE CJ.IDUsuario = '14' AND CJ.Operacion = 'corte' AND(CJ.FechaOperacion >= '{primerFecha}' AND CJ.FechaOperacion <= '{segundaFecha}') ORDER BY CJ.FechaOperacion DESC");
-
-            //if (!querry.Rows.Count.Equals(0))
-            //{
-            //    foreach (DataRow iterar in querry.Rows)
-            //    {
-            //        idCorte = iterar["ID"].ToString();
-            //        fecha = iterar["FechaOPeracion"].ToString();
-            //        idEmpleado = Convert.ToInt32(iterar["IdEmpleado"].ToString());
-            //        empleado = iterar["nombre"].ToString();
-            //        nombreUser = iterar["Usuario"].ToString();
-
-            //        //if (idEmpleado > 0 && !string.IsNullOrEmpty(user))
-            //        //{
-            //        //    //if ()
-            //        //    //{
-            //        //        name = user;
-            //        //        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
-            //        //    //}
-            //        //}
-            //        //else if (idEmpleado.Equals(0))
-            //        //{
-            //        //    name = nombreUser;
-            //        //    DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
-            //        //}
-
-            //        if (string.IsNullOrEmpty(empleado)) // Cuando es Admin
-            //        {
-            //            if (idEmpleado.Equals(0))
-            //            {
-            //                name = $"ADMIN {nombreUser}";
-            //                DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
-            //            }
-
-            //        }
-            //        else if (idEmpleado > 0)  // Cuando es Empleado
-            //        {
-            //            name = empleado;
-            //            DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
-            //        }
-
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("No se encontraron resultados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
-
-        }
-
         private void BuscarReporteCajaPorFecha_Shown(object sender, EventArgs e)
         {
             txtBuscador.Focus();
         }
+
+        private void DGVReporteCaja_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex.Equals(3))//Corte de Caja
+            {
+                MessageBox.Show("Corte de Caja");
+            }
+            else if (e.ColumnIndex.Equals(4))//Dinero Agregado
+            {
+
+            }
+            else if (e.ColumnIndex.Equals(5))//Dinero Retirado
+            {
+
+            }
+        }
+
+
     }
 }
