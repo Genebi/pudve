@@ -100,7 +100,7 @@ namespace PuntoDeVentaV2
             // Placeholder del campo buscador
             txtBuscador.GotFocus += new EventHandler(BuscarTieneFoco);
             txtBuscador.LostFocus += new EventHandler(BuscarPierdeFoco);
-            dpFechaInicial.Value = DateTime.Today.AddDays(-30);
+            dpFechaInicial.Value = DateTime.Today.AddDays(-7);
 
             // Opciones para el combobox
             Dictionary<string, string> ventas = new Dictionary<string, string>();

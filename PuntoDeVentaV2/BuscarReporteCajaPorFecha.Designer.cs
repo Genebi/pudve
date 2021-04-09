@@ -60,7 +60,7 @@
             this.DGVReporteCaja.Location = new System.Drawing.Point(12, 154);
             this.DGVReporteCaja.Name = "DGVReporteCaja";
             this.DGVReporteCaja.RowHeadersVisible = false;
-            this.DGVReporteCaja.Size = new System.Drawing.Size(876, 245);
+            this.DGVReporteCaja.Size = new System.Drawing.Size(1018, 245);
             this.DGVReporteCaja.TabIndex = 3;
             // 
             // primerDatePicker
@@ -69,7 +69,7 @@
             this.primerDatePicker.CustomFormat = "yyyy-MM-dd";
             this.primerDatePicker.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.primerDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.primerDatePicker.Location = new System.Drawing.Point(526, 116);
+            this.primerDatePicker.Location = new System.Drawing.Point(549, 116);
             this.primerDatePicker.Name = "primerDatePicker";
             this.primerDatePicker.Size = new System.Drawing.Size(103, 23);
             this.primerDatePicker.TabIndex = 8;
@@ -80,7 +80,7 @@
             this.segundoDatePicker.CustomFormat = "yyyy-MM-dd";
             this.segundoDatePicker.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.segundoDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.segundoDatePicker.Location = new System.Drawing.Point(647, 116);
+            this.segundoDatePicker.Location = new System.Drawing.Point(670, 116);
             this.segundoDatePicker.Name = "segundoDatePicker";
             this.segundoDatePicker.Size = new System.Drawing.Size(101, 23);
             this.segundoDatePicker.TabIndex = 9;
@@ -91,7 +91,7 @@
             this.txtBuscador.Location = new System.Drawing.Point(12, 116);
             this.txtBuscador.Multiline = true;
             this.txtBuscador.Name = "txtBuscador";
-            this.txtBuscador.Size = new System.Drawing.Size(490, 23);
+            this.txtBuscador.Size = new System.Drawing.Size(513, 23);
             this.txtBuscador.TabIndex = 10;
             this.txtBuscador.TextChanged += new System.EventHandler(this.txtBuscador_TextChanged);
             this.txtBuscador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscador_KeyDown);
@@ -99,7 +99,7 @@
             // btnBuscar
             // 
             this.btnBuscar.Image = global::PuntoDeVentaV2.Properties.Resources.search;
-            this.btnBuscar.Location = new System.Drawing.Point(776, 116);
+            this.btnBuscar.Location = new System.Drawing.Point(799, 116);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(63, 23);
             this.btnBuscar.TabIndex = 11;
@@ -164,7 +164,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 411);
+            this.ClientSize = new System.Drawing.Size(1042, 411);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtBuscador);
