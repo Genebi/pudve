@@ -1604,7 +1604,16 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
         public string searchProductList(string typeToSearch, string busqueda)
         {
-            var consulta = $"SELECT DISTINCT	P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras  FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.STATUS = '1' AND ({typeToSearch}) AND ( P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' )";
+            var consulta = $"SELECT DISTINCT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras  FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.STATUS = '1' AND ({typeToSearch}) AND ( P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' )";
+
+            return consulta;
+        }
+
+        public string searchSaleProduct(string busqueda)
+        {
+            //var consulta = $"SELECT * FROM Productos WHERE IDUsuario = { FormPrincipal.userID } AND STATUS = 1 AND ( Nombre LIKE '%{busqueda}%' OR NombreAlterno1 LIKE '%{busqueda}%' OR NombreAlterno2 LIKE '%{busqueda}%' OR ClaveInterna = '{busqueda}' OR CodigoBarras = '{busqueda}' )";
+            //var consulta = $"SELECT DISTINCT Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Tipo, ProdDetail.Proveedor, GralDetail.Descripcion AS UBICACION FROM Productos AS Prod INNER JOIN Usuarios AS Usr ON Usr.ID = Prod.IDUsuario INNER JOIN DetallesProducto AS ProdDetail ON ProdDetail.IDProducto = Prod.ID INNER JOIN Proveedores AS Prov ON Prov.ID = ProdDetail.IDProveedor INNER JOIN DetallesProductoGenerales AS GralProdDetail ON GralProdDetail.IDProducto = Prod.ID INNER JOIN DetalleGeneral AS GralDetail ON GralDetail.ID = GralProdDetail.IDDetalleGral WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.`Status` = '1' AND ( Prod.Nombre LIKE '%{busqueda}%' OR Prod.NombreAlterno1 LIKE '%{busqueda}%' OR Prod.NombreAlterno2 LIKE '%{busqueda}%' OR Prod.ClaveInterna = '{busqueda}' OR Prod.CodigoBarras = '{busqueda}' )";
+            var consulta = $"SELECT DISTINCT Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Tipo, Prov.Nombre AS Proveedor, GROUP_CONCAT(DISTINCT DetailGral.Descripcion) AS Dinamico FROM Productos AS Prod INNER JOIN Usuarios AS Usr ON Usr.ID = Prod.IDUsuario INNER JOIN DetallesProductoGenerales AS DetailProdGral ON DetailProdGral.IDProducto = Prod.ID INNER JOIN DetalleGeneral AS DetailGral ON DetailGral.IDUsuario = Usr.ID INNER JOIN DetallesProducto AS DetailProd ON DetailProd.IDProducto = Prod.ID INNER JOIN Proveedores AS Prov ON Prov.ID = DetailProd.IDProveedor 	INNER JOIN AppSettings AS AppSet ON AppSet.IDUsuario = Usr.ID WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.`Status` = '1' AND (Prod.Nombre LIKE '%{busqueda}%' OR Prod.NombreAlterno1 LIKE '%{busqueda}%' OR Prod.NombreAlterno2 LIKE '%{busqueda}%' OR Prod.ClaveInterna = '{busqueda}' OR Prod.CodigoBarras = '{busqueda}') AND AppSet.checkBoxComboBoxConcepto = '1'";
 
             return consulta;
         }

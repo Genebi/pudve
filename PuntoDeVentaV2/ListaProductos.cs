@@ -420,66 +420,6 @@ namespace PuntoDeVentaV2
                 actualizar();
             }
         }
-
-        private void txtIrPagina_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (!txtIrPagina.Text.Equals(""))
-                {
-                    goToPageNumber(Convert.ToInt32(txtIrPagina.Text));
-                    txtIrPagina.Text = string.Empty;
-                }
-                else if (txtIrPagina.Text.Equals(""))
-                {
-                    MessageBox.Show("Favor de verificar que\nel campo de ir a Página\nno este vacio ó su teclado\nnúmerico este activo", "Favor de verificar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-        }
-
-        private void goToPageNumber(int pageNumber)
-        {
-            if (pageNumber.Equals(p.numPag()))
-            {
-                p.cargar();
-            }
-            else if (!pageNumber.Equals(p.numPag()))
-            {
-                p.primerPagina();
-                p.ultimaPagina();
-                p.irAPagina(pageNumber);
-                p.cargar();
-            }
-            CargarDatos();
-            actualizar();
-        }
-
-        private void txtIrPagina_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // para obligar a que solo se introduzcan números
-            if (Char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                // permitir teclas de control como retroceso
-                if (Char.IsControl(e.KeyChar))
-                {
-                    e.Handled = false;
-                }
-                // el resto de teclas pulsadas se desactivan
-                else
-                {
-                    e.Handled = true;
-                }
-            }
-        }
-
-        private void txtIrPagina_Leave(object sender, EventArgs e)
-        {
-            txtIrPagina.Text = string.Empty;
-        }
         #endregion
 
         #region Sección de cargar datos para el DataGridView
