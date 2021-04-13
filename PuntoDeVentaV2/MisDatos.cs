@@ -63,6 +63,8 @@ namespace PuntoDeVentaV2
         string saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
         // ruta donde estan guardados los archivos digitales
         string ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD\";
+        // ruta donde estan guardada la carpeta CSD
+        string ruta_carpetas_csd = @"C:\Archivos PUDVE\MisDatos\";
 
         // objeto para el manejo de las imagenes
         FileStream File,File1;
@@ -79,6 +81,9 @@ namespace PuntoDeVentaV2
 
         OpenFileDialog f;
 
+        //DateTime fecha_actual = DateTime.Now;
+        //DateTime fecha_compara = new DateTime(2021, 04, 12, 03, 40, 00);
+
         // Permisos botones
         int opcion1 = 1;
         int opcion2 = 1;
@@ -86,9 +91,21 @@ namespace PuntoDeVentaV2
         int opcion4 = 1;
         int opcion5 = 1;
 
+        public static bool usuario_ini = true;
+             
+
         public MisDatos()
         {
             InitializeComponent();
+
+            // Si fecha actual es mayor a la fecha especificada, entonces el nombre de la carpeta cambiará. 
+            /*int r = DateTime.Compare(fecha_compara, fecha_actual);
+
+            if (r < 0)
+            {
+                ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                MessageBox.Show("RUTA MAYOR"+ ruta_archivos_guadados);
+            }*/
         }
         public void cargarTxtBox()
         {
@@ -1042,6 +1059,30 @@ namespace PuntoDeVentaV2
 
         public void cargar_archivos()
         {
+            // Obtiene el número de usuarios. 
+
+            DataTable dt_usuarios = cn.CargarDatos("SELECT ID, Usuario FROM usuarios");
+            int tam_usuarios = dt_usuarios.Rows.Count;
+            
+            if(tam_usuarios > 1)
+            {
+                DataRow dr_usuarios = dt_usuarios.Rows[0];
+                
+                if(dr_usuarios["Usuario"].ToString() == FormPrincipal.userNickName)
+                {
+                    usuario_ini = true;
+                }
+                else
+                {
+                    ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+
+                    usuario_ini = false;
+                }                    
+                 
+            }   
+
+                       
+
             if (Directory.Exists(ruta_archivos_guadados))
             {
                 //string[] nombres = new string[2];

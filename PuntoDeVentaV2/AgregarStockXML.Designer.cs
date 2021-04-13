@@ -799,10 +799,10 @@
             this.panel6.Controls.Add(this.groupBox2);
             this.panel6.Controls.Add(this.groupBox1);
             this.panel6.Controls.Add(this.label1);
-            this.panel6.Location = new System.Drawing.Point(8, 284);
+            this.panel6.Location = new System.Drawing.Point(9, 284);
             this.panel6.Margin = new System.Windows.Forms.Padding(2);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(920, 258);
+            this.panel6.Size = new System.Drawing.Size(919, 258);
             this.panel6.TabIndex = 18;
             // 
             // groupBox2

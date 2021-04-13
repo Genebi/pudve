@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -61,6 +62,7 @@ namespace PuntoDeVentaV2
             public TConcepto[] Conceptos;
             [XmlElementAttribute()]
             public TImpuestos Impuestos;
+
         }
 
         /// <summary>
@@ -2305,39 +2307,58 @@ namespace PuntoDeVentaV2
                     // si es que el usuario pone otra extension no permitida se le pone este mensaje
                     if (!String.Equals(Path.GetExtension(f.FileName), ".xml", StringComparison.OrdinalIgnoreCase))
                     {
-                        MessageBox.Show("El tipo de archivo seleccionado no es soportado en esta aplicación,\nDebes seleccionar un archivo con extension XML",
+                        MessageBox.Show("El tipo de archivo seleccionado no es soportado en esta aplicación,\nDebe seleccionar un archivo con extención XML",
                                         "Tipo de Archivo Invalido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else    // si es que todo esta bien se le da el procesamiento del archivo
                     {
-                        //MessageBox.Show("El archivo seleccionado,\nse esta Procesando", "Tipo de Archivo Valido", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        serial = new XmlSerializer(typeof(Comprobante));                    // iniciamos el objeto serial para leer el XML
-                        fs = new FileStream(f.FileName, FileMode.Open, FileAccess.Read);    // iniciamos el objeto fs para poder leer el archivo XML y no dejarlo en uso
-                        ds = (Comprobante)serial.Deserialize(fs);                           // iniciamos el objeto ds y le hacemos un cast con la clase Comprobante y le pasamos la lectura del XML
 
-                        if (ds.Receptor.Rfc == rfc | ds.Emisor.Rfc == rfc)                                         // comparamos si el RFC-Receptor(del archivo XML) es igual al RFC del usruario del sistema
-                        {
-                            rutaXML = f.FileName; //Almacenamos el nombre y ruta completa del archivo cargado
-                            cantProductos = 0;          // la cantidad de Productos la ponemos en 0
-                            OcultarPanelCarga();        // ocultamos el panel de cargar XML
-                            btnLoadXML.Hide();          // ocultamos el botonXML
-                            MostrarPanelRegistro();     // mostramos el panelRegistro para actualizar el stock
-                            // hacemos el recorrido de lo que se almaceno en la clase Conceptos
-                            for (index = 0; index < ds.Conceptos.Count(); index++)
+                        // Miri.
+                        // Leer XML para identificar si es un cfdi.
+
+                        string ruta_XML = f.FileName;
+
+                        XmlDocument xdoc = new XmlDocument();
+                        xdoc.Load(ruta_XML);
+
+                        string nm_nodo = xdoc.DocumentElement.Name;
+
+
+                        if (nm_nodo == "cfdi:Comprobante")
+                        {                            
+                            //MessageBox.Show("El archivo seleccionado,\nse esta Procesando", "Tipo de Archivo Valido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            serial = new XmlSerializer(typeof(Comprobante));                    // iniciamos el objeto serial para leer el XML
+                            fs = new FileStream(f.FileName, FileMode.Open, FileAccess.Read);    // iniciamos el objeto fs para poder leer el archivo XML y no dejarlo en uso
+                            ds = (Comprobante)serial.Deserialize(fs);                           // iniciamos el objeto ds y le hacemos un cast con la clase Comprobante y le pasamos la lectura del XML
+
+                            if (ds.Receptor.Rfc == rfc | ds.Emisor.Rfc == rfc)                                         // comparamos si el RFC-Receptor(del archivo XML) es igual al RFC del usruario del sistema
                             {
-                                cantProductos++;    // aumentamos la variable en uno
+                                rutaXML = f.FileName; //Almacenamos el nombre y ruta completa del archivo cargado
+                                cantProductos = 0;          // la cantidad de Productos la ponemos en 0
+                                OcultarPanelCarga();        // ocultamos el panel de cargar XML
+                                btnLoadXML.Hide();          // ocultamos el botonXML
+                                MostrarPanelRegistro();     // mostramos el panelRegistro para actualizar el stock
+                                                            // hacemos el recorrido de lo que se almaceno en la clase Conceptos
+                                for (index = 0; index < ds.Conceptos.Count(); index++)
+                                {
+                                    cantProductos++;    // aumentamos la variable en uno
+                                }
+                                lblLargodelXML.Text = cantProductos.ToString();     // asignamos la cantidad de Productos al Label
+                                lblPosicionActualXML.Text = "0";                    // iniciamos el Label a 0
+                                RecorrerXML();          // recorremos el XML
                             }
-                            lblLargodelXML.Text = cantProductos.ToString();     // asignamos la cantidad de Productos al Label
-                            lblPosicionActualXML.Text = "0";                    // iniciamos el Label a 0
-                            RecorrerXML();          // recorremos el XML
+                            else                                                                // so es que no son iguales los RFC
+                            {
+                                // mostramos este mensaje al usuario del sistema
+                                MessageBox.Show("El archivo XML seleccionado no contiene tu RFC,\nDebes seleccionar un archivo XML con tu RFC",
+                                        "No tiene tu RFC.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MostrarPanelCarga();        // mostramos el panel de carga del archivo XML
+                                btnLoadXML.Show();          // mostramos el botonXML
+                            }
                         }
-                        else                                                                // so es que no son iguales los RFC
+                        else
                         {
-                            // mostramos este mensaje al usuario del sistema
-                            MessageBox.Show("El archivo XML seleccionado no contiene tu RFC,\nDebes seleccionar un archivo XML con tu RFC",
-                                    "No tiene tu RFC.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            MostrarPanelCarga();        // mostramos el panel de carga del archivo XML
-                            btnLoadXML.Show();          // mostramos el botonXML
+                            MessageBox.Show("El archivo XML no es un documento de tipo CFDI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
