@@ -25,9 +25,9 @@ namespace PuntoDeVentaV2
         /* 
         string nom_cer = "", nom_key = "";
         string nom_cer_pem = "", nom_key_pem = "";*/
+        
 
         OpenFileDialog ofd = new OpenFileDialog();
-
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         
@@ -37,14 +37,23 @@ namespace PuntoDeVentaV2
         public bool ban = false;
 
 
+        
+
 
         public Subir_archivos_digitales()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void cargar_datos(object sender, EventArgs e)
         {
+            // Si la variable es false entonces el nombre de la carpeta cambiará.
+            if(MisDatos.usuario_ini == false)
+            {
+                ruta_guardar_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\"; 
+            }
+   
+
             if (Directory.Exists(ruta_guardar_archivos))
             {
                 //string[] nombres = new string[2];

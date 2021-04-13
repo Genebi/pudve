@@ -1916,6 +1916,8 @@ namespace PuntoDeVentaV2
                 {
                     txtCodigoBarras.Text = "";
                 }
+
+                panelContenedor.Controls.Clear();
             }
             else if (DatosSourceFinal == 4)
             {
@@ -4738,7 +4740,13 @@ namespace PuntoDeVentaV2
                 //this.Text = cadAux + "s";
                 this.Text = Titulo.ToUpper();
                 chkBoxConProductos.Checked = false;
-                chkBoxConProductos.Visible = true;
+                
+                // Miri.
+                // El combo ya no será visible para cuando un combo se le quiera relacionar productos. 
+                if (DatosSourceFinal != 3)
+                {
+                    chkBoxConProductos.Visible = true;
+                }                
 
                 // Miri. 
                 btnAdd.Visible = true;
@@ -5721,7 +5729,7 @@ namespace PuntoDeVentaV2
                     }
                     GenerarPanelProductosServPlus();
                 }
-                else if (this.Text.Trim() == "AGREGAR PRODUCTO" && DatosSourceFinal == 1)
+                else if (this.Text.Trim() == "AGREGAR PRODUCTO" && (DatosSourceFinal == 1 | DatosSourceFinal == 3)) // Se agrega el DatosSourceFinal= 3 para que también aplique cuando es desde XML. Miri.
                 {
                     using (DataTable dtDatosComboServicio = cn.CargarDatos(cs.getDatosServCombo(CBIdProd)))
                     {
