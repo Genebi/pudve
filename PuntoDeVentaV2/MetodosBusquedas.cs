@@ -23,6 +23,8 @@ namespace PuntoDeVentaV2
 
         public static int idFiltrado { get; set; }
 
+        Conexion cn = new Conexion();
+
         private MySqlConnection sql_con;
         private MySqlCommand sql_cmd;
 

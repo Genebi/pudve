@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -991,6 +992,11 @@ namespace PuntoDeVentaV2
             ticket.AddAuthor("PUDVE");
             ticket.Close();
             writer.Close();
+        }
+
+        public static void GenerarTicketCorteCaja(DataTable tbCorte)
+        {
+
         }
 
         /// <summary>

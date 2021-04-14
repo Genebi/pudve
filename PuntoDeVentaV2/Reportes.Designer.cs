@@ -31,7 +31,6 @@
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.btnHistorialPrecios = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnHistorialDineroAgregado = new System.Windows.Forms.Button();
             this.btnReporteInventario = new System.Windows.Forms.Button();
             this.Panel = new System.Windows.Forms.Panel();
@@ -41,7 +40,6 @@
             this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnCaja = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.SuspendLayout();
@@ -88,16 +86,6 @@
             this.btnHistorialPrecios.Click += new System.EventHandler(this.btnHistorialPrecios_Click);
             this.btnHistorialPrecios.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnHistorialPrecios_KeyDown);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnHistorialDineroAgregado);
-            this.groupBox1.Location = new System.Drawing.Point(285, 67);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(256, 129);
-            this.groupBox1.TabIndex = 103;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = " CAJA ";
-            // 
             // btnHistorialDineroAgregado
             // 
             this.btnHistorialDineroAgregado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
@@ -106,12 +94,13 @@
             this.btnHistorialDineroAgregado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHistorialDineroAgregado.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnHistorialDineroAgregado.ForeColor = System.Drawing.Color.White;
-            this.btnHistorialDineroAgregado.Location = new System.Drawing.Point(34, 24);
+            this.btnHistorialDineroAgregado.Location = new System.Drawing.Point(304, 136);
             this.btnHistorialDineroAgregado.Name = "btnHistorialDineroAgregado";
             this.btnHistorialDineroAgregado.Size = new System.Drawing.Size(190, 30);
             this.btnHistorialDineroAgregado.TabIndex = 1;
             this.btnHistorialDineroAgregado.Text = "Historial Dinero Agreado";
             this.btnHistorialDineroAgregado.UseVisualStyleBackColor = false;
+            this.btnHistorialDineroAgregado.Visible = false;
             this.btnHistorialDineroAgregado.Click += new System.EventHandler(this.btnHistorialDineroAgregado_Click);
             this.btnHistorialDineroAgregado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnHistorialDineroAgregado_KeyDown);
             // 
@@ -125,7 +114,7 @@
             this.btnReporteInventario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReporteInventario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReporteInventario.ForeColor = System.Drawing.Color.White;
-            this.btnReporteInventario.Location = new System.Drawing.Point(579, 91);
+            this.btnReporteInventario.Location = new System.Drawing.Point(575, 91);
             this.btnReporteInventario.Name = "btnReporteInventario";
             this.btnReporteInventario.Size = new System.Drawing.Size(190, 30);
             this.btnReporteInventario.TabIndex = 105;
@@ -204,7 +193,7 @@
             this.btnCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCaja.ForeColor = System.Drawing.Color.White;
-            this.btnCaja.Location = new System.Drawing.Point(794, 91);
+            this.btnCaja.Location = new System.Drawing.Point(304, 91);
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Size = new System.Drawing.Size(190, 30);
             this.btnCaja.TabIndex = 107;
@@ -217,10 +206,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.btnHistorialDineroAgregado);
             this.Controls.Add(this.btnCaja);
             this.Controls.Add(this.Panel);
             this.Controls.Add(this.btnReporteInventario);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnHistorialPrecios);
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.primerSeparador);
@@ -228,7 +217,6 @@
             this.Text = "Reportes";
             this.Load += new System.EventHandler(this.Reportes_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reportes_KeyDown);
-            this.groupBox1.ResumeLayout(false);
             this.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).EndInit();
             this.ResumeLayout(false);
@@ -240,7 +228,6 @@
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.Label primerSeparador;
         private System.Windows.Forms.Button btnHistorialPrecios;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnHistorialDineroAgregado;
         private System.Windows.Forms.Button btnReporteInventario;
         private System.Windows.Forms.Panel Panel;
