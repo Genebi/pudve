@@ -64,6 +64,7 @@
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbCorreoVenta = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -441,6 +442,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox1.Controls.Add(this.cbCorreoVenta);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cbCorreoCorteCaja);
             this.groupBox1.Controls.Add(this.cbCorreoEliminarListaProductosVentas);
@@ -557,6 +559,18 @@
             this.groupBox2.TabIndex = 129;
             this.groupBox2.TabStop = false;
             // 
+            // cbCorreoVenta
+            // 
+            this.cbCorreoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCorreoVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoVenta.Location = new System.Drawing.Point(468, 88);
+            this.cbCorreoVenta.Name = "cbCorreoVenta";
+            this.cbCorreoVenta.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoVenta.TabIndex = 123;
+            this.cbCorreoVenta.Text = "Al hacer una venta";
+            this.cbCorreoVenta.UseVisualStyleBackColor = true;
+            this.cbCorreoVenta.CheckedChanged += new System.EventHandler(this.cbCorreoVenta_CheckedChanged);
+            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -629,5 +643,6 @@
         private System.Windows.Forms.CheckBox cbCorreoCorteCaja;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox cbCorreoVenta;
     }
 }
