@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+
         private List<string> propiedades = new List<string>();
 
         public static List<string> datosDeProducto = new List<string>();
@@ -241,73 +242,167 @@ namespace PuntoDeVentaV2
 
             foreach (DataRow filaDatos in dtDatos.Rows)
             {
-                var number_of_rows = DGVProductos.Rows.Add();
-                DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+                //DGVProductos.Update();
+                //DGVProductos.Refresh();
 
-                // Columna Nombre
                 string Nombre = filaDatos["Nombre"].ToString();
-                row.Cells["Nombre"].Value = Nombre;
-
-                // Columna Stock
                 string Stock = filaDatos["Stock"].ToString();
-                row.Cells["Stock"].Value = Stock;
-
-                // Columna Precio
                 string Precio = filaDatos["Precio"].ToString();
-                row.Cells["Precio"].Value = Precio;
-
-                // Columna Clave
                 string Clave = filaDatos["ClaveInterna"].ToString();
-                row.Cells["Clave"].Value = Clave;
-
-                // Columna Codigo
                 string Codigo = filaDatos["CodigoBarras"].ToString();
-                row.Cells["Codigo"].Value = Codigo;
-
-                // Columna Tipo
                 string Tipo = filaDatos["Tipo"].ToString();
-                if (Tipo.Equals("P"))
-                {
-                    row.Cells["Tipo"].Value = "PRODUCTO";
-                }
-                else if (Tipo.Equals("S"))
-                {
-                    row.Cells["Tipo"].Value = "SERVICIO";
-                }
-                else if (Tipo.Equals("PQ"))
-                {
-                    row.Cells["Tipo"].Value = "COMBO";
-                }
-
-                // Columna Proveedor
                 string Proveedor = filaDatos["Proveedor"].ToString();
-                if (!Proveedor.Equals(string.Empty))
-                {
-                    row.Cells["Proveedor"].Value = Proveedor;
-                }
-                else if (Proveedor.Equals(string.Empty))
-                {
-                    row.Cells["Proveedor"].Value = "N/A";
-                }
+                string chckName = filaDatos["ChckName"].ToString();
+                string Descripcion = filaDatos["Descripcion"].ToString();
 
-                // Columnas Dinamicos
-                string Dinamico = filaDatos["Dinamico"].ToString();
-                string[] conceptoDinamico = Dinamico.Split(',');
-                if (!conceptoDinamico.Count().Equals(0))
+                if (DGVProductos.Rows.Count.Equals(0))
                 {
-                    int inicio = 0;
-                    int colCount = DGVProductos.ColumnCount;
-                    inicio = colCount - columnasAgregadas;
+                    bool encontrado = Utilidades.BuscarDataGridViewLINQ(Nombre, "Nombre", DGVProductos);
 
+                    if (encontrado.Equals(true))
+                    {
+                        return;
+                    }
+                    else if (encontrado.Equals(false))
+                    {
+                        var number_of_rows = DGVProductos.Rows.Add();
+                        DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+                        // Columna Nombre
+                        row.Cells["Nombre"].Value = Nombre;
+
+                        // Columna Stock
+                        row.Cells["Stock"].Value = Stock;
+
+                        // Columna Precio
+                        row.Cells["Precio"].Value = Precio;
+
+                        // Columna Clave
+                        row.Cells["Clave"].Value = Clave;
+
+                        // Columna Codigo
+                        row.Cells["Codigo"].Value = Codigo;
+
+                        // Columna Tipo
+                        if (Tipo.Equals("P"))
+                        {
+                            row.Cells["Tipo"].Value = "PRODUCTO";
+                        }
+                        else if (Tipo.Equals("S"))
+                        {
+                            row.Cells["Tipo"].Value = "SERVICIO";
+                        }
+                        else if (Tipo.Equals("PQ"))
+                        {
+                            row.Cells["Tipo"].Value = "COMBO";
+                        }
+
+                        // Columna Proveedor
+                        if (!Proveedor.Equals(string.Empty))
+                        {
+                            row.Cells["Proveedor"].Value = Proveedor;
+                        }
+                        else if (Proveedor.Equals(string.Empty))
+                        {
+                            row.Cells["Proveedor"].Value = "N/A";
+                        }
+
+                        // Columnas Dinamicos
+                        if (DGVProductos.Columns.Contains(chckName))
+                        {
+                            if (!Descripcion.Equals(string.Empty))
+                            {
+                                row.Cells[chckName].Value = Descripcion;
+                            }
+                            else if (Descripcion.Equals(string.Empty))
+                            {
+                                row.Cells[chckName].Value = "N/A";
+                            }
+                        }
+                    }
                 }
-                //if (!Ubicacion.Equals(string.Empty))
-                //{
-                //    row.Cells["UBICACION"].Value = Ubicacion;
-                //}
-                //else if (Ubicacion.Equals(string.Empty))
-                //{
-                //    row.Cells["UBICACION"].Value = "N/A";
-                //}
+                else if (!DGVProductos.Rows.Count.Equals(0))
+                {
+                    foreach (DataGridViewRow Row in DGVProductos.Rows)
+                    {
+                        bool encontrado = Utilidades.BuscarDataGridViewLINQ(Nombre, "Nombre", DGVProductos);
+
+                        if (encontrado.Equals(true))
+                        {
+                            var Fila = Row.Index;
+                            //DGVProductos.Rows[Fila].Cells[chckName].Value = Descripcion;
+                            // Columnas Dinamicos
+                            if (DGVProductos.Columns.Contains(chckName))
+                            {
+                                if (!Descripcion.Equals(string.Empty))
+                                {
+                                    DGVProductos.Rows[Fila].Cells[chckName].Value = Descripcion;
+                                }
+                                else if (Descripcion.Equals(string.Empty))
+                                {
+                                    DGVProductos.Rows[Fila].Cells[chckName].Value = "N/A";
+                                }
+                            }
+                        }
+                        else if (encontrado.Equals(false))
+                        {
+                            var number_of_rows = DGVProductos.Rows.Add();
+                            DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+                            // Columna Nombre
+                            row.Cells["Nombre"].Value = Nombre;
+
+                            // Columna Stock
+                            row.Cells["Stock"].Value = Stock;
+
+                            // Columna Precio
+                            row.Cells["Precio"].Value = Precio;
+
+                            // Columna Clave
+                            row.Cells["Clave"].Value = Clave;
+
+                            // Columna Codigo
+                            row.Cells["Codigo"].Value = Codigo;
+
+                            // Columna Tipo
+                            if (Tipo.Equals("P"))
+                            {
+                                row.Cells["Tipo"].Value = "PRODUCTO";
+                            }
+                            else if (Tipo.Equals("S"))
+                            {
+                                row.Cells["Tipo"].Value = "SERVICIO";
+                            }
+                            else if (Tipo.Equals("PQ"))
+                            {
+                                row.Cells["Tipo"].Value = "COMBO";
+                            }
+
+                            // Columna Proveedor
+                            if (!Proveedor.Equals(string.Empty))
+                            {
+                                row.Cells["Proveedor"].Value = Proveedor;
+                            }
+                            else if (Proveedor.Equals(string.Empty))
+                            {
+                                row.Cells["Proveedor"].Value = "N/A";
+                            }
+
+                            // Columnas Dinamicos
+                            if (DGVProductos.Columns.Contains(chckName))
+                            {
+                                if (!Descripcion.Equals(string.Empty))
+                                {
+                                    row.Cells[chckName].Value = Descripcion;
+                                }
+                                else if (Descripcion.Equals(string.Empty))
+                                {
+                                    row.Cells[chckName].Value = "N/A";
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             actualizar();

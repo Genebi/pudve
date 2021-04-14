@@ -1809,5 +1809,47 @@ namespace PuntoDeVentaV2
 
             EnviarEmailConArchivoPDF(html, asunto, correo, ruta);
         }
+
+        public static bool BuscarDataGridViewLINQ(string TextoABuscar, string Columna, DataGridView grid)
+        {
+            bool encontrado = false;
+
+            if (TextoABuscar == string.Empty)
+            {
+                return false;
+            }
+
+            if (grid.RowCount == 0)
+            {
+                return false;
+            }
+
+            grid.ClearSelection();
+
+            if (Columna == string.Empty)
+            {
+                IEnumerable<DataGridViewRow> obj = (from DataGridViewRow row in grid.Rows.Cast<DataGridViewRow>() from DataGridViewCell cells in row.Cells where cells.OwningRow.Equals(row) && cells.Value == TextoABuscar select row);
+
+                if (obj.Any())
+                {
+                    grid.Rows[obj.FirstOrDefault().Index].Selected = true;
+
+                    return true;
+                }
+            }
+            else
+            {
+                IEnumerable<DataGridViewRow> obj = (from DataGridViewRow row in grid.Rows.Cast<DataGridViewRow>() where row.Cells[Columna].Value == TextoABuscar select row);
+
+                if (obj.Any())
+                {
+                    grid.Rows[obj.FirstOrDefault().Index].Selected = true;
+
+                    return true;
+                }
+            }
+
+            return encontrado;
+        }
     }
 }
