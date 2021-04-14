@@ -167,11 +167,11 @@ namespace PuntoDeVentaV2
 
             //Consulta Anticipos
             var importeAnticipo = string.Empty;
-            var consultaAnticipos = cn.CargarDatos($"SELECT SUM(Importe) AS Total FROM Anticipos WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'retiro' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
+            var consultaAnticipos = cn.CargarDatos($"SELECT SUM(Importe) AS Total FROM Anticipos WHERE IDUsuario = '{FormPrincipal.userID}' AND (Fecha BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
 
             //Consulta Dinero Agregado
             var totalAg = string.Empty; var efectivoAg = string.Empty; var tarjetaAg = string.Empty; var valesAg = string.Empty; var chequeAg = string.Empty; var transAg = string.Empty;
-            var consultaDineroAgregado = cn.CargarDatos($"SELECT SUM(Importe) AS Total FROM Anticipos WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'deposito' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
+            var consultaDineroAgregado = cn.CargarDatos($"SELECT SUM(Cantidad) AS Total, SUM(Efectivo) AS Efectivo, SUM(Tarjeta) AS Tarjeta, SUM(Vales) AS Vales, SUM(Cheque) AS Cheque, SUM(Transferencia) AS Trans, SUM(Credito) AS Credito FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'deposito' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
 
             if (!consulta.Rows.Count.Equals(0))//Datos caja
             {
