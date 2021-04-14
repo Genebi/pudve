@@ -1815,5 +1815,50 @@ namespace PuntoDeVentaV2
 
             EnviarEmailConArchivoPDF(html, asunto, correo, ruta);
         }
+
+        public static bool BuscarDataGridView(string TextoABuscar, string Columna, DataGridView grid)
+        {
+            bool encontrado = false;
+
+            if (TextoABuscar == string.Empty)
+            {
+                return false;
+            }
+
+            if (grid.RowCount == 0)
+            {
+                return false;
+            }
+
+            grid.ClearSelection();
+
+            if (Columna == string.Empty)
+            {
+                foreach (DataGridViewRow row in grid.Rows)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        if (cell.Value.ToString() == TextoABuscar)
+                        {
+                            row.Selected = true;
+                            return true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in grid.Rows)
+                {
+                    if (row.Cells[Columna].Value.ToString() == TextoABuscar)
+                    {
+                        row.Selected = true;
+                        return true;
+                    }
+                }
+            }
+
+            return encontrado;
+        }
     }
 }
