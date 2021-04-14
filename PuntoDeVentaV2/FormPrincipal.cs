@@ -892,32 +892,32 @@ namespace PuntoDeVentaV2
 
             //==================================================
             // Solo descomentar lo de abajo cuando sea necesario
-            //if (reportes == 1)
-            //{
-            //    AbrirFormulario<Reportes>();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //}
-
-            //validarVentasVentanas();
-            if (nickUsuario.Equals("OXXOCLARA3") || nickUsuario.Equals("ALEXHIT"))
+            if (reportes == 1)
             {
-                if (reportes == 1)
-                {
-                    AbrirFormulario<Reportes>();
-                    validarVentasVentanas();
-                }
-                else
-                {
-                    MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                }
+                AbrirFormulario<Reportes>();
             }
             else
             {
-                MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+
+            validarVentasVentanas();
+            //if (nickUsuario.Equals("OXXOCLARA3") || nickUsuario.Equals("ALEXHIT"))
+            //{
+            //    if (reportes == 1)
+            //    {
+            //        AbrirFormulario<Reportes>();
+            //        validarVentasVentanas();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void btnFacturas_Click(object sender, EventArgs e)
