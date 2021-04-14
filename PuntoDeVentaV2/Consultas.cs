@@ -1611,7 +1611,6 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
         public string searchSaleProduct(string busqueda)
         {
-            //busqueda = "ELUNAMME";
             var consulta = $"SELECT DISTINCT Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Tipo, ProdDetail.Proveedor, GralDetail.ChckName, GralDetail.Descripcion FROM Productos AS Prod INNER JOIN Usuarios AS Usr ON Usr.ID = Prod.IDUsuario INNER JOIN DetallesProducto AS ProdDetail ON ProdDetail.IDProducto = Prod.ID INNER JOIN Proveedores AS Prov ON Prov.ID = ProdDetail.IDProveedor INNER JOIN DetallesProductoGenerales AS GralProdDetail ON GralProdDetail.IDProducto = Prod.ID INNER JOIN DetalleGeneral AS GralDetail ON GralDetail.ID = GralProdDetail.IDDetalleGral INNER JOIN AppSettings AS AppSet ON AppSet.IDUsuario = Usr.ID WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.`Status` = 1 AND ( Prod.Tipo = 'P' OR Prod.Tipo = 'PQ' OR Prod.Tipo = 'S' ) AND AppSet.checkBoxConcepto = 1 AND AppSet.textComboBoxConcepto != 'chkProveedor' AND ( Prod.Nombre LIKE '%{busqueda}%' OR Prod.NombreAlterno1 LIKE '%{busqueda}%' OR Prod.NombreAlterno2 LIKE '%{busqueda}%' OR Prod.ClaveInterna = '{busqueda}' OR Prod.CodigoBarras = '{busqueda}' ) GROUP BY Prod.Nombre, AppSet.textComboBoxConcepto, GralDetail.Descripcion ORDER BY Prod.Nombre ASC, Prod.Tipo ASC, AppSet.textComboBoxConcepto DESC";
 
             return consulta;

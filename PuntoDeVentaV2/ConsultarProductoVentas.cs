@@ -242,8 +242,7 @@ namespace PuntoDeVentaV2
 
             foreach (DataRow filaDatos in dtDatos.Rows)
             {
-                //DGVProductos.Update();
-                //DGVProductos.Refresh();
+                var numeroFilas = DGVProductos.Rows.Count;
 
                 string Nombre = filaDatos["Nombre"].ToString();
                 string Stock = filaDatos["Stock"].ToString();
@@ -257,32 +256,18 @@ namespace PuntoDeVentaV2
 
                 if (DGVProductos.Rows.Count.Equals(0))
                 {
-                    bool encontrado = Utilidades.BuscarDataGridViewLINQ(Nombre, "Nombre", DGVProductos);
+                    bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVProductos);
 
-                    if (encontrado.Equals(true))
-                    {
-                        return;
-                    }
-                    else if (encontrado.Equals(false))
+                    if (encontrado.Equals(false))
                     {
                         var number_of_rows = DGVProductos.Rows.Add();
                         DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
-                        // Columna Nombre
-                        row.Cells["Nombre"].Value = Nombre;
-
-                        // Columna Stock
-                        row.Cells["Stock"].Value = Stock;
-
-                        // Columna Precio
-                        row.Cells["Precio"].Value = Precio;
-
-                        // Columna Clave
-                        row.Cells["Clave"].Value = Clave;
-
-                        // Columna Codigo
-                        row.Cells["Codigo"].Value = Codigo;
-
+                        row.Cells["Nombre"].Value = Nombre;     // Columna Nombre
+                        row.Cells["Stock"].Value = Stock;       // Columna Stock
+                        row.Cells["Precio"].Value = Precio;     // Columna Precio
+                        row.Cells["Clave"].Value = Clave;       // Columna Clave
+                        row.Cells["Codigo"].Value = Codigo;     // Columna Codigo
                         // Columna Tipo
                         if (Tipo.Equals("P"))
                         {
@@ -296,7 +281,6 @@ namespace PuntoDeVentaV2
                         {
                             row.Cells["Tipo"].Value = "COMBO";
                         }
-
                         // Columna Proveedor
                         if (!Proveedor.Equals(string.Empty))
                         {
@@ -306,7 +290,6 @@ namespace PuntoDeVentaV2
                         {
                             row.Cells["Proveedor"].Value = "N/A";
                         }
-
                         // Columnas Dinamicos
                         if (DGVProductos.Columns.Contains(chckName))
                         {
@@ -325,12 +308,11 @@ namespace PuntoDeVentaV2
                 {
                     foreach (DataGridViewRow Row in DGVProductos.Rows)
                     {
-                        bool encontrado = Utilidades.BuscarDataGridViewLINQ(Nombre, "Nombre", DGVProductos);
+                        bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVProductos);
 
                         if (encontrado.Equals(true))
                         {
                             var Fila = Row.Index;
-                            //DGVProductos.Rows[Fila].Cells[chckName].Value = Descripcion;
                             // Columnas Dinamicos
                             if (DGVProductos.Columns.Contains(chckName))
                             {
@@ -349,21 +331,11 @@ namespace PuntoDeVentaV2
                             var number_of_rows = DGVProductos.Rows.Add();
                             DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
-                            // Columna Nombre
-                            row.Cells["Nombre"].Value = Nombre;
-
-                            // Columna Stock
-                            row.Cells["Stock"].Value = Stock;
-
-                            // Columna Precio
-                            row.Cells["Precio"].Value = Precio;
-
-                            // Columna Clave
-                            row.Cells["Clave"].Value = Clave;
-
-                            // Columna Codigo
-                            row.Cells["Codigo"].Value = Codigo;
-
+                            row.Cells["Nombre"].Value = Nombre;         // Columna Nombre
+                            row.Cells["Stock"].Value = Stock;           // Columna Stock
+                            row.Cells["Precio"].Value = Precio;         // Columna Precio
+                            row.Cells["Clave"].Value = Clave;           // Columna Clave
+                            row.Cells["Codigo"].Value = Codigo;         // Columna Codigo
                             // Columna Tipo
                             if (Tipo.Equals("P"))
                             {
@@ -377,7 +349,6 @@ namespace PuntoDeVentaV2
                             {
                                 row.Cells["Tipo"].Value = "COMBO";
                             }
-
                             // Columna Proveedor
                             if (!Proveedor.Equals(string.Empty))
                             {
@@ -387,7 +358,6 @@ namespace PuntoDeVentaV2
                             {
                                 row.Cells["Proveedor"].Value = "N/A";
                             }
-
                             // Columnas Dinamicos
                             if (DGVProductos.Columns.Contains(chckName))
                             {
@@ -539,7 +509,15 @@ namespace PuntoDeVentaV2
 
             if (e.KeyCode == Keys.Enter)
             {
-                BuscarProductos();
+                //BuscarProductos();
+                if (!txtBuscar.Text.Equals(string.Empty))
+                {
+                    CargarDatos(1, txtBuscar.Text);
+                }
+                else
+                {
+                    CargarDatos();
+                }
             }
 
             if (e.KeyCode == Keys.Down && !DGVProductos.Rows.Count.Equals(0))
@@ -550,7 +528,8 @@ namespace PuntoDeVentaV2
 
             if (DGVProductos.Rows.Count >= 1 && txtBuscar.Text == "")
             {
-                BuscarProductos();
+                //BuscarProductos();
+                CargarDatos();
             }
         }
 

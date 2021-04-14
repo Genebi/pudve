@@ -1810,7 +1810,7 @@ namespace PuntoDeVentaV2
             EnviarEmailConArchivoPDF(html, asunto, correo, ruta);
         }
 
-        public static bool BuscarDataGridViewLINQ(string TextoABuscar, string Columna, DataGridView grid)
+        public static bool BuscarDataGridView(string TextoABuscar, string Columna, DataGridView grid)
         {
             bool encontrado = false;
 
@@ -1828,24 +1828,27 @@ namespace PuntoDeVentaV2
 
             if (Columna == string.Empty)
             {
-                IEnumerable<DataGridViewRow> obj = (from DataGridViewRow row in grid.Rows.Cast<DataGridViewRow>() from DataGridViewCell cells in row.Cells where cells.OwningRow.Equals(row) && cells.Value == TextoABuscar select row);
-
-                if (obj.Any())
+                foreach (DataGridViewRow row in grid.Rows)
                 {
-                    grid.Rows[obj.FirstOrDefault().Index].Selected = true;
-
-                    return true;
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        if (cell.Value.ToString() == TextoABuscar)
+                        {
+                            row.Selected = true;
+                            return true;
+                        }
+                    }
                 }
             }
             else
             {
-                IEnumerable<DataGridViewRow> obj = (from DataGridViewRow row in grid.Rows.Cast<DataGridViewRow>() where row.Cells[Columna].Value == TextoABuscar select row);
-
-                if (obj.Any())
+                foreach (DataGridViewRow row in grid.Rows)
                 {
-                    grid.Rows[obj.FirstOrDefault().Index].Selected = true;
-
-                    return true;
+                    if (row.Cells[Columna].Value.ToString() == TextoABuscar)
+                    {
+                        row.Selected = true;
+                        return true;
+                    }
                 }
             }
 
