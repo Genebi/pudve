@@ -1585,7 +1585,7 @@ namespace PuntoDeVentaV2
             {
                 BuscarReporteCajaPorFecha reporteCaja = new BuscarReporteCajaPorFecha();
 
-                reporteCaja.Show();
+                reporteCaja.ShowDialog();
             }
             else
             {

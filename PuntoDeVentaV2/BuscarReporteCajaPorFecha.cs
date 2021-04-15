@@ -79,7 +79,7 @@ namespace PuntoDeVentaV2
         private void cargarDGVInicial()
         {//Cargar el DGV al Abrir el Form
             var primerFecha = DateTime.Today.AddDays(-7).ToString("yyyy/MM/dd");
-            var segundaFecha = segundoDatePicker.Value.ToString("yyyy/MM/dd");
+            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
 
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
             var consulta = cn.CargarDatos(cs.CargarDatosIniciarFormReportesCaja(primerFecha, segundaFecha));
