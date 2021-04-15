@@ -42,8 +42,6 @@
             this.ClaveInterna = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.txtIrPagina = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.linkLblUltimaPagina = new System.Windows.Forms.LinkLabel();
             this.btnSiguiente = new System.Windows.Forms.Button();
@@ -201,8 +199,6 @@
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.txtIrPagina);
-            this.panel5.Controls.Add(this.label3);
             this.panel5.Controls.Add(this.panel4);
             this.panel5.Controls.Add(this.panel3);
             this.panel5.Controls.Add(this.linkLblPaginaSiguiente);
@@ -217,31 +213,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(959, 48);
             this.panel5.TabIndex = 37;
-            // 
-            // txtIrPagina
-            // 
-            this.txtIrPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtIrPagina.ForeColor = System.Drawing.Color.Blue;
-            this.txtIrPagina.Location = new System.Drawing.Point(73, 10);
-            this.txtIrPagina.Name = "txtIrPagina";
-            this.txtIrPagina.Size = new System.Drawing.Size(66, 20);
-            this.txtIrPagina.TabIndex = 48;
-            this.txtIrPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtIrPagina.Visible = false;
-            this.txtIrPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtIrPagina_KeyDown);
-            this.txtIrPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIrPagina_KeyPress);
-            this.txtIrPagina.Leave += new System.EventHandler(this.txtIrPagina_Leave);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 13);
-            this.label3.TabIndex = 47;
-            this.label3.Text = "Ir a Página:";
-            this.label3.Visible = false;
             // 
             // panel4
             // 
@@ -501,8 +472,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ClaveInterna;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TextBox txtIrPagina;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.LinkLabel linkLblUltimaPagina;
         private System.Windows.Forms.Button btnSiguiente;

@@ -217,6 +217,8 @@ namespace PuntoDeVentaV2
 
                 cbCorreoCorteCaja.Checked = Convert.ToBoolean(datosConfig[20]);
                 check23 = cbCorreoCorteCaja.Checked;
+
+                cbCorreoVenta.Checked = Convert.ToBoolean(datosConfig[21]);
             }
             else
             {
@@ -860,6 +862,18 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Estamos trabajando en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void cbCorreoVenta_CheckedChanged(object sender, EventArgs e)
+        {
+            var habilitado = 0;
+
+            if (cbCorreoVenta.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }

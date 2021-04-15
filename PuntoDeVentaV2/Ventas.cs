@@ -112,6 +112,7 @@ namespace PuntoDeVentaV2
         private int correoVentaProducto = 0;
         private int mostrarPrecioProducto = 0;
         private int mostrarCBProducto = 0;
+        private int correoVenta = 0;
         // Variables para la configuracion referente a los productos con mayoreo
         private bool mayoreoActivo = false;
         private int cantidadMayoreo = 0;
@@ -119,6 +120,7 @@ namespace PuntoDeVentaV2
         // Listas para guardar los ID's de los productos que se enviara correo
         private Dictionary<int, string> enviarStockMinimo;
         private Dictionary<int, string> enviarVentaProducto;
+        private List<string> enviarVenta;
 
         // Permisos de los botones
         int opcion9 = 1; // Boton cancelar
@@ -275,10 +277,12 @@ namespace PuntoDeVentaV2
                 mostrarCBProducto = Convert.ToInt16(configCorreos[7]);
                 mayoreoActivo = Convert.ToBoolean(configCorreos[9]);
                 cantidadMayoreo = Convert.ToInt32(configCorreos[10]);
+                correoVenta = Convert.ToInt32(configCorreos[21]);
             }
 
             enviarStockMinimo = new Dictionary<int, string>();
             enviarVentaProducto = new Dictionary<int, string>();
+            enviarVenta = new List<string>();
 
             // Si es un empleado obtiene los permisos de los botones
             if (FormPrincipal.id_empleado > 0)
@@ -3003,6 +3007,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
 
+
                                 var datosServicio = cn.ObtenerProductosServicio(Convert.ToInt32(IDProducto));
 
                                 foreach (string producto in datosServicio)
@@ -3109,6 +3114,14 @@ namespace PuntoDeVentaV2
                         }
 
                         cn.EjecutarConsulta($"UPDATE DetallesVenta SET Anticipo = '{Anticipo}' WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
+                    }
+
+                    if (correoVenta == 1)
+                    {
+                        foreach (DataGridViewRow articulo in DGVentas.Rows)
+                        {
+                            enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString());
+                        }
                     }
 
                     GenerarTicket(infoProductos);
@@ -5680,6 +5693,90 @@ namespace PuntoDeVentaV2
                         <p style='font-size: 0.8em; text-align: center;'><b>NOTA:</b> Es posible que se hayan vendido otros artículos junto a estos productos en la misma venta,
                         los productos aquí listados son sólo los que el usuario configuró para recibir notificaciones a través de correo electrónico.</p>
                     </div>";
+                }
+
+                if (enviarVenta.Count > 0)
+                {
+                    html += @"
+                    <div>
+                        <h4 style='text-align: center;'>LISTADO DE PRODUCTOS VENDIDOS</h4><hr>
+ 
+                        <table style= 'width:100%'>
+                            <tr>
+                                <th style='text-align: left;'>Cantidad</th>
+                                <th style='text-align: left;'>Precio</th>
+                                <th>Descripcion</th>
+                                <th style='text-align: left;'>Descuento</th>
+                                <th style='text-align: right;'>Importe</th>
+                            </tr>";
+
+                    asunto = "Venta realizada - PUDVE";
+
+                    float totalVenta = 0;
+
+                    foreach (var producto in enviarVenta)
+                    {
+                        string[] articulos = producto.Split('|');
+
+                        html += $@"<tr>
+                                    <td style = 'text-align: left;'>
+                                        <span style='color: blue;'>{articulos[0]}</span>
+                                    </td>
+                                    <td style = 'text-align: left;'>
+                                        <span style='color: blue;'>{articulos[1]}</span>
+                                    </td>
+                                    <td style = 'text-align: center;'>
+                                        <span style='color: black;'><b>{articulos[2]}</b></span>
+                                    </td>
+                                    <td style = 'text-align: left;'>
+                                        <span style='color: blue;'>{articulos[3]}</span>
+                                    </td>
+                                    <td style = 'text-align: right;'>
+                                        <span style='color: blue;'><b>{articulos[4]}</b></span>
+                                    </td>
+                                </tr>";
+
+                        totalVenta += float.Parse(articulos[4]);
+                    }
+
+
+                    if (FormPrincipal.id_empleado > 0)
+                    {
+                        var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
+
+                        string nombreEmpleado = datosEmpleado[14];
+                        string usuarioEmpleado = datosEmpleado[15];
+
+                        var infoEmpleado = usuarioEmpleado.Split('@');
+
+                        html += $@"
+                                    <tr>
+                                        <td colspan='4' style='text-align: right;'>
+                                            Total =
+                                        </td>
+                                        <td style='text-align: right;'>
+                                            <span style='color: red'><b>{totalVenta.ToString("0.00")}</b></span>
+                                        </td>
+                                    </tr>
+                                </table>";
+
+                        html += $"<hr><p style='font-size: 12px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                    }
+                    else
+                    {
+                        html += $@"
+                                    <tr>
+                                        <td colspan='4' style='text-align: right;'>
+                                            Total =
+                                        </td>
+                                        <td style='text-align: right;'>
+                                            <span style='color: red'><b>{totalVenta.ToString("0.00")}</b></span>
+                                        </td>
+                                    </tr>
+                                </table>";
+
+                        html += $"<hr><p style='font-size: 12px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                    }
                 }
 
                 if (!string.IsNullOrWhiteSpace(html))

@@ -15,11 +15,371 @@ namespace PuntoDeVentaV2
     public partial class ConsultarProductoVentas : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+
         private List<string> propiedades = new List<string>();
 
         public static List<string> datosDeProducto = new List<string>();
         public static int idABuscar { get; set; }
+
+        // Estanciar objeto de Clase Paginar
+        // para usarlo
+        private Paginar p;
+
+        #region Sección de variables globales
+        // Variables de tipo String
+        string filtroConSinFiltroAvanzado = string.Empty;
+        string DataMemberDGV = "Productos";
+        string busqueda = string.Empty;
+
+        // Variables de tipo Int
+        int maximo_x_pagina = 16;
+        int clickBoton = 0;
+        #endregion
+
+        int columnasAgregadas = 0;
+
+        #region Sección de operaciones de paginador
+        public void filtroLoadProductos()
+        {
+            busqueda = txtBuscar.Text;
+
+            filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+            p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+
+            DGVProductos.Rows.Clear();
+        }
+
+        private void actualizar()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
+            lblCantidadRegistros.Text = p.countRow().ToString();
+
+            linkLblPaginaActual.Text = p.numPag().ToString();
+            linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
+            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPrimeraPagina.Visible = false;
+                linkLblPaginaAnterior.Visible = false;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                    linkLblUltimaPagina.Visible = false;
+                }
+            }
+
+            txtMaximoPorPagina.Text = p.limitRow().ToString();
+        }
+
+        private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
+        {
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaActual_Click(object sender, EventArgs e)
+        {
+            actualizar();
+        }
+
+        private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void txtMaximoPorPagina_Click(object sender, EventArgs e)
+        {
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            CargarDatos();
+            actualizar();
+        }
+
+        private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                p.actualizarTope(maximo_x_pagina);
+                CargarDatos();
+                actualizar();
+            }
+        }
+        #endregion
+
+        #region Sección de cargar datos para el DataGridView
+        /// <summary>
+        /// Metodo CargarDatos
+        /// </summary>
+        /// <param name="status">El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos</param>
+        /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
+        public void CargarDatos(int status = 1, string busquedaEnProductos = "")
+        {
+            busqueda = string.Empty;
+
+            busqueda = busquedaEnProductos;
+
+            if (DGVProductos.RowCount <= 0)
+            {
+                if (busqueda == "")
+                {
+                    filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (busqueda != "")
+                {
+                    filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+            }
+            else if (DGVProductos.RowCount >= 1 && clickBoton == 0)
+            {
+                if (busqueda == "")
+                {
+                    filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (busqueda != "")
+                {
+                    filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+            }
+
+            DataSet datos = p.cargar();
+            DataTable dtDatos = datos.Tables[0];
+
+            DGVProductos.Rows.Clear();
+
+            foreach (DataRow filaDatos in dtDatos.Rows)
+            {
+                var numeroFilas = DGVProductos.Rows.Count;
+
+                string Nombre = filaDatos["Nombre"].ToString();
+                string Stock = filaDatos["Stock"].ToString();
+                string Precio = filaDatos["Precio"].ToString();
+                string Clave = filaDatos["ClaveInterna"].ToString();
+                string Codigo = filaDatos["CodigoBarras"].ToString();
+                string Tipo = filaDatos["Tipo"].ToString();
+                string Proveedor = filaDatos["Proveedor"].ToString();
+                string chckName = filaDatos["ChckName"].ToString();
+                string Descripcion = filaDatos["Descripcion"].ToString();
+
+                if (DGVProductos.Rows.Count.Equals(0))
+                {
+                    bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVProductos);
+
+                    if (encontrado.Equals(false))
+                    {
+                        var number_of_rows = DGVProductos.Rows.Add();
+                        DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+                        row.Cells["Nombre"].Value = Nombre;     // Columna Nombre
+                        row.Cells["Stock"].Value = Stock;       // Columna Stock
+                        row.Cells["Precio"].Value = Precio;     // Columna Precio
+                        row.Cells["Clave"].Value = Clave;       // Columna Clave
+                        row.Cells["Codigo"].Value = Codigo;     // Columna Codigo
+                        // Columna Tipo
+                        if (Tipo.Equals("P"))
+                        {
+                            row.Cells["Tipo"].Value = "PRODUCTO";
+                        }
+                        else if (Tipo.Equals("S"))
+                        {
+                            row.Cells["Tipo"].Value = "SERVICIO";
+                        }
+                        else if (Tipo.Equals("PQ"))
+                        {
+                            row.Cells["Tipo"].Value = "COMBO";
+                        }
+                        // Columna Proveedor
+                        if (!Proveedor.Equals(string.Empty))
+                        {
+                            row.Cells["Proveedor"].Value = Proveedor;
+                        }
+                        else if (Proveedor.Equals(string.Empty))
+                        {
+                            row.Cells["Proveedor"].Value = "N/A";
+                        }
+                        // Columnas Dinamicos
+                        if (DGVProductos.Columns.Contains(chckName))
+                        {
+                            if (!Descripcion.Equals(string.Empty))
+                            {
+                                row.Cells[chckName].Value = Descripcion;
+                            }
+                            else if (Descripcion.Equals(string.Empty))
+                            {
+                                row.Cells[chckName].Value = "N/A";
+                            }
+                        }
+                    }
+                }
+                else if (!DGVProductos.Rows.Count.Equals(0))
+                {
+                    foreach (DataGridViewRow Row in DGVProductos.Rows)
+                    {
+                        bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVProductos);
+
+                        if (encontrado.Equals(true))
+                        {
+                            var Fila = Row.Index;
+                            // Columnas Dinamicos
+                            if (DGVProductos.Columns.Contains(chckName))
+                            {
+                                if (!Descripcion.Equals(string.Empty))
+                                {
+                                    DGVProductos.Rows[Fila].Cells[chckName].Value = Descripcion;
+                                }
+                                else if (Descripcion.Equals(string.Empty))
+                                {
+                                    DGVProductos.Rows[Fila].Cells[chckName].Value = "N/A";
+                                }
+                            }
+                        }
+                        else if (encontrado.Equals(false))
+                        {
+                            var number_of_rows = DGVProductos.Rows.Add();
+                            DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+                            row.Cells["Nombre"].Value = Nombre;         // Columna Nombre
+                            row.Cells["Stock"].Value = Stock;           // Columna Stock
+                            row.Cells["Precio"].Value = Precio;         // Columna Precio
+                            row.Cells["Clave"].Value = Clave;           // Columna Clave
+                            row.Cells["Codigo"].Value = Codigo;         // Columna Codigo
+                            // Columna Tipo
+                            if (Tipo.Equals("P"))
+                            {
+                                row.Cells["Tipo"].Value = "PRODUCTO";
+                            }
+                            else if (Tipo.Equals("S"))
+                            {
+                                row.Cells["Tipo"].Value = "SERVICIO";
+                            }
+                            else if (Tipo.Equals("PQ"))
+                            {
+                                row.Cells["Tipo"].Value = "COMBO";
+                            }
+                            // Columna Proveedor
+                            if (!Proveedor.Equals(string.Empty))
+                            {
+                                row.Cells["Proveedor"].Value = Proveedor;
+                            }
+                            else if (Proveedor.Equals(string.Empty))
+                            {
+                                row.Cells["Proveedor"].Value = "N/A";
+                            }
+                            // Columnas Dinamicos
+                            if (DGVProductos.Columns.Contains(chckName))
+                            {
+                                if (!Descripcion.Equals(string.Empty))
+                                {
+                                    row.Cells[chckName].Value = Descripcion;
+                                }
+                                else if (Descripcion.Equals(string.Empty))
+                                {
+                                    row.Cells[chckName].Value = "N/A";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            actualizar();
+
+            clickBoton = 0;
+        }
+        #endregion
 
         public ConsultarProductoVentas()
         {
@@ -28,6 +388,8 @@ namespace PuntoDeVentaV2
 
         private void ConsultarProductoVentas_Load(object sender, EventArgs e)
         {
+            filtroLoadProductos();
+
             GenerarColumnas();
 
             var mostrarClave = FormPrincipal.clave;
@@ -40,6 +402,8 @@ namespace PuntoDeVentaV2
             {
                 DGVProductos.Columns[3].Visible = true;
             }
+
+            CargarDatos();
         }
 
         private void GenerarColumnas()
@@ -61,6 +425,7 @@ namespace PuntoDeVentaV2
 
                 // Guardamos los nombres de las propiedades en la lista
                 propiedades.Add(concepto);
+                columnasAgregadas++;
             }
         }
 
@@ -73,26 +438,28 @@ namespace PuntoDeVentaV2
         {
             var busqueda = txtBuscar.Text.Trim();
 
-            if (!string.IsNullOrWhiteSpace(busqueda))
-            {
-                var coincidencias = mb.BusquedaCoincidenciasVentas(busqueda);
 
-                if (coincidencias.Count > 0)
-                {
-                    DGVProductos.Rows.Clear();
 
-                    foreach (var producto in coincidencias)
-                    {
-                        var datos = mb.ProductoConsultadoVentas(producto.Key, propiedades);
+            //if (!string.IsNullOrWhiteSpace(busqueda))
+            //{
+            //    var coincidencias = mb.BusquedaCoincidenciasVentas(busqueda);
 
-                        AgregarProducto(datos);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"No se encontraron productos con {txtBuscar.Text}","Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            //    if (coincidencias.Count > 0)
+            //    {
+            //        DGVProductos.Rows.Clear();
+
+            //        foreach (var producto in coincidencias)
+            //        {
+            //            var datos = mb.ProductoConsultadoVentas(producto.Key, propiedades);
+
+            //            AgregarProducto(datos);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show($"No se encontraron productos con {txtBuscar.Text}","Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    }
+            //}
         }
 
         private void AgregarProducto(Dictionary<string, string> datos)
@@ -142,13 +509,27 @@ namespace PuntoDeVentaV2
 
             if (e.KeyCode == Keys.Enter)
             {
-                BuscarProductos();
+                //BuscarProductos();
+                if (!txtBuscar.Text.Equals(string.Empty))
+                {
+                    CargarDatos(1, txtBuscar.Text);
+                }
+                else
+                {
+                    CargarDatos();
+                }
             }
 
             if (e.KeyCode == Keys.Down && !DGVProductos.Rows.Count.Equals(0))
             {
                 DGVProductos.Focus();
                 DGVProductos.CurrentRow.Selected = true;
+            }
+
+            if (DGVProductos.Rows.Count >= 1 && txtBuscar.Text == "")
+            {
+                //BuscarProductos();
+                CargarDatos();
             }
         }
 
