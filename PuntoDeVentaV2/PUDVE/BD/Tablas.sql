@@ -1297,3 +1297,6 @@ IF
 ALTER TABLE productosdeservicios DROP KEY
 IF
 	EXISTS IDProducto;
+
+-- Agregar Columna (CorreoVenta) a la tabla de Configuracion para enviar correo al hacer una venta
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoVenta tinyint(1) DEFAULT 0;
