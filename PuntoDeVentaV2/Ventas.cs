@@ -2902,6 +2902,8 @@ namespace PuntoDeVentaV2
                             formaDePagoDeVenta, cliente, referencia, idClienteTmp
                         };
 
+                        string datosCorreoVenta = formaDePagoDeVenta + "|" + cliente + "|" + Folio;
+
                         // Guardar info de los productos
                         infoProductos[contador] = guardar;
 
@@ -3074,6 +3076,14 @@ namespace PuntoDeVentaV2
                             // Guardar detalles de la venta
                             DetallesVenta(idVenta);
                             DetallesCliente(idVenta);
+
+                            if (correoVenta == 1)
+                            {
+                                foreach (DataGridViewRow articulo in DGVentas.Rows)
+                                {
+                                    enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta);
+                                }
+                            }
                         }
                         else
                         {
@@ -3114,14 +3124,6 @@ namespace PuntoDeVentaV2
                         }
 
                         cn.EjecutarConsulta($"UPDATE DetallesVenta SET Anticipo = '{Anticipo}' WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
-                    }
-
-                    if (correoVenta == 1)
-                    {
-                        foreach (DataGridViewRow articulo in DGVentas.Rows)
-                        {
-                            enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString());
-                        }
                     }
 
                     GenerarTicket(infoProductos);
@@ -5710,9 +5712,13 @@ namespace PuntoDeVentaV2
                                 <th style='text-align: right;'>Importe</th>
                             </tr>";
 
-                    asunto = "Venta realizada - PUDVE";
+                    asunto = "Venta Realizada";
 
                     float totalVenta = 0;
+
+                    string folio = string.Empty;
+                    string cliente = string.Empty;
+                    string formaDePago = string.Empty;
 
                     foreach (var producto in enviarVenta)
                     {
@@ -5737,8 +5743,33 @@ namespace PuntoDeVentaV2
                                 </tr>";
 
                         totalVenta += float.Parse(articulos[4]);
+
+                        formaDePago = articulos[5];
+                        cliente = articulos[6];
+                        folio = articulos[7];
                     }
 
+                    string cadenaDatos = string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(formaDePago))
+                    {
+                        cadenaDatos += "<br><br>";
+                        cadenaDatos += "<span style='font-size: 12px;'>Forma de Pago: <span style='color: red;'>" + formaDePago + "</span></span><br>";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(cliente))
+                    {
+                        cadenaDatos += "<span style='font-size: 12px;'>Cliente: <span style='color: red;'>" + cliente + "</span></span><br>";
+                    }
+                    else
+                    {
+                        cadenaDatos += "<span style='font-size: 12px;'>Cliente: <span style='color: red;'>Público General</span></span>";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(folio))
+                    {
+                        cadenaDatos += "<span style='font-size: 12px;'>Folio: <span style='color: red;'>" + folio + "</span></span>";
+                    }
 
                     if (FormPrincipal.id_empleado > 0)
                     {
@@ -5760,7 +5791,9 @@ namespace PuntoDeVentaV2
                                     </tr>
                                 </table>";
 
-                        html += $"<hr><p style='font-size: 12px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        html += "<hr>";
+                        html += cadenaDatos;
+                        html += $"<p style='font-size: 12px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
                     }
                     else
                     {
@@ -5775,7 +5808,9 @@ namespace PuntoDeVentaV2
                                     </tr>
                                 </table>";
 
-                        html += $"<hr><p style='font-size: 12px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        html += "<hr>";
+                        html += cadenaDatos;
+                        html += $"<p style='font-size: 12px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
                     }
                 }
 
