@@ -5712,8 +5712,6 @@ namespace PuntoDeVentaV2
                                 <th style='text-align: right;'>Importe</th>
                             </tr>";
 
-                    asunto = "Venta Realizada";
-
                     float totalVenta = 0;
 
                     string folio = string.Empty;
@@ -5794,6 +5792,8 @@ namespace PuntoDeVentaV2
                         html += "<hr>";
                         html += cadenaDatos;
                         html += $"<p style='font-size: 12px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+
+                        asunto = $"Venta Realizada - Empleado {infoEmpleado[1]}";
                     }
                     else
                     {
@@ -5811,6 +5811,8 @@ namespace PuntoDeVentaV2
                         html += "<hr>";
                         html += cadenaDatos;
                         html += $"<p style='font-size: 12px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+
+                        asunto = $"Venta Realizada - ADMIN {FormPrincipal.userNickName}";
                     }
                 }
 
