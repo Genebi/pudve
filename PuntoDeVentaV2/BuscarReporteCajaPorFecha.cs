@@ -159,6 +159,8 @@ namespace PuntoDeVentaV2
             DateTime fecha1 = Convert.ToDateTime(fechas[1]);
             DateTime fecha2 = Convert.ToDateTime(fechas[0]);
 
+            var saldoInicial = mb.SaldoInicialCajaReportes(FormPrincipal.userID, id);
+
             //Consulta caja
             var totalC = string.Empty; var efectivoC = string.Empty; var tarjetaC = string.Empty; var valesC = string.Empty; var chequeC = string.Empty; var transC = string.Empty; var creditoC = string.Empty;
             var consulta = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
@@ -168,8 +170,8 @@ namespace PuntoDeVentaV2
             var segundaConsulta = cn.CargarDatos($"SELECT IFNULL(SUM(Total),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
 
             //Consulta dinero Retirado
-            var totalR = string.Empty; var efectivoR = string.Empty; var tarjetaR = string.Empty; var valesR = string.Empty; var chequeR = string.Empty; var transR = string.Empty;
-            var consultaRetiro = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'retiro' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
+            var totalR = string.Empty; var efectivoR = string.Empty; var tarjetaR = string.Empty; var valesR = string.Empty; var chequeR = string.Empty; var transR = string.Empty; var anticiposR = string.Empty;
+            var consultaRetiro = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito, IFNULL(SUM(Anticipo),0) AS Anticipo FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'retiro' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
 
             //Consulta Anticipos
             var totalAnt = string.Empty; var efectivoAnt = string.Empty; var tarjetaAnt = string.Empty; var valesAnt = string.Empty; var chequeAnt = string.Empty; var transAnt = string.Empty;
@@ -177,8 +179,8 @@ namespace PuntoDeVentaV2
             
 
             //Consulta Dinero Agregado
-            var totalAg = string.Empty; var efectivoAg = string.Empty; var tarjetaAg = string.Empty; var valesAg = string.Empty; var chequeAg = string.Empty; var transAg = string.Empty;
-            var consultaDineroAgregado = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'deposito' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
+            var totalAg = string.Empty; var efectivoAg = string.Empty; var tarjetaAg = string.Empty; var valesAg = string.Empty; var chequeAg = string.Empty; var transAg = string.Empty; var anticiposA = string.Empty;
+            var consultaDineroAgregado = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito, IFNULL(SUM(Anticipo),0) AS Anticipo FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'deposito' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
 
             if (!consulta.Rows.Count.Equals(0))//Datos caja
             {
@@ -209,6 +211,7 @@ namespace PuntoDeVentaV2
                 valesR = consultaRetiro.Rows[0]["Vales"].ToString();
                 chequeR = consultaRetiro.Rows[0]["Cheque"].ToString();
                 transR = consultaRetiro.Rows[0]["Trans"].ToString();
+                anticiposR = consultaRetiro.Rows[0]["Anticipo"].ToString();
             }
 
             if (!consultaAnticipos.Rows.Count.Equals(0))//Anticipos
@@ -219,6 +222,7 @@ namespace PuntoDeVentaV2
                 valesAnt = consultaAnticipos.Rows[0]["Vales"].ToString();
                 chequeAnt = consultaAnticipos.Rows[0]["Cheque"].ToString();
                 transAnt = consultaAnticipos.Rows[0]["Trans"].ToString();
+                
             }
 
             if (!consultaDineroAgregado.Rows.Count.Equals(0))//Dinero Agregado
@@ -229,9 +233,19 @@ namespace PuntoDeVentaV2
                 valesAg = consultaDineroAgregado.Rows[0]["Vales"].ToString();
                 chequeAg = consultaDineroAgregado.Rows[0]["Cheque"].ToString();
                 transAg = consultaDineroAgregado.Rows[0]["Trans"].ToString();
+                anticiposA = consultaDineroAgregado.Rows[0]["Anticipo"].ToString();
             }
 
-            ////Sumar cantidades
+            //Sumar cantidades
+            var ventas = ((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(creditoC) + (float)Convert.ToDecimal(totalA) + (float)Convert.ToDecimal(anticiposA));
+
+            var anticipos = ((float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(transAnt));
+
+            var agregado = ((float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(transAg));
+
+            var retirado = ((float)Convert.ToDecimal(efectivoR) + (float)Convert.ToDecimal(tarjetaR) + (float)Convert.ToDecimal(valesR) + (float)Convert.ToDecimal(chequeR) + (float)Convert.ToDecimal(transR) + (float)Convert.ToDecimal(anticiposR) + (float)Convert.ToDecimal(totalA));
+
+            var total = ((float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(transAnt));
             //var total = (Convert.ToDecimal(totalC) + Convert.ToDecimal(totalA) - Convert.ToDecimal(totalR));
             //var efectivo = (Convert.ToDecimal(efectivoC) + Convert.ToDecimal(efectivoA) - Convert.ToDecimal(efectivoR));
             //var tarjeta = (Convert.ToDecimal(tarjetaC) + Convert.ToDecimal(tarjetaA) - Convert.ToDecimal(tarjetaR));
@@ -259,7 +273,13 @@ namespace PuntoDeVentaV2
 
             lista.Add("Transferencia:    " + transC + "|Transferencia:    " + transAnt + "|Transferencia:    " + transAg + "|Transferencia:    " + transR + "|Transferencia:    " + ((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transR)));
 
-            lista.Add("Transferencia:    " + transC + "|Transferencia:    " + transAnt + "|Transferencia:    " + transAg + "|Transferencia:    " + transR + "|Transferencia:    " + ((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transR)));
+            lista.Add("Crédito:          " + creditoC +"|"+ string.Empty + "|"+ string.Empty + "|Anticipos Utilizados:  "+  anticiposR + "|Saldo Inicial:    " + saldoInicial.ToString());
+
+            lista.Add("Abonos:           " + creditoC + "|"+string.Empty + "|" +string.Empty + "|Devoluciones:     " + totalA + "|Credito:          " + creditoC);
+
+            lista.Add("Anticipos Utilizados:  " + anticiposA + "|"+string.Empty + "|"+string.Empty + "|"+string.Empty + "|"+string.Empty);
+
+            lista.Add("Total Ventas: " + ventas + "|Total Anticipos: " + anticipos + "|Total Agregado: " + agregado + "|Total Retirado: " + retirado + "|Total en  Caja: " + total);
 
             return lista.ToArray();
         }
