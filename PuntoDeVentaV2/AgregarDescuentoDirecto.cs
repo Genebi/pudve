@@ -155,44 +155,53 @@ namespace PuntoDeVentaV2
 
         private void txtPorcentaje_KeyUp(object sender, KeyEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text))
+
+            if (txtPorcentaje.Text.Equals("."))
             {
-                lbCantidadProducto.Visible = true;
-                txtCantidad.Enabled = false;
-                txtCantidad.Text = string.Empty;
-
-                var porcentaje = Convert.ToDouble(txtPorcentaje.Text);
-
-                if (porcentaje == 0)
-                {
-                    btnEliminar.PerformClick();
-                    return;
-                }
-
-                if (porcentaje < 100)
-                {
-                    var descuento = (precioProducto * cantidadProducto) * (porcentaje / 100);
-                    lbTotalDescuento.Text = descuento.ToString("0.00");
-                    lbTotalFinal.Text = ((precioProducto * cantidadProducto) - descuento).ToString("0.00");
-                }
-                else
-                {
-                    txtPorcentaje.Text = "99";
-                    porcentaje = Convert.ToDouble(txtPorcentaje.Text);
-                    var descuento = (precioProducto * cantidadProducto) * (porcentaje / 100);
-                    lbTotalDescuento.Text = descuento.ToString("0.00");
-                    lbTotalFinal.Text = ((precioProducto * cantidadProducto) - descuento).ToString("0.00");
-
-                    txtPorcentaje.SelectionStart = txtPorcentaje.Text.Length;
-                    txtPorcentaje.SelectionLength = 0;
-                }
+                txtPorcentaje.Text = "0.";
+                txtPorcentaje.Select(txtPorcentaje.Text.Length, 0);
             }
             else
             {
-                txtCantidad.Enabled = true;
-                lbTotalDescuento.Text = "0.00";
-                lbTotalFinal.Text = "0.00";
-                lbCantidadProducto.Visible = false;
+                if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text))
+                {
+                    lbCantidadProducto.Visible = true;
+                    txtCantidad.Enabled = false;
+                    txtCantidad.Text = string.Empty;
+
+                    var porcentaje = Convert.ToDouble(txtPorcentaje.Text);
+
+                    if (porcentaje == 0)
+                    {
+                        btnEliminar.PerformClick();
+                        return;
+                    }
+
+                    if (porcentaje < 100)
+                    {
+                        var descuento = (precioProducto * cantidadProducto) * (porcentaje / 100);
+                        lbTotalDescuento.Text = descuento.ToString("0.00");
+                        lbTotalFinal.Text = ((precioProducto * cantidadProducto) - descuento).ToString("0.00");
+                    }
+                    else
+                    {
+                        txtPorcentaje.Text = "99";
+                        porcentaje = Convert.ToDouble(txtPorcentaje.Text);
+                        var descuento = (precioProducto * cantidadProducto) * (porcentaje / 100);
+                        lbTotalDescuento.Text = descuento.ToString("0.00");
+                        lbTotalFinal.Text = ((precioProducto * cantidadProducto) - descuento).ToString("0.00");
+
+                        txtPorcentaje.SelectionStart = txtPorcentaje.Text.Length;
+                        txtPorcentaje.SelectionLength = 0;
+                    }
+                }
+                else
+                {
+                    txtCantidad.Enabled = true;
+                    lbTotalDescuento.Text = "0.00";
+                    lbTotalFinal.Text = "0.00";
+                    lbCantidadProducto.Visible = false;
+                }
             }
         }
 

@@ -1168,6 +1168,48 @@ namespace PuntoDeVentaV2
             return saldo;
         }
 
+        public float SaldoInicialCajaReportes(int idUsuario, int id)
+        {
+            float saldo = 0f;
+
+            DatosConexion($"SELECT ID FROM Caja WHERE IDUsuario = {idUsuario} AND ID = '{id}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var idCaja = Convert.ToInt32(dr["ID"].ToString());
+
+                DatosConexion($"SELECT * FROM Caja WHERE IDUsuario = {idUsuario} AND Operacion = 'venta' AND ID > {idCaja} ORDER BY ID LIMIT 1");
+
+                MySqlDataReader info = sql_cmd.ExecuteReader();
+
+                if (info.Read())
+                {
+                    efectivoInicial = float.Parse(info["Efectivo"].ToString());
+                    tarjetaInicial = float.Parse(info["Tarjeta"].ToString());
+                    valesInicial = float.Parse(info["Vales"].ToString());
+                    chequeInicial = float.Parse(info["Cheque"].ToString());
+                    transInicial = float.Parse(info["Transferencia"].ToString());
+                    totalSInicial = (efectivoInicial + tarjetaInicial + valesInicial + chequeInicial + transInicial);
+
+                    saldo += float.Parse(info["Efectivo"].ToString());
+                    saldo += float.Parse(info["Tarjeta"].ToString());
+                    saldo += float.Parse(info["Vales"].ToString());
+                    saldo += float.Parse(info["Cheque"].ToString());
+                    saldo += float.Parse(info["Transferencia"].ToString());
+                    //saldo += float.Parse(info["Credito"].ToString());
+                }
+
+                info.Close();
+            }
+
+            dr.Close();
+            CerrarConexion();
+
+            return saldo;
+        }
+
         public Dictionary<int, string> ObtenerOpcionesPropiedad(int idUsuario, string propiedad)
         {
             Dictionary<int, string> lista = new Dictionary<int, string>();
