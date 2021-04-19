@@ -263,23 +263,23 @@ namespace PuntoDeVentaV2
 
             //lista.Add(efectivoAg + "|" +tarjetaAg + "|" +valesAg + "|" +chequeAg + "|" +transAg + "|" +totalAg);//Dinero Agregado
 
-            lista.Add("Efectivo:          "+efectivoC + "|Efectivo:          " + efectivoAnt + "|Efectivo:          " + efectivoAg + "|Efectivo:          " + efectivoR + "|Efectivo:          " + ((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR)));
+            lista.Add("Efectivo:                    "+efectivoC + "|Efectivo:              " + efectivoAnt + "|Efectivo:              " + efectivoAg + "|Efectivo:                     " + efectivoR + "|Efectivo:               " + ((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR)));
 
-            lista.Add("Tarjeta:           "+tarjetaC + "|Tarjeta:           " + tarjetaAnt + "|Tarjeta:           " + tarjetaAg + "|Tarjeta:           " + tarjetaR + "|Tarjeta:           " + ((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(tarjetaR)));
+            lista.Add("Tarjeta:                      "+tarjetaC + "|Tarjeta:                " + tarjetaAnt + "|Tarjeta:                " + tarjetaAg + "|Tarjeta:                      " + tarjetaR + "|Tarjeta:                 " + ((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(tarjetaR)));
 
-            lista.Add("Vales:              " + valesC + "|Vales:              " + valesAnt + "|Vales:              " + valesAg + "|Vales:              " + valesR + "|Vales:              " + ((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesR)));
+            lista.Add("Vales:                        " + valesC + "|Vales:                  " + valesAnt + "|Vales:                  " + valesAg + "|Vales:                        " + valesR + "|Vales:                   " + ((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesR)));
 
-            lista.Add("Cheque:            " + chequeC + "|Cheque:            " + chequeAnt + "|Cheque:            " + chequeAg + "|Cheque:            " + chequeR + "|Cheque:            " + ((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeR)));
+            lista.Add("Cheque:                     " + chequeC + "|Cheque:               " + chequeAnt + "|Cheque:               " + chequeAg + "|Cheque:                     " + chequeR + "|Cheque:                " + ((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeR)));
 
-            lista.Add("Transferencia:    " + transC + "|Transferencia:    " + transAnt + "|Transferencia:    " + transAg + "|Transferencia:    " + transR + "|Transferencia:    " + ((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transR)));
+            lista.Add("Transferencia:           " + transC + "|Transferencia:     " + transAnt + "|Transferencia:     " + transAg + "|Transferencia:           " + transR + "|Transferencia:     " + ((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transR)));
 
-            lista.Add("Crédito:          " + creditoC +"|"+ string.Empty + "|"+ string.Empty + "|Anticipos Utilizados:  "+  anticiposR + "|Saldo Inicial:    " + saldoInicial.ToString());
+            lista.Add("Crédito:                      " + creditoC +"|"+ string.Empty + "|"+ string.Empty + "|Anticipos Utilizados:  "+  anticiposR + "|Saldo Inicial:         " + saldoInicial.ToString());
 
-            lista.Add("Abonos:           " + creditoC + "|"+string.Empty + "|" +string.Empty + "|Devoluciones:     " + totalA + "|Credito:          " + creditoC);
+            lista.Add("Abonos:                     " + creditoC + "|"+string.Empty + "|" +string.Empty + "|Devoluciones:            " + totalA + "|Credito:                " + creditoC);
 
             lista.Add("Anticipos Utilizados:  " + anticiposA + "|"+string.Empty + "|"+string.Empty + "|"+string.Empty + "|"+string.Empty);
 
-            lista.Add("Total Ventas: " + ventas + "|Total Anticipos: " + anticipos + "|Total Agregado: " + agregado + "|Total Retirado: " + retirado + "|Total en  Caja: " + total);
+            lista.Add("Total Ventas:             " + ventas + "|Total Anticipos:   " + anticipos + "|Total Agregado:   " + agregado + "|Total Retirado:           " + retirado + "|Total en  Caja:      " + total);
 
             return lista.ToArray();
         }
@@ -586,28 +586,27 @@ namespace PuntoDeVentaV2
                 numRow++;
                 PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
                 colNoConceptoTmp.BorderWidth = 1;
-                colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 PdfPCell colVentasTemp = new PdfPCell(new Phrase(words[0].ToString(), fuenteNormal));
                 colVentasTemp.BorderWidth = 1;
-                colVentasTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+                colVentasTemp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 PdfPCell colAnticiposTemp = new PdfPCell(new Phrase(words[1].ToString(), fuenteNormal));
                 colAnticiposTemp.BorderWidth = 1;
-                colAnticiposTemp.HorizontalAlignment = Element.ALIGN_CENTER;
-
+                colAnticiposTemp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 PdfPCell colAgregadoTemp = new PdfPCell(new Phrase(words[2].ToString(), fuenteNormal));
                 colAgregadoTemp.BorderWidth = 1;
-                colAgregadoTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+                colAgregadoTemp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 PdfPCell colRetiradoTEmp = new PdfPCell(new Phrase(words[3].ToString(), fuenteNormal));
                 colRetiradoTEmp.BorderWidth = 1;
-                colRetiradoTEmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                colRetiradoTEmp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 PdfPCell colTotalTemp = new PdfPCell(new Phrase(words[4].ToString(), fuenteNormal));
                 colTotalTemp.BorderWidth = 1;
-                colTotalTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+                colTotalTemp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 tablaInventario.AddCell(colNoConceptoTmp);
                 tablaInventario.AddCell(colVentasTemp);
