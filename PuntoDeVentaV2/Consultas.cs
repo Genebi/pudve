@@ -129,7 +129,7 @@ namespace PuntoDeVentaV2
 
         public string CargarDatosIniciarFormReportesCaja(string primerFecha, string segundaFecha)
         {
-            var consulta = $"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID WHERE CJ.IDUsuario = '14' AND CJ.Operacion = 'corte' AND(CJ.FechaOperacion BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY CJ.FechaOperacion DESC";
+            var consulta = $"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID WHERE CJ.IDUsuario = '{FormPrincipal.userID}' AND CJ.Operacion = 'corte' AND(CJ.FechaOperacion BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY CJ.FechaOperacion DESC";
 
             return consulta;
         }

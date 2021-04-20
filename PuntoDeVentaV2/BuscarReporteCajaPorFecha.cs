@@ -269,7 +269,7 @@ namespace PuntoDeVentaV2
 
             lista.Add("Vales:                        " + valesC + "|Vales:                  " + valesAnt + "|Vales:                  " + valesAg + "|Vales:                        " + valesR + "|Vales:                   " + ((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesR)));
 
-            lista.Add("Cheque:                     " + chequeC + "|Cheque:               " + chequeAnt + "|Cheque:               " + chequeAg + "|Cheque:                     " + chequeR + "|Cheque:                " + ((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeR)));
+            lista.Add("Cheque:                     " + chequeC + "|Cheque:               " + chequeAnt + "|Cheque:               " + chequeAg + "|Cheque:                     " + chequeR + "|Cheque:               " + ((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeR)));
 
             lista.Add("Transferencia:           " + transC + "|Transferencia:     " + transAnt + "|Transferencia:     " + transAg + "|Transferencia:           " + transR + "|Transferencia:     " + ((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transR)));
 
