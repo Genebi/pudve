@@ -263,23 +263,26 @@ namespace PuntoDeVentaV2
 
             //lista.Add(efectivoAg + "|" +tarjetaAg + "|" +valesAg + "|" +chequeAg + "|" +transAg + "|" +totalAg);//Dinero Agregado
 
-            lista.Add("Efectivo:                    "+efectivoC + "|Efectivo:              " + efectivoAnt + "|Efectivo:              " + efectivoAg + "|Efectivo:                     " + efectivoR + "|Efectivo:               " + ((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR)));
+            lista.Add("Efectivo:|" + efectivoC + "|Efectivo:|" + efectivoAnt + "|Efectivo:|" + efectivoAg + "|Efectivo:|" + efectivoR + "|Efectivo:|" + ((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR)));
+            //lista.Add("Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" );
 
-            lista.Add("Tarjeta:                      "+tarjetaC + "|Tarjeta:                " + tarjetaAnt + "|Tarjeta:                " + tarjetaAg + "|Tarjeta:                      " + tarjetaR + "|Tarjeta:                 " + ((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(tarjetaR)));
+            //lista.Add($"{efectivoC} | {efectivoAnt} | {efectivoAg} | {efectivoR} | {((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR))}");
 
-            lista.Add("Vales:                        " + valesC + "|Vales:                  " + valesAnt + "|Vales:                  " + valesAg + "|Vales:                        " + valesR + "|Vales:                   " + ((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesR)));
+            lista.Add("Tarjeta:|" + tarjetaC + "|Tarjeta:|" + tarjetaAnt + "|Tarjeta:|" + tarjetaAg + "|Tarjeta:|" + tarjetaR + "|Tarjeta:|" + ((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(tarjetaR)));
 
-            lista.Add("Cheque:                     " + chequeC + "|Cheque:               " + chequeAnt + "|Cheque:               " + chequeAg + "|Cheque:                     " + chequeR + "|Cheque:               " + ((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeR)));
+            lista.Add("Vales:|" + valesC + "|Vales:|" + valesAnt + "|Vales:|" + valesAg + "|Vales:|" + valesR + "|Vales:|" + ((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesR)));
 
-            lista.Add("Transferencia:           " + transC + "|Transferencia:     " + transAnt + "|Transferencia:     " + transAg + "|Transferencia:           " + transR + "|Transferencia:     " + ((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transR)));
+            lista.Add("Cheque:|" + chequeC + "|Cheque:|" + chequeAnt + "|Cheque:|" + chequeAg + "|Cheque:|" + chequeR + "|Cheque:|" + ((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeR)));
 
-            lista.Add("Crédito:                      " + creditoC +"|"+ string.Empty + "|"+ string.Empty + "|Anticipos Utilizados:  "+  anticiposR + "|Saldo Inicial:         " + saldoInicial.ToString());
+            lista.Add("Transferencia:|" + transC + "|Transferencia:|" + transAnt + "|Transferencia:|" + transAg + "|Transferencia:|" + transR + "|Transferencia:|" + ((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transR)));
 
-            lista.Add("Abonos:                     " + creditoC + "|"+string.Empty + "|" +string.Empty + "|Devoluciones:            " + totalA + "|Credito:                " + creditoC);
+            lista.Add("Crédito:|" + creditoC + "|" + string.Empty + "|" + string.Empty + "|"+string.Empty+"|"+ string.Empty+"|Anticipos Utilizados:|" + anticiposR + "|Saldo Inicial:|" + saldoInicial.ToString());
 
-            lista.Add("Anticipos Utilizados:  " + anticiposA + "|"+string.Empty + "|"+string.Empty + "|"+string.Empty + "|"+string.Empty);
+            lista.Add("Abonos:|" + creditoC + "|" + string.Empty + "|" +string.Empty +"|" +string.Empty+"|"+ string.Empty + "|Devoluciones:|" + totalA + "|Crédito:|" + creditoC);
 
-            lista.Add("Total Ventas:             " + ventas + "|Total Anticipos:   " + anticipos + "|Total Agregado:   " + agregado + "|Total Retirado:           " + retirado + "|Total en  Caja:      " + total);
+            lista.Add("Anticipos Utilizados:|" + anticiposA + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty+ "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty);
+
+            lista.Add("Total Ventas:|" + ventas + "|Total Anticipos:|" + anticipos + "|Total Agregado:|" + agregado + "|Total Retirado:|" + retirado + "|Total en  Caja:|" + total);
 
             return lista.ToArray();
         }
@@ -436,7 +439,7 @@ namespace PuntoDeVentaV2
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
 
-            float[] anchoColumnas = new float[] { 30f, 80f, 80f, 80f, 80f, 80f };
+            float[] anchoColumnas = new float[] {60f, 40f, 60f, 40f, 60f, 40f,  60f, 40f, 60f, 40f };
 
             //Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -445,299 +448,163 @@ namespace PuntoDeVentaV2
             //=== TABLA DE INVENTARIO  ===
             //============================
 
-            PdfPTable tablaInventario = new PdfPTable(6);
+            PdfPTable tablaInventario = new PdfPTable(10);
             tablaInventario.WidthPercentage = 100;
             tablaInventario.SetWidths(anchoColumnas);
 
-            PdfPCell colNum = new PdfPCell(new Phrase("No:", fuenteNegrita));
-            colNum.BorderWidth = 1;
-            colNum.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colNum.HorizontalAlignment = Element.ALIGN_CENTER;
+            //PdfPCell colNum = new PdfPCell(new Phrase("No:", fuenteNegrita));
+            //colNum.BorderWidth = 1;
+            //colNum.BackgroundColor = new BaseColor(Color.SkyBlue);
+            //colNum.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colVentas = new PdfPCell(new Phrase("VENTAS:", fuenteNegrita));
             colVentas.BorderWidth = 1;
+            colVentas.Colspan = 2;
             colVentas.BackgroundColor = new BaseColor(Color.SkyBlue);
             colVentas.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colAnticipos = new PdfPCell(new Phrase("ANTICIPOS RECIBIDOS", fuenteTotales));
             colAnticipos.BorderWidth = 1;
+            colAnticipos.Colspan = 2;
             colAnticipos.HorizontalAlignment = Element.ALIGN_CENTER;
             colAnticipos.Padding = 3;
             colAnticipos.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colAgregado = new PdfPCell(new Phrase("DINERO AGREGADO", fuenteTotales));
             colAgregado.BorderWidth = 1;
+            colAgregado.Colspan = 2;
             colAgregado.HorizontalAlignment = Element.ALIGN_CENTER;
             colAgregado.Padding = 3;
             colAgregado.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colRetirado = new PdfPCell(new Phrase("DINERO RETIRADO", fuenteTotales));
             colRetirado.BorderWidth = 1;
+            colRetirado.Colspan = 2;
             colRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
             colRetirado.Padding = 3;
             colRetirado.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colTotal = new PdfPCell(new Phrase("TOTAL DE CAJA", fuenteTotales));
             colTotal.BorderWidth = 1;
+            colTotal.Colspan = 2;
             colTotal.HorizontalAlignment = Element.ALIGN_CENTER;
             colTotal.Padding = 3;
             colTotal.BackgroundColor = new BaseColor(Color.SkyBlue);
 
-            //PdfPCell colStockFisico = new PdfPCell(new Phrase("STOCK FISICO", fuenteTotales));
-            //colStockFisico.BorderWidth = 1;
-            //colStockFisico.HorizontalAlignment = Element.ALIGN_CENTER;
-            //colStockFisico.Padding = 3;
-            //colStockFisico.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            //PdfPCell colFecha = new PdfPCell(new Phrase("FECHA", fuenteTotales));
-            //colFecha.BorderWidth = 1;
-            //colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
-            //colFecha.Padding = 3;
-            //colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            //PdfPCell colDiferencia = new PdfPCell(new Phrase("DIFERENCIA", fuenteTotales));
-            //colDiferencia.BorderWidth = 1;
-            //colDiferencia.HorizontalAlignment = Element.ALIGN_CENTER;
-            //colDiferencia.Padding = 3;
-            //colDiferencia.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            //PdfPCell colPrecio = new PdfPCell(new Phrase("PRECIO", fuenteTotales));
-            //colPrecio.BorderWidth = 1;
-            //colPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
-            //colPrecio.Padding = 3;
-            //colPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            //PdfPCell colPerdida = new PdfPCell(new Phrase("CANTIDAD PERDIDA", fuenteTotales));
-            //colPerdida.BorderWidth = 1;
-            //colPerdida.HorizontalAlignment = Element.ALIGN_CENTER;
-            //colPerdida.Padding = 3;
-            //colPerdida.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            //PdfPCell colRecuperada = new PdfPCell(new Phrase("CANTIDAD RECUPERADA", fuenteTotales));
-            //colRecuperada.BorderWidth = 1;
-            //colRecuperada.HorizontalAlignment = Element.ALIGN_CENTER;
-            //colRecuperada.Padding = 3;
-            //colRecuperada.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            tablaInventario.AddCell(colNum);
             tablaInventario.AddCell(colVentas);
             tablaInventario.AddCell(colAnticipos);
             tablaInventario.AddCell(colAgregado);
             tablaInventario.AddCell(colRetirado);
             tablaInventario.AddCell(colTotal);
-            //tablaInventario.AddCell(colStockFisico);
-            //tablaInventario.AddCell(colFecha);
-            //tablaInventario.AddCell(colDiferencia);
-            //tablaInventario.AddCell(colPrecio);
-            //tablaInventario.AddCell(colPerdida);
-            //tablaInventario.AddCell(colRecuperada);
 
-            //var consulta = cn.CargarDatos($"SELECT * FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'");
-
-            //foreach (DataRow row in consulta.Rows)
-            //{
-                //var nombre = row.Cells["Nombre"].Value.ToString();
-                //var clave = row.Cells["ClaveInterna"].Value.ToString();
-                //var codigo = row.Cells["CodigoBarras"].Value.ToString();
-                ////var almacen = Utilidades.RemoverCeroStock(row.Cells["StockAlmacen"].Value.ToString());
-                ////var fisico = Utilidades.RemoverCeroStock(row.Cells["StockFisico"].Value.ToString());
-                //var almacen = row.Cells["StockAlmacen"].Value.ToString();
-                //var fisico = row.Cells["StockFisico"].Value.ToString();
-                //var fecha = row.Cells["Fecha"].Value.ToString();
-                //var diferencia = row.Cells["Diferencia"].Value.ToString();
-                //var precio = float.Parse(row.Cells["PrecioProducto"].Value.ToString());
-                //var perdida = row.Cells["Perdida"].Value.ToString();
-                //var recuperada = row.Cells["Recuperada"].Value.ToString();
-
-                //var nombre = row["Nombre"].ToString();
-                //var clave = row["ClaveInterna"].ToString();
-                //var codigo = row["CodigoBarras"].ToString();
-                //var almacen = row["StockAlmacen"].ToString();
-                //var fisico = row["StockFisico"].ToString();
-                //var fecha = row["Fecha"].ToString();
-                //var diferencia = row["Diferencia"].ToString();
-                //var precio = float.Parse(row["PrecioProducto"].ToString());
-                //var perdida = string.Empty;
-                //var recuperada = string.Empty;
-
-                //if (float.Parse(diferencia) < 0)
-                //{
-                //    perdida = (float.Parse(diferencia) * precio).ToString();
-                //    recuperada = "0";
-                //}
-                //else if (float.Parse(diferencia) > 0)
-                //{
-                //    recuperada = (float.Parse(diferencia) * precio).ToString();
-                //    perdida = "0";
-                //}
-                //else
-                //{
-                //    recuperada = "0";
-                //    perdida = "0";
-                //}
-
-                /*var perdida =*/ /*row["Perdida"].ToString();*/
-                                  /* var recuperada =*/ /*row["Recuperada"].ToString();*/
-
-                
             foreach (var iterador in datosCaja)
             {
                 string[] words = iterador.Split('|');
-                numRow++;
-                PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
-                colNoConceptoTmp.BorderWidth = 1;
-                colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    numRow++;
+                //    PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                //    colNoConceptoTmp.BorderWidth = 1;
+                //    colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_LEFT;
 
+                //    PdfPCell colVentasTemp = new PdfPCell(new Phrase(words[0].ToString(), fuenteNormal));
                 PdfPCell colVentasTemp = new PdfPCell(new Phrase(words[0].ToString(), fuenteNormal));
-                colVentasTemp.BorderWidth = 1;
-                colVentasTemp.HorizontalAlignment = Element.ALIGN_LEFT;
+                colVentasTemp.BorderWidthLeft = 0;
+                colVentasTemp.BorderWidthTop = 0;
+                colVentasTemp.BorderWidthBottom = 0;
+                colVentasTemp.BorderWidthRight = 0;
+                colVentasTemp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colAnticiposTemp = new PdfPCell(new Phrase(words[1].ToString(), fuenteNormal));
-                colAnticiposTemp.BorderWidth = 1;
-                colAnticiposTemp.HorizontalAlignment = Element.ALIGN_LEFT;
+                PdfPCell colVentasCantidad = new PdfPCell(new Phrase(words[1].ToString(), fuenteNormal));
+                colVentasCantidad.BorderWidthRight = 0;
+                colVentasCantidad.BorderWidthTop = 0;
+                colVentasCantidad.BorderWidthBottom = 0;
+                colVentasCantidad.BorderWidthLeft = 0;
+                colVentasCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colAgregadoTemp = new PdfPCell(new Phrase(words[2].ToString(), fuenteNormal));
-                colAgregadoTemp.BorderWidth = 1;
-                colAgregadoTemp.HorizontalAlignment = Element.ALIGN_LEFT;
+                //    PdfPCell colAnticiposTemp = new PdfPCell(new Phrase(words[1].ToString(), fuenteNormal));
+                //    colAnticiposTemp.BorderWidth = 1;
+                //    colAnticiposTemp.HorizontalAlignment = Element.ALIGN_LEFT;
 
-                PdfPCell colRetiradoTEmp = new PdfPCell(new Phrase(words[3].ToString(), fuenteNormal));
-                colRetiradoTEmp.BorderWidth = 1;
-                colRetiradoTEmp.HorizontalAlignment = Element.ALIGN_LEFT;
+                PdfPCell colAnticiposTemp = new PdfPCell(new Phrase(words[2].ToString(), fuenteNormal));
+                colAnticiposTemp.BorderWidthLeft = 0;
+                colAnticiposTemp.BorderWidthTop = 0;
+                colAnticiposTemp.BorderWidthBottom = 0;
+                colAnticiposTemp.BorderWidthRight = 0;
+                colAnticiposTemp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colTotalTemp = new PdfPCell(new Phrase(words[4].ToString(), fuenteNormal));
-                colTotalTemp.BorderWidth = 1;
-                colTotalTemp.HorizontalAlignment = Element.ALIGN_LEFT;
+                PdfPCell colAnticiposCantidad = new PdfPCell(new Phrase(words[3].ToString(), fuenteNormal));
+                colAnticiposCantidad.BorderWidthRight = 0;
+                colAnticiposCantidad.BorderWidthTop = 0;
+                colAnticiposCantidad.BorderWidthBottom = 0;
+                colAnticiposCantidad.BorderWidthLeft = 0;
+                colAnticiposCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                tablaInventario.AddCell(colNoConceptoTmp);
+
+                //    PdfPCell colAgregadoTemp = new PdfPCell(new Phrase(words[2].ToString(), fuenteNormal));
+                //    colAgregadoTemp.BorderWidth = 1;
+                //    colAgregadoTemp.HorizontalAlignment = Element.ALIGN_LEFT;
+
+                PdfPCell colAgregadoTemp = new PdfPCell(new Phrase(words[4].ToString(), fuenteNormal));
+                colAgregadoTemp.BorderWidthLeft = 0;
+                colAgregadoTemp.BorderWidthTop = 0;
+                colAgregadoTemp.BorderWidthBottom = 0;
+                colAgregadoTemp.BorderWidthRight = 0;
+                colAgregadoTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colAgregadoCantidad = new PdfPCell(new Phrase(words[5].ToString(), fuenteNormal));
+                colAgregadoCantidad.BorderWidthRight = 0;
+                colAgregadoCantidad.BorderWidthTop = 0;
+                colAgregadoCantidad.BorderWidthBottom = 0;
+                colAgregadoCantidad.BorderWidthLeft = 0;
+                colAgregadoCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                //    PdfPCell colRetiradoTEmp = new PdfPCell(new Phrase(words[3].ToString(), fuenteNormal));
+                //    colRetiradoTEmp.BorderWidth = 1;
+                //    colRetiradoTEmp.HorizontalAlignment = Element.ALIGN_LEFT;
+
+                PdfPCell colRetiradoTEmp = new PdfPCell(new Phrase(words[6].ToString(), fuenteNormal));
+                colRetiradoTEmp.BorderWidthLeft = 0;
+                colRetiradoTEmp.BorderWidthTop = 0;
+                colRetiradoTEmp.BorderWidthBottom = 0;
+                colRetiradoTEmp.BorderWidthRight = 0;
+                colRetiradoTEmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colRetiradoCantidad = new PdfPCell(new Phrase(words[7].ToString(), fuenteNormal));
+                colRetiradoCantidad.BorderWidthRight = 0;
+                colRetiradoCantidad.BorderWidthTop = 0;
+                colRetiradoCantidad.BorderWidthBottom = 0;
+                colRetiradoCantidad.BorderWidthLeft = 0;
+                colRetiradoCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                //    PdfPCell colTotalTemp = new PdfPCell(new Phrase(words[4].ToString(), fuenteNormal));
+                //    colTotalTemp.BorderWidth = 1;
+                //    colTotalTemp.HorizontalAlignment = Element.ALIGN_LEFT;
+
+                PdfPCell colTotalTemp = new PdfPCell(new Phrase(words[8].ToString(), fuenteNormal));
+                colTotalTemp.BorderWidthLeft = 0;
+                colTotalTemp.BorderWidthTop = 0;
+                colTotalTemp.BorderWidthBottom = 0;
+                colTotalTemp.BorderWidthRight = 0;
+                colTotalTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNormal));
+                colTotalCantidad.BorderWidthRight = 0;
+                colTotalCantidad.BorderWidthTop = 0;
+                colTotalCantidad.BorderWidthBottom = 0;
+                colTotalCantidad.BorderWidthLeft = 0;
+                colTotalCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                //tablaInventario.AddCell(colNoConceptoTmp);
                 tablaInventario.AddCell(colVentasTemp);
+                tablaInventario.AddCell(colVentasCantidad);
                 tablaInventario.AddCell(colAnticiposTemp);
+                tablaInventario.AddCell(colAnticiposCantidad);
                 tablaInventario.AddCell(colAgregadoTemp);
+                tablaInventario.AddCell(colAgregadoCantidad);
                 tablaInventario.AddCell(colRetiradoTEmp);
+                tablaInventario.AddCell(colRetiradoCantidad);
                 tablaInventario.AddCell(colTotalTemp);
+                tablaInventario.AddCell(colTotalCantidad);
             }
-                
-
-                //PdfPCell colFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
-                //colFechaTmp.BorderWidth = 1;
-                //colFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                //PdfPCell colDiferenciaTmp = new PdfPCell(new Phrase(diferencia, fuenteNormal));
-                //Diferencia += (float)Convert.ToDouble(diferencia);
-                //colDiferenciaTmp.BorderWidth = 1;
-                //colDiferenciaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                //PdfPCell colPrecioTmp = new PdfPCell(new Phrase(precio.ToString("0.00"), fuenteNormal));
-                //Precio += (float)Convert.ToDouble(precio);
-                //colPrecioTmp.BorderWidth = 1;
-                //colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                //PdfPCell colPerdidaTmp = new PdfPCell(new Phrase(perdida, fuenteNormal));
-                //if (!perdida.Equals("---"))
-                //{
-                //    CantidadPerdida += (float)Convert.ToDouble(perdida);
-                //}
-                //colPerdidaTmp.BorderWidth = 1;
-                //colPerdidaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                //PdfPCell colRecuperadaTmp = new PdfPCell(new Phrase(recuperada, fuenteNormal));
-                //if (!recuperada.Equals("---"))
-                //{
-                //    CantidadRecuperada += (float)Convert.ToDouble(recuperada);
-                //}
-                //colRecuperadaTmp.BorderWidth = 1;
-                //colRecuperadaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                
-                //tablaInventario.AddCell(colFechaTmp);
-                //tablaInventario.AddCell(colDiferenciaTmp);
-                //tablaInventario.AddCell(colPrecioTmp);
-                //tablaInventario.AddCell(colPerdidaTmp);
-                //tablaInventario.AddCell(colRecuperadaTmp);
-            //}
-
-
-            //if (PuntoDeVenta > 0 || StockFisico > 0)
-            //{
-            //    PdfPCell colNoConceptoTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            //    colNoConceptoTmpExtra.BorderWidth = 0;
-            //    colNoConceptoTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    PdfPCell colNombreTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            //    colNombreTmpExtra.BorderWidth = 0;
-            //    colNombreTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    PdfPCell colClaveTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            //    colClaveTmpExtra.BorderWidth = 0;
-            //    colClaveTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    PdfPCell colCodigoTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            //    colCodigoTmpExtra.BorderWidth = 0;
-            //    colCodigoTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    PdfPCell colPuntoVentaTmpExtra = new PdfPCell(new Phrase(PuntoDeVenta.ToString("N2"), fuenteNormal));
-            //    colPuntoVentaTmpExtra.BorderWidthTop = 0;
-            //    colPuntoVentaTmpExtra.BorderWidthLeft = 0;
-            //    colPuntoVentaTmpExtra.BorderWidthRight = 0;
-            //    colPuntoVentaTmpExtra.BorderWidthBottom = 1;
-            //    colPuntoVentaTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-            //    colPuntoVentaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    PdfPCell colStockFisicoTmpExtra = new PdfPCell(new Phrase(StockFisico.ToString("N2"), fuenteNormal));
-            //    colStockFisicoTmpExtra.BorderWidthTop = 0;
-            //    colStockFisicoTmpExtra.BorderWidthLeft = 0;
-            //    colStockFisicoTmpExtra.BorderWidthRight = 0;
-            //    colStockFisicoTmpExtra.BorderWidthBottom = 1;
-            //    colStockFisicoTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-            //    colStockFisicoTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    PdfPCell colFechaTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            //    colFechaTmpExtra.BorderWidth = 0;
-            //    colFechaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    PdfPCell colDiferenciaTmpExtra = new PdfPCell(new Phrase(Diferencia.ToString("N2"), fuenteNormal));
-            //    colDiferenciaTmpExtra.BorderWidthTop = 0;
-            //    colDiferenciaTmpExtra.BorderWidthLeft = 0;
-            //    colDiferenciaTmpExtra.BorderWidthRight = 0;
-            //    colDiferenciaTmpExtra.BorderWidthBottom = 1;
-            //    colDiferenciaTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-            //    colDiferenciaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    PdfPCell colPrecioTmpExtra = new PdfPCell(new Phrase(Precio.ToString("C"), fuenteNormal));
-            //    colPrecioTmpExtra.BorderWidthTop = 0;
-            //    colPrecioTmpExtra.BorderWidthLeft = 0;
-            //    colPrecioTmpExtra.BorderWidthRight = 0;
-            //    colPrecioTmpExtra.BorderWidthBottom = 1;
-            //    colPrecioTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-            //    colPrecioTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    PdfPCell colPerdidaTmpExtra = new PdfPCell(new Phrase(CantidadPerdida.ToString("N2"), fuenteNormal));
-            //    colPerdidaTmpExtra.BorderWidthTop = 0;
-            //    colPerdidaTmpExtra.BorderWidthLeft = 0;
-            //    colPerdidaTmpExtra.BorderWidthRight = 0;
-            //    colPerdidaTmpExtra.BorderWidthBottom = 1;
-            //    colPerdidaTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-            //    colPerdidaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    PdfPCell colRecuperadaTmpExtra = new PdfPCell(new Phrase(CantidadRecuperada.ToString("N2"), fuenteNormal));
-            //    colRecuperadaTmpExtra.BorderWidthTop = 0;
-            //    colRecuperadaTmpExtra.BorderWidthLeft = 0;
-            //    colRecuperadaTmpExtra.BorderWidthRight = 0;
-            //    colRecuperadaTmpExtra.BorderWidthBottom = 1;
-            //    colRecuperadaTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-            //    colRecuperadaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //    tablaInventario.AddCell(colNoConceptoTmpExtra);
-            //    tablaInventario.AddCell(colNombreTmpExtra);
-            //    tablaInventario.AddCell(colClaveTmpExtra);
-            //    tablaInventario.AddCell(colCodigoTmpExtra);
-            //    tablaInventario.AddCell(colPuntoVentaTmpExtra);
-            //    tablaInventario.AddCell(colStockFisicoTmpExtra);
-            //    tablaInventario.AddCell(colFechaTmpExtra);
-            //    tablaInventario.AddCell(colDiferenciaTmpExtra);
-            //    tablaInventario.AddCell(colPrecioTmpExtra);
-            //    tablaInventario.AddCell(colPerdidaTmpExtra);
-            //    tablaInventario.AddCell(colRecuperadaTmpExtra);
-            //}
 
             reporte.Add(titulo);
             reporte.Add(Usuario);
