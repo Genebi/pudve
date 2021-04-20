@@ -137,7 +137,7 @@ namespace PuntoDeVentaV2
             if (e.ColumnIndex.Equals(3))//Corte de Caja
             {
                 var dato = traerDatosCaja(id);
-                GenerarReporte(dato, "Corte de Caja");
+                GenerarReporte(dato, "Corte de Caja", id);
             }
             else if (e.ColumnIndex.Equals(4))//Dinero Agregado
             {
@@ -329,7 +329,7 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        private void GenerarReporte(string[] datosCaja, string reportType)
+        private void GenerarReporte(string[] datosCaja, string reportType, int id)
         {
             var mostrarClave = FormPrincipal.clave;
 
@@ -372,7 +372,7 @@ namespace PuntoDeVentaV2
 
             Paragraph Usuario = new Paragraph("");
 
-            string UsuarioActivo = string.Empty;
+            //string UsuarioActivo = string.Empty;
 
             string tipoReporte = string.Empty,
                     encabezadoTipoReporte = string.Empty;
@@ -384,51 +384,25 @@ namespace PuntoDeVentaV2
             //        CantidadPerdida = 0,
             //        CantidadRecuperada = 0;
 
-            decimal totalC = 0, efectivoC = 0, tarjetaC = 0, valesC = 0, chequeC = 0, transferenciaC = 0, credito = 0, anticipos = 0, totalA = 0, efectivoA = 0, tarjetaA = 0, valesA = 0, chequeA = 0, transferenciaA = 0, totalR = 0, efectivoR = 0, tarjetaR = 0, valesR = 0, chequeR = 0, transferenciaR = 0, totalAg = 0, efectivoAg = 0, tarjetaAg = 0, valesAg = 0, chequeAg = 0, transferenciaAg = 0;
+            //decimal totalC = 0, efectivoC = 0, tarjetaC = 0, valesC = 0, chequeC = 0, transferenciaC = 0, credito = 0, anticipos = 0, totalA = 0, efectivoA = 0, tarjetaA = 0, valesA = 0, chequeA = 0, transferenciaA = 0, totalR = 0, efectivoR = 0, tarjetaR = 0, valesR = 0, chequeR = 0, transferenciaR = 0, totalAg = 0, efectivoAg = 0, tarjetaAg = 0, valesAg = 0, chequeAg = 0, transferenciaAg = 0;
 
             //tipoReporte = Inventario.filtradoParaRealizar;
-
-            //if (!tipoReporte.Equals(string.Empty))
-            //{
-            //    if (tipoReporte.Equals("Normal"))
-            //    {
-            //        encabezadoTipoReporte = "Normal";
-            //    }
-            //    if (tipoReporte.Equals("Stock"))
-            //    {
-            //        encabezadoTipoReporte = "Stock";
-            //    }
-            //    if (tipoReporte.Equals("StockMinimo"))
-            //    {
-            //        encabezadoTipoReporte = "Stock Minimo";
-            //    }
-            //    if (tipoReporte.Equals("StockNecesario"))
-            //    {
-            //        encabezadoTipoReporte = "Stock Necesario";
-            //    }
-            //    if (tipoReporte.Equals("NumeroRevision"))
-            //    {
-            //        encabezadoTipoReporte = "Numero Revision";
-            //    }
-            //    if (tipoReporte.Equals("Filtros"))
-            //    {
-            //        encabezadoTipoReporte = "Filtros";
-            //    }
-            //}
 
             //Encabezado del reporte
             encabezadoTipoReporte = reportType;
 
-            using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
-            {
-                if (!dtDataUsr.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow drDataUsr in dtDataUsr.Rows)
-                    {
-                        UsuarioActivo = drDataUsr["Usuario"].ToString();
-                    }
-                }
-            }
+            //using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+            //{
+            //    if (!dtDataUsr.Rows.Count.Equals(0))
+            //    {
+            //        foreach (DataRow drDataUsr in dtDataUsr.Rows)
+            //        {
+            //            UsuarioActivo = drDataUsr["Usuario"].ToString();
+            //        }
+            //    }
+            //}
+
+            var UsuarioActivo = obtenerAutorCorte(id);
 
             Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
 
@@ -622,6 +596,25 @@ namespace PuntoDeVentaV2
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
             vr.Show();
+        }
+
+        private string obtenerAutorCorte(int idCorte)
+        {
+            var result = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT EMP.nombre AS ID FROM Caja AS CJ RIGHT JOIN empleados AS EMP ON CJ.IDUsuario = EMP.IDUsuario WHERE CJ.IDUsuario = '{FormPrincipal.userID}' AND CJ.ID = '{idCorte}' AND CJ.IdEmpleado != 0");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["ID"].ToString();
+            }
+            else
+            {
+                result = FormPrincipal.userNickName.ToString();
+
+            }
+            
+            return result;
         }
     }
 }
