@@ -48,9 +48,9 @@
             this.btnRenameDetalle = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCerrar = new System.Windows.Forms.Button();
-            this.chkBoxProductMessage = new System.Windows.Forms.CheckBox();
-            this.chkMensajeInventario = new System.Windows.Forms.CheckBox();
             this.timerStockMaximo = new System.Windows.Forms.Timer(this.components);
+            this.chkMensajeInventario = new System.Windows.Forms.CheckBox();
+            this.chkBoxProductMessage = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -60,7 +60,7 @@
             // separadorInicial
             // 
             this.separadorInicial.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.separadorInicial.Location = new System.Drawing.Point(5, 48);
+            this.separadorInicial.Location = new System.Drawing.Point(5, 7);
             this.separadorInicial.Name = "separadorInicial";
             this.separadorInicial.Size = new System.Drawing.Size(830, 2);
             this.separadorInicial.TabIndex = 19;
@@ -86,15 +86,15 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.fLPLateralConcepto);
-            this.panel1.Location = new System.Drawing.Point(3, 55);
+            this.panel1.Location = new System.Drawing.Point(3, 18);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(215, 610);
+            this.panel1.Size = new System.Drawing.Size(215, 524);
             this.panel1.TabIndex = 27;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(116, 42);
+            this.label2.Location = new System.Drawing.Point(116, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 2;
@@ -103,7 +103,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 42);
+            this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 1;
@@ -113,28 +113,24 @@
             // 
             this.fLPLateralConcepto.BackColor = System.Drawing.SystemColors.Control;
             this.fLPLateralConcepto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPLateralConcepto.Location = new System.Drawing.Point(4, 65);
+            this.fLPLateralConcepto.Location = new System.Drawing.Point(4, 33);
             this.fLPLateralConcepto.Name = "fLPLateralConcepto";
-            this.fLPLateralConcepto.Size = new System.Drawing.Size(207, 541);
+            this.fLPLateralConcepto.Size = new System.Drawing.Size(207, 387);
             this.fLPLateralConcepto.TabIndex = 0;
             this.fLPLateralConcepto.WrapContents = false;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.txtStockMinimo);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.txtStockNecesario);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.fLPCentralDetalle);
-            this.panel2.Location = new System.Drawing.Point(223, 55);
+            this.panel2.Location = new System.Drawing.Point(223, 16);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(618, 474);
+            this.panel2.Size = new System.Drawing.Size(618, 526);
             this.panel2.TabIndex = 28;
             // 
             // txtStockMinimo
             // 
-            this.txtStockMinimo.Location = new System.Drawing.Point(149, 39);
+            this.txtStockMinimo.Location = new System.Drawing.Point(523, 643);
             this.txtStockMinimo.Name = "txtStockMinimo";
             this.txtStockMinimo.Size = new System.Drawing.Size(120, 20);
             this.txtStockMinimo.TabIndex = 5;
@@ -144,7 +140,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(58, 42);
+            this.label5.Location = new System.Drawing.Point(432, 646);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 13);
             this.label5.TabIndex = 4;
@@ -155,7 +151,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(336, 42);
+            this.label4.Location = new System.Drawing.Point(433, 621);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 3;
@@ -164,7 +160,7 @@
             // 
             // txtStockNecesario
             // 
-            this.txtStockNecesario.Location = new System.Drawing.Point(428, 39);
+            this.txtStockNecesario.Location = new System.Drawing.Point(525, 618);
             this.txtStockNecesario.Name = "txtStockNecesario";
             this.txtStockNecesario.Size = new System.Drawing.Size(120, 20);
             this.txtStockNecesario.TabIndex = 2;
@@ -187,9 +183,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fLPCentralDetalle.AutoScroll = true;
-            this.fLPCentralDetalle.Location = new System.Drawing.Point(5, 65);
+            this.fLPCentralDetalle.Location = new System.Drawing.Point(5, 30);
             this.fLPCentralDetalle.Name = "fLPCentralDetalle";
-            this.fLPCentralDetalle.Size = new System.Drawing.Size(608, 403);
+            this.fLPCentralDetalle.Size = new System.Drawing.Size(608, 487);
             this.fLPCentralDetalle.TabIndex = 0;
             // 
             // btnAddDetalle
@@ -213,7 +209,7 @@
             this.groupBox1.Controls.Add(this.btnDeleteDetalle);
             this.groupBox1.Controls.Add(this.btnRenameDetalle);
             this.groupBox1.Controls.Add(this.btnAddDetalle);
-            this.groupBox1.Location = new System.Drawing.Point(228, 546);
+            this.groupBox1.Location = new System.Drawing.Point(3, 548);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(289, 115);
             this.groupBox1.TabIndex = 30;
@@ -256,7 +252,7 @@
             // 
             this.groupBox2.Controls.Add(this.btnCerrar);
             this.groupBox2.Controls.Add(this.btnGuardarDetalles);
-            this.groupBox2.Location = new System.Drawing.Point(562, 546);
+            this.groupBox2.Location = new System.Drawing.Point(562, 548);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(279, 115);
             this.groupBox2.TabIndex = 31;
@@ -278,45 +274,49 @@
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
-            // chkBoxProductMessage
-            // 
-            this.chkBoxProductMessage.AutoSize = true;
-            this.chkBoxProductMessage.Location = new System.Drawing.Point(9, 4);
-            this.chkBoxProductMessage.Name = "chkBoxProductMessage";
-            this.chkBoxProductMessage.Size = new System.Drawing.Size(173, 17);
-            this.chkBoxProductMessage.TabIndex = 32;
-            this.chkBoxProductMessage.Text = "Agrega un mensaje al producto";
-            this.chkBoxProductMessage.UseVisualStyleBackColor = true;
-            this.chkBoxProductMessage.CheckedChanged += new System.EventHandler(this.chkBoxProductMessage_CheckedChanged);
-            // 
-            // chkMensajeInventario
-            // 
-            this.chkMensajeInventario.AutoSize = true;
-            this.chkMensajeInventario.Location = new System.Drawing.Point(9, 27);
-            this.chkMensajeInventario.Name = "chkMensajeInventario";
-            this.chkMensajeInventario.Size = new System.Drawing.Size(199, 17);
-            this.chkMensajeInventario.TabIndex = 33;
-            this.chkMensajeInventario.Text = "Mostrar mensaje al realizar inventario";
-            this.chkMensajeInventario.UseVisualStyleBackColor = true;
-            this.chkMensajeInventario.CheckedChanged += new System.EventHandler(this.chkMensajeInventario_CheckedChanged);
-            // 
             // timerStockMaximo
             // 
             this.timerStockMaximo.Interval = 1000;
             this.timerStockMaximo.Tick += new System.EventHandler(this.timerStockMaximo_Tick);
+            // 
+            // chkMensajeInventario
+            // 
+            this.chkMensajeInventario.AutoSize = true;
+            this.chkMensajeInventario.Location = new System.Drawing.Point(476, 601);
+            this.chkMensajeInventario.Name = "chkMensajeInventario";
+            this.chkMensajeInventario.Size = new System.Drawing.Size(199, 17);
+            this.chkMensajeInventario.TabIndex = 35;
+            this.chkMensajeInventario.Text = "Mostrar mensaje al realizar inventario";
+            this.chkMensajeInventario.UseVisualStyleBackColor = true;
+            this.chkMensajeInventario.Visible = false;
+            // 
+            // chkBoxProductMessage
+            // 
+            this.chkBoxProductMessage.AutoSize = true;
+            this.chkBoxProductMessage.Location = new System.Drawing.Point(298, 601);
+            this.chkBoxProductMessage.Name = "chkBoxProductMessage";
+            this.chkBoxProductMessage.Size = new System.Drawing.Size(173, 17);
+            this.chkBoxProductMessage.TabIndex = 34;
+            this.chkBoxProductMessage.Text = "Agrega un mensaje al producto";
+            this.chkBoxProductMessage.UseVisualStyleBackColor = true;
+            this.chkBoxProductMessage.Visible = false;
             // 
             // AgregarDetalleProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 666);
-            this.Controls.Add(this.chkMensajeInventario);
-            this.Controls.Add(this.chkBoxProductMessage);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.separadorInicial);
+            this.Controls.Add(this.txtStockMinimo);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtStockNecesario);
+            this.Controls.Add(this.chkMensajeInventario);
+            this.Controls.Add(this.chkBoxProductMessage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "AgregarDetalleProducto";
@@ -352,12 +352,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox chkBoxProductMessage;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtStockNecesario;
-        private System.Windows.Forms.CheckBox chkMensajeInventario;
         private System.Windows.Forms.TextBox txtStockMinimo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Timer timerStockMaximo;
+        private System.Windows.Forms.CheckBox chkMensajeInventario;
+        private System.Windows.Forms.CheckBox chkBoxProductMessage;
     }
 }

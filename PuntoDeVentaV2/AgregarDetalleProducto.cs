@@ -1784,6 +1784,12 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleProducto_Load(object sender, EventArgs e)
         {
+            fLPLateralConcepto.AutoScroll = true;
+            fLPLateralConcepto.HorizontalScroll.Enabled = false;
+            fLPLateralConcepto.HorizontalScroll.Visible = false;
+            fLPLateralConcepto.VerticalScroll.Enabled = true;
+            fLPLateralConcepto.VerticalScroll.Visible = true;
+
             finalOrigenProdServCombo = origenProdServCombo;
             finalIdProducto = getIdProducto;
 
