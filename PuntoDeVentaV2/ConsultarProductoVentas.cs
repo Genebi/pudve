@@ -268,6 +268,7 @@ namespace PuntoDeVentaV2
                         row.Cells["Precio"].Value = Precio;     // Columna Precio
                         row.Cells["Clave"].Value = Clave;       // Columna Clave
                         row.Cells["Codigo"].Value = Codigo;     // Columna Codigo
+
                         // Columna Tipo
                         if (Tipo.Equals("P"))
                         {
@@ -281,26 +282,12 @@ namespace PuntoDeVentaV2
                         {
                             row.Cells["Tipo"].Value = "COMBO";
                         }
-                        // Columna Proveedor
-                        if (!Proveedor.Equals(string.Empty))
-                        {
-                            row.Cells["Proveedor"].Value = Proveedor;
-                        }
-                        else if (Proveedor.Equals(string.Empty))
-                        {
-                            row.Cells["Proveedor"].Value = "N/A";
-                        }
-                        // Columnas Dinamicos
+
+                        row.Cells["Proveedor"].Value = Proveedor;   // Columna Proveedor
+
                         if (DGVProductos.Columns.Contains(chckName))
                         {
-                            if (!Descripcion.Equals(string.Empty))
-                            {
-                                row.Cells[chckName].Value = Descripcion;
-                            }
-                            else if (Descripcion.Equals(string.Empty))
-                            {
-                                row.Cells[chckName].Value = "N/A";
-                            }
+                            row.Cells[chckName].Value = Descripcion;
                         }
                     }
                 }
@@ -316,14 +303,7 @@ namespace PuntoDeVentaV2
                             // Columnas Dinamicos
                             if (DGVProductos.Columns.Contains(chckName))
                             {
-                                if (!Descripcion.Equals(string.Empty))
-                                {
-                                    DGVProductos.Rows[Fila].Cells[chckName].Value = Descripcion;
-                                }
-                                else if (Descripcion.Equals(string.Empty))
-                                {
-                                    DGVProductos.Rows[Fila].Cells[chckName].Value = "N/A";
-                                }
+                                DGVProductos.Rows[Fila].Cells[chckName].Value = Descripcion;
                             }
                         }
                         else if (encontrado.Equals(false))
@@ -336,6 +316,7 @@ namespace PuntoDeVentaV2
                             row.Cells["Precio"].Value = Precio;         // Columna Precio
                             row.Cells["Clave"].Value = Clave;           // Columna Clave
                             row.Cells["Codigo"].Value = Codigo;         // Columna Codigo
+
                             // Columna Tipo
                             if (Tipo.Equals("P"))
                             {
@@ -349,26 +330,14 @@ namespace PuntoDeVentaV2
                             {
                                 row.Cells["Tipo"].Value = "COMBO";
                             }
+
                             // Columna Proveedor
-                            if (!Proveedor.Equals(string.Empty))
-                            {
-                                row.Cells["Proveedor"].Value = Proveedor;
-                            }
-                            else if (Proveedor.Equals(string.Empty))
-                            {
-                                row.Cells["Proveedor"].Value = "N/A";
-                            }
+                            row.Cells["Proveedor"].Value = Proveedor;
+
                             // Columnas Dinamicos
                             if (DGVProductos.Columns.Contains(chckName))
                             {
-                                if (!Descripcion.Equals(string.Empty))
-                                {
-                                    row.Cells[chckName].Value = Descripcion;
-                                }
-                                else if (Descripcion.Equals(string.Empty))
-                                {
-                                    row.Cells[chckName].Value = "N/A";
-                                }
+                                row.Cells[chckName].Value = Descripcion;
                             }
                         }
                     }
