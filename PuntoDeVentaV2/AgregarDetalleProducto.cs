@@ -473,14 +473,16 @@ namespace PuntoDeVentaV2
 
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
-                panelHijo.Width = 258;
+                panelHijo.Width = 180;
                 panelHijo.Height = 29;
                 panelHijo.HorizontalScroll.Visible = false;
+                //panelHijo.BackColor = Color.LightPink;
 
                 Panel panelContenedor = new Panel();
-                panelContenedor.Width = 250;
+                panelContenedor.Width = 175;
                 panelContenedor.Height = 23;
                 panelContenedor.Name = "panel" + chkDetalleProductoTxt;
+                //panelContenedor.BackColor = Color.LightGray;
 
                 CheckBox check = new CheckBox();
                 check.Name = chkDetalleProductoTxt;
@@ -490,6 +492,7 @@ namespace PuntoDeVentaV2
                 check.Location = new Point(0, 0);
                 //check.CheckedChanged += new EventHandler(checkBox_CheckedChanged);
                 check.CheckedChanged += new EventHandler(checkBox_CheckedChanged);
+                //check.BackColor = Color.LightBlue;
 
                 if (chkDetalleProductoVal.Equals("true") || chkDetalleProductoVal.Equals("false"))
                 {
@@ -526,8 +529,8 @@ namespace PuntoDeVentaV2
                         checkSetting.Height = 24;
                         checkSetting.Location = new Point(155, 0);
                         checkSetting.CheckedChanged += new EventHandler(checkBoxSetting_CheckedChanged);
-
-
+                        //checkSetting.BackColor = Color.LightCyan;
+                        
                         if (chkSettingVariableVal.Equals("true") || chkSettingVariableVal.Equals("false"))
                         {
                             checkSetting.Checked = Convert.ToBoolean(chkSettingVariableVal);

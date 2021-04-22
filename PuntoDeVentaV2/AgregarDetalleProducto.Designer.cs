@@ -36,12 +36,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.fLPLateralConcepto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.fLPCentralDetalle = new System.Windows.Forms.FlowLayoutPanel();
             this.txtStockMinimo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtStockNecesario = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.fLPCentralDetalle = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddDetalle = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnDeleteDetalle = new System.Windows.Forms.Button();
@@ -115,7 +115,7 @@
             this.fLPLateralConcepto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPLateralConcepto.Location = new System.Drawing.Point(4, 33);
             this.fLPLateralConcepto.Name = "fLPLateralConcepto";
-            this.fLPLateralConcepto.Size = new System.Drawing.Size(207, 387);
+            this.fLPLateralConcepto.Size = new System.Drawing.Size(207, 482);
             this.fLPLateralConcepto.TabIndex = 0;
             this.fLPLateralConcepto.WrapContents = false;
             // 
@@ -127,6 +127,27 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(618, 526);
             this.panel2.TabIndex = 28;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(239, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(140, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Detalles Seleccionados";
+            // 
+            // fLPCentralDetalle
+            // 
+            this.fLPCentralDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fLPCentralDetalle.AutoScroll = true;
+            this.fLPCentralDetalle.Location = new System.Drawing.Point(5, 30);
+            this.fLPCentralDetalle.Name = "fLPCentralDetalle";
+            this.fLPCentralDetalle.Size = new System.Drawing.Size(608, 487);
+            this.fLPCentralDetalle.TabIndex = 0;
             // 
             // txtStockMinimo
             // 
@@ -166,27 +187,6 @@
             this.txtStockNecesario.TabIndex = 2;
             this.txtStockNecesario.Visible = false;
             this.txtStockNecesario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtStockNecesario_KeyUp);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(239, 8);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(140, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Detalles Seleccionados";
-            // 
-            // fLPCentralDetalle
-            // 
-            this.fLPCentralDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fLPCentralDetalle.AutoScroll = true;
-            this.fLPCentralDetalle.Location = new System.Drawing.Point(5, 30);
-            this.fLPCentralDetalle.Name = "fLPCentralDetalle";
-            this.fLPCentralDetalle.Size = new System.Drawing.Size(608, 487);
-            this.fLPCentralDetalle.TabIndex = 0;
             // 
             // btnAddDetalle
             // 
