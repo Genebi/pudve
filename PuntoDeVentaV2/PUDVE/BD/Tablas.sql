@@ -1300,3 +1300,34 @@ IF
 
 -- Agregar Columna (CorreoVenta) a la tabla de Configuracion para enviar correo al hacer una venta
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoVenta tinyint(1) DEFAULT 0;
+
+-- Agregar mensaje en Nombre si el prducto se guardo sin nombre en la tabla producto
+UPDATE productos 
+SET Nombre = 'PRODUCTO SIN NOMBRE', 
+NombreAlterno1 = 'PRODUCTO SIN NOMBRE', 
+NombreAlterno2 = 'PRODUCTO SIN NOMBRE' 
+WHERE 
+	Nombre = '' 
+	AND NombreAlterno1 = '' 
+	AND NombreAlterno2 = '' 
+	AND NombreAlterno2 = ''; 
+
+-- Quitar espacios creados al inicio y final de un producto sea con la tecla de control TAB
+UPDATE productos 
+SET Nombre = REPLACE ( Nombre, '\t', '' );
+
+UPDATE productos 
+SET NombreAlterno1 = REPLACE ( NombreAlterno1, '\t', '' );
+
+UPDATE productos 
+SET NombreAlterno2 = REPLACE ( NombreAlterno2, '\t', '' );
+
+-- Quitar espacios creados por algun enter en el nombre del producto
+UPDATE productos 
+SET Nombre = REPLACE ( Nombre, '\n', '' );
+
+UPDATE productos 
+SET NombreAlterno1 = REPLACE ( NombreAlterno1, '\n', '' );
+
+UPDATE productos 
+SET NombreAlterno2 = REPLACE ( NombreAlterno2, '\n', '' );
