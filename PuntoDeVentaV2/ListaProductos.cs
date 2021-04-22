@@ -168,6 +168,14 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos(1, busqueda);
             }
+
+            if (DGVStockProductos.Rows.Count.Equals(0))
+            {
+                MessageBox.Show("La busqueda realizada no obtuvo resultados.", "Aviso del sistema.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarDatos();
+                txtBoxSearchProd.Focus();
+                txtBoxSearchProd.SelectAll();
+            }
         }
 
         private void BuscarProductos()
