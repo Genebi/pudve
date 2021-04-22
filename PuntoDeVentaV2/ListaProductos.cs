@@ -353,6 +353,7 @@ namespace PuntoDeVentaV2
         private void btnPrimeraPagina_Click(object sender, EventArgs e)
         {
             p.primerPagina();
+            clickBoton = 1;
             CargarDatos();
             actualizar();
         }
