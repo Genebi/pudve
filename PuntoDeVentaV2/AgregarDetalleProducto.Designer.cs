@@ -112,10 +112,11 @@
             // fLPLateralConcepto
             // 
             this.fLPLateralConcepto.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPLateralConcepto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.fLPLateralConcepto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPLateralConcepto.Location = new System.Drawing.Point(4, 33);
             this.fLPLateralConcepto.Name = "fLPLateralConcepto";
-            this.fLPLateralConcepto.Size = new System.Drawing.Size(207, 482);
+            this.fLPLateralConcepto.Size = new System.Drawing.Size(207, 485);
             this.fLPLateralConcepto.TabIndex = 0;
             this.fLPLateralConcepto.WrapContents = false;
             // 
@@ -123,9 +124,9 @@
             // 
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.fLPCentralDetalle);
-            this.panel2.Location = new System.Drawing.Point(223, 16);
+            this.panel2.Location = new System.Drawing.Point(221, 16);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(618, 526);
+            this.panel2.Size = new System.Drawing.Size(622, 526);
             this.panel2.TabIndex = 28;
             // 
             // label3
@@ -144,9 +145,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fLPCentralDetalle.AutoScroll = true;
-            this.fLPCentralDetalle.Location = new System.Drawing.Point(5, 30);
+            this.fLPCentralDetalle.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.fLPCentralDetalle.Location = new System.Drawing.Point(4, 30);
             this.fLPCentralDetalle.Name = "fLPCentralDetalle";
-            this.fLPCentralDetalle.Size = new System.Drawing.Size(608, 487);
+            this.fLPCentralDetalle.Size = new System.Drawing.Size(613, 491);
             this.fLPCentralDetalle.TabIndex = 0;
             // 
             // txtStockMinimo
