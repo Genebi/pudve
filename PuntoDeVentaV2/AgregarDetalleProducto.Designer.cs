@@ -311,7 +311,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(20, 23);
             this.label6.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.label6, "Activar Casilla Para Mostrar En Ventana Productos");
+            this.toolTip1.SetToolTip(this.label6, "Activar casilla para, \r\nmostrar en ventana de productos");
             // 
             // AgregarDetalleProducto
             // 
