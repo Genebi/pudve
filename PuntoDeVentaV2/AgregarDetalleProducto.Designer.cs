@@ -51,6 +51,7 @@
             this.timerStockMaximo = new System.Windows.Forms.Timer(this.components);
             this.chkMensajeInventario = new System.Windows.Forms.CheckBox();
             this.chkBoxProductMessage = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -83,6 +84,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.fLPLateralConcepto);
@@ -303,6 +305,14 @@
             this.chkBoxProductMessage.UseVisualStyleBackColor = true;
             this.chkBoxProductMessage.Visible = false;
             // 
+            // label6
+            // 
+            this.label6.Image = global::PuntoDeVentaV2.Properties.Resources.eye;
+            this.label6.Location = new System.Drawing.Point(163, 6);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(20, 23);
+            this.label6.TabIndex = 3;
+            // 
             // AgregarDetalleProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -361,5 +371,6 @@
         private System.Windows.Forms.Timer timerStockMaximo;
         private System.Windows.Forms.CheckBox chkMensajeInventario;
         private System.Windows.Forms.CheckBox chkBoxProductMessage;
+        private System.Windows.Forms.Label label6;
     }
 }
