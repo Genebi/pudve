@@ -52,6 +52,7 @@
             this.chkMensajeInventario = new System.Windows.Forms.CheckBox();
             this.chkBoxProductMessage = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -63,7 +64,7 @@
             this.separadorInicial.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.separadorInicial.Location = new System.Drawing.Point(5, 7);
             this.separadorInicial.Name = "separadorInicial";
-            this.separadorInicial.Size = new System.Drawing.Size(830, 2);
+            this.separadorInicial.Size = new System.Drawing.Size(928, 2);
             this.separadorInicial.TabIndex = 19;
             // 
             // btnGuardarDetalles
@@ -74,7 +75,7 @@
             this.btnGuardarDetalles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarDetalles.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnGuardarDetalles.Location = new System.Drawing.Point(44, 17);
+            this.btnGuardarDetalles.Location = new System.Drawing.Point(6, 17);
             this.btnGuardarDetalles.Name = "btnGuardarDetalles";
             this.btnGuardarDetalles.Size = new System.Drawing.Size(201, 41);
             this.btnGuardarDetalles.TabIndex = 26;
@@ -90,35 +91,35 @@
             this.panel1.Controls.Add(this.fLPLateralConcepto);
             this.panel1.Location = new System.Drawing.Point(3, 18);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(215, 524);
+            this.panel1.Size = new System.Drawing.Size(284, 524);
             this.panel1.TabIndex = 27;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(116, 9);
+            this.label2.Location = new System.Drawing.Point(159, 4);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.Size = new System.Drawing.Size(57, 39);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Agregar";
+            this.label2.Text = "Especifica\r\nciones";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
+            this.label1.Location = new System.Drawing.Point(9, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Detalle";
+            this.label1.Text = "Nombre";
             // 
             // fLPLateralConcepto
             // 
             this.fLPLateralConcepto.BackColor = System.Drawing.SystemColors.Control;
             this.fLPLateralConcepto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.fLPLateralConcepto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPLateralConcepto.Location = new System.Drawing.Point(4, 33);
+            this.fLPLateralConcepto.Location = new System.Drawing.Point(4, 44);
             this.fLPLateralConcepto.Name = "fLPLateralConcepto";
-            this.fLPLateralConcepto.Size = new System.Drawing.Size(207, 485);
+            this.fLPLateralConcepto.Size = new System.Drawing.Size(274, 475);
             this.fLPLateralConcepto.TabIndex = 0;
             this.fLPLateralConcepto.WrapContents = false;
             // 
@@ -126,16 +127,16 @@
             // 
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.fLPCentralDetalle);
-            this.panel2.Location = new System.Drawing.Point(221, 16);
+            this.panel2.Location = new System.Drawing.Point(291, 16);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(622, 526);
+            this.panel2.Size = new System.Drawing.Size(643, 526);
             this.panel2.TabIndex = 28;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(239, 8);
+            this.label3.Location = new System.Drawing.Point(239, 17);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(140, 13);
             this.label3.TabIndex = 1;
@@ -143,14 +144,12 @@
             // 
             // fLPCentralDetalle
             // 
-            this.fLPCentralDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fLPCentralDetalle.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.fLPCentralDetalle.AutoScroll = true;
             this.fLPCentralDetalle.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.fLPCentralDetalle.Location = new System.Drawing.Point(4, 30);
+            this.fLPCentralDetalle.Location = new System.Drawing.Point(5, 46);
             this.fLPCentralDetalle.Name = "fLPCentralDetalle";
-            this.fLPCentralDetalle.Size = new System.Drawing.Size(613, 491);
+            this.fLPCentralDetalle.Size = new System.Drawing.Size(632, 475);
             this.fLPCentralDetalle.TabIndex = 0;
             // 
             // txtStockMinimo
@@ -256,9 +255,9 @@
             // 
             this.groupBox2.Controls.Add(this.btnCerrar);
             this.groupBox2.Controls.Add(this.btnGuardarDetalles);
-            this.groupBox2.Location = new System.Drawing.Point(562, 548);
+            this.groupBox2.Location = new System.Drawing.Point(476, 548);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(279, 115);
+            this.groupBox2.Size = new System.Drawing.Size(435, 115);
             this.groupBox2.TabIndex = 31;
             this.groupBox2.TabStop = false;
             // 
@@ -270,7 +269,7 @@
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.Location = new System.Drawing.Point(44, 65);
+            this.btnCerrar.Location = new System.Drawing.Point(229, 17);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(201, 41);
             this.btnCerrar.TabIndex = 27;
@@ -308,16 +307,17 @@
             // label6
             // 
             this.label6.Image = global::PuntoDeVentaV2.Properties.Resources.eye;
-            this.label6.Location = new System.Drawing.Point(163, 6);
+            this.label6.Location = new System.Drawing.Point(224, 12);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(20, 23);
             this.label6.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.label6, "Activar Casilla Para Mostrar En Ventana Productos");
             // 
             // AgregarDetalleProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 666);
+            this.ClientSize = new System.Drawing.Size(937, 666);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
@@ -372,5 +372,6 @@
         private System.Windows.Forms.CheckBox chkMensajeInventario;
         private System.Windows.Forms.CheckBox chkBoxProductMessage;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

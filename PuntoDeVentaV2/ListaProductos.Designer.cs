@@ -414,6 +414,7 @@
             this.lblCantidadRegistros.TabIndex = 38;
             this.lblCantidadRegistros.Text = "0";
             this.lblCantidadRegistros.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCantidadRegistros.Visible = false;
             // 
             // label4
             // 
@@ -425,6 +426,7 @@
             this.label4.TabIndex = 37;
             this.label4.Text = "Total de productos \r\nencontrados:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.Visible = false;
             // 
             // ListaProductos
             // 

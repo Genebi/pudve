@@ -65,6 +65,7 @@
             // 
             this.DGVProductos.AllowUserToAddRows = false;
             this.DGVProductos.AllowUserToDeleteRows = false;
+            this.DGVProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Nombre,
@@ -95,14 +96,12 @@
             this.Stock.HeaderText = "Stock";
             this.Stock.Name = "Stock";
             this.Stock.ReadOnly = true;
-            this.Stock.Width = 50;
             // 
             // Precio
             // 
             this.Precio.HeaderText = "Precio";
             this.Precio.Name = "Precio";
             this.Precio.ReadOnly = true;
-            this.Precio.Width = 50;
             // 
             // Clave
             // 
@@ -121,14 +120,12 @@
             this.Tipo.HeaderText = "Tipo";
             this.Tipo.Name = "Tipo";
             this.Tipo.ReadOnly = true;
-            this.Tipo.Width = 80;
             // 
             // Proveedor
             // 
             this.Proveedor.HeaderText = "Proveedor";
             this.Proveedor.Name = "Proveedor";
             this.Proveedor.ReadOnly = true;
-            this.Proveedor.Width = 220;
             // 
             // txtBuscar
             // 
@@ -370,6 +367,7 @@
             this.lblCantidadRegistros.TabIndex = 38;
             this.lblCantidadRegistros.Text = "0";
             this.lblCantidadRegistros.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCantidadRegistros.Visible = false;
             // 
             // label4
             // 
@@ -381,6 +379,7 @@
             this.label4.TabIndex = 37;
             this.label4.Text = "Total de productos \r\nencontrados:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.Visible = false;
             // 
             // ConsultarProductoVentas
             // 

@@ -473,13 +473,13 @@ namespace PuntoDeVentaV2
 
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
-                panelHijo.Width = 180;
+                panelHijo.Width = 245;
                 panelHijo.Height = 29;
                 panelHijo.HorizontalScroll.Visible = false;
                 //panelHijo.BackColor = Color.LightPink;
 
                 Panel panelContenedor = new Panel();
-                panelContenedor.Width = 175;
+                panelContenedor.Width = 238;
                 panelContenedor.Height = 23;
                 panelContenedor.Name = "panel" + chkDetalleProductoTxt;
                 //panelContenedor.BackColor = Color.LightGray;
@@ -487,7 +487,7 @@ namespace PuntoDeVentaV2
                 CheckBox check = new CheckBox();
                 check.Name = chkDetalleProductoTxt;
                 check.Text = chkDetalleProductoTxt;
-                check.Width = 110;
+                check.Width = 155;
                 check.Height = 24;
                 check.Location = new Point(0, 0);
                 //check.CheckedChanged += new EventHandler(checkBox_CheckedChanged);
@@ -512,7 +512,7 @@ namespace PuntoDeVentaV2
                     bt.FlatStyle = FlatStyle.Flat;
                     bt.Anchor = AnchorStyles.Top;
                     bt.Click += new EventHandler(bt_Click);
-                    bt.Location = new Point(115, 0);
+                    bt.Location = new Point(162, 0);
                     panelContenedor.Controls.Add(bt);
                     panelHijo.Controls.Add(panelContenedor);
 
@@ -527,10 +527,10 @@ namespace PuntoDeVentaV2
                         checkSetting.Name = chkSettingVariableTxt;
                         checkSetting.Width = 20;
                         checkSetting.Height = 24;
-                        checkSetting.Location = new Point(155, 0);
+                        checkSetting.Location = new Point(215, 0);
                         checkSetting.CheckedChanged += new EventHandler(checkBoxSetting_CheckedChanged);
                         //checkSetting.BackColor = Color.LightCyan;
-                        
+
                         if (chkSettingVariableVal.Equals("true") || chkSettingVariableVal.Equals("false"))
                         {
                             checkSetting.Checked = Convert.ToBoolean(chkSettingVariableVal);
