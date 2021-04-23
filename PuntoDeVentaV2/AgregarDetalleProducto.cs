@@ -654,7 +654,7 @@ namespace PuntoDeVentaV2
                     //  Damos Caracteristicas al ComboBox Proveedor
                     ComboBox cbProveedor = new ComboBox();
                     cbProveedor.Name = "cb" + name;
-                    cbProveedor.Width = 400;
+                    cbProveedor.Width = 580;
                     cbProveedor.Height = 30;
                     cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
                     cbProveedor.SelectedIndexChanged += new System.EventHandler(cbProveedor_SelectValueChanged);
@@ -809,13 +809,13 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + name;
 
                     // Damos Caracteristicas al panel Contenedor
-                    panelContenedor.Width = 196;
+                    panelContenedor.Width = 600;
                     panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
 
                     // Damos Caracteristicas al panel Contenido
                     panelContenido.Name = nombrePanelContenido;
-                    panelContenido.Width = 185;
+                    panelContenido.Width = 594;
                     panelContenido.Height = 55;
 
                     // Variables para el centrado del panel
@@ -825,7 +825,7 @@ namespace PuntoDeVentaV2
                     // Iniciamos la Etiqueta Nombre
                     Label lblNombreDetalleGral = new Label();
                     lblNombreDetalleGral.Name = "lblNombre" + name;
-                    lblNombreDetalleGral.Width = 170;
+                    lblNombreDetalleGral.Width = 580;
                     lblNombreDetalleGral.Height = 20;
                     lblNombreDetalleGral.Location = new Point(XcbProv - (lblNombreDetalleGral.Width / 2), 32);
                     lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
@@ -838,7 +838,7 @@ namespace PuntoDeVentaV2
                     // Iniciamos el ComboBox para cargar los Detalles Generales
                     ComboBox cbDetalleGral = new ComboBox();
                     cbDetalleGral.Name = "cb" + name;
-                    cbDetalleGral.Width = 170;
+                    cbDetalleGral.Width = 580;
                     cbDetalleGral.Height = 30;
                     cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
                     cbDetalleGral.SelectedIndexChanged += new System.EventHandler(cbDetalleGral_SelectIndexChanged);
