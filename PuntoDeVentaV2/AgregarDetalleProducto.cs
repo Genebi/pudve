@@ -1416,6 +1416,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnInhabilitados_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Está área esta bajo construcción\npronto estara disponible...", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void llenarDatosProveedor(string textoBuscado)
         {
             string namePanel = string.Empty;

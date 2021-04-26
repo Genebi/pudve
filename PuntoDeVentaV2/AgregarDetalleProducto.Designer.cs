@@ -32,6 +32,7 @@
             this.separadorInicial = new System.Windows.Forms.Label();
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.fLPLateralConcepto = new System.Windows.Forms.FlowLayoutPanel();
@@ -44,6 +45,7 @@
             this.txtStockNecesario = new System.Windows.Forms.TextBox();
             this.btnAddDetalle = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnInhabilitados = new System.Windows.Forms.Button();
             this.btnDeleteDetalle = new System.Windows.Forms.Button();
             this.btnRenameDetalle = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -51,7 +53,6 @@
             this.timerStockMaximo = new System.Windows.Forms.Timer(this.components);
             this.chkMensajeInventario = new System.Windows.Forms.CheckBox();
             this.chkBoxProductMessage = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -75,11 +76,13 @@
             this.btnGuardarDetalles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarDetalles.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnGuardarDetalles.Location = new System.Drawing.Point(6, 17);
+            this.btnGuardarDetalles.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
+            this.btnGuardarDetalles.Location = new System.Drawing.Point(10, 13);
             this.btnGuardarDetalles.Name = "btnGuardarDetalles";
             this.btnGuardarDetalles.Size = new System.Drawing.Size(201, 41);
             this.btnGuardarDetalles.TabIndex = 26;
             this.btnGuardarDetalles.Text = "Guardar";
+            this.btnGuardarDetalles.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnGuardarDetalles.UseVisualStyleBackColor = false;
             this.btnGuardarDetalles.Click += new System.EventHandler(this.btnGuardarDetalles_Click);
             // 
@@ -93,6 +96,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(284, 524);
             this.panel1.TabIndex = 27;
+            // 
+            // label6
+            // 
+            this.label6.Image = global::PuntoDeVentaV2.Properties.Resources.eye;
+            this.label6.Location = new System.Drawing.Point(224, 12);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(20, 23);
+            this.label6.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.label6, "Activar casilla para, \r\nmostrar en ventana de productos");
             // 
             // label2
             // 
@@ -154,7 +166,7 @@
             // 
             // txtStockMinimo
             // 
-            this.txtStockMinimo.Location = new System.Drawing.Point(523, 643);
+            this.txtStockMinimo.Location = new System.Drawing.Point(805, 546);
             this.txtStockMinimo.Name = "txtStockMinimo";
             this.txtStockMinimo.Size = new System.Drawing.Size(120, 20);
             this.txtStockMinimo.TabIndex = 5;
@@ -164,7 +176,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(432, 646);
+            this.label5.Location = new System.Drawing.Point(714, 549);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 13);
             this.label5.TabIndex = 4;
@@ -175,7 +187,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(433, 621);
+            this.label4.Location = new System.Drawing.Point(496, 549);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 3;
@@ -184,7 +196,7 @@
             // 
             // txtStockNecesario
             // 
-            this.txtStockNecesario.Location = new System.Drawing.Point(525, 618);
+            this.txtStockNecesario.Location = new System.Drawing.Point(588, 546);
             this.txtStockNecesario.Name = "txtStockNecesario";
             this.txtStockNecesario.Size = new System.Drawing.Size(120, 20);
             this.txtStockNecesario.TabIndex = 2;
@@ -197,27 +209,50 @@
             this.btnAddDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddDetalle.FlatAppearance.BorderSize = 0;
             this.btnAddDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnAddDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnAddDetalle.ForeColor = System.Drawing.Color.White;
-            this.btnAddDetalle.Location = new System.Drawing.Point(10, 30);
+            this.btnAddDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.list_ul1;
+            this.btnAddDetalle.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAddDetalle.Location = new System.Drawing.Point(6, 12);
             this.btnAddDetalle.Name = "btnAddDetalle";
-            this.btnAddDetalle.Size = new System.Drawing.Size(266, 28);
+            this.btnAddDetalle.Size = new System.Drawing.Size(189, 41);
             this.btnAddDetalle.TabIndex = 29;
             this.btnAddDetalle.Text = "Agregar";
+            this.btnAddDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddDetalle.UseVisualStyleBackColor = false;
             this.btnAddDetalle.Click += new System.EventHandler(this.btnAddDetalle_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnInhabilitados);
             this.groupBox1.Controls.Add(this.btnDeleteDetalle);
             this.groupBox1.Controls.Add(this.btnRenameDetalle);
             this.groupBox1.Controls.Add(this.btnAddDetalle);
-            this.groupBox1.Location = new System.Drawing.Point(3, 548);
+            this.groupBox1.Location = new System.Drawing.Point(5, 546);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(289, 115);
+            this.groupBox1.Size = new System.Drawing.Size(397, 105);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Procedimientos de Detalles:";
+            // 
+            // btnInhabilitados
+            // 
+            this.btnInhabilitados.BackColor = System.Drawing.Color.Purple;
+            this.btnInhabilitados.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnInhabilitados.FlatAppearance.BorderSize = 0;
+            this.btnInhabilitados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInhabilitados.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btnInhabilitados.ForeColor = System.Drawing.Color.White;
+            this.btnInhabilitados.Image = global::PuntoDeVentaV2.Properties.Resources.low_vision1;
+            this.btnInhabilitados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnInhabilitados.Location = new System.Drawing.Point(201, 57);
+            this.btnInhabilitados.Name = "btnInhabilitados";
+            this.btnInhabilitados.Size = new System.Drawing.Size(189, 41);
+            this.btnInhabilitados.TabIndex = 32;
+            this.btnInhabilitados.Text = "Inhabilitados";
+            this.btnInhabilitados.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnInhabilitados.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnInhabilitados.UseVisualStyleBackColor = false;
+            this.btnInhabilitados.Click += new System.EventHandler(this.btnInhabilitados_Click);
             // 
             // btnDeleteDetalle
             // 
@@ -225,13 +260,15 @@
             this.btnDeleteDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDeleteDetalle.FlatAppearance.BorderSize = 0;
             this.btnDeleteDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnDeleteDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnDeleteDetalle.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteDetalle.Location = new System.Drawing.Point(146, 65);
+            this.btnDeleteDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.times_rectangle_o1;
+            this.btnDeleteDetalle.Location = new System.Drawing.Point(6, 57);
             this.btnDeleteDetalle.Name = "btnDeleteDetalle";
-            this.btnDeleteDetalle.Size = new System.Drawing.Size(130, 28);
+            this.btnDeleteDetalle.Size = new System.Drawing.Size(189, 41);
             this.btnDeleteDetalle.TabIndex = 31;
-            this.btnDeleteDetalle.Text = "Eliminar";
+            this.btnDeleteDetalle.Text = "Inhabilitar";
+            this.btnDeleteDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnDeleteDetalle.UseVisualStyleBackColor = false;
             this.btnDeleteDetalle.Click += new System.EventHandler(this.btnDeleteDetalle_Click);
             // 
@@ -241,13 +278,15 @@
             this.btnRenameDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRenameDetalle.FlatAppearance.BorderSize = 0;
             this.btnRenameDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRenameDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnRenameDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnRenameDetalle.ForeColor = System.Drawing.Color.White;
-            this.btnRenameDetalle.Location = new System.Drawing.Point(10, 65);
+            this.btnRenameDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.edit1;
+            this.btnRenameDetalle.Location = new System.Drawing.Point(201, 12);
             this.btnRenameDetalle.Name = "btnRenameDetalle";
-            this.btnRenameDetalle.Size = new System.Drawing.Size(130, 28);
+            this.btnRenameDetalle.Size = new System.Drawing.Size(189, 41);
             this.btnRenameDetalle.TabIndex = 30;
             this.btnRenameDetalle.Text = "Renombrar";
+            this.btnRenameDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRenameDetalle.UseVisualStyleBackColor = false;
             this.btnRenameDetalle.Click += new System.EventHandler(this.btnRenameDetalle_Click);
             // 
@@ -255,9 +294,9 @@
             // 
             this.groupBox2.Controls.Add(this.btnCerrar);
             this.groupBox2.Controls.Add(this.btnGuardarDetalles);
-            this.groupBox2.Location = new System.Drawing.Point(476, 548);
+            this.groupBox2.Location = new System.Drawing.Point(707, 544);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(435, 115);
+            this.groupBox2.Size = new System.Drawing.Size(220, 108);
             this.groupBox2.TabIndex = 31;
             this.groupBox2.TabStop = false;
             // 
@@ -269,11 +308,13 @@
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.Location = new System.Drawing.Point(229, 17);
+            this.btnCerrar.Image = global::PuntoDeVentaV2.Properties.Resources.times1;
+            this.btnCerrar.Location = new System.Drawing.Point(10, 57);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(201, 41);
             this.btnCerrar.TabIndex = 27;
             this.btnCerrar.Text = "Cancelar";
+            this.btnCerrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
@@ -285,7 +326,7 @@
             // chkMensajeInventario
             // 
             this.chkMensajeInventario.AutoSize = true;
-            this.chkMensajeInventario.Location = new System.Drawing.Point(476, 601);
+            this.chkMensajeInventario.Location = new System.Drawing.Point(297, 548);
             this.chkMensajeInventario.Name = "chkMensajeInventario";
             this.chkMensajeInventario.Size = new System.Drawing.Size(199, 17);
             this.chkMensajeInventario.TabIndex = 35;
@@ -296,7 +337,7 @@
             // chkBoxProductMessage
             // 
             this.chkBoxProductMessage.AutoSize = true;
-            this.chkBoxProductMessage.Location = new System.Drawing.Point(298, 601);
+            this.chkBoxProductMessage.Location = new System.Drawing.Point(119, 548);
             this.chkBoxProductMessage.Name = "chkBoxProductMessage";
             this.chkBoxProductMessage.Size = new System.Drawing.Size(173, 17);
             this.chkBoxProductMessage.TabIndex = 34;
@@ -304,20 +345,11 @@
             this.chkBoxProductMessage.UseVisualStyleBackColor = true;
             this.chkBoxProductMessage.Visible = false;
             // 
-            // label6
-            // 
-            this.label6.Image = global::PuntoDeVentaV2.Properties.Resources.eye;
-            this.label6.Location = new System.Drawing.Point(224, 12);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(20, 23);
-            this.label6.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.label6, "Activar casilla para, \r\nmostrar en ventana de productos");
-            // 
             // AgregarDetalleProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 666);
+            this.ClientSize = new System.Drawing.Size(937, 658);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
@@ -373,5 +405,6 @@
         private System.Windows.Forms.CheckBox chkBoxProductMessage;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnInhabilitados;
     }
 }
