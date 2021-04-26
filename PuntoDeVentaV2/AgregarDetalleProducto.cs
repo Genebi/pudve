@@ -473,23 +473,26 @@ namespace PuntoDeVentaV2
 
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
-                panelHijo.Width = 258;
+                panelHijo.Width = 245;
                 panelHijo.Height = 29;
                 panelHijo.HorizontalScroll.Visible = false;
+                //panelHijo.BackColor = Color.LightPink;
 
                 Panel panelContenedor = new Panel();
-                panelContenedor.Width = 250;
+                panelContenedor.Width = 238;
                 panelContenedor.Height = 23;
                 panelContenedor.Name = "panel" + chkDetalleProductoTxt;
+                //panelContenedor.BackColor = Color.LightGray;
 
                 CheckBox check = new CheckBox();
                 check.Name = chkDetalleProductoTxt;
                 check.Text = chkDetalleProductoTxt;
-                check.Width = 110;
+                check.Width = 155;
                 check.Height = 24;
                 check.Location = new Point(0, 0);
                 //check.CheckedChanged += new EventHandler(checkBox_CheckedChanged);
                 check.CheckedChanged += new EventHandler(checkBox_CheckedChanged);
+                //check.BackColor = Color.LightBlue;
 
                 if (chkDetalleProductoVal.Equals("true") || chkDetalleProductoVal.Equals("false"))
                 {
@@ -509,7 +512,7 @@ namespace PuntoDeVentaV2
                     bt.FlatStyle = FlatStyle.Flat;
                     bt.Anchor = AnchorStyles.Top;
                     bt.Click += new EventHandler(bt_Click);
-                    bt.Location = new Point(115, 0);
+                    bt.Location = new Point(162, 0);
                     panelContenedor.Controls.Add(bt);
                     panelHijo.Controls.Add(panelContenedor);
 
@@ -524,9 +527,9 @@ namespace PuntoDeVentaV2
                         checkSetting.Name = chkSettingVariableTxt;
                         checkSetting.Width = 20;
                         checkSetting.Height = 24;
-                        checkSetting.Location = new Point(155, 0);
+                        checkSetting.Location = new Point(215, 0);
                         checkSetting.CheckedChanged += new EventHandler(checkBoxSetting_CheckedChanged);
-
+                        //checkSetting.BackColor = Color.LightCyan;
 
                         if (chkSettingVariableVal.Equals("true") || chkSettingVariableVal.Equals("false"))
                         {
@@ -651,7 +654,7 @@ namespace PuntoDeVentaV2
                     //  Damos Caracteristicas al ComboBox Proveedor
                     ComboBox cbProveedor = new ComboBox();
                     cbProveedor.Name = "cb" + name;
-                    cbProveedor.Width = 400;
+                    cbProveedor.Width = 580;
                     cbProveedor.Height = 30;
                     cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
                     cbProveedor.SelectedIndexChanged += new System.EventHandler(cbProveedor_SelectValueChanged);
@@ -806,13 +809,13 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + name;
 
                     // Damos Caracteristicas al panel Contenedor
-                    panelContenedor.Width = 196;
+                    panelContenedor.Width = 600;
                     panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
 
                     // Damos Caracteristicas al panel Contenido
                     panelContenido.Name = nombrePanelContenido;
-                    panelContenido.Width = 185;
+                    panelContenido.Width = 594;
                     panelContenido.Height = 55;
 
                     // Variables para el centrado del panel
@@ -822,7 +825,7 @@ namespace PuntoDeVentaV2
                     // Iniciamos la Etiqueta Nombre
                     Label lblNombreDetalleGral = new Label();
                     lblNombreDetalleGral.Name = "lblNombre" + name;
-                    lblNombreDetalleGral.Width = 170;
+                    lblNombreDetalleGral.Width = 580;
                     lblNombreDetalleGral.Height = 20;
                     lblNombreDetalleGral.Location = new Point(XcbProv - (lblNombreDetalleGral.Width / 2), 32);
                     lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
@@ -835,7 +838,7 @@ namespace PuntoDeVentaV2
                     // Iniciamos el ComboBox para cargar los Detalles Generales
                     ComboBox cbDetalleGral = new ComboBox();
                     cbDetalleGral.Name = "cb" + name;
-                    cbDetalleGral.Width = 170;
+                    cbDetalleGral.Width = 580;
                     cbDetalleGral.Height = 30;
                     cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
                     cbDetalleGral.SelectedIndexChanged += new System.EventHandler(cbDetalleGral_SelectIndexChanged);
@@ -1413,6 +1416,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnInhabilitados_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Está área esta bajo construcción\npronto estara disponible...", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void llenarDatosProveedor(string textoBuscado)
         {
             string namePanel = string.Empty;
@@ -1784,6 +1792,12 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleProducto_Load(object sender, EventArgs e)
         {
+            fLPLateralConcepto.AutoScroll = true;
+            fLPLateralConcepto.HorizontalScroll.Enabled = false;
+            fLPLateralConcepto.HorizontalScroll.Visible = false;
+            fLPLateralConcepto.VerticalScroll.Enabled = true;
+            fLPLateralConcepto.VerticalScroll.Visible = true;
+
             finalOrigenProdServCombo = origenProdServCombo;
             finalIdProducto = getIdProducto;
 
