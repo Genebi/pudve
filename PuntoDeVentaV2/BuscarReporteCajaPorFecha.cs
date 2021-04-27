@@ -40,7 +40,7 @@ namespace PuntoDeVentaV2
 
             var datoBuscar = txtBuscador.Text.ToString().Replace("\r\n", string.Empty);
             var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
-            var segundaFecha = segundoDatePicker.Value.ToString("yyyy/MM/dd");
+            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
 
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
             var nombreUser = string.Empty;
@@ -85,6 +85,7 @@ namespace PuntoDeVentaV2
             var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
 
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
+            var fechaOp = string.Empty;
             var consulta = cn.CargarDatos(cs.CargarDatosIniciarFormReportesCaja(primerFecha, segundaFecha));
 
             if (!consulta.Rows.Count.Equals(0))
@@ -95,6 +96,7 @@ namespace PuntoDeVentaV2
                     fecha = iterar["FechaOPeracion"].ToString();
                     idEmpleado = Convert.ToInt32(iterar["IdEmpleado"].ToString());
                     empleado = iterar["nombre"].ToString();
+                    fechaOp = iterar["FechaOperacion"].ToString();
 
                     if (idEmpleado > 0)
                     {
@@ -107,7 +109,7 @@ namespace PuntoDeVentaV2
 
                     //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
 
-                    DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
+                    DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf, fechaOp);
                 }
             }
         }
@@ -141,12 +143,12 @@ namespace PuntoDeVentaV2
             }
             else if (e.ColumnIndex.Equals(4))//Dinero Agregado
             {
-                //var dato = traerDatosCaja(id);
+                var dato = obtenerDatosReporte(id, "deposito");
                 //GenerarReporte(dato, "Dinero Agregado");
             }
             else if (e.ColumnIndex.Equals(5))//Dinero Retirado
             {
-                //var dato = traerDatosCaja(id);
+                var dato = obtenerDatosReporte(id, "retiro"); 
                 //GenerarReporte(dato, "Dinero Retirado");
             }
         }
@@ -263,26 +265,26 @@ namespace PuntoDeVentaV2
 
             //lista.Add(efectivoAg + "|" +tarjetaAg + "|" +valesAg + "|" +chequeAg + "|" +transAg + "|" +totalAg);//Dinero Agregado
 
-            lista.Add("Efectivo:|" + efectivoC + "|Efectivo:|" + efectivoAnt + "|Efectivo:|" + efectivoAg + "|Efectivo:|" + efectivoR + "|Efectivo:|" + ((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR)));
+            lista.Add("Efectivo:|" + efectivoC + "|Efectivo:|" + efectivoAnt + "|Efectivo:|" + efectivoAg + "|Efectivo:|" + efectivoR + "|Efectivo:|" + ((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR)).ToString("C"));
             //lista.Add("Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" );
 
             //lista.Add($"{efectivoC} | {efectivoAnt} | {efectivoAg} | {efectivoR} | {((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR))}");
 
-            lista.Add("Tarjeta:|" + tarjetaC + "|Tarjeta:|" + tarjetaAnt + "|Tarjeta:|" + tarjetaAg + "|Tarjeta:|" + tarjetaR + "|Tarjeta:|" + ((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(tarjetaR)));
+            lista.Add("Tarjeta:|" + tarjetaC + "|Tarjeta:|" + tarjetaAnt + "|Tarjeta:|" + tarjetaAg + "|Tarjeta:|" + tarjetaR + "|Tarjeta:|" + ((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(tarjetaR)).ToString("C"));
 
-            lista.Add("Vales:|" + valesC + "|Vales:|" + valesAnt + "|Vales:|" + valesAg + "|Vales:|" + valesR + "|Vales:|" + ((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesR)));
+            lista.Add("Vales:|" + valesC + "|Vales:|" + valesAnt + "|Vales:|" + valesAg + "|Vales:|" + valesR + "|Vales:|" + ((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesR)).ToString("C"));
 
-            lista.Add("Cheque:|" + chequeC + "|Cheque:|" + chequeAnt + "|Cheque:|" + chequeAg + "|Cheque:|" + chequeR + "|Cheque:|" + ((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeR)));
+            lista.Add("Cheque:|" + chequeC + "|Cheque:|" + chequeAnt + "|Cheque:|" + chequeAg + "|Cheque:|" + chequeR + "|Cheque:|" + ((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeR)).ToString("C"));
 
-            lista.Add("Transferencia:|" + transC + "|Transferencia:|" + transAnt + "|Transferencia:|" + transAg + "|Transferencia:|" + transR + "|Transferencia:|" + ((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transR)));
+            lista.Add("Transferencia:|" + transC + "|Transferencia:|" + transAnt + "|Transferencia:|" + transAg + "|Transferencia:|" + transR + "|Transferencia:|" + ((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transR)).ToString("C"));
 
-            lista.Add("Crédito:|" + creditoC + "|" + string.Empty + "|" + string.Empty + "|"+string.Empty+"|"+ string.Empty+"|Anticipos Utilizados:|" + anticiposR + "|Saldo Inicial:|" + saldoInicial.ToString());
+            lista.Add("Crédito:|" + creditoC + "|" + string.Empty + "|" + string.Empty + "|"+string.Empty+"|"+ string.Empty+"|Anticipos Utilizados:|" + anticiposR + "|Saldo Inicial:|" + saldoInicial.ToString("C"));
 
-            lista.Add("Abonos:|" + creditoC + "|" + string.Empty + "|" +string.Empty +"|" +string.Empty+"|"+ string.Empty + "|Devoluciones:|" + totalA + "|Crédito:|" + creditoC);
+            lista.Add("Abonos:|" + creditoC + "|" + string.Empty + "|" +string.Empty +"|" +string.Empty+"|"+ string.Empty + "|Devoluciones:|" + totalA + "|Crédito:|" + creditoC.ToString());
 
             lista.Add("Anticipos Utilizados:|" + anticiposA + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty+ "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty);
 
-            lista.Add("Total Ventas:|" + ventas + "|Total Anticipos:|" + anticipos + "|Total Agregado:|" + agregado + "|Total Retirado:|" + retirado + "|Total en  Caja:|" + total);
+            lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en  Caja:|" + total.ToString("C"));
 
             return lista.ToArray();
         }
@@ -615,6 +617,44 @@ namespace PuntoDeVentaV2
             }
             
             return result;
+        }
+
+        private string[] obtenerDatosReporte(int id, string tipoBusqueda)
+        {
+            List<string> lista = new List<string>();
+            DateTime date = DateTime.Parse(DGVReporteCaja.CurrentRow.Cells[2].Value.ToString());
+
+            var fechaParametro1 = string.Empty;
+            var obtenerFechaCorteAnterior = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' AND ID < '{id}' ORDER BY FechaOperacion DESC LIMIT 1");
+            if (!obtenerFechaCorteAnterior.Rows.Count.Equals(0))
+            {
+                fechaParametro1 = obtenerFechaCorteAnterior.Rows[0]["FechaOperacion"].ToString();
+
+            }
+
+            DateTime datePrimera = DateTime.Parse(fechaParametro1);
+
+            var total = string.Empty; var efectivo = string.Empty; var tarjeta = string.Empty; var vales = string.Empty; var cheque = string.Empty; var transferencia = string.Empty;
+            var query = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad), 0.00) AS Total, IFNULL(SUM(Efectivo), 0.00) AS Efectivo, IFNULL(SUM(Tarjeta),0.00) AS Tarjeta, IFNULL(SUM(Vales),0.00) AS Vales, IFNULL(SUM(Cheque),0.00) AS Cheque, IFNULL(SUM(Transferencia),0.00) AS Transferencia FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = '{tipoBusqueda}' AND (FechaOperacion BETWEEN '{datePrimera.ToString("yyyy-MM-dd hh:mm:ss")}' AND '{date.ToString("yyyy-MM-dd hh:mm:ss")}')");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                total = query.Rows[0]["Total"].ToString();
+                efectivo = query.Rows[0]["Efectivo"].ToString();
+                tarjeta = query.Rows[0]["Tarjeta"].ToString();
+                vales = query.Rows[0]["Vales"].ToString();
+                cheque = query.Rows[0]["Cheque"].ToString();
+                transferencia = query.Rows[0]["Transferencia"].ToString();
+            }
+
+            lista.Add(total);
+            lista.Add(efectivo);
+            lista.Add(tarjeta);
+            lista.Add(vales);
+            lista.Add(cheque);
+            lista.Add(transferencia);
+
+            return lista.ToArray();
         }
     }
 }
