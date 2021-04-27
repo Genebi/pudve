@@ -273,8 +273,6 @@ namespace PuntoDeVentaV2
                 
                 if (CajaN.totCorte != "0")
                 {
-
-
                     efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
                     tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
                     cheque = (totalCheque - cheque - convertCheque);// - CajaN.retiroCheque;
@@ -414,7 +412,7 @@ namespace PuntoDeVentaV2
 
                     //CorteDinero.Start();
 
-                    //CajaN.botones = true;
+                    CajaN.botones = true;
                     //if (Utilidades.AdobeReaderInstalado())
                     //{
                     //    GenerarTicket(datos);

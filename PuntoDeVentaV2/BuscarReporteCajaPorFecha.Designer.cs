@@ -29,17 +29,18 @@
         private void InitializeComponent()
         {
             this.DGVReporteCaja = new System.Windows.Forms.DataGridView();
+            this.primerDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.segundoDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.txtBuscador = new System.Windows.Forms.TextBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.User = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.corteCaja = new System.Windows.Forms.DataGridViewImageColumn();
             this.dineroAgregado = new System.Windows.Forms.DataGridViewImageColumn();
             this.dineroRetirado = new System.Windows.Forms.DataGridViewImageColumn();
-            this.primerDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.segundoDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.txtBuscador = new System.Windows.Forms.TextBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVReporteCaja)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,7 +56,8 @@
             this.date,
             this.corteCaja,
             this.dineroAgregado,
-            this.dineroRetirado});
+            this.dineroRetirado,
+            this.fecha});
             this.DGVReporteCaja.Cursor = System.Windows.Forms.Cursors.Default;
             this.DGVReporteCaja.Location = new System.Drawing.Point(12, 119);
             this.DGVReporteCaja.Name = "DGVReporteCaja";
@@ -63,50 +65,6 @@
             this.DGVReporteCaja.Size = new System.Drawing.Size(1018, 245);
             this.DGVReporteCaja.TabIndex = 3;
             this.DGVReporteCaja.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVReporteCaja_CellClick);
-            // 
-            // id
-            // 
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // User
-            // 
-            this.User.FillWeight = 230.667F;
-            this.User.HeaderText = "Usuario";
-            this.User.Name = "User";
-            this.User.ReadOnly = true;
-            // 
-            // date
-            // 
-            this.date.FillWeight = 101.5228F;
-            this.date.HeaderText = "Fecha";
-            this.date.Name = "date";
-            this.date.ReadOnly = true;
-            // 
-            // corteCaja
-            // 
-            this.corteCaja.FillWeight = 55.93673F;
-            this.corteCaja.HeaderText = "Corte de Caja";
-            this.corteCaja.Name = "corteCaja";
-            this.corteCaja.ReadOnly = true;
-            this.corteCaja.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.corteCaja.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // dineroAgregado
-            // 
-            this.dineroAgregado.FillWeight = 55.93673F;
-            this.dineroAgregado.HeaderText = "Dinero Agregaro";
-            this.dineroAgregado.Name = "dineroAgregado";
-            this.dineroAgregado.ReadOnly = true;
-            // 
-            // dineroRetirado
-            // 
-            this.dineroRetirado.FillWeight = 55.93673F;
-            this.dineroRetirado.HeaderText = "Dinero Retirado";
-            this.dineroRetirado.Name = "dineroRetirado";
-            this.dineroRetirado.ReadOnly = true;
             // 
             // primerDatePicker
             // 
@@ -160,6 +118,57 @@
             this.label3.TabIndex = 12;
             this.label3.Text = "Reportes Caja";
             // 
+            // id
+            // 
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // User
+            // 
+            this.User.FillWeight = 230.667F;
+            this.User.HeaderText = "Usuario";
+            this.User.Name = "User";
+            this.User.ReadOnly = true;
+            // 
+            // date
+            // 
+            this.date.FillWeight = 101.5228F;
+            this.date.HeaderText = "Fecha";
+            this.date.Name = "date";
+            this.date.ReadOnly = true;
+            // 
+            // corteCaja
+            // 
+            this.corteCaja.FillWeight = 55.93673F;
+            this.corteCaja.HeaderText = "Corte de Caja";
+            this.corteCaja.Name = "corteCaja";
+            this.corteCaja.ReadOnly = true;
+            this.corteCaja.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.corteCaja.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // dineroAgregado
+            // 
+            this.dineroAgregado.FillWeight = 55.93673F;
+            this.dineroAgregado.HeaderText = "Dinero Agregaro";
+            this.dineroAgregado.Name = "dineroAgregado";
+            this.dineroAgregado.ReadOnly = true;
+            // 
+            // dineroRetirado
+            // 
+            this.dineroRetirado.FillWeight = 55.93673F;
+            this.dineroRetirado.HeaderText = "Dinero Retirado";
+            this.dineroRetirado.Name = "dineroRetirado";
+            this.dineroRetirado.ReadOnly = true;
+            // 
+            // fecha
+            // 
+            this.fecha.HeaderText = "fecha";
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
+            this.fecha.Visible = false;
+            // 
             // BuscarReporteCajaPorFecha
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,5 +204,6 @@
         private System.Windows.Forms.DataGridViewImageColumn corteCaja;
         private System.Windows.Forms.DataGridViewImageColumn dineroAgregado;
         private System.Windows.Forms.DataGridViewImageColumn dineroRetirado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
     }
 }
