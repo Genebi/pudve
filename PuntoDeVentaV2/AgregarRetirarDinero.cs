@@ -370,41 +370,47 @@ namespace PuntoDeVentaV2
                     // Se pausa por 1 segundo
                     Thread.Sleep(1000);
 
+                    var efectivoRetirar = ValidarCampos(txtEfectivo.Text);
+                    var tarjetaRetirar = ValidarCampos(txtTarjeta.Text);
+                    var chequeRetirar = ValidarCampos(txtCheque.Text);
+                    var valesRetirar = ValidarCampos(txtVales.Text);
+                    var transRetirar = ValidarCampos(txtTrans.Text);
+                    var creditoRetirar = ValidarCampos(txtCredito.Text);
+
                     // Solo cuando es corte se hace esta resta, al total de cada forma de pago
                     // se le resta lo que el usuario quiere retirar menos el total retirado de cada
                     // forma de pago antes de que se haga el corte de caja
-                    //if (CajaN.totCorte != "0")
-                    //{
+                    var efectivoobtenido = 0f; var tarjetaobtenido = 0f; var chequeobtenido = 0f; var valesobtenido = 0f; var transobtenido = 0f; var creditoobtenido = 0f; var cantidadObtenido = 0f;
+                    if (CajaN.totCorte != "0")
+                    {
+                        efectivoobtenido = (totalEfectivo - efectivoRetirar - convertEfectivo);// - CajaN.retiroEfectivo;
+                        tarjetaobtenido = (totalTarjeta - tarjetaRetirar - convertTarjeta);// - CajaN.retiroTarjeta;
+                        chequeobtenido = (totalCheque - chequeRetirar - convertCheque);// - CajaN.retiroCheque;
+                        valesobtenido = (totalVales - valesRetirar - convertVales);// - CajaN.retiroVales;
+                        transobtenido = (totalTransferencia - transRetirar - convertTrans);// - CajaN.retiroTrans;
+                        creditoobtenido = totalCredito - creditoRetirar;
+                    }
+                    else
+                    {
+                        efectivoobtenido = (totalEfectivo - efectivoRetirar);// - CajaN.retiroEfectivo;
+                        tarjetaobtenido = (totalTarjeta - tarjetaRetirar);// - CajaN.retiroTarjeta;
+                        chequeobtenido = (totalCheque - chequeRetirar);// - CajaN.retiroCheque;
+                        valesobtenido = (totalVales - valesRetirar);// - CajaN.retiroVales;
+                        transobtenido = (totalTransferencia - transRetirar);// - CajaN.retiroTrans;
+                        creditoobtenido = totalCredito - creditoRetirar;
+                    }
 
+                    cantidadObtenido = efectivoobtenido + tarjetaobtenido + chequeobtenido + valesobtenido + transobtenido + creditoobtenido;
 
-                    //    efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
-                    //    tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
-                    //    cheque = (totalCheque - cheque - convertCheque);// - CajaN.retiroCheque;
-                    //    vales = (totalVales - vales - convertVales);// - CajaN.retiroVales;
-                    //    trans = (totalTransferencia - trans - convertTrans);// - CajaN.retiroTrans;
-                    //    credito = totalCredito - credito;
-                    //}
-                    //else
-                    //{
-                    //    efectivo = (totalEfectivo - efectivo);// - CajaN.retiroEfectivo;
-                    //    tarjeta = (totalTarjeta - tarjeta);// - CajaN.retiroTarjeta;
-                    //    cheque = (totalCheque - cheque);// - CajaN.retiroCheque;
-                    //    vales = (totalVales - vales);// - CajaN.retiroVales;
-                    //    trans = (totalTransferencia - trans);// - CajaN.retiroTrans;
-                    //    credito = totalCredito - credito;
-                    //}
+                    fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                    //cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
+                    datos = new string[] {
+                        "venta", cantidadObtenido.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                        efectivoobtenido.ToString("0.00"), tarjetaobtenido.ToString("0.00"), valesobtenido.ToString("0.00"), chequeobtenido.ToString("0.00"),
+                        transobtenido.ToString("0.00"), creditoobtenido.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString()
+                    };
 
-                    //fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                    //datos = new string[] {
-                    //    "venta", cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
-                    //    efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
-                    //    trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString()
-                    //};
-
-                    //cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
                     //Thread CorteDinero = new Thread(
                     //    () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
