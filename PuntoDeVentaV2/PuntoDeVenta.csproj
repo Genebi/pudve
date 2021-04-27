@@ -607,6 +607,12 @@
     <Compile Include="InformacionVenta.Designer.cs">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="InputBoxMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputBoxMessageBox.Designer.cs">
+      <DependentUpon>InputBoxMessageBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Inventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1098,6 +1104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InformacionVenta.resx">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputBoxMessageBox.resx">
+      <DependentUpon>InputBoxMessageBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventario.resx">
       <DependentUpon>Inventario.cs</DependentUpon>

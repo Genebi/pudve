@@ -473,10 +473,10 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + name;
 
                     Panel panelContenedor = new Panel();
-                    panelContenedor.Width = 266;
+                    panelContenedor.Width = 830;
                     panelContenedor.Height = 58;
                     panelContenedor.Name = nombrePanelContenedor;
-                    //panelContenedor.BackColor = Color.Aqua;
+                    //panelContenedor.BackColor = Color.DeepPink;
 
                     //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
                     //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
@@ -489,12 +489,13 @@ namespace PuntoDeVentaV2
                         value = chkSettingVariableVal;
                         Panel panelContenido = new Panel();
                         panelContenido.Name = nombrePanelContenido;
-                        panelContenido.Width = 258;
+                        panelContenido.Width = 825;
                         panelContenido.Height = 55;
+                        //panelContenido.BackColor = Color.DeepSkyBlue;
 
                         Label lblNombreProveedor = new Label();
                         lblNombreProveedor.Name = "lblNombre" + name;
-                        lblNombreProveedor.Width = 248;
+                        lblNombreProveedor.Width = 815;
                         lblNombreProveedor.Height = 20;
                         lblNombreProveedor.Location = new Point(3, 32);
                         lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
@@ -507,10 +508,11 @@ namespace PuntoDeVentaV2
 
                         ComboBox cbProveedor = new ComboBox();
                         cbProveedor.Name = "cb" + name;
-                        cbProveedor.Width = 200;
+                        cbProveedor.Width = 815;
                         cbProveedor.Height = 30;
                         cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
                         cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
+
                         if (listaProveedores.Length > 0)
                         {
                             cbProveedor.DataSource = proveedores.ToArray();
@@ -569,9 +571,10 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + name.ToString().Remove(0, 3);
 
                     Panel panelContenedor = new Panel();
-                    panelContenedor.Width = 266;
+                    panelContenedor.Width = 830;
                     panelContenedor.Height = 58;
                     panelContenedor.Name = nombrePanelContenedor;
+                    //panelContenedor.BackColor = Color.DeepPink;
 
                     //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
                     //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
@@ -586,12 +589,13 @@ namespace PuntoDeVentaV2
 
                         Panel panelContenido = new Panel();
                         panelContenido.Name = nombrePanelContenido;
-                        panelContenido.Width = 258;
+                        panelContenido.Width = 825;
                         panelContenido.Height = 55;
+                        //panelContenido.BackColor = Color.DeepSkyBlue;
 
                         Label lblNombreDetalleGral = new Label();
                         lblNombreDetalleGral.Name = "lblNombre" + name;
-                        lblNombreDetalleGral.Width = 248;
+                        lblNombreDetalleGral.Width = 815;
                         lblNombreDetalleGral.Height = 20;
                         lblNombreDetalleGral.Location = new Point(3, 32);
                         lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
@@ -604,11 +608,12 @@ namespace PuntoDeVentaV2
 
                         ComboBox cbDetalleGral = new ComboBox();
                         cbDetalleGral.Name = "cb" + name;
-                        cbDetalleGral.Width = 200;
+                        cbDetalleGral.Width = 815;
                         cbDetalleGral.Height = 30;
                         cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
                         cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
                         cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
+                        //cbDetalleGral.BackColor = Color.CadetBlue;
 
                         if (listaDetalleGral.Length > 0)
                         {
@@ -5868,109 +5873,109 @@ namespace PuntoDeVentaV2
 
         private void timerProdPaqSer_Tick(object sender, EventArgs e)
         {
-            if (Hided)  // si es valor true
-            {
-                int NewHeight = fLPContenidoProducto.Height + 123;
-                if (fLPContenidoProducto.Height == 0)
-                {
-                    fLPContenidoProducto.Height = NewHeight;
-                }
-                if (fLPContenidoProducto.Height >= PH)
-                {
-                    timerProdPaqSer.Stop();
-                    Hided = false;
-                    if (idProductoBuscado != null && tipoProdServ == "S")
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            mostrarProdServPaq();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //if (Hided)  // si es valor true
+            //{
+            //    int NewHeight = fLPContenidoProducto.Height + 123;
+            //    if (fLPContenidoProducto.Height == 0)
+            //    {
+            //        fLPContenidoProducto.Height = NewHeight;
+            //    }
+            //    if (fLPContenidoProducto.Height >= PH)
+            //    {
+            //        timerProdPaqSer.Stop();
+            //        Hided = false;
+            //        if (idProductoBuscado != null && tipoProdServ == "S")
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                mostrarProdServPaq();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    else if (idProductoBuscado != null && tipoProdServ == "PQ")
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            mostrarProdServPaq();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //            }
+            //        }
+            //        else if (idProductoBuscado != null && tipoProdServ == "PQ")
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                mostrarProdServPaq();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    else if (idProductoBuscado != null && dtNvoProductosDeServicios != null)
-                    {
-                        mostrarProdServPaq();
-                    }
-                    else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 3)
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            GenerarPanelProductosServ();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //            }
+            //        }
+            //        else if (idProductoBuscado != null && dtNvoProductosDeServicios != null)
+            //        {
+            //            mostrarProdServPaq();
+            //        }
+            //        else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 3)
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                GenerarPanelProductosServ();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 3)
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            GenerarPanelProductosServ();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //            }
+            //        }
+            //        else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 3)
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                GenerarPanelProductosServ();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 1)
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            GenerarPanelProductosServ();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //            }
+            //        }
+            //        else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 1)
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                GenerarPanelProductosServ();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 1)
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            GenerarPanelProductosServ();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //            }
+            //        }
+            //        else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 1)
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                GenerarPanelProductosServ();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    this.Height = 725;
-                    this.CenterToScreen();
-                    this.Refresh();
-                }
-                else
-                {
-                    NewHeight = PH;
-                    fLPContenidoProducto.Height = NewHeight;
-                }
-            }
-            else    // si es false
-            {
-                fLPContenidoProducto.Height = fLPContenidoProducto.Height - 30;
-                if (fLPContenidoProducto.Height <= 0)
-                {
-                    timerProdPaqSer.Stop();
-                    Hided = true;
-                    this.Height = 630;
-                }
-                this.CenterToScreen();
-                this.Refresh();
-            }
+            //            }
+            //        }
+            //        this.Height = 725;
+            //        this.CenterToScreen();
+            //        this.Refresh();
+            //    }
+            //    else
+            //    {
+            //        NewHeight = PH;
+            //        fLPContenidoProducto.Height = NewHeight;
+            //    }
+            //}
+            //else    // si es false
+            //{
+            //    fLPContenidoProducto.Height = fLPContenidoProducto.Height - 30;
+            //    if (fLPContenidoProducto.Height <= 0)
+            //    {
+            //        timerProdPaqSer.Stop();
+            //        Hided = true;
+            //        this.Height = 630;
+            //    }
+            //    this.CenterToScreen();
+            //    this.Refresh();
+            //}
         }
 
         private void cbTipo_Enter(object sender, EventArgs e)

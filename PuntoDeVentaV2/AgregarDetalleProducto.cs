@@ -99,6 +99,11 @@ namespace PuntoDeVentaV2
         int found = 0;
         NameValueCollection appSettings;
 
+        string  mensajeMostrar = string.Empty,
+                tituloVentana = string.Empty,
+                mensajeDefault = string.Empty, 
+                conceptoProductoAgregar = string.Empty;
+
         // this code will add a listviewtem
         // to a listview for each database entry
         // in the appSettings section of an App.config file.
@@ -2297,28 +2302,24 @@ namespace PuntoDeVentaV2
 
         private void btnAddDetalle_Click(object sender, EventArgs e)
         {
-            nvoValor = "false";
-            XPos = this.Width / 2;
-            YPos = this.Height / 2;
-            nvoDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
-            try
+            mensajeMostrar = string.Empty;
+            tituloVentana = string.Empty;
+            mensajeDefault = string.Empty;
+
+            mensajeMostrar = "Favor de poner el nombre del nuevo concepto del prodcuto, para darlo de alta al sistema.";
+            tituloVentana = "Agregar concepto del producto";
+            mensajeDefault = "Escribe aquí el concepto del producto.";
+
+            InputBoxMessageBox inputMessageBox = new InputBoxMessageBox(mensajeMostrar, tituloVentana, mensajeDefault);
+
+            inputMessageBox.FormClosing += delegate
             {
-                int found = -1;
-                fLPCentralDetalle.Controls.Clear();
-                if (nvoDetalle.Equals("Escriba aquí su Nuevo Detalle"))
+                if (!inputMessageBox.retornoNombreConcepto.Equals(string.Empty))
                 {
-                    //RefreshAppSettings();
-                    //loadFormConfig();
-                    loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (!nvoDetalle.Equals(""))
-                {
-                    //AddKey(nvoDetalle, nvoValor);
-                    //RefreshAppSettings();
-                    //loadFormConfig();
-                    using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(nvoDetalle, FormPrincipal.userID)))
+                    conceptoProductoAgregar = inputMessageBox.retornoNombreConcepto;
+                    //MessageBox.Show("Concepto: " + conceptoProductoAgregar);
+
+                    using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(conceptoProductoAgregar, FormPrincipal.userID)))
                     {
                         if (!dtItemDinamicos.Rows.Count.Equals(0))
                         {
@@ -2329,33 +2330,36 @@ namespace PuntoDeVentaV2
                             found = 0;
                         }
                     }
+
                     if (found.Equals(1))
                     {
-                        MessageBox.Show("El Registro que Intenra ya esta registrado\nfavor de verificar o intentar con otro Detalle", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("El Registro que Intenta agregar ya esta registrado\nfavor de verificar o intentar con otro Detalle", "Aviso del Sistema al Agregar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (found.Equals(0))
                     {
                         int nvoValorNumerico = 0;
                         int RegistroAgregado = -1;
 
-                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico(nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico(conceptoProductoAgregar, nvoValorNumerico, FormPrincipal.userID));
+
                         if (RegistroAgregado.Equals(1))
                         {
                             //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                         else if (RegistroAgregado.Equals(0))
                         {
-                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
-                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico("chk" + nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico("chk" + conceptoProductoAgregar, nvoValorNumerico, FormPrincipal.userID));
+
                         if (RegistroAgregado.Equals(1))
                         {
                             //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                         else if (RegistroAgregado.Equals(0))
                         {
-                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
 
@@ -2364,23 +2368,99 @@ namespace PuntoDeVentaV2
                     editDetelle = string.Empty;
                     editDetalleNvo = string.Empty;
                 }
-                else if (nvoDetalle.Equals(""))
+                else
                 {
-                    //RefreshAppSettings();
-                    //loadFormConfig();
                     loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            catch (Exception ex)
-            {
-                //RefreshAppSettings();
-                //loadFormConfig();
-                loadFromConfigDB();
-                BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            };
+
+            inputMessageBox.ShowDialog();
+
+            //nvoValor = "false";
+            //XPos = this.Width / 2;
+            //YPos = this.Height / 2;
+            //nvoDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
+            //try
+            //{
+            //    int found = -1;
+            //    fLPCentralDetalle.Controls.Clear();
+            //    if (nvoDetalle.Equals("Escriba aquí su Nuevo Detalle"))
+            //    {
+            //        //RefreshAppSettings();
+            //        //loadFormConfig();
+            //        loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else if (!nvoDetalle.Equals(""))
+            //    {
+            //        //AddKey(nvoDetalle, nvoValor);
+            //        //RefreshAppSettings();
+            //        //loadFormConfig();
+            //        using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(nvoDetalle, FormPrincipal.userID)))
+            //        {
+            //            if (!dtItemDinamicos.Rows.Count.Equals(0))
+            //            {
+            //                found = 1;
+            //            }
+            //            else if (dtItemDinamicos.Rows.Count.Equals(0))
+            //            {
+            //                found = 0;
+            //            }
+            //        }
+            //        if (found.Equals(1))
+            //        {
+            //            MessageBox.Show("El Registro que Intenra ya esta registrado\nfavor de verificar o intentar con otro Detalle", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //        else if (found.Equals(0))
+            //        {
+            //            int nvoValorNumerico = 0;
+            //            int RegistroAgregado = -1;
+
+            //            RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico(nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+            //            if (RegistroAgregado.Equals(1))
+            //            {
+            //                //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //            }
+            //            else if (RegistroAgregado.Equals(0))
+            //            {
+            //                MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+
+            //            RegistroAgregado = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico("chk" + nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+            //            if (RegistroAgregado.Equals(1))
+            //            {
+            //                //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //            }
+            //            else if (RegistroAgregado.Equals(0))
+            //            {
+            //                MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+            //        }
+
+            //        loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        editDetelle = string.Empty;
+            //        editDetalleNvo = string.Empty;
+            //    }
+            //    else if (nvoDetalle.Equals(""))
+            //    {
+            //        //RefreshAppSettings();
+            //        //loadFormConfig();
+            //        loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    //RefreshAppSettings();
+            //    //loadFormConfig();
+            //    loadFromConfigDB();
+            //    BuscarTextoListView(settingDatabases);
+            //    MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void btnRenameDetalle_Click(object sender, EventArgs e)
