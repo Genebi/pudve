@@ -695,7 +695,7 @@ namespace PuntoDeVentaV2
                 reporte.Open();
 
                 Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-                Paragraph subTitulo = new Paragraph($"'{tipoReporte}'\nFecha:   {DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss")}  \n\n\n", fuenteNormal);
+                Paragraph subTitulo = new Paragraph($"{tipoReporte}\nFecha:   {DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss")}  \n\n\n", fuenteNormal);
 
                 titulo.Alignment = Element.ALIGN_CENTER;
                 subTitulo.Alignment = Element.ALIGN_CENTER;
