@@ -165,7 +165,7 @@ namespace PuntoDeVentaV2
 
             //Consulta caja
             var totalC = string.Empty; var efectivoC = string.Empty; var tarjetaC = string.Empty; var valesC = string.Empty; var chequeC = string.Empty; var transC = string.Empty; var creditoC = string.Empty;
-            var consulta = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
+            var consulta = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'venta' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
             
             //Consulta Abonos
             var totalA = string.Empty; var efectivoA = string.Empty; var tarjetaA = string.Empty; var valesA = string.Empty; var chequeA = string.Empty; var transA = string.Empty;
@@ -247,7 +247,17 @@ namespace PuntoDeVentaV2
 
             var retirado = ((float)Convert.ToDecimal(efectivoR) + (float)Convert.ToDecimal(tarjetaR) + (float)Convert.ToDecimal(valesR) + (float)Convert.ToDecimal(chequeR) + (float)Convert.ToDecimal(transR) + (float)Convert.ToDecimal(anticiposR) + (float)Convert.ToDecimal(totalA));
 
-            var total = ((float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(transAnt));
+            var totalAnticipos = ((float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(transAnt));
+
+
+            var rowEfectivo = (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg)) - (float)Convert.ToDecimal(efectivoR));
+            var rowTarjeta = (((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg)) - (float)Convert.ToDecimal(tarjetaR));
+            var rowVales = (((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg)) - (float)Convert.ToDecimal(valesR));
+            var rowCheque = (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg)) - (float)Convert.ToDecimal(chequeR));
+            var rowTransferencia = (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg)) - (float)Convert.ToDecimal(transR));
+
+            var total = (rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial + (float)Convert.ToDecimal(creditoC));
+
             //var total = (Convert.ToDecimal(totalC) + Convert.ToDecimal(totalA) - Convert.ToDecimal(totalR));
             //var efectivo = (Convert.ToDecimal(efectivoC) + Convert.ToDecimal(efectivoA) - Convert.ToDecimal(efectivoR));
             //var tarjeta = (Convert.ToDecimal(tarjetaC) + Convert.ToDecimal(tarjetaA) - Convert.ToDecimal(tarjetaR));
@@ -265,26 +275,26 @@ namespace PuntoDeVentaV2
 
             //lista.Add(efectivoAg + "|" +tarjetaAg + "|" +valesAg + "|" +chequeAg + "|" +transAg + "|" +totalAg);//Dinero Agregado
 
-            lista.Add("Efectivo:|" + efectivoC + "|Efectivo:|" + efectivoAnt + "|Efectivo:|" + efectivoAg + "|Efectivo:|" + efectivoR + "|Efectivo:|" + ((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR)).ToString("C"));
+            lista.Add("Efectivo:|" + Convert.ToDecimal(efectivoC).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoAnt).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoAg).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoR).ToString("C") + "|Efectivo:|" + (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg)) - (float)Convert.ToDecimal(efectivoR)).ToString("C"));
             //lista.Add("Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" );
 
             //lista.Add($"{efectivoC} | {efectivoAnt} | {efectivoAg} | {efectivoR} | {((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR))}");
 
-            lista.Add("Tarjeta:|" + tarjetaC + "|Tarjeta:|" + tarjetaAnt + "|Tarjeta:|" + tarjetaAg + "|Tarjeta:|" + tarjetaR + "|Tarjeta:|" + ((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(tarjetaR)).ToString("C"));
+            lista.Add("Tarjeta:|" + Convert.ToDecimal(tarjetaC).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaAnt).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaAg).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaR).ToString("C") + "|Tarjeta:|" + (((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg)) - (float)Convert.ToDecimal(tarjetaR)).ToString("C"));
 
-            lista.Add("Vales:|" + valesC + "|Vales:|" + valesAnt + "|Vales:|" + valesAg + "|Vales:|" + valesR + "|Vales:|" + ((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesR)).ToString("C"));
+            lista.Add("Vales:|" + Convert.ToDecimal(valesC).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesAnt).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesAg).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesR).ToString("C") + "|Vales:|" + (((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg)) - (float)Convert.ToDecimal(valesR)).ToString("C"));
 
-            lista.Add("Cheque:|" + chequeC + "|Cheque:|" + chequeAnt + "|Cheque:|" + chequeAg + "|Cheque:|" + chequeR + "|Cheque:|" + ((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeR)).ToString("C"));
+            lista.Add("Cheque:|" + Convert.ToDecimal(chequeC).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeAnt).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeAg).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeR).ToString("C") + "|Cheque:|" + (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg)) - (float)Convert.ToDecimal(chequeR)).ToString("C"));
 
-            lista.Add("Transferencia:|" + transC + "|Transferencia:|" + transAnt + "|Transferencia:|" + transAg + "|Transferencia:|" + transR + "|Transferencia:|" + ((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transR)).ToString("C"));
+            lista.Add("Transferencia:|" + Convert.ToDecimal(transC).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transAnt).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transAg).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transR).ToString("C") + "|Transferencia:|" + (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg)) - (float)Convert.ToDecimal(transR)).ToString("C"));
 
-            lista.Add("Crédito:|" + creditoC + "|" + string.Empty + "|" + string.Empty + "|"+string.Empty+"|"+ string.Empty+"|Anticipos Utilizados:|" + anticiposR + "|Saldo Inicial:|" + saldoInicial.ToString("C"));
+            lista.Add("Crédito:|" + Convert.ToDecimal(creditoC).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|"+string.Empty+"|"+ string.Empty+"|Anticipos Utilizados:|" + Convert.ToDecimal(anticiposR).ToString("C") + "|Saldo Inicial:|" + saldoInicial.ToString("C"));
 
-            lista.Add("Abonos:|" + creditoC + "|" + string.Empty + "|" +string.Empty +"|" +string.Empty+"|"+ string.Empty + "|Devoluciones:|" + totalA + "|Crédito:|" + creditoC.ToString());
+            lista.Add("Abonos:|" + Convert.ToDecimal(creditoC).ToString("C") + "|" + string.Empty + "|" +string.Empty +"|" +string.Empty+"|"+ string.Empty + "|Devoluciones:|" + Convert.ToDecimal(totalA).ToString("C") + "|Crédito:|" + Convert.ToDecimal(creditoC).ToString("C"));
 
-            lista.Add("Anticipos Utilizados:|" + anticiposA + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty+ "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty);
+            lista.Add("Anticipos Utilizados:|" + Convert.ToDecimal(anticiposA).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty+ "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty);
 
-            lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en  Caja:|" + total.ToString("C"));
+            lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en Caja:|" + total.ToString("C"));
 
             return lista.ToArray();
         }
@@ -374,6 +384,8 @@ namespace PuntoDeVentaV2
 
             Paragraph Usuario = new Paragraph("");
 
+            Paragraph Empleado = new Paragraph("");
+
             //string UsuarioActivo = string.Empty;
 
             string tipoReporte = string.Empty,
@@ -406,12 +418,17 @@ namespace PuntoDeVentaV2
 
             var UsuarioActivo = obtenerAutorCorte(id);
 
-            Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+            Usuario = new Paragraph($"USUARIO: ADMIN ({FormPrincipal.userNickName})", fuenteNegrita);
+            if (!string.IsNullOrEmpty(UsuarioActivo))
+            {
+                Empleado = new Paragraph($"EMPLEADO: {UsuarioActivo}", fuenteNegrita);
+            }
 
             Paragraph subTitulo = new Paragraph($"REPORTE DE CAJA\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
+            if (!string.IsNullOrEmpty(UsuarioActivo)){ Empleado.Alignment = Element.ALIGN_CENTER; }
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
 
@@ -482,14 +499,23 @@ namespace PuntoDeVentaV2
                 //    colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 //    PdfPCell colVentasTemp = new PdfPCell(new Phrase(words[0].ToString(), fuenteNormal));
+
                 PdfPCell colVentasTemp = new PdfPCell(new Phrase(words[0].ToString(), fuenteNormal));
+                PdfPCell colVentasCantidad = new PdfPCell(new Phrase(words[1].ToString(), fuenteNormal));
+
+                if (words[0].ToString().Equals("Total Ventas:"))
+                {
+                    colVentasTemp = new PdfPCell(new Phrase(words[0].ToString(), fuenteNegrita));
+                    colVentasCantidad = new PdfPCell(new Phrase(words[1].ToString(), fuenteNegrita));
+                }
+                //colVentasTemp = new PdfPCell(new Phrase(words[0].ToString(), fuenteNormal));
                 colVentasTemp.BorderWidthLeft = 0;
                 colVentasTemp.BorderWidthTop = 0;
                 colVentasTemp.BorderWidthBottom = 0;
                 colVentasTemp.BorderWidthRight = 0;
                 colVentasTemp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colVentasCantidad = new PdfPCell(new Phrase(words[1].ToString(), fuenteNormal));
+                //colVentasCantidad = new PdfPCell(new Phrase(words[1].ToString(), fuenteNormal));
                 colVentasCantidad.BorderWidthRight = 0;
                 colVentasCantidad.BorderWidthTop = 0;
                 colVentasCantidad.BorderWidthBottom = 0;
@@ -501,13 +527,21 @@ namespace PuntoDeVentaV2
                 //    colAnticiposTemp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 PdfPCell colAnticiposTemp = new PdfPCell(new Phrase(words[2].ToString(), fuenteNormal));
+                PdfPCell colAnticiposCantidad = new PdfPCell(new Phrase(words[3].ToString(), fuenteNormal));
+
+                if (words[2].ToString().Equals("Total Anticipos:"))
+                {
+                    colAnticiposTemp = new PdfPCell(new Phrase(words[2].ToString(), fuenteNegrita));
+                    colAnticiposCantidad = new PdfPCell(new Phrase(words[3].ToString(), fuenteNegrita));
+                }
+                //PdfPCell colAnticiposTemp = new PdfPCell(new Phrase(words[2].ToString(), fuenteNormal));
                 colAnticiposTemp.BorderWidthLeft = 0;
                 colAnticiposTemp.BorderWidthTop = 0;
                 colAnticiposTemp.BorderWidthBottom = 0;
                 colAnticiposTemp.BorderWidthRight = 0;
                 colAnticiposTemp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colAnticiposCantidad = new PdfPCell(new Phrase(words[3].ToString(), fuenteNormal));
+                //PdfPCell colAnticiposCantidad = new PdfPCell(new Phrase(words[3].ToString(), fuenteNormal));
                 colAnticiposCantidad.BorderWidthRight = 0;
                 colAnticiposCantidad.BorderWidthTop = 0;
                 colAnticiposCantidad.BorderWidthBottom = 0;
@@ -520,13 +554,21 @@ namespace PuntoDeVentaV2
                 //    colAgregadoTemp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 PdfPCell colAgregadoTemp = new PdfPCell(new Phrase(words[4].ToString(), fuenteNormal));
+                PdfPCell colAgregadoCantidad = new PdfPCell(new Phrase(words[5].ToString(), fuenteNormal));
+
+                if (words[4].ToString().Equals("Total Agregado:"))
+                {
+                    colAgregadoTemp = new PdfPCell(new Phrase(words[4].ToString(), fuenteNegrita));
+                    colAgregadoCantidad = new PdfPCell(new Phrase(words[5].ToString(), fuenteNegrita));
+                }
+                //PdfPCell colAgregadoTemp = new PdfPCell(new Phrase(words[4].ToString(), fuenteNormal));
                 colAgregadoTemp.BorderWidthLeft = 0;
                 colAgregadoTemp.BorderWidthTop = 0;
                 colAgregadoTemp.BorderWidthBottom = 0;
                 colAgregadoTemp.BorderWidthRight = 0;
                 colAgregadoTemp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colAgregadoCantidad = new PdfPCell(new Phrase(words[5].ToString(), fuenteNormal));
+                //PdfPCell colAgregadoCantidad = new PdfPCell(new Phrase(words[5].ToString(), fuenteNormal));
                 colAgregadoCantidad.BorderWidthRight = 0;
                 colAgregadoCantidad.BorderWidthTop = 0;
                 colAgregadoCantidad.BorderWidthBottom = 0;
@@ -538,13 +580,22 @@ namespace PuntoDeVentaV2
                 //    colRetiradoTEmp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 PdfPCell colRetiradoTEmp = new PdfPCell(new Phrase(words[6].ToString(), fuenteNormal));
+                PdfPCell colRetiradoCantidad = new PdfPCell(new Phrase(words[7].ToString(), fuenteNormal));
+
+                if (words[6].ToString().Equals("Total Retirado:"))
+                {
+                    colRetiradoTEmp = new PdfPCell(new Phrase(words[6].ToString(), fuenteNegrita));
+                    colRetiradoCantidad = new PdfPCell(new Phrase(words[7].ToString(), fuenteNegrita));
+                }
+
+                //PdfPCell colRetiradoTEmp = new PdfPCell(new Phrase(words[6].ToString(), fuenteNormal));
                 colRetiradoTEmp.BorderWidthLeft = 0;
                 colRetiradoTEmp.BorderWidthTop = 0;
                 colRetiradoTEmp.BorderWidthBottom = 0;
                 colRetiradoTEmp.BorderWidthRight = 0;
                 colRetiradoTEmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colRetiradoCantidad = new PdfPCell(new Phrase(words[7].ToString(), fuenteNormal));
+                //PdfPCell colRetiradoCantidad = new PdfPCell(new Phrase(words[7].ToString(), fuenteNormal));
                 colRetiradoCantidad.BorderWidthRight = 0;
                 colRetiradoCantidad.BorderWidthTop = 0;
                 colRetiradoCantidad.BorderWidthBottom = 0;
@@ -554,15 +605,23 @@ namespace PuntoDeVentaV2
                 //    PdfPCell colTotalTemp = new PdfPCell(new Phrase(words[4].ToString(), fuenteNormal));
                 //    colTotalTemp.BorderWidth = 1;
                 //    colTotalTemp.HorizontalAlignment = Element.ALIGN_LEFT;
-
                 PdfPCell colTotalTemp = new PdfPCell(new Phrase(words[8].ToString(), fuenteNormal));
+                PdfPCell colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNormal));
+
+                if (words[8].ToString().Equals("Total en  Caja:"))
+                {
+                    colTotalTemp = new PdfPCell(new Phrase(words[8].ToString(), fuenteNegrita));
+                    colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNegrita));
+                }
+
+                //colTotalTemp = new PdfPCell(new Phrase(words[8].ToString(), fuenteNormal));
                 colTotalTemp.BorderWidthLeft = 0;
                 colTotalTemp.BorderWidthTop = 0;
                 colTotalTemp.BorderWidthBottom = 0;
                 colTotalTemp.BorderWidthRight = 0;
                 colTotalTemp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNormal));
+                //colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNormal));
                 colTotalCantidad.BorderWidthRight = 0;
                 colTotalCantidad.BorderWidthTop = 0;
                 colTotalCantidad.BorderWidthBottom = 0;
@@ -584,6 +643,7 @@ namespace PuntoDeVentaV2
 
             reporte.Add(titulo);
             reporte.Add(Usuario);
+            if (!string.IsNullOrEmpty(UsuarioActivo)) { reporte.Add(Empleado); }
             reporte.Add(subTitulo);
             reporte.Add(tablaInventario);
 
@@ -610,11 +670,11 @@ namespace PuntoDeVentaV2
             {
                 result = query.Rows[0]["ID"].ToString();
             }
-            else
-            {
-                result = FormPrincipal.userNickName.ToString();
+            //else
+            //{
+            //    result = FormPrincipal.userNickName.ToString();
 
-            }
+            //}
             
             return result;
         }
@@ -666,8 +726,10 @@ namespace PuntoDeVentaV2
             // Datos del usuario
                 var datos = FormPrincipal.datosUsuario;
 
-                // Fuentes y Colores
-                var colorFuenteNegrita = new BaseColor(Color.Black);
+            DateTime dateReporte = DateTime.Parse(DGVReporteCaja.CurrentRow.Cells[2].Value.ToString());
+
+            // Fuentes y Colores
+            var colorFuenteNegrita = new BaseColor(Color.Black);
                 var colorFuenteBlanca = new BaseColor(Color.White);
 
                 var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
@@ -694,8 +756,8 @@ namespace PuntoDeVentaV2
 
                 reporte.Open();
 
-                Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-                Paragraph subTitulo = new Paragraph($"{tipoReporte}\nFecha:   {DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss")}  \n\n\n", fuenteNormal);
+                Paragraph titulo = new Paragraph(FormPrincipal.userNickName, fuenteGrande); 
+                 Paragraph subTitulo = new Paragraph($"{tipoReporte}\nFecha:   {dateReporte.ToString("dddd, dd MMMM yyyy HH:mm:ss")}  \n\n\n", fuenteNormal);
 
                 titulo.Alignment = Element.ALIGN_CENTER;
                 subTitulo.Alignment = Element.ALIGN_CENTER;
@@ -933,5 +995,6 @@ namespace PuntoDeVentaV2
                 VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
                 vr.ShowDialog();
         }
+
     }
 }
