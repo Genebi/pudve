@@ -165,7 +165,8 @@ namespace PuntoDeVentaV2
 
             //Consulta caja
             var totalC = string.Empty; var efectivoC = string.Empty; var tarjetaC = string.Empty; var valesC = string.Empty; var chequeC = string.Empty; var transC = string.Empty; var creditoC = string.Empty;
-            var consulta = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'venta' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
+            //var consulta = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'venta' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
+            var consulta = cn.CargarDatos($"SELECT Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'venta' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
             
             //Consulta Abonos
             var totalA = string.Empty; var efectivoA = string.Empty; var tarjetaA = string.Empty; var valesA = string.Empty; var chequeA = string.Empty; var transA = string.Empty;
@@ -186,13 +187,39 @@ namespace PuntoDeVentaV2
 
             if (!consulta.Rows.Count.Equals(0))//Datos caja
             {
-                totalC = consulta.Rows[0]["Total"].ToString();
-                efectivoC = consulta.Rows[0]["Efectivo"].ToString();
-                tarjetaC = consulta.Rows[0]["Tarjeta"].ToString();
-                valesC = consulta.Rows[0]["Vales"].ToString();
-                chequeC = consulta.Rows[0]["Cheque"].ToString();
-                transC = consulta.Rows[0]["Trans"].ToString();
-                creditoC = consulta.Rows[0]["Credito"].ToString();
+                //totalC = consulta.Rows[0]["Total"].ToString();
+                //efectivoC = consulta.Rows[0]["Efectivo"].ToString();
+                //tarjetaC = consulta.Rows[0]["Tarjeta"].ToString();
+                //valesC = consulta.Rows[0]["Vales"].ToString();
+                //chequeC = consulta.Rows[0]["Cheque"].ToString();
+                //transC = consulta.Rows[0]["Trans"].ToString();
+                //creditoC = consulta.Rows[0]["Credito"].ToString();
+
+                var dTotal = 0f; var dEfectivo = 0f; var dTarjeta = 0f; var dVales = 0f; var dCheque = 0f; var dTrans = 0f; var dCredito = 0f;
+                var saltar = 0;
+                foreach (DataRow iterador in consulta.Rows)
+                {
+                    if (saltar.Equals(0))
+                    {
+                        saltar++;
+                        continue;
+                    }
+
+                    dTotal += (float)Convert.ToDouble(iterador["Cantidad"].ToString());
+                    dEfectivo += (float)Convert.ToDouble(iterador["Efectivo"].ToString());
+                    dTarjeta += (float)Convert.ToDouble(iterador["Tarjeta"].ToString());
+                    dVales += (float)Convert.ToDouble(iterador["Vales"].ToString());
+                    dCheque += (float)Convert.ToDouble(iterador["Cheque"].ToString());
+                    dTrans += (float)Convert.ToDouble(iterador["Transferencia"].ToString());
+                    dCredito += (float)Convert.ToDouble(iterador["Credito"].ToString());
+                }
+                totalC = dTotal.ToString();
+                efectivoC = dEfectivo.ToString();
+                tarjetaC = dTarjeta.ToString();
+                valesC = dVales.ToString();
+                chequeC = dCheque.ToString();
+                transC = dTrans.ToString();
+                creditoC = dCredito.ToString();
             }
 
             if (!segundaConsulta.Rows.Count.Equals(0))//Datos abonos
@@ -608,7 +635,7 @@ namespace PuntoDeVentaV2
                 PdfPCell colTotalTemp = new PdfPCell(new Phrase(words[8].ToString(), fuenteNormal));
                 PdfPCell colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNormal));
 
-                if (words[8].ToString().Equals("Total en  Caja:"))
+                if (words[8].ToString().Equals("Total en Caja:"))
                 {
                     colTotalTemp = new PdfPCell(new Phrase(words[8].ToString(), fuenteNegrita));
                     colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNegrita));
