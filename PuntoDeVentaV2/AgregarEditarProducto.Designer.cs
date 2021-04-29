@@ -96,6 +96,7 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblCantCombServ = new System.Windows.Forms.Label();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -595,7 +596,7 @@
             this.PImagen.Location = new System.Drawing.Point(617, 8);
             this.PImagen.Margin = new System.Windows.Forms.Padding(2);
             this.PImagen.Name = "PImagen";
-            this.PImagen.Size = new System.Drawing.Size(183, 163);
+            this.PImagen.Size = new System.Drawing.Size(183, 145);
             this.PImagen.TabIndex = 9;
             this.PImagen.Visible = false;
             // 
@@ -610,7 +611,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(171, 148);
+            this.groupBox1.Size = new System.Drawing.Size(171, 133);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Imagen";
@@ -618,10 +619,10 @@
             // pictureBoxProducto
             // 
             this.pictureBoxProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxProducto.Location = new System.Drawing.Point(31, 13);
+            this.pictureBoxProducto.Location = new System.Drawing.Point(37, 13);
             this.pictureBoxProducto.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxProducto.Name = "pictureBoxProducto";
-            this.pictureBoxProducto.Size = new System.Drawing.Size(108, 92);
+            this.pictureBoxProducto.Size = new System.Drawing.Size(97, 80);
             this.pictureBoxProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxProducto.TabIndex = 0;
             this.pictureBoxProducto.TabStop = false;
@@ -632,7 +633,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImagenes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImagenes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImagenes.Location = new System.Drawing.Point(11, 111);
+            this.btnImagenes.Location = new System.Drawing.Point(11, 99);
             this.btnImagenes.Name = "btnImagenes";
             this.btnImagenes.Size = new System.Drawing.Size(149, 28);
             this.btnImagenes.TabIndex = 10;
@@ -679,6 +680,7 @@
             // 
             // PDetalle
             // 
+            this.PDetalle.Controls.Add(this.lblCantCombServ);
             this.PDetalle.Controls.Add(this.lbClaveInterna);
             this.PDetalle.Controls.Add(this.lbStock);
             this.PDetalle.Controls.Add(this.lbPrecioVenta);
@@ -719,7 +721,7 @@
             // 
             this.lbClaveInterna.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbClaveInterna.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbClaveInterna.Location = new System.Drawing.Point(821, 197);
+            this.lbClaveInterna.Location = new System.Drawing.Point(821, 140);
             this.lbClaveInterna.Name = "lbClaveInterna";
             this.lbClaveInterna.Size = new System.Drawing.Size(20, 23);
             this.lbClaveInterna.TabIndex = 42;
@@ -729,7 +731,7 @@
             // 
             this.lbStock.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbStock.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbStock.Location = new System.Drawing.Point(821, 175);
+            this.lbStock.Location = new System.Drawing.Point(822, 117);
             this.lbStock.Name = "lbStock";
             this.lbStock.Size = new System.Drawing.Size(20, 23);
             this.lbStock.TabIndex = 41;
@@ -739,7 +741,7 @@
             // 
             this.lbPrecioVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbPrecioVenta.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbPrecioVenta.Location = new System.Drawing.Point(821, 152);
+            this.lbPrecioVenta.Location = new System.Drawing.Point(821, 91);
             this.lbPrecioVenta.Name = "lbPrecioVenta";
             this.lbPrecioVenta.Size = new System.Drawing.Size(20, 23);
             this.lbPrecioVenta.TabIndex = 40;
@@ -749,7 +751,7 @@
             // 
             this.lbStockMaximo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbStockMaximo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbStockMaximo.Location = new System.Drawing.Point(821, 126);
+            this.lbStockMaximo.Location = new System.Drawing.Point(821, 65);
             this.lbStockMaximo.Name = "lbStockMaximo";
             this.lbStockMaximo.Size = new System.Drawing.Size(20, 23);
             this.lbStockMaximo.TabIndex = 39;
@@ -759,7 +761,7 @@
             // 
             this.lbPrecioCompra.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbPrecioCompra.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbPrecioCompra.Location = new System.Drawing.Point(821, 101);
+            this.lbPrecioCompra.Location = new System.Drawing.Point(821, 41);
             this.lbPrecioCompra.Name = "lbPrecioCompra";
             this.lbPrecioCompra.Size = new System.Drawing.Size(20, 23);
             this.lbPrecioCompra.TabIndex = 38;
@@ -769,7 +771,7 @@
             // 
             this.lblStockMinimo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblStockMinimo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lblStockMinimo.Location = new System.Drawing.Point(821, 79);
+            this.lblStockMinimo.Location = new System.Drawing.Point(821, 13);
             this.lblStockMinimo.Name = "lblStockMinimo";
             this.lblStockMinimo.Size = new System.Drawing.Size(20, 23);
             this.lblStockMinimo.TabIndex = 37;
@@ -895,7 +897,7 @@
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 95);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(870, 260);
+            this.fLPDetalle.Size = new System.Drawing.Size(870, 210);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -913,9 +915,9 @@
             this.fLPDetallesProducto.BackColor = System.Drawing.SystemColors.Control;
             this.fLPDetallesProducto.Controls.Add(this.groupBox2);
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 355);
+            this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 305);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(870, 261);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(870, 270);
             this.fLPDetallesProducto.TabIndex = 39;
             // 
             // groupBox2
@@ -923,7 +925,7 @@
             this.groupBox2.Controls.Add(this.flowLayoutPanel3);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(867, 251);
+            this.groupBox2.Size = new System.Drawing.Size(867, 261);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Detalles ";
@@ -935,7 +937,7 @@
             this.flowLayoutPanel3.BackColor = System.Drawing.SystemColors.Control;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(4, 14);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(858, 236);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(858, 246);
             this.flowLayoutPanel3.TabIndex = 1;
             // 
             // errorProvAgregarEditarProducto
@@ -946,6 +948,16 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
+            // 
+            // lblCantCombServ
+            // 
+            this.lblCantCombServ.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCantCombServ.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lblCantCombServ.Location = new System.Drawing.Point(822, 163);
+            this.lblCantCombServ.Name = "lblCantCombServ";
+            this.lblCantCombServ.Size = new System.Drawing.Size(18, 23);
+            this.lblCantCombServ.TabIndex = 43;
+            this.lblCantCombServ.Visible = false;
             // 
             // AgregarEditarProducto
             // 
@@ -1064,5 +1076,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lblCantCombServ;
     }
 }

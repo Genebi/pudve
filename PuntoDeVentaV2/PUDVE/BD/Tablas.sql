@@ -1331,3 +1331,6 @@ SET NombreAlterno1 = REPLACE ( NombreAlterno1, '\n', '' );
 
 UPDATE productos 
 SET NombreAlterno2 = REPLACE ( NombreAlterno2, '\n', '' );
+
+-- Agregar Columna (Mostrar) a la tabla de AppSettings para mostrar en Ventana Detalle Productos
+ALTER TABLE AppSettings ADD COLUMN IF NOT EXISTS Mostrar tinyint(1) DEFAULT 1;
