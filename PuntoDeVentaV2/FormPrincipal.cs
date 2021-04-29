@@ -502,6 +502,15 @@ namespace PuntoDeVentaV2
                 pasar = Convert.ToInt16(datosConfig[5]);
                 checkNoVendidos = Convert.ToInt16(datosConfig[11]);
                 diasNoVendidos = Convert.ToInt32(datosConfig[12]);
+
+                int inicio = Convert.ToInt32(datosConfig[22]);
+
+                if (inicio == 1)
+                {
+                    // Hilo para envio de correos en segundo plano
+                    Thread envio = new Thread(() => CorreoInicioSesion());
+                    envio.Start();
+                }
             }
 
                 InitializarTimerAndroid();
@@ -1183,6 +1192,46 @@ namespace PuntoDeVentaV2
             html += @"
                     </ol>
                 </div>";
+
+            Utilidades.EnviarEmail(html, asunto, email);
+        }
+
+        private void CorreoInicioSesion()
+        {
+            string html = string.Empty;
+            string email = datosUsuario[9];
+            string asunto = string.Empty;
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            html += @"
+                <div>
+                    <h2>NUEVO INICIO DE SESIÓN</h2>";
+
+            if (id_empleado > 0)
+            {
+                var datosEmpleado = mb.obtener_permisos_empleado(id_empleado, userID);
+
+                string nombreEmpleado = datosEmpleado[14];
+                string usuarioEmpleado = datosEmpleado[15];
+
+                var infoEmpleado = usuarioEmpleado.Split('@');
+
+                html += $@"
+                    <p>Se ha iniciado sesión en el sistema por parte del usuario <span style='color: red;'>{infoEmpleado[0]}@{infoEmpleado[1]}</span></p>
+                    <p>El ingreso al sistema fue realizado el día <span style='color: red;'>{fechaOperacion}</span>
+                </div>";
+
+                asunto = $"Inicio de sesión de {infoEmpleado[0]}@{infoEmpleado[1]}";
+            }
+            else
+            {
+                html += $@"
+                    <p>Se ha iniciado sesión en el sistema por parte del usuario <span style='color: red;'>{userNickName}</span></p>
+                    <p>El ingreso al sistema fue realizado el día <span style='color: red;'>{fechaOperacion}</span>
+                </div>";
+
+                asunto = $"Inicio de sesión de {userNickName}";
+            }
 
             Utilidades.EnviarEmail(html, asunto, email);
         }
