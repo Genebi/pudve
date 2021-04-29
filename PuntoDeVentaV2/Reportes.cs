@@ -722,8 +722,10 @@ namespace PuntoDeVentaV2
 
         private void btnReporteInventario_Click(object sender, EventArgs e)
         {
-            Panel.Visible = true;
-            cargarDatos();
+            //Panel.Visible = true;
+            //cargarDatos();
+            BuscadorReporteInventario BRInventario = new BuscadorReporteInventario();
+            BRInventario.ShowDialog();
         }
 
         private void cargarDatos()

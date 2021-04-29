@@ -385,6 +385,12 @@
     </Compile>
     <Compile Include="Aux_venta_pdf.cs" />
     <Compile Include="BaseDatosMySQL.cs" />
+    <Compile Include="BuscadorReporteInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuscadorReporteInventario.Designer.cs">
+      <DependentUpon>BuscadorReporteInventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="BuscarReporteCajaPorFecha.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -999,6 +1005,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AsignarPropiedad.resx">
       <DependentUpon>AsignarPropiedad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuscadorReporteInventario.resx">
+      <DependentUpon>BuscadorReporteInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BuscarReporteCajaPorFecha.resx">
       <DependentUpon>BuscarReporteCajaPorFecha.cs</DependentUpon>
