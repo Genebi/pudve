@@ -57,6 +57,19 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+
+        public string BuscarEmpleadoCaja(int idEmpleado)
+        {
+            string nameEmpleado = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE ID = '{idEmpleado}'");
+
+            if (!query.Rows.Count.Equals(0)) { nameEmpleado = query.Rows[0]["Nombre"].ToString(); }
+
+            return nameEmpleado;
+        }
+
+
         public string GuardarNvaImagen(int idProducto, string imgProducto)
         {
             string consulta = $"UPDATE Productos SET ProdImage = '{imgProducto}' WHERE ID = '{idProducto}'";

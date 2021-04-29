@@ -1583,16 +1583,16 @@ namespace PuntoDeVentaV2
 
         private void btnCaja_Click(object sender, EventArgs e)
         {
-            if (FormPrincipal.userNickName.Equals("OXXOCLARA3") || FormPrincipal.userNickName.Equals("ALEXHIT"))
-            {
-                BuscarReporteCajaPorFecha reporteCaja = new BuscarReporteCajaPorFecha();
+            //if (FormPrincipal.userNickName.Equals("OXXOCLARA3") || FormPrincipal.userNickName.Equals("ALEXHIT"))
+            //{
+            BuscarReporteCajaPorFecha reporteCaja = new BuscarReporteCajaPorFecha();
 
-                reporteCaja.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            reporteCaja.ShowDialog();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
     }
 }
