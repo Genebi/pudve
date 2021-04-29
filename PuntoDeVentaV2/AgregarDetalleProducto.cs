@@ -2205,7 +2205,7 @@ namespace PuntoDeVentaV2
                             try
                             {
                                 tableSource = "appSettings";
-                                //var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                                var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(conceptoProductoEliminar, FormPrincipal.userID));
                             }
                             catch(MySqlException exMySql)
                             {

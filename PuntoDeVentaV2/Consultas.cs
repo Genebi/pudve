@@ -867,7 +867,7 @@ namespace PuntoDeVentaV2
 
         public string VerificarContenidoDinamico(int idUsuario)
         {
-            var consulta = $"SELECT * FROM appSettings WHERE IDUsuario = '{idUsuario}'";
+            var consulta = $"SELECT * FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1";
 
             return consulta;
         }
@@ -910,7 +910,8 @@ namespace PuntoDeVentaV2
 
         public string BorrarDatoDinamico(string claveBorrar, int idUsuario)
         {
-            var consulta = $"DELETE FROM appSettings WHERE concepto = '{claveBorrar}' AND IDUsuario = '{idUsuario}'";
+            //var consulta = $"DELETE FROM appSettings WHERE concepto = '{claveBorrar}' AND IDUsuario = '{idUsuario}'";
+            var consulta = $"UPDATE appSettings SET Mostrar = 0 WHERE concepto = '{claveBorrar}' AND IDUsuario = '{idUsuario}'";
 
             return consulta;
         }
