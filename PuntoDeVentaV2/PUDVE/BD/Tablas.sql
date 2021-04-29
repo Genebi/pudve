@@ -1331,3 +1331,6 @@ SET NombreAlterno1 = REPLACE ( NombreAlterno1, '\n', '' );
 
 UPDATE productos 
 SET NombreAlterno2 = REPLACE ( NombreAlterno2, '\n', '' );
+
+-- Agregar Columna (CorreoIniciarSesion) a la tabla de Configuracion para enviar correo al iniciar sesion en el programa
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoIniciarSesion tinyint(1) DEFAULT 0;
