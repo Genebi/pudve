@@ -219,6 +219,8 @@ namespace PuntoDeVentaV2
                 check23 = cbCorreoCorteCaja.Checked;
 
                 cbCorreoVenta.Checked = Convert.ToBoolean(datosConfig[21]);
+
+                cbCorreoIniciar.Checked = Convert.ToBoolean(datosConfig[22]);
             }
             else
             {
@@ -874,6 +876,18 @@ namespace PuntoDeVentaV2
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void cbCorreoIniciar_CheckedChanged(object sender, EventArgs e)
+        {
+            var habilitado = 0;
+
+            if (cbCorreoIniciar.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoIniciarSesion = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }

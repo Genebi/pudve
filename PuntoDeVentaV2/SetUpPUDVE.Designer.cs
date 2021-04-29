@@ -57,6 +57,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbCorreoVenta = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbCorreoCorteCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoEliminarListaProductosVentas = new System.Windows.Forms.CheckBox();
@@ -64,7 +65,7 @@
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cbCorreoVenta = new System.Windows.Forms.CheckBox();
+            this.cbCorreoIniciar = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -442,6 +443,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox1.Controls.Add(this.cbCorreoIniciar);
             this.groupBox1.Controls.Add(this.cbCorreoVenta);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cbCorreoCorteCaja);
@@ -460,6 +462,18 @@
             this.groupBox1.TabIndex = 128;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envío de Correo:";
+            // 
+            // cbCorreoVenta
+            // 
+            this.cbCorreoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCorreoVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoVenta.Location = new System.Drawing.Point(468, 88);
+            this.cbCorreoVenta.Name = "cbCorreoVenta";
+            this.cbCorreoVenta.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoVenta.TabIndex = 123;
+            this.cbCorreoVenta.Text = "Al hacer una venta";
+            this.cbCorreoVenta.UseVisualStyleBackColor = true;
+            this.cbCorreoVenta.CheckedChanged += new System.EventHandler(this.cbCorreoVenta_CheckedChanged);
             // 
             // label4
             // 
@@ -559,17 +573,17 @@
             this.groupBox2.TabIndex = 129;
             this.groupBox2.TabStop = false;
             // 
-            // cbCorreoVenta
+            // cbCorreoIniciar
             // 
-            this.cbCorreoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoVenta.Location = new System.Drawing.Point(468, 88);
-            this.cbCorreoVenta.Name = "cbCorreoVenta";
-            this.cbCorreoVenta.Size = new System.Drawing.Size(381, 21);
-            this.cbCorreoVenta.TabIndex = 123;
-            this.cbCorreoVenta.Text = "Al hacer una venta";
-            this.cbCorreoVenta.UseVisualStyleBackColor = true;
-            this.cbCorreoVenta.CheckedChanged += new System.EventHandler(this.cbCorreoVenta_CheckedChanged);
+            this.cbCorreoIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCorreoIniciar.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoIniciar.Location = new System.Drawing.Point(468, 115);
+            this.cbCorreoIniciar.Name = "cbCorreoIniciar";
+            this.cbCorreoIniciar.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoIniciar.TabIndex = 124;
+            this.cbCorreoIniciar.Text = "Al iniciar sesión";
+            this.cbCorreoIniciar.UseVisualStyleBackColor = true;
+            this.cbCorreoIniciar.CheckedChanged += new System.EventHandler(this.cbCorreoIniciar_CheckedChanged);
             // 
             // SetUpPUDVE
             // 
@@ -644,5 +658,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox cbCorreoVenta;
+        private System.Windows.Forms.CheckBox cbCorreoIniciar;
     }
 }

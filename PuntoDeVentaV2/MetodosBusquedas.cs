@@ -2035,6 +2035,7 @@ namespace PuntoDeVentaV2
                 var correoEliminarListaProductoVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoEliminarListaProductoVentas")));
                 var correoCorteDeCaja = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoCorteDeCaja")));
                 var correoVenta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoVenta")));
+                var correoIniciar = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoIniciarSesion")));
 
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1
@@ -2058,6 +2059,7 @@ namespace PuntoDeVentaV2
                 config.Add(correoEliminarListaProductoVentas);  // 19
                 config.Add(correoCorteDeCaja);              // 20
                 config.Add(correoVenta); // 21
+                config.Add(correoIniciar); // 22
             }
 
             dr.Close();
