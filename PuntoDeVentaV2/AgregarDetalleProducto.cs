@@ -2167,8 +2167,8 @@ namespace PuntoDeVentaV2
             mensajeDefault = string.Empty;
 
             mensajeMostrar = "Favor de poner el nombre del concepto del prodcuto, para Inhabilitar en el sistema.";
-            tituloVentana = "Inhabilitar concepto del producto";
-            mensajeDefault = "Escribe aquí el concepto del producto.";
+            tituloVentana = "Inhabilitar conceptos";
+            mensajeDefault = "Inhabilitar concepto del producto.";
 
             InputBoxMessageBox inputMessageBox = new InputBoxMessageBox(mensajeMostrar, tituloVentana, mensajeDefault);
 
@@ -2442,7 +2442,7 @@ namespace PuntoDeVentaV2
 
             mensajeMostrar = "Favor de poner el nombre del nuevo concepto del prodcuto, para darlo de alta al sistema.";
             tituloVentana = "Agregar concepto del producto";
-            mensajeDefault = "Escribe aquí el concepto del producto.";
+            mensajeDefault = "Concepto para agregar al producto.";
 
             InputBoxMessageBox inputMessageBox = new InputBoxMessageBox(mensajeMostrar, tituloVentana, mensajeDefault);
 

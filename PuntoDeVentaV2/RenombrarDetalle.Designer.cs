@@ -31,10 +31,10 @@
             this.txtNewValue = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtOldValue = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.txtOldValue = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,6 +71,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Nombre: ";
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Image = global::PuntoDeVentaV2.Properties.Resources.times1;
+            this.button2.Location = new System.Drawing.Point(116, 133);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(138, 43);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Cancelar";
+            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // txtOldValue
             // 
             this.txtOldValue.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -78,6 +96,24 @@
             this.txtOldValue.Name = "txtOldValue";
             this.txtOldValue.Size = new System.Drawing.Size(379, 27);
             this.txtOldValue.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
+            this.button1.Location = new System.Drawing.Point(260, 133);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(138, 43);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Cambiar";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -88,40 +124,6 @@
             this.label1.Size = new System.Drawing.Size(48, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Actual:";
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.RoyalBlue;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
-            this.button1.Location = new System.Drawing.Point(274, 133);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(124, 43);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Aceptar";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Image = global::PuntoDeVentaV2.Properties.Resources.times1;
-            this.button2.Location = new System.Drawing.Point(144, 133);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(124, 43);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Cerrar";
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // RenombrarDetalle
             // 
