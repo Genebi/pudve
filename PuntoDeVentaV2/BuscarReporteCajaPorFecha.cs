@@ -185,6 +185,8 @@ namespace PuntoDeVentaV2
             var totalAg = string.Empty; var efectivoAg = string.Empty; var tarjetaAg = string.Empty; var valesAg = string.Empty; var chequeAg = string.Empty; var transAg = string.Empty; var anticiposA = string.Empty;
             var consultaDineroAgregado = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito, IFNULL(SUM(Anticipo),0) AS Anticipo FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'deposito' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd hh:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd hh:mm:ss")}')");
 
+            var dTotal = 0f; var dEfectivo = 0f; var dTarjeta = 0f; var dVales = 0f; var dCheque = 0f; var dTrans = 0f; var dCredito = 0f;
+            var saltar = 0;
             if (!consulta.Rows.Count.Equals(0))//Datos caja
             {
                 //totalC = consulta.Rows[0]["Total"].ToString();
@@ -195,8 +197,6 @@ namespace PuntoDeVentaV2
                 //transC = consulta.Rows[0]["Trans"].ToString();
                 //creditoC = consulta.Rows[0]["Credito"].ToString();
 
-                var dTotal = 0f; var dEfectivo = 0f; var dTarjeta = 0f; var dVales = 0f; var dCheque = 0f; var dTrans = 0f; var dCredito = 0f;
-                var saltar = 0;
                 foreach (DataRow iterador in consulta.Rows)
                 {
                     if (saltar.Equals(0))
@@ -213,6 +213,15 @@ namespace PuntoDeVentaV2
                     dTrans += (float)Convert.ToDouble(iterador["Transferencia"].ToString());
                     dCredito += (float)Convert.ToDouble(iterador["Credito"].ToString());
                 }
+                totalC = dTotal.ToString();
+                efectivoC = dEfectivo.ToString();
+                tarjetaC = dTarjeta.ToString();
+                valesC = dVales.ToString();
+                chequeC = dCheque.ToString();
+                transC = dTrans.ToString();
+                creditoC = dCredito.ToString();
+            }else
+            {
                 totalC = dTotal.ToString();
                 efectivoC = dEfectivo.ToString();
                 tarjetaC = dTarjeta.ToString();
@@ -753,46 +762,46 @@ namespace PuntoDeVentaV2
         private void GenerarReporteAgregarRetirar(string tipoReporte, DataTable datoCantidad)
         {
             // Datos del usuario
-                var datos = FormPrincipal.datosUsuario;
+            var datos = FormPrincipal.datosUsuario;
 
             DateTime dateReporte = DateTime.Parse(DGVReporteCaja.CurrentRow.Cells[2].Value.ToString());
 
             // Fuentes y Colores
             var colorFuenteNegrita = new BaseColor(Color.Black);
-                var colorFuenteBlanca = new BaseColor(Color.White);
+            var colorFuenteBlanca = new BaseColor(Color.White);
 
-                var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
-                var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
-                var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-                var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-                var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 10, 1, colorFuenteBlanca);
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 10, 1, colorFuenteBlanca);
 
-                // Ruta donde se creara el archivo PDF
-                var rutaArchivo = string.Empty;
-                var servidor = Properties.Settings.Default.Hosting;
+            // Ruta donde se creara el archivo PDF
+            var rutaArchivo = string.Empty;
+            var servidor = Properties.Settings.Default.Hosting;
 
-                if (!string.IsNullOrWhiteSpace(servidor))
-                {
-                    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\caja.pdf";
-                }
-                else
-                {
-                    rutaArchivo = @"C:\Archivos PUDVE\Reportes\caja.pdf";
-                }
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\caja.pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Reportes\caja.pdf";
+            }
 
-                Document reporte = new Document(PageSize.A3);
-                PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+            Document reporte = new Document(PageSize.A3);
+            PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
 
-                reporte.Open();
+            reporte.Open();
 
-                Paragraph titulo = new Paragraph(FormPrincipal.userNickName, fuenteGrande); 
-                 Paragraph subTitulo = new Paragraph($"{tipoReporte}\nFecha:   {dateReporte.ToString("dddd, dd MMMM yyyy HH:mm:ss")}  \n\n\n", fuenteNormal);
+            Paragraph titulo = new Paragraph(FormPrincipal.userNickName, fuenteGrande);
+            Paragraph subTitulo = new Paragraph($"{tipoReporte}\nFecha:   {dateReporte.ToString("dddd, dd MMMM yyyy HH:mm:ss")}  \n\n\n", fuenteNormal);
 
-                titulo.Alignment = Element.ALIGN_CENTER;
-                subTitulo.Alignment = Element.ALIGN_CENTER;
+            titulo.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
 
-                reporte.Add(titulo);
-                reporte.Add(subTitulo);
+            reporte.Add(titulo);
+            reporte.Add(subTitulo);
 
             //=====================================
             //===    TABLA DE Reporte General   ===
@@ -800,78 +809,76 @@ namespace PuntoDeVentaV2
             #region Tabla de Dinero Retirado
             float[] anchoColumnas = new float[] { 100f, 120f, 100f, 100f, 100f, 100f, 100f, 100f };
 
-                Paragraph tituloDineroRetirado = new Paragraph($"HISTORIAL DE {tipoReporte}\n\n", fuenteGrande);
-                tituloDineroRetirado.Alignment = Element.ALIGN_CENTER;
+            Paragraph tituloDineroRetirado = new Paragraph($"HISTORIAL DE {tipoReporte}\n\n", fuenteGrande);
+            tituloDineroRetirado.Alignment = Element.ALIGN_CENTER;
 
-                reporte.Add(tituloDineroRetirado);
+            reporte.Add(tituloDineroRetirado);
 
-                // Linea serapadora
-                Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
 
-                reporte.Add(linea);
+            reporte.Add(linea);
 
-                PdfPTable tablaDineroRetirado = new PdfPTable(8);
-                tablaDineroRetirado.WidthPercentage = 100;
-                tablaDineroRetirado.SetWidths(anchoColumnas);
+            PdfPTable tablaDineroRetirado = new PdfPTable(8);
+            tablaDineroRetirado.WidthPercentage = 100;
+            tablaDineroRetirado.SetWidths(anchoColumnas);
 
-                PdfPCell colEmpleado = new PdfPCell(new Phrase("EMPLEADO", fuenteNegrita));
-                colEmpleado.BorderWidth = 0;
-                colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
-                colEmpleado.Padding = 3;
-                
-                PdfPCell colFecha = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
-                colFecha.BorderWidth = 0;
-                colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
-                colFecha.Padding = 3;
+            PdfPCell colEmpleado = new PdfPCell(new Phrase("EMPLEADO", fuenteNegrita));
+            colEmpleado.BorderWidth = 0;
+            colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
+            colEmpleado.Padding = 3;
 
-                PdfPCell colRetiroEfectivo = new PdfPCell(new Phrase("EFECTIVO", fuenteNegrita));
-                colRetiroEfectivo.BorderWidth = 0;
-                colRetiroEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
-                colRetiroEfectivo.Padding = 3;
+            PdfPCell colFecha = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
+            colFecha.BorderWidth = 0;
+            colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
+            colFecha.Padding = 3;
 
-                PdfPCell colRetiroTarjeta = new PdfPCell(new Phrase("TARJETA", fuenteNegrita));
-                colRetiroTarjeta.BorderWidth = 0;
-                colRetiroTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
-                colRetiroTarjeta.Padding = 3;
+            PdfPCell colRetiroEfectivo = new PdfPCell(new Phrase("EFECTIVO", fuenteNegrita));
+            colRetiroEfectivo.BorderWidth = 0;
+            colRetiroEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colRetiroEfectivo.Padding = 3;
 
-                PdfPCell colRetiroVales = new PdfPCell(new Phrase("VALES", fuenteNegrita));
-                colRetiroVales.BorderWidth = 0;
-                colRetiroVales.HorizontalAlignment = Element.ALIGN_CENTER;
-                colRetiroVales.Padding = 3;
+            PdfPCell colRetiroTarjeta = new PdfPCell(new Phrase("TARJETA", fuenteNegrita));
+            colRetiroTarjeta.BorderWidth = 0;
+            colRetiroTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
+            colRetiroTarjeta.Padding = 3;
 
-                PdfPCell colRetiroCheque = new PdfPCell(new Phrase("CHEQUE", fuenteNegrita));
-                colRetiroCheque.BorderWidth = 0;
-                colRetiroCheque.HorizontalAlignment = Element.ALIGN_CENTER;
-                colRetiroCheque.Padding = 3;
+            PdfPCell colRetiroVales = new PdfPCell(new Phrase("VALES", fuenteNegrita));
+            colRetiroVales.BorderWidth = 0;
+            colRetiroVales.HorizontalAlignment = Element.ALIGN_CENTER;
+            colRetiroVales.Padding = 3;
 
-                PdfPCell colRetiroTrans = new PdfPCell(new Phrase("TRANSFERENCIA", fuenteNegrita));
-                colRetiroTrans.BorderWidth = 0;
-                colRetiroTrans.HorizontalAlignment = Element.ALIGN_CENTER;
-                colRetiroTrans.Padding = 3;
+            PdfPCell colRetiroCheque = new PdfPCell(new Phrase("CHEQUE", fuenteNegrita));
+            colRetiroCheque.BorderWidth = 0;
+            colRetiroCheque.HorizontalAlignment = Element.ALIGN_CENTER;
+            colRetiroCheque.Padding = 3;
 
-                PdfPCell colTotal = new PdfPCell(new Phrase("TOTAL", fuenteNegrita));
-                colTotal.BorderWidth = 0;
-                colTotal.HorizontalAlignment = Element.ALIGN_CENTER;
-                colTotal.Padding = 3;
+            PdfPCell colRetiroTrans = new PdfPCell(new Phrase("TRANSFERENCIA", fuenteNegrita));
+            colRetiroTrans.BorderWidth = 0;
+            colRetiroTrans.HorizontalAlignment = Element.ALIGN_CENTER;
+            colRetiroTrans.Padding = 3;
 
-                tablaDineroRetirado.AddCell(colEmpleado);
-                tablaDineroRetirado.AddCell(colFecha);
-                tablaDineroRetirado.AddCell(colRetiroEfectivo);
-                tablaDineroRetirado.AddCell(colRetiroTarjeta);
-                tablaDineroRetirado.AddCell(colRetiroVales);
-                tablaDineroRetirado.AddCell(colRetiroCheque);
-                tablaDineroRetirado.AddCell(colRetiroTrans);
-                tablaDineroRetirado.AddCell(colTotal);
+            PdfPCell colTotal = new PdfPCell(new Phrase("TOTAL", fuenteNegrita));
+            colTotal.BorderWidth = 0;
+            colTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotal.Padding = 3;
 
-            //string Empleado = string.Empty,
-            //        Efectivo = string.Empty,
-            //        Tarjeta = string.Empty,
-            //        Vales = string.Empty,
-            //        Cheque = string.Empty,
-            //        Transferencia = string.Empty,
-            //        Credito = string.Empty,
-            //        Fecha = string.Empty;
-            //FechaOperacion
+            tablaDineroRetirado.AddCell(colEmpleado);
+            tablaDineroRetirado.AddCell(colFecha);
+            tablaDineroRetirado.AddCell(colRetiroEfectivo);
+            tablaDineroRetirado.AddCell(colRetiroTarjeta);
+            tablaDineroRetirado.AddCell(colRetiroVales);
+            tablaDineroRetirado.AddCell(colRetiroCheque);
+            tablaDineroRetirado.AddCell(colRetiroTrans);
+            tablaDineroRetirado.AddCell(colTotal);
+
+            double Cantidad = 0.00,
+                    Efectivo = 0.00,
+                    Tarjeta = 0.00,
+                    Vales = 0.00,
+                    Cheque = 0.00,
+                    Transferencia = 0.00;
+
 
             var usuario = string.Empty;
             foreach (DataRow datosRecorrer in datoCantidad.Rows)
@@ -890,26 +897,32 @@ namespace PuntoDeVentaV2
                 PdfPCell colRetiroEfectivoTmp = new PdfPCell(new Phrase("$ " + datosRecorrer["Efectivo"].ToString(), fuenteNormal));
                 colRetiroEfectivoTmp.BorderWidth = 0;
                 colRetiroEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                Efectivo += (float)Convert.ToDouble(datosRecorrer["Efectivo"].ToString());
 
                 PdfPCell colRetiroTarjetaTmp = new PdfPCell(new Phrase("$ " + datosRecorrer["Tarjeta"].ToString(), fuenteNormal));
                 colRetiroTarjetaTmp.BorderWidth = 0;
                 colRetiroTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                Tarjeta += (float)Convert.ToDouble(datosRecorrer["Tarjeta"].ToString());
 
                 PdfPCell colRetiroValesTmp = new PdfPCell(new Phrase("$ " + datosRecorrer["Vales"].ToString(), fuenteNormal));
                 colRetiroValesTmp.BorderWidth = 0;
                 colRetiroValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                Vales += (float)Convert.ToDouble(datosRecorrer["Vales"].ToString());
 
                 PdfPCell colRetiroChequeTmp = new PdfPCell(new Phrase("$ " + datosRecorrer["Cheque"].ToString(), fuenteNormal));
                 colRetiroChequeTmp.BorderWidth = 0;
                 colRetiroChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                Cheque += (float)Convert.ToDouble(datosRecorrer["Cheque"].ToString());
 
                 PdfPCell colRetiroTransTmp = new PdfPCell(new Phrase("$ " + datosRecorrer["Transferencia"].ToString(), fuenteNormal));
                 colRetiroTransTmp.BorderWidth = 0;
                 colRetiroTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                Transferencia += (float)Convert.ToDouble(datosRecorrer["Transferencia"].ToString());
 
                 PdfPCell colTotalCant = new PdfPCell(new Phrase("$ " + datosRecorrer["Cantidad"].ToString(), fuenteNormal));
                 colTotalCant.BorderWidth = 0;
                 colTotalCant.HorizontalAlignment = Element.ALIGN_CENTER;
+                Cantidad += (float)Convert.ToDouble(datosRecorrer["Cantidad"].ToString());
 
                 tablaDineroRetirado.AddCell(colEmpleadoTmp);
                 tablaDineroRetirado.AddCell(colFechaTmp);
@@ -920,71 +933,61 @@ namespace PuntoDeVentaV2
                 tablaDineroRetirado.AddCell(colRetiroTransTmp);
                 tablaDineroRetirado.AddCell(colTotalCant);
             }
-           
-                reporte.Add(tablaDineroRetirado);
-                reporte.Add(linea);
 
-                //PdfPTable tablaTotalesDineroRetirado = new PdfPTable(8);
-                //tablaTotalesDineroRetirado.WidthPercentage = 100;
-                //tablaTotalesDineroRetirado.SetWidths(anchoColumnas);
+            List<string> listaTotales = new List<string>();
+            listaTotales.Add($"{string.Empty} | {string.Empty} | {string.Empty} | {string.Empty} | {string.Empty} | {string.Empty}");
+            listaTotales.Add($"{Efectivo.ToString("C")} | {Tarjeta.ToString("C")} | {Vales.ToString("C")} | {Cheque.ToString("C")} | {Transferencia.ToString("C")} | {Cantidad.ToString("C")}");
 
-                //// Linea de TOTALES
-                //PdfPCell colEmpleadoTotal = new PdfPCell(new Phrase($"TOTAL '{tipoReporte}'", fuenteTotales));
-                //colEmpleadoTotal.BorderWidth = 0;
-                //colEmpleadoTotal.HorizontalAlignment = Element.ALIGN_CENTER;
-                //colEmpleadoTotal.Padding = 3;
-                //colEmpleadoTotal.BackgroundColor = new BaseColor(Color.Red);
+            var recorrerListaTotales = listaTotales.ToArray();
+            int saltar = 0;
 
-                //PdfPCell colEfectivoTotal = new PdfPCell(new Phrase("$ " + datoCantidad[1].ToString("N2"), fuenteTotales));
-                //colEfectivoTotal.BorderWidth = 0;
-                //colEfectivoTotal.HorizontalAlignment = Element.ALIGN_CENTER;
-                //colEfectivoTotal.Padding = 3;
-                //colEfectivoTotal.BackgroundColor = new BaseColor(Color.Red);
+            foreach (var iterador in recorrerListaTotales)
+            {
+                string[] separador = iterador.Split('|');
+                string totalDinamico = string.Empty;
 
-                //PdfPCell colTarjetaTotal = new PdfPCell(new Phrase("$ " + totalTarjeta.ToString("N2"), fuenteTotales));
-                //colTarjetaTotal.BorderWidth = 0;
-                //colTarjetaTotal.HorizontalAlignment = Element.ALIGN_CENTER;
-                //colTarjetaTotal.Padding = 3;
-                //colTarjetaTotal.BackgroundColor = new BaseColor(Color.Red);
+                //Aqui se agregan los campos de la suma de los totales
+                if (saltar.Equals(0)) { saltar++; } else { totalDinamico = "TOTAL"; }
+                PdfPCell colEmpleadoTotal = new PdfPCell(new Phrase(totalDinamico, fuenteNegrita));
+                colEmpleadoTotal.BorderWidth = 0;
+                colEmpleadoTotal.Colspan = 2;
+                colEmpleadoTotal.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                //PdfPCell colValesTotal = new PdfPCell(new Phrase("$ " + totalVales.ToString("N2"), fuenteTotales));
-                //colValesTotal.BorderWidth = 0;
-                //colValesTotal.HorizontalAlignment = Element.ALIGN_CENTER;
-                //colValesTotal.Padding = 3;
-                //colValesTotal.BackgroundColor = new BaseColor(Color.Red);
+                PdfPCell colRetiroEfectivoTotal = new PdfPCell(new Phrase(separador[0].ToString(), fuenteNegrita));
+                colRetiroEfectivoTotal.BorderWidth = 0;
+                colRetiroEfectivoTotal.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                //PdfPCell colChequeTotal = new PdfPCell(new Phrase("$ " + totalCheque.ToString("N2"), fuenteTotales));
-                //colChequeTotal.BorderWidth = 0;
-                //colChequeTotal.HorizontalAlignment = Element.ALIGN_CENTER;
-                //colChequeTotal.Padding = 3;
-                //colChequeTotal.BackgroundColor = new BaseColor(Color.Red);
+                PdfPCell colRetiroTarjetaTotal = new PdfPCell(new Phrase(separador[1].ToString(), fuenteNegrita));
+                colRetiroTarjetaTotal.BorderWidth = 0;
+                colRetiroTarjetaTotal.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                //PdfPCell colTransaccionTotal = new PdfPCell(new Phrase("$ " + totalTransferencia.ToString("N2"), fuenteTotales));
-                //colTransaccionTotal.BorderWidth = 0;
-                //colTransaccionTotal.HorizontalAlignment = Element.ALIGN_CENTER;
-                //colTransaccionTotal.Padding = 3;
-                //colTransaccionTotal.BackgroundColor = new BaseColor(Color.Red);
+                PdfPCell colRetiroValesTotal = new PdfPCell(new Phrase(separador[2].ToString(), fuenteNegrita));
+                colRetiroValesTotal.BorderWidth = 0;
+                colRetiroValesTotal.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                //PdfPCell colCreditoTotal = new PdfPCell(new Phrase("$ " + totalCredito.ToString("N2"), fuenteTotales));
-                //colCreditoTotal.BorderWidth = 0;
-                //colCreditoTotal.HorizontalAlignment = Element.ALIGN_CENTER;
-                //colCreditoTotal.Padding = 3;
-                //colCreditoTotal.BackgroundColor = new BaseColor(Color.Red);
+                PdfPCell colRetiroChequeTotal = new PdfPCell(new Phrase(separador[3].ToString(), fuenteNegrita));
+                colRetiroChequeTotal.BorderWidth = 0;
+                colRetiroChequeTotal.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                //PdfPCell colFechaTotal = new PdfPCell(new Phrase("", fuenteTotales));
-                //colFechaTotal.BorderWidth = 0;
-                //colFechaTotal.HorizontalAlignment = Element.ALIGN_CENTER;
-                //colFechaTotal.Padding = 3;
-                //colFechaTotal.BackgroundColor = new BaseColor(Color.Red);
+                PdfPCell colRetiroTransTotal = new PdfPCell(new Phrase(separador[4].ToString(), fuenteNegrita));
+                colRetiroTransTotal.BorderWidth = 0;
+                colRetiroTransTotal.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                //tablaTotalesDineroRetirado.AddCell(colEmpleadoTotal);
-                //tablaTotalesDineroRetirado.AddCell(colEfectivoTotal);
-                //tablaTotalesDineroRetirado.AddCell(colTarjetaTotal);
-                //tablaTotalesDineroRetirado.AddCell(colValesTotal);
-                //tablaTotalesDineroRetirado.AddCell(colChequeTotal);
-                //tablaTotalesDineroRetirado.AddCell(colTransaccionTotal);
-                //tablaTotalesDineroRetirado.AddCell(colCreditoTotal);
-                //tablaTotalesDineroRetirado.AddCell(colFechaTotal);
+                PdfPCell colTotalCantTotal = new PdfPCell(new Phrase(separador[5].ToString(), fuenteNegrita));
+                colTotalCantTotal.BorderWidth = 0;
+                colTotalCantTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                tablaDineroRetirado.AddCell(colEmpleadoTotal);
+                tablaDineroRetirado.AddCell(colRetiroEfectivoTotal);
+                tablaDineroRetirado.AddCell(colRetiroTarjetaTotal);
+                tablaDineroRetirado.AddCell(colRetiroValesTotal);
+                tablaDineroRetirado.AddCell(colRetiroChequeTotal);
+                tablaDineroRetirado.AddCell(colRetiroTransTotal);
+                tablaDineroRetirado.AddCell(colTotalCantTotal);
+            }
+
+            reporte.Add(tablaDineroRetirado);
+            reporte.Add(linea);
 
                 //reporte.Add(tablaTotalesDineroRetirado);
                 #endregion Tabla de Dinero Agregado
