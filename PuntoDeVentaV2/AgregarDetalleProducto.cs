@@ -2202,6 +2202,7 @@ namespace PuntoDeVentaV2
                             string tableSource = string.Empty;
                             fLPCentralDetalle.Controls.Clear();
 
+                            // Inhabilitar concepto dinamico desde Tabla AppSettings
                             try
                             {
                                 tableSource = "appSettings";
@@ -2216,6 +2217,61 @@ namespace PuntoDeVentaV2
                                 MessageBox.Show($"El detalle: {conceptoProductoEliminar} a inhabilitar no se encuentra en los registros\nExcepción: {ex.Message.ToString()} ({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
+                            try
+                            {
+                                tableSource = "FiltroDinamico";
+                                var DeleteDatoFiltroDinamico = cn.EjecutarConsulta(cs.BorrarDatoFiltroDinamico("chk" + deleteDetalle, FormPrincipal.userID));
+                            }
+                            catch (MySqlException exMySql)
+                            {
+                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            try
+                            {
+                                tableSource = "FiltrosDinamicosVetanaFiltros";
+                                var DeleteDatoFiltroDinamicoVentanaFiltros = cn.EjecutarConsulta(cs.BorrarDatoVentanaFiltros(deleteDetalle, FormPrincipal.userID));
+                            }
+                            catch (MySqlException exMySql)
+                            {
+                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            try
+                            {
+                                tableSource = "DetallesProductoGenerales";
+                                var DeleteDetallesProductoGenerales = cn.EjecutarConsulta(cs.BorrarDetallesProductoGeneralesPorConcepto("panelContenido" + deleteDetalle, finalIdProducto));
+                            }
+                            catch (MySqlException exMySql)
+                            {
+                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            try
+                            {
+                                tableSource = "DetalleGeneral";
+                                var DeleteDetalleGeneral = cn.EjecutarConsulta(cs.BorrarDetalleGeneralPorConcepto(deleteDetalle, FormPrincipal.userID));
+                            }
+                            catch (MySqlException exMySql)
+                            {
+                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                         else if (found.Equals(0))
                         {
