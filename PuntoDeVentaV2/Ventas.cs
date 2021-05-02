@@ -3081,7 +3081,7 @@ namespace PuntoDeVentaV2
                             {
                                 foreach (DataGridViewRow articulo in DGVentas.Rows)
                                 {
-                                    enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta);
+                                    enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta + "|" + cAnticipo.Text.Trim() + "|" + cAnticipoUtilizado.Text.Trim());
                                 }
                             }
                         }
@@ -5717,6 +5717,8 @@ namespace PuntoDeVentaV2
                     string folio = string.Empty;
                     string cliente = string.Empty;
                     string formaDePago = string.Empty;
+                    string anticipoRecibido = string.Empty;
+                    string anticipoUtilizado = string.Empty;
 
                     foreach (var producto in enviarVenta)
                     {
@@ -5745,12 +5747,21 @@ namespace PuntoDeVentaV2
                         formaDePago = articulos[5];
                         cliente = articulos[6];
                         folio = articulos[7];
+                        anticipoRecibido = articulos[8];
+                        anticipoUtilizado = articulos[9];
                     }
 
                     string cadenaDatos = string.Empty;
 
                     if (!string.IsNullOrWhiteSpace(formaDePago))
                     {
+                        if (!string.IsNullOrWhiteSpace(anticipoRecibido) && !string.IsNullOrWhiteSpace(anticipoUtilizado)) 
+                        {
+                            cadenaDatos += "<br><br>";
+                            cadenaDatos += $"<span style='font-size: 12px;'>Anticipo recibido: <span style='color: red;'>{anticipoRecibido}</span></span><br>";
+                            cadenaDatos += $"<span style='font-size: 12px;'>Anticipo utilizado: <span style='color: red;'>{anticipoUtilizado}</span></span><br>";
+                        }
+
                         cadenaDatos += "<br><br>";
                         cadenaDatos += "<span style='font-size: 12px;'>Forma de Pago: <span style='color: red;'>" + formaDePago + "</span></span><br>";
                     }
