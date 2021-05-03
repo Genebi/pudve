@@ -59,7 +59,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.label21 = new System.Windows.Forms.Label();
+            this.lb_IVA = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.lblPrecioRecomendadoXML = new System.Windows.Forms.Label();
@@ -481,34 +481,34 @@
             // panel11
             // 
             this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel11.Controls.Add(this.label21);
+            this.panel11.Controls.Add(this.lb_IVA);
             this.panel11.Controls.Add(this.label22);
-            this.panel11.Location = new System.Drawing.Point(16, 161);
+            this.panel11.Location = new System.Drawing.Point(679, 126);
             this.panel11.Margin = new System.Windows.Forms.Padding(2);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(888, 36);
+            this.panel11.Size = new System.Drawing.Size(225, 36);
             this.panel11.TabIndex = 6;
             // 
-            // label21
+            // lb_IVA
             // 
-            this.label21.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label21.Location = new System.Drawing.Point(340, 7);
-            this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(326, 19);
-            this.label21.TabIndex = 1;
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_IVA.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.lb_IVA.Location = new System.Drawing.Point(86, 7);
+            this.lb_IVA.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lb_IVA.Name = "lb_IVA";
+            this.lb_IVA.Size = new System.Drawing.Size(125, 19);
+            this.lb_IVA.TabIndex = 1;
+            this.lb_IVA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Century", 12F);
-            this.label22.Location = new System.Drawing.Point(248, 7);
+            this.label22.Location = new System.Drawing.Point(10, 7);
             this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(93, 20);
+            this.label22.Size = new System.Drawing.Size(48, 20);
             this.label22.TabIndex = 0;
-            this.label22.Text = "Impuestos :";
+            this.label22.Text = "IVA :";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel10
@@ -516,10 +516,10 @@
             this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel10.Controls.Add(this.lblPrecioRecomendadoXML);
             this.panel10.Controls.Add(this.label20);
-            this.panel10.Location = new System.Drawing.Point(334, 119);
+            this.panel10.Location = new System.Drawing.Point(334, 126);
             this.panel10.Margin = new System.Windows.Forms.Padding(2);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(348, 36);
+            this.panel10.Size = new System.Drawing.Size(335, 36);
             this.panel10.TabIndex = 5;
             // 
             // lblPrecioRecomendadoXML
@@ -528,7 +528,7 @@
             this.lblPrecioRecomendadoXML.Location = new System.Drawing.Point(178, 7);
             this.lblPrecioRecomendadoXML.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPrecioRecomendadoXML.Name = "lblPrecioRecomendadoXML";
-            this.lblPrecioRecomendadoXML.Size = new System.Drawing.Size(155, 19);
+            this.lblPrecioRecomendadoXML.Size = new System.Drawing.Size(140, 19);
             this.lblPrecioRecomendadoXML.TabIndex = 1;
             this.lblPrecioRecomendadoXML.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -549,7 +549,7 @@
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel9.Controls.Add(this.lblNoIdentificacionXML);
             this.panel9.Controls.Add(this.label18);
-            this.panel9.Location = new System.Drawing.Point(16, 120);
+            this.panel9.Location = new System.Drawing.Point(16, 126);
             this.panel9.Margin = new System.Windows.Forms.Padding(2);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(310, 36);
@@ -582,19 +582,19 @@
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.lblImpXML);
             this.panel8.Controls.Add(this.label16);
-            this.panel8.Location = new System.Drawing.Point(697, 79);
+            this.panel8.Location = new System.Drawing.Point(679, 82);
             this.panel8.Margin = new System.Windows.Forms.Padding(2);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(207, 36);
+            this.panel8.Size = new System.Drawing.Size(225, 36);
             this.panel8.TabIndex = 4;
             // 
             // lblImpXML
             // 
             this.lblImpXML.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.lblImpXML.Location = new System.Drawing.Point(94, 6);
+            this.lblImpXML.Location = new System.Drawing.Point(86, 7);
             this.lblImpXML.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblImpXML.Name = "lblImpXML";
-            this.lblImpXML.Size = new System.Drawing.Size(98, 19);
+            this.lblImpXML.Size = new System.Drawing.Size(125, 19);
             this.lblImpXML.TabIndex = 1;
             this.lblImpXML.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -615,10 +615,10 @@
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.lblPrecioOriginalXML);
             this.panel5.Controls.Add(this.label10);
-            this.panel5.Location = new System.Drawing.Point(335, 79);
+            this.panel5.Location = new System.Drawing.Point(335, 82);
             this.panel5.Margin = new System.Windows.Forms.Padding(2);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(349, 36);
+            this.panel5.Size = new System.Drawing.Size(335, 36);
             this.panel5.TabIndex = 3;
             // 
             // lblPrecioOriginalXML
@@ -627,7 +627,7 @@
             this.lblPrecioOriginalXML.Location = new System.Drawing.Point(177, 6);
             this.lblPrecioOriginalXML.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPrecioOriginalXML.Name = "lblPrecioOriginalXML";
-            this.lblPrecioOriginalXML.Size = new System.Drawing.Size(155, 19);
+            this.lblPrecioOriginalXML.Size = new System.Drawing.Size(140, 19);
             this.lblPrecioOriginalXML.TabIndex = 1;
             this.lblPrecioOriginalXML.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -648,7 +648,7 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.lblCantXML);
             this.panel4.Controls.Add(this.label7);
-            this.panel4.Location = new System.Drawing.Point(16, 80);
+            this.panel4.Location = new System.Drawing.Point(16, 82);
             this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(310, 36);
@@ -1036,7 +1036,7 @@
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label lb_IVA;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label lblPrecioRecomendadoXML;

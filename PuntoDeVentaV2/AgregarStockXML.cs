@@ -60,9 +60,8 @@ namespace PuntoDeVentaV2
             public TReceptor Receptor;
             [XmlArrayItemAttribute("Concepto")]
             public TConcepto[] Conceptos;
-            [XmlElementAttribute()]
-            public TImpuestos Impuestos;
-
+            /*[XmlElementAttribute("Complemento")]
+            public CComplemento[] Complemento;*/
         }
 
         /// <summary>
@@ -121,33 +120,62 @@ namespace PuntoDeVentaV2
             public string Importe;
             [XmlAttributeAttribute()]
             public string Descuento;
+            
+            public CCImpuestos Impuestos;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public class TImpuestos
+        public partial class CCImpuestos
         {
-            [XmlArrayItem("Traslado")]
-            public TTraslado[] Traslados;
+            private CCImpuestosRetencion[] retencionesField;
+
+            [XmlArrayItemAttribute("Traslado")]
+            public CCImpuestosTraslado[] Traslados;
+
+            [XmlArrayItemAttribute("Retencion", IsNullable = false)]
+            public CCImpuestosRetencion[] Retenciones;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public class TTraslado
+        public class CCImpuestosTraslado
         {
             [XmlAttributeAttribute()]
             public string Impuesto;
             [XmlAttributeAttribute()]
-            public string Importe;
+            public string TipoFactor;
+            [XmlAttributeAttribute()]
+            public string TasaOCuota;
+            [XmlAttributeAttribute()]
+            public decimal Importe;
         }
 
-        /************************************************************
-        *   Termina la clase para leer el XML y sus respectivas     *
-        *   sub class para hacer los array                          *   
-        ************************************************************/
-        private string rutaXML = string.Empty;
+        public class CCImpuestosRetencion
+        {
+            [XmlAttributeAttribute()]
+            public string Impuesto;
+            [XmlAttributeAttribute()]
+            public string TipoFactor;
+            [XmlAttributeAttribute()]
+            public string TasaOCuota;
+            [XmlAttributeAttribute()]
+            public decimal Importe;
+        }
+
+        /*public class CComplemento
+        {
+            public CCImpuestosLocales ImpuestosLocales;
+        }
+
+        public class CCImpuestosLocales
+        {
+
+        }*/
+
+
+
+            /************************************************************
+            *   Termina la clase para leer el XML y sus respectivas     *
+            *   sub class para hacer los array                          *   
+            ************************************************************/
+            private string rutaXML = string.Empty;
         private string[] impuestosXML;
 
         /****************************************************
@@ -275,6 +303,11 @@ namespace PuntoDeVentaV2
 
         DataTable dtSearchProveedor;
         DataRow drSearchProveedor;
+
+        static public string tipo_impuesto_delxml = ""; // Guarda el impuestos principal. 
+        static public List<string> list_impuestos_traslado_retenido = new List<string>();
+        //static public List<string> list_impuestos_traslado_retenido_loc = new List<string>();
+
 
         /// <summary>
         /// 
@@ -974,9 +1007,19 @@ namespace PuntoDeVentaV2
         /// </summary>
         public void datosXML()
         {
+
+            // Miri.
+            // Limpiar la lista de impuestos.
+            if (list_impuestos_traslado_retenido.Count() > 0)
+            {
+                int tam = list_impuestos_traslado_retenido.Count();
+                list_impuestos_traslado_retenido.RemoveRange(0, tam);
+            }
+
             descuento = 0;
             ClaveInterna = "0";
             lblPosicionActualXML.Text = (index + 1).ToString();
+
             if (index > 0)
             {
                 index = Convert.ToInt32(lblPosicionActualXML.Text);
@@ -1076,7 +1119,81 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             precioOriginalSinIVA = (importe - descuento) / cantidad; // Calculamos el precio Original Sin IVA (importe - descuento)/cantidad
-            precioOriginalConIVA = precioOriginalSinIVA * (float)1.16; // Calculamos el precio Original Con IVA (precioOriginalSinIVA)*1.16
+            
+
+            // Miri.
+            // Se obtiene el tipo de impuesto trasladado que tiene el producto.
+
+            int index_i = 0;
+            float xml_iva = 0;
+            
+            if (index == 0) { index_i = index; }
+            if (index > 0) { index_i = index - 1; }
+
+
+            int cant_impuestos_t = 0;
+            int cant_impuestos_r = 0;
+
+            var exi_traslados = ds.Conceptos[index_i].Impuestos.Traslados;
+            var exi_retenidos = ds.Conceptos[index_i].Impuestos.Retenciones;
+
+            // Valida si hay impuestos trasladados y obtiene el IVA principal. 
+            if (exi_traslados != null)
+            {
+                cant_impuestos_t = ds.Conceptos[index_i].Impuestos.Traslados.Count();
+            }
+            
+            if (cant_impuestos_t > 0)
+            {
+                for (int t = 0; t < cant_impuestos_t; t++)
+                {
+                    int no_guarda = 0;
+
+                    string xml_impuesto = ds.Conceptos[index_i].Impuestos.Traslados[t].Impuesto;
+                    string xml_tipo_factor = ds.Conceptos[index_i].Impuestos.Traslados[t].TipoFactor;
+                    
+                    
+                    if (no_guarda == 0 & xml_impuesto == "002" & (xml_tipo_factor == "Tasa" | xml_tipo_factor == "Exento"))
+                    {
+                        if (xml_tipo_factor == "Exento")
+                        {
+                            xml_iva = 0;
+                        }
+                        else
+                        {
+                            // La tasa-cuota solo se obtendrá si el impuesto es diferente de exento.
+                            string xml_tasa_cuota = ds.Conceptos[index_i].Impuestos.Traslados[t].TasaOCuota;
+
+
+                            if (xml_tasa_cuota == "0.160000")
+                            {
+                                xml_iva = 0.16f;
+                            }
+                            if (xml_tasa_cuota == "0.080000")
+                            {
+                                xml_iva = 0.08f;
+                            }
+                        }
+
+                        no_guarda++;
+                    }
+                }
+            }
+
+            // Precio del producto con IVA incluido.
+            if (xml_iva > 0)
+            {
+                precioOriginalConIVA = precioOriginalSinIVA + (precioOriginalSinIVA * xml_iva);
+            }
+            else
+            {
+                precioOriginalConIVA = precioOriginalSinIVA;
+            }
+            
+
+
+
+            //precioOriginalConIVA = precioOriginalSinIVA * (float)1.16; // Calculamos el precio Original Con IVA (precioOriginalSinIVA)*1.16
             lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
             importeReal = cantidad * precioOriginalConIVA; // calculamos importe real (cantidad * precioOriginalConIVA)
             lblImpXML.Text = importeReal.ToString("N2");
@@ -1136,6 +1253,96 @@ namespace PuntoDeVentaV2
             {
                 claveProdEmisor = ds.Conceptos[index - 1].ClaveProdServ;
             }
+
+
+
+            // Miri.
+            // Obtiene impuestos del concepto.
+
+            // Valida si hay impuestos trasladados y retenidos.
+            if (exi_traslados != null)
+            {
+                cant_impuestos_t = ds.Conceptos[index_i].Impuestos.Traslados.Count();
+            }
+            if (exi_retenidos != null)
+            {
+                cant_impuestos_r = ds.Conceptos[index_i].Impuestos.Retenciones.Count();
+            }
+            
+
+            // Inicia recorrido de impuestos trasladados.
+
+            decimal vnt_importe_iva = 0m;
+            int cant_impuestos_t_r = cant_impuestos_t + cant_impuestos_r;
+            
+            
+            if(cant_impuestos_t > 0)
+            {
+                for (int t = 0; t < cant_impuestos_t; t++)
+                {
+                    string xml_impuesto, xml_tipo_factor, xml_tasa_cuota = "";
+                    int no_guarda = 0;
+
+                    xml_impuesto = ds.Conceptos[index_i].Impuestos.Traslados[t].Impuesto;
+                    xml_tipo_factor = ds.Conceptos[index_i].Impuestos.Traslados[t].TipoFactor;
+                    // La tasa-cuota solo se obtendrá si el impuesto es diferente de exento.
+                    xml_tasa_cuota = ds.Conceptos[index_i].Impuestos.Traslados[t].TasaOCuota;
+
+
+                    if (xml_impuesto == "002" & (xml_tipo_factor == "Tasa" | xml_tipo_factor == "Exento"))
+                    {
+                        if (xml_tipo_factor == "Exento")
+                        {
+                            vnt_importe_iva = 0;
+                            tipo_impuesto_delxml = "Exento";
+                        }
+                        else
+                        {
+                            
+                            tipo_impuesto_delxml = "0";
+
+                            if (xml_tasa_cuota == "0.160000")
+                            {
+                                tipo_impuesto_delxml = "16";
+                            }
+                            if (xml_tasa_cuota == "0.080000")
+                            {
+                                tipo_impuesto_delxml = "8";
+                            }
+
+                            vnt_importe_iva = Convert.ToDecimal(precioOriginalSinIVA) * Convert.ToDecimal(xml_tasa_cuota);
+                        }
+
+                        no_guarda++;
+                    }
+
+                    string cadena = "t-" + xml_impuesto + "-" + xml_tipo_factor + "-" + xml_tasa_cuota;
+
+                    if (no_guarda != 1)
+                    {
+                        list_impuestos_traslado_retenido.Add(cadena);
+                    }
+                }
+            }            
+            
+            // Inicia recorrido de impuestos retenidos.
+            
+            if(cant_impuestos_r > 0)
+            {
+                for (int t = 0; t < cant_impuestos_r; t++)
+                {
+                    string xml_impuesto = ds.Conceptos[index_i].Impuestos.Retenciones[t].Impuesto;
+                    string xml_tipo_factor = ds.Conceptos[index_i].Impuestos.Retenciones[t].TipoFactor;
+                    string xml_tasa_cuota = ds.Conceptos[index_i].Impuestos.Retenciones[t].TasaOCuota;
+
+                    string cadena = "r-" + xml_impuesto + "-" + xml_tipo_factor + "-" + xml_tasa_cuota;
+
+                    list_impuestos_traslado_retenido.Add(cadena);                                    
+                }
+            }
+            
+
+            lb_IVA.Text = vnt_importe_iva.ToString("0.00");
         }
 
         // funsion para cargar los datos del Producto
@@ -1165,6 +1372,7 @@ namespace PuntoDeVentaV2
             int totalRegistroXML;                           // variable para saber cuantos concepctos tiene el XML
             totalRegistroXML = ds.Conceptos.Count();        // almacenamos el total de conceptos del XML
             index = int.Parse(lblPosicionActualXML.Text);   // alamcenamos el valor de la etiqueta lblPosicionActuakXML nos ayudara para saber en que concepto va del XML
+            
             if (index == totalRegistroXML)                  // comparamos la posicion actual y vemo si es igual al total de conceptos del XML
             {
                 //MessageBox.Show("Final del Archivo XML,\nrecorrido con exito", "Archivo XML recorrido en totalidad", MessageBoxButtons.OK, MessageBoxIcon.Information);
