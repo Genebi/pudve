@@ -99,6 +99,12 @@ namespace PuntoDeVentaV2
         int found = 0;
         NameValueCollection appSettings;
 
+        string  mensajeMostrar = string.Empty,
+                tituloVentana = string.Empty,
+                mensajeDefault = string.Empty, 
+                conceptoProductoAgregar = string.Empty,
+                conceptoProductoEliminar = string.Empty;
+
         // this code will add a listviewtem
         // to a listview for each database entry
         // in the appSettings section of an App.config file.
@@ -1418,7 +1424,16 @@ namespace PuntoDeVentaV2
 
         private void btnInhabilitados_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Está área esta bajo construcción\npronto estara disponible...", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ConceptosInhabilitados conceptosDasactivados = new ConceptosInhabilitados();
+
+            conceptosDasactivados.FormClosing += delegate
+            {
+                fLPCentralDetalle.Controls.Clear();
+                loadFromConfigDB();
+                BuscarTextoListView(settingDatabases);
+            };
+
+            conceptosDasactivados.ShowDialog();
         }
 
         private void llenarDatosProveedor(string textoBuscado)
@@ -2156,32 +2171,30 @@ namespace PuntoDeVentaV2
 
         private void btnDeleteDetalle_Click(object sender, EventArgs e)
         {
-            XPos = this.Width / 2;
-            YPos = this.Height / 2;
-            deleteDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese el Detalle a Eliminar:", "Detalle a Eliminar", "Escriba aquí su Detalle a Eliminar", XPos, YPos);
-            try
-            {
-                fLPCentralDetalle.Controls.Clear();
-                if (nvoDetalle.Equals("Escriba aquí su Detalle a Eliminar"))
-                {
-                    loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (!deleteDetalle.Equals(""))
-                {
-                    if (deleteDetalle.Equals("Proveedor"))
-                    {
-                        var mensaje = deleteDetalle;
+            mensajeMostrar = string.Empty;
+            tituloVentana = string.Empty;
+            mensajeDefault = string.Empty;
 
-                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        loadFromConfigDB();
-                        BuscarTextoListView(settingDatabases);
+            mensajeMostrar = "Favor de poner el nombre del concepto del prodcuto, para Inhabilitar en el sistema.";
+            tituloVentana = "Inhabilitar conceptos";
+            mensajeDefault = "Inhabilitar concepto del producto.";
+
+            InputBoxMessageBox inputMessageBox = new InputBoxMessageBox(mensajeMostrar, tituloVentana, mensajeDefault);
+
+            inputMessageBox.FormClosing += delegate
+            {
+                if (!inputMessageBox.retornoNombreConcepto.Equals(string.Empty))
+                {
+                    conceptoProductoEliminar = inputMessageBox.retornoNombreConcepto;
+                    //MessageBox.Show("Concepto: " + conceptoProductoEliminar);
+                    if (conceptoProductoEliminar.Equals("Proveedor"))
+                    {
+                        MessageBox.Show($"No se puede inhabilitar ({conceptoProductoEliminar}) ya que es la configuración basica.\n\nUsted esta Intentando realizar dicha operacion sobre la configuración: del sistema", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {
                         int found = -1;
-                        using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(deleteDetalle, FormPrincipal.userID)))
+                        using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(conceptoProductoEliminar, FormPrincipal.userID)))
                         {
                             if (!dtItemDinamicos.Rows.Count.Equals(0))
                             {
@@ -2198,18 +2211,19 @@ namespace PuntoDeVentaV2
                             string tableSource = string.Empty;
                             fLPCentralDetalle.Controls.Clear();
 
+                            // Inhabilitar concepto dinamico desde Tabla AppSettings
                             try
                             {
                                 tableSource = "appSettings";
-                                var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                                var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(conceptoProductoEliminar, FormPrincipal.userID));
                             }
-                            catch (MySqlException exMySql)
+                            catch(MySqlException exMySql)
                             {
-                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nInhabilitar Detalle Producto({conceptoProductoEliminar})...\nExcepción: " + exMySql.Message.ToString(), "Inhabilitar Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-                            catch (Exception ex)
+                            catch(Exception ex)
                             {
-                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show($"El detalle: {conceptoProductoEliminar} a inhabilitar no se encuentra en los registros\nExcepción: {ex.Message.ToString()} ({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
                             try
@@ -2267,27 +2281,161 @@ namespace PuntoDeVentaV2
                             {
                                 MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-
-                            loadFromConfigDB();
-                            BuscarTextoListView(settingDatabases);
-                            deleteDetalle = string.Empty;
                         }
                         else if (found.Equals(0))
                         {
+                            fLPCentralDetalle.Controls.Clear();
                             loadFromConfigDB();
                             BuscarTextoListView(settingDatabases);
-                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"El Detalle: {conceptoProductoEliminar} a inhabilitar no se encuentra en los registros", "Error al Inhabilitar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        deleteDetalle = string.Empty;
                     }
+                    fLPCentralDetalle.Controls.Clear();
+                    loadFromConfigDB();
+                    BuscarTextoListView(settingDatabases);
                 }
-            }
-            catch (Exception ex)
-            {
-                loadFromConfigDB();
-                BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                else
+                {
+                    fLPCentralDetalle.Controls.Clear();
+                    loadFromConfigDB();
+                    BuscarTextoListView(settingDatabases);
+                }
+            };
+
+            inputMessageBox.ShowDialog();
+
+            //XPos = this.Width / 2;
+            //YPos = this.Height / 2;
+            //deleteDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese el Detalle a Eliminar:", "Detalle a Eliminar", "Escriba aquí su Detalle a Eliminar", XPos, YPos);
+            //try
+            //{
+            //    fLPCentralDetalle.Controls.Clear();
+            //    if (nvoDetalle.Equals("Escriba aquí su Detalle a Eliminar"))
+            //    {
+            //        loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else if (!deleteDetalle.Equals(""))
+            //    {
+            //        if (deleteDetalle.Equals("Proveedor"))
+            //        {
+            //            var mensaje = deleteDetalle;
+
+            //            MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            loadFromConfigDB();
+            //            BuscarTextoListView(settingDatabases);
+            //        }
+            //        else
+            //        {
+            //            int found = -1;
+            //            using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(deleteDetalle, FormPrincipal.userID)))
+            //            {
+            //                if (!dtItemDinamicos.Rows.Count.Equals(0))
+            //                {
+            //                    found = 1;
+            //                }
+            //                else if (dtItemDinamicos.Rows.Count.Equals(0))
+            //                {
+            //                    found = 0;
+            //                }
+            //            }
+
+            //            if (found.Equals(1))
+            //            {
+            //                string tableSource = string.Empty;
+            //                fLPCentralDetalle.Controls.Clear();
+
+            //                try
+            //                {
+            //                    tableSource = "appSettings";
+            //                    var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+            //                }
+            //                catch (MySqlException exMySql)
+            //                {
+            //                    MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                }
+            //                catch (Exception ex)
+            //                {
+            //                    MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                }
+
+            //                try
+            //                {
+            //                    tableSource = "FiltroDinamico";
+            //                    var DeleteDatoFiltroDinamico = cn.EjecutarConsulta(cs.BorrarDatoFiltroDinamico("chk" + deleteDetalle, FormPrincipal.userID));
+            //                }
+            //                catch (MySqlException exMySql)
+            //                {
+            //                    MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                }
+            //                catch (Exception ex)
+            //                {
+            //                    MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                }
+
+            //                try
+            //                {
+            //                    tableSource = "FiltrosDinamicosVetanaFiltros";
+            //                    var DeleteDatoFiltroDinamicoVentanaFiltros = cn.EjecutarConsulta(cs.BorrarDatoVentanaFiltros(deleteDetalle, FormPrincipal.userID));
+            //                }
+            //                catch (MySqlException exMySql)
+            //                {
+            //                    MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                }
+            //                catch (Exception ex)
+            //                {
+            //                    MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                }
+
+            //                try
+            //                {
+            //                    tableSource = "DetallesProductoGenerales";
+            //                    var DeleteDetallesProductoGenerales = cn.EjecutarConsulta(cs.BorrarDetallesProductoGeneralesPorConcepto("panelContenido" + deleteDetalle, finalIdProducto));
+            //                }
+            //                catch (MySqlException exMySql)
+            //                {
+            //                    MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                }
+            //                catch (Exception ex)
+            //                {
+            //                    MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                }
+
+            //                try
+            //                {
+            //                    tableSource = "DetalleGeneral";
+            //                    var DeleteDetalleGeneral = cn.EjecutarConsulta(cs.BorrarDetalleGeneralPorConcepto(deleteDetalle, FormPrincipal.userID));
+            //                }
+            //                catch (MySqlException exMySql)
+            //                {
+            //                    MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                }
+            //                catch (Exception ex)
+            //                {
+            //                    MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                }
+
+            //                loadFromConfigDB();
+            //                BuscarTextoListView(settingDatabases);
+            //                deleteDetalle = string.Empty;
+            //            }
+            //            else if (found.Equals(0))
+            //            {
+            //                loadFromConfigDB();
+            //                BuscarTextoListView(settingDatabases);
+            //                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+            //            deleteDetalle = string.Empty;
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    loadFromConfigDB();
+            //    BuscarTextoListView(settingDatabases);
+            //    MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -2297,28 +2445,24 @@ namespace PuntoDeVentaV2
 
         private void btnAddDetalle_Click(object sender, EventArgs e)
         {
-            nvoValor = "false";
-            XPos = this.Width / 2;
-            YPos = this.Height / 2;
-            nvoDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
-            try
+            mensajeMostrar = string.Empty;
+            tituloVentana = string.Empty;
+            mensajeDefault = string.Empty;
+
+            mensajeMostrar = "Favor de poner el nombre del nuevo concepto del prodcuto, para darlo de alta al sistema.";
+            tituloVentana = "Agregar concepto del producto";
+            mensajeDefault = "Concepto para agregar al producto.";
+
+            InputBoxMessageBox inputMessageBox = new InputBoxMessageBox(mensajeMostrar, tituloVentana, mensajeDefault);
+
+            inputMessageBox.FormClosing += delegate
             {
-                int found = -1;
-                fLPCentralDetalle.Controls.Clear();
-                if (nvoDetalle.Equals("Escriba aquí su Nuevo Detalle"))
+                if (!inputMessageBox.retornoNombreConcepto.Equals(string.Empty))
                 {
-                    //RefreshAppSettings();
-                    //loadFormConfig();
-                    loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (!nvoDetalle.Equals(""))
-                {
-                    //AddKey(nvoDetalle, nvoValor);
-                    //RefreshAppSettings();
-                    //loadFormConfig();
-                    using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(nvoDetalle, FormPrincipal.userID)))
+                    conceptoProductoAgregar = inputMessageBox.retornoNombreConcepto;
+                    //MessageBox.Show("Concepto: " + conceptoProductoAgregar);
+
+                    using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(conceptoProductoAgregar, FormPrincipal.userID)))
                     {
                         if (!dtItemDinamicos.Rows.Count.Equals(0))
                         {
@@ -2329,58 +2473,138 @@ namespace PuntoDeVentaV2
                             found = 0;
                         }
                     }
+
                     if (found.Equals(1))
                     {
-                        MessageBox.Show("El Registro que Intenra ya esta registrado\nfavor de verificar o intentar con otro Detalle", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("El Registro que Intenta agregar ya esta registrado\nfavor de verificar o intentar con otro Detalle", "Aviso del Sistema al Agregar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (found.Equals(0))
                     {
                         int nvoValorNumerico = 0;
                         int RegistroAgregado = -1;
 
-                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico(nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico(conceptoProductoAgregar, nvoValorNumerico, FormPrincipal.userID));
+
                         if (RegistroAgregado.Equals(1))
                         {
                             //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                         else if (RegistroAgregado.Equals(0))
                         {
-                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
-                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico("chk" + nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico("chk" + conceptoProductoAgregar, nvoValorNumerico, FormPrincipal.userID));
+
                         if (RegistroAgregado.Equals(1))
                         {
                             //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                         else if (RegistroAgregado.Equals(0))
                         {
-                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
-
+                    fLPCentralDetalle.Controls.Clear();
                     loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     editDetelle = string.Empty;
                     editDetalleNvo = string.Empty;
                 }
-                else if (nvoDetalle.Equals(""))
+                else
                 {
-                    //RefreshAppSettings();
-                    //loadFormConfig();
+                    fLPCentralDetalle.Controls.Clear();
                     loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            catch (Exception ex)
-            {
-                //RefreshAppSettings();
-                //loadFormConfig();
-                loadFromConfigDB();
-                BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            };
+
+            inputMessageBox.ShowDialog();
+
+            //nvoValor = "false";
+            //XPos = this.Width / 2;
+            //YPos = this.Height / 2;
+            //nvoDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
+            //try
+            //{
+            //    int found = -1;
+            //    fLPCentralDetalle.Controls.Clear();
+            //    if (nvoDetalle.Equals("Escriba aquí su Nuevo Detalle"))
+            //    {
+            //        //RefreshAppSettings();
+            //        //loadFormConfig();
+            //        loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else if (!nvoDetalle.Equals(""))
+            //    {
+            //        //AddKey(nvoDetalle, nvoValor);
+            //        //RefreshAppSettings();
+            //        //loadFormConfig();
+            //        using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(nvoDetalle, FormPrincipal.userID)))
+            //        {
+            //            if (!dtItemDinamicos.Rows.Count.Equals(0))
+            //            {
+            //                found = 1;
+            //            }
+            //            else if (dtItemDinamicos.Rows.Count.Equals(0))
+            //            {
+            //                found = 0;
+            //            }
+            //        }
+            //        if (found.Equals(1))
+            //        {
+            //            MessageBox.Show("El Registro que Intenra ya esta registrado\nfavor de verificar o intentar con otro Detalle", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //        else if (found.Equals(0))
+            //        {
+            //            int nvoValorNumerico = 0;
+            //            int RegistroAgregado = -1;
+
+            //            RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico(nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+            //            if (RegistroAgregado.Equals(1))
+            //            {
+            //                //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //            }
+            //            else if (RegistroAgregado.Equals(0))
+            //            {
+            //                MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+
+            //            RegistroAgregado = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico("chk" + nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+            //            if (RegistroAgregado.Equals(1))
+            //            {
+            //                //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //            }
+            //            else if (RegistroAgregado.Equals(0))
+            //            {
+            //                MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            }
+            //        }
+
+            //        loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        editDetelle = string.Empty;
+            //        editDetalleNvo = string.Empty;
+            //    }
+            //    else if (nvoDetalle.Equals(""))
+            //    {
+            //        //RefreshAppSettings();
+            //        //loadFormConfig();
+            //        loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    //RefreshAppSettings();
+            //    //loadFormConfig();
+            //    loadFromConfigDB();
+            //    BuscarTextoListView(settingDatabases);
+            //    MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void btnRenameDetalle_Click(object sender, EventArgs e)

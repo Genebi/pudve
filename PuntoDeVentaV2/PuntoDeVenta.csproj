@@ -484,6 +484,12 @@
     <Compile Include="ConceptosCaja.Designer.cs">
       <DependentUpon>ConceptosCaja.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConceptosInhabilitados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConceptosInhabilitados.Designer.cs">
+      <DependentUpon>ConceptosInhabilitados.cs</DependentUpon>
+    </Compile>
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionDataDictionary.cs" />
     <Compile Include="ConexionNet.cs" />
@@ -612,6 +618,12 @@
     </Compile>
     <Compile Include="InformacionVenta.Designer.cs">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputBoxMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputBoxMessageBox.Designer.cs">
+      <DependentUpon>InputBoxMessageBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Inventario.cs">
       <SubType>Form</SubType>
@@ -1048,6 +1060,9 @@
     <EmbeddedResource Include="ConceptosCaja.resx">
       <DependentUpon>ConceptosCaja.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConceptosInhabilitados.resx">
+      <DependentUpon>ConceptosInhabilitados.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfiguracionMariaDB.resx">
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
     </EmbeddedResource>
@@ -1107,6 +1122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InformacionVenta.resx">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputBoxMessageBox.resx">
+      <DependentUpon>InputBoxMessageBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventario.resx">
       <DependentUpon>Inventario.cs</DependentUpon>

@@ -1334,3 +1334,6 @@ SET NombreAlterno2 = REPLACE ( NombreAlterno2, '\n', '' );
 
 -- Agregar Columna (CorreoIniciarSesion) a la tabla de Configuracion para enviar correo al iniciar sesion en el programa
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoIniciarSesion tinyint(1) DEFAULT 0;
+
+-- Agregar Columna (Mostrar) a la tabla de AppSettings para mostrar en Ventana Detalle Productos
+ALTER TABLE AppSettings ADD COLUMN IF NOT EXISTS Mostrar tinyint(1) DEFAULT 1;

@@ -474,10 +474,10 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + name;
 
                     Panel panelContenedor = new Panel();
-                    panelContenedor.Width = 266;
+                    panelContenedor.Width = 830;
                     panelContenedor.Height = 58;
                     panelContenedor.Name = nombrePanelContenedor;
-                    //panelContenedor.BackColor = Color.Aqua;
+                    //panelContenedor.BackColor = Color.DeepPink;
 
                     //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
                     //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
@@ -490,12 +490,13 @@ namespace PuntoDeVentaV2
                         value = chkSettingVariableVal;
                         Panel panelContenido = new Panel();
                         panelContenido.Name = nombrePanelContenido;
-                        panelContenido.Width = 258;
+                        panelContenido.Width = 825;
                         panelContenido.Height = 55;
+                        //panelContenido.BackColor = Color.DeepSkyBlue;
 
                         Label lblNombreProveedor = new Label();
                         lblNombreProveedor.Name = "lblNombre" + name;
-                        lblNombreProveedor.Width = 248;
+                        lblNombreProveedor.Width = 815;
                         lblNombreProveedor.Height = 20;
                         lblNombreProveedor.Location = new Point(3, 32);
                         lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
@@ -508,10 +509,11 @@ namespace PuntoDeVentaV2
 
                         ComboBox cbProveedor = new ComboBox();
                         cbProveedor.Name = "cb" + name;
-                        cbProveedor.Width = 200;
+                        cbProveedor.Width = 815;
                         cbProveedor.Height = 30;
                         cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
                         cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
+
                         if (listaProveedores.Length > 0)
                         {
                             cbProveedor.DataSource = proveedores.ToArray();
@@ -570,9 +572,10 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + name.ToString().Remove(0, 3);
 
                     Panel panelContenedor = new Panel();
-                    panelContenedor.Width = 266;
+                    panelContenedor.Width = 830;
                     panelContenedor.Height = 58;
                     panelContenedor.Name = nombrePanelContenedor;
+                    //panelContenedor.BackColor = Color.DeepPink;
 
                     //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
                     //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
@@ -587,12 +590,13 @@ namespace PuntoDeVentaV2
 
                         Panel panelContenido = new Panel();
                         panelContenido.Name = nombrePanelContenido;
-                        panelContenido.Width = 258;
+                        panelContenido.Width = 825;
                         panelContenido.Height = 55;
+                        //panelContenido.BackColor = Color.DeepSkyBlue;
 
                         Label lblNombreDetalleGral = new Label();
                         lblNombreDetalleGral.Name = "lblNombre" + name;
-                        lblNombreDetalleGral.Width = 248;
+                        lblNombreDetalleGral.Width = 815;
                         lblNombreDetalleGral.Height = 20;
                         lblNombreDetalleGral.Location = new Point(3, 32);
                         lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
@@ -605,11 +609,12 @@ namespace PuntoDeVentaV2
 
                         ComboBox cbDetalleGral = new ComboBox();
                         cbDetalleGral.Name = "cb" + name;
-                        cbDetalleGral.Width = 200;
+                        cbDetalleGral.Width = 815;
                         cbDetalleGral.Height = 30;
                         cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
                         cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
                         cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
+                        //cbDetalleGral.BackColor = Color.CadetBlue;
 
                         if (listaDetalleGral.Length > 0)
                         {
@@ -1453,6 +1458,20 @@ namespace PuntoDeVentaV2
         {
         }
 
+        private void groupBox2_Paint(object sender, PaintEventArgs e)
+        {
+            //Graphics gfx = e.Graphics;
+            //Pen p = new Pen(Color.Black, 1);
+            //gfx.DrawLine(p, 0, 5, 0, e.ClipRectangle.Height - 2);
+
+            //gfx.DrawLine(p, 0, 5, 10, 5);
+            //gfx.DrawLine(p, 62, 5, e.ClipRectangle.Width - 2, 5);
+
+            //gfx.DrawLine(p, e.ClipRectangle.Width - 2, 5, e.ClipRectangle.Width - 2, e.ClipRectangle.Height - 2);
+
+            //gfx.DrawLine(p, e.ClipRectangle.Width - 2, e.ClipRectangle.Height - 2, 0, e.ClipRectangle.Height - 2);
+        }
+
         private void tLPCombo_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
             //if ((e.Column + e.Row) % 2 == 1)
@@ -2224,6 +2243,7 @@ namespace PuntoDeVentaV2
             this.toolTip1.SetToolTip(this.lbPrecioCompra, "El precio que le costó adquirir el producto.");
             this.toolTip1.SetToolTip(this.lbPrecioVenta, "El precio que tendrá su producto al público.");
             this.toolTip1.SetToolTip(this.lbClaveInterna, "En este campo podra ingresar un folio interno, \npara mayor control de sus productos.");
+            this.toolTip1.SetToolTip(this.lblCantCombServ, "En este apartado podrá indicarle al sistema la cantidad\nde productos que se descontaran al venderse un Combo/Servicio");
         }
 
         private void txtCodigoBarras_KeyDown(object sender, KeyEventArgs e)
@@ -2249,7 +2269,7 @@ namespace PuntoDeVentaV2
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
             panelHijo.Name = "panelGenerado" + id;
             panelHijo.Height = 25;
-            panelHijo.Width = 200;
+            panelHijo.Width = 160;
             //panelHijo.BackColor = Color.AliceBlue;
             //panelHijo.Location = new Point(0, 0);
             panelHijo.HorizontalScroll.Visible = false;
@@ -2262,7 +2282,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                tb.Width = 160;
+                tb.Width = 122;
             }
             tb.Height = 20;
             //tb.BackColor = Color.Red;
@@ -5901,109 +5921,109 @@ namespace PuntoDeVentaV2
 
         private void timerProdPaqSer_Tick(object sender, EventArgs e)
         {
-            if (Hided)  // si es valor true
-            {
-                int NewHeight = fLPContenidoProducto.Height + 123;
-                if (fLPContenidoProducto.Height == 0)
-                {
-                    fLPContenidoProducto.Height = NewHeight;
-                }
-                if (fLPContenidoProducto.Height >= PH)
-                {
-                    timerProdPaqSer.Stop();
-                    Hided = false;
-                    if (idProductoBuscado != null && tipoProdServ == "S")
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            mostrarProdServPaq();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //if (Hided)  // si es valor true
+            //{
+            //    int NewHeight = fLPContenidoProducto.Height + 123;
+            //    if (fLPContenidoProducto.Height == 0)
+            //    {
+            //        fLPContenidoProducto.Height = NewHeight;
+            //    }
+            //    if (fLPContenidoProducto.Height >= PH)
+            //    {
+            //        timerProdPaqSer.Stop();
+            //        Hided = false;
+            //        if (idProductoBuscado != null && tipoProdServ == "S")
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                mostrarProdServPaq();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    else if (idProductoBuscado != null && tipoProdServ == "PQ")
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            mostrarProdServPaq();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //            }
+            //        }
+            //        else if (idProductoBuscado != null && tipoProdServ == "PQ")
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                mostrarProdServPaq();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    else if (idProductoBuscado != null && dtNvoProductosDeServicios != null)
-                    {
-                        mostrarProdServPaq();
-                    }
-                    else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 3)
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            GenerarPanelProductosServ();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //            }
+            //        }
+            //        else if (idProductoBuscado != null && dtNvoProductosDeServicios != null)
+            //        {
+            //            mostrarProdServPaq();
+            //        }
+            //        else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 3)
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                GenerarPanelProductosServ();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 3)
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            GenerarPanelProductosServ();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //            }
+            //        }
+            //        else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 3)
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                GenerarPanelProductosServ();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 1)
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            GenerarPanelProductosServ();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //            }
+            //        }
+            //        else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 1)
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                GenerarPanelProductosServ();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 1)
-                    {
-                        if (flowLayoutPanel2.Controls.Count == 0)
-                        {
-                            GenerarPanelProductosServ();
-                        }
-                        else if (flowLayoutPanel2.Controls.Count > 0)
-                        {
+            //            }
+            //        }
+            //        else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 1)
+            //        {
+            //            if (flowLayoutPanel2.Controls.Count == 0)
+            //            {
+            //                GenerarPanelProductosServ();
+            //            }
+            //            else if (flowLayoutPanel2.Controls.Count > 0)
+            //            {
 
-                        }
-                    }
-                    this.Height = 725;
-                    this.CenterToScreen();
-                    this.Refresh();
-                }
-                else
-                {
-                    NewHeight = PH;
-                    fLPContenidoProducto.Height = NewHeight;
-                }
-            }
-            else    // si es false
-            {
-                fLPContenidoProducto.Height = fLPContenidoProducto.Height - 30;
-                if (fLPContenidoProducto.Height <= 0)
-                {
-                    timerProdPaqSer.Stop();
-                    Hided = true;
-                    this.Height = 630;
-                }
-                this.CenterToScreen();
-                this.Refresh();
-            }
+            //            }
+            //        }
+            //        this.Height = 725;
+            //        this.CenterToScreen();
+            //        this.Refresh();
+            //    }
+            //    else
+            //    {
+            //        NewHeight = PH;
+            //        fLPContenidoProducto.Height = NewHeight;
+            //    }
+            //}
+            //else    // si es false
+            //{
+            //    fLPContenidoProducto.Height = fLPContenidoProducto.Height - 30;
+            //    if (fLPContenidoProducto.Height <= 0)
+            //    {
+            //        timerProdPaqSer.Stop();
+            //        Hided = true;
+            //        this.Height = 630;
+            //    }
+            //    this.CenterToScreen();
+            //    this.Refresh();
+            //}
         }
 
         private void cbTipo_Enter(object sender, EventArgs e)
@@ -6093,6 +6113,7 @@ namespace PuntoDeVentaV2
             seleccionListaStock = 0;
             string cadAux = string.Empty;
             fLPType.Visible = false;
+            fLPContenidoProducto.Visible = false;
             TituloForm = Titulo;
 
             PH = fLPContenidoProducto.Height;
@@ -6274,6 +6295,7 @@ namespace PuntoDeVentaV2
             }
             else if (cadAux == "Combo")       // si es un Paquete
             {
+                toolTip1.SetToolTip(lblCantCombServ, "En este apartado podrá indicarle al sistema la cantidad\nde productos que se descontaran al venderse un Combo");
                 agregarCombo();
                 if (!ProdNombre.Equals(""))
                 {
@@ -6321,6 +6343,7 @@ namespace PuntoDeVentaV2
             }
             else if (cadAux == "Servicio")      // si es un Servicio
             {
+                toolTip1.SetToolTip(lblCantCombServ, "En este apartado podrá indicarle al sistema la cantidad\nde productos que se descontaran al venderse un Servicio");
                 agregarServicio();
                 if (!ProdNombre.Equals(""))
                 {
@@ -6416,8 +6439,7 @@ namespace PuntoDeVentaV2
 
             // borrar todas las filas y columnas del TableLayoutPanel
             clearSetUpTableLayoutPanel("Producto");
-
-
+            
             // creamos 6 columnas en el TableLayoutPanel
             for (int i = 0; i <= 7; i++)
             {
@@ -6444,13 +6466,32 @@ namespace PuntoDeVentaV2
                 tLPProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             }
 
+            bool conSinClaveInterna = false;
+
+            using (DataTable dtChecarConSinClaveInternaUsuario = cn.CargarDatos(cs.verificarConSinClaveInterna(FormPrincipal.userID)))
+            {
+                if (!dtChecarConSinClaveInternaUsuario.Rows.Count.Equals(0))
+                {
+                    foreach(DataRow drChecarConSin in dtChecarConSinClaveInternaUsuario.Rows)
+                    {
+                        if (drChecarConSin["SinClaveInterna"].Equals(0))
+                        {
+                            conSinClaveInterna = false;
+                        }
+                        else if (drChecarConSin["SinClaveInterna"].Equals(1))
+                        {
+                            conSinClaveInterna = true;
+                        }
+                    }
+                }
+            }
 
             // Primera Fila del TableLayoutPanel
             // Label titulos
             #region Begin Row 1
 
-            // label para Stock Minimo
-            label1.Visible = true;
+                // label para Stock Minimo
+                label1.Visible = true;
             label1.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
 
             // label para Stock Maximo
@@ -6524,11 +6565,15 @@ namespace PuntoDeVentaV2
             label4.Visible = true;
             label4.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
             //label4.TextAlign = ContentAlignment.MiddleCenter;
-            
+
+            // label para Código de Barras
+            label2.Visible = true;
+            label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
 
             tLPProducto.Controls.Add(label7, 0, 2);               // Precio Compra Label
             tLPProducto.Controls.Add(label4, 2, 2);               // Precio Venta Label
-            
+            tLPProducto.Controls.Add(label2, 4, 2);               // Código de Barras Label
+
             #endregion End Row 3            
 
             // Cuarta Fila del TableLayoutPanel
@@ -6549,15 +6594,29 @@ namespace PuntoDeVentaV2
             txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPrecioProducto.TabIndex = 5;
             txtPrecioProducto.TabStop = true;
+            
             // Label de exclamation Precio de Venta
             lbPrecioVenta.Visible = true;
             lbPrecioVenta.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
 
+            // TextBox Código de Barras
+            txtCodigoBarras.Visible = true;
+            txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtCodigoBarras.TabIndex = 7;
+            txtCodigoBarras.TabStop = true;
+
+            // Button Generar Código de Barras
+            btnGenerarCB.Visible = true;
+            btnGenerarCB.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+            btnGenerarCB.TabIndex = 8;
+            btnGenerarCB.TabStop = true;
 
             tLPProducto.Controls.Add(txtPrecioCompra, 0, 3);      // Precio Compra TextBox
             tLPProducto.Controls.Add(lbPrecioCompra, 1, 3);       // Label de exclamation Precio de Compra
             tLPProducto.Controls.Add(txtPrecioProducto, 2, 3);    // Precio Venta TextBox
             tLPProducto.Controls.Add(lbPrecioVenta, 3, 3);        // Label de exclamation Precio de Venta
+            tLPProducto.Controls.Add(txtCodigoBarras, 4, 3);      // Código de Barras TextBox
+            tLPProducto.Controls.Add(btnGenerarCB, 5, 3);         // Generar Button
 
             #endregion End Row 4
 
@@ -6570,17 +6629,24 @@ namespace PuntoDeVentaV2
             label5.Visible = true;
             label5.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
             //label5.TextAlign = ContentAlignment.MiddleCenter;
-            
-            // label para Código de Barras
-            label2.Visible = true;
-            label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
 
+            // label para Código de Barras
+            //label2.Visible = true;
+            //label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+
+            // Panel para Generar Código de Barra Extra
+            panelContenedor.Visible = true;
+            panelContenedor.Anchor = AnchorStyles.Left;
+            panelContenedor.TabIndex = 10;
+            panelContenedor.TabStop = true;
 
             tLPProducto.Controls.Add(label5, 0, 4);               // Clave Interna Label
-            tLPProducto.Controls.Add(label2, 2, 4);               // Código de Barras Label
+            //tLPProducto.Controls.Add(label2, 2, 4);               // Código de Barras Label
 
+            tLPProducto.Controls.Add(panelContenedor, 4, 4);
+            tLPProducto.SetColumnSpan(panelContenedor, 2);
+            tLPProducto.SetRowSpan(panelContenedor, 2);
             #endregion End Row 5
-
             
             // Sexta Fila del TableLayoutPanel
             // TextBox
@@ -6595,36 +6661,36 @@ namespace PuntoDeVentaV2
             lbClaveInterna.Visible = true;
             lbClaveInterna.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
 
-            // TextBox Código de Barras
-            txtCodigoBarras.Visible = true;
-            txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtCodigoBarras.TabIndex = 7;
-            txtCodigoBarras.TabStop = true;
+            //// TextBox Código de Barras
+            //txtCodigoBarras.Visible = true;
+            //txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            //txtCodigoBarras.TabIndex = 7;
+            //txtCodigoBarras.TabStop = true;
 
-            // Button Generar Código de Barras
-            btnGenerarCB.Visible = true;
-            btnGenerarCB.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
-            btnGenerarCB.TabIndex = 8;
-            btnGenerarCB.TabStop = true;
+            //// Button Generar Código de Barras
+            //btnGenerarCB.Visible = true;
+            //btnGenerarCB.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+            //btnGenerarCB.TabIndex = 8;
+            //btnGenerarCB.TabStop = true;
 
 
             tLPProducto.Controls.Add(txtClaveProducto, 0, 5);     // Clave Interna TextBox
             tLPProducto.Controls.Add(lbClaveInterna, 1, 5);       // Label de exclamation Clave Interna
-            tLPProducto.Controls.Add(txtCodigoBarras, 2, 5);      // Código de Barras TextBox
-            tLPProducto.Controls.Add(btnGenerarCB, 3, 5);         // Generar Button
+            //tLPProducto.Controls.Add(txtCodigoBarras, 2, 5);      // Código de Barras TextBox
+            //tLPProducto.Controls.Add(btnGenerarCB, 3, 5);         // Generar Button
 
             #endregion End Row 6
 
             #region Begin Row 7
-            // Panel para Generar Código de Barra Extra
-            panelContenedor.Visible = true;
-            panelContenedor.Anchor = AnchorStyles.Left;
-            panelContenedor.TabIndex = 10;
-            panelContenedor.TabStop = true;
+            //// Panel para Generar Código de Barra Extra
+            //panelContenedor.Visible = true;
+            //panelContenedor.Anchor = AnchorStyles.Left;
+            //panelContenedor.TabIndex = 10;
+            //panelContenedor.TabStop = true;
 
-            tLPProducto.Controls.Add(panelContenedor, 2, 6);
-            tLPProducto.SetColumnSpan(panelContenedor, 3);
-            tLPProducto.SetRowSpan(panelContenedor, 3);
+            //tLPProducto.Controls.Add(panelContenedor, 2, 6);
+            //tLPProducto.SetColumnSpan(panelContenedor, 3);
+            //tLPProducto.SetRowSpan(panelContenedor, 3);
             #endregion End Row 7
 
             // Celda de imagen del TableLayoutPanel
@@ -6633,7 +6699,7 @@ namespace PuntoDeVentaV2
 
             // Panel Para Imagen del Producto
             PImagen.Visible = true;
-            PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             PImagen.TabIndex = 9;
             PImagen.TabStop = true;
 
@@ -6641,7 +6707,7 @@ namespace PuntoDeVentaV2
             //.SetColumnSpan(btnGenerarCB, 0);           // Columnas hacia derecha
             tLPProducto.Controls.Add(PImagen, 6, 0);     // Cuadro para agregar Imagen Panel
             tLPProducto.SetRowSpan(PImagen, 6);          // Filas hacia abajo (Cantidad de filas que abarcará)
-            //tLPProducto.SetColumnSpan(PImagen, 0);     // Columnas hacia derecha
+            tLPProducto.SetColumnSpan(PImagen, 2);     // Columnas hacia derecha
 
             #endregion End celda imagen
 
@@ -6731,6 +6797,8 @@ namespace PuntoDeVentaV2
             this.Controls.Add(lblStockMinimo);
             lbPrecioCompra.Visible = false;
             this.Controls.Add(lbPrecioCompra);
+            lblCantCombServ.Visible = false;
+            this.Controls.Add(lblCantCombServ);
         }
 
         private void agregarCombo()
@@ -6741,195 +6809,393 @@ namespace PuntoDeVentaV2
             // borrar todas las filas y columnas del TableLayoutPanel
             clearSetUpTableLayoutPanel("Combo");
 
-            // creamos 5 columnas en el TableLayoutPanel
-            for (int i = 0; i < 5; i++)
+            bool conSinClaveInterna = false;
+
+            using (DataTable dtChecarConSinClaveInternaUsuario = cn.CargarDatos(cs.verificarConSinClaveInterna(FormPrincipal.userID)))
             {
-                tLPCombo.ColumnCount++;
-                //if (i.Equals(2) || i.Equals(5))
-                //{
-                //    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 22F));
-                //}
-                //else
-                //{
-                //    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 115F));
-                //}
-                if (i.Equals(0) || i.Equals(2))
+                if (!dtChecarConSinClaveInternaUsuario.Rows.Count.Equals(0))
                 {
-                    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
-                }
-                if (i.Equals(1))
-                {
-                    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-                }
-                if (i.Equals(3))
-                {
-                    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
-                }
-                if (i.Equals(4))
-                {
-                    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+                    foreach (DataRow drChecarConSin in dtChecarConSinClaveInternaUsuario.Rows)
+                    {
+                        if (drChecarConSin["SinClaveInterna"].Equals(0))
+                        {
+                            conSinClaveInterna = false;
+                        }
+                        else if (drChecarConSin["SinClaveInterna"].Equals(1))
+                        {
+                            conSinClaveInterna = true;
+                        }
+                    }
                 }
             }
+
+            if (conSinClaveInterna.Equals(false))
+            {
+                // creamos 5 columnas en el TableLayoutPanel
+                for (int i = 0; i < 5; i++)
+                {
+                    tLPCombo.ColumnCount++;
+                    //if (i.Equals(2) || i.Equals(5))
+                    //{
+                    //    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 22F));
+                    //}
+                    //else
+                    //{
+                    //    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 115F));
+                    //}
+                    if (i.Equals(0) || i.Equals(2))
+                    {
+                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
+                    }
+                    if (i.Equals(1))
+                    {
+                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+                    }
+                    if (i.Equals(3))
+                    {
+                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
+                    }
+                    if (i.Equals(4))
+                    {
+                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+                    }
+                }
+            }
+            else if (conSinClaveInterna.Equals(true))
+            {
+                // creamos 8 columnas en el TableLayoutPanel
+                for (int i = 0; i < 8; i++)
+                {
+                    tLPCombo.ColumnCount++;
+                    if (i.Equals(0) || i.Equals(2) || i.Equals(4) || i.Equals(6))
+                    {
+                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
+                    }
+                    else
+                    {
+                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+                    }
+                }
+            }
+            
             // creamos 6 filas en el TableLayoutPanel
             for (int i = 0; i < 6; i++)
             {
                 tLPCombo.RowCount++;
                 tLPCombo.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             }
-
-
-            // Primera Fila del TableLayoutPanel
-            // Label títulos
-            #region Begin Row 1
-
-            // Label para Precio Compra
-            label7.Visible = true;
-            label7.Anchor = AnchorStyles.Left | AnchorStyles.Bottom; // | AnchorStyles.Right
-
-            // Label para Precio Venta
-            label4.Visible = true;
-            label4.Anchor = AnchorStyles.Left | AnchorStyles.Bottom; // | AnchorStyles.Right
-            //label4.TextAlign = ContentAlignment.MiddleCenter;
-
-            tLPCombo.Controls.Add(label7, 0, 0);               // Precio Compra Label
-            tLPCombo.Controls.Add(label4, 2, 0);               // Precio Venta Label
-
-            #endregion End Row 1
             
-            // Segunda Fila del TableLayoutPanel
-            // TextBox y label informativo
-            #region Begin Row 2
+            if (conSinClaveInterna.Equals(false))
+            {
+                // Primera Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 1
 
-            // TextBox para Precio Compra
-            txtPrecioCompra.Visible = true;
-            txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtPrecioCompra.TabIndex = 1;
-            txtPrecioCompra.TabStop = true;
-            // Label de exclamation Precio Compra
-            lbPrecioCompra.Visible = true;
-            lbPrecioCompra.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+                // Label para Precio Compra
+                label7.Visible = true;
+                label7.Anchor = AnchorStyles.Left | AnchorStyles.Bottom; // | AnchorStyles.Right
 
-            // TextBox para Precio Venta
-            txtPrecioProducto.Visible = true;
-            txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtPrecioProducto.TabIndex = 2;
-            txtPrecioProducto.TabStop = true;
-            // Label de exclamation Precio Venta
-            lbPrecioVenta.Visible = true;
-            lbPrecioVenta.Anchor = AnchorStyles.Left; // | AnchorStyles.Righ
+                // Label para Precio Venta
+                label4.Visible = true;
+                label4.Anchor = AnchorStyles.Left | AnchorStyles.Bottom; // | AnchorStyles.Right
+                                                                         //label4.TextAlign = ContentAlignment.MiddleCenter;
 
-            tLPCombo.Controls.Add(txtPrecioCompra, 0, 1);      // Precio Compra TextBox
-            tLPCombo.Controls.Add(lbPrecioCompra, 1, 1);       // Label de exclamation Precio Compra
-            tLPCombo.Controls.Add(txtPrecioProducto, 2, 1);    // Precio Venta TextBox
-            tLPCombo.Controls.Add(lbPrecioVenta, 3, 1);        // Label de exclamation Precio Venta
+                tLPCombo.Controls.Add(label7, 0, 0);               // Precio Compra Label
+                tLPCombo.Controls.Add(label4, 2, 0);               // Precio Venta Label
 
-            #endregion End Row 2
+                #endregion End Row 1
 
+                // Segunda Fila del TableLayoutPanel
+                // TextBox y label informativo
+                #region Begin Row 2
 
-            // Tercera Fila del TableLayoutPanel
-            // Label títulos
-            #region Begin Row 3
+                // TextBox para Precio Compra
+                txtPrecioCompra.Visible = true;
+                txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtPrecioCompra.TabIndex = 1;
+                txtPrecioCompra.TabStop = true;
+                // Label de exclamation Precio Compra
+                lbPrecioCompra.Visible = true;
+                lbPrecioCompra.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
 
-            // Label para Clave Interna
-            label5.Visible = true;
-            label5.Anchor = AnchorStyles.Left | AnchorStyles.Bottom; // | AnchorStyles.Right
+                // TextBox para Precio Venta
+                txtPrecioProducto.Visible = true;
+                txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtPrecioProducto.TabIndex = 2;
+                txtPrecioProducto.TabStop = true;
+                // Label de exclamation Precio Venta
+                lbPrecioVenta.Visible = true;
+                lbPrecioVenta.Anchor = AnchorStyles.Left; // | AnchorStyles.Righ
 
-            // Label para Código de Barras
-            label2.Visible = true;
-            label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
-            //label2.TextAlign = ContentAlignment.MiddleCenter;
+                tLPCombo.Controls.Add(txtPrecioCompra, 0, 1);      // Precio Compra TextBox
+                tLPCombo.Controls.Add(lbPrecioCompra, 1, 1);       // Label de exclamation Precio Compra
+                tLPCombo.Controls.Add(txtPrecioProducto, 2, 1);    // Precio Venta TextBox
+                tLPCombo.Controls.Add(lbPrecioVenta, 3, 1);        // Label de exclamation Precio Venta
 
-
-            tLPCombo.Controls.Add(label5, 0, 2);               // Clave Interna Label
-            tLPCombo.Controls.Add(label2, 2, 2);               // Código de Barras Label
-
-            #endregion End Row 3
-            
-            // Cuarta Fila del TableLayoutPanel
-            // TextBox y label
-            #region Begin Row 4
-
-            // TextBox para Clave Interna
-            txtClaveProducto.Visible = true;
-            txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtClaveProducto.TabIndex = 3;
-            txtClaveProducto.TabStop = true;
-            // Label de exclamation Clave Interna
-            lbClaveInterna.Visible = true;
-            lbClaveInterna.Anchor = AnchorStyles.Left;
-
-            // TextBox para Código de Barras
-            txtCodigoBarras.Visible = true;
-            txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtCodigoBarras.TabIndex = 4;
-            txtCodigoBarras.TabStop = true;
-
-            // Button para Generar Código de Barras
-            btnGenerarCB.Visible = true;
-            btnGenerarCB.Anchor = AnchorStyles.Left;
-            btnGenerarCB.TabIndex = 5;
-            btnGenerarCB.TabStop = true;
+                #endregion End Row 2
 
 
-            tLPCombo.Controls.Add(txtClaveProducto, 0, 3);     // Clave Interna TextBox
-            tLPCombo.Controls.Add(lbClaveInterna, 1, 3);       // Label de exclamation Clave Interna
-            tLPCombo.Controls.Add(txtCodigoBarras, 2, 3);      // Código de Barras TextBox
-            tLPCombo.Controls.Add(btnGenerarCB, 3, 3);         // Código de Barras Button
+                // Tercera Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 3
 
-            #endregion End Row 4
-            
-            
-            // Quinta Fila del TableLayoutPanel
-            // Label título
-            #region Begin Row 5
+                // Label para Clave Interna
+                label5.Visible = true;
+                label5.Anchor = AnchorStyles.Left | AnchorStyles.Bottom; // | AnchorStyles.Right
 
-            // Label para Cantidad por Combo
-            lblCantPaqServ.Visible = true;
-            lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Top;
-            //lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
-            
-            tLPCombo.Controls.Add(lblCantPaqServ, 0, 4);       // Relacionar con Combo/Servicio Label
+                // Label para Código de Barras
+                label2.Visible = true;
+                label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label2.TextAlign = ContentAlignment.MiddleCenter;
 
-            panelContenedor.Visible = true;
-            //panelContenedor.TabIndex = 8;
-            panelContenedor.TabStop = true;
+                // Label para Cantidad por Combo
+                lblCantPaqServ.Visible = true;
+                lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+                //lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
 
-            tLPCombo.Controls.Add(panelContenedor, 2, 4);      // Contenedor de Código Barras extra Panel
-            tLPCombo.SetColumnSpan(panelContenedor, 2);
-            tLPCombo.SetRowSpan(panelContenedor, 2);
+                tLPCombo.Controls.Add(label5, 0, 2);               // Clave Interna Label
+                tLPCombo.Controls.Add(label2, 2, 2);               // Código de Barras Label
+                tLPCombo.Controls.Add(lblCantPaqServ, 0, 2);       // Relacionar con Combo/Servicio Label
 
-            #endregion End Row 3
+                #endregion End Row 3
 
-            // Sexta Fila del TableLayoutPanel
-            // TextBox  
-            #region Begin Row 6
+                // Cuarta Fila del TableLayoutPanel
+                // TextBox y label
+                #region Begin Row 4
 
-            // TextBox para Cantidad por Combo
-            txtCantPaqServ.Visible = true;
-            txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtCantPaqServ.TabIndex = 6;
-            txtCantPaqServ.TabStop = true;
-            
+                // TextBox para Clave Interna
+                txtClaveProducto.Visible = true;
+                txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtClaveProducto.TabIndex = 3;
+                txtClaveProducto.TabStop = true;
+                // Label de exclamation Clave Interna
+                lbClaveInterna.Visible = true;
+                lbClaveInterna.Anchor = AnchorStyles.Left;
 
-            tLPCombo.Controls.Add(txtCantPaqServ, 0, 5);       // Relacionar con Combo/Servicio TextBox
-            
-            #endregion End Row 6
+                // TextBox para Código de Barras
+                txtCodigoBarras.Visible = true;
+                txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtCodigoBarras.TabIndex = 4;
+                txtCodigoBarras.TabStop = true;
 
-                        
-            // Fila del TableLayoutPanel
-            #region Begin Row imagen
+                // Button para Generar Código de Barras
+                btnGenerarCB.Visible = true;
+                btnGenerarCB.Anchor = AnchorStyles.Left;
+                btnGenerarCB.TabIndex = 5;
+                btnGenerarCB.TabStop = true;
 
-            // Panel par Imagen de Cmbo
-            PImagen.Visible = true;
-            PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
-            PImagen.TabIndex = 9;
-            PImagen.TabStop = true;
+                // TextBox para Cantidad por Combo
+                txtCantPaqServ.Visible = true;
+                txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtCantPaqServ.TabIndex = 6;
+                txtCantPaqServ.TabStop = true;
 
-            tLPCombo.Controls.Add(PImagen, 4, 0);              // Imagen del Producto Panel
-            //tLPCombo.SetColumnSpan(PImagen, 3);
-            tLPCombo.SetRowSpan(PImagen, 6);
+                // Label signo de ayuda
+                lblCantCombServ.Visible = true;
+                lblCantCombServ.Anchor = AnchorStyles.Left;
 
-            #endregion End Row 4
+                tLPCombo.Controls.Add(txtClaveProducto, 0, 3);     // Clave Interna TextBox
+                tLPCombo.Controls.Add(lbClaveInterna, 1, 3);       // Label de exclamation Clave Interna
+                tLPCombo.Controls.Add(txtCodigoBarras, 2, 3);      // Código de Barras TextBox
+                tLPCombo.Controls.Add(btnGenerarCB, 3, 3);         // Código de Barras Button
+                tLPCombo.Controls.Add(txtCantPaqServ, 0, 3);       // Relacionar con Combo/Servicio TextBox
+                tLPCombo.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
+
+                #endregion End Row 4
+
+
+                // Quinta Fila del TableLayoutPanel
+                // Label título
+                #region Begin Row 5
+
+                //// Label para Cantidad por Combo
+                //lblCantPaqServ.Visible = true;
+                //lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+                ////lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
+
+                //tLPCombo.Controls.Add(lblCantPaqServ, 0, 4);       // Relacionar con Combo/Servicio Label
+
+                panelContenedor.Visible = true;
+                //panelContenedor.TabIndex = 8;
+                panelContenedor.TabStop = true;
+
+                tLPCombo.Controls.Add(panelContenedor, 2, 4);      // Contenedor de Código Barras extra Panel
+                tLPCombo.SetColumnSpan(panelContenedor, 2);
+                tLPCombo.SetRowSpan(panelContenedor, 2);
+
+                #endregion End Row 3
+
+                // Sexta Fila del TableLayoutPanel
+                // TextBox  
+                #region Begin Row 6
+
+                //// TextBox para Cantidad por Combo
+                //txtCantPaqServ.Visible = true;
+                //txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                //txtCantPaqServ.TabIndex = 6;
+                //txtCantPaqServ.TabStop = true;
+
+
+                //tLPCombo.Controls.Add(txtCantPaqServ, 0, 5);       // Relacionar con Combo/Servicio TextBox
+
+                #endregion End Row 6
+
+
+                // Fila del TableLayoutPanel
+                #region Begin Row imagen
+
+                // Panel par Imagen de Cmbo
+                PImagen.Visible = true;
+                //PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+                PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                PImagen.TabIndex = 9;
+                PImagen.TabStop = true;
+
+                tLPCombo.Controls.Add(PImagen, 4, 0);              // Imagen del Producto Panel
+                                                                   //tLPCombo.SetColumnSpan(PImagen, 2);
+                tLPCombo.SetRowSpan(PImagen, 5);
+
+                #endregion End Row 4
+            }
+            else if (conSinClaveInterna.Equals(true))
+            {
+                // Primera Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 1
+
+                // Label para Precio Compra
+                label7.Visible = true;
+                label7.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+
+                // Label para Precio Venta
+                label4.Visible = true;
+                label4.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label4.TextAlign = ContentAlignment.MiddleCenter;
+
+                // Label para Cantidad por Servicio
+                lblCantPaqServ.Visible = true;
+                lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
+
+                // Panel para Imagen del Servicio
+                PImagen.Visible = true;
+                PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                PImagen.TabIndex = 7;
+                PImagen.TabStop = true;
+
+                tLPCombo.Controls.Add(label7, 0, 0);               // Precio Compra Label
+                tLPCombo.Controls.Add(label4, 2, 0);               // Precio Venta Label
+                tLPCombo.Controls.Add(lblCantPaqServ, 4, 0);       // Cantidad Servicio Label
+
+                tLPCombo.Controls.Add(PImagen, 6, 0);              // Imagen del Producto Panel
+                tLPCombo.SetColumnSpan(PImagen, 2);
+                tLPCombo.SetRowSpan(PImagen, 5);
+
+                #endregion
+
+                // Segunda Fila del TableLayoutPanel
+                // TextBox y label
+                #region Begin Row 2
+
+                // TextBox para Precio Compra
+                txtPrecioCompra.Visible = true;
+                txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtPrecioCompra.TabIndex = 1;
+                txtPrecioCompra.TabStop = true;
+                // Label de exclamation Precio Compra
+                lbPrecioCompra.Visible = true;
+                lbPrecioCompra.Anchor = AnchorStyles.Left;
+
+                // TextBox para Precio Venta
+                txtPrecioProducto.Visible = true;
+                txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtPrecioProducto.TabIndex = 2;
+                txtPrecioProducto.TabStop = true;
+                // Label de exclamation Precio Venta
+                lbPrecioVenta.Visible = true;
+                lbPrecioVenta.Anchor = AnchorStyles.Left;
+
+                // TextBox para Cantidad por Servicio
+                txtCantPaqServ.Visible = true;
+                txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtCantPaqServ.TabIndex = 5;
+                txtCantPaqServ.TabStop = true;
+                // Label signo de ayuda
+                lblCantCombServ.Visible = true;
+                lblCantCombServ.Anchor = AnchorStyles.Left;
+
+                tLPCombo.Controls.Add(txtPrecioCompra, 0, 1);      // Precio Compra TextBox
+                tLPCombo.Controls.Add(lbPrecioCompra, 1, 1);       // Label de exclamation Precio Compra
+                tLPCombo.Controls.Add(txtPrecioProducto, 2, 1);    // Precio Venta TextBox
+                tLPCombo.Controls.Add(lbPrecioVenta, 3, 1);        // Label de exclamation Precio Venta
+                tLPCombo.Controls.Add(txtCantPaqServ, 4, 1);
+                tLPCombo.Controls.Add(lblCantCombServ, 5, 1);
+
+                #endregion
+
+                // Tercera Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 3
+
+                // Label para Clave Interna
+                label5.Visible = true;
+                label5.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+
+                // Label para Código de Barras
+                label2.Visible = true;
+                label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label2.TextAlign = ContentAlignment.MiddleCenter;
+
+                tLPCombo.Controls.Add(label5, 0, 2);               // Clave Interna Label
+                tLPCombo.Controls.Add(label2, 2, 2);               // Código de Barras Label
+
+                #endregion
+
+                // Cuarta Fila del TableLayoutPanel
+                // TextBox y Label 
+                #region Begin Row 4
+
+                // TextBox para Clave Interna
+                txtClaveProducto.Visible = true;
+                txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtClaveProducto.TabIndex = 3;
+                txtClaveProducto.TabStop = true;
+                // Label de exclamation Clave Interna
+                lbClaveInterna.Visible = true;
+                lbClaveInterna.Anchor = AnchorStyles.Left;
+
+                // TextBox para Código de Barras
+                txtCodigoBarras.Visible = true;
+                txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtCodigoBarras.TabIndex = 4;
+                txtCodigoBarras.TabStop = true;
+                // Button para Gnerar Código de Barras
+                btnGenerarCB.Visible = true;
+                btnGenerarCB.Anchor = AnchorStyles.Left;
+                btnGenerarCB.TabIndex = 5;
+                btnGenerarCB.TabStop = true;
+
+                tLPCombo.Controls.Add(txtClaveProducto, 0, 3);     // Clave Interna TextBox
+                tLPCombo.Controls.Add(lbClaveInterna, 1, 3);
+                tLPCombo.Controls.Add(txtCodigoBarras, 2, 3);      // Código de Barras TextBox
+                tLPCombo.Controls.Add(btnGenerarCB, 3, 3);         // Código de Barras Button
+
+                #endregion
+
+                // Quinta Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 5
+
+                panelContenedor.Visible = true;
+                panelContenedor.TabIndex = 6;
+                panelContenedor.TabStop = true;
+
+                tLPCombo.Controls.Add(panelContenedor, 2, 4);      // Código de Barras TextBox
+                tLPCombo.SetColumnSpan(panelContenedor, 2);
+                tLPCombo.SetRowSpan(panelContenedor, 2);
+
+                #endregion
+            }
 
             // Button para Relacionar Productos al Combo
             button1.Visible = true;
@@ -6957,28 +7223,68 @@ namespace PuntoDeVentaV2
             // borrar todas las filas y columnas del TableLayoutPanel
             clearSetUpTableLayoutPanel("Servicio");
 
-            // creamos 5 columnas en el TableLayoutPanel
-            for (int i = 0; i < 5; i++)
-            {
-                tLPServicio.ColumnCount++;
+            bool conSinClaveInterna = false;
 
-                if (i.Equals(0) || i.Equals(2))
+            using (DataTable dtChecarConSinClaveInternaUsuario = cn.CargarDatos(cs.verificarConSinClaveInterna(FormPrincipal.userID)))
+            {
+                if (!dtChecarConSinClaveInternaUsuario.Rows.Count.Equals(0))
                 {
-                    tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
+                    foreach (DataRow drChecarConSin in dtChecarConSinClaveInternaUsuario.Rows)
+                    {
+                        if (drChecarConSin["SinClaveInterna"].Equals(0))
+                        {
+                            conSinClaveInterna = false;
+                        }
+                        else if (drChecarConSin["SinClaveInterna"].Equals(1))
+                        {
+                            conSinClaveInterna = true;
+                        }
+                    }
                 }
-                if (i.Equals(1))
-                {
-                    tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-                }
-                if (i.Equals(3))
-                {
-                    tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
-                }
-                if (i.Equals(4))
-                {
-                    tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
-                }                
             }
+
+            if (conSinClaveInterna.Equals(false))
+            {
+                // creamos 5 columnas en el TableLayoutPanel
+                for (int i = 0; i < 5; i++)
+                {
+                    tLPServicio.ColumnCount++;
+
+                    if (i.Equals(0) || i.Equals(2))
+                    {
+                        tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
+                    }
+                    if (i.Equals(1))
+                    {
+                        tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+                    }
+                    if (i.Equals(3))
+                    {
+                        tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
+                    }
+                    if (i.Equals(4))
+                    {
+                        tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+                    }
+                }
+            }
+            else if (conSinClaveInterna.Equals(true))
+            {
+                // creamos 8 columnas en el TableLayoutPanel
+                for(int i = 0; i < 8; i++)
+                {
+                    tLPServicio.ColumnCount++;
+                    if (i.Equals(0) || i.Equals(2) || i.Equals(4) || i.Equals(6))
+                    {
+                        tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
+                    }
+                    else
+                    {
+                        tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+                    }
+                }
+            }
+            
             // creamos 6 filas en el TableLayoutPanel
             for (int i = 0; i < 6; i++)
             {
@@ -6986,162 +7292,322 @@ namespace PuntoDeVentaV2
                 tLPServicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             }
 
-            // Primera Fila del TableLayoutPanel
-            // Label títulos
-            #region Begin Row 1
+            if (conSinClaveInterna.Equals(false))
+            {
+                // Primera Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 1
 
-            // Label para Precio Compra
-            label7.Visible = true;
-            label7.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                // Label para Precio Compra
+                label7.Visible = true;
+                label7.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
 
-            // Label para Precio Venta
-            label4.Visible = true;
-            label4.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
-            //label4.TextAlign = ContentAlignment.MiddleCenter;
+                // Label para Precio Venta
+                label4.Visible = true;
+                label4.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label4.TextAlign = ContentAlignment.MiddleCenter;
 
-            tLPServicio.Controls.Add(label7, 0, 0);               // Precio Compra Label
-            tLPServicio.Controls.Add(label4, 2, 0);               // Precio Venta Label
+                tLPServicio.Controls.Add(label7, 0, 0);               // Precio Compra Label
+                tLPServicio.Controls.Add(label4, 2, 0);               // Precio Venta Label
 
-            #endregion End Row 1
+                #endregion End Row 1
 
-            // Segunda Fila del TableLayoutPanel
-            // TextBox y label
-            #region Begin Row 2
+                // Segunda Fila del TableLayoutPanel
+                // TextBox y label
+                #region Begin Row 2
 
-            // TextBox para Precio Compra
-            txtPrecioCompra.Visible = true;
-            txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtPrecioCompra.TabIndex = 1;
-            txtPrecioCompra.TabStop = true;
-            // Label de exclamation Precio Compra
-            lbPrecioCompra.Visible = true;
-            lbPrecioCompra.Anchor = AnchorStyles.Left;
+                // TextBox para Precio Compra
+                txtPrecioCompra.Visible = true;
+                txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtPrecioCompra.TabIndex = 1;
+                txtPrecioCompra.TabStop = true;
+                // Label de exclamation Precio Compra
+                lbPrecioCompra.Visible = true;
+                lbPrecioCompra.Anchor = AnchorStyles.Left;
 
-            // TextBox para Precio Venta
-            txtPrecioProducto.Visible = true;
-            txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtPrecioProducto.TabIndex = 2;
-            txtPrecioProducto.TabStop = true;
-            // Label de exclamation Precio Venta
-            lbPrecioVenta.Visible = true;
-            lbPrecioVenta.Anchor = AnchorStyles.Left;
+                // TextBox para Precio Venta
+                txtPrecioProducto.Visible = true;
+                txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtPrecioProducto.TabIndex = 2;
+                txtPrecioProducto.TabStop = true;
+                // Label de exclamation Precio Venta
+                lbPrecioVenta.Visible = true;
+                lbPrecioVenta.Anchor = AnchorStyles.Left;
 
-            tLPServicio.Controls.Add(txtPrecioCompra, 0, 1);      // Precio Compra TextBox
-            tLPServicio.Controls.Add(lbPrecioCompra, 1, 1);       // Label de exclamation Precio Compra
-            tLPServicio.Controls.Add(txtPrecioProducto, 2, 1);    // Precio Venta TextBox
-            tLPServicio.Controls.Add(lbPrecioVenta, 3, 1);        // Label de exclamation Precio Venta
+                tLPServicio.Controls.Add(txtPrecioCompra, 0, 1);      // Precio Compra TextBox
+                tLPServicio.Controls.Add(lbPrecioCompra, 1, 1);       // Label de exclamation Precio Compra
+                tLPServicio.Controls.Add(txtPrecioProducto, 2, 1);    // Precio Venta TextBox
+                tLPServicio.Controls.Add(lbPrecioVenta, 3, 1);        // Label de exclamation Precio Venta
 
-            #endregion End Row 2
-
-                        
-            // Tercera Fila del TableLayoutPanel
-            // Label títulos
-            #region Begin Row 3
-
-            // Label para Clave Interna
-            label5.Visible = true;
-            label5.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
-
-            // Label para Código de Barras
-            label2.Visible = true;
-            label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
-            //label2.TextAlign = ContentAlignment.MiddleCenter;
+                #endregion End Row 2
 
 
-            tLPServicio.Controls.Add(label5, 0, 2);               // Clave Interna Label
-            tLPServicio.Controls.Add(label2, 2, 2);               // Código de Barras Label
+                // Tercera Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 3
 
-            #endregion End Row 3
+                // Label para Clave Interna
+                label5.Visible = true;
+                label5.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
 
-            // Cuarta Fila del TableLayoutPanel
-            // TextBox y Label 
-            #region Begin Row 4
+                // Label para Código de Barras
+                label2.Visible = true;
+                label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label2.TextAlign = ContentAlignment.MiddleCenter;
 
-            // TextBox para Clave Interna
-            txtClaveProducto.Visible = true;
-            txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtClaveProducto.TabIndex = 3;
-            txtClaveProducto.TabStop = true;
-            // Label de exclamation Clave Interna
-            lbClaveInterna.Visible = true;
-            lbClaveInterna.Anchor = AnchorStyles.Left;
+                // Label para Cantidad por Servicio
+                lblCantPaqServ.Visible = true;
+                lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+                //lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
 
-            // TextBox para Código de Barras
-            txtCodigoBarras.Visible = true;
-            txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtCodigoBarras.TabIndex = 4;
-            txtCodigoBarras.TabStop = true;
-            // Button para Gnerar Código de Barras
-            btnGenerarCB.Visible = true;
-            btnGenerarCB.Anchor = AnchorStyles.Left;
-            btnGenerarCB.TabIndex = 5;
-            btnGenerarCB.TabStop = true;
+                tLPServicio.Controls.Add(label5, 0, 2);               // Clave Interna Label
+                tLPServicio.Controls.Add(label2, 2, 2);               // Código de Barras Label
+                tLPServicio.Controls.Add(lblCantPaqServ, 0, 2);       // Clave Interna Label
 
-            tLPServicio.Controls.Add(txtClaveProducto, 0, 3);     // Clave Interna TextBox
-            tLPServicio.Controls.Add(lbClaveInterna, 1, 3);
-            tLPServicio.Controls.Add(txtCodigoBarras, 2, 3);      // Código de Barras TextBox
-            tLPServicio.Controls.Add(btnGenerarCB, 3, 3);         // Código de Barras Button
-                                                                  //tLPServicio.SetColumnSpan(btnGenerarCB, 2);
+                #endregion End Row 3
 
-            #endregion End Row 4
+                // Cuarta Fila del TableLayoutPanel
+                // TextBox y Label 
+                #region Begin Row 4
 
+                // TextBox para Clave Interna
+                txtClaveProducto.Visible = true;
+                txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtClaveProducto.TabIndex = 3;
+                txtClaveProducto.TabStop = true;
+                // Label de exclamation Clave Interna
+                lbClaveInterna.Visible = true;
+                lbClaveInterna.Anchor = AnchorStyles.Left;
 
-            // Quinta Fila del TableLayoutPanel
-            // Label títulos
-            #region Begin Row 5
+                // TextBox para Código de Barras
+                txtCodigoBarras.Visible = true;
+                txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtCodigoBarras.TabIndex = 4;
+                txtCodigoBarras.TabStop = true;
+                // Button para Gnerar Código de Barras
+                btnGenerarCB.Visible = true;
+                btnGenerarCB.Anchor = AnchorStyles.Left;
+                btnGenerarCB.TabIndex = 5;
+                btnGenerarCB.TabStop = true;
 
-            // Label para Cantidad por Servicio
-            lblCantPaqServ.Visible = true;
-            lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Top;
-            //lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
+                // TextBox para Cantidad por Servicio
+                txtCantPaqServ.Visible = true;
+                txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtCantPaqServ.TabIndex = 5;
+                txtCantPaqServ.TabStop = true;
 
-            tLPServicio.Controls.Add(lblCantPaqServ, 0, 4);       // Clave Interna Label
+                // Label signo de ayuda
+                lblCantCombServ.Visible = true;
+                lblCantCombServ.Anchor = AnchorStyles.Left;
 
-            panelContenedor.Visible = true;
-            panelContenedor.TabIndex = 6;
-            panelContenedor.TabStop = true;
+                tLPServicio.Controls.Add(txtClaveProducto, 0, 3);     // Clave Interna TextBox
+                tLPServicio.Controls.Add(lbClaveInterna, 1, 3);
+                tLPServicio.Controls.Add(txtCodigoBarras, 2, 3);      // Código de Barras TextBox
+                tLPServicio.Controls.Add(btnGenerarCB, 3, 3);         // Código de Barras Button
+                                                                      //tLPServicio.SetColumnSpan(btnGenerarCB, 2);
+                tLPServicio.Controls.Add(txtCantPaqServ, 0, 3);       // Clave Interna TextBox
+                tLPServicio.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
 
-            tLPServicio.Controls.Add(panelContenedor, 2, 4);      // Código de Barras TextBox
-            tLPServicio.SetColumnSpan(panelContenedor, 2);
-            tLPServicio.SetRowSpan(panelContenedor, 2);
-
-            #endregion End Row 5
-
-            // Sexta Fila del TableLayoutPanel
-            // TextBox y Label
-            #region Begin Row 6
-
-            // TextBox para Cantidad por Servicio
-            txtCantPaqServ.Visible = true;
-            txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtCantPaqServ.TabIndex = 5;
-            txtCantPaqServ.TabStop = true;
-            
-            tLPServicio.Controls.Add(txtCantPaqServ, 0, 5);       // Clave Interna TextBox
-            
-            #endregion End Row 6
+                #endregion End Row 4
 
 
-            // Cuarta Fila del TableLayoutPanel
-            #region Begin Row 4
+                // Quinta Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 5
 
-            // Panel para Imagen del Servicio
-            PImagen.Visible = true;
-            PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
-            PImagen.TabIndex = 7;
-            PImagen.TabStop = true;
+                //// Label para Cantidad por Servicio
+                //lblCantPaqServ.Visible = true;
+                //lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+                ////lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
 
-            tLPServicio.Controls.Add(PImagen, 4, 0);              // Imagen del Producto Panel
-            //tLPServicio.SetColumnSpan(PImagen, 2);
-            tLPServicio.SetRowSpan(PImagen, 6);
+                //tLPServicio.Controls.Add(lblCantPaqServ, 0, 4);       // Clave Interna Label
 
-            #endregion End Row 4
+                panelContenedor.Visible = true;
+                panelContenedor.TabIndex = 6;
+                panelContenedor.TabStop = true;
+
+                tLPServicio.Controls.Add(panelContenedor, 2, 4);      // Código de Barras TextBox
+                tLPServicio.SetColumnSpan(panelContenedor, 2);
+                tLPServicio.SetRowSpan(panelContenedor, 2);
+
+                #endregion End Row 5
+
+                // Sexta Fila del TableLayoutPanel
+                // TextBox y Label
+                #region Begin Row 6
+
+                //// TextBox para Cantidad por Servicio
+                //txtCantPaqServ.Visible = true;
+                //txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                //txtCantPaqServ.TabIndex = 5;
+                //txtCantPaqServ.TabStop = true;
+
+                //tLPServicio.Controls.Add(txtCantPaqServ, 0, 5);       // Clave Interna TextBox
+
+                #endregion End Row 6
+
+
+                // Cuarta Fila del TableLayoutPanel
+                #region Begin Row 4
+
+                // Panel para Imagen del Servicio
+                PImagen.Visible = true;
+                PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                PImagen.TabIndex = 7;
+                PImagen.TabStop = true;
+
+                tLPServicio.Controls.Add(PImagen, 4, 0);              // Imagen del Producto Panel
+                                                                      //tLPServicio.SetColumnSpan(PImagen, 2);
+                tLPServicio.SetRowSpan(PImagen, 5);
+
+                #endregion End Row 4
+            }
+            else if (conSinClaveInterna.Equals(true))
+            {
+                // Primera Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 1
+
+                // Label para Precio Compra
+                label7.Visible = true;
+                label7.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+
+                // Label para Precio Venta
+                label4.Visible = true;
+                label4.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label4.TextAlign = ContentAlignment.MiddleCenter;
+
+                // Label para Cantidad por Servicio
+                lblCantPaqServ.Visible = true;
+                lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
+
+                // Panel para Imagen del Servicio
+                PImagen.Visible = true;
+                PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                PImagen.TabIndex = 7;
+                PImagen.TabStop = true;
+
+                tLPServicio.Controls.Add(label7, 0, 0);               // Precio Compra Label
+                tLPServicio.Controls.Add(label4, 2, 0);               // Precio Venta Label
+                tLPServicio.Controls.Add(lblCantPaqServ, 4, 0);       // Cantidad Servicio Label
+
+                tLPServicio.Controls.Add(PImagen, 6, 0);              // Imagen del Producto Panel
+                tLPServicio.SetColumnSpan(PImagen, 2);
+                tLPServicio.SetRowSpan(PImagen, 5);
+
+                #endregion End Row 1
+
+                // Segunda Fila del TableLayoutPanel
+                // TextBox y label
+                #region Begin Row 2
+
+                // TextBox para Precio Compra
+                txtPrecioCompra.Visible = true;
+                txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtPrecioCompra.TabIndex = 1;
+                txtPrecioCompra.TabStop = true;
+                // Label de exclamation Precio Compra
+                lbPrecioCompra.Visible = true;
+                lbPrecioCompra.Anchor = AnchorStyles.Left;
+
+                // TextBox para Precio Venta
+                txtPrecioProducto.Visible = true;
+                txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtPrecioProducto.TabIndex = 2;
+                txtPrecioProducto.TabStop = true;
+                // Label de exclamation Precio Venta
+                lbPrecioVenta.Visible = true;
+                lbPrecioVenta.Anchor = AnchorStyles.Left;
+
+                // TextBox para Cantidad por Servicio
+                txtCantPaqServ.Visible = true;
+                txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtCantPaqServ.TabIndex = 5;
+                txtCantPaqServ.TabStop = true;
+                // Label signo de ayuda
+                lblCantCombServ.Visible = true;
+                lblCantCombServ.Anchor = AnchorStyles.Left;
+
+                tLPServicio.Controls.Add(txtPrecioCompra, 0, 1);      // Precio Compra TextBox
+                tLPServicio.Controls.Add(lbPrecioCompra, 1, 1);       // Label de exclamation Precio Compra
+                tLPServicio.Controls.Add(txtPrecioProducto, 2, 1);    // Precio Venta TextBox
+                tLPServicio.Controls.Add(lbPrecioVenta, 3, 1);        // Label de exclamation Precio Venta
+                tLPServicio.Controls.Add(txtCantPaqServ, 4, 1);
+                tLPServicio.Controls.Add(lblCantCombServ, 5, 1);
+
+                #endregion End Row 2
+
+                // Tercera Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 3
+
+                // Label para Clave Interna
+                label5.Visible = true;
+                label5.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+
+                // Label para Código de Barras
+                label2.Visible = true;
+                label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label2.TextAlign = ContentAlignment.MiddleCenter;
+
+                tLPServicio.Controls.Add(label5, 0, 2);               // Clave Interna Label
+                tLPServicio.Controls.Add(label2, 2, 2);               // Código de Barras Label
+
+                #endregion
+
+                // Cuarta Fila del TableLayoutPanel
+                // TextBox y Label 
+                #region Begin Row 4
+
+                // TextBox para Clave Interna
+                txtClaveProducto.Visible = true;
+                txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtClaveProducto.TabIndex = 3;
+                txtClaveProducto.TabStop = true;
+                // Label de exclamation Clave Interna
+                lbClaveInterna.Visible = true;
+                lbClaveInterna.Anchor = AnchorStyles.Left;
+
+                // TextBox para Código de Barras
+                txtCodigoBarras.Visible = true;
+                txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtCodigoBarras.TabIndex = 4;
+                txtCodigoBarras.TabStop = true;
+                // Button para Gnerar Código de Barras
+                btnGenerarCB.Visible = true;
+                btnGenerarCB.Anchor = AnchorStyles.Left;
+                btnGenerarCB.TabIndex = 5;
+                btnGenerarCB.TabStop = true;
+
+                tLPServicio.Controls.Add(txtClaveProducto, 0, 3);     // Clave Interna TextBox
+                tLPServicio.Controls.Add(lbClaveInterna, 1, 3);
+                tLPServicio.Controls.Add(txtCodigoBarras, 2, 3);      // Código de Barras TextBox
+                tLPServicio.Controls.Add(btnGenerarCB, 3, 3);         // Código de Barras Button
+
+                #endregion
+
+                // Quinta Fila del TableLayoutPanel
+                // Label títulos
+                #region Begin Row 5
+
+                panelContenedor.Visible = true;
+                panelContenedor.TabIndex = 6;
+                panelContenedor.TabStop = true;
+
+                tLPServicio.Controls.Add(panelContenedor, 2, 4);      // Código de Barras TextBox
+                tLPServicio.SetColumnSpan(panelContenedor, 2);
+                tLPServicio.SetRowSpan(panelContenedor, 2);
+
+                #endregion
+            }
 
             // Button para Relacionar Producto para Servicio
             button1.Visible = true;
             //button1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             button1.TabIndex = 8;
             button1.TabStop = true;
+
             // Panel para Generar Códigos de Barra Extra
             /*panelContenedor.Visible = true;
             panelContenedor.TabIndex = 7;
@@ -7198,8 +7664,8 @@ namespace PuntoDeVentaV2
             {
                 if (detalleProductoBasico.Count.Equals(0) && detalleProductoGeneral.Count.Equals(0))
                 {
-                    fLPDetallesProducto.Visible = false;
-                    this.Height = 660;
+                    fLPDetallesProducto.Visible = true;
+                    //this.Height = 660;
                 }
             }
             else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
@@ -7207,12 +7673,12 @@ namespace PuntoDeVentaV2
                 if (detalleProductoBasico.Count > 0 || detalleProductoGeneral.Count > 0)
                 {
                     fLPDetallesProducto.Visible = true;
-                    this.Height = 731;
+                    //this.Height = 731;
                 }
 
                 if (mb.TieneDetallesProducto(Convert.ToInt32(idEditarProducto)) == 0)
                 {
-                    fLPDetallesProducto.Visible = false;
+                    fLPDetallesProducto.Visible = true;
                 }
             }
         }
