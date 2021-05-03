@@ -5755,13 +5755,6 @@ namespace PuntoDeVentaV2
 
                     if (!string.IsNullOrWhiteSpace(formaDePago))
                     {
-                        if (!string.IsNullOrWhiteSpace(anticipoRecibido) && !string.IsNullOrWhiteSpace(anticipoUtilizado)) 
-                        {
-                            cadenaDatos += "<br><br>";
-                            cadenaDatos += $"<span style='font-size: 12px;'>Anticipo recibido: <span style='color: red;'>{anticipoRecibido}</span></span><br>";
-                            cadenaDatos += $"<span style='font-size: 12px;'>Anticipo utilizado: <span style='color: red;'>{anticipoUtilizado}</span></span><br>";
-                        }
-
                         cadenaDatos += "<br><br>";
                         cadenaDatos += "<span style='font-size: 12px;'>Forma de Pago: <span style='color: red;'>" + formaDePago + "</span></span><br>";
                     }
@@ -5792,14 +5785,38 @@ namespace PuntoDeVentaV2
                         html += $@"
                                     <tr>
                                         <td colspan='4' style='text-align: right;'>
-                                            Total =
+                                            Total
                                         </td>
                                         <td style='text-align: right;'>
                                             <span style='color: red'><b>{totalVenta.ToString("0.00")}</b></span>
                                         </td>
-                                    </tr>
-                                </table>";
+                                    </tr>";
 
+                        if (!string.IsNullOrWhiteSpace(anticipoRecibido) && !string.IsNullOrWhiteSpace(anticipoUtilizado))
+                        {
+                            if (!anticipoRecibido.Equals("0.00") && !anticipoUtilizado.Equals("0.00"))
+                            {
+                                html += $@"
+                                    <tr>
+                                        <td colspan='4' style='text-align: right;'>
+                                            Anticipo recibido
+                                        </td>
+                                        <td style='text-align: right;'>
+                                            <span style='color: red'><b>{float.Parse(anticipoRecibido).ToString("0.00")}</b></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan='4' style='text-align: right;'>
+                                            Anticipo utilizado
+                                        </td>
+                                        <td style='text-align: right;'>
+                                            <span style='color: red'><b>{float.Parse(anticipoUtilizado).ToString("0.00")}</b></span>
+                                        </td>
+                                    </tr>";
+                            }
+                        }
+
+                        html += "</table>";
                         html += "<hr>";
                         html += cadenaDatos;
                         html += $"<p style='font-size: 12px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
@@ -5808,17 +5825,43 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
+                        
+
                         html += $@"
                                     <tr>
                                         <td colspan='4' style='text-align: right;'>
-                                            Total =
+                                            Total
                                         </td>
                                         <td style='text-align: right;'>
                                             <span style='color: red'><b>{totalVenta.ToString("0.00")}</b></span>
                                         </td>
-                                    </tr>
-                                </table>";
+                                    </tr>";
 
+                        if (!string.IsNullOrWhiteSpace(anticipoRecibido) && !string.IsNullOrWhiteSpace(anticipoUtilizado))
+                        {
+                            if (!anticipoRecibido.Equals("0.00") && !anticipoUtilizado.Equals("0.00"))
+                            {
+                                html += $@"
+                                    <tr>
+                                        <td colspan='4' style='text-align: right;'>
+                                            Anticipo recibido
+                                        </td>
+                                        <td style='text-align: right;'>
+                                            <span style='color: red'><b>{float.Parse(anticipoRecibido).ToString("0.00")}</b></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan='4' style='text-align: right;'>
+                                            Anticipo utilizado
+                                        </td>
+                                        <td style='text-align: right;'>
+                                            <span style='color: red'><b>{float.Parse(anticipoUtilizado).ToString("0.00")}</b></span>
+                                        </td>
+                                    </tr>";
+                            }   
+                        }
+
+                        html += "</table>";
                         html += "<hr>";
                         html += cadenaDatos;
                         html += $"<p style='font-size: 12px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
