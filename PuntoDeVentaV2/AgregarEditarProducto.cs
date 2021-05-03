@@ -348,6 +348,7 @@ namespace PuntoDeVentaV2
         string  gralDetailSelected = string.Empty,
                 gralDetailGralSelected = string.Empty;
 
+        
         // this code will add a listviewtem
         // to a listview for each database entry
         // in the appSettings section of an App.config file.
@@ -2917,6 +2918,34 @@ namespace PuntoDeVentaV2
                                 errorProvAgregarEditarProducto.SetError(txtClaveProducto, "");
                                 errorProvAgregarEditarProducto.SetError(txtCodigoBarras, "");
 
+                                // Miri.
+                                // Si el producto es guardado sin abrir la ventana de datos de facturación
+                                // y el producto ha agregar trae impuestos, entonces verificará el tipo de impuesto princial 
+                                // para re-calcular: base, tipo de impuesto e importe del impuesto.
+                                if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.tipo_impuesto_delxml != "")
+                                {
+                                    impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
+                                    baseProducto = precio;
+                                    ivaProducto = "0.00";
+
+                                    if (AgregarStockXML.tipo_impuesto_delxml != "Exento")
+                                    {
+                                        impuestoProducto += "%";
+                                    }
+
+                                    if (AgregarStockXML.tipo_impuesto_delxml == "8")
+                                    {
+                                        baseProducto = (Convert.ToDouble(precio) / 1.08).ToString("0.00");
+                                        ivaProducto = (Convert.ToDouble(baseProducto) * 0.08).ToString("0.00");
+                                    }
+                                    if (AgregarStockXML.tipo_impuesto_delxml == "16")
+                                    {
+                                        baseProducto = (Convert.ToDouble(precio) / 1.16).ToString("0.00");
+                                        ivaProducto = (Convert.ToDouble(baseProducto) * 0.16).ToString("0.00");
+                                    }
+                                }
+
+
                                 guardar = new string[] {
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
                                     tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto,
@@ -2979,6 +3008,10 @@ namespace PuntoDeVentaV2
                                         if (datosImpuestos != null)
                                         {
                                             guardarDatosImpuestos();
+                                        }
+                                        if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.list_impuestos_traslado_retenido.Count() > 0)
+                                        {
+                                            guardar_impuestos_dexml(Convert.ToDouble(baseProducto), idProducto);
                                         }
                                         #endregion Final de datos de Impuestos
 
@@ -7354,6 +7387,138 @@ namespace PuntoDeVentaV2
                 itemCBProd.Value = datosProductos.Rows[i]["Nombre"].ToString();
                 itemCBProd.text = datosProductos.Rows[i]["ID"].ToString();
                 prodList.Add(itemCBProd);
+            }
+        }
+
+        private void guardar_impuestos_dexml(double basep, int id_producto)
+        {
+            List<string> tasasCuotas = new List<string>();
+
+
+            tasasCuotas.Add("0 %");
+            tasasCuotas.Add("16 %");
+            tasasCuotas.Add("Definir %");
+            tasasCuotas.Add("26.5 %");
+            tasasCuotas.Add("30 %");
+            tasasCuotas.Add("53 %");
+            tasasCuotas.Add("50 %");
+            tasasCuotas.Add("1.600000");
+            tasasCuotas.Add("30.4 %");
+            tasasCuotas.Add("25 %");
+            tasasCuotas.Add("9 %");
+            tasasCuotas.Add("8 %");
+            tasasCuotas.Add("7 %");
+            tasasCuotas.Add("6 %");
+            tasasCuotas.Add("3 %");
+
+
+            foreach (var list_tras in AgregarStockXML.list_impuestos_traslado_retenido)
+            {
+                string tra_ret = "";
+                string t_impuesto = "";
+                string tasa_cuota = "";
+                string definir = "0.00";
+                double importe_impuesto = 0;
+
+
+                var dato = list_tras.Split('-');
+
+
+                // Traslado - retención
+
+                if (dato[0] == "t") { tra_ret = "Traslado"; }
+                if (dato[0] == "r") { tra_ret = "Retención"; }
+
+                // Tipo impuesto
+
+                if (dato[1] == "001") { t_impuesto = "ISR"; }
+                if (dato[1] == "002") { t_impuesto = "IVA"; }
+                if (dato[1] == "003") { t_impuesto = "IEPS"; }
+
+                // Tipo factor
+
+                string tipo_factor = dato[2];
+
+                // Tasa/cuota
+
+                if(tipo_factor == "Tasa")
+                {
+                    tasa_cuota = dato[3];
+                    if (Convert.ToDecimal(dato[3]) < 1)
+                    {
+                        tasa_cuota = Convert.ToString(Convert.ToDecimal(dato[3]) * 100);
+
+                        var indice_pdec = tasa_cuota.IndexOf('.');
+
+                        if (indice_pdec > 0)
+                        {
+                            // Número decimal
+                            int hasta = tasa_cuota.Length - (indice_pdec + 1);
+                            string decim = tasa_cuota.Substring((indice_pdec + 1), hasta);
+
+                            if (Convert.ToDecimal(decim) == 0)
+                            {
+                                var num_entero = tasa_cuota.Split('.');
+                                tasa_cuota = num_entero[0];
+                            }
+                        }
+                    }
+
+                    var exi = tasasCuotas.IndexOf(tasa_cuota + " %");
+                    if (exi < 0)
+                    {
+                        definir = tasa_cuota;
+                        tasa_cuota = "Definir %";                        
+                    }
+                    else
+                    {
+                        tasa_cuota += " %";
+                    }
+                }
+                if (tipo_factor == "Cuota")
+                {
+                    definir = dato[3];
+                    tasa_cuota = "Definir %";                    
+                }
+                if (tipo_factor == "Exento")
+                {
+                    tasa_cuota = "0 %";
+                }
+
+                // Importe
+
+                if(dato[2] == "Tasa" | dato[2] == "Exento")
+                {
+                    if (dato[3] != "" | dato[3] != null)
+                    {
+                        importe_impuesto = Convert.ToDouble(dato[3]) * basep;
+                    }
+                }
+                if(dato[2] == "Cuota")
+                {
+                    importe_impuesto = Convert.ToDouble(dato[3]);
+                }   
+                
+                if (Convert.ToDecimal(dato[3]) > 1 & dato[2] == "Tasa")
+                {
+                        importe_impuesto = importe_impuesto / 100;
+                }
+
+                
+                // Guardar
+
+                string[] datos = new string[]{
+                    tra_ret, t_impuesto, tipo_factor, tasa_cuota, definir, importe_impuesto.ToString("0.00")
+                };
+
+                try
+                {
+                    cn.EjecutarConsulta(cs.GuardarDetallesProducto(datos, id_producto));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al agregar los impuestos del producto.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

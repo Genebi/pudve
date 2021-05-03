@@ -55,6 +55,8 @@ namespace PuntoDeVentaV2
         static public double tmp_edit_IVA = 0;
         static public string tmp_edit_impuesto = "";
 
+        public int numero_actual_productoxml = 0;
+
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -274,7 +276,14 @@ namespace PuntoDeVentaV2
 
             txtBoxBase.Text = precioProducto.ToString("N2");
 
-            checarRadioButtons();
+            // Miri.
+            // No incluye calcular el IVA de los radios porque hasta este punto no se sabe que 
+            // impuesto tiene agregado el producto que se esta registrando desde el XML.
+            if (AgregarEditarProducto.DatosSourceFinal != 3)
+            {
+                checarRadioButtons();
+            }
+                
 
             if (typeOriginDataFinal == 2)
             {
@@ -283,13 +292,14 @@ namespace PuntoDeVentaV2
                 CargarClaveUnidad();
             }
 
+            // Miri.
             // Solo para cuando se edite un producto. Carga los impuestos guardados  
             if (AgregarEditarProducto.DatosSourceFinal == 2)
             {
                 // Obtiene la lista de impuestos guardados
                 cargar_impuestos();
-
-
+                
+                
                 // Este fragmento de código es cambiado aquí, y quitado en "checarRadioButtons()". Se hizo para que al momento de querer seleccionar otro te permita hacerlo, porque no dejaba elegir otro.   
                 var impuestoSeleccionado = AgregarEditarProducto.impuestoProductoFinal;
 
@@ -311,6 +321,15 @@ namespace PuntoDeVentaV2
                 }
             }
 
+
+            // Miri.
+            // El producto se esta registrando desde agregar con XML.
+
+            if (AgregarEditarProducto.DatosSourceFinal == 3)
+            {
+                cargar_impuestos_dexml();
+            }
+
             //if (typeOriginDataFinal == 2)
             //{
             //    //Verificar si existe ya una clave de unidad y de producto proveniente desde cargar XML
@@ -319,16 +338,16 @@ namespace PuntoDeVentaV2
             //        txtClaveProducto.Text = AgregarEditarProducto.claveProducto;
             //    }
 
-            //    if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.claveUnidadMedida))
-            //    {
-            //        txtClaveUnidad.Text = AgregarEditarProducto.claveUnidadMedida;
+                //    if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.claveUnidadMedida))
+                //    {
+                //        txtClaveUnidad.Text = AgregarEditarProducto.claveUnidadMedida;
 
-            //        CargarClaveUnidad();
-            //    }
-            //txtClaveProducto.Text = ClaveMedidaFinal;
-            //txtClaveUnidad.Text = UnidadMedidaFinal;
-            //CargarClaveUnidad();
-            //}
+                //        CargarClaveUnidad();
+                //    }
+                //txtClaveProducto.Text = ClaveMedidaFinal;
+                //txtClaveUnidad.Text = UnidadMedidaFinal;
+                //CargarClaveUnidad();
+                //}
         }
 
         private void btnExtra_Click(object sender, EventArgs e)
@@ -676,12 +695,12 @@ namespace PuntoDeVentaV2
             AgregarEditarProducto.baseProducto = txtBoxBase.Text;
             AgregarEditarProducto.ivaProducto = txtIVA.Text;
             AgregarEditarProducto.impuestoProducto = impuesto;
-            
+
+            // Miri.
             // Agregado para que al momento de editar el producto también se guarde el impuesto que se cambio de los radio.
             tmp_edit_base = Convert.ToDouble(txtBoxBase.Text);
             tmp_edit_IVA = Convert.ToDouble(txtIVA.Text);
             tmp_edit_impuesto = impuesto;
-            
             
             // Se agrega variable para identificar si al momento de editar se guardan los cambios o se cancelan.
             // Esto es para evitar que se eliminen los impuestos si no se da clic en este botón 
@@ -1180,6 +1199,9 @@ namespace PuntoDeVentaV2
 
         private void LimpiarComboBox(ComboBox cb, string es_nl, bool habilitado = true)
         {
+            // Miri.
+            // Se modifica todo.
+
             string nombre_cmb= cb.Name;
             int tam = nombre_cmb.Length;
             var columna = nombre_cmb.Split('_');
@@ -1504,7 +1526,15 @@ namespace PuntoDeVentaV2
             {
                 precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
-                checarRadioButtons();
+
+                // Miri.
+                // No incluye calcular el IVA de los radios porque hasta este punto no se sabe que 
+                // impuesto tiene agregado el producto que se esta registrando desde el XML.
+                if (AgregarEditarProducto.DatosSourceFinal != 3)
+                {
+                    checarRadioButtons();
+                }
+                
                 //RecalcularTotal();
 
                 cargarDatos();
@@ -1514,7 +1544,14 @@ namespace PuntoDeVentaV2
                     txtClaveUnidad.Text = UnidadMedidaFinal;
                     CargarClaveUnidad();
                 }
-                
+
+                // Miri.
+                // Carga los impuestos incluidos en el producto que se esta registrando desde un XML.  
+                if (AgregarEditarProducto.DatosSourceFinal == 3)
+                {
+                    cargar_impuestos_dexml();
+                }
+
                 ejecutarMetodos = false;
             }
         }
@@ -1546,6 +1583,8 @@ namespace PuntoDeVentaV2
             double total_ret = 0;
             double total_tra = 0;
 
+            // Miri.
+            // Modificado. 
             foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
             {
                 int tipo = 0;
@@ -1728,7 +1767,7 @@ namespace PuntoDeVentaV2
                             {
                                 double importe = 0;
 
-                                if (porcentajeTmp[0] != "")
+                                if (porcentajeTmp[0] != "" & porcentajeTmp[0] != "...")
                                 {
                                     importe = 1 * Convert.ToDouble(porcentajeTmp[0]);
                                 }
@@ -1863,6 +1902,205 @@ namespace PuntoDeVentaV2
                         i++;
                     }
                 }
+            }
+        }
+
+        private void cargar_impuestos_dexml()
+        {
+            int t = 1;
+            int e = 1;
+
+            // Inicia limpiando el área de impuestos.
+            int cant_filas = panelContenedor.Controls.OfType<FlowLayoutPanel>().Count();
+
+            if (cant_filas > 0)
+            {
+                while (cant_filas >= e)
+                {
+                    string nombre_panel = "panelGeneradoR" + e;
+
+                    foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                    {
+                        if (nombre_panel == panel.Name)
+                        {
+                            panelContenedor.Controls.Remove(panel);
+                        }
+                    }
+
+                    e++;
+                }
+
+                RecalcularTotal();
+            }
+
+
+            // Solo aplica para el impuesto de los radio. 
+            if (AgregarStockXML.tipo_impuesto_delxml != "")
+            {
+                if (AgregarStockXML.tipo_impuesto_delxml == "0")
+                {
+                    rb0porCiento.Checked = true;
+                }
+                if (AgregarStockXML.tipo_impuesto_delxml == "8")
+                {
+                    rb8porCiento.Checked = true;
+                }
+                if (AgregarStockXML.tipo_impuesto_delxml == "16")
+                {
+                    rb16porCiento.Checked = true;
+                }
+                if (AgregarStockXML.tipo_impuesto_delxml == "Exento")
+                {
+                    rbExcento.Checked = true;
+                }
+
+                checarRadioButtons();
+            }
+            else
+            {
+                rb0porCiento.Checked = false;
+                rb8porCiento.Checked = false;
+                rb16porCiento.Checked = false;
+                rbExcento.Checked = false;
+            }
+
+            
+            // Trasladados y retenidos
+
+            if (AgregarStockXML.list_impuestos_traslado_retenido.Count > 0)
+            {
+                foreach (var list_tras in AgregarStockXML.list_impuestos_traslado_retenido)
+                {
+                    string nombre_cb = "cbLinea" + t + "_";
+                    string nombre_tb = "tbLinea" + t + "_";
+                    string tra_ret = "";
+                    string t_impuesto = "";
+                    string tasa_cuota = "";
+                    string tasa_cuota_porc = "";
+
+                    var dato = list_tras.Split('-');
+
+
+                    GenerarCampos(1);
+
+
+                    // Traslado - retención
+                    if (dato[0] == "t") { tra_ret = "Traslado"; }
+                    if (dato[0] == "r") { tra_ret = "Retención"; }
+
+                    // Tipo impuesto
+                    if (dato[1] == "001") { t_impuesto = "ISR"; }
+                    if (dato[1] == "002") { t_impuesto = "IVA"; }
+                    if (dato[1] == "003") { t_impuesto = "IEPS"; }
+
+                    // Tasa/cuota
+                    tasa_cuota = dato[3];
+
+                    if (dato[2] == "Tasa")
+                    {
+                        if (Convert.ToDecimal(dato[3]) < 1)
+                        {
+                            tasa_cuota = Convert.ToString(Convert.ToDecimal(dato[3]) * 100);
+
+                            var indice_pdec = tasa_cuota.IndexOf('.');
+
+                            if (indice_pdec > 0)
+                            {
+                                // Número decimal
+                                int hasta = tasa_cuota.Length - (indice_pdec + 1);
+                                string decim = tasa_cuota.Substring((indice_pdec + 1), hasta);
+
+                                if (Convert.ToDecimal(decim) == 0)
+                                {
+                                    var num_entero = tasa_cuota.Split('.');
+                                    tasa_cuota = num_entero[0]; 
+                                }
+                            }
+                        }
+                    }
+
+                    var exi = tasasCuotas.IndexOf(tasa_cuota + " %");
+                    if (exi < 0)
+                    {
+                        tasa_cuota_porc = tasa_cuota;
+                        tasa_cuota = "Definir %";
+                    }
+                    else
+                    {
+                        tasa_cuota += " %";
+                    }
+
+
+
+
+
+                    // Combobox: Es...
+
+                    ComboBox cb1 = (ComboBox)this.Controls.Find(nombre_cb + 1, true).FirstOrDefault();
+                    cb1.SelectedItem = tra_ret;
+                    int index1 = cb1.SelectedIndex;
+
+                    AccederComboBox(nombre_cb + 2, 2, index1, tra_ret);
+
+                    // Combobox: impuesto 
+
+                    ComboBox cb2 = (ComboBox)this.Controls.Find(nombre_cb + 2, true).FirstOrDefault();
+                    cb2.SelectedItem = t_impuesto;
+                    int index2 = cb2.SelectedIndex;
+
+                    AccederComboBox(nombre_cb + 3, 3, index2, t_impuesto);
+
+                    // Combobox: tipo factor
+
+                    ComboBox cb3 = (ComboBox)this.Controls.Find(nombre_cb + 3, true).FirstOrDefault();
+                    cb3.SelectedItem = dato[2];
+                    int index3 = cb3.SelectedIndex;
+
+                    AccederComboBox(nombre_cb + 4, 4, index3, dato[1]);
+
+                    // Combobox: tasa/cuota
+
+                    ComboBox cb4 = (ComboBox)this.Controls.Find(nombre_cb + 4, true).FirstOrDefault();
+                    cb4.SelectedItem = tasa_cuota;
+                    int index4 = cb4.SelectedIndex;
+
+                    AccederComboBox(nombre_cb, 5, index4, tasa_cuota);
+
+
+                    // Textbox: Definir impuesto
+
+                    if (tasa_cuota == "Definir %")
+                    {
+                        TextBox tb1 = (TextBox)this.Controls.Find(nombre_tb + 1, true).FirstOrDefault();
+                        tb1.Text = tasa_cuota_porc;
+
+
+                        // Textbox: Importe
+
+                        double importe = 0;
+
+                        if (dato[2] == "Tasa")
+                        {
+                            importe = Convert.ToDouble(dato[3]) * Convert.ToDouble(txtBoxBase.Text);
+
+                            if (Convert.ToDecimal(dato[3]) > 1)
+                            {
+                                importe = importe / 100;
+                            }
+                        }
+                        if (dato[2] == "Cuota")
+                        {
+                            importe = Convert.ToDouble(dato[3]) * 1;
+                        }
+
+                        TextBox tb2 = (TextBox)this.Controls.Find(nombre_tb + 2, true).FirstOrDefault();
+                        tb2.Text = importe.ToString("0.00");
+                    }
+
+                    RecalcularTotal();
+
+                    t++;
+                }                
             }
         }
     }
