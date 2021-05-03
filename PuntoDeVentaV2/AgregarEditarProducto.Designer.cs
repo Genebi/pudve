@@ -74,6 +74,7 @@
             this.PConteidoProducto = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
+            this.lblCantCombServ = new System.Windows.Forms.Label();
             this.lbClaveInterna = new System.Windows.Forms.Label();
             this.lbStock = new System.Windows.Forms.Label();
             this.lbPrecioVenta = new System.Windows.Forms.Label();
@@ -96,7 +97,6 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lblCantCombServ = new System.Windows.Forms.Label();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -717,6 +717,16 @@
             this.PDetalle.Size = new System.Drawing.Size(838, 257);
             this.PDetalle.TabIndex = 2;
             // 
+            // lblCantCombServ
+            // 
+            this.lblCantCombServ.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCantCombServ.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lblCantCombServ.Location = new System.Drawing.Point(822, 163);
+            this.lblCantCombServ.Name = "lblCantCombServ";
+            this.lblCantCombServ.Size = new System.Drawing.Size(18, 23);
+            this.lblCantCombServ.TabIndex = 43;
+            this.lblCantCombServ.Visible = false;
+            // 
             // lbClaveInterna
             // 
             this.lbClaveInterna.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -948,16 +958,6 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-            // 
-            // lblCantCombServ
-            // 
-            this.lblCantCombServ.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblCantCombServ.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lblCantCombServ.Location = new System.Drawing.Point(822, 163);
-            this.lblCantCombServ.Name = "lblCantCombServ";
-            this.lblCantCombServ.Size = new System.Drawing.Size(18, 23);
-            this.lblCantCombServ.TabIndex = 43;
-            this.lblCantCombServ.Visible = false;
             // 
             // AgregarEditarProducto
             // 

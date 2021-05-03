@@ -47,5 +47,17 @@ namespace PuntoDeVentaV2
         {
             llenarRegistros();
         }
+
+        private void DGVConceptosInhabilitados_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex.Equals(3))
+            {
+                DGVConceptosInhabilitados.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                DGVConceptosInhabilitados.Cursor = Cursors.Default;
+            }
+        }
     }
 }

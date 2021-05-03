@@ -64,6 +64,7 @@
             this.DGVConceptosInhabilitados.RowHeadersVisible = false;
             this.DGVConceptosInhabilitados.Size = new System.Drawing.Size(524, 191);
             this.DGVConceptosInhabilitados.TabIndex = 1;
+            this.DGVConceptosInhabilitados.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVConceptosInhabilitados_CellMouseEnter);
             // 
             // ID
             // 
