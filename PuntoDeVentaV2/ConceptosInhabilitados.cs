@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,7 +31,7 @@ namespace PuntoDeVentaV2
                         row.Cells["ID"].Value = filaDatos["ID"].ToString();
                         row.Cells["Concepto"].Value = filaDatos["Concepto"].ToString();
                         row.Cells["Usuario"].Value = filaDatos["Usuario"].ToString();
-                        System.Drawing.Image habilitar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\eye.png");
+                        System.Drawing.Image habilitar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\arrow-up.png");
                         row.Cells["Habilitar"].Value = habilitar;
                     }
                 }
@@ -57,6 +58,28 @@ namespace PuntoDeVentaV2
             else
             {
                 DGVConceptosInhabilitados.Cursor = Cursors.Default;
+            }
+        }
+
+        private void DGVConceptosInhabilitados_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex.Equals(3))
+            {
+                var idReg = Convert.ToInt32(DGVConceptosInhabilitados.Rows[e.RowIndex].Cells[0].Value.ToString());
+
+                try
+                {
+                    cn.EjecutarConsulta(cs.habilitarConceptoDinamico(idReg));
+                }
+                catch(MySqlException exMySql)
+                {
+                    MessageBox.Show($"Ocurrio una irregularidad al intentar\nHabilitar Detalle Producto...\nExcepción: " + exMySql.Message.ToString(), "Habilitado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("El detalle: para Habilitar no se encuentra en los registros\nExcepción: " + ex.Message.ToString(), "Error al Habilitar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                this.Close();
             }
         }
     }

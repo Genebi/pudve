@@ -242,7 +242,7 @@
             this.btnInhabilitados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInhabilitados.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnInhabilitados.ForeColor = System.Drawing.Color.White;
-            this.btnInhabilitados.Image = global::PuntoDeVentaV2.Properties.Resources.low_vision1;
+            this.btnInhabilitados.Image = global::PuntoDeVentaV2.Properties.Resources.trash1;
             this.btnInhabilitados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnInhabilitados.Location = new System.Drawing.Point(201, 57);
             this.btnInhabilitados.Name = "btnInhabilitados";

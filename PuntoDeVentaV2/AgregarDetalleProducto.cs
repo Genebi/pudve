@@ -1428,7 +1428,9 @@ namespace PuntoDeVentaV2
 
             conceptosDasactivados.FormClosing += delegate
             {
-                
+                fLPCentralDetalle.Controls.Clear();
+                loadFromConfigDB();
+                BuscarTextoListView(settingDatabases);
             };
 
             conceptosDasactivados.ShowDialog();
