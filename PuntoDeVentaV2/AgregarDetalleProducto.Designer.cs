@@ -77,7 +77,7 @@
             this.btnGuardarDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarDetalles.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btnGuardarDetalles.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
-            this.btnGuardarDetalles.Location = new System.Drawing.Point(10, 13);
+            this.btnGuardarDetalles.Location = new System.Drawing.Point(11, 14);
             this.btnGuardarDetalles.Name = "btnGuardarDetalles";
             this.btnGuardarDetalles.Size = new System.Drawing.Size(201, 41);
             this.btnGuardarDetalles.TabIndex = 26;
@@ -309,7 +309,7 @@
             this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
             this.btnCerrar.Image = global::PuntoDeVentaV2.Properties.Resources.times1;
-            this.btnCerrar.Location = new System.Drawing.Point(10, 57);
+            this.btnCerrar.Location = new System.Drawing.Point(10, 59);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(201, 41);
             this.btnCerrar.TabIndex = 27;

@@ -1640,5 +1640,12 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
             return consulta;
         }
+
+        public string VerificarContenidoDinamicoInhabilitado(int idUsuario)
+        {
+            var consulta = $@"SELECT ID, concepto AS Concepto, IDUsuario AS Usuario FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 0;";
+
+            return consulta;
+        }
     }
 }

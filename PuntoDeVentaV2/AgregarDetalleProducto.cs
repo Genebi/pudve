@@ -1424,7 +1424,14 @@ namespace PuntoDeVentaV2
 
         private void btnInhabilitados_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Está área esta bajo construcción\npronto estara disponible...", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ConceptosInhabilitados conceptosDasactivados = new ConceptosInhabilitados();
+
+            conceptosDasactivados.FormClosing += delegate
+            {
+                
+            };
+
+            conceptosDasactivados.ShowDialog();
         }
 
         private void llenarDatosProveedor(string textoBuscado)
