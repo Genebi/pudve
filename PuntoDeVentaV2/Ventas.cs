@@ -113,6 +113,7 @@ namespace PuntoDeVentaV2
         private int mostrarPrecioProducto = 0;
         private int mostrarCBProducto = 0;
         private int correoVenta = 0;
+        private int correoDescuento = 0;
         // Variables para la configuracion referente a los productos con mayoreo
         private bool mayoreoActivo = false;
         private int cantidadMayoreo = 0;
@@ -278,6 +279,7 @@ namespace PuntoDeVentaV2
                 mayoreoActivo = Convert.ToBoolean(configCorreos[9]);
                 cantidadMayoreo = Convert.ToInt32(configCorreos[10]);
                 correoVenta = Convert.ToInt32(configCorreos[21]);
+                correoDescuento = Convert.ToInt32(configCorreos[23]);
             }
 
             enviarStockMinimo = new Dictionary<int, string>();
@@ -3077,11 +3079,11 @@ namespace PuntoDeVentaV2
                             DetallesVenta(idVenta);
                             DetallesCliente(idVenta);
 
-                            if (correoVenta == 1)
+                            if (correoVenta == 1 || correoDescuento == 1)
                             {
                                 foreach (DataGridViewRow articulo in DGVentas.Rows)
                                 {
-                                    enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta + "|" + cAnticipo.Text.Trim() + "|" + cAnticipoUtilizado.Text.Trim());
+                                    enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta + "|" + cAnticipo.Text.Trim() + "|" + cAnticipoUtilizado.Text.Trim() + "|" + cDescuento.Text.Trim());
                                 }
                             }
                         }
@@ -5630,6 +5632,7 @@ namespace PuntoDeVentaV2
         {
             var correo = FormPrincipal.datosUsuario[9];
             var asunto = string.Empty;
+            var asuntoAdicional = string.Empty;
             var html = string.Empty;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -5719,6 +5722,7 @@ namespace PuntoDeVentaV2
                     string formaDePago = string.Empty;
                     string anticipoRecibido = string.Empty;
                     string anticipoUtilizado = string.Empty;
+                    string descuentoVenta = string.Empty;
 
                     foreach (var producto in enviarVenta)
                     {
@@ -5749,6 +5753,7 @@ namespace PuntoDeVentaV2
                         folio = articulos[7];
                         anticipoRecibido = articulos[8];
                         anticipoUtilizado = articulos[9];
+                        descuentoVenta = articulos[10];
                     }
 
                     string cadenaDatos = string.Empty;
@@ -5816,12 +5821,26 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        html += "</table>";
+                        if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
+                        {
+                            html += $@"
+                                    <tr>
+                                        <td colspan='4' style='text-align: right;'>
+                                            Descuento
+                                        </td>
+                                        <td style='text-align: right;'>
+                                            <span style='color: red'><b>{float.Parse(descuentoVenta).ToString("0.00")}</b></span>
+                                        </td>
+                                    </tr>";
+                        }
+
+                        html += " </table>";
                         html += "<hr>";
                         html += cadenaDatos;
                         html += $"<p style='font-size: 12px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
 
                         asunto = $"Venta Realizada - {infoEmpleado[0]}@{infoEmpleado[1]}";
+                        asuntoAdicional = $"Venta realizada con descuento - {infoEmpleado[0]}@{infoEmpleado[1]}";
                     }
                     else
                     {
@@ -5861,13 +5880,55 @@ namespace PuntoDeVentaV2
                             }   
                         }
 
+                        if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
+                        {
+                            html += $@"
+                                    <tr>
+                                        <td colspan='4' style='text-align: right;'>
+                                            Descuento
+                                        </td>
+                                        <td style='text-align: right;'>
+                                            <span style='color: red'><b>{float.Parse(descuentoVenta).ToString("0.00")}</b></span>
+                                        </td>
+                                    </tr>";
+                        }
+
                         html += "</table>";
                         html += "<hr>";
                         html += cadenaDatos;
                         html += $"<p style='font-size: 12px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
 
                         asunto = $"Venta Realizada - {FormPrincipal.userNickName}";
+                        asuntoAdicional = $"Venta realizada con descuento - {FormPrincipal.userNickName}";
                     }
+
+                    if (correoVenta == 1 && correoDescuento == 1)
+                    {
+                        if (!string.IsNullOrWhiteSpace(html))
+                        {
+                            Utilidades.EnviarEmail(html, asunto, correo);
+   
+                            Utilidades.EnviarEmail(html, asuntoAdicional, correo);
+                        }
+                    }
+
+                    if (correoVenta == 1 && correoDescuento == 0)
+                    {
+                        if (!string.IsNullOrWhiteSpace(html))
+                        {
+                            Utilidades.EnviarEmail(html, asunto, correo);
+                        }
+                    }
+
+                    if (correoVenta == 0 && correoDescuento == 1)
+                    {
+                        if (!string.IsNullOrWhiteSpace(html))
+                        {
+                            Utilidades.EnviarEmail(html, asuntoAdicional, correo);
+                        }
+                    }
+
+                    return;
                 }
 
                 if (!string.IsNullOrWhiteSpace(html))
