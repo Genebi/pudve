@@ -1337,3 +1337,6 @@ ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoIniciarSesion tinyint(1
 
 -- Agregar Columna (Mostrar) a la tabla de AppSettings para mostrar en Ventana Detalle Productos
 ALTER TABLE AppSettings ADD COLUMN IF NOT EXISTS Mostrar tinyint(1) DEFAULT 1;
+
+-- Agregar Columna (CorreoVentaDescuento) a la tabla de Configuracion para enviar correo al hacer venta con descuento
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoVentaDescuento tinyint(1) DEFAULT 0;

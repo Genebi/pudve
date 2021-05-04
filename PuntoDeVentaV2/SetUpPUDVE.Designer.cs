@@ -57,6 +57,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbCorreoIniciar = new System.Windows.Forms.CheckBox();
             this.cbCorreoVenta = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbCorreoCorteCaja = new System.Windows.Forms.CheckBox();
@@ -65,7 +66,7 @@
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cbCorreoIniciar = new System.Windows.Forms.CheckBox();
+            this.cbCorreoDescuento = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -265,7 +266,7 @@
             this.cbCorreoVenderProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoVenderProducto.AutoSize = true;
             this.cbCorreoVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(239, 115);
+            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(239, 113);
             this.cbCorreoVenderProducto.Name = "cbCorreoVenderProducto";
             this.cbCorreoVenderProducto.Size = new System.Drawing.Size(166, 21);
             this.cbCorreoVenderProducto.TabIndex = 114;
@@ -443,6 +444,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox1.Controls.Add(this.cbCorreoDescuento);
             this.groupBox1.Controls.Add(this.cbCorreoIniciar);
             this.groupBox1.Controls.Add(this.cbCorreoVenta);
             this.groupBox1.Controls.Add(this.label4);
@@ -463,6 +465,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envío de Correo:";
             // 
+            // cbCorreoIniciar
+            // 
+            this.cbCorreoIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCorreoIniciar.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoIniciar.Location = new System.Drawing.Point(468, 113);
+            this.cbCorreoIniciar.Name = "cbCorreoIniciar";
+            this.cbCorreoIniciar.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoIniciar.TabIndex = 124;
+            this.cbCorreoIniciar.Text = "Al iniciar sesión";
+            this.cbCorreoIniciar.UseVisualStyleBackColor = true;
+            this.cbCorreoIniciar.CheckedChanged += new System.EventHandler(this.cbCorreoIniciar_CheckedChanged);
+            // 
             // cbCorreoVenta
             // 
             this.cbCorreoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -481,7 +495,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label4.Location = new System.Drawing.Point(250, 136);
+            this.label4.Location = new System.Drawing.Point(231, 136);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(220, 16);
             this.label4.TabIndex = 122;
@@ -573,17 +587,17 @@
             this.groupBox2.TabIndex = 129;
             this.groupBox2.TabStop = false;
             // 
-            // cbCorreoIniciar
+            // cbCorreoDescuento
             // 
-            this.cbCorreoIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoIniciar.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoIniciar.Location = new System.Drawing.Point(468, 115);
-            this.cbCorreoIniciar.Name = "cbCorreoIniciar";
-            this.cbCorreoIniciar.Size = new System.Drawing.Size(381, 21);
-            this.cbCorreoIniciar.TabIndex = 124;
-            this.cbCorreoIniciar.Text = "Al iniciar sesión";
-            this.cbCorreoIniciar.UseVisualStyleBackColor = true;
-            this.cbCorreoIniciar.CheckedChanged += new System.EventHandler(this.cbCorreoIniciar_CheckedChanged);
+            this.cbCorreoDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCorreoDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoDescuento.Location = new System.Drawing.Point(468, 136);
+            this.cbCorreoDescuento.Name = "cbCorreoDescuento";
+            this.cbCorreoDescuento.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoDescuento.TabIndex = 125;
+            this.cbCorreoDescuento.Text = "Al hacer venta con descuento";
+            this.cbCorreoDescuento.UseVisualStyleBackColor = true;
+            this.cbCorreoDescuento.CheckedChanged += new System.EventHandler(this.cbCorreoDescuento_CheckedChanged);
             // 
             // SetUpPUDVE
             // 
@@ -659,5 +673,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox cbCorreoVenta;
         private System.Windows.Forms.CheckBox cbCorreoIniciar;
+        private System.Windows.Forms.CheckBox cbCorreoDescuento;
     }
 }
