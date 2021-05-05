@@ -52,7 +52,7 @@ namespace PuntoDeVentaV2
         public string GuardarProducto(string[] datos, int id)
         {
             string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario, ProdImage, Tipo, Base, IVA, Impuesto, NombreAlterno1, NombreAlterno2, StockNecesario, StockMinimo, PrecioCompra, PrecioMayoreo)";
-                   consulta += $"VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}')";
+            consulta += $"VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}')";
 
             return consulta;
         }
@@ -140,11 +140,71 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string BuscadorDeInventario(string datoBuscado, string primerFecha, string segundaFecha)
+        {
+            var consulta = $"SELECT NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND NameUsr LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
+
+            return consulta;
+        }
+
         public string CargarDatosIniciarFormReportesCaja(string primerFecha, string segundaFecha)
         {
             var consulta = $"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID WHERE CJ.IDUsuario = '{FormPrincipal.userID}' AND CJ.Operacion = 'corte' AND(CJ.FechaOperacion BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY CJ.FechaOperacion DESC";
 
             return consulta;
+        }
+
+        public string consultarUsuarioEmpleado(int id, string usuario)
+        {
+            string result = string.Empty;
+            string parametros = string.Empty;
+            DataTable query = new DataTable();
+
+            if (usuario.Equals("empleado"))
+            {
+                query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE IDUsuario = {FormPrincipal.userID}");
+                parametros = "Nombre";
+            }
+            else if (usuario.Equals("admin"))
+            {
+                query = cn.CargarDatos($"SELECT Usuario FROM Usuarios WHERE ID = {FormPrincipal.userID}");
+                parametros = "Usuario";
+            }
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0][parametros].ToString();
+            }
+
+
+            return result;
+        }
+
+
+        public string buscarNombreCliente(string name)
+        {
+            string result = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE Usuario = '{name}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["Nombre"].ToString();
+            }
+
+            return result;
+        }
+
+
+        public string buscarIDEmpleado(string nombre)
+        {
+            var result = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE Usuario = '{nombre}'");
+
+            if (!query.Rows.Count.Equals(0)) { result = query.Rows[0]["ID"].ToString(); }
+
+            return result;
         }
 
         public string CantidadListarProductosSinConceptoDinamico(int idUser, string ConceptoDinamico, int statusProducto)

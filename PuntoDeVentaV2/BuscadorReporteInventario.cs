@@ -20,6 +20,8 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+        System.Drawing.Image icono = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
+
         public BuscadorReporteInventario()
         {
             InitializeComponent();
@@ -28,6 +30,8 @@ namespace PuntoDeVentaV2
         private void BuscadorReporteInventario_Load(object sender, EventArgs e)
         {
             cargarDatos();
+            primerDatePicker.Value = DateTime.Today.AddDays(-7);
+            segundoDatePicker.Value = DateTime.Now;
         }
 
         private void cargarDatos()
@@ -37,8 +41,6 @@ namespace PuntoDeVentaV2
             var numRevision = string.Empty;
             var nameUser = string.Empty;
             var fecha = string.Empty;
-            System.Drawing.Image icono = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
-
 
             var query = cn.CargarDatos($"SELECT NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY NoRevision ORDER BY Fecha DESC");
 
@@ -50,10 +52,16 @@ namespace PuntoDeVentaV2
                     nameUser = id["NameUsr"].ToString();
                     fecha = id["Fecha"].ToString();
 
+                    if (nameUser.Equals(FormPrincipal.userNickName))
+                    {
+                        nameUser = $"ADMIN ({nameUser})";
+                    }
+
                     DGVInventario.Rows.Add(numRevision, nameUser, fecha, icono);
                 }
             }
         }
+
 
         private void DGVInventario_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -72,7 +80,7 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-
+        #region Generar los reportes sin la clave interna.
         private void GenerarReporteSinCLaveInterna(int num)
         {
             var mostrarClave = FormPrincipal.clave;
@@ -453,7 +461,9 @@ namespace PuntoDeVentaV2
             vr.Show();
 
         }
+        #endregion
 
+        #region Generar los reportes con clave interna. 
         private void GenerarReporte(int num)
         {
             var mostrarClave = FormPrincipal.clave;
@@ -865,6 +875,59 @@ namespace PuntoDeVentaV2
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
             vr.Show();
+        }
+        #endregion
+
+        private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnBuscar.PerformClick();
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            DGVInventario.Rows.Clear();
+
+            var datoBuscar = txtBuscador.Text.ToString().Replace("\r\n", string.Empty);
+            var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
+            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
+
+            var rev = string.Empty; var name = string.Empty; var fecha = string.Empty;
+            var query = cn.CargarDatos(cs.BuscadorDeInventario(datoBuscar, primerFecha, segundaFecha));
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                foreach (DataRow iterar in query.Rows)
+                {
+                    rev = iterar["NoRevision"].ToString();
+                    name = iterar["NameUsr"].ToString();
+                    fecha = iterar["Fecha"].ToString();
+
+                    if (name.Equals(FormPrincipal.userNickName))
+                    {
+                        name = $"ADMIN ({name})";
+                    }
+
+                    DGVInventario.Rows.Add(rev, name, fecha, icono);
+
+                }
+
+                txtBuscador.Text = string.Empty;
+                txtBuscador.Focus();
+            }
+            else
+            {
+                MessageBox.Show($"No se encontraron resultados", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBuscador.Text = string.Empty;
+                txtBuscador.Focus();
+            }
+        }
+
+        private void txtBuscador_TextChanged(object sender, EventArgs e)
+        {
+            txtBuscador.CharacterCasing = CharacterCasing.Upper;
         }
     }
 }
