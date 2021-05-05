@@ -1433,7 +1433,7 @@ namespace PuntoDeVentaV2
                 BuscarTextoListView(settingDatabases);
             };
 
-            conceptosDasactivados.ShowDialog();
+            conceptosDasactivados.Show();
         }
 
         private void llenarDatosProveedor(string textoBuscado)
@@ -2171,15 +2171,13 @@ namespace PuntoDeVentaV2
 
         private void btnDeleteDetalle_Click(object sender, EventArgs e)
         {
-            mensajeMostrar = string.Empty;
             tituloVentana = string.Empty;
             mensajeDefault = string.Empty;
 
-            mensajeMostrar = "Favor de poner el nombre del concepto del prodcuto, para Inhabilitar en el sistema.";
             tituloVentana = "Inhabilitar conceptos";
             mensajeDefault = "Inhabilitar concepto del producto.";
 
-            InputBoxMessageBox inputMessageBox = new InputBoxMessageBox(mensajeMostrar, tituloVentana, mensajeDefault);
+            InputBoxMessageBoxToDelete inputMessageBox = new InputBoxMessageBoxToDelete(tituloVentana, mensajeDefault);
 
             inputMessageBox.FormClosing += delegate
             {
@@ -2302,7 +2300,7 @@ namespace PuntoDeVentaV2
                 }
             };
 
-            inputMessageBox.ShowDialog();
+            inputMessageBox.Show();
 
             //XPos = this.Width / 2;
             //YPos = this.Height / 2;
@@ -2519,7 +2517,7 @@ namespace PuntoDeVentaV2
                 }
             };
 
-            inputMessageBox.ShowDialog();
+            inputMessageBox.Show();
 
             //nvoValor = "false";
             //XPos = this.Width / 2;
@@ -2611,7 +2609,7 @@ namespace PuntoDeVentaV2
         {
             RenombrarDetalle renameDetail = new RenombrarDetalle();
             renameDetail.nombreDetalle += new RenombrarDetalle.pasarOldNameNewName(ejecutar);
-            renameDetail.ShowDialog();
+            renameDetail.Show();
             try
             {
                 int found = -1;

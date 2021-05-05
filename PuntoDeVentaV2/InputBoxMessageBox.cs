@@ -33,7 +33,7 @@ namespace PuntoDeVentaV2
                     auxComparacionAgregar = string.Empty;
 
             textoDefaultResponse = txtDefaultResponse.Text;
-            auxComparacionAgregar = "Escribe aquí el concepto del producto.";
+            auxComparacionAgregar = strDefaultResponse;
 
             if (txtDefaultResponse.Text.Equals(string.Empty))
             {
