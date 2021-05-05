@@ -69,6 +69,9 @@ namespace PuntoDeVentaV2
         public static bool recargarDatos = false;
         public static bool primeraVez = true;
         // Este array es para guardar los productos seleccionados que seran tomados
+
+        //Obtiene los datos de productos para el historialPrecio
+        public static Dictionary<int, float> productosSeleccionadosParaHistorialPrecios = new Dictionary<int, float>();
         // en cuenta para el boton de "Asignar"
         public static Dictionary<int, string> productosSeleccionados;
         // Lista que guarda los ID de los productos para cuando se marca el checkbox seleccionar todos
@@ -226,6 +229,7 @@ namespace PuntoDeVentaV2
 
                     var id = Convert.ToInt32(DGVProductos.SelectedRows[e.ColumnIndex].Cells["_IDProducto"].Value);
                     var tipo = DGVProductos.SelectedRows[e.ColumnIndex].Cells["TipoProducto"].Value.ToString();
+                    var precioActual = (float)Convert.ToDecimal(DGVProductos.SelectedRows[e.ColumnIndex].Cells["Column3"].Value.ToString());
   
 
                     if (!checkboxMarcados.ContainsKey(id))
@@ -236,6 +240,11 @@ namespace PuntoDeVentaV2
                     if (!productosSeleccionados.ContainsKey(id))
                     {
                         productosSeleccionados.Add(id, tipo);
+                    }
+
+                    if (!productosSeleccionadosParaHistorialPrecios.ContainsKey(id))
+                    {
+                        productosSeleccionadosParaHistorialPrecios.Add(id, precioActual);
                     }
                 }
                 else
@@ -250,6 +259,11 @@ namespace PuntoDeVentaV2
                     if (checkboxMarcados.ContainsKey(id))
                     {
                         checkboxMarcados.Remove(id);
+                    }
+
+                    if (productosSeleccionadosParaHistorialPrecios.ContainsKey(id))
+                    {
+                        productosSeleccionadosParaHistorialPrecios.Remove(id);
                     }
 
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;

@@ -22,6 +22,7 @@ namespace PuntoDeVentaV2
 
         Dictionary<int, string> productos;
         Dictionary<string, string> clavesUnidades;
+        Dictionary<int, float> datosHistPrecio;
 
         public AsignarPropiedad(object propiedad)
         {
@@ -30,6 +31,8 @@ namespace PuntoDeVentaV2
             this.propiedad = propiedad.ToString();
 
             productos = Productos.productosSeleccionados;
+
+            datosHistPrecio = Productos.productosSeleccionadosParaHistorialPrecios;
         }
 
         private void AsignarPropiedad_Load(object sender, EventArgs e)
@@ -654,7 +657,28 @@ namespace PuntoDeVentaV2
                     var html = string.Empty;
                     var consulta = "INSERT IGNORE INTO Productos (ID, Precio) VALUES";
                     var valores = string.Empty;
+                    var empleado = "0";
 
+                    if (FormPrincipal.userNickName.Contains('@'))
+                    {
+                        empleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+                    }
+                    
+                    // Guardamos los datos en la tabla historial de precios
+                    foreach (var dato in datosHistPrecio)
+                    {
+                        var idProd = dato.Key;
+                        var precioActual = dato.Value;
+
+                        var info = new string[] {
+                        FormPrincipal.userID.ToString(), empleado, idProd.ToString(),
+                        precioActual.ToString(), txtPrecio.Text,
+                        "AJUSTAR PRODUCTO", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                        };
+
+                        cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
+                    }
+     
                     foreach (var producto in productos)
                     {
                         var datosConfig = mb.ComprobarConfiguracion();

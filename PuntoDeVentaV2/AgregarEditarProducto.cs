@@ -3751,6 +3751,8 @@ namespace PuntoDeVentaV2
                             codigosBarrras.Clear();
                             #endregion Final Codigo de barras extras
 
+                            var empleado = "0";
+
                             // Comprobar precio del producto para saber si se edito
                             var precioTmp = cn.BuscarProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
                             var precioNuevo = float.Parse(precio);
@@ -3765,8 +3767,13 @@ namespace PuntoDeVentaV2
                                 precioAnteriorTmp = precioAnteriorTmp.Replace(",", "");
                                 precioNuevoTmp = precioNuevoTmp.Replace(",", "");
 
+                                if (FormPrincipal.userNickName.Contains('@'))
+                                {
+                                    empleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+                                }
+
                                 var datos = new string[] {
-                                    FormPrincipal.userID.ToString(), "0", idProductoBuscado,
+                                    FormPrincipal.userID.ToString(), empleado, idProductoBuscado,
                                     precioAnteriorTmp, precioNuevoTmp,
                                     "EDITAR PRODUCTO", fechaOperacion
                                 };
