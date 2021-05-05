@@ -673,7 +673,7 @@ namespace PuntoDeVentaV2
                         var info = new string[] {
                         FormPrincipal.userID.ToString(), empleado, idProd.ToString(),
                         precioActual.ToString(), txtPrecio.Text,
-                        "AJUSTAR PRODUCTO", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                        "ASIGNAR PRODUCTO", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                         };
 
                         cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
