@@ -132,7 +132,6 @@
             this.ClientSize = new System.Drawing.Size(450, 224);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "RenombrarDetalle";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

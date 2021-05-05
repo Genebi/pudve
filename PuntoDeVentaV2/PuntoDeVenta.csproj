@@ -625,6 +625,12 @@
     <Compile Include="InputBoxMessageBox.Designer.cs">
       <DependentUpon>InputBoxMessageBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="InputBoxMessageBoxToDelete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputBoxMessageBoxToDelete.Designer.cs">
+      <DependentUpon>InputBoxMessageBoxToDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Inventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1125,6 +1131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InputBoxMessageBox.resx">
       <DependentUpon>InputBoxMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputBoxMessageBoxToDelete.resx">
+      <DependentUpon>InputBoxMessageBoxToDelete.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventario.resx">
       <DependentUpon>Inventario.cs</DependentUpon>
