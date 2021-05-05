@@ -2752,8 +2752,8 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            AgregarEditarProducto.stockNecesario = stockNecesario;
-            AgregarEditarProducto.stockMinimo = stockMinimo;
+            //AgregarEditarProducto.stockNecesario = stockNecesario;
+            //AgregarEditarProducto.stockMinimo = stockMinimo;
 
             saveProdDetail();
             saveGralProdDetail();

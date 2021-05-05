@@ -719,7 +719,7 @@ namespace PuntoDeVentaV2
             namePanel = comboBox.Name.ToString().Remove(0, 2);
             gralDetailGralSelected = Convert.ToString(comboBox.Text);
 
-            if (DatosSourceFinal.Equals(2))
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(2))
             {
                 listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel.Remove(0, 3));
             }
@@ -821,6 +821,7 @@ namespace PuntoDeVentaV2
 
                     detallesGral.Add(auxiliar[0], auxiliar[1]);
                 }
+                Array.Clear(listaDetalleGral, 0, listaDetalleGral.Length);
             }
             else
             {
@@ -3035,10 +3036,48 @@ namespace PuntoDeVentaV2
                                         }
                                         #endregion Final de datos de Impuestos
 
-                                        bool isEmpty = !detalleProductoBasico.Any();
+                                        bool isEmpty = detalleProductoBasico.Any();
+
+                                        if (isEmpty.Equals(false))
+                                        {
+                                            if (!flowLayoutPanel3.Controls.Count.Equals(0))
+                                            {
+                                                string panel = string.Empty;
+                                                foreach(Control contHijo in flowLayoutPanel3.Controls)
+                                                {
+                                                    panel = contHijo.Name;
+                                                    if (contHijo.Name.Equals("panelContenedorchkProveedor"))
+                                                    {
+                                                        foreach(Control contSubHijo in contHijo.Controls)
+                                                        {
+                                                            foreach(Control contItemSubHijo in contSubHijo.Controls)
+                                                            {
+                                                                if(contItemSubHijo is Label)
+                                                                {
+                                                                    if (contItemSubHijo.Name.Equals("lblNombrechkProveedor"))
+                                                                    {
+                                                                        string textoConcepto = string.Empty;
+                                                                        if (!contItemSubHijo.Text.Equals(string.Empty))
+                                                                        {
+                                                                            textoConcepto = contItemSubHijo.Text;
+                                                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto);
+                                                                            detalleProductoBasico.Add(Convert.ToString(idProducto));
+                                                                            detalleProductoBasico.Add(Convert.ToString(FormPrincipal.userID));
+                                                                            detalleProductoBasico.Add(idFound[2].ToString());
+                                                                            detalleProductoBasico.Add(idFound[0].ToString());
+                                                                            isEmpty = true;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
 
                                         #region Inicio Detalles del Producto Basicos (Proveedor)
-                                        if (!isEmpty)
+                                        if (isEmpty.Equals(true))
                                         {
                                             // Para guardar los detalles del producto
                                             // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
@@ -3046,10 +3085,49 @@ namespace PuntoDeVentaV2
                                         }
                                         #endregion Final Detalles del Producto Basicos (Proveedor)
 
-                                        isEmpty = !detalleProductoGeneral.Any();
+                                        isEmpty = detalleProductoGeneral.Any();
+
+                                        if (isEmpty.Equals(false))
+                                        {
+                                            if (!flowLayoutPanel3.Controls.Count.Equals(0))
+                                            {
+                                                string panel = string.Empty;
+                                                foreach (Control contHijo in flowLayoutPanel3.Controls)
+                                                {
+                                                    panel = contHijo.Name;
+                                                    if (!contHijo.Name.Equals("panelContenedorchkProveedor"))
+                                                    {
+                                                        foreach (Control contSubHijo in contHijo.Controls)
+                                                        {
+                                                            foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                                            {
+                                                                if (contItemSubHijo is Label)
+                                                                {
+                                                                    if (!contItemSubHijo.Name.Equals("lblNombrechkProveedor"))
+                                                                    {
+                                                                        string textoConcepto = string.Empty;
+                                                                        if (!contItemSubHijo.Text.Equals(string.Empty))
+                                                                        {
+                                                                            textoConcepto = contItemSubHijo.Text;
+                                                                            string rowDataList = string.Empty;
+                                                                            var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto);
+
+                                                                            rowDataList = Convert.ToString(idProducto) + "|" + Convert.ToString(FormPrincipal.userID) + "|" + idFoundNew[0].ToString() + "|1|panelContenido" + idFoundNew[2].ToString() + "|" + idFoundNew[3].ToString();
+                                                                            detalleProductoGeneral.Add(rowDataList);
+
+                                                                            isEmpty = true;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
 
                                         #region Inicio Detalles del Producto Generales (Dinamicos)
-                                        if (!isEmpty)
+                                        if (isEmpty.Equals(true))
                                         {
                                             guardarDetallesProductoDinamicos(detalleProductoGeneral);
                                         }
@@ -4487,16 +4565,19 @@ namespace PuntoDeVentaV2
         {
             char delimiter = '|';
             string[] words;
-            guardar = detalleProductoGeneral.ToArray();
-            foreach (var item in guardar)
+            foreach (var itemList in detalleProductoGeneral)
             {
-                words = item.Split(delimiter);
-                saveDetailProd[0] = idProducto.ToString();
-                saveDetailProd[1] = words[1].ToString();
-                saveDetailProd[2] = words[2].ToString();
-                saveDetailProd[3] = words[3].ToString();
-                saveDetailProd[4] = words[4].ToString();
-                cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(saveDetailProd));
+                guardar = detalleProductoGeneral.ToArray();
+                foreach (var item in guardar)
+                {
+                    words = item.Split(delimiter);
+                    saveDetailProd[0] = idProducto.ToString();
+                    saveDetailProd[1] = words[1].ToString();
+                    saveDetailProd[2] = words[2].ToString();
+                    saveDetailProd[3] = words[3].ToString();
+                    saveDetailProd[4] = words[4].ToString();
+                    cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(saveDetailProd));
+                }
             }
         }
 
