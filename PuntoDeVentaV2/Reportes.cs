@@ -116,6 +116,11 @@ namespace PuntoDeVentaV2
             Document reporte = new Document(PageSize.A3);
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
 
+            Paragraph Usuario = new Paragraph("");
+
+            string UsuarioActivo = string.Empty;
+            string datoEmpleado = string.Empty;
+
             string logotipo = datos[11];
             //string encabezado = $"\n{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
 
@@ -135,13 +140,29 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                datoEmpleado = cs.buscarNombreCliente(FormPrincipal.userNickName);
+            }
+
+            var getNombreAdmin = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(FormPrincipal.userID.ToString()));
+            var nameAdmin = string.Empty;
+            if (!getNombreAdmin.Rows.Count.Equals(0)) { nameAdmin = getNombreAdmin.Rows[0]["Usuario"].ToString(); }
+
+            Usuario = new Paragraph("");
+
+            Paragraph Empleado = new Paragraph($"Empleado: {datoEmpleado}", fuenteNormal);
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+
+            Usuario = new Paragraph($"USUARIO: ADMIN ({nameAdmin})", fuenteNegrita);
+
             Paragraph subTitulo = new Paragraph("REPORTE HISTORIAL PRECIOS\nFecha: " + fechaActual.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
             //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
+            if (FormPrincipal.userNickName.Contains('@')) { Empleado.Alignment = Element.ALIGN_CENTER; }             
             subTitulo.Alignment = Element.ALIGN_CENTER;
             //domicilio.Alignment = Element.ALIGN_CENTER;
             //domicilio.SetLeading(10, 0);
@@ -149,33 +170,44 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            float[] anchoColumnas = new float[] { 300f, 80f, 80f, 100f, 80f };
+            float[] anchoColumnas = new float[] { 300f, 80f, 80f, 80f, 100f, 90f };
 
-            PdfPTable tabla = new PdfPTable(5);
+            PdfPTable tabla = new PdfPTable(6);
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
             PdfPCell colProducto = new PdfPCell(new Phrase("Producto / Servicio / Combo", fuenteNegrita));
             colProducto.BorderWidth = 1;
+            colProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
             colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colEmpleado = new PdfPCell(new Phrase("Empleado", fuenteNegrita));
+            colEmpleado.BorderWidth = 1;
+            colEmpleado.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colPrecioAnterior = new PdfPCell(new Phrase("Precio Anterior", fuenteNegrita));
             colPrecioAnterior.BorderWidth = 1;
+            colPrecioAnterior.BackgroundColor = new BaseColor(Color.SkyBlue);
             colPrecioAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colPrecioNuevo = new PdfPCell(new Phrase("Precio Nuevo", fuenteNegrita));
             colPrecioNuevo.BorderWidth = 1;
+            colPrecioNuevo.BackgroundColor = new BaseColor(Color.SkyBlue);
             colPrecioNuevo.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colOrigen = new PdfPCell(new Phrase("Origen", fuenteNegrita));
             colOrigen.BorderWidth = 1;
+            colOrigen.BackgroundColor = new BaseColor(Color.SkyBlue);
             colOrigen.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colFechaOperacion = new PdfPCell(new Phrase("Fecha de Operación", fuenteNegrita));
             colFechaOperacion.BorderWidth = 1;
+            colFechaOperacion.BackgroundColor = new BaseColor(Color.SkyBlue);
             colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
             tabla.AddCell(colProducto);
+            tabla.AddCell(colEmpleado);
             tabla.AddCell(colPrecioAnterior);
             tabla.AddCell(colPrecioNuevo);
             tabla.AddCell(colOrigen);
@@ -202,6 +234,23 @@ namespace PuntoDeVentaV2
 
             while (dr.Read())
             {
+                var idAutor = 0;
+                var idDeUsuario = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDUsuario")));
+                var idEmpleado = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDEmpleado")));
+                string emp = string.Empty;
+                if (idEmpleado != 0)
+                {
+                    idAutor = idEmpleado;
+                     emp = "empleado";
+                }
+                else
+                {
+                    idAutor = idDeUsuario;
+                     emp = "admin";
+                }
+
+                var consultaEmp = cs.consultarUsuarioEmpleado(idAutor, emp);
+
                 var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
                 var datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                 var nombreProducto = datosProducto[1];
@@ -216,6 +265,10 @@ namespace PuntoDeVentaV2
                 PdfPCell colProductoTmp = new PdfPCell(new Phrase(nombreProducto, fuenteNormal));
                 colProductoTmp.BorderWidth = 1;
                 colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(consultaEmp, fuenteNormal));
+                colEmpleadoTmp.BorderWidth = 1;
+                colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colPrecioAnteriorTmp = new PdfPCell(new Phrase("$" + precioAnterior.ToString("N2"), fuenteNormal));
                 colPrecioAnteriorTmp.BorderWidth = 1;
@@ -234,6 +287,7 @@ namespace PuntoDeVentaV2
                 colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 tabla.AddCell(colProductoTmp);
+                tabla.AddCell(colEmpleadoTmp);
                 tabla.AddCell(colPrecioAnteriorTmp);
                 tabla.AddCell(colPrecioNuevoTmp);
                 tabla.AddCell(colOrigenTmp);
@@ -245,6 +299,8 @@ namespace PuntoDeVentaV2
              ******************************************/
 
             reporte.Add(titulo);
+            reporte.Add(Usuario);
+            if (FormPrincipal.userNickName.Contains('@')) { reporte.Add(Empleado); }
             reporte.Add(subTitulo);
             //reporte.Add(domicilio);
             reporte.Add(tabla);

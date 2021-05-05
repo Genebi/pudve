@@ -215,6 +215,9 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+
+            var datoUsuario = FormPrincipal.userNickName;
+            var empleado = "0";
             //Tipo de ajuste es cuando se hace desde una de estas dos opciones
             //Cuando se carga desde un XML o registro normal el tipo de ajuste es 0
             //Cuando se hace la moficiacion desde la opcion producto comprado es 1
@@ -248,8 +251,13 @@ namespace PuntoDeVentaV2
                 precioAnteriorTmp = precioAnteriorTmp.Replace(",", "");
                 precioNuevoTmp = precioNuevoTmp.Replace(",", "");
 
+                if (datoUsuario.Contains('@'))
+                {
+                    empleado = cs.buscarIDEmpleado(datoUsuario);
+                }
+
                 var info = new string[] {
-                    FormPrincipal.userID.ToString(), "0", IDProducto.ToString(),
+                    FormPrincipal.userID.ToString(), empleado, IDProducto.ToString(),
                     precioAnteriorTmp, precioNuevoTmp,
                     "AJUSTAR PRODUCTO", fechaOperacion
                 };

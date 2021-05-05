@@ -34,6 +34,10 @@
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mostrar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.txtBuscador = new System.Windows.Forms.TextBox();
+            this.segundoDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.primerDatePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,7 +51,7 @@
             this.usuario,
             this.fecha,
             this.mostrar});
-            this.DGVInventario.Location = new System.Drawing.Point(11, 95);
+            this.DGVInventario.Location = new System.Drawing.Point(12, 119);
             this.DGVInventario.Name = "DGVInventario";
             this.DGVInventario.RowHeadersVisible = false;
             this.DGVInventario.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -102,11 +106,57 @@
             this.mostrar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.mostrar.Width = 59;
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Image = global::PuntoDeVentaV2.Properties.Resources.search;
+            this.btnBuscar.Location = new System.Drawing.Point(967, 81);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(63, 23);
+            this.btnBuscar.TabIndex = 17;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // txtBuscador
+            // 
+            this.txtBuscador.Location = new System.Drawing.Point(12, 81);
+            this.txtBuscador.Multiline = true;
+            this.txtBuscador.Name = "txtBuscador";
+            this.txtBuscador.Size = new System.Drawing.Size(657, 23);
+            this.txtBuscador.TabIndex = 16;
+            this.txtBuscador.TextChanged += new System.EventHandler(this.txtBuscador_TextChanged);
+            this.txtBuscador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscador_KeyDown);
+            // 
+            // segundoDatePicker
+            // 
+            this.segundoDatePicker.CalendarFont = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.segundoDatePicker.CustomFormat = "yyyy-MM-dd";
+            this.segundoDatePicker.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.segundoDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.segundoDatePicker.Location = new System.Drawing.Point(825, 81);
+            this.segundoDatePicker.Name = "segundoDatePicker";
+            this.segundoDatePicker.Size = new System.Drawing.Size(114, 23);
+            this.segundoDatePicker.TabIndex = 15;
+            // 
+            // primerDatePicker
+            // 
+            this.primerDatePicker.CalendarFont = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.primerDatePicker.CustomFormat = "yyyy-MM-dd";
+            this.primerDatePicker.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.primerDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.primerDatePicker.Location = new System.Drawing.Point(696, 81);
+            this.primerDatePicker.Name = "primerDatePicker";
+            this.primerDatePicker.Size = new System.Drawing.Size(114, 23);
+            this.primerDatePicker.TabIndex = 14;
+            // 
             // BuscadorReporteInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1042, 411);
+            this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(this.txtBuscador);
+            this.Controls.Add(this.segundoDatePicker);
+            this.Controls.Add(this.primerDatePicker);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.DGVInventario);
             this.Name = "BuscadorReporteInventario";
@@ -127,5 +177,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.DataGridViewImageColumn mostrar;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.TextBox txtBuscador;
+        private System.Windows.Forms.DateTimePicker segundoDatePicker;
+        private System.Windows.Forms.DateTimePicker primerDatePicker;
     }
 }
