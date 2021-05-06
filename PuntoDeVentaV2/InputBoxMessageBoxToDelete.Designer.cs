@@ -28,91 +28,97 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbConceptos = new System.Windows.Forms.ComboBox();
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.DGVConceptosHabilitados = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Inhabilitar = new System.Windows.Forms.DataGridViewImageColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVConceptosHabilitados)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // label1
             // 
-            this.groupBox1.Controls.Add(this.cbConceptos);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(391, 91);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = " Concepto: ";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.label1.Location = new System.Drawing.Point(151, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(247, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Habilitados del Sistema";
             // 
-            // cbConceptos
+            // DGVConceptosHabilitados
             // 
-            this.cbConceptos.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbConceptos.FormattingEnabled = true;
-            this.cbConceptos.Location = new System.Drawing.Point(16, 33);
-            this.cbConceptos.Name = "cbConceptos";
-            this.cbConceptos.Size = new System.Drawing.Size(358, 28);
-            this.cbConceptos.TabIndex = 0;
+            this.DGVConceptosHabilitados.AllowUserToAddRows = false;
+            this.DGVConceptosHabilitados.AllowUserToDeleteRows = false;
+            this.DGVConceptosHabilitados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVConceptosHabilitados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVConceptosHabilitados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.Concepto,
+            this.Usuario,
+            this.Inhabilitar});
+            this.DGVConceptosHabilitados.Location = new System.Drawing.Point(12, 61);
+            this.DGVConceptosHabilitados.Name = "DGVConceptosHabilitados";
+            this.DGVConceptosHabilitados.ReadOnly = true;
+            this.DGVConceptosHabilitados.RowHeadersVisible = false;
+            this.DGVConceptosHabilitados.Size = new System.Drawing.Size(524, 188);
+            this.DGVConceptosHabilitados.TabIndex = 1;
+            this.DGVConceptosHabilitados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVConceptosHabilitados_CellClick);
+            this.DGVConceptosHabilitados.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVConceptosHabilitados_CellMouseEnter);
             // 
-            // btnAceptar
+            // ID
             // 
-            this.btnAceptar.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAceptar.FlatAppearance.BorderSize = 0;
-            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Image = global::PuntoDeVentaV2.Properties.Resources.check_square_o1;
-            this.btnAceptar.Location = new System.Drawing.Point(74, 109);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(157, 41);
-            this.btnAceptar.TabIndex = 1;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAceptar.UseVisualStyleBackColor = false;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
             // 
-            // btnCancelar
+            // Concepto
             // 
-            this.btnCancelar.BackColor = System.Drawing.Color.DarkRed;
-            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Image = global::PuntoDeVentaV2.Properties.Resources.window_close_o1;
-            this.btnCancelar.Location = new System.Drawing.Point(246, 109);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(157, 41);
-            this.btnCancelar.TabIndex = 2;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.Concepto.HeaderText = "Concepto";
+            this.Concepto.Name = "Concepto";
+            this.Concepto.ReadOnly = true;
+            // 
+            // Usuario
+            // 
+            this.Usuario.HeaderText = "Usuario";
+            this.Usuario.Name = "Usuario";
+            this.Usuario.ReadOnly = true;
+            this.Usuario.Visible = false;
+            // 
+            // Inhabilitar
+            // 
+            this.Inhabilitar.HeaderText = "Inhabilitar";
+            this.Inhabilitar.Name = "Inhabilitar";
+            this.Inhabilitar.ReadOnly = true;
             // 
             // InputBoxMessageBoxToDelete
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(419, 165);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(548, 261);
+            this.Controls.Add(this.DGVConceptosHabilitados);
+            this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.Name = "InputBoxMessageBoxToDelete";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Conceptos Habilitados";
             this.Load += new System.EventHandler(this.InputBoxMessageBoxToDelete_Load);
-            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DGVConceptosHabilitados)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cbConceptos;
-        private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView DGVConceptosHabilitados;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Concepto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Usuario;
+        private System.Windows.Forms.DataGridViewImageColumn Inhabilitar;
     }
 }

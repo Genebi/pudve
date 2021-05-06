@@ -79,6 +79,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("El detalle: para Habilitar no se encuentra en los registros\nExcepción: " + ex.Message.ToString(), "Error al Habilitar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
                 this.Close();
             }
         }

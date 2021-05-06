@@ -2171,133 +2171,13 @@ namespace PuntoDeVentaV2
 
         private void btnDeleteDetalle_Click(object sender, EventArgs e)
         {
-            tituloVentana = string.Empty;
-            mensajeDefault = string.Empty;
-
-            tituloVentana = "Inhabilitar conceptos";
-            mensajeDefault = "Inhabilitar concepto del producto.";
-
-            InputBoxMessageBoxToDelete inputMessageBox = new InputBoxMessageBoxToDelete(tituloVentana, mensajeDefault);
+            InputBoxMessageBoxToDelete inputMessageBox = new InputBoxMessageBoxToDelete();
 
             inputMessageBox.FormClosing += delegate
             {
-                if (!inputMessageBox.retornoNombreConcepto.Equals(string.Empty))
-                {
-                    conceptoProductoEliminar = inputMessageBox.retornoNombreConcepto;
-                    //MessageBox.Show("Concepto: " + conceptoProductoEliminar);
-                    if (conceptoProductoEliminar.Equals("Proveedor"))
-                    {
-                        MessageBox.Show($"No se puede inhabilitar ({conceptoProductoEliminar}) ya que es la configuración basica.\n\nUsted esta Intentando realizar dicha operacion sobre la configuración: del sistema", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        int found = -1;
-                        using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(conceptoProductoEliminar, FormPrincipal.userID)))
-                        {
-                            if (!dtItemDinamicos.Rows.Count.Equals(0))
-                            {
-                                found = 1;
-                            }
-                            else if (dtItemDinamicos.Rows.Count.Equals(0))
-                            {
-                                found = 0;
-                            }
-                        }
-
-                        if (found.Equals(1))
-                        {
-                            string tableSource = string.Empty;
-                            fLPCentralDetalle.Controls.Clear();
-
-                            // Inhabilitar concepto dinamico desde Tabla AppSettings
-                            try
-                            {
-                                tableSource = "appSettings";
-                                var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(conceptoProductoEliminar, FormPrincipal.userID));
-                            }
-                            catch(MySqlException exMySql)
-                            {
-                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nInhabilitar Detalle Producto({conceptoProductoEliminar})...\nExcepción: " + exMySql.Message.ToString(), "Inhabilitar Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            catch(Exception ex)
-                            {
-                                MessageBox.Show($"El detalle: {conceptoProductoEliminar} a inhabilitar no se encuentra en los registros\nExcepción: {ex.Message.ToString()} ({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-                            try
-                            {
-                                tableSource = "FiltroDinamico";
-                                var DeleteDatoFiltroDinamico = cn.EjecutarConsulta(cs.BorrarDatoFiltroDinamico("chk" + deleteDetalle, FormPrincipal.userID));
-                            }
-                            catch (MySqlException exMySql)
-                            {
-                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-                            try
-                            {
-                                tableSource = "FiltrosDinamicosVetanaFiltros";
-                                var DeleteDatoFiltroDinamicoVentanaFiltros = cn.EjecutarConsulta(cs.BorrarDatoVentanaFiltros(deleteDetalle, FormPrincipal.userID));
-                            }
-                            catch (MySqlException exMySql)
-                            {
-                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-                            try
-                            {
-                                tableSource = "DetallesProductoGenerales";
-                                var DeleteDetallesProductoGenerales = cn.EjecutarConsulta(cs.BorrarDetallesProductoGeneralesPorConcepto("panelContenido" + deleteDetalle, finalIdProducto));
-                            }
-                            catch (MySqlException exMySql)
-                            {
-                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-                            try
-                            {
-                                tableSource = "DetalleGeneral";
-                                var DeleteDetalleGeneral = cn.EjecutarConsulta(cs.BorrarDetalleGeneralPorConcepto(deleteDetalle, FormPrincipal.userID));
-                            }
-                            catch (MySqlException exMySql)
-                            {
-                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nBorrar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Borrado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("El detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nExcepción: " + ex.Message.ToString() + $"({tableSource})", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        }
-                        else if (found.Equals(0))
-                        {
-                            fLPCentralDetalle.Controls.Clear();
-                            loadFromConfigDB();
-                            BuscarTextoListView(settingDatabases);
-                            MessageBox.Show($"El Detalle: {conceptoProductoEliminar} a inhabilitar no se encuentra en los registros", "Error al Inhabilitar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    fLPCentralDetalle.Controls.Clear();
-                    loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
-                }
-                else
-                {
-                    fLPCentralDetalle.Controls.Clear();
-                    loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
-                }
+                fLPCentralDetalle.Controls.Clear();
+                loadFromConfigDB();
+                BuscarTextoListView(settingDatabases);
             };
 
             inputMessageBox.Show();
