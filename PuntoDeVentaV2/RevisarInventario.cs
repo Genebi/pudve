@@ -1939,13 +1939,27 @@ namespace PuntoDeVentaV2
                     {
                         if (dtReportesInventario.Rows.Count.Equals(0))
                         {
-                            //var idEmp = buscarEmpleado(FormPrincipal.userNickName);
+                            var idEmp = buscarEmpleado(FormPrincipal.userNickName);
                             var usr = cs.validarEmpleado(FormPrincipal.userNickName);
-                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora) VALUES ('{id}', '{usr}', '{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}')");
+                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado) VALUES ('{id}', '{usr}', '{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}')");
                         }
                     }
                 }
             }
+        }
+
+        private int buscarEmpleado(string name)
+        {
+            int result = 0;
+
+            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Usuairo = '{name}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToInt32(query.Rows[0]["ID"].ToString());
+            }
+
+            return result;
         }
     }
 }

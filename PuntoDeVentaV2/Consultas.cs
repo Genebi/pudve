@@ -101,7 +101,7 @@ namespace PuntoDeVentaV2
 
         public string validarEmpleadoPorID()
         {
-            var result = FormPrincipal.userNickName;
+            var result = FormPrincipal.userID.ToString();
 
             var query = cn.CargarDatos($"SELECT Usuario FROM Usuarios WHERE ID = '{FormPrincipal.userID}'");
 
