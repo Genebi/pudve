@@ -843,6 +843,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="setNombreConceptoDinamico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="setNombreConceptoDinamico.Designer.cs">
+      <DependentUpon>setNombreConceptoDinamico.cs</DependentUpon>
+    </Compile>
     <Compile Include="SetUpPUDVE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1229,6 +1235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SeleccionarConceptosReporteActualizarInventario.resx">
       <DependentUpon>SeleccionarConceptosReporteActualizarInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="setNombreConceptoDinamico.resx">
+      <DependentUpon>setNombreConceptoDinamico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetUpPUDVE.resx">
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>

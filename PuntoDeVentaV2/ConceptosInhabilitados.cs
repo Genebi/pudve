@@ -65,22 +65,25 @@ namespace PuntoDeVentaV2
         {
             if (e.ColumnIndex.Equals(3))
             {
-                var idReg = Convert.ToInt32(DGVConceptosInhabilitados.Rows[e.RowIndex].Cells[0].Value.ToString());
+                if (e.RowIndex >= 0)
+                {
+                    var idReg = Convert.ToInt32(DGVConceptosInhabilitados.Rows[e.RowIndex].Cells[0].Value.ToString());
 
-                try
-                {
-                    cn.EjecutarConsulta(cs.habilitarConceptoDinamico(idReg));
-                }
-                catch(MySqlException exMySql)
-                {
-                    MessageBox.Show($"Ocurrio una irregularidad al intentar\nHabilitar Detalle Producto...\nExcepción: " + exMySql.Message.ToString(), "Habilitado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show("El detalle: para Habilitar no se encuentra en los registros\nExcepción: " + ex.Message.ToString(), "Error al Habilitar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    try
+                    {
+                        cn.EjecutarConsulta(cs.habilitarConceptoDinamico(idReg));
+                    }
+                    catch (MySqlException exMySql)
+                    {
+                        MessageBox.Show($"Ocurrio una irregularidad al intentar\nHabilitar Detalle Producto...\nExcepción: " + exMySql.Message.ToString(), "Habilitado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("El detalle: para Habilitar no se encuentra en los registros\nExcepción: " + ex.Message.ToString(), "Error al Habilitar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
-                this.Close();
+                    this.Close();
+                }
             }
         }
     }
