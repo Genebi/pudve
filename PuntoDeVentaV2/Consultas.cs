@@ -1744,7 +1744,7 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
         public string VerificarContenidoDinamicoInhabilitado(int idUsuario)
         {
-            var consulta = $"SELECT ID, concepto AS Concepto, IDUsuario AS Usuario FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 0;";
+            var consulta = $"SELECT ID, concepto AS Concepto, IDUsuario AS Usuario FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 0 ORDER BY Concepto ASC;";
 
             return consulta;
         }
@@ -1765,7 +1765,7 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
         public string VerificarContenidoDinamicoHabilitado(int idUsuario)
         {
-            var consulta = $"SELECT ID, concepto AS Concepto, IDUsuario AS Usuario FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1 AND concepto != 'Proveedor';";
+            var consulta = $"SELECT ID, concepto AS Concepto, IDUsuario AS Usuario FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1 AND concepto != 'Proveedor' ORDER BY Concepto ASC;";
 
             return consulta;
         }
@@ -1773,6 +1773,13 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
         public string inhabilitarConceptoDinamico(int idRegistro)
         {
             var consulta = $"UPDATE appSettings SET Mostrar = 0 WHERE ID = '{idRegistro}'";
+
+            return consulta;
+        }
+
+        public string BusarContenidoDinamicoHabilitado(int idConcepto)
+        {
+            var consulta = $"SELECT ID, concepto AS Concepto, IDUsuario AS Usuario FROM appSettings WHERE ID = '{idConcepto}' AND IDUsuario = '{FormPrincipal.userID}' AND Mostrar = 1 ORDER BY Concepto ASC;";
 
             return consulta;
         }

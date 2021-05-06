@@ -36,6 +36,16 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            notSortableDataGridView();
+        }
+
+        private void notSortableDataGridView()
+        {
+            foreach (DataGridViewColumn column in DGVConceptosHabilitados.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
         #endregion
 
@@ -65,22 +75,25 @@ namespace PuntoDeVentaV2
         {
             if (e.ColumnIndex.Equals(3))
             {
-                var idReg = Convert.ToInt32(DGVConceptosHabilitados.Rows[e.RowIndex].Cells[0].Value.ToString());
+                if (e.RowIndex >= 0)
+                {
+                    var idReg = Convert.ToInt32(DGVConceptosHabilitados.Rows[e.RowIndex].Cells[0].Value.ToString());
 
-                try
-                {
-                    cn.EjecutarConsulta(cs.inhabilitarConceptoDinamico(idReg));
-                }
-                catch (MySqlException exMySql)
-                {
-                    MessageBox.Show($"Ocurrio una irregularidad al intentar\nInhabilitar Detalle Producto...\nExcepción: " + exMySql.Message.ToString(), "Inhabilitado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("El detalle: para Inhabilitar no se encuentra en los registros\nExcepción: " + ex.Message.ToString(), "Error al Inhabilitar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    try
+                    {
+                        cn.EjecutarConsulta(cs.inhabilitarConceptoDinamico(idReg));
+                    }
+                    catch (MySqlException exMySql)
+                    {
+                        MessageBox.Show($"Ocurrio una irregularidad al intentar\nInhabilitar Detalle Producto...\nExcepción: " + exMySql.Message.ToString(), "Inhabilitado Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("El detalle: para Inhabilitar no se encuentra en los registros\nExcepción: " + ex.Message.ToString(), "Error al Inhabilitar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
-                this.Close();
+                    this.Close();
+                }
             }
         }
     }
