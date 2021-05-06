@@ -2328,8 +2328,8 @@ namespace PuntoDeVentaV2
             mensajeDefault = string.Empty;
 
             mensajeMostrar = "Favor de poner el nombre del nuevo concepto del prodcuto, para darlo de alta al sistema.";
-            tituloVentana = "Agregar concepto del producto";
-            mensajeDefault = "Concepto para agregar al producto.";
+            tituloVentana = "Agregar concepto";
+            mensajeDefault = "Concepto para Agregar al producto.";
 
             InputBoxMessageBox inputMessageBox = new InputBoxMessageBox(mensajeMostrar, tituloVentana, mensajeDefault);
 

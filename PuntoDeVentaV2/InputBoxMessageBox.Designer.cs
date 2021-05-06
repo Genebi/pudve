@@ -44,10 +44,11 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lblPrompt);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(331, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(342, 72);
             this.panel1.TabIndex = 0;
+            this.panel1.Visible = false;
             // 
             // lblPrompt
             // 
@@ -60,12 +61,11 @@
             // 
             // panel2
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.btnCancelar);
             this.panel2.Controls.Add(this.btnAceptar);
-            this.panel2.Location = new System.Drawing.Point(360, 12);
+            this.panel2.Location = new System.Drawing.Point(12, 73);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(351, 72);
+            this.panel2.Size = new System.Drawing.Size(351, 60);
             this.panel2.TabIndex = 1;
             // 
             // btnCancelar
@@ -77,7 +77,7 @@
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
             this.btnCancelar.Image = global::PuntoDeVentaV2.Properties.Resources.window_close_o1;
-            this.btnCancelar.Location = new System.Drawing.Point(180, 15);
+            this.btnCancelar.Location = new System.Drawing.Point(180, 8);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(157, 41);
             this.btnCancelar.TabIndex = 1;
@@ -95,7 +95,7 @@
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
             this.btnAceptar.Image = global::PuntoDeVentaV2.Properties.Resources.check_square_o1;
-            this.btnAceptar.Location = new System.Drawing.Point(8, 15);
+            this.btnAceptar.Location = new System.Drawing.Point(8, 8);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(157, 41);
             this.btnAceptar.TabIndex = 0;
@@ -108,25 +108,24 @@
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.txtDefaultResponse);
-            this.panel3.Location = new System.Drawing.Point(12, 100);
+            this.panel3.Location = new System.Drawing.Point(12, 12);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(699, 76);
+            this.panel3.Size = new System.Drawing.Size(351, 51);
             this.panel3.TabIndex = 2;
             // 
             // txtDefaultResponse
             // 
             this.txtDefaultResponse.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDefaultResponse.Location = new System.Drawing.Point(9, 9);
-            this.txtDefaultResponse.Multiline = true;
+            this.txtDefaultResponse.Location = new System.Drawing.Point(7, 9);
             this.txtDefaultResponse.Name = "txtDefaultResponse";
-            this.txtDefaultResponse.Size = new System.Drawing.Size(675, 55);
+            this.txtDefaultResponse.Size = new System.Drawing.Size(329, 27);
             this.txtDefaultResponse.TabIndex = 0;
             // 
             // InputBoxMessageBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(721, 188);
+            this.ClientSize = new System.Drawing.Size(375, 141);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
