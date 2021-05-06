@@ -545,8 +545,45 @@ namespace PuntoDeVentaV2
             {
 
             }
+
+            actualizarNameReportesEmpleados();
         }
 
+        private void actualizarNameReportesEmpleados()
+        {
+            var nombre = string.Empty;
+            var query = cn.CargarDatos($"SELECT NameUsr FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                foreach (DataRow iterar in query.Rows)
+                {
+                    nombre = iterar["NameUsr"].ToString();
+
+                    if (nombre.Contains('@'))
+                    {
+                        var cambioNombre = cs.validarEmpleado(nombre);
+                        var idEmp = buscarEmpleado(cambioNombre);
+
+                        var cambiarNames = cn.CargarDatos($"UPDATE RevisarInventarioReportes SET NameUsr = '{cambioNombre}', IDEmpleado = '{idEmp}' WHERE IDUsuario = '{FormPrincipal.userID}' AND NameUsr = '{nombre}'");
+                    }
+                }
+            }
+        }
+
+        private int buscarEmpleado(string name)
+        {
+            int result = 0;
+
+            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{name}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToInt32(query.Rows[0]["ID"].ToString());
+            }
+
+            return result;
+        }
 
         private void obtenerDatoClaveInterna(int idUsuario)
         {
