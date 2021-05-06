@@ -1285,6 +1285,7 @@ IF
 
  -- Agregar columna (empleado) a la tabla de Caja para los reportes de caja
  ALTER TABLE Caja ADD COLUMN IF NOT EXISTS IdEmpleado int DEFAULT (0);
+ 
 --
 --
 

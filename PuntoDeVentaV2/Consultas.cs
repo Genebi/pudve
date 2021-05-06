@@ -85,6 +85,34 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string validarEmpleado(string name)
+        {
+            var result = FormPrincipal.userNickName;
+
+            var query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Usuario = '{name}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["Nombre"].ToString();
+            }
+
+            return result;
+        }
+
+        public string validarEmpleadoPorID()
+        {
+            var result = FormPrincipal.userNickName;
+
+            var query = cn.CargarDatos($"SELECT Usuario FROM Usuarios WHERE ID = '{FormPrincipal.userID}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["Usuario"].ToString();
+            }
+
+            return result;
+        }
+
         public string ListarProductosSinProveedor(int idUser, int statusProducto)
         {
             // Script para INNER JOIN de Proveedores

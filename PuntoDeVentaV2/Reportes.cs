@@ -170,7 +170,7 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            float[] anchoColumnas = new float[] { 300f, 80f, 80f, 80f, 100f, 90f };
+            float[] anchoColumnas = new float[] { 300f, 100f, 80f, 80f, 100f, 90f };
 
             PdfPTable tabla = new PdfPTable(6);
             tabla.WidthPercentage = 100;
@@ -250,6 +250,7 @@ namespace PuntoDeVentaV2
                 }
 
                 var consultaEmp = cs.consultarUsuarioEmpleado(idAutor, emp);
+                if (emp.Equals("admin")) { consultaEmp = $"ADMIN ({consultaEmp})"; }
 
                 var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
                 var datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
