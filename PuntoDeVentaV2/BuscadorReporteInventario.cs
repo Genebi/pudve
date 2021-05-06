@@ -52,7 +52,9 @@ namespace PuntoDeVentaV2
                     nameUser = id["NameUsr"].ToString();
                     fecha = id["Fecha"].ToString();
 
-                    if (nameUser.Equals(FormPrincipal.userNickName))
+                    var usr = cs.validarEmpleadoPorID();
+
+                    if (nameUser.Equals(usr))
                     {
                         nameUser = $"ADMIN ({nameUser})";
                     }
@@ -905,13 +907,14 @@ namespace PuntoDeVentaV2
                     name = iterar["NameUsr"].ToString();
                     fecha = iterar["Fecha"].ToString();
 
-                    if (name.Equals(FormPrincipal.userNickName))
+                    var usr = cs.validarEmpleadoPorID();
+
+                    if (name.Equals(usr))
                     {
                         name = $"ADMIN ({name})";
                     }
 
                     DGVInventario.Rows.Add(rev, name, fecha, icono);
-
                 }
 
                 txtBuscador.Text = string.Empty;
