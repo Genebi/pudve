@@ -74,7 +74,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         checarVersion vs = new checarVersion();
         Consultas cs = new Consultas();
-
+        ConnectionHandler cnx = new ConnectionHandler();
         string usuario;
         string password;
 
@@ -172,6 +172,7 @@ namespace PuntoDeVentaV2
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
+            int contadorSesiones = 0;
             var servidor = Properties.Settings.Default.Hosting;
 
             //vs.printProductVersion();
@@ -221,11 +222,11 @@ namespace PuntoDeVentaV2
                 string formato_usuario = "^[A-Z&Ñ&0-9]+@[A-Z&Ñ0-9]+$";
 
                 Regex exp = new Regex(formato_usuario);
-                
+
                 if (exp.IsMatch(usuario)) // Es un empleado
                 {
                     tipo_us = 1;
-                    
+
                     resultado = (bool)cn.EjecutarSelect($"SELECT usuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'");
 
                     // Obtiene solo el nombre de usuario principal 
@@ -233,8 +234,9 @@ namespace PuntoDeVentaV2
                     string[] partir = usuario.Split('@');
 
                     usuario = partir[0];
-                    usuario_empleado = partir[1]; 
+                    usuario_empleado = partir[1];
                     password_empleado = password;
+                    
 
 
                     // Consulta password de la cuenta principal.
@@ -260,15 +262,24 @@ namespace PuntoDeVentaV2
                         if (tipo_us == 0) // Usuario principal
                         {
                             Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'", 1));
+                            cn.EjecutarConsulta(cs.aumentoContadorSesiones(Id));//actualiza el conteo de forma local
+                            cnx.actualizarConteo(usuario);//actualiza el conteo online
+                            cn.EjecutarConsulta(cs.registroSesiones(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                            cnx.registrarInicio(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                         }
                         else // Empleado
                         {
                             usuario = usuario + "@" + usuario_empleado;
                             password = password_empleado;
-
+                            cn.EjecutarConsulta(cs.registroSesiones(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                            cnx.registrarInicio(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                             Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDUsuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 3));
                             // ID del empleado
                             id_emp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 1));
+                            cn.EjecutarConsulta(cs.aumentoContadorSesiones(Id));
+                            string [] newUsuario = usuario.Split('@');
+                            cnx.actualizarConteo(newUsuario[0].ToString());
+                            
                         }
 
                         FormPrincipal fp = new FormPrincipal();

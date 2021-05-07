@@ -991,6 +991,7 @@ IF
 	CONSTRAINT Basculas_IdUsuario FOREIGN KEY ( idUsuario ) REFERENCES usuarios ( ID ) ON DELETE CASCADE ON UPDATE CASCADE 
 	);
 
+
 -- ------------------------------------------
 -- -- Final sección de Tablas del sistema --
 -- ------------------------------------------
@@ -1334,3 +1335,15 @@ SET NombreAlterno2 = REPLACE ( NombreAlterno2, '\n', '' );
 
 -- Agregar Columna (CorreoIniciarSesion) a la tabla de Configuracion para enviar correo al iniciar sesion en el programa
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoIniciarSesion tinyint(1) DEFAULT 0;
+
+--Agregar Columna (ConteoDeIniciosDeSesion) a la tabla usuarios para llevar un registro de cuantas veces se inicia sesion el cliente
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS ConteoInicioDeSesion int DEFAULT 0;
+
+-- Tabla Detalle de Inicios de Sesion
+CREATE TABLE 
+IF 
+	NOT EXISTS iniciosDeSesion (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		Usuario TEXT,
+		Fecha DATETIME 
+	);
