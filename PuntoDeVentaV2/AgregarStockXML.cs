@@ -307,6 +307,8 @@ namespace PuntoDeVentaV2
         static public string tipo_impuesto_delxml = ""; // Guarda el impuestos principal. 
         static public List<string> list_impuestos_traslado_retenido = new List<string>();
         //static public List<string> list_impuestos_traslado_retenido_loc = new List<string>();
+        public string codigo_barras = "";
+
 
 
         /// <summary>
@@ -485,7 +487,7 @@ namespace PuntoDeVentaV2
             {
                 // recorrer el archivo XML
                 //RecorrerXML(); 
-                searchProd();
+                searchProd(1);
                 if (resultadoSearchProd == 1)
                 {
                     RecorrerXML();
@@ -882,10 +884,38 @@ namespace PuntoDeVentaV2
         /// <summary>
         /// 
         /// </summary>
-        public void searchProd()
+        public void searchProd(int tipo= 0)
         {
+            // Miri.
+            // Variable "tipo" creada. Si tipo= 1, entonces la busqueda por clave y código cambiarán su valor por el que se guardo al momento de crear el producto.   
+            // Con esto se resuelve el problema de que en la consulta no encuentre nada aunque el producto si halla sido registrado, y con esto se podrá avanzar al siguiente producto del XML.
+            string busca_claveinterna = ClaveInterna;
+
+            if (tipo == 1)
+            {
+                if (AgregarEditarProducto.tmp_clave_interna != "")
+                {
+                    busca_claveinterna = AgregarEditarProducto.tmp_clave_interna;
+                }
+                if (AgregarEditarProducto.tmp_codigo_barras != "")
+                {
+                    busca_claveinterna = AgregarEditarProducto.tmp_codigo_barras;
+                }
+                if (AgregarEditarProducto.tmp_clave_interna == "" & AgregarEditarProducto.tmp_codigo_barras == "")
+                {
+                    busca_claveinterna = "0";
+                }
+                if (AgregarEditarProducto.tmp_clave_interna != "" & AgregarEditarProducto.tmp_codigo_barras != "")
+                {
+                    busca_claveinterna = AgregarEditarProducto.tmp_codigo_barras;
+                }
+
+                AgregarEditarProducto.tmp_codigo_barras = "";
+                AgregarEditarProducto.tmp_clave_interna = "";
+            }
+
             // preparamos el Query
-            string search = $@"SELECT prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna, prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status, codbarext.CodigoBarraExtra,codbarext.IDProducto FROM Productos prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE prod.IDUsuario = '{userId}' AND prod.Status = 1 AND (prod.CodigoBarras = '{ClaveInterna}' OR prod.ClaveInterna = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}')";
+            string search = $@"SELECT prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna, prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status, codbarext.CodigoBarraExtra,codbarext.IDProducto FROM Productos prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE prod.IDUsuario = '{userId}' AND prod.Status = 1 AND (prod.CodigoBarras = '{busca_claveinterna}' OR prod.ClaveInterna = '{busca_claveinterna}' OR codbarext.CodigoBarraExtra = '{busca_claveinterna}')";
             dtProductos = cn.CargarDatos(search); // alamcenamos el resultado de la busqueda en dtProductos
             if (dtProductos.Rows.Count >= 1) // si el resultado arroja al menos una fila
             {
@@ -1206,6 +1236,7 @@ namespace PuntoDeVentaV2
                 else if (ds.Conceptos[index].NoIdentificacion != "")
                 {
                     ClaveInterna = ds.Conceptos[index].NoIdentificacion;
+                    codigo_barras = ds.Conceptos[index].NoIdentificacion;
                 }
             }
             else if (index >= 1)
@@ -1217,6 +1248,7 @@ namespace PuntoDeVentaV2
                 else if (ds.Conceptos[index - 1].NoIdentificacion != "")
                 {
                     ClaveInterna = ds.Conceptos[index - 1].NoIdentificacion;
+                    codigo_barras = ds.Conceptos[index - 1].NoIdentificacion;
                 }
             }
             lblNoIdentificacionXML.Text = ClaveInterna;
