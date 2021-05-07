@@ -74,7 +74,7 @@
             this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelar.FlatAppearance.BorderSize = 0;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
             this.btnCancelar.Image = global::PuntoDeVentaV2.Properties.Resources.window_close_o1;
             this.btnCancelar.Location = new System.Drawing.Point(9, 7);
@@ -92,7 +92,7 @@
             this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAceptar.FlatAppearance.BorderSize = 0;
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
             this.btnAceptar.Image = global::PuntoDeVentaV2.Properties.Resources.check_square_o1;
             this.btnAceptar.Location = new System.Drawing.Point(181, 7);
@@ -115,10 +115,10 @@
             // 
             // txtDefaultResponse
             // 
-            this.txtDefaultResponse.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDefaultResponse.Location = new System.Drawing.Point(7, 9);
+            this.txtDefaultResponse.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDefaultResponse.Location = new System.Drawing.Point(7, 11);
             this.txtDefaultResponse.Name = "txtDefaultResponse";
-            this.txtDefaultResponse.Size = new System.Drawing.Size(329, 27);
+            this.txtDefaultResponse.Size = new System.Drawing.Size(329, 26);
             this.txtDefaultResponse.TabIndex = 0;
             // 
             // InputBoxMessageBox
