@@ -275,6 +275,9 @@ namespace PuntoDeVentaV2
 
         private float porcentajeGanancia = 1.60f;
 
+        public static string tmp_clave_interna = "";   // Almacenará la clave que se guarde en el producto. El valor será usado en AgregarStockXML una vez la ventana sea cerrada. Miri.  
+        public static string tmp_codigo_barras = "";   // Almacenará el código que se guarde en el producto. El valor será usado en AgregarStockXML una vez la ventana sea cerrada. Miri. 
+
         #region Iniciar Varaibles Globales
         List<string> datosProductosBtnGuardar,
                      datosProductoRelacionado;
@@ -1931,11 +1934,13 @@ namespace PuntoDeVentaV2
                 // sea guardado con una clave 0, o de lo contrario dara problemas en sección "Datos producto" de agregarstockxml.
 
                 txtNombreProducto.Text = ProdNombre;
-                txtCodigoBarras.Text = ProdCodBarrasFinal.Trim();
+                txtCodigoBarras.Text = "";
+                //txtCodigoBarras.Text = ProdCodBarrasFinal.Trim();
 
-                if (ProdCodBarrasFinal.Trim() == "" | ProdCodBarrasFinal.Trim() == "0")
+                if (ProdCodBarrasFinal.Trim() != "" & ProdCodBarrasFinal.Trim() != "0" & ProdCodBarrasFinal.Trim() != null)
                 {
-                    txtCodigoBarras.Text = "";
+                    //txtCodigoBarras.Text = "";
+                    txtCodigoBarras.Text = ProdCodBarrasFinal.Trim();
                 }
 
                 panelContenedor.Controls.Clear();
@@ -2965,6 +2970,9 @@ namespace PuntoDeVentaV2
                                         ivaProducto = (Convert.ToDouble(baseProducto) * 0.16).ToString("0.00");
                                     }
                                 }
+                                
+                                tmp_clave_interna = claveIn;
+                                tmp_codigo_barras = codigoB;
 
 
                                 guardar = new string[] {
@@ -3295,7 +3303,7 @@ namespace PuntoDeVentaV2
                     }
                     #endregion Final de Sección de Productos
                     #region Inicio de Sección de Combos y Servicios
-                    else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS")
+                    else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS" | this.Text.Trim() == "AGREGAR COMBO")
                     {
                         bool bValidNombreProducto = ValidateNombreProducto();
                         bool bValidPrecioProducto = ValidatePrecioProducto();
@@ -3326,6 +3334,37 @@ namespace PuntoDeVentaV2
                                 #endregion Final Saber si es Servicio ó Combo
 
                                 stock = "0";
+
+                                // Miri.
+                                // Si el producto es guardado sin abrir la ventana de datos de facturación
+                                // y el producto ha agregar trae impuestos, entonces verificará el tipo de impuesto princial 
+                                // para re-calcular: base, tipo de impuesto e importe del impuesto.
+                                if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.tipo_impuesto_delxml != "")
+                                {
+                                    impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
+                                    baseProducto = precio;
+                                    ivaProducto = "0.00";
+
+                                    if (AgregarStockXML.tipo_impuesto_delxml != "Exento")
+                                    {
+                                        impuestoProducto += "%";
+                                    }
+
+                                    if (AgregarStockXML.tipo_impuesto_delxml == "8")
+                                    {
+                                        baseProducto = (Convert.ToDouble(precio) / 1.08).ToString("0.00");
+                                        ivaProducto = (Convert.ToDouble(baseProducto) * 0.08).ToString("0.00");
+                                    }
+                                    if (AgregarStockXML.tipo_impuesto_delxml == "16")
+                                    {
+                                        baseProducto = (Convert.ToDouble(precio) / 1.16).ToString("0.00");
+                                        ivaProducto = (Convert.ToDouble(baseProducto) * 0.16).ToString("0.00");
+                                    }
+                                }
+                                // Uso en declaración.
+                                tmp_clave_interna = claveIn;
+                                tmp_codigo_barras = codigoB;
+
 
                                 guardar = new string[] {
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
@@ -3638,6 +3677,11 @@ namespace PuntoDeVentaV2
                                             }
                                             datosImpuestos = null;
                                         }
+                                        if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.list_impuestos_traslado_retenido.Count() > 0)
+                                        {
+                                            guardar_impuestos_dexml(Convert.ToDouble(baseProducto), idProducto);
+                                        }
+
                                         #endregion Final Sección proceso para guardar los detalles de facturación del producto
 
                                         #region Inicio Sección proceso para guardar el descuento del producto en caso de que se haya agregado uno

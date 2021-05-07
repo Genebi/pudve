@@ -1696,7 +1696,7 @@ namespace PuntoDeVentaV2
             btnModificarEstado.Image = deshabilitarIcon;
 
             // Solo para dos cuentas
-            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA3")
+            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6")
             {
                 btnAgregarXML.Visible = true;
             }
