@@ -40,10 +40,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(151, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(247, 25);
+            this.label1.Size = new System.Drawing.Size(260, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Habilitados del Sistema";
             // 
