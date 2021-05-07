@@ -991,6 +991,7 @@ IF
 	CONSTRAINT Basculas_IdUsuario FOREIGN KEY ( idUsuario ) REFERENCES usuarios ( ID ) ON DELETE CASCADE ON UPDATE CASCADE 
 	);
 
+
 -- ------------------------------------------
 -- -- Final sección de Tablas del sistema --
 -- ------------------------------------------
@@ -1344,3 +1345,15 @@ ALTER TABLE AppSettings ADD COLUMN IF NOT EXISTS Mostrar tinyint(1) DEFAULT 1;
 
 -- Agregar Columna (CorreoVentaDescuento) a la tabla de Configuracion para enviar correo al hacer venta con descuento
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoVentaDescuento tinyint(1) DEFAULT 0;
+
+--Agregar Columna (ConteoDeIniciosDeSesion) a la tabla usuarios para llevar un registro de cuantas veces se inicia sesion el cliente
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS ConteoInicioDeSesion int DEFAULT 0;
+
+-- Tabla Detalle de Inicios de Sesion
+CREATE TABLE 
+IF 
+	NOT EXISTS iniciosDeSesion (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		Usuario TEXT,
+		Fecha DATETIME 
+	);

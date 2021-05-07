@@ -666,6 +666,52 @@ namespace PuntoDeVentaV2
             saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
         }
 
+        public void actualizarConteo(string usr)
+        {
+            string connectionString = string.Empty;
+            connectionString = "SERVER=" + _server + ";" + "DATABASE=" + _database + ";" + "UID=" + _username + ";" + "PASSWORD=" + _password + ";";
+
+            //Actualizar IdUsuario en tabla Usuarios en MySQL
+            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    userNickName = FormPrincipal.userNickName;
+                    MySqlCommand upDateUsr = conexion.CreateCommand();
+                    conexion.Open();
+                    upDateUsr.CommandText = $"UPDATE usuarios SET ConteoInicioDeSesion = ConteoInicioDeSesion +1 WHERE usuario = '{usr}'";
+                    int actualizarUsr = upDateUsr.ExecuteNonQuery();
+                    conexion.Close();
+                }
+                catch (Exception)
+                {
+                    //MessageBox.Show("Error al Tratar de Actualizar Usuarios; Causa: " + ex.Message.ToString(), "Error de Update Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        public void registrarInicio(string usr, string fecha)
+        {
+            string connectionString = string.Empty;
+            connectionString = "SERVER=" + _server + ";" + "DATABASE=" + _database + ";" + "UID=" + _username + ";" + "PASSWORD=" + _password + ";";
+
+            //Actualizar IdUsuario en tabla Usuarios en MySQL
+            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    userNickName = FormPrincipal.userNickName;
+                    MySqlCommand upDateUsr = conexion.CreateCommand();
+                    conexion.Open();
+                    upDateUsr.CommandText = $"INSERT INTO iniciosdesesion (Usuario, Fecha) VALUES ('{usr}', '{fecha}')"; 
+                    int actualizarUsr = upDateUsr.ExecuteNonQuery();
+                    conexion.Close();
+                }
+                catch (Exception)
+                {
+                    //MessageBox.Show("Error al Tratar de Actualizar Usuarios; Causa: " + ex.Message.ToString(), "Error de Update Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 
 }

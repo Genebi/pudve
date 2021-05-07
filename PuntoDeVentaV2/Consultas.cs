@@ -1783,5 +1783,23 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
             return consulta;
         }
+
+        public string aumentoContadorSesiones(int id)
+        {
+            var consulta = $"UPDATE usuarios SET ConteoInicioDeSesion = ConteoInicioDeSesion +1 WHERE ID = '{id}'"; 
+            return consulta;
+        }
+
+        public string registroSesiones(string nombre, string fecha)
+        {
+            var consulta = $"INSERT INTO iniciosDeSesion (Usuario, Fecha) VALUES ('{nombre}', '{fecha}')";
+            return consulta;
+        }
+
+        public string consultaInicios(string nombre)
+        {
+            var consulta = $"SELECT * FROM `iniciosdesesion` WHERE Usuario LIKE '%'{nombre}'%'";
+            return consulta;
+        }
     }
 }
