@@ -77,7 +77,7 @@
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
             this.btnCancelar.Image = global::PuntoDeVentaV2.Properties.Resources.window_close_o1;
-            this.btnCancelar.Location = new System.Drawing.Point(180, 8);
+            this.btnCancelar.Location = new System.Drawing.Point(9, 7);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(157, 41);
             this.btnCancelar.TabIndex = 1;
@@ -95,7 +95,7 @@
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
             this.btnAceptar.Image = global::PuntoDeVentaV2.Properties.Resources.check_square_o1;
-            this.btnAceptar.Location = new System.Drawing.Point(8, 8);
+            this.btnAceptar.Location = new System.Drawing.Point(181, 7);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(157, 41);
             this.btnAceptar.TabIndex = 0;
