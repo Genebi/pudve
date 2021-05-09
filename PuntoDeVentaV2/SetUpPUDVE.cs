@@ -221,6 +221,8 @@ namespace PuntoDeVentaV2
                 cbCorreoVenta.Checked = Convert.ToBoolean(datosConfig[21]);
 
                 cbCorreoIniciar.Checked = Convert.ToBoolean(datosConfig[22]);
+
+                cbCorreoDescuento.Checked = Convert.ToBoolean(datosConfig[23]);
             }
             else
             {
