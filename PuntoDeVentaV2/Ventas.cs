@@ -2745,6 +2745,8 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            idCliente = string.Empty;
         }
 
         private void DatosVenta()
@@ -3177,6 +3179,7 @@ namespace PuntoDeVentaV2
             descuentoCliente = 0;
             txtDescuentoGeneral.Text = "% descuento";
             productosDescuentoG.Clear();
+            productosDescuentoG.Clear();
             descuentosDirectos.Clear();
 
             idCliente = string.Empty;
@@ -3244,6 +3247,7 @@ namespace PuntoDeVentaV2
                         ventaGuardada = false;
                         DetalleVenta.idCliente = 0;
                         DetalleVenta.cliente = string.Empty;
+                        DetalleVenta.nameClienteNameVenta = string.Empty;
                     }
                 };
 
