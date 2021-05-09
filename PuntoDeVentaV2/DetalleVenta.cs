@@ -222,6 +222,7 @@ namespace PuntoDeVentaV2
                 if (credito > 0)
                 {
                     Ventas.statusVenta = "4";
+                    Ventas.formaDePagoDeVenta = "Crédito";
                 }
                 else
                 {
