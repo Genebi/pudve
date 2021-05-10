@@ -1109,7 +1109,7 @@ IF
 	NOT EXISTS Num_Version_App ON AppVersionRecord ( AppVersion, AppMajorVersion, AppMinorVersion, AppBuildNumber, AppRevision );
 
 -- Agregari indice para no duplicar consulta de la tabla catalogo_monedas
---ALTER IGNORE TABLE catalogo_monedas ADD UNIQUE INDEX (clave_moneda, descripcion, cant_decimales);
+ALTER IGNORE TABLE catalogo_monedas ADD UNIQUE INDEX IF NOT EXISTS (clave_moneda, descripcion, cant_decimales);
 
 -- -------------------------------------
 -- Creación de Claves Foraneas de tablas
