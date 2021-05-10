@@ -361,8 +361,9 @@ namespace PuntoDeVentaV2
                 FormAgregar.ProdStock = ds.Conceptos[index - 1].Cantidad;                       // pasamos la cantidad del XML
                 FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                      // pasamos el precio recomendado
                 FormAgregar.txtPrecioCompra.Text = precioOriginalConIVA.ToString("N2");         // pasamos el precio origianl del XML
-                FormAgregar.ProdClaveInterna = ds.Conceptos[index - 1].NoIdentificacion;        // pasamos la claveInterna del XML
-                
+                //FormAgregar.ProdClaveInterna = ds.Conceptos[index - 1].NoIdentificacion;        // pasamos la claveInterna del XML
+                FormAgregar.ProdCodBarras = ds.Conceptos[index - 1].NoIdentificacion;
+
                 FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveProdServ;           // pasamos la Clave del Producto XML
                 FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].ClaveUnidad;         // pasamos la Clave de Unidad XML
                 FormAgregar.fechaProdXML = ds.Fecha;                                            // pasamos la fecha XML
