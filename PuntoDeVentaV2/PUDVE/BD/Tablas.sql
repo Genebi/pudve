@@ -1289,6 +1289,9 @@ IF
  -- Agregar Columna (IDEmpleado) a la tabla de RevisarInventarioReportes
  ALTER TABLE revisarInventarioReportes ADD COLUMN IF NOT EXISTS IDEmpleado INTEGER(11) DEFAULT (0);
 
+ -- Agregar Columna (NumInventario) a la tabla de RevisarInventarioReportes
+ ALTER TABLE revisarinventarioreportes ADD COLUMN IF NOT EXISTS NumFolio INTEGER(11) DEFAULT(0);
+
 --
 --
 

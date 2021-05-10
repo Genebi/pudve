@@ -1409,8 +1409,6 @@ namespace PuntoDeVentaV2
 
         private void btnTerminar_Click(object sender, EventArgs e)
         {
-            agregarDatosTabla();
-
             string terminar = "¿Desea terminar la revisión?";
             string mensajeMostrar = string.Empty;
 
@@ -1427,6 +1425,8 @@ namespace PuntoDeVentaV2
 
             if (deseaTernimar == DialogResult.Yes)
             {
+                agregarDatosTabla();
+
                 terminarRev = 1;
                 validarSiguienteTerminar = true;
 
@@ -1911,6 +1911,8 @@ namespace PuntoDeVentaV2
 
             var query = cn.CargarDatos($"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{lblNoRevision.Text}' AND IDComputadora = '{nombrePC}'");
 
+            var ultimoFolio = numFolio();
+
             if (!query.Rows.Count.Equals(0))
             {
                 foreach (DataRow iterador in query.Rows)
@@ -1941,7 +1943,7 @@ namespace PuntoDeVentaV2
                         {
                             var idEmp = buscarEmpleado(FormPrincipal.userNickName);
                             var usr = cs.validarEmpleado(FormPrincipal.userNickName);
-                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado) VALUES ('{id}', '{usr}', '{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}')");
+                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado, NumFolio) VALUES ('{id}', '{usr}', '{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}', '{ultimoFolio}')");
                         }
                     }
                 }
@@ -1952,11 +1954,26 @@ namespace PuntoDeVentaV2
         {
             int result = 0;
 
-            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Usuairo = '{name}'");
+            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Usuario = '{name}'");
 
             if (!query.Rows.Count.Equals(0))
             {
                 result = Convert.ToInt32(query.Rows[0]["ID"].ToString());
+            }
+
+            return result;
+        }
+
+        private string numFolio()
+        {
+            var result = "1";
+            var query = cn.CargarDatos($"SELECT * FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND NumFolio != 0 ORDER BY Fecha DESC LIMIT 1");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["NumFolio"].ToString();
+
+                result = (Convert.ToInt32(result) + 1).ToString();
             }
 
             return result;
