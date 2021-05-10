@@ -113,7 +113,7 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-
+        
         private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -144,12 +144,12 @@ namespace PuntoDeVentaV2
             else if (e.ColumnIndex.Equals(4))//Dinero Agregado
             {
                 var dato = obtenerDatosReporte(id, "deposito");
-                GenerarReporteAgregarRetirar("DINERO AGREGADO", dato);
+                GenerarReporteAgregarRetirar("DINERO AGREGADO", dato, id);
             }
             else if (e.ColumnIndex.Equals(5))//Dinero Retirado
             {
                 var dato = obtenerDatosReporte(id, "retiro");
-                GenerarReporteAgregarRetirar("DINERO RETIRADO", dato);
+                GenerarReporteAgregarRetirar("DINERO RETIRADO", dato, id);
             }
         }
 
@@ -377,6 +377,7 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        #region Generar reporte de corte de caja
         private void GenerarReporte(string[] datosCaja, string reportType, int id)
         {
             var mostrarClave = FormPrincipal.clave;
@@ -422,6 +423,8 @@ namespace PuntoDeVentaV2
 
             Paragraph Empleado = new Paragraph("");
 
+            Paragraph NumeroFolio = new Paragraph("");
+
             //string UsuarioActivo = string.Empty;
 
             string tipoReporte = string.Empty,
@@ -454,17 +457,22 @@ namespace PuntoDeVentaV2
 
             var UsuarioActivo = obtenerAutorCorte(id);
 
+            var numFolio = obtenerFolio(id);
+
             Usuario = new Paragraph($"USUARIO: ADMIN ({FormPrincipal.userNickName})", fuenteNegrita);
             if (!string.IsNullOrEmpty(UsuarioActivo))
             {
                 Empleado = new Paragraph($"EMPLEADO: {UsuarioActivo}", fuenteNegrita);
             }
 
+            NumeroFolio = new Paragraph("No. Folio: " + numFolio, fuenteNormal);
+
             Paragraph subTitulo = new Paragraph($"REPORTE DE CAJA\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
             if (!string.IsNullOrEmpty(UsuarioActivo)){ Empleado.Alignment = Element.ALIGN_CENTER; }
+            NumeroFolio.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
 
@@ -680,6 +688,7 @@ namespace PuntoDeVentaV2
             reporte.Add(titulo);
             reporte.Add(Usuario);
             if (!string.IsNullOrEmpty(UsuarioActivo)) { reporte.Add(Empleado); }
+            reporte.Add(NumeroFolio);
             reporte.Add(subTitulo);
             reporte.Add(tablaInventario);
 
@@ -695,6 +704,7 @@ namespace PuntoDeVentaV2
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
             vr.Show();
         }
+        #endregion
 
         private string obtenerAutorCorte(int idCorte)
         {
@@ -758,8 +768,8 @@ namespace PuntoDeVentaV2
             return query;
         }
 
-
-        private void GenerarReporteAgregarRetirar(string tipoReporte, DataTable datoCantidad)
+        #region Generar reporte de agregar y retirar dinero
+        private void GenerarReporteAgregarRetirar(string tipoReporte, DataTable datoCantidad, int id)
         {
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
@@ -789,18 +799,25 @@ namespace PuntoDeVentaV2
                 rutaArchivo = @"C:\Archivos PUDVE\Reportes\caja.pdf";
             }
 
+            var numFOlio = obtenerFolio(id);
+
             Document reporte = new Document(PageSize.A3);
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
 
             reporte.Open();
 
             Paragraph titulo = new Paragraph(FormPrincipal.userNickName, fuenteGrande);
+
+            Paragraph NumeroFolio = new Paragraph("No. Folio: " + numFOlio, fuenteGrande);
+
             Paragraph subTitulo = new Paragraph($"{tipoReporte}\nFecha:   {dateReporte.ToString("dddd, dd MMMM yyyy HH:mm:ss")}  \n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
+            NumeroFolio.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
             reporte.Add(titulo);
+            reporte.Add(NumeroFolio);
             reporte.Add(subTitulo);
 
             //=====================================
@@ -1002,6 +1019,19 @@ namespace PuntoDeVentaV2
                 VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
                 vr.ShowDialog();
         }
+        #endregion
 
+        private string obtenerFolio(int idDato)
+        {
+            var result = string.Empty;
+            var query = cn.CargarDatos($"SELECT NumFolio FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND  ID = '{idDato}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["NumFolio"].ToString();
+            }
+
+            return result;
+        }
     }
 }

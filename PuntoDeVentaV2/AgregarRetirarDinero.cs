@@ -214,6 +214,8 @@ namespace PuntoDeVentaV2
                 tipoOperacion = "corte";
             }
 
+            var numFolio = obtenerNumFolio(tipoOperacion);
+
             var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
 
             if (concepto.Equals("Seleccionar concepto..."))
@@ -268,6 +270,8 @@ namespace PuntoDeVentaV2
 
             string[] datos;
 
+
+
             if (operacion.Equals(2))
             {
                 
@@ -297,7 +301,7 @@ namespace PuntoDeVentaV2
                 datos = new string[] {
                         "corte", cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                         efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
-                        trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString()
+                        trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio
                     };
                 CajaN.botones = true;
             }
@@ -306,7 +310,7 @@ namespace PuntoDeVentaV2
                 datos = new string[] {
                 tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                 efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
-                trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), nombreEmpleado, usuarioEmpleado
+                trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, nombreEmpleado, usuarioEmpleado
             };
             }
 
@@ -609,6 +613,21 @@ namespace PuntoDeVentaV2
             vt.ShowDialog();
         }
 
+        private string obtenerNumFolio(string tipoOperacion)
+        {
+            var result = "1";
+
+            var query = cn.CargarDatos($"SELECT NumFolio FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = '{tipoOperacion}' ORDER BY FechaOperacion DESC LIMIT 1");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["NumFolio"].ToString();
+
+                result = (Convert.ToInt32(result) + 1).ToString();
+            }
+
+            return result;
+        }
         private float ValidarCampos(string cantidad)
         {
             float valor = 0f;
