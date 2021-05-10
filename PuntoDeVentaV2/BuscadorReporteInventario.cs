@@ -87,6 +87,8 @@ namespace PuntoDeVentaV2
         {
             var mostrarClave = FormPrincipal.clave;
 
+            var numFolio = obtenerFolio(num);
+
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
 
@@ -125,6 +127,8 @@ namespace PuntoDeVentaV2
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
 
             Paragraph Usuario = new Paragraph("");
+
+            Paragraph numeroFolio = new Paragraph("");
 
             string UsuarioActivo = string.Empty;
 
@@ -181,11 +185,14 @@ namespace PuntoDeVentaV2
 
             Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
 
-            Paragraph subTitulo = new Paragraph("REPORTE INVENTARIO\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            numeroFolio = new Paragraph("No. FOLIO: " + numFolio, fuenteNormal);
 
+            Paragraph subTitulo = new Paragraph("REPORTE INVENTARIO\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
+            numeroFolio.Alignment = Element.ALIGN_CENTER;
 
 
             float[] anchoColumnas = new float[] { 30f, 270f, 80f, 80f, 80f, 90f, 70f, 70f, 80f, 100f };
@@ -447,6 +454,7 @@ namespace PuntoDeVentaV2
 
             reporte.Add(titulo);
             reporte.Add(Usuario);
+            reporte.Add(numeroFolio);
             reporte.Add(subTitulo);
             reporte.Add(tablaInventario);
 
@@ -469,6 +477,7 @@ namespace PuntoDeVentaV2
         private void GenerarReporte(int num)
         {
             var mostrarClave = FormPrincipal.clave;
+            var numFolio = obtenerFolio(num);
 
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
@@ -508,6 +517,8 @@ namespace PuntoDeVentaV2
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
 
             Paragraph Usuario = new Paragraph("");
+
+            Paragraph numeroFolio = new Paragraph("");
 
             string UsuarioActivo = string.Empty;
 
@@ -566,9 +577,12 @@ namespace PuntoDeVentaV2
 
             Paragraph subTitulo = new Paragraph("REPORTE DE REVISAR INVENTARIO\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
+            numeroFolio = new Paragraph("No. FOLIO: " + numFolio, fuenteNormal);
+
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
+            numeroFolio.Alignment = Element.ALIGN_CENTER;
 
 
             float[] anchoColumnas = new float[] { 30f, 270f, 80f, 80f, 80f, 80f, 90f, 70f, 70f, 80f, 100f };
@@ -863,6 +877,7 @@ namespace PuntoDeVentaV2
 
             reporte.Add(titulo);
             reporte.Add(Usuario);
+            reporte.Add(numeroFolio);
             reporte.Add(subTitulo);
             reporte.Add(tablaInventario);
 
@@ -886,6 +901,19 @@ namespace PuntoDeVentaV2
             {
                 btnBuscar.PerformClick();
             }
+        }
+
+        private string obtenerFolio(int num)
+        {
+            var result = string.Empty;
+            var query = cn.CargarDatos($"SELECT NumFolio FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["NumFolio"].ToString();
+            }
+
+            return result;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
