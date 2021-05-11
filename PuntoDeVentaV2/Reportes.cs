@@ -270,7 +270,7 @@ namespace PuntoDeVentaV2
                 var tipoProducto = datosProducto[5];
 
                 var codigosAsociados = string.Empty;
-                if (tipoProducto.Equals("PQ")) {codigosAsociados = cs.ObtenerCodigosAsociados(); }else { codigosAsociados = "N/A"; }
+                if (tipoProducto.Equals("PQ")) {codigosAsociados = cs.ObtenerCodigosAsociados(idProducto); }else { codigosAsociados = "N/A"; }
 
                 if (tipoProducto.Equals("PQ")) { tipoProducto = "Combo"; }else if (tipoProducto.Equals("P")) { tipoProducto = "Producto"; }else if (tipoProducto.Equals("S")) { tipoProducto = "Servicio"; }
 
