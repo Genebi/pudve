@@ -170,9 +170,9 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            float[] anchoColumnas = new float[] { 300f, 60f, 100f, 80f, 80f, 100f, 90f };
+            float[] anchoColumnas = new float[] { 300f, 60f, 150f, 100f, 80f, 80f, 100f, 100f };
 
-            PdfPTable tabla = new PdfPTable(7);
+            PdfPTable tabla = new PdfPTable(8);
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
@@ -185,6 +185,11 @@ namespace PuntoDeVentaV2
             colTipoProducto.BorderWidth = 1;
             colTipoProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
             colTipoProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colCodigoAsociado = new PdfPCell(new Phrase("Código Asociado", fuenteNegrita));
+            colCodigoAsociado.BorderWidth = 1;
+            colCodigoAsociado.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colCodigoAsociado.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colEmpleado = new PdfPCell(new Phrase("Empleado", fuenteNegrita));
             colEmpleado.BorderWidth = 1;
@@ -213,6 +218,7 @@ namespace PuntoDeVentaV2
 
             tabla.AddCell(colProducto);
             tabla.AddCell(colTipoProducto);
+            tabla.AddCell(colCodigoAsociado);
             tabla.AddCell(colEmpleado);
             tabla.AddCell(colPrecioAnterior);
             tabla.AddCell(colPrecioNuevo);
@@ -263,6 +269,9 @@ namespace PuntoDeVentaV2
                 var nombreProducto = datosProducto[1];
                 var tipoProducto = datosProducto[5];
 
+                var codigosAsociados = string.Empty;
+                if (tipoProducto.Equals("PQ")) {codigosAsociados = cs.ObtenerCodigosAsociados(); }else { codigosAsociados = "N/A"; }
+
                 if (tipoProducto.Equals("PQ")) { tipoProducto = "Combo"; }else if (tipoProducto.Equals("P")) { tipoProducto = "Producto"; }else if (tipoProducto.Equals("S")) { tipoProducto = "Servicio"; }
 
                 var precioAnterior = float.Parse(dr.GetValue(dr.GetOrdinal("PrecioAnterior")).ToString());
@@ -279,6 +288,10 @@ namespace PuntoDeVentaV2
                 PdfPCell colTipoProductoTmp = new PdfPCell(new Phrase(tipoProducto, fuenteNormal));
                 colTipoProductoTmp.BorderWidth = 1;
                 colTipoProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colCodigosAsociadosTmp = new PdfPCell(new Phrase(codigosAsociados, fuenteNormal));
+                colCodigosAsociadosTmp.BorderWidth = 1;
+                colCodigosAsociadosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(consultaEmp, fuenteNormal));
                 colEmpleadoTmp.BorderWidth = 1;
@@ -302,6 +315,7 @@ namespace PuntoDeVentaV2
 
                 tabla.AddCell(colProductoTmp);
                 tabla.AddCell(colTipoProductoTmp);
+                tabla.AddCell(colCodigosAsociadosTmp);
                 tabla.AddCell(colEmpleadoTmp);
                 tabla.AddCell(colPrecioAnteriorTmp);
                 tabla.AddCell(colPrecioNuevoTmp);
@@ -328,6 +342,8 @@ namespace PuntoDeVentaV2
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
             vr.ShowDialog();
         }
+
+
 
         private void btnHistorialDineroAgregado_Click(object sender, EventArgs e)
         {

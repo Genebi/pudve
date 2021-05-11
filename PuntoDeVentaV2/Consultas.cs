@@ -69,6 +69,31 @@ namespace PuntoDeVentaV2
             return nameEmpleado;
         }
 
+        public string ObtenerCodigosAsociados()
+        {
+            var result = string.Empty;
+            int count = -1;
+
+            var query = cn.CargarDatos($"SELECT P.CodigoBarras AS Codigos FROM Productos AS P	LEFT JOIN ProductosDeServicios AS PS ON P.ID = PS.IDServicio WHERE	P.IDUsuario = '{FormPrincipal.userID}'	AND PS.IDServicio = '5228'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                foreach (DataRow iterados in query.Rows)
+                {
+                    count++;
+                    if (count.Equals(0))
+                    {
+                        result += (iterados["Codigos"].ToString());
+                    }
+                    else
+                    {
+                        result += (", " + iterados["Codigos"].ToString());
+                    }
+                }
+            }
+
+            return result;
+        }
 
         public string GuardarNvaImagen(int idProducto, string imgProducto)
         {
