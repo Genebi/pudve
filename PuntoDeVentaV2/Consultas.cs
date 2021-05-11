@@ -87,7 +87,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        result += (", " + iterados["Codigos"].ToString());
+                        result += (",\n" + iterados["Codigos"].ToString());
                     }
                 }
             }

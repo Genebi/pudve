@@ -170,7 +170,7 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            float[] anchoColumnas = new float[] { 300f, 60f, 150f, 100f, 80f, 80f, 100f, 100f };
+            float[] anchoColumnas = new float[] { 300f, 60f, 150f, 100f, 80f, 80f, 100f, 120f };
 
             PdfPTable tabla = new PdfPTable(8);
             tabla.WidthPercentage = 100;
