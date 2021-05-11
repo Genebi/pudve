@@ -455,11 +455,12 @@ namespace PuntoDeVentaV2
             //    }
             //}
 
-            var UsuarioActivo = obtenerAutorCorte(id);
+            var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
+            var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
 
             var numFolio = obtenerFolio(id);
 
-            Usuario = new Paragraph($"USUARIO: ADMIN ({FormPrincipal.userNickName})", fuenteNegrita);
+            Usuario = new Paragraph($"USUARIO: ADMIN ({obtenerUsuarioPrincipal})", fuenteNegrita);
             if (!string.IsNullOrEmpty(UsuarioActivo))
             {
                 Empleado = new Paragraph($"EMPLEADO: {UsuarioActivo}", fuenteNegrita);
@@ -710,11 +711,11 @@ namespace PuntoDeVentaV2
         {
             var result = string.Empty;
 
-            var query = cn.CargarDatos($"SELECT EMP.nombre AS ID FROM Caja AS CJ RIGHT JOIN empleados AS EMP ON CJ.IDUsuario = EMP.IDUsuario WHERE CJ.IDUsuario = '{FormPrincipal.userID}' AND CJ.ID = '{idCorte}' AND CJ.IdEmpleado != 0");
+            var query = cn.CargarDatos($"SELECT EMP.nombre AS Name FROM Caja AS CJ RIGHT JOIN empleados AS EMP ON CJ.IDUsuario = EMP.IDUsuario WHERE CJ.IDUsuario = '{FormPrincipal.userID}' AND CJ.ID = '{idCorte}' AND CJ.IdEmpleado != 0");
 
             if (!query.Rows.Count.Equals(0))
             {
-                result = query.Rows[0]["ID"].ToString();
+                result = query.Rows[0]["Name"].ToString();
             }
             //else
             //{
@@ -799,6 +800,18 @@ namespace PuntoDeVentaV2
                 rutaArchivo = @"C:\Archivos PUDVE\Reportes\caja.pdf";
             }
 
+            Paragraph Usuario = new Paragraph();
+            Paragraph Empleado = new Paragraph();
+
+            var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
+            var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
+
+            Usuario = new Paragraph($"USUARIO: ADMIN ({obtenerUsuarioPrincipal})", fuenteNegrita);
+            if (!string.IsNullOrEmpty(UsuarioActivo))
+            {
+                Empleado = new Paragraph($"EMPLEADO: {UsuarioActivo}", fuenteNegrita);
+            }
+
             var numFOlio = obtenerFolio(id);
 
             Document reporte = new Document(PageSize.A3);
@@ -806,17 +819,22 @@ namespace PuntoDeVentaV2
 
             reporte.Open();
 
-            Paragraph titulo = new Paragraph(FormPrincipal.userNickName, fuenteGrande);
+            Paragraph titulo = new Paragraph(tipoReporte, fuenteGrande);
+
 
             Paragraph NumeroFolio = new Paragraph("No. Folio: " + numFOlio, fuenteGrande);
 
             Paragraph subTitulo = new Paragraph($"{tipoReporte}\nFecha:   {dateReporte.ToString("dddd, dd MMMM yyyy HH:mm:ss")}  \n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
+            if (!string.IsNullOrEmpty(UsuarioActivo)) { Empleado.Alignment = Element.ALIGN_CENTER; }
             NumeroFolio.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
             reporte.Add(titulo);
+            reporte.Add(Usuario);
+            if (!string.IsNullOrEmpty(UsuarioActivo)) { reporte.Add(Empleado); }
             reporte.Add(NumeroFolio);
             reporte.Add(subTitulo);
 
@@ -841,42 +859,65 @@ namespace PuntoDeVentaV2
             tablaDineroRetirado.SetWidths(anchoColumnas);
 
             PdfPCell colEmpleado = new PdfPCell(new Phrase("EMPLEADO", fuenteNegrita));
-            colEmpleado.BorderWidth = 0;
+            colEmpleado.BorderWidth = 1;
+            colEmpleado.BorderWidthTop = 0;
+            colEmpleado.BackgroundColor = new BaseColor(Color.SkyBlue);
             colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
             colEmpleado.Padding = 3;
 
             PdfPCell colFecha = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
-            colFecha.BorderWidth = 0;
+            colFecha.BorderWidth = 1;
+            colFecha.BorderWidthTop = 0;
+            colFecha.BorderWidthLeft = 0;
+            colFecha.BorderWidthRight = 0;
+            colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
             colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
             colFecha.Padding = 3;
 
             PdfPCell colRetiroEfectivo = new PdfPCell(new Phrase("EFECTIVO", fuenteNegrita));
-            colRetiroEfectivo.BorderWidth = 0;
+            colRetiroEfectivo.BorderWidth = 1;
+            colRetiroEfectivo.BorderWidthTop = 0;
+            colRetiroEfectivo.BorderWidthRight = 0;
+            colRetiroEfectivo.BackgroundColor = new BaseColor(Color.SkyBlue);
             colRetiroEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
             colRetiroEfectivo.Padding = 3;
 
             PdfPCell colRetiroTarjeta = new PdfPCell(new Phrase("TARJETA", fuenteNegrita));
-            colRetiroTarjeta.BorderWidth = 0;
+            colRetiroTarjeta.BorderWidth = 1;
+            colRetiroTarjeta.BorderWidthTop = 0;
+            colRetiroTarjeta.BorderWidthRight = 0;
+            colRetiroTarjeta.BackgroundColor = new BaseColor(Color.SkyBlue);
             colRetiroTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
             colRetiroTarjeta.Padding = 3;
 
             PdfPCell colRetiroVales = new PdfPCell(new Phrase("VALES", fuenteNegrita));
-            colRetiroVales.BorderWidth = 0;
+            colRetiroVales.BorderWidth = 1;
+            colRetiroVales.BorderWidthTop = 0;
+            colRetiroVales.BorderWidthRight = 0;
+            colRetiroVales.BackgroundColor = new BaseColor(Color.SkyBlue);
             colRetiroVales.HorizontalAlignment = Element.ALIGN_CENTER;
             colRetiroVales.Padding = 3;
 
             PdfPCell colRetiroCheque = new PdfPCell(new Phrase("CHEQUE", fuenteNegrita));
-            colRetiroCheque.BorderWidth = 0;
+            colRetiroCheque.BorderWidth = 1;
+            colRetiroCheque.BorderWidthTop = 0;
+            colRetiroCheque.BorderWidthRight = 0;
+            colRetiroCheque.BackgroundColor = new BaseColor(Color.SkyBlue);
             colRetiroCheque.HorizontalAlignment = Element.ALIGN_CENTER;
             colRetiroCheque.Padding = 3;
 
             PdfPCell colRetiroTrans = new PdfPCell(new Phrase("TRANSFERENCIA", fuenteNegrita));
-            colRetiroTrans.BorderWidth = 0;
+            colRetiroTrans.BorderWidth = 1;
+            colRetiroTrans.BorderWidthTop = 0;
+            colRetiroTrans.BorderWidthRight = 0;
+            colRetiroTrans.BackgroundColor = new BaseColor(Color.SkyBlue);
             colRetiroTrans.HorizontalAlignment = Element.ALIGN_CENTER;
             colRetiroTrans.Padding = 3;
 
             PdfPCell colTotal = new PdfPCell(new Phrase("TOTAL", fuenteNegrita));
-            colTotal.BorderWidth = 0;
+            colTotal.BorderWidth = 1;
+            colTotal.BorderWidthTop = 0;
+            colTotal.BackgroundColor = new BaseColor(Color.SkyBlue);
             colTotal.HorizontalAlignment = Element.ALIGN_CENTER;
             colTotal.Padding = 3;
 

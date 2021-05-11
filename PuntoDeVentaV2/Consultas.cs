@@ -110,9 +110,14 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string validarEmpleado(string name)
+        public string validarEmpleado(string name, bool reportes = false)
         {
-            var result = FormPrincipal.userNickName;
+            var result = string.Empty;
+
+            if (reportes.Equals(false))
+            {
+                result = FormPrincipal.userNickName;
+            }
 
             var query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Usuario = '{name}'");
 
