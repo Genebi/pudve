@@ -402,6 +402,7 @@
             this.btnAdd.Size = new System.Drawing.Size(26, 25);
             this.btnAdd.TabIndex = 29;
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Visible = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // txtStockMaximo

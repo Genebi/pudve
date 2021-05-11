@@ -1615,39 +1615,7 @@ namespace PuntoDeVentaV2
                 SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
                 queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
                 SearchDesMayoreo = cn.CargarDatos(queryDesMayoreo);
-                if (tipoProdServ == "S" || tipoProdServ == "PQ")
-                {
-                    DataRow rowProdServPaq;
-                    queryProductosDeServicios = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
-                    dtProductosDeServicios = cn.CargarDatos(queryProductosDeServicios);
-                    if (tipoProdServ == "S")
-                    {
-                        cbTipo.Text = "Servicio";
-                    }
-                    else if (tipoProdServ == "PQ")
-                    {
-                        cbTipo.Text = "Paquete";
-                    }
-                    if (dtProductosDeServicios.Rows.Count != 0)
-                    {
-                        rowProdServPaq = dtProductosDeServicios.Rows[0];
-                        if (dtProductosDeServicios.Rows.Count > 0)
-                        {
-                            if (rowProdServPaq["NombreProducto"].ToString() != "" || rowProdServPaq["Fecha"].ToString() != "")
-                            {
-                                btnAdd.Visible = true;
-                                Hided = true;
-                                btnAdd.PerformClick();
-                                txtCantPaqServ.Text = rowProdServPaq["Cantidad"].ToString();
-                            }
-                        }
-                    }
-                }
-                else if (tipoProdServ == "P")
-                {
-                    cbTipo.Text = "Producto";
-                    btnAdd.Visible = false;
-                }
+                
             }
         }
 
@@ -4934,7 +4902,7 @@ namespace PuntoDeVentaV2
                 }                
 
                 // Miri. 
-                btnAdd.Visible = true;
+                //btnAdd.Visible = true;
 
                 //if (PStock.Visible == true)
                 //{
@@ -4970,7 +4938,7 @@ namespace PuntoDeVentaV2
                 chkBoxConProductos.Visible = true;
 
                 // Miri. 
-                btnAdd.Visible = true;
+                //btnAdd.Visible = true;
 
                 //if (PStock.Visible == true)
                 //{
@@ -5890,7 +5858,7 @@ namespace PuntoDeVentaV2
             {
                 if ((this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS") && DatosSourceFinal == 1)
                 {
-                    btnAdd.Visible = true;
+                    //btnAdd.Visible = true;
                     CargarDatos();
                     if (flowLayoutPanel2.Visible == true)
                     {
@@ -5905,7 +5873,7 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
                     string queryDeleteProductosServPaq = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idEditarProducto}' AND NombreProducto = ''";
                     cn.EjecutarConsulta(queryDeleteProductosServPaq);
-                    btnAdd.Visible = true;
+                    //btnAdd.Visible = true;
                     CargarDatos();
                     if (flowLayoutPanel2.Visible == true)
                     {
@@ -6285,7 +6253,7 @@ namespace PuntoDeVentaV2
 
                 // Miri. 
                 // Se agrega para que inicialmente no lo muestre puesto que por default es un producto en el select. 
-                btnAdd.Visible = false; 
+                //btnAdd.Visible = false; 
             }
             // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
             // si el llamado de la ventana proviene del DataGridView (Copiar Producto)
