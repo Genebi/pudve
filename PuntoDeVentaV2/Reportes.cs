@@ -170,9 +170,9 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            float[] anchoColumnas = new float[] { 300f, 100f, 80f, 80f, 100f, 90f };
+            float[] anchoColumnas = new float[] { 300f, 60f, 100f, 80f, 80f, 100f, 90f };
 
-            PdfPTable tabla = new PdfPTable(6);
+            PdfPTable tabla = new PdfPTable(7);
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
@@ -180,6 +180,11 @@ namespace PuntoDeVentaV2
             colProducto.BorderWidth = 1;
             colProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
             colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colTipoProducto = new PdfPCell(new Phrase("Tipo", fuenteNegrita));
+            colTipoProducto.BorderWidth = 1;
+            colTipoProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colTipoProducto.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colEmpleado = new PdfPCell(new Phrase("Empleado", fuenteNegrita));
             colEmpleado.BorderWidth = 1;
@@ -207,6 +212,7 @@ namespace PuntoDeVentaV2
             colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
             tabla.AddCell(colProducto);
+            tabla.AddCell(colTipoProducto);
             tabla.AddCell(colEmpleado);
             tabla.AddCell(colPrecioAnterior);
             tabla.AddCell(colPrecioNuevo);
@@ -255,6 +261,9 @@ namespace PuntoDeVentaV2
                 var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
                 var datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                 var nombreProducto = datosProducto[1];
+                var tipoProducto = datosProducto[5];
+
+                if (tipoProducto.Equals("PQ")) { tipoProducto = "Combo"; }else if (tipoProducto.Equals("P")) { tipoProducto = "Producto"; }else if (tipoProducto.Equals("S")) { tipoProducto = "Servicio"; }
 
                 var precioAnterior = float.Parse(dr.GetValue(dr.GetOrdinal("PrecioAnterior")).ToString());
                 var precioNuevo = float.Parse(dr.GetValue(dr.GetOrdinal("PrecioNuevo")).ToString());
@@ -266,6 +275,10 @@ namespace PuntoDeVentaV2
                 PdfPCell colProductoTmp = new PdfPCell(new Phrase(nombreProducto, fuenteNormal));
                 colProductoTmp.BorderWidth = 1;
                 colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colTipoProductoTmp = new PdfPCell(new Phrase(tipoProducto, fuenteNormal));
+                colTipoProductoTmp.BorderWidth = 1;
+                colTipoProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(consultaEmp, fuenteNormal));
                 colEmpleadoTmp.BorderWidth = 1;
@@ -288,6 +301,7 @@ namespace PuntoDeVentaV2
                 colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 tabla.AddCell(colProductoTmp);
+                tabla.AddCell(colTipoProductoTmp);
                 tabla.AddCell(colEmpleadoTmp);
                 tabla.AddCell(colPrecioAnteriorTmp);
                 tabla.AddCell(colPrecioNuevoTmp);
