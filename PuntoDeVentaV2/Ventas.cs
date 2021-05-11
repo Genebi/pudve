@@ -5791,15 +5791,18 @@ namespace PuntoDeVentaV2
 
                         var infoEmpleado = usuarioEmpleado.Split('@');
 
-                        html += $@"
+                        if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
+                        {
+                            html += $@"
                                     <tr>
                                         <td colspan='4' style='text-align: right;'>
-                                            Total
+                                            Descuento
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{totalVenta.ToString("0.00")}</b></span>
+                                            <span style='color: red'><b>{float.Parse(descuentoVenta).ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
+                        }
 
                         if (!string.IsNullOrWhiteSpace(anticipoRecibido) && !string.IsNullOrWhiteSpace(anticipoUtilizado))
                         {
@@ -5822,21 +5825,20 @@ namespace PuntoDeVentaV2
                                             <span style='color: red'><b>{float.Parse(anticipoUtilizado).ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
+
+                                totalVenta -= float.Parse(anticipoUtilizado);
                             }
                         }
 
-                        if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
-                        {
-                            html += $@"
+                        html += $@"
                                     <tr>
                                         <td colspan='4' style='text-align: right;'>
-                                            Descuento
+                                            Total
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{float.Parse(descuentoVenta).ToString("0.00")}</b></span>
+                                            <span style='color: red'><b>{totalVenta.ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
-                        }
 
                         html += " </table>";
                         html += "<hr>";
@@ -5848,17 +5850,18 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        
-
-                        html += $@"
+                        if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
+                        {
+                            html += $@"
                                     <tr>
                                         <td colspan='4' style='text-align: right;'>
-                                            Total
+                                            Descuento
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{totalVenta.ToString("0.00")}</b></span>
+                                            <span style='color: red'><b>{float.Parse(descuentoVenta).ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
+                        }
 
                         if (!string.IsNullOrWhiteSpace(anticipoRecibido) && !string.IsNullOrWhiteSpace(anticipoUtilizado))
                         {
@@ -5881,21 +5884,20 @@ namespace PuntoDeVentaV2
                                             <span style='color: red'><b>{float.Parse(anticipoUtilizado).ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
-                            }   
+
+                                totalVenta -= float.Parse(anticipoUtilizado);
+                            }
                         }
 
-                        if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
-                        {
-                            html += $@"
+                        html += $@"
                                     <tr>
                                         <td colspan='4' style='text-align: right;'>
-                                            Descuento
+                                            Total
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{float.Parse(descuentoVenta).ToString("0.00")}</b></span>
+                                            <span style='color: red'><b>{totalVenta.ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
-                        }
 
                         html += "</table>";
                         html += "<hr>";
