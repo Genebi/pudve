@@ -84,7 +84,7 @@ namespace PuntoDeVentaV2
                 sql_con = new MySqlConnection($"datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
 
-            var consulta = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = {idProducto}";
+            var consulta = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = {idProducto}";
 
             sql_con.Open();
             sql_cmd = new MySqlCommand(consulta, sql_con);
@@ -138,25 +138,37 @@ namespace PuntoDeVentaV2
                 Paragraph subTitulo = new Paragraph("");
 
                 string UsuarioActivo = string.Empty;
+                string datoEmpleado = string.Empty;
 
-                using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+                //using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+                //{
+                //    if (!dtDataUsr.Rows.Count.Equals(0))
+                //    {
+                //        foreach (DataRow drDataUsr in dtDataUsr.Rows)
+                //        {
+                //            UsuarioActivo = drDataUsr["Usuario"].ToString();
+                //        }
+                //    }
+                //}
+
+                var getNombreAdmin = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(FormPrincipal.userID.ToString()));
+                var nameAdmin = string.Empty;
+                if (!getNombreAdmin.Rows.Count.Equals(0)) { nameAdmin = getNombreAdmin.Rows[0]["Usuario"].ToString(); }
+
+                if (FormPrincipal.userNickName.Contains('@'))
                 {
-                    if (!dtDataUsr.Rows.Count.Equals(0))
-                    {
-                        foreach (DataRow drDataUsr in dtDataUsr.Rows)
-                        {
-                            UsuarioActivo = drDataUsr["Usuario"].ToString();
-                        }
-                    }
+                    datoEmpleado = cs.buscarNombreCliente(FormPrincipal.userNickName);
                 }
 
-                Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+                Paragraph Empleado = new Paragraph($"Empleado: {datoEmpleado}", fuenteNormal);
+                Usuario = new Paragraph($"USUARIO: ADMIN({ nameAdmin })", fuenteNegrita);
 
                 subTitulo = new Paragraph("REPORTE HISTORIAL VENTA PRODUCTO\nSECCION DE PRODUCTOS\n\nFecha: " + fechaActual.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                 //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
                 titulo.Alignment = Element.ALIGN_CENTER;
                 Usuario.Alignment = Element.ALIGN_CENTER;
+                if (FormPrincipal.userNickName.Contains('@')) { Empleado.Alignment = Element.ALIGN_CENTER; }
                 subTitulo.Alignment = Element.ALIGN_CENTER;
                 //domicilio.Alignment = Element.ALIGN_CENTER;
                 //domicilio.SetLeading(10, 0);
@@ -164,9 +176,9 @@ namespace PuntoDeVentaV2
                 /***************************************
 		         ** Tabla con los productos ajustados **
 		         ***************************************/
-                float[] anchoColumnas = new float[] { 30f, 300f, 80f, 80f, 80f, 80f, 100f };
+                float[] anchoColumnas = new float[] { 30f, 300f, 80f, 100f, 100f, 80f, 80f, 80f, 80f, 130f };
 
-                PdfPTable tabla = new PdfPTable(7);
+                PdfPTable tabla = new PdfPTable(10);
                 tabla.WidthPercentage = 100;
                 tabla.SetWidths(anchoColumnas);
 
@@ -179,6 +191,21 @@ namespace PuntoDeVentaV2
                 colProducto.BorderWidth = 1;
                 colProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colTipo = new PdfPCell(new Phrase("Tipo", fuenteNegrita));
+                colTipo.BorderWidth = 1;
+                colTipo.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colTipo.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colCodigoAsociado = new PdfPCell(new Phrase("Código Asociado", fuenteNegrita));
+                colCodigoAsociado.BorderWidth = 1;
+                colCodigoAsociado.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colCodigoAsociado.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colEmpleado = new PdfPCell(new Phrase("Empleado", fuenteNegrita));
+                colEmpleado.BorderWidth = 1;
+                colEmpleado.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colCantidad = new PdfPCell(new Phrase("Cantidad", fuenteNegrita));
                 colCantidad.BorderWidth = 1;
@@ -207,6 +234,9 @@ namespace PuntoDeVentaV2
 
                 tabla.AddCell(colNumProducto);
                 tabla.AddCell(colProducto);
+                tabla.AddCell(colTipo);
+                tabla.AddCell(colCodigoAsociado);
+                tabla.AddCell(colEmpleado);
                 tabla.AddCell(colCantidad);
                 tabla.AddCell(colPrecio);
                 tabla.AddCell(colFolioSerie);
@@ -227,6 +257,31 @@ namespace PuntoDeVentaV2
                     var venta = float.Parse(dr.GetValue(dr.GetOrdinal("Total")).ToString());
                     var fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
                     var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+                    var idEmpleadoABuscar = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDEmpleado")));
+                    var idProductABuscar = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
+
+
+                    var datosProducto = cn.BuscarProducto(Convert.ToInt32(idProductABuscar), FormPrincipal.userID);
+                    var nombreProducto = datosProducto[1];
+                    var tipoProducto = datosProducto[5];
+
+                    string emp = string.Empty;
+                    if (idEmpleadoABuscar != 0)
+                    {
+                        emp = "empleado";
+                    }
+                    else
+                    {
+                        emp = "admin";
+                    }
+
+                    var nameEmpleado = cs.consultarUsuarioEmpleado(idEmpleadoABuscar, emp);
+                    if (emp.Equals("admin")) { nameEmpleado = $"ADMIN ({nameEmpleado})"; }
+
+                    var codigosAsociados = string.Empty;
+                    if (tipoProducto.Equals("PQ")) { codigosAsociados = cs.ObtenerCodigosAsociados(idProducto); } else { codigosAsociados = "N/A"; }
+
+                    if (tipoProducto.Equals("PQ")) { tipoProducto = "Combo"; } else if (tipoProducto.Equals("P")) { tipoProducto = "Producto"; } else if (tipoProducto.Equals("S")) { tipoProducto = "Servicio"; }
 
                     totalCantidad += float.Parse(cantidad);
                     totalPrecio += precio;
@@ -243,10 +298,22 @@ namespace PuntoDeVentaV2
                     colProductoTmp.BorderWidth = 1;
                     colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                    PdfPCell colTipoTmp = new PdfPCell(new Phrase(tipoProducto, fuenteNormal));
+                    colTipoTmp.BorderWidth = 1;
+                    colTipoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colCodigosAsociadosTmp = new PdfPCell(new Phrase(codigosAsociados, fuenteNormal));
+                    colCodigosAsociadosTmp.BorderWidth = 1;
+                    colCodigosAsociadosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(nameEmpleado, fuenteNormal));
+                    colEmpleadoTmp.BorderWidth = 1;
+                    colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
                     PdfPCell colCantidadTmp = new PdfPCell(new Phrase(cantidad, fuenteNormal));
                     colCantidadTmp.BorderWidth = 1;
                     colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
+                   
                     PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + precio.ToString("N2"), fuenteNormal));
                     colPrecioTmp.BorderWidth = 1;
                     colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -265,6 +332,9 @@ namespace PuntoDeVentaV2
 
                     tabla.AddCell(colNumProductoTmp);
                     tabla.AddCell(colProductoTmp);
+                    tabla.AddCell(colTipoTmp);
+                    tabla.AddCell(colCodigosAsociadosTmp);
+                    tabla.AddCell(colEmpleadoTmp);
                     tabla.AddCell(colCantidadTmp);
                     tabla.AddCell(colPrecioTmp);
                     tabla.AddCell(colFolioSerieTmp);
@@ -329,6 +399,7 @@ namespace PuntoDeVentaV2
 
                 reporte.Add(titulo);
                 reporte.Add(Usuario);
+                if (FormPrincipal.userNickName.Contains('@')) { reporte.Add(Empleado); }
                 reporte.Add(subTitulo);
                 //reporte.Add(domicilio);
                 reporte.Add(tabla);
