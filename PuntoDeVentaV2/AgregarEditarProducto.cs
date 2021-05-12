@@ -1494,6 +1494,11 @@ namespace PuntoDeVentaV2
             //}
         }
 
+        private void fLPDetalleProducto_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         public void PrimerCodBarras()
         {
             Contenido = "7777000001";
@@ -7159,6 +7164,24 @@ namespace PuntoDeVentaV2
                 txtCantPaqServ.TabIndex = 6;
                 txtCantPaqServ.TabStop = true;
 
+                if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+                {
+                    using (DataTable dtProdServCombo = cn.CargarDatos(cs.buscarProductosDeServicios(Convert.ToInt32(idEditarProducto))))
+                    {
+                        if (!dtProdServCombo.Rows.Count.Equals(0))
+                        {
+                            foreach(DataRow drProdServCombo in dtProdServCombo.Rows)
+                            {
+                                txtCantPaqServ.Text = drProdServCombo["Cantidad"].ToString();
+                            }
+                        }
+                    }
+                }
+                else if (DatosSourceFinal.Equals(1))
+                {
+                    txtCantPaqServ.Text = "0";
+                }
+
                 // Label signo de ayuda
                 lblCantCombServ.Visible = true;
                 lblCantCombServ.Anchor = AnchorStyles.Left;
@@ -7292,6 +7315,24 @@ namespace PuntoDeVentaV2
                 // Label signo de ayuda
                 lblCantCombServ.Visible = true;
                 lblCantCombServ.Anchor = AnchorStyles.Left;
+
+                if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+                {
+                    using (DataTable dtProdServCombo = cn.CargarDatos(cs.buscarProductosDeServicios(Convert.ToInt32(idEditarProducto))))
+                    {
+                        if (!dtProdServCombo.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow drProdServCombo in dtProdServCombo.Rows)
+                            {
+                                txtCantPaqServ.Text = drProdServCombo["Cantidad"].ToString();
+                            }
+                        }
+                    }
+                }
+                else if (DatosSourceFinal.Equals(1))
+                {
+                    txtCantPaqServ.Text = "0";
+                }
 
                 tLPCombo.Controls.Add(txtPrecioCompra, 0, 1);      // Precio Compra TextBox
                 tLPCombo.Controls.Add(lbPrecioCompra, 1, 1);       // Label de exclamation Precio Compra
@@ -7569,11 +7610,29 @@ namespace PuntoDeVentaV2
                 lblCantCombServ.Visible = true;
                 lblCantCombServ.Anchor = AnchorStyles.Left;
 
+                if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+                {
+                    using (DataTable dtProdServCombo = cn.CargarDatos(cs.buscarProductosDeServicios(Convert.ToInt32(idEditarProducto))))
+                    {
+                        if (!dtProdServCombo.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow drProdServCombo in dtProdServCombo.Rows)
+                            {
+                                txtCantPaqServ.Text = drProdServCombo["Cantidad"].ToString();
+                            }
+                        }
+                    }
+                }
+                else if (DatosSourceFinal.Equals(1))
+                {
+                    txtCantPaqServ.Text = "0";
+                }
+
                 tLPServicio.Controls.Add(txtClaveProducto, 0, 3);     // Clave Interna TextBox
                 tLPServicio.Controls.Add(lbClaveInterna, 1, 3);
                 tLPServicio.Controls.Add(txtCodigoBarras, 2, 3);      // Código de Barras TextBox
                 tLPServicio.Controls.Add(btnGenerarCB, 3, 3);         // Código de Barras Button
-                                                                      //tLPServicio.SetColumnSpan(btnGenerarCB, 2);
+                //tLPServicio.SetColumnSpan(btnGenerarCB, 2);
                 tLPServicio.Controls.Add(txtCantPaqServ, 0, 3);       // Clave Interna TextBox
                 tLPServicio.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
 
@@ -7697,6 +7756,24 @@ namespace PuntoDeVentaV2
                 // Label signo de ayuda
                 lblCantCombServ.Visible = true;
                 lblCantCombServ.Anchor = AnchorStyles.Left;
+
+                if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+                {
+                    using (DataTable dtProdServCombo = cn.CargarDatos(cs.buscarProductosDeServicios(Convert.ToInt32(idEditarProducto))))
+                    {
+                        if (!dtProdServCombo.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow drProdServCombo in dtProdServCombo.Rows)
+                            {
+                                txtCantPaqServ.Text = drProdServCombo["Cantidad"].ToString();
+                            }
+                        }
+                    }
+                }
+                else if (DatosSourceFinal.Equals(1))
+                {
+                    txtCantPaqServ.Text = "0";
+                }
 
                 tLPServicio.Controls.Add(txtPrecioCompra, 0, 1);      // Precio Compra TextBox
                 tLPServicio.Controls.Add(lbPrecioCompra, 1, 1);       // Label de exclamation Precio Compra

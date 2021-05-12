@@ -889,6 +889,7 @@
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
             this.fLPDetalleProducto.Size = new System.Drawing.Size(870, 66);
             this.fLPDetalleProducto.TabIndex = 36;
+            this.fLPDetalleProducto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPDetalleProducto_Paint);
             // 
             // fLPContenidoProducto
             // 

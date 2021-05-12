@@ -1828,5 +1828,12 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
             var consulta = $"SELECT * FROM `iniciosdesesion` WHERE Usuario LIKE '%'{nombre}'%'";
             return consulta;
         }
+
+        public string buscarProductosDeServicios(int idProd)
+        {
+            var consulta = $"SELECT DISTINCT ID, IDServicio, Cantidad FROM productosdeservicios WHERE IDServicio = '{idProd}';";
+
+            return consulta;
+        }
     }
 }
