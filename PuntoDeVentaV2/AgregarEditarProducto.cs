@@ -3418,88 +3418,107 @@ namespace PuntoDeVentaV2
                                                 string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", $"{txtCantPaqServ.Text}" };
                                                 cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
                                             }*/
-
-                                            // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
-                                            if (ProductosDeServicios.Count > 0 || ProductosDeServicios.Count == 0)
+                                            if (!ProductosDeServicios.Count.Equals(0))
                                             {
-                                                ProductosDeServicios.Clear();
-
-                                                if (flowLayoutPanel2.Controls.Count > 0)
+                                                foreach(var item in ProductosDeServicios)
                                                 {
-                                                    // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
-                                                    foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
-                                                    {
-                                                        // agregamos la variable para egregar los procutos
-                                                        string prodSerPaq = null;
-                                                        DataTable dtProductos;
-                                                        foreach (Control item in panel.Controls)
-                                                        {
-                                                            string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                            if (item is ComboBox)
-                                                            {
-                                                                if (item.Text != "Por favor selecciona un Producto")
-                                                                {
-                                                                    string buscar = null;
-                                                                    string comboBoxText = item.Text;
-                                                                    string comboBoxValue = null;
-                                                                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
-                                                                    dtProductos = cn.CargarDatos(buscar);
-                                                                    comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
-                                                                    prodSerPaq += fech + "|";
-                                                                    prodSerPaq += idProducto + "|";
-                                                                    prodSerPaq += comboBoxValue + "|";
-                                                                    prodSerPaq += comboBoxText + "|";
-                                                                }
-                                                            }
-                                                            if (item is TextBox)
-                                                            {
-                                                                var tb = item.Text;
-                                                                if (item.Text == "0")
-                                                                {
-                                                                    tb = "0";
-                                                                    prodSerPaq += tb;
-                                                                }
-                                                                else
-                                                                {
-                                                                    prodSerPaq += tb;
-                                                                }
-                                                            }
-                                                        }
-                                                        ProductosDeServicios.Add(prodSerPaq);
-                                                        prodSerPaq = null;
-                                                    }
-                                                    //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
-                                                    if (ProductosDeServicios.Any())
-                                                    {
-                                                        string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
-                                                        cn.EjecutarConsulta(queryBorrarProductosDeServicios);
-                                                        foreach (var productosSP in ProductosDeServicios)
-                                                        {
-                                                            string[] tmp = productosSP.Split('|');
-                                                            if (tmp.Length == 5)
-                                                            {
-                                                                cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                                                            }
-                                                        }
-                                                        ProductosDeServicios.Clear();
-                                                    }
-                                                }
-                                                if (flowLayoutPanel2.Controls.Count == 0)
-                                                {
-                                                    if (ProductosDeServicios.Count.Equals(0))
-                                                    {
-                                                        string[] datos = new string[5];
-                                                        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                        datos[0] = fech;
-                                                        datos[1] = idProducto.ToString();
-                                                        datos[2] = "0";
-                                                        datos[3] = string.Empty;
-                                                        datos[4] = txtCantPaqServ.Text;
-                                                        cn.EjecutarConsulta(cs.GuardarProductosServPaq(datos));
-                                                    }
+                                                    var datos = item.Split('|');
+                                                    datos[1] = idProducto.ToString();
+                                                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(datos));
                                                 }
                                             }
-                                            flowLayoutPanel2.Controls.Clear();
+                                            else if (ProductosDeServicios.Count.Equals(0))
+                                            {
+                                                string[] datos = new string[5];
+                                                string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                datos[0] = fech;
+                                                datos[1] = idProducto.ToString();
+                                                datos[2] = "0";
+                                                datos[3] = string.Empty;
+                                                datos[4] = txtCantPaqServ.Text;
+                                                cn.EjecutarConsulta(cs.GuardarProductosServPaq(datos));
+                                            }
+                                            // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
+                                            //if (ProductosDeServicios.Count > 0 || ProductosDeServicios.Count == 0)
+                                            //{
+                                            //ProductosDeServicios.Clear();
+
+                                            //if (flowLayoutPanel2.Controls.Count > 0)
+                                            //{
+                                            //    // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
+                                            //    foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
+                                            //    {
+                                            //        // agregamos la variable para egregar los procutos
+                                            //        string prodSerPaq = null;
+                                            //        DataTable dtProductos;
+                                            //        foreach (Control item in panel.Controls)
+                                            //        {
+                                            //            string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                            //            if (item is ComboBox)
+                                            //            {
+                                            //                if (item.Text != "Por favor selecciona un Producto")
+                                            //                {
+                                            //                    string buscar = null;
+                                            //                    string comboBoxText = item.Text;
+                                            //                    string comboBoxValue = null;
+                                            //                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
+                                            //                    dtProductos = cn.CargarDatos(buscar);
+                                            //                    comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
+                                            //                    prodSerPaq += fech + "|";
+                                            //                    prodSerPaq += idProducto + "|";
+                                            //                    prodSerPaq += comboBoxValue + "|";
+                                            //                    prodSerPaq += comboBoxText + "|";
+                                            //                }
+                                            //            }
+                                            //            if (item is TextBox)
+                                            //            {
+                                            //                var tb = item.Text;
+                                            //                if (item.Text == "0")
+                                            //                {
+                                            //                    tb = "0";
+                                            //                    prodSerPaq += tb;
+                                            //                }
+                                            //                else
+                                            //                {
+                                            //                    prodSerPaq += tb;
+                                            //                }
+                                            //            }
+                                            //        }
+                                            //        ProductosDeServicios.Add(prodSerPaq);
+                                            //        prodSerPaq = null;
+                                            //    }
+                                            //    //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                                            //    if (ProductosDeServicios.Any())
+                                            //    {
+                                            //        string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
+                                            //        cn.EjecutarConsulta(queryBorrarProductosDeServicios);
+                                            //        foreach (var productosSP in ProductosDeServicios)
+                                            //        {
+                                            //            string[] tmp = productosSP.Split('|');
+                                            //            if (tmp.Length == 5)
+                                            //            {
+                                            //                cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                            //            }
+                                            //        }
+                                            //        ProductosDeServicios.Clear();
+                                            //    }
+                                            //}
+                                            //if (flowLayoutPanel2.Controls.Count == 0)
+                                            //{
+                                            //    if (ProductosDeServicios.Count.Equals(0))
+                                            //    {
+                                            //        string[] datos = new string[5];
+                                            //        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                            //        datos[0] = fech;
+                                            //        datos[1] = idProducto.ToString();
+                                            //        datos[2] = "0";
+                                            //        datos[3] = string.Empty;
+                                            //        datos[4] = txtCantPaqServ.Text;
+                                            //        cn.EjecutarConsulta(cs.GuardarProductosServPaq(datos));
+                                            //    }
+                                            //}
+                                            //}
+                                            //    flowLayoutPanel2.Controls.Clear();
                                         }
                                         #endregion Final Seccion de Agregar desde Boton Producto y de Editar Producto
                                         #region  Inicio Seccion de Agregar desde XML
@@ -4095,53 +4114,61 @@ namespace PuntoDeVentaV2
                                 // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
                                 if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
                                 {
-                                    ProductosDeServicios.Clear();
-                                    // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
-                                    foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
+                                    if (!ProductosDeServicios.Count.Equals(0))
                                     {
-                                        // agregamos la variable para egregar los procutos
-                                        string prodSerPaq = null;
-                                        DataTable dtProductos;
-                                        foreach (Control item in panel.Controls)
+                                        foreach(var item in ProductosDeServicios)
                                         {
-                                            string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                            string buscar = string.Empty;
-                                            string comboBoxText = item.Text;
-                                            string comboBoxValue = string.Empty;
-
-                                            if (item is ComboBox)
-                                            {
-                                                if (item.Text != "Por favor selecciona un Producto")
-                                                {
-                                                    if (!comboBoxText.Equals(string.Empty))
-                                                    {
-                                                        buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = '1'";
-                                                        dtProductos = cn.CargarDatos(buscar);
-                                                        comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
-                                                        prodSerPaq += fech + "|";
-                                                        prodSerPaq += idProductoBuscado + "|";
-                                                        prodSerPaq += comboBoxValue + "|";
-                                                        prodSerPaq += comboBoxText + "|";
-                                                    }
-                                                }
-                                            }
-                                            if (item is TextBox)
-                                            {
-                                                var tb = item.Text;
-                                                if (item.Text == "0")
-                                                {
-                                                    tb = "0";
-                                                    prodSerPaq += tb;
-                                                }
-                                                else
-                                                {
-                                                    prodSerPaq += tb;
-                                                }
-                                            }
+                                            var datos = item.Split('|');
+                                            cn.EjecutarConsulta(cs.GuardarProductosServPaq(datos));
                                         }
-                                        ProductosDeServicios.Add(prodSerPaq);
-                                        prodSerPaq = null;
                                     }
+                                    //ProductosDeServicios.Clear();
+                                    //// recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
+                                    //foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
+                                    //{
+                                    //    // agregamos la variable para egregar los procutos
+                                    //    string prodSerPaq = null;
+                                    //    DataTable dtProductos;
+                                    //    foreach (Control item in panel.Controls)
+                                    //    {
+                                    //        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                    //        string buscar = string.Empty;
+                                    //        string comboBoxText = item.Text;
+                                    //        string comboBoxValue = string.Empty;
+
+                                    //        if (item is ComboBox)
+                                    //        {
+                                    //            if (item.Text != "Por favor selecciona un Producto")
+                                    //            {
+                                    //                if (!comboBoxText.Equals(string.Empty))
+                                    //                {
+                                    //                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = '1'";
+                                    //                    dtProductos = cn.CargarDatos(buscar);
+                                    //                    comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
+                                    //                    prodSerPaq += fech + "|";
+                                    //                    prodSerPaq += idProductoBuscado + "|";
+                                    //                    prodSerPaq += comboBoxValue + "|";
+                                    //                    prodSerPaq += comboBoxText + "|";
+                                    //                }
+                                    //            }
+                                    //        }
+                                    //        if (item is TextBox)
+                                    //        {
+                                    //            var tb = item.Text;
+                                    //            if (item.Text == "0")
+                                    //            {
+                                    //                tb = "0";
+                                    //                prodSerPaq += tb;
+                                    //            }
+                                    //            else
+                                    //            {
+                                    //                prodSerPaq += tb;
+                                    //            }
+                                    //        }
+                                    //    }
+                                    //    ProductosDeServicios.Add(prodSerPaq);
+                                    //    prodSerPaq = null;
+                                    //}
                                 }
                                 //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                                 if (ProductosDeServicios.Any())
@@ -5858,6 +5885,27 @@ namespace PuntoDeVentaV2
             {
                 if ((this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS") && DatosSourceFinal == 1)
                 {
+                    string prodSerPaq = null;
+                    DataTable dtProductos;
+                    string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    string buscar = null;
+                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+                    using (dtProductos = cn.CargarDatos(buscar)) {
+                        if (!dtProductos.Rows.Count.Equals(0))
+                        {
+                            DataRow row = dtProductos.Rows[0];
+                            prodSerPaq += fech + "|";
+                            prodSerPaq += "|";
+                            prodSerPaq += row["ID"].ToString() + "|";
+                            prodSerPaq += row["Nombre"].ToString() + "|";
+                            prodSerPaq += txtCantPaqServ.Text;
+
+                            ProductosDeServicios.Add(prodSerPaq);
+                            prodSerPaq = null;
+                        }
+                    }
+
                     //btnAdd.Visible = true;
                     CargarDatos();
                     if (flowLayoutPanel2.Visible == true)
@@ -5869,10 +5917,31 @@ namespace PuntoDeVentaV2
                 }
                 else if ((this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS") && DatosSourceFinal == 2)
                 {
-                    string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idEditarProducto}", $"{CBIdProd}", $"{CBNombProd}", $"{txtCantPaqServ.Text}" };
-                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                    //string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idEditarProducto}", $"{CBIdProd}", $"{CBNombProd}", $"{txtCantPaqServ.Text}" };
+                    //cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
                     string queryDeleteProductosServPaq = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idEditarProducto}' AND NombreProducto = ''";
                     cn.EjecutarConsulta(queryDeleteProductosServPaq);
+                    string prodSerPaq = null;
+                    DataTable dtProductos;
+                    string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    string buscar = null;
+                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+                    using (dtProductos = cn.CargarDatos(buscar))
+                    {
+                        if (!dtProductos.Rows.Count.Equals(0))
+                        {
+                            DataRow row = dtProductos.Rows[0];
+                            prodSerPaq += fech + "|";
+                            prodSerPaq += idEditarProducto + "|";
+                            prodSerPaq += row["ID"].ToString() + "|";
+                            prodSerPaq += row["Nombre"].ToString() + "|";
+                            prodSerPaq += txtCantPaqServ.Text;
+
+                            ProductosDeServicios.Add(prodSerPaq);
+                            prodSerPaq = null;
+                        }
+                    }
                     //btnAdd.Visible = true;
                     CargarDatos();
                     if (flowLayoutPanel2.Visible == true)
