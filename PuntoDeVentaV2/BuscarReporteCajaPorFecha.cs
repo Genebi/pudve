@@ -474,7 +474,7 @@ namespace PuntoDeVentaV2
             //colNum.BackgroundColor = new BaseColor(Color.SkyBlue);
             //colNum.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colVentas = new PdfPCell(new Phrase("VENTAS:", fuenteNegrita));
+            PdfPCell colVentas = new PdfPCell(new Phrase("VENTAS", fuenteNegrita));
             colVentas.BorderWidth = 1;
             colVentas.Colspan = 2;
             colVentas.BackgroundColor = new BaseColor(Color.SkyBlue);
