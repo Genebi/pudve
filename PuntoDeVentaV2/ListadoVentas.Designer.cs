@@ -49,6 +49,7 @@
             this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
             this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnReportes = new System.Windows.Forms.Button();
             this.btn_descargar = new System.Windows.Forms.Button();
             this.txtBuscador = new System.Windows.Forms.TextBox();
             this.btn_enviar = new System.Windows.Forms.Button();
@@ -253,6 +254,7 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.btnReportes);
             this.panelBotones.Controls.Add(this.btn_descargar);
             this.panelBotones.Controls.Add(this.txtBuscador);
             this.panelBotones.Controls.Add(this.btn_enviar);
@@ -267,6 +269,22 @@
             this.panelBotones.Size = new System.Drawing.Size(886, 76);
             this.panelBotones.TabIndex = 6;
             // 
+            // btnReportes
+            // 
+            this.btnReportes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReportes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnReportes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReportes.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnReportes.ForeColor = System.Drawing.Color.White;
+            this.btnReportes.Location = new System.Drawing.Point(639, 14);
+            this.btnReportes.Name = "btnReportes";
+            this.btnReportes.Size = new System.Drawing.Size(127, 25);
+            this.btnReportes.TabIndex = 12;
+            this.btnReportes.Text = "Generar Reporte";
+            this.btnReportes.UseVisualStyleBackColor = false;
+            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
+            // 
             // btn_descargar
             // 
             this.btn_descargar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -275,9 +293,9 @@
             this.btn_descargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_descargar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_descargar.ForeColor = System.Drawing.Color.White;
-            this.btn_descargar.Location = new System.Drawing.Point(794, 44);
+            this.btn_descargar.Location = new System.Drawing.Point(772, 45);
             this.btn_descargar.Name = "btn_descargar";
-            this.btn_descargar.Size = new System.Drawing.Size(89, 25);
+            this.btn_descargar.Size = new System.Drawing.Size(111, 25);
             this.btn_descargar.TabIndex = 10;
             this.btn_descargar.Text = "Descargar";
             this.btn_descargar.UseVisualStyleBackColor = false;
@@ -291,7 +309,7 @@
             this.txtBuscador.Name = "txtBuscador";
             this.txtBuscador.Size = new System.Drawing.Size(375, 23);
             this.txtBuscador.TabIndex = 9;
-            this.txtBuscador.Text = "BUSCAR POR RFC, CLIENTE O FOLIO...";
+            this.txtBuscador.Text = "BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO...";
             this.txtBuscador.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBuscador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscador_KeyDown);
             // 
@@ -303,9 +321,9 @@
             this.btn_enviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_enviar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_enviar.ForeColor = System.Drawing.Color.White;
-            this.btn_enviar.Location = new System.Drawing.Point(702, 44);
+            this.btn_enviar.Location = new System.Drawing.Point(772, 14);
             this.btn_enviar.Name = "btn_enviar";
-            this.btn_enviar.Size = new System.Drawing.Size(89, 25);
+            this.btn_enviar.Size = new System.Drawing.Size(111, 25);
             this.btn_enviar.TabIndex = 8;
             this.btn_enviar.Text = "Enviar";
             this.btn_enviar.UseVisualStyleBackColor = false;
@@ -342,9 +360,9 @@
             this.btnNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevaVenta.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaVenta.Location = new System.Drawing.Point(588, 44);
+            this.btnNuevaVenta.Location = new System.Drawing.Point(655, 45);
             this.btnNuevaVenta.Name = "btnNuevaVenta";
-            this.btnNuevaVenta.Size = new System.Drawing.Size(111, 24);
+            this.btnNuevaVenta.Size = new System.Drawing.Size(111, 25);
             this.btnNuevaVenta.TabIndex = 5;
             this.btnNuevaVenta.Text = "Nueva venta";
             this.btnNuevaVenta.UseVisualStyleBackColor = false;
@@ -676,5 +694,6 @@
         private System.Windows.Forms.DataGridViewImageColumn cInformacion;
         private System.Windows.Forms.DataGridViewImageColumn retomarVenta;
         private System.Windows.Forms.Label lb_txt_ruta_descargar;
+        private System.Windows.Forms.Button btnReportes;
     }
 }

@@ -430,30 +430,9 @@ namespace PuntoDeVentaV2
             string tipoReporte = string.Empty,
                     encabezadoTipoReporte = string.Empty;
 
-            //float PuntoDeVenta = 0,
-            //        StockFisico = 0,
-            //        Diferencia = 0,
-            //        Precio = 0,
-            //        CantidadPerdida = 0,
-            //        CantidadRecuperada = 0;
-
-            //decimal totalC = 0, efectivoC = 0, tarjetaC = 0, valesC = 0, chequeC = 0, transferenciaC = 0, credito = 0, anticipos = 0, totalA = 0, efectivoA = 0, tarjetaA = 0, valesA = 0, chequeA = 0, transferenciaA = 0, totalR = 0, efectivoR = 0, tarjetaR = 0, valesR = 0, chequeR = 0, transferenciaR = 0, totalAg = 0, efectivoAg = 0, tarjetaAg = 0, valesAg = 0, chequeAg = 0, transferenciaAg = 0;
-
-            //tipoReporte = Inventario.filtradoParaRealizar;
-
             //Encabezado del reporte
             encabezadoTipoReporte = reportType;
 
-            //using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
-            //{
-            //    if (!dtDataUsr.Rows.Count.Equals(0))
-            //    {
-            //        foreach (DataRow drDataUsr in dtDataUsr.Rows)
-            //        {
-            //            UsuarioActivo = drDataUsr["Usuario"].ToString();
-            //        }
-            //    }
-            //}
 
             var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
             var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
@@ -538,12 +517,6 @@ namespace PuntoDeVentaV2
             foreach (var iterador in datosCaja)
             {
                 string[] words = iterador.Split('|');
-                //    numRow++;
-                //    PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
-                //    colNoConceptoTmp.BorderWidth = 1;
-                //    colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_LEFT;
-
-                //    PdfPCell colVentasTemp = new PdfPCell(new Phrase(words[0].ToString(), fuenteNormal));
 
                 PdfPCell colVentasTemp = new PdfPCell(new Phrase(words[0].ToString(), fuenteNormal));
                 PdfPCell colVentasCantidad = new PdfPCell(new Phrase(words[1].ToString(), fuenteNormal));
@@ -593,11 +566,6 @@ namespace PuntoDeVentaV2
                 colAnticiposCantidad.BorderWidthLeft = 0;
                 colAnticiposCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
 
-
-                //    PdfPCell colAgregadoTemp = new PdfPCell(new Phrase(words[2].ToString(), fuenteNormal));
-                //    colAgregadoTemp.BorderWidth = 1;
-                //    colAgregadoTemp.HorizontalAlignment = Element.ALIGN_LEFT;
-
                 PdfPCell colAgregadoTemp = new PdfPCell(new Phrase(words[4].ToString(), fuenteNormal));
                 PdfPCell colAgregadoCantidad = new PdfPCell(new Phrase(words[5].ToString(), fuenteNormal));
 
@@ -620,9 +588,6 @@ namespace PuntoDeVentaV2
                 colAgregadoCantidad.BorderWidthLeft = 0;
                 colAgregadoCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                //    PdfPCell colRetiradoTEmp = new PdfPCell(new Phrase(words[3].ToString(), fuenteNormal));
-                //    colRetiradoTEmp.BorderWidth = 1;
-                //    colRetiradoTEmp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 PdfPCell colRetiradoTEmp = new PdfPCell(new Phrase(words[6].ToString(), fuenteNormal));
                 PdfPCell colRetiradoCantidad = new PdfPCell(new Phrase(words[7].ToString(), fuenteNormal));
