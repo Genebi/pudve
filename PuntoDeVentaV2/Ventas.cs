@@ -5913,8 +5913,11 @@ namespace PuntoDeVentaV2
                         if (!string.IsNullOrWhiteSpace(html))
                         {
                             Utilidades.EnviarEmail(html, asunto, correo);
-   
-                            Utilidades.EnviarEmail(html, asuntoAdicional, correo);
+                            
+                            if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
+                            {
+                                Utilidades.EnviarEmail(html, asuntoAdicional, correo);
+                            }
                         }
                     }
 
@@ -5930,7 +5933,10 @@ namespace PuntoDeVentaV2
                     {
                         if (!string.IsNullOrWhiteSpace(html))
                         {
-                            Utilidades.EnviarEmail(html, asuntoAdicional, correo);
+                            if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
+                            {
+                                Utilidades.EnviarEmail(html, asuntoAdicional, correo);
+                            }
                         }
                     }
 
