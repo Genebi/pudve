@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using System;
@@ -1860,5 +1861,261 @@ namespace PuntoDeVentaV2
 
             return encontrado;
         }
+
+        public static void GenerarReporte(string opcionVentas, DataTable tablaResult)
+        {
+            Consultas cs = new Consultas();
+
+            // Ventas pagadas
+            if (opcionVentas == "VP") { opcionVentas = "Ventas pagadas"; }
+            // Ventas guardadas
+            if (opcionVentas == "VG") { opcionVentas = "Ventas guardadas"; }
+            // Ventas canceladas
+            if (opcionVentas == "VC") { opcionVentas = "Ventas canceladas"; }
+            // Ventas a credito
+            if (opcionVentas == "VCC") { opcionVentas = "Ventas a credito"; }
+
+            var mostrarClave = FormPrincipal.clave;
+
+            //Datos del usuario
+            var datos = FormPrincipal.datosUsuario;
+
+            //Fuentes y Colores
+            var colorFuenteNegrita = new BaseColor(Color.Black);
+            var colorFuenteBlanca = new BaseColor(Color.White);
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
+
+            var numRow = 0;
+
+            //Ruta donde se creara el archivo PDF
+            var servidor = Properties.Settings.Default.Hosting;
+            var rutaArchivo = string.Empty;
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\ventas.pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Reportes\ventas.pdf";
+            }
+
+            var fechaHoy = DateTime.Now;
+            //rutaArchivo = @"C:\Archivos PUDVE\Reportes\caja.pdf";
+
+            Document reporte = new Document(PageSize.A3.Rotate());
+            PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+
+            reporte.Open();
+
+            Paragraph titulo = new Paragraph(opcionVentas, fuenteGrande);
+
+            Paragraph Usuario = new Paragraph("");
+
+            Paragraph Empleado = new Paragraph("");
+
+            Paragraph NumeroFolio = new Paragraph("");
+
+            //string UsuarioActivo = string.Empty;
+
+            string tipoReporte = string.Empty,
+                    encabezadoTipoReporte = string.Empty;
+
+            //Encabezado del reporte
+            encabezadoTipoReporte = opcionVentas;
+
+
+            var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
+            var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
+
+            //var numFolio = obtenerFolio(id);
+
+            Usuario = new Paragraph($"USUARIO: ADMIN ({obtenerUsuarioPrincipal})", fuenteNegrita);
+            if (!string.IsNullOrEmpty(UsuarioActivo))
+            {
+                Empleado = new Paragraph($"EMPLEADO: {UsuarioActivo}", fuenteNegrita);
+            }
+
+            //NumeroFolio = new Paragraph("No. Folio: " + numFolio, fuenteNormal);
+
+            Paragraph subTitulo = new Paragraph($"REPORTE DE VENTAS\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
+            if (!string.IsNullOrEmpty(UsuarioActivo)) { Empleado.Alignment = Element.ALIGN_CENTER; }
+            NumeroFolio.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
+
+
+            float[] anchoColumnas = new float[] { 60f, 40f, 60f, 40f, 60f, 40f, 60f};
+
+            //Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+
+            //============================
+            //=== TABLA DE INVENTARIO  ===
+            //============================
+
+            PdfPTable tablaInventario = new PdfPTable(7);
+            tablaInventario.WidthPercentage = 100;
+            tablaInventario.SetWidths(anchoColumnas);
+
+            //PdfPCell colNum = new PdfPCell(new Phrase("No:", fuenteNegrita));
+            //colNum.BorderWidth = 1;
+            //colNum.BackgroundColor = new BaseColor(Color.SkyBlue);
+            //colNum.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colCliente = new PdfPCell(new Phrase("CLIENTE", fuenteNegrita));
+            colCliente.BorderWidth = 1;
+            //colCliente.Colspan = 2;
+            colCliente.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colCliente.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colRFC = new PdfPCell(new Phrase("RFC", fuenteTotales));
+            colRFC.BorderWidth = 1;
+            //colRFC.Colspan = 2;
+            colRFC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colRFC.Padding = 3;
+            colRFC.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colTotal = new PdfPCell(new Phrase("TOTAL", fuenteTotales));
+            colTotal.BorderWidth = 1;
+            //colTotal.Colspan = 2;
+            colTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotal.Padding = 3;
+            colTotal.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colFolio = new PdfPCell(new Phrase("FOLIO", fuenteTotales));
+            colFolio.BorderWidth = 1;
+            //colFolio.Colspan = 2;
+            colFolio.HorizontalAlignment = Element.ALIGN_CENTER;
+            colFolio.Padding = 3;
+            colFolio.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colSerie = new PdfPCell(new Phrase("SERIE", fuenteTotales));
+            colSerie.BorderWidth = 1;
+            //colSerie.Colspan = 2;
+            colSerie.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSerie.Padding = 3;
+            colSerie.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colFecha = new PdfPCell(new Phrase("FECHA", fuenteTotales));
+            colFecha.BorderWidth = 1;
+            //colFecha.Colspan = 2;
+            colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
+            colFecha.Padding = 3;
+            colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colEmpleado = new PdfPCell(new Phrase("EMPLEADO", fuenteTotales));
+            colEmpleado.BorderWidth = 1;
+            //colEmpleado.Colspan = 2;
+            colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
+            colEmpleado.Padding = 3;
+            colEmpleado.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            tablaInventario.AddCell(colCliente);
+            tablaInventario.AddCell(colRFC);
+            tablaInventario.AddCell(colTotal);
+            tablaInventario.AddCell(colFolio);
+            tablaInventario.AddCell(colSerie);
+            tablaInventario.AddCell(colFecha);
+            tablaInventario.AddCell(colEmpleado);
+
+            var cliente = string.Empty;
+            foreach (DataRow iterador in tablaResult.Rows)
+            {
+                var nombreEmpleado = cs.BuscarEmpleadoCaja(Convert.ToInt32(iterador["IDEmpleado"].ToString()));
+                if (string.IsNullOrEmpty(nombreEmpleado)) { nombreEmpleado = FormPrincipal.userNickName; }
+
+                PdfPCell colClienteTemp = new PdfPCell(new Phrase(iterador["Cliente"].ToString(), fuenteNormal));
+                colClienteTemp.BorderWidth = 1;
+                //colClienteTemp.BorderWidthLeft = 0;
+                //colClienteTemp.BorderWidthTop = 0;
+                //colClienteTemp.BorderWidthBottom = 0;
+                //colClienteTemp.BorderWidthRight = 0;
+                colClienteTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colRFCTemp = new PdfPCell(new Phrase(iterador["RFC"].ToString(), fuenteNormal));
+                colRFCTemp.BorderWidth = 1;
+                //colRFCTemp.BorderWidthRight = 0;
+                //colRFCTemp.BorderWidthTop = 0;
+                //colRFCTemp.BorderWidthBottom = 0;
+                //colRFCTemp.BorderWidthLeft = 0;
+                colRFCTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+                
+                PdfPCell colTotalTemp = new PdfPCell(new Phrase("$"+iterador["Total"].ToString(), fuenteNormal));
+                colTotalTemp.BorderWidth = 1;
+                //colTotalTemp.BorderWidthRight = 0;
+                //colTotalTemp.BorderWidthTop = 0;
+                //colTotalTemp.BorderWidthBottom = 0;
+                //colTotalTemp.BorderWidthLeft = 0;
+                colTotalTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+                
+                PdfPCell colFolioTemp = new PdfPCell(new Phrase(iterador["Folio"].ToString(), fuenteNormal));
+                colFolioTemp.BorderWidth = 1;
+                //colFolioTemp.BorderWidthLeft = 0;
+                //colFolioTemp.BorderWidthTop = 0;
+                //colFolioTemp.BorderWidthBottom = 0;
+                //colFolioTemp.BorderWidthRight = 0;
+                colFolioTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colSerieTemp = new PdfPCell(new Phrase(iterador["Serie"].ToString(), fuenteNormal));
+                colSerieTemp.BorderWidth = 1;
+                //colSerieTemp.BorderWidthRight = 0;
+                //colSerieTemp.BorderWidthTop = 0;
+                //colSerieTemp.BorderWidthBottom = 0;
+                //colSerieTemp.BorderWidthLeft = 0;
+                colSerieTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colFechaTemp = new PdfPCell(new Phrase(iterador["FechaOperacion"].ToString(), fuenteNormal));
+                colFechaTemp.BorderWidth = 1;
+                //colFechaTemp.BorderWidthLeft = 0;
+                //colFechaTemp.BorderWidthTop = 0;
+                //colFechaTemp.BorderWidthBottom = 0;
+                //colFechaTemp.BorderWidthRight = 0;
+                colFechaTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colEmpleadoTemp = new PdfPCell(new Phrase(nombreEmpleado, fuenteNormal));
+                colEmpleadoTemp.BorderWidth = 1;
+                //colEmpleadoTemp.BorderWidthLeft = 0;
+                //colEmpleadoTemp.BorderWidthTop = 0;
+                //colEmpleadoTemp.BorderWidthBottom = 0;
+                //colEmpleadoTemp.BorderWidthRight = 0;
+                colEmpleadoTemp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                //tablaInventario.AddCell(colNoConceptoTmp);
+                tablaInventario.AddCell(colClienteTemp);
+                tablaInventario.AddCell(colRFCTemp);
+                tablaInventario.AddCell(colTotalTemp);
+                tablaInventario.AddCell(colFolioTemp);
+                tablaInventario.AddCell(colSerieTemp);
+                tablaInventario.AddCell(colFechaTemp);
+                tablaInventario.AddCell(colEmpleadoTemp);
+            }
+
+            reporte.Add(titulo);
+            reporte.Add(Usuario);
+            if (!string.IsNullOrEmpty(UsuarioActivo)) { reporte.Add(Empleado); }
+            reporte.Add(NumeroFolio);
+            reporte.Add(subTitulo);
+            reporte.Add(tablaInventario);
+
+            //================================
+            //=== FIN TABLA DE INVENTARIO ===
+            //================================
+
+            reporte.AddTitle("Reporte Caja");
+            reporte.AddAuthor("PUDVE");
+            reporte.Close();
+            writer.Close();
+
+            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            vr.Show();
+        }
+
     }
 }

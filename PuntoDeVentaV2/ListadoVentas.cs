@@ -223,7 +223,7 @@ namespace PuntoDeVentaV2
                     if (opcion == "VCC") { estado = 4; }
 
 
-                    if (buscador.Equals("BUSCAR POR RFC, CLIENTE O FOLIO..."))
+                    if (buscador.Equals("BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO..."))
                     {
                         buscador = string.Empty;
                     }
@@ -244,7 +244,15 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
+                            var idEmpleado = cs.NombreEmpleado(buscador);
+                            if (!string.IsNullOrEmpty(idEmpleado))
+                            {
+                                extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%' OR IDEmpleado = '{idEmpleado}')";
+                            }
+                            else
+                            {
+                                extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
+                            }
                         }
 
                         consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
@@ -2328,7 +2336,7 @@ namespace PuntoDeVentaV2
 
         private void BuscarTieneFoco(object sender, EventArgs e)
         {
-            if (txtBuscador.Text == "BUSCAR POR RFC, CLIENTE O FOLIO...")
+            if (txtBuscador.Text == "BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO...")
             {
                 txtBuscador.Text = "";
             }
@@ -2338,7 +2346,7 @@ namespace PuntoDeVentaV2
         {
             if (string.IsNullOrWhiteSpace(txtBuscador.Text))
             {
-                txtBuscador.Text = "BUSCAR POR RFC, CLIENTE O FOLIO...";
+                txtBuscador.Text = "BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO...";
             }
         }
 
@@ -2652,5 +2660,21 @@ namespace PuntoDeVentaV2
                 btnNuevaVenta.PerformClick();
             }
         }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            var opcion = cbTipoVentas.SelectedValue.ToString();
+            
+            //Se quita el * de la consulta para obtener solo los campos que me interesan y se guarda en una nueva variable
+            var ajustarQuery = FiltroAvanzado.Replace("*","Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion");
+
+            var query = cn.CargarDatos(ajustarQuery);
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                Utilidades.GenerarReporte(opcion, query);
+            }
+        }
+
     }
 }

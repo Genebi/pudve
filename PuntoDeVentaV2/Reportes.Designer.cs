@@ -40,6 +40,7 @@
             this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnCaja = new System.Windows.Forms.Button();
+            this.btnReporteVentas = new System.Windows.Forms.Button();
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.SuspendLayout();
@@ -114,7 +115,7 @@
             this.btnReporteInventario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReporteInventario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReporteInventario.ForeColor = System.Drawing.Color.White;
-            this.btnReporteInventario.Location = new System.Drawing.Point(575, 91);
+            this.btnReporteInventario.Location = new System.Drawing.Point(473, 91);
             this.btnReporteInventario.Name = "btnReporteInventario";
             this.btnReporteInventario.Size = new System.Drawing.Size(190, 30);
             this.btnReporteInventario.TabIndex = 105;
@@ -193,7 +194,7 @@
             this.btnCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCaja.ForeColor = System.Drawing.Color.White;
-            this.btnCaja.Location = new System.Drawing.Point(304, 91);
+            this.btnCaja.Location = new System.Drawing.Point(258, 91);
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Size = new System.Drawing.Size(190, 30);
             this.btnCaja.TabIndex = 107;
@@ -201,11 +202,30 @@
             this.btnCaja.UseVisualStyleBackColor = false;
             this.btnCaja.Click += new System.EventHandler(this.btnCaja_Click);
             // 
+            // btnReporteVentas
+            // 
+            this.btnReporteVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnReporteVentas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReporteVentas.FlatAppearance.BorderSize = 0;
+            this.btnReporteVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnReporteVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnReporteVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReporteVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReporteVentas.ForeColor = System.Drawing.Color.White;
+            this.btnReporteVentas.Location = new System.Drawing.Point(689, 91);
+            this.btnReporteVentas.Name = "btnReporteVentas";
+            this.btnReporteVentas.Size = new System.Drawing.Size(190, 30);
+            this.btnReporteVentas.TabIndex = 108;
+            this.btnReporteVentas.Text = "Reporte Ventas";
+            this.btnReporteVentas.UseVisualStyleBackColor = false;
+            this.btnReporteVentas.Click += new System.EventHandler(this.btnReporteVentas_Click);
+            // 
             // Reportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.btnReporteVentas);
             this.Controls.Add(this.btnHistorialDineroAgregado);
             this.Controls.Add(this.btnCaja);
             this.Controls.Add(this.Panel);
@@ -237,5 +257,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.DataGridViewImageColumn mostrar;
         private System.Windows.Forms.Button btnCaja;
+        private System.Windows.Forms.Button btnReporteVentas;
     }
 }

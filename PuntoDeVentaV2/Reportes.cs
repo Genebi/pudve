@@ -1681,5 +1681,10 @@ namespace PuntoDeVentaV2
             //    MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //}
         }
+
+        private void btnReporteVentas_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Para generar reportes de ventas deberá ir \nal apartado Ventas y dar click en el botón \n\"Generar Reporte\".", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

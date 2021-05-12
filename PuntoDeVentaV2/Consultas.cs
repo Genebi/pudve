@@ -143,6 +143,20 @@ namespace PuntoDeVentaV2
             return result;
         }
 
+        public string NombreEmpleado(string name)
+        {
+            var result = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE Nombre LIKE '%{name}%'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["ID"].ToString();
+            }
+
+            return result;
+        }
+
         public string ListarProductosSinProveedor(int idUser, int statusProducto)
         {
             // Script para INNER JOIN de Proveedores
