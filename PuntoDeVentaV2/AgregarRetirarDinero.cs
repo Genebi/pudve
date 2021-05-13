@@ -42,6 +42,8 @@ namespace PuntoDeVentaV2
         float convertVales = 0f;
         float convertTrans = 0f;
 
+
+        public static string totalRetiradoCorte { get; set; }
         public static string obtenerRutaPDF { get; set; }
 
         string idParaComboBox = string.Empty;
@@ -235,6 +237,11 @@ namespace PuntoDeVentaV2
 
             // Se guardan las cantidades que el usuario es lo que va a retirar
             var cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
+
+            if (operacion.Equals(2))
+            {
+                totalRetiradoCorte = cantidad.ToString();
+            }
 
             // Si es igual a cero no procede la operacion de depositar o retirar
             if (cantidad == 0)
