@@ -227,7 +227,7 @@ namespace PuntoDeVentaV2
                 {
                     tipo_us = 1;
 
-                    resultado = (bool)cn.EjecutarSelect($"SELECT usuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'");
+                    resultado = (bool)cn.EjecutarSelect($"SELECT usuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'AND estatus = 1");
 
                     // Obtiene solo el nombre de usuario principal 
 
@@ -306,7 +306,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    txtMensaje.Text = "El usuario y/o contraseña son incorrectos";
+                    txtMensaje.Text = "El usuario y/o contraseña son incorrectos\nO se encuentra Inhabilitado";
                     txtPassword.Text = "";
                     txtPassword.Focus();
                 }
