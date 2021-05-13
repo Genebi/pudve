@@ -1669,7 +1669,137 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colTotalFinal);
             tabla.AddCell(colTotalFinalC);
 
+
+            // Linea de Dinero Retirado en el Corte
+            PdfPCell colVacioPrimero = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioPrimero.BorderWidth = 0;
+            colVacioPrimero.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioPrimero.Padding = 3;
+
+            PdfPCell colVacioSegundo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioSegundo.BorderWidth = 0;
+            colVacioSegundo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioSegundo.Padding = 3;
+
+            PdfPCell colVaciotercero = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVaciotercero.BorderWidth = 0;
+            colVaciotercero.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVaciotercero.Padding = 3;
+
+            PdfPCell colVacioCuarto = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioCuarto.BorderWidth = 0;
+            colVacioCuarto.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioCuarto.Padding = 3;
+
+            PdfPCell colVacioQuinto = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioQuinto.BorderWidth = 0;
+            colVacioQuinto.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioQuinto.Padding = 3;
+
+            PdfPCell colVacioSexto = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioSexto.BorderWidth = 0;
+            colVacioSexto.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioSexto.Padding = 3;
+
+            PdfPCell colVacioSeptimo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));////////
+            colVacioSeptimo.BorderWidth = 0;
+            colVacioSeptimo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioSeptimo.Padding = 3;
+
+            PdfPCell colVacioOctavo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));//////////////
+            colVacioOctavo.BorderWidth = 0;
+            colVacioOctavo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioOctavo.Padding = 3;
+
+            PdfPCell colVacioNoveno = new PdfPCell(new Phrase($"Cantidad retirada al corte:", fuenteNegrita));
+            colVacioNoveno.BorderWidth = 0;
+            colVacioNoveno.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioNoveno.Padding = 3;
+
+            PdfPCell colVacioDecimo = new PdfPCell(new Phrase($"{AgregarRetirarDinero.totalRetiradoCorte}", fuenteNegrita));
+            colVacioDecimo.BorderWidth = 0;
+            colVacioDecimo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioDecimo.Padding = 3;
+
+            tabla.AddCell(colVacioPrimero);
+            tabla.AddCell(colVacioSegundo);
+            tabla.AddCell(colVaciotercero);
+            tabla.AddCell(colVacioCuarto);
+            tabla.AddCell(colVacioQuinto);
+            tabla.AddCell(colVacioSexto);
+            tabla.AddCell(colVacioSeptimo);
+            tabla.AddCell(colVacioOctavo);
+            tabla.AddCell(colVacioNoveno);
+            tabla.AddCell(colVacioDecimo);
+
+            saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
+
+            // Linea de Total en caja despues del corte
+            PdfPCell colVacioPrimeroSaldo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioPrimeroSaldo.BorderWidth = 0;
+            colVacioPrimeroSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioPrimeroSaldo.Padding = 3;
+
+            PdfPCell colVacioSegundoSaldo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioSegundoSaldo.BorderWidth = 0;
+            colVacioSegundoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioSegundoSaldo.Padding = 3;
+
+            PdfPCell colVacioterceroSaldo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioterceroSaldo.BorderWidth = 0;
+            colVacioterceroSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioterceroSaldo.Padding = 3;
+
+            PdfPCell colVacioCuartoSaldo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioCuartoSaldo.BorderWidth = 0;
+            colVacioCuartoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioCuartoSaldo.Padding = 3;
+
+            PdfPCell colVacioQuintoSaldo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioQuintoSaldo.BorderWidth = 0;
+            colVacioQuintoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioQuintoSaldo.Padding = 3;
+
+            PdfPCell colVacioSextoSaldo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
+            colVacioSextoSaldo.BorderWidth = 0;
+            colVacioSextoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioSextoSaldo.Padding = 3;
+
+            PdfPCell colVacioSeptimoSaldo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));////////
+            colVacioSeptimoSaldo.BorderWidth = 0;
+            colVacioSeptimoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioSeptimoSaldo.Padding = 3;
+
+            PdfPCell colVacioOctavoSaldo = new PdfPCell(new Phrase(string.Empty, fuenteTotales));//////////////
+            colVacioOctavoSaldo.BorderWidth = 0;
+            colVacioOctavoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioOctavoSaldo.Padding = 3;
+
+            PdfPCell colVacioNovenoSaldo = new PdfPCell(new Phrase($"Cantidad retirada al corte:", fuenteNegrita));
+            colVacioNovenoSaldo.BorderWidth = 0;
+            colVacioNovenoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioNovenoSaldo.Padding = 3;
+
+            PdfPCell colVacioDecimoSaldo = new PdfPCell(new Phrase($"{saldoInicial}", fuenteNegrita));
+            colVacioDecimoSaldo.BorderWidth = 0;
+            colVacioDecimoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVacioDecimoSaldo.Padding = 3;
+
+            tabla.AddCell(colVacioPrimeroSaldo);
+            tabla.AddCell(colVacioSegundoSaldo);
+            tabla.AddCell(colVacioterceroSaldo);
+            tabla.AddCell(colVacioCuartoSaldo);
+            tabla.AddCell(colVacioQuintoSaldo);
+            tabla.AddCell(colVacioSextoSaldo);
+            tabla.AddCell(colVacioSeptimoSaldo);
+            tabla.AddCell(colVacioOctavoSaldo);
+            tabla.AddCell(colVacioNovenoSaldo);
+            tabla.AddCell(colVacioDecimoSaldo);
+
             #endregion
+
+
+
             //===========================================
             //===    FIN  TABLAS DE CORTE DE CAJA     ===
             //===========================================
@@ -1951,6 +2081,7 @@ namespace PuntoDeVentaV2
             vr.ShowDialog();
         }
 
+    
 
         private void GenerarTicket()
         {
