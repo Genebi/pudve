@@ -42,9 +42,12 @@ namespace PuntoDeVentaV2
             var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
             var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
 
+            var cantidadCortes = validarNewCuentas();
+            var primerId = obtenerPrimerCorte();
+
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
             var nombreUser = string.Empty;
-            var querry = cn.CargarDatos(cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha));
+            var querry = cn.CargarDatos(cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId));
 
             if (!querry.Rows.Count.Equals(0))
             {
@@ -84,32 +87,38 @@ namespace PuntoDeVentaV2
             var primerFecha = DateTime.Today.AddDays(-7).ToString("yyyy/MM/dd");
             var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
 
+            var cantidadCortes = validarNewCuentas();
+            var primerId = obtenerPrimerCorte();
+
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
             var fechaOp = string.Empty;
-            var consulta = cn.CargarDatos(cs.CargarDatosIniciarFormReportesCaja(primerFecha, segundaFecha));
+            var consulta = cn.CargarDatos(cs.CargarDatosIniciarFormReportesCaja(primerFecha, segundaFecha, primerId));
 
-            if (!consulta.Rows.Count.Equals(0))
+            if (cantidadCortes > 1)
             {
-                foreach (DataRow iterar in consulta.Rows)
+                if (!consulta.Rows.Count.Equals(0))
                 {
-                    idCorte = iterar["ID"].ToString();
-                    fecha = iterar["FechaOPeracion"].ToString();
-                    idEmpleado = Convert.ToInt32(iterar["IdEmpleado"].ToString());
-                    empleado = iterar["nombre"].ToString();
-                    fechaOp = iterar["FechaOperacion"].ToString();
-
-                    if (idEmpleado > 0)
+                    foreach (DataRow iterar in consulta.Rows)
                     {
-                        name = empleado;
-                    }
-                    else
-                    {
-                        name = $"ADMIN {FormPrincipal.userNickName.ToString()}";
-                    }
+                        idCorte = iterar["ID"].ToString();
+                        fecha = iterar["FechaOPeracion"].ToString();
+                        idEmpleado = Convert.ToInt32(iterar["IdEmpleado"].ToString());
+                        empleado = iterar["nombre"].ToString();
+                        fechaOp = iterar["FechaOperacion"].ToString();
 
-                    //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
+                        if (idEmpleado > 0)
+                        {
+                            name = empleado;
+                        }
+                        else
+                        {
+                            name = $"ADMIN {FormPrincipal.userNickName.ToString()}";
+                        }
 
-                    DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf, fechaOp);
+                        //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
+
+                        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf, fechaOp);
+                    }
                 }
             }
         }
@@ -120,6 +129,33 @@ namespace PuntoDeVentaV2
             {
                 btnBuscar.PerformClick();
             }
+        }
+
+        private int validarNewCuentas()
+        {
+            var cantidad = 0;
+            var validarNewCuenta = cn.CargarDatos($"SELECT COUNT(Operacion) AS Num FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte'");
+
+            if (!validarNewCuenta.Rows.Count.Equals(0))
+            {
+                cantidad = Convert.ToInt32(validarNewCuenta.Rows[0]["Num"].ToString());
+            }
+
+            return cantidad;
+        }
+
+        private int obtenerPrimerCorte()
+        {
+            var result = 0;
+
+            var query = cn.CargarDatos($"SELECT ID FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion ASC LIMIT 1");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToInt32(query.Rows[0]["ID"].ToString());
+            }
+
+            return result;
         }
 
         private void txtBuscador_TextChanged(object sender, EventArgs e)

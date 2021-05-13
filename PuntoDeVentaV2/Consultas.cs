@@ -205,9 +205,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string BuscadorDeReportesCaja(string datoBuscar, string primerFecha, string segundaFecha)
+        public string BuscadorDeReportesCaja(string datoBuscar, string primerFecha, string segundaFecha, int idNoMostrar)
         {
-            var consulta = $"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre, USR.Usuario FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID LEFT JOIN Usuarios AS USR ON USR.ID = CJ.IDUsuario WHERE CJ.IDUsuario = '{FormPrincipal.userID}' AND CJ.Operacion = 'corte' AND((USR.Usuario LIKE '%{datoBuscar}%' AND CJ.IdEmpleado = 0) OR EMP.nombre LIKE '%{datoBuscar}%') AND(CJ.FechaOperacion BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY CJ.FechaOperacion DESC";
+            var consulta = $"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre, USR.Usuario FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID LEFT JOIN Usuarios AS USR ON USR.ID = CJ.IDUsuario WHERE CJ.IDUsuario = '{FormPrincipal.userID}' AND CJ.Operacion = 'corte' AND CJ.ID != '{idNoMostrar}' AND((USR.Usuario LIKE '%{datoBuscar}%' AND CJ.IdEmpleado = 0) OR EMP.nombre LIKE '%{datoBuscar}%') AND(CJ.FechaOperacion BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY CJ.FechaOperacion DESC";
 
             return consulta;
         }
@@ -219,9 +219,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string CargarDatosIniciarFormReportesCaja(string primerFecha, string segundaFecha)
+        public string CargarDatosIniciarFormReportesCaja(string primerFecha, string segundaFecha, int idNoMostrar)
         {
-            var consulta = $"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID WHERE CJ.IDUsuario = '{FormPrincipal.userID}' AND CJ.Operacion = 'corte' AND(CJ.FechaOperacion BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY CJ.FechaOperacion DESC";
+            var consulta = $"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID WHERE CJ.IDUsuario = '{FormPrincipal.userID}' AND CJ.Operacion = 'corte' AND CJ.ID != '{idNoMostrar}'  AND(CJ.FechaOperacion BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY CJ.FechaOperacion DESC";
 
             return consulta;
         }
