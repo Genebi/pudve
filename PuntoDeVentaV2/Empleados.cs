@@ -14,7 +14,16 @@ namespace PuntoDeVentaV2
     public partial class Empleados : Form
     {
         MetodosBusquedas mb = new MetodosBusquedas();
-
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+        string busqueda = string.Empty;
+        string filtro = string.Empty;
+        private Paginar p;
+        string DataMemberDGV = "empleados";
+        int maximo_x_pagina = 12;
+        int clickBoton = 0;
+        private List<string> propiedades = new List<string>();
+        string filtroConSinFiltroAvanzado = string.Empty;
         // Permisos botones
         int opcion1 = 1; // Nuevo empleado
         int opcion2 = 1; // Editar empleado
@@ -27,8 +36,9 @@ namespace PuntoDeVentaV2
 
         private void cargar_empleados(object sender, EventArgs e)
         {
-            cargar_lista_empleados();
-
+            filtroLoadProductos();
+            //cargar_lista_empleados();
+            cboMostrados.SelectedIndex = 0;
             if (FormPrincipal.id_empleado > 0)
             {
                 var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Empleados");
@@ -37,7 +47,20 @@ namespace PuntoDeVentaV2
                 opcion2 = permisos[1];
                 opcion3 = permisos[2];
             }
+            CargarDatos();
             this.Focus();
+        }
+
+        public void filtroLoadProductos()
+        {
+            busqueda ="1";
+
+            filtroConSinFiltroAvanzado = cs.mostrarUsuarios(busqueda);
+
+            p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+
+            dgv_empleados.Rows.Clear();
+            CargarDatos();
         }
 
         public void cargar_lista_empleados()
@@ -79,9 +102,13 @@ namespace PuntoDeVentaV2
 
                 Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
                 Image permisos = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\unlock-alt.png");
+                Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
+                
+
 
                 fila.Cells["editar"].Value = editar;
-                fila.Cells["Permisos"].Value = permisos; 
+                fila.Cells["Permisos"].Value = permisos;
+                fila.Cells["deshabilitar"].Value = deshabilitar;
             }
 
             dgv_empleados.ClearSelection();
@@ -170,6 +197,42 @@ namespace PuntoDeVentaV2
 
                 dgv_empleados.ClearSelection();
             }
+
+            //Deshabilitar Empleado
+            if (e.ColumnIndex == 5)
+            {
+                if (cboMostrados.Text == "Habilitados")
+                {
+                    string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    cn.EjecutarConsulta(cs.deshabilitarEmpleado(nombre));
+                    string tipo = string.Empty;
+                    if (cboMostrados.Text == "Habilitados")
+                    {
+                        tipo = "1";
+                    }
+                    else if (cboMostrados.Text == "Deshabilitados")
+                    {
+                        tipo = "0";
+                    }
+                    CargarDatos(Convert.ToInt32(tipo));
+                }
+                else if (cboMostrados.Text == "Deshabilitados")
+                {
+                    string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    cn.EjecutarConsulta(cs.habilitarEmpleado(nombre));
+                    string tipo = string.Empty;
+                    if (cboMostrados.Text == "Habilitados")
+                    {
+                        tipo = "1";
+                    }
+                    else if (cboMostrados.Text == "Deshabilitados")
+                    {
+                        tipo = "0";
+                    }
+                    CargarDatos(Convert.ToInt32(tipo));
+                }
+                
+            }
         }
 
         private void Empleados_KeyDown(object sender, KeyEventArgs e)
@@ -197,6 +260,380 @@ namespace PuntoDeVentaV2
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
             }
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                //BuscarProductos();
+                if (!txtBuscar.Text.Equals(string.Empty))
+                {
+                    if (cboMostrados.Text.Equals("Habilitados"))
+                    {
+                        CargarDatos(1, txtBuscar.Text);
+                    }
+                    else if (cboMostrados.Text.Equals("Deshabilitados"))
+                    {
+                        CargarDatos(0, txtBuscar.Text);
+                    }
+
+                    
+                }
+                else
+                {
+                    if (cboMostrados.Text.Equals("Habilitados"))
+                    {
+                        CargarDatos(1, txtBuscar.Text);
+                    }
+                    else if (cboMostrados.Text.Equals("Deshabilitados"))
+                    {
+                        CargarDatos(0, txtBuscar.Text);
+                    }
+                }
+            }
+        }
+
+        private void CargarDatos(int status = 1, string busquedaEnEmpleados = "")
+        {
+            busqueda = string.Empty;
+
+            busqueda = busquedaEnEmpleados;
+
+            if (dgv_empleados.RowCount <= 0)
+            {
+                if (busqueda == "")
+                {
+                    //filtro = cs.busquedaEmpleado(busqueda);                 
+                    filtro = cs.mostrarUsuarios(status.ToString());
+                
+                    p = new Paginar(filtro, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (busqueda != "")
+                {
+                    filtro = cs.busquedaEmpleado(busqueda,status);
+
+                    p = new Paginar(filtro, DataMemberDGV, maximo_x_pagina);
+                }
+            }
+            else if (dgv_empleados.RowCount >= 1 && clickBoton == 0)
+            {
+                if (busqueda == "")
+                {
+                    filtro = cs.mostrarUsuarios(status.ToString());
+
+                    p = new Paginar(filtro, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (busqueda != "")
+                {
+                    filtro = cs.busquedaEmpleado(busqueda,status);
+
+                    p = new Paginar(filtro, DataMemberDGV, maximo_x_pagina);
+                }
+            }
+
+            DataSet datos = p.cargar();
+            DataTable dtDatos = datos.Tables[0];
+            dgv_empleados.Rows.Clear();
+            Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
+            Image permisos = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\unlock-alt.png");
+            Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
+            Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\arrow-up.png");
+
+            foreach (DataRow filaDatos in dtDatos.Rows)
+            {
+                var numeroFilas = dgv_empleados.Rows.Count;
+
+                string ID = filaDatos["id"].ToString();
+                string Nombre = filaDatos["nombre"].ToString();
+                string Usuario = filaDatos["usuario"].ToString();
+
+
+                if (dgv_empleados.Rows.Count.Equals(0))
+                {
+                    var number_of_rows = dgv_empleados.Rows.Add();
+                    DataGridViewRow row = dgv_empleados.Rows[number_of_rows];
+                    row.Cells["id"].Value = ID;
+                    row.Cells["nombre"].Value = Nombre;
+                    row.Cells["usuario"].Value = Usuario;
+                    row.Cells["editar"].Value = editar;
+                    row.Cells["permisos"].Value = permisos;
+                    if (cboMostrados.Text == "Habilitados")
+                    {
+                    row.Cells["deshabilitar"].Value = deshabilitar;
+                    }
+                    else if (cboMostrados.Text == "Deshabilitados")
+                    {
+                        row.Cells["deshabilitar"].Value = habilitar;
+                    }
+
+                    
+             
+                    
+                }
+                else if (!dgv_empleados.Rows.Count.Equals(0))
+                {
+                    var number_of_rows = dgv_empleados.Rows.Add();
+                    DataGridViewRow row = dgv_empleados.Rows[number_of_rows];
+                    row.Cells["id"].Value = ID;
+                    row.Cells["nombre"].Value = Nombre;
+                    row.Cells["usuario"].Value = Usuario;
+                    row.Cells["editar"].Value = editar;
+                    row.Cells["permisos"].Value = permisos;
+                    if (cboMostrados.Text == "Habilitados")
+                    {
+                        row.Cells["deshabilitar"].Value = deshabilitar;
+                    }
+                    else if (cboMostrados.Text == "Deshabilitados")
+                    {
+                        row.Cells["deshabilitar"].Value = habilitar;
+                    }
+                }
+            }
+
+            actualizar();
+            clickBoton = 0;
+        }
+        private void actualizar()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
+            lblCantidadRegistros.Text = p.countRow().ToString();
+
+            linkLblPaginaActual.Text = p.numPag().ToString();
+            linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
+            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPrimeraPagina.Visible = false;
+                linkLblPaginaAnterior.Visible = false;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                    linkLblUltimaPagina.Visible = false;
+                }
+            }
+
+            txtMaximoPorPagina.Text = p.limitRow().ToString();
+        }
+
+        private void txtMaximoPorPagina_Click(object sender, EventArgs e)
+        {
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            string tipo = string.Empty;
+            if (cboMostrados.Text == "Habilitados")
+            {
+                tipo = "1";
+            }
+            else if (cboMostrados.Text == "Deshabilitados")
+            {
+                tipo = "0";
+            }
+            CargarDatos(Convert.ToInt32(tipo));
+            actualizar();
+        }
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                p.actualizarTope(maximo_x_pagina);
+                string tipo = string.Empty;
+                if (cboMostrados.Text == "Habilitados")
+                {
+                    tipo = "1";
+                }
+                else if (cboMostrados.Text == "Deshabilitados")
+                {
+                    tipo = "0";
+                }
+                CargarDatos(Convert.ToInt32(tipo));
+                actualizar();
+            }
+        }
+
+        private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
+        {
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            string tipo = string.Empty;
+            if (cboMostrados.Text == "Habilitados")
+            {
+                tipo = "1";
+            }
+            else if (cboMostrados.Text == "Deshabilitados")
+            {
+                tipo = "0";
+            }
+            CargarDatos(Convert.ToInt32(tipo));
+            actualizar();
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            clickBoton = 1;
+            string tipo = string.Empty;
+            if (cboMostrados.Text == "Habilitados")
+            {
+                tipo = "1";
+            }
+            else if (cboMostrados.Text == "Deshabilitados")
+            {
+                tipo = "0";
+            }
+            CargarDatos(Convert.ToInt32(tipo));
+            actualizar();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            string tipo = string.Empty;
+            if (cboMostrados.Text == "Habilitados")
+            {
+                tipo = "1";
+            }
+            else if (cboMostrados.Text == "Deshabilitados")
+            {
+                tipo = "0";
+            }
+            CargarDatos(Convert.ToInt32(tipo));
+            actualizar();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            string tipo = string.Empty;
+            if (cboMostrados.Text == "Habilitados")
+            {
+                tipo = "1";
+            }
+            else if (cboMostrados.Text == "Deshabilitados")
+            {
+                tipo = "0";
+            }
+            CargarDatos(Convert.ToInt32(tipo));
+            actualizar();
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            clickBoton = 1;
+            string tipo = string.Empty;
+            if (cboMostrados.Text == "Habilitados")
+            {
+                tipo = "1";
+            }
+            else if (cboMostrados.Text == "Deshabilitados")
+            {
+                tipo = "0";
+            }
+            CargarDatos(Convert.ToInt32(tipo));
+            actualizar();
+        }
+
+        private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            string tipo = string.Empty;
+            if (cboMostrados.Text == "Habilitados")
+            {
+                tipo = "1";
+            }
+            else if (cboMostrados.Text == "Deshabilitados")
+            {
+                tipo = "0";
+            }
+            CargarDatos(Convert.ToInt32(tipo));
+            actualizar();
+        }
+
+        private void linkLblPaginaActual_Click(object sender, EventArgs e)
+        {
+            actualizar();
+        }
+
+        private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            string tipo = string.Empty;
+            if (cboMostrados.Text == "Habilitados")
+            {
+                tipo = "1";
+            }
+            else if (cboMostrados.Text == "Deshabilitados")
+            {
+                tipo = "0";
+            }
+            CargarDatos(Convert.ToInt32(tipo));
+            actualizar();
+        }
+
+        private void cboMostrados_SelectedValueChanged(object sender, EventArgs e)
+        {
+            string tipo = string.Empty;
+            if (cboMostrados.Text == "Habilitados")
+            {
+                dgv_empleados.Columns[5].HeaderText = "Deshabilitar";
+                tipo = "1";
+            }
+            else if (cboMostrados.Text == "Deshabilitados")
+            {
+                dgv_empleados.Columns[5].HeaderText = "Habilitar";
+                tipo = "0";
+            }
+            CargarDatos(Convert.ToInt32(tipo));
         }
     }
 }

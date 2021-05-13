@@ -246,15 +246,15 @@ namespace PuntoDeVentaV2
         public string GuardarDetallesProducto(string[] datos, int idProducto)
         {
             string consulta = "INSERT INTO DetallesFacturacionProductos (Tipo, Impuesto, TipoFactor, TasaCuota, Definir, Importe, IDProducto)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{idProducto}')";
-            
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{idProducto}')";
+
             return consulta;
         }
 
         public string GuardarDescuentoCliente(string[] datos, int idProducto)
         {
             string consulta = "INSERT INTO DescuentoCliente (PrecioProducto, PorcentajeDescuento, PrecioDescuento, Descuento, IDProducto)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{idProducto}')";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{idProducto}')";
 
             return consulta;
         }
@@ -262,7 +262,7 @@ namespace PuntoDeVentaV2
         public string GuardarDescuentoMayoreo(string[] datos, int idProducto)
         {
             string consulta = "INSERT INTO DescuentoMayoreo (RangoInicial, RangoFinal, Precio, Checkbox, IDProducto)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{idProducto}')";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{idProducto}')";
 
             return consulta;
         }
@@ -289,9 +289,9 @@ namespace PuntoDeVentaV2
         public string GuardarProductosVenta(string[] datos)
         {
             // Se agrega campo descuento individual para efectos de facturación
-             
+
             string consulta = "INSERT INTO ProductosVenta (IDVenta, IDProducto, Nombre, Cantidad, Precio, descuento, TipoDescuento)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[6]}', '{datos[12]}')";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[6]}', '{datos[12]}')";
 
             return consulta;
         }
@@ -326,7 +326,7 @@ namespace PuntoDeVentaV2
         public string GuardarAnticipo(string[] datos)
         {
             string consulta = $"INSERT INTO Anticipos (IDUsuario, Concepto, Importe, Cliente, FormaPago, Comentarios, Status, Fecha, ImporteOriginal)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[2]}')";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[2]}')";
 
             return consulta;
         }
@@ -344,7 +344,7 @@ namespace PuntoDeVentaV2
         public string GuardarProductosServPaq(string[] datos)
         {
             string consulta = "INSERT INTO ProductosDeServicios (Fecha, IDServicio, IDProducto, NombreProducto, Cantidad)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}')";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}')";
 
             return consulta;
         }
@@ -352,7 +352,7 @@ namespace PuntoDeVentaV2
         public string ActualizarProductosServPaq(string[] datos)
         {
             string consulta = $"UPDATE SET ProductosDeServicios Fecha = '{datos[0]}', IDProducto = '{datos[2]}', NombreProducto = '{datos[3]}', Cantidad = '{datos[4]}' WHERE IDServicio = '{datos[1]}'";
-            
+
             return consulta;
         }
 
@@ -364,8 +364,8 @@ namespace PuntoDeVentaV2
 
         public string GuardarDetallesDelProducto(int idProducto, int idUsuario, string nombreProveedor, int idProveedor)
         {
-            string consulta =   "INSERT INTO DetallesProducto (IDProducto, IDUsuario, Proveedor, IDProveedor)";
-                   consulta += $"VALUES ('{idProducto}', '{idUsuario}', '{nombreProveedor}', '{idProveedor}')";
+            string consulta = "INSERT INTO DetallesProducto (IDProducto, IDUsuario, Proveedor, IDProveedor)";
+            consulta += $"VALUES ('{idProducto}', '{idUsuario}', '{nombreProveedor}', '{idProveedor}')";
             return consulta;
         }
 
@@ -379,13 +379,13 @@ namespace PuntoDeVentaV2
                 consulta = "INSERT INTO Proveedores (IDUsuario, Nombre, RFC, Calle, NoExterior, NoInterior, Colonia, Municipio, Estado, CodigoPostal, Email, Telefono, FechaOperacion)";
                 consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}')";
             }
-            
+
             //Actualizar
             if (tipo == 1)
             {
                 consulta = $"UPDATE Proveedores SET Nombre = '{datos[1]}', RFC = '{datos[2]}', Calle = '{datos[3]}', NoExterior = '{datos[4]}', NoInterior = '{datos[5]}', Colonia = '{datos[6]}', Municipio = '{datos[7]}', Estado = '{datos[8]}', CodigoPostal = '{datos[9]}', Email = '{datos[10]}', Telefono = '{datos[11]}', FechaOperacion = '{datos[12]}' WHERE ID = {datos[13]} AND IDUsuario = {datos[0]}";
             }
-            
+
             //Deshabilitar
             if (tipo == 2)
             {
@@ -425,10 +425,10 @@ namespace PuntoDeVentaV2
             {
                 consulta = $"UPDATE DetallesProducto SET Proveedor = '{datos[2]}', IDProveedor = '{datos[3]}' WHERE IDProducto = {datos[0]} AND IDUsuario = {datos[1]}";
             }
-            
+
             return consulta;
         }
-        
+
         public string ActualizarProveedorDetallesDelProducto(string[] datos)
         {
             string consulta = string.Empty;
@@ -636,7 +636,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
-        
+
         public string OperacionCaja(string[] datos, bool corte = false)
         {
             var consulta = string.Empty;
@@ -650,15 +650,15 @@ namespace PuntoDeVentaV2
                 consulta = "INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo)";
                 consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}')";
             }
-            
+
 
             return consulta;
         }
 
         public string OperacionDevoluciones(string[] datos)
         {
-            string  consulta = "INSERT INTO Devoluciones (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion)";
-                    consulta += $"VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}')"; 
+            string consulta = "INSERT INTO Devoluciones (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion)";
+            consulta += $"VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}')";
 
             return consulta;
         }
@@ -673,7 +673,7 @@ namespace PuntoDeVentaV2
                 consulta = "INSERT INTO Clientes (IDUsuario, RazonSocial, NombreComercial, RFC, UsoCFDI, Pais, Estado, Municipio, Localidad, CodigoPostal, Colonia, Calle, NoExterior, NoInterior, RegimenFiscal, Email, Telefono, FormaPago, FechaOperacion, TipoCliente, NumeroCliente)";
                 consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[20]}', '{datos[21]}')";
             }
-            
+
             if (tipo == 1)
             {
                 //consulta = $@"UPDATE Clientes SET RazonSocial = '{datos[1]}', NombreComercial = '{datos[2]}', RFC = '{datos[3]}', UsoCFDI = '{datos[4]}', Pais = '{datos[5]}', Estado = '{datos[6]}', Municipio = '{datos[7]}', Localidad = '{datos[8]}', 
@@ -706,17 +706,17 @@ namespace PuntoDeVentaV2
             {
                 consulta = $"UPDATE DetallesVenta SET IDCliente = {datos[0]}, Cliente = '{datos[1]}' WHERE IDVenta = {datos[2]} AND IDUsuario = {datos[3]}";
             }
-            
+
             return consulta;
         }
 
         public string GuardarAbonos(string[] datos)
         {
             string consulta = "INSERT INTO Abonos (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}')";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}')";
             return consulta;
         }
-        
+
         public string CargarHistorialDeCompras(string idProducto)
         {
             string consulta = $"SELECT * FROM HistorialCompras WHERE IDProducto = '{idProducto}' ORDER BY FechaLarga DESC LIMIT 1";
@@ -738,7 +738,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string guardar_editar_empleado(string[] datos, int opc= 0)
+        public string guardar_editar_empleado(string[] datos, int opc = 0)
         {
             string cons = "";
 
@@ -774,20 +774,20 @@ namespace PuntoDeVentaV2
             return cons;
         }
 
-        public string archivos_digitales(string[] datos, int opc= 0)
+        public string archivos_digitales(string[] datos, int opc = 0)
         {
             string cons = "";
 
             // Guardar/borrar fecha vencimiento y número del certificado
-            if(opc == 1)
+            if (opc == 1)
             {
                 cons = $"UPDATE Usuarios SET num_certificado='{datos[1]}', fecha_caducidad_cer='{datos[2]}', password_cer='{datos[3]}' WHERE ID='{datos[0]}'";
             }
-            if(opc == 2)
+            if (opc == 2)
             {
                 cons = $"SELECT RFC, fecha_caducidad_cer, password_cer FROM Usuarios WHERE ID='{datos[0]}'";
             }
-            if(opc == 3)
+            if (opc == 3)
             {
                 cons = $"UPDATE Usuarios SET password_cer='{datos[1]}' WHERE ID='{datos[0]}'";
             }
@@ -824,30 +824,30 @@ namespace PuntoDeVentaV2
         {
             string cons = "";
             // Facturas
-            if(opc == 1)
+            if (opc == 1)
             {
                 cons = $"SELECT * FROM Facturas WHERE ID='{id}' AND id_usuario='{id_usuario}'";
             }
 
             // Emisor
-            if(opc == 2)
+            if (opc == 2)
             {
                 cons = $"SELECT * FROM Usuarios WHERE ID='{id_usuario}'";
             }
 
             // Receptor
-            if(opc == 3)
+            if (opc == 3)
             {
                 cons = $"SELECT * FROM Clientes WHERE ID='{id}'";
             }
 
             // Consulta los productos de la venta en tabla ProductosVenta
-            if(opc == 4)
+            if (opc == 4)
             {
                 cons = $"SELECT * FROM ProductosVenta WHERE IDVenta='{id}'";
             }
             // Tabla productos
-            if(opc == 5)
+            if (opc == 5)
             {
                 cons = $"SELECT * FROM Productos WHERE ID='{id}'";
             }
@@ -857,7 +857,7 @@ namespace PuntoDeVentaV2
                 cons = $"SELECT * FROM catalogo_monedas";
             }
             // Consulta clientes
-            if(opc == 7)
+            if (opc == 7)
             {
                 cons = $"SELECT * FROM Clientes WHERE IDUsuario='{id_usuario}'";
             }
@@ -898,7 +898,7 @@ namespace PuntoDeVentaV2
                 modif = $"UPDATE DetallesVenta SET IDCliente='{datos[1]}', Cliente='{datos[2]}' WHERE IDVenta='{datos[0]}'";
             }*/
             // Actualiza datos del cliente 
-            if(opc == 1)
+            if (opc == 1)
             {
                 modif = $"UPDATE Clientes SET RazonSocial='{datos[1]}', RFC='{datos[2]}', Telefono='{datos[3]}', Email='{datos[4]}', NombreComercial='{datos[5]}', Pais='{datos[6]}', Estado='{datos[7]}', Municipio='{datos[8]}', Localidad='{datos[9]}', CodigoPostal='{datos[10]}', Colonia='{datos[11]}', Calle='{datos[12]}', NoExterior='{datos[13]}', NoInterior='{datos[14]}', UsoCFDI='{datos[15]}' WHERE ID='{datos[0]}'";
             }
@@ -908,9 +908,9 @@ namespace PuntoDeVentaV2
                 modif = $"UPDATE Ventas SET MetodoPago='{datos[1]}', FormaPago='{datos[2]}', num_cuenta='{datos[3]}', moneda='{datos[4]}', tipo_cambio='{datos[5]}' WHERE ID='{datos[0]}'";
             }
             // Guarda claves de unidad y producto
-            if(opc == 3)
+            if (opc == 3)
             {
-                modif = $"UPDATE Productos SET ClaveProducto='{datos[1]}', UnidadMedida='{datos[0]}' WHERE ID='{datos[2]}'";                
+                modif = $"UPDATE Productos SET ClaveProducto='{datos[1]}', UnidadMedida='{datos[0]}' WHERE ID='{datos[2]}'";
             }
 
             // Cambia a timbrada la nota
@@ -920,7 +920,7 @@ namespace PuntoDeVentaV2
             }
 
             // Guarda datos de pago, emisor y receptor
-            if(opc == 5)
+            if (opc == 5)
             {
                 modif = "INSERT INTO Facturas (id_usuario, id_venta, id_empleado, metodo_pago, forma_pago, num_cuenta, moneda, tipo_cambio, uso_cfdi,";
                 modif += "e_rfc, e_razon_social, e_regimen,  e_correo, e_telefono, e_cp, e_estado, e_municipio, e_colonia, e_calle, e_num_ext, e_num_int,";
@@ -930,13 +930,13 @@ namespace PuntoDeVentaV2
             }
 
             // Guarda los productos 
-            if(opc == 6)
+            if (opc == 6)
             {
                 modif = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u, base, tasa_cuota, importe_iva, descuento) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}')";
             }
 
             // Guarda los impuestos diferentes de IVA 16, 0, 8 y exento
-            if(opc == 7)
+            if (opc == 7)
             {
                 modif = $"INSERT INTO Facturas_impuestos (id_factura_producto, tipo, impuesto, tipo_factor, tasa_cuota, definir, importe) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}')";
             }
@@ -948,7 +948,7 @@ namespace PuntoDeVentaV2
             }
 
             // Agrega datos que se obtienen del XML ya timbrado
-            if(opc == 9)
+            if (opc == 9)
             {
                 modif = $"UPDATE Facturas SET fecha_certificacion='{datos[1]}', UUID='{datos[2]}', rfc_pac='{datos[3]}', sello_sat='{datos[4]}', sello_cfd='{datos[5]}', total='{datos[6]}' WHERE ID='{datos[0]}'";
             }
@@ -959,7 +959,7 @@ namespace PuntoDeVentaV2
         public string GuardarHistorialPrecios(string[] datos)
         {
             var consulta = "INSERT INTO HistorialPrecios (IDUsuario, IDEmpleado, IDProducto, PrecioAnterior, PrecioNuevo, Origen, FechaOperacion)";
-                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}')";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}')";
 
             return consulta;
         }
@@ -1240,19 +1240,19 @@ namespace PuntoDeVentaV2
                 cons = $"SELECT * FROM Facturas WHERE ID='{dato}'";
             }
             // Carga todos los complementos de pago a timbrar
-            if(opc == 2)
+            if (opc == 2)
             {
                 cons = $"SELECT * FROM Facturas_complemento_pago WHERE id_factura='{dato}' AND timbrada=0";
             }
-            if(opc == 3)
+            if (opc == 3)
             {
                 cons = $"SELECT importe_pagado FROM Facturas_complemento_pago WHERE id_factura_principal='{dato}' AND timbrada=1 AND cancelada=0";
             }
-            if(opc == 4)
+            if (opc == 4)
             {
-                cons= $"SELECT id_factura_principal, importe_pagado FROM Facturas_complemento_pago WHERE id_factura='{dato}'";
+                cons = $"SELECT id_factura_principal, importe_pagado FROM Facturas_complemento_pago WHERE id_factura='{dato}'";
             }
-            if(opc == 5)
+            if (opc == 5)
             {
                 cons = $"SELECT ID FROM Facturas_complemento_pago WHERE id_factura_principal='{dato}' AND timbrada=1 AND cancelada=0";
             }
@@ -1290,13 +1290,13 @@ namespace PuntoDeVentaV2
             {
                 crea = $"UPDATE Facturas SET con_complementos='1', resta_cpago='{datos[1]}' WHERE ID='{datos[0]}'";
             }
-            if(opc == 5)
+            if (opc == 5)
             {
                 crea = $"UPDATE Facturas_complemento_pago SET timbrada=1 WHERE id_factura={datos[0]}";
             }
 
             // Agrega el monto pagado del complemento
-            if(opc == 6)
+            if (opc == 6)
             {
                 crea = $"UPDATE Facturas SET monto_cpago='{datos[1]}' WHERE ID='{datos[0]}'";
             }
@@ -1325,15 +1325,15 @@ namespace PuntoDeVentaV2
         {
             string cons = "";
 
-            if(opc == 1)
+            if (opc == 1)
             {
                 cons = $"SELECT * FROM Ventas WHERE ID='{id}'";
             }
-            if(opc == 2)
+            if (opc == 2)
             {
                 cons = $"SELECT * FROM DetallesVenta WHERE IDVenta='{id}'";
             }
-            
+
 
             return cons;
         }
@@ -1403,7 +1403,7 @@ GROUP BY Prod.ID";
         public string InsertIntoNoRevAumentarInventario(string NoRev)
         {
             var consulta = string.Empty;
-            
+
             using (DataTable dtNoRevision = cn.CargarDatos($"SELECT * FROM NoRevisionAumentarInventario WHERE IdUsuario = {FormPrincipal.userID}"))
             {
                 if (!dtNoRevision.Rows.Count.Equals(0))
@@ -1502,7 +1502,7 @@ GROUP BY Prod.ID";
             {
                 if (!dtNoRevision.Rows.Count.Equals(0))
                 {
-                    foreach(DataRow drNoRev in dtNoRevision.Rows)
+                    foreach (DataRow drNoRev in dtNoRevision.Rows)
                     {
                         NoRevision = drNoRev["NoRevisionDisminuirInventario"].ToString();
                     }
@@ -1633,7 +1633,7 @@ GROUP BY Prod.ID";
             var consulta = $"SELECT prod.ID, prod.Nombre FROM productos AS prod WHERE prod.ID = '{idProducto}' AND prod.IDUsuario = '{FormPrincipal.userID}' AND prod.`Status` = '1' AND prod.Tipo = 'P'";
 
             return consulta;
-        } 
+        }
 
         public string getDatosBasculaRegistrada(string nameWeighingMachine)
         {
@@ -1691,13 +1691,13 @@ GROUP BY Prod.ID";
 
             return consulta;
         }
-                
+
         public string productos_relacionados(int id)
         {
             string cons = $"SELECT IDProducto, Cantidad FROM productosdeservicios WHERE IDServicio='{id}'";
 
-            return cons; 
-        } 
+            return cons;
+        }
 
         public string borrarProdRelBlanco(int idServCombo)
         {
@@ -1786,7 +1786,7 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
         public string aumentoContadorSesiones(int id)
         {
-            var consulta = $"UPDATE usuarios SET ConteoInicioDeSesion = ConteoInicioDeSesion +1 WHERE ID = '{id}'"; 
+            var consulta = $"UPDATE usuarios SET ConteoInicioDeSesion = ConteoInicioDeSesion +1 WHERE ID = '{id}'";
             return consulta;
         }
 
@@ -1799,6 +1799,30 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
         public string consultaInicios(string nombre)
         {
             var consulta = $"SELECT * FROM `iniciosdesesion` WHERE Usuario LIKE '%'{nombre}'%'";
+            return consulta;
+        }
+
+        public string busquedaEmpleado(string busqueda,int status)
+        {
+            var consulta = $"SELECT ID, nombre, usuario FROM `empleados` WHERE usuario LIKE '%{busqueda}%' AND estatus = '{status}' AND IDUsuario = '{FormPrincipal.userID}'";
+            return consulta;
+        }
+
+        public string deshabilitarEmpleado(string usuario)
+        {
+            var consulta = $"UPDATE `empleados` SET estatus = 0 WHERE usuario = '{usuario}' AND IDUsuario = '{FormPrincipal.userID}'";
+            return consulta;
+        }
+
+        public string habilitarEmpleado(string usuario)
+        {
+            var consulta = $"UPDATE `empleados` SET estatus = 1 WHERE usuario = '{usuario}' AND IDUsuario = '{FormPrincipal.userID}'";
+            return consulta;
+        }
+
+        public string mostrarUsuarios(string estado)
+        {
+            var consulta = $"SELECT ID, nombre, usuario FROM `empleados` WHERE estatus = '{estado}' AND IDUsuario = '{FormPrincipal.userID}'";
             return consulta;
         }
     }
