@@ -22,6 +22,18 @@ namespace PuntoDeVentaV2
 
         System.Drawing.Image pdf = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
 
+        private Paginar p;
+        // Variables de tipo String
+        string filtroConSinFiltroAvanzado = string.Empty;
+        string DataMemberDGV = "Caja";
+        string busqueda = string.Empty;
+
+        // Variables de tipo Int
+        int maximo_x_pagina = 10;
+        int clickBoton = 0;
+
+        bool conBusqueda = false;
+
         public BuscarReporteCajaPorFecha()
         {
             InitializeComponent();
@@ -38,6 +50,8 @@ namespace PuntoDeVentaV2
         {
             DGVReporteCaja.Rows.Clear();
 
+            conBusqueda = true;
+
             var datoBuscar = txtBuscador.Text.ToString().Replace("\r\n", string.Empty);
             var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
             var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
@@ -47,39 +61,42 @@ namespace PuntoDeVentaV2
 
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
             var nombreUser = string.Empty;
-            var querry = cn.CargarDatos(cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId));
+            //var querry = cn.CargarDatos(cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId));
 
-            if (!querry.Rows.Count.Equals(0))
-            {
-                foreach (DataRow iterar in querry.Rows)
-                {
-                    idCorte = iterar["ID"].ToString();
-                    fecha = iterar["FechaOPeracion"].ToString();
-                    idEmpleado = Convert.ToInt32(iterar["IdEmpleado"].ToString());
-                    empleado = iterar["nombre"].ToString();
-                    nombreUser = iterar["Usuario"].ToString();
+            filtroConSinFiltroAvanzado = cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId);
 
-                    if (idEmpleado > 0 )//Cuando es Empleado
-                    {
-                        name = empleado;
-                        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
-                        
-                    }
-                    else if (idEmpleado.Equals(0)) //Cuando es Admin
-                    {
-                        name = $"ADMIN ({nombreUser})";
-                        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
-                    }
-                }
-                txtBuscador.Text = string.Empty;
-                txtBuscador.Focus();
-            }
-            else
-            {
-                MessageBox.Show($"No se encontraron resultados", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtBuscador.Text = string.Empty;
-                txtBuscador.Focus();
-            }
+            //if (!querry.Rows.Count.Equals(0))
+            //{
+            //    foreach (DataRow iterar in querry.Rows)
+            //    {
+            //        idCorte = iterar["ID"].ToString();
+            //        fecha = iterar["FechaOPeracion"].ToString();
+            //        idEmpleado = Convert.ToInt32(iterar["IdEmpleado"].ToString());
+            //        empleado = iterar["nombre"].ToString();
+            //        nombreUser = iterar["Usuario"].ToString();
+
+            //        if (idEmpleado > 0 )//Cuando es Empleado
+            //        {
+            //            name = empleado;
+            //            DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
+
+            //        }
+            //        else if (idEmpleado.Equals(0)) //Cuando es Admin
+            //        {
+            //            name = $"ADMIN ({nombreUser})";
+            //            DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
+            //        }
+            //    }
+            //    txtBuscador.Text = string.Empty;
+            //    txtBuscador.Focus();
+            //}
+            //else
+            //{
+            //    MessageBox.Show($"No se encontraron resultados", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    txtBuscador.Text = string.Empty;
+            //    txtBuscador.Focus();
+            //}
+            CargarDatos();
         }
 
         private void cargarDGVInicial()
@@ -92,35 +109,36 @@ namespace PuntoDeVentaV2
 
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
             var fechaOp = string.Empty;
-            var consulta = cn.CargarDatos(cs.CargarDatosIniciarFormReportesCaja(primerFecha, segundaFecha, primerId));
+            //var consulta = cn.CargarDatos(cs.CargarDatosIniciarFormReportesCaja(primerFecha, segundaFecha, primerId));
+            filtroConSinFiltroAvanzado = cs.CargarDatosIniciarFormReportesCaja(primerFecha, segundaFecha, primerId);
+            //if (cantidadCortes > 1)
+            //{
+            //    if (!consulta.Rows.Count.Equals(0))
+            //    {
+            //        foreach (DataRow iterar in consulta.Rows)
+            //        {
+            //            idCorte = iterar["ID"].ToString();
+            //            fecha = iterar["FechaOPeracion"].ToString();
+            //            idEmpleado = Convert.ToInt32(iterar["IdEmpleado"].ToString());
+            //            empleado = iterar["nombre"].ToString();
+            //            fechaOp = iterar["FechaOperacion"].ToString();
 
-            if (cantidadCortes > 1)
-            {
-                if (!consulta.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow iterar in consulta.Rows)
-                    {
-                        idCorte = iterar["ID"].ToString();
-                        fecha = iterar["FechaOPeracion"].ToString();
-                        idEmpleado = Convert.ToInt32(iterar["IdEmpleado"].ToString());
-                        empleado = iterar["nombre"].ToString();
-                        fechaOp = iterar["FechaOperacion"].ToString();
+            //            if (idEmpleado > 0)
+            //            {
+            //                name = empleado;
+            //            }
+            //            else
+            //            {
+            //                name = $"ADMIN {FormPrincipal.userNickName.ToString()}";
+            //            }
 
-                        if (idEmpleado > 0)
-                        {
-                            name = empleado;
-                        }
-                        else
-                        {
-                            name = $"ADMIN {FormPrincipal.userNickName.ToString()}";
-                        }
+            //            //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
 
-                        //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
-
-                        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf, fechaOp);
-                    }
-                }
-            }
+            //            DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf, fechaOp);
+            //        }
+            //    }
+            //}
+            CargarDatos();
         }
         
         private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
@@ -1079,6 +1097,361 @@ namespace PuntoDeVentaV2
             }
 
             return result;
+        }
+
+
+        private void actualizar()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
+            lblCantidadRegistros.Text = p.countRow().ToString();
+
+            linkLblPaginaActual.Text = p.numPag().ToString();
+            linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
+            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPrimeraPagina.Visible = false;
+                linkLblPaginaAnterior.Visible = false;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                    linkLblUltimaPagina.Visible = false;
+                }
+            }
+
+            txtMaximoPorPagina.Text = p.limitRow().ToString();
+        }
+
+        public void CargarDatos(int status = 1, string busquedaEnProductos = "")
+        {
+            busqueda = string.Empty;
+
+            busqueda = busquedaEnProductos;
+
+            if (DGVReporteCaja.RowCount <= 0)
+            {
+                if (busqueda == "")
+                {
+                    //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (busqueda != "")
+                {
+                    //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+            }
+            else if (DGVReporteCaja.RowCount >= 1 && clickBoton == 0)
+            {
+                if (busqueda == "")
+                {
+                    //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (busqueda != "")
+                {
+                    //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+            }
+
+            DataSet datos = p.cargar();
+            DataTable dtDatos = datos.Tables[0];
+
+            DGVReporteCaja.Rows.Clear();
+
+            if (conBusqueda.Equals(true))
+            {
+                if (!dtDatos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow filaDatos in dtDatos.Rows)
+                    {
+                        var idCorte = filaDatos["ID"].ToString();
+                        var fecha = filaDatos["FechaOPeracion"].ToString();
+                        var idEmpleado = Convert.ToInt32(filaDatos["IdEmpleado"].ToString());
+                        var empleado = filaDatos["nombre"].ToString();
+                        var fechaOp = filaDatos["FechaOperacion"].ToString();
+                        var name = string.Empty;
+
+                        if (idEmpleado > 0)
+                        {
+                            name = empleado;
+                        }
+                        else
+                        {
+                            name = $"ADMIN {FormPrincipal.userNickName.ToString()}";
+                        }
+
+                        //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
+
+                        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf, fechaOp);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"No se encontraron resultados", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtBuscador.Text = string.Empty;
+                    txtBuscador.Focus();
+                }
+            }
+            else
+            {
+                foreach (DataRow filaDatos in dtDatos.Rows)
+                {
+                    var idCorte = filaDatos["ID"].ToString();
+                    var fecha = filaDatos["FechaOPeracion"].ToString();
+                    var idEmpleado = Convert.ToInt32(filaDatos["IdEmpleado"].ToString());
+                    var empleado = filaDatos["nombre"].ToString();
+                    var fechaOp = filaDatos["FechaOperacion"].ToString();
+                    var name = string.Empty;
+
+                    if (idEmpleado > 0)
+                    {
+                        name = empleado;
+                    }
+                    else
+                    {
+                        name = $"ADMIN {FormPrincipal.userNickName.ToString()}";
+                    }
+
+                    //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
+
+                    DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf, fechaOp);
+                }
+
+                //var numeroFilas = DGVReporteCaja.Rows.Count;
+
+                //string Nombre = filaDatos["Nombre"].ToString();
+                //string Stock = filaDatos["Stock"].ToString();
+                //string Precio = filaDatos["Precio"].ToString();
+                //string Clave = filaDatos["ClaveInterna"].ToString();
+                //string Codigo = filaDatos["CodigoBarras"].ToString();
+                //string Tipo = filaDatos["Tipo"].ToString();
+                //string Proveedor = filaDatos["Proveedor"].ToString();
+                //string chckName = filaDatos["ChckName"].ToString();
+                //string Descripcion = filaDatos["Descripcion"].ToString();
+
+                //if (DGVReporteCaja.Rows.Count.Equals(0))
+                //{
+                //    bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVReporteCaja);
+
+                //    if (encontrado.Equals(false))
+                //    {
+                //        var number_of_rows = DGVReporteCaja.Rows.Add();
+                //        DataGridViewRow row = DGVReporteCaja.Rows[number_of_rows];
+
+                //        row.Cells["Nombre"].Value = Nombre;     // Columna Nombre
+                //        row.Cells["Stock"].Value = Stock;       // Columna Stock
+                //        row.Cells["Precio"].Value = Precio;     // Columna Precio
+                //        row.Cells["Clave"].Value = Clave;       // Columna Clave
+                //        row.Cells["Codigo"].Value = Codigo;     // Columna Codigo
+
+                //        // Columna Tipo
+                //        if (Tipo.Equals("P"))
+                //        {
+                //            row.Cells["Tipo"].Value = "PRODUCTO";
+                //        }
+                //        else if (Tipo.Equals("S"))
+                //        {
+                //            row.Cells["Tipo"].Value = "SERVICIO";
+                //        }
+                //        else if (Tipo.Equals("PQ"))
+                //        {
+                //            row.Cells["Tipo"].Value = "COMBO";
+                //        }
+
+                //        row.Cells["Proveedor"].Value = Proveedor;   // Columna Proveedor
+
+                //        if (DGVReporteCaja.Columns.Contains(chckName))
+                //        {
+                //            row.Cells[chckName].Value = Descripcion;
+                //        }
+                //    }
+                //}
+                //else if (!DGVReporteCaja.Rows.Count.Equals(0))
+                //{
+                //    foreach (DataGridViewRow Row in DGVReporteCaja.Rows)
+                //    {
+                //        bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVReporteCaja);
+
+                //        if (encontrado.Equals(true))
+                //        {
+                //            var Fila = Row.Index;
+                //            // Columnas Dinamicos
+                //            if (DGVReporteCaja.Columns.Contains(chckName))
+                //            {
+                //                DGVReporteCaja.Rows[Fila].Cells[chckName].Value = Descripcion;
+                //            }
+                //        }
+                //        else if (encontrado.Equals(false))
+                //        {
+                //            var number_of_rows = DGVReporteCaja.Rows.Add();
+                //            DataGridViewRow row = DGVReporteCaja.Rows[number_of_rows];
+
+                //            row.Cells["Nombre"].Value = Nombre;         // Columna Nombre
+                //            row.Cells["Stock"].Value = Stock;           // Columna Stock
+                //            row.Cells["Precio"].Value = Precio;         // Columna Precio
+                //            row.Cells["Clave"].Value = Clave;           // Columna Clave
+                //            row.Cells["Codigo"].Value = Codigo;         // Columna Codigo
+
+                //            // Columna Tipo
+                //            if (Tipo.Equals("P"))
+                //            {
+                //                row.Cells["Tipo"].Value = "PRODUCTO";
+                //            }
+                //            else if (Tipo.Equals("S"))
+                //            {
+                //                row.Cells["Tipo"].Value = "SERVICIO";
+                //            }
+                //            else if (Tipo.Equals("PQ"))
+                //            {
+                //                row.Cells["Tipo"].Value = "COMBO";
+                //            }
+
+                //            // Columna Proveedor
+                //            row.Cells["Proveedor"].Value = Proveedor;
+
+                //            // Columnas Dinamicos
+                //            if (DGVReporteCaja.Columns.Contains(chckName))
+                //            {
+                //                row.Cells[chckName].Value = Descripcion;
+                //            }
+                //        }
+                //    }
+                //}
+            }
+
+            actualizar();
+
+            clickBoton = 0;
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaActual_Click(object sender, EventArgs e)
+        {
+            actualizar();
+        }
+
+        private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtMaximoPorPagina.ToString()))
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
+
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            CargarDatos();
+            actualizar();
+        }
+
+        private void txtMaximoPorPagina_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtMaximoPorPagina.ToString()))
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
+
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            CargarDatos();
+            actualizar();
+        }
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (string.IsNullOrEmpty(txtMaximoPorPagina.ToString()))
+                {
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                }
+                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                p.actualizarTope(maximo_x_pagina);
+                CargarDatos();
+                actualizar();
+            }
         }
     }
 }
