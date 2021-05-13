@@ -38,7 +38,6 @@
             this.permisos = new System.Windows.Forms.DataGridViewImageColumn();
             this.deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             this.txtBuscar = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cboMostrados = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -58,7 +57,6 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -85,7 +83,7 @@
             this.btn_agregar_empleado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_agregar_empleado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_agregar_empleado.ForeColor = System.Drawing.Color.White;
-            this.btn_agregar_empleado.Location = new System.Drawing.Point(701, 75);
+            this.btn_agregar_empleado.Location = new System.Drawing.Point(703, 68);
             this.btn_agregar_empleado.Name = "btn_agregar_empleado";
             this.btn_agregar_empleado.Size = new System.Drawing.Size(156, 36);
             this.btn_agregar_empleado.TabIndex = 1;
@@ -109,11 +107,11 @@
             this.editar,
             this.permisos,
             this.deshabilitar});
-            this.dgv_empleados.Location = new System.Drawing.Point(18, 157);
+            this.dgv_empleados.Location = new System.Drawing.Point(14, 110);
             this.dgv_empleados.Name = "dgv_empleados";
             this.dgv_empleados.ReadOnly = true;
             this.dgv_empleados.RowHeadersVisible = false;
-            this.dgv_empleados.Size = new System.Drawing.Size(845, 285);
+            this.dgv_empleados.Size = new System.Drawing.Size(845, 332);
             this.dgv_empleados.TabIndex = 2;
             this.dgv_empleados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.click_en_icono);
             this.dgv_empleados.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_en_icono);
@@ -163,22 +161,11 @@
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(6, 23);
+            this.txtBuscar.Location = new System.Drawing.Point(18, 79);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(222, 22);
             this.txtBuscar.TabIndex = 3;
             this.txtBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.txtBuscar);
-            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 59);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(243, 60);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Busqueda de Usuario:";
             // 
             // cboMostrados
             // 
@@ -187,7 +174,7 @@
             this.cboMostrados.Items.AddRange(new object[] {
             "Habilitados",
             "Deshabilitados"});
-            this.cboMostrados.Location = new System.Drawing.Point(18, 126);
+            this.cboMostrados.Location = new System.Drawing.Point(249, 79);
             this.cboMostrados.Name = "cboMostrados";
             this.cboMostrados.Size = new System.Drawing.Size(121, 25);
             this.cboMostrados.TabIndex = 5;
@@ -430,9 +417,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 522);
+            this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.cboMostrados);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgv_empleados);
             this.Controls.Add(this.btn_agregar_empleado);
             this.Controls.Add(this.label1);
@@ -443,8 +430,6 @@
             this.Load += new System.EventHandler(this.cargar_empleados);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Empleados_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -462,7 +447,6 @@
         private System.Windows.Forms.Button btn_agregar_empleado;
         private System.Windows.Forms.DataGridView dgv_empleados;
         private System.Windows.Forms.TextBox txtBuscar;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;

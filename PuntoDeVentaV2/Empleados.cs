@@ -282,7 +282,10 @@ namespace PuntoDeVentaV2
                     {
                         CargarDatos(0, txtBuscar.Text);
                     }
-
+                    if (dgv_empleados.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Test");
+                    }
                     
                 }
                 else
@@ -294,6 +297,10 @@ namespace PuntoDeVentaV2
                     else if (cboMostrados.Text.Equals("Deshabilitados"))
                     {
                         CargarDatos(0, txtBuscar.Text);
+                    }
+                    if (dgv_empleados.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Test");
                     }
                 }
             }
