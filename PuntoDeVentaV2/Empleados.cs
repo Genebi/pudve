@@ -284,7 +284,7 @@ namespace PuntoDeVentaV2
                     }
                     if (dgv_empleados.Rows.Count == 0)
                     {
-                        MessageBox.Show("Test");
+                        MessageBox.Show($"No se encontro ningun resultado con", "Aviso de sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     
                 }
@@ -300,9 +300,10 @@ namespace PuntoDeVentaV2
                     }
                     if (dgv_empleados.Rows.Count == 0)
                     {
-                        MessageBox.Show("Test");
+                        MessageBox.Show($"La búsqueda realizada no obtuvo resultados", "Aviso de sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
+                txtBuscar.Clear();
             }
         }
 

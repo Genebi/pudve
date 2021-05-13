@@ -117,7 +117,7 @@
             this.btnCrearCuenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCrearCuenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearCuenta.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnCrearCuenta.Location = new System.Drawing.Point(148, 268);
+            this.btnCrearCuenta.Location = new System.Drawing.Point(139, 284);
             this.btnCrearCuenta.Name = "btnCrearCuenta";
             this.btnCrearCuenta.Size = new System.Drawing.Size(139, 17);
             this.btnCrearCuenta.TabIndex = 6;
@@ -130,7 +130,7 @@
             this.txtMensaje.ForeColor = System.Drawing.Color.Red;
             this.txtMensaje.Location = new System.Drawing.Point(12, 241);
             this.txtMensaje.Name = "txtMensaje";
-            this.txtMensaje.Size = new System.Drawing.Size(396, 20);
+            this.txtMensaje.Size = new System.Drawing.Size(396, 36);
             this.txtMensaje.TabIndex = 7;
             this.txtMensaje.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -222,7 +222,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(420, 292);
+            this.ClientSize = new System.Drawing.Size(420, 312);
             this.Controls.Add(this.btnRecuperarPassword);
             this.Controls.Add(this.btnLimpiarDatos);
             this.Controls.Add(this.checkBoxRecordarDatos);
