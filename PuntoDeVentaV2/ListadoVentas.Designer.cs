@@ -75,6 +75,7 @@
             this.pBar_descarga_verpdf = new System.Windows.Forms.ProgressBar();
             this.lb_texto_descarga_verpdf = new System.Windows.Forms.Label();
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
+            this.chTodos = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -120,7 +121,7 @@
             this.Timbrar,
             this.cInformacion,
             this.retomarVenta});
-            this.DGVListadoVentas.Location = new System.Drawing.Point(12, 159);
+            this.DGVListadoVentas.Location = new System.Drawing.Point(13, 194);
             this.DGVListadoVentas.Name = "DGVListadoVentas";
             this.DGVListadoVentas.ReadOnly = true;
             this.DGVListadoVentas.RowHeadersVisible = false;
@@ -581,7 +582,7 @@
             // 
             this.pBar_descarga_verpdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pBar_descarga_verpdf.Location = new System.Drawing.Point(136, 398);
+            this.pBar_descarga_verpdf.Location = new System.Drawing.Point(136, 421);
             this.pBar_descarga_verpdf.Name = "pBar_descarga_verpdf";
             this.pBar_descarga_verpdf.Size = new System.Drawing.Size(668, 23);
             this.pBar_descarga_verpdf.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -595,7 +596,7 @@
             this.lb_texto_descarga_verpdf.AutoSize = true;
             this.lb_texto_descarga_verpdf.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_texto_descarga_verpdf.ForeColor = System.Drawing.Color.Red;
-            this.lb_texto_descarga_verpdf.Location = new System.Drawing.Point(393, 424);
+            this.lb_texto_descarga_verpdf.Location = new System.Drawing.Point(393, 447);
             this.lb_texto_descarga_verpdf.Name = "lb_texto_descarga_verpdf";
             this.lb_texto_descarga_verpdf.Size = new System.Drawing.Size(154, 19);
             this.lb_texto_descarga_verpdf.TabIndex = 9;
@@ -609,18 +610,30 @@
             this.lb_txt_ruta_descargar.AutoSize = true;
             this.lb_txt_ruta_descargar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_txt_ruta_descargar.ForeColor = System.Drawing.Color.Red;
-            this.lb_txt_ruta_descargar.Location = new System.Drawing.Point(448, 450);
+            this.lb_txt_ruta_descargar.Location = new System.Drawing.Point(448, 473);
             this.lb_txt_ruta_descargar.Name = "lb_txt_ruta_descargar";
             this.lb_txt_ruta_descargar.Size = new System.Drawing.Size(58, 19);
             this.lb_txt_ruta_descargar.TabIndex = 11;
             this.lb_txt_ruta_descargar.Text = "label1";
             this.lb_txt_ruta_descargar.Visible = false;
             // 
+            // chTodos
+            // 
+            this.chTodos.AutoSize = true;
+            this.chTodos.Location = new System.Drawing.Point(15, 171);
+            this.chTodos.Name = "chTodos";
+            this.chTodos.Size = new System.Drawing.Size(114, 17);
+            this.chTodos.TabIndex = 12;
+            this.chTodos.Text = "Seleccionar todos ";
+            this.chTodos.UseVisualStyleBackColor = true;
+            this.chTodos.CheckedChanged += new System.EventHandler(this.chTodos_CheckedChanged);
+            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 561);
+            this.Controls.Add(this.chTodos);
             this.Controls.Add(this.lb_txt_ruta_descargar);
             this.Controls.Add(this.btn_timbrar);
             this.Controls.Add(this.lb_texto_descarga_verpdf);
@@ -695,5 +708,6 @@
         private System.Windows.Forms.DataGridViewImageColumn retomarVenta;
         private System.Windows.Forms.Label lb_txt_ruta_descargar;
         private System.Windows.Forms.Button btnReportes;
+        private System.Windows.Forms.CheckBox chTodos;
     }
 }
