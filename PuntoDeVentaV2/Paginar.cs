@@ -66,29 +66,41 @@ namespace PuntoDeVentaV2
             connection.Close();                                             // Cerramos la conexion SQLite
             this._cantidadRegistros = auxiliar.Rows.Count;                  // Le asignamos la cantidad de registros que tiene la consulta
 
-            asignarTope();                                                  // Mandamos llamar al metodo asignarTope()
+            if (_tope != 0)
+            {
+                asignarTope();                                              // Mandamos llamar al metodo asignarTope()
+            }
+                                                           
         }
 
         private void asignarTope()
         {
-            _ultimaPagina = _cantidadRegistros / _tope;     // Asignamos la cantidad de paginas que tiene la
-                                                            // DB pero hay que ver si la division de _cantidadRegistro
-                                                            // entre _tope es exacta para saber usaremos el
-                                                            // modulo que es la siguiente linea de código
-
-            int aux = _cantidadRegistros % _tope;           // Asignamos si al usar el modulo da un residuo
-
-            if (_ultimaPagina == 0)                         // si la division de _ultimaPagina da 0
+            if (_tope != 0)
             {
-                this._ultimaPagina = 1;                     // Asignamos valor de _ultimaPagina = 1
+                _ultimaPagina = _cantidadRegistros / _tope;     // Asignamos la cantidad de paginas que tiene la
+                                                                // DB pero hay que ver si la division de _cantidadRegistro
+                                                                // entre _tope es exacta para saber usaremos el
+                                                                // modulo que es la siguiente linea de código
+
+                int aux = _cantidadRegistros % _tope;           // Asignamos si al usar el modulo da un residuo
+
+                if (_ultimaPagina == 0)                         // si la division de _ultimaPagina da 0
+                {
+                    this._ultimaPagina = 1;                     // Asignamos valor de _ultimaPagina = 1
+                }
+                else if (_ultimaPagina >= 1 && (aux > 0))       // Si la division de _ultimaPagina es mayor igual a 1
+                                                                // y la variable aux es mayor que 0 entonces
+                {
+                    this._ultimaPagina = _ultimaPagina + 1;     // agregamos un 1 o amentamos en 1 el valor de _ultimaPagina
+                }
+
+                this._numeroPagina = 1;                         // Asignamos el numero 1 a _ultimaPagina
             }
-            else if (_ultimaPagina >= 1 && (aux > 0))       // Si la division de _ultimaPagina es mayor igual a 1
-                                                            // y la variable aux es mayor que 0 entonces
+            else
             {
-                this._ultimaPagina = _ultimaPagina + 1;     // agregamos un 1 o amentamos en 1 el valor de _ultimaPagina
+                MessageBox.Show($"Cantidad de empleados \n no valida", "Aviso de sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            this._numeroPagina = 1;                         // Asignamos el numero 1 a _ultimaPagina
         }
 
         public DataSet cargar()

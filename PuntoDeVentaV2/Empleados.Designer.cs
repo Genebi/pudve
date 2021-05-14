@@ -56,6 +56,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -384,7 +385,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(121, 56);
             this.label7.TabIndex = 39;
-            this.label7.Text = "Cantidad de productos para mostrar: ";
+            this.label7.Text = "Cantidad de empleados para mostrar: ";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCantidadRegistros
@@ -406,17 +407,27 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 16);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(123, 34);
+            this.label4.Size = new System.Drawing.Size(129, 34);
             this.label4.TabIndex = 37;
-            this.label4.Text = "Total de productos \r\nencontrados:";
+            this.label4.Text = "Total de empleados \r\nencontrados:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 60);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 17);
+            this.label2.TabIndex = 40;
+            this.label2.Text = "Buscar:";
             // 
             // Empleados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 522);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.cboMostrados);
@@ -471,5 +482,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblCantidadRegistros;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -53,7 +53,7 @@ namespace PuntoDeVentaV2
 
         public void filtroLoadProductos()
         {
-            busqueda ="1";
+            busqueda = "1";
 
             filtroConSinFiltroAvanzado = cs.mostrarUsuarios(busqueda);
 
@@ -72,7 +72,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
-                sql_con = new MySqlConnection("datasource="+ Properties.Settings.Default.Hosting +";port=6666;username=root;password=;database=pudve;");
+                sql_con = new MySqlConnection("datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;");
             }
             else
             {
@@ -103,7 +103,7 @@ namespace PuntoDeVentaV2
                 Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
                 Image permisos = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\unlock-alt.png");
                 Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
-                
+
 
 
                 fila.Cells["editar"].Value = editar;
@@ -158,7 +158,7 @@ namespace PuntoDeVentaV2
 
         private void click_en_icono(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
                 int id_empleado = Convert.ToInt32(dgv_empleados.Rows[e.RowIndex].Cells["id"].Value);
 
@@ -182,7 +182,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // Asignar permisos
-                if (e.ColumnIndex == 4) 
+                if (e.ColumnIndex == 4)
                 {
                     if (opcion3 == 0)
                     {
@@ -231,7 +231,7 @@ namespace PuntoDeVentaV2
                     }
                     CargarDatos(Convert.ToInt32(tipo));
                 }
-                
+
             }
         }
 
@@ -284,9 +284,9 @@ namespace PuntoDeVentaV2
                     }
                     if (dgv_empleados.Rows.Count == 0)
                     {
-                        MessageBox.Show($"No se encontro ningun resultado con", "Aviso de sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show($"No se encontro ningun resultado con \n\t\t '{txtBuscar.Text}'", "Aviso de sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    
+
                 }
                 else
                 {
@@ -319,12 +319,12 @@ namespace PuntoDeVentaV2
                 {
                     //filtro = cs.busquedaEmpleado(busqueda);                 
                     filtro = cs.mostrarUsuarios(status.ToString());
-                
+
                     p = new Paginar(filtro, DataMemberDGV, maximo_x_pagina);
                 }
                 else if (busqueda != "")
                 {
-                    filtro = cs.busquedaEmpleado(busqueda,status);
+                    filtro = cs.busquedaEmpleado(busqueda, status);
 
                     p = new Paginar(filtro, DataMemberDGV, maximo_x_pagina);
                 }
@@ -339,7 +339,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (busqueda != "")
                 {
-                    filtro = cs.busquedaEmpleado(busqueda,status);
+                    filtro = cs.busquedaEmpleado(busqueda, status);
 
                     p = new Paginar(filtro, DataMemberDGV, maximo_x_pagina);
                 }
@@ -373,16 +373,16 @@ namespace PuntoDeVentaV2
                     row.Cells["permisos"].Value = permisos;
                     if (cboMostrados.Text == "Habilitados")
                     {
-                    row.Cells["deshabilitar"].Value = deshabilitar;
+                        row.Cells["deshabilitar"].Value = deshabilitar;
                     }
                     else if (cboMostrados.Text == "Deshabilitados")
                     {
                         row.Cells["deshabilitar"].Value = habilitar;
                     }
 
-                    
-             
-                    
+
+
+
                 }
                 else if (!dgv_empleados.Rows.Count.Equals(0))
                 {
@@ -461,24 +461,7 @@ namespace PuntoDeVentaV2
 
         private void txtMaximoPorPagina_Click(object sender, EventArgs e)
         {
-            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
-            p.actualizarTope(maximo_x_pagina);
-            string tipo = string.Empty;
-            if (cboMostrados.Text == "Habilitados")
-            {
-                tipo = "1";
-            }
-            else if (cboMostrados.Text == "Deshabilitados")
-            {
-                tipo = "0";
-            }
-            CargarDatos(Convert.ToInt32(tipo));
-            actualizar();
-        }
-
-        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            if (!txtMaximoPorPagina.Text.Equals(string.Empty))
             {
                 maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
                 p.actualizarTope(maximo_x_pagina);
@@ -494,6 +477,39 @@ namespace PuntoDeVentaV2
                 CargarDatos(Convert.ToInt32(tipo));
                 actualizar();
             }
+            else
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
+
+        }
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (!txtMaximoPorPagina.Text.Equals(String.Empty))
+                {
+                    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                    p.actualizarTope(maximo_x_pagina);
+                    string tipo = string.Empty;
+                    if (cboMostrados.Text == "Habilitados")
+                    {
+                        tipo = "1";
+                    }
+                    else if (cboMostrados.Text == "Deshabilitados")
+                    {
+                        tipo = "0";
+                    }
+                    CargarDatos(Convert.ToInt32(tipo));
+                    actualizar();
+                }
+                else
+                {
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                }
+
+            }
         }
 
         private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
@@ -506,19 +522,27 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
         {
-            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
-            p.actualizarTope(maximo_x_pagina);
-            string tipo = string.Empty;
-            if (cboMostrados.Text == "Habilitados")
+            if (!txtMaximoPorPagina.Text.Equals(string.Empty))
             {
-                tipo = "1";
+                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                p.actualizarTope(maximo_x_pagina);
+                string tipo = string.Empty;
+                if (cboMostrados.Text == "Habilitados")
+                {
+                    tipo = "1";
+                }
+                else if (cboMostrados.Text == "Deshabilitados")
+                {
+                    tipo = "0";
+                }
+                CargarDatos(Convert.ToInt32(tipo));
+                actualizar();
             }
-            else if (cboMostrados.Text == "Deshabilitados")
+            else
             {
-                tipo = "0";
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
             }
-            CargarDatos(Convert.ToInt32(tipo));
-            actualizar();
+
         }
 
         private void btnPrimeraPagina_Click(object sender, EventArgs e)
