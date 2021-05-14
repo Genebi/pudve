@@ -22,6 +22,18 @@ namespace PuntoDeVentaV2
 
         System.Drawing.Image icono = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
 
+        private Paginar p;
+
+        string filtroConSinFiltroAvanzado = string.Empty;
+        string DataMemberDGV = "RevisarInventarioReportes";
+        string busqueda = string.Empty;
+
+        // Variables de tipo Int
+        int maximo_x_pagina = 10;
+        int clickBoton = 0;
+
+        bool conBusqueda = false;
+
         public BuscadorReporteInventario()
         {
             InitializeComponent();
@@ -42,26 +54,29 @@ namespace PuntoDeVentaV2
             var nameUser = string.Empty;
             var fecha = string.Empty;
 
-            var query = cn.CargarDatos($"SELECT NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY NoRevision ORDER BY Fecha DESC");
+            var query = $"SELECT NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY NoRevision ORDER BY Fecha DESC";
 
-            if (!query.Rows.Count.Equals(0))
-            {
-                foreach (DataRow id in query.Rows)
-                {
-                    numRevision = id["NoRevision"].ToString();
-                    nameUser = id["NameUsr"].ToString();
-                    fecha = id["Fecha"].ToString();
+            filtroConSinFiltroAvanzado = query;
 
-                    var usr = cs.validarEmpleadoPorID();
+            //if (!query.Rows.Count.Equals(0))
+            //{
+            //    foreach (DataRow id in query.Rows)
+            //    {
+            //        numRevision = id["NoRevision"].ToString();
+            //        nameUser = id["NameUsr"].ToString();
+            //        fecha = id["Fecha"].ToString();
 
-                    if (nameUser.Equals(usr))
-                    {
-                        nameUser = $"ADMIN ({nameUser})";
-                    }
+            //        var usr = cs.validarEmpleadoPorID();
 
-                    DGVInventario.Rows.Add(numRevision, nameUser, fecha, icono);
-                }
-            }
+            //        if (nameUser.Equals(usr))
+            //        {
+            //            nameUser = $"ADMIN ({nameUser})";
+            //        }
+
+            //        DGVInventario.Rows.Add(numRevision, nameUser, fecha, icono);
+            //    }
+            //}
+            CargarDatos();
         }
 
 
@@ -918,6 +933,7 @@ namespace PuntoDeVentaV2
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            conBusqueda = true;
             DGVInventario.Rows.Clear();
 
             var datoBuscar = txtBuscador.Text.ToString().Replace("\r\n", string.Empty);
@@ -925,40 +941,375 @@ namespace PuntoDeVentaV2
             var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
 
             var rev = string.Empty; var name = string.Empty; var fecha = string.Empty;
-            var query = cn.CargarDatos(cs.BuscadorDeInventario(datoBuscar, primerFecha, segundaFecha));
+            //var query = cn.CargarDatos(cs.BuscadorDeInventario(datoBuscar, primerFecha, segundaFecha));
 
-            if (!query.Rows.Count.Equals(0))
-            {
-                foreach (DataRow iterar in query.Rows)
-                {
-                    rev = iterar["NoRevision"].ToString();
-                    name = iterar["NameUsr"].ToString();
-                    fecha = iterar["Fecha"].ToString();
+            filtroConSinFiltroAvanzado = cs.BuscadorDeInventario(datoBuscar, primerFecha, segundaFecha);
 
-                    var usr = cs.validarEmpleadoPorID();
+            //if (!query.Rows.Count.Equals(0))
+            //{
+            //    foreach (DataRow iterar in query.Rows)
+            //    {
+            //        rev = iterar["NoRevision"].ToString();
+            //        name = iterar["NameUsr"].ToString();
+            //        fecha = iterar["Fecha"].ToString();
 
-                    if (name.Equals(usr))
-                    {
-                        name = $"ADMIN ({name})";
-                    }
+            //        var usr = cs.validarEmpleadoPorID();
 
-                    DGVInventario.Rows.Add(rev, name, fecha, icono);
-                }
+            //        if (name.Equals(usr))
+            //        {
+            //            name = $"ADMIN ({name})";
+            //        }
 
-                txtBuscador.Text = string.Empty;
-                txtBuscador.Focus();
-            }
-            else
-            {
-                MessageBox.Show($"No se encontraron resultados", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtBuscador.Text = string.Empty;
-                txtBuscador.Focus();
-            }
+            //        DGVInventario.Rows.Add(rev, name, fecha, icono);
+            //    }
+
+            //    txtBuscador.Text = string.Empty;
+            //    txtBuscador.Focus();
+            //}
+            //else
+            //{
+            //    MessageBox.Show($"No se encontraron resultados", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            txtBuscador.Text = string.Empty;
+            txtBuscador.Focus();
+            //}
+            CargarDatos();
         }
 
         private void txtBuscador_TextChanged(object sender, EventArgs e)
         {
             txtBuscador.CharacterCasing = CharacterCasing.Upper;
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void actualizar()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
+            lblCantidadRegistros.Text = p.countRow().ToString();
+
+            linkLblPaginaActual.Text = p.numPag().ToString();
+            linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
+            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPrimeraPagina.Visible = false;
+                linkLblPaginaAnterior.Visible = false;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                    linkLblUltimaPagina.Visible = false;
+                }
+            }
+
+            txtMaximoPorPagina.Text = p.limitRow().ToString();
+        }
+
+        public void CargarDatos(int status = 1, string busquedaEnProductos = "")
+        {
+            busqueda = string.Empty;
+
+            busqueda = busquedaEnProductos;
+
+            if (DGVInventario.RowCount <= 0)
+            {
+                if (busqueda == "")
+                {
+                    //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (busqueda != "")
+                {
+                    //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+            }
+            else if (DGVInventario.RowCount >= 1 && clickBoton == 0)
+            {
+                if (busqueda == "")
+                {
+                    //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (busqueda != "")
+                {
+                    //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                }
+            }
+
+            DataSet datos = p.cargar();
+            DataTable dtDatos = datos.Tables[0];
+
+            DGVInventario.Rows.Clear();
+
+            if (conBusqueda.Equals(true))
+            {
+                if (!dtDatos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow filaDatos in dtDatos.Rows)
+                    {
+                        var rev = filaDatos["NoRevision"].ToString();
+                        var name = filaDatos["NameUsr"].ToString();
+                        var fecha = filaDatos["Fecha"].ToString();
+
+                        var usr = cs.validarEmpleadoPorID();
+
+                        if (name.Equals(usr))
+                        {
+                            name = $"ADMIN ({name})";
+                        }
+
+                        DGVInventario.Rows.Add(rev, name, fecha, icono);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"No se encontraron resultados", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtBuscador.Text = string.Empty;
+                    txtBuscador.Focus();
+                }
+            }
+            else
+            {
+                if (!dtDatos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow filaDatos in dtDatos.Rows)
+                    {
+                        var rev = filaDatos["NoRevision"].ToString();
+                        var name = filaDatos["NameUsr"].ToString();
+                        var fecha = filaDatos["Fecha"].ToString();
+
+                        var usr = cs.validarEmpleadoPorID();
+
+                        if (name.Equals(usr))
+                        {
+                            name = $"ADMIN ({name})";
+                        }
+
+                        DGVInventario.Rows.Add(rev, name, fecha, icono);
+                    }
+                }
+            }
+            
+
+            
+                //var numeroFilas = DGVInventario.Rows.Count;
+
+                //string Nombre = filaDatos["Nombre"].ToString();
+                //string Stock = filaDatos["Stock"].ToString();
+                //string Precio = filaDatos["Precio"].ToString();
+                //string Clave = filaDatos["ClaveInterna"].ToString();
+                //string Codigo = filaDatos["CodigoBarras"].ToString();
+                //string Tipo = filaDatos["Tipo"].ToString();
+                //string Proveedor = filaDatos["Proveedor"].ToString();
+                //string chckName = filaDatos["ChckName"].ToString();
+                //string Descripcion = filaDatos["Descripcion"].ToString();
+
+                //if (DGVInventario.Rows.Count.Equals(0))
+                //{
+                //    bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVInventario);
+
+                //    if (encontrado.Equals(false))
+                //    {
+                //        var number_of_rows = DGVInventario.Rows.Add();
+                //        DataGridViewRow row = DGVInventario.Rows[number_of_rows];
+
+                //        row.Cells["Nombre"].Value = Nombre;     // Columna Nombre
+                //        row.Cells["Stock"].Value = Stock;       // Columna Stock
+                //        row.Cells["Precio"].Value = Precio;     // Columna Precio
+                //        row.Cells["Clave"].Value = Clave;       // Columna Clave
+                //        row.Cells["Codigo"].Value = Codigo;     // Columna Codigo
+
+                //        // Columna Tipo
+                //        if (Tipo.Equals("P"))
+                //        {
+                //            row.Cells["Tipo"].Value = "PRODUCTO";
+                //        }
+                //        else if (Tipo.Equals("S"))
+                //        {
+                //            row.Cells["Tipo"].Value = "SERVICIO";
+                //        }
+                //        else if (Tipo.Equals("PQ"))
+                //        {
+                //            row.Cells["Tipo"].Value = "COMBO";
+                //        }
+
+                //        row.Cells["Proveedor"].Value = Proveedor;   // Columna Proveedor
+
+                //        if (DGVInventario.Columns.Contains(chckName))
+                //        {
+                //            row.Cells[chckName].Value = Descripcion;
+                //        }
+                //    }
+                //}
+                //else if (!DGVInventario.Rows.Count.Equals(0))
+                //{
+                //    foreach (DataGridViewRow Row in DGVInventario.Rows)
+                //    {
+                //        bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVInventario);
+
+                //        if (encontrado.Equals(true))
+                //        {
+                //            var Fila = Row.Index;
+                //            // Columnas Dinamicos
+                //            if (DGVInventario.Columns.Contains(chckName))
+                //            {
+                //                DGVInventario.Rows[Fila].Cells[chckName].Value = Descripcion;
+                //            }
+                //        }
+                //        else if (encontrado.Equals(false))
+                //        {
+                //            var number_of_rows = DGVInventario.Rows.Add();
+                //            DataGridViewRow row = DGVInventario.Rows[number_of_rows];
+
+                //            row.Cells["Nombre"].Value = Nombre;         // Columna Nombre
+                //            row.Cells["Stock"].Value = Stock;           // Columna Stock
+                //            row.Cells["Precio"].Value = Precio;         // Columna Precio
+                //            row.Cells["Clave"].Value = Clave;           // Columna Clave
+                //            row.Cells["Codigo"].Value = Codigo;         // Columna Codigo
+
+                //            // Columna Tipo
+                //            if (Tipo.Equals("P"))
+                //            {
+                //                row.Cells["Tipo"].Value = "PRODUCTO";
+                //            }
+                //            else if (Tipo.Equals("S"))
+                //            {
+                //                row.Cells["Tipo"].Value = "SERVICIO";
+                //            }
+                //            else if (Tipo.Equals("PQ"))
+                //            {
+                //                row.Cells["Tipo"].Value = "COMBO";
+                //            }
+
+                //            // Columna Proveedor
+                //            row.Cells["Proveedor"].Value = Proveedor;
+
+                //            // Columnas Dinamicos
+                //            if (DGVInventario.Columns.Contains(chckName))
+                //            {
+                //                row.Cells[chckName].Value = Descripcion;
+                //            }
+                //        }
+                //    }
+                //}
+            //}
+
+            actualizar();
+
+            clickBoton = 0;
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaActual_Click(object sender, EventArgs e)
+        {
+            actualizar();
+        }
+
+        private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtMaximoPorPagina.Text))
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            CargarDatos();
+            actualizar();
+        }
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (string.IsNullOrEmpty(txtMaximoPorPagina.Text))
+                {
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                }
+                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                p.actualizarTope(maximo_x_pagina);
+                CargarDatos();
+                actualizar();
+            }
         }
     }
 }

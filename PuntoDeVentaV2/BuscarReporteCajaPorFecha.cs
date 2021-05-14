@@ -87,8 +87,8 @@ namespace PuntoDeVentaV2
             //            DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf);
             //        }
             //    }
-            //    txtBuscador.Text = string.Empty;
-            //    txtBuscador.Focus();
+            txtBuscador.Text = string.Empty;
+            txtBuscador.Focus();
             //}
             //else
             //{
@@ -1230,27 +1230,30 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                foreach (DataRow filaDatos in dtDatos.Rows)
+                if (!dtDatos.Rows.Count.Equals(0))
                 {
-                    var idCorte = filaDatos["ID"].ToString();
-                    var fecha = filaDatos["FechaOPeracion"].ToString();
-                    var idEmpleado = Convert.ToInt32(filaDatos["IdEmpleado"].ToString());
-                    var empleado = filaDatos["nombre"].ToString();
-                    var fechaOp = filaDatos["FechaOperacion"].ToString();
-                    var name = string.Empty;
-
-                    if (idEmpleado > 0)
+                    foreach (DataRow filaDatos in dtDatos.Rows)
                     {
-                        name = empleado;
-                    }
-                    else
-                    {
-                        name = $"ADMIN {FormPrincipal.userNickName.ToString()}";
-                    }
+                        var idCorte = filaDatos["ID"].ToString();
+                        var fecha = filaDatos["FechaOPeracion"].ToString();
+                        var idEmpleado = Convert.ToInt32(filaDatos["IdEmpleado"].ToString());
+                        var empleado = filaDatos["nombre"].ToString();
+                        var fechaOp = filaDatos["FechaOperacion"].ToString();
+                        var name = string.Empty;
 
-                    //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
+                        if (idEmpleado > 0)
+                        {
+                            name = empleado;
+                        }
+                        else
+                        {
+                            name = $"ADMIN {FormPrincipal.userNickName.ToString()}";
+                        }
 
-                    DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf, fechaOp);
+                        //var empleado = validarEmpleado(Convert.ToInt32(obtenerEmpleado));
+
+                        DGVReporteCaja.Rows.Add(idCorte, name, fecha, pdf, pdf, pdf, fechaOp);
+                    }
                 }
 
                 //var numeroFilas = DGVReporteCaja.Rows.Count;
