@@ -32,6 +32,9 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+        Dictionary<int, string> idVentas = new Dictionary<int, string>();
+        List<int> lista = new List<int>();
+
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         private string ticketGenerado = string.Empty;
@@ -2664,17 +2667,98 @@ namespace PuntoDeVentaV2
         private void btnReportes_Click(object sender, EventArgs e)
         {
             var opcion = cbTipoVentas.SelectedValue.ToString();
-            
-            //Se quita el * de la consulta para obtener solo los campos que me interesan y se guarda en una nueva variable
-            var ajustarQuery = FiltroAvanzado.Replace("*","Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion");
 
-            var query = cn.CargarDatos(ajustarQuery);
+            var codigosBuscar = recorrerDGVAlmacenarDiccionario();
 
-            if (!query.Rows.Count.Equals(0))
+            if (!string.IsNullOrEmpty(codigosBuscar))
             {
-                Utilidades.GenerarReporte(opcion, query);
+                //Se quita el * de la consulta para obtener solo los campos que me interesan y se guarda en una nueva variable
+                //var ajustarQuery = FiltroAvanzado.Replace("*", "Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion");
+
+                var ajustarQuery = $"SELECT Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})";
+
+                var query = cn.CargarDatos(ajustarQuery);
+
+                if (!query.Rows.Count.Equals(0))
+                {
+                    Utilidades.GenerarReporte(opcion, query);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No tiene ninguna venta seleccionada", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
+        private string recorrerDGVAlmacenarDiccionario()
+        {
+            foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
+            {
+                try
+                {
+                    var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+                    var nameClient = dgv.Cells["Cliente"].Value.ToString();
+                    var checkBox = Convert.ToBoolean(dgv.Cells["col_checkbox"].Value.ToString());
+
+                    if (checkBox.Equals(true))
+                    {
+                        lista.Add(idVenta);
+                    }
+                    else
+                    {
+                        lista.Remove(idVenta);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+            var cadenaCompleta = string.Empty;
+            foreach (var item in lista)
+            {
+                cadenaCompleta += $"{item},".ToString();
+            }
+            cadenaCompleta = cadenaCompleta.TrimEnd(',');
+
+            return cadenaCompleta;
+        }
+
+        private void chTodos_CheckedChanged(object sender, EventArgs e)
+        {//Los try son para las finas que son para totales que no se marquen
+            if (chTodos.Checked)
+            {
+                var numeroFilas = DGVListadoVentas.Rows.Count.ToString();
+
+                foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
+                {
+                    try
+                    {
+                        var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+                        dgv.Cells["col_checkbox"].Value = true;
+                    }
+                    catch (Exception ex) 
+                    {
+
+                    }
+                }
+            }
+            else if (!chTodos.Checked)
+            {
+                foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
+                {
+                    try
+                    {
+                        var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+
+                        dgv.Cells["col_checkbox"].Value = false;
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+            }
+        }
     }
 }
