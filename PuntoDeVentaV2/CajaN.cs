@@ -1597,79 +1597,6 @@ namespace PuntoDeVentaV2
 
             //tabla.AddCell(colSeparador);
 
-            // Linea de TOTALES
-            PdfPCell colTotalVentas = new PdfPCell(new Phrase($"Total de Ventas", fuenteTotales));
-            colTotalVentas.BorderWidth = 0;
-            colTotalVentas.HorizontalAlignment = Element.ALIGN_CENTER;
-            colTotalVentas.Padding = 3;
-            colTotalVentas.BackgroundColor = new BaseColor(Color.Red);
-
-            PdfPCell colTotalVentasC = new PdfPCell(new Phrase($"{cantidades[26]}", fuenteTotales));
-            colTotalVentasC.BorderWidth = 0;
-            colTotalVentasC.HorizontalAlignment = Element.ALIGN_CENTER;
-            colTotalVentasC.Padding = 3;
-            colTotalVentasC.BackgroundColor = new BaseColor(Color.Red);
-
-            PdfPCell colTotalAnticipos = new PdfPCell(new Phrase($"Total Anticipos", fuenteTotales));
-            colTotalAnticipos.BorderWidth = 0;
-            colTotalAnticipos.HorizontalAlignment = Element.ALIGN_CENTER;
-            colTotalAnticipos.Padding = 3;
-            colTotalAnticipos.BackgroundColor = new BaseColor(Color.Red);
-
-            PdfPCell colTotalAnticiposC = new PdfPCell(new Phrase($"{cantidades[27]}", fuenteTotales));
-            colTotalAnticiposC.BorderWidth = 0;
-            colTotalAnticiposC.HorizontalAlignment = Element.ALIGN_CENTER;
-            colTotalAnticiposC.Padding = 3;
-            colTotalAnticiposC.BackgroundColor = new BaseColor(Color.Red);
-
-            PdfPCell colTotalDinero = new PdfPCell(new Phrase($"Total Agregado", fuenteTotales));
-            colTotalDinero.BorderWidth = 0;
-            colTotalDinero.HorizontalAlignment = Element.ALIGN_CENTER;
-            colTotalDinero.Padding = 3;
-            colTotalDinero.BackgroundColor = new BaseColor(Color.Red);
-
-            PdfPCell colTotalDineroC = new PdfPCell(new Phrase($"{cantidades[28]}", fuenteTotales));
-            colTotalDineroC.BorderWidth = 0;
-            colTotalDineroC.HorizontalAlignment = Element.ALIGN_CENTER;
-            colTotalDineroC.Padding = 3;
-            colTotalDineroC.BackgroundColor = new BaseColor(Color.Red);
-
-            PdfPCell colTotalDineroRetirado = new PdfPCell(new Phrase($"Total Retirado", fuenteTotales));////////
-            colTotalDineroRetirado.BorderWidth = 0;
-            colTotalDineroRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
-            colTotalDineroRetirado.Padding = 3;
-            colTotalDineroRetirado.BackgroundColor = new BaseColor(Color.Red);
-
-            PdfPCell colTotalDineroR = new PdfPCell(new Phrase($"{datosCajaShow[28]}", fuenteTotales));//////////////
-            colTotalDineroR.BorderWidth = 0;
-            colTotalDineroR.HorizontalAlignment = Element.ALIGN_CENTER;
-            colTotalDineroR.Padding = 3;
-            colTotalDineroR.BackgroundColor = new BaseColor(Color.Red);
-
-            PdfPCell colTotalFinal = new PdfPCell(new Phrase($"Total en Caja", fuenteTotales));
-            colTotalFinal.BorderWidth = 0;
-            colTotalFinal.HorizontalAlignment = Element.ALIGN_CENTER;
-            colTotalFinal.Padding = 3;
-            colTotalFinal.BackgroundColor = new BaseColor(Color.Red);
-
-            PdfPCell colTotalFinalC = new PdfPCell(new Phrase($"{cantidades[29]}", fuenteTotales));
-            colTotalFinalC.BorderWidth = 0;
-            colTotalFinalC.HorizontalAlignment = Element.ALIGN_CENTER;
-            colTotalFinalC.Padding = 3;
-            colTotalFinalC.BackgroundColor = new BaseColor(Color.Red);
-
-            tabla.AddCell(colTotalVentas);
-            tabla.AddCell(colTotalVentasC);
-            tabla.AddCell(colTotalAnticipos);
-            tabla.AddCell(colTotalAnticiposC);
-            tabla.AddCell(colTotalDinero);
-            tabla.AddCell(colTotalDineroC);
-            tabla.AddCell(colTotalDineroRetirado);
-            tabla.AddCell(colTotalDineroR);
-            tabla.AddCell(colTotalFinal);
-            tabla.AddCell(colTotalFinalC);
-
-
             // Linea de Dinero Retirado en el Corte
             PdfPCell colVacioPrimero = new PdfPCell(new Phrase(string.Empty, fuenteTotales));
             colVacioPrimero.BorderWidth = 0;
@@ -1775,7 +1702,7 @@ namespace PuntoDeVentaV2
             colVacioOctavoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
             colVacioOctavoSaldo.Padding = 3;
 
-            PdfPCell colVacioNovenoSaldo = new PdfPCell(new Phrase($"Cantidad retirada al corte:", fuenteNegrita));
+            PdfPCell colVacioNovenoSaldo = new PdfPCell(new Phrase($"Total en Caja despues del Corte:", fuenteNegrita));
             colVacioNovenoSaldo.BorderWidth = 0;
             colVacioNovenoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
             colVacioNovenoSaldo.Padding = 3;
@@ -1796,6 +1723,78 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colVacioNovenoSaldo);
             tabla.AddCell(colVacioDecimoSaldo);
 
+            // Linea de TOTALES
+            PdfPCell colTotalVentas = new PdfPCell(new Phrase($"Total de Ventas", fuenteTotales));
+            colTotalVentas.BorderWidth = 0;
+            colTotalVentas.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalVentas.Padding = 3;
+            colTotalVentas.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colTotalVentasC = new PdfPCell(new Phrase($"{cantidades[26]}", fuenteTotales));
+            colTotalVentasC.BorderWidth = 0;
+            colTotalVentasC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalVentasC.Padding = 3;
+            colTotalVentasC.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colTotalAnticipos = new PdfPCell(new Phrase($"Total Anticipos", fuenteTotales));
+            colTotalAnticipos.BorderWidth = 0;
+            colTotalAnticipos.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalAnticipos.Padding = 3;
+            colTotalAnticipos.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colTotalAnticiposC = new PdfPCell(new Phrase($"{cantidades[27]}", fuenteTotales));
+            colTotalAnticiposC.BorderWidth = 0;
+            colTotalAnticiposC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalAnticiposC.Padding = 3;
+            colTotalAnticiposC.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colTotalDinero = new PdfPCell(new Phrase($"Total Agregado", fuenteTotales));
+            colTotalDinero.BorderWidth = 0;
+            colTotalDinero.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalDinero.Padding = 3;
+            colTotalDinero.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colTotalDineroC = new PdfPCell(new Phrase($"{cantidades[28]}", fuenteTotales));
+            colTotalDineroC.BorderWidth = 0;
+            colTotalDineroC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalDineroC.Padding = 3;
+            colTotalDineroC.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colTotalDineroRetirado = new PdfPCell(new Phrase($"Total Retirado", fuenteTotales));////////
+            colTotalDineroRetirado.BorderWidth = 0;
+            colTotalDineroRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalDineroRetirado.Padding = 3;
+            colTotalDineroRetirado.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colTotalDineroR = new PdfPCell(new Phrase($"{datosCajaShow[28]}", fuenteTotales));//////////////
+            colTotalDineroR.BorderWidth = 0;
+            colTotalDineroR.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalDineroR.Padding = 3;
+            colTotalDineroR.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colTotalFinal = new PdfPCell(new Phrase($"Total en Caja", fuenteTotales));
+            colTotalFinal.BorderWidth = 0;
+            colTotalFinal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalFinal.Padding = 3;
+            colTotalFinal.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colTotalFinalC = new PdfPCell(new Phrase($"{cantidades[29]}", fuenteTotales));
+            colTotalFinalC.BorderWidth = 0;
+            colTotalFinalC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalFinalC.Padding = 3;
+            colTotalFinalC.BackgroundColor = new BaseColor(Color.Red);
+
+            tabla.AddCell(colTotalVentas);
+            tabla.AddCell(colTotalVentasC);
+            tabla.AddCell(colTotalAnticipos);
+            tabla.AddCell(colTotalAnticiposC);
+            tabla.AddCell(colTotalDinero);
+            tabla.AddCell(colTotalDineroC);
+            tabla.AddCell(colTotalDineroRetirado);
+            tabla.AddCell(colTotalDineroR);
+            tabla.AddCell(colTotalFinal);
+            tabla.AddCell(colTotalFinalC);
+            
             #endregion
 
 
