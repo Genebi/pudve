@@ -396,14 +396,16 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(840, 16);
+            this.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAdd.Image = global::PuntoDeVentaV2.Properties.Resources.eye;
+            this.btnAdd.Location = new System.Drawing.Point(837, 34);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(26, 25);
             this.btnAdd.TabIndex = 29;
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Visible = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.MouseEnter += new System.EventHandler(this.btnAdd_MouseEnter);
             // 
             // txtStockMaximo
             // 

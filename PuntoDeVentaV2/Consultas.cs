@@ -1835,5 +1835,12 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
             return consulta;
         }
+
+        public string obtenerServicioCombo(int idServCombo)
+        {
+            var consulta = $"SELECT DISTINCT Prod.Nombre FROM productos AS Prod INNER JOIN ProductosDeServicios AS ServicesProd ON Prod.ID = ServicesProd.IDServicio WHERE ServicesProd.IDServicio = '{idServCombo}';";
+
+            return consulta;
+        }
     }
 }

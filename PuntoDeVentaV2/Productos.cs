@@ -346,10 +346,24 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
-                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
-                p.actualizarTope(maximo_x_pagina);
-                CargarDatos();
-                actualizar();
+                if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+                {
+                    if (txtMaximoPorPagina.Text.Equals("0"))
+                    {
+                        txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                    }
+                    else
+                    {
+                        maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                        p.actualizarTope(maximo_x_pagina);
+                        CargarDatos();
+                        actualizar();
+                    }
+                }
+                else if (txtMaximoPorPagina.Text.Equals(string.Empty))
+                {
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                }
             }
         }
 
@@ -5304,11 +5318,18 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
         {
-            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
-            p.actualizarTope(maximo_x_pagina);
-            CargarDatos();
-            //actualizarDatosDespuesDeAgregarProducto();
-            actualizar();
+            if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+            {
+                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                p.actualizarTope(maximo_x_pagina);
+                CargarDatos();
+                //actualizarDatosDespuesDeAgregarProducto();
+                actualizar();
+            }
+            else if (txtMaximoPorPagina.Text.Equals(string.Empty))
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
         }
 
         private void btnPrimeraPagina_Click(object sender, EventArgs e)

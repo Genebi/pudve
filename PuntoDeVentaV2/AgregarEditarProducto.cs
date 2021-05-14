@@ -91,11 +91,11 @@ namespace PuntoDeVentaV2
                     datosDetalleGral,
                     separadas;
 
-        string[]    listaProveedores = new string[] { },
+        string[] listaProveedores = new string[] { },
                     listaCategorias = new string[] { },
                     listaUbicaciones = new string[] { },
-                    listaDetalleGral = new string[] { },
-                    listaProductoToCombo = new string[1] { "" };
+                    listaDetalleGral = new string[] { };
+        public string[] listaProductoToCombo = new string[1] { "" };
 
         int XPos = 0,
             YPos = 0,
@@ -253,7 +253,7 @@ namespace PuntoDeVentaV2
         int PH;
         bool Hided, Hided1;
 
-        List<string> ProductosDeServicios = new List<string>(); // para agregar los productos del servicio o paquete
+        public List<string> ProductosDeServicios = new List<string>(); // para agregar los productos del servicio o paquete
         List<ItemsProductoComboBox> prodList;
 
         int numCombo = 1, indexItem = 1, totCB=0;
@@ -1497,6 +1497,63 @@ namespace PuntoDeVentaV2
         private void fLPDetalleProducto_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnAdd_MouseEnter(object sender, EventArgs e)
+        {
+            if (DatosSourceFinal.Equals(1))
+            {
+                if (this.Text.Equals("AGREGAR PRODUCTO"))
+                {
+                    btnAdd.Visible = true;
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar a cual\nCombo ó Servicio esta relcionado.");
+                }
+                if (this.Text.Equals("AGREGAR COMBOS"))
+                {
+                    btnAdd.Visible = true;
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar la cantidad\ny el producto que esta relacionado con el Combo");
+                }
+                if (this.Text.Equals("AGREGAR SERVICIOS"))
+                {
+                    btnAdd.Visible = true;
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar la cantidad\ny el producto que esta relacionado con el Servicio");
+                }
+            }
+            if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+            {
+                if (this.Text.Equals("EDITAR PRODUCTO"))
+                {
+                    btnAdd.Visible = true;
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar a cual\nCombo ó Servicio esta relcionado.");
+                }
+                else if (this.Text.Equals("COPIAR PRODUCTO"))
+                {
+                    btnAdd.Visible = true;
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar a cual\nCombo ó Servicio esta relcionado.");
+                }
+
+                if (this.Text.Equals("EDITAR COMBOS"))
+                {
+                    btnAdd.Visible = true;
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar la cantidad\ny el producto que esta relacionado con el Combo");
+                }
+                else if (this.Text.Equals("COPIAR COMBOS"))
+                {
+                    btnAdd.Visible = true;
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar la cantidad\ny el producto que esta relacionado con el Combo");
+                }
+
+                if (this.Text.Equals("EDITAR SERVICIOS"))
+                {
+                    btnAdd.Visible = true;
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar la cantidad\ny el producto que esta relacionado con el Servicio");
+                }
+                else if (this.Text.Equals("COPIAR SERVICIOS"))
+                {
+                    btnAdd.Visible = true;
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar la cantidad\ny el producto que esta relacionado con el Servicio");
+                }
+            }
         }
 
         public void PrimerCodBarras()
@@ -5041,7 +5098,18 @@ namespace PuntoDeVentaV2
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            LoadPanelDatos();
+            //LoadPanelDatos();
+            //MessageBox.Show("Mensaje desde:\n" + this.Text, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ConsultarListaRelacionados consultarListaRelacion = new ConsultarListaRelacionados();
+            consultarListaRelacion.FormClosed += delegate
+            {
+
+            };
+
+            consultarListaRelacion.listaServCombo = listaProductoToCombo;
+            consultarListaRelacion.listaProd = ProductosDeServicios;
+            consultarListaRelacion.tipoOperacion = this.Text;
+            consultarListaRelacion.Show();
         }
 
         private void LoadPanelDatos()
@@ -6272,7 +6340,7 @@ namespace PuntoDeVentaV2
             var servidor = Properties.Settings.Default.Hosting;
 
             errorProvAgregarEditarProducto.ContainerControl = this;
-
+            
             if (!string.IsNullOrWhiteSpace(servidor))
             {
                 saveDirectoryImg = $@"\\{servidor}\PUDVE\Productos\";
@@ -6438,7 +6506,7 @@ namespace PuntoDeVentaV2
                         cargarDatosNvoProd();
                     }
                     cbTipo.Text = "Producto";
-                    btnAdd.Visible = false;
+                    //btnAdd.Visible = false;
                     ocultarPanel();
                     //PStock.Visible = true;
                     txtCantPaqServ.Visible = false;
@@ -6486,7 +6554,7 @@ namespace PuntoDeVentaV2
                     LimpiarCampos();
                     cargarDatosNvoProd();
                     cbTipo.Text = "Producto";
-                    btnAdd.Visible = false;
+                    //btnAdd.Visible = false;
                     ocultarPanel();
                     //PStock.Visible = false;
                     txtCantPaqServ.Visible = true;
@@ -6534,7 +6602,7 @@ namespace PuntoDeVentaV2
                     LimpiarCampos();
                     cargarDatosNvoProd();
                     cbTipo.Text = "Producto";
-                    btnAdd.Visible = false;
+                    //btnAdd.Visible = false;
                     ocultarPanel();
                     //PStock.Visible = false;
                     txtCantPaqServ.Visible = true;
