@@ -77,40 +77,41 @@ namespace PuntoDeVentaV2
         private void GenerarProductos()
         {
             Text = "PUDVE - Permisos Productos";
-
+            var img = global::PuntoDeVentaV2.Properties.Resources.plus_square;
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Productos");
 
-            GenerarCheckbox(10, 20, 100, "Agregar XML", datos[0]);
+            GenerarCheckbox(10, 45, 100, "Agregar XML", datos[0]);
             GenerarCheckbox(10, 200, 200, "Deshabilitar Seleccionados", datos[1]);
             //=============================================================
-            GenerarCheckbox(30, 20, 150, "Cambiar Tipo", datos[2]);
+            GenerarCheckbox(30, 45, 150, "Cambiar Tipo", datos[2]);
             GenerarCheckbox(30, 200, 150, "Mostrar en Lista", datos[3]);
             //=============================================================
-            GenerarCheckbox(50, 20, 150, "Botón Asignar", datos[4]);
+            GenerarCheckbox(50, 45, 150, "Botón Asignar", datos[4]);
+            //Generarbutton(50, 10, 30, img);
             GenerarCheckbox(50, 200, 150, "Mostrar en Mosaico", datos[5]);
             //=============================================================
-            GenerarCheckbox(70, 20, 150, "Botón Etiqueta", datos[6]);
+            GenerarCheckbox(70, 45, 150, "Botón Etiqueta", datos[6]);
             GenerarCheckbox(70, 200, 150, "Botón Reporte", datos[7]);
             //=============================================================
-            GenerarCheckbox(90, 20, 150, "Botón Imprimir", datos[8]);
+            GenerarCheckbox(90, 45, 150, "Botón Imprimir", datos[8]);
             GenerarCheckbox(90, 200, 150, "Agregar Producto", datos[9]);
             //=============================================================
-            GenerarCheckbox(110, 20, 150, "Agregar Combo", datos[10]);
+            GenerarCheckbox(110, 45, 150, "Agregar Combo", datos[10]);
             GenerarCheckbox(110, 200, 150, "Agregar Servicio", datos[11]);
             //=============================================================
-            GenerarCheckbox(130, 20, 150, "Botón Filtro", datos[12]);
+            GenerarCheckbox(130, 45, 150, "Botón Filtro", datos[12]);
             GenerarCheckbox(130, 200, 150, "Botón Borrar Filtro", datos[13]);
             //=============================================================
-            GenerarCheckbox(150, 20, 150, "Opción Editar", datos[14]);
+            GenerarCheckbox(150, 45, 150, "Opción Editar", datos[14]);
             GenerarCheckbox(150, 200, 150, "Opción Estado", datos[15]);
             //=============================================================
-            GenerarCheckbox(170, 20, 150, "Opción Historal", datos[16]);
+            GenerarCheckbox(170, 45, 150, "Opción Historal", datos[16]);
             GenerarCheckbox(170, 200, 150, "Generar Código Barras", datos[17]);
             //=============================================================
-            GenerarCheckbox(190, 20, 150, "Cargar Imagen", datos[18]);
+            GenerarCheckbox(190, 45, 150, "Cargar Imagen", datos[18]);
             GenerarCheckbox(190, 200, 150, "Opción Etiqueta", datos[19]);
             //=============================================================
-            GenerarCheckbox(210, 20, 150, "Opción Copiar", datos[20]);
+            GenerarCheckbox(210, 45, 150, "Opción Copiar", datos[20]);
             GenerarCheckbox(210, 200, 150, "Opción Ajustar", datos[21]);
         }
 
@@ -306,6 +307,15 @@ namespace PuntoDeVentaV2
             checkbox.Checked = Convert.ToBoolean(estado);
 
             panelContenedor.Controls.Add(checkbox);
+        }
+
+        private void Generarbutton(int top, int left, int ancho,Image icon)
+        {
+            var button = new Button();
+            button.Top = top;
+            button.Left = left;
+            button.Width = ancho;
+            panelContenedor.Controls.Add(button);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

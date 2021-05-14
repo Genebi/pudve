@@ -228,6 +228,7 @@ namespace PuntoDeVentaV2
                     tipo_us = 1;
 
                     resultado = (bool)cn.EjecutarSelect($"SELECT usuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'AND estatus = 1");
+                    
 
                     // Obtiene solo el nombre de usuario principal 
 
@@ -306,6 +307,14 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+
+                    using (DataTable dtEmp = cn.CargarDatos($"SELECT usuario FROM Empleados WHERE usuario='{txtUsuario.Text}' AND contrasena='{txtPassword.Text}'AND estatus = 0"))
+                    {
+                        if (!dtEmp.Rows.Count.Equals(0))
+                        {
+                            MessageBox.Show($"El empleado '{txtUsuario.Text}' se encuentra deshabilitado", "Aviso del Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
                     txtMensaje.Text = "El usuario y/o contraseña son incorrectos\nO se encuentra Inhabilitado";
                     txtPassword.Text = "";
                     txtPassword.Focus();
