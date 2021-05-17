@@ -1932,6 +1932,8 @@ namespace PuntoDeVentaV2
             var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
             var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
 
+            var sumarTotales = 0.00;
+
             //var numFolio = obtenerFolio(id);
 
             Usuario = new Paragraph($"USUARIO: ADMIN ({obtenerUsuarioPrincipal})", fuenteNegrita);
@@ -1951,7 +1953,7 @@ namespace PuntoDeVentaV2
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
 
-            float[] anchoColumnas = new float[] { 60f, 40f, 60f, 40f, 60f, 40f, 60f};
+            float[] anchoColumnas = new float[] { 20f, 60f, 40f, 60f, 40f, 60f, 40f, 60f};
 
             //Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -1960,14 +1962,14 @@ namespace PuntoDeVentaV2
             //=== TABLA DE INVENTARIO  ===
             //============================
 
-            PdfPTable tablaInventario = new PdfPTable(7);
+            PdfPTable tablaInventario = new PdfPTable(8);
             tablaInventario.WidthPercentage = 100;
             tablaInventario.SetWidths(anchoColumnas);
 
-            //PdfPCell colNum = new PdfPCell(new Phrase("No:", fuenteNegrita));
-            //colNum.BorderWidth = 1;
-            //colNum.BackgroundColor = new BaseColor(Color.SkyBlue);
-            //colNum.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPCell colNum = new PdfPCell(new Phrase("No:", fuenteNegrita));
+            colNum.BorderWidth = 1;
+            colNum.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colNum.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colCliente = new PdfPCell(new Phrase("CLIENTE", fuenteNegrita));
             colCliente.BorderWidth = 1;
@@ -2017,6 +2019,7 @@ namespace PuntoDeVentaV2
             colEmpleado.Padding = 3;
             colEmpleado.BackgroundColor = new BaseColor(Color.SkyBlue);
 
+            tablaInventario.AddCell(colNum);
             tablaInventario.AddCell(colCliente);
             tablaInventario.AddCell(colRFC);
             tablaInventario.AddCell(colTotal);
@@ -2028,8 +2031,19 @@ namespace PuntoDeVentaV2
             var cliente = string.Empty;
             foreach (DataRow iterador in tablaResult.Rows)
             {
+                numRow += 1;
                 var nombreEmpleado = cs.BuscarEmpleadoCaja(Convert.ToInt32(iterador["IDEmpleado"].ToString()));
                 if (string.IsNullOrEmpty(nombreEmpleado)) { nombreEmpleado = FormPrincipal.userNickName; }
+
+                sumarTotales += (float)Convert.ToDecimal(iterador["Total"].ToString());
+
+                PdfPCell colNumFilatemp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                colNumFilatemp.BorderWidth = 1;
+                //colClienteTemp.BorderWidthLeft = 0;
+                //colClienteTemp.BorderWidthTop = 0;
+                //colClienteTemp.BorderWidthBottom = 0;
+                //colClienteTemp.BorderWidthRight = 0;
+                colNumFilatemp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colClienteTemp = new PdfPCell(new Phrase(iterador["Cliente"].ToString(), fuenteNormal));
                 colClienteTemp.BorderWidth = 1;
@@ -2087,7 +2101,7 @@ namespace PuntoDeVentaV2
                 //colEmpleadoTemp.BorderWidthRight = 0;
                 colEmpleadoTemp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                //tablaInventario.AddCell(colNoConceptoTmp);
+                tablaInventario.AddCell(colNumFilatemp);
                 tablaInventario.AddCell(colClienteTemp);
                 tablaInventario.AddCell(colRFCTemp);
                 tablaInventario.AddCell(colTotalTemp);
@@ -2095,7 +2109,84 @@ namespace PuntoDeVentaV2
                 tablaInventario.AddCell(colSerieTemp);
                 tablaInventario.AddCell(colFechaTemp);
                 tablaInventario.AddCell(colEmpleadoTemp);
+                
             }
+
+            //Columna para total de dinero
+            PdfPCell colNumFilatempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colNumFilatempTotal.BorderWidth = 0;
+            //colClienteTemp.BorderWidthLeft = 0;
+            //colClienteTemp.BorderWidthTop = 0;
+            //colClienteTemp.BorderWidthBottom = 0;
+            //colClienteTemp.BorderWidthRight = 0;
+            colNumFilatempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colClienteTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colClienteTempTotal.BorderWidth = 0;
+            //colClienteTemp.BorderWidthLeft = 0;
+            //colClienteTemp.BorderWidthTop = 0;
+            //colClienteTemp.BorderWidthBottom = 0;
+            //colClienteTemp.BorderWidthRight = 0;
+            colClienteTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colRFCTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colRFCTempTotal.BorderWidth = 0;
+            //colRFCTemp.BorderWidthRight = 0;
+            //colRFCTemp.BorderWidthTop = 0;
+            //colRFCTemp.BorderWidthBottom = 0;
+            //colRFCTemp.BorderWidthLeft = 0;
+            colRFCTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colTotalTempTotal = new PdfPCell(new Phrase("$" + sumarTotales.ToString(), fuenteNormal));
+            colTotalTempTotal.BorderWidth = 0;
+            //colTotalTempTotal.BorderWidthRight = 0;
+            //colTotalTempTotal.BorderWidthTop = 0;
+            colTotalTempTotal.BorderWidthBottom = 1;
+            //colTotalTempTotal.BorderWidthLeft = 0;
+            colTotalTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTotalTempTotal.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+
+            PdfPCell colFolioTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colFolioTempTotal.BorderWidth = 0;
+            //colFolioTemp.BorderWidthLeft = 0;
+            //colFolioTemp.BorderWidthTop = 0;
+            //colFolioTemp.BorderWidthBottom = 0;
+            //colFolioTemp.BorderWidthRight = 0;
+            colFolioTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colSerieTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colSerieTempTotal.BorderWidth = 0;
+            //colSerieTemp.BorderWidthRight = 0;
+            //colSerieTemp.BorderWidthTop = 0;
+            //colSerieTemp.BorderWidthBottom = 0;
+            //colSerieTemp.BorderWidthLeft = 0;
+            colSerieTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colFechaTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colFechaTempTotal.BorderWidth = 0;
+            //colFechaTemp.BorderWidthLeft = 0;
+            //colFechaTemp.BorderWidthTop = 0;
+            //colFechaTemp.BorderWidthBottom = 0;
+            //colFechaTemp.BorderWidthRight = 0;
+            colFechaTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colEmpleadoTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colEmpleadoTempTotal.BorderWidth = 0;
+            //colEmpleadoTemp.BorderWidthLeft = 0;
+            //colEmpleadoTemp.BorderWidthTop = 0;
+            //colEmpleadoTemp.BorderWidthBottom = 0;
+            //colEmpleadoTemp.BorderWidthRight = 0;
+            colEmpleadoTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            tablaInventario.AddCell(colNumFilatempTotal);
+            tablaInventario.AddCell(colClienteTempTotal);
+            tablaInventario.AddCell(colRFCTempTotal);
+            tablaInventario.AddCell(colTotalTempTotal);
+            tablaInventario.AddCell(colFolioTempTotal);
+            tablaInventario.AddCell(colSerieTempTotal);
+            tablaInventario.AddCell(colFechaTempTotal);
+            tablaInventario.AddCell(colEmpleadoTempTotal);
 
             reporte.Add(titulo);
             reporte.Add(Usuario);

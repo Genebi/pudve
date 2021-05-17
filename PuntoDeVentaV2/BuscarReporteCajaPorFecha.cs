@@ -518,7 +518,6 @@ namespace PuntoDeVentaV2
             NumeroFolio.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
-
             float[] anchoColumnas = new float[] {60f, 40f, 60f, 40f, 60f, 40f,  60f, 40f, 60f, 40f };
 
             //Linea serapadora
@@ -571,6 +570,7 @@ namespace PuntoDeVentaV2
             colTotal.Padding = 3;
             colTotal.BackgroundColor = new BaseColor(Color.SkyBlue);
 
+            //tablaInventario.AddCell(colNum);
             tablaInventario.AddCell(colVentas);
             tablaInventario.AddCell(colAnticipos);
             tablaInventario.AddCell(colAgregado);
@@ -580,6 +580,14 @@ namespace PuntoDeVentaV2
             foreach (var iterador in datosCaja)
             {
                 string[] words = iterador.Split('|');
+                //numRow += 1;
+
+                //PdfPCell colNoFila = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                //colNoFila.BorderWidthLeft = 0;
+                //colNoFila.BorderWidthTop = 0;
+                //colNoFila.BorderWidthBottom = 0;
+                //colNoFila.BorderWidthRight = 0;
+                //colNoFila.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colVentasTemp = new PdfPCell(new Phrase(words[0].ToString(), fuenteNormal));
                 PdfPCell colVentasCantidad = new PdfPCell(new Phrase(words[1].ToString(), fuenteNormal));
@@ -702,6 +710,7 @@ namespace PuntoDeVentaV2
                 colTotalCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 //tablaInventario.AddCell(colNoConceptoTmp);
+                //tablaInventario.AddCell(colNoFila);
                 tablaInventario.AddCell(colVentasTemp);
                 tablaInventario.AddCell(colVentasCantidad);
                 tablaInventario.AddCell(colAnticiposTemp);
