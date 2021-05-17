@@ -364,7 +364,9 @@ namespace PuntoDeVentaV2
             var rowCheque = (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg)) - (float)Convert.ToDecimal(chequeR));
             var rowTransferencia = (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg)) - (float)Convert.ToDecimal(transR));
 
-            var total = (rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial + (float)Convert.ToDecimal(creditoC));
+            var totalAntesCorte = (rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial + (float)Convert.ToDecimal(creditoC));
+
+            var total = ((rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial + (float)Convert.ToDecimal(creditoC)) - dineroRetiradoCorte);
 
             lista.Add("Efectivo:|" + Convert.ToDecimal(efectivoC).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoAnt).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoAg).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoR).ToString("C") + "|Efectivo:|" + (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg)) - (float)Convert.ToDecimal(efectivoR)).ToString("C"));
             //lista.Add("Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" );
@@ -387,7 +389,7 @@ namespace PuntoDeVentaV2
 
             lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Cantidad retirada al corte:" + "|" + dineroRetiradoCorte.ToString("C"));
 
-            lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Total en Caja antes del corte:" + "|" + saldoInicial.ToString("C"));
+            lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Total en Caja antes del corte:" + "|" + totalAntesCorte.ToString("C"));
 
             lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en Caja despues del corte:|" + total.ToString("C"));
 
@@ -653,7 +655,7 @@ namespace PuntoDeVentaV2
                 PdfPCell colRetiradoTEmp = new PdfPCell(new Phrase(words[6].ToString(), fuenteNormal));
                 PdfPCell colRetiradoCantidad = new PdfPCell(new Phrase(words[7].ToString(), fuenteNormal));
 
-                if (words[6].ToString().Equals("Total Retirado:") || words[6].ToString().Equals("Cantidad retirada al corte:") || words[6].ToString().Equals("Total en Caja despues del corte:"))
+                if (words[6].ToString().Equals("Total Retirado:") || words[6].ToString().Equals("Cantidad retirada al corte:") || words[6].ToString().Equals("Total en Caja antes del corte:"))
                 {
                     colRetiradoTEmp = new PdfPCell(new Phrase(words[6].ToString(), fuenteNegrita));
                     colRetiradoCantidad = new PdfPCell(new Phrase(words[7].ToString(), fuenteNegrita));
@@ -679,7 +681,7 @@ namespace PuntoDeVentaV2
                 PdfPCell colTotalTemp = new PdfPCell(new Phrase(words[8].ToString(), fuenteNormal));
                 PdfPCell colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNormal));
 
-                if (words[8].ToString().Equals("Total en Caja:"))
+                if (words[8].ToString().Equals("Total en Caja despues del corte:"))
                 {
                     colTotalTemp = new PdfPCell(new Phrase(words[8].ToString(), fuenteNegrita));
                     colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNegrita));
