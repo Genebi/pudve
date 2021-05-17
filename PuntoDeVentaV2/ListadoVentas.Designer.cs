@@ -361,9 +361,9 @@
             this.btnNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevaVenta.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaVenta.Location = new System.Drawing.Point(655, 45);
+            this.btnNuevaVenta.Location = new System.Drawing.Point(639, 45);
             this.btnNuevaVenta.Name = "btnNuevaVenta";
-            this.btnNuevaVenta.Size = new System.Drawing.Size(111, 25);
+            this.btnNuevaVenta.Size = new System.Drawing.Size(127, 25);
             this.btnNuevaVenta.TabIndex = 5;
             this.btnNuevaVenta.Text = "Nueva venta";
             this.btnNuevaVenta.UseVisualStyleBackColor = false;
