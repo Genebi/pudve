@@ -387,9 +387,9 @@ namespace PuntoDeVentaV2
 
             lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Cantidad retirada al corte:" + "|" + dineroRetiradoCorte.ToString("C"));
 
-            lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Total en Caja despues del corte:" + "|" + saldoInicial.ToString("C"));
+            lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Total en Caja antes del corte:" + "|" + saldoInicial.ToString("C"));
 
-            lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en Caja:|" + total.ToString("C"));
+            lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en Caja despues del corte:|" + total.ToString("C"));
 
             
 
