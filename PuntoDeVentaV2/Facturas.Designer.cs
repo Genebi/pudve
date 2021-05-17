@@ -53,6 +53,7 @@
             this.btn_cpago = new System.Windows.Forms.Button();
             this.btn_enviar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txt_buscar_por = new System.Windows.Forms.TextBox();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.pBar1 = new System.Windows.Forms.ProgressBar();
             this.lb_texto_descarga = new System.Windows.Forms.Label();
@@ -73,7 +74,8 @@
             this.btn_comprar_timbres = new System.Windows.Forms.Button();
             this.btn_actualizar_timbres = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.txt_buscar_por = new System.Windows.Forms.TextBox();
+            this.chTodos = new System.Windows.Forms.CheckBox();
+            this.btnReportes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -106,13 +108,13 @@
             this.col_empleado,
             this.col_t_comprobante,
             this.col_conpago});
-            this.datagv_facturas.Location = new System.Drawing.Point(12, 181);
+            this.datagv_facturas.Location = new System.Drawing.Point(12, 180);
             this.datagv_facturas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.datagv_facturas.Name = "datagv_facturas";
             this.datagv_facturas.ReadOnly = true;
             this.datagv_facturas.RowHeadersVisible = false;
             this.datagv_facturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.datagv_facturas.Size = new System.Drawing.Size(927, 267);
+            this.datagv_facturas.Size = new System.Drawing.Size(1015, 303);
             this.datagv_facturas.TabIndex = 0;
             this.datagv_facturas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.click_en_icono);
             this.datagv_facturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clickcellc_checkbox);
@@ -307,7 +309,7 @@
             this.btn_cpago.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cpago.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cpago.ForeColor = System.Drawing.Color.White;
-            this.btn_cpago.Location = new System.Drawing.Point(759, 112);
+            this.btn_cpago.Location = new System.Drawing.Point(847, 88);
             this.btn_cpago.Name = "btn_cpago";
             this.btn_cpago.Size = new System.Drawing.Size(177, 60);
             this.btn_cpago.TabIndex = 6;
@@ -324,7 +326,7 @@
             this.btn_enviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_enviar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_enviar.ForeColor = System.Drawing.Color.White;
-            this.btn_enviar.Location = new System.Drawing.Point(653, 143);
+            this.btn_enviar.Location = new System.Drawing.Point(741, 119);
             this.btn_enviar.Name = "btn_enviar";
             this.btn_enviar.Size = new System.Drawing.Size(100, 29);
             this.btn_enviar.TabIndex = 7;
@@ -340,10 +342,19 @@
             this.panel1.Controls.Add(this.txt_buscar_por);
             this.panel1.Controls.Add(this.datetp_fecha_inicial);
             this.panel1.Controls.Add(this.cmb_bx_tipo_factura);
-            this.panel1.Location = new System.Drawing.Point(12, 107);
+            this.panel1.Location = new System.Drawing.Point(12, 83);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(585, 67);
             this.panel1.TabIndex = 8;
+            // 
+            // txt_buscar_por
+            // 
+            this.txt_buscar_por.Location = new System.Drawing.Point(3, 4);
+            this.txt_buscar_por.Name = "txt_buscar_por";
+            this.txt_buscar_por.Size = new System.Drawing.Size(438, 22);
+            this.txt_buscar_por.TabIndex = 4;
+            this.txt_buscar_por.Text = "Buscar por folio, razón social o RFC";
+            this.txt_buscar_por.KeyDown += new System.Windows.Forms.KeyEventHandler(this.buscar_por);
             // 
             // TTMensaje
             // 
@@ -356,9 +367,9 @@
             // 
             this.pBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pBar1.Location = new System.Drawing.Point(136, 509);
+            this.pBar1.Location = new System.Drawing.Point(136, 544);
             this.pBar1.Name = "pBar1";
-            this.pBar1.Size = new System.Drawing.Size(668, 23);
+            this.pBar1.Size = new System.Drawing.Size(756, 23);
             this.pBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pBar1.TabIndex = 9;
             this.pBar1.Value = 2;
@@ -371,7 +382,7 @@
             this.lb_texto_descarga.AutoSize = true;
             this.lb_texto_descarga.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_texto_descarga.ForeColor = System.Drawing.Color.Red;
-            this.lb_texto_descarga.Location = new System.Drawing.Point(389, 535);
+            this.lb_texto_descarga.Location = new System.Drawing.Point(389, 570);
             this.lb_texto_descarga.Name = "lb_texto_descarga";
             this.lb_texto_descarga.Size = new System.Drawing.Size(174, 19);
             this.lb_texto_descarga.TabIndex = 10;
@@ -387,9 +398,9 @@
             this.panel2.Controls.Add(this.linklb_pag_anterior);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
-            this.panel2.Location = new System.Drawing.Point(12, 456);
+            this.panel2.Location = new System.Drawing.Point(12, 491);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(927, 49);
+            this.panel2.Size = new System.Drawing.Size(1015, 49);
             this.panel2.TabIndex = 11;
             // 
             // linklb_pag_siguiente
@@ -398,7 +409,7 @@
             this.linklb_pag_siguiente.AutoSize = true;
             this.linklb_pag_siguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linklb_pag_siguiente.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linklb_pag_siguiente.Location = new System.Drawing.Point(491, 17);
+            this.linklb_pag_siguiente.Location = new System.Drawing.Point(535, 17);
             this.linklb_pag_siguiente.Name = "linklb_pag_siguiente";
             this.linklb_pag_siguiente.Size = new System.Drawing.Size(17, 20);
             this.linklb_pag_siguiente.TabIndex = 15;
@@ -412,7 +423,7 @@
             this.linklb_pag_actual.AutoSize = true;
             this.linklb_pag_actual.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linklb_pag_actual.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linklb_pag_actual.Location = new System.Drawing.Point(456, 17);
+            this.linklb_pag_actual.Location = new System.Drawing.Point(500, 17);
             this.linklb_pag_actual.Name = "linklb_pag_actual";
             this.linklb_pag_actual.Size = new System.Drawing.Size(17, 20);
             this.linklb_pag_actual.TabIndex = 14;
@@ -426,7 +437,7 @@
             this.linklb_pag_anterior.AutoSize = true;
             this.linklb_pag_anterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linklb_pag_anterior.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linklb_pag_anterior.Location = new System.Drawing.Point(422, 17);
+            this.linklb_pag_anterior.Location = new System.Drawing.Point(466, 17);
             this.linklb_pag_anterior.Name = "linklb_pag_anterior";
             this.linklb_pag_anterior.Size = new System.Drawing.Size(17, 20);
             this.linklb_pag_anterior.TabIndex = 13;
@@ -439,7 +450,7 @@
             this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel4.Controls.Add(this.btn_pag_siguiente);
             this.panel4.Controls.Add(this.btn_ultima_pag);
-            this.panel4.Location = new System.Drawing.Point(524, 6);
+            this.panel4.Location = new System.Drawing.Point(568, 6);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(78, 40);
             this.panel4.TabIndex = 12;
@@ -481,7 +492,7 @@
             this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel3.Controls.Add(this.btn_anterior);
             this.panel3.Controls.Add(this.btn_primera_pag);
-            this.panel3.Location = new System.Drawing.Point(327, 6);
+            this.panel3.Location = new System.Drawing.Point(371, 6);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(78, 40);
             this.panel3.TabIndex = 7;
@@ -526,7 +537,7 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(653, 112);
+            this.btn_cancelar.Location = new System.Drawing.Point(741, 88);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(100, 29);
             this.btn_cancelar.TabIndex = 12;
@@ -544,7 +555,7 @@
             this.panel5.Controls.Add(this.btn_comprar_timbres);
             this.panel5.Controls.Add(this.btn_actualizar_timbres);
             this.panel5.Controls.Add(this.label2);
-            this.panel5.Location = new System.Drawing.Point(528, 56);
+            this.panel5.Location = new System.Drawing.Point(616, 32);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(408, 45);
             this.panel5.TabIndex = 13;
@@ -603,20 +614,40 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Timbres restantes:";
             // 
-            // txt_buscar_por
+            // chTodos
             // 
-            this.txt_buscar_por.Location = new System.Drawing.Point(3, 4);
-            this.txt_buscar_por.Name = "txt_buscar_por";
-            this.txt_buscar_por.Size = new System.Drawing.Size(438, 22);
-            this.txt_buscar_por.TabIndex = 4;
-            this.txt_buscar_por.Text = "Buscar por folio, razón social o RFC";
-            this.txt_buscar_por.KeyDown += new System.Windows.Forms.KeyEventHandler(this.buscar_por);
+            this.chTodos.AutoSize = true;
+            this.chTodos.Location = new System.Drawing.Point(12, 156);
+            this.chTodos.Name = "chTodos";
+            this.chTodos.Size = new System.Drawing.Size(139, 21);
+            this.chTodos.TabIndex = 14;
+            this.chTodos.Text = "Seleccionar todos ";
+            this.chTodos.UseVisualStyleBackColor = true;
+            this.chTodos.CheckedChanged += new System.EventHandler(this.chTodos_CheckedChanged);
+            // 
+            // btnReportes
+            // 
+            this.btnReportes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReportes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnReportes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReportes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportes.ForeColor = System.Drawing.Color.White;
+            this.btnReportes.Location = new System.Drawing.Point(609, 119);
+            this.btnReportes.Name = "btnReportes";
+            this.btnReportes.Size = new System.Drawing.Size(126, 29);
+            this.btnReportes.TabIndex = 15;
+            this.btnReportes.Text = "Generar Reporte";
+            this.btnReportes.UseVisualStyleBackColor = false;
+            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
             // 
             // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(951, 561);
+            this.ClientSize = new System.Drawing.Size(1039, 597);
+            this.Controls.Add(this.btnReportes);
+            this.Controls.Add(this.chTodos);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.panel2);
@@ -695,5 +726,7 @@
         private System.Windows.Forms.LinkLabel linklb_pag_actual;
         private System.Windows.Forms.LinkLabel linklb_pag_siguiente;
         private System.Windows.Forms.TextBox txt_buscar_por;
+        private System.Windows.Forms.CheckBox chTodos;
+        private System.Windows.Forms.Button btnReportes;
     }
 }

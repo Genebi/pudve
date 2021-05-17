@@ -2681,7 +2681,7 @@ namespace PuntoDeVentaV2
 
                 if (!query.Rows.Count.Equals(0))
                 {
-                    Utilidades.GenerarReporte(opcion, query);
+                    Utilidades.GenerarReporteVentas(opcion, query);
                 }
             }
             else
@@ -2705,16 +2705,18 @@ namespace PuntoDeVentaV2
                     {
                         lista.Add(idVenta);
                     }
-                    else
-                    {
-                        lista.Remove(idVenta);
-                    }
+                    //else
+                    //{
+                    //    lista.Remove(idVenta);
+                    //}
                 }
                 catch (Exception e)
                 {
 
                 }
             }
+
+            //Recorre la lista y agregar todo en una sola cadena para la consulta
             var cadenaCompleta = string.Empty;
             foreach (var item in lista)
             {
@@ -2729,13 +2731,13 @@ namespace PuntoDeVentaV2
         {//Los try son para las finas que son para totales que no se marquen
             if (chTodos.Checked)
             {
-                var numeroFilas = DGVListadoVentas.Rows.Count.ToString();
+                //var numeroFilas = DGVListadoVentas.Rows.Count.ToString();
 
                 foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
                 {
                     try
                     {
-                        var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+                        //var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
                         dgv.Cells["col_checkbox"].Value = true;
                     }
                     catch (Exception ex) 
@@ -2750,8 +2752,7 @@ namespace PuntoDeVentaV2
                 {
                     try
                     {
-                        var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
-
+                        //var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
                         dgv.Cells["col_checkbox"].Value = false;
                     }
                     catch (Exception ex)

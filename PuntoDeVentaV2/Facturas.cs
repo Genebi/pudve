@@ -48,6 +48,8 @@ namespace PuntoDeVentaV2
         int opcion6 = 1; // Enviar facturas
         int opcion7 = 1; // Generar complemento
 
+        List<int> listaCheckBox = new List<int>();
+
         public Facturas()
         {
             InitializeComponent();
@@ -1626,6 +1628,95 @@ namespace PuntoDeVentaV2
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
             }
+        }
+
+        private void chTodos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chTodos.Checked)
+            {
+                foreach (DataGridViewRow dgv in datagv_facturas.Rows)
+                {
+                    try
+                    {
+                        //var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+                        dgv.Cells["col_checkbox"].Value = true;
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+            }
+            else if (!chTodos.Checked)
+            {
+                foreach (DataGridViewRow dgv in datagv_facturas.Rows)
+                {
+                    try
+                    {
+                        //var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+                        dgv.Cells["col_checkbox"].Value = false;
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            var datoCombo = cmb_bx_tipo_factura.Text;
+            var codigosBuscar = recorrerDGV();
+
+            if (!string.IsNullOrEmpty(codigosBuscar))
+            {
+                string consultaReportes = $"SELECT folio, serie, r_rfc, r_razon_social, total, fecha_certificacion, id_empleado FROM Facturas WHERE id_usuario =  '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})";
+
+                var query = cn.CargarDatos(consultaReportes);
+
+                if (!query.Rows.Count.Equals(0))
+                {
+                    Utilidades.GenerarReporteFacturas(datoCombo, query);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No tiene ninguna factura seleccionada", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private string recorrerDGV()
+        {
+            listaCheckBox.Clear();
+
+            foreach (DataGridViewRow dgv in datagv_facturas.Rows)
+            {
+                try
+                {
+                    var idFactura = Convert.ToInt32(dgv.Cells["col_id"].Value.ToString());
+                    var checkBox = Convert.ToBoolean(dgv.Cells["col_checkbox"].Value.ToString());
+
+                    if (checkBox.Equals(true))
+                    {
+                        listaCheckBox.Add(idFactura);
+                    }
+                  
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+             //Recorre la lista y agregar todo en una sola cadena para la consulta
+            var cadenaCompleta = string.Empty;
+            foreach (var item in listaCheckBox)
+            {
+                cadenaCompleta += $"{item},".ToString();
+            }
+            cadenaCompleta = cadenaCompleta.TrimEnd(',');
+
+            return cadenaCompleta;
         }
     }
 }
