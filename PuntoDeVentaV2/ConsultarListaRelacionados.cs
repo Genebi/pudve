@@ -29,35 +29,35 @@ namespace PuntoDeVentaV2
         {
             if (tipo.Equals("AGREGAR PRODUCTO"))
             {
-                lblTitulo.Text = "Relación de Combos / Servicios";
+                lblTitulo.Text = "Relaciónado con Combos / Servicios";
                 llenarDatosProductos();
             }
             if (tipo.Equals("AGREGAR COMBOS"))
             {
-                lblTitulo.Text = "Relación de Productos";
+                lblTitulo.Text = "Relaciónado con Productos";
                 llenarDatosServicioCombo();
             }
             if (tipo.Equals("AGREGAR SERVICIOS"))
             {
-                lblTitulo.Text = "Relación de Productos";
+                lblTitulo.Text = "Relaciónado con Productos";
                 llenarDatosServicioCombo();
             }
             
             if (tipo.Equals("EDITAR PRODUCTO") || tipo.Equals("COPIAR PRODUCTO"))
             {
-                lblTitulo.Text = "Relación de Combos / Servicios";
+                lblTitulo.Text = "Relaciónado con Combos / Servicios";
                 llenarDatosProductos();
             }
 
             if (tipo.Equals("EDITAR COMBOS") || tipo.Equals("COPIAR COMBOS"))
             {
-                lblTitulo.Text = "Relación de Productos";
+                lblTitulo.Text = "Relaciónado con Productos";
                 llenarDatosServicioCombo();
             }
 
             if (tipo.Equals("EDITAR SERVICIOS") || tipo.Equals("COPIAR SERVICIOS"))
             {
-                lblTitulo.Text = "Relación de Productos";
+                lblTitulo.Text = "Relaciónado con Productos";
                 llenarDatosServicioCombo();
             }
         }
@@ -106,6 +106,7 @@ namespace PuntoDeVentaV2
             DGVProdServCombo.Columns[1].Visible = false;
             DGVProdServCombo.Columns[3].Visible = false;
             DGVProdServCombo.Columns[4].Visible = false;
+            DGVProdServCombo.Columns[5].Visible = false;
         }
 
         private void llenarDatosServicioCombo()
