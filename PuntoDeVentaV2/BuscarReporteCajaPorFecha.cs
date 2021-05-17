@@ -385,11 +385,13 @@ namespace PuntoDeVentaV2
 
             lista.Add("Anticipos Utilizados:|" + Convert.ToDecimal(anticiposA).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty+ "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty);
 
-            lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en Caja:|" + total.ToString("C"));
-
             lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Cantidad retirada al corte:" + "|" + dineroRetiradoCorte.ToString("C"));
 
             lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Total en Caja despues del corte:" + "|" + saldoInicial.ToString("C"));
+
+            lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en Caja:|" + total.ToString("C"));
+
+            
 
             return lista.ToArray();
         }
@@ -651,7 +653,7 @@ namespace PuntoDeVentaV2
                 PdfPCell colRetiradoTEmp = new PdfPCell(new Phrase(words[6].ToString(), fuenteNormal));
                 PdfPCell colRetiradoCantidad = new PdfPCell(new Phrase(words[7].ToString(), fuenteNormal));
 
-                if (words[6].ToString().Equals("Total Retirado:"))
+                if (words[6].ToString().Equals("Total Retirado:") || words[6].ToString().Equals("Cantidad retirada al corte:") || words[6].ToString().Equals("Total en Caja despues del corte:"))
                 {
                     colRetiradoTEmp = new PdfPCell(new Phrase(words[6].ToString(), fuenteNegrita));
                     colRetiradoCantidad = new PdfPCell(new Phrase(words[7].ToString(), fuenteNegrita));
@@ -677,7 +679,7 @@ namespace PuntoDeVentaV2
                 PdfPCell colTotalTemp = new PdfPCell(new Phrase(words[8].ToString(), fuenteNormal));
                 PdfPCell colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNormal));
 
-                if (words[8].ToString().Equals("Total en Caja:") || words[8].ToString().Equals("Cantidad retirada al corte:") || words[8].ToString().Equals("Total en Caja despues del corte:"))
+                if (words[8].ToString().Equals("Total en Caja:"))
                 {
                     colTotalTemp = new PdfPCell(new Phrase(words[8].ToString(), fuenteNegrita));
                     colTotalCantidad = new PdfPCell(new Phrase(words[9].ToString(), fuenteNegrita));

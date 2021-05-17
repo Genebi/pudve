@@ -2692,6 +2692,7 @@ namespace PuntoDeVentaV2
 
         private string recorrerDGVAlmacenarDiccionario()
         {
+            lista.Clear();
             foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
             {
                 try
