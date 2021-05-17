@@ -1172,7 +1172,7 @@ namespace PuntoDeVentaV2
         {
             float saldo = 0f;
 
-            DatosConexion($"SELECT ID FROM Caja WHERE IDUsuario = {idUsuario} AND ID = '{id}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+            DatosConexion($"SELECT ID FROM Caja WHERE IDUsuario = {idUsuario} AND ID < '{id}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 
