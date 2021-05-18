@@ -607,6 +607,12 @@
     <Compile Include="Generar_XML.cs" />
     <Compile Include="Genera_QR.cs" />
     <Compile Include="Genera_respaldos.cs" />
+    <Compile Include="HistorialPrecioBuscador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HistorialPrecioBuscador.Designer.cs">
+      <DependentUpon>HistorialPrecioBuscador.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImprimirEtiqueta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1128,6 +1134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarEtiqueta.resx">
       <DependentUpon>GenerarEtiqueta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HistorialPrecioBuscador.resx">
+      <DependentUpon>HistorialPrecioBuscador.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImprimirEtiqueta.resx">
       <DependentUpon>ImprimirEtiqueta.cs</DependentUpon>

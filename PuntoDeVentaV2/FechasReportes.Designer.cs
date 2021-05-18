@@ -36,6 +36,7 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.cbConceptos = new System.Windows.Forms.ComboBox();
+            this.cbEmpleados = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // primerDatePicker
@@ -90,7 +91,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(64, 149);
+            this.btnCancelar.Location = new System.Drawing.Point(64, 185);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(108, 25);
             this.btnCancelar.TabIndex = 106;
@@ -106,7 +107,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(206, 149);
+            this.btnAceptar.Location = new System.Drawing.Point(206, 185);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(108, 25);
             this.btnAceptar.TabIndex = 113;
@@ -119,7 +120,7 @@
             this.primerSeparador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.primerSeparador.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.primerSeparador.Location = new System.Drawing.Point(8, 134);
+            this.primerSeparador.Location = new System.Drawing.Point(8, 170);
             this.primerSeparador.Name = "primerSeparador";
             this.primerSeparador.Size = new System.Drawing.Size(360, 2);
             this.primerSeparador.TabIndex = 114;
@@ -137,11 +138,21 @@
             this.cbConceptos.TabIndex = 115;
             this.cbConceptos.Visible = false;
             // 
+            // cbEmpleados
+            // 
+            this.cbEmpleados.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEmpleados.FormattingEnabled = true;
+            this.cbEmpleados.Location = new System.Drawing.Point(64, 134);
+            this.cbEmpleados.Name = "cbEmpleados";
+            this.cbEmpleados.Size = new System.Drawing.Size(250, 21);
+            this.cbEmpleados.TabIndex = 116;
+            // 
             // FechasReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 196);
+            this.ClientSize = new System.Drawing.Size(374, 236);
+            this.Controls.Add(this.cbEmpleados);
             this.Controls.Add(this.cbConceptos);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnAceptar);
@@ -172,5 +183,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label primerSeparador;
         private System.Windows.Forms.ComboBox cbConceptos;
+        private System.Windows.Forms.ComboBox cbEmpleados;
     }
 }

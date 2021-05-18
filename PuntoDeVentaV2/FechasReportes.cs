@@ -13,6 +13,7 @@ namespace PuntoDeVentaV2
     public partial class FechasReportes : Form
     {
         MetodosBusquedas mb = new MetodosBusquedas();
+        Conexion cn = new Conexion();
 
         public string concepto { get; set; }
         public string fechaInicial { get; set; }
@@ -40,6 +41,8 @@ namespace PuntoDeVentaV2
                 cbConceptos.DisplayMember = "Value";
                 cbConceptos.ValueMember = "Key";
             }
+
+            cargarDatosCombo();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -48,6 +51,46 @@ namespace PuntoDeVentaV2
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
+            HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda);
+
+            if (tipoBusqurda.Equals("Seleccionar Empleado/Producto"))
+            {
+                terminarOperaciones();
+            }
+            else
+            {
+                hpBuscador.ShowDialog();
+
+                hpBuscador.FormClosed += delegate
+                {
+
+                    terminarOperaciones();
+                };
+            }
+
+        }
+
+        private void cargarDatosCombo()
+        {
+            cbEmpleados.Items.Add("Seleccionar Empleado/Producto");
+            cbEmpleados.Items.Add("Empleados");
+            cbEmpleados.Items.Add("Productos");
+
+            cbEmpleados.SelectedIndex = 0;
+            //var query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}'");
+            //cbEmpleados.Items.Add("Seleccionar concepto...");
+            //if (!query.Rows.Count.Equals(0))
+            //{
+            //    foreach (DataRow empleados in query.Rows)
+            //    {
+            //        cbEmpleados.Items.Add(empleados["Nombre"].ToString());
+            //    }
+            //}
+        }
+
+        private void terminarOperaciones()
         {
             concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
             fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
