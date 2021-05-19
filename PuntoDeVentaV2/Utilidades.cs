@@ -2137,7 +2137,7 @@ namespace PuntoDeVentaV2
             //colRFCTemp.BorderWidthLeft = 0;
             colRFCTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colTotalTempTotal = new PdfPCell(new Phrase("$" + sumarTotales.ToString(), fuenteNormal));
+            PdfPCell colTotalTempTotal = new PdfPCell(new Phrase("$" + sumarTotales.ToString("0.00"), fuenteNormal));
             colTotalTempTotal.BorderWidth = 0;
             //colTotalTempTotal.BorderWidthRight = 0;
             //colTotalTempTotal.BorderWidthTop = 0;
@@ -2379,7 +2379,7 @@ namespace PuntoDeVentaV2
                 var nombreEmpleado = cs.BuscarEmpleadoCaja(Convert.ToInt32(iterador["id_empleado"].ToString()));
                 if (string.IsNullOrEmpty(nombreEmpleado)) { nombreEmpleado = FormPrincipal.userNickName; }
                 numRow += 1;
-                totalCantidad += (float)Convert.ToDecimal(iterador["total"].ToString());
+                totalCantidad += float.Parse(iterador["total"].ToString());
 
                 PdfPCell colNumFilatemp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
                 colNumFilatemp.BorderWidth = 1;
