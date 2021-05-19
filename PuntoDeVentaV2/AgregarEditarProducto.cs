@@ -5109,6 +5109,11 @@ namespace PuntoDeVentaV2
             consultarListaRelacion.listaServCombo = listaProductoToCombo;
             consultarListaRelacion.listaProd = ProductosDeServicios;
             consultarListaRelacion.tipoOperacion = this.Text;
+            consultarListaRelacion.DatosSourceFinal = DatosSourceFinal;
+            if (DatosSourceFinal.Equals(2))
+            {
+                consultarListaRelacion.idProdEdit = Convert.ToInt32(idEditarProducto);
+            }
             consultarListaRelacion.Show();
         }
 

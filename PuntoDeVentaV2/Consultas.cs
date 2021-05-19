@@ -1842,5 +1842,33 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
             return consulta;
         }
+
+        public string buscarProdIntoServComb(int idProd)
+        {
+            var consulta = $"SELECT DISTINCT ServProds.ID, ServProds.Fecha, ServProds.IDServicio NoServicio, Prod.Nombre ServicioCombo, ServProds.IDProducto NoProducto, ServProds.NombreProducto Producto, ServProds.Cantidad, IF(Prod.Tipo = 'S', 'SERVICIO', 'COMBO') AS Tipo FROM productosdeservicios AS ServProds INNER JOIN Productos AS Prod ON Prod.ID = ServProds.IDServicio WHERE ServProds.IDProducto = '{idProd}'; ";
+
+            return consulta;
+        }
+
+        public string buscarEditProductosDeServicios(int idServ)
+        {
+            var consulta = $"SELECT DISTINCT ServProd.ID, ServProd.Fecha, ServProd.IDServicio NoServicio, Prod.Nombre ServicioCombo, ServProd.IDProducto NoProducto, ServProd.NombreProducto Producto, ServProd.Cantidad, IF(Prod.Tipo = 'PQ', 'COMBO', 'SERVICIO') AS Tipo FROM productosdeservicios AS ServProd INNER JOIN Productos AS Prod ON Prod.ID = ServProd.IDServicio WHERE ServProd.IDServicio = '{idServ}'; ";
+
+            return consulta;
+        }
+
+        public string actualizarRelacionProdComboServicio(int idRelacion, float cantidadRelacion)
+        {
+            var consulta = $"UPDATE ProductosDeServicios SET Cantidad = '{cantidadRelacion}' WHERE ID = '{idRelacion}';";
+
+            return consulta;
+        }
+
+        public string borrarRelacionProdComboServicio(int idReg)
+        {
+            var consulta = $"DELETE FROM ProductosDeServicios WHERE ID = '{idReg}';";
+
+            return consulta;
+        }
     }
 }
