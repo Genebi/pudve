@@ -4235,14 +4235,20 @@ namespace PuntoDeVentaV2
                                 //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                                 if (ProductosDeServicios.Any())
                                 {
-                                    string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
+                                    string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}' AND IDProducto = 0 AND NombreProducto = ''";
                                     cn.EjecutarConsulta(queryBorrarProductosDeServicios);
                                     foreach (var productosSP in ProductosDeServicios)
                                     {
                                         string[] tmp = productosSP.Split('|');
                                         if (tmp.Length == 5)
                                         {
-                                            cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                            using (DataTable dtProdComboServ = cn.CargarDatos(cs.verSiExisteRelacionRegistrada(tmp[1], tmp[2])))
+                                            {
+                                                if (dtProdComboServ.Rows.Count.Equals(0))
+                                                {
+                                                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                                }
+                                            }
                                         }
                                     }
                                     ProductosDeServicios.Clear();
@@ -5997,8 +6003,8 @@ namespace PuntoDeVentaV2
                 {
                     //string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idEditarProducto}", $"{CBIdProd}", $"{CBNombProd}", $"{txtCantPaqServ.Text}" };
                     //cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                    string queryDeleteProductosServPaq = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idEditarProducto}' AND NombreProducto = ''";
-                    cn.EjecutarConsulta(queryDeleteProductosServPaq);
+                    //string queryDeleteProductosServPaq = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idEditarProducto}' AND NombreProducto = ''";
+                    //cn.EjecutarConsulta(queryDeleteProductosServPaq);
                     string prodSerPaq = null;
                     DataTable dtProductos;
                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

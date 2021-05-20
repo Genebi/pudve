@@ -224,6 +224,29 @@ namespace PuntoDeVentaV2
                             row.Cells["Type"].Value = Tipo;
                             row.Cells["Eliminar"].Value = ImageDelete;
                         }
+                        if (!listaProd.Count.Equals(0))
+                        {
+                            foreach (var item in listaProd)
+                            {
+                                var words = item.Split('|');
+                                var numberOfRows = DGVProdServCombo.Rows.Add();
+                                DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
+
+                                string Fecha = words[0].ToString();
+                                string IDServicio = words[1].ToString();
+                                string IDProducto = words[2].ToString();
+                                string NombreProducto = words[3].ToString();
+                                string Cantidad = words[4].ToString();
+                                var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
+
+                                row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
+                                row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
+                                row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
+                                row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
+                                row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
+                                row.Cells["Eliminar"].Value = ImageDelete;
+                            }
+                        }
                     }
                 }
             }
