@@ -5107,9 +5107,13 @@ namespace PuntoDeVentaV2
             //LoadPanelDatos();
             //MessageBox.Show("Mensaje desde:\n" + this.Text, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ConsultarListaRelacionados consultarListaRelacion = new ConsultarListaRelacionados();
-            consultarListaRelacion.FormClosed += delegate
+            consultarListaRelacion.FormClosing += delegate
             {
-
+                if (DatosSourceFinal.Equals(1))
+                {
+                    listaProductoToCombo = consultarListaRelacion.listaServCombo;
+                    ProductosDeServicios = consultarListaRelacion.listaProd;
+                }
             };
 
             consultarListaRelacion.listaServCombo = listaProductoToCombo;

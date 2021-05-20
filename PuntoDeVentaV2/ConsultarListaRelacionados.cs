@@ -25,7 +25,9 @@ namespace PuntoDeVentaV2
         public int idProdEdit = 0;
 
         int row = 0, column = 0;
-        int idReg = 0;
+        int idReg = 0;  // ID regitrado en la tabla de ProductosDeServicios
+        int idProdTemp = 0; // IDProducto temporal antes del guardado final del ComboServicio
+        string Concepto = string.Empty; // Nombre del Producto, Servicio ó Combo 
 
         private void cargarDatos()
         {
@@ -293,21 +295,33 @@ namespace PuntoDeVentaV2
 
         private void DGVProdServCombo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //if (e.ColumnIndex.Equals(6))
-            //{
-            //    row = e.RowIndex;
-            //    column = e.ColumnIndex;
-            //}
-
             row = e.RowIndex;
             column = e.ColumnIndex;
 
-            idReg = Convert.ToInt32(DGVProdServCombo.Rows[row].Cells[0].Value.ToString());
+            DataGridViewRow rowItems = DGVProdServCombo.Rows[row];
+
+            if (e.ColumnIndex.Equals(6))
+            {
+                if(e.RowIndex >= 0)
+                {
+                    if (DatosSourceFinal.Equals(1))
+                    {
+                        idProdTemp = Convert.ToInt32(rowItems.Cells[4].Value.ToString());
+                        Concepto = rowItems.Cells[5].Value.ToString();
+                    }
+                    if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+                    {
+                        idReg = Convert.ToInt32(rowItems.Cells[0].Value.ToString());
+                    }
+                }
+            }
 
             if (e.ColumnIndex.Equals(8))
             {
                 if(e.RowIndex >= 0)
                 {
+                    idReg = Convert.ToInt32(rowItems.Cells[0].Value.ToString());
+
                     if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                     {
                         DialogResult dialogResult = MessageBox.Show("Quitara la relación existente\nesta usted totalmente seguro de realizar esta acción", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -369,11 +383,13 @@ namespace PuntoDeVentaV2
         {
             float cantidad = 0;
 
+            string[] words = { };
+
             var valor = DGVProdServCombo.Rows[row].Cells[column].Value.ToString();
 
             if (!valor.Equals(string.Empty))
             {
-                var words = valor.Split('.');
+                words = valor.Split('.');
                 if (words.Count() > 1)
                 {
                     if (words[1].Equals(string.Empty))
@@ -398,14 +414,46 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            try
+            if (DatosSourceFinal.Equals(1))
             {
-                var resultado = cn.EjecutarConsulta(cs.actualizarRelacionProdComboServicio(idReg, cantidad));
-                verificarTipoYLlenadoDataGridView();
+                using (AgregarEditarProducto addEditProd = new AgregarEditarProducto())
+                {
+                    if (!listaProd.Count().Equals(0))
+                    {
+                        if (!listaProd[0].ToString().Equals(string.Empty))
+                        {
+                            foreach(var item in listaProd)
+                            {
+                                words = item.Split('|');
+                                if(words[2].Equals(Convert.ToString(idProdTemp)) && words[3].Equals(Concepto))
+                                {
+                                    words[4] = cantidad.ToString();
+                                    break;
+                                }
+                            }
+                            for (int i = 0; i < listaProd.Count; i++)
+                            {
+                                if (listaProd[i].Contains(Concepto) && listaProd[i].Contains(idProdTemp.ToString()))
+                                {
+                                    listaProd[i] = $"{words[0]}|{words[1]}|{words[2]}|{words[3]}|{words[4]}";
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            catch (Exception ex)
+
+            if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
             {
-                MessageBox.Show("Algo paso al actualizar la relación.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    var resultado = cn.EjecutarConsulta(cs.actualizarRelacionProdComboServicio(idReg, cantidad));
+                    verificarTipoYLlenadoDataGridView();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Algo paso al actualizar la relación.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
