@@ -51,7 +51,7 @@ namespace PuntoDeVentaV2
                 lblTitulo.Text = "Relaciónado con Productos";
                 llenarDatosServicioCombo();
             }
-            
+
             if (tipo.Equals("EDITAR PRODUCTO") || tipo.Equals("COPIAR PRODUCTO"))
             {
                 lblTitulo.Text = "Relaciónado con Combos / Servicios";
@@ -70,50 +70,51 @@ namespace PuntoDeVentaV2
                 llenarDatosServicioCombo();
             }
         }
-        
+
         private void llenarDatosProductos()
         {
             if (DatosSourceFinal.Equals(1))
             {
-                using (AgregarEditarProducto addEditProd = new AgregarEditarProducto())
+                if (listaServCombo.Count().Equals(1))
                 {
-                    if (listaServCombo.Count().Equals(1))
+                    if (!listaServCombo[0].ToString().Equals(string.Empty))
                     {
-                        if (!listaServCombo[0].ToString().Equals(string.Empty))
+                        DGVProdServCombo.Rows.Clear();
+                        foreach (var item in listaServCombo)
                         {
-                            DGVProdServCombo.Rows.Clear();
-                            foreach (var item in listaServCombo)
+                            var words = item.Split('|');
+                            var numberOfRows = DGVProdServCombo.Rows.Add();
+                            DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
+
+                            string Fecha = words[0].ToString();
+                            string IDServicio = words[1].ToString();
+                            string IDProducto = words[2].ToString();
+                            string NombreProducto = words[3].ToString();
+                            string Cantidad = words[4].ToString();
+                            var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
+
+                            row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
+                            row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
+                            using (DataTable dtServComb = cn.CargarDatos(cs.obtenerServicioCombo(Convert.ToInt32(IDServicio))))
                             {
-                                var words = item.Split('|');
-                                var numberOfRows = DGVProdServCombo.Rows.Add();
-                                DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
-
-                                string Fecha = words[0].ToString();
-                                string IDServicio = words[1].ToString();
-                                string IDProducto = words[2].ToString();
-                                string NombreProducto = words[3].ToString();
-                                string Cantidad = words[4].ToString();
-                                var ImageDelete= global::PuntoDeVentaV2.Properties.Resources.window_close; 
-
-                                row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
-                                row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
-                                using (DataTable dtServComb = cn.CargarDatos(cs.obtenerServicioCombo(Convert.ToInt32(IDServicio))))
+                                if (!dtServComb.Rows.Count.Equals(0))
                                 {
-                                    if (!dtServComb.Rows.Count.Equals(0))
+                                    foreach (DataRow drServComb in dtServComb.Rows)
                                     {
-                                        foreach (DataRow drServComb in dtServComb.Rows)
-                                        {
-                                            row.Cells["ServicioCombo"].Value = drServComb["Nombre"].ToString();
-                                        }
+                                        row.Cells["ServicioCombo"].Value = drServComb["Nombre"].ToString();
                                     }
                                 }
-                                row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
-                                row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
-                                row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
-                                row.Cells["Eliminar"].Value = ImageDelete;
                             }
+                            row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
+                            row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
+                            row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
+                            row.Cells["Eliminar"].Value = ImageDelete;
                         }
                     }
+                }
+                if (listaServCombo.Count().Equals(0))
+                {
+                    DGVProdServCombo.Rows.Clear();
                 }
             }
             else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
@@ -302,7 +303,7 @@ namespace PuntoDeVentaV2
 
             if (e.ColumnIndex.Equals(6))
             {
-                if(e.RowIndex >= 0)
+                if (e.RowIndex >= 0)
                 {
                     if (DatosSourceFinal.Equals(1))
                     {
@@ -318,12 +319,35 @@ namespace PuntoDeVentaV2
 
             if (e.ColumnIndex.Equals(8))
             {
-                if(e.RowIndex >= 0)
+                if (e.RowIndex >= 0)
                 {
-                    idReg = Convert.ToInt32(rowItems.Cells[0].Value.ToString());
+                    if (DatosSourceFinal.Equals(1))
+                    {
+                        if (listaServCombo.Count().Equals(1))
+                        {
+                            if (!listaServCombo[0].ToString().Equals(string.Empty))
+                            {
+                                for (int i = 0; i < listaServCombo.Count(); i++)
+                                {
+                                    if (listaServCombo[i].Contains(rowItems.Cells[1].Value.ToString()) &&
+                                        listaServCombo[i].Contains(rowItems.Cells[2].Value.ToString()) &&
+                                        listaServCombo[i].Contains(rowItems.Cells[4].Value.ToString()) &&
+                                        listaServCombo[i].Contains(rowItems.Cells[5].Value.ToString()) &&
+                                        listaServCombo[i].Contains(rowItems.Cells[6].Value.ToString()))
+                                    {
+                                        listaServCombo = listaServCombo.Where(w => w != listaServCombo[i]).ToArray();
+                                    }
+                                }
+                            }
+                        }
+                        if (!listaProd.Count.Equals(0))
+                        {
 
+                        }
+                    }
                     if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                     {
+                        idReg = Convert.ToInt32(rowItems.Cells[0].Value.ToString());
                         DialogResult dialogResult = MessageBox.Show("Quitara la relación existente\nesta usted totalmente seguro de realizar esta acción", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                         if (dialogResult.Equals(DialogResult.Yes))
@@ -337,8 +361,8 @@ namespace PuntoDeVentaV2
                                 MessageBox.Show("algo paso al tratar de quitar la relación", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
-                        verificarTipoYLlenadoDataGridView();
                     }
+                    verificarTipoYLlenadoDataGridView();
                 }
             }
         }
@@ -422,10 +446,10 @@ namespace PuntoDeVentaV2
                     {
                         if (!listaProd[0].ToString().Equals(string.Empty))
                         {
-                            foreach(var item in listaProd)
+                            foreach (var item in listaProd)
                             {
                                 words = item.Split('|');
-                                if(words[2].Equals(Convert.ToString(idProdTemp)) && words[3].Equals(Concepto))
+                                if (words[2].Equals(Convert.ToString(idProdTemp)) && words[3].Equals(Concepto))
                                 {
                                     words[4] = cantidad.ToString();
                                     break;
@@ -471,7 +495,7 @@ namespace PuntoDeVentaV2
             // checks to make sure only 1 decimal is allowed
             if (e.KeyChar == 46)
             {
-                if(txtContenido.Text.IndexOf(e.KeyChar) != -1)
+                if (txtContenido.Text.IndexOf(e.KeyChar) != -1)
                 {
                     e.Handled = true;
                 }
