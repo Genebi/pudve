@@ -49,6 +49,7 @@ namespace PuntoDeVentaV2
         int opcion7 = 1; // Generar complemento
 
         List<int> listaCheckBox = new List<int>();
+        Dictionary<int, string> facturasD = new Dictionary<int, string>();
 
         public Facturas()
         {
@@ -260,6 +261,8 @@ namespace PuntoDeVentaV2
                     fila.Cells["col_empleado"].Value = img_info_emp;
                 }
             }
+
+            llenarGDV();
         }
 
         private void ag_checkb_header()
@@ -320,7 +323,24 @@ namespace PuntoDeVentaV2
                 string t_comprobante = Convert.ToString(datagv_facturas.Rows[e.RowIndex].Cells["col_t_comprobante"].Value);
                 var servidor = Properties.Settings.Default.Hosting;
 
-                
+                if (e.ColumnIndex == 0)
+                {
+                    var estado = Convert.ToBoolean(datagv_facturas.Rows[e.RowIndex].Cells["col_checkbox"].Value);
+
+                    //En esta condicion se ponen 
+                    if (estado.Equals(false))//Se pone falso por que al dar click inicialmente esta en false
+                    {
+                        if (!facturasD.ContainsKey(id_factura))
+                        {
+                            facturasD.Add(id_factura, string.Empty);
+                        }
+                    }
+                    else if (estado.Equals(true))//Se pone verdadero por que al dar click inicialmente esta en true
+                    {
+                        facturasD.Remove(id_factura);
+                    }
+                }
+
                 // Lista complementos de pago
                 if (e.ColumnIndex == 8)
                 {
@@ -1632,14 +1652,63 @@ namespace PuntoDeVentaV2
 
         private void chTodos_CheckedChanged(object sender, EventArgs e)
         {
+            obtenerIDSeleccionados();
+            //if (chTodos.Checked)
+            //{
+            //    foreach (DataGridViewRow dgv in datagv_facturas.Rows)
+            //    {
+            //        try
+            //        {
+            //            //var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+            //            dgv.Cells["col_checkbox"].Value = true;
+            //        }
+            //        catch (Exception ex)
+            //        {
+
+            //        }
+            //    }
+            //}
+            //else if (!chTodos.Checked)
+            //{
+            //    foreach (DataGridViewRow dgv in datagv_facturas.Rows)
+            //    {
+            //        try
+            //        {
+            //            //var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+            //            dgv.Cells["col_checkbox"].Value = false;
+            //        }
+            //        catch (Exception ex)
+            //        {
+
+            //        }
+            //    }
+            //}
+        }
+
+        private void obtenerIDSeleccionados()
+        {
+            var incremento = -1;
             if (chTodos.Checked)
             {
-                foreach (DataGridViewRow dgv in datagv_facturas.Rows)
+                var query = cn.CargarDatos(FiltroAvanzado);
+
+                if (!query.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow dgv in query.Rows)
+                    {
+                        if (!facturasD.ContainsKey(Convert.ToInt32(dgv["ID"].ToString())))
+                        {
+                            facturasD.Add(Convert.ToInt32(dgv["ID"].ToString()), string.Empty);
+                        }
+                    }
+                }
+
+                foreach (DataGridViewRow marcarDGV in datagv_facturas.Rows)
                 {
                     try
                     {
-                        //var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
-                        dgv.Cells["col_checkbox"].Value = true;
+                        incremento += 1;
+                        datagv_facturas.Rows[incremento].Cells["col_checkbox"].Value = true;
                     }
                     catch (Exception ex)
                     {
@@ -1649,12 +1718,13 @@ namespace PuntoDeVentaV2
             }
             else if (!chTodos.Checked)
             {
-                foreach (DataGridViewRow dgv in datagv_facturas.Rows)
+                facturasD.Clear();
+                foreach (DataGridViewRow desmarcarDGV in datagv_facturas.Rows)
                 {
                     try
                     {
-                        //var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
-                        dgv.Cells["col_checkbox"].Value = false;
+                        incremento += 1;
+                        datagv_facturas.Rows[incremento].Cells["col_checkbox"].Value = false;
                     }
                     catch (Exception ex)
                     {
@@ -1688,35 +1758,68 @@ namespace PuntoDeVentaV2
 
         private string recorrerDGV()
         {
-            listaCheckBox.Clear();
+            //listaCheckBox.Clear();
 
+            //foreach (DataGridViewRow dgv in datagv_facturas.Rows)
+            //{
+            //    try
+            //    {
+            //        var idFactura = Convert.ToInt32(dgv.Cells["col_id"].Value.ToString());
+            //        var checkBox = Convert.ToBoolean(dgv.Cells["col_checkbox"].Value.ToString());
+
+            //        if (checkBox.Equals(true))
+            //        {
+            //            listaCheckBox.Add(idFactura);
+            //        }
+                  
+            //    }
+            //    catch (Exception ex)
+            //    {
+
+            //    }
+            //}
+             //Recorre la lista y agregar todo en una sola cadena para la consulta
+            var cadenaCompleta = string.Empty;
+            foreach (KeyValuePair<int, string> item in facturasD)
+            {
+                cadenaCompleta += $"{item},".ToString();
+            }
+
+            //remplazar caracteress y comas para hacer el filtro por ID
+            cadenaCompleta = cadenaCompleta.Replace("[", "");
+            cadenaCompleta = cadenaCompleta.Replace("]", "");
+            cadenaCompleta = cadenaCompleta.Replace(", ,", ",");
+            cadenaCompleta = cadenaCompleta.TrimEnd(',');
+
+
+            return cadenaCompleta;
+        }
+
+        private void llenarGDV()
+        {//Los try son para las finas que son para totales que no se marquen
+
+            var incremento = -1;
             foreach (DataGridViewRow dgv in datagv_facturas.Rows)
             {
                 try
                 {
-                    var idFactura = Convert.ToInt32(dgv.Cells["col_id"].Value.ToString());
-                    var checkBox = Convert.ToBoolean(dgv.Cells["col_checkbox"].Value.ToString());
+                    incremento += 1;
+                    var idRevision = Convert.ToInt32(dgv.Cells["col_id"].Value.ToString());
 
-                    if (checkBox.Equals(true))
+                    if (facturasD.ContainsKey(idRevision))
                     {
-                        listaCheckBox.Add(idFactura);
+                        datagv_facturas.Rows[incremento].Cells["col_checkbox"].Value = true;
                     }
-                  
+                    else
+                    {
+                        datagv_facturas.Rows[incremento].Cells["col_checkbox"].Value = false;
+                    }
                 }
                 catch (Exception ex)
                 {
 
                 }
             }
-             //Recorre la lista y agregar todo en una sola cadena para la consulta
-            var cadenaCompleta = string.Empty;
-            foreach (var item in listaCheckBox)
-            {
-                cadenaCompleta += $"{item},".ToString();
-            }
-            cadenaCompleta = cadenaCompleta.TrimEnd(',');
-
-            return cadenaCompleta;
         }
     }
 }
