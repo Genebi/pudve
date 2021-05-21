@@ -33,36 +33,44 @@ namespace PuntoDeVentaV2
         {
             Button btn = sender as Button;
             var propiedad = btn.Tag;
-            //int comprobar = 0;
+            int comprobar = 0;
+            string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
 
-            //string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
 
-            //using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar(propiedad.ToString(), idempleado)))
-            //{
-            //    if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
-            //    {
-            //        foreach (DataRow item in dtEmpleadosPermisos.Rows)
-
-            //        {
-            //            //MessageBox.Show(propiedad.ToString() +"="+ item["total"].ToString()+ "el ID del empleado es:"+idempleado);
-            //            comprobar = Convert.ToInt32(item["total"]);
-            //        }
-            //    }
-            //}
-
-            //if (comprobar > 0)
-            //{
-                
-            //}
-            //else
-            //{
-            //    MessageBox.Show("No cuentas con los privilegios requeridos en esta sección","Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
-            using (var ap = new AsignarPropiedad(propiedad))
+            using (DataTable dtUsuarios = cn.CargarDatos(cs.validarUsuario(FormPrincipal.userNickName)))
             {
-                ap.ShowDialog();
+                 if (!dtUsuarios.Rows.Count.Equals(0))
+                {
+                    using (var ap = new AsignarPropiedad(propiedad))
+                    {
+                        ap.ShowDialog();
+                    }
+                }
+                else
+                {
+                    using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar(propiedad.ToString(), idempleado)))
+                    {
+                        if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtEmpleadosPermisos.Rows)
+                            {
+                                comprobar = Convert.ToInt32(item["total"]);
+                            }
+                        }
+                    }
+                    if (comprobar > 0)
+                    {
+                        using (var ap = new AsignarPropiedad(propiedad))
+                        {
+                            ap.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No cuentas con los privilegios requeridos en esta sección", "Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
             }
-
         }
 
         private void AgregarOpcion(string nombre, string texto, int altura)
@@ -99,27 +107,27 @@ namespace PuntoDeVentaV2
         private void CargarPropiedades()
         {
             // PANEL MENSAJE VENTAS
-            AgregarOpcion("mensajeVentas", "Mensaje Ventas", 10);
+            AgregarOpcion("MensajeVentas", "Mensaje Ventas", 10);
             // PANEL MENSAJE INVENTARIO
-            AgregarOpcion("mensajeInventario", "Mensaje Inventario", 45);
+            AgregarOpcion("MensajeInventario", "Mensaje Inventario", 45);
             // PANEL STOCK
-            AgregarOpcion("stock", "Stock", 80);
+            AgregarOpcion("Stock", "Stock", 80);
             // PANEL STOCK MINIMO
-            AgregarOpcion("stockMinimo", "Stock Minimo", 115);
+            AgregarOpcion("StockMinimo", "Stock Minimo", 115);
             // PANEL STOCK MAXIMO
-            AgregarOpcion("stockMaximo", "Stock Maximo", 150);
+            AgregarOpcion("StockMaximo", "Stock Maximo", 150);
             // PANEL PRECIO
-            AgregarOpcion("precio", "Precio", 185);
+            AgregarOpcion("Precio", "Precio", 185);
             // PANEL NUMERO DE REVISION
-            AgregarOpcion("numeroRevision", "Número Revisión", 220);
+            AgregarOpcion("NumeroRevision", "Número Revisión", 220);
             // PANEL TIPO DE IVA
-            AgregarOpcion("tipoIVA", "Tipo de IVA", 255);
+            AgregarOpcion("TipoIVA", "Tipo de IVA", 255);
             // PANEL CLAVE DE PRODUCTO (FACTURACION)
-            AgregarOpcion("claveProducto", "Clave de Producto", 290);
+            AgregarOpcion("ClaveProducto", "Clave de Producto", 290);
             // PANEL CLAVE UNIDAD MEDIDA (FACTURACION)
-            AgregarOpcion("claveUnidad", "Clave de Unidad", 325);
+            AgregarOpcion("ClaveUnidad", "Clave de Unidad", 325);
             // PANEL CORREOS PRODUCTO
-            AgregarOpcion("correos", "Correos", 360);
+            AgregarOpcion("Correos", "Correos", 360);
 
             int alturaEjeY = 395;
 

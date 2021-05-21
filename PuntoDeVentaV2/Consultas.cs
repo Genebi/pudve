@@ -1923,5 +1923,11 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string validarUsuario (string usuario)
+        {
+            var consulta = $"SELECT usuario FROM usuarios WHERE usuario = '{usuario}'";
+            return consulta;
+        }
     }
 }

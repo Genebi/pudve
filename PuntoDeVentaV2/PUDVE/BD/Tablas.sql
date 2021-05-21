@@ -1396,3 +1396,27 @@ ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS claveUnidad int DEFAULT 1
 
 --Agregar Columna (Correos) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
 ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS correos int DEFAULT 1;
+
+
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN mensajeVentas MensajeVentas INT(11);
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN mensajeInventario MensajeInventario INT(11);
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN stock Stock INT(11);
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN stockMinimo StockMinimo INT(11);
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN stockMaximo StockMaximo INT(11);
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN precio Precio INT(11);
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN numeroRevision NumeroRevision INT(11);
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN tipoIVA TipoIVA INT(11);
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN claveProducto ClaveProducto INT(11);
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN claveUnidad ClaveUnidad INT(11);
+--Renombrar Columna de tabla empleadosPermisos
+ALTER TABLE empleadospermisos CHANGE COLUMN correos Correos INT(11);
