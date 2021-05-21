@@ -101,15 +101,36 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            txtMaximoPorPagina.Text = p.limitRow().ToString();
+            if (txtMaximoPorPagina.Text.Equals("0"))
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
+            else
+            {
+                txtMaximoPorPagina.Text = p.limitRow().ToString();
+            }
         }
 
         private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
         {
-            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
-            p.actualizarTope(maximo_x_pagina);
-            CargarDatos();
-            actualizar();
+            if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+            {
+                if (txtMaximoPorPagina.Text.Equals("0"))
+                {
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                }
+                else
+                {
+                    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                    p.actualizarTope(maximo_x_pagina);
+                    CargarDatos();
+                    actualizar();
+                }
+            }
+            else if (txtMaximoPorPagina.Text.Equals(string.Empty))
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
         }
 
         private void btnPrimeraPagina_Click(object sender, EventArgs e)
@@ -167,10 +188,24 @@ namespace PuntoDeVentaV2
 
         private void txtMaximoPorPagina_Click(object sender, EventArgs e)
         {
-            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
-            p.actualizarTope(maximo_x_pagina);
-            CargarDatos();
-            actualizar();
+            if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+            {
+                if (txtMaximoPorPagina.Text.Equals("0"))
+                {
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                }
+                else
+                {
+                    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                    p.actualizarTope(maximo_x_pagina);
+                    CargarDatos();
+                    actualizar();
+                }
+            }
+            else if (txtMaximoPorPagina.Text.Equals(string.Empty))
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
         }
 
         private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
@@ -185,10 +220,17 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
-                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
-                p.actualizarTope(maximo_x_pagina);
-                CargarDatos();
-                actualizar();
+                if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+                {
+                    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                    p.actualizarTope(maximo_x_pagina);
+                    CargarDatos();
+                    actualizar();
+                }
+                else if (txtMaximoPorPagina.Text.Equals(string.Empty))
+                {
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                }
             }
         }
         #endregion
@@ -211,13 +253,27 @@ namespace PuntoDeVentaV2
                 {
                     filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
 
-                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                    if (maximo_x_pagina.Equals(0))
+                    {
+                        MessageBox.Show("No se puede poner 0 en cantidad de filas a mostrar.", "Avertencia del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                    }
                 }
                 else if (busqueda != "")
                 {
                     filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
 
-                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                    if (maximo_x_pagina.Equals(0))
+                    {
+                        MessageBox.Show("No se puede poner 0 en cantidad de filas a mostrar.", "Avertencia del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                    }
                 }
             }
             else if (DGVProductos.RowCount >= 1 && clickBoton == 0)
@@ -226,13 +282,27 @@ namespace PuntoDeVentaV2
                 {
                     filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
 
-                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                    if (maximo_x_pagina.Equals(0))
+                    {
+                        MessageBox.Show("No se puede poner 0 en cantidad de filas a mostrar.", "Avertencia del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                    }
                 }
                 else if (busqueda != "")
                 {
                     filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
 
-                    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                    if (maximo_x_pagina.Equals(0))
+                    {
+                        MessageBox.Show("No se puede poner 0 en cantidad de filas a mostrar.", "Avertencia del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+                    }
                 }
             }
 

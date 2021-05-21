@@ -35,42 +35,66 @@ namespace PuntoDeVentaV2
         {
             this._query = s_query;              // le asignamos la consulta que se le paso del sistema
             this._datamember = s_datamember;    // le asignamos a que tabla se va dirigir la consulta
-            this._tope = i_cantidadxpagina;     // le asignamos la cantidad de productos que se va mostrar por pagina
-
-            this._inicio = 0;                   // le asignamos el valor inicial desde que registro iniciara a mostrar
-            
-            DataTable auxiliar;                 // Tabla auxiliar para el manejo de la informcion
-
-            #region Inicio Path de la DB de SQLite
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            // le asignamos la cantidad de productos que se va mostrar por pagina
+            if (i_cantidadxpagina >= 1)
             {
-                ps_cadena = "datasource="+ Properties.Settings.Default.Hosting +";port=6666;username=root;password=;database=pudve;";
+                this._tope = i_cantidadxpagina;
+
+                this._inicio = 0;                   // le asignamos el valor inicial desde que registro iniciara a mostrar
+
+                DataTable auxiliar;                 // Tabla auxiliar para el manejo de la informcion
+
+                #region Inicio Path de la DB de SQLite
+                if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+                {
+                    ps_cadena = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+                }
+                else
+                {
+                    ps_cadena = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+                }
+                #endregion Final Path de la DB de SQLite
+
+                MySqlConnection connection = new MySqlConnection(ps_cadena);  // Iniciamos la conexion SQLite
+                this._adapter = new MySqlDataAdapter(_query, connection);      // Iniciamos el adaptador SQLite
+                this._datos = new DataSet();                                    // Iniciamos el DataSet SQLite
+                auxiliar = new DataTable();
+
+                connection.Open();                                              // Abrimos conexion connection hacia SQLite
+                this._adapter.Fill(_datos, _inicio, _tope, _datamember);        // Almacenamos en el Adapter el resultdo de
+                                                                                // la consulta pero solo mostranndo los rangos
+                                                                                // Mostrar desde Inicio hasta el Tope asignado
+                                                                                // configurado desde el sistema
+                _adapter.Fill(auxiliar);                                        // Llenamos la tabla auxiliar con el Adapter
+                connection.Close();                                             // Cerramos la conexion SQLite
+                this._cantidadRegistros = auxiliar.Rows.Count;                  // Le asignamos la cantidad de registros que tiene la consulta
+
+                asignarTope();                                                  // Mandamos llamar al metodo asignarTope()
             }
-            else
+            else if (i_cantidadxpagina <= 0)
             {
-                ps_cadena = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+                MessageBox.Show("No se puede poner 0 en cantidad de filas a mostrar.", "Avertencia del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            #endregion Final Path de la DB de SQLite
 
-            MySqlConnection connection = new MySqlConnection(ps_cadena);  // Iniciamos la conexion SQLite
-            this._adapter = new MySqlDataAdapter(_query, connection);      // Iniciamos el adaptador SQLite
-            this._datos = new DataSet();                                    // Iniciamos el DataSet SQLite
-            auxiliar = new DataTable();
 
-            connection.Open();                                              // Abrimos conexion connection hacia SQLite
-            this._adapter.Fill(_datos, _inicio, _tope, _datamember);        // Almacenamos en el Adapter el resultdo de
-                                                                            // la consulta pero solo mostranndo los rangos
-                                                                            // Mostrar desde Inicio hasta el Tope asignado
-                                                                            // configurado desde el sistema
-            _adapter.Fill(auxiliar);                                        // Llenamos la tabla auxiliar con el Adapter
-            connection.Close();                                             // Cerramos la conexion SQLite
-            this._cantidadRegistros = auxiliar.Rows.Count;                  // Le asignamos la cantidad de registros que tiene la consulta
+            //MySqlConnection connection = new MySqlConnection(ps_cadena);  // Iniciamos la conexion SQLite
+            //this._adapter = new MySqlDataAdapter(_query, connection);      // Iniciamos el adaptador SQLite
+            //this._datos = new DataSet();                                    // Iniciamos el DataSet SQLite
+            //auxiliar = new DataTable();
 
-            if (_tope != 0)
-            {
-                asignarTope();                                              // Mandamos llamar al metodo asignarTope()
-            }
-                                                           
+            //connection.Open();                                              // Abrimos conexion connection hacia SQLite
+            //this._adapter.Fill(_datos, _inicio, _tope, _datamember);        // Almacenamos en el Adapter el resultdo de
+            //                                                                // la consulta pero solo mostranndo los rangos
+            //                                                                // Mostrar desde Inicio hasta el Tope asignado
+            //                                                                // configurado desde el sistema
+            //_adapter.Fill(auxiliar);                                        // Llenamos la tabla auxiliar con el Adapter
+            //connection.Close();                                             // Cerramos la conexion SQLite
+            //this._cantidadRegistros = auxiliar.Rows.Count;                  // Le asignamos la cantidad de registros que tiene la consulta
+
+            //if (_tope != 0)
+            //{
+            //    asignarTope();                                              // Mandamos llamar al metodo asignarTope()
+            //}
         }
 
         private void asignarTope()
@@ -247,14 +271,21 @@ namespace PuntoDeVentaV2
 
         public DataSet actualizarTope(int i_tope)
         {
-            this._tope = i_tope;    // Le asignamos _tope igual a i_tope
-            this._inicio = 0;       // Le asignamos _inicio igual a 0
-            asignarTope();          // Mandamos llamar al metodo asignarTope()
-            _datos.Clear();         // Borramos el DataSet
-            this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);     // Almacenamos en el Adapter el resultdo de
-                                                                                        // la consulta pero solo mostranndo los rangos
-                                                                                        // Mostrar desde Inicio hasta el Tope asignado
-                                                                                        // configurado desde el sistema
+            if (i_tope >= 1)
+            {
+                this._tope = i_tope;    // Le asignamos _tope igual a i_tope
+                this._inicio = 0;       // Le asignamos _inicio igual a 0
+                asignarTope();          // Mandamos llamar al metodo asignarTope()
+                _datos.Clear();         // Borramos el DataSet
+                this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);     // Almacenamos en el Adapter el resultdo de
+                                                                                            // la consulta pero solo mostranndo los rangos
+                                                                                            // Mostrar desde Inicio hasta el Tope asignado
+                                                                                            // configurado desde el sistema
+            }
+            else if (i_tope <= 0)
+            {
+                MessageBox.Show("No se puede poner 0 en cantidad de filas a mostrar.", "Avertencia del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             return _datos;          // Retorna el DataSet
         }
         

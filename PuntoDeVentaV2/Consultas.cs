@@ -1781,9 +1781,7 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
 
         public string searchSaleProduct(string busqueda)
         {
-            //var consulta = $"SELECT DISTINCT fijo.Nombre, fijo.Stock, fijo.Precio, fijo.ClaveInterna, fijo.CodigoBarras, fijo.Tipo, IFNULL( fijo.Proveedor, 'N/A' ) AS Proveedor, Dinamico.ChckName, Dinamico.Descripcion FROM ( SELECT Prod.ID AS ID_Fijo, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Tipo, Prod.`Status`, Prod.NombreAlterno1, Prod.NombreAlterno2, ProdDetail.Proveedor, Usr.ID AS UsrID FROM Productos AS Prod LEFT JOIN Usuarios AS Usr ON Usr.ID = Prod.IDUsuario LEFT JOIN DetallesProducto AS ProdDetail ON ProdDetail.IDProducto = Prod.ID LEFT JOIN Proveedores AS Prov ON Prov.ID = ProdDetail.IDProveedor GROUP BY Prod.Nombre ORDER BY Prod.Nombre ASC, Prod.Tipo ASC ) AS Fijo LEFT JOIN ( SELECT ProdDinamico.ID AS ID_Dinamico, GralDetail.ChckName, GralDetail.Descripcion, AppSet.checkBoxConcepto, AppSet.textComboBoxConcepto, AppSet.Mostrar FROM Productos AS ProdDinamico LEFT JOIN DetallesProductoGenerales AS GralProdDetail ON GralProdDetail.IDProducto = ProdDinamico.ID LEFT JOIN DetalleGeneral AS GralDetail ON GralDetail.ID = GralProdDetail.IDDetalleGral LEFT JOIN AppSettings AS AppSet ON AppSet.IDUsuario = GralDetail.IDUsuario WHERE AppSet.Mostrar = '1' GROUP BY AppSet.textComboBoxConcepto, GralDetail.Descripcion ORDER BY AppSet.textComboBoxConcepto DESC ) AS Dinamico ON Dinamico.ID_Dinamico = Fijo.ID_Fijo WHERE Fijo.UsrID = '{FormPrincipal.userID}' AND Fijo.`Status` = '1' AND ( Fijo.Tipo = 'P' OR Fijo.Tipo = 'PQ' OR Fijo.Tipo = 'S' ) AND ( Fijo.Nombre LIKE '%{busqueda}%' OR Fijo.NombreAlterno1 LIKE '%{busqueda}%' OR Fijo.NombreAlterno2 LIKE '%{busqueda}%' OR Fijo.ClaveInterna LIKE '{busqueda}' OR Fijo.CodigoBarras LIKE '{busqueda}' ) ORDER BY Fijo.Nombre ASC";
-
-            var consulta = $"SELECT DISTINCT Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Tipo, IFNULL( ProdDetail.Proveedor, 'N/A' ) AS Proveedor, GralDetail.ChckName, GralDetail.Descripcion FROM Productos AS Prod LEFT JOIN Usuarios AS Usr ON Usr.ID = Prod.IDUsuario LEFT JOIN DetallesProducto AS ProdDetail ON ProdDetail.IDProducto = Prod.ID LEFT JOIN Proveedores AS Prov ON Prov.ID = ProdDetail.IDProveedor LEFT JOIN DetallesProductoGenerales AS GralProdDetail ON GralProdDetail.IDProducto = Prod.ID LEFT JOIN DetalleGeneral AS GralDetail ON GralDetail.ID = GralProdDetail.IDDetalleGral LEFT JOIN AppSettings AS AppSet ON AppSet.IDUsuario = GralDetail.IDUsuario WHERE Usr.ID = '{FormPrincipal.userID}' AND Prod.`Status` = '1' AND ( Prod.Tipo = 'P' OR Prod.Tipo = 'PQ' OR Prod.Tipo = 'S' ) AND ( AppSet.Mostrar = '1' || AppSet.Mostrar = '0' ) AND ( Prod.Nombre LIKE '%{busqueda}%' OR Prod.NombreAlterno1 LIKE '%{busqueda}%' OR Prod.NombreAlterno2 LIKE '%{busqueda}%' OR Prod.ClaveInterna LIKE '{busqueda}' OR Prod.CodigoBarras LIKE '{busqueda}' ) GROUP BY Prod.Nombre, AppSet.textComboBoxConcepto, GralDetail.Descripcion ORDER BY Prod.Nombre ASC, Prod.Tipo ASC, AppSet.textComboBoxConcepto DESC; ";
+            var consulta = $"SELECT DISTINCT Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Tipo, IFNULL( ProdDetail.Proveedor, 'N/A' ) AS Proveedor, GralDetail.ChckName, GralDetail.Descripcion FROM Productos AS Prod LEFT JOIN Usuarios AS Usr ON Usr.ID = Prod.IDUsuario LEFT JOIN DetallesProducto AS ProdDetail ON ProdDetail.IDProducto = Prod.ID LEFT JOIN Proveedores AS Prov ON Prov.ID = ProdDetail.IDProveedor LEFT JOIN DetallesProductoGenerales AS GralProdDetail ON GralProdDetail.IDProducto = Prod.ID LEFT JOIN DetalleGeneral AS GralDetail ON GralDetail.ID = GralProdDetail.IDDetalleGral LEFT JOIN AppSettings AS AppSet ON AppSet.IDUsuario = GralDetail.IDUsuario WHERE Usr.ID = '{FormPrincipal.userID}' AND Prod.`Status` = '1' AND ( Prod.Tipo = 'P' OR Prod.Tipo = 'PQ' OR Prod.Tipo = 'S' ) AND ( Prod.Nombre LIKE '%{busqueda}%' OR Prod.NombreAlterno1 LIKE '%{busqueda}%' OR Prod.NombreAlterno2 LIKE '%{busqueda}%' OR Prod.ClaveInterna LIKE '{busqueda}' OR Prod.CodigoBarras LIKE '{busqueda}' ) ORDER BY Prod.Nombre ASC; ";
 
             return consulta;
         }
@@ -1869,6 +1867,54 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
         public string mostrarUsuarios(string estado)
         {
             var consulta = $"SELECT ID, nombre, usuario FROM `empleados` WHERE estatus = '{estado}' AND IDUsuario = '{FormPrincipal.userID}'";
+            return consulta;
+        }
+        public string buscarProductosDeServicios(int idProd)
+        {
+            var consulta = $"SELECT DISTINCT ID, IDServicio, Cantidad FROM productosdeservicios WHERE IDServicio = '{idProd}';";
+
+            return consulta;
+        }
+
+        public string obtenerServicioCombo(int idServCombo)
+        {
+            var consulta = $"SELECT DISTINCT Prod.Nombre, IF(Prod.Tipo = 'S', 'SERVICIO', 'COMBO') AS Tipo  FROM productos AS Prod INNER JOIN ProductosDeServicios AS ServicesProd ON Prod.ID = ServicesProd.IDServicio WHERE ServicesProd.IDServicio = '{idServCombo}';";
+
+            return consulta;
+        }
+
+        public string buscarProdIntoServComb(int idProd)
+        {
+            var consulta = $"SELECT DISTINCT ServProds.ID, ServProds.Fecha, ServProds.IDServicio NoServicio, Prod.Nombre ServicioCombo, ServProds.IDProducto NoProducto, ServProds.NombreProducto Producto, ServProds.Cantidad, IF(Prod.Tipo = 'S', 'SERVICIO', 'COMBO') AS Tipo FROM productosdeservicios AS ServProds INNER JOIN Productos AS Prod ON Prod.ID = ServProds.IDServicio WHERE ServProds.IDProducto = '{idProd}' ORDER BY Prod.Nombre ASC; ";
+
+            return consulta;
+        }
+
+        public string buscarEditProductosDeServicios(int idServ)
+        {
+            var consulta = $"SELECT DISTINCT ServProd.ID, ServProd.Fecha, ServProd.IDServicio NoServicio, Prod.Nombre ServicioCombo, ServProd.IDProducto NoProducto, ServProd.NombreProducto Producto, ServProd.Cantidad, IF(Prod.Tipo = 'PQ', 'COMBO', 'SERVICIO') AS Tipo FROM productosdeservicios AS ServProd INNER JOIN Productos AS Prod ON Prod.ID = ServProd.IDServicio WHERE ServProd.IDServicio = '{idServ}' ORDER BY ServProd.NombreProducto ASC; ";
+
+            return consulta;
+        }
+
+        public string actualizarRelacionProdComboServicio(int idRelacion, float cantidadRelacion)
+        {
+            var consulta = $"UPDATE ProductosDeServicios SET Cantidad = '{cantidadRelacion}' WHERE ID = '{idRelacion}';";
+
+            return consulta;
+        }
+
+        public string borrarRelacionProdComboServicio(int idReg)
+        {
+            var consulta = $"DELETE FROM ProductosDeServicios WHERE ID = '{idReg}';";
+
+            return consulta;
+        }
+
+        public string verSiExisteRelacionRegistrada(string idServicio, string idProducto)
+        {
+            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idServicio}' AND IDProducto = '{idProducto}'; ";
+
             return consulta;
         }
     }
