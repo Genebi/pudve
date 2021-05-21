@@ -553,6 +553,7 @@ namespace PuntoDeVentaV2
                 if (!txtBuscar.Text.Equals(string.Empty))
                 {
                     CargarDatos(1, txtBuscar.Text);
+                    txtBuscar.SelectAll();
                 }
                 else
                 {
