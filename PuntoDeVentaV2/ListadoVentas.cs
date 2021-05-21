@@ -93,6 +93,8 @@ namespace PuntoDeVentaV2
         public ListadoVentas()
         {
             InitializeComponent();
+
+            MostrarCheckBox();
         }
 
         private void ListadoVentas_Load(object sender, EventArgs e)
@@ -2859,5 +2861,57 @@ namespace PuntoDeVentaV2
                 //    }
                 //}
         }
+
+        private void MostrarCheckBox()
+        {
+            System.Drawing.Rectangle rect = DGVListadoVentas.GetCellDisplayRectangle(0, -1, true);
+            // set checkbox header to center of header cell. +1 pixel to position 
+            rect.Y = 5;
+            rect.X = 10;// rect.Location.X + (rect.Width / 4);
+            CheckBox checkBoxHeader = new CheckBox();
+            checkBoxHeader.Name = "checkBoxMaster";
+            checkBoxHeader.Size = new Size(15, 15);
+            checkBoxHeader.Location = rect.Location;
+            checkBoxHeader.CheckedChanged += new EventHandler(checkBoxMaster_CheckedChanged);
+            DGVListadoVentas.Controls.Add(checkBoxHeader);
+        }
+
+        private void checkBoxMaster_CheckedChanged(object sender, EventArgs e)
+        {
+            var incremento = -1;
+
+            CheckBox headerBox = ((CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0]);
+
+            foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
+            {
+                incremento += 1;
+
+                try
+                {
+                    //var recorrerCheckBox = Convert.ToBoolean(DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value);
+
+                    var idRevision = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+
+                    if (headerBox.Checked)
+                    {
+                        if (!idVentas.ContainsKey(idRevision))
+                        {
+                            idVentas.Add(idRevision, string.Empty);
+                            DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = true;
+                        }
+                    }
+                    else if (!headerBox.Checked)
+                    {
+                        idVentas.Remove(idRevision);
+                        DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
+    //}
     }
 }
