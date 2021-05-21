@@ -1405,34 +1405,7 @@ namespace PuntoDeVentaV2
 
         public string ReimprimirTicket(int idVenta)
         {
-            var consulta = $@"SELECT DISTINCT 
-	SaleDetail.IDVenta AS idVenta,
-    SaleDetail.Referencia AS Referencia,
-    SaleDetail.Cliente AS Cliente,
-	SaleProd.IDProducto AS IDProducto,
-    Prod.Nombre AS Nombre,
-    SaleProd.Cantidad AS Cantidad,
-    SaleProd.Precio AS Precio,
-    Sale.DescuentoGeneral AS DescuentoGeneral,
-    Sale.Descuento AS DescuentoIndividual,
-    Prod.Precio AS ImporteIndividual,
-    SaleProd.descuento AS Descuento,
-    Sale.Folio AS Folio,
-    Sale.Anticipo AS AnticipoUtilizado,
-    Prod.TipoDescuento AS TipoDescuento,
-    Sale.FormaPago AS formaDePagoDeVenta,
-    Sale.FechaOperacion AS FechaOperacion
-FROM detallesventa AS SaleDetail
-INNER JOIN ventas AS Sale
-ON Sale.ID = SaleDetail.IDVenta
-INNER JOIN usuarios AS Usr
-ON Usr.ID = Sale.IDUsuario
-INNER JOIN productosventa AS SaleProd
-ON SaleProd.IDVenta = Sale.ID
-INNER JOIN productos AS Prod
-ON Prod.ID = SaleProd.IDProducto
-WHERE SaleDetail.IDVenta = {idVenta}
-GROUP BY Prod.ID";
+            var consulta = $@"SELECT DISTINCT SaleDetail.IDVenta AS idVenta, SaleDetail.Referencia AS Referencia, SaleDetail.Cliente AS Cliente, SaleProd.IDProducto AS IDProducto, Prod.Nombre AS Nombre, SaleProd.Cantidad AS Cantidad, SaleProd.Precio AS Precio, Sale.DescuentoGeneral AS DescuentoGeneral, Sale.Descuento AS DescuentoIndividual, Prod.Precio AS ImporteIndividual, SaleProd.descuento AS Descuento, Sale.Folio AS Folio, Sale.Anticipo AS AnticipoUtilizado, Prod.TipoDescuento AS TipoDescuento, Sale.FormaPago AS formaDePagoDeVenta, Sale.FechaOperacion AS FechaOperacion FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDetail.IDVenta INNER JOIN usuarios AS Usr ON Usr.ID = Sale.IDUsuario INNER JOIN productosventa AS SaleProd ON SaleProd.IDVenta = Sale.ID INNER JOIN productos AS Prod ON Prod.ID = SaleProd.IDProducto WHERE SaleDetail.IDVenta = {idVenta} GROUP BY Prod.ID";
 
             return consulta;
         }
@@ -1914,6 +1887,13 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
         public string verSiExisteRelacionRegistrada(string idServicio, string idProducto)
         {
             var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idServicio}' AND IDProducto = '{idProducto}'; ";
+
+            return consulta;
+        }
+
+        public string buscarDatoDinamicoPorIDRegistro(int idReg)
+        {
+            var consulta = $"SELECT * FROM appSettings WHERE ID = '{idReg}'";
 
             return consulta;
         }
