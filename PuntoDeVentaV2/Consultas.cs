@@ -1915,8 +1915,8 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
         public string verSiExisteRelacionRegistrada(string idServicio, string idProducto)
         {
             var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idServicio}' AND IDProducto = '{idProducto}'; ";
-
             return consulta;
+
         }
 
 

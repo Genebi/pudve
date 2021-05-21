@@ -33,34 +33,35 @@ namespace PuntoDeVentaV2
         {
             Button btn = sender as Button;
             var propiedad = btn.Tag;
-            int comprobar = 0;
+            //int comprobar = 0;
 
-            string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+            //string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
 
-            using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar(propiedad.ToString(), idempleado)))
+            //using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar(propiedad.ToString(), idempleado)))
+            //{
+            //    if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
+            //    {
+            //        foreach (DataRow item in dtEmpleadosPermisos.Rows)
+
+            //        {
+            //            //MessageBox.Show(propiedad.ToString() +"="+ item["total"].ToString()+ "el ID del empleado es:"+idempleado);
+            //            comprobar = Convert.ToInt32(item["total"]);
+            //        }
+            //    }
+            //}
+
+            //if (comprobar > 0)
+            //{
+                
+            //}
+            //else
+            //{
+            //    MessageBox.Show("No cuentas con los privilegios requeridos en esta sección","Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
+            using (var ap = new AsignarPropiedad(propiedad))
             {
-                if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow item in dtEmpleadosPermisos.Rows)
-                    {
-                        //MessageBox.Show(propiedad.ToString() +"="+ item["total"].ToString()+ "el ID del empleado es:"+idempleado);
-                        comprobar = Convert.ToInt32(item["total"]);
-                    }
-                }
+                ap.ShowDialog();
             }
-
-            if (comprobar > 0)
-            {
-                using (var ap = new AsignarPropiedad(propiedad))
-                {
-                    ap.ShowDialog();
-                }
-            }
-            else
-            {
-                MessageBox.Show("No cuentas con los privilegios requeridos en esta sección","Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
 
         }
 
