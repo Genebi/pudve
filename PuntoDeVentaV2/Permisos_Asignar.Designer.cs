@@ -1,6 +1,6 @@
 ﻿namespace PuntoDeVentaV2
 {
-    partial class SeccionPermisos
+    partial class Permisos_Asignar
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelContenedor = new System.Windows.Forms.Panel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.panelContenedor2 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // panelContenedor
-            // 
-            this.panelContenedor.Location = new System.Drawing.Point(2, 3);
-            this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(379, 275);
-            this.panelContenedor.TabIndex = 0;
             // 
             // btnCancelar
             // 
@@ -48,13 +41,12 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(48, 289);
+            this.btnCancelar.Location = new System.Drawing.Point(27, 262);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(119, 30);
-            this.btnCancelar.TabIndex = 18;
+            this.btnCancelar.TabIndex = 20;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnAceptar
             // 
@@ -64,37 +56,41 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(214, 289);
+            this.btnAceptar.Location = new System.Drawing.Point(193, 262);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(119, 30);
-            this.btnAceptar.TabIndex = 17;
+            this.btnAceptar.TabIndex = 19;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // SeccionPermisos
+            // panelContenedor2
+            // 
+            this.panelContenedor2.Location = new System.Drawing.Point(0, 0);
+            this.panelContenedor2.Name = "panelContenedor2";
+            this.panelContenedor2.Size = new System.Drawing.Size(335, 256);
+            this.panelContenedor2.TabIndex = 21;
+            // 
+            // Permisos_Asignar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 331);
+            this.ClientSize = new System.Drawing.Size(337, 304);
+            this.Controls.Add(this.panelContenedor2);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.panelContenedor);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "SeccionPermisos";
+            this.Name = "Permisos_Asignar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SeccionPermisos";
-            this.Load += new System.EventHandler(this.SeccionPermisos_Load);
+            this.Text = "Permisos_Asignar";
+            this.Load += new System.EventHandler(this.Permisos_Asignar_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panelContenedor;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Panel panelContenedor2;
     }
 }

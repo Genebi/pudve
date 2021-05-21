@@ -32,7 +32,7 @@ namespace PuntoDeVentaV2
             secciones = new string[] {
                 "Caja", "Ventas", "Inventario", "Anticipos",
                 "MisDatos", "Facturas", "Configuracion", "Reportes",
-                "Clientes", "Proveedores", "Empleados", "Productos"
+                "Clientes", "Proveedores", "Empleados", "Productos", "Permisos"
             };
 
             VerificarSecciones();
@@ -77,41 +77,40 @@ namespace PuntoDeVentaV2
         private void GenerarProductos()
         {
             Text = "PUDVE - Permisos Productos";
-            var img = global::PuntoDeVentaV2.Properties.Resources.plus_square;
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Productos");
 
-            GenerarCheckbox(10, 45, 100, "Agregar XML", datos[0]);
-            GenerarCheckbox(10, 200, 200, "Deshabilitar Seleccionados", datos[1]);
+            GenerarCheckbox(10, 35, 100, "Agregar XML", datos[0]);
+            GenerarCheckbox(10, 200, 150, "Deshabilitar Seleccionados", datos[1]);
             //=============================================================
-            GenerarCheckbox(30, 45, 150, "Cambiar Tipo", datos[2]);
+            GenerarCheckbox(30, 35, 150, "Cambiar Tipo", datos[2]);
             GenerarCheckbox(30, 200, 150, "Mostrar en Lista", datos[3]);
             //=============================================================
-            GenerarCheckbox(50, 45, 150, "Botón Asignar", datos[4]);
-            //Generarbutton(50, 10, 30, img);
+            GenerarCheckbox(50, 35, 150, "Botón Asignar", datos[4]);
+            Generarbutton(50, 10, 20, 20);
             GenerarCheckbox(50, 200, 150, "Mostrar en Mosaico", datos[5]);
             //=============================================================
-            GenerarCheckbox(70, 45, 150, "Botón Etiqueta", datos[6]);
+            GenerarCheckbox(70, 35, 150, "Botón Etiqueta", datos[6]);
             GenerarCheckbox(70, 200, 150, "Botón Reporte", datos[7]);
             //=============================================================
-            GenerarCheckbox(90, 45, 150, "Botón Imprimir", datos[8]);
+            GenerarCheckbox(90, 35, 150, "Botón Imprimir", datos[8]);
             GenerarCheckbox(90, 200, 150, "Agregar Producto", datos[9]);
             //=============================================================
-            GenerarCheckbox(110, 45, 150, "Agregar Combo", datos[10]);
+            GenerarCheckbox(110, 35, 150, "Agregar Combo", datos[10]);
             GenerarCheckbox(110, 200, 150, "Agregar Servicio", datos[11]);
             //=============================================================
-            GenerarCheckbox(130, 45, 150, "Botón Filtro", datos[12]);
+            GenerarCheckbox(130, 35, 150, "Botón Filtro", datos[12]);
             GenerarCheckbox(130, 200, 150, "Botón Borrar Filtro", datos[13]);
             //=============================================================
-            GenerarCheckbox(150, 45, 150, "Opción Editar", datos[14]);
+            GenerarCheckbox(150, 35, 150, "Opción Editar", datos[14]);
             GenerarCheckbox(150, 200, 150, "Opción Estado", datos[15]);
             //=============================================================
-            GenerarCheckbox(170, 45, 150, "Opción Historal", datos[16]);
+            GenerarCheckbox(170, 35, 150, "Opción Historal", datos[16]);
             GenerarCheckbox(170, 200, 150, "Generar Código Barras", datos[17]);
             //=============================================================
-            GenerarCheckbox(190, 45, 150, "Cargar Imagen", datos[18]);
+            GenerarCheckbox(190, 35, 150, "Cargar Imagen", datos[18]);
             GenerarCheckbox(190, 200, 150, "Opción Etiqueta", datos[19]);
             //=============================================================
-            GenerarCheckbox(210, 45, 150, "Opción Copiar", datos[20]);
+            GenerarCheckbox(210, 35, 150, "Opción Copiar", datos[20]);
             GenerarCheckbox(210, 200, 150, "Opción Ajustar", datos[21]);
         }
 
@@ -309,12 +308,15 @@ namespace PuntoDeVentaV2
             panelContenedor.Controls.Add(checkbox);
         }
 
-        private void Generarbutton(int top, int left, int ancho,Image icon)
+        private void Generarbutton(int top, int left, int alto,int ancho)
         {
             var button = new Button();
             button.Top = top;
             button.Left = left;
+            button.Height = alto;
             button.Width = ancho;
+            button.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
+            button.Click += new EventHandler(btClick);
             panelContenedor.Controls.Add(button);
         }
 
@@ -375,12 +377,39 @@ namespace PuntoDeVentaV2
                     {
                         seleccionado = 1;
                     }
-
                     opciones.Add(seleccionado);
                 }
             }
-
             return opciones.ToArray();
+        }
+
+        //private void GenerarPermisos()
+        //{
+        //    Text = "PUDVE - Permisos Asignar";
+        //    var datos2 = mb.ObtenerPermisosEmpleado(id_empleado, "Permisos");
+
+        //    GenerarCheckbox(10, 45, 100, "Mensaje Ventas", datos2[0]);
+        //    GenerarCheckbox(10, 200, 200, "Mensaje Inventario", datos2[1]);
+        //    =============================================================
+        //    GenerarCheckbox(30, 45, 150, "Stock", datos2[2]);
+        //    GenerarCheckbox(30, 200, 150, "Stock Minimo", datos2[3]);
+        //    =============================================================
+        //    GenerarCheckbox(50, 45, 150, "Stock Maximo", datos2[4]);
+        //    GenerarCheckbox(50, 200, 150, "Precio", datos2[5]);
+        //    =============================================================
+        //    GenerarCheckbox(70, 45, 150, "Número de Revisión", datos2[6]);
+        //    GenerarCheckbox(70, 200, 150, "Tipo de IVA", datos2[7]);
+        //    =============================================================
+        //    GenerarCheckbox(90, 45, 150, "Clave de Producto", datos2[8]);
+        //    GenerarCheckbox(90, 200, 150, "Clave de Unidad", datos2[9]);
+        //    =============================================================
+        //    GenerarCheckbox(110, 45, 150, "Correos", datos2[10]);
+        //}
+
+        private void btClick(object sender, EventArgs e)
+        {
+            Permisos_Asignar asig = new Permisos_Asignar("Permisos", id_empleado);
+            asig.Show();
         }
     }
 }

@@ -2396,6 +2396,17 @@ namespace PuntoDeVentaV2
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion22"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion23"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion24"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("mensajeVentas"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("mensajeInventario"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("stock"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("stockMinimo"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("stockMaximo"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("precio"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("numeroRevision"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("tipoIVA"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("claveProducto"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("claveUnidad"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("correos"))));
             }
 
             dr.Close();

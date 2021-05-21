@@ -1363,3 +1363,36 @@ IF
 		Usuario TEXT,
 		Fecha DATETIME 
 	);
+
+--Agregar Columna (Mensaje Ventas) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS mensajeVentas int DEFAULT 1;
+
+--Agregar Columna (Mensaje Inventario) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS mensajeInventario int DEFAULT 1;
+
+--Agregar Columna (Stock) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS stock int DEFAULT 1;
+
+--Agregar Columna (Stock Minimo) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS stockMinimo int DEFAULT 1;
+
+--Agregar Columna (Stock Maximo) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS stockMaximo int DEFAULT 1;
+
+--Agregar Columna (Precio) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS precio int DEFAULT 1;
+
+--Agregar Columna (Número Revisión) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS numeroRevision int DEFAULT 1;
+
+--Agregar Columna (Tipo de IVA) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS tipoIVA int DEFAULT 1;
+
+--Agregar Columna (Clave Producto) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS claveProducto int DEFAULT 1;
+
+--Agregar Columna (Clave Unidad) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS claveUnidad int DEFAULT 1;
+
+--Agregar Columna (Correos) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS correos int DEFAULT 1;

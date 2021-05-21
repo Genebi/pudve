@@ -1869,6 +1869,7 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
             var consulta = $"SELECT ID, nombre, usuario FROM `empleados` WHERE estatus = '{estado}' AND IDUsuario = '{FormPrincipal.userID}'";
             return consulta;
         }
+<<<<<<< HEAD
         public string buscarProductosDeServicios(int idProd)
         {
             var consulta = $"SELECT DISTINCT ID, IDServicio, Cantidad FROM productosdeservicios WHERE IDServicio = '{idProd}';";
@@ -1915,6 +1916,32 @@ FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDeta
         {
             var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idServicio}' AND IDProducto = '{idProducto}'; ";
 
+=======
+
+        public string permisosAsignar(List<int> opciones,string empleado)
+        { 
+            var consulta = $@"UPDATE empleadospermisos 
+            SET mensajeVentas = '{opciones[0]}',
+            mensajeInventario = '{opciones[1]}',
+            stock = '{opciones[2]}',
+            stockMinimo = '{opciones[3]}',
+            stockMaximo = '{opciones[4]}',
+            precio = '{opciones[5]}',
+            numeroRevision = '{opciones[6]}',
+            tipoIVA = '{opciones[7]}',
+            claveProducto = '{opciones[8]}',
+            claveUnidad = '{opciones[9]}',
+            correos = '{opciones[10]}' 
+            WHERE
+	        IDUsuario = '{FormPrincipal.userID}' 
+	        AND IDEmpleado = '{empleado}'";
+            return consulta;
+        }
+
+        public string condicionAsignar(string nomAsignar, string idEmpleado)
+        {
+            var consulta = $"SELECT COUNT({nomAsignar}) AS total FROM empleadospermisos WHERE IDEmpleado = '{idEmpleado}' AND IDUsuario = '{FormPrincipal.userID}' AND {nomAsignar} = 1 "; 
+>>>>>>> permisosbotonasignar
             return consulta;
         }
     }

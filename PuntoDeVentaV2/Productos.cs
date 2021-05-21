@@ -6393,7 +6393,6 @@ namespace PuntoDeVentaV2
                 {
                     var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
                     var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
-
                     lista.Add(idProducto, tipoProducto);
                 }
             }
