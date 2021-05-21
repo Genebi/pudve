@@ -50,103 +50,112 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
-                string editDetalleNvo = txtConceptoNuevo.Text;
-                string editDetelle = txtConceptoActual.Text;
+                btnAceptar.PerformClick();
+            }
+        }
 
-                if (!editDetalleNvo.Equals(string.Empty))
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            string editDetalleNvo = txtConceptoNuevo.Text;
+            string editDetelle = txtConceptoActual.Text;
+
+            if (!editDetalleNvo.Equals(string.Empty))
+            {
+                try
                 {
-                    try
+                    bool found = false;
+
+                    using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(editDetalleNvo, FormPrincipal.userID)))
                     {
-                        bool found = false;
-
-                        using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(editDetalleNvo,FormPrincipal.userID)))
+                        if (!dtItemDinamicos.Rows.Count.Equals(0))
                         {
-                            if (!dtItemDinamicos.Rows.Count.Equals(0))
-                            {
-                                found = true;
-                            }
-                            else if (dtItemDinamicos.Rows.Count.Equals(0))
-                            {
-                                found = false;
-                            }
+                            found = true;
                         }
-
-                        if (found.Equals(false))
+                        else if (dtItemDinamicos.Rows.Count.Equals(0))
                         {
-                            string tableSource = string.Empty;
-                            
-                            try
-                            {
-                                tableSource = "appSettings";
-                                var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
-                            }
-                            catch (MySqlException exMySql)
-                            {
-                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Nombre del Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error al intentar actualizar registro de Detalle Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-                            try
-                            {
-                                tableSource = "FiltroDinamico";
-                                var UpdateDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoFiltroDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
-                            }
-                            catch (MySqlException exMySql)
-                            {
-                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error al intentar actualizar registro de Filtro Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-                            try
-                            {
-                                tableSource = "DetallesProductoGenerales";
-                                var UpdateNombreDatoFiltroDinamico = cn.EjecutarConsulta(cs.RenombrarDetallesProductoGenerales(editDetalleNvo, editDetelle, FormPrincipal.userID));
-                            }
-                            catch (MySqlException exMySql)
-                            {
-                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error al intentar actualizar registro de Filtro Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-                            try
-                            {
-                                tableSource = "DetalleGeneral";
-                                var UdapteDatosDelFiltroDinamico = cn.EjecutarConsulta(cs.RenombrarDatosDelFiltroDinamico(editDetalleNvo, editDetelle, FormPrincipal.userID));
-                            }
-                            catch (MySqlException exMySql)
-                            {
-                                MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error al intentar actualizar registro de Filtro Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-                            this.Close();
-                        }
-                        else if (found.Equals(true))
-                        {
-                            MessageBox.Show("Nombre del concepto ya esta siendo utilizado", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            txtConceptoNuevo.Clear();
-                            txtConceptoNuevo.Select();
+                            found = false;
                         }
                     }
-                    catch (Exception ex)
+
+                    if (found.Equals(false))
                     {
-                        MessageBox.Show("Error al Intentar Renombrar un Concepto Dinamico:\n" + ex.Message.ToString(), "Error al Renombrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        string tableSource = string.Empty;
+
+                        try
+                        {
+                            tableSource = "appSettings";
+                            var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+                        }
+                        catch (MySqlException exMySql)
+                        {
+                            MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Nombre del Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al intentar actualizar registro de Detalle Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        try
+                        {
+                            tableSource = "FiltroDinamico";
+                            var UpdateDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoFiltroDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+                        }
+                        catch (MySqlException exMySql)
+                        {
+                            MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al intentar actualizar registro de Filtro Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        try
+                        {
+                            tableSource = "DetallesProductoGenerales";
+                            var UpdateNombreDatoFiltroDinamico = cn.EjecutarConsulta(cs.RenombrarDetallesProductoGenerales(editDetalleNvo, editDetelle, FormPrincipal.userID));
+                        }
+                        catch (MySqlException exMySql)
+                        {
+                            MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al intentar actualizar registro de Filtro Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        try
+                        {
+                            tableSource = "DetalleGeneral";
+                            var UdapteDatosDelFiltroDinamico = cn.EjecutarConsulta(cs.RenombrarDatosDelFiltroDinamico(editDetalleNvo, editDetelle, FormPrincipal.userID));
+                        }
+                        catch (MySqlException exMySql)
+                        {
+                            MessageBox.Show($"Ocurrio una irregularidad al intentar\nActualizar Detalle Producto({tableSource})...\nExcepción: " + exMySql.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al intentar actualizar registro de Filtro Dinamico...\nError: " + ex.Message.ToString() + $"\n({tableSource})", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        this.Close();
+                    }
+                    else if (found.Equals(true))
+                    {
+                        MessageBox.Show("Nombre del concepto ya esta siendo utilizado", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         txtConceptoNuevo.Clear();
                         txtConceptoNuevo.Select();
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al Intentar Renombrar un Concepto Dinamico:\n" + ex.Message.ToString(), "Error al Renombrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtConceptoNuevo.Clear();
+                    txtConceptoNuevo.Select();
+                }
+            }
+            else if (editDetalleNvo.Equals(string.Empty))
+            {
+                MessageBox.Show("Favor de llenar el campo de nuevo", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtConceptoActual = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.txtConceptoNuevo = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtConceptoActual = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,23 +50,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Concepto: ";
             // 
-            // label1
+            // txtConceptoNuevo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = " Actual: ";
-            // 
-            // txtConceptoActual
-            // 
-            this.txtConceptoActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConceptoActual.Location = new System.Drawing.Point(25, 44);
-            this.txtConceptoActual.Name = "txtConceptoActual";
-            this.txtConceptoActual.ReadOnly = true;
-            this.txtConceptoActual.Size = new System.Drawing.Size(411, 26);
-            this.txtConceptoActual.TabIndex = 1;
+            this.txtConceptoNuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConceptoNuevo.Location = new System.Drawing.Point(25, 99);
+            this.txtConceptoNuevo.Name = "txtConceptoNuevo";
+            this.txtConceptoNuevo.Size = new System.Drawing.Size(411, 26);
+            this.txtConceptoNuevo.TabIndex = 3;
+            this.txtConceptoNuevo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtConceptoNuevo_KeyDown);
             // 
             // label2
             // 
@@ -76,20 +68,46 @@
             this.label2.TabIndex = 2;
             this.label2.Text = " Nuevo: ";
             // 
-            // txtConceptoNuevo
+            // txtConceptoActual
             // 
-            this.txtConceptoNuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConceptoNuevo.Location = new System.Drawing.Point(25, 99);
-            this.txtConceptoNuevo.Name = "txtConceptoNuevo";
-            this.txtConceptoNuevo.Size = new System.Drawing.Size(411, 26);
-            this.txtConceptoNuevo.TabIndex = 3;
-            this.txtConceptoNuevo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtConceptoNuevo_KeyDown);
+            this.txtConceptoActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConceptoActual.Location = new System.Drawing.Point(25, 44);
+            this.txtConceptoActual.Name = "txtConceptoActual";
+            this.txtConceptoActual.ReadOnly = true;
+            this.txtConceptoActual.Size = new System.Drawing.Size(411, 26);
+            this.txtConceptoActual.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(25, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = " Actual: ";
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAceptar.FlatAppearance.BorderSize = 0;
+            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btnAceptar.ForeColor = System.Drawing.Color.White;
+            this.btnAceptar.Location = new System.Drawing.Point(335, 176);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(113, 47);
+            this.btnAceptar.TabIndex = 1;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // setNombreConceptoDinamico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 185);
+            this.ClientSize = new System.Drawing.Size(496, 235);
+            this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
             this.Name = "setNombreConceptoDinamico";
@@ -109,5 +127,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtConceptoNuevo;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnAceptar;
     }
 }
