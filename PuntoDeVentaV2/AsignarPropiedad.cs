@@ -49,7 +49,7 @@ namespace PuntoDeVentaV2
             Font fuente = new Font("Century Gothic", 10.0f);
             Font fuenteChica = new Font("Century Gothic", 8.0f);
             
-            if (propiedad == "Mensaje")
+            if (propiedad == "mensaje")
             {
                 TextBox tbMensaje = new TextBox();
                 tbMensaje.Name = "tb" + propiedad;
@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
             }
-            else if (propiedad == "MensajeInventario")
+            else if (propiedad == "mensajeInventario")
             {
                 TextBox tbMensaje = new TextBox();
                 tbMensaje.Name = "tb" + propiedad;
@@ -81,7 +81,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
             }
-            else if (propiedad == "Stock")
+            else if (propiedad == "stock")
             {
                 TextBox tbStock = new TextBox();
                 tbStock.Name = "tb" + propiedad;
@@ -96,7 +96,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarStock"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarStock"));
             }
-            else if (propiedad == "StockMinimo")
+            else if (propiedad == "stockMinimo")
             {
                 TextBox tbStock = new TextBox();
                 tbStock.Name = "tb" + propiedad;
@@ -111,7 +111,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarStockMinimo"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarStockMinimo"));
             }
-            else if (propiedad == "StockMaximo")
+            else if (propiedad == "stockMaximo")
             {
                 TextBox tbStock = new TextBox();
                 tbStock.Name = "tb" + propiedad;
@@ -126,7 +126,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarStockMaximo"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarStockMaximo"));
             }
-            else if (propiedad == "Precio")
+            else if (propiedad == "precio")
             {
                 TextBox tbPrecio = new TextBox();
                 tbPrecio.Name = "tb" + propiedad;
@@ -141,7 +141,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarPrecio"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarPrecio"));
             }
-            else if (propiedad == "NumeroRevision")
+            else if (propiedad == "numeroRevision")
             {
                 TextBox tbRevision = new TextBox();
                 tbRevision.Name = "tb" + propiedad;
@@ -156,7 +156,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarRevision"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarRevision"));
             }
-            else if (propiedad == "TipoIVA")
+            else if (propiedad == "tipoIVA")
             {
                 Dictionary<string, string> listaIVA = new Dictionary<string, string>();
                 listaIVA.Add("0%", "IVA AL 0%");
@@ -179,7 +179,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarIVA"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarIVA"));
             }
-            else if (propiedad == "ClaveProducto")
+            else if (propiedad == "claveProducto")
             {
                 TextBox tbClaveProducto = new TextBox();
                 tbClaveProducto.Name = "tb" + propiedad;
@@ -194,7 +194,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarClaveProducto"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarClaveProducto"));
             }
-            else if (propiedad == "ClaveUnidad")
+            else if (propiedad == "claveUnidad")
             {
                 TextBox tbClaveUnidad = new TextBox();
                 tbClaveUnidad.Name = "tb" + propiedad;
@@ -222,7 +222,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarClaveUnidad"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarClaveUnidad"));
             }
-            else if (propiedad == "CorreosProducto")
+            else if (propiedad == "Correos")
             {
                 //CheckBox primerCB = new CheckBox();
                 //primerCB.Text = "Correo al modificar precio de producto";

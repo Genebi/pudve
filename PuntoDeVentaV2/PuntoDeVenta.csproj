@@ -732,6 +732,12 @@
     <Compile Include="PedidoPorProducto.Designer.cs">
       <DependentUpon>PedidoPorProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Permisos_Asignar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Permisos_Asignar.Designer.cs">
+      <DependentUpon>Permisos_Asignar.cs</DependentUpon>
+    </Compile>
     <Compile Include="photoShow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1188,6 +1194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PedidoPorProducto.resx">
       <DependentUpon>PedidoPorProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Permisos_Asignar.resx">
+      <DependentUpon>Permisos_Asignar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="photoShow.resx">
       <DependentUpon>photoShow.cs</DependentUpon>

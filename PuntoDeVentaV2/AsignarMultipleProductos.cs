@@ -14,6 +14,8 @@ namespace PuntoDeVentaV2
     public partial class AsignarMultipleProductos : Form
     {
         MetodosBusquedas mb = new MetodosBusquedas();
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
 
         public AsignarMultipleProductos()
         {
@@ -30,13 +32,36 @@ namespace PuntoDeVentaV2
         private void botonAsignar_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-
             var propiedad = btn.Tag;
+            int comprobar = 0;
 
-            using (var ap = new AsignarPropiedad(propiedad))
+            string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+
+            using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar(propiedad.ToString(), idempleado)))
             {
-                ap.ShowDialog();
+                if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in dtEmpleadosPermisos.Rows)
+                    {
+                        //MessageBox.Show(propiedad.ToString() +"="+ item["total"].ToString()+ "el ID del empleado es:"+idempleado);
+                        comprobar = Convert.ToInt32(item["total"]);
+                    }
+                }
             }
+
+            if (comprobar > 0)
+            {
+                using (var ap = new AsignarPropiedad(propiedad))
+                {
+                    ap.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show("No cuentas con los privilegios requeridos en esta sección","Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+
         }
 
         private void AgregarOpcion(string nombre, string texto, int altura)
@@ -73,27 +98,27 @@ namespace PuntoDeVentaV2
         private void CargarPropiedades()
         {
             // PANEL MENSAJE VENTAS
-            AgregarOpcion("Mensaje", "Mensaje Ventas", 10);
+            AgregarOpcion("mensajeVentas", "Mensaje Ventas", 10);
             // PANEL MENSAJE INVENTARIO
-            AgregarOpcion("MensajeInventario", "Mensaje Inventario", 45);
+            AgregarOpcion("mensajeInventario", "Mensaje Inventario", 45);
             // PANEL STOCK
-            AgregarOpcion("Stock", "Stock", 80);
+            AgregarOpcion("stock", "Stock", 80);
             // PANEL STOCK MINIMO
-            AgregarOpcion("StockMinimo", "Stock Minimo", 115);
+            AgregarOpcion("stockMinimo", "Stock Minimo", 115);
             // PANEL STOCK MAXIMO
-            AgregarOpcion("StockMaximo", "Stock Maximo", 150);
+            AgregarOpcion("stockMaximo", "Stock Maximo", 150);
             // PANEL PRECIO
-            AgregarOpcion("Precio", "Precio", 185);
+            AgregarOpcion("precio", "Precio", 185);
             // PANEL NUMERO DE REVISION
-            AgregarOpcion("NumeroRevision", "Número Revisión", 220);
+            AgregarOpcion("numeroRevision", "Número Revisión", 220);
             // PANEL TIPO DE IVA
-            AgregarOpcion("TipoIVA", "Tipo de IVA", 255);
+            AgregarOpcion("tipoIVA", "Tipo de IVA", 255);
             // PANEL CLAVE DE PRODUCTO (FACTURACION)
-            AgregarOpcion("ClaveProducto", "Clave de Producto", 290);
+            AgregarOpcion("claveProducto", "Clave de Producto", 290);
             // PANEL CLAVE UNIDAD MEDIDA (FACTURACION)
-            AgregarOpcion("ClaveUnidad", "Clave de Unidad", 325);
+            AgregarOpcion("claveUnidad", "Clave de Unidad", 325);
             // PANEL CORREOS PRODUCTO
-            AgregarOpcion("CorreosProducto", "Correos", 360);
+            AgregarOpcion("correos", "Correos", 360);
 
             int alturaEjeY = 395;
 
