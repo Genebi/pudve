@@ -71,7 +71,40 @@ namespace PuntoDeVentaV2
 
                     try
                     {
-                        cn.EjecutarConsulta(cs.habilitarConceptoDinamico(idReg));
+                        using (DataTable dtConceptoDinamico = cn.CargarDatos(cs.buscarDatoDinamicoPorIDRegistro(idReg)))
+                        {
+                            if (dtConceptoDinamico.Rows.Count.Equals(0))
+                            {
+                                
+                            }
+                            else if (!dtConceptoDinamico.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow drConceptoDinamico in dtConceptoDinamico.Rows)
+                                {
+                                    string concepto = drConceptoDinamico["concepto"].ToString();
+                                    using (DataTable dtFindConcepto = cn.CargarDatos(cs.VerificarDatoDinamico(concepto, FormPrincipal.userID)))
+                                    {
+                                        if (dtFindConcepto.Rows.Count.Equals(0))
+                                        {
+                                            cn.EjecutarConsulta(cs.habilitarConceptoDinamico(idReg));
+                                        }
+                                        else if (!dtFindConcepto.Rows.Equals(0))
+                                        {
+                                            DialogResult dialogResult = MessageBox.Show("Está acción habilitara un concepto que\nya se encuentra registrado actualmente,\ndesea realmente volver habilitarlo.", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                            if (dialogResult.Equals(DialogResult.Yes))
+                                            {
+                                                cn.EjecutarConsulta(cs.habilitarConceptoDinamico(idReg));
+                                                break;
+                                            }
+                                            else if (dialogResult.Equals(DialogResult.No))
+                                            {
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     catch (MySqlException exMySql)
                     {
