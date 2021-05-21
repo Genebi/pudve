@@ -102,6 +102,7 @@ namespace PuntoDeVentaV2
                                     foreach (DataRow drServComb in dtServComb.Rows)
                                     {
                                         row.Cells["ServicioCombo"].Value = drServComb["Nombre"].ToString();
+                                        row.Cells["Type"].Value = drServComb["Tipo"].ToString();
                                     }
                                 }
                             }
@@ -147,6 +148,43 @@ namespace PuntoDeVentaV2
                             row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
                             row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
                             row.Cells["Type"].Value = Tipo;
+                            row.Cells["Eliminar"].Value = ImageDelete;
+                        }
+                    }
+                }
+                if (listaServCombo.Count().Equals(1))
+                {
+                    if (!listaServCombo[0].ToString().Equals(string.Empty))
+                    {
+                        foreach (var item in listaServCombo)
+                        {
+                            var words = item.Split('|');
+                            var numberOfRows = DGVProdServCombo.Rows.Add();
+                            DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
+
+                            string Fecha = words[0].ToString();
+                            string IDServicio = words[1].ToString();
+                            string IDProducto = words[2].ToString();
+                            string NombreProducto = words[3].ToString();
+                            string Cantidad = words[4].ToString();
+                            var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
+
+                            row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
+                            row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
+                            using (DataTable dtServComb = cn.CargarDatos(cs.obtenerServicioCombo(Convert.ToInt32(IDServicio))))
+                            {
+                                if (!dtServComb.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow drServComb in dtServComb.Rows)
+                                    {
+                                        row.Cells["ServicioCombo"].Value = drServComb["Nombre"].ToString();
+                                        row.Cells["Type"].Value = drServComb["Tipo"].ToString();
+                                    }
+                                }
+                            }
+                            row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
+                            row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
+                            row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
                             row.Cells["Eliminar"].Value = ImageDelete;
                         }
                     }
