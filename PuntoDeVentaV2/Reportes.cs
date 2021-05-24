@@ -100,6 +100,9 @@ namespace PuntoDeVentaV2
 
         private void GenerarReportePrecios(string procedencia, int idEmp)
         {
+            var precioAnteriorSuma = 0.00;
+            var precioNuevoSuma = 0.00;
+
             var datos = FormPrincipal.datosUsuario;
 
             var colorFuenteNegrita = new BaseColor(Color.Black);
@@ -173,11 +176,16 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            float[] anchoColumnas = new float[] { 300f, 60f, 150f, 100f, 80f, 80f, 100f, 120f };
+            float[] anchoColumnas = new float[] { 50f, 300f, 60f, 150f, 100f, 80f, 80f, 100f, 120f };
 
-            PdfPTable tabla = new PdfPTable(8);
+            PdfPTable tabla = new PdfPTable(9);
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
+
+            PdfPCell colNumeroFila = new PdfPCell(new Phrase("No.", fuenteNegrita));
+            colNumeroFila.BorderWidth = 1;
+            colNumeroFila.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colNumeroFila.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colProducto = new PdfPCell(new Phrase("Producto / Servicio / Combo", fuenteNegrita));
             colProducto.BorderWidth = 1;
@@ -219,6 +227,7 @@ namespace PuntoDeVentaV2
             colFechaOperacion.BackgroundColor = new BaseColor(Color.SkyBlue);
             colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
+            tabla.AddCell(colNumeroFila);
             tabla.AddCell(colProducto);
             tabla.AddCell(colTipoProducto);
             tabla.AddCell(colCodigoAsociado);
@@ -268,8 +277,11 @@ namespace PuntoDeVentaV2
             sql_cmd = new MySqlCommand(consulta, sql_con);
             dr = sql_cmd.ExecuteReader();
 
+            int numRow = 0;
+
             while (dr.Read())
             {
+                numRow += 1;
                 var idAutor = 0;
                 var idDeUsuario = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDUsuario")));
                 var idEmpleado = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDEmpleado")));
@@ -302,8 +314,15 @@ namespace PuntoDeVentaV2
                 var precioNuevo = float.Parse(dr.GetValue(dr.GetOrdinal("PrecioNuevo")).ToString());
                 var origen = dr.GetValue(dr.GetOrdinal("Origen")).ToString();
 
+                precioAnteriorSuma += precioAnterior;
+                precioNuevoSuma += precioNuevo;
+
                 DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
                 var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+
+                PdfPCell colIncrementoRow = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                colIncrementoRow.BorderWidth = 1;
+                colIncrementoRow.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colProductoTmp = new PdfPCell(new Phrase(nombreProducto, fuenteNormal));
                 colProductoTmp.BorderWidth = 1;
@@ -337,6 +356,7 @@ namespace PuntoDeVentaV2
                 colFechaOperacionTmp.BorderWidth = 1;
                 colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                tabla.AddCell(colIncrementoRow);
                 tabla.AddCell(colProductoTmp);
                 tabla.AddCell(colTipoProductoTmp);
                 tabla.AddCell(colCodigosAsociadosTmp);
@@ -346,6 +366,57 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colOrigenTmp);
                 tabla.AddCell(colFechaOperacionTmp);
             }
+
+            //Columna para total de dinero
+            PdfPCell colNumFilatempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colNumFilatempTotal.BorderWidth = 0;
+            colNumFilatempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colClienteTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colClienteTempTotal.BorderWidth = 0;
+            colClienteTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colRFCTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colRFCTempTotal.BorderWidth = 0;
+            colRFCTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colTotalTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colTotalTempTotal.BorderWidth = 0;
+            colTotalTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colFolioTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colFolioTempTotal.BorderWidth = 0;
+            colFolioTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colSerieTempTotal = new PdfPCell(new Phrase("$" + precioAnteriorSuma.ToString("0.00"), fuenteNormal));
+            colSerieTempTotal.BorderWidth = 0;
+            colSerieTempTotal.BorderWidthBottom = 1;
+            colSerieTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSerieTempTotal.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colFechaTempTotal = new PdfPCell(new Phrase("$" + precioNuevoSuma.ToString("0.00"), fuenteNormal));
+            colFechaTempTotal.BorderWidth = 0;
+            colFechaTempTotal.BorderWidthBottom = 1;
+            colFechaTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colFechaTempTotal.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colEmpleadoTempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colEmpleadoTempTotal.BorderWidth = 0;
+            colEmpleadoTempTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colEmpleadoTempTotalsegundo = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            colEmpleadoTempTotalsegundo.BorderWidth = 0;
+            colEmpleadoTempTotalsegundo.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            tabla.AddCell(colNumFilatempTotal);
+            tabla.AddCell(colClienteTempTotal);
+            tabla.AddCell(colRFCTempTotal);
+            tabla.AddCell(colTotalTempTotal);
+            tabla.AddCell(colFolioTempTotal);
+            tabla.AddCell(colSerieTempTotal);
+            tabla.AddCell(colFechaTempTotal);
+            tabla.AddCell(colEmpleadoTempTotal);
+            tabla.AddCell(colEmpleadoTempTotalsegundo);
 
             /******************************************
              ** Fin de la tabla                      **
