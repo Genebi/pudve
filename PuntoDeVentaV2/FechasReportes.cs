@@ -21,6 +21,9 @@ namespace PuntoDeVentaV2
 
         private string origen = string.Empty;
 
+        public static int idEncontrado { get; set; }
+        public static string lugarProcedencia { get; set; }
+
         public FechasReportes(string origen = "")
         {
             InitializeComponent();
@@ -61,13 +64,16 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                hpBuscador.ShowDialog();
-
                 hpBuscador.FormClosed += delegate
                 {
-
-                    terminarOperaciones();
+                    var idBusqueda = HistorialPrecioBuscador.idEmpleadoObtenido;
+                    if (idBusqueda != -1)
+                    {
+                        terminarOperaciones();
+                    }
                 };
+
+                hpBuscador.ShowDialog();
             }
 
         }
@@ -95,6 +101,9 @@ namespace PuntoDeVentaV2
             concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
             fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
             fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
+
+            idEncontrado = HistorialPrecioBuscador.idEmpleadoObtenido;
+            lugarProcedencia = HistorialPrecioBuscador.procedencia;
 
             DialogResult = DialogResult.OK;
             Reportes.botonAceptar = true;

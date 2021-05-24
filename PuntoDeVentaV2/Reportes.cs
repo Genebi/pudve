@@ -26,6 +26,9 @@ namespace PuntoDeVentaV2
         private string fechaInicial = string.Empty;
         private string fechaFinal = string.Empty;
 
+        private int idAMostrar = 0;
+        private string tipoBusquedaHistorialPrcios = string.Empty;
+
         public static bool botonAceptar = false;
 
         // Permisos botones
@@ -80,7 +83,7 @@ namespace PuntoDeVentaV2
                             {
                                 if (Utilidades.AdobeReaderInstalado())
                                 {
-                                    GenerarReportePrecios();
+                                    GenerarReportePrecios(FechasReportes.lugarProcedencia, FechasReportes.idEncontrado);
                                 }
                                 else
                                 {
@@ -95,7 +98,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void GenerarReportePrecios()
+        private void GenerarReportePrecios(string procedencia, int idEmp)
         {
             var datos = FormPrincipal.datosUsuario;
 
@@ -241,7 +244,28 @@ namespace PuntoDeVentaV2
             }
 
             sql_con.Open();
-            sql_cmd = new MySqlCommand($"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion DESC", sql_con);
+
+            var consulta = string.Empty;
+            if (procedencia.Equals("Seleccionar Empleado/Producto"))//consulta Normal
+            {
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion DESC";
+            }
+            else if (procedencia.Equals("Empleados"))// Consulta segun empleado
+            {
+                int validarId = 0;
+                if (idEmp != 0)
+                {
+                    validarId = idEmp;
+                }
+
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDEmpleado = '{validarId}' ORDER BY FechaOperacion DESC";
+            }
+            else if (procedencia.Equals("Productos"))//Consulta por producto
+            {
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDProducto = '{idEmp}'ORDER BY FechaOperacion DESC";
+            }
+
+            sql_cmd = new MySqlCommand(consulta, sql_con);
             dr = sql_cmd.ExecuteReader();
 
             while (dr.Read())
