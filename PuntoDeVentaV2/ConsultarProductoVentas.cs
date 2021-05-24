@@ -311,6 +311,11 @@ namespace PuntoDeVentaV2
 
             DGVProductos.Rows.Clear();
 
+            if (dtDatos.Rows.Count.Equals(0))
+            {
+                MessageBox.Show("No se encuntra ninguna coincidencia\ncon la busqueda que desea realizar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
             foreach (DataRow filaDatos in dtDatos.Rows)
             {
                 var numeroFilas = DGVProductos.Rows.Count;
