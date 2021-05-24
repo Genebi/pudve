@@ -2746,7 +2746,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            idCliente = string.Empty;
+            //idCliente = string.Empty;
         }
 
         private void DatosVenta()
@@ -3095,6 +3095,8 @@ namespace PuntoDeVentaV2
                             DetallesCliente(idVenta);
                         }
                     }
+
+                    idCliente = string.Empty;
 
                     // Convertir la cadena que guarda los IDs de los anticipos usados en Array
                     if (!string.IsNullOrEmpty(listaAnticipos))
