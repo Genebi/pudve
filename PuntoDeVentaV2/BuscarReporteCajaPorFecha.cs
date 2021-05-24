@@ -245,17 +245,7 @@ namespace PuntoDeVentaV2
             var totalAg = string.Empty; var efectivoAg = string.Empty; var tarjetaAg = string.Empty; var valesAg = string.Empty; var chequeAg = string.Empty; var transAg = string.Empty; var anticiposA = string.Empty;
             var consultaDineroAgregado = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito, IFNULL(SUM(Anticipo),0) AS Anticipo FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'deposito' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
 
-            if (!consultaRetiradoCorte.Rows.Count.Equals(0))
-            {
-                totalCantidadCaja = float.Parse(consultaRetiradoCorte.Rows[0]["Total"].ToString());
-            }
-
-            if (!consultaUltimoCorte.Rows.Count.Equals(0))
-            {
-                cantidadFinal = float.Parse(consultaUltimoCorte.Rows[0]["Cantidad"].ToString());
-            }
-
-            var dineroRetiradoCorte = (totalCantidadCaja - cantidadFinal);
+            
 
             var dTotal = 0f; var dEfectivo = 0f; var dTarjeta = 0f; var dVales = 0f; var dCheque = 0f; var dTrans = 0f; var dCredito = 0f;
             var saltar = 0;
@@ -346,6 +336,18 @@ namespace PuntoDeVentaV2
                 anticiposA = consultaDineroAgregado.Rows[0]["Anticipo"].ToString();
             }
 
+            if (!consultaRetiradoCorte.Rows.Count.Equals(0))
+            {
+                totalCantidadCaja = float.Parse(consultaRetiradoCorte.Rows[0]["Total"].ToString());
+            }
+
+            if (!consultaUltimoCorte.Rows.Count.Equals(0))
+            {
+                cantidadFinal = float.Parse(consultaUltimoCorte.Rows[0]["Cantidad"].ToString());
+            }
+
+            var dineroRetiradoCorte = ((totalCantidadCaja - float.Parse(totalR)) - cantidadFinal);
+
             //Sumar cantidades
             var ventas = ((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(creditoC) + (float)Convert.ToDecimal(totalA) + (float)Convert.ToDecimal(anticiposA));
 
@@ -368,18 +370,28 @@ namespace PuntoDeVentaV2
 
             var total = ((rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial + (float)Convert.ToDecimal(creditoC)) - dineroRetiradoCorte);
 
-            lista.Add("Efectivo:|" + Convert.ToDecimal(efectivoC).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoAnt).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoAg).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoR).ToString("C") + "|Efectivo:|" + (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg)) - (float)Convert.ToDecimal(efectivoR)).ToString("C"));
+            var totEfectivo = (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg)) - (float)Convert.ToDecimal(efectivoR));
+            if (totEfectivo < 0) { totEfectivo = 0; }
+            lista.Add("Efectivo:|" + Convert.ToDecimal(efectivoC).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoAnt).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoAg).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoR).ToString("C") + "|Efectivo:|" + totEfectivo.ToString("C"));
             //lista.Add("Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" );
 
             //lista.Add($"{efectivoC} | {efectivoAnt} | {efectivoAg} | {efectivoR} | {((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR))}");
 
-            lista.Add("Tarjeta:|" + Convert.ToDecimal(tarjetaC).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaAnt).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaAg).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaR).ToString("C") + "|Tarjeta:|" + (((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg)) - (float)Convert.ToDecimal(tarjetaR)).ToString("C"));
+            var totTarjeta = (((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg)) - (float)Convert.ToDecimal(tarjetaR));
+            if (totTarjeta < 0) { totTarjeta = 0; }
+            lista.Add("Tarjeta:|" + Convert.ToDecimal(tarjetaC).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaAnt).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaAg).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaR).ToString("C") + "|Tarjeta:|" + totTarjeta.ToString("C"));
 
-            lista.Add("Vales:|" + Convert.ToDecimal(valesC).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesAnt).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesAg).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesR).ToString("C") + "|Vales:|" + (((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg)) - (float)Convert.ToDecimal(valesR)).ToString("C"));
+            var totVales = (((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg)) - (float)Convert.ToDecimal(valesR));
+            if (totVales < 0 ) { totVales = 0; }
+            lista.Add("Vales:|" + Convert.ToDecimal(valesC).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesAnt).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesAg).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesR).ToString("C") + "|Vales:|" + totVales.ToString("C"));
 
-            lista.Add("Cheque:|" + Convert.ToDecimal(chequeC).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeAnt).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeAg).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeR).ToString("C") + "|Cheque:|" + (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg)) - (float)Convert.ToDecimal(chequeR)).ToString("C"));
+            var totCheque = (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg)) - (float)Convert.ToDecimal(chequeR));
+            if (totCheque < 0) { totCheque = 0; }
+            lista.Add("Cheque:|" + Convert.ToDecimal(chequeC).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeAnt).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeAg).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeR).ToString("C") + "|Cheque:|" + totCheque.ToString("C"));
 
-            lista.Add("Transferencia:|" + Convert.ToDecimal(transC).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transAnt).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transAg).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transR).ToString("C") + "|Transferencia:|" + (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg)) - (float)Convert.ToDecimal(transR)).ToString("C"));
+            var totTrans = (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg)) - (float)Convert.ToDecimal(transR));
+            if (totTrans < 0) { totTrans = 0; }
+            lista.Add("Transferencia:|" + Convert.ToDecimal(transC).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transAnt).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transAg).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transR).ToString("C") + "|Transferencia:|" + totTrans.ToString("C"));
 
             lista.Add("Crédito:|" + Convert.ToDecimal(creditoC).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|"+string.Empty+"|"+ string.Empty+"|Anticipos Utilizados:|" + Convert.ToDecimal(anticiposR).ToString("C") + "|Saldo Inicial:|" + saldoInicial.ToString("C"));
 
