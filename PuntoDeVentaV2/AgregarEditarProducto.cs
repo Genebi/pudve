@@ -5961,6 +5961,7 @@ namespace PuntoDeVentaV2
             {
                 ListStock.TypeStock = "Productos";
             }
+
             ListStock.ShowDialog();
         }
 

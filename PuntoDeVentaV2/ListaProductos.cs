@@ -80,6 +80,9 @@ namespace PuntoDeVentaV2
         // para usarlo
         private Paginar p;
 
+        //variable para saber de donde fue llamada la ventana
+        public int DatosSourceFinal = 0;
+
         #region Sección de variables globales
         // Variables de tipo String
         string filtroConSinFiltroAvanzado = string.Empty;
@@ -659,7 +662,7 @@ namespace PuntoDeVentaV2
             consultadoDesdeListProdFin = consultadoDesdeListProd;   // almacenamos el valor de consultadoDesdeListProd
             opcionGuardarFin = opcionGuardar;                       // almacenamos el valor de opcionGuardar
 
-            if (agregarstockxml == false)
+            if (DatosSourceFinal.Equals(0))
             {
                 if (typeStockFinal == "Productos")
                 {
@@ -670,8 +673,7 @@ namespace PuntoDeVentaV2
                     nombreProducto(NombreProdStrFin, IdProdStrFin);
                 }
             }
-            
-            
+
             this.Close();
         }
     }
