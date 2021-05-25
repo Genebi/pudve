@@ -5953,11 +5953,19 @@ namespace PuntoDeVentaV2
         {
             ListaProductos ListStock = new ListaProductos();
             ListStock.nombreProducto += new ListaProductos.pasarProducto(ejecutar);
-            if (this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO")
+
+            if (this.Text.Trim() == "AGREGAR PRODUCTO" || 
+                this.Text.Trim() == "EDITAR PRODUCTO" || 
+                this.Text.Trim() == "COPIAR PRODUCTO")
             {
                 ListStock.TypeStock = "Combos";
             }
-            else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS")
+            else if (this.Text.Trim() == "AGREGAR COMBOS" || 
+                    this.Text.Trim() == "EDITAR COMBOS" || 
+                    this.Text.Trim() == "COPIAR COMBOS" || 
+                    this.Text.Trim() == "AGREGAR SERVICIOS" || 
+                    this.Text.Trim() == "EDITAR SERVICIOS" || 
+                    this.Text.Trim() == "COPIAR SERVICIOS")
             {
                 ListStock.TypeStock = "Productos";
             }
@@ -5972,7 +5980,12 @@ namespace PuntoDeVentaV2
             int numero = 0;
             if (!int.TryParse(CBNombProd, out numero))
             {
-                if ((this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS") && DatosSourceFinal == 1)
+                if ((this.Text.Trim().Equals("AGREGAR COMBOS") || 
+                     this.Text.Trim().Equals("EDITAR COMBOS") || 
+                     this.Text.Trim().Equals("COPIAR COMBOS") || 
+                     this.Text.Trim().Equals("AGREGAR SERVICIOS") || 
+                     this.Text.Trim().Equals("EDITAR SERVICIOS") || 
+                     this.Text.Trim().Equals("COPIAR SERVICIOS")) && DatosSourceFinal == 1)
                 {
                     string prodSerPaq = null;
                     DataTable dtProductos;
@@ -6004,7 +6017,12 @@ namespace PuntoDeVentaV2
                     }
                     GenerarPanelProductosServPlus();
                 }
-                else if ((this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS") && DatosSourceFinal == 2)
+                else if ((this.Text.Trim().Equals("AGREGAR COMBOS") || 
+                          this.Text.Trim().Equals("EDITAR COMBOS") || 
+                          this.Text.Trim().Equals("COPIAR COMBOS") || 
+                          this.Text.Trim().Equals("AGREGAR SERVICIOS") || 
+                          this.Text.Trim().Equals("EDITAR SERVICIOS") || 
+                          this.Text.Trim().Equals("COPIAR SERVICIOS")) && DatosSourceFinal == 2)
                 {
                     //string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idEditarProducto}", $"{CBIdProd}", $"{CBNombProd}", $"{txtCantPaqServ.Text}" };
                     //cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
@@ -6040,7 +6058,9 @@ namespace PuntoDeVentaV2
                     }
                     GenerarPanelProductosServPlus();
                 }
-                else if (this.Text.Trim() == "AGREGAR PRODUCTO" && (DatosSourceFinal == 1 | DatosSourceFinal == 3)) // Se agrega el DatosSourceFinal= 3 para que también aplique cuando es desde XML. Miri.
+                else if (this.Text.Trim().Equals("AGREGAR PRODUCTO") && 
+                        (DatosSourceFinal.Equals(1) || 
+                         DatosSourceFinal.Equals(3))) // Se agrega el DatosSourceFinal= 3 para que también aplique cuando es desde XML. Miri.
                 {
                     using (DataTable dtDatosComboServicio = cn.CargarDatos(cs.getDatosServCombo(CBIdProd)))
                     {
@@ -6073,7 +6093,7 @@ namespace PuntoDeVentaV2
                         listaProductoToCombo[0] = fechaServCombo + "|" + idServCombo + "|" + idProducto + "|" + nombreProducto + "|" + cantidadServCombo;
                     }
                 }
-                else if (this.Text.Trim() == "EDITAR PRODUCTO" && DatosSourceFinal == 2)
+                else if (this.Text.Trim().Equals("EDITAR PRODUCTO") && DatosSourceFinal.Equals(2))
                 {
                     using (DataTable dtDatosComboServicio = cn.CargarDatos(cs.getDatosServCombo(CBIdProd)))
                     {
@@ -6108,7 +6128,9 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            else if ((this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO") && DatosSourceFinal == 1)
+            else if ((this.Text.Trim().Equals("AGREGAR PRODUCTO") || 
+                      this.Text.Trim().Equals("EDITAR PRODUCTO") || 
+                      this.Text.Trim().Equals("COPIAR PRODUCTO")) && DatosSourceFinal.Equals(1))
             {
                 
             }

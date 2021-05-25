@@ -674,7 +674,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            this.Close();
+            Close();
         }
     }
 }
