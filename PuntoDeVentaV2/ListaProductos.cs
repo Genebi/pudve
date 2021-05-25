@@ -662,7 +662,7 @@ namespace PuntoDeVentaV2
             consultadoDesdeListProdFin = consultadoDesdeListProd;   // almacenamos el valor de consultadoDesdeListProd
             opcionGuardarFin = opcionGuardar;                       // almacenamos el valor de opcionGuardar
 
-            if (DatosSourceFinal.Equals(0))
+            if (agregarstockxml.Equals(false))
             {
                 if (typeStockFinal == "Productos")
                 {
@@ -674,7 +674,23 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            Close();
+            if (agregarstockxml.Equals(true))
+            {
+                if (typeStockFinal == "Productos")
+                {
+                    AgregarStockXML.StockProdStrFin = StockProdStr;  // almacenamos el valor de StockProd
+                    AgregarStockXML.PrecioDelProdStrFin = PrecioDelProdStr;                 // almacenamos el valor de PrecioDelProd
+                    AgregarStockXML.CategoriaProdStrFin = CategoriaProdStr;                 // almacenamos el valor de CategoriaProd
+                    AgregarStockXML.ClaveInternaProdStrFin = ClaveInternaProdStr;           // almacenamos el valor de ClaveInternaProd
+                    AgregarStockXML.CodigoBarrasProdStrFin = CodigoBarrasProdStr;           // almacenamos el valor de CodigoBarrasProd
+                    consultadoDesdeListProd = 1;                                            // almacenamos el valor si selecciono un producto
+                    AgregarStockXML.consultadoDesdeListProdFin = consultadoDesdeListProd;   // almacenamos el valor de consultadoDesdeListProd
+                    AgregarStockXML.opcionGuardarFin = opcionGuardar;                       // almacenamos el valor de opcionGuardar
+                    nombreProducto(NombreProdStrFin, IdProdStrFin);
+                }
+            }
+
+            this.Close();
         }
     }
 }

@@ -5954,18 +5954,18 @@ namespace PuntoDeVentaV2
             ListaProductos ListStock = new ListaProductos();
             ListStock.nombreProducto += new ListaProductos.pasarProducto(ejecutar);
 
-            if (this.Text.Trim() == "AGREGAR PRODUCTO" || 
-                this.Text.Trim() == "EDITAR PRODUCTO" || 
-                this.Text.Trim() == "COPIAR PRODUCTO")
+            if (this.Text.Trim().Equals("AGREGAR PRODUCTO") || 
+                this.Text.Trim().Equals("EDITAR PRODUCTO") || 
+                this.Text.Trim().Equals("COPIAR PRODUCTO"))
             {
                 ListStock.TypeStock = "Combos";
             }
-            else if (this.Text.Trim() == "AGREGAR COMBOS" || 
-                    this.Text.Trim() == "EDITAR COMBOS" || 
-                    this.Text.Trim() == "COPIAR COMBOS" || 
-                    this.Text.Trim() == "AGREGAR SERVICIOS" || 
-                    this.Text.Trim() == "EDITAR SERVICIOS" || 
-                    this.Text.Trim() == "COPIAR SERVICIOS")
+            else if (this.Text.Trim().Equals("AGREGAR COMBOS") || 
+                    this.Text.Trim().Equals("EDITAR COMBOS") || 
+                    this.Text.Trim().Equals("COPIAR COMBOS") || 
+                    this.Text.Trim().Equals("AGREGAR SERVICIOS") || 
+                    this.Text.Trim().Equals("EDITAR SERVICIOS") || 
+                    this.Text.Trim().Equals("COPIAR SERVICIOS"))
             {
                 ListStock.TypeStock = "Productos";
             }
