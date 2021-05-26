@@ -5124,7 +5124,7 @@ namespace PuntoDeVentaV2
             {
                 consultarListaRelacion.idProdEdit = Convert.ToInt32(idEditarProducto);
             }
-            consultarListaRelacion.Show();
+            consultarListaRelacion.ShowDialog();
         }
 
         private void LoadPanelDatos()
