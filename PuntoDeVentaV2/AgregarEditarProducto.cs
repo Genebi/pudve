@@ -722,7 +722,7 @@ namespace PuntoDeVentaV2
             namePanel = comboBox.Name.ToString().Remove(0, 2);
             gralDetailGralSelected = Convert.ToString(comboBox.Text);
 
-            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(2))
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3) || DatosSourceFinal.Equals(2))
             {
                 listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel.Remove(0, 3));
             }
