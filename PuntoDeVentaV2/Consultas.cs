@@ -1929,5 +1929,12 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT usuario FROM usuarios WHERE usuario = '{usuario}'";
             return consulta;
         }
+
+        public string checarSiExisteRelacionProducto(int idProd)
+        {
+            var consulta = $"SELECT IDServicio, IDProducto, NombreProducto FROM productosdeservicios WHERE IDProducto = '{idProd}'; ";
+
+            return consulta;
+        }
     }
 }

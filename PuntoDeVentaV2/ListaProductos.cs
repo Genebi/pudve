@@ -16,6 +16,8 @@ namespace PuntoDeVentaV2
         // variables para poder manejar las filas y poder hacer procesos
         int IdProd, numfila;
 
+        public int idProdEdit;
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -603,6 +605,26 @@ namespace PuntoDeVentaV2
         {
             // variable para poder saber que fila fue la seleccionada
             numfila = DGVStockProductos.CurrentRow.Index;
+
+            if (!idProdEdit.Equals(0))
+            {
+                using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionProducto(idProdEdit)))
+                {
+                    if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
+                        {
+                            var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
+                            if (drRelacion["IDServicio"].Equals(idServ))
+                            {
+                                MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
             // almacenamos en la variable IdProdStr del resultado de la consulta en DB
             IdProdStr = DGVStockProductos[0, numfila].Value.ToString();
             // almacenamos en la variable NombreProdStr del resultado de la consulta en DB

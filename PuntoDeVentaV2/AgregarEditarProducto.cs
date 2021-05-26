@@ -5959,6 +5959,14 @@ namespace PuntoDeVentaV2
                 this.Text.Trim().Equals("COPIAR PRODUCTO"))
             {
                 ListStock.TypeStock = "Combos";
+
+                if (DatosSourceFinal.Equals(2))
+                {
+                    if (!Convert.ToInt32(idEditarProducto).Equals(0))
+                    {
+                        ListStock.idProdEdit = Convert.ToInt32(idEditarProducto);
+                    }
+                }
             }
             else if (this.Text.Trim().Equals("AGREGAR COMBOS") ||
                     this.Text.Trim().Equals("EDITAR COMBOS") ||
@@ -5968,6 +5976,14 @@ namespace PuntoDeVentaV2
                     this.Text.Trim().Equals("COPIAR SERVICIOS"))
             {
                 ListStock.TypeStock = "Productos";
+
+                if (DatosSourceFinal.Equals(2))
+                {
+                    if (!Convert.ToInt32(idEditarProducto).Equals(0))
+                    {
+                        ListStock.idProdEdit = Convert.ToInt32(idEditarProducto);
+                    }
+                }
             }
 
             ListStock.ShowDialog();
