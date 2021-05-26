@@ -30,6 +30,7 @@ namespace PuntoDeVentaV2
         {
             idEmpleadoObtenido = -1;
             this.Text = $"Buscar de {tipoBuscador}";
+            lbTitulo.Text = $"Buscar {tipoBuscador}";
 
             if (tipoBuscador.Equals("Empleados"))
             {

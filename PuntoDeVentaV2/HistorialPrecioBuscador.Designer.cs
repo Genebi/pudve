@@ -47,11 +47,10 @@
             // lbTitulo
             // 
             this.lbTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTitulo.Location = new System.Drawing.Point(294, 9);
+            this.lbTitulo.Location = new System.Drawing.Point(223, 9);
             this.lbTitulo.Name = "lbTitulo";
-            this.lbTitulo.Size = new System.Drawing.Size(100, 23);
+            this.lbTitulo.Size = new System.Drawing.Size(246, 23);
             this.lbTitulo.TabIndex = 1;
-            this.lbTitulo.Text = "Texto";
             this.lbTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnBuscar
@@ -90,6 +89,7 @@
             this.Controls.Add(this.lbTitulo);
             this.Controls.Add(this.txtBuscar);
             this.Name = "HistorialPrecioBuscador";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HistorialPrecioBuscador";
             this.Load += new System.EventHandler(this.HistorialPrecioBuscador_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVDatos)).EndInit();
