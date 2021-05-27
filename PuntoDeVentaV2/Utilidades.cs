@@ -1584,7 +1584,7 @@ namespace PuntoDeVentaV2
                                     </table>
                                 </div>";
 
-            if (!string.IsNullOrWhiteSpace(datosEnvioCorreo[13]))
+            if ( Convert.ToInt32(datosEnvioCorreo[13]) != 0/*!string.IsNullOrWhiteSpace(datosEnvioCorreo[13])*/)//Valida cuando es empleado
             {
                 var datosEmpleado = datosEnvioCorreo[14].Split('@');
 
