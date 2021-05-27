@@ -1702,7 +1702,7 @@ namespace PuntoDeVentaV2
             colVacioOctavoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
             colVacioOctavoSaldo.Padding = 3;
 
-            PdfPCell colVacioNovenoSaldo = new PdfPCell(new Phrase($"Total en Caja despues del Corte:", fuenteNegrita));
+            PdfPCell colVacioNovenoSaldo = new PdfPCell(new Phrase($"Total en Caja antes del corte:", fuenteNegrita));
             colVacioNovenoSaldo.BorderWidth = 0;
             colVacioNovenoSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
             colVacioNovenoSaldo.Padding = 3;
@@ -1772,7 +1772,7 @@ namespace PuntoDeVentaV2
             colTotalDineroR.Padding = 3;
             colTotalDineroR.BackgroundColor = new BaseColor(Color.Red);
 
-            PdfPCell colTotalFinal = new PdfPCell(new Phrase($"Total en Caja", fuenteTotales));
+            PdfPCell colTotalFinal = new PdfPCell(new Phrase($"Total en Caja despues del corte", fuenteTotales));
             colTotalFinal.BorderWidth = 0;
             colTotalFinal.HorizontalAlignment = Element.ALIGN_CENTER;
             colTotalFinal.Padding = 3;

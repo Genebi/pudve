@@ -1273,7 +1273,7 @@ namespace PuntoDeVentaV2
             foreach (DataRow datosRecorrer in datoCantidad.Rows)
             {
                 var nombreEmpleado = cs.BuscarEmpleadoCaja(Convert.ToInt32(datosRecorrer["IdEmpleado"].ToString()));
-                if (string.IsNullOrEmpty(nombreEmpleado)) { usuario = $"ADMIN ({FormPrincipal.userNickName})"; } else { usuario = nombreEmpleado; }
+                if (string.IsNullOrEmpty(nombreEmpleado)) { usuario = $"ADMIN"; } else { usuario = nombreEmpleado; }
 
                 PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(usuario, fuenteNormal));
                 colEmpleadoTmp.BorderWidth = 0;

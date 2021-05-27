@@ -133,8 +133,15 @@ namespace PuntoDeVentaV2
                             //Realizar una operacion de corte de caja para cuando sea una ceunta nueva 
                             cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('corte', '0.00', '0.00', '', '{fechaCreacion}', '{Id}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
 
+                            //Se agrega un segundo para las consultas que se hacen en cuentas nuevas
+                            DateTime dt = Convert.ToDateTime(fechaCreacion);
+                            var fechaFinal = dt.AddSeconds(1).ToString("yyyy-MM-dd HH:mm:ss");
+
+                            //Realizar una operacion de corte de caja para cuando sea una ceunta nueva 
+                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('venta', '0.00', '0.00', '', '{fechaFinal}', '{Id}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
+
                             ////Realizar una operacion de retiro de caja para cuando sea una ceunta nueva 
-                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('retiro', '0.00', '0.00', '', '{fechaCreacion}', '{Id}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
+                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('retiro', '0.00', '0.00', '', '{fechaFinal}', '{Id}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
 
                             FormPrincipal fp = new FormPrincipal();
 
