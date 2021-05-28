@@ -3024,54 +3024,60 @@ namespace PuntoDeVentaV2
                                     var datosProducto = producto.Split('|');
                                     if (!datosProducto[0].Equals("0"))
                                     {
-                                        var idProducto = Convert.ToInt32(datosProducto[0]);
-                                        var stockRequerido = Convert.ToDecimal(datosProducto[1]) * vendidos;
-
-                                        // Actualizar el stock de los productos de los servicios o paquetes
-                                        datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
-                                        datosProducto = datosProducto[0].Split('|');
-                                        var stockActual = Convert.ToDecimal(datosProducto[1]);
-
-                                        var restantes = (stockActual - stockRequerido).ToString();
-
-                                        guardar = new string[] { idProducto.ToString(), restantes, FormPrincipal.userID.ToString() };
-
-                                        cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
-
-
-                                        // Comprobar si aplica para el envio de correo ya sea de stock minimo, de venta o ambos
-                                        if (correoStockMinimo == 1 || correoVentaProducto == 1)
+                                        using (DataTable dtCheckProdIsActive = cn.CargarDatos(cs.checarProductoEstaActivo(datosProducto[0])))
                                         {
-                                            var configProducto = mb.ComprobarCorreoProducto(idProducto);
-
-                                            if (configProducto.Count > 0)
+                                            if (!dtCheckProdIsActive.Rows.Count.Equals(0))
                                             {
-                                                var datosProductoTmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                                                var idProducto = Convert.ToInt32(datosProducto[0]);
+                                                var stockRequerido = Convert.ToDecimal(datosProducto[1]) * vendidos;
 
-                                                // Correo de stock minimo
-                                                if (configProducto[2] == 1)
+                                                // Actualizar el stock de los productos de los servicios o paquetes
+                                                datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
+                                                datosProducto = datosProducto[0].Split('|');
+                                                var stockActual = Convert.ToDecimal(datosProducto[1]);
+
+                                                var restantes = (stockActual - stockRequerido).ToString();
+
+                                                guardar = new string[] { idProducto.ToString(), restantes, FormPrincipal.userID.ToString() };
+
+                                                cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
+
+
+                                                // Comprobar si aplica para el envio de correo ya sea de stock minimo, de venta o ambos
+                                                if (correoStockMinimo == 1 || correoVentaProducto == 1)
                                                 {
-                                                    // Obtener el stock minimo del producto
-                                                    var stockMinimo = (float)Convert.ToDouble(datosProductoTmp[10]);
-                                                    var stockTmp = (float)Convert.ToDouble(datosProductoTmp[4]);
+                                                    var configProducto = mb.ComprobarCorreoProducto(idProducto);
 
-                                                    if (stockTmp <= stockMinimo)
+                                                    if (configProducto.Count > 0)
                                                     {
-                                                        if (!enviarStockMinimo.ContainsKey(idProducto))
+                                                        var datosProductoTmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+
+                                                        // Correo de stock minimo
+                                                        if (configProducto[2] == 1)
                                                         {
-                                                            var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK MINIMO: {datosProductoTmp[10]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
-                                                            enviarStockMinimo.Add(idProducto, nombre);
-                                                        }
-                                                    }
-                                                }
+                                                            // Obtener el stock minimo del producto
+                                                            var stockMinimo = (float)Convert.ToDouble(datosProductoTmp[10]);
+                                                            var stockTmp = (float)Convert.ToDouble(datosProductoTmp[4]);
 
-                                                // Correo venta de producto
-                                                if (configProducto[3] == 1)
-                                                {
-                                                    if (!enviarVentaProducto.ContainsKey(idProducto))
-                                                    {
-                                                        var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK ACTUAL: {restantes}";
-                                                        enviarVentaProducto.Add(idProducto, nombre);
+                                                            if (stockTmp <= stockMinimo)
+                                                            {
+                                                                if (!enviarStockMinimo.ContainsKey(idProducto))
+                                                                {
+                                                                    var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK MINIMO: {datosProductoTmp[10]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
+                                                                    enviarStockMinimo.Add(idProducto, nombre);
+                                                                }
+                                                            }
+                                                        }
+
+                                                        // Correo venta de producto
+                                                        if (configProducto[3] == 1)
+                                                        {
+                                                            if (!enviarVentaProducto.ContainsKey(idProducto))
+                                                            {
+                                                                var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK ACTUAL: {restantes}";
+                                                                enviarVentaProducto.Add(idProducto, nombre);
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }

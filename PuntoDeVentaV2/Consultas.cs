@@ -1936,5 +1936,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string checarProductoEstaActivo(string idProd)
+        {
+            var consulta = $"SELECT ID, Nombre, Precio, `Status` FROM Productos WHERE ID = '{idProd}' AND `Status` = '1' AND IDUsuario = '{FormPrincipal.userID}';";
+
+            return consulta;
+        }
     }
 }
