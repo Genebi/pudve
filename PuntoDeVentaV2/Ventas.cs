@@ -2850,8 +2850,11 @@ namespace PuntoDeVentaV2
                     // eliminarse junto con sus productos de la tabla ProductosVenta
                     foreach (var venta in ventasGuardadas)
                     {
-                        cn.EjecutarConsulta($"DELETE FROM Ventas WHERE ID = {venta} AND IDUsuario = {FormPrincipal.userID} AND Status = 2");
-                        cn.EjecutarConsulta(cs.EliminarProductosVenta(venta));
+                        if (venta.Equals(idVenta))
+                        {
+                            cn.EjecutarConsulta($"DELETE FROM Ventas WHERE ID = {venta} AND IDUsuario = {FormPrincipal.userID} AND Status = 2");
+                            cn.EjecutarConsulta(cs.EliminarProductosVenta(venta));
+                        }
                     }
 
                     // Array para almacenar la informacion de los productos vendidos
