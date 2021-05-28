@@ -7298,6 +7298,10 @@ namespace PuntoDeVentaV2
                                 txtCantPaqServ.Text = drProdServCombo["Cantidad"].ToString();
                             }
                         }
+                        else
+                        {
+                            txtCantPaqServ.Text = "1";
+                        }
                     }
                 }
                 else if (DatosSourceFinal.Equals(1))
@@ -7449,6 +7453,10 @@ namespace PuntoDeVentaV2
                             {
                                 txtCantPaqServ.Text = drProdServCombo["Cantidad"].ToString();
                             }
+                        }
+                        else
+                        {
+                            txtCantPaqServ.Text = "1";
                         }
                     }
                 }
@@ -7744,6 +7752,10 @@ namespace PuntoDeVentaV2
                                 txtCantPaqServ.Text = drProdServCombo["Cantidad"].ToString();
                             }
                         }
+                        else
+                        {
+                            txtCantPaqServ.Text = "1";
+                        }
                     }
                 }
                 else if (DatosSourceFinal.Equals(1))
@@ -7890,6 +7902,10 @@ namespace PuntoDeVentaV2
                             {
                                 txtCantPaqServ.Text = drProdServCombo["Cantidad"].ToString();
                             }
+                        }
+                        else
+                        {
+                            txtCantPaqServ.Text = "1";
                         }
                     }
                 }
