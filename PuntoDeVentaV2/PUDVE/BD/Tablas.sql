@@ -1422,6 +1422,6 @@ ALTER TABLE empleadospermisos CHANGE COLUMN claveUnidad ClaveUnidad INT(11);
 ALTER TABLE empleadospermisos CHANGE COLUMN correos Correos INT(11);
 
 -- Agregar columna de fecha inicial de licencia para tabla usuarios
-ALTER TABLE usuarios ADD COLUMN FechaInicioLicencia DATE DEFAULT '0000-00-00';
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaInicioLicencia DATE DEFAULT '0000-00-00';
 -- Agregar columna de fecha final de licencia para tabla usuarios
-ALTER TABLE usuarios ADD COLUMN FechaFinLicencia DATE DEFAULT '0000-00-00';
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaFinLicencia DATE DEFAULT '0000-00-00';

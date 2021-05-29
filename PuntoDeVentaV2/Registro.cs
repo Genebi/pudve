@@ -14,6 +14,7 @@ using System.Management;
 using System.Net.NetworkInformation;
 using System.Net.Mail;
 using System.Threading;
+using System.Security.Cryptography;
 
 namespace PuntoDeVentaV2
 {
@@ -107,8 +108,10 @@ namespace PuntoDeVentaV2
                             txtMensajeError.Text = string.Empty;
                         }
 
+                        string licencia = GenerarLicencia();
+
                         //Consulta de MySQL
-                        registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, fechaCreacion) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{fechaCreacion}')";
+                        registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, fechaCreacion, licencia) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{fechaCreacion}', '{licencia}')";
                         int resultado = registrar.ExecuteNonQuery();
 
                         //Consulta de MySQL local 
@@ -174,6 +177,41 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No hay conexión a Internet", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+
+        public string GenerarLicencia(int tipo = 1)
+        {
+            string licencia = string.Empty;
+
+            // Licencia cliente
+            if (tipo == 1)
+            {
+                licencia = "PVLC";
+            }
+
+            // Licencia servidor
+            if (tipo == 2)
+            {
+                licencia = "PVLS";
+            }
+
+            string fecha = DateTime.Now.ToString("yyyyMmddHHmmss");
+            byte[] hash = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(fecha));
+            string resultado = Convert.ToBase64String(hash).ToUpper();
+
+            resultado = resultado.Replace('+', 'X');
+            resultado = resultado.Replace('=', 'Y');
+            resultado = resultado.Replace('/', 'Z');
+
+            string primerRango = resultado.Substring(0, 4);
+            string segundoRango = resultado.Substring(4, 4);
+            string tercerRango = resultado.Substring(8, 4);
+            string cuartoRango = resultado.Substring(12, 4);
+
+            licencia = $"{licencia}-{primerRango}-{segundoRango}-{tercerRango}-{cuartoRango}";
+
+            return licencia;
         }
 
         public void UsuariosN(string usuario)
