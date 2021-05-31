@@ -1936,5 +1936,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public int buscarEstadoProducto(int idPRoducto)
+        {
+            int result = 0;
+
+            var query = cn.CargarDatos($"SELECT Status FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idPRoducto}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToInt32(query.Rows[0]["Status"].ToString());
+            }
+
+            return result;
+        }
     }
 }

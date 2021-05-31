@@ -175,7 +175,7 @@ namespace PuntoDeVentaV2
             Usuario.Alignment = Element.ALIGN_CENTER;
             if (FormPrincipal.userNickName.Contains('@')) { Empleado.Alignment = Element.ALIGN_CENTER; }
             subTitulo.Alignment = Element.ALIGN_CENTER;
-            status1.Alignment = Element.ALIGN_LEFT;
+            status1.Alignment = Element.ALIGN_CENTER;
             //domicilio.Alignment = Element.ALIGN_CENTER;
             //domicilio.SetLeading(10, 0);
 
@@ -263,7 +263,7 @@ namespace PuntoDeVentaV2
             var consulta = string.Empty;
             if (procedencia.Equals("Seleccionar Empleado/Producto"))//consulta Normal
             {
-                consulta = $"SELECT HP.*, P.`Status` AS StatusProducto FROM HistorialPrecios AS HP LEFT JOIN Productos AS P ON HP.IDUsuario = P.IDUsuario WHERE P.IDUsuario = {FormPrincipal.userID} AND P.`Status` = 1 AND DATE(HP.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY HP.FechaOperacion DESC";
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion DESC";
             }
             else if (procedencia.Equals("Empleados"))// Consulta segun empleado
             {
@@ -273,11 +273,11 @@ namespace PuntoDeVentaV2
                     validarId = idEmp;
                 }
 
-                consulta = $"SELECT HP.*, P.`Status` AS StatusProducto FROM HistorialPrecios AS HP LEFT JOIN Productos AS P ON HP.IDUsuario = P.IDUsuario WHERE P.IDUsuario = {FormPrincipal.userID} AND P.`Status` = 1 AND DATE(HP.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND HP.IDEmpleado = '{validarId}' ORDER BY HP.FechaOperacion DESC";
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDEmpleado = '{validarId}' ORDER BY FechaOperacion DESC";
             }
             else if (procedencia.Equals("Productos"))//Consulta por producto
             {
-                consulta = $"SELECT HP.*, P.`Status` AS StatusProducto FROM HistorialPrecios AS HP LEFT JOIN Productos AS P ON HP.IDUsuario = P.IDUsuario WHERE P.IDUsuario = {FormPrincipal.userID} AND P.`Status` = 1 AND DATE(HP.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND HP.IDProducto = '{idEmp}'ORDER BY HP.FechaOperacion DESC";
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDProducto = '{idEmp}'ORDER BY FechaOperacion DESC";
             }
 
             sql_cmd = new MySqlCommand(consulta, sql_con);
@@ -319,6 +319,13 @@ namespace PuntoDeVentaV2
                 var precioAnterior = float.Parse(dr.GetValue(dr.GetOrdinal("PrecioAnterior")).ToString());
                 var precioNuevo = float.Parse(dr.GetValue(dr.GetOrdinal("PrecioNuevo")).ToString());
                 var origen = dr.GetValue(dr.GetOrdinal("Origen")).ToString();
+
+                var estado = cs.buscarEstadoProducto(idProducto);
+
+                if (estado.Equals(0))
+                {
+                    continue;
+                }
 
                 precioAnteriorSuma += precioAnterior;
                 precioNuevoSuma += precioNuevo;
@@ -431,66 +438,7 @@ namespace PuntoDeVentaV2
 
             reporte.Add(linea);
 
-            float[] anchoColumnasStatus = new float[] { 50f, 300f, 60f, 150f, 100f, 80f, 80f, 100f, 120f };
 
-            PdfPTable tablasStatus = new PdfPTable(9);
-            tablasStatus.WidthPercentage = 100;
-            tablasStatus.SetWidths(anchoColumnas);
-
-            PdfPCell colNumeroFilaStatus = new PdfPCell(new Phrase("No.", fuenteNegrita));
-            colNumeroFilaStatus.BorderWidth = 1;
-            colNumeroFilaStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colNumeroFilaStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colProductoStatus = new PdfPCell(new Phrase("Producto / Servicio / Combo", fuenteNegrita));
-            colProductoStatus.BorderWidth = 1;
-            colProductoStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colProductoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colTipoProductoStatus = new PdfPCell(new Phrase("Tipo", fuenteNegrita));
-            colTipoProductoStatus.BorderWidth = 1;
-            colTipoProductoStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colTipoProductoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colCodigoAsociadoStatus = new PdfPCell(new Phrase("Código Asociado", fuenteNegrita));
-            colCodigoAsociadoStatus.BorderWidth = 1;
-            colCodigoAsociadoStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colCodigoAsociadoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colEmpleadoStatus = new PdfPCell(new Phrase("Empleado", fuenteNegrita));
-            colEmpleadoStatus.BorderWidth = 1;
-            colEmpleadoStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colEmpleadoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colPrecioAnteriorStatus = new PdfPCell(new Phrase("Precio Anterior", fuenteNegrita));
-            colPrecioAnteriorStatus.BorderWidth = 1;
-            colPrecioAnteriorStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colPrecioAnteriorStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colPrecioNuevoStatus = new PdfPCell(new Phrase("Precio Nuevo", fuenteNegrita));
-            colPrecioNuevoStatus.BorderWidth = 1;
-            colPrecioNuevoStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colPrecioNuevoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colOrigenStatus = new PdfPCell(new Phrase("Origen", fuenteNegrita));
-            colOrigenStatus.BorderWidth = 1;
-            colOrigenStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colOrigenStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colFechaOperacionStatus = new PdfPCell(new Phrase("Fecha de Operación", fuenteNegrita));
-            colFechaOperacionStatus.BorderWidth = 1;
-            colFechaOperacionStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colFechaOperacionStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            tablasStatus.AddCell(colNumeroFilaStatus);
-            tablasStatus.AddCell(colProductoStatus);
-            tablasStatus.AddCell(colTipoProductoStatus);
-            tablasStatus.AddCell(colCodigoAsociadoStatus);
-            tablasStatus.AddCell(colEmpleadoStatus);
-            tablasStatus.AddCell(colPrecioAnteriorStatus);
-            tablasStatus.AddCell(colPrecioNuevoStatus);
-            tablasStatus.AddCell(colOrigenStatus);
-            tablasStatus.AddCell(colFechaOperacionStatus);
 
 
             ////Consulta para obtener los registros del Historial de compras
@@ -521,16 +469,17 @@ namespace PuntoDeVentaV2
 
             reporte.Add(linea);
 
+
             Paragraph status0 = new Paragraph($"Productos deshabilitados", fuenteNegrita);
 
-            status0.Alignment = Element.ALIGN_LEFT;
+            status0.Alignment = Element.ALIGN_CENTER;
 
             sql_con.Open();
 
             var consultaStatus = string.Empty;
             if (procedencia.Equals("Seleccionar Empleado/Producto"))//consulta Normal
             {
-                consulta = $"SELECT HP.*, P.`Status` AS StatusProducto FROM HistorialPrecios AS HP LEFT JOIN Productos AS P ON HP.IDUsuario = P.IDUsuario WHERE P.IDUsuario = {FormPrincipal.userID} AND P.`Status` = 0 AND DATE(HP.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY HP.FechaOperacion DESC";
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion DESC";
             }
             else if (procedencia.Equals("Empleados"))// Consulta segun empleado
             {
@@ -540,11 +489,11 @@ namespace PuntoDeVentaV2
                     validarId = idEmp;
                 }
 
-                consulta = $"SELECT HP.*, P.`Status` AS StatusProducto FROM HistorialPrecios AS HP LEFT JOIN Productos AS P ON HP.IDUsuario = P.IDUsuario WHERE P.IDUsuario = {FormPrincipal.userID} AND P.`Status` = 0 AND DATE(HP.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND HP.IDEmpleado = '{validarId}' ORDER BY HP.FechaOperacion DESC";
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDEmpleado = '{validarId}' ORDER BY FechaOperacion DESC";
             }
             else if (procedencia.Equals("Productos"))//Consulta por producto
             {
-                consulta = $"SELECT HP.*, P.`Status` AS StatusProducto FROM HistorialPrecios AS HP LEFT JOIN Productos AS P ON HP.IDUsuario = P.IDUsuario WHERE P.IDUsuario = {FormPrincipal.userID} AND P.`Status` = 0 AND DATE(HP.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND HP.IDProducto = '{idEmp}'ORDER BY HP.FechaOperacion DESC";
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDProducto = '{idEmp}'ORDER BY FechaOperacion DESC";
             }
 
             sql_cmd = new MySqlCommand(consulta, sql_con);
@@ -556,149 +505,247 @@ namespace PuntoDeVentaV2
             var precioNuevoSumaStatus = 0.00;
             if (dr.HasRows)
             {
-            while (dr.Read())
-            {
-                numRowStatus += 1;
-                var idAutor = 0;
-                var idDeUsuario = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDUsuario")));
-                var idEmpleado = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDEmpleado")));
-                string emp = string.Empty;
-                if (idEmpleado != 0)
+                var idEstadoProd = 0;
+                bool estado = false;
+
+                var query = cn.CargarDatos(consulta);
+
+
+                if (!query.Rows.Count.Equals(0))
                 {
-                    idAutor = idEmpleado;
-                    emp = "empleado";
+                    foreach (DataRow datoStatus in query.Rows)
+                    {
+                        idEstadoProd = Convert.ToInt32(datoStatus["IDProducto"]);
+
+                        var estado2 = cs.buscarEstadoProducto(idEstadoProd);
+
+                        if (estado2.Equals(true))
+                        {
+                            estado = true;
+                        }
+                    }
                 }
-                else
+
+                float[] anchoColumnasStatus = new float[] { 50f, 300f, 60f, 150f, 100f, 80f, 80f, 100f, 120f };
+
+                PdfPTable tablasStatus = new PdfPTable(9);
+                tablasStatus.WidthPercentage = 100;
+                tablasStatus.SetWidths(anchoColumnas);
+
+                PdfPCell colNumeroFilaStatus = new PdfPCell(new Phrase("No.", fuenteNegrita));
+                colNumeroFilaStatus.BorderWidth = 1;
+                colNumeroFilaStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colNumeroFilaStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colProductoStatus = new PdfPCell(new Phrase("Producto / Servicio / Combo", fuenteNegrita));
+                colProductoStatus.BorderWidth = 1;
+                colProductoStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colProductoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colTipoProductoStatus = new PdfPCell(new Phrase("Tipo", fuenteNegrita));
+                colTipoProductoStatus.BorderWidth = 1;
+                colTipoProductoStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colTipoProductoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colCodigoAsociadoStatus = new PdfPCell(new Phrase("Código Asociado", fuenteNegrita));
+                colCodigoAsociadoStatus.BorderWidth = 1;
+                colCodigoAsociadoStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colCodigoAsociadoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colEmpleadoStatus = new PdfPCell(new Phrase("Empleado", fuenteNegrita));
+                colEmpleadoStatus.BorderWidth = 1;
+                colEmpleadoStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colEmpleadoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colPrecioAnteriorStatus = new PdfPCell(new Phrase("Precio Anterior", fuenteNegrita));
+                colPrecioAnteriorStatus.BorderWidth = 1;
+                colPrecioAnteriorStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colPrecioAnteriorStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colPrecioNuevoStatus = new PdfPCell(new Phrase("Precio Nuevo", fuenteNegrita));
+                colPrecioNuevoStatus.BorderWidth = 1;
+                colPrecioNuevoStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colPrecioNuevoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colOrigenStatus = new PdfPCell(new Phrase("Origen", fuenteNegrita));
+                colOrigenStatus.BorderWidth = 1;
+                colOrigenStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colOrigenStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colFechaOperacionStatus = new PdfPCell(new Phrase("Fecha de Operación", fuenteNegrita));
+                colFechaOperacionStatus.BorderWidth = 1;
+                colFechaOperacionStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colFechaOperacionStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                if (estado)
                 {
-                    idAutor = idDeUsuario;
-                    emp = "admin";
+                    tablasStatus.AddCell(colNumeroFilaStatus);
+                    tablasStatus.AddCell(colProductoStatus);
+                    tablasStatus.AddCell(colTipoProductoStatus);
+                    tablasStatus.AddCell(colCodigoAsociadoStatus);
+                    tablasStatus.AddCell(colEmpleadoStatus);
+                    tablasStatus.AddCell(colPrecioAnteriorStatus);
+                    tablasStatus.AddCell(colPrecioNuevoStatus);
+                    tablasStatus.AddCell(colOrigenStatus);
+                    tablasStatus.AddCell(colFechaOperacionStatus);
                 }
 
-                var consultaEmp = cs.consultarUsuarioEmpleado(idAutor, emp);
-                if (emp.Equals("admin")) { consultaEmp = $"ADMIN ({consultaEmp})"; }
 
-                var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
-                var datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                var nombreProducto = datosProducto[1];
-                var tipoProducto = datosProducto[5];
 
-                var codigosAsociados = string.Empty;
-                if (tipoProducto.Equals("PQ")) { codigosAsociados = cs.ObtenerCodigosAsociados(idProducto); } else { codigosAsociados = "N/A"; }
+                while (dr.Read())
+                {
+                    numRowStatus += 1;
+                    var idAutor = 0;
+                    var idDeUsuario = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDUsuario")));
+                    var idEmpleado = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDEmpleado")));
+                    string emp = string.Empty;
+                    if (idEmpleado != 0)
+                    {
+                        idAutor = idEmpleado;
+                        emp = "empleado";
+                    }
+                    else
+                    {
+                        idAutor = idDeUsuario;
+                        emp = "admin";
+                    }
 
-                if (tipoProducto.Equals("PQ")) { tipoProducto = "Combo"; } else if (tipoProducto.Equals("P")) { tipoProducto = "Producto"; } else if (tipoProducto.Equals("S")) { tipoProducto = "Servicio"; }
+                    var consultaEmp = cs.consultarUsuarioEmpleado(idAutor, emp);
+                    if (emp.Equals("admin")) { consultaEmp = $"ADMIN ({consultaEmp})"; }
 
-                var precioAnteriorStatus = float.Parse(dr.GetValue(dr.GetOrdinal("PrecioAnterior")).ToString());
-                var precioNuevoStatus = float.Parse(dr.GetValue(dr.GetOrdinal("PrecioNuevo")).ToString());
-                var origenStatus = dr.GetValue(dr.GetOrdinal("Origen")).ToString();
+                    var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
+                    var datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                    var nombreProducto = datosProducto[1];
+                    var tipoProducto = datosProducto[5];
 
-                precioAnteriorSumaStatus += precioAnteriorStatus;
-                precioNuevoSumaStatus += precioNuevoStatus;
+                    var codigosAsociados = string.Empty;
+                    if (tipoProducto.Equals("PQ")) { codigosAsociados = cs.ObtenerCodigosAsociados(idProducto); } else { codigosAsociados = "N/A"; }
 
-                DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
-                var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+                    if (tipoProducto.Equals("PQ")) { tipoProducto = "Combo"; } else if (tipoProducto.Equals("P")) { tipoProducto = "Producto"; } else if (tipoProducto.Equals("S")) { tipoProducto = "Servicio"; }
 
-                PdfPCell colIncrementoRow = new PdfPCell(new Phrase(numRowStatus.ToString(), fuenteNormal));
-                colIncrementoRow.BorderWidth = 1;
-                colIncrementoRow.HorizontalAlignment = Element.ALIGN_CENTER;
+                    var precioAnteriorStatus = float.Parse(dr.GetValue(dr.GetOrdinal("PrecioAnterior")).ToString());
+                    var precioNuevoStatus = float.Parse(dr.GetValue(dr.GetOrdinal("PrecioNuevo")).ToString());
+                    var origenStatus = dr.GetValue(dr.GetOrdinal("Origen")).ToString();
 
-                PdfPCell colProductoTmp = new PdfPCell(new Phrase(nombreProducto, fuenteNormal));
-                colProductoTmp.BorderWidth = 1;
-                colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    //var estado = cs.buscarEstadoProducto(idProducto);
 
-                PdfPCell colTipoProductoTmp = new PdfPCell(new Phrase(tipoProducto, fuenteNormal));
-                colTipoProductoTmp.BorderWidth = 1;
-                colTipoProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    if (!estado)
+                    {
+                        continue;
+                    }
 
-                PdfPCell colCodigosAsociadosTmp = new PdfPCell(new Phrase(codigosAsociados, fuenteNormal));
-                colCodigosAsociadosTmp.BorderWidth = 1;
-                colCodigosAsociadosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    precioAnteriorSumaStatus += precioAnteriorStatus;
+                    precioNuevoSumaStatus += precioNuevoStatus;
 
-                PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(consultaEmp, fuenteNormal));
-                colEmpleadoTmp.BorderWidth = 1;
-                colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
+                    var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
 
-                PdfPCell colPrecioAnteriorTmp = new PdfPCell(new Phrase("$" + precioAnteriorStatus.ToString("N2"), fuenteNormal));
-                colPrecioAnteriorTmp.BorderWidth = 1;
-                colPrecioAnteriorTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colIncrementoRow = new PdfPCell(new Phrase(numRowStatus.ToString(), fuenteNormal));
+                    colIncrementoRow.BorderWidth = 1;
+                    colIncrementoRow.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colPrecioNuevoTmp = new PdfPCell(new Phrase("$" + precioNuevoStatus.ToString("N2"), fuenteNormal));
-                colPrecioNuevoTmp.BorderWidth = 1;
-                colPrecioNuevoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colProductoTmp = new PdfPCell(new Phrase(nombreProducto, fuenteNormal));
+                    colProductoTmp.BorderWidth = 1;
+                    colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colOrigenTmp = new PdfPCell(new Phrase(origenStatus, fuenteNormal));
-                colOrigenTmp.BorderWidth = 1;
-                colOrigenTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colTipoProductoTmp = new PdfPCell(new Phrase(tipoProducto, fuenteNormal));
+                    colTipoProductoTmp.BorderWidth = 1;
+                    colTipoProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
-                colFechaOperacionTmp.BorderWidth = 1;
-                colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colCodigosAsociadosTmp = new PdfPCell(new Phrase(codigosAsociados, fuenteNormal));
+                    colCodigosAsociadosTmp.BorderWidth = 1;
+                    colCodigosAsociadosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                tablasStatus.AddCell(colIncrementoRow);
-                tablasStatus.AddCell(colProductoTmp);
-                tablasStatus.AddCell(colTipoProductoTmp);
-                tablasStatus.AddCell(colCodigosAsociadosTmp);
-                tablasStatus.AddCell(colEmpleadoTmp);
-                tablasStatus.AddCell(colPrecioAnteriorTmp);
-                tablasStatus.AddCell(colPrecioNuevoTmp);
-                tablasStatus.AddCell(colOrigenTmp);
-                tablasStatus.AddCell(colFechaOperacionTmp);
+                    PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(consultaEmp, fuenteNormal));
+                    colEmpleadoTmp.BorderWidth = 1;
+                    colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colPrecioAnteriorTmp = new PdfPCell(new Phrase("$" + precioAnteriorStatus.ToString("N2"), fuenteNormal));
+                    colPrecioAnteriorTmp.BorderWidth = 1;
+                    colPrecioAnteriorTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colPrecioNuevoTmp = new PdfPCell(new Phrase("$" + precioNuevoStatus.ToString("N2"), fuenteNormal));
+                    colPrecioNuevoTmp.BorderWidth = 1;
+                    colPrecioNuevoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colOrigenTmp = new PdfPCell(new Phrase(origenStatus, fuenteNormal));
+                    colOrigenTmp.BorderWidth = 1;
+                    colOrigenTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
+                    colFechaOperacionTmp.BorderWidth = 1;
+                    colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    tablasStatus.AddCell(colIncrementoRow);
+                    tablasStatus.AddCell(colProductoTmp);
+                    tablasStatus.AddCell(colTipoProductoTmp);
+                    tablasStatus.AddCell(colCodigosAsociadosTmp);
+                    tablasStatus.AddCell(colEmpleadoTmp);
+                    tablasStatus.AddCell(colPrecioAnteriorTmp);
+                    tablasStatus.AddCell(colPrecioNuevoTmp);
+                    tablasStatus.AddCell(colOrigenTmp);
+                    tablasStatus.AddCell(colFechaOperacionTmp);
+                }
+
+                //Columna para total de dinero
+                PdfPCell colNumFilatempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colNumFilatempTotalStatus.BorderWidth = 0;
+                colNumFilatempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colClienteTempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colClienteTempTotalStatus.BorderWidth = 0;
+                colClienteTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colRFCTempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colRFCTempTotalStatus.BorderWidth = 0;
+                colRFCTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colTotalTempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colTotalTempTotalStatus.BorderWidth = 0;
+                colTotalTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colFolioTempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colFolioTempTotalStatus.BorderWidth = 0;
+                colFolioTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colSerieTempTotalStatus = new PdfPCell(new Phrase("$" + precioAnteriorSumaStatus.ToString("0.00"), fuenteNormal));
+                colSerieTempTotalStatus.BorderWidth = 0;
+                colSerieTempTotalStatus.BorderWidthBottom = 1;
+                colSerieTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+                colSerieTempTotalStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+                PdfPCell colFechaTempTotalStatus = new PdfPCell(new Phrase("$" + precioNuevoSumaStatus.ToString("0.00"), fuenteNormal));
+                colFechaTempTotalStatus.BorderWidth = 0;
+                colFechaTempTotalStatus.BorderWidthBottom = 1;
+                colFechaTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+                colFechaTempTotalStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+                PdfPCell colEmpleadoTempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colEmpleadoTempTotalStatus.BorderWidth = 0;
+                colEmpleadoTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colEmpleadoTempTotalsegundoStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colEmpleadoTempTotalsegundoStatus.BorderWidth = 0;
+                colEmpleadoTempTotalsegundoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                if (estado)
+                {
+                    tablasStatus.AddCell(colNumFilatempTotalStatus);
+                    tablasStatus.AddCell(colClienteTempTotalStatus);
+                    tablasStatus.AddCell(colRFCTempTotalStatus);
+                    tablasStatus.AddCell(colTotalTempTotalStatus);
+                    tablasStatus.AddCell(colFolioTempTotalStatus);
+                    tablasStatus.AddCell(colSerieTempTotalStatus);
+                    tablasStatus.AddCell(colFechaTempTotalStatus);
+                    tablasStatus.AddCell(colEmpleadoTempTotalStatus);
+                    tablasStatus.AddCell(colEmpleadoTempTotalsegundoStatus);
+
+                    reporte.Add(status0);
+                }
+
+                reporte.Add(tablasStatus);
             }
 
-            //Columna para total de dinero
-            PdfPCell colNumFilatempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            colNumFilatempTotalStatus.BorderWidth = 0;
-            colNumFilatempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colClienteTempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            colClienteTempTotalStatus.BorderWidth = 0;
-            colClienteTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colRFCTempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            colRFCTempTotalStatus.BorderWidth = 0;
-            colRFCTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colTotalTempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            colTotalTempTotalStatus.BorderWidth = 0;
-            colTotalTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colFolioTempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            colFolioTempTotalStatus.BorderWidth = 0;
-            colFolioTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colSerieTempTotalStatus = new PdfPCell(new Phrase("$" + precioAnteriorSumaStatus.ToString("0.00"), fuenteNormal));
-            colSerieTempTotalStatus.BorderWidth = 0;
-            colSerieTempTotalStatus.BorderWidthBottom = 1;
-            colSerieTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-            colSerieTempTotalStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            PdfPCell colFechaTempTotalStatus = new PdfPCell(new Phrase("$" + precioNuevoSumaStatus.ToString("0.00"), fuenteNormal));
-            colFechaTempTotalStatus.BorderWidth = 0;
-            colFechaTempTotalStatus.BorderWidthBottom = 1;
-            colFechaTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-            colFechaTempTotalStatus.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            PdfPCell colEmpleadoTempTotalStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            colEmpleadoTempTotalStatus.BorderWidth = 0;
-            colEmpleadoTempTotalStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colEmpleadoTempTotalsegundoStatus = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-            colEmpleadoTempTotalsegundoStatus.BorderWidth = 0;
-            colEmpleadoTempTotalsegundoStatus.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            tablasStatus.AddCell(colNumFilatempTotalStatus);
-            tablasStatus.AddCell(colClienteTempTotalStatus);
-            tablasStatus.AddCell(colRFCTempTotalStatus);
-            tablasStatus.AddCell(colTotalTempTotalStatus);
-            tablasStatus.AddCell(colFolioTempTotalStatus);
-            tablasStatus.AddCell(colSerieTempTotalStatus);
-            tablasStatus.AddCell(colFechaTempTotalStatus);
-            tablasStatus.AddCell(colEmpleadoTempTotalStatus);
-            tablasStatus.AddCell(colEmpleadoTempTotalsegundoStatus);
-
-            reporte.Add(status0);
-            reporte.Add(tablasStatus);
-
-        }
             reporte.AddTitle("Reporte Historial Precios");
             reporte.AddAuthor("PUDVE");
             reporte.Close();
@@ -921,7 +968,7 @@ namespace PuntoDeVentaV2
                                 subVales = 0;
                                 subCheque = 0;
                                 subTransferencia = 0;
-                                
+
                                 tablaDineroAgregado.AddCell(colEmpleado);
                                 tablaDineroAgregado.AddCell(colDepositoEfectivo);
                                 tablaDineroAgregado.AddCell(colDepositoTarjeta);
@@ -946,7 +993,7 @@ namespace PuntoDeVentaV2
                         Tarjeta = row["Tarjeta"].ToString();
                         totalTarjeta += float.Parse(Tarjeta);
                         subTarjeta += float.Parse(Tarjeta);
-                        
+
                         Vales = row["Vales"].ToString();
                         totalVales += float.Parse(Vales);
                         subVales += float.Parse(Vales);
@@ -1463,7 +1510,7 @@ namespace PuntoDeVentaV2
                 }
 
                 /*var perdida =*/ /*row["Perdida"].ToString();*/
-               /* var recuperada =*/ /*row["Recuperada"].ToString();*/
+                                  /* var recuperada =*/ /*row["Recuperada"].ToString();*/
 
                 numRow++;
                 PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
