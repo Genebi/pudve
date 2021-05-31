@@ -606,25 +606,40 @@ namespace PuntoDeVentaV2
             // variable para poder saber que fila fue la seleccionada
             numfila = DGVStockProductos.CurrentRow.Index;
 
-            if (!idProdEdit.Equals(0))
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
             {
-                using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionProducto(idProdEdit)))
+                if (DatosSourceFinal.Equals(1))
                 {
-                    if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
+                    MessageBox.Show("Nuevo Producto, Combo ó Servicio", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (DatosSourceFinal.Equals(3))
+                {
+                    MessageBox.Show("Nuevo desde XML Producto, Combo ó Servicio", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+
+            if (DatosSourceFinal.Equals(2))
+            {
+                if (!idProdEdit.Equals(0))
+                {
+                    using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionProducto(idProdEdit)))
                     {
-                        foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
+                        if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
                         {
-                            var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
-                            if (drRelacion["IDServicio"].Equals(idServ))
+                            foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
                             {
-                                MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                return;
+                                var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
+                                if (drRelacion["IDServicio"].Equals(idServ))
+                                {
+                                    MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
                             }
                         }
                     }
                 }
             }
-
+            
             // almacenamos en la variable IdProdStr del resultado de la consulta en DB
             IdProdStr = DGVStockProductos[0, numfila].Value.ToString();
             // almacenamos en la variable NombreProdStr del resultado de la consulta en DB

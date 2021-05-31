@@ -5986,6 +5986,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            ListStock.DatosSourceFinal = DatosSourceFinal;
             ListStock.ShowDialog();
         }
 
