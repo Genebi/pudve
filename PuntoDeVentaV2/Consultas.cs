@@ -1632,7 +1632,7 @@ namespace PuntoDeVentaV2
 
         public string getDatosServCombo(string idServcio)
         {
-            var consulta = $"SELECT DISTINCT servProd.Fecha, servProd.IDServicio, servProd.Cantidad FROM productosdeservicios AS servProd WHERE servProd.IDServicio = '{idServcio}'";
+            var consulta = $"SELECT DISTINCT servProd.Fecha, servProd.IDServicio, servProd.Cantidad FROM productosdeservicios AS servProd WHERE servProd.IDServicio = '{idServcio}' ORDER BY servProd.Fecha DESC LIMIT 1;";
 
             return consulta;
         }
