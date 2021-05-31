@@ -1937,11 +1937,26 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+<<<<<<< HEAD
         public string checarProductoEstaActivo(string idProd)
         {
             var consulta = $"SELECT ID, Nombre, Precio, `Status` FROM Productos WHERE ID = '{idProd}' AND `Status` = '1' AND IDUsuario = '{FormPrincipal.userID}';";
 
             return consulta;
+=======
+        public int buscarEstadoProducto(int idPRoducto)
+        {
+            int result = 0;
+
+            var query = cn.CargarDatos($"SELECT Status FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idPRoducto}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToInt32(query.Rows[0]["Status"].ToString());
+            }
+
+            return result;
+>>>>>>> consultaMAfufa
         }
     }
 }
