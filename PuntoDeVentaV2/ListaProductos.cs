@@ -85,6 +85,9 @@ namespace PuntoDeVentaV2
         //variable para saber de donde fue llamada la ventana
         public int DatosSourceFinal = 0;
 
+        public string[] listaServCombo = new string[1] { "" };
+        public List<string> listaProd = new List<string>();
+
         #region Sección de variables globales
         // Variables de tipo String
         string filtroConSinFiltroAvanzado = string.Empty;
@@ -608,13 +611,46 @@ namespace PuntoDeVentaV2
 
             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
             {
-                if (DatosSourceFinal.Equals(1))
+                if (listaServCombo.Count().Equals(1))       // cuando es Producto
                 {
-                    MessageBox.Show("Nuevo Producto, Combo ó Servicio", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var idServ = DGVStockProductos[0, numfila].Value.ToString();
+                    if (!listaServCombo[0].ToString().Equals(string.Empty))
+                    {
+                        foreach (var item in listaServCombo)
+                        {
+                            var words = item.Split('|');
+                            var Fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                            var IDServicio = words[1].ToString();
+                            var IDProducto = words[2].ToString();
+                            var NombreProducto = words[3].ToString();
+                            var Cantidad = words[4].ToString();
+
+                            if (IDServicio.Equals(idServ))
+                            {
+                                MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
                 }
-                else if (DatosSourceFinal.Equals(3))
+                if (!listaProd.Count.Equals(0))     // cuando es Combo ó Servicio
                 {
-                    MessageBox.Show("Nuevo desde XML Producto, Combo ó Servicio", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var idServ = DGVStockProductos[0, numfila].Value.ToString();
+                    foreach (var item in listaProd)
+                    {
+                        var words = item.Split('|');
+                        var Fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        var IDServicio = words[1].ToString();
+                        var IDProducto = words[2].ToString();
+                        var NombreProducto = words[3].ToString();
+                        var Cantidad = words[4].ToString();
+
+                        if (IDProducto.Equals(idServ))
+                        {
+                            MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
                 }
             }
 

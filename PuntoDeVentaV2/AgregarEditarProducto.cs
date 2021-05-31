@@ -4543,6 +4543,10 @@ namespace PuntoDeVentaV2
 
             Array.Clear(listaProductoToCombo, 0, listaProductoToCombo.Length);
             ProductosDeServicios.Clear();
+
+            listaProductoToCombo = new string[1] { "" };
+            ProductosDeServicios = new List<string>();
+
         }
 
         private void validarDecimales(string valorEntrada)
@@ -5965,7 +5969,8 @@ namespace PuntoDeVentaV2
 
                 if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                 {
-
+                    ListStock.listaServCombo = listaProductoToCombo;
+                    ListStock.listaProd = ProductosDeServicios;
                 }
 
                 if (DatosSourceFinal.Equals(2))
@@ -5987,7 +5992,8 @@ namespace PuntoDeVentaV2
 
                 if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                 {
-
+                    ListStock.listaServCombo = listaProductoToCombo;
+                    ListStock.listaProd = ProductosDeServicios;
                 }
 
                 if (DatosSourceFinal.Equals(2))
@@ -6021,7 +6027,7 @@ namespace PuntoDeVentaV2
                     DataTable dtProductos;
                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     string buscar = null;
-                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND IDUsuario = '{FormPrincipal.userID}'";
+                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND ID = '{CBIdProd}' AND IDUsuario = '{FormPrincipal.userID}'";
 
                     using (dtProductos = cn.CargarDatos(buscar))
                     {
@@ -6063,7 +6069,7 @@ namespace PuntoDeVentaV2
                     DataTable dtProductos;
                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     string buscar = null;
-                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND IDUsuario = '{FormPrincipal.userID}'";
+                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND ID = '{CBIdProd}' AND IDUsuario = '{FormPrincipal.userID}'";
 
                     using (dtProductos = cn.CargarDatos(buscar))
                     {
