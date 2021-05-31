@@ -1937,13 +1937,14 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-<<<<<<< HEAD
+
         public string checarProductoEstaActivo(string idProd)
         {
             var consulta = $"SELECT ID, Nombre, Precio, `Status` FROM Productos WHERE ID = '{idProd}' AND `Status` = '1' AND IDUsuario = '{FormPrincipal.userID}';";
 
             return consulta;
-=======
+        }
+
         public int buscarEstadoProducto(int idPRoducto)
         {
             int result = 0;
@@ -1956,7 +1957,7 @@ namespace PuntoDeVentaV2
             }
 
             return result;
->>>>>>> consultaMAfufa
+
         }
     }
 }
