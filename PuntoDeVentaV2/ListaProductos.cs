@@ -658,17 +658,39 @@ namespace PuntoDeVentaV2
             {
                 if (!idProdEdit.Equals(0))
                 {
-                    using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionProducto(idProdEdit)))
+                    if (typeStockFinal.Equals("Combos") || typeStockFinal.Equals("Servicios"))  // cuando es Editar Productos
                     {
-                        if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
+                        using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionProducto(idProdEdit)))
                         {
-                            foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
+                            if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
                             {
-                                var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
-                                if (drRelacion["IDServicio"].Equals(idServ))
+                                foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
                                 {
-                                    MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    return;
+                                    var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
+                                    if (drRelacion["IDServicio"].Equals(idServ))
+                                    {
+                                        MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (typeStockFinal.Equals("Productos"))
+                    {
+                        var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
+                        using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionComboServ(idProdEdit, idServ)))
+                        {
+                            if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
+                                {
+                                    var idProducto = Convert.ToInt32(drRelacion["IDProducto"].ToString());
+                                    if (idProducto.Equals(idServ))
+                                    {
+                                        MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
                                 }
                             }
                         }

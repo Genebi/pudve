@@ -1957,5 +1957,12 @@ namespace PuntoDeVentaV2
 
             return result;
         }
+
+        public string checarSiExisteRelacionComboServ(int idProdComSer, int idSeleccionado)
+        {
+            var consulta = $"SELECT * FROM productosdeservicios AS servProd WHERE servProd.IDServicio = '{idProdComSer}' AND servProd.IDProducto = '{idSeleccionado}'; ";
+
+            return consulta;
+        }
     }
 }
