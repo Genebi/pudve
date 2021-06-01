@@ -85,6 +85,9 @@ namespace PuntoDeVentaV2
         //variable para saber de donde fue llamada la ventana
         public int DatosSourceFinal = 0;
 
+        public string[] listaServCombo = new string[1] { "" };
+        public List<string> listaProd = new List<string>();
+
         #region Sección de variables globales
         // Variables de tipo String
         string filtroConSinFiltroAvanzado = string.Empty;
@@ -606,25 +609,95 @@ namespace PuntoDeVentaV2
             // variable para poder saber que fila fue la seleccionada
             numfila = DGVStockProductos.CurrentRow.Index;
 
-            if (!idProdEdit.Equals(0))
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
             {
-                using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionProducto(idProdEdit)))
+                if (listaServCombo.Count().Equals(1))       // cuando es Producto
                 {
-                    if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
+                    var idServ = DGVStockProductos[0, numfila].Value.ToString();
+                    if (!listaServCombo[0].ToString().Equals(string.Empty))
                     {
-                        foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
+                        foreach (var item in listaServCombo)
                         {
-                            var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
-                            if (drRelacion["IDServicio"].Equals(idServ))
+                            var words = item.Split('|');
+                            var Fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                            var IDServicio = words[1].ToString();
+                            var IDProducto = words[2].ToString();
+                            var NombreProducto = words[3].ToString();
+                            var Cantidad = words[4].ToString();
+
+                            if (IDServicio.Equals(idServ))
                             {
-                                MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 return;
                             }
                         }
                     }
                 }
+                if (!listaProd.Count.Equals(0))     // cuando es Combo ó Servicio
+                {
+                    var idServ = DGVStockProductos[0, numfila].Value.ToString();
+                    foreach (var item in listaProd)
+                    {
+                        var words = item.Split('|');
+                        var Fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        var IDServicio = words[1].ToString();
+                        var IDProducto = words[2].ToString();
+                        var NombreProducto = words[3].ToString();
+                        var Cantidad = words[4].ToString();
+
+                        if (IDProducto.Equals(idServ))
+                        {
+                            MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
             }
 
+            if (DatosSourceFinal.Equals(2))
+            {
+                if (!idProdEdit.Equals(0))
+                {
+                    if (typeStockFinal.Equals("Combos") || typeStockFinal.Equals("Servicios"))  // cuando es Editar Productos
+                    {
+                        using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionProducto(idProdEdit)))
+                        {
+                            if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
+                                {
+                                    var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
+                                    if (drRelacion["IDServicio"].Equals(idServ))
+                                    {
+                                        MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (typeStockFinal.Equals("Productos"))
+                    {
+                        var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
+                        using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionComboServ(idProdEdit, idServ)))
+                        {
+                            if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
+                                {
+                                    var idProducto = Convert.ToInt32(drRelacion["IDProducto"].ToString());
+                                    if (idProducto.Equals(idServ))
+                                    {
+                                        MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
             // almacenamos en la variable IdProdStr del resultado de la consulta en DB
             IdProdStr = DGVStockProductos[0, numfila].Value.ToString();
             // almacenamos en la variable NombreProdStr del resultado de la consulta en DB

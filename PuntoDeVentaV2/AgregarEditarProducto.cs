@@ -4540,6 +4540,13 @@ namespace PuntoDeVentaV2
             }
             #endregion Final  Sección De Copiado Producto
             /* Fin del codigo de Emmanuel */
+
+            Array.Clear(listaProductoToCombo, 0, listaProductoToCombo.Length);
+            ProductosDeServicios.Clear();
+
+            listaProductoToCombo = new string[1] { "" };
+            ProductosDeServicios = new List<string>();
+
         }
 
         private void validarDecimales(string valorEntrada)
@@ -5960,6 +5967,12 @@ namespace PuntoDeVentaV2
             {
                 ListStock.TypeStock = "Combos";
 
+                if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
+                {
+                    ListStock.listaServCombo = listaProductoToCombo;
+                    ListStock.listaProd = ProductosDeServicios;
+                }
+
                 if (DatosSourceFinal.Equals(2))
                 {
                     if (!Convert.ToInt32(idEditarProducto).Equals(0))
@@ -5977,6 +5990,12 @@ namespace PuntoDeVentaV2
             {
                 ListStock.TypeStock = "Productos";
 
+                if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
+                {
+                    ListStock.listaServCombo = listaProductoToCombo;
+                    ListStock.listaProd = ProductosDeServicios;
+                }
+
                 if (DatosSourceFinal.Equals(2))
                 {
                     if (!Convert.ToInt32(idEditarProducto).Equals(0))
@@ -5986,6 +6005,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            ListStock.DatosSourceFinal = DatosSourceFinal;
             ListStock.ShowDialog();
         }
 
@@ -6001,13 +6021,13 @@ namespace PuntoDeVentaV2
                      this.Text.Trim().Equals("COPIAR COMBOS") ||
                      this.Text.Trim().Equals("AGREGAR SERVICIOS") ||
                      this.Text.Trim().Equals("EDITAR SERVICIOS") ||
-                     this.Text.Trim().Equals("COPIAR SERVICIOS")) && DatosSourceFinal == 1)
+                     this.Text.Trim().Equals("COPIAR SERVICIOS")) && DatosSourceFinal.Equals(1))
                 {
                     string prodSerPaq = null;
                     DataTable dtProductos;
                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     string buscar = null;
-                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND IDUsuario = '{FormPrincipal.userID}'";
+                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND ID = '{CBIdProd}' AND IDUsuario = '{FormPrincipal.userID}'";
 
                     using (dtProductos = cn.CargarDatos(buscar))
                     {
@@ -6039,7 +6059,7 @@ namespace PuntoDeVentaV2
                           this.Text.Trim().Equals("COPIAR COMBOS") ||
                           this.Text.Trim().Equals("AGREGAR SERVICIOS") ||
                           this.Text.Trim().Equals("EDITAR SERVICIOS") ||
-                          this.Text.Trim().Equals("COPIAR SERVICIOS")) && DatosSourceFinal == 2)
+                          this.Text.Trim().Equals("COPIAR SERVICIOS")) && DatosSourceFinal.Equals(2))
                 {
                     //string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idEditarProducto}", $"{CBIdProd}", $"{CBNombProd}", $"{txtCantPaqServ.Text}" };
                     //cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
@@ -6049,7 +6069,7 @@ namespace PuntoDeVentaV2
                     DataTable dtProductos;
                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     string buscar = null;
-                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND IDUsuario = '{FormPrincipal.userID}'";
+                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND ID = '{CBIdProd}' AND IDUsuario = '{FormPrincipal.userID}'";
 
                     using (dtProductos = cn.CargarDatos(buscar))
                     {
@@ -6086,6 +6106,7 @@ namespace PuntoDeVentaV2
                                 cantidadServCombo = string.Empty,
                                 idProducto = string.Empty,
                                 nombreProducto = string.Empty;
+
                         if (!dtDatosComboServicio.Rows.Count.Equals(0))
                         {
                             foreach (DataRow drComboServ in dtDatosComboServicio.Rows)
