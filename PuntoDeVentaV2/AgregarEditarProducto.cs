@@ -2266,6 +2266,44 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            if (DatosSourceFinal.Equals(3))
+            {
+                if (!nameProveedorXML.Equals(string.Empty))
+                {
+                    // ToDo recorrer el flowLayoutPanel y poder ver si esta Proveedor
+                    foreach (Control panelDinamico in flowLayoutPanel3.Controls)
+                    {
+                        if (panelDinamico is Panel)
+                        {
+                            Panel pnlDin = (Panel)panelDinamico;
+
+                            var namePanel = pnlDin.Name;
+
+                            if (namePanel.Equals("panelContenedorchkProveedor"))
+                            {
+                                foreach (Control pnlContenido in pnlDin.Controls)
+                                {
+                                    if (pnlContenido is Panel)
+                                    {
+                                        if (pnlContenido.Name.Equals("panelContenidochkProveedor"))
+                                        {
+                                            foreach (Control cbProveedor in pnlContenido.Controls)
+                                            {
+                                                if (cbProveedor is ComboBox)
+                                                {
+                                                    cbProveedor.Text = nameProveedorXML;
+                                                    //MessageBox.Show("nameProveedorXML: " + nameProveedorXML + "\nComboBox Proveedor: " + cbProveedor.Text, "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /* Fin del codigo de Emmanuel */
@@ -6736,43 +6774,44 @@ namespace PuntoDeVentaV2
 
             validarClave();
 
-            if (DatosSourceFinal.Equals(3))
-            {
-                if (!nameProveedorXML.Equals(string.Empty))
-                {
-                    // ToDo recorrer el flowLayoutPanel y poder ver si esta Proveedor
-                    foreach (Control panelDinamico in flowLayoutPanel3.Controls)
-                    {
-                        if (panelDinamico is Panel)
-                        {
-                            Panel pnlDin = (Panel)panelDinamico;
+            //if (DatosSourceFinal.Equals(3))
+            //{
+            //    if (!nameProveedorXML.Equals(string.Empty))
+            //    {
+            //        // ToDo recorrer el flowLayoutPanel y poder ver si esta Proveedor
+            //        foreach (Control panelDinamico in flowLayoutPanel3.Controls)
+            //        {
+            //            if (panelDinamico is Panel)
+            //            {
+            //                Panel pnlDin = (Panel)panelDinamico;
 
-                            var namePanel = pnlDin.Name;
+            //                var namePanel = pnlDin.Name;
 
-                            if (namePanel.Equals("panelContenedorchkProveedor"))
-                            {
-                                foreach (Control pnlContenido in pnlDin.Controls)
-                                {
-                                    if (pnlContenido is Panel)
-                                    {
-                                        if (pnlContenido.Name.Equals("panelContenidochkProveedor"))
-                                        {
-                                            foreach (Control cbProveedor in pnlContenido.Controls)
-                                            {
-                                                if (cbProveedor is ComboBox)
-                                                {
-                                                    cbProveedor.Text = nameProveedorXML;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            //                if (namePanel.Equals("panelContenedorchkProveedor"))
+            //                {
+            //                    foreach (Control pnlContenido in pnlDin.Controls)
+            //                    {
+            //                        if (pnlContenido is Panel)
+            //                        {
+            //                            if (pnlContenido.Name.Equals("panelContenidochkProveedor"))
+            //                            {
+            //                                foreach (Control cbProveedor in pnlContenido.Controls)
+            //                                {
+            //                                    if (cbProveedor is ComboBox)
+            //                                    {
+            //                                        cbProveedor.Text = nameProveedorXML;
+            //                                        MessageBox.Show("nameProveedorXML: " + nameProveedorXML + "\nComboBox Proveedor: " + cbProveedor.Text, "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                                        break;
+            //                                    }
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         public void validarClave()
