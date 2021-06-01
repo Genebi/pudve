@@ -73,7 +73,7 @@ namespace PuntoDeVentaV2
 
         private void llenarDatosProductos()
         {
-            if (DatosSourceFinal.Equals(1))
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
             {
                 if (listaServCombo.Count().Equals(1))
                 {
@@ -202,7 +202,7 @@ namespace PuntoDeVentaV2
 
         private void llenarDatosServicioCombo()
         {
-            if (DatosSourceFinal.Equals(1))
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
             {
                 using (AgregarEditarProducto addEditProd = new AgregarEditarProducto())
                 {
