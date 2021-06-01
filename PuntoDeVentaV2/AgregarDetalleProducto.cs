@@ -32,6 +32,8 @@ namespace PuntoDeVentaV2
 
         string[] datosAppSettingToDB;
 
+        public string nameXMLProveedor = string.Empty;
+
         #region Variables Globales
 
         List<string> infoDetalle,
@@ -1902,6 +1904,40 @@ namespace PuntoDeVentaV2
                     }
 
                     eventoMensajeInventario = true;
+                }
+            }
+
+            if (!nameXMLProveedor.Equals(string.Empty))
+            {
+                foreach (Control panelDinamico in fLPCentralDetalle.Controls)
+                {
+                    if (panelDinamico is Panel)
+                    {
+                        Panel pnlDin = (Panel)panelDinamico;
+
+                        var namePanel = pnlDin.Name;
+
+                        if (namePanel.Equals("panelContenedorProveedor"))
+                        {
+                            foreach (Control pnlContenido in pnlDin.Controls)
+                            {
+                                if (pnlContenido is Panel)
+                                {
+                                    if (pnlContenido.Name.Equals("panelContenidoProveedor"))
+                                    {
+                                        foreach (Control cbProveedor in pnlContenido.Controls)
+                                        {
+                                            if (cbProveedor is ComboBox)
+                                            {
+                                                cbProveedor.Text = nameXMLProveedor;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

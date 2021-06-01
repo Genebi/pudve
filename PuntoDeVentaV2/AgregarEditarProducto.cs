@@ -5806,6 +5806,10 @@ namespace PuntoDeVentaV2
                     //FormDetalleProducto.typeDatoProveedor = 1;
                     FormDetalleProducto.origenProdServCombo = DatosSourceFinal;
                     FormDetalleProducto.getIdProducto = idProductoFinal;
+                    if (DatosSourceFinal.Equals(3))
+                    {
+                        FormDetalleProducto.nameXMLProveedor = nameProveedorXML;
+                    }
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }
@@ -5814,6 +5818,10 @@ namespace PuntoDeVentaV2
                     //FormDetalleProducto.typeDatoProveedor = 1;
                     FormDetalleProducto.origenProdServCombo = DatosSourceFinal;
                     FormDetalleProducto.getIdProducto = idProductoFinal;
+                    if (DatosSourceFinal.Equals(3))
+                    {
+                        FormDetalleProducto.nameXMLProveedor = nameProveedorXML;
+                    }
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }
@@ -6727,6 +6735,44 @@ namespace PuntoDeVentaV2
             }
 
             validarClave();
+
+            if (DatosSourceFinal.Equals(3))
+            {
+                if (!nameProveedorXML.Equals(string.Empty))
+                {
+                    // ToDo recorrer el flowLayoutPanel y poder ver si esta Proveedor
+                    foreach (Control panelDinamico in flowLayoutPanel3.Controls)
+                    {
+                        if (panelDinamico is Panel)
+                        {
+                            Panel pnlDin = (Panel)panelDinamico;
+
+                            var namePanel = pnlDin.Name;
+
+                            if (namePanel.Equals("panelContenedorchkProveedor"))
+                            {
+                                foreach (Control pnlContenido in pnlDin.Controls)
+                                {
+                                    if (pnlContenido is Panel)
+                                    {
+                                        if (pnlContenido.Name.Equals("panelContenidochkProveedor"))
+                                        {
+                                            foreach (Control cbProveedor in pnlContenido.Controls)
+                                            {
+                                                if (cbProveedor is ComboBox)
+                                                {
+                                                    cbProveedor.Text = nameProveedorXML;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public void validarClave()
