@@ -233,6 +233,10 @@ namespace PuntoDeVentaV2
             var totalA = string.Empty; var efectivoA = string.Empty; var tarjetaA = string.Empty; var valesA = string.Empty; var chequeA = string.Empty; var transA = string.Empty;
             var segundaConsulta = cn.CargarDatos($"SELECT IFNULL(SUM(Total),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
 
+            //Consulta Devoluciones
+            var totalDevol = string.Empty;
+            var consultaDevoluciones = cn.CargarDatos($"SELECT IFNULL(SUM(Total),0) AS Total FROM Devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
+
             //Consulta dinero Retirado
             var totalR = string.Empty; var efectivoR = string.Empty; var tarjetaR = string.Empty; var valesR = string.Empty; var chequeR = string.Empty; var transR = string.Empty; var anticiposR = string.Empty;
             var consultaRetiro = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito, IFNULL(SUM(Anticipo),0) AS Anticipo FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'retiro' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
@@ -304,6 +308,11 @@ namespace PuntoDeVentaV2
                 //transA = segundaConsulta.Rows[0]["Trans"].ToString();
             }
 
+            if (!consultaDevoluciones.Rows.Count.Equals(0))
+            {
+                totalDevol = consultaDevoluciones.Rows[0]["Total"].ToString();
+            }
+
             if (!consultaRetiro.Rows.Count.Equals(0))//Dinero Retirado
             {
                 totalR = consultaRetiro.Rows[0]["Total"].ToString();
@@ -356,7 +365,7 @@ namespace PuntoDeVentaV2
 
             var agregado = ((float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(transAg));
 
-            var retirado = ((float)Convert.ToDecimal(efectivoR) + (float)Convert.ToDecimal(tarjetaR) + (float)Convert.ToDecimal(valesR) + (float)Convert.ToDecimal(chequeR) + (float)Convert.ToDecimal(transR) + (float)Convert.ToDecimal(anticiposR) + (float)Convert.ToDecimal(totalA));
+            var retirado = ((float)Convert.ToDecimal(efectivoR) + (float)Convert.ToDecimal(tarjetaR) + (float)Convert.ToDecimal(valesR) + (float)Convert.ToDecimal(chequeR) + (float)Convert.ToDecimal(transR) + (float)Convert.ToDecimal(anticiposR) + (float)Convert.ToDecimal(totalDevol));
 
             var totalAnticipos = ((float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(transAnt));
 
@@ -367,9 +376,9 @@ namespace PuntoDeVentaV2
             var rowCheque = (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg)) - (float)Convert.ToDecimal(chequeR));
             var rowTransferencia = (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg)) - (float)Convert.ToDecimal(transR));
 
-            var totalAntesCorte = (rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial + (float)Convert.ToDecimal(creditoC));
+            var totalAntesCorte = (rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial /*+ (float)Convert.ToDecimal(creditoC)*/);
 
-            var total = ((rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial + (float)Convert.ToDecimal(creditoC)) - dineroRetiradoCorte);
+            var total = ((rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial /*+ (float)Convert.ToDecimal(creditoC)*/) - dineroRetiradoCorte);
 
             var totEfectivo = (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg)) - (float)Convert.ToDecimal(efectivoR));
             if (totEfectivo < 0) { totEfectivo = 0; }
@@ -396,7 +405,7 @@ namespace PuntoDeVentaV2
 
             lista.Add("Crédito:|" + Convert.ToDecimal(creditoC).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|"+string.Empty+"|"+ string.Empty+"|Anticipos Utilizados:|" + Convert.ToDecimal(anticiposR).ToString("C") + "|Saldo Inicial:|" + saldoInicial.ToString("C"));
 
-            lista.Add("Abonos:|" + Convert.ToDecimal(creditoC).ToString("C") + "|" + string.Empty + "|" +string.Empty +"|" +string.Empty+"|"+ string.Empty + "|Devoluciones:|" + Convert.ToDecimal(totalA).ToString("C") + "|Crédito:|" + Convert.ToDecimal(creditoC).ToString("C"));
+            lista.Add("Abonos:|" + Convert.ToDecimal(totalA).ToString("C") + "|" + string.Empty + "|" +string.Empty +"|" +string.Empty+"|"+ string.Empty + "|Devoluciones:|" + Convert.ToDecimal(totalDevol).ToString("C") + "|Crédito:|" + Convert.ToDecimal(creditoC).ToString("C"));
 
             lista.Add("Anticipos Utilizados:|" + Convert.ToDecimal(anticiposA).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty+ "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty);
 
@@ -890,7 +899,7 @@ namespace PuntoDeVentaV2
             Paragraph tituloRetiros = new Paragraph("HISTORIAL DE RETIROS\n\n", fuenteGrande);
             tituloRetiros.Alignment = Element.ALIGN_CENTER;
 
-            anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f, 100f };
+            anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, /*100f,*/ 100f };
 
             sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             sql_con.Open();
@@ -899,7 +908,7 @@ namespace PuntoDeVentaV2
 
             if (dr.HasRows)
             {
-                PdfPTable tablaRetiros = new PdfPTable(8);
+                PdfPTable tablaRetiros = new PdfPTable(7);
                 tablaRetiros.WidthPercentage = 100;
                 tablaRetiros.SetWidths(anchoColumnas);
 
@@ -933,10 +942,10 @@ namespace PuntoDeVentaV2
                 colDepositoTransR.HorizontalAlignment = Element.ALIGN_CENTER;
                 colDepositoTransR.Padding = 3;
 
-                PdfPCell colDepositoCreditoR = new PdfPCell(new Phrase("CRÉDITO", fuenteNegrita));
-                colDepositoCreditoR.BorderWidth = 0;
-                colDepositoCreditoR.HorizontalAlignment = Element.ALIGN_CENTER;
-                colDepositoCreditoR.Padding = 3;
+                //PdfPCell colDepositoCreditoR = new PdfPCell(new Phrase("CRÉDITO", fuenteNegrita));
+                //colDepositoCreditoR.BorderWidth = 0;
+                //colDepositoCreditoR.HorizontalAlignment = Element.ALIGN_CENTER;
+                //colDepositoCreditoR.Padding = 3;
 
                 PdfPCell colDepositoFechaR = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
                 colDepositoFechaR.BorderWidth = 0;
@@ -949,7 +958,7 @@ namespace PuntoDeVentaV2
                 tablaRetiros.AddCell(colDepositoValesR);
                 tablaRetiros.AddCell(colDepositoChequeR);
                 tablaRetiros.AddCell(colDepositoTransR);
-                tablaRetiros.AddCell(colDepositoCreditoR);
+                //tablaRetiros.AddCell(colDepositoCreditoR);
                 tablaRetiros.AddCell(colDepositoFechaR);
 
                 //MySqlCommand sql_cmd;
@@ -962,7 +971,7 @@ namespace PuntoDeVentaV2
                     var vales = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
                     var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
                     var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
-                    var credito = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Credito"))).ToString("0.00");
+                    //var credito = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Credito"))).ToString("0.00");
                     var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                     int usuario = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdEmpleado")));
 
@@ -1002,9 +1011,9 @@ namespace PuntoDeVentaV2
                     colDepositoTransTmpR.BorderWidth = 0;
                     colDepositoTransTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoCreditoTmpR = new PdfPCell(new Phrase("$" + credito, fuenteNormal));
-                    colDepositoCreditoTmpR.BorderWidth = 0;
-                    colDepositoCreditoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    //PdfPCell colDepositoCreditoTmpR = new PdfPCell(new Phrase("$" + credito, fuenteNormal));
+                    //colDepositoCreditoTmpR.BorderWidth = 0;
+                    //colDepositoCreditoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     PdfPCell colDepositoFechaTmpR = new PdfPCell(new Phrase(fecha, fuenteNormal));
                     colDepositoFechaTmpR.BorderWidth = 0;
@@ -1016,7 +1025,7 @@ namespace PuntoDeVentaV2
                     tablaRetiros.AddCell(colDepositoValesTmpR);
                     tablaRetiros.AddCell(colDepositoChequeTmpR);
                     tablaRetiros.AddCell(colDepositoTransTmpR);
-                    tablaRetiros.AddCell(colDepositoCreditoTmpR);
+                    //tablaRetiros.AddCell(colDepositoCreditoTmpR);
                     tablaRetiros.AddCell(colDepositoFechaTmpR);
                 }
 
