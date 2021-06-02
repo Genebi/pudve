@@ -242,28 +242,31 @@ namespace PuntoDeVentaV2
                         DGVProdServCombo.Rows.Clear();
                         foreach (DataRow drProdServ in dtProdServ.Rows)
                         {
-                            var numberOfRows = DGVProdServCombo.Rows.Add();
-                            DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
+                            if (!drProdServ["NoProducto"].Equals(0))
+                            {
+                                var numberOfRows = DGVProdServCombo.Rows.Add();
+                                DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
 
-                            string ID = drProdServ["ID"].ToString();
-                            string Fecha = drProdServ["Fecha"].ToString();
-                            string IDServicio = drProdServ["NoServicio"].ToString();
-                            string CombServ = drProdServ["ServicioCombo"].ToString();
-                            string IDProducto = drProdServ["NoProducto"].ToString();
-                            string NombreProducto = drProdServ["Producto"].ToString();
-                            string Cantidad = drProdServ["Cantidad"].ToString();
-                            string Tipo = drProdServ["Tipo"].ToString();
-                            var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
+                                string ID = drProdServ["ID"].ToString();
+                                string Fecha = drProdServ["Fecha"].ToString();
+                                string IDServicio = drProdServ["NoServicio"].ToString();
+                                string CombServ = drProdServ["ServicioCombo"].ToString();
+                                string IDProducto = drProdServ["NoProducto"].ToString();
+                                string NombreProducto = drProdServ["Producto"].ToString();
+                                string Cantidad = drProdServ["Cantidad"].ToString();
+                                string Tipo = drProdServ["Tipo"].ToString();
+                                var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
 
-                            row.Cells["ID"].Value = ID;
-                            row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
-                            row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
-                            row.Cells["ServicioCombo"].Value = CombServ;            // Columna ServicioCombo
-                            row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
-                            row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
-                            row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
-                            row.Cells["Type"].Value = Tipo;
-                            row.Cells["Eliminar"].Value = ImageDelete;
+                                row.Cells["ID"].Value = ID;
+                                row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
+                                row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
+                                row.Cells["ServicioCombo"].Value = CombServ;            // Columna ServicioCombo
+                                row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
+                                row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
+                                row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
+                                row.Cells["Type"].Value = Tipo;
+                                row.Cells["Eliminar"].Value = ImageDelete;
+                            }
                         }
                         if (!listaProd.Count.Equals(0))
                         {
