@@ -80,8 +80,8 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Asignar";
             var datos2 = mb.ObtenerPermisosEmpleado(id_empleado,"Productos");
 
-            GenerarCheckbox(10, 45, 100, "Mensaje Ventas", datos2[0]);
-            GenerarCheckbox(10, 200, 200, "Mensaje Inventario", datos2[1]);
+            GenerarCheckbox(10, 45, 150, "Mensaje Ventas", datos2[0]);
+            GenerarCheckbox(10, 200, 150, "Mensaje Inventario", datos2[1]);
             //=============================================================
             GenerarCheckbox(30, 45, 150, "Stock", datos2[2]);
             GenerarCheckbox(30, 200, 150, "Stock Minimo", datos2[3]);
@@ -96,6 +96,34 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(90, 200, 150, "Clave de Unidad", datos2[9]);
             //=============================================================
             GenerarCheckbox(110, 45, 150, "Correos", datos2[10]);
+            int contador = 0;
+            int top = 110, left = 45, ancho = 150;
+            using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+            {
+                if (!dtPermisosDinamicos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
+                    {
+                        var concepto = drConcepto["concepto"].ToString();
+                        if (left < 200)
+                        {
+                            left += 155;
+                            if (contador > 0 && left.Equals(200))
+                            {
+                                top += 20;
+                                contador = 0;
+                            }
+                        }
+                        else
+                        {
+                            left = 45;
+                        }
+                        GenerarCheckbox(top,left,ancho,concepto,1);
+                        contador = 1;
+                    }
+                }
+            }
+            //GenerarCheckbox(110, 200, 150, "test", datos2[11]);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -147,6 +175,11 @@ namespace PuntoDeVentaV2
                 }
             }
             return opciones.ToArray();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

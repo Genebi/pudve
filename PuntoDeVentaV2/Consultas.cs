@@ -1929,5 +1929,11 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT usuario FROM usuarios WHERE usuario = '{usuario}'";
             return consulta;
         }
+
+        public string agregarDetalleProductoPermisosDinamicos(string detalle)
+        {
+            var consulta = $"ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS {detalle} int DEFAULT 1";
+            return consulta;
+        }
     }
-}
+}  

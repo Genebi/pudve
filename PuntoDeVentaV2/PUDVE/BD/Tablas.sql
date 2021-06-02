@@ -1420,3 +1420,25 @@ ALTER TABLE empleadospermisos CHANGE COLUMN claveProducto ClaveProducto INT(11);
 ALTER TABLE empleadospermisos CHANGE COLUMN claveUnidad ClaveUnidad INT(11);
 --Renombrar Columna de tabla empleadosPermisos
 ALTER TABLE empleadospermisos CHANGE COLUMN correos Correos INT(11);
+
+ALTER TABLE empleadospermisos ALTER MensajeVentas SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER MensajeInventario SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER Stock SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER StockMinimo SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER StockMaximo SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER Precio SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER NumeroRevision SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER TipoIVA SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER ClaveProducto SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER ClaveUnidad SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER Correos SET DEFAULT 1;
