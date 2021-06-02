@@ -356,7 +356,7 @@ namespace PuntoDeVentaV2
 
             if (!consultaUltimoCorte.Rows.Count.Equals(0))
             {
-                cantidadFinal = float.Parse(consultaUltimoCorte.Rows[0]["Cantidad"].ToString());
+                cantidadFinal = float.Parse(consultaUltimoCorte.Rows[0]["CantidadRetiradaCorte"].ToString());
             }
 
             var dineroRetiradoCorte = (/*(totalCantidadCaja - float.Parse(totalR)) - */cantidadFinal);
