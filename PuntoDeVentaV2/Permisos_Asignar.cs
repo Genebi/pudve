@@ -38,9 +38,35 @@ namespace PuntoDeVentaV2
             checkbox.Top = top;
             checkbox.Left = left;
             checkbox.Width = ancho;
+            checkbox.CheckedChanged += new EventHandler(checkbox_click);
             checkbox.Checked = Convert.ToBoolean(estado);
 
             panelContenedor2.Controls.Add(checkbox);
+        }
+
+        private void checkbox_click(object sender, EventArgs e)
+        {
+            CheckBox chkPermisos = (CheckBox)sender;
+            var concepto = chkPermisos.Text.Trim();
+
+            if (concepto.Equals("Mensaje Ventas") || concepto.Equals("Mensaje Inventario") || concepto.Equals("Stock") || concepto.Equals("Stock Minimo") || concepto.Equals("Stock Maximo") || concepto.Equals("Precio") || concepto.Equals("Número de Revisión") || concepto.Equals("Tipo de IVA") || concepto.Equals("Clave de Producto") || concepto.Equals("Clave de Unidad") || concepto.Equals("Correos"))
+            {
+
+            }
+            else
+            {
+                var value = chkPermisos.Checked;
+                int estado = 0;
+                if (value.Equals(true))
+                {
+                    estado = 1;
+                }
+                else
+                {
+                    estado = 0;
+                }
+                cn.EjecutarConsulta(cs.permisisAsignarDinamicos(concepto, estado, id_empleado.ToString()));
+            }
         }
 
         private void Permisos_Asignar_Load(object sender, EventArgs e)
@@ -78,25 +104,27 @@ namespace PuntoDeVentaV2
         private void GenerarPermisos()
         {
             Text = "PUDVE - Permisos Asignar";
-            var datos2 = mb.ObtenerPermisosEmpleado(id_empleado,"Productos");
+            var datos2 = mb.ObtenerPermisosEmpleado(id_empleado, "Productos");
 
-            GenerarCheckbox(10, 45, 150, "Mensaje Ventas", datos2[0]);
-            GenerarCheckbox(10, 200, 150, "Mensaje Inventario", datos2[1]);
+            GenerarCheckbox(10, 45, 150, "Mensaje Ventas", datos2[24]);
+            GenerarCheckbox(10, 200, 150, "Mensaje Inventario", datos2[25]);
             //=============================================================
-            GenerarCheckbox(30, 45, 150, "Stock", datos2[2]);
-            GenerarCheckbox(30, 200, 150, "Stock Minimo", datos2[3]);
+            GenerarCheckbox(30, 45, 150, "Stock", datos2[26]);
+            GenerarCheckbox(30, 200, 150, "Stock Minimo", datos2[27]);
             //=============================================================
-            GenerarCheckbox(50, 45, 150, "Stock Maximo", datos2[4]);
-            GenerarCheckbox(50, 200, 150, "Precio", datos2[5]);
+            GenerarCheckbox(50, 45, 150, "Stock Maximo", datos2[28]);
+            GenerarCheckbox(50, 200, 150, "Precio", datos2[29]);
             //=============================================================
-            GenerarCheckbox(70, 45, 150, "Número de Revisión", datos2[6]);
-            GenerarCheckbox(70, 200, 150, "Tipo de IVA", datos2[7]);
+            GenerarCheckbox(70, 45, 150, "Número de Revisión", datos2[30]);
+            GenerarCheckbox(70, 200, 150, "Tipo de IVA", datos2[31]);
             //=============================================================
-            GenerarCheckbox(90, 45, 150, "Clave de Producto", datos2[8]);
-            GenerarCheckbox(90, 200, 150, "Clave de Unidad", datos2[9]);
+            GenerarCheckbox(90, 45, 150, "Clave de Producto", datos2[32]);
+            GenerarCheckbox(90, 200, 150, "Clave de Unidad", datos2[33]);
             //=============================================================
-            GenerarCheckbox(110, 45, 150, "Correos", datos2[10]);
+            GenerarCheckbox(110, 45, 150, "Correos", datos2[34]);
+
             int contador = 0;
+            int dato2 = 35;
             int top = 110, left = 45, ancho = 150;
             using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
             {
@@ -118,7 +146,8 @@ namespace PuntoDeVentaV2
                         {
                             left = 45;
                         }
-                        GenerarCheckbox(top,left,ancho,concepto,1);
+                        GenerarCheckbox(top,left,ancho,concepto,datos2[dato2]);
+                        dato2++; 
                         contador = 1;
                     }
                 }

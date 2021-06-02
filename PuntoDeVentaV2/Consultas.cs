@@ -1935,5 +1935,11 @@ namespace PuntoDeVentaV2
             var consulta = $"ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS {detalle} int DEFAULT 1";
             return consulta;
         }
+
+        public string permisisAsignarDinamicos(string concepto, int value, string idEmpleado)
+        {
+            var consulta = $"UPDATE empleadospermisos SET {concepto} = '{value}' WHERE IDEmpleado = '{idEmpleado}' AND IDUsuario = '{FormPrincipal.userID}'";
+            return consulta;
+        }
     }
 }  
