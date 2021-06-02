@@ -908,7 +908,10 @@ namespace PuntoDeVentaV2
 
             sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             sql_con.Open();
-            sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND (FechaOperacion BETWEEN '{primerFecha.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{segundaFecha.ToString("yyyy-MM-dd HH:mm:ss")}')", sql_con);
+
+            var visualizarConuslta= $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND Cantidad != '0.00' AND (FechaOperacion BETWEEN '{primerFecha.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{segundaFecha.ToString("yyyy-MM-dd HH:mm:ss")}')";
+
+            sql_cmd = new MySqlCommand(visualizarConuslta, sql_con);
             dr = sql_cmd.ExecuteReader();
 
             if (dr.HasRows)
