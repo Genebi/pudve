@@ -85,7 +85,7 @@ namespace PuntoDeVentaV2
         //variable para saber de donde fue llamada la ventana
         public int DatosSourceFinal = 0;
 
-        public string[] listaServCombo = new string[1] { "" };
+        public List<string> listaServCombo = new List<string>();
         public List<string> listaProd = new List<string>();
 
         #region Sección de variables globales

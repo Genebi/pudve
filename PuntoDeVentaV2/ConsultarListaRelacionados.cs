@@ -18,7 +18,7 @@ namespace PuntoDeVentaV2
 
         public string tipoOperacion = string.Empty;
         string tipo = string.Empty;
-        public string[] listaServCombo;
+        public List<string> listaServCombo = new List<string>();
         public List<string> listaProd = new List<string>();
 
         public int DatosSourceFinal = 0;
@@ -376,7 +376,7 @@ namespace PuntoDeVentaV2
                                         listaServCombo[i].Contains(rowItems.Cells[5].Value.ToString()) &&
                                         listaServCombo[i].Contains(rowItems.Cells[6].Value.ToString()))
                                     {
-                                        listaServCombo = listaServCombo.Where(w => w != listaServCombo[i]).ToArray();
+                                        listaServCombo.RemoveAll(x => x == listaServCombo[i]);
                                     }
                                 }
                             }
