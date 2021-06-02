@@ -90,13 +90,14 @@ namespace PuntoDeVentaV2
             {
                 cantidadFiltro = Convert.ToInt32(datos[2]);
             }
-
             if (FiltroRevisarInventario.datoCbo == "Normal")
             {
                 //btnAnterior.Visible = false;
                 btnOmitir.Location = new Point(23, 19);
                 btnTerminar.Location = new Point(23, 83);
                 btnTerminar.Size = new Size(373, 48);
+                btnTerminar.Text = "Terminar Revision";
+                btnSiguiente.Text = "Guardar";
             }
             else
             {
@@ -106,6 +107,8 @@ namespace PuntoDeVentaV2
                 btnOmitir.Location = new Point(23, 83);
                 btnTerminar.Location = new Point(225, 83);
                 btnTerminar.Size = new Size(171, 48);
+                btnTerminar.Text = "Terminar";
+                btnSiguiente.Text = "Siguiente";
             }
         }
 
@@ -1425,6 +1428,11 @@ namespace PuntoDeVentaV2
 
             if (deseaTernimar == DialogResult.Yes)
             {
+                if (FiltroRevisarInventario.datoCbo == "Normal")
+                {
+                    btnSiguiente.PerformClick();
+                }
+
                 agregarDatosTabla();
 
                 terminarRev = 1;
