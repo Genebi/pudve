@@ -1296,6 +1296,9 @@ IF
  -- Agregar Columna (NumFolio) a la tabla de Caja
  ALTER TABLE Caja ADD COLUMN IF NOT EXISTS NumFolio INTEGER(11) DEFAULT(0);
 
+ -- Agregar Columna (CantidadRetiradaCorte) a la tabla de Caja
+ ALTER TABLE Caja ADD COLUMN IF NOT EXISTS CantidadRetiradaCorte DECIMAL (16, 2) DEFAULT (0.00);
+
 --
 --
 

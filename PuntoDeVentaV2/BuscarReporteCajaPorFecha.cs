@@ -219,11 +219,14 @@ namespace PuntoDeVentaV2
             var saldoInicial = mb.SaldoInicialCajaReportes(FormPrincipal.userID, id);
 
             var cantidadFinal = 0f;
-            var consultaUltimoCorte = cn.CargarDatos($"SELECT Cantidad FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+            var consultaUltimoCorte = cn.CargarDatos($"SELECT CantidadRetiradaCorte FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' AND ID  = '{id}' ORDER BY FechaOperacion DESC ");
+
+
+            //var consultaAlterna = $"SELECT IFNULL(SUM(Cantidad), 0) AS Total FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND Operacion != 'corte' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')";
 
             //Consulta caja
             var totalCantidadCaja = 0f;
-             var consultaRetiradoCorte = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND Operacion != 'corte' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
+             var consultaRetiradoCorte = cn.CargarDatos(/*consultaAlterna*/$"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND Operacion != 'corte' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
 
             //Consulta Ventas
             var totalC = string.Empty; var efectivoC = string.Empty; var tarjetaC = string.Empty; var valesC = string.Empty; var chequeC = string.Empty; var transC = string.Empty; var creditoC = string.Empty;
@@ -356,7 +359,7 @@ namespace PuntoDeVentaV2
                 cantidadFinal = float.Parse(consultaUltimoCorte.Rows[0]["Cantidad"].ToString());
             }
 
-            var dineroRetiradoCorte = ((totalCantidadCaja - float.Parse(totalR)) - cantidadFinal);
+            var dineroRetiradoCorte = (/*(totalCantidadCaja - float.Parse(totalR)) - */cantidadFinal);
 
             //Sumar cantidades
             var ventas = ((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(creditoC) + (float)Convert.ToDecimal(totalA) + (float)Convert.ToDecimal(anticiposA));
@@ -376,9 +379,9 @@ namespace PuntoDeVentaV2
             var rowCheque = (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg)) - (float)Convert.ToDecimal(chequeR));
             var rowTransferencia = (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg)) - (float)Convert.ToDecimal(transR));
 
-            var totalAntesCorte = (rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial /*+ (float)Convert.ToDecimal(creditoC)*/);
+            var totalAntesCorte = ((rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial /*+ (float)Convert.ToDecimal(creditoC)*/) - dineroRetiradoCorte);
 
-            var total = ((rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial /*+ (float)Convert.ToDecimal(creditoC)*/) - dineroRetiradoCorte);
+            var total = /*(*/(rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial /*+ (float)Convert.ToDecimal(creditoC)*/)/* - dineroRetiradoCorte)*/;
 
             var totEfectivo = (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg)) - (float)Convert.ToDecimal(efectivoR));
             if (totEfectivo < 0) { totEfectivo = 0; }
@@ -409,9 +412,11 @@ namespace PuntoDeVentaV2
 
             lista.Add("Anticipos Utilizados:|" + Convert.ToDecimal(anticiposA).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty+ "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty);
 
-            lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Cantidad retirada al corte:" + "|" + dineroRetiradoCorte.ToString("C"));
+            lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Cantidad retirada al corte:" + "|" + cantidadFinal.ToString("C"));
 
-            lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Total en Caja antes del corte:" + "|" + totalAntesCorte.ToString("C"));
+            var restoCash = (total - cantidadFinal);
+
+            lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Total en Caja antes del corte:" + "|" + /*totalAntesCorte*/restoCash.ToString("C"));
 
             lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en Caja despues del corte:|" + total.ToString("C"));
 
