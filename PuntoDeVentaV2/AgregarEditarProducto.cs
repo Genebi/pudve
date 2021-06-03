@@ -3066,32 +3066,29 @@ namespace PuntoDeVentaV2
 
                                         // Agregar la relacion de producto ya registrado con Combo Servicio
                                         #region Agregar a tabla productosdeservicios
-                                        if (listaProductoToCombo.Count().Equals(1))
+                                        if (!listaProductoToCombo.Count().Equals(0))
                                         {
-                                            if (!listaProductoToCombo[0].ToString().Equals(string.Empty))
+                                            if (this.Text.Trim() == "AGREGAR PRODUCTO")
                                             {
-                                                if (this.Text.Trim() == "AGREGAR PRODUCTO")
+                                                string[] datos;
+                                                foreach (var item in listaProductoToCombo)
                                                 {
-                                                    string[] datos;
-                                                    foreach (var item in listaProductoToCombo)
+                                                    datos = item.Split('|');
+                                                    string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                    datos[0] = fech.Trim();
+                                                    using (DataTable dtDatosProducto = cn.CargarDatos(cs.getDatosProducto(Convert.ToString(idProducto))))
                                                     {
-                                                        datos = item.Split('|');
-                                                        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                        datos[0] = fech.Trim();
-                                                        using (DataTable dtDatosProducto = cn.CargarDatos(cs.getDatosProducto(Convert.ToString(idProducto))))
+                                                        if (!dtDatosProducto.Rows.Count.Equals(0))
                                                         {
-                                                            if (!dtDatosProducto.Rows.Count.Equals(0))
+                                                            foreach (DataRow drDatosProd in dtDatosProducto.Rows)
                                                             {
-                                                                foreach (DataRow drDatosProd in dtDatosProducto.Rows)
-                                                                {
-                                                                    datos[2] = drDatosProd["ID"].ToString();
-                                                                    datos[3] = drDatosProd["Nombre"].ToString();
-                                                                    cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
-                                                                }
+                                                                datos[2] = drDatosProd["ID"].ToString();
+                                                                datos[3] = drDatosProd["Nombre"].ToString();
+                                                                cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
                                                             }
                                                         }
-                                                        cn.EjecutarConsulta(cs.borrarProdRelBlanco(Convert.ToInt32(datos[1].ToString())));
                                                     }
+                                                    cn.EjecutarConsulta(cs.borrarProdRelBlanco(Convert.ToInt32(datos[1].ToString())));
                                                 }
                                             }
                                         }
