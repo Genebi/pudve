@@ -1438,3 +1438,5 @@ ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaInicioLicencia DATE DEFAULT '
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaFinLicencia DATE DEFAULT '0000-00-00';
 -- Agregar columna de fecha para la verificacion de internet cada mes
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaVerificacionInternet DATE DEFAULT '2021-06-01';
+-- Agregar columna para el estado de la licencia (pagada, vencida, demo)
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS EstadoLicencia INT(1) DEFAULT 3;
