@@ -48,7 +48,7 @@
             this.btnRevisarInventario.Name = "btnRevisarInventario";
             this.btnRevisarInventario.Size = new System.Drawing.Size(140, 90);
             this.btnRevisarInventario.TabIndex = 108;
-            this.btnRevisarInventario.Text = " ";
+            this.btnRevisarInventario.Text = " Revisar Inventario";
             this.btnRevisarInventario.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnRevisarInventario.UseVisualStyleBackColor = false;
             this.btnRevisarInventario.Click += new System.EventHandler(this.btnRevisarInventario_Click);
