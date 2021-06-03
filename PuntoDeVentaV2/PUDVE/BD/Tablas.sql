@@ -1428,3 +1428,5 @@ ALTER TABLE empleadospermisos CHANGE COLUMN correos Correos INT(11);
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaInicioLicencia DATE DEFAULT '0000-00-00';
 -- Agregar columna de fecha final de licencia para tabla usuarios
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaFinLicencia DATE DEFAULT '0000-00-00';
+-- Agregar columna de fecha para la verificacion de internet cada mes
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaVerificacionInternet DATE DEFAULT '2021-06-01';
