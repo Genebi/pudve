@@ -1299,6 +1299,14 @@ IF
  -- Agregar Columna (CantidadRetiradaCorte) a la tabla de Caja
  ALTER TABLE Caja ADD COLUMN IF NOT EXISTS CantidadRetiradaCorte DECIMAL (16, 2) DEFAULT (0.00);
 
+ -- Agregar Columna (IDEmpleado) a la tabla dgvaumentarinventario 
+ ALTER TABLE dgvaumentarinventario ADD COLUMN IF NOT EXISTS IDEmpleado INT DEFAULT (0);
+
+ -- Agregar Columna (IDEmpleado) a la tabla dgvdisminuirinventario
+ ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS IDEmpleado INT DEFAULT (0);
+
+ --
+
 --
 --
 

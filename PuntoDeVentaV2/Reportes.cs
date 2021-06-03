@@ -1221,10 +1221,12 @@ namespace PuntoDeVentaV2
 
         private void btnReporteInventario_Click(object sender, EventArgs e)
         {
-            //Panel.Visible = true;
-            //cargarDatos();
-            BuscadorReporteInventario BRInventario = new BuscadorReporteInventario();
-            BRInventario.ShowDialog();
+            TipoReportesInventario TRPInventario = new TipoReportesInventario();
+
+            TRPInventario.ShowDialog();
+
+            //BuscadorReporteInventario BRInventario = new BuscadorReporteInventario();
+            //BRInventario.ShowDialog();
         }
 
         private void cargarDatos()
