@@ -18,7 +18,7 @@ namespace PuntoDeVentaV2
 
         public string tipoOperacion = string.Empty;
         string tipo = string.Empty;
-        public string[] listaServCombo;
+        public List<string> listaServCombo = new List<string>();
         public List<string> listaProd = new List<string>();
 
         public int DatosSourceFinal = 0;
@@ -75,42 +75,39 @@ namespace PuntoDeVentaV2
         {
             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
             {
-                if (listaServCombo.Count().Equals(1))
+                if (!listaServCombo.Count().Equals(0))
                 {
-                    if (!listaServCombo[0].ToString().Equals(string.Empty))
+                    DGVProdServCombo.Rows.Clear();
+                    foreach (var item in listaServCombo)
                     {
-                        DGVProdServCombo.Rows.Clear();
-                        foreach (var item in listaServCombo)
+                        var words = item.Split('|');
+                        var numberOfRows = DGVProdServCombo.Rows.Add();
+                        DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
+
+                        string Fecha = words[0].ToString();
+                        string IDServicio = words[1].ToString();
+                        string IDProducto = words[2].ToString();
+                        string NombreProducto = words[3].ToString();
+                        string Cantidad = words[4].ToString();
+                        var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
+
+                        row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
+                        row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
+                        using (DataTable dtServComb = cn.CargarDatos(cs.obtenerServicioCombo(Convert.ToInt32(IDServicio))))
                         {
-                            var words = item.Split('|');
-                            var numberOfRows = DGVProdServCombo.Rows.Add();
-                            DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
-
-                            string Fecha = words[0].ToString();
-                            string IDServicio = words[1].ToString();
-                            string IDProducto = words[2].ToString();
-                            string NombreProducto = words[3].ToString();
-                            string Cantidad = words[4].ToString();
-                            var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
-
-                            row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
-                            row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
-                            using (DataTable dtServComb = cn.CargarDatos(cs.obtenerServicioCombo(Convert.ToInt32(IDServicio))))
+                            if (!dtServComb.Rows.Count.Equals(0))
                             {
-                                if (!dtServComb.Rows.Count.Equals(0))
+                                foreach (DataRow drServComb in dtServComb.Rows)
                                 {
-                                    foreach (DataRow drServComb in dtServComb.Rows)
-                                    {
-                                        row.Cells["ServicioCombo"].Value = drServComb["Nombre"].ToString();
-                                        row.Cells["Type"].Value = drServComb["Tipo"].ToString();
-                                    }
+                                    row.Cells["ServicioCombo"].Value = drServComb["Nombre"].ToString();
+                                    row.Cells["Type"].Value = drServComb["Tipo"].ToString();
                                 }
                             }
-                            row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
-                            row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
-                            row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
-                            row.Cells["Eliminar"].Value = ImageDelete;
                         }
+                        row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
+                        row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
+                        row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
+                        row.Cells["Eliminar"].Value = ImageDelete;
                     }
                 }
                 if (listaServCombo.Count().Equals(0))
@@ -152,41 +149,38 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                if (listaServCombo.Count().Equals(1))
+                if (!listaServCombo.Count().Equals(0))
                 {
-                    if (!listaServCombo[0].ToString().Equals(string.Empty))
+                    foreach (var item in listaServCombo)
                     {
-                        foreach (var item in listaServCombo)
+                        var words = item.Split('|');
+                        var numberOfRows = DGVProdServCombo.Rows.Add();
+                        DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
+
+                        string Fecha = words[0].ToString();
+                        string IDServicio = words[1].ToString();
+                        string IDProducto = words[2].ToString();
+                        string NombreProducto = words[3].ToString();
+                        string Cantidad = words[4].ToString();
+                        var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
+
+                        row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
+                        row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
+                        using (DataTable dtServComb = cn.CargarDatos(cs.obtenerServicioCombo(Convert.ToInt32(IDServicio))))
                         {
-                            var words = item.Split('|');
-                            var numberOfRows = DGVProdServCombo.Rows.Add();
-                            DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
-
-                            string Fecha = words[0].ToString();
-                            string IDServicio = words[1].ToString();
-                            string IDProducto = words[2].ToString();
-                            string NombreProducto = words[3].ToString();
-                            string Cantidad = words[4].ToString();
-                            var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
-
-                            row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
-                            row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
-                            using (DataTable dtServComb = cn.CargarDatos(cs.obtenerServicioCombo(Convert.ToInt32(IDServicio))))
+                            if (!dtServComb.Rows.Count.Equals(0))
                             {
-                                if (!dtServComb.Rows.Count.Equals(0))
+                                foreach (DataRow drServComb in dtServComb.Rows)
                                 {
-                                    foreach (DataRow drServComb in dtServComb.Rows)
-                                    {
-                                        row.Cells["ServicioCombo"].Value = drServComb["Nombre"].ToString();
-                                        row.Cells["Type"].Value = drServComb["Tipo"].ToString();
-                                    }
+                                    row.Cells["ServicioCombo"].Value = drServComb["Nombre"].ToString();
+                                    row.Cells["Type"].Value = drServComb["Tipo"].ToString();
                                 }
                             }
-                            row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
-                            row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
-                            row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
-                            row.Cells["Eliminar"].Value = ImageDelete;
                         }
+                        row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
+                        row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
+                        row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
+                        row.Cells["Eliminar"].Value = ImageDelete;
                     }
                 }
             }
@@ -376,7 +370,7 @@ namespace PuntoDeVentaV2
                                         listaServCombo[i].Contains(rowItems.Cells[5].Value.ToString()) &&
                                         listaServCombo[i].Contains(rowItems.Cells[6].Value.ToString()))
                                     {
-                                        listaServCombo = listaServCombo.Where(w => w != listaServCombo[i]).ToArray();
+                                        listaServCombo.RemoveAll(x => x == listaServCombo[i]);
                                     }
                                 }
                             }

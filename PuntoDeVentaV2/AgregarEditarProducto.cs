@@ -95,7 +95,6 @@ namespace PuntoDeVentaV2
                     listaCategorias = new string[] { },
                     listaUbicaciones = new string[] { },
                     listaDetalleGral = new string[] { };
-        public string[] listaProductoToCombo = new string[1] { "" };
 
         int XPos = 0,
             YPos = 0,
@@ -253,6 +252,7 @@ namespace PuntoDeVentaV2
         int PH;
         bool Hided, Hided1;
 
+        public List<string> listaProductoToCombo = new List<string>(); // para agregar los combos o servicios a un producto
         public List<string> ProductosDeServicios = new List<string>(); // para agregar los productos del servicio o paquete
         List<ItemsProductoComboBox> prodList;
 
@@ -3066,32 +3066,29 @@ namespace PuntoDeVentaV2
 
                                         // Agregar la relacion de producto ya registrado con Combo Servicio
                                         #region Agregar a tabla productosdeservicios
-                                        if (listaProductoToCombo.Count().Equals(1))
+                                        if (!listaProductoToCombo.Count().Equals(0))
                                         {
-                                            if (!listaProductoToCombo[0].ToString().Equals(string.Empty))
+                                            if (this.Text.Trim() == "AGREGAR PRODUCTO")
                                             {
-                                                if (this.Text.Trim() == "AGREGAR PRODUCTO")
+                                                string[] datos;
+                                                foreach (var item in listaProductoToCombo)
                                                 {
-                                                    string[] datos;
-                                                    foreach (var item in listaProductoToCombo)
+                                                    datos = item.Split('|');
+                                                    string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                    datos[0] = fech.Trim();
+                                                    using (DataTable dtDatosProducto = cn.CargarDatos(cs.getDatosProducto(Convert.ToString(idProducto))))
                                                     {
-                                                        datos = item.Split('|');
-                                                        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                        datos[0] = fech.Trim();
-                                                        using (DataTable dtDatosProducto = cn.CargarDatos(cs.getDatosProducto(Convert.ToString(idProducto))))
+                                                        if (!dtDatosProducto.Rows.Count.Equals(0))
                                                         {
-                                                            if (!dtDatosProducto.Rows.Count.Equals(0))
+                                                            foreach (DataRow drDatosProd in dtDatosProducto.Rows)
                                                             {
-                                                                foreach (DataRow drDatosProd in dtDatosProducto.Rows)
-                                                                {
-                                                                    datos[2] = drDatosProd["ID"].ToString();
-                                                                    datos[3] = drDatosProd["Nombre"].ToString();
-                                                                    cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
-                                                                }
+                                                                datos[2] = drDatosProd["ID"].ToString();
+                                                                datos[3] = drDatosProd["Nombre"].ToString();
+                                                                cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
                                                             }
                                                         }
-                                                        cn.EjecutarConsulta(cs.borrarProdRelBlanco(Convert.ToInt32(datos[1].ToString())));
                                                     }
+                                                    cn.EjecutarConsulta(cs.borrarProdRelBlanco(Convert.ToInt32(datos[1].ToString())));
                                                 }
                                             }
                                         }
@@ -4579,10 +4576,10 @@ namespace PuntoDeVentaV2
             #endregion Final  Sección De Copiado Producto
             /* Fin del codigo de Emmanuel */
 
-            Array.Clear(listaProductoToCombo, 0, listaProductoToCombo.Length);
+            listaProductoToCombo.Clear();
             ProductosDeServicios.Clear();
 
-            listaProductoToCombo = new string[1] { "" };
+            listaProductoToCombo = new List<string>();
             ProductosDeServicios = new List<string>();
 
         }
@@ -6174,7 +6171,7 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-                        listaProductoToCombo[0] = fechaServCombo + "|" + idServCombo + "|" + idProducto + "|" + nombreProducto + "|" + cantidadServCombo;
+                        listaProductoToCombo.Add(fechaServCombo + "|" + idServCombo + "|" + idProducto + "|" + nombreProducto + "|" + cantidadServCombo);
                     }
                 }
                 else if (this.Text.Trim().Equals("EDITAR PRODUCTO") && DatosSourceFinal.Equals(2))
@@ -6208,7 +6205,7 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-                        listaProductoToCombo[0] = fechaServCombo + "|" + idServCombo + "|" + idProducto + "|" + nombreProducto + "|" + cantidadServCombo;
+                        listaProductoToCombo.Add(fechaServCombo + "|" + idServCombo + "|" + idProducto + "|" + nombreProducto + "|" + cantidadServCombo);
                     }
                 }
             }
