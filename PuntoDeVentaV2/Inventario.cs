@@ -959,7 +959,10 @@ namespace PuntoDeVentaV2
 
                 NoRev = NoRevAumentarInventario();
 
-                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString() };
+                var idEmplado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+                if (string.IsNullOrEmpty(idEmplado)) { idEmplado = "0"; }
+
+                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmplado };
                 var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
                 cn.EjecutarConsulta(insertAumentarInventario);
                 using (DataTable dtRetriveAumentarInventario = cn.CargarDatos(cs.GetAumentarInventario()))
@@ -1019,7 +1022,10 @@ namespace PuntoDeVentaV2
 
                 NoRev = NoRevDisminuirInventario();
 
-                string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString() };
+                var idEmpleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+                if (string.IsNullOrEmpty(idEmpleado)) { idEmpleado = "0"; }
+
+                string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmpleado };
 
                 var insertarDisminuirInventario = cs.InsertarIntoDisminuirInventario(datosDisminuirInventario);
 
