@@ -71,6 +71,8 @@ namespace PuntoDeVentaV2
                 string email = txtEmail.Text;
                 string telefono = txtTelefono.Text;
                 string fechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                string fechaInicioLicencia = DateTime.Now.ToString("yyyy-MM-dd");
+                string fechaFinLicencia = DateTime.Now.AddYears(1).ToString("yyyy-MM-dd");
 
                 try
                 {
@@ -111,12 +113,12 @@ namespace PuntoDeVentaV2
                         string licencia = GenerarLicencia();
 
                         //Consulta de MySQL
-                        registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, fechaCreacion, licencia) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{fechaCreacion}', '{licencia}')";
+                        registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, fechaCreacion, licencia, fechaInicioLicencia, fechaFinLicencia) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{fechaCreacion}', '{licencia}', '{fechaInicioLicencia}', '{fechaFinLicencia}')";
                         int resultado = registrar.ExecuteNonQuery();
 
                         //Consulta de MySQL local 
-                        string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email, FechaHoy)";
-                               consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}', '{fechaCreacion}')";
+                        string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email, FechaHoy, FechaInicioLicencia, FechaFinLicencia)";
+                               consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}', '{fechaCreacion}', '{fechaInicioLicencia}', '{fechaFinLicencia}')";
 
 
                         int respuesta = cn.EjecutarConsulta(consulta);
