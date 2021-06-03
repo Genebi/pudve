@@ -547,6 +547,30 @@ namespace PuntoDeVentaV2
             }
 
             actualizarNameReportesEmpleados();
+            agregarCamposDinamicosPermisos();
+        }
+
+        public void agregarCamposDinamicosPermisos()
+        {
+            using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(userID)))
+            {
+                if (!dtPermisosDinamicos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
+                    {
+                        try
+                        {
+                            var concepto = drConcepto["concepto"].ToString();
+                            cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
+                        }
+                        catch (Exception ex)
+                        {
+
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                }
+            }
         }
 
         private void actualizarNameReportesEmpleados()

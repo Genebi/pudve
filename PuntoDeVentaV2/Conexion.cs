@@ -201,7 +201,6 @@ namespace PuntoDeVentaV2
             MySqlDataAdapter adap = new MySqlDataAdapter(com);
             adap.Fill(db);
             sql_con.Close();
-
             return db;
         }
 
@@ -215,7 +214,6 @@ namespace PuntoDeVentaV2
             MySqlDataAdapter adap = new MySqlDataAdapter(com);
             adap.Fill(dbcb);
             sql_con.Close();
-
             return dbcb;
         }
         public DataTable cargarCBRegimen(string consulta)
@@ -227,7 +225,6 @@ namespace PuntoDeVentaV2
             MySqlDataAdapter adap = new MySqlDataAdapter(com);
             adap.Fill(dbcbreg);
             sql_con.Close();
-
             return dbcbreg;
         }
 

@@ -1432,9 +1432,33 @@ ALTER TABLE empleadospermisos CHANGE COLUMN claveUnidad ClaveUnidad INT(11);
 --Renombrar Columna de tabla empleadosPermisos
 ALTER TABLE empleadospermisos CHANGE COLUMN correos Correos INT(11);
 
+<<<<<<< HEAD
 -- Agregar columna de fecha inicial de licencia para tabla usuarios
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaInicioLicencia DATE DEFAULT '0000-00-00';
 -- Agregar columna de fecha final de licencia para tabla usuarios
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaFinLicencia DATE DEFAULT '0000-00-00';
 -- Agregar columna de fecha para la verificacion de internet cada mes
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaVerificacionInternet DATE DEFAULT '2021-06-01';
+=======
+ALTER TABLE empleadospermisos ALTER MensajeVentas SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER MensajeInventario SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER Stock SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER StockMinimo SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER StockMaximo SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER Precio SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER NumeroRevision SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER TipoIVA SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER ClaveProducto SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER ClaveUnidad SET DEFAULT 1;
+
+ALTER TABLE empleadospermisos ALTER Correos SET DEFAULT 1;
+>>>>>>> agregarConceptosDinamicosProductos

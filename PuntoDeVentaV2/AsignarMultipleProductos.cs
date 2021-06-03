@@ -141,14 +141,12 @@ namespace PuntoDeVentaV2
                 if (concepto == "Proveedor")
                 {
                     AgregarOpcion(concepto, concepto, alturaEjeY);
-
                     alturaEjeY += 35;
                 }
                 else
                 {
                     // Aqui consultamos y agregamos todos los restantes
                     AgregarOpcion(concepto, concepto, alturaEjeY);
-
                     alturaEjeY += 35;
                 }   
             }

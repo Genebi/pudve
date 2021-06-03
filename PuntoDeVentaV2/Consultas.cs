@@ -1964,8 +1964,25 @@ namespace PuntoDeVentaV2
         public string checarSiExisteRelacionComboServ(int idProdComSer, int idSeleccionado)
         {
             var consulta = $"SELECT * FROM productosdeservicios AS servProd WHERE servProd.IDServicio = '{idProdComSer}' AND servProd.IDProducto = '{idSeleccionado}'; ";
+            return consulta;
+        }
+        public string agregarDetalleProductoPermisosDinamicos(string detalle)
+        {
+            var consulta = $"ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS {detalle.ToString()} int DEFAULT 1";
+            return consulta;
+        }
+
+        public string permisisAsignarDinamicos(string concepto, int value, string idEmpleado)
+        {
+            var consulta = $"UPDATE empleadospermisos SET {concepto} = '{value}' WHERE IDEmpleado = '{idEmpleado}' AND IDUsuario = '{FormPrincipal.userID}'";
+            return consulta;
+        }
+
+        public string verificarPermisosDinamicos(int idUsuario)
+        {
+            var consulta = $"SELECT * FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1 AND checkBoxConcepto = 1";
 
             return consulta;
         }
     }
-}
+}  

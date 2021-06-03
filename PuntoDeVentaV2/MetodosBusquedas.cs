@@ -24,7 +24,7 @@ namespace PuntoDeVentaV2
         public static int idFiltrado { get; set; }
 
         Conexion cn = new Conexion();
-
+        Consultas cs = new Consultas();
         private MySqlConnection sql_con;
         private MySqlCommand sql_cmd;
 
@@ -2407,8 +2407,16 @@ namespace PuntoDeVentaV2
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("claveProducto"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("claveUnidad"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("correos"))));
-            }
+                using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+                {
 
+                    foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
+                    {
+                        var concepto = drConcepto["concepto"].ToString();
+                        lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(concepto))));
+                    }
+                }
+            }
             dr.Close();
             CerrarConexion();
 
