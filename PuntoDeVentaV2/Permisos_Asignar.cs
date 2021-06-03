@@ -126,33 +126,39 @@ namespace PuntoDeVentaV2
             int contador = 0;
             int dato2 = 35;
             int top = 110, left = 45, ancho = 150;
-            using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+            using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.verificarPermisosDinamicos(FormPrincipal.userID)))
             {
                 if (!dtPermisosDinamicos.Rows.Count.Equals(0))
                 {
                     foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
                     {
                         var concepto = drConcepto["concepto"].ToString();
-                        if (left < 200)
-                        {
-                            left += 155;
-                            if (contador > 0 && left.Equals(200))
+                        
+                            if (left < 200)
                             {
+                                left += 155;
+                                if (contador > 0 && left.Equals(200))
+                                {
+                                GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
                                 top += 20;
-                                contador = 0;
+                                    contador = 1;
+                                }
                             }
+                            else
+                            {
+                                left = 45;
+                            GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
                         }
-                        else
+                        if (concepto == "Proveedor")
                         {
-                            left = 45;
+                            GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
+                            top += 20;
                         }
-                        GenerarCheckbox(top,left,ancho,concepto,datos2[dato2]);
-                        dato2++; 
-                        contador = 1;
+                        dato2++;
+                            contador = 1;
                     }
                 }
             }
-            //GenerarCheckbox(110, 200, 150, "test", datos2[11]);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
