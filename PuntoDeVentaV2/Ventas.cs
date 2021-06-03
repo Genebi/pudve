@@ -2855,6 +2855,10 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta($"DELETE FROM Ventas WHERE ID = {venta} AND IDUsuario = {FormPrincipal.userID} AND Status = 2");
                             cn.EjecutarConsulta(cs.EliminarProductosVenta(venta));
                         }
+                        else
+                        {
+                            MessageBox.Show("Esta venta ya fue guardada y facturada con un cliente distinto,\npor lo tanto se guardara como una venta nueva.", "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
 
                     // Array para almacenar la informacion de los productos vendidos
