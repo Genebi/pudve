@@ -34,9 +34,17 @@ namespace PuntoDeVentaV2
 
         bool conBusqueda = false;
 
-        public BuscadorReporteInventario()
+        string tipoDatoReporte = string.Empty;
+
+        //Revisar Inventario               = RInventario
+        //Actualizar Inventario Aumentar   = AIAumentar
+        //Actualizar Inventario Disminuir  = AIDisminuir
+
+        public BuscadorReporteInventario(string procedencia)
         {
             InitializeComponent();
+
+            this.tipoDatoReporte = procedencia;
         }
 
         private void BuscadorReporteInventario_Load(object sender, EventArgs e)
@@ -53,8 +61,20 @@ namespace PuntoDeVentaV2
             var numRevision = string.Empty;
             var nameUser = string.Empty;
             var fecha = string.Empty;
+            var query = string.Empty;
 
-            var query = $"SELECT NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY NoRevision ORDER BY Fecha DESC";
+            if (tipoDatoReporte.Equals("RInventario"))//Revisar inventario
+            {
+                query = $"SELECT NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY NoRevision ORDER BY Fecha DESC";
+            }
+            else if (tipoDatoReporte.Equals("AIAumentar"))//Actualizar Inventario (Aumentar)
+            {
+                query = $"SELECT NombreProducto, StockActual, , Fecha WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC";
+            }
+            else if (tipoDatoReporte.Equals("AIDisminuir"))//Actualizar Inventario (Disminuir)
+            {
+                query = $"";
+            }
 
             filtroConSinFiltroAvanzado = query;
 
