@@ -356,7 +356,7 @@ namespace PuntoDeVentaV2
             {
                 if (e.RowIndex >= 0)
                 {
-                    if (DatosSourceFinal.Equals(1))
+                    if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                     {
                         if (listaServCombo.Count().Equals(1))
                         {
