@@ -35,6 +35,19 @@ namespace PuntoDeVentaV2
                         row.Cells["Habilitar"].Value = habilitar;
                     }
                 }
+                else if (dtConceptoInhabilitado.Rows.Count.Equals(0))
+                {
+                    DGVConceptosInhabilitados.Rows.Clear();
+                }
+            }
+            notSortableDataGridView();
+        }
+
+        private void notSortableDataGridView()
+        {
+            foreach (DataGridViewColumn column in DGVConceptosInhabilitados.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         }
         #endregion
@@ -115,7 +128,7 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("El detalle: para Habilitar no se encuentra en los registros\nExcepción: " + ex.Message.ToString(), "Error al Habilitar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    this.Close();
+                    llenarRegistros();
                 }
             }
         }

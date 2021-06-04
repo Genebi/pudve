@@ -101,6 +101,7 @@
             this.Controls.Add(this.DGVConceptosHabilitados);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "InputBoxMessageBoxToDelete";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
