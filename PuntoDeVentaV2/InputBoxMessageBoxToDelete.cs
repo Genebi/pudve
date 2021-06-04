@@ -92,7 +92,7 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("El detalle: para Inhabilitar no se encuentra en los registros\nExcepción: " + ex.Message.ToString(), "Error al Inhabilitar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    this.Close();
+                    llenarRegistros();
                 }
             }
         }
