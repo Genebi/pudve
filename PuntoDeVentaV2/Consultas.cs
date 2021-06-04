@@ -212,9 +212,28 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string BuscadorDeInventario(string datoBuscado, string primerFecha, string segundaFecha)
+        public string BuscadorDeInventario(string datoBuscado, string primerFecha, string segundaFecha, string revisarInventrario)
         {
-            var consulta = $"SELECT NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND NameUsr LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
+            var consulta = string.Empty;
+            if (revisarInventrario.Equals("RInventario"))
+            {
+                consulta = $"SELECT NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND NameUsr LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
+            }
+            else
+            {
+                var tablaBusqueda = string.Empty;
+                if (revisarInventrario.Equals("AIAumentar"))
+                {
+                    tablaBusqueda = "dgvaumentarinventario"; 
+                }
+                else
+                {
+                    tablaBusqueda = "dgvdisminuirinventario";
+                }
+
+                consulta = $"SELECT NoRevision, NombreProducto, Fecha FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}' AND NombreProducto LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
+            }
+            
 
             return consulta;
         }

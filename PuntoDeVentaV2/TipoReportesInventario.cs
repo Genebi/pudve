@@ -30,7 +30,6 @@ namespace PuntoDeVentaV2
 
         private void btnRevisarInventario_Click(object sender, EventArgs e)
         {
-
             llamarVentana("RInventario");
         }
 
