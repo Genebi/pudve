@@ -103,6 +103,20 @@ namespace PuntoDeVentaV2
                                     row.Cells["Type"].Value = drServComb["Tipo"].ToString();
                                 }
                             }
+                            else if (dtServComb.Rows.Count.Equals(0))
+                            {
+                                using (DataTable dtProducto = cn.CargarDatos(cs.consultaRelacionServicioParaProducto(IDServicio)))
+                                {
+                                    if (!dtProducto.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow drServComb in dtProducto.Rows)
+                                        {
+                                            row.Cells["ServicioCombo"].Value = drServComb["Nombre"].ToString();
+                                            row.Cells["Type"].Value = drServComb["Tipo"].ToString();
+                                        }
+                                    }
+                                }
+                            }
                         }
                         row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
                         row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
