@@ -386,6 +386,20 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+                        if (!listaProd.Count().Equals(0))
+                        {
+                            for (int i = 0; i < listaProd.Count(); i++)
+                            {
+                                if (listaProd[i].Contains(rowItems.Cells[1].Value.ToString()) &&
+                                    listaProd[i].Contains(rowItems.Cells[2].Value.ToString()) &&
+                                    listaProd[i].Contains(rowItems.Cells[4].Value.ToString()) &&
+                                    listaProd[i].Contains(rowItems.Cells[5].Value.ToString()) &&
+                                    listaProd[i].Contains(rowItems.Cells[6].Value.ToString()))
+                                {
+                                    listaProd.RemoveAll(x => x == listaProd[i]);
+                                }
+                            }
+                        }
                     }
                     if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                     {
