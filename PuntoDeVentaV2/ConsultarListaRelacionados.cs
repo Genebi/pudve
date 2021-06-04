@@ -372,26 +372,19 @@ namespace PuntoDeVentaV2
                 {
                     if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                     {
-                        if (listaServCombo.Count().Equals(1))
+                        if (!listaServCombo.Count().Equals(0))
                         {
-                            if (!listaServCombo[0].ToString().Equals(string.Empty))
+                            for (int i = 0; i < listaServCombo.Count(); i++)
                             {
-                                for (int i = 0; i < listaServCombo.Count(); i++)
+                                if (listaServCombo[i].Contains(rowItems.Cells[1].Value.ToString()) &&
+                                    listaServCombo[i].Contains(rowItems.Cells[2].Value.ToString()) &&
+                                    listaServCombo[i].Contains(rowItems.Cells[4].Value.ToString()) &&
+                                    listaServCombo[i].Contains(rowItems.Cells[5].Value.ToString()) &&
+                                    listaServCombo[i].Contains(rowItems.Cells[6].Value.ToString()))
                                 {
-                                    if (listaServCombo[i].Contains(rowItems.Cells[1].Value.ToString()) &&
-                                        listaServCombo[i].Contains(rowItems.Cells[2].Value.ToString()) &&
-                                        listaServCombo[i].Contains(rowItems.Cells[4].Value.ToString()) &&
-                                        listaServCombo[i].Contains(rowItems.Cells[5].Value.ToString()) &&
-                                        listaServCombo[i].Contains(rowItems.Cells[6].Value.ToString()))
-                                    {
-                                        listaServCombo.RemoveAll(x => x == listaServCombo[i]);
-                                    }
+                                    listaServCombo.RemoveAll(x => x == listaServCombo[i]);
                                 }
                             }
-                        }
-                        if (!listaProd.Count.Equals(0))
-                        {
-
                         }
                     }
                     if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
