@@ -6171,6 +6171,12 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+                        if (dtDatosComboServicio.Rows.Count.Equals(0))
+                        {
+                            fechaServCombo = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss tt");
+                            idServCombo = CBIdProd;
+                            cantidadServCombo = "1.00";
+                        }
                         listaProductoToCombo.Add(fechaServCombo + "|" + idServCombo + "|" + idProducto + "|" + nombreProducto + "|" + cantidadServCombo);
                     }
                 }
@@ -6204,6 +6210,12 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
+                        }
+                        if (dtDatosComboServicio.Rows.Count.Equals(0))
+                        {
+                            fechaServCombo = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss tt");
+                            idServCombo = CBIdProd;
+                            cantidadServCombo = "1.00";
                         }
                         listaProductoToCombo.Add(fechaServCombo + "|" + idServCombo + "|" + idProducto + "|" + nombreProducto + "|" + cantidadServCombo);
                     }

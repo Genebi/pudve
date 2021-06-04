@@ -1984,5 +1984,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string consultaRelacionServicioParaProducto(string idServicio)
+        {
+            var consulta = $"SELECT Nombre, IF ( Tipo = 'S', 'SERVICIO', 'COMBO' ) AS Tipo FROM Productos WHERE ID = '{idServicio}'";
+
+            return consulta;
+        }
     }
 }  
