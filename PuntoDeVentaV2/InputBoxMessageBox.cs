@@ -54,6 +54,14 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
+        private void txtDefaultResponse_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
         private void InputBoxMessageBox_Load(object sender, EventArgs e)
         {
             cargarValores();

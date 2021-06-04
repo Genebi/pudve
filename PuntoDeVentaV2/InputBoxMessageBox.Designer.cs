@@ -120,6 +120,7 @@
             this.txtDefaultResponse.Name = "txtDefaultResponse";
             this.txtDefaultResponse.Size = new System.Drawing.Size(329, 26);
             this.txtDefaultResponse.TabIndex = 0;
+            this.txtDefaultResponse.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDefaultResponse_KeyDown);
             // 
             // InputBoxMessageBox
             // 
