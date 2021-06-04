@@ -212,33 +212,34 @@ namespace PuntoDeVentaV2
         {
             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
             {
-                using (AgregarEditarProducto addEditProd = new AgregarEditarProducto())
+                //listaProd = addEditProd.ProductosDeServicios;
+                if (!listaProd.Count.Equals(0))
                 {
-                    //listaProd = addEditProd.ProductosDeServicios;
-                    if (!listaProd.Count.Equals(0))
+                    DGVProdServCombo.Rows.Clear();
+                    foreach (var item in listaProd)
                     {
-                        DGVProdServCombo.Rows.Clear();
-                        foreach (var item in listaProd)
-                        {
-                            var words = item.Split('|');
-                            var numberOfRows = DGVProdServCombo.Rows.Add();
-                            DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
+                        var words = item.Split('|');
+                        var numberOfRows = DGVProdServCombo.Rows.Add();
+                        DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
 
-                            string Fecha = words[0].ToString();
-                            string IDServicio = words[1].ToString();
-                            string IDProducto = words[2].ToString();
-                            string NombreProducto = words[3].ToString();
-                            string Cantidad = words[4].ToString();
-                            var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
+                        string Fecha = words[0].ToString();
+                        string IDServicio = words[1].ToString();
+                        string IDProducto = words[2].ToString();
+                        string NombreProducto = words[3].ToString();
+                        string Cantidad = words[4].ToString();
+                        var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
 
-                            row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
-                            row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
-                            row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
-                            row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
-                            row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
-                            row.Cells["Eliminar"].Value = ImageDelete;
-                        }
+                        row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
+                        row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
+                        row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
+                        row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
+                        row.Cells["Cantidad"].Value = Cantidad;                 // Columna Cantidad
+                        row.Cells["Eliminar"].Value = ImageDelete;
                     }
+                }
+                else if (listaProd.Count.Equals(0))
+                {
+                    DGVProdServCombo.Rows.Clear();
                 }
             }
             else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
@@ -299,6 +300,10 @@ namespace PuntoDeVentaV2
                                 row.Cells["Eliminar"].Value = ImageDelete;
                             }
                         }
+                    }
+                    else if (dtProdServ.Rows.Equals(0))
+                    {
+                        DGVProdServCombo.Rows.Clear();
                     }
                 }
             }

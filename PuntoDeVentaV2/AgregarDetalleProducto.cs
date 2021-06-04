@@ -1469,7 +1469,7 @@ namespace PuntoDeVentaV2
                 BuscarTextoListView(settingDatabases);
             };
 
-            conceptosDasactivados.Show();
+            conceptosDasactivados.ShowDialog();
         }
 
         private void llenarDatosProveedor(string textoBuscado)
@@ -2250,7 +2250,7 @@ namespace PuntoDeVentaV2
                 BuscarTextoListView(settingDatabases);
             };
 
-            inputMessageBox.Show();
+            inputMessageBox.ShowDialog();
 
             //XPos = this.Width / 2;
             //YPos = this.Height / 2;
@@ -2467,7 +2467,7 @@ namespace PuntoDeVentaV2
                 }
             };
 
-            inputMessageBox.Show();
+            inputMessageBox.ShowDialog();
 
             //nvoValor = "false";
             //XPos = this.Width / 2;
@@ -2566,7 +2566,7 @@ namespace PuntoDeVentaV2
                 BuscarTextoListView(settingDatabases);
             };
 
-            renameDetail.Show();
+            renameDetail.ShowDialog();
         }
 
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
