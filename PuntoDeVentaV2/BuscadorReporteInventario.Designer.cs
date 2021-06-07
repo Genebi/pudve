@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.DGVInventario = new System.Windows.Forms.DataGridView();
-            this.numRevision = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtBuscador = new System.Windows.Forms.TextBox();
@@ -55,6 +51,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.numRevision = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -78,43 +78,6 @@
             this.DGVInventario.Size = new System.Drawing.Size(1018, 262);
             this.DGVInventario.TabIndex = 1;
             this.DGVInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellClick);
-            // 
-            // numRevision
-            // 
-            this.numRevision.FillWeight = 27.5862F;
-            this.numRevision.HeaderText = "No. Revision";
-            this.numRevision.Name = "numRevision";
-            this.numRevision.ReadOnly = true;
-            this.numRevision.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.numRevision.Width = 80;
-            // 
-            // usuario
-            // 
-            this.usuario.FillWeight = 306.6767F;
-            this.usuario.HeaderText = "Usuario";
-            this.usuario.Name = "usuario";
-            this.usuario.ReadOnly = true;
-            this.usuario.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.usuario.Width = 738;
-            // 
-            // fecha
-            // 
-            this.fecha.FillWeight = 42.35772F;
-            this.fecha.HeaderText = "Fecha";
-            this.fecha.Name = "fecha";
-            this.fecha.ReadOnly = true;
-            this.fecha.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.fecha.Width = 138;
-            // 
-            // mostrar
-            // 
-            this.mostrar.FillWeight = 23.37937F;
-            this.mostrar.HeaderText = "Mostrar";
-            this.mostrar.Name = "mostrar";
-            this.mostrar.ReadOnly = true;
-            this.mostrar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.mostrar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.mostrar.Width = 59;
             // 
             // label3
             // 
@@ -397,6 +360,43 @@
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Visible = false;
             // 
+            // numRevision
+            // 
+            this.numRevision.FillWeight = 27.5862F;
+            this.numRevision.HeaderText = "No. Folio";
+            this.numRevision.Name = "numRevision";
+            this.numRevision.ReadOnly = true;
+            this.numRevision.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.numRevision.Width = 80;
+            // 
+            // usuario
+            // 
+            this.usuario.FillWeight = 306.6767F;
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.ReadOnly = true;
+            this.usuario.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.usuario.Width = 738;
+            // 
+            // fecha
+            // 
+            this.fecha.FillWeight = 42.35772F;
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
+            this.fecha.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.fecha.Width = 138;
+            // 
+            // mostrar
+            // 
+            this.mostrar.FillWeight = 23.37937F;
+            this.mostrar.HeaderText = "Mostrar";
+            this.mostrar.Name = "mostrar";
+            this.mostrar.ReadOnly = true;
+            this.mostrar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.mostrar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.mostrar.Width = 59;
+            // 
             // BuscadorReporteInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -429,10 +429,6 @@
 
         private System.Windows.Forms.DataGridView DGVInventario;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numRevision;
-        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
-        private System.Windows.Forms.DataGridViewImageColumn mostrar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox txtBuscador;
         private System.Windows.Forms.DateTimePicker segundoDatePicker;
@@ -454,5 +450,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblCantidadRegistros;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numRevision;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewImageColumn mostrar;
     }
 }

@@ -1531,7 +1531,8 @@ namespace PuntoDeVentaV2
                     {
                         if (tipoDatoReporte.Equals("RInventario"))
                         {
-                            rev = filaDatos["NoRevision"].ToString();
+                            //rev = filaDatos["NoRevision"].ToString();
+                            rev = filaDatos["NumFolio"].ToString();
                             name = filaDatos["NameUsr"].ToString();
                             fecha = filaDatos["Fecha"].ToString();
                             usr = cs.validarEmpleadoPorID();
