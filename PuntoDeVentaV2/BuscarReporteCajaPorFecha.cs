@@ -304,11 +304,11 @@ namespace PuntoDeVentaV2
             if (!segundaConsulta.Rows.Count.Equals(0))//Datos abonos
             {
                 totalA = segundaConsulta.Rows[0]["Total"].ToString();
-                //efectivoA = segundaConsulta.Rows[0]["Efectivo"].ToString();
-                //tarjetaA = segundaConsulta.Rows[0]["Tarjeta"].ToString();
-                //valesA = segundaConsulta.Rows[0]["Vales"].ToString();
-                //chequeA = segundaConsulta.Rows[0]["Cheque"].ToString();
-                //transA = segundaConsulta.Rows[0]["Trans"].ToString();
+                efectivoA = segundaConsulta.Rows[0]["Efectivo"].ToString();
+                tarjetaA = segundaConsulta.Rows[0]["Tarjeta"].ToString();
+                valesA = segundaConsulta.Rows[0]["Vales"].ToString();
+                chequeA = segundaConsulta.Rows[0]["Cheque"].ToString();
+                transA = segundaConsulta.Rows[0]["Trans"].ToString();
             }
 
             if (!consultaDevoluciones.Rows.Count.Equals(0))
@@ -373,36 +373,36 @@ namespace PuntoDeVentaV2
             var totalAnticipos = ((float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(transAnt));
 
 
-            var rowEfectivo = (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg)) - (float)Convert.ToDecimal(efectivoR));
-            var rowTarjeta = (((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg)) - (float)Convert.ToDecimal(tarjetaR));
-            var rowVales = (((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg)) - (float)Convert.ToDecimal(valesR));
-            var rowCheque = (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg)) - (float)Convert.ToDecimal(chequeR));
-            var rowTransferencia = (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg)) - (float)Convert.ToDecimal(transR));
+            var rowEfectivo = (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoA)) - (float)Convert.ToDecimal(efectivoR));
+            var rowTarjeta = (((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(tarjetaA)) - (float)Convert.ToDecimal(tarjetaR));
+            var rowVales = (((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesA)) - (float)Convert.ToDecimal(valesR));
+            var rowCheque = (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeA)) - (float)Convert.ToDecimal(chequeR));
+            var rowTransferencia = (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transA)) - (float)Convert.ToDecimal(transR));
 
             var totalAntesCorte = ((rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial /*+ (float)Convert.ToDecimal(creditoC)*/) - dineroRetiradoCorte);
 
             var total = /*(*/(rowEfectivo + rowTarjeta + rowVales + rowCheque + rowTransferencia + saldoInicial /*+ (float)Convert.ToDecimal(creditoC)*/)/* - dineroRetiradoCorte)*/;
 
-            var totEfectivo = (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg)) - (float)Convert.ToDecimal(efectivoR));
+            var totEfectivo = (((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoA)) - (float)Convert.ToDecimal(efectivoR));
             if (totEfectivo < 0) { totEfectivo = 0; }
             lista.Add("Efectivo:|" + Convert.ToDecimal(efectivoC).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoAnt).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoAg).ToString("C") + "|Efectivo:|" + Convert.ToDecimal(efectivoR).ToString("C") + "|Efectivo:|" + totEfectivo.ToString("C"));
             //lista.Add("Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" + "|Efectivo:" );
 
             //lista.Add($"{efectivoC} | {efectivoAnt} | {efectivoAg} | {efectivoR} | {((float)Convert.ToDecimal(efectivoC) + (float)Convert.ToDecimal(efectivoAnt) + (float)Convert.ToDecimal(efectivoAg) + (float)Convert.ToDecimal(efectivoR))}");
 
-            var totTarjeta = (((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg)) - (float)Convert.ToDecimal(tarjetaR));
+            var totTarjeta = (((float)Convert.ToDecimal(tarjetaC) + (float)Convert.ToDecimal(tarjetaAnt) + (float)Convert.ToDecimal(tarjetaAg) + (float)Convert.ToDecimal(tarjetaA)) - (float)Convert.ToDecimal(tarjetaR));
             if (totTarjeta < 0) { totTarjeta = 0; }
             lista.Add("Tarjeta:|" + Convert.ToDecimal(tarjetaC).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaAnt).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaAg).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaR).ToString("C") + "|Tarjeta:|" + totTarjeta.ToString("C"));
 
-            var totVales = (((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg)) - (float)Convert.ToDecimal(valesR));
+            var totVales = (((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesA)) - (float)Convert.ToDecimal(valesR));
             if (totVales < 0 ) { totVales = 0; }
             lista.Add("Vales:|" + Convert.ToDecimal(valesC).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesAnt).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesAg).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesR).ToString("C") + "|Vales:|" + totVales.ToString("C"));
 
-            var totCheque = (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg)) - (float)Convert.ToDecimal(chequeR));
+            var totCheque = (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeA)) - (float)Convert.ToDecimal(chequeR));
             if (totCheque < 0) { totCheque = 0; }
             lista.Add("Cheque:|" + Convert.ToDecimal(chequeC).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeAnt).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeAg).ToString("C") + "|Cheque:|" + Convert.ToDecimal(chequeR).ToString("C") + "|Cheque:|" + totCheque.ToString("C"));
 
-            var totTrans = (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg)) - (float)Convert.ToDecimal(transR));
+            var totTrans = (((float)Convert.ToDecimal(transC) + (float)Convert.ToDecimal(transAnt) + (float)Convert.ToDecimal(transAg) + (float)Convert.ToDecimal(transA)) - (float)Convert.ToDecimal(transR));
             if (totTrans < 0) { totTrans = 0; }
             lista.Add("Transferencia:|" + Convert.ToDecimal(transC).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transAnt).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transAg).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transR).ToString("C") + "|Transferencia:|" + totTrans.ToString("C"));
 

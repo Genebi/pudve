@@ -1778,7 +1778,7 @@ namespace PuntoDeVentaV2
             colTotalFinal.Padding = 3;
             colTotalFinal.BackgroundColor = new BaseColor(Color.Red);
 
-            PdfPCell colTotalFinalC = new PdfPCell(new Phrase($"{saldoInicial}", fuenteTotales));
+            PdfPCell colTotalFinalC = new PdfPCell(new Phrase($"${saldoInicial.ToString("0.00")}", fuenteTotales));
             colTotalFinalC.BorderWidth = 0;
             colTotalFinalC.HorizontalAlignment = Element.ALIGN_CENTER;
             colTotalFinalC.Padding = 3;
