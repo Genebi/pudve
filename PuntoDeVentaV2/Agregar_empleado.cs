@@ -154,6 +154,11 @@ namespace PuntoDeVentaV2
                     // Crea registro en tabla EmpleadosPermisos
                     crear_registro_empleados_permisos(id_empleado);
 
+                    if (cmb_bx_permisos.SelectedIndex == 0)
+                    {
+                        cn.EjecutarConsulta($"UPDATE empleados SET p_empleado ='0' WHERE ID='{id_empleado}'");
+                    }
+
                     
                     // Limitados
                     if (cmb_bx_permisos.SelectedIndex == 1)

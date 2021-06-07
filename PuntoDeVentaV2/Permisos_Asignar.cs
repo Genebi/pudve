@@ -125,7 +125,7 @@ namespace PuntoDeVentaV2
 
             int contador = 0;
             int dato2 = 35;
-            int top = 110, left = 45, ancho = 150;
+            int top = 110, left = 200, ancho = 150;
             using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.verificarPermisosDinamicos(FormPrincipal.userID)))
             {
                 if (!dtPermisosDinamicos.Rows.Count.Equals(0))
@@ -133,29 +133,38 @@ namespace PuntoDeVentaV2
                     foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
                     {
                         var concepto = drConcepto["concepto"].ToString();
-                        
-                            if (left < 200)
-                            {
-                                left += 155;
-                                if (contador > 0 && left.Equals(200))
-                                {
-                                GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
-                                top += 20;
-                                    contador = 1;
-                                }
-                            }
-                            else
-                            {
-                                left = 45;
-                            GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
-                        }
-                        if (concepto == "Proveedor")
+
+                        if (concepto == "Proveedor" && top == 110)
                         {
                             GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
                             top += 20;
+                            dato2++;
+                            contador++;
                         }
-                        dato2++;
-                            contador = 1;
+                        else if (top == 110)
+                        {
+                            GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
+                            top += 20;
+                            dato2++;
+                            contador++;
+                        }
+
+                        if (left == 45 && contador == 0)
+                        {
+                            left = 200;
+                            GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
+                            dato2++;
+                            top += 20;
+                        }
+                        else if (left == 200 && contador == 0)
+                        {
+                            left = 45;
+                            GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
+                            dato2++;
+
+                        }
+                        contador = 0;
+
                     }
                 }
             }

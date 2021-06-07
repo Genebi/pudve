@@ -474,7 +474,7 @@ namespace PuntoDeVentaV2
 
             // Obtiene ID del empleado, y los permisos que tenga asignados.
 
-            string formato_usuario = "^[A-Z&Ñ]+@[A-Z&Ñ0-9]+$";
+            string formato_usuario = "^[A-Z&Ñ0-9]+@[A-Z&Ñ0-9]+$";
 
             Regex exp = new Regex(formato_usuario);
 
