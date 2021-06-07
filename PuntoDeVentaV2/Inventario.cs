@@ -959,10 +959,20 @@ namespace PuntoDeVentaV2
 
                 NoRev = NoRevAumentarInventario();
 
+                var empleadoFinal = string.Empty;
                 var idEmplado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+                var separarNameEmpleado = FormPrincipal.userNickName.Split('@');
+                if (FormPrincipal.userNickName.Contains("@"))
+                {
+                    empleadoFinal = separarNameEmpleado[1];
+                }
+                else
+                {
+                    empleadoFinal = FormPrincipal.userNickName;
+                }
                 if (string.IsNullOrEmpty(idEmplado)) { idEmplado = "0"; }
 
-                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmplado };
+                string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmplado, empleadoFinal };
                 var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
                 cn.EjecutarConsulta(insertAumentarInventario);
                 using (DataTable dtRetriveAumentarInventario = cn.CargarDatos(cs.GetAumentarInventario()))
