@@ -231,7 +231,7 @@ namespace PuntoDeVentaV2
                     tablaBusqueda = "dgvdisminuirinventario";
                 }
 
-                consulta = $"SELECT NoRevision, NombreProducto, Fecha FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}' AND NombreProducto LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
+                consulta = $"SELECT NoRevision, NombreProducto, NameUsr, IDEmpleado, Fecha FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}' AND NameUsr LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY Fecha DESC";
             }
             
 
@@ -1491,8 +1491,8 @@ namespace PuntoDeVentaV2
 
         public string InsertIntoAumentarInventario(string[] datosAumentarInventario)
         {
-            var consulta = "INSERT INTO DGVAumentarInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IdUsuario, IDEmpleado) VALUES";
-            consulta += $"('{datosAumentarInventario[0]}', '{datosAumentarInventario[1]}', '{datosAumentarInventario[2]}', '{datosAumentarInventario[3]}', '{datosAumentarInventario[4]}', '{datosAumentarInventario[5]}', '{datosAumentarInventario[6]}', '{datosAumentarInventario[7]}', '{datosAumentarInventario[8]}', '{datosAumentarInventario[9]}', '{datosAumentarInventario[10]}', '{datosAumentarInventario[11]}', '{datosAumentarInventario[12]}', '{datosAumentarInventario[13]}', '{datosAumentarInventario[14]}', '{datosAumentarInventario[15]}')";
+            var consulta = "INSERT INTO DGVAumentarInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IdUsuario, IDEmpleado, NameUsr) VALUES";
+            consulta += $"('{datosAumentarInventario[0]}', '{datosAumentarInventario[1]}', '{datosAumentarInventario[2]}', '{datosAumentarInventario[3]}', '{datosAumentarInventario[4]}', '{datosAumentarInventario[5]}', '{datosAumentarInventario[6]}', '{datosAumentarInventario[7]}', '{datosAumentarInventario[8]}', '{datosAumentarInventario[9]}', '{datosAumentarInventario[10]}', '{datosAumentarInventario[11]}', '{datosAumentarInventario[12]}', '{datosAumentarInventario[13]}', '{datosAumentarInventario[14]}', '{datosAumentarInventario[15]}', '{datosAumentarInventario[16]}')";
 
             return consulta;
         }

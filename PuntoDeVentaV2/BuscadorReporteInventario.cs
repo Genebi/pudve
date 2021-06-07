@@ -1524,6 +1524,8 @@ namespace PuntoDeVentaV2
                     var name = string.Empty;
                     var fecha = string.Empty;
                     var usr = string.Empty;
+                    var nameUsuario = string.Empty;
+                    var idObtenido = 0;
 
                     foreach (DataRow filaDatos in dtDatos.Rows)
                     {
@@ -1542,19 +1544,24 @@ namespace PuntoDeVentaV2
                         else 
                         {
                             rev = filaDatos["NoRevision"].ToString();
-                            name = filaDatos["IDEmpleado"].ToString();
+                            idObtenido = Convert.ToInt32(filaDatos["IDEmpleado"].ToString());
                             fecha = filaDatos["Fecha"].ToString();
+                            nameUsuario = filaDatos["NameUsr"].ToString();
 
-                            usr = cs.BuscarEmpleadoCaja(Convert.ToInt32(name));
+                            usr = cs.BuscarEmpleadoCaja(Convert.ToInt32(idObtenido));
 
-                            if (string.IsNullOrEmpty(usr))
+                            if (/*string.IsNullOrEmpty(usr) && idObtenido.Equals("0")*/idObtenido == 0) //Admin
                             {
-                                var admin = FormPrincipal.userNickName.Split('@');
-                                name = $"ADMIN ({admin[0]})";
+                                //var admin = FormPrincipal.userNickName.Split('@');
+                                //name = $"ADMIN ({admin[0]})";
+                                name = $"ADMIN ({nameUsuario})";
                             }
-                            else
+                            else if (idObtenido > 0)//Empleado
                             {
-                                name = usr;
+                                //var separar = nameUsuario.Split('@');
+                                //name = separar[1];
+                                name = nameUsuario;
+
                             }
                         }
                         
