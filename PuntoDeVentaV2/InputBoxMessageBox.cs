@@ -46,6 +46,11 @@ namespace PuntoDeVentaV2
                 retornoNombreConcepto = retornoNombreConcepto.Replace("\r\n", " ");
             }
 
+            // Actualizar la tabla permisosEmpleados y agregar los permisos dinamicos
+
+
+            // 
+
             this.Close();
         }
 
