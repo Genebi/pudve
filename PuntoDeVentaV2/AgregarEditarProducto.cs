@@ -628,7 +628,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (cbDetalleGral.Items.Count == 0)
                         {
-                            cbDetalleGral.Items.Add(name.ToString().Remove(0, 3) + "...");
+                            cbDetalleGral.Items.Add(name.ToString().Remove(0, 3).Replace("_", " ") + "...");
                             cbDetalleGral.SelectedIndex = 0;
                         }
                         panelContenido.Controls.Add(cbDetalleGral);
@@ -816,7 +816,7 @@ namespace PuntoDeVentaV2
 
             if (listaDetalleGral.Length > 0)
             {
-                detallesGral.Add("0", concepto + "...");
+                detallesGral.Add("0", concepto.Replace("_"," ") + "...");
 
                 foreach (var DetailGral in listaDetalleGral)
                 {
@@ -828,7 +828,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                detallesGral.Add("0", concepto + "...");
+                detallesGral.Add("0", concepto.Replace("_", " ") + "...");
             }
         }
 
@@ -4581,6 +4581,8 @@ namespace PuntoDeVentaV2
 
             listaProductoToCombo = new List<string>();
             ProductosDeServicios = new List<string>();
+
+           
 
         }
 
