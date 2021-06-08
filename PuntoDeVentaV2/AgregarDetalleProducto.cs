@@ -494,7 +494,7 @@ namespace PuntoDeVentaV2
 
                 CheckBox check = new CheckBox();
                 check.Name = chkDetalleProductoTxt;
-                check.Text = chkDetalleProductoTxt;
+                check.Text = chkDetalleProductoTxt.Replace("_"," ");
                 check.Width = 155;
                 check.Height = 24;
                 check.Location = new Point(0, 0);
@@ -863,7 +863,7 @@ namespace PuntoDeVentaV2
                     // Verificamos si la Lista de Detalles Generales no tiene algun registro
                     else if (cbDetalleGral.Items.Count == 0)
                     {
-                        cbDetalleGral.Items.Add(chekBoxClickDetalle.Name.ToString() + "...");
+                        cbDetalleGral.Items.Add(chekBoxClickDetalle.Name.ToString().Replace("_", " ") + "...");
                         cbDetalleGral.SelectedIndex = 0;
                     }
 
@@ -1819,7 +1819,7 @@ namespace PuntoDeVentaV2
 
             if (listaDetalleGral.Length > 0)
             {
-                detallesGral.Add("0", concepto + "...");
+                detallesGral.Add("0", concepto.Replace("_"," ") + "...");
 
                 foreach (var DetailGral in listaDetalleGral)
                 {
@@ -1830,7 +1830,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                detallesGral.Add("0", concepto + "...");
+                detallesGral.Add("0", concepto.Replace("_"," ") + "...");
             }
         }
 
@@ -2384,6 +2384,7 @@ namespace PuntoDeVentaV2
             //    BuscarTextoListView(settingDatabases);
             //    MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //}
+            
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -2408,6 +2409,9 @@ namespace PuntoDeVentaV2
                 if (!inputMessageBox.retornoNombreConcepto.Equals(string.Empty))
                 {
                     conceptoProductoAgregar = inputMessageBox.retornoNombreConcepto;
+
+                    conceptoProductoAgregar = conceptoProductoAgregar.Replace(" ", "_");
+
                     //MessageBox.Show("Concepto: " + conceptoProductoAgregar);
 
                     using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(conceptoProductoAgregar, FormPrincipal.userID)))
@@ -2464,6 +2468,25 @@ namespace PuntoDeVentaV2
                     fLPCentralDetalle.Controls.Clear();
                     loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
+                }
+                using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+                {
+                    if (!dtPermisosDinamicos.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
+                        {
+                            try
+                            {
+                                var concepto = drConcepto["concepto"].ToString();
+                                cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
+                            }
+                            catch (Exception ex)
+                            {
+
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+                    }
                 }
             };
 

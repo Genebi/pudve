@@ -15,6 +15,8 @@ namespace PuntoDeVentaV2
         string  promptMsg = string.Empty, 
                 titleWindow = string.Empty, 
                 strDefaultResponse = string.Empty;
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
 
         public string retornoNombreConcepto = string.Empty;
 
@@ -45,11 +47,6 @@ namespace PuntoDeVentaV2
                 retornoNombreConcepto.Trim();
                 retornoNombreConcepto = retornoNombreConcepto.Replace("\r\n", " ");
             }
-
-            // Actualizar la tabla permisosEmpleados y agregar los permisos dinamicos
-
-
-            // 
 
             this.Close();
         }

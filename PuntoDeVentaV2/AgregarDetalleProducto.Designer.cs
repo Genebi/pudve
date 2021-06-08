@@ -139,7 +139,7 @@
             // 
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.fLPCentralDetalle);
-            this.panel2.Location = new System.Drawing.Point(291, 16);
+            this.panel2.Location = new System.Drawing.Point(291, 18);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(643, 526);
             this.panel2.TabIndex = 28;

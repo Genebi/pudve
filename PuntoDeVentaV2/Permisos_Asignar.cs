@@ -34,7 +34,7 @@ namespace PuntoDeVentaV2
         private void GenerarCheckbox(int top, int left, int ancho, string texto, int estado)
         {
             var checkbox = new CheckBox();
-            checkbox.Text = texto;
+            checkbox.Text = texto.Replace("_", " ");
             checkbox.Top = top;
             checkbox.Left = left;
             checkbox.Width = ancho;
@@ -65,6 +65,7 @@ namespace PuntoDeVentaV2
                 {
                     estado = 0;
                 }
+                concepto = concepto.Replace(" ", "_");
                 cn.EjecutarConsulta(cs.permisisAsignarDinamicos(concepto, estado, id_empleado.ToString()));
             }
         }
@@ -133,7 +134,7 @@ namespace PuntoDeVentaV2
                     foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
                     {
                         var concepto = drConcepto["concepto"].ToString();
-
+                        
                         if (concepto == "Proveedor" && top == 110)
                         {
                             GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
@@ -142,7 +143,7 @@ namespace PuntoDeVentaV2
                             contador++;
                         }
                         else if (top == 110)
-                        {
+                        { 
                             GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
                             top += 20;
                             dato2++;
