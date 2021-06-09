@@ -2698,6 +2698,7 @@ namespace PuntoDeVentaV2
 
                 var ajustarQuery = $"SELECT Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})";
 
+
                 var query = cn.CargarDatos(ajustarQuery);
 
                 if (!query.Rows.Count.Equals(0))
@@ -2713,30 +2714,6 @@ namespace PuntoDeVentaV2
 
         private string recorrerDGVAlmacenarDiccionario()
         {
-            //lista.Clear();
-            //foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
-            //{
-            //    try
-            //    {
-            //        var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
-            //        var nameClient = dgv.Cells["Cliente"].Value.ToString();
-            //        var checkBox = Convert.ToBoolean(dgv.Cells["col_checkbox"].Value.ToString());
-
-            //        if (checkBox.Equals(true))
-            //        {
-            //            lista.Add(idVenta);
-            //        }
-            //        //else
-            //        //{
-            //        //    lista.Remove(idVenta);
-            //        //}
-            //    }
-            //    catch (Exception e)
-            //    {
-
-            //    }
-            //}
-
             //Recorre el Diccionario y agregar todo en una sola cadena para la consulta
             var cadenaCompleta = string.Empty;
             foreach (KeyValuePair<int, string> item in idVentas)

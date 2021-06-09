@@ -1311,6 +1311,12 @@ IF
  -- Agregar Columna (IDEmpleado) a la tabla dgvdisminuirinventario
  ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS NameUse VARCHAR(40);
 
+   -- Agregar Columna (IDEmpleado) a la tabla dgvaumentarinventario 
+ ALTER TABLE dgvaumentarinventario ADD COLUMN IF NOT EXISTS Folio INTEGER(11) DEFAULT (0);
+
+ -- Agregar Columna (IDEmpleado) a la tabla dgvdisminuirinventario
+ ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS Folio INTEGER(11) DEFAULT (0);
+
  -- 
  --
 

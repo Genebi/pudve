@@ -78,15 +78,15 @@ namespace PuntoDeVentaV2
 
             if (tipoDatoReporte.Equals("RInventario"))//Revisar inventario
             {
-                query = $"SELECT NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY NoRevision ORDER BY Fecha DESC";
+                query = $"SELECT NumFolio, NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY NoRevision ORDER BY Fecha DESC";
             }
             else if (tipoDatoReporte.Equals("AIAumentar"))//Actualizar Inventario (Aumentar)
             {
-                query = $"SELECT NoRevision, IDEmpleado, Fecha FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC";
+                query = $"SELECT NoRevision, IDEmpleado, Fecha FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
             }
             else if (tipoDatoReporte.Equals("AIDisminuir"))//Actualizar Inventario (Disminuir)
             {
-                query = $"SELECT NoRevision, IDEmpleado, Fecha FROM dgvdisminuirinventario WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC";
+                query = $"SELECT NoRevision, IDEmpleado, Fecha FROM dgvdisminuirinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
             }
 
             filtroConSinFiltroAvanzado = query;
@@ -1180,6 +1180,7 @@ namespace PuntoDeVentaV2
                 colFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colDiferenciaTmp = new PdfPCell(new Phrase(diferencia, fuenteNormal));
+                if (diferencia == "") { diferencia = "0"; }
                 Diferencia += (float)Convert.ToDouble(diferencia);
                 colDiferenciaTmp.BorderWidth = 1;
                 colDiferenciaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -1340,11 +1341,13 @@ namespace PuntoDeVentaV2
             }
             else if (tipoDatoReporte.Equals("AIAumentar"))
             {
-                tipoConsulta = $"SELECT NumFolio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'";
+                //tipoConsulta = $"SELECT NumFolio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'";
+                tipoConsulta = $"SELECT NumFolio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0";
             }
             else if (tipoDatoReporte.Equals("AIDisminuir"))
             {
-                tipoConsulta = $"SELECT NumFolio FROM dgvdisminuirinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'";
+                //tipoConsulta = $"SELECT NumFolio FROM dgvdisminuirinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'";
+                tipoConsulta = $"SELECT NumFolio FROM dgvdisminuirinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0";
             }
 
             var query = cn.CargarDatos(tipoConsulta);

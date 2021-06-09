@@ -153,6 +153,7 @@ namespace PuntoDeVentaV2
                         row.Cells["Clave"].Value = dr["Clave"].ToString();
                         row.Cells["Codigo"].Value = dr["Codigo"].ToString();
                         row.Cells["Fecha"].Value = dr["Fecha"].ToString();
+                        row.Cells["IDTabla"].Value = dr["ID"].ToString();
                         if (!dr["Comentarios"].ToString().Equals(""))
                         {
                             DGVInventario.Columns["Comentarios"].Visible = true;
@@ -184,6 +185,7 @@ namespace PuntoDeVentaV2
                         row.Cells["DiferenciaUnidades"].Style.ForeColor = Color.DodgerBlue;
                         row.Cells["DiferenciaUnidades"].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
                         row.Cells["NuevoStock"].Value = dr["NuevoStock"].ToString();
+                        row.Cells["IDTabla"].Value = dr["ID"].ToString();
                         //if (!dr["ValorUnitario"].ToString().Equals("0.00"))
                         //{
                         //    row.Cells["Precio"].Value = dr["ValorUnitario"].ToString();
@@ -993,6 +995,7 @@ namespace PuntoDeVentaV2
                             row.Cells["DiferenciaUnidades"].Style.ForeColor = Color.DodgerBlue;
                             row.Cells["DiferenciaUnidades"].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
                             row.Cells["NuevoStock"].Value = dr["NuevoStock"].ToString();
+                            row.Cells["IDTabla"].Value = dr["ID"].ToString();
                             //if (!dr["ValorUnitario"].ToString().Equals("0.00"))
                             //{
                             //    row.Cells["Precio"].Value = dr["ValorUnitario"].ToString();
@@ -1063,6 +1066,7 @@ namespace PuntoDeVentaV2
                             row.Cells["Clave"].Value = dr["Clave"].ToString();
                             row.Cells["Codigo"].Value = dr["Codigo"].ToString();
                             row.Cells["Fecha"].Value = dr["Fecha"].ToString();
+                            row.Cells["IDTabla"].Value = dr["ID"].ToString();
                             if (!dr["Comentarios"].ToString().Equals(""))
                             {
                                 DGVInventario.Columns["Comentarios"].Visible = true;
@@ -1136,6 +1140,7 @@ namespace PuntoDeVentaV2
             SCRA.FormClosed += delegate
             {
                 ConceptosSeleccionados();
+                ValidarParaTerminarRevision();
             };
 
             SCRA.ShowDialog();
@@ -1196,6 +1201,65 @@ namespace PuntoDeVentaV2
             DGVInventario.Rows.Clear();
 
             idReporte++;
+        }
+
+        private void ValidarParaTerminarRevision()
+        {
+            List<int> idObtenidosAumentar = new List<int>();
+            List<int> idObtenidosDisminuir = new List<int>();
+
+            string tablaAumentar = "dgvaumentarinventario";
+            string tablaDisminuir = "dgvdisminuirinventario"; 
+
+            if (rbAumentarProducto.Checked)
+            {
+                var numFolio = ObtenerUltimoFolio(tablaAumentar);
+                numFolio += 1;
+
+                foreach (DataGridViewRow dgv in DGVInventario.Rows)
+                {
+                    idObtenidosAumentar.Add(Convert.ToInt32(dgv.Cells[10].Value));
+                }
+
+                var codigosBuscar = RecorrerLista(idObtenidosAumentar); 
+                cn.EjecutarConsulta($"UPDATE {tablaAumentar} SET Folio = '{numFolio}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})");
+            }
+            else if (rbDisminuirProducto.Checked)
+            {
+                var numFolio = ObtenerUltimoFolio(tablaDisminuir);
+                numFolio += 1;
+
+                foreach (DataGridViewRow dgv in DGVInventario.Rows)
+                {
+                    idObtenidosDisminuir.Add(Convert.ToInt32(dgv.Cells[10].Value));
+                }
+
+                var codigosBuscar = RecorrerLista(idObtenidosDisminuir);
+                cn.EjecutarConsulta($"UPDATE {tablaDisminuir} SET Folio = '{numFolio}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})");
+            }
+        }
+
+        private string RecorrerLista(List<int> tipoLista)
+        {
+            var result = string.Empty;
+
+            foreach (var lista in tipoLista)
+            {
+                result += $"{lista},";
+            }
+
+            result = result.TrimEnd(',');
+
+            return result;
+        }
+
+        private int ObtenerUltimoFolio(string tabla)
+        {
+            int result = 0;
+
+            var query = cn.CargarDatos($"SELECT Folio FROM {tabla} WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC LIMIT 1");
+
+            return result;
         }
 
         private void GenerarReporte(int idReporte)

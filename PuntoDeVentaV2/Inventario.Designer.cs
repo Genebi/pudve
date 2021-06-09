@@ -54,6 +54,7 @@
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comentarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDTabla = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelBotones.SuspendLayout();
             this.gBSeleccionActualizarInventario.SuspendLayout();
             this.panelContenedor.SuspendLayout();
@@ -316,7 +317,8 @@
             this.Clave,
             this.Codigo,
             this.Fecha,
-            this.Comentarios});
+            this.Comentarios,
+            this.IDTabla});
             this.DGVInventario.Location = new System.Drawing.Point(0, 65);
             this.DGVInventario.Name = "DGVInventario";
             this.DGVInventario.ReadOnly = true;
@@ -393,6 +395,13 @@
             this.Comentarios.ReadOnly = true;
             this.Comentarios.Visible = false;
             // 
+            // IDTabla
+            // 
+            this.IDTabla.HeaderText = "IDTabla";
+            this.IDTabla.Name = "IDTabla";
+            this.IDTabla.ReadOnly = true;
+            this.IDTabla.Visible = false;
+            // 
             // Inventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,6 +445,7 @@
         private System.Windows.Forms.GroupBox gBSeleccionActualizarInventario;
         private System.Windows.Forms.RadioButton rbDisminuirProducto;
         private System.Windows.Forms.RadioButton rbAumentarProducto;
+        private System.Windows.Forms.Button btnConceptosReporte;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
@@ -446,6 +456,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Comentarios;
-        private System.Windows.Forms.Button btnConceptosReporte;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDTabla;
     }
 }
