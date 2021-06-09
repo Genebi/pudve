@@ -1499,7 +1499,7 @@ namespace PuntoDeVentaV2
 
         public string GetAumentarInventario()
         {
-            var consultar = $"SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario FROM DGVAumentarInventario WHERE StatusActualizacion = 1 AND IdUsuario = {FormPrincipal.userID}";
+            var consultar = $"SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, ID FROM DGVAumentarInventario WHERE StatusActualizacion = 1 AND IdUsuario = {FormPrincipal.userID}";
 
             return consultar;
         }
@@ -1574,7 +1574,7 @@ namespace PuntoDeVentaV2
 
         public string GetDisminuirInventario()
         {
-            var consulta = $"SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario FROM DGVDisminuirInventario WHERE StatusActualizacion = 1 AND IdUsuario = {FormPrincipal.userID}";
+            var consulta = $"SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, ID FROM DGVDisminuirInventario WHERE StatusActualizacion = 1 AND IdUsuario = {FormPrincipal.userID}";
 
             return consulta;
         }
