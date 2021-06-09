@@ -46,6 +46,7 @@
             this.importarBaseDeDatosMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vincularPCEnRedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRecuperarPassword = new System.Windows.Forms.Label();
+            this.registroIniciosDeSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -178,7 +179,8 @@
             this.opcionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.desvincularPCMenuItem,
             this.importarBaseDeDatosMenuItem,
-            this.vincularPCEnRedMenuItem});
+            this.vincularPCEnRedMenuItem,
+            this.registroIniciosDeSesionToolStripMenuItem});
             this.opcionesToolStripMenuItem.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
             this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
             this.opcionesToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -187,21 +189,21 @@
             // desvincularPCMenuItem
             // 
             this.desvincularPCMenuItem.Name = "desvincularPCMenuItem";
-            this.desvincularPCMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.desvincularPCMenuItem.Size = new System.Drawing.Size(207, 22);
             this.desvincularPCMenuItem.Text = "Desvincular PC en red";
             this.desvincularPCMenuItem.Click += new System.EventHandler(this.desvincularPCMenuItem_Click);
             // 
             // importarBaseDeDatosMenuItem
             // 
             this.importarBaseDeDatosMenuItem.Name = "importarBaseDeDatosMenuItem";
-            this.importarBaseDeDatosMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.importarBaseDeDatosMenuItem.Size = new System.Drawing.Size(207, 22);
             this.importarBaseDeDatosMenuItem.Text = "Importar base de datos";
             this.importarBaseDeDatosMenuItem.Click += new System.EventHandler(this.importarBaseDeDatosMenuItem_Click);
             // 
             // vincularPCEnRedMenuItem
             // 
             this.vincularPCEnRedMenuItem.Name = "vincularPCEnRedMenuItem";
-            this.vincularPCEnRedMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.vincularPCEnRedMenuItem.Size = new System.Drawing.Size(207, 22);
             this.vincularPCEnRedMenuItem.Text = "Vincular PC en red";
             this.vincularPCEnRedMenuItem.Click += new System.EventHandler(this.vincularPCEnRedMenuItem_Click);
             // 
@@ -217,6 +219,13 @@
             this.btnRecuperarPassword.TabIndex = 12;
             this.btnRecuperarPassword.Text = "¿Olvidaste tu contraseña?";
             this.btnRecuperarPassword.Click += new System.EventHandler(this.btnRecuperarPassword_Click);
+            // 
+            // registroIniciosDeSesionToolStripMenuItem
+            // 
+            this.registroIniciosDeSesionToolStripMenuItem.Name = "registroIniciosDeSesionToolStripMenuItem";
+            this.registroIniciosDeSesionToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.registroIniciosDeSesionToolStripMenuItem.Text = "Registro Inicios de Sesion";
+            this.registroIniciosDeSesionToolStripMenuItem.Click += new System.EventHandler(this.registroIniciosDeSesionToolStripMenuItem_Click);
             // 
             // Login
             // 
@@ -266,5 +275,6 @@
         private System.Windows.Forms.ToolStripMenuItem importarBaseDeDatosMenuItem;
         private System.Windows.Forms.Label btnRecuperarPassword;
         private System.Windows.Forms.ToolStripMenuItem vincularPCEnRedMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registroIniciosDeSesionToolStripMenuItem;
     }
 }

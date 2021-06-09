@@ -2010,5 +2010,17 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string RegistroIniciosDeSesiones()
+        {
+            var consulta = "SELECT * FROM iniciosdesesion";
+            return consulta;
+        }
+
+        public string busquedaIniciosDeSesion(string busqueda)
+        {
+            var consulta = $"SELECT * FROM iniciosdesesion WHERE usuario LIKE '%{busqueda}%' AND IDUsuario = '{FormPrincipal.userID}'";
+            return consulta;
+        }
     }
 }  

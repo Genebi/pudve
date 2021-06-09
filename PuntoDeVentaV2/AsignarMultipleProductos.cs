@@ -146,7 +146,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     // Aqui consultamos y agregamos todos los restantes
-                    AgregarOpcion(concepto, concepto, alturaEjeY);
+                    AgregarOpcion(concepto.Replace("_"," "), concepto.Replace("_", " "), alturaEjeY);
                     alturaEjeY += 35;
                 }   
             }
