@@ -82,11 +82,11 @@ namespace PuntoDeVentaV2
             }
             else if (tipoDatoReporte.Equals("AIAumentar"))//Actualizar Inventario (Aumentar)
             {
-                query = $"SELECT NoRevision, IDEmpleado, Fecha FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
+                query = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
             }
             else if (tipoDatoReporte.Equals("AIDisminuir"))//Actualizar Inventario (Disminuir)
             {
-                query = $"SELECT NoRevision, IDEmpleado, Fecha FROM dgvdisminuirinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
+                query = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvdisminuirinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
             }
 
             filtroConSinFiltroAvanzado = query;
@@ -142,7 +142,7 @@ namespace PuntoDeVentaV2
         {
             var mostrarClave = FormPrincipal.clave;
 
-            var numFolio = obtenerFolio(num);
+            //var numFolio = obtenerFolio(num);
 
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
@@ -240,7 +240,7 @@ namespace PuntoDeVentaV2
 
             Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
 
-            numeroFolio = new Paragraph("No. FOLIO: " + numFolio, fuenteNormal);
+            numeroFolio = new Paragraph("No. FOLIO: " + num, fuenteNormal);
 
             Paragraph subTitulo = new Paragraph("REPORTE INVENTARIO\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
@@ -333,7 +333,7 @@ namespace PuntoDeVentaV2
             tablaInventario.AddCell(colPerdida);
             tablaInventario.AddCell(colRecuperada);
 
-            var consulta = cn.CargarDatos($"SELECT * FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'");
+            var consulta = cn.CargarDatos($"SELECT * FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND NumFolio = '{num}'");
 
             foreach (DataRow row in consulta.Rows)
             {
@@ -532,7 +532,7 @@ namespace PuntoDeVentaV2
         private void GenerarReporte(int num)
         {
             var mostrarClave = FormPrincipal.clave;
-            var numFolio = obtenerFolio(num);
+            //var numFolio = obtenerFolio(num);
 
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
@@ -632,7 +632,7 @@ namespace PuntoDeVentaV2
 
             Paragraph subTitulo = new Paragraph("REPORTE DE REVISAR INVENTARIO\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
-            numeroFolio = new Paragraph("No. FOLIO: " + numFolio, fuenteNormal);
+            numeroFolio = new Paragraph("No. FOLIO: " + num, fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
@@ -730,7 +730,7 @@ namespace PuntoDeVentaV2
             tablaInventario.AddCell(colPerdida);
             tablaInventario.AddCell(colRecuperada);
 
-            var consulta = cn.CargarDatos($"SELECT * FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'");
+            var consulta = cn.CargarDatos($"SELECT * FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' AND NumFolio = '{num}'");
 
             foreach (DataRow row in consulta.Rows)
             {
@@ -954,6 +954,16 @@ namespace PuntoDeVentaV2
                 actualRevision = "ACTUALIZAR INVENTARIO (Disminuir)";
             }
 
+            var tablaBuscar = string.Empty;
+            if (tipoDatoReporte.Equals("AIAumentar"))
+            {
+                tablaBuscar = "dgvaumentarinventario";
+            }
+            else
+            {
+                tablaBuscar = "dgvdisminuirinventario";
+            }
+
             // Fuentes y Colores
             var colorFuenteNegrita = new BaseColor(Color.Black);
             var colorFuenteBlanca = new BaseColor(Color.White);
@@ -1002,12 +1012,19 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            //var numerodeFolio = string.Empty;
+            //var obtenerFolio = cn.CargarDatos($"SELECT Folio FROM {tablaBuscar} WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'");
+
+            //if (!obtenerFolio.Rows.Count.Equals(0))
+            //{
+            //    numerodeFolio = obtenerFolio.Rows[0]["Folio"].ToString();
+            //}
 
             Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
 
             Paragraph subTitulo = new Paragraph($"REPORTE DE INVENTARIO\nSECCIÓN ELEGIDA " + actualRevision.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
-            //numeroFolio = new Paragraph("No. FOLIO: " + numFolio, fuenteNormal);
+            numeroFolio = new Paragraph("No. FOLIO: " + num, fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
@@ -1104,17 +1121,9 @@ namespace PuntoDeVentaV2
             //tablaInventario.AddCell(colPerdida);
             //tablaInventario.AddCell(colRecuperada);
 
-            var tablaBuscar = string.Empty;
-            if (tipoDatoReporte.Equals("AIAumentar"))
-            {
-                tablaBuscar = "dgvaumentarinventario";
-            }
-            else
-            {
-                tablaBuscar = "dgvdisminuirinventario";
-            }
+            
 
-            var consulta = cn.CargarDatos($"SELECT * FROM {tablaBuscar} WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'");
+            var consulta = cn.CargarDatos($"SELECT * FROM {tablaBuscar} WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio = '{num}'");
 
             foreach (DataRow row in consulta.Rows)
             {
@@ -1126,6 +1135,7 @@ namespace PuntoDeVentaV2
                 var fecha = row["Fecha"].ToString();
                 var diferencia = row["DiferenciaUnidades"].ToString();
                 var precio = float.Parse(row["Precio"].ToString());
+                //var folio = row["Folio"].ToString();
                 var perdida = string.Empty;
                 var recuperada = string.Empty;
 
@@ -1547,7 +1557,8 @@ namespace PuntoDeVentaV2
                         }
                         else 
                         {
-                            rev = filaDatos["NoRevision"].ToString();
+                            //rev = filaDatos["NoRevision"].ToString();
+                            rev = filaDatos["Folio"].ToString();
                             idObtenido = Convert.ToInt32(filaDatos["IDEmpleado"].ToString());
                             fecha = filaDatos["Fecha"].ToString();
                             nameUsuario = filaDatos["NameUsr"].ToString();
@@ -1602,7 +1613,8 @@ namespace PuntoDeVentaV2
                         //}
                         if (tipoDatoReporte.Equals("RInventario"))
                         {
-                            rev = filaDatos["NoRevision"].ToString();
+                            //rev = filaDatos["NoRevision"].ToString();
+                            rev = filaDatos["NumFolio"].ToString();
                             name = filaDatos["NameUsr"].ToString();
                             fecha = filaDatos["Fecha"].ToString();
                             usr = cs.validarEmpleadoPorID();
@@ -1614,7 +1626,8 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            rev = filaDatos["NoRevision"].ToString();
+                            //rev = filaDatos["NoRevision"].ToString();
+                            rev = filaDatos["Folio"].ToString();
                             name = filaDatos["IDEmpleado"].ToString();
                             fecha = filaDatos["Fecha"].ToString();
 
