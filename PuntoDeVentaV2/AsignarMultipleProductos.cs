@@ -131,8 +131,6 @@ namespace PuntoDeVentaV2
 
             int alturaEjeY = 395;
 
-            //======================================================================
-
             var conceptos = mb.ConceptosAppSettings();
 
             foreach (var concepto in conceptos)
@@ -160,6 +158,6 @@ namespace PuntoDeVentaV2
 
                 Application.OpenForms.OfType<Cargando>().First().BringToFront();
             }
-        }
+        } 
     }
 }

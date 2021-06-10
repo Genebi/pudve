@@ -57,12 +57,13 @@
             this.btnMisDatos = new System.Windows.Forms.Button();
             this.btnReportes = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
+            this.chkMarcarDesmarcar = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbox_anticipos
             // 
             this.cbox_anticipos.AutoSize = true;
-            this.cbox_anticipos.Location = new System.Drawing.Point(34, 30);
+            this.cbox_anticipos.Location = new System.Drawing.Point(34, 41);
             this.cbox_anticipos.Name = "cbox_anticipos";
             this.cbox_anticipos.Size = new System.Drawing.Size(83, 21);
             this.cbox_anticipos.TabIndex = 1;
@@ -72,7 +73,7 @@
             // cbox_caja
             // 
             this.cbox_caja.AutoSize = true;
-            this.cbox_caja.Location = new System.Drawing.Point(176, 30);
+            this.cbox_caja.Location = new System.Drawing.Point(176, 41);
             this.cbox_caja.Name = "cbox_caja";
             this.cbox_caja.Size = new System.Drawing.Size(55, 21);
             this.cbox_caja.TabIndex = 2;
@@ -82,7 +83,7 @@
             // cbox_clientes
             // 
             this.cbox_clientes.AutoSize = true;
-            this.cbox_clientes.Location = new System.Drawing.Point(308, 30);
+            this.cbox_clientes.Location = new System.Drawing.Point(308, 41);
             this.cbox_clientes.Name = "cbox_clientes";
             this.cbox_clientes.Size = new System.Drawing.Size(75, 21);
             this.cbox_clientes.TabIndex = 3;
@@ -92,7 +93,7 @@
             // cbox_configuracion
             // 
             this.cbox_configuracion.AutoSize = true;
-            this.cbox_configuracion.Location = new System.Drawing.Point(34, 73);
+            this.cbox_configuracion.Location = new System.Drawing.Point(34, 84);
             this.cbox_configuracion.Name = "cbox_configuracion";
             this.cbox_configuracion.Size = new System.Drawing.Size(111, 21);
             this.cbox_configuracion.TabIndex = 4;
@@ -102,7 +103,7 @@
             // cbox_empleados
             // 
             this.cbox_empleados.AutoSize = true;
-            this.cbox_empleados.Location = new System.Drawing.Point(176, 73);
+            this.cbox_empleados.Location = new System.Drawing.Point(176, 84);
             this.cbox_empleados.Name = "cbox_empleados";
             this.cbox_empleados.Size = new System.Drawing.Size(92, 21);
             this.cbox_empleados.TabIndex = 5;
@@ -112,7 +113,7 @@
             // cbox_empresas
             // 
             this.cbox_empresas.AutoSize = true;
-            this.cbox_empresas.Location = new System.Drawing.Point(308, 73);
+            this.cbox_empresas.Location = new System.Drawing.Point(308, 84);
             this.cbox_empresas.Name = "cbox_empresas";
             this.cbox_empresas.Size = new System.Drawing.Size(82, 21);
             this.cbox_empresas.TabIndex = 6;
@@ -122,7 +123,7 @@
             // cbox_facturas
             // 
             this.cbox_facturas.AutoSize = true;
-            this.cbox_facturas.Location = new System.Drawing.Point(34, 117);
+            this.cbox_facturas.Location = new System.Drawing.Point(34, 128);
             this.cbox_facturas.Name = "cbox_facturas";
             this.cbox_facturas.Size = new System.Drawing.Size(78, 21);
             this.cbox_facturas.TabIndex = 7;
@@ -132,7 +133,7 @@
             // cbox_inventario
             // 
             this.cbox_inventario.AutoSize = true;
-            this.cbox_inventario.Location = new System.Drawing.Point(176, 117);
+            this.cbox_inventario.Location = new System.Drawing.Point(176, 128);
             this.cbox_inventario.Name = "cbox_inventario";
             this.cbox_inventario.Size = new System.Drawing.Size(88, 21);
             this.cbox_inventario.TabIndex = 8;
@@ -142,7 +143,7 @@
             // cbox_misdatos
             // 
             this.cbox_misdatos.AutoSize = true;
-            this.cbox_misdatos.Location = new System.Drawing.Point(308, 117);
+            this.cbox_misdatos.Location = new System.Drawing.Point(308, 128);
             this.cbox_misdatos.Name = "cbox_misdatos";
             this.cbox_misdatos.Size = new System.Drawing.Size(83, 21);
             this.cbox_misdatos.TabIndex = 9;
@@ -152,7 +153,7 @@
             // cbox_productos
             // 
             this.cbox_productos.AutoSize = true;
-            this.cbox_productos.Location = new System.Drawing.Point(34, 162);
+            this.cbox_productos.Location = new System.Drawing.Point(34, 173);
             this.cbox_productos.Name = "cbox_productos";
             this.cbox_productos.Size = new System.Drawing.Size(87, 21);
             this.cbox_productos.TabIndex = 10;
@@ -162,7 +163,7 @@
             // cbox_proveedores
             // 
             this.cbox_proveedores.AutoSize = true;
-            this.cbox_proveedores.Location = new System.Drawing.Point(176, 162);
+            this.cbox_proveedores.Location = new System.Drawing.Point(176, 173);
             this.cbox_proveedores.Name = "cbox_proveedores";
             this.cbox_proveedores.Size = new System.Drawing.Size(103, 21);
             this.cbox_proveedores.TabIndex = 11;
@@ -172,7 +173,7 @@
             // cbox_reportes
             // 
             this.cbox_reportes.AutoSize = true;
-            this.cbox_reportes.Location = new System.Drawing.Point(308, 162);
+            this.cbox_reportes.Location = new System.Drawing.Point(308, 173);
             this.cbox_reportes.Name = "cbox_reportes";
             this.cbox_reportes.Size = new System.Drawing.Size(80, 21);
             this.cbox_reportes.TabIndex = 12;
@@ -182,7 +183,7 @@
             // cbox_ventas
             // 
             this.cbox_ventas.AutoSize = true;
-            this.cbox_ventas.Location = new System.Drawing.Point(34, 204);
+            this.cbox_ventas.Location = new System.Drawing.Point(34, 215);
             this.cbox_ventas.Name = "cbox_ventas";
             this.cbox_ventas.Size = new System.Drawing.Size(69, 21);
             this.cbox_ventas.TabIndex = 14;
@@ -225,7 +226,7 @@
             // 
             this.btnCaja.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCaja.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnCaja.Location = new System.Drawing.Point(150, 29);
+            this.btnCaja.Location = new System.Drawing.Point(150, 40);
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Size = new System.Drawing.Size(20, 20);
             this.btnCaja.TabIndex = 17;
@@ -236,7 +237,7 @@
             // 
             this.btnAnticipos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAnticipos.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnAnticipos.Location = new System.Drawing.Point(8, 29);
+            this.btnAnticipos.Location = new System.Drawing.Point(8, 40);
             this.btnAnticipos.Name = "btnAnticipos";
             this.btnAnticipos.Size = new System.Drawing.Size(20, 20);
             this.btnAnticipos.TabIndex = 18;
@@ -247,7 +248,7 @@
             // 
             this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnClientes.Location = new System.Drawing.Point(282, 29);
+            this.btnClientes.Location = new System.Drawing.Point(282, 40);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(20, 20);
             this.btnClientes.TabIndex = 19;
@@ -258,7 +259,7 @@
             // 
             this.btnConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConfig.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnConfig.Location = new System.Drawing.Point(8, 72);
+            this.btnConfig.Location = new System.Drawing.Point(8, 83);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(20, 20);
             this.btnConfig.TabIndex = 20;
@@ -269,7 +270,7 @@
             // 
             this.btnFacturas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFacturas.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnFacturas.Location = new System.Drawing.Point(8, 116);
+            this.btnFacturas.Location = new System.Drawing.Point(8, 127);
             this.btnFacturas.Name = "btnFacturas";
             this.btnFacturas.Size = new System.Drawing.Size(20, 20);
             this.btnFacturas.TabIndex = 21;
@@ -280,7 +281,7 @@
             // 
             this.btnProductos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnProductos.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnProductos.Location = new System.Drawing.Point(8, 161);
+            this.btnProductos.Location = new System.Drawing.Point(8, 172);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Size = new System.Drawing.Size(20, 20);
             this.btnProductos.TabIndex = 22;
@@ -291,7 +292,7 @@
             // 
             this.btnEmpleados.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEmpleados.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnEmpleados.Location = new System.Drawing.Point(150, 72);
+            this.btnEmpleados.Location = new System.Drawing.Point(150, 83);
             this.btnEmpleados.Name = "btnEmpleados";
             this.btnEmpleados.Size = new System.Drawing.Size(20, 20);
             this.btnEmpleados.TabIndex = 24;
@@ -302,7 +303,7 @@
             // 
             this.btnInventario.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnInventario.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnInventario.Location = new System.Drawing.Point(150, 116);
+            this.btnInventario.Location = new System.Drawing.Point(150, 127);
             this.btnInventario.Name = "btnInventario";
             this.btnInventario.Size = new System.Drawing.Size(20, 20);
             this.btnInventario.TabIndex = 25;
@@ -313,7 +314,7 @@
             // 
             this.btnProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnProveedores.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnProveedores.Location = new System.Drawing.Point(150, 161);
+            this.btnProveedores.Location = new System.Drawing.Point(150, 172);
             this.btnProveedores.Name = "btnProveedores";
             this.btnProveedores.Size = new System.Drawing.Size(20, 20);
             this.btnProveedores.TabIndex = 26;
@@ -324,7 +325,7 @@
             // 
             this.btnVentas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVentas.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnVentas.Location = new System.Drawing.Point(8, 203);
+            this.btnVentas.Location = new System.Drawing.Point(8, 214);
             this.btnVentas.Name = "btnVentas";
             this.btnVentas.Size = new System.Drawing.Size(20, 20);
             this.btnVentas.TabIndex = 27;
@@ -335,7 +336,7 @@
             // 
             this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button11.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.button11.Location = new System.Drawing.Point(282, 72);
+            this.button11.Location = new System.Drawing.Point(282, 83);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(20, 20);
             this.button11.TabIndex = 28;
@@ -345,7 +346,7 @@
             // 
             this.btnMisDatos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMisDatos.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnMisDatos.Location = new System.Drawing.Point(282, 116);
+            this.btnMisDatos.Location = new System.Drawing.Point(282, 127);
             this.btnMisDatos.Name = "btnMisDatos";
             this.btnMisDatos.Size = new System.Drawing.Size(20, 20);
             this.btnMisDatos.TabIndex = 29;
@@ -356,7 +357,7 @@
             // 
             this.btnReportes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReportes.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnReportes.Location = new System.Drawing.Point(282, 161);
+            this.btnReportes.Location = new System.Drawing.Point(282, 172);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(20, 20);
             this.btnReportes.TabIndex = 30;
@@ -375,11 +376,23 @@
             this.primerSeparador.Text = "REPORTES";
             this.primerSeparador.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // chkMarcarDesmarcar
+            // 
+            this.chkMarcarDesmarcar.AutoSize = true;
+            this.chkMarcarDesmarcar.Location = new System.Drawing.Point(150, 12);
+            this.chkMarcarDesmarcar.Name = "chkMarcarDesmarcar";
+            this.chkMarcarDesmarcar.Size = new System.Drawing.Size(131, 21);
+            this.chkMarcarDesmarcar.TabIndex = 116;
+            this.chkMarcarDesmarcar.Text = "Seleccionar todo";
+            this.chkMarcarDesmarcar.UseVisualStyleBackColor = true;
+            this.chkMarcarDesmarcar.CheckedChanged += new System.EventHandler(this.chkMarcarDesmarcar_CheckedChanged);
+            // 
             // Agregar_empleado_permisos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 311);
+            this.Controls.Add(this.chkMarcarDesmarcar);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnReportes);
             this.Controls.Add(this.btnMisDatos);
@@ -453,5 +466,6 @@
         private System.Windows.Forms.Button btnMisDatos;
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Label primerSeparador;
+        private System.Windows.Forms.CheckBox chkMarcarDesmarcar;
     }
 }

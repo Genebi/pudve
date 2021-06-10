@@ -253,5 +253,39 @@ namespace PuntoDeVentaV2
                 permisos.Show();
             }
         }
+
+        private void chkMarcarDesmarcar_CheckedChanged(object sender, EventArgs e)
+        {
+            var CheckBoxList = this.Controls.OfType<CheckBox>().ToList();
+
+            foreach (CheckBox objetos in CheckBoxList)
+            {
+                if (objetos is CheckBox)
+                {
+                    CheckBox chkObjetos = (CheckBox)objetos;
+                    if ("Seleccionar todo" !=chkObjetos.Name )
+                    {
+                        bool estado = chkObjetos.Checked;
+
+                        if (estado == true)
+                        {
+                            chkObjetos.Checked = false;
+                        }
+                        else if (estado == false)
+                        {
+                            chkObjetos.Checked = true;
+                        }
+                    }
+                }
+                if (chkMarcarDesmarcar.Text.Equals("Seleccionar todo"))
+                {
+                    chkMarcarDesmarcar.Text = "Desmarcar todo";
+                }
+                else if (chkMarcarDesmarcar.Text.Equals("Desmarcar todo"))
+                {
+                    chkMarcarDesmarcar.Text = "Seleccionar todo";
+                }
+            }
+        }
     }
 }

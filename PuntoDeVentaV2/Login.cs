@@ -764,7 +764,7 @@ namespace PuntoDeVentaV2
         private void registroIniciosDeSesionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RegistroIniciosDeSesiones inicios = new RegistroIniciosDeSesiones();
-            inicios.Show();
+            inicios.ShowDialog();
         }
 
         private void btnRecuperarPassword_Click(object sender, EventArgs e)

@@ -334,9 +334,9 @@
             this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(305, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(297, 25);
+            this.label1.Size = new System.Drawing.Size(294, 25);
             this.label1.TabIndex = 42;
-            this.label1.Text = "Registro de Inicios de Sesion";
+            this.label1.Text = "Registro de inicios de sesión";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // RegistroIniciosDeSesiones
@@ -348,6 +348,7 @@
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.dgvInicios);
             this.Name = "RegistroIniciosDeSesiones";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RegistroIniciosDeSesiones";
             this.Load += new System.EventHandler(this.RegistroIniciosDeSesiones_Load);
             this.panel5.ResumeLayout(false);
