@@ -1589,6 +1589,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void lblArrow_Click(object sender, EventArgs e)
+        {
+            btnAdd.PerformClick();
+        }
+
         public void LimpiarCampos()
         {
             txtNombreProducto.Text = "";
@@ -5157,7 +5162,9 @@ namespace PuntoDeVentaV2
                 {
                     listaProductoToCombo = consultarListaRelacion.listaServCombo;
                     ProductosDeServicios = consultarListaRelacion.listaProd;
+                    mostrarOcultarLblArrow();
                 }
+                mostrarOcultarLblArrow();
             };
 
             consultarListaRelacion.listaServCombo = listaProductoToCombo;
@@ -6234,6 +6241,8 @@ namespace PuntoDeVentaV2
             // y despues editar cualquier producto cualquiera
             CBIdProd = string.Empty;
             CBNombProd = string.Empty;
+
+            mostrarOcultarLblArrow();
         }
 
         private void AgregarEditarProducto_Paint(object sender, PaintEventArgs e)
@@ -6463,6 +6472,84 @@ namespace PuntoDeVentaV2
             LimpiarDatos();
         }
 
+        private void mostrarOcultarLblArrow()
+        {
+            if (DatosSourceFinal.Equals(1) || 
+                DatosSourceFinal.Equals(3))
+            {
+                if (listaProductoToCombo.Count() > 0 || 
+                    ProductosDeServicios.Count() > 0)
+                {
+                    lblArrow.Visible = true;
+                }
+                else if (listaProductoToCombo.Count().Equals(0) && 
+                         ProductosDeServicios.Count().Equals(0))
+                {
+                    lblArrow.Visible = false;
+                }
+            }
+            else if (DatosSourceFinal.Equals(2) || 
+                     DatosSourceFinal.Equals(4))
+            {
+                using (DataTable dtProductos = cn.CargarDatos(cs.encontrarProductoComboServicio(Convert.ToInt32(idEditarProducto))))
+                {
+                    if (!dtProductos.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drProd in dtProductos.Rows)
+                        {
+                            if (!drProd["Tipo"].Equals("P"))
+                            {
+                                using (DataTable dtCombdServ = cn.CargarDatos(cs.ObtenerServPaqRelacionados(drProd["ID"].ToString())))
+                                {
+                                    if (!dtCombdServ.Rows.Count.Equals(0))
+                                    {
+                                        lblArrow.Visible = true;
+                                    }
+                                    else if (dtCombdServ.Rows.Count.Equals(0))
+                                    {
+                                        //lblArrow.Visible = false;
+                                        if (listaProductoToCombo.Count() > 0 ||
+                                            ProductosDeServicios.Count() > 0)
+                                        {
+                                            lblArrow.Visible = true;
+                                        }
+                                        else if (listaProductoToCombo.Count().Equals(0) &&
+                                                 ProductosDeServicios.Count().Equals(0))
+                                        {
+                                            lblArrow.Visible = false;
+                                        }
+                                    }
+                                }
+                            }
+                            else if (drProd["Tipo"].Equals("P"))
+                            {
+                                using (DataTable dtProd = cn.CargarDatos(cs.obtenerProdRelacionados(drProd["ID"].ToString())))
+                                {
+                                    if (!dtProd.Rows.Count.Equals(0))
+                                    {
+                                        lblArrow.Visible = true;
+                                    }
+                                    else if (dtProd.Rows.Count.Equals(0))
+                                    {
+                                        //lblArrow.Visible = false;
+                                        if (listaProductoToCombo.Count() > 0 ||
+                                            ProductosDeServicios.Count() > 0)
+                                        {
+                                            lblArrow.Visible = true;
+                                        }
+                                        else if (listaProductoToCombo.Count().Equals(0) &&
+                                                 ProductosDeServicios.Count().Equals(0))
+                                        {
+                                            lblArrow.Visible = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
@@ -6784,6 +6871,8 @@ namespace PuntoDeVentaV2
             }
 
             validarClave();
+
+            mostrarOcultarLblArrow();
 
             //if (DatosSourceFinal.Equals(3))
             //{
