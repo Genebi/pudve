@@ -41,6 +41,7 @@
             this.mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnCaja = new System.Windows.Forms.Button();
             this.btnReporteVentas = new System.Windows.Forms.Button();
+            this.btnClientes = new System.Windows.Forms.Button();
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.SuspendLayout();
@@ -49,7 +50,7 @@
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(42, 19);
+            this.tituloSeccion.Location = new System.Drawing.Point(103, 19);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(900, 25);
             this.tituloSeccion.TabIndex = 24;
@@ -63,7 +64,7 @@
             this.primerSeparador.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.primerSeparador.Location = new System.Drawing.Point(42, 61);
             this.primerSeparador.Name = "primerSeparador";
-            this.primerSeparador.Size = new System.Drawing.Size(900, 2);
+            this.primerSeparador.Size = new System.Drawing.Size(1023, 2);
             this.primerSeparador.TabIndex = 23;
             this.primerSeparador.Text = "REPORTES";
             this.primerSeparador.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -220,11 +221,30 @@
             this.btnReporteVentas.UseVisualStyleBackColor = false;
             this.btnReporteVentas.Click += new System.EventHandler(this.btnReporteVentas_Click);
             // 
+            // btnClientes
+            // 
+            this.btnClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClientes.FlatAppearance.BorderSize = 0;
+            this.btnClientes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnClientes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClientes.ForeColor = System.Drawing.Color.White;
+            this.btnClientes.Location = new System.Drawing.Point(903, 91);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(190, 30);
+            this.btnClientes.TabIndex = 109;
+            this.btnClientes.Text = "Reporte Clientes";
+            this.btnClientes.UseVisualStyleBackColor = false;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
+            // 
             // Reportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 661);
+            this.ClientSize = new System.Drawing.Size(1107, 661);
+            this.Controls.Add(this.btnClientes);
             this.Controls.Add(this.btnReporteVentas);
             this.Controls.Add(this.btnHistorialDineroAgregado);
             this.Controls.Add(this.btnCaja);
@@ -258,5 +278,6 @@
         private System.Windows.Forms.DataGridViewImageColumn mostrar;
         private System.Windows.Forms.Button btnCaja;
         private System.Windows.Forms.Button btnReporteVentas;
+        private System.Windows.Forms.Button btnClientes;
     }
 }

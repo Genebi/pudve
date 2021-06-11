@@ -2100,5 +2100,10 @@ namespace PuntoDeVentaV2
         {
             MessageBox.Show("Para generar reportes de ventas deberá ir \nal apartado Ventas y dar click en el botón \n\"Generar Reporte\".", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

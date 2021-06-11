@@ -397,6 +397,12 @@
     <Compile Include="BuscarReporteCajaPorFecha.Designer.cs">
       <DependentUpon>BuscarReporteCajaPorFecha.cs</DependentUpon>
     </Compile>
+    <Compile Include="BuscarReportesClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuscarReportesClientes.Designer.cs">
+      <DependentUpon>BuscarReportesClientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="BusquedaRevisionInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1065,6 +1071,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BuscarReporteCajaPorFecha.resx">
       <DependentUpon>BuscarReporteCajaPorFecha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuscarReportesClientes.resx">
+      <DependentUpon>BuscarReportesClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BusquedaRevisionInventario.resx">
       <DependentUpon>BusquedaRevisionInventario.cs</DependentUpon>
