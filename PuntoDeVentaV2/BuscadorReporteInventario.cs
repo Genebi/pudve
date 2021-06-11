@@ -523,7 +523,7 @@ namespace PuntoDeVentaV2
             writer.Close();
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-            vr.Show();
+            vr.ShowDialog();
 
         }
         #endregion
@@ -933,7 +933,7 @@ namespace PuntoDeVentaV2
             writer.Close();
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-            vr.Show();
+            vr.ShowDialog();
         }
         #endregion
 
@@ -1328,7 +1328,7 @@ namespace PuntoDeVentaV2
             writer.Close();
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-            vr.Show();
+            vr.ShowDialog();
         }
         #endregion
 
