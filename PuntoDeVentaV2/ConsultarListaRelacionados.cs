@@ -352,21 +352,19 @@ namespace PuntoDeVentaV2
         {
             row = e.RowIndex;
             column = e.ColumnIndex;
-
-            DataGridViewRow rowItems = DGVProdServCombo.Rows[row];
-
+            
             if (e.ColumnIndex.Equals(6))
             {
                 if (e.RowIndex >= 0)
                 {
                     if (DatosSourceFinal.Equals(1))
                     {
-                        idProdTemp = Convert.ToInt32(rowItems.Cells[4].Value.ToString());
-                        Concepto = rowItems.Cells[5].Value.ToString();
+                        idProdTemp = Convert.ToInt32(DGVProdServCombo.Rows[row].Cells[4].Value.ToString());
+                        Concepto = DGVProdServCombo.Rows[row].Cells[5].Value.ToString();
                     }
                     if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                     {
-                        idReg = Convert.ToInt32(rowItems.Cells[0].Value.ToString());
+                        idReg = Convert.ToInt32(DGVProdServCombo.Rows[row].Cells[0].Value.ToString());
                     }
                 }
             }
@@ -381,11 +379,11 @@ namespace PuntoDeVentaV2
                         {
                             for (int i = 0; i < listaServCombo.Count(); i++)
                             {
-                                if (listaServCombo[i].Contains(rowItems.Cells[1].Value.ToString()) &&
-                                    listaServCombo[i].Contains(rowItems.Cells[2].Value.ToString()) &&
-                                    listaServCombo[i].Contains(rowItems.Cells[4].Value.ToString()) &&
-                                    listaServCombo[i].Contains(rowItems.Cells[5].Value.ToString()) &&
-                                    listaServCombo[i].Contains(rowItems.Cells[6].Value.ToString()))
+                                if (listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[1].Value.ToString()) &&
+                                    listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[2].Value.ToString()) &&
+                                    listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[4].Value.ToString()) &&
+                                    listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[5].Value.ToString()) &&
+                                    listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[6].Value.ToString()))
                                 {
                                     listaServCombo.RemoveAll(x => x == listaServCombo[i]);
                                 }
@@ -395,11 +393,11 @@ namespace PuntoDeVentaV2
                         {
                             for (int i = 0; i < listaProd.Count(); i++)
                             {
-                                if (listaProd[i].Contains(rowItems.Cells[1].Value.ToString()) &&
-                                    listaProd[i].Contains(rowItems.Cells[2].Value.ToString()) &&
-                                    listaProd[i].Contains(rowItems.Cells[4].Value.ToString()) &&
-                                    listaProd[i].Contains(rowItems.Cells[5].Value.ToString()) &&
-                                    listaProd[i].Contains(rowItems.Cells[6].Value.ToString()))
+                                if (listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[1].Value.ToString()) &&
+                                    listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[2].Value.ToString()) &&
+                                    listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[4].Value.ToString()) &&
+                                    listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[5].Value.ToString()) &&
+                                    listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[6].Value.ToString()))
                                 {
                                     listaProd.RemoveAll(x => x == listaProd[i]);
                                 }
@@ -408,18 +406,58 @@ namespace PuntoDeVentaV2
                     }
                     if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                     {
-                        idReg = Convert.ToInt32(rowItems.Cells[0].Value.ToString());
-                        DialogResult dialogResult = MessageBox.Show("Quitara la relación existente\nesta usted totalmente seguro de realizar esta acción", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        var contenido = DGVProdServCombo.Rows[row].Cells[0].FormattedValue.ToString();
 
-                        if (dialogResult.Equals(DialogResult.Yes))
+                        if (contenido.Equals(string.Empty))
                         {
-                            try
+                            if (!listaServCombo.Count().Equals(0))
                             {
-                                var resultado = cn.EjecutarConsulta(cs.borrarRelacionProdComboServicio(idReg));
+                                for (int i = 0; i < listaServCombo.Count(); i++)
+                                {
+                                    if (listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[1].Value.ToString()) &&
+                                        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[2].Value.ToString()) &&
+                                        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[4].Value.ToString()) &&
+                                        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[5].Value.ToString()) &&
+                                        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[6].Value.ToString()))
+                                    {
+                                        listaServCombo.RemoveAll(x => x == listaServCombo[i]);
+                                    }
+                                }
                             }
-                            catch (Exception ex)
+                            if (!listaProd.Count().Equals(0))
                             {
-                                MessageBox.Show("algo paso al tratar de quitar la relación", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                for (int i = 0; i < listaProd.Count(); i++)
+                                {
+                                    if (listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[1].Value.ToString()) &&
+                                        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[2].Value.ToString()) &&
+                                        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[4].Value.ToString()) &&
+                                        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[5].Value.ToString()) &&
+                                        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[6].Value.ToString()))
+                                    {
+                                        listaProd.RemoveAll(x => x == listaProd[i]);
+                                    }
+                                }
+                            }
+                        }
+                        else if (!contenido.Equals(string.Empty))
+                        {
+                            bool exitoConvertirEntero = Int32.TryParse(contenido, out idReg);
+
+                            if (exitoConvertirEntero)
+                            {
+                                DialogResult dialogResult = MessageBox.Show("Quitara la relación existente\nesta usted totalmente seguro de realizar esta acción", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                                if (dialogResult.Equals(DialogResult.Yes))
+                                {
+                                    try
+                                    {
+                                        var resultado = cn.EjecutarConsulta(cs.borrarRelacionProdComboServicio(idReg));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show("algo paso al tratar de quitar la relación", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }
                             }
                         }
                     }

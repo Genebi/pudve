@@ -49,6 +49,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
+            this.lblArrow = new System.Windows.Forms.Label();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtStockMaximo = new System.Windows.Forms.TextBox();
@@ -372,6 +373,7 @@
             // PDetalleProdcuto
             // 
             this.PDetalleProdcuto.BackColor = System.Drawing.SystemColors.Control;
+            this.PDetalleProdcuto.Controls.Add(this.lblArrow);
             this.PDetalleProdcuto.Controls.Add(this.tituloSeccion);
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
             this.PDetalleProdcuto.Controls.Add(this.lblTipoProdPaq);
@@ -379,14 +381,25 @@
             this.PDetalleProdcuto.Location = new System.Drawing.Point(2, 2);
             this.PDetalleProdcuto.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
-            this.PDetalleProdcuto.Size = new System.Drawing.Size(868, 62);
+            this.PDetalleProdcuto.Size = new System.Drawing.Size(885, 62);
             this.PDetalleProdcuto.TabIndex = 0;
+            // 
+            // lblArrow
+            // 
+            this.lblArrow.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblArrow.Image = global::PuntoDeVentaV2.Properties.Resources.left_arrow;
+            this.lblArrow.Location = new System.Drawing.Point(853, 36);
+            this.lblArrow.Name = "lblArrow";
+            this.lblArrow.Size = new System.Drawing.Size(17, 20);
+            this.lblArrow.TabIndex = 30;
+            this.lblArrow.Visible = false;
+            this.lblArrow.Click += new System.EventHandler(this.lblArrow_Click);
             // 
             // tituloSeccion
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(459, 14);
+            this.tituloSeccion.Location = new System.Drawing.Point(467, 14);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(129, 18);
             this.tituloSeccion.TabIndex = 21;
@@ -398,10 +411,10 @@
             // 
             this.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAdd.Image = global::PuntoDeVentaV2.Properties.Resources.eye;
-            this.btnAdd.Location = new System.Drawing.Point(837, 34);
+            this.btnAdd.Location = new System.Drawing.Point(829, 36);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(26, 25);
+            this.btnAdd.Size = new System.Drawing.Size(22, 20);
             this.btnAdd.TabIndex = 29;
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -1081,5 +1094,6 @@
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lblCantCombServ;
+        private System.Windows.Forms.Label lblArrow;
     }
 }

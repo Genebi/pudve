@@ -2022,5 +2022,26 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT * FROM iniciosdesesion WHERE usuario LIKE '%{busqueda}%' AND IDUsuario = '{FormPrincipal.userID}'";
             return consulta;
         }
+
+        public string encontrarProductoComboServicio(int idProd)
+        {
+            var consulta = $"SELECT ID, Nombre, Status, Tipo FROM Productos WHERE ID = '{idProd}' AND Status = '1' AND IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
+
+        public string ObtenerServPaqRelacionados(string idServPQ)
+        {
+            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idServPQ}' AND IDProducto <> 0";
+
+            return consulta;
+        }
+
+        public string obtenerProdRelacionados(string idProd)
+        {
+            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDProducto = '{idProd}'";
+
+            return consulta;
+        }
     }
 }  
