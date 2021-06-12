@@ -2527,6 +2527,25 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] ObtenerFechaComprobacionInternet(string usuario)
+        {
+            List<string> datosFecha = new List<string>();
+
+            DatosConexion($"SELECT * FROM usuarios WHERE Usuario = '{usuario}'");
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                datosFecha.Add(dr.GetValue(dr.GetOrdinal("FechaConexionInternet")).ToString());
+                datosFecha.Add(dr.GetValue(dr.GetOrdinal("FechaConexionLimite")).ToString());
+                datosFecha.Add(dr.GetValue(dr.GetOrdinal("DiasVerificacionInternet")).ToString());
+                datosFecha.Add(dr.GetValue(dr.GetOrdinal("UltimaVerificacion")).ToString());
+            }
+
+            return datosFecha.ToArray();
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);
