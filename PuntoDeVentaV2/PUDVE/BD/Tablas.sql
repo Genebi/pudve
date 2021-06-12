@@ -1432,13 +1432,6 @@ ALTER TABLE empleadospermisos CHANGE COLUMN claveUnidad ClaveUnidad INT(11);
 --Renombrar Columna de tabla empleadosPermisos
 ALTER TABLE empleadospermisos CHANGE COLUMN correos Correos INT(11);
 
--- Agregar columna de fecha inicial de licencia para tabla usuarios
-ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaInicioLicencia DATE DEFAULT '0000-00-00';
--- Agregar columna de fecha final de licencia para tabla usuarios
-ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaFinLicencia DATE DEFAULT '0000-00-00';
--- Agregar columna de fecha para la verificacion de internet cada mes
-ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaVerificacionInternet DATE DEFAULT '2021-06-01';
-
 ALTER TABLE empleadospermisos ALTER MensajeVentas SET DEFAULT 1;
 
 ALTER TABLE empleadospermisos ALTER MensajeInventario SET DEFAULT 1;
@@ -1461,5 +1454,22 @@ ALTER TABLE empleadospermisos ALTER ClaveUnidad SET DEFAULT 1;
 
 ALTER TABLE empleadospermisos ALTER Correos SET DEFAULT 1;
 
+-- Agregar columna de fecha inicial de licencia para tabla usuarios
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaInicioLicencia DATE DEFAULT '0001-01-01';
+-- Agregar columna de fecha final de licencia para tabla usuarios
+
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaFinLicencia DATE DEFAULT '0001-01-01';
+
 -- Agregar columna para el estado de la licencia (pagada, vencida, demo)
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS EstadoLicencia INT(1) DEFAULT 3;
+
+-- Agregar columna de fecha para la verificacion de internet cada mes
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaConexionInternet DATE DEFAULT '2021-06-01';
+
+-- Agregar columna de fecha limite para comprobar los dias sin conectarse a internet
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaConexionLimite DATE DEFAULT '2050-12-31';
+
+-- Agregar columna para guardar los dias que han pasado para poder verificar la conexion a internet
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS DiasVerificacionInternet INT(2) DEFAULT 0;
+
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS UltimaVerificacion DATE DEFAULT '0001-01-01';

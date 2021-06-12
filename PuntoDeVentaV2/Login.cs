@@ -75,6 +75,8 @@ namespace PuntoDeVentaV2
         checarVersion vs = new checarVersion();
         Consultas cs = new Consultas();
         ConnectionHandler cnx = new ConnectionHandler();
+        MetodosBusquedas mb = new MetodosBusquedas();
+
         string usuario;
         string password;
 
@@ -281,6 +283,12 @@ namespace PuntoDeVentaV2
                             string [] newUsuario = usuario.Split('@');
                             cnx.actualizarConteo(newUsuario[0].ToString());
                             
+                        }
+
+                        if (!ComprobarInternetMensualmente(usuario))
+                        {
+                            MessageBox.Show("Es necesario conectarse a internet para verificar su licencia", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
                         }
 
                         FormPrincipal fp = new FormPrincipal();
@@ -767,6 +775,76 @@ namespace PuntoDeVentaV2
             {
                 recuperar.ShowDialog();
             }
+        }
+
+        private bool ComprobarInternetMensualmente(string usuario)
+        {
+            bool respuesta = true;
+
+            // Verificar que sea cuenta principal y no subusuario
+            if (usuario.Contains('@'))
+            {
+                string[] auxiliar = usuario.Split('@');
+
+                usuario = auxiliar[0];
+            }
+
+            string[] datosFecha = mb.ObtenerFechaComprobacionInternet(usuario);
+
+            DateTime fechaConexionInternet = Convert.ToDateTime(datosFecha[0]);
+            DateTime fechaLimiteInternet = Convert.ToDateTime(datosFecha[1]);
+            DateTime fechaHoy = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"));
+            DateTime fechaUltimaVerificacion = Convert.ToDateTime(datosFecha[3]);
+
+            int numeroDias = Convert.ToInt16(datosFecha[2]);
+
+            int resultadoComparacion = DateTime.Compare(fechaConexionInternet, fechaLimiteInternet);
+
+            // Si la fecha de conexion a internet agregada manualmente es menor al limite que se agrego manualmente
+            if (resultadoComparacion < 0)
+            {
+                // Si la columna de los dias tiene cero
+                if (numeroDias >= 0 && numeroDias < 30)
+                {
+                    // Si es igual a este valor se hace la primer actualizacion
+                    if (fechaUltimaVerificacion.ToString("yyyy-MM-dd").Equals("0001-01-01"))
+                    {
+                        numeroDias += 1;
+
+                        cn.EjecutarConsulta($"UPDATE usuarios SET DiasVerificacionInternet = {numeroDias}, UltimaVerificacion = '{fechaHoy.ToString("yyyy-MM-dd")}' WHERE Usuario = '{usuario}'");
+                    }
+                    else
+                    {
+                        if (!fechaHoy.ToString("yyyy-MM-dd").Equals(fechaUltimaVerificacion.ToString("yyyy-MM-dd")))
+                        {
+                            numeroDias += 1;
+
+                            cn.EjecutarConsulta($"UPDATE usuarios SET DiasVerificacionInternet = {numeroDias}, UltimaVerificacion = '{fechaHoy.ToString("yyyy-MM-dd")}' WHERE Usuario = '{usuario}'");
+                        }
+                    }
+                }
+
+                if (numeroDias >= 30)
+                {
+                    // Comprobar si tiene internet
+                    if (Registro.ConectadoInternet())
+                    {
+                        cn.EjecutarConsulta($"UPDATE usuarios SET DiasVerificacionInternet = 0, FechaConexionInternet = '{fechaHoy.ToString("yyyy-MM-dd")}', UltimaVerificacion = '{fechaHoy.ToString("yyyy-MM-dd")}' WHERE Usuario = '{usuario}'");
+                    }
+                    else
+                    {
+                        respuesta = false;
+                    }
+                }
+            }
+            else
+            {
+                respuesta = false;
+
+                MessageBox.Show("Verificar el límite de la fecha establecida", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return respuesta;
         }
     }
 }
