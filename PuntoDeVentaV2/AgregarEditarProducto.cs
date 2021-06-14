@@ -2316,13 +2316,14 @@ namespace PuntoDeVentaV2
         public AgregarEditarProducto(string titulo = "")
         {
             InitializeComponent();
-            this.toolTip1.SetToolTip(this.lblStockMinimo, "En este campo puede indicar al sistema el minimo \nde inventario necesario para sus operaciones, \ncon esta información el programa podrá indicarle \ncuando es necesario adquirir mercancía.");
-            this.toolTip1.SetToolTip(this.lbStockMaximo, "En este campo puede indicar al sistema el maximo \nde inventario necesario para sus operaciones, \ncon esta información el programa podrá indicarle \ncuando se tenga un exceso de inventario.");
-            this.toolTip1.SetToolTip(this.lbStock, "En este campo puede indicar el número de \nproductos con los que cuenta actualmente.");
+            this.toolTip1.SetToolTip(this.lblStockMinimo, "En este campo puede indicar al sistema el minimo\nde inventario necesario para sus operaciones,\ncon esta información el programa podrá indicarle\ncuando es necesario adquirir mercancía.");
+            this.toolTip1.SetToolTip(this.lbStockMaximo, "En este campo puede indicar al sistema el maximo\nde inventario necesario para sus operaciones,\ncon esta información el programa podrá indicarle\ncuando se tenga un exceso de inventario.");
+            this.toolTip1.SetToolTip(this.lbStock, "En este campo puede indicar el número de\nproductos con los que cuenta actualmente.");
             this.toolTip1.SetToolTip(this.lbPrecioCompra, "El precio que le costó adquirir el producto.");
             this.toolTip1.SetToolTip(this.lbPrecioVenta, "El precio que tendrá su producto al público.");
-            this.toolTip1.SetToolTip(this.lbClaveInterna, "En este campo podra ingresar un folio interno, \npara mayor control de sus productos.");
+            this.toolTip1.SetToolTip(this.lbClaveInterna, "En este campo podra ingresar un folio interno,\npara mayor control de sus productos.");
             this.toolTip1.SetToolTip(this.lblCantCombServ, "En este apartado podrá indicarle al sistema la cantidad\nde productos que se descontaran al venderse un Combo/Servicio");
+            this.toolTip1.SetToolTip(this.lblCodigoBarras, "En este campo puede agregar códigos de barras o claves internas de sus productos.");
         }
 
         private void txtCodigoBarras_KeyDown(object sender, KeyEventArgs e)
@@ -7072,6 +7073,8 @@ namespace PuntoDeVentaV2
             // label para Código de Barras
             label2.Visible = true;
             label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Right;
+
+
 
             tLPProducto.Controls.Add(label7, 0, 2);               // Precio Compra Label
             tLPProducto.Controls.Add(label4, 2, 2);               // Precio Venta Label

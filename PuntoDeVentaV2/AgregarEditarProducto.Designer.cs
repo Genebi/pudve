@@ -98,6 +98,7 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblCodigoBarras = new System.Windows.Forms.Label();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -696,6 +697,7 @@
             // 
             // PDetalle
             // 
+            this.PDetalle.Controls.Add(this.lblCodigoBarras);
             this.PDetalle.Controls.Add(this.lblCantCombServ);
             this.PDetalle.Controls.Add(this.lbClaveInterna);
             this.PDetalle.Controls.Add(this.lbStock);
@@ -976,6 +978,16 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
+            // lblCodigoBarras
+            // 
+            this.lblCodigoBarras.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCodigoBarras.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lblCodigoBarras.Location = new System.Drawing.Point(2, -1);
+            this.lblCodigoBarras.Name = "lblCodigoBarras";
+            this.lblCodigoBarras.Size = new System.Drawing.Size(20, 23);
+            this.lblCodigoBarras.TabIndex = 44;
+            this.lblCodigoBarras.Visible = false;
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1095,5 +1107,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lblCantCombServ;
         private System.Windows.Forms.Label lblArrow;
+        private System.Windows.Forms.Label lblCodigoBarras;
     }
 }
