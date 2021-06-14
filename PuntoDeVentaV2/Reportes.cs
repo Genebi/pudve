@@ -98,7 +98,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void GenerarReportePrecios(string procedencia, int idEmp)
+        private void GenerarReportePrecios(string procedencia, string idEmp)
         {
             var precioAnteriorSuma = 0.00;
             var precioNuevoSuma = 0.00;
@@ -267,17 +267,17 @@ namespace PuntoDeVentaV2
             }
             else if (procedencia.Equals("Empleados"))// Consulta segun empleado
             {
-                int validarId = 0;
-                if (idEmp != 0)
+                var validarId = string.Empty;
+                if (!string.IsNullOrEmpty(idEmp))
                 {
                     validarId = idEmp;
                 }
 
-                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDEmpleado = '{validarId}' ORDER BY FechaOperacion DESC";
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDEmpleado IN ({validarId}) ORDER BY FechaOperacion DESC";
             }
             else if (procedencia.Equals("Productos"))//Consulta por producto
             {
-                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDProducto = '{idEmp}'ORDER BY FechaOperacion DESC";
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDProducto IN ({idEmp}) ORDER BY FechaOperacion DESC";
             }
 
             sql_cmd = new MySqlCommand(consulta, sql_con);
@@ -483,8 +483,8 @@ namespace PuntoDeVentaV2
             }
             else if (procedencia.Equals("Empleados"))// Consulta segun empleado
             {
-                int validarId = 0;
-                if (idEmp != 0)
+                var validarId = string.Empty;
+                if (!string.IsNullOrEmpty(idEmp))
                 {
                     validarId = idEmp;
                 }

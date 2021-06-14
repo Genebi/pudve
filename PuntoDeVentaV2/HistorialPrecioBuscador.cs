@@ -14,7 +14,10 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
 
-        public static int idEmpleadoObtenido { get; set; }
+        Dictionary<int, string> listaIdEmpleados = new Dictionary<int, string>();
+        Dictionary<int, string> listaIdProductos = new Dictionary<int, string>();
+
+        public static string idEmpleadoObtenido { get; set; }
         public static string procedencia { get; set; }
 
         string tipoBuscador = string.Empty;
@@ -28,7 +31,9 @@ namespace PuntoDeVentaV2
 
         private void HistorialPrecioBuscador_Load(object sender, EventArgs e)
         {
-            idEmpleadoObtenido = -1;
+            //idEmpleadoObtenido = "-1";
+            idEmpleadoObtenido = string.Empty;
+
             this.Text = $"Buscar de {tipoBuscador}";
             lbTitulo.Text = $"Buscar {tipoBuscador}";
 
@@ -187,31 +192,145 @@ namespace PuntoDeVentaV2
 
         private void DGVDatos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            ejecutarMovimiento();
+            //ejecutarMovimiento();
         }
 
         private void ejecutarMovimiento()
         {
-            //if (tipoBuscador.Equals("Empleados"))//Obtiene el id del empleado
-            //{
-            //    idEmpleadoObtenido = Convert.ToInt32(DGVDatos.Rows[DGVDatos.CurrentRow.Index].Cells[0].Value.ToString());
-            //}
-            //else if (tipoBuscador.Equals("Productos"))// obtiene el id del producto
-            //{
-            //    idEmpleadoObtenido = Convert.ToInt32(DGVDatos.Rows[DGVDatos.CurrentRow.Index].Cells[0].Value.ToString());
-            //}
-
             //Obtiene el id del empleado o de el producto.
             if (tipoBuscador.Equals("Empleados"))
             {
-                idEmpleadoObtenido = Convert.ToInt32(DGVDatosEmpleados.Rows[DGVDatosEmpleados.CurrentRow.Index].Cells[0].Value.ToString());
+                //idEmpleadoObtenido = Convert.ToInt32(DGVDatosEmpleados.Rows[DGVDatosEmpleados.CurrentRow.Index].Cells[0].Value.ToString());
+
+                var datosGet = recorrerDiccionario(listaIdEmpleados);
+
+                idEmpleadoObtenido = datosGet;
             }
             else if (tipoBuscador.Equals("Productos"))
             {
-                idEmpleadoObtenido = Convert.ToInt32(DGVDatosProductos.Rows[DGVDatosProductos.CurrentRow.Index].Cells[0].Value.ToString());
+                //idEmpleadoObtenido = Convert.ToInt32(DGVDatosProductos.Rows[DGVDatosProductos.CurrentRow.Index].Cells[0].Value.ToString());
+
+                var datosGet = recorrerDiccionario(listaIdProductos);
+
+                idEmpleadoObtenido = datosGet;
+
             }
 
             this.Close();
+        }
+
+        private void DGVDatosEmpleados_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var fila = DGVDatosEmpleados.CurrentCell.RowIndex;
+
+            int idVenta = Convert.ToInt32(DGVDatosEmpleados.Rows[fila].Cells["ID"].Value);
+
+            if (e.ColumnIndex == 0)
+            {
+                var estado = Convert.ToBoolean(DGVDatosEmpleados.Rows[fila].Cells["checkbox"].Value);
+
+                //En esta condicion se ponen 
+                if (estado.Equals(false))//Se pone falso por que al dar click inicialmente esta en false
+                {
+                    if (!listaIdEmpleados.ContainsKey(idVenta))
+                    {
+                        listaIdEmpleados.Add(idVenta, string.Empty);
+                    }
+                }
+                else if (estado.Equals(true))//Se pone verdadero por que al dar click inicialmente esta en true
+                {
+                    listaIdEmpleados.Remove(idVenta);
+                }
+            }
+        }
+
+        private void DGVDatosProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var fila = DGVDatosProductos.CurrentCell.RowIndex;
+
+            int idVenta = Convert.ToInt32(DGVDatosProductos.Rows[fila].Cells["IDProducto"].Value);
+
+            if (e.ColumnIndex == 0)
+            {
+                var estado = Convert.ToBoolean(DGVDatosProductos.Rows[fila].Cells["checkBoxProd"].Value);
+
+                //En esta condicion se ponen 
+                if (estado.Equals(false))//Se pone falso por que al dar click inicialmente esta en false
+                {
+                    if (!listaIdProductos.ContainsKey(idVenta))
+                    {
+                        listaIdProductos.Add(idVenta, string.Empty);
+                    }
+                }
+                else if (estado.Equals(true))//Se pone verdadero por que al dar click inicialmente esta en true
+                {
+                    listaIdProductos.Remove(idVenta);
+                }
+            }
+        }
+
+        private string recorrerDiccionario(Dictionary<int, string> diccionario)
+        {
+            //Recorre el Diccionario y agregar todo en una sola cadena para la consulta
+            var cadenaCompleta = string.Empty;
+            foreach (KeyValuePair<int, string> item in diccionario)
+            {
+                cadenaCompleta += $"{item.Key},".ToString();
+            }
+            cadenaCompleta = cadenaCompleta.TrimEnd(',');
+
+            return cadenaCompleta;
+        }
+
+        private void btnGenerarReporte_Click(object sender, EventArgs e)
+        {
+            //if (tipoBuscador.Equals("Empleados"))
+            //{
+
+            //}
+            //else if (tipoBuscador.Equals("Productos"))
+            //{
+
+            //}
+            ejecutarMovimiento();
+        }
+
+        private void DGVDatosEmpleados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == DGVDatosEmpleados.Columns[0].Index)
+            {
+                DataGridViewCheckBoxCell celda = (DataGridViewCheckBoxCell)this.DGVDatosEmpleados.Rows[e.RowIndex].Cells[0];
+
+                if (Convert.ToBoolean(celda.Value) == false)
+                {
+                    celda.Value = true;
+                    DGVDatosEmpleados.Rows[e.RowIndex].Selected = true;
+                }
+                else
+                {
+                    celda.Value = false;
+                    DGVDatosEmpleados.Rows[e.RowIndex].Selected = false;
+                }
+            }
+        }
+
+        private void DGVDatosProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == DGVDatosProductos.Columns[0].Index)
+            {
+                DataGridViewCheckBoxCell celda = (DataGridViewCheckBoxCell)this.DGVDatosProductos.Rows[e.RowIndex].Cells[0];
+
+                if (Convert.ToBoolean(celda.Value) == false)
+                {
+                    celda.Value = true;
+                    DGVDatosProductos.Rows[e.RowIndex].Selected = true;
+                }
+                else
+                {
+                    celda.Value = false;
+                    DGVDatosProductos.Rows[e.RowIndex].Selected = false;
+                }
+            }
         }
     }
 }
