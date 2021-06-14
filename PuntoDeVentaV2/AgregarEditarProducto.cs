@@ -2467,7 +2467,8 @@ namespace PuntoDeVentaV2
             {
                 "HOUSEDEPOTAUTLAN",
                 "HOUSEDEPOTGRULLO",
-                "HOUSEDEPOTREPARTO"
+                "HOUSEDEPOTREPARTO",
+                "OXXOCLARA6"
             };
 
 
