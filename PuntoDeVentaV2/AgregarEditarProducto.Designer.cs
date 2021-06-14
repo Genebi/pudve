@@ -132,9 +132,9 @@
             this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(160, 8);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 17);
+            this.label2.Size = new System.Drawing.Size(121, 36);
             this.label2.TabIndex = 10;
-            this.label2.Text = "Código de Barras";
+            this.label2.Text = "Código de Barras o Clave Interna";
             this.label2.Visible = false;
             // 
             // label4
@@ -711,7 +711,6 @@
             this.PDetalle.Controls.Add(this.label1);
             this.PDetalle.Controls.Add(this.panelContenedor);
             this.PDetalle.Controls.Add(this.txtCantPaqServ);
-            this.PDetalle.Controls.Add(this.label2);
             this.PDetalle.Controls.Add(this.lblCantPaqServ);
             this.PDetalle.Controls.Add(this.btnGenerarCB);
             this.PDetalle.Controls.Add(this.txtClaveProducto);
@@ -727,6 +726,7 @@
             this.PDetalle.Controls.Add(this.label6);
             this.PDetalle.Controls.Add(this.txtStockMaximo);
             this.PDetalle.Controls.Add(this.PImagen);
+            this.PDetalle.Controls.Add(this.label2);
             this.PDetalle.Location = new System.Drawing.Point(2, 2);
             this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
