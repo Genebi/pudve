@@ -21,7 +21,7 @@ namespace PuntoDeVentaV2
 
         private string origen = string.Empty;
 
-        public static int idEncontrado { get; set; }
+        public static string idEncontrado { get; set; }
         public static string lugarProcedencia { get; set; }
 
         public FechasReportes(string origen = "")
@@ -67,7 +67,7 @@ namespace PuntoDeVentaV2
                 hpBuscador.FormClosed += delegate
                 {
                     var idBusqueda = HistorialPrecioBuscador.idEmpleadoObtenido;
-                    if (idBusqueda != -1)
+                    if (!string.IsNullOrEmpty(idBusqueda))
                     {
                         terminarOperaciones();
                     }
