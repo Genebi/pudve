@@ -34,23 +34,34 @@ namespace PuntoDeVentaV2
 
             if (tipoBuscador.Equals("Empleados"))
             {
+                DGVDatosEmpleados.Visible = true;
+                DGVDatosProductos.Visible = false;
                 cargarEmpleados();
             }
             else if (tipoBuscador.Equals("Productos"))
             {
+                DGVDatosEmpleados.Visible = false;
+                DGVDatosProductos.Visible = true;
                 cargarProductos();
             }
         }
 
         private void cargarEmpleados(bool porBusqueda = false)
         {
-            DGVDatos.Rows.Clear();
-            DGVDatos.Columns.Clear();
+            DGVDatosEmpleados.Rows.Clear();
+            //DGVDatos.Columns.Clear();
+            //foreach (DataGridViewRow item in DGVDatos.Rows)
+            //{
+            //    if (DGVDatos.Columns.Count > 0)
+            //    {
+            //        DGVDatos.Columns.RemoveAt(DGVDatos.Columns.Count -1);
+            //    }
+            //}
 
             DataTable query = new DataTable();
 
-            DGVDatos.Columns.Add("ID", "ID");
-            DGVDatos.Columns.Add("Nombre", "Nombre");
+            //DGVDatos.Columns.Add("ID", "ID");
+            //DGVDatos.Columns.Add("Nombre", "Nombre");
 
             var empleadoBuscar = txtBuscar.Text;
 
@@ -70,7 +81,12 @@ namespace PuntoDeVentaV2
             {
                 foreach (DataRow dgv in query.Rows)
                 {
-                    DGVDatos.Rows.Add(dgv["ID"].ToString(), dgv["Nombre"].ToString());
+                    int filaId = DGVDatosEmpleados.Rows.Add();
+                    DataGridViewRow fila = DGVDatosEmpleados.Rows[filaId];
+
+                    fila.Cells["checkBox"].Value = false;
+                    fila.Cells["ID"].Value = dgv["ID"].ToString();
+                    fila.Cells["Nombre"].Value = dgv["Nombre"].ToString();
                 }
             }
 
@@ -80,18 +96,18 @@ namespace PuntoDeVentaV2
 
         private void cargarProductos(bool porBusqueda = false)
         {
-            DGVDatos.Columns.Clear();
-            DGVDatos.Rows.Clear();
+            //DGVDatosProductos.Columns.Clear();
+            DGVDatosEmpleados.Rows.Clear();
 
             DataTable query = new DataTable();
 
-            DGVDatos.Columns.Add("ID", "ID");
-            DGVDatos.Columns.Add("Nombre", "Nombre");
-            DGVDatos.Columns.Add("Stock", "Stock");
-            DGVDatos.Columns.Add("CBarras", "CodigoBarras");
-            DGVDatos.Columns.Add("Tipo", "Tipo");
+            //DGVDatosProductos.Columns.Add("ID", "ID");
+            //DGVDatosProductos.Columns.Add("Nombre", "Nombre");
+            //DGVDatosProductos.Columns.Add("Stock", "Stock");
+            //DGVDatosProductos.Columns.Add("CBarras", "CodigoBarras");
+            //DGVDatosProductos.Columns.Add("Tipo", "Tipo");
 
-            DGVDatos.Columns[1].Width = 250;// definimos tamaño a la columna de Nombre
+            //DGVDatosProductos.Columns[1].Width = 150;// definimos tamaño a la columna de Nombre
            
             var productoBuscar = txtBuscar.Text;
 
@@ -112,8 +128,16 @@ namespace PuntoDeVentaV2
             {
                 foreach (DataRow dgv in query.Rows)
                 {
-                    DGVDatos.Rows.Add(dgv["ID"].ToString(), dgv["Nombre"].ToString(), dgv["Stock"].ToString(), dgv["CodigoBarras"].ToString(), dgv["Tipo"].ToString());
+                    //DGVDatosProductos.Rows.Add(dgv["ID"].ToString(), dgv["Nombre"].ToString(), dgv["Stock"].ToString(), dgv["CodigoBarras"].ToString(), dgv["Tipo"].ToString());
+                    int filaId = DGVDatosProductos.Rows.Add();
+                    DataGridViewRow fila = DGVDatosProductos.Rows[filaId];
 
+                    fila.Cells["checkBoxProd"].Value = false;
+                    fila.Cells["IDProducto"].Value = dgv["ID"].ToString();
+                    fila.Cells["NombreProducto"].Value = dgv["Nombre"].ToString();
+                    fila.Cells["Stock"].Value = dgv["Stock"].ToString();
+                    fila.Cells["CodigoBarras"].Value = dgv["CodigoBarras"].ToString();
+                    fila.Cells["tipo"].Value = dgv["Tipo"].ToString();
                 }
             }
 
@@ -178,7 +202,14 @@ namespace PuntoDeVentaV2
             //}
 
             //Obtiene el id del empleado o de el producto.
-            idEmpleadoObtenido = Convert.ToInt32(DGVDatos.Rows[DGVDatos.CurrentRow.Index].Cells[0].Value.ToString());
+            if (tipoBuscador.Equals("Empleados"))
+            {
+                idEmpleadoObtenido = Convert.ToInt32(DGVDatosEmpleados.Rows[DGVDatosEmpleados.CurrentRow.Index].Cells[0].Value.ToString());
+            }
+            else if (tipoBuscador.Equals("Productos"))
+            {
+                idEmpleadoObtenido = Convert.ToInt32(DGVDatosProductos.Rows[DGVDatosProductos.CurrentRow.Index].Cells[0].Value.ToString());
+            }
 
             this.Close();
         }

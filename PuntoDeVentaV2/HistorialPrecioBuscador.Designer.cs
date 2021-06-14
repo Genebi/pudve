@@ -31,8 +31,19 @@
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.DGVDatos = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.DGVDatos)).BeginInit();
+            this.DGVDatosEmpleados = new System.Windows.Forms.DataGridView();
+            this.checkBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DGVDatosProductos = new System.Windows.Forms.DataGridView();
+            this.checkBoxProd = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NombreProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodigoBarras = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVDatosEmpleados)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVDatosProductos)).BeginInit();
             this.SuspendLayout();
             // 
             // txtBuscar
@@ -65,34 +76,119 @@
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             this.btnBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnBuscar_KeyDown);
             // 
-            // DGVDatos
+            // DGVDatosEmpleados
             // 
-            this.DGVDatos.AllowUserToAddRows = false;
-            this.DGVDatos.AllowUserToDeleteRows = false;
-            this.DGVDatos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.DGVDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVDatos.Location = new System.Drawing.Point(27, 128);
-            this.DGVDatos.Name = "DGVDatos";
-            this.DGVDatos.ReadOnly = true;
-            this.DGVDatos.RowHeadersVisible = false;
-            this.DGVDatos.Size = new System.Drawing.Size(609, 225);
-            this.DGVDatos.TabIndex = 3;
-            this.DGVDatos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVDatos_CellDoubleClick);
+            this.DGVDatosEmpleados.AllowUserToAddRows = false;
+            this.DGVDatosEmpleados.AllowUserToDeleteRows = false;
+            this.DGVDatosEmpleados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVDatosEmpleados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVDatosEmpleados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.checkBox,
+            this.Id,
+            this.Nombre});
+            this.DGVDatosEmpleados.Location = new System.Drawing.Point(27, 128);
+            this.DGVDatosEmpleados.Name = "DGVDatosEmpleados";
+            this.DGVDatosEmpleados.ReadOnly = true;
+            this.DGVDatosEmpleados.RowHeadersVisible = false;
+            this.DGVDatosEmpleados.Size = new System.Drawing.Size(609, 225);
+            this.DGVDatosEmpleados.TabIndex = 3;
+            this.DGVDatosEmpleados.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVDatos_CellDoubleClick);
+            // 
+            // checkBox
+            // 
+            this.checkBox.FillWeight = 31.33294F;
+            this.checkBox.HeaderText = "";
+            this.checkBox.Name = "checkBox";
+            this.checkBox.ReadOnly = true;
+            // 
+            // Id
+            // 
+            this.Id.FillWeight = 138.6483F;
+            this.Id.HeaderText = "Numero Empleado";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
+            // Nombre
+            // 
+            this.Nombre.FillWeight = 138.6483F;
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // DGVDatosProductos
+            // 
+            this.DGVDatosProductos.AllowUserToAddRows = false;
+            this.DGVDatosProductos.AllowUserToDeleteRows = false;
+            this.DGVDatosProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVDatosProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVDatosProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.checkBoxProd,
+            this.IDProducto,
+            this.NombreProducto,
+            this.Stock,
+            this.CodigoBarras,
+            this.tipo});
+            this.DGVDatosProductos.Location = new System.Drawing.Point(27, 128);
+            this.DGVDatosProductos.Name = "DGVDatosProductos";
+            this.DGVDatosProductos.ReadOnly = true;
+            this.DGVDatosProductos.RowHeadersVisible = false;
+            this.DGVDatosProductos.Size = new System.Drawing.Size(609, 225);
+            this.DGVDatosProductos.TabIndex = 4;
+            // 
+            // checkBoxProd
+            // 
+            this.checkBoxProd.FillWeight = 31.33294F;
+            this.checkBoxProd.HeaderText = "";
+            this.checkBoxProd.Name = "checkBoxProd";
+            this.checkBoxProd.ReadOnly = true;
+            // 
+            // IDProducto
+            // 
+            this.IDProducto.HeaderText = "ID";
+            this.IDProducto.Name = "IDProducto";
+            this.IDProducto.ReadOnly = true;
+            this.IDProducto.Visible = false;
+            // 
+            // NombreProducto
+            // 
+            this.NombreProducto.HeaderText = "Nombre";
+            this.NombreProducto.Name = "NombreProducto";
+            this.NombreProducto.ReadOnly = true;
+            // 
+            // Stock
+            // 
+            this.Stock.HeaderText = "Stock";
+            this.Stock.Name = "Stock";
+            this.Stock.ReadOnly = true;
+            // 
+            // CodigoBarras
+            // 
+            this.CodigoBarras.HeaderText = "Codigo de Barras";
+            this.CodigoBarras.Name = "CodigoBarras";
+            this.CodigoBarras.ReadOnly = true;
+            // 
+            // tipo
+            // 
+            this.tipo.HeaderText = "Tipo";
+            this.tipo.Name = "tipo";
+            this.tipo.ReadOnly = true;
             // 
             // HistorialPrecioBuscador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(654, 379);
-            this.Controls.Add(this.DGVDatos);
+            this.Controls.Add(this.DGVDatosEmpleados);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.lbTitulo);
             this.Controls.Add(this.txtBuscar);
+            this.Controls.Add(this.DGVDatosProductos);
             this.Name = "HistorialPrecioBuscador";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HistorialPrecioBuscador";
             this.Load += new System.EventHandler(this.HistorialPrecioBuscador_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.DGVDatos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVDatosEmpleados)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVDatosProductos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,6 +199,16 @@
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label lbTitulo;
         private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.DataGridView DGVDatos;
+        private System.Windows.Forms.DataGridView DGVDatosEmpleados;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn checkBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridView DGVDatosProductos;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn checkBoxProd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDProducto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NombreProducto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodigoBarras;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
     }
 }
