@@ -132,9 +132,9 @@
             this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(160, 8);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 17);
+            this.label2.Size = new System.Drawing.Size(121, 36);
             this.label2.TabIndex = 10;
-            this.label2.Text = "Código de Barras";
+            this.label2.Text = "Código de Barras o Clave Interna";
             this.label2.Visible = false;
             // 
             // label4
@@ -711,7 +711,6 @@
             this.PDetalle.Controls.Add(this.label1);
             this.PDetalle.Controls.Add(this.panelContenedor);
             this.PDetalle.Controls.Add(this.txtCantPaqServ);
-            this.PDetalle.Controls.Add(this.label2);
             this.PDetalle.Controls.Add(this.lblCantPaqServ);
             this.PDetalle.Controls.Add(this.btnGenerarCB);
             this.PDetalle.Controls.Add(this.txtClaveProducto);
@@ -727,10 +726,11 @@
             this.PDetalle.Controls.Add(this.label6);
             this.PDetalle.Controls.Add(this.txtStockMaximo);
             this.PDetalle.Controls.Add(this.PImagen);
+            this.PDetalle.Controls.Add(this.label2);
             this.PDetalle.Location = new System.Drawing.Point(2, 2);
             this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
-            this.PDetalle.Size = new System.Drawing.Size(838, 257);
+            this.PDetalle.Size = new System.Drawing.Size(868, 257);
             this.PDetalle.TabIndex = 2;
             // 
             // lblCantCombServ
@@ -811,7 +811,7 @@
             this.tLPServicio.Name = "tLPServicio";
             this.tLPServicio.RowCount = 1;
             this.tLPServicio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPServicio.Size = new System.Drawing.Size(796, 258);
+            this.tLPServicio.Size = new System.Drawing.Size(831, 258);
             this.tLPServicio.TabIndex = 36;
             this.tLPServicio.Visible = false;
             this.tLPServicio.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPServicio_CellPaint);
@@ -824,7 +824,7 @@
             this.tLPCombo.Name = "tLPCombo";
             this.tLPCombo.RowCount = 1;
             this.tLPCombo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPCombo.Size = new System.Drawing.Size(796, 258);
+            this.tLPCombo.Size = new System.Drawing.Size(831, 258);
             this.tLPCombo.TabIndex = 35;
             this.tLPCombo.Visible = false;
             this.tLPCombo.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPCombo_CellPaint);
@@ -838,7 +838,7 @@
             this.tLPProducto.Name = "tLPProducto";
             this.tLPProducto.RowCount = 1;
             this.tLPProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPProducto.Size = new System.Drawing.Size(796, 258);
+            this.tLPProducto.Size = new System.Drawing.Size(831, 258);
             this.tLPProducto.TabIndex = 23;
             this.tLPProducto.Visible = false;
             this.tLPProducto.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
