@@ -811,7 +811,7 @@
             this.tLPServicio.Name = "tLPServicio";
             this.tLPServicio.RowCount = 1;
             this.tLPServicio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPServicio.Size = new System.Drawing.Size(796, 258);
+            this.tLPServicio.Size = new System.Drawing.Size(831, 258);
             this.tLPServicio.TabIndex = 36;
             this.tLPServicio.Visible = false;
             this.tLPServicio.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPServicio_CellPaint);

@@ -7837,7 +7837,7 @@ namespace PuntoDeVentaV2
             for (int i = 0; i < 6; i++)
             {
                 tLPServicio.RowCount++;
-                tLPServicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+                tLPServicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             }
 
             if (conSinClaveInterna.Equals(false))
@@ -7900,7 +7900,7 @@ namespace PuntoDeVentaV2
 
                 // Label para Código de Barras
                 label2.Visible = true;
-                label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Top;
                 //label2.TextAlign = ContentAlignment.MiddleCenter;
 
                 // Label para Cantidad por Servicio
