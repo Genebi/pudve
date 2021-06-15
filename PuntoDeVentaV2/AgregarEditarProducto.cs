@@ -466,6 +466,8 @@ namespace PuntoDeVentaV2
 
             for (int i = 0; i < lstListView.Items.Count; i++)
             {
+                flowLayoutPanel3.Visible = true;
+                lblMsgSinSelecDetalles.Visible = false;
                 //name = lstListView.Items[i].Text.ToString();
                 //value = lstListView.Items[i].SubItems[1].Text.ToString();
                 name = lstListView.Items[i].SubItems[1].Text.ToString();
@@ -708,6 +710,11 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+            }
+            if (flowLayoutPanel3.Controls.Count.Equals(0))
+            {
+                flowLayoutPanel3.Visible = false;
+                lblMsgSinSelecDetalles.Visible = true;
             }
         }
 
@@ -2316,13 +2323,14 @@ namespace PuntoDeVentaV2
         public AgregarEditarProducto(string titulo = "")
         {
             InitializeComponent();
-            this.toolTip1.SetToolTip(this.lblStockMinimo, "En este campo puede indicar al sistema el minimo \nde inventario necesario para sus operaciones, \ncon esta información el programa podrá indicarle \ncuando es necesario adquirir mercancía.");
-            this.toolTip1.SetToolTip(this.lbStockMaximo, "En este campo puede indicar al sistema el maximo \nde inventario necesario para sus operaciones, \ncon esta información el programa podrá indicarle \ncuando se tenga un exceso de inventario.");
-            this.toolTip1.SetToolTip(this.lbStock, "En este campo puede indicar el número de \nproductos con los que cuenta actualmente.");
+            this.toolTip1.SetToolTip(this.lblStockMinimo, "En este campo puede indicar al sistema el minimo\nde inventario necesario para sus operaciones,\ncon esta información el programa podrá indicarle\ncuando es necesario adquirir mercancía.");
+            this.toolTip1.SetToolTip(this.lbStockMaximo, "En este campo puede indicar al sistema el maximo\nde inventario necesario para sus operaciones,\ncon esta información el programa podrá indicarle\ncuando se tenga un exceso de inventario.");
+            this.toolTip1.SetToolTip(this.lbStock, "En este campo puede indicar el número de\nproductos con los que cuenta actualmente.");
             this.toolTip1.SetToolTip(this.lbPrecioCompra, "El precio que le costó adquirir el producto.");
             this.toolTip1.SetToolTip(this.lbPrecioVenta, "El precio que tendrá su producto al público.");
-            this.toolTip1.SetToolTip(this.lbClaveInterna, "En este campo podra ingresar un folio interno, \npara mayor control de sus productos.");
+            this.toolTip1.SetToolTip(this.lbClaveInterna, "En este campo podra ingresar un folio interno,\npara mayor control de sus productos.");
             this.toolTip1.SetToolTip(this.lblCantCombServ, "En este apartado podrá indicarle al sistema la cantidad\nde productos que se descontaran al venderse un Combo/Servicio");
+            this.toolTip1.SetToolTip(this.lblCodigoBarras, "En este campo puede agregar códigos de barras\no claves internas de sus productos.");
         }
 
         private void txtCodigoBarras_KeyDown(object sender, KeyEventArgs e)
@@ -7074,10 +7082,13 @@ namespace PuntoDeVentaV2
             label2.Visible = true;
             label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Right;
 
+            lblCodigoBarras.Visible = true;
+            lblCodigoBarras.Anchor = AnchorStyles.Left;
+
             tLPProducto.Controls.Add(label7, 0, 2);               // Precio Compra Label
             tLPProducto.Controls.Add(label4, 2, 2);               // Precio Venta Label
             tLPProducto.Controls.Add(label2, 4, 2);               // Código de Barras Label
-            //tLPProducto.SetColumnSpan(label2, 2);
+            tLPProducto.Controls.Add(lblCodigoBarras, 5, 2);
 
             #endregion End Row 3            
 
@@ -7304,6 +7315,8 @@ namespace PuntoDeVentaV2
             this.Controls.Add(lbPrecioCompra);
             lblCantCombServ.Visible = false;
             this.Controls.Add(lblCantCombServ);
+            lblCodigoBarras.Visible = false;
+            this.Controls.Add(lblCodigoBarras);
         }
 
         private void agregarCombo()

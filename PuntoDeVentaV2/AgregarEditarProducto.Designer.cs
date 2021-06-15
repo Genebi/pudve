@@ -75,6 +75,7 @@
             this.PConteidoProducto = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
+            this.lblCodigoBarras = new System.Windows.Forms.Label();
             this.lblCantCombServ = new System.Windows.Forms.Label();
             this.lbClaveInterna = new System.Windows.Forms.Label();
             this.lbStock = new System.Windows.Forms.Label();
@@ -98,6 +99,7 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblMsgSinSelecDetalles = new System.Windows.Forms.Label();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -696,6 +698,7 @@
             // 
             // PDetalle
             // 
+            this.PDetalle.Controls.Add(this.lblCodigoBarras);
             this.PDetalle.Controls.Add(this.lblCantCombServ);
             this.PDetalle.Controls.Add(this.lbClaveInterna);
             this.PDetalle.Controls.Add(this.lbStock);
@@ -732,6 +735,16 @@
             this.PDetalle.Name = "PDetalle";
             this.PDetalle.Size = new System.Drawing.Size(868, 257);
             this.PDetalle.TabIndex = 2;
+            // 
+            // lblCodigoBarras
+            // 
+            this.lblCodigoBarras.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCodigoBarras.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lblCodigoBarras.Location = new System.Drawing.Point(2, -1);
+            this.lblCodigoBarras.Name = "lblCodigoBarras";
+            this.lblCodigoBarras.Size = new System.Drawing.Size(20, 23);
+            this.lblCodigoBarras.TabIndex = 44;
+            this.lblCodigoBarras.Visible = false;
             // 
             // lblCantCombServ
             // 
@@ -892,7 +905,7 @@
             this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPType.Location = new System.Drawing.Point(0, 0);
             this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(887, 29);
+            this.fLPType.Size = new System.Drawing.Size(904, 29);
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -902,7 +915,7 @@
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(887, 66);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(904, 66);
             this.fLPDetalleProducto.TabIndex = 36;
             this.fLPDetalleProducto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPDetalleProducto_Paint);
             // 
@@ -924,7 +937,7 @@
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 95);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(887, 210);
+            this.fLPDetalle.Size = new System.Drawing.Size(904, 210);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -944,15 +957,16 @@
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 305);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(887, 270);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(904, 270);
             this.fLPDetallesProducto.TabIndex = 39;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblMsgSinSelecDetalles);
             this.groupBox2.Controls.Add(this.flowLayoutPanel3);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(867, 261);
+            this.groupBox2.Size = new System.Drawing.Size(867, 262);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Detalles ";
@@ -962,9 +976,9 @@
             // 
             this.flowLayoutPanel3.AutoScroll = true;
             this.flowLayoutPanel3.BackColor = System.Drawing.SystemColors.Control;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(4, 14);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(4, 45);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(858, 246);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(858, 212);
             this.flowLayoutPanel3.TabIndex = 1;
             // 
             // errorProvAgregarEditarProducto
@@ -976,12 +990,23 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
+            // lblMsgSinSelecDetalles
+            // 
+            this.lblMsgSinSelecDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMsgSinSelecDetalles.Location = new System.Drawing.Point(6, 16);
+            this.lblMsgSinSelecDetalles.Name = "lblMsgSinSelecDetalles";
+            this.lblMsgSinSelecDetalles.Size = new System.Drawing.Size(855, 23);
+            this.lblMsgSinSelecDetalles.TabIndex = 3;
+            this.lblMsgSinSelecDetalles.Text = "No tiene seleccionado algún detalle de producto para mostrar en esta área";
+            this.lblMsgSinSelecDetalles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMsgSinSelecDetalles.Visible = false;
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(904, 680);
+            this.ClientSize = new System.Drawing.Size(921, 680);
             this.Controls.Add(this.fLPContenidoProducto);
             this.Controls.Add(this.fLPDetallesProducto);
             this.Controls.Add(this.fLPAccion);
@@ -1095,5 +1120,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label lblCantCombServ;
         private System.Windows.Forms.Label lblArrow;
+        private System.Windows.Forms.Label lblCodigoBarras;
+        private System.Windows.Forms.Label lblMsgSinSelecDetalles;
     }
 }
