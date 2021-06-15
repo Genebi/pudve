@@ -381,9 +381,9 @@
             this.chkMarcarDesmarcar.AutoSize = true;
             this.chkMarcarDesmarcar.Location = new System.Drawing.Point(8, 12);
             this.chkMarcarDesmarcar.Name = "chkMarcarDesmarcar";
-            this.chkMarcarDesmarcar.Size = new System.Drawing.Size(131, 21);
+            this.chkMarcarDesmarcar.Size = new System.Drawing.Size(107, 21);
             this.chkMarcarDesmarcar.TabIndex = 116;
-            this.chkMarcarDesmarcar.Text = "Seleccionar todo";
+            this.chkMarcarDesmarcar.Text = "Marcar todos";
             this.chkMarcarDesmarcar.UseVisualStyleBackColor = true;
             this.chkMarcarDesmarcar.CheckedChanged += new System.EventHandler(this.chkMarcarDesmarcar_CheckedChanged);
             // 
