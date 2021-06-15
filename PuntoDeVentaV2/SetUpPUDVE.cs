@@ -238,6 +238,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            guardarArchivo.FileName = $"{FormPrincipal.userNickName}";
             guardarArchivo.Filter = "SQL (*.sql)|*.sql";
             guardarArchivo.FilterIndex = 1;
             guardarArchivo.RestoreDirectory = true;
