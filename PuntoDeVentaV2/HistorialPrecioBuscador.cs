@@ -131,6 +131,7 @@ namespace PuntoDeVentaV2
 
             if (!query.Rows.Count.Equals(0))
             {
+                var tipoProducto = string.Empty;
                 foreach (DataRow dgv in query.Rows)
                 {
                     //DGVDatosProductos.Rows.Add(dgv["ID"].ToString(), dgv["Nombre"].ToString(), dgv["Stock"].ToString(), dgv["CodigoBarras"].ToString(), dgv["Tipo"].ToString());
@@ -142,7 +143,21 @@ namespace PuntoDeVentaV2
                     fila.Cells["NombreProducto"].Value = dgv["Nombre"].ToString();
                     fila.Cells["Stock"].Value = dgv["Stock"].ToString();
                     fila.Cells["CodigoBarras"].Value = dgv["CodigoBarras"].ToString();
-                    fila.Cells["tipo"].Value = dgv["Tipo"].ToString();
+
+                    if (dgv["Tipo"].Equals("PQ"))
+                    {
+                        tipoProducto = "Combo";
+                    }
+                    else if (dgv["Tipo"].Equals("P"))
+                    {
+                        tipoProducto = "Producto";
+                    }
+                    else if (dgv["Tipo"].Equals("S"))
+                    {
+                        tipoProducto = "Servicio";
+                    }
+
+                    fila.Cells["tipo"].Value = tipoProducto;
                 }
             }
 
