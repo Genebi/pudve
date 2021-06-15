@@ -1393,7 +1393,7 @@ namespace PuntoDeVentaV2
             colAbonosDineroC.HorizontalAlignment = Element.ALIGN_CENTER;
             colAbonosDineroC.Padding = 3;
 
-            PdfPCell colAbonosDevolucionesRetirado = new PdfPCell(new Phrase($"Devoliciones", fuenteNormal));/////////////
+            PdfPCell colAbonosDevolucionesRetirado = new PdfPCell(new Phrase($"Devoluciones", fuenteNormal));/////////////
             colAbonosDevolucionesRetirado.BorderWidth = 0;
             colAbonosDevolucionesRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
             colAbonosDevolucionesRetirado.Padding = 3;
