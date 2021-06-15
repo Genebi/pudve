@@ -408,7 +408,7 @@ namespace PuntoDeVentaV2
 
             foreach (Control item in panelContenedor.Controls)
             {
-                if (item is CheckBox)
+                if (item is CheckBox && !item.Text.Equals("Marcar todos"))
                 {
                     var cb = (CheckBox)item;
 
