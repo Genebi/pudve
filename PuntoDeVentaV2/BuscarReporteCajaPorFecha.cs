@@ -1111,6 +1111,7 @@ namespace PuntoDeVentaV2
 
             var query = cn.CargarDatos($"SELECT Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion, IdEmpleado FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}'AND Cantidad != '0.00'  AND Operacion = '{tipoBusqueda}' AND (ID > '{idInicio}' AND ID < '{idFinal}')");
 
+
             if (!query.Rows.Count.Equals(0))
             {
                 //total = query.Rows[0]["Total"].ToString();
