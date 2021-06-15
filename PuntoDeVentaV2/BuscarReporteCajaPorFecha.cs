@@ -199,12 +199,26 @@ namespace PuntoDeVentaV2
             else if (e.ColumnIndex.Equals(4))//Dinero Agregado
             {
                 var dato = obtenerDatosReporte(id, "deposito");
-                GenerarReporteAgregarRetirar("DINERO AGREGADO", dato, id);
+                if (!dato.Rows.Count.Equals(0))
+                {
+                    GenerarReporteAgregarRetirar("DINERO AGREGADO", dato, id);
+                }
+                else
+                {
+                    MessageBox.Show("No existe información para generar reporte", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else if (e.ColumnIndex.Equals(5))//Dinero Retirado
             {
                 var dato = obtenerDatosReporte(id, "retiro");
-                GenerarReporteAgregarRetirar("DINERO RETIRADO", dato, id);
+                if (!dato.Rows.Count.Equals(0))
+                {
+                    GenerarReporteAgregarRetirar("DINERO RETIRADO", dato, id);
+                }
+                else
+                {
+                    MessageBox.Show("No existe información para generar reporte", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -1095,7 +1109,7 @@ namespace PuntoDeVentaV2
             //var query = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad), 0.00) AS Total, IFNULL(SUM(Efectivo), 0.00) AS Efectivo, IFNULL(SUM(Tarjeta),0.00) AS Tarjeta, IFNULL(SUM(Vales),0.00) AS Vales, IFNULL(SUM(Cheque),0.00) AS Cheque, IFNULL(SUM(Transferencia),0.00) AS Transferencia FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = '{tipoBusqueda}' AND (FechaOperacion BETWEEN '{datePrimera.ToString("yyyy-MM-dd hh:mm:ss")}' AND '{date.ToString("yyyy-MM-dd hh:mm:ss")}')");
             //var query = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad), 0.00) AS Total, IFNULL(SUM(Efectivo), 0.00) AS Efectivo, IFNULL(SUM(Tarjeta),0.00) AS Tarjeta, IFNULL(SUM(Vales),0.00) AS Vales, IFNULL(SUM(Cheque),0.00) AS Cheque, IFNULL(SUM(Transferencia),0.00) AS Transferencia FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = '{tipoBusqueda}' AND (ID > '{idInicio}' AND ID < '{idFinal}')");
 
-            var query = cn.CargarDatos($"SELECT Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion, IdEmpleado FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = '{tipoBusqueda}' AND (ID > '{idInicio}' AND ID < '{idFinal}')");
+            var query = cn.CargarDatos($"SELECT Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion, IdEmpleado FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}'AND Cantidad != '0.00'  AND Operacion = '{tipoBusqueda}' AND (ID > '{idInicio}' AND ID < '{idFinal}')");
 
             if (!query.Rows.Count.Equals(0))
             {
