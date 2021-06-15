@@ -416,9 +416,9 @@ namespace PuntoDeVentaV2
 
             var restoCash = (total - cantidadFinal);
 
-            lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Total en Caja antes del corte:" + "|" + /*totalAntesCorte*/restoCash.ToString("C"));
+            lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Total en Caja antes del corte:" + "|" + /*totalAntesCorte*/total.ToString("C"));
 
-            lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en Caja despues del corte:|" + total.ToString("C"));
+            lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en Caja despues del corte:|" + restoCash.ToString("C"));
 
             
 
