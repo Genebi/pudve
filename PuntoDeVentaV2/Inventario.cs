@@ -1129,31 +1129,56 @@ namespace PuntoDeVentaV2
 
         private void bntTerminar_Click(object sender, EventArgs e)
         {
-            if (opcion5 == 0)
+            if (!DGVInventario.Rows.Count.Equals(0))
             {
-                Utilidades.MensajePermiso();
-                return;
-            }
-
-            SeleccionarConceptosReporteActualizarInventario SCRA = new SeleccionarConceptosReporteActualizarInventario();
-
-            SCRA.FormClosed += delegate
-            {
-                ConceptosSeleccionados();
-                ValidarParaTerminarRevision();
-            };
-
-            SCRA.ShowDialog();
-
-            if (Utilidades.AdobeReaderInstalado())
-            {
-                var servidor = Properties.Settings.Default.Hosting;
-                var rutaArchivo = string.Empty;
-
-                if (!string.IsNullOrWhiteSpace(servidor))
+                if (opcion5 == 0)
                 {
-                    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\";
-                    if (Directory.Exists(rutaArchivo))
+                    Utilidades.MensajePermiso();
+                    return;
+                }
+
+                SeleccionarConceptosReporteActualizarInventario SCRA = new SeleccionarConceptosReporteActualizarInventario();
+
+                SCRA.FormClosed += delegate
+                {
+                    ConceptosSeleccionados();
+                    ValidarParaTerminarRevision();
+                };
+
+                SCRA.ShowDialog();
+
+                if (Utilidades.AdobeReaderInstalado())
+                {
+                    var servidor = Properties.Settings.Default.Hosting;
+                    var rutaArchivo = string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\";
+                        if (Directory.Exists(rutaArchivo))
+                        {
+                            GenerarReporte(idReporte);
+                            if (rbAumentarProducto.Checked)
+                            {
+                                var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+                                cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
+                                cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
+                            }
+                            else if (rbDisminuirProducto.Checked)
+                            {
+                                var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+                                cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
+                                cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
+                            }
+                        }
+                        else if (!Directory.Exists(rutaArchivo))
+                        {
+                            MessageBox.Show("Verificar si las carpetas en la MAQUINA SERVIDOR\nestan compartidas para almacenar los archivos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    if (string.IsNullOrWhiteSpace(servidor))
                     {
                         GenerarReporte(idReporte);
                         if (rbAumentarProducto.Checked)
@@ -1169,38 +1194,20 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
                         }
                     }
-                    else if (!Directory.Exists(rutaArchivo))
-                    {
-                        MessageBox.Show("Verificar si las carpetas en la MAQUINA SERVIDOR\nestan compartidas para almacenar los archivos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                }
+                else
+                {
+                    Utilidades.MensajeAdobeReader();
                 }
 
-                if (string.IsNullOrWhiteSpace(servidor))
-                {
-                    GenerarReporte(idReporte);
-                    if (rbAumentarProducto.Checked)
-                    {
-                        var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-                        cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
-                        cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
-                    }
-                    else if (rbDisminuirProducto.Checked)
-                    {
-                        var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
-                        cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
-                        cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
-                    }
-                }
+                DGVInventario.Rows.Clear();
+
+                idReporte++;
             }
             else
             {
-                Utilidades.MensajeAdobeReader();
+                MessageBox.Show("No existen ajustes realizados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            DGVInventario.Rows.Clear();
-
-            idReporte++;
         }
 
         private void ValidarParaTerminarRevision()
