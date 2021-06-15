@@ -79,39 +79,41 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Productos";
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Productos");
 
-            GenerarCheckbox(10, 35, 100, "Agregar XML", datos[0]);
-            GenerarCheckbox(10, 200, 150, "Deshabilitar Seleccionados", datos[1]);
+            GenerarCheckbox(10,35,150,"Marcar todos",0);
+            //============================================================
+            GenerarCheckbox(30, 35, 100, "Agregar XML", datos[0]);
+            GenerarCheckbox(30, 200, 200, "Deshabilitar Seleccionados", datos[1]);
             //=============================================================
-            GenerarCheckbox(30, 35, 150, "Cambiar Tipo", datos[2]);
-            GenerarCheckbox(30, 200, 150, "Mostrar en Lista", datos[3]);
+            GenerarCheckbox(50, 35, 150, "Cambiar Tipo", datos[2]);
+            GenerarCheckbox(50, 200, 150, "Mostrar en Lista", datos[3]);
             //=============================================================
-            GenerarCheckbox(50, 35, 150, "Botón Asignar", datos[4]);
-            Generarbutton(50, 10, 20, 20);
-            GenerarCheckbox(50, 200, 150, "Mostrar en Mosaico", datos[5]);
+            GenerarCheckbox(70, 35, 150, "Botón Asignar", datos[4]);
+            Generarbutton(70, 10, 20, 20);
+            GenerarCheckbox(70, 200, 150, "Mostrar en Mosaico", datos[5]);
             //=============================================================
-            GenerarCheckbox(70, 35, 150, "Botón Etiqueta", datos[6]);
-            GenerarCheckbox(70, 200, 150, "Botón Reporte", datos[7]);
+            GenerarCheckbox(90, 35, 150, "Botón Etiqueta", datos[6]);
+            GenerarCheckbox(90, 200, 150, "Botón Reporte", datos[7]);
             //=============================================================
-            GenerarCheckbox(90, 35, 150, "Botón Imprimir", datos[8]);
-            GenerarCheckbox(90, 200, 150, "Agregar Producto", datos[9]);
+            GenerarCheckbox(110, 35, 150, "Botón Imprimir", datos[8]);
+            GenerarCheckbox(110, 200, 150, "Agregar Producto", datos[9]);
             //=============================================================
-            GenerarCheckbox(110, 35, 150, "Agregar Combo", datos[10]);
-            GenerarCheckbox(110, 200, 150, "Agregar Servicio", datos[11]);
+            GenerarCheckbox(130, 35, 150, "Agregar Combo", datos[10]);
+            GenerarCheckbox(130, 200, 150, "Agregar Servicio", datos[11]);
             //=============================================================
-            GenerarCheckbox(130, 35, 150, "Botón Filtro", datos[12]);
-            GenerarCheckbox(130, 200, 150, "Botón Borrar Filtro", datos[13]);
+            GenerarCheckbox(150, 35, 150, "Botón Filtro", datos[12]);
+            GenerarCheckbox(150, 200, 150, "Botón Borrar Filtro", datos[13]);
             //=============================================================
-            GenerarCheckbox(150, 35, 150, "Opción Editar", datos[14]);
-            GenerarCheckbox(150, 200, 150, "Opción Estado", datos[15]);
+            GenerarCheckbox(170, 35, 150, "Opción Editar", datos[14]);
+            GenerarCheckbox(170, 200, 150, "Opción Estado", datos[15]);
             //=============================================================
-            GenerarCheckbox(170, 35, 150, "Opción Historal", datos[16]);
-            GenerarCheckbox(170, 200, 150, "Generar Código Barras", datos[17]);
+            GenerarCheckbox(190, 35, 150, "Opción Historal", datos[16]);
+            GenerarCheckbox(190, 200, 150, "Generar Código Barras", datos[17]);
             //=============================================================
-            GenerarCheckbox(190, 35, 150, "Cargar Imagen", datos[18]);
-            GenerarCheckbox(190, 200, 150, "Opción Etiqueta", datos[19]);
+            GenerarCheckbox(210, 35, 150, "Cargar Imagen", datos[18]);
+            GenerarCheckbox(210, 200, 150, "Opción Etiqueta", datos[19]);
             //=============================================================
-            GenerarCheckbox(210, 35, 150, "Opción Copiar", datos[20]);
-            GenerarCheckbox(210, 200, 150, "Opción Ajustar", datos[21]);
+            GenerarCheckbox(230, 35, 150, "Opción Copiar", datos[20]);
+            GenerarCheckbox(230, 200, 150, "Opción Ajustar", datos[21]);
         }
 
         private void GenerarEmpleados()
@@ -120,6 +122,7 @@ namespace PuntoDeVentaV2
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Empleados");
 
+            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
             GenerarCheckbox(50, 130, 150, "Nuevo Empleado", datos[0]);
             GenerarCheckbox(90, 130, 150, "Editar Empleado", datos[1]);
             GenerarCheckbox(130, 130, 150, "Permisos Empleado", datos[2]);
@@ -130,7 +133,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Proveedores";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Proveedores");
-
+            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
             GenerarCheckbox(50, 130, 150, "Botón Buscar", datos[0]);
             GenerarCheckbox(90, 130, 150, "Nuevo Proveedor", datos[1]);
         }
@@ -140,7 +143,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Clientes";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Clientes");
-
+            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
             GenerarCheckbox(40, 130, 150, "Botón Buscar", datos[0]);
             GenerarCheckbox(80, 130, 150, "Nuevo Tipo Cliente", datos[1]);
             GenerarCheckbox(120, 130, 150, "Listado Tipo Cliente", datos[2]);
@@ -152,7 +155,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Reportes";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Reportes");
-
+            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
             GenerarCheckbox(50, 130, 150, "Historial de Precios", datos[0]);
             GenerarCheckbox(90, 130, 150, "Historial Dinero Agregado", datos[1]);
         }
@@ -163,8 +166,10 @@ namespace PuntoDeVentaV2
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Configuracion");
 
-            GenerarCheckbox(20, 20, 150, "Guardar Servidor", datos[0]);
-            GenerarCheckbox(20, 180, 150, "Número de Revisión", datos[1]);
+            GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
+
+            GenerarCheckbox(30, 20, 150, "Guardar Servidor", datos[0]);
+            GenerarCheckbox(30, 180, 150, "Número de Revisión", datos[1]);
             //=============================================================
             GenerarCheckbox(50, 20, 150, "Porcentaje Ganancia", datos[2]);
             GenerarCheckbox(50, 180, 150, "Respaldar Información", datos[3]);
@@ -193,6 +198,7 @@ namespace PuntoDeVentaV2
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Caja");
 
+            GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
             GenerarCheckbox(40, 20, 150, "Botón Agregar Dinero", datos[0]);
             GenerarCheckbox(40, 180, 200, "Botón Historial Dinero Agregado", datos[1]);
             GenerarCheckbox(80, 20, 150, "Botón Retirar Dinero", datos[2]);
@@ -212,32 +218,34 @@ namespace PuntoDeVentaV2
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Ventas");
 
-            GenerarCheckbox(20, 10, 110, "Cancelar Venta", datos[0]);
-            GenerarCheckbox(20, 130, 110, "Ver Nota Venta", datos[1]);
-            GenerarCheckbox(20, 250, 125, "Ver Ticket Venta", datos[2]);
+            GenerarCheckbox(10, 10, 150, "Marcar todos", 0);
+
+            GenerarCheckbox(40, 10, 110, "Cancelar Venta", datos[0]);
+            GenerarCheckbox(40, 130, 110, "Ver Nota Venta", datos[1]);
+            GenerarCheckbox(40, 250, 125, "Ver Ticket Venta", datos[2]);
             //=============================================================
-            GenerarCheckbox(50, 10, 110, "Ver Info Venta", datos[3]);
-            GenerarCheckbox(50, 130, 110, "Timbrar Factura", datos[4]);
-            GenerarCheckbox(50, 250, 125, "Botón Enviar Nota", datos[5]);
+            GenerarCheckbox(80, 10, 110, "Ver Info Venta", datos[3]);
+            GenerarCheckbox(80, 130, 110, "Timbrar Factura", datos[4]);
+            GenerarCheckbox(80, 250, 125, "Botón Enviar Nota", datos[5]);
             //=============================================================
-            GenerarCheckbox(80, 10, 110, "Buscar Venta", datos[6]);
-            GenerarCheckbox(80, 130, 110, "Nueva Venta", datos[7]);
-            GenerarCheckbox(80, 250, 125, "Botón Cancelar", datos[8]);
+            GenerarCheckbox(110, 10, 110, "Buscar Venta", datos[6]);
+            GenerarCheckbox(110, 130, 110, "Nueva Venta", datos[7]);
+            GenerarCheckbox(110, 250, 125, "Botón Cancelar", datos[8]);
             //=============================================================
-            GenerarCheckbox(110, 10, 110, "Guardar Venta", datos[9]);
-            GenerarCheckbox(110, 130, 110, "Botón Anticipos", datos[10]);
-            GenerarCheckbox(110, 250, 125, "Abrir Caja", datos[11]);
+            GenerarCheckbox(140, 10, 110, "Guardar Venta", datos[9]);
+            GenerarCheckbox(140, 130, 110, "Botón Anticipos", datos[10]);
+            GenerarCheckbox(140, 250, 125, "Abrir Caja", datos[11]);
             //=============================================================
-            GenerarCheckbox(140, 10, 115, "Ventas Guardadas", datos[12]);
-            GenerarCheckbox(140, 130, 110, "Ver Último Ticket", datos[13]);
-            GenerarCheckbox(140, 250, 135, "Guardar Presupuesto", datos[14]);
+            GenerarCheckbox(170, 10, 115, "Ventas Guardadas", datos[12]);
+            GenerarCheckbox(170, 130, 110, "Ver Último Ticket", datos[13]);
+            GenerarCheckbox(170, 250, 135, "Guardar Presupuesto", datos[14]);
             //=============================================================
-            GenerarCheckbox(170, 10, 115, "Descuento Cliente", datos[15]);
-            GenerarCheckbox(170, 130, 110, "Elimininar Último", datos[16]);
-            GenerarCheckbox(170, 250, 135, "Eliminar Todos", datos[17]);
+            GenerarCheckbox(200, 10, 115, "Descuento Cliente", datos[15]);
+            GenerarCheckbox(200, 130, 110, "Elimininar Último", datos[16]);
+            GenerarCheckbox(200, 250, 135, "Eliminar Todos", datos[17]);
             //=============================================================
-            GenerarCheckbox(200, 10, 115, "Aplicar Descuento", datos[18]);
-            GenerarCheckbox(200, 130, 110, "Terminar Venta", datos[19]);
+            GenerarCheckbox(230, 10, 115, "Aplicar Descuento", datos[18]);
+            GenerarCheckbox(230, 130, 110, "Terminar Venta", datos[19]);
         }
 
         private void GenerarInventario()
@@ -245,7 +253,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Inventario";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Inventario");
-
+            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
             GenerarCheckbox(40, 130, 120, "Revisar Inventario", datos[0]);
             GenerarCheckbox(80, 130, 125, "Actualizar Inventario", datos[1]);
             GenerarCheckbox(120, 130, 150, "Actualizar Inventario XML", datos[2]);
@@ -258,7 +266,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Anticipos";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Anticipos");
-
+            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
             GenerarCheckbox(40, 130, 120, "Generar Ticket", datos[0]);
             GenerarCheckbox(80, 130, 125, "Habilitar/Deshabilitar", datos[1]);
             GenerarCheckbox(120, 130, 150, "Devolver Anticipo", datos[2]);
@@ -271,7 +279,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Mis Datos";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "MisDatos");
-
+            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
             GenerarCheckbox(40, 130, 150, "Guardar Datos", datos[0]);
             GenerarCheckbox(80, 130, 150, "Subir Imagen", datos[1]);
             GenerarCheckbox(120, 130, 150, "Eliminar Imagen", datos[2]);
@@ -284,7 +292,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Facturas";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Facturas");
-
+            GenerarCheckbox(10, 10, 150, "Marcar todos", 0);
             GenerarCheckbox(40, 10, 100, "Ver Factura", datos[0]);
             GenerarCheckbox(40, 120, 120, "Descargar Factura", datos[1]);
             GenerarCheckbox(40, 240, 130, "Cancelar Factura", datos[2]);
@@ -304,8 +312,41 @@ namespace PuntoDeVentaV2
             checkbox.Left = left;
             checkbox.Width = ancho;
             checkbox.Checked = Convert.ToBoolean(estado);
-
+            checkbox.CheckedChanged += new EventHandler(checkbox_CheckedChanged);
             panelContenedor.Controls.Add(checkbox);
+        }
+
+        private void checkbox_CheckedChanged(object sender, EventArgs e)
+            {
+            CheckBox checkbox = (CheckBox)sender;
+            foreach (Control objetos in panelContenedor.Controls)
+            {
+                if (objetos is CheckBox)
+                {
+                    CheckBox chkObjetos = (CheckBox)objetos;
+                    if ("Marcar todos" != chkObjetos.Text)
+                    {
+                        bool estado = chkObjetos.Checked;
+
+                        if (checkbox.Checked == false && checkbox.Text == "Desmarcar todos")
+                        {
+                            chkObjetos.Checked = false;
+                        }
+                        else if (checkbox.Checked == true && checkbox.Text == "Marcar todos")
+                        {
+                            chkObjetos.Checked = true;
+                        }
+                    }
+                }
+            }
+            if (checkbox.Checked == true && checkbox.Text == "Marcar todos")
+            {
+                checkbox.Text = "Desmarcar todos";
+            }
+            else if (checkbox.Checked == false && checkbox.Text == "Desmarcar todos")
+            {
+                checkbox.Text = "Marcar todos";
+            }
         }
 
         private void Generarbutton(int top, int left, int alto,int ancho)

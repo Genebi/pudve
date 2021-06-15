@@ -379,7 +379,7 @@
             // chkMarcarDesmarcar
             // 
             this.chkMarcarDesmarcar.AutoSize = true;
-            this.chkMarcarDesmarcar.Location = new System.Drawing.Point(150, 12);
+            this.chkMarcarDesmarcar.Location = new System.Drawing.Point(8, 12);
             this.chkMarcarDesmarcar.Name = "chkMarcarDesmarcar";
             this.chkMarcarDesmarcar.Size = new System.Drawing.Size(131, 21);
             this.chkMarcarDesmarcar.TabIndex = 116;

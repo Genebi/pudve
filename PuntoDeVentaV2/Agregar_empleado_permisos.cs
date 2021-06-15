@@ -263,25 +263,25 @@ namespace PuntoDeVentaV2
                 if (objetos is CheckBox)
                 {
                     CheckBox chkObjetos = (CheckBox)objetos;
-                    if ("Seleccionar todo" !=chkObjetos.Name )
+                    if ("Seleccionar todo" !=chkObjetos.Text )
                     {
                         bool estado = chkObjetos.Checked;
 
-                        if (estado == true)
+                        if (chkMarcarDesmarcar.Checked == false)
                         {
                             chkObjetos.Checked = false;
                         }
-                        else if (estado == false)
+                        else if (chkMarcarDesmarcar.Checked == true)
                         {
                             chkObjetos.Checked = true;
                         }
                     }
                 }
-                if (chkMarcarDesmarcar.Text.Equals("Seleccionar todo"))
+                if (chkMarcarDesmarcar.Checked == true)
                 {
                     chkMarcarDesmarcar.Text = "Desmarcar todo";
                 }
-                else if (chkMarcarDesmarcar.Text.Equals("Desmarcar todo"))
+                else if (chkMarcarDesmarcar.Checked == false)
                 {
                     chkMarcarDesmarcar.Text = "Seleccionar todo";
                 }

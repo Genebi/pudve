@@ -49,7 +49,7 @@ namespace PuntoDeVentaV2
             CheckBox chkPermisos = (CheckBox)sender;
             var concepto = chkPermisos.Text.Trim();
 
-            if (concepto.Equals("Mensaje Ventas") || concepto.Equals("Mensaje Inventario") || concepto.Equals("Stock") || concepto.Equals("Stock Minimo") || concepto.Equals("Stock Maximo") || concepto.Equals("Precio") || concepto.Equals("Número de Revisión") || concepto.Equals("Tipo de IVA") || concepto.Equals("Clave de Producto") || concepto.Equals("Clave de Unidad") || concepto.Equals("Correos"))
+            if (concepto.Equals("Mensaje Ventas") || concepto.Equals("Mensaje Inventario") || concepto.Equals("Stock") || concepto.Equals("Stock Minimo") || concepto.Equals("Stock Maximo") || concepto.Equals("Precio") || concepto.Equals("Número de Revisión") || concepto.Equals("Tipo de IVA") || concepto.Equals("Clave de Producto") || concepto.Equals("Clave de Unidad") || concepto.Equals("Correos") || concepto.Equals("Marcar todos") || concepto.Equals("Desmarcar todos"))
             {
 
             }
@@ -68,6 +68,37 @@ namespace PuntoDeVentaV2
                 concepto = concepto.Replace(" ", "_");
                 cn.EjecutarConsulta(cs.permisisAsignarDinamicos(concepto, estado, id_empleado.ToString()));
             }
+            //=====================================================================================
+            CheckBox checkbox = (CheckBox)sender;
+            foreach (Control objetos in panelContenedor2.Controls)
+            {
+                if (objetos is CheckBox)
+                {
+                    CheckBox chkObjetos = (CheckBox)objetos;
+                    if ("Marcar todos" != chkObjetos.Text)
+                    {
+                        bool estado = chkObjetos.Checked;
+
+                        if (checkbox.Checked == false && checkbox.Text == "Desmarcar todos")
+                        {
+                            chkObjetos.Checked = false;
+                        }
+                        else if (checkbox.Checked == true && checkbox.Text == "Marcar todos")
+                        {
+                            chkObjetos.Checked = true;
+                        }
+                    }
+                }
+            }
+            if (checkbox.Checked == true && checkbox.Text == "Marcar todos")
+            {
+                checkbox.Text = "Desmarcar todos";
+            }
+            else if (checkbox.Checked == false && checkbox.Text == "Desmarcar todos")
+            {
+                checkbox.Text = "Marcar todos";
+            }
+            //=====================================================================================
         }
 
         private void Permisos_Asignar_Load(object sender, EventArgs e)
@@ -107,22 +138,24 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Asignar";
             var datos2 = mb.ObtenerPermisosEmpleado(id_empleado, "Productos");
 
-            GenerarCheckbox(10, 45, 150, "Mensaje Ventas", datos2[24]);
-            GenerarCheckbox(10, 200, 150, "Mensaje Inventario", datos2[25]);
+            GenerarCheckbox(10, 45, 150, "Marcar todos", 0);
             //=============================================================
-            GenerarCheckbox(30, 45, 150, "Stock", datos2[26]);
-            GenerarCheckbox(30, 200, 150, "Stock Minimo", datos2[27]);
+            GenerarCheckbox(30, 45, 150, "Mensaje Ventas", datos2[24]);
+            GenerarCheckbox(30, 200, 150, "Mensaje Inventario", datos2[25]);
             //=============================================================
-            GenerarCheckbox(50, 45, 150, "Stock Maximo", datos2[28]);
-            GenerarCheckbox(50, 200, 150, "Precio", datos2[29]);
+            GenerarCheckbox(50, 45, 150, "Stock", datos2[26]);
+            GenerarCheckbox(50, 200, 150, "Stock Minimo", datos2[27]);
             //=============================================================
-            GenerarCheckbox(70, 45, 150, "Número de Revisión", datos2[30]);
-            GenerarCheckbox(70, 200, 150, "Tipo de IVA", datos2[31]);
+            GenerarCheckbox(70, 45, 150, "Stock Maximo", datos2[28]);
+            GenerarCheckbox(70, 200, 150, "Precio", datos2[29]);
             //=============================================================
-            GenerarCheckbox(90, 45, 150, "Clave de Producto", datos2[32]);
-            GenerarCheckbox(90, 200, 150, "Clave de Unidad", datos2[33]);
+            GenerarCheckbox(90, 45, 150, "Número de Revisión", datos2[30]);
+            GenerarCheckbox(90, 200, 150, "Tipo de IVA", datos2[31]);
             //=============================================================
-            GenerarCheckbox(110, 45, 150, "Correos", datos2[34]);
+            GenerarCheckbox(110, 45, 150, "Clave de Producto", datos2[32]);
+            GenerarCheckbox(110, 200, 150, "Clave de Unidad", datos2[33]);
+            //=============================================================
+            GenerarCheckbox(130, 45, 150, "Correos", datos2[34]);
 
             int contador = 0;
             int dato2 = 35;
@@ -168,6 +201,7 @@ namespace PuntoDeVentaV2
 
                     }
                 }
+
             }
         }
 
