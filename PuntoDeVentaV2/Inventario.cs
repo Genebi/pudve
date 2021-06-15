@@ -1257,7 +1257,12 @@ namespace PuntoDeVentaV2
         {
             int result = 0;
 
-            var query = cn.CargarDatos($"SELECT Folio FROM {tabla} WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC LIMIT 1");
+            var query = cn.CargarDatos($"SELECT Folio FROM {tabla} WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC LIMIT 2");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToInt32(query.Rows[1]["Folio"].ToString());
+            }
 
             return result;
         }

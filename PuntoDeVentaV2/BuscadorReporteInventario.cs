@@ -49,6 +49,7 @@ namespace PuntoDeVentaV2
 
         private void BuscadorReporteInventario_Load(object sender, EventArgs e)
         {
+            //Poner el texto en la etiqueta segun sea el tipo de busqueda
             if (tipoDatoReporte.Equals("RInventario"))
             {
                 label3.Text = "Reportes Revisar Inventario";
@@ -91,24 +92,6 @@ namespace PuntoDeVentaV2
 
             filtroConSinFiltroAvanzado = query;
 
-            //if (!query.Rows.Count.Equals(0))
-            //{
-            //    foreach (DataRow id in query.Rows)
-            //    {
-            //        numRevision = id["NoRevision"].ToString();
-            //        nameUser = id["NameUsr"].ToString();
-            //        fecha = id["Fecha"].ToString();
-
-            //        var usr = cs.validarEmpleadoPorID();
-
-            //        if (nameUser.Equals(usr))
-            //        {
-            //            nameUser = $"ADMIN ({nameUser})";
-            //        }
-
-            //        DGVInventario.Rows.Add(numRevision, nameUser, fecha, icono);
-            //    }
-            //}
             CargarDatos();
         }
 
