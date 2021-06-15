@@ -2013,13 +2013,13 @@ namespace PuntoDeVentaV2
 
         public string RegistroIniciosDeSesiones()
         {
-            var consulta = "SELECT * FROM iniciosdesesion";
+            var consulta = "SELECT * FROM iniciosdesesion ORDER BY Fecha DESC";
             return consulta;
         }
 
         public string busquedaIniciosDeSesion(string busqueda)
         {
-            var consulta = $"SELECT * FROM iniciosdesesion WHERE usuario LIKE '%{busqueda}%' AND IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT * FROM iniciosdesesion WHERE usuario LIKE '%{busqueda}%' AND IDUsuario = '{FormPrincipal.userID}'"; 
             return consulta;
         }
 
