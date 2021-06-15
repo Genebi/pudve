@@ -116,7 +116,7 @@ namespace PuntoDeVentaV2
            
             var productoBuscar = txtBuscar.Text;
 
-            var consulta = $"SELECT ID, Nombre, Stock, CodigoBarras, Tipo FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = 1 ";
+            var consulta = $"SELECT ID, Nombre, Stock, CodigoBarras, Tipo, Status FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}'";
 
             if (porBusqueda.Equals(false))
             {//Aqui va la consulta sin buscador
@@ -132,6 +132,8 @@ namespace PuntoDeVentaV2
             if (!query.Rows.Count.Equals(0))
             {
                 var tipoProducto = string.Empty;
+                var estado = string.Empty;
+
                 foreach (DataRow dgv in query.Rows)
                 {
                     //DGVDatosProductos.Rows.Add(dgv["ID"].ToString(), dgv["Nombre"].ToString(), dgv["Stock"].ToString(), dgv["CodigoBarras"].ToString(), dgv["Tipo"].ToString());
@@ -144,19 +146,29 @@ namespace PuntoDeVentaV2
                     fila.Cells["Stock"].Value = dgv["Stock"].ToString();
                     fila.Cells["CodigoBarras"].Value = dgv["CodigoBarras"].ToString();
 
-                    if (dgv["Tipo"].Equals("PQ"))
+                    if (dgv["Tipo"].ToString().Equals("PQ"))
                     {
                         tipoProducto = "Combo";
                     }
-                    else if (dgv["Tipo"].Equals("P"))
+                    else if (dgv["Tipo"].ToString().Equals("P"))
                     {
                         tipoProducto = "Producto";
                     }
-                    else if (dgv["Tipo"].Equals("S"))
+                    else if (dgv["Tipo"].ToString().Equals("S"))
                     {
                         tipoProducto = "Servicio";
                     }
 
+                    if (dgv["Status"].ToString().Equals("1"))
+                    {
+                        estado = "Habilitado";
+                    }
+                    else if (dgv["Status"].ToString().Equals("0"))
+                    {
+                        estado = "Deshabilitado";
+                    }
+
+                    fila.Cells["Status"].Value = estado;
                     fila.Cells["tipo"].Value = tipoProducto;
                 }
             }
