@@ -410,17 +410,24 @@ namespace PuntoDeVentaV2
             {
                 if (item is CheckBox && !item.Text.Equals("Marcar todos"))
                 {
-                    var cb = (CheckBox)item;
-
-                    var seleccionado = 0;
-
-                    if (cb.Checked)
+                    if (item is CheckBox && !item.Text.Equals("Desmarcar todos"))
                     {
+                        var cb = (CheckBox)item;
+
+                        var seleccionado = 0;
+
+                        if (cb.Checked)
+                        {
                         seleccionado = 1;
+                        }
+                        opciones.Add(seleccionado);
                     }
-                    opciones.Add(seleccionado);
+                    else
+                    {
+
+                    }
                 }
-            }
+             }
             return opciones.ToArray();
         }
 
