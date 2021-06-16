@@ -219,6 +219,8 @@
             this.btnAddDetalle.TabIndex = 29;
             this.btnAddDetalle.Text = "Agregar";
             this.btnAddDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnAddDetalle, "Desde este botón podrás agregar los detalles de tu producto o servicio,\r\npor ejem" +
+        "plo: color, ubicación, gramaje, etc. ¡Lo que imagines!.");
             this.btnAddDetalle.UseVisualStyleBackColor = false;
             this.btnAddDetalle.Click += new System.EventHandler(this.btnAddDetalle_Click);
             // 
