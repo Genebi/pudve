@@ -57,6 +57,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbCorreoDescuento = new System.Windows.Forms.CheckBox();
             this.cbCorreoIniciar = new System.Windows.Forms.CheckBox();
             this.cbCorreoVenta = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -66,7 +67,7 @@
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cbCorreoDescuento = new System.Windows.Forms.CheckBox();
+            this.chRespaldo = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -444,6 +445,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox1.Controls.Add(this.chRespaldo);
             this.groupBox1.Controls.Add(this.cbCorreoDescuento);
             this.groupBox1.Controls.Add(this.cbCorreoIniciar);
             this.groupBox1.Controls.Add(this.cbCorreoVenta);
@@ -460,10 +462,22 @@
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(30, 325);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(869, 175);
+            this.groupBox1.Size = new System.Drawing.Size(869, 186);
             this.groupBox1.TabIndex = 128;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envío de Correo:";
+            // 
+            // cbCorreoDescuento
+            // 
+            this.cbCorreoDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCorreoDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoDescuento.Location = new System.Drawing.Point(468, 136);
+            this.cbCorreoDescuento.Name = "cbCorreoDescuento";
+            this.cbCorreoDescuento.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoDescuento.TabIndex = 125;
+            this.cbCorreoDescuento.Text = "Al hacer venta con descuento";
+            this.cbCorreoDescuento.UseVisualStyleBackColor = true;
+            this.cbCorreoDescuento.CheckedChanged += new System.EventHandler(this.cbCorreoDescuento_CheckedChanged);
             // 
             // cbCorreoIniciar
             // 
@@ -587,17 +601,17 @@
             this.groupBox2.TabIndex = 129;
             this.groupBox2.TabStop = false;
             // 
-            // cbCorreoDescuento
+            // chRespaldo
             // 
-            this.cbCorreoDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoDescuento.Location = new System.Drawing.Point(468, 136);
-            this.cbCorreoDescuento.Name = "cbCorreoDescuento";
-            this.cbCorreoDescuento.Size = new System.Drawing.Size(381, 21);
-            this.cbCorreoDescuento.TabIndex = 125;
-            this.cbCorreoDescuento.Text = "Al hacer venta con descuento";
-            this.cbCorreoDescuento.UseVisualStyleBackColor = true;
-            this.cbCorreoDescuento.CheckedChanged += new System.EventHandler(this.cbCorreoDescuento_CheckedChanged);
+            this.chRespaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chRespaldo.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.chRespaldo.Location = new System.Drawing.Point(468, 159);
+            this.chRespaldo.Name = "chRespaldo";
+            this.chRespaldo.Size = new System.Drawing.Size(381, 21);
+            this.chRespaldo.TabIndex = 126;
+            this.chRespaldo.Text = "Al respaldar información";
+            this.chRespaldo.UseVisualStyleBackColor = true;
+            this.chRespaldo.CheckedChanged += new System.EventHandler(this.chRespaldo_CheckedChanged);
             // 
             // SetUpPUDVE
             // 
@@ -674,5 +688,6 @@
         private System.Windows.Forms.CheckBox cbCorreoVenta;
         private System.Windows.Forms.CheckBox cbCorreoIniciar;
         private System.Windows.Forms.CheckBox cbCorreoDescuento;
+        private System.Windows.Forms.CheckBox chRespaldo;
     }
 }
