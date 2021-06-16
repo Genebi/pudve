@@ -34,6 +34,8 @@ namespace PuntoDeVentaV2
             //idEmpleadoObtenido = "-1";
             idEmpleadoObtenido = string.Empty;
 
+            rbHabilitados.Checked = true;
+
             this.Text = $"Buscar de {tipoBuscador}";
             lbTitulo.Text = $"Buscar {tipoBuscador}";
 
@@ -70,7 +72,10 @@ namespace PuntoDeVentaV2
 
             var empleadoBuscar = txtBuscar.Text;
 
-            var consulta = $"SELECT ID, Usuario FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Estatus = 1 ";
+            var status = 0;
+            if (rbHabilitados.Checked) { status = 1; } else { status = 0; }
+
+            var consulta = $"SELECT ID, Usuario FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Estatus = '{status}' ";
             if (porBusqueda.Equals(false))
             {//Aqui va la consulta sin buscador
                 consulta += "LIMIT 20";
@@ -95,6 +100,10 @@ namespace PuntoDeVentaV2
 
                 }
             }
+            else
+            {
+                MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             txtBuscar.Text = string.Empty;
             txtBuscar.Focus();
@@ -117,7 +126,10 @@ namespace PuntoDeVentaV2
            
             var productoBuscar = txtBuscar.Text;
 
-            var consulta = $"SELECT ID, Nombre, Stock, CodigoBarras, Tipo, Status FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}'";
+            var status = 0;
+            if (rbHabilitados.Checked) { status = 1; } else { status = 0; }
+
+            var consulta = $"SELECT ID, Nombre, Stock, CodigoBarras, Tipo, Status FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = '{status}'";
 
             if (porBusqueda.Equals(false))
             {//Aqui va la consulta sin buscador
@@ -173,6 +185,10 @@ namespace PuntoDeVentaV2
                     fila.Cells["tipo"].Value = tipoProducto;
                 }
             }
+            else
+            {
+                MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             txtBuscar.Text = string.Empty;
             txtBuscar.Focus();
@@ -186,14 +202,19 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrEmpty(nombreBuscar))
             {
-                if (tipoBuscador.Equals("Empleados"))
-                {
-                    cargarEmpleados(porBusqueda);
-                }
-                else if (tipoBuscador.Equals("Productos"))
-                {
-                    cargarProductos(porBusqueda);
-                }
+                //if (tipoBuscador.Equals("Empleados"))
+                //{
+                //    cargarEmpleados(porBusqueda);
+                //}
+                //else if (tipoBuscador.Equals("Productos"))
+                //{
+                //    cargarProductos(porBusqueda);
+                //}
+                condicionesLlenadoDGV(porBusqueda);
+            }
+            else
+            {
+                MessageBox.Show("Campo de texto vacío.\nIngrese algun dato a buscar.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -358,6 +379,28 @@ namespace PuntoDeVentaV2
                     celda.Value = false;
                     DGVDatosProductos.Rows[e.RowIndex].Selected = false;
                 }
+            }
+        }
+
+        private void rbDeshabilitados_CheckedChanged(object sender, EventArgs e)
+        {
+            condicionesLlenadoDGV();
+        }
+
+        private void rbHabilitados_CheckedChanged(object sender, EventArgs e)
+        {
+            condicionesLlenadoDGV();
+        }
+
+        private void condicionesLlenadoDGV(bool buscar = false)
+        {
+            if (tipoBuscador.Equals("Empleados"))
+            {
+                cargarEmpleados(buscar);
+            }
+            else if (tipoBuscador.Equals("Productos"))
+            {
+                cargarProductos(buscar);
             }
         }
     }

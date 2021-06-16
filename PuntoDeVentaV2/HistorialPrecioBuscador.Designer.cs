@@ -44,6 +44,8 @@
             this.checkBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rbHabilitados = new System.Windows.Forms.RadioButton();
+            this.rbDeshabilitados = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.DGVDatosEmpleados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVDatosProductos)).BeginInit();
             this.SuspendLayout();
@@ -197,11 +199,37 @@
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
             // 
+            // rbHabilitados
+            // 
+            this.rbHabilitados.AutoSize = true;
+            this.rbHabilitados.Location = new System.Drawing.Point(206, 48);
+            this.rbHabilitados.Name = "rbHabilitados";
+            this.rbHabilitados.Size = new System.Drawing.Size(77, 17);
+            this.rbHabilitados.TabIndex = 6;
+            this.rbHabilitados.TabStop = true;
+            this.rbHabilitados.Text = "Habilitados";
+            this.rbHabilitados.UseVisualStyleBackColor = true;
+            this.rbHabilitados.CheckedChanged += new System.EventHandler(this.rbHabilitados_CheckedChanged);
+            // 
+            // rbDeshabilitados
+            // 
+            this.rbDeshabilitados.AutoSize = true;
+            this.rbDeshabilitados.Location = new System.Drawing.Point(343, 48);
+            this.rbDeshabilitados.Name = "rbDeshabilitados";
+            this.rbDeshabilitados.Size = new System.Drawing.Size(94, 17);
+            this.rbDeshabilitados.TabIndex = 7;
+            this.rbDeshabilitados.TabStop = true;
+            this.rbDeshabilitados.Text = "Deshabilitados";
+            this.rbDeshabilitados.UseVisualStyleBackColor = true;
+            this.rbDeshabilitados.CheckedChanged += new System.EventHandler(this.rbDeshabilitados_CheckedChanged);
+            // 
             // HistorialPrecioBuscador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(654, 390);
+            this.ClientSize = new System.Drawing.Size(654, 415);
+            this.Controls.Add(this.rbDeshabilitados);
+            this.Controls.Add(this.rbHabilitados);
             this.Controls.Add(this.btnGenerarReporte);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.lbTitulo);
@@ -237,5 +265,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn checkBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.RadioButton rbHabilitados;
+        private System.Windows.Forms.RadioButton rbDeshabilitados;
     }
 }
