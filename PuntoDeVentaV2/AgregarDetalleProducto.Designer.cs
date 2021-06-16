@@ -271,6 +271,7 @@
             this.btnDeleteDetalle.TabIndex = 31;
             this.btnDeleteDetalle.Text = "Inhabilitar";
             this.btnDeleteDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnDeleteDetalle, "En este botón podrá inhabilitar los detalles de sus productos/ servicios.");
             this.btnDeleteDetalle.UseVisualStyleBackColor = false;
             this.btnDeleteDetalle.Click += new System.EventHandler(this.btnDeleteDetalle_Click);
             // 
