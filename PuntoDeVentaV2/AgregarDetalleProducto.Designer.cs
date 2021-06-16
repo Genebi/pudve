@@ -219,6 +219,8 @@
             this.btnAddDetalle.TabIndex = 29;
             this.btnAddDetalle.Text = "Agregar";
             this.btnAddDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnAddDetalle, "Desde este botón podrás agregar los detalles de tu producto o servicio,\r\npor ejem" +
+        "plo: color, ubicación, gramaje, etc. ¡Lo que imagines!.");
             this.btnAddDetalle.UseVisualStyleBackColor = false;
             this.btnAddDetalle.Click += new System.EventHandler(this.btnAddDetalle_Click);
             // 
@@ -251,6 +253,8 @@
             this.btnInhabilitados.Text = "Inhabilitados";
             this.btnInhabilitados.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnInhabilitados.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnInhabilitados, "En este botón podrás visualizar tus productos \"Inhabilitados\" y habilitarlos nuev" +
+        "amente.");
             this.btnInhabilitados.UseVisualStyleBackColor = false;
             this.btnInhabilitados.Click += new System.EventHandler(this.btnInhabilitados_Click);
             // 
@@ -269,6 +273,7 @@
             this.btnDeleteDetalle.TabIndex = 31;
             this.btnDeleteDetalle.Text = "Inhabilitar";
             this.btnDeleteDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnDeleteDetalle, "En este botón podrá inhabilitar los detalles de sus productos/ servicios.");
             this.btnDeleteDetalle.UseVisualStyleBackColor = false;
             this.btnDeleteDetalle.Click += new System.EventHandler(this.btnDeleteDetalle_Click);
             // 
@@ -287,6 +292,7 @@
             this.btnRenameDetalle.TabIndex = 30;
             this.btnRenameDetalle.Text = "Renombrar";
             this.btnRenameDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnRenameDetalle, "Podrás cambiar el nombre del detalle de tu producto/servicio.");
             this.btnRenameDetalle.UseVisualStyleBackColor = false;
             this.btnRenameDetalle.Click += new System.EventHandler(this.btnRenameDetalle_Click);
             // 
