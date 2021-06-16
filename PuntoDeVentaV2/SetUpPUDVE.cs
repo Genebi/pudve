@@ -904,5 +904,17 @@ namespace PuntoDeVentaV2
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVentaDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
+
+        private void chRespaldo_CheckedChanged(object sender, EventArgs e)
+        {
+            var habilitado = 0;
+
+            if (cbCorreoDescuento.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
     }
 }
