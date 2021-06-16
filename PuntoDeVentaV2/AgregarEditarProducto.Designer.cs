@@ -96,10 +96,10 @@
             this.fLPAccion = new System.Windows.Forms.FlowLayoutPanel();
             this.fLPDetallesProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblMsgSinSelecDetalles = new System.Windows.Forms.Label();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lblMsgSinSelecDetalles = new System.Windows.Forms.Label();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -972,6 +972,17 @@
             this.groupBox2.Text = " Detalles ";
             this.groupBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox2_Paint);
             // 
+            // lblMsgSinSelecDetalles
+            // 
+            this.lblMsgSinSelecDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMsgSinSelecDetalles.Location = new System.Drawing.Point(6, 16);
+            this.lblMsgSinSelecDetalles.Name = "lblMsgSinSelecDetalles";
+            this.lblMsgSinSelecDetalles.Size = new System.Drawing.Size(855, 23);
+            this.lblMsgSinSelecDetalles.TabIndex = 3;
+            this.lblMsgSinSelecDetalles.Text = "No tiene seleccionado algún detalle de producto para mostrar en esta área";
+            this.lblMsgSinSelecDetalles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMsgSinSelecDetalles.Visible = false;
+            // 
             // flowLayoutPanel3
             // 
             this.flowLayoutPanel3.AutoScroll = true;
@@ -989,17 +1000,6 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-            // 
-            // lblMsgSinSelecDetalles
-            // 
-            this.lblMsgSinSelecDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsgSinSelecDetalles.Location = new System.Drawing.Point(6, 16);
-            this.lblMsgSinSelecDetalles.Name = "lblMsgSinSelecDetalles";
-            this.lblMsgSinSelecDetalles.Size = new System.Drawing.Size(855, 23);
-            this.lblMsgSinSelecDetalles.TabIndex = 3;
-            this.lblMsgSinSelecDetalles.Text = "No tiene seleccionado algún detalle de producto para mostrar en esta área";
-            this.lblMsgSinSelecDetalles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblMsgSinSelecDetalles.Visible = false;
             // 
             // AgregarEditarProducto
             // 

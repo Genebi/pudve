@@ -537,6 +537,7 @@ namespace PuntoDeVentaV2
                         checkSetting.Height = 24;
                         checkSetting.Location = new Point(215, 0);
                         checkSetting.CheckedChanged += new EventHandler(checkBoxSetting_CheckedChanged);
+                        this.toolTip1.SetToolTip(checkSetting, "Activar casilla para, mostrar en ventana (Afuera) de productos");
                         //checkSetting.BackColor = Color.LightCyan;
 
                         if (chkSettingVariableVal.Equals("true") || chkSettingVariableVal.Equals("false"))
