@@ -289,6 +289,7 @@
             this.btnRenameDetalle.TabIndex = 30;
             this.btnRenameDetalle.Text = "Renombrar";
             this.btnRenameDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnRenameDetalle, "Podrás cambiar el nombre del detalle de tu producto/servicio.");
             this.btnRenameDetalle.UseVisualStyleBackColor = false;
             this.btnRenameDetalle.Click += new System.EventHandler(this.btnRenameDetalle_Click);
             // 
