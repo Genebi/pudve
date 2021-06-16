@@ -10152,13 +10152,7 @@
     <value>17, 17</value>
   </metadata>
   <data name="lblMsgSinSelecDetalles.Text" xml:space="preserve">
-    <value>A tus productos puedes agregar detalles de producto  (Botón morado) Por ejemplo: 
-Ubicación, talla, color, material, gramaje o cualquier cosa que usted necesite o imagine, 
-¡No hay limites! e incluso podrá generar reportes con esta características, por ejemplo, 
-generar un reporte de un proveedor en especifico, con lo productos que venden de la 
-"talla" 22 (Talla seria un detalle de producto agregado), también todos los productos 
-de un "color" en especifico(Color seria un detalle de producto agregado), los reportes 
-no tienen limites, puedes generarlos como gustes.</value>
+    <value>A tus productos puedes agregar detalles de producto  (Botón morado) Por ejemplo: Ubicación, talla, color, material, gramaje o cualquier cosa que usted necesite o imagine, ¡No hay limites! e incluso podrá generar reportes con esta características, por ejemplo, generar un reporte de un proveedor en especifico, con lo productos que venden de la "talla" 22 (Talla seria un detalle de producto agregado), también todos los productos de un "color" en especifico(Color seria un detalle de producto agregado), los reportes no tienen limites, puedes generarlos como gustes.</value>
   </data>
   <metadata name="errorProvAgregarEditarProducto.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>161, 17</value>
