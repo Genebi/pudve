@@ -102,7 +102,7 @@ namespace PuntoDeVentaV2
         private void cargarProductos(bool porBusqueda = false)
         {
             //DGVDatosProductos.Columns.Clear();
-            DGVDatosEmpleados.Rows.Clear();
+            DGVDatosProductos.Rows.Clear();
 
             DataTable query = new DataTable();
 
