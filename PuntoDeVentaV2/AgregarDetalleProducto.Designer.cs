@@ -253,6 +253,8 @@
             this.btnInhabilitados.Text = "Inhabilitados";
             this.btnInhabilitados.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnInhabilitados.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnInhabilitados, "En este botón podrás visualizar tus productos \"Inhabilitados\" y habilitarlos nuev" +
+        "amente.");
             this.btnInhabilitados.UseVisualStyleBackColor = false;
             this.btnInhabilitados.Click += new System.EventHandler(this.btnInhabilitados_Click);
             // 
