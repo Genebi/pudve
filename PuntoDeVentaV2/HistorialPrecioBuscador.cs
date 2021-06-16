@@ -14,8 +14,17 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
 
+        private Paginar p;
+
         Dictionary<int, string> listaIdEmpleados = new Dictionary<int, string>();
         Dictionary<int, string> listaIdProductos = new Dictionary<int, string>();
+
+        int maximo_x_pagina = 10;
+        int clickBoton = 0;
+
+        string filtroConSinFiltroAvanzado = string.Empty;
+        string busqueda = string.Empty;
+        bool conBusqueda = false;
 
         public static string idEmpleadoObtenido { get; set; }
         public static string procedencia { get; set; }
@@ -85,26 +94,28 @@ namespace PuntoDeVentaV2
                 consulta += $"AND Nombre LIKE '%{empleadoBuscar}%' LIMIT 20";
             }
 
-            query = cn.CargarDatos(consulta);
+            //query = cn.CargarDatos(consulta);
+            filtroConSinFiltroAvanzado = consulta;
 
-            if (!query.Rows.Count.Equals(0))
-            {
-                foreach (DataRow dgv in query.Rows)
-                {
-                    int filaId = DGVDatosEmpleados.Rows.Add();
-                    DataGridViewRow fila = DGVDatosEmpleados.Rows[filaId];
+            //if (!query.Rows.Count.Equals(0))
+            //{
+            //    foreach (DataRow dgv in query.Rows)
+            //    {
+            //        int filaId = DGVDatosEmpleados.Rows.Add();
+            //        DataGridViewRow fila = DGVDatosEmpleados.Rows[filaId];
 
-                    fila.Cells["checkBox"].Value = false;
-                    fila.Cells["Nombre"].Value = dgv["Usuario"].ToString();
-                    fila.Cells["ID"].Value = dgv["ID"].ToString();
+            //        fila.Cells["checkBox"].Value = false;
+            //        fila.Cells["Nombre"].Value = dgv["Usuario"].ToString();
+            //        fila.Cells["ID"].Value = dgv["ID"].ToString();
 
-                }
-            }
-            else
-            {
-                MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
 
+            CargarDatos();
             txtBuscar.Text = string.Empty;
             txtBuscar.Focus();
         }
@@ -140,56 +151,57 @@ namespace PuntoDeVentaV2
                 consulta += $"AND Nombre LIKE '%{productoBuscar}%' LIMIT 20";
             }
 
-            query = cn.CargarDatos(consulta);
+            //query = cn.CargarDatos(consulta);
+            filtroConSinFiltroAvanzado = consulta;
 
-            if (!query.Rows.Count.Equals(0))
-            {
-                var tipoProducto = string.Empty;
-                var estado = string.Empty;
+            //if (!query.Rows.Count.Equals(0))
+            //{
+            //    var tipoProducto = string.Empty;
+            //    var estado = string.Empty;
 
-                foreach (DataRow dgv in query.Rows)
-                {
-                    //DGVDatosProductos.Rows.Add(dgv["ID"].ToString(), dgv["Nombre"].ToString(), dgv["Stock"].ToString(), dgv["CodigoBarras"].ToString(), dgv["Tipo"].ToString());
-                    int filaId = DGVDatosProductos.Rows.Add();
-                    DataGridViewRow fila = DGVDatosProductos.Rows[filaId];
+            //    foreach (DataRow dgv in query.Rows)
+            //    {
+            //        int filaId = DGVDatosProductos.Rows.Add();
+            //        DataGridViewRow fila = DGVDatosProductos.Rows[filaId];
 
-                    fila.Cells["checkBoxProd"].Value = false;
-                    fila.Cells["IDProducto"].Value = dgv["ID"].ToString();
-                    fila.Cells["NombreProducto"].Value = dgv["Nombre"].ToString();
-                    fila.Cells["Stock"].Value = dgv["Stock"].ToString();
-                    fila.Cells["CodigoBarras"].Value = dgv["CodigoBarras"].ToString();
+            //        fila.Cells["checkBoxProd"].Value = false;
+            //        fila.Cells["IDProducto"].Value = dgv["ID"].ToString();
+            //        fila.Cells["NombreProducto"].Value = dgv["Nombre"].ToString();
+            //        fila.Cells["Stock"].Value = dgv["Stock"].ToString();
+            //        fila.Cells["CodigoBarras"].Value = dgv["CodigoBarras"].ToString();
 
-                    if (dgv["Tipo"].ToString().Equals("PQ"))
-                    {
-                        tipoProducto = "Combo";
-                    }
-                    else if (dgv["Tipo"].ToString().Equals("P"))
-                    {
-                        tipoProducto = "Producto";
-                    }
-                    else if (dgv["Tipo"].ToString().Equals("S"))
-                    {
-                        tipoProducto = "Servicio";
-                    }
+            //        if (dgv["Tipo"].ToString().Equals("PQ"))
+            //        {
+            //            tipoProducto = "Combo";
+            //        }
+            //        else if (dgv["Tipo"].ToString().Equals("P"))
+            //        {
+            //            tipoProducto = "Producto";
+            //        }
+            //        else if (dgv["Tipo"].ToString().Equals("S"))
+            //        {
+            //            tipoProducto = "Servicio";
+            //        }
 
-                    if (dgv["Status"].ToString().Equals("1"))
-                    {
-                        estado = "Habilitado";
-                    }
-                    else if (dgv["Status"].ToString().Equals("0"))
-                    {
-                        estado = "Deshabilitado";
-                    }
+            //        if (dgv["Status"].ToString().Equals("1"))
+            //        {
+            //            estado = "Habilitado";
+            //        }
+            //        else if (dgv["Status"].ToString().Equals("0"))
+            //        {
+            //            estado = "Deshabilitado";
+            //        }
 
-                    fila.Cells["Status"].Value = estado;
-                    fila.Cells["tipo"].Value = tipoProducto;
-                }
-            }
-            else
-            {
-                MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            //        fila.Cells["Status"].Value = estado;
+            //        fila.Cells["tipo"].Value = tipoProducto;
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
 
+            CargarDatos();
             txtBuscar.Text = string.Empty;
             txtBuscar.Focus();
         }
@@ -197,6 +209,8 @@ namespace PuntoDeVentaV2
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             var nombreBuscar = txtBuscar.Text;
+
+            conBusqueda = true;
 
             var porBusqueda = true;
 
@@ -401,6 +415,451 @@ namespace PuntoDeVentaV2
             else if (tipoBuscador.Equals("Productos"))
             {
                 cargarProductos(buscar);
+            }
+        }
+
+        private void actualizar()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
+            lblCantidadRegistros.Text = p.countRow().ToString();
+
+            linkLblPaginaActual.Text = p.numPag().ToString();
+            linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
+            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPrimeraPagina.Visible = false;
+                linkLblPaginaAnterior.Visible = false;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                    linkLblUltimaPagina.Visible = false;
+                }
+            }
+
+            txtMaximoPorPagina.Text = p.limitRow().ToString();
+        }
+
+        public void CargarDatos(int status = 1, string busquedaEnProductos = "")
+        {
+            busqueda = string.Empty;
+
+            busqueda = busquedaEnProductos;
+
+            //Condicion para paginar segun sea empleados o productos
+            if (tipoBuscador.Equals("Empleados"))
+            {
+                if (DGVDatosEmpleados.RowCount <= 0)
+                {
+                    if (busqueda == "")
+                    {
+                        //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                        p = new Paginar(filtroConSinFiltroAvanzado, tipoBuscador, maximo_x_pagina);
+                    }
+                    else if (busqueda != "")
+                    {
+                        //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                        p = new Paginar(filtroConSinFiltroAvanzado, tipoBuscador, maximo_x_pagina);
+                    }
+                }
+                else if (DGVDatosEmpleados.RowCount >= 1 && clickBoton == 0)
+                {
+                    if (busqueda == "")
+                    {
+                        //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                        p = new Paginar(filtroConSinFiltroAvanzado, tipoBuscador, maximo_x_pagina);
+                    }
+                    else if (busqueda != "")
+                    {
+                        //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                        p = new Paginar(filtroConSinFiltroAvanzado, tipoBuscador, maximo_x_pagina);
+                    }
+                }
+            }
+            else if (tipoBuscador.Equals("Productos"))
+            {
+                if (DGVDatosProductos.RowCount <= 0)
+                {
+                    if (busqueda == "")
+                    {
+                        //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                        p = new Paginar(filtroConSinFiltroAvanzado, tipoBuscador, maximo_x_pagina);
+                    }
+                    else if (busqueda != "")
+                    {
+                        //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                        p = new Paginar(filtroConSinFiltroAvanzado, tipoBuscador, maximo_x_pagina);
+                    }
+                }
+                else if (DGVDatosProductos.RowCount >= 1 && clickBoton == 0)
+                {
+                    if (busqueda == "")
+                    {
+                        //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                        p = new Paginar(filtroConSinFiltroAvanzado, tipoBuscador, maximo_x_pagina);
+                    }
+                    else if (busqueda != "")
+                    {
+                        //filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+
+                        p = new Paginar(filtroConSinFiltroAvanzado, tipoBuscador, maximo_x_pagina);
+                    }
+                }
+            }
+
+            
+
+            DataSet datos = p.cargar();
+            DataTable dtDatos = datos.Tables[0];
+
+            DGVDatosEmpleados.Rows.Clear();
+            DGVDatosProductos.Rows.Clear();
+
+            if (tipoBuscador.Equals("Empleados"))
+            {
+                if (!dtDatos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow dgv in dtDatos.Rows)
+                    {
+                        int filaId = DGVDatosEmpleados.Rows.Add();
+                        DataGridViewRow fila = DGVDatosEmpleados.Rows[filaId];
+
+                        fila.Cells["checkBox"].Value = false;
+                        fila.Cells["Nombre"].Value = dgv["Usuario"].ToString();
+                        fila.Cells["ID"].Value = dgv["ID"].ToString();
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else if(tipoBuscador.Equals("Productos"))
+            {
+                //if (!dtDatos.Rows.Count.Equals(0))
+                //{
+                //    var rev = string.Empty;
+                //    var name = string.Empty;
+                //    var fecha = string.Empty;
+                //    var usr = string.Empty;
+
+                //    foreach (DataRow filaDatos in dtDatos.Rows)
+                //    {
+                //        //rev = filaDatos["NoRevision"].ToString();
+                //        //name = filaDatos["NameUsr"].ToString();
+                //        //fecha = filaDatos["Fecha"].ToString();
+
+                //        //usr = cs.validarEmpleadoPorID();
+
+                //        //if (name.Equals(usr))
+                //        //{
+                //        //    name = $"ADMIN ({name})";
+                //        //}
+                //        if (tipoDatoReporte.Equals("RInventario"))
+                //        {
+                //            //rev = filaDatos["NoRevision"].ToString();
+                //            rev = filaDatos["NumFolio"].ToString();
+                //            name = filaDatos["NameUsr"].ToString();
+                //            fecha = filaDatos["Fecha"].ToString();
+                //            usr = cs.validarEmpleadoPorID();
+
+                //            if (name.Equals(usr))
+                //            {
+                //                name = $"ADMIN ({name})";
+                //            }
+                //        }
+                //        else
+                //        {
+                //            //rev = filaDatos["NoRevision"].ToString();
+                //            rev = filaDatos["Folio"].ToString();
+                //            name = filaDatos["IDEmpleado"].ToString();
+                //            fecha = filaDatos["Fecha"].ToString();
+
+                //            usr = cs.BuscarEmpleadoCaja(Convert.ToInt32(name));
+
+                //            if (string.IsNullOrEmpty(usr))
+                //            {
+                //                var admin = FormPrincipal.userNickName.Split('@');
+                //                name = $"ADMIN ({admin[0]})";
+                //            }
+                //            else
+                //            {
+                //                name = usr;
+                //            }
+                //        }
+
+                //        DGVInventario.Rows.Add(rev, name, fecha, icono);
+                //    }
+                //}
+                    var tipoProducto = string.Empty;
+                    var estado = string.Empty;
+
+                    foreach (DataRow dgv in dtDatos.Rows)
+                    {
+                        int filaId = DGVDatosProductos.Rows.Add();
+                        DataGridViewRow fila = DGVDatosProductos.Rows[filaId];
+
+                        fila.Cells["checkBoxProd"].Value = false;
+                        fila.Cells["IDProducto"].Value = dgv["ID"].ToString();
+                        fila.Cells["NombreProducto"].Value = dgv["Nombre"].ToString();
+                        fila.Cells["Stock"].Value = dgv["Stock"].ToString();
+                        fila.Cells["CodigoBarras"].Value = dgv["CodigoBarras"].ToString();
+
+                        if (dgv["Tipo"].ToString().Equals("PQ"))
+                        {
+                            tipoProducto = "Combo";
+                        }
+                        else if (dgv["Tipo"].ToString().Equals("P"))
+                        {
+                            tipoProducto = "Producto";
+                        }
+                        else if (dgv["Tipo"].ToString().Equals("S"))
+                        {
+                            tipoProducto = "Servicio";
+                        }
+
+                        if (dgv["Status"].ToString().Equals("1"))
+                        {
+                            estado = "Habilitado";
+                        }
+                        else if (dgv["Status"].ToString().Equals("0"))
+                        {
+                            estado = "Deshabilitado";
+                        }
+
+                        fila.Cells["Status"].Value = estado;
+                        fila.Cells["tipo"].Value = tipoProducto;
+                    }
+                }
+            else
+            {
+                    MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+
+
+                //var numeroFilas = DGVInventario.Rows.Count;
+
+                //string Nombre = filaDatos["Nombre"].ToString();
+                //string Stock = filaDatos["Stock"].ToString();
+                //string Precio = filaDatos["Precio"].ToString();
+                //string Clave = filaDatos["ClaveInterna"].ToString();
+                //string Codigo = filaDatos["CodigoBarras"].ToString();
+                //string Tipo = filaDatos["Tipo"].ToString();
+                //string Proveedor = filaDatos["Proveedor"].ToString();
+                //string chckName = filaDatos["ChckName"].ToString();
+                //string Descripcion = filaDatos["Descripcion"].ToString();
+
+                //if (DGVInventario.Rows.Count.Equals(0))
+                //{
+                //    bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVInventario);
+
+                //    if (encontrado.Equals(false))
+                //    {
+                //        var number_of_rows = DGVInventario.Rows.Add();
+                //        DataGridViewRow row = DGVInventario.Rows[number_of_rows];
+
+                //        row.Cells["Nombre"].Value = Nombre;     // Columna Nombre
+                //        row.Cells["Stock"].Value = Stock;       // Columna Stock
+                //        row.Cells["Precio"].Value = Precio;     // Columna Precio
+                //        row.Cells["Clave"].Value = Clave;       // Columna Clave
+                //        row.Cells["Codigo"].Value = Codigo;     // Columna Codigo
+
+                //        // Columna Tipo
+                //        if (Tipo.Equals("P"))
+                //        {
+                //            row.Cells["Tipo"].Value = "PRODUCTO";
+                //        }
+                //        else if (Tipo.Equals("S"))
+                //        {
+                //            row.Cells["Tipo"].Value = "SERVICIO";
+                //        }
+                //        else if (Tipo.Equals("PQ"))
+                //        {
+                //            row.Cells["Tipo"].Value = "COMBO";
+                //        }
+
+                //        row.Cells["Proveedor"].Value = Proveedor;   // Columna Proveedor
+
+                //        if (DGVInventario.Columns.Contains(chckName))
+                //        {
+                //            row.Cells[chckName].Value = Descripcion;
+                //        }
+                //    }
+                //}
+                //else if (!DGVInventario.Rows.Count.Equals(0))
+                //{
+                //    foreach (DataGridViewRow Row in DGVInventario.Rows)
+                //    {
+                //        bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVInventario);
+
+                //        if (encontrado.Equals(true))
+                //        {
+                //            var Fila = Row.Index;
+                //            // Columnas Dinamicos
+                //            if (DGVInventario.Columns.Contains(chckName))
+                //            {
+                //                DGVInventario.Rows[Fila].Cells[chckName].Value = Descripcion;
+                //            }
+                //        }
+                //        else if (encontrado.Equals(false))
+                //        {
+                //            var number_of_rows = DGVInventario.Rows.Add();
+                //            DataGridViewRow row = DGVInventario.Rows[number_of_rows];
+
+                //            row.Cells["Nombre"].Value = Nombre;         // Columna Nombre
+                //            row.Cells["Stock"].Value = Stock;           // Columna Stock
+                //            row.Cells["Precio"].Value = Precio;         // Columna Precio
+                //            row.Cells["Clave"].Value = Clave;           // Columna Clave
+                //            row.Cells["Codigo"].Value = Codigo;         // Columna Codigo
+
+                //            // Columna Tipo
+                //            if (Tipo.Equals("P"))
+                //            {
+                //                row.Cells["Tipo"].Value = "PRODUCTO";
+                //            }
+                //            else if (Tipo.Equals("S"))
+                //            {
+                //                row.Cells["Tipo"].Value = "SERVICIO";
+                //            }
+                //            else if (Tipo.Equals("PQ"))
+                //            {
+                //                row.Cells["Tipo"].Value = "COMBO";
+                //            }
+
+                //            // Columna Proveedor
+                //            row.Cells["Proveedor"].Value = Proveedor;
+
+                //            // Columnas Dinamicos
+                //            if (DGVInventario.Columns.Contains(chckName))
+                //            {
+                //                row.Cells[chckName].Value = Descripcion;
+                //            }
+                //        }
+                //    }
+                //}
+                //}
+
+                actualizar();
+
+            clickBoton = 0;
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaActual_Click(object sender, EventArgs e)
+        {
+            actualizar();
+        }
+
+        private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtMaximoPorPagina.Text))
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            CargarDatos();
+            actualizar();
+        }
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (string.IsNullOrEmpty(txtMaximoPorPagina.Text))
+                {
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                }
+                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                p.actualizarTope(maximo_x_pagina);
+                CargarDatos();
+                actualizar();
             }
         }
     }
