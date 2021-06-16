@@ -104,7 +104,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(20, 23);
             this.label6.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.label6, "Activar casilla para, \r\nmostrar en ventana (Afuera) de productos");
+            this.toolTip1.SetToolTip(this.label6, "Activar casilla para, mostrar en ventana (Afuera) de productos");
             // 
             // label2
             // 
