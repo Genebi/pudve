@@ -70,7 +70,7 @@ namespace PuntoDeVentaV2
 
             var empleadoBuscar = txtBuscar.Text;
 
-            var consulta = $"SELECT ID, Nombre FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Estatus = 1 ";
+            var consulta = $"SELECT ID, Usuario FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Estatus = 1 ";
             if (porBusqueda.Equals(false))
             {//Aqui va la consulta sin buscador
                 consulta += "LIMIT 20";
@@ -90,8 +90,9 @@ namespace PuntoDeVentaV2
                     DataGridViewRow fila = DGVDatosEmpleados.Rows[filaId];
 
                     fila.Cells["checkBox"].Value = false;
+                    fila.Cells["Nombre"].Value = dgv["Usuario"].ToString();
                     fila.Cells["ID"].Value = dgv["ID"].ToString();
-                    fila.Cells["Nombre"].Value = dgv["Nombre"].ToString();
+
                 }
             }
 
