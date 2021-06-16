@@ -715,6 +715,7 @@ namespace PuntoDeVentaV2
             {
                 flowLayoutPanel3.Visible = false;
                 lblMsgSinSelecDetalles.Visible = true;
+                lblMsgSinSelecDetalles.Height = 250;
             }
         }
 

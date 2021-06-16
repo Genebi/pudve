@@ -979,7 +979,7 @@
             this.lblMsgSinSelecDetalles.Name = "lblMsgSinSelecDetalles";
             this.lblMsgSinSelecDetalles.Size = new System.Drawing.Size(855, 23);
             this.lblMsgSinSelecDetalles.TabIndex = 3;
-            this.lblMsgSinSelecDetalles.Text = "No tiene seleccionado algún detalle de producto para mostrar en esta área";
+            this.lblMsgSinSelecDetalles.Text = resources.GetString("lblMsgSinSelecDetalles.Text");
             this.lblMsgSinSelecDetalles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblMsgSinSelecDetalles.Visible = false;
             // 
