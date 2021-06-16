@@ -522,6 +522,7 @@ namespace PuntoDeVentaV2
                     bt.Anchor = AnchorStyles.Top;
                     bt.Click += new EventHandler(bt_Click);
                     bt.Location = new Point(162, 0);
+                    //this.toolTip1.SetToolTip(bt, "Activar casilla para, mostrar en la parte central de la ventana");
                     panelContenedor.Controls.Add(bt);
                     panelHijo.Controls.Add(panelContenedor);
 
