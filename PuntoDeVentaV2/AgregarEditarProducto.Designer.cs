@@ -964,6 +964,7 @@
             // 
             this.groupBox2.Controls.Add(this.lblMsgSinSelecDetalles);
             this.groupBox2.Controls.Add(this.flowLayoutPanel3);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(867, 262);
@@ -974,13 +975,12 @@
             // 
             // lblMsgSinSelecDetalles
             // 
-            this.lblMsgSinSelecDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsgSinSelecDetalles.Location = new System.Drawing.Point(6, 16);
+            this.lblMsgSinSelecDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMsgSinSelecDetalles.Location = new System.Drawing.Point(15, 23);
             this.lblMsgSinSelecDetalles.Name = "lblMsgSinSelecDetalles";
-            this.lblMsgSinSelecDetalles.Size = new System.Drawing.Size(855, 23);
+            this.lblMsgSinSelecDetalles.Size = new System.Drawing.Size(835, 23);
             this.lblMsgSinSelecDetalles.TabIndex = 3;
             this.lblMsgSinSelecDetalles.Text = resources.GetString("lblMsgSinSelecDetalles.Text");
-            this.lblMsgSinSelecDetalles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblMsgSinSelecDetalles.Visible = false;
             // 
             // flowLayoutPanel3

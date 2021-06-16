@@ -503,6 +503,7 @@ namespace PuntoDeVentaV2
                         lblNombreProveedor.Name = "lblNombre" + name;
                         lblNombreProveedor.Width = 815;
                         lblNombreProveedor.Height = 20;
+                        lblNombreProveedor.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                         lblNombreProveedor.Location = new Point(3, 32);
                         lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
                         lblNombreProveedor.BackColor = Color.White;
@@ -516,6 +517,7 @@ namespace PuntoDeVentaV2
                         cbProveedor.Name = "cb" + name;
                         cbProveedor.Width = 815;
                         cbProveedor.Height = 30;
+                        cbProveedor.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                         cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
                         cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
 
@@ -603,6 +605,7 @@ namespace PuntoDeVentaV2
                         lblNombreDetalleGral.Name = "lblNombre" + name;
                         lblNombreDetalleGral.Width = 815;
                         lblNombreDetalleGral.Height = 20;
+                        lblNombreDetalleGral.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                         lblNombreDetalleGral.Location = new Point(3, 32);
                         lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
                         lblNombreDetalleGral.BackColor = Color.White;
@@ -616,6 +619,7 @@ namespace PuntoDeVentaV2
                         cbDetalleGral.Name = "cb" + name;
                         cbDetalleGral.Width = 815;
                         cbDetalleGral.Height = 30;
+                        cbDetalleGral.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                         cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
                         cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
                         cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -716,9 +720,10 @@ namespace PuntoDeVentaV2
                 flowLayoutPanel3.Visible = false;
                 lblMsgSinSelecDetalles.Visible = true;
                 lblMsgSinSelecDetalles.Height = 250;
+                lblMsgSinSelecDetalles.Text = Utilidades.JustifyParagraph(lblMsgSinSelecDetalles.Text, lblMsgSinSelecDetalles.Font, lblMsgSinSelecDetalles.ClientSize.Width);
             }
         }
-
+        
         private void ComboBoxDetalleGral_SelectValueChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
