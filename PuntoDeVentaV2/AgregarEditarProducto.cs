@@ -1420,20 +1420,20 @@ namespace PuntoDeVentaV2
 
         private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            //if ((e.Column + e.Row) % 2 == 1)
-            //{
-            //    using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
-            //    {
-            //        e.Graphics.FillRectangle(brush, e.CellBounds);
-            //    }
-            //}
-            //else
-            //{
-            //    using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
-            //    {
-            //        e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
-            //    }
-            //}
+            if ((e.Column + e.Row) % 2 == 1)
+            {
+                using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
+                {
+                    e.Graphics.FillRectangle(brush, e.CellBounds);
+                }
+            }
+            else
+            {
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
+                {
+                    e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
+                }
+            }
         }
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
