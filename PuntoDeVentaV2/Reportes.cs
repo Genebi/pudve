@@ -232,6 +232,65 @@ namespace PuntoDeVentaV2
              ***************************************/
             float[] anchoColumnas = new float[] { 50f, 300f, 60f, 150f, 100f, 80f, 80f, 100f, 120f };
 
+            PdfPTable tabla = new PdfPTable(9);
+            tabla.WidthPercentage = 100;
+            tabla.SetWidths(anchoColumnas);
+
+            PdfPCell colNumeroFila = new PdfPCell(new Phrase("No.", fuenteNegrita));
+            colNumeroFila.BorderWidth = 1;
+            colNumeroFila.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colNumeroFila.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colProducto = new PdfPCell(new Phrase("Producto / Servicio / Combo", fuenteNegrita));
+            colProducto.BorderWidth = 1;
+            colProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colTipoProducto = new PdfPCell(new Phrase("Tipo", fuenteNegrita));
+            colTipoProducto.BorderWidth = 1;
+            colTipoProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colTipoProducto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colCodigoAsociado = new PdfPCell(new Phrase("Código Asociado", fuenteNegrita));
+            colCodigoAsociado.BorderWidth = 1;
+            colCodigoAsociado.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colCodigoAsociado.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colEmpleado = new PdfPCell(new Phrase("Empleado", fuenteNegrita));
+            colEmpleado.BorderWidth = 1;
+            colEmpleado.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colPrecioAnterior = new PdfPCell(new Phrase("Precio Anterior", fuenteNegrita));
+            colPrecioAnterior.BorderWidth = 1;
+            colPrecioAnterior.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colPrecioAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colPrecioNuevo = new PdfPCell(new Phrase("Precio Nuevo", fuenteNegrita));
+            colPrecioNuevo.BorderWidth = 1;
+            colPrecioNuevo.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colPrecioNuevo.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colOrigen = new PdfPCell(new Phrase("Origen", fuenteNegrita));
+            colOrigen.BorderWidth = 1;
+            colOrigen.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colOrigen.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colFechaOperacion = new PdfPCell(new Phrase("Fecha de Operación", fuenteNegrita));
+            colFechaOperacion.BorderWidth = 1;
+            colFechaOperacion.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            tabla.AddCell(colNumeroFila);
+            tabla.AddCell(colProducto);
+            tabla.AddCell(colTipoProducto);
+            tabla.AddCell(colCodigoAsociado);
+            tabla.AddCell(colEmpleado);
+            tabla.AddCell(colPrecioAnterior);
+            tabla.AddCell(colPrecioNuevo);
+            tabla.AddCell(colOrigen);
+            tabla.AddCell(colFechaOperacion);
+
             //Consulta para obtener los registros del Historial de compras
             MySqlConnection sql_con;
             MySqlCommand sql_cmd;
@@ -275,66 +334,6 @@ namespace PuntoDeVentaV2
 
             while (dr.Read())
             {
-                PdfPTable tabla = new PdfPTable(9);
-                tabla.WidthPercentage = 100;
-                tabla.SetWidths(anchoColumnas);
-
-                PdfPCell colNumeroFila = new PdfPCell(new Phrase("No.", fuenteNegrita));
-                colNumeroFila.BorderWidth = 1;
-                colNumeroFila.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colNumeroFila.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell colProducto = new PdfPCell(new Phrase("Producto / Servicio / Combo", fuenteNegrita));
-                colProducto.BorderWidth = 1;
-                colProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell colTipoProducto = new PdfPCell(new Phrase("Tipo", fuenteNegrita));
-                colTipoProducto.BorderWidth = 1;
-                colTipoProducto.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colTipoProducto.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell colCodigoAsociado = new PdfPCell(new Phrase("Código Asociado", fuenteNegrita));
-                colCodigoAsociado.BorderWidth = 1;
-                colCodigoAsociado.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colCodigoAsociado.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell colEmpleado = new PdfPCell(new Phrase("Empleado", fuenteNegrita));
-                colEmpleado.BorderWidth = 1;
-                colEmpleado.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell colPrecioAnterior = new PdfPCell(new Phrase("Precio Anterior", fuenteNegrita));
-                colPrecioAnterior.BorderWidth = 1;
-                colPrecioAnterior.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colPrecioAnterior.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell colPrecioNuevo = new PdfPCell(new Phrase("Precio Nuevo", fuenteNegrita));
-                colPrecioNuevo.BorderWidth = 1;
-                colPrecioNuevo.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colPrecioNuevo.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell colOrigen = new PdfPCell(new Phrase("Origen", fuenteNegrita));
-                colOrigen.BorderWidth = 1;
-                colOrigen.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colOrigen.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell colFechaOperacion = new PdfPCell(new Phrase("Fecha de Operación", fuenteNegrita));
-                colFechaOperacion.BorderWidth = 1;
-                colFechaOperacion.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                tabla.AddCell(colNumeroFila);
-                tabla.AddCell(colProducto);
-                tabla.AddCell(colTipoProducto);
-                tabla.AddCell(colCodigoAsociado);
-                tabla.AddCell(colEmpleado);
-                tabla.AddCell(colPrecioAnterior);
-                tabla.AddCell(colPrecioNuevo);
-                tabla.AddCell(colOrigen);
-                tabla.AddCell(colFechaOperacion);
-
-
                 numRow += 1;
                 var idAutor = 0;
                 var idDeUsuario = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDUsuario")));
@@ -426,7 +425,7 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colPrecioNuevoTmp);
                 tabla.AddCell(colOrigenTmp);
                 tabla.AddCell(colFechaOperacionTmp);
-                //}
+                }
 
                 //Columna para total de dinero
                 PdfPCell colNumFilatempTotal = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
@@ -478,12 +477,13 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colFechaTempTotal);
                 tabla.AddCell(colEmpleadoTempTotal);
                 tabla.AddCell(colEmpleadoTempTotalsegundo);
-            
+
+            sql_con.Close();
 
             //reporte.Add(new Chunk("/n"));
             //Paragraph linea = new Paragraph(new Chunk(new Chunk(new Chunk(new LineSeparator(0.0f, 100.0f, (new BaseColor(Color.Black)), Element.ALIGN_LEFT, 1)))));
 
-            reporte.Add(linea);
+            //reporte.Add(linea);
 
 
 
@@ -511,12 +511,14 @@ namespace PuntoDeVentaV2
             if (FormPrincipal.userNickName.Contains('@')) { reporte.Add(Empleado); }
             reporte.Add(subTitulo);
             reporte.Add(status1);
+            reporte.Add(Chunk.NEWLINE);
+
             //reporte.Add(domicilio);
             reporte.Add(tabla);
 
-            reporte.Add(linea);
-        }
-            sql_con.Close();
+            //reporte.Add(linea);
+        
+            //sql_con.Close();
 
 
             Paragraph status0 = new Paragraph($"Productos deshabilitados", fuenteNegrita);
@@ -790,8 +792,10 @@ namespace PuntoDeVentaV2
                     tablasStatus.AddCell(colEmpleadoTempTotalsegundoStatus);
 
                     reporte.Add(status0);
-                }
+                    reporte.Add(Chunk.NEWLINE);
 
+
+                }
                 reporte.Add(tablasStatus);
             }
 
@@ -921,7 +925,7 @@ namespace PuntoDeVentaV2
                     // Linea serapadora
                     Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
 
-                    reporte.Add(linea);
+                    //reporte.Add(linea);
 
                     PdfPTable tablaDineroAgregado = new PdfPTable(7);
                     tablaDineroAgregado.WidthPercentage = 100;
@@ -1105,7 +1109,7 @@ namespace PuntoDeVentaV2
                     }
 
                     reporte.Add(tablaDineroAgregado);
-                    reporte.Add(linea);
+                    //reporte.Add(linea);
 
                     PdfPTable tablaTotalesDineroAgregado = new PdfPTable(7);
                     tablaTotalesDineroAgregado.WidthPercentage = 100;
