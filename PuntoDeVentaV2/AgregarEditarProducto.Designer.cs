@@ -553,7 +553,7 @@
             this.btnGenerarCB.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Highlight;
             this.btnGenerarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
-            this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+            this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
             this.btnGenerarCB.Location = new System.Drawing.Point(214, 47);
             this.btnGenerarCB.Name = "btnGenerarCB";
             this.btnGenerarCB.Size = new System.Drawing.Size(40, 29);
@@ -851,7 +851,7 @@
             this.tLPProducto.Name = "tLPProducto";
             this.tLPProducto.RowCount = 1;
             this.tLPProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPProducto.Size = new System.Drawing.Size(831, 258);
+            this.tLPProducto.Size = new System.Drawing.Size(865, 258);
             this.tLPProducto.TabIndex = 23;
             this.tLPProducto.Visible = false;
             this.tLPProducto.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);

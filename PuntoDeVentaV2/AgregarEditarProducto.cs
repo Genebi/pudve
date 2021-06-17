@@ -1491,20 +1491,20 @@ namespace PuntoDeVentaV2
 
         private void tLPCombo_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            //if ((e.Column + e.Row) % 2 == 1)
-            //{
-            //    using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
-            //    {
-            //        e.Graphics.FillRectangle(brush, e.CellBounds);
-            //    }
-            //}
-            //else
-            //{
-            //    using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
-            //    {
-            //        e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
-            //    }
-            //}
+            if ((e.Column + e.Row) % 2 == 1)
+            {
+                using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
+                {
+                    e.Graphics.FillRectangle(brush, e.CellBounds);
+                }
+            }
+            else
+            {
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
+                {
+                    e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
+                }
+            }
         }
 
         private void fLPDetalleProducto_Paint(object sender, PaintEventArgs e)
@@ -6967,11 +6967,11 @@ namespace PuntoDeVentaV2
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 135F));
                 }
-                if (i.Equals(1) || i.Equals(3) || i.Equals(5))
+                if (i.Equals(1) || i.Equals(3) || i.Equals(5) || i.Equals(6))
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
                 }
-                if (i.Equals(6))
+                if (i.Equals(7))
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 210F));
                 }
@@ -7227,9 +7227,9 @@ namespace PuntoDeVentaV2
 
 
             //.SetColumnSpan(btnGenerarCB, 0);           // Columnas hacia derecha
-            tLPProducto.Controls.Add(PImagen, 6, 0);     // Cuadro para agregar Imagen Panel
+            tLPProducto.Controls.Add(PImagen, 7, 0);     // Cuadro para agregar Imagen Panel
             tLPProducto.SetRowSpan(PImagen, 6);          // Filas hacia abajo (Cantidad de filas que abarcará)
-            tLPProducto.SetColumnSpan(PImagen, 2);     // Columnas hacia derecha
+            //tLPProducto.SetColumnSpan(PImagen, 2);     // Columnas hacia derecha
 
             #endregion End celda imagen
 
@@ -7472,6 +7472,10 @@ namespace PuntoDeVentaV2
                 label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Top;
                 //label2.TextAlign = ContentAlignment.MiddleCenter;
 
+                // Label informativo para Código de Barras o Clave Interna
+                lblCodigoBarras.Visible = true;
+                lblCodigoBarras.Anchor = AnchorStyles.Left;
+
                 // Label para Cantidad por Combo
                 lblCantPaqServ.Visible = true;
                 lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Top;
@@ -7479,6 +7483,7 @@ namespace PuntoDeVentaV2
 
                 tLPCombo.Controls.Add(label5, 0, 2);               // Clave Interna Label
                 tLPCombo.Controls.Add(label2, 2, 2);               // Código de Barras Label
+                tLPCombo.Controls.Add(lblCodigoBarras, 3, 2);      // Simbolo Informativo
                 tLPCombo.Controls.Add(lblCantPaqServ, 0, 2);       // Relacionar con Combo/Servicio Label
 
                 #endregion End Row 3
