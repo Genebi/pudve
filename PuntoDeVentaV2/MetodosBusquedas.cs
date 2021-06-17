@@ -2325,6 +2325,7 @@ namespace PuntoDeVentaV2
                 list.Add(dr[17].ToString()); // reporte
                 list.Add(dr[18].ToString());
                 list.Add(dr[19].ToString()); // venta
+                list.Add(dr[20].ToString());// Bascula
                 list.Add(dr[2].ToString()); // Nombre
                 list.Add(dr[3].ToString()); // Usuario
                 list.Add(dr[4].ToString()); // Contraseña
@@ -2332,7 +2333,7 @@ namespace PuntoDeVentaV2
 
             dr.Close();
             CerrarConexion();
-
+             
             return list.ToArray();
         }
 

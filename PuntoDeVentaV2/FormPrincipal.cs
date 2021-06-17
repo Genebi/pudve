@@ -1038,6 +1038,7 @@ namespace PuntoDeVentaV2
             reportes = Convert.ToInt32(datos_e[11]);
             servicios = Convert.ToInt32(datos_e[12]);
             ventas = Convert.ToInt32(datos_e[13]);
+            basculas = Convert.ToInt32(datos_e[14]);
         }
 
         /****************************

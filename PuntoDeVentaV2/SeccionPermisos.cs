@@ -12,7 +12,7 @@ namespace PuntoDeVentaV2
 {
     public partial class SeccionPermisos : Form
     {
-        Conexion cn = new Conexion();
+        Conexion cn = new Conexion(); 
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private string seccion = string.Empty;
@@ -32,7 +32,7 @@ namespace PuntoDeVentaV2
             secciones = new string[] {
                 "Caja", "Ventas", "Inventario", "Anticipos",
                 "MisDatos", "Facturas", "Configuracion", "Reportes",
-                "Clientes", "Proveedores", "Empleados", "Productos", "Permisos"
+                "Clientes", "Proveedores", "Empleados", "Productos", "Bascula" ,"Permisos"
             };
 
             VerificarSecciones();
@@ -69,9 +69,22 @@ namespace PuntoDeVentaV2
 
             if (seccion.Equals("Empleados"))
                 GenerarEmpleados();
-
+            
             if (seccion.Equals("Productos"))
                 GenerarProductos();
+
+            if (seccion.Equals("Bascula"))
+                GenerarBascula();
+        }
+
+        private void GenerarBascula()
+        {
+            Text = "PUDVE - Permisos Bascula";
+            var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Bascula");
+            
+            GenerarCheckbox(10, 35, 150, "Marcar todos", 0);
+            GenerarCheckbox(30, 35, 250, "Agregar/Editar Predeterminada", datos[0]);
+
         }
 
         private void GenerarProductos()
@@ -122,7 +135,7 @@ namespace PuntoDeVentaV2
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Empleados");
 
-            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
+            GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
             GenerarCheckbox(50, 130, 150, "Nuevo Empleado", datos[0]);
             GenerarCheckbox(90, 130, 150, "Editar Empleado", datos[1]);
             GenerarCheckbox(130, 130, 150, "Permisos Empleado", datos[2]);
@@ -133,7 +146,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Proveedores";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Proveedores");
-            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
+            GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
             GenerarCheckbox(50, 130, 150, "Botón Buscar", datos[0]);
             GenerarCheckbox(90, 130, 150, "Nuevo Proveedor", datos[1]);
         }
@@ -143,7 +156,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Clientes";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Clientes");
-            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
+            GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
             GenerarCheckbox(40, 130, 150, "Botón Buscar", datos[0]);
             GenerarCheckbox(80, 130, 150, "Nuevo Tipo Cliente", datos[1]);
             GenerarCheckbox(120, 130, 150, "Listado Tipo Cliente", datos[2]);
@@ -155,7 +168,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Reportes";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Reportes");
-            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
+            GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
             GenerarCheckbox(50, 130, 150, "Historial de Precios", datos[0]);
             GenerarCheckbox(90, 130, 150, "Historial Dinero Agregado", datos[1]);
         }
@@ -253,7 +266,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Inventario";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Inventario");
-            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
+            GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
             GenerarCheckbox(40, 130, 120, "Revisar Inventario", datos[0]);
             GenerarCheckbox(80, 130, 125, "Actualizar Inventario", datos[1]);
             GenerarCheckbox(120, 130, 150, "Actualizar Inventario XML", datos[2]);
@@ -266,7 +279,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Anticipos";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Anticipos");
-            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
+            GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
             GenerarCheckbox(40, 130, 120, "Generar Ticket", datos[0]);
             GenerarCheckbox(80, 130, 125, "Habilitar/Deshabilitar", datos[1]);
             GenerarCheckbox(120, 130, 150, "Devolver Anticipo", datos[2]);
@@ -279,7 +292,7 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Mis Datos";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "MisDatos");
-            GenerarCheckbox(10, 130, 150, "Marcar todos", 0);
+            GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
             GenerarCheckbox(40, 130, 150, "Guardar Datos", datos[0]);
             GenerarCheckbox(80, 130, 150, "Subir Imagen", datos[1]);
             GenerarCheckbox(120, 130, 150, "Eliminar Imagen", datos[2]);

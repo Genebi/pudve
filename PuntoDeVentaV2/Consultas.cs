@@ -815,7 +815,7 @@ namespace PuntoDeVentaV2
             // Ajustar permisos
             if (opc == 2)
             {
-                cons = $"UPDATE Empleados SET p_anticipo='{datos[2]}', p_caja='{datos[3]}', p_cliente='{datos[4]}', p_config='{datos[5]}', p_empleado='{datos[6]}', p_empresa='{datos[7]}', p_factura='{datos[8]}', p_inventario='{datos[9]}', p_mdatos='{datos[10]}', p_producto='{datos[11]}', p_proveedor='{datos[12]}', p_reporte='{datos[13]}', p_venta='{datos[14]}' WHERE ID='{datos[1]}' AND IDUsuario='{datos[0]}'";
+                cons = $"UPDATE Empleados SET p_anticipo='{datos[2]}', p_caja='{datos[3]}', p_cliente='{datos[4]}', p_config='{datos[5]}', p_empleado='{datos[6]}', p_empresa='{datos[7]}', p_factura='{datos[8]}', p_inventario='{datos[9]}', p_mdatos='{datos[10]}', p_producto='{datos[11]}', p_proveedor='{datos[12]}', p_reporte='{datos[13]}', p_venta='{datos[14]}', Bascula='{datos[15]}' WHERE ID='{datos[1]}' AND IDUsuario='{datos[0]}'";
             }
 
             // Obtener usuario
