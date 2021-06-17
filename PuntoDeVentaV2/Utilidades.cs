@@ -2551,6 +2551,13 @@ namespace PuntoDeVentaV2
             vr.Show();
         }
 
+        /// <summary>
+        /// Método para justificar texto de un label
+        /// </summary>
+        /// <param name="text">Parametro para pasar el texto que se va justificar</param>
+        /// <param name="font">Parametro para pasar el font que se va utilizar</param>
+        /// <param name="ControlWidth">Parametro para pasar la medida de lo ancho que se va justificar</param>
+        /// <returns>Retorna un String para usarse en el Label</returns>
         public static string JustifyParagraph(string text, System.Drawing.Font font, int ControlWidth)
         {
             string result = string.Empty;
@@ -2597,6 +2604,13 @@ namespace PuntoDeVentaV2
             return result.TrimEnd(new[] { '\r', '\n' });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="font"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
         private static string Justify(string text, System.Drawing.Font font, int width)
         {
             char SpaceChar = (char)0x200A;

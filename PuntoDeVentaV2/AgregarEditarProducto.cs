@@ -2337,6 +2337,8 @@ namespace PuntoDeVentaV2
             this.toolTip1.SetToolTip(this.lbClaveInterna, "En este campo podra ingresar un folio interno,\npara mayor control de sus productos.");
             this.toolTip1.SetToolTip(this.lblCantCombServ, "En este apartado podrá indicarle al sistema la cantidad\nde productos que se descontaran al venderse un Combo/Servicio");
             this.toolTip1.SetToolTip(this.lblCodigoBarras, "En este campo puede agregar códigos de barras\no claves internas de sus productos.");
+            this.toolTip1.SetToolTip(this.btnAddCodBar, "Agregar código de barra extra o clave interna");
+            this.toolTip1.SetToolTip(this.lblCodBarExtra, "En este apartado podres agregar un código de barra o clave interna de tus productos.");
         }
 
         private void txtCodigoBarras_KeyDown(object sender, KeyEventArgs e)
@@ -6714,7 +6716,7 @@ namespace PuntoDeVentaV2
                 detalleProductoGeneral.Clear();
                 VerificarDatosDeDetalleProducto();
             }
-
+            
             if (cadAux == "Producto")           // si es un Producto
             {
                 agregarProducto();
@@ -6967,11 +6969,11 @@ namespace PuntoDeVentaV2
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 135F));
                 }
-                if (i.Equals(1) || i.Equals(3) || i.Equals(5))
+                if (i.Equals(1) || i.Equals(3) || i.Equals(5) || i.Equals(6))
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
                 }
-                if (i.Equals(6))
+                if (i.Equals(7))
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 210F));
                 }
@@ -7091,10 +7093,14 @@ namespace PuntoDeVentaV2
             lblCodigoBarras.Visible = true;
             lblCodigoBarras.Anchor = AnchorStyles.Left;
 
+            lblCodBarExtra.Visible = true;
+            lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
             tLPProducto.Controls.Add(label7, 0, 2);               // Precio Compra Label
             tLPProducto.Controls.Add(label4, 2, 2);               // Precio Venta Label
             tLPProducto.Controls.Add(label2, 4, 2);               // Código de Barras Label
             tLPProducto.Controls.Add(lblCodigoBarras, 5, 2);
+            tLPProducto.Controls.Add(lblCodBarExtra, 6, 2);
 
             #endregion End Row 3            
 
@@ -7133,12 +7139,19 @@ namespace PuntoDeVentaV2
             btnGenerarCB.TabIndex = 8;
             btnGenerarCB.TabStop = true;
 
+            // Button Agregar Codigo Barras extra
+            btnAddCodBar.Visible = true;
+            btnAddCodBar.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+            btnAddCodBar.TabIndex = 9;
+            btnAddCodBar.TabStop = true;
+
             tLPProducto.Controls.Add(txtPrecioCompra, 0, 3);      // Precio Compra TextBox
             tLPProducto.Controls.Add(lbPrecioCompra, 1, 3);       // Label de exclamation Precio de Compra
             tLPProducto.Controls.Add(txtPrecioProducto, 2, 3);    // Precio Venta TextBox
             tLPProducto.Controls.Add(lbPrecioVenta, 3, 3);        // Label de exclamation Precio de Venta
             tLPProducto.Controls.Add(txtCodigoBarras, 4, 3);      // Código de Barras TextBox
             tLPProducto.Controls.Add(btnGenerarCB, 5, 3);         // Generar Button
+            tLPProducto.Controls.Add(btnAddCodBar, 6, 3);         // Botón de generar códigos de barra extra
 
             #endregion End Row 4
 
@@ -7227,13 +7240,12 @@ namespace PuntoDeVentaV2
 
 
             //.SetColumnSpan(btnGenerarCB, 0);           // Columnas hacia derecha
-            tLPProducto.Controls.Add(PImagen, 6, 0);     // Cuadro para agregar Imagen Panel
+            tLPProducto.Controls.Add(PImagen, 7, 0);     // Cuadro para agregar Imagen Panel
             tLPProducto.SetRowSpan(PImagen, 6);          // Filas hacia abajo (Cantidad de filas que abarcará)
-            tLPProducto.SetColumnSpan(PImagen, 2);     // Columnas hacia derecha
+            //tLPProducto.SetColumnSpan(PImagen, 2);     // Columnas hacia derecha
 
             #endregion End celda imagen
-
-
+            
             // Button para Relacionar con Combo/Servicio
             button1.Visible = true;
             button1.TabIndex = 11;
@@ -7323,6 +7335,10 @@ namespace PuntoDeVentaV2
             this.Controls.Add(lblCantCombServ);
             lblCodigoBarras.Visible = false;
             this.Controls.Add(lblCodigoBarras);
+            btnAddCodBar.Visible = false;
+            this.Controls.Add(btnAddCodBar);
+            lblCodBarExtra.Visible = false;
+            this.Controls.Add(lblCodBarExtra);
         }
 
         private void agregarCombo()
@@ -7356,7 +7372,7 @@ namespace PuntoDeVentaV2
             if (conSinClaveInterna.Equals(false))
             {
                 // creamos 5 columnas en el TableLayoutPanel
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     tLPCombo.ColumnCount++;
                     //if (i.Equals(2) || i.Equals(5))
@@ -7367,21 +7383,13 @@ namespace PuntoDeVentaV2
                     //{
                     //    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 115F));
                     //}
-                    if (i.Equals(0) || i.Equals(2))
+                    if (i.Equals(0) || i.Equals(2) || i.Equals(5))
                     {
                         tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
                     }
-                    if (i.Equals(1))
+                    if (i.Equals(1) || i.Equals(3) || i.Equals(4))
                     {
                         tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-                    }
-                    if (i.Equals(3))
-                    {
-                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
-                    }
-                    if (i.Equals(4))
-                    {
-                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
                     }
                 }
             }
@@ -7393,9 +7401,9 @@ namespace PuntoDeVentaV2
                     tLPCombo.ColumnCount++;
                     if (i.Equals(0) || i.Equals(2) || i.Equals(4) || i.Equals(6))
                     {
-                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
+                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 135F));
                     }
-                    else
+                    else if (i.Equals(1) || i.Equals(3) || i.Equals(5) || i.Equals(7))
                     {
                         tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
                     }
@@ -7472,6 +7480,13 @@ namespace PuntoDeVentaV2
                 label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Top;
                 //label2.TextAlign = ContentAlignment.MiddleCenter;
 
+                // Label informativo para Código de Barras o Clave Interna
+                lblCodigoBarras.Visible = true;
+                lblCodigoBarras.Anchor = AnchorStyles.Left;
+
+                lblCodBarExtra.Visible = true;
+                lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
                 // Label para Cantidad por Combo
                 lblCantPaqServ.Visible = true;
                 lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Top;
@@ -7479,6 +7494,8 @@ namespace PuntoDeVentaV2
 
                 tLPCombo.Controls.Add(label5, 0, 2);               // Clave Interna Label
                 tLPCombo.Controls.Add(label2, 2, 2);               // Código de Barras Label
+                tLPCombo.Controls.Add(lblCodigoBarras, 3, 2);      // Simbolo Informativo
+                tLPCombo.Controls.Add(lblCodBarExtra, 4, 2);       // Simbolo Informativo gregar código Barras extra
                 tLPCombo.Controls.Add(lblCantPaqServ, 0, 2);       // Relacionar con Combo/Servicio Label
 
                 #endregion End Row 3
@@ -7508,10 +7525,15 @@ namespace PuntoDeVentaV2
                 btnGenerarCB.TabIndex = 5;
                 btnGenerarCB.TabStop = true;
 
+                btnAddCodBar.Visible = true;
+                btnAddCodBar.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+                btnAddCodBar.TabIndex = 6;
+                btnAddCodBar.TabStop = true;
+
                 // TextBox para Cantidad por Combo
                 txtCantPaqServ.Visible = true;
                 txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                txtCantPaqServ.TabIndex = 6;
+                txtCantPaqServ.TabIndex = 7;
                 txtCantPaqServ.TabStop = true;
 
                 if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
@@ -7544,6 +7566,7 @@ namespace PuntoDeVentaV2
                 tLPCombo.Controls.Add(lbClaveInterna, 1, 3);       // Label de exclamation Clave Interna
                 tLPCombo.Controls.Add(txtCodigoBarras, 2, 3);      // Código de Barras TextBox
                 tLPCombo.Controls.Add(btnGenerarCB, 3, 3);         // Código de Barras Button
+                tLPCombo.Controls.Add(btnAddCodBar, 4, 3);         // Botón de generar códigos de barra extra
                 tLPCombo.Controls.Add(txtCantPaqServ, 0, 3);       // Relacionar con Combo/Servicio TextBox
                 tLPCombo.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
 
@@ -7597,7 +7620,7 @@ namespace PuntoDeVentaV2
                 PImagen.TabIndex = 9;
                 PImagen.TabStop = true;
 
-                tLPCombo.Controls.Add(PImagen, 4, 0);              // Imagen del Producto Panel
+                tLPCombo.Controls.Add(PImagen, 5, 0);              // Imagen del Producto Panel
                                                                    //tLPCombo.SetColumnSpan(PImagen, 2);
                 tLPCombo.SetRowSpan(PImagen, 5);
 
@@ -7814,25 +7837,17 @@ namespace PuntoDeVentaV2
             if (conSinClaveInterna.Equals(false))
             {
                 // creamos 5 columnas en el TableLayoutPanel
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     tLPServicio.ColumnCount++;
 
-                    if (i.Equals(0) || i.Equals(2))
+                    if (i.Equals(0) || i.Equals(2) || i.Equals(5))
                     {
                         tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
                     }
-                    if (i.Equals(1))
+                    if (i.Equals(1) || i.Equals(3) || i.Equals(4))
                     {
                         tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-                    }
-                    if (i.Equals(3))
-                    {
-                        tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
-                    }
-                    if (i.Equals(4))
-                    {
-                        tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
                     }
                 }
             }
@@ -7846,7 +7861,7 @@ namespace PuntoDeVentaV2
                     {
                         tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
                     }
-                    else
+                    else if (i.Equals(1) || i.Equals(3) || i.Equals(5) || i.Equals(7))
                     {
                         tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
                     }
@@ -7923,6 +7938,13 @@ namespace PuntoDeVentaV2
                 label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Top;
                 //label2.TextAlign = ContentAlignment.MiddleCenter;
 
+                // Label informativo para Código de Barras o Clave Interna
+                lblCodigoBarras.Visible = true;
+                lblCodigoBarras.Anchor = AnchorStyles.Left;
+
+                lblCodBarExtra.Visible = true;
+                lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
                 // Label para Cantidad por Servicio
                 lblCantPaqServ.Visible = true;
                 lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Top;
@@ -7930,6 +7952,8 @@ namespace PuntoDeVentaV2
 
                 tLPServicio.Controls.Add(label5, 0, 2);               // Clave Interna Label
                 tLPServicio.Controls.Add(label2, 2, 2);               // Código de Barras Label
+                tLPServicio.Controls.Add(lblCodigoBarras, 3, 2);      // Simbolo Informativo
+                tLPServicio.Controls.Add(lblCodBarExtra, 4, 2);
                 tLPServicio.Controls.Add(lblCantPaqServ, 0, 2);       // Clave Interna Label
 
                 #endregion End Row 3
@@ -7958,10 +7982,16 @@ namespace PuntoDeVentaV2
                 btnGenerarCB.TabIndex = 5;
                 btnGenerarCB.TabStop = true;
 
+                // Button Agregar Codigo Barras extra
+                btnAddCodBar.Visible = true;
+                btnAddCodBar.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+                btnAddCodBar.TabIndex = 6;
+                btnAddCodBar.TabStop = true;
+
                 // TextBox para Cantidad por Servicio
                 txtCantPaqServ.Visible = true;
                 txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                txtCantPaqServ.TabIndex = 5;
+                txtCantPaqServ.TabIndex = 7;
                 txtCantPaqServ.TabStop = true;
 
                 // Label signo de ayuda
@@ -7994,7 +8024,7 @@ namespace PuntoDeVentaV2
                 tLPServicio.Controls.Add(lbClaveInterna, 1, 3);
                 tLPServicio.Controls.Add(txtCodigoBarras, 2, 3);      // Código de Barras TextBox
                 tLPServicio.Controls.Add(btnGenerarCB, 3, 3);         // Código de Barras Button
-                //tLPServicio.SetColumnSpan(btnGenerarCB, 2);
+                tLPServicio.Controls.Add(btnAddCodBar, 4, 3);         // Botón de generar códigos de barra extra
                 tLPServicio.Controls.Add(txtCantPaqServ, 0, 3);       // Clave Interna TextBox
                 tLPServicio.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
 
@@ -8046,8 +8076,7 @@ namespace PuntoDeVentaV2
                 PImagen.TabIndex = 7;
                 PImagen.TabStop = true;
 
-                tLPServicio.Controls.Add(PImagen, 4, 0);              // Imagen del Producto Panel
-                                                                      //tLPServicio.SetColumnSpan(PImagen, 2);
+                tLPServicio.Controls.Add(PImagen, 5, 0);              // Imagen del Producto Panel
                 tLPServicio.SetRowSpan(PImagen, 5);
 
                 #endregion End Row 4

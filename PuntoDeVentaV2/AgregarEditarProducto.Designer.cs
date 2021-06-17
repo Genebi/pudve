@@ -100,6 +100,8 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnAddCodBar = new System.Windows.Forms.Button();
+            this.lblCodBarExtra = new System.Windows.Forms.Label();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -629,7 +631,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(171, 133);
+            this.groupBox1.Size = new System.Drawing.Size(154, 133);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Imagen";
@@ -637,7 +639,7 @@
             // pictureBoxProducto
             // 
             this.pictureBoxProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxProducto.Location = new System.Drawing.Point(37, 13);
+            this.pictureBoxProducto.Location = new System.Drawing.Point(29, 13);
             this.pictureBoxProducto.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxProducto.Name = "pictureBoxProducto";
             this.pictureBoxProducto.Size = new System.Drawing.Size(97, 80);
@@ -653,7 +655,7 @@
             this.btnImagenes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImagenes.Location = new System.Drawing.Point(11, 99);
             this.btnImagenes.Name = "btnImagenes";
-            this.btnImagenes.Size = new System.Drawing.Size(149, 28);
+            this.btnImagenes.Size = new System.Drawing.Size(132, 28);
             this.btnImagenes.TabIndex = 10;
             this.btnImagenes.Text = "Seleccionar imagen";
             this.btnImagenes.UseVisualStyleBackColor = true;
@@ -698,6 +700,8 @@
             // 
             // PDetalle
             // 
+            this.PDetalle.Controls.Add(this.btnAddCodBar);
+            this.PDetalle.Controls.Add(this.lblCodBarExtra);
             this.PDetalle.Controls.Add(this.lblCodigoBarras);
             this.PDetalle.Controls.Add(this.lblCantCombServ);
             this.PDetalle.Controls.Add(this.lbClaveInterna);
@@ -824,7 +828,7 @@
             this.tLPServicio.Name = "tLPServicio";
             this.tLPServicio.RowCount = 1;
             this.tLPServicio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPServicio.Size = new System.Drawing.Size(831, 258);
+            this.tLPServicio.Size = new System.Drawing.Size(870, 258);
             this.tLPServicio.TabIndex = 36;
             this.tLPServicio.Visible = false;
             this.tLPServicio.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPServicio_CellPaint);
@@ -837,7 +841,7 @@
             this.tLPCombo.Name = "tLPCombo";
             this.tLPCombo.RowCount = 1;
             this.tLPCombo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPCombo.Size = new System.Drawing.Size(831, 258);
+            this.tLPCombo.Size = new System.Drawing.Size(865, 258);
             this.tLPCombo.TabIndex = 35;
             this.tLPCombo.Visible = false;
             this.tLPCombo.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPCombo_CellPaint);
@@ -851,7 +855,7 @@
             this.tLPProducto.Name = "tLPProducto";
             this.tLPProducto.RowCount = 1;
             this.tLPProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPProducto.Size = new System.Drawing.Size(831, 258);
+            this.tLPProducto.Size = new System.Drawing.Size(865, 258);
             this.tLPProducto.TabIndex = 23;
             this.tLPProducto.Visible = false;
             this.tLPProducto.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
@@ -1001,6 +1005,28 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
+            // btnAddCodBar
+            // 
+            this.btnAddCodBar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddCodBar.Image = global::PuntoDeVentaV2.Properties.Resources.add_16;
+            this.btnAddCodBar.Location = new System.Drawing.Point(5, 20);
+            this.btnAddCodBar.Name = "btnAddCodBar";
+            this.btnAddCodBar.Size = new System.Drawing.Size(40, 29);
+            this.btnAddCodBar.TabIndex = 45;
+            this.btnAddCodBar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAddCodBar.UseVisualStyleBackColor = true;
+            this.btnAddCodBar.Visible = false;
+            // 
+            // lblCodBarExtra
+            // 
+            this.lblCodBarExtra.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCodBarExtra.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lblCodBarExtra.Location = new System.Drawing.Point(2, 47);
+            this.lblCodBarExtra.Name = "lblCodBarExtra";
+            this.lblCodBarExtra.Size = new System.Drawing.Size(20, 23);
+            this.lblCodBarExtra.TabIndex = 46;
+            this.lblCodBarExtra.Visible = false;
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1122,5 +1148,7 @@
         private System.Windows.Forms.Label lblArrow;
         private System.Windows.Forms.Label lblCodigoBarras;
         private System.Windows.Forms.Label lblMsgSinSelecDetalles;
+        private System.Windows.Forms.Button btnAddCodBar;
+        private System.Windows.Forms.Label lblCodBarExtra;
     }
 }
