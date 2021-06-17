@@ -498,7 +498,7 @@ namespace PuntoDeVentaV2
                 check.Width = 155;
                 check.Height = 24;
                 check.Location = new Point(0, 0);
-                this.toolTip1.SetToolTip(check, "Activar casilla para, mostrar en la parte central de la ventana");
+                this.toolTip1.SetToolTip(check, "Activar para seleccionar detalles de producto");
                 //check.CheckedChanged += new EventHandler(checkBox_CheckedChanged);
                 check.CheckedChanged += new EventHandler(checkBox_CheckedChanged);
                 //check.BackColor = Color.LightBlue;
