@@ -2337,6 +2337,8 @@ namespace PuntoDeVentaV2
             this.toolTip1.SetToolTip(this.lbClaveInterna, "En este campo podra ingresar un folio interno,\npara mayor control de sus productos.");
             this.toolTip1.SetToolTip(this.lblCantCombServ, "En este apartado podrá indicarle al sistema la cantidad\nde productos que se descontaran al venderse un Combo/Servicio");
             this.toolTip1.SetToolTip(this.lblCodigoBarras, "En este campo puede agregar códigos de barras\no claves internas de sus productos.");
+            this.toolTip1.SetToolTip(this.btnAddCodBar, "Agregar código de barra extra o clave interna");
+            this.toolTip1.SetToolTip(this.lblCodBarExtra, "En este apartado podres agregar un código de barra o clave interna de tus productos.");
         }
 
         private void txtCodigoBarras_KeyDown(object sender, KeyEventArgs e)
@@ -6714,7 +6716,7 @@ namespace PuntoDeVentaV2
                 detalleProductoGeneral.Clear();
                 VerificarDatosDeDetalleProducto();
             }
-
+            
             if (cadAux == "Producto")           // si es un Producto
             {
                 agregarProducto();
@@ -7133,12 +7135,19 @@ namespace PuntoDeVentaV2
             btnGenerarCB.TabIndex = 8;
             btnGenerarCB.TabStop = true;
 
+            // Button Agregar Codigo Barras extra
+            btnAddCodBar.Visible = true;
+            btnAddCodBar.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            btnAddCodBar.TabIndex = 9;
+            btnAddCodBar.TabStop = true;
+
             tLPProducto.Controls.Add(txtPrecioCompra, 0, 3);      // Precio Compra TextBox
             tLPProducto.Controls.Add(lbPrecioCompra, 1, 3);       // Label de exclamation Precio de Compra
             tLPProducto.Controls.Add(txtPrecioProducto, 2, 3);    // Precio Venta TextBox
             tLPProducto.Controls.Add(lbPrecioVenta, 3, 3);        // Label de exclamation Precio de Venta
             tLPProducto.Controls.Add(txtCodigoBarras, 4, 3);      // Código de Barras TextBox
             tLPProducto.Controls.Add(btnGenerarCB, 5, 3);         // Generar Button
+            tLPProducto.Controls.Add(btnAddCodBar, 6, 3);         // Botón de generar códigos de barra extra
 
             #endregion End Row 4
 
@@ -7323,6 +7332,8 @@ namespace PuntoDeVentaV2
             this.Controls.Add(lblCantCombServ);
             lblCodigoBarras.Visible = false;
             this.Controls.Add(lblCodigoBarras);
+            btnAddCodBar.Visible = false;
+            this.Controls.Add(btnAddCodBar);
         }
 
         private void agregarCombo()
@@ -7356,7 +7367,7 @@ namespace PuntoDeVentaV2
             if (conSinClaveInterna.Equals(false))
             {
                 // creamos 5 columnas en el TableLayoutPanel
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     tLPCombo.ColumnCount++;
                     //if (i.Equals(2) || i.Equals(5))
@@ -7367,21 +7378,13 @@ namespace PuntoDeVentaV2
                     //{
                     //    tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 115F));
                     //}
-                    if (i.Equals(0) || i.Equals(2))
+                    if (i.Equals(0) || i.Equals(2) || i.Equals(5))
                     {
                         tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
                     }
-                    if (i.Equals(1))
+                    if (i.Equals(1) || i.Equals(3) || i.Equals(4))
                     {
                         tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-                    }
-                    if (i.Equals(3))
-                    {
-                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
-                    }
-                    if (i.Equals(4))
-                    {
-                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
                     }
                 }
             }
@@ -7393,9 +7396,9 @@ namespace PuntoDeVentaV2
                     tLPCombo.ColumnCount++;
                     if (i.Equals(0) || i.Equals(2) || i.Equals(4) || i.Equals(6))
                     {
-                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
+                        tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 135F));
                     }
-                    else
+                    else if (i.Equals(1) || i.Equals(3) || i.Equals(5) || i.Equals(7))
                     {
                         tLPCombo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
                     }
@@ -7602,7 +7605,7 @@ namespace PuntoDeVentaV2
                 PImagen.TabIndex = 9;
                 PImagen.TabStop = true;
 
-                tLPCombo.Controls.Add(PImagen, 4, 0);              // Imagen del Producto Panel
+                tLPCombo.Controls.Add(PImagen, 5, 0);              // Imagen del Producto Panel
                                                                    //tLPCombo.SetColumnSpan(PImagen, 2);
                 tLPCombo.SetRowSpan(PImagen, 5);
 
@@ -7819,25 +7822,17 @@ namespace PuntoDeVentaV2
             if (conSinClaveInterna.Equals(false))
             {
                 // creamos 5 columnas en el TableLayoutPanel
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     tLPServicio.ColumnCount++;
 
-                    if (i.Equals(0) || i.Equals(2))
+                    if (i.Equals(0) || i.Equals(2) || i.Equals(5))
                     {
                         tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
                     }
-                    if (i.Equals(1))
+                    if (i.Equals(1) || i.Equals(3) || i.Equals(4))
                     {
                         tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-                    }
-                    if (i.Equals(3))
-                    {
-                        tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 105F));
-                    }
-                    if (i.Equals(4))
-                    {
-                        tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
                     }
                 }
             }
@@ -7851,7 +7846,7 @@ namespace PuntoDeVentaV2
                     {
                         tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
                     }
-                    else
+                    else if (i.Equals(1) || i.Equals(3) || i.Equals(5) || i.Equals(7))
                     {
                         tLPServicio.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
                     }
@@ -8056,8 +8051,7 @@ namespace PuntoDeVentaV2
                 PImagen.TabIndex = 7;
                 PImagen.TabStop = true;
 
-                tLPServicio.Controls.Add(PImagen, 4, 0);              // Imagen del Producto Panel
-                                                                      //tLPServicio.SetColumnSpan(PImagen, 2);
+                tLPServicio.Controls.Add(PImagen, 5, 0);              // Imagen del Producto Panel
                 tLPServicio.SetRowSpan(PImagen, 5);
 
                 #endregion End Row 4
