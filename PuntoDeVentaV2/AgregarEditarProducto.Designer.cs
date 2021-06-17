@@ -75,6 +75,8 @@
             this.PConteidoProducto = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
+            this.btnAddCodBar = new System.Windows.Forms.Button();
+            this.lblCodBarExtra = new System.Windows.Forms.Label();
             this.lblCodigoBarras = new System.Windows.Forms.Label();
             this.lblCantCombServ = new System.Windows.Forms.Label();
             this.lbClaveInterna = new System.Windows.Forms.Label();
@@ -100,8 +102,6 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnAddCodBar = new System.Windows.Forms.Button();
-            this.lblCodBarExtra = new System.Windows.Forms.Label();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -740,6 +740,28 @@
             this.PDetalle.Size = new System.Drawing.Size(868, 257);
             this.PDetalle.TabIndex = 2;
             // 
+            // btnAddCodBar
+            // 
+            this.btnAddCodBar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddCodBar.Image = global::PuntoDeVentaV2.Properties.Resources.add_16;
+            this.btnAddCodBar.Location = new System.Drawing.Point(5, 20);
+            this.btnAddCodBar.Name = "btnAddCodBar";
+            this.btnAddCodBar.Size = new System.Drawing.Size(40, 29);
+            this.btnAddCodBar.TabIndex = 45;
+            this.btnAddCodBar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAddCodBar.UseVisualStyleBackColor = true;
+            this.btnAddCodBar.Visible = false;
+            // 
+            // lblCodBarExtra
+            // 
+            this.lblCodBarExtra.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCodBarExtra.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lblCodBarExtra.Location = new System.Drawing.Point(2, 47);
+            this.lblCodBarExtra.Name = "lblCodBarExtra";
+            this.lblCodBarExtra.Size = new System.Drawing.Size(20, 23);
+            this.lblCodBarExtra.TabIndex = 46;
+            this.lblCodBarExtra.Visible = false;
+            // 
             // lblCodigoBarras
             // 
             this.lblCodigoBarras.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1004,28 +1026,6 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-            // 
-            // btnAddCodBar
-            // 
-            this.btnAddCodBar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAddCodBar.Image = global::PuntoDeVentaV2.Properties.Resources.add_16;
-            this.btnAddCodBar.Location = new System.Drawing.Point(5, 20);
-            this.btnAddCodBar.Name = "btnAddCodBar";
-            this.btnAddCodBar.Size = new System.Drawing.Size(40, 29);
-            this.btnAddCodBar.TabIndex = 45;
-            this.btnAddCodBar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAddCodBar.UseVisualStyleBackColor = true;
-            this.btnAddCodBar.Visible = false;
-            // 
-            // lblCodBarExtra
-            // 
-            this.lblCodBarExtra.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblCodBarExtra.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lblCodBarExtra.Location = new System.Drawing.Point(2, 47);
-            this.lblCodBarExtra.Name = "lblCodBarExtra";
-            this.lblCodBarExtra.Size = new System.Drawing.Size(20, 23);
-            this.lblCodBarExtra.TabIndex = 46;
-            this.lblCodBarExtra.Visible = false;
             // 
             // AgregarEditarProducto
             // 
