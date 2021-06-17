@@ -211,12 +211,16 @@
             // btnGenerarReporte
             // 
             this.btnGenerarReporte.AutoSize = true;
-            this.btnGenerarReporte.Location = new System.Drawing.Point(557, 48);
+            this.btnGenerarReporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnGenerarReporte.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGenerarReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerarReporte.ForeColor = System.Drawing.Color.White;
+            this.btnGenerarReporte.Location = new System.Drawing.Point(557, 405);
             this.btnGenerarReporte.Name = "btnGenerarReporte";
-            this.btnGenerarReporte.Size = new System.Drawing.Size(96, 23);
+            this.btnGenerarReporte.Size = new System.Drawing.Size(98, 25);
             this.btnGenerarReporte.TabIndex = 5;
             this.btnGenerarReporte.Text = "Generar Reporte";
-            this.btnGenerarReporte.UseVisualStyleBackColor = true;
+            this.btnGenerarReporte.UseVisualStyleBackColor = false;
             this.btnGenerarReporte.Click += new System.EventHandler(this.btnGenerarReporte_Click);
             // 
             // rbHabilitados
@@ -255,7 +259,7 @@
             this.panel5.Controls.Add(this.label7);
             this.panel5.Controls.Add(this.lblCantidadRegistros);
             this.panel5.Controls.Add(this.label4);
-            this.panel5.Location = new System.Drawing.Point(1, 368);
+            this.panel5.Location = new System.Drawing.Point(-18, 358);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(676, 43);
             this.panel5.TabIndex = 40;
@@ -476,7 +480,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(678, 431);
+            this.ClientSize = new System.Drawing.Size(678, 438);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.rbDeshabilitados);
             this.Controls.Add(this.rbHabilitados);
