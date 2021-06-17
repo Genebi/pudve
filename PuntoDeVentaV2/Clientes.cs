@@ -29,6 +29,8 @@ namespace PuntoDeVentaV2
         int opcion2 = 1; // Nuevo tipo cliente
         int opcion3 = 1; // Listado tipo cliente
         int opcion4 = 1; // Nuevo cliente
+        int opcion5 = 1; // Deshabilitar
+        int opcion6 = 1; // Habilitar
 
         IEnumerable<AgregarCliente> FormCliente = Application.OpenForms.OfType<AgregarCliente>();
 
@@ -51,6 +53,8 @@ namespace PuntoDeVentaV2
                 opcion2 = permisos[1];
                 opcion3 = permisos[2];
                 opcion4 = permisos[3];
+                opcion5 = permisos[4];
+                opcion6 = permisos[5];
             }
         }
 
@@ -184,6 +188,17 @@ namespace PuntoDeVentaV2
 
         private void DGVClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            string columnHeader = DGVClientes.Columns[8].HeaderText;
+            if (opcion5 == 0 && columnHeader == "Deshabilitar")
+            {
+                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            else if (opcion6 == 0 && columnHeader == "Habilitar")
+            {
+                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
             if (e.RowIndex >= 0)
             {
                 int idCliente = Convert.ToInt32(DGVClientes.Rows[e.RowIndex].Cells["ID"].Value);

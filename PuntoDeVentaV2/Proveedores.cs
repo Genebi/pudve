@@ -23,9 +23,11 @@ namespace PuntoDeVentaV2
         int clickBoton = 0;
 
         int datoEncontrado = 0;
-        // Permisos botones
+        // Permisos botones 
         int opcion1 = 1; // Boton buscar
         int opcion2 = 1; // Nuevo proveedor
+        int opcion3 = 1; // Deshabilitar
+        int opcion4 = 1; // Habilitar
 
         public Proveedores()
         {
@@ -46,6 +48,8 @@ namespace PuntoDeVentaV2
 
                 opcion1 = permisos[0];
                 opcion2 = permisos[1];
+                opcion3 = permisos[2];
+                opcion4 = permisos[3];
             }
         }
 
@@ -214,6 +218,17 @@ namespace PuntoDeVentaV2
 
         private void DGVProveedores_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            string columnHeader = DGVProveedores.Columns[7].HeaderText;
+            if (opcion3 == 0 && columnHeader == "Deshabilitar" )
+            {
+                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            else if(opcion4 == 0 && columnHeader == "Habilitar")
+            {
+                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
             if (e.RowIndex >= 0)
             {
                 int idProveedor = Convert.ToInt32(DGVProveedores.Rows[e.RowIndex].Cells["ID"].Value);
