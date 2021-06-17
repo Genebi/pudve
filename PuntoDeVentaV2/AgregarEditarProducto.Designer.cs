@@ -1011,7 +1011,7 @@
             this.btnAddCodBar.Image = global::PuntoDeVentaV2.Properties.Resources.add_16;
             this.btnAddCodBar.Location = new System.Drawing.Point(5, 20);
             this.btnAddCodBar.Name = "btnAddCodBar";
-            this.btnAddCodBar.Size = new System.Drawing.Size(24, 24);
+            this.btnAddCodBar.Size = new System.Drawing.Size(40, 29);
             this.btnAddCodBar.TabIndex = 45;
             this.btnAddCodBar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddCodBar.UseVisualStyleBackColor = true;
