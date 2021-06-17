@@ -7093,10 +7093,14 @@ namespace PuntoDeVentaV2
             lblCodigoBarras.Visible = true;
             lblCodigoBarras.Anchor = AnchorStyles.Left;
 
+            lblCodBarExtra.Visible = true;
+            lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
             tLPProducto.Controls.Add(label7, 0, 2);               // Precio Compra Label
             tLPProducto.Controls.Add(label4, 2, 2);               // Precio Venta Label
             tLPProducto.Controls.Add(label2, 4, 2);               // Código de Barras Label
             tLPProducto.Controls.Add(lblCodigoBarras, 5, 2);
+            tLPProducto.Controls.Add(lblCodBarExtra, 6, 2);
 
             #endregion End Row 3            
 
@@ -7241,8 +7245,7 @@ namespace PuntoDeVentaV2
             //tLPProducto.SetColumnSpan(PImagen, 2);     // Columnas hacia derecha
 
             #endregion End celda imagen
-
-
+            
             // Button para Relacionar con Combo/Servicio
             button1.Visible = true;
             button1.TabIndex = 11;
@@ -7334,6 +7337,8 @@ namespace PuntoDeVentaV2
             this.Controls.Add(lblCodigoBarras);
             btnAddCodBar.Visible = false;
             this.Controls.Add(btnAddCodBar);
+            lblCodBarExtra.Visible = false;
+            this.Controls.Add(lblCodBarExtra);
         }
 
         private void agregarCombo()
