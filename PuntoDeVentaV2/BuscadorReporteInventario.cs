@@ -1104,8 +1104,6 @@ namespace PuntoDeVentaV2
             //tablaInventario.AddCell(colPerdida);
             //tablaInventario.AddCell(colRecuperada);
 
-            
-
             var consulta = cn.CargarDatos($"SELECT * FROM {tablaBuscar} WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio = '{num}'");
 
             foreach (DataRow row in consulta.Rows)
