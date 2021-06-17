@@ -1421,6 +1421,9 @@ ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS claveUnidad int DEFAULT 1
 --Agregar Columna (Correos) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
 ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS correos int DEFAULT 1;
 
+--Agregar Columna (Bascula) a la tabla "empleadospermisos" para permitir o denegar el acceso a esta opcion.
+ALTER TABLE Empleados ADD COLUMN IF NOT EXISTS Bascula int DEFAULT 1;
+
 
 --Renombrar Columna de tabla empleadosPermisos
 ALTER TABLE empleadospermisos CHANGE COLUMN mensajeVentas MensajeVentas INT(11);

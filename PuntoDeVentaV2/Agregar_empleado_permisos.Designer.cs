@@ -58,6 +58,8 @@
             this.btnReportes = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.chkMarcarDesmarcar = new System.Windows.Forms.CheckBox();
+            this.btnBascula = new System.Windows.Forms.Button();
+            this.cboBascula = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbox_anticipos
@@ -113,12 +115,13 @@
             // cbox_empresas
             // 
             this.cbox_empresas.AutoSize = true;
-            this.cbox_empresas.Location = new System.Drawing.Point(308, 84);
+            this.cbox_empresas.Location = new System.Drawing.Point(176, 213);
             this.cbox_empresas.Name = "cbox_empresas";
             this.cbox_empresas.Size = new System.Drawing.Size(82, 21);
             this.cbox_empresas.TabIndex = 6;
             this.cbox_empresas.Text = "Empresas";
             this.cbox_empresas.UseVisualStyleBackColor = true;
+            this.cbox_empresas.Visible = false;
             // 
             // cbox_facturas
             // 
@@ -336,11 +339,12 @@
             // 
             this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button11.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.button11.Location = new System.Drawing.Point(282, 83);
+            this.button11.Location = new System.Drawing.Point(150, 212);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(20, 20);
             this.button11.TabIndex = 28;
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Visible = false;
             // 
             // btnMisDatos
             // 
@@ -387,11 +391,34 @@
             this.chkMarcarDesmarcar.UseVisualStyleBackColor = true;
             this.chkMarcarDesmarcar.CheckedChanged += new System.EventHandler(this.chkMarcarDesmarcar_CheckedChanged);
             // 
+            // btnBascula
+            // 
+            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
+            this.btnBascula.Location = new System.Drawing.Point(282, 83);
+            this.btnBascula.Name = "btnBascula";
+            this.btnBascula.Size = new System.Drawing.Size(20, 20);
+            this.btnBascula.TabIndex = 118;
+            this.btnBascula.UseVisualStyleBackColor = true;
+            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
+            // 
+            // cboBascula
+            // 
+            this.cboBascula.AutoSize = true;
+            this.cboBascula.Location = new System.Drawing.Point(308, 84);
+            this.cboBascula.Name = "cboBascula";
+            this.cboBascula.Size = new System.Drawing.Size(73, 21);
+            this.cboBascula.TabIndex = 117;
+            this.cboBascula.Text = "Bascula";
+            this.cboBascula.UseVisualStyleBackColor = true;
+            // 
             // Agregar_empleado_permisos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 311);
+            this.Controls.Add(this.btnBascula);
+            this.Controls.Add(this.cboBascula);
             this.Controls.Add(this.chkMarcarDesmarcar);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnReportes);
@@ -467,5 +494,7 @@
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Label primerSeparador;
         private System.Windows.Forms.CheckBox chkMarcarDesmarcar;
+        private System.Windows.Forms.Button btnBascula;
+        private System.Windows.Forms.CheckBox cboBascula;
     }
 }

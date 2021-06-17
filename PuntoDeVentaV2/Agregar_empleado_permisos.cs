@@ -47,6 +47,7 @@ namespace PuntoDeVentaV2
             cbox_proveedores.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[10]));
             cbox_reportes.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[11]));
             cbox_ventas.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[13]));
+            cboBascula.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[14]));
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
@@ -70,12 +71,12 @@ namespace PuntoDeVentaV2
             string proveedor = Convert.ToString(Convert.ToInt32(cbox_proveedores.Checked));
             string reporte = Convert.ToString(Convert.ToInt32(cbox_reportes.Checked));
             string venta = Convert.ToString(Convert.ToInt32(cbox_ventas.Checked));
-
+            string bascula = Convert.ToString(Convert.ToInt32(cboBascula.Checked));
 
             string[] datos = new string[]
             {
                 FormPrincipal.userID.ToString(), id_empleado.ToString(), anticipo, caja, client, config, empleado,
-                empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta
+                empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta, bascula
             };
 
             int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 2));
@@ -285,6 +286,20 @@ namespace PuntoDeVentaV2
                 {
                     chkMarcarDesmarcar.Text = "Marcar todo";
                 }
+            }
+        }
+
+        private void btnBascula_Click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms.OfType<SeccionPermisos>().Count() == 1)
+            {
+                Application.OpenForms.OfType<SeccionPermisos>().First().BringToFront();
+            }
+            else
+            {
+                var permisos = new SeccionPermisos("Bascula", id_empleado);
+
+                permisos.Show();
             }
         }
     }

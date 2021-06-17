@@ -15,6 +15,9 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
+        // Permisos botones
+        int opcion1 = 1; // Boton Agregar/Editar Basculas
 
         string firtsItemBasculasRegistradas = "REGISTRADAS...";
 
@@ -344,6 +347,13 @@ namespace PuntoDeVentaV2
             getStopBits();              //Rango StopBits
             cbBasculaRegistrada_TextChanged(sender, e);
             cbBasculaRegistrada.Focus();
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Bascula");
+
+                opcion1 = permisos[0];
+            }
         }
 
         private void btnTomarPeso_Click(object sender, EventArgs e)
@@ -397,26 +407,36 @@ namespace PuntoDeVentaV2
 
         private void btnAddEditBascula_Click(object sender, EventArgs e)
         {
-            if (Application.OpenForms.OfType<AgregarEditarBascula>().Count().Equals(1))
+            if (opcion1 == 0)
             {
-                Application.OpenForms.OfType<AgregarEditarBascula>().First().BringToFront();
+                Utilidades.MensajePermiso();
+                return;
             }
             else
             {
-                if (PuertoSerieBascula.IsOpen.Equals(true))
+
+
+                if (Application.OpenForms.OfType<AgregarEditarBascula>().Count().Equals(1))
                 {
-                    PuertoSerieBascula.Close();
-                    isOpen = false;
+                    Application.OpenForms.OfType<AgregarEditarBascula>().First().BringToFront();
                 }
-
-                var addBascula = new AgregarEditarBascula();
-
-                addBascula.FormClosed += delegate
+                else
                 {
-                    getBasculasRegistradas();   //Basculas Preconfiguradas
+                    if (PuertoSerieBascula.IsOpen.Equals(true))
+                    {
+                        PuertoSerieBascula.Close();
+                        isOpen = false;
+                    }
+
+                    var addBascula = new AgregarEditarBascula();
+
+                    addBascula.FormClosed += delegate
+                    {
+                        getBasculasRegistradas();   //Basculas Preconfiguradas
                 };
 
-                addBascula.Show();
+                    addBascula.Show();
+                }
             }
         }
 
