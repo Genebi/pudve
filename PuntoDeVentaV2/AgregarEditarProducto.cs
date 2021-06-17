@@ -1455,20 +1455,20 @@ namespace PuntoDeVentaV2
 
         private void tLPServicio_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            //if ((e.Column + e.Row) % 2 == 1)
-            //{
-            //    using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
-            //    {
-            //        e.Graphics.FillRectangle(brush, e.CellBounds);
-            //    }
-            //}
-            //else
-            //{
-            //    using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
-            //    {
-            //        e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
-            //    }
-            //}
+            if ((e.Column + e.Row) % 2 == 1)
+            {
+                using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
+                {
+                    e.Graphics.FillRectangle(brush, e.CellBounds);
+                }
+            }
+            else
+            {
+                using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
+                {
+                    e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
+                }
+            }
         }
 
         private void lblStockMinimo_MouseEnter(object sender, EventArgs e)
@@ -7928,6 +7928,10 @@ namespace PuntoDeVentaV2
                 label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Top;
                 //label2.TextAlign = ContentAlignment.MiddleCenter;
 
+                // Label informativo para Código de Barras o Clave Interna
+                lblCodigoBarras.Visible = true;
+                lblCodigoBarras.Anchor = AnchorStyles.Left;
+
                 // Label para Cantidad por Servicio
                 lblCantPaqServ.Visible = true;
                 lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Top;
@@ -7935,6 +7939,7 @@ namespace PuntoDeVentaV2
 
                 tLPServicio.Controls.Add(label5, 0, 2);               // Clave Interna Label
                 tLPServicio.Controls.Add(label2, 2, 2);               // Código de Barras Label
+                tLPServicio.Controls.Add(lblCodigoBarras, 3, 2);      // Simbolo Informativo
                 tLPServicio.Controls.Add(lblCantPaqServ, 0, 2);       // Clave Interna Label
 
                 #endregion End Row 3
