@@ -7195,14 +7195,14 @@ namespace PuntoDeVentaV2
             lblCodigoBarras.Visible = true;
             lblCodigoBarras.Anchor = AnchorStyles.Left;
 
-            lblCodBarExtra.Visible = true;
-            lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            //lblCodBarExtra.Visible = true;
+            //lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             tLPProducto.Controls.Add(label7, 0, 2);               // Precio Compra Label
             tLPProducto.Controls.Add(label4, 2, 2);               // Precio Venta Label
             tLPProducto.Controls.Add(label2, 4, 2);               // Código de Barras Label
             tLPProducto.Controls.Add(lblCodigoBarras, 5, 2);
-            tLPProducto.Controls.Add(lblCodBarExtra, 6, 2);
+            //tLPProducto.Controls.Add(lblCodBarExtra, 6, 2);
 
             #endregion End Row 3            
 
