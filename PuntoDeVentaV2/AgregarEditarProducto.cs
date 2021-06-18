@@ -3355,6 +3355,8 @@ namespace PuntoDeVentaV2
                                         codigosBarrras.Clear();
                                         #endregion Final de Codigos de Barra Extra
 
+                                        MessageBoxTemporal.Show("Se guardo exitosamente el producto, combo o servicio....", "Aviso del Sistema", 3, false);
+
                                         //Cierra la ventana donde se agregan los datos del producto
                                         this.Close();
                                     }
@@ -3845,6 +3847,8 @@ namespace PuntoDeVentaV2
                                     }
                                     codigosBarrras.Clear();
                                     #endregion Final Sección Código de Barras Extras
+
+                                    MessageBoxTemporal.Show("Se guardo exitosamente el producto, combo o servicio....", "Aviso del Sistema", 3, false);
 
                                     //Cierra la ventana donde se agregan los datos del producto
                                     this.Close();
@@ -4603,9 +4607,6 @@ namespace PuntoDeVentaV2
 
             listaProductoToCombo = new List<string>();
             ProductosDeServicios = new List<string>();
-
-           
-
         }
 
         private void validarDecimales(string valorEntrada)

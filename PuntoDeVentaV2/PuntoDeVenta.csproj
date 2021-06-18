@@ -716,6 +716,7 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="MessageBoxTemporal.cs" />
     <Compile Include="MetodosBusquedas.cs" />
     <Compile Include="MetodosGenerales.cs" />
     <Compile Include="MisDatos.cs">
