@@ -4285,6 +4285,19 @@ namespace PuntoDeVentaV2
                             }
                             #endregion Final de Seccion Productos
 
+                            if (this.Text.Trim().Equals("AGREGAR PRODUCTO"))
+                            {
+                                tituloVentana = "Se guardo exitosamente el producto....";
+                            }
+                            else if (this.Text.Trim().Equals("EDITAR PRODUCTO"))
+                            {
+                                tituloVentana = "Se actualizo exitosamente el producto....";
+                            }
+                            else if (this.Text.Trim().Equals("COPIAR PRODUCTO"))
+                            {
+                                tituloVentana = "Se copio exitosamente el producto....";
+                            }
+
                             #region Inicio de Seccion Combos y Servicios
                             else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS")
                             {
@@ -4369,8 +4382,42 @@ namespace PuntoDeVentaV2
                                     ProductosDeServicios.Clear();
                                 }
                                 flowLayoutPanel2.Controls.Clear();
+
+                                if (this.Text.Trim().Equals("AGREGAR COMBOS"))
+                                {
+                                    tituloVentana = "Se guardo exitosamente el combo....";
+                                }
+                                else if (this.Text.Trim().Equals("EDITAR COMBOS"))
+                                {
+                                    tituloVentana = "Se actualizo exitosamente el combo....";
+                                }
+                                else if (this.Text.Trim().Equals("COPIAR COMBOS"))
+                                {
+                                    tituloVentana = "Se copio exitosamente el combo....";
+                                }
+                                else if (this.Text.Trim().Equals("AGREGAR SERVICIOS"))
+                                {
+                                    tituloVentana = "Se guardo exitosamente el servicio....";
+                                }
+                                else if (this.Text.Trim().Equals("EDITAR SERVICIOS"))
+                                {
+                                    tituloVentana = "Se actualizo exitosamente el servicio....";
+                                }
+                                else if (this.Text.Trim().Equals("COPIAR SERVICIOS"))
+                                {
+                                    tituloVentana = "Se copio exitosamente el servicio....";
+                                }
                             }
                             #endregion Final de Seccion Combos y Servicios
+                            
+                            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
+                            {
+                                MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                            }
+                            else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+                            {
+                                MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                            }
 
                             // Cierra la ventana donde se agregan los datos del producto
                             this.Close();
