@@ -3414,7 +3414,7 @@ namespace PuntoDeVentaV2
                     }
                     #endregion Final de Sección de Productos
                     #region Inicio de Sección de Combos y Servicios
-                    else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS" | this.Text.Trim() == "AGREGAR COMBO")
+                    else if (this.Text.Trim() == "AGREGAR COMBOS" || this.Text.Trim() == "EDITAR COMBOS" || this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" || this.Text.Trim() == "EDITAR SERVICIOS" || this.Text.Trim() == "COPIAR SERVICIOS")
                     {
                         bool bValidNombreProducto = ValidateNombreProducto();
                         bool bValidPrecioProducto = ValidatePrecioProducto();
@@ -3870,7 +3870,19 @@ namespace PuntoDeVentaV2
                                     codigosBarrras.Clear();
                                     #endregion Final Sección Código de Barras Extras
 
-                                    MessageBoxTemporal.Show("Se guardo exitosamente el combo o servicio....", "Aviso del Sistema", 2, false);
+                                    if (this.Text.Trim().Equals("AGREGAR COMBOS"))
+                                    {
+                                        tituloVentana = "Se guardo exitosamente el combo....";
+                                    }
+
+                                    if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
+                                    {
+                                        MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                                    }
+                                    else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+                                    {
+                                        MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                                    }
 
                                     //Cierra la ventana donde se agregan los datos del producto
                                     this.Close();
