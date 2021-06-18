@@ -8043,8 +8043,8 @@ namespace PuntoDeVentaV2
                 lblCodigoBarras.Visible = true;
                 lblCodigoBarras.Anchor = AnchorStyles.Left;
 
-                lblCodBarExtra.Visible = true;
-                lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                //lblCodBarExtra.Visible = true;
+                //lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
                 // Label para Cantidad por Servicio
                 lblCantPaqServ.Visible = true;
@@ -8054,7 +8054,7 @@ namespace PuntoDeVentaV2
                 tLPServicio.Controls.Add(label5, 0, 2);               // Clave Interna Label
                 tLPServicio.Controls.Add(label2, 2, 2);               // Código de Barras Label
                 tLPServicio.Controls.Add(lblCodigoBarras, 3, 2);      // Simbolo Informativo
-                tLPServicio.Controls.Add(lblCodBarExtra, 4, 2);
+                //tLPServicio.Controls.Add(lblCodBarExtra, 4, 2);
                 tLPServicio.Controls.Add(lblCantPaqServ, 0, 2);       // Clave Interna Label
 
                 #endregion End Row 3
