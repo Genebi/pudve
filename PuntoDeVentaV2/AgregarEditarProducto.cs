@@ -3886,6 +3886,14 @@ namespace PuntoDeVentaV2
                                     {
                                         tituloVentana = "Se guardo exitosamente el servicio....";
                                     }
+                                    else if (this.Text.Trim().Equals("EDITAR SERVICIOS"))
+                                    {
+                                        tituloVentana = "Se actualizo exitosamente el servicio....";
+                                    }
+                                    else if (this.Text.Trim().Equals("COPIAR SERVICIOS"))
+                                    {
+                                        tituloVentana = "Se copio exitosamente el servicio....";
+                                    }
 
                                     if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                     {
