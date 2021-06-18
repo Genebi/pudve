@@ -3874,6 +3874,10 @@ namespace PuntoDeVentaV2
                                     {
                                         tituloVentana = "Se guardo exitosamente el combo....";
                                     }
+                                    else if (this.Text.Trim().Equals("EDITAR COMBOS"))
+                                    {
+                                        tituloVentana = "Se actualizo exitosamente el combo....";
+                                    }
 
                                     if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                     {
