@@ -7567,8 +7567,7 @@ namespace PuntoDeVentaV2
                 tLPCombo.Controls.Add(lbPrecioVenta, 3, 1);        // Label de exclamation Precio Venta
 
                 #endregion End Row 2
-
-
+                
                 // Tercera Fila del TableLayoutPanel
                 // Label títulos
                 #region Begin Row 3
@@ -7586,8 +7585,8 @@ namespace PuntoDeVentaV2
                 lblCodigoBarras.Visible = true;
                 lblCodigoBarras.Anchor = AnchorStyles.Left;
 
-                lblCodBarExtra.Visible = true;
-                lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                //lblCodBarExtra.Visible = true;
+                //lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
                 // Label para Cantidad por Combo
                 lblCantPaqServ.Visible = true;
@@ -7597,7 +7596,7 @@ namespace PuntoDeVentaV2
                 tLPCombo.Controls.Add(label5, 0, 2);               // Clave Interna Label
                 tLPCombo.Controls.Add(label2, 2, 2);               // Código de Barras Label
                 tLPCombo.Controls.Add(lblCodigoBarras, 3, 2);      // Simbolo Informativo
-                tLPCombo.Controls.Add(lblCodBarExtra, 4, 2);       // Simbolo Informativo gregar código Barras extra
+                //tLPCombo.Controls.Add(lblCodBarExtra, 4, 2);       // Simbolo Informativo gregar código Barras extra
                 tLPCombo.Controls.Add(lblCantPaqServ, 0, 2);       // Relacionar con Combo/Servicio Label
 
                 #endregion End Row 3
