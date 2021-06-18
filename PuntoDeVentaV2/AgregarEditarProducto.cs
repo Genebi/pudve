@@ -2846,6 +2846,8 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
+            var tituloVentana = string.Empty;
+
             #region Inicio Sección de Cambio de Producto a Servicio/Combo ó Servicio/Combo a Producto
             // Condiciones para saber si se realiza el cambio de un producto a servicio y viceversa
             if (cambioProducto)
@@ -3355,7 +3357,27 @@ namespace PuntoDeVentaV2
                                         codigosBarrras.Clear();
                                         #endregion Final de Codigos de Barra Extra
 
-                                        MessageBoxTemporal.Show("Se guardo exitosamente el producto....", "Aviso del Sistema", 2, false);
+                                        if (this.Text.Trim().Equals("AGREGAR PRODUCTO"))
+                                        {
+                                            tituloVentana = "Se guardo exitosamente el producto....";
+                                        }
+                                        else if (this.Text.Trim().Equals("EDITAR PRODUCTO"))
+                                        {
+                                            tituloVentana = "Se actualizo exitosamente el producto....";
+                                        }
+                                        else if (this.Text.Trim().Equals("COPIAR PRODUCTO"))
+                                        {
+                                            tituloVentana = "Se copio exitosamente el producto....";
+                                        }
+
+                                        if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
+                                        {
+                                            MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                                        }
+                                        else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+                                        {
+                                            MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                                        }
 
                                         //Cierra la ventana donde se agregan los datos del producto
                                         this.Close();
