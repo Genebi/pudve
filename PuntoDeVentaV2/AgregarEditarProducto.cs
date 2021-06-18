@@ -3355,7 +3355,7 @@ namespace PuntoDeVentaV2
                                         codigosBarrras.Clear();
                                         #endregion Final de Codigos de Barra Extra
 
-                                        MessageBoxTemporal.Show("Se guardo exitosamente el producto, combo o servicio....", "Aviso del Sistema", 3, false);
+                                        MessageBoxTemporal.Show("Se guardo exitosamente el producto....", "Aviso del Sistema", 2, false);
 
                                         //Cierra la ventana donde se agregan los datos del producto
                                         this.Close();
@@ -3848,7 +3848,7 @@ namespace PuntoDeVentaV2
                                     codigosBarrras.Clear();
                                     #endregion Final Sección Código de Barras Extras
 
-                                    MessageBoxTemporal.Show("Se guardo exitosamente el producto, combo o servicio....", "Aviso del Sistema", 3, false);
+                                    MessageBoxTemporal.Show("Se guardo exitosamente el combo o servicio....", "Aviso del Sistema", 2, false);
 
                                     //Cierra la ventana donde se agregan los datos del producto
                                     this.Close();
