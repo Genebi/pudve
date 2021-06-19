@@ -285,6 +285,8 @@ namespace PuntoDeVentaV2
                             
                         }
 
+                        ComprobarEstadoLicencia(usuario);
+
                         if (!ComprobarInternetMensualmente(usuario))
                         {
                             MessageBox.Show("Es necesario conectarse a internet para verificar su licencia", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -781,6 +783,60 @@ namespace PuntoDeVentaV2
             {
                 recuperar.ShowDialog();
             }
+        }
+
+        private bool ComprobarEstadoLicencia(string usuario)
+        {
+            // Verificar que sea cuenta principal y no subusuario
+            if (usuario.Contains('@'))
+            {
+                string[] auxiliar = usuario.Split('@');
+
+                usuario = auxiliar[0];
+            }
+
+            bool respuesta = true;
+
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+
+                    MySqlCommand consultar = conexion.CreateCommand();
+                    consultar.CommandText = $"SELECT * FROM Usuarios WHERE usuario = '{usuario}'";
+                    MySqlDataReader dr = consultar.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        int estado = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("estadoLicencia")));
+
+                        int correcto = cn.EjecutarConsulta($"UPDATE Usuarios SET EstadoLicencia = {estado} WHERE Usuario = '{usuario.Trim()}'");
+
+                        if (correcto > 0)
+                        {
+                            // 1 = Pagada
+                            // 2 = Vencida
+                            // 3 = Demo
+                            if (estado == 2)
+                            {
+                                respuesta = false;
+                            }
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+            return respuesta;
         }
 
         private bool ComprobarInternetMensualmente(string usuario)
