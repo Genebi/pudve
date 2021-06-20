@@ -285,11 +285,15 @@ namespace PuntoDeVentaV2
                             
                         }
 
-                        ComprobarEstadoLicencia(usuario);
+                        if (!ComprobarEstadoLicencia(usuario))
+                        {
+                            MessageBox.Show("Tu licencia ha expirado, te recomendamos ponerte en contacto en el sitio web para renovar tu licencia.",  "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
 
                         if (!ComprobarInternetMensualmente(usuario))
                         {
-                            MessageBox.Show("Es necesario conectarse a internet para verificar su licencia", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Es necesario conectarse a internet para verificar su licencia.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return;
                         }
 
@@ -808,14 +812,38 @@ namespace PuntoDeVentaV2
                     conexion.Open();
 
                     MySqlCommand consultar = conexion.CreateCommand();
-                    consultar.CommandText = $"SELECT * FROM Usuarios WHERE usuario = '{usuario}'";
+                    consultar.CommandText = $"SELECT estadoLicencia, fechaCreacion, fechaInicioLicencia, fechaFinLicencia, current_timestamp as fechaHoy FROM Usuarios WHERE usuario = '{usuario}'";
                     MySqlDataReader dr = consultar.ExecuteReader();
 
                     if (dr.Read())
                     {
                         int estado = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("estadoLicencia")));
+                        string fechaCreacion = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaCreacion"))).ToString("yyyy-MM-dd");
+                        string fechaInicio = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaInicioLicencia"))).ToString("yyyy-MM-dd");
+                        string fechaFin = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaFinLicencia"))).ToString("yyyy-MM-dd");
+                        string fechaHoy = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaHoy"))).ToString("yyyy-MM-dd");
 
-                        int correcto = cn.EjecutarConsulta($"UPDATE Usuarios SET EstadoLicencia = {estado} WHERE Usuario = '{usuario.Trim()}'");
+                        // Comparar fecha actual con la fecha de caducidad de la licencia
+                        int comparacion = DateTime.Compare(Convert.ToDateTime(fechaHoy), Convert.ToDateTime(fechaFin));
+
+                        if (comparacion >= 0)
+                        {
+                            dr.Close();
+
+                            // Cambiar el estado de la licencia
+                            MySqlCommand actualizar = conexion.CreateCommand();
+
+                            actualizar.CommandText = $"UPDATE usuarios SET estadoLicencia = 2 WHERE usuario = '{usuario}'";
+
+                            int resultado = actualizar.ExecuteNonQuery();
+
+                            if (resultado > 0)
+                            {
+                                respuesta = false;
+                            }
+                        }
+
+                        int correcto = cn.EjecutarConsulta($"UPDATE Usuarios SET EstadoLicencia = {estado}, FechaHoy = '{fechaCreacion}', FechaInicioLicencia = '{fechaInicio}', FechaFinLicencia = '{fechaFin}' WHERE Usuario = '{usuario.Trim()}'");
 
                         if (correcto > 0)
                         {
@@ -828,6 +856,9 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+
+                    dr.Close();
+                    conexion.Close();
 
                 }
                 catch (Exception ex)
@@ -892,6 +923,8 @@ namespace PuntoDeVentaV2
                     if (Registro.ConectadoInternet())
                     {
                         cn.EjecutarConsulta($"UPDATE usuarios SET DiasVerificacionInternet = 0, FechaConexionInternet = '{fechaHoy.ToString("yyyy-MM-dd")}', UltimaVerificacion = '{fechaHoy.ToString("yyyy-MM-dd")}' WHERE Usuario = '{usuario}'");
+
+                        ComprobarEstadoLicencia(usuario);
                     }
                     else
                     {

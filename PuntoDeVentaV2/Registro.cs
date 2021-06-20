@@ -71,8 +71,6 @@ namespace PuntoDeVentaV2
                 string email = txtEmail.Text;
                 string telefono = txtTelefono.Text;
                 string fechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                string fechaInicioLicencia = DateTime.Now.ToString("yyyy-MM-dd");
-                string fechaFinLicencia = DateTime.Now.AddYears(1).ToString("yyyy-MM-dd");
 
                 try
                 {
@@ -113,12 +111,12 @@ namespace PuntoDeVentaV2
                         string licencia = GenerarLicencia();
 
                         //Consulta de MySQL
-                        registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, fechaCreacion, licencia, fechaInicioLicencia, fechaFinLicencia) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{fechaCreacion}', '{licencia}', '{fechaInicioLicencia}', '{fechaFinLicencia}')";
+                        registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, licencia) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{licencia}')";
                         int resultado = registrar.ExecuteNonQuery();
 
                         //Consulta de MySQL local 
-                        string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email, FechaHoy, FechaInicioLicencia, FechaFinLicencia)";
-                               consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}', '{fechaCreacion}', '{fechaInicioLicencia}', '{fechaFinLicencia}')";
+                        string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email)";
+                               consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}')";
 
 
                         int respuesta = cn.EjecutarConsulta(consulta);
@@ -152,6 +150,8 @@ namespace PuntoDeVentaV2
 
                             UsuariosN(usuario);
 
+                            ActualizarFechaFinLicencia(usuario);
+
                             Hide();
                             fp.IdUsuario = Id;
                             fp.nickUsuario = usuario;
@@ -181,8 +181,53 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void ActualizarFechaFinLicencia(string usuario)
+        {
+            // Verificar que sea cuenta principal y no subusuario
+            if (usuario.Contains('@'))
+            {
+                string[] auxiliar = usuario.Split('@');
 
-        public string GenerarLicencia(int tipo = 1)
+                usuario = auxiliar[0];
+            }
+
+            MySqlConnection conexion = new MySqlConnection();
+
+            conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+            try
+            {
+                conexion.Open();
+
+                MySqlCommand consultar = conexion.CreateCommand();
+                consultar.CommandText = $"SELECT fechaFinLicencia FROM usuarios WHERE usuario = '{usuario}'";
+                MySqlDataReader dr = consultar.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    DateTime fechaFin = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaFinLicencia"))).AddYears(1);
+
+                    dr.Close();
+
+                    // Actualizar fecha de fin de la licencia
+                    MySqlCommand actualizarFinLicencia = conexion.CreateCommand();
+
+                    actualizarFinLicencia.CommandText = $"UPDATE usuarios SET fechaFinLicencia = '{fechaFin.ToString("yyyy-MM-dd HH:mm:ss")}' WHERE usuario = '{usuario}'";
+
+                    actualizarFinLicencia.ExecuteNonQuery();
+                }
+
+                dr.Close();
+                conexion.Close();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private string GenerarLicencia(int tipo = 1)
         {
             string licencia = string.Empty;
 
