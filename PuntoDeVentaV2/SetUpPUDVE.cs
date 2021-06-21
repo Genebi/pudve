@@ -278,6 +278,7 @@ namespace PuntoDeVentaV2
                                 backup.ExportToFile(archivo);
                                 con.Close();
 
+
                                 if (validarMandarRespaldoCorreo())
                                 {
                                     //Enviar la base de datos por correo
