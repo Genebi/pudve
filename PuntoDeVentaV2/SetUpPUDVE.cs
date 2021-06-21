@@ -225,6 +225,8 @@ namespace PuntoDeVentaV2
                 cbCorreoIniciar.Checked = Convert.ToBoolean(datosConfig[22]);
 
                 cbCorreoDescuento.Checked = Convert.ToBoolean(datosConfig[23]);
+
+                chRespaldo.Checked = Convert.ToBoolean(datosConfig[24]);
             }
             else
             {
@@ -276,10 +278,12 @@ namespace PuntoDeVentaV2
                                 backup.ExportToFile(archivo);
                                 con.Close();
 
-                                //Enviar la base de datos por correo
-                                //Thread hilo = new Thread(new ThreadStart(sendEmail()));
-                                Thread hilo = new Thread(() => sendEmail(archivo));
-                                hilo.Start();
+                                if (validarMandarRespaldoCorreo())
+                                {
+                                    //Enviar la base de datos por correo
+                                    Thread hilo = new Thread(() => sendEmail(archivo));
+                                    hilo.Start();
+                                }
                             }
                         }
                     }
@@ -342,6 +346,20 @@ namespace PuntoDeVentaV2
             //Enviar por correo la base de datos
             var correoUsuario = mb.correoUsuario();
             Utilidades.EnviarCorreoRespaldo(correoUsuario, pathCorreo);
+        }
+
+        private bool validarMandarRespaldoCorreo()
+        {
+            var result = false;
+
+            var query = cn.CargarDatos($"SELECT CorreoRespaldo FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToBoolean(query.Rows[0]["CorreoRespaldo"].ToString());
+            }
+
+            return result;
         }
 
         private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
@@ -968,7 +986,7 @@ namespace PuntoDeVentaV2
         {
             var habilitado = 0;
 
-            if (cbCorreoDescuento.Checked)
+            if (!cbCorreoDescuento.Checked)
             {
                 habilitado = 1;
             }
