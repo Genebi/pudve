@@ -1819,7 +1819,7 @@ namespace PuntoDeVentaV2
 
         public static void EnviarCorreoRespaldo(string correo, string ruta)
         {
-            var asunto = "SE HA REALIZADO UN RESPALDO DE LA BASE DE DATOS";
+            var asunto = "RESPALDO DE LA BASE DE DATOS";
             var html = $@"
                 <div style='text-align: center;'>
                 <h1 style='color: red;'>SE HA REALIZADO UN RESPALDO DE LA BASE DE DATOS</h1>
