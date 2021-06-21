@@ -159,7 +159,7 @@ namespace PuntoDeVentaV2
 
             int contador = 0;
             int dato2 = 35;
-            int top = 110, left = 200, ancho = 150;
+            int top = 130, left = 200, ancho = 150;
             using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.verificarPermisosDinamicos(FormPrincipal.userID)))
             {
                 if (!dtPermisosDinamicos.Rows.Count.Equals(0))
@@ -168,14 +168,14 @@ namespace PuntoDeVentaV2
                     {
                         var concepto = drConcepto["concepto"].ToString();
                         
-                        if (concepto == "Proveedor" && top == 110)
+                        if (concepto == "Proveedor" && top == 130)
                         {
                             GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
                             top += 20;
                             dato2++;
                             contador++;
                         }
-                        else if (top == 110)
+                        else if (top == 130)
                         { 
                             GenerarCheckbox(top, left, ancho, concepto, datos2[dato2]);
                             top += 20;

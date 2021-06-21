@@ -85,6 +85,7 @@ namespace PuntoDeVentaV2
                 string ID = filaDatos["ID"].ToString();
                 string Nombre = filaDatos["Usuario"].ToString();
                 string Usuario = filaDatos["Fecha"].ToString();
+                string Correo = filaDatos["Correo"].ToString();
 
 
                 if (dgvInicios.Rows.Count.Equals(0))
@@ -94,6 +95,7 @@ namespace PuntoDeVentaV2
                     row.Cells["id"].Value = ID;
                     row.Cells["usuario"].Value = Nombre;
                     row.Cells["fecha"].Value = Usuario;
+                    row.Cells["Correo"].Value = Correo;
                 }
                 else if (!dgvInicios.Rows.Count.Equals(0))
                 {
@@ -102,6 +104,7 @@ namespace PuntoDeVentaV2
                     row.Cells["id"].Value = ID;
                     row.Cells["usuario"].Value = Nombre;
                     row.Cells["fecha"].Value = Usuario;
+                    row.Cells["Correo"].Value = Correo;
 
                 }
             }

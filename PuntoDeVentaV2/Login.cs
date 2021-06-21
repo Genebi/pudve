@@ -70,6 +70,8 @@ namespace PuntoDeVentaV2
 
         DBTables dbTables = new DBTables();
 
+        public static string[] datosUsuario = new string[] { };
+
         //public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         Conexion cn = new Conexion();
         checarVersion vs = new checarVersion();
@@ -174,9 +176,19 @@ namespace PuntoDeVentaV2
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            int contadorSesiones = 0;
+            var IDUsuario = 0;
+            var query = cn.CargarDatos(cs.obtenerIDUsuario(txtUsuario.Text, txtPassword.Text));
+            if (!query.Rows.Count.Equals(0))
+            {
+                foreach (DataRow dato in query.Rows)
+                {
+                    IDUsuario = Convert.ToInt32(dato["ID"].ToString());
+                }
+            }
+                    int contadorSesiones = 0;
             var servidor = Properties.Settings.Default.Hosting;
-
+            datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
+            var correo = datosUsuario[9].ToString();
             //vs.printProductVersion();
 
             if (!VerificarServidor())
@@ -267,14 +279,16 @@ namespace PuntoDeVentaV2
                             Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'", 1));
                             cn.EjecutarConsulta(cs.aumentoContadorSesiones(Id));//actualiza el conteo de forma local
                             cnx.actualizarConteo(usuario);//actualiza el conteo online
-                            cn.EjecutarConsulta(cs.registroSesiones(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                            cn.EjecutarConsulta(cs.registroSesiones(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),correo));
                             cnx.registrarInicio(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                         }
                         else // Empleado
                         {
+                            //cn.DatosUsuario
                             usuario = usuario + "@" + usuario_empleado;
                             password = password_empleado;
-                            cn.EjecutarConsulta(cs.registroSesiones(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                            //Agregar el correo aqui-------------------------------------------------------------------------
+                            cn.EjecutarConsulta(cs.registroSesiones(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"), correo));
                             cnx.registrarInicio(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                             Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDUsuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 3));
                             // ID del empleado
