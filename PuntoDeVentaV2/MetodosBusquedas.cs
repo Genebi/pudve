@@ -2560,5 +2560,18 @@ namespace PuntoDeVentaV2
         {
             sql_con.Close();
         }
+
+
+        public string correoUsuario()
+        {
+            var dato = string.Empty;
+            var consulta = cn.CargarDatos($"SELECT Email FROM Usuarios WHERE ID = '{FormPrincipal.userID}' AND Usuario = '{FormPrincipal.userNickName}'"); 
+            if (!consulta.Rows.Count.Equals(0))
+            {
+                dato = consulta.Rows[0]["Email"].ToString();
+            }
+
+            return dato;
+        }
     }
 }
