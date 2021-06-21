@@ -134,6 +134,7 @@
             this.fLPLateralConcepto.Size = new System.Drawing.Size(274, 475);
             this.fLPLateralConcepto.TabIndex = 0;
             this.fLPLateralConcepto.WrapContents = false;
+            this.fLPLateralConcepto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPLateralConcepto_Paint);
             // 
             // panel2
             // 
