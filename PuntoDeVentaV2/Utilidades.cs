@@ -1819,10 +1819,17 @@ namespace PuntoDeVentaV2
 
         public static void EnviarCorreoRespaldo(string correo, string ruta)
         {
+            DateTime fechaActual = DateTime.Now;
+
             var asunto = "RESPALDO DE LA BASE DE DATOS";
             var html = $@"
                 <div style='text-align: center;'>
                 <h1 style='color: red;'>SE HA REALIZADO UN RESPALDO DE LA BASE DE DATOS</h1>
+                </div>
+                
+                <div style='text-align: center;'>
+                <h4> Usuario: {FormPrincipal.userNickName} </h4>
+                <h4> Fecha: {fechaActual.ToString()} </h4>
                 </div>
                 
             ";

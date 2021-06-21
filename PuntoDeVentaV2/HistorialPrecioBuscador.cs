@@ -13,6 +13,7 @@ namespace PuntoDeVentaV2
     public partial class HistorialPrecioBuscador : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
 
         private Paginar p;
 
@@ -25,6 +26,9 @@ namespace PuntoDeVentaV2
         string filtroConSinFiltroAvanzado = string.Empty;
         string busqueda = string.Empty;
         bool conBusqueda = false;
+
+        private string fechaInicial = string.Empty;
+        private string fechaFinal = string.Empty;
 
         public static string idEmpleadoObtenido { get; set; }
         public static string procedencia { get; set; }
@@ -355,7 +359,19 @@ namespace PuntoDeVentaV2
             //{
 
             //}
-            ejecutarMovimiento();
+            var fechas = new FechasReportes();
+            fechaInicial = fechas.fechaInicial;
+            fechaFinal = fechas.fechaFinal;
+
+            var datosGet = recorrerDiccionario(listaIdEmpleados);
+            if (cs.validarInformacion(tipoBuscador, datosGet, fechaInicial, fechaFinal))
+            {
+                ejecutarMovimiento();
+            }
+            else
+            {
+                MessageBox.Show("No existe infomación para generar el reporte.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void DGVDatosEmpleados_CellContentClick(object sender, DataGridViewCellEventArgs e)

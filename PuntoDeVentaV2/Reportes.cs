@@ -83,15 +83,15 @@ namespace PuntoDeVentaV2
                             {
                                 if (Utilidades.AdobeReaderInstalado())
                                 {
-                                    if (validarInformacio(FechasReportes.lugarProcedencia, FechasReportes.idEncontrado))
-                                    {
-                                        GenerarReportePrecios(FechasReportes.lugarProcedencia, FechasReportes.idEncontrado);
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("No existe infomación para generar el reporte.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    }
-
+                                    //if (cs.validarInformacio(FechasReportes.lugarProcedencia, FechasReportes.idEncontrado))
+                                    //{
+                                    //    GenerarReportePrecios(FechasReportes.lugarProcedencia, FechasReportes.idEncontrado);
+                                    //}
+                                    //else
+                                    //{
+                                    //    MessageBox.Show("No existe infomación para generar el reporte.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    //}
+                                    GenerarReportePrecios(FechasReportes.lugarProcedencia, FechasReportes.idEncontrado);
                                 }
                                 else
                                 {
@@ -106,45 +106,45 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private bool validarInformacio(string procedencia, string idEmp)
-        {
-            bool result = false;
+        //public bool validarInformacion(string procedencia, string idEmp)
+        //{
+        //    bool result = false;
 
-            var consulta = string.Empty;
+        //    var consulta = string.Empty;
 
-            if (procedencia.Equals("Seleccionar Empleado/Producto"))//consulta Normal
-            {
-                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion DESC";
-            }
-            else if (procedencia.Equals("Empleados"))// Consulta segun empleado
-            {
-                var validarId = string.Empty;
-                if (!string.IsNullOrEmpty(idEmp))
-                {
-                    validarId = idEmp;
-                }
+        //    if (procedencia.Equals("Seleccionar Empleado/Producto"))//consulta Normal
+        //    {
+        //        consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion DESC";
+        //    }
+        //    else if (procedencia.Equals("Empleados"))// Consulta segun empleado
+        //    {
+        //        var validarId = string.Empty;
+        //        if (!string.IsNullOrEmpty(idEmp))
+        //        {
+        //            validarId = idEmp;
+        //        }
 
-                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDEmpleado IN ({validarId}) ORDER BY FechaOperacion DESC";
-            }
-            else if (procedencia.Equals("Productos"))//Consulta por producto
-            {
-                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDProducto IN ({idEmp}) ORDER BY FechaOperacion DESC";
-            }
+        //        consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDEmpleado IN ({validarId}) ORDER BY FechaOperacion DESC";
+        //    }
+        //    else if (procedencia.Equals("Productos"))//Consulta por producto
+        //    {
+        //        consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDProducto IN ({idEmp}) ORDER BY FechaOperacion DESC";
+        //    }
 
-            var datosVerificar = cn.CargarDatos(consulta);
+        //    var datosVerificar = cn.CargarDatos(consulta);
 
-            if (!datosVerificar.Rows.Count.Equals(0))
-            {
-                result = true;
-            }
-            else
-            {
-                result = false;
-            }
+        //    if (!datosVerificar.Rows.Count.Equals(0))
+        //    {
+        //        result = true;
+        //    }
+        //    else
+        //    {
+        //        result = false;
+        //    }
 
 
-            return result;
-        }
+        //    return result;
+        //}
 
         private void GenerarReportePrecios(string procedencia, string idEmp)
         {

@@ -2049,5 +2049,45 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{contraseña}'";
             return consulta;
         }
+
+        public bool validarInformacion(string procedencia, string idEmp, string fechaInicial, string fechaFinal)
+        {
+            bool result = false;
+
+            var consulta = string.Empty;
+
+            if (procedencia.Equals("Seleccionar Empleado/Producto"))//consulta Normal
+            {
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion DESC";
+            }
+            else if (procedencia.Equals("Empleados"))// Consulta segun empleado
+            {
+                var validarId = string.Empty;
+                if (!string.IsNullOrEmpty(idEmp))
+                {
+                    validarId = idEmp;
+                }
+
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDEmpleado IN ({validarId}) ORDER BY FechaOperacion DESC";
+            }
+            else if (procedencia.Equals("Productos"))//Consulta por producto
+            {
+                consulta = $"SELECT * FROM HistorialPrecios WHERE IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND IDProducto IN ({idEmp}) ORDER BY FechaOperacion DESC";
+            }
+
+            var datosVerificar = cn.CargarDatos(consulta);
+
+            if (!datosVerificar.Rows.Count.Equals(0))
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+
+            return result;
+        }
     }
 }  
