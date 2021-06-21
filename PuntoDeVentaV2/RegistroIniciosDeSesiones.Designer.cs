@@ -46,10 +46,11 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvInicios = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
+            this.correo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -299,13 +300,27 @@
             this.dgvInicios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.usuario,
-            this.fecha});
+            this.fecha,
+            this.correo});
             this.dgvInicios.Location = new System.Drawing.Point(12, 68);
             this.dgvInicios.Name = "dgvInicios";
             this.dgvInicios.ReadOnly = true;
             this.dgvInicios.RowHeadersVisible = false;
             this.dgvInicios.Size = new System.Drawing.Size(866, 345);
             this.dgvInicios.TabIndex = 40;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(305, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(294, 25);
+            this.label1.TabIndex = 42;
+            this.label1.Text = "Registro de inicios de sesión";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // id
             // 
@@ -326,18 +341,11 @@
             this.fecha.Name = "fecha";
             this.fecha.ReadOnly = true;
             // 
-            // label1
+            // correo
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(305, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(294, 25);
-            this.label1.TabIndex = 42;
-            this.label1.Text = "Registro de inicios de sesión";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.correo.HeaderText = "Correo";
+            this.correo.Name = "correo";
+            this.correo.ReadOnly = true;
             // 
             // RegistroIniciosDeSesiones
             // 
@@ -383,9 +391,10 @@
         private System.Windows.Forms.Label lblCantidadRegistros;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView dgvInicios;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn correo;
     }
 }

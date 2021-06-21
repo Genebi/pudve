@@ -1329,6 +1329,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void fLPLateralConcepto_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void llenarDatosUbicacion(string textoBuscado)
         {
             string namePanel = string.Empty;

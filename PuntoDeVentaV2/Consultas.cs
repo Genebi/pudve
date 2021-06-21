@@ -1825,9 +1825,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string registroSesiones(string nombre, string fecha)
+        public string registroSesiones(string nombre, string fecha, string correo)
         {
-            var consulta = $"INSERT INTO iniciosDeSesion (Usuario, Fecha) VALUES ('{nombre}', '{fecha}')";
+            var consulta = $"INSERT INTO iniciosDeSesion (Usuario, Fecha, Correo) VALUES ('{nombre}', '{fecha}', '{correo}')";
             return consulta;
         }
 
@@ -1996,10 +1996,10 @@ namespace PuntoDeVentaV2
             var consulta = $"UPDATE empleadospermisos SET {concepto} = '{value}' WHERE IDEmpleado = '{idEmpleado}' AND IDUsuario = '{FormPrincipal.userID}'";
             return consulta;
         }
-
+         
         public string verificarPermisosDinamicos(int idUsuario)
         {
-            var consulta = $"SELECT * FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1 AND checkBoxConcepto = 1";
+            var consulta = $"SELECT * FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1 ";
 
             return consulta;
         }
@@ -2041,6 +2041,12 @@ namespace PuntoDeVentaV2
         {
             var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDProducto = '{idProd}'";
 
+            return consulta;
+        }
+
+        public string obtenerIDUsuario(string usuario,string contraseña)
+        {
+            var consulta = $"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{contraseña}'";
             return consulta;
         }
     }
