@@ -354,11 +354,11 @@ namespace PuntoDeVentaV2
 
                 respuesta = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Se comento el mensaje de exception ya que el usuario no sabe que se le enviara correo
                 // y que no aparezca el messagebox
-                //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return respuesta;
@@ -1813,6 +1813,19 @@ namespace PuntoDeVentaV2
 			</table>	
 			</div>
                         ";
+
+            EnviarEmailConArchivoPDF(html, asunto, correo, ruta);
+        }
+
+        public static void EnviarCorreoRespaldo(string correo, string ruta)
+        {
+            var asunto = "SE HA REALIZADO UN RESPALDO DE LA BASE DE DATOS";
+            var html = $@"
+                <div style='text-align: center;'>
+                <h1 style='color: red;'>SE HA REALIZADO UN RESPALDO DE LA BASE DE DATOS</h1>
+                </div>
+                
+            ";
 
             EnviarEmailConArchivoPDF(html, asunto, correo, ruta);
         }

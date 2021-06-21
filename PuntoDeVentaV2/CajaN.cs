@@ -223,17 +223,17 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private string correoUdiario()
-        {
-            var dato = string.Empty;
-            var consulta = cn.CargarDatos($"SELECT Email FROM Usuarios WHERE ID = '{FormPrincipal.userID}' AND Usuario = '{FormPrincipal.userNickName}'");
-            if (!consulta.Rows.Count.Equals(0))
-            {
-                dato = consulta.Rows[0]["Email"].ToString();
-            }
+        //private string correoUsuario()
+        //{
+        //    var dato = string.Empty;
+        //    var consulta = cn.CargarDatos($"SELECT Email FROM Usuarios WHERE ID = '{FormPrincipal.userID}' AND Usuario = '{FormPrincipal.userNickName}'");
+        //    if (!consulta.Rows.Count.Equals(0))
+        //    {
+        //        dato = consulta.Rows[0]["Email"].ToString();
+        //    }
 
-            return dato;
-        }
+        //    return dato;
+        //}
 
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
@@ -275,7 +275,7 @@ namespace PuntoDeVentaV2
                     CargarSaldoInicial();
                     CargarSaldo();
 
-                    var correo = correoUdiario();
+                    var correo = mb.correoUsuario();
                     var correoCantidades = cargarDatosCorteCaja();
 
                     // Ejecutar hilo para enviar notificación

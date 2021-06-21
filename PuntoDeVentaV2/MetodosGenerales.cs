@@ -9,6 +9,8 @@ namespace PuntoDeVentaV2
 {
     class MetodosGenerales
     {
+        Conexion cn = new Conexion();
+
         string[] preposiciones = new string[] {
             "A", "ANTE", "BAJO", "CABE", "CON", "CONTRA", "DE", "DESDE", "DURANTE", "EN",
             "ENTRE", "HACIA", "HASTA", "PARA", "POR", "SEGÚN", "SIN", "SO", "SOBRE", "TRAS",

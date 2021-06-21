@@ -1270,7 +1270,7 @@ namespace PuntoDeVentaV2
             {
                 if (query.Rows.Count.Equals(1))
                 {
-                    result = Convert.ToInt32(query.Rows[0s]["Folio"].ToString());
+                    result = Convert.ToInt32(query.Rows[0]["Folio"].ToString());
                 }
                 else
                 {

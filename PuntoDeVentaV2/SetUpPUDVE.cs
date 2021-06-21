@@ -7,8 +7,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO.Compression;
 
 namespace PuntoDeVentaV2
 {
@@ -273,6 +275,11 @@ namespace PuntoDeVentaV2
                                 con.Open();
                                 backup.ExportToFile(archivo);
                                 con.Close();
+
+                                //Enviar la base de datos por correo
+                                //Thread hilo = new Thread(new ThreadStart(sendEmail()));
+                                Thread hilo = new Thread(() => sendEmail(archivo));
+                                hilo.Start();
                             }
                         }
                     }
@@ -284,6 +291,57 @@ namespace PuntoDeVentaV2
                     MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void varificarCarpetaRespaldos()
+        {//Crea la carpeta Respaldos si no existe 
+            string directorio = @"C:\Archivos PUDVE\Respaldos";
+
+            if (!Directory.Exists(directorio))
+            {
+                Directory.CreateDirectory(directorio);
+            }
+
+            string directorioZipTerminados = @"C:\Archivos PUDVE\Respaldos\Terminados";
+
+            if (!Directory.Exists(directorioZipTerminados))
+            {
+                Directory.CreateDirectory(directorioZipTerminados);
+            }
+
+            string directorioZip = @"C:\Archivos PUDVE\Respaldos\Terminados\Zip";
+
+            if (!Directory.Exists(directorioZip))
+            {
+                Directory.CreateDirectory(directorioZip);
+            }
+        }
+
+        private void sendEmail(string rutaGuardado)
+        {
+            DateTime fechaCreacion = DateTime.Now;
+
+            varificarCarpetaRespaldos();
+
+            //Variables con las rutas para mover los archivos
+            var rutaDestino = $@"C:\Archivos PUDVE\Respaldos\Terminados\Zip\{FormPrincipal.userNickName}_{fechaCreacion.ToString("yyyyMMddHHmmss")}.sql";
+            var rutaSalida = rutaGuardado;
+            var segundaCarpeta = $@"C:\Archivos PUDVE\Respaldos\Terminados\{FormPrincipal.userNickName}_{fechaCreacion.ToString("yyyyMMddHHmmss")}.sql";
+
+            var pathCorreo = $@"C:\Archivos PUDVE\Respaldos\{FormPrincipal.userNickName}_{ fechaCreacion.ToString("yyyyMMddHHmmss")}.zip";
+
+            //Copiar la bd para poder mandarla por correo
+            File.Copy(rutaSalida, rutaDestino);
+            
+            //Comprimir en archivo Sql para poder enviarlo por correo
+            ZipFile.CreateFromDirectory(@"C:\Archivos PUDVE\Respaldos\Terminados\Zip", pathCorreo);
+
+            //Mover archivos para poder comprimir futuros respaldos
+            File.Move(rutaDestino, segundaCarpeta);//Mover de carpeta
+
+            //Enviar por correo la base de datos
+            var correoUsuario = mb.correoUsuario();
+            Utilidades.EnviarCorreoRespaldo(correoUsuario, pathCorreo);
         }
 
         private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
@@ -832,6 +890,7 @@ namespace PuntoDeVentaV2
         }
 
         private void SetUpPUDVE_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+
         {
             if (e.KeyCode == Keys.Enter)
             {
