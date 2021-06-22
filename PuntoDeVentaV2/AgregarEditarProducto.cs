@@ -8024,8 +8024,7 @@ namespace PuntoDeVentaV2
                 tLPServicio.Controls.Add(lbPrecioVenta, 3, 1);        // Label de exclamation Precio Venta
 
                 #endregion End Row 2
-
-
+                
                 // Tercera Fila del TableLayoutPanel
                 // Label títulos
                 #region Begin Row 3
@@ -8130,8 +8129,7 @@ namespace PuntoDeVentaV2
                 tLPServicio.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
 
                 #endregion End Row 4
-
-
+                
                 // Quinta Fila del TableLayoutPanel
                 // Label títulos
                 #region Begin Row 5

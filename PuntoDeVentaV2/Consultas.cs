@@ -334,13 +334,13 @@ namespace PuntoDeVentaV2
         {
             string consulta = null;
 
-            if (operacion == 0)
+            if (operacion.Equals(0))
             {
                 //Insertar nueva venta
                 consulta = "INSERT INTO Ventas (IDUsuario, IDCliente, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion, IDClienteDescuento, IDEmpleado, FormaPago)";
                 consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}')";
             }
-            else
+            else if (operacion.Equals(1))
             {
                 //Actualizar venta guardada
                 consulta = $"UPDATE Ventas SET IDCliente = '{datos[1]}', Subtotal = '{datos[3]}', IVA16 = '{datos[4]}', Total = '{datos[5]}', Descuento = '{datos[6]}', DescuentoGeneral = '{datos[7]}', Status = '{datos[11]}', FechaOperacion = '{datos[12]}', IDClienteDescuento = '{datos[13]}' WHERE ID = '{operacion}'";
@@ -2040,6 +2040,13 @@ namespace PuntoDeVentaV2
         public string obtenerProdRelacionados(string idProd)
         {
             var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDProducto = '{idProd}'";
+
+            return consulta;
+        }
+
+        public string ventaGuardadaEstaTimbrada(int idVenta)
+        {
+            var consulta = $"SELECT ID, IDUsuario, IDCliente, IDEmpleado, IDSucursal, Folio, Serie, `Status`, Timbrada, Cancelada, FechaOperacion FROM ventas WHERE ID = '{idVenta}' AND IDUsuario = '{FormPrincipal.userID}' AND `Status` = '2';";
 
             return consulta;
         }

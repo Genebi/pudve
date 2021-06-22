@@ -2766,6 +2766,9 @@ namespace PuntoDeVentaV2
             var idClienteTmp = idCliente;
             string id_empleado = Convert.ToString(FormPrincipal.id_empleado);
 
+            // variable para saber si esta facturada la venta Guardada
+            var estaTimbrada = false;
+
             if (ventaGuardada)
             {
                 if (statusVenta.Equals(""))
@@ -2784,20 +2787,6 @@ namespace PuntoDeVentaV2
                 {
                     idClienteTmp = "0";
                 }
-                //else if (!cliente.Equals(string.Empty))
-                //{
-                //    using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(cliente)))
-                //    {
-                //        if (!dtIdCliente.Rows.Count.Equals(0))
-                //        {
-                //            foreach(DataRow drIdCliente in dtIdCliente.Rows)
-                //            {
-                //                idClienteTmp = drIdCliente["ID"].ToString();
-                //                idCliente = drIdCliente["ID"].ToString();
-                //            }
-                //        }
-                //    }
-                //}
             }
 
             aumentoFolio();
@@ -2818,6 +2807,32 @@ namespace PuntoDeVentaV2
 
             if (VerificarStockProducto())
             {
+                if (!ventasGuardadas.Count.Equals(0))
+                {
+                    foreach (var venta in ventasGuardadas)
+                    {
+                        using (DataTable dtVentaGuardada = cn.CargarDatos(cs.ventaGuardadaEstaTimbrada(venta)))
+                        {
+                            if (!dtVentaGuardada.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow drVentaGuardada in dtVentaGuardada.Rows)
+                                {
+                                    if (drVentaGuardada["Timbrada"].Equals(1))
+                                    {
+                                        MessageBox.Show("Venta ya Facturada");
+                                        estaTimbrada = true;
+                                    }
+                                    else if (drVentaGuardada["Timbrada"].Equals(0))
+                                    {
+                                        MessageBox.Show("Venta no Facturada");
+                                        estaTimbrada = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 // Se hace el guardado de la informacion general de la venta
                 int respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
 
@@ -2891,19 +2906,6 @@ namespace PuntoDeVentaV2
                         {
                             cliente = "PUBLICO GENERAL";
                         }
-                        //else
-                        //{
-                        //    using (DataTable dtCliente = cn.CargarDatos(cs.getRazonNombreRfcCliente(idCliente)))
-                        //    {
-                        //        if (!dtCliente.Rows.Count.Equals(0))
-                        //        {
-                        //            foreach(DataRow drCliente in dtCliente.Rows)
-                        //            {
-                        //                cliente = drCliente["RazonSocial"].ToString();
-                        //            }
-                        //        }
-                        //    }
-                        //}
 
                         // A partir de la variable DescuentoGeneral esos valores y datos se toman solo para el ticket de venta
                         guardar = new string[] {
@@ -3401,7 +3403,7 @@ namespace PuntoDeVentaV2
 
                         ventasGuardadas.Add(mostrarVenta);
 
-                        mostrarVenta = 0;
+                        //mostrarVenta = 0;
                     }
                 };
 
