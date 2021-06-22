@@ -185,7 +185,8 @@ namespace PuntoDeVentaV2
                     IDUsuario = Convert.ToInt32(dato["ID"].ToString());
                 }
             }
-                    int contadorSesiones = 0;
+
+            int contadorSesiones = 0;
             var servidor = Properties.Settings.Default.Hosting;
             datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
             var correo = datosUsuario[9].ToString();
@@ -252,8 +253,6 @@ namespace PuntoDeVentaV2
                     usuario_empleado = partir[1];
                     password_empleado = password;
                     
-
-
                     // Consulta password de la cuenta principal.
                     // Se hace para que al momento de enviar los datos a la comprobación de la licencia
                     // no marque error por el password incorrecto.
@@ -826,7 +825,7 @@ namespace PuntoDeVentaV2
                     conexion.Open();
 
                     MySqlCommand consultar = conexion.CreateCommand();
-                    consultar.CommandText = $"SELECT estadoLicencia, fechaCreacion, fechaInicioLicencia, fechaFinLicencia, current_timestamp as fechaHoy FROM Usuarios WHERE usuario = '{usuario}'";
+                    consultar.CommandText = $"SELECT estadoLicencia, fechaCreacion, fechaInicioLicencia, fechaFinLicencia, current_timestamp as fechaHoy, licencia FROM Usuarios WHERE usuario = '{usuario}'";
                     MySqlDataReader dr = consultar.ExecuteReader();
 
                     if (dr.Read())
@@ -836,6 +835,15 @@ namespace PuntoDeVentaV2
                         string fechaInicio = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaInicioLicencia"))).ToString("yyyy-MM-dd");
                         string fechaFin = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaFinLicencia"))).ToString("yyyy-MM-dd");
                         string fechaHoy = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaHoy"))).ToString("yyyy-MM-dd");
+                        string licencia = dr.GetValue(dr.GetOrdinal("licencia")).ToString();
+
+                        if (string.IsNullOrWhiteSpace(Properties.Settings.Default.licencia))
+                        {
+                            Properties.Settings.Default.licencia = licencia;
+                            Properties.Settings.Default.fechaFinLicencia = fechaFin;
+                            Properties.Settings.Default.Save();
+                            Properties.Settings.Default.Reload();
+                        }
 
                         // Comparar fecha actual con la fecha de caducidad de la licencia
                         int comparacion = DateTime.Compare(Convert.ToDateTime(fechaHoy), Convert.ToDateTime(fechaFin));

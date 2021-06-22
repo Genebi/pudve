@@ -430,5 +430,29 @@ namespace PuntoDeVentaV2.Properties {
                 this["strFiltroImagen"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string fechaFinLicencia {
+            get {
+                return ((string)(this["fechaFinLicencia"]));
+            }
+            set {
+                this["fechaFinLicencia"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string licencia {
+            get {
+                return ((string)(this["licencia"]));
+            }
+            set {
+                this["licencia"] = value;
+            }
+        }
     }
 }

@@ -377,6 +377,14 @@ namespace PuntoDeVentaV2
                 opcion4 = permisos[3];
                 opcion5 = permisos[4];
             }
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.licencia))
+            {
+                panelLicencia.Visible = true;
+                lbLicenciaContenido.Text = Properties.Settings.Default.licencia;
+                lbFechaFinLicenciaContenido.Text = Properties.Settings.Default.fechaFinLicencia;
+            }
+
             this.Focus();
         }
 

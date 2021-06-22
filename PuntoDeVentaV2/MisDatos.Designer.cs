@@ -92,6 +92,11 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.lbSeparador1 = new System.Windows.Forms.Label();
+            this.panelLicencia = new System.Windows.Forms.Panel();
+            this.lbLicencia = new System.Windows.Forms.Label();
+            this.lbFechaFinLicencia = new System.Windows.Forms.Label();
+            this.lbLicenciaContenido = new System.Windows.Forms.Label();
+            this.lbFechaFinLicenciaContenido = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -99,6 +104,7 @@
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panelLicencia.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -617,7 +623,7 @@
             this.panel2.Location = new System.Drawing.Point(581, 7);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(386, 303);
+            this.panel2.Size = new System.Drawing.Size(386, 275);
             this.panel2.TabIndex = 3;
             // 
             // label29
@@ -699,6 +705,7 @@
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.panelLicencia);
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.label14);
             this.panel3.Controls.Add(this.panel1);
@@ -717,7 +724,7 @@
             this.panel5.Controls.Add(this.txtPassword);
             this.panel5.Controls.Add(this.label27);
             this.panel5.Controls.Add(this.label25);
-            this.panel5.Location = new System.Drawing.Point(603, 319);
+            this.panel5.Location = new System.Drawing.Point(603, 287);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(335, 135);
             this.panel5.TabIndex = 22;
@@ -901,6 +908,56 @@
             this.lbSeparador1.Size = new System.Drawing.Size(962, 2);
             this.lbSeparador1.TabIndex = 20;
             // 
+            // panelLicencia
+            // 
+            this.panelLicencia.Controls.Add(this.lbFechaFinLicenciaContenido);
+            this.panelLicencia.Controls.Add(this.lbLicenciaContenido);
+            this.panelLicencia.Controls.Add(this.lbFechaFinLicencia);
+            this.panelLicencia.Controls.Add(this.lbLicencia);
+            this.panelLicencia.Location = new System.Drawing.Point(581, 428);
+            this.panelLicencia.Name = "panelLicencia";
+            this.panelLicencia.Size = new System.Drawing.Size(386, 76);
+            this.panelLicencia.TabIndex = 23;
+            this.panelLicencia.Visible = false;
+            // 
+            // lbLicencia
+            // 
+            this.lbLicencia.AutoSize = true;
+            this.lbLicencia.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLicencia.Location = new System.Drawing.Point(19, 22);
+            this.lbLicencia.Name = "lbLicencia";
+            this.lbLicencia.Size = new System.Drawing.Size(65, 17);
+            this.lbLicencia.TabIndex = 0;
+            this.lbLicencia.Text = "Licencia:";
+            // 
+            // lbFechaFinLicencia
+            // 
+            this.lbFechaFinLicencia.AutoSize = true;
+            this.lbFechaFinLicencia.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFechaFinLicencia.Location = new System.Drawing.Point(34, 50);
+            this.lbFechaFinLicencia.Name = "lbFechaFinLicencia";
+            this.lbFechaFinLicencia.Size = new System.Drawing.Size(50, 17);
+            this.lbFechaFinLicencia.TabIndex = 1;
+            this.lbFechaFinLicencia.Text = "Expira:";
+            // 
+            // lbLicenciaContenido
+            // 
+            this.lbLicenciaContenido.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLicenciaContenido.ForeColor = System.Drawing.Color.Red;
+            this.lbLicenciaContenido.Location = new System.Drawing.Point(90, 22);
+            this.lbLicenciaContenido.Name = "lbLicenciaContenido";
+            this.lbLicenciaContenido.Size = new System.Drawing.Size(254, 17);
+            this.lbLicenciaContenido.TabIndex = 2;
+            // 
+            // lbFechaFinLicenciaContenido
+            // 
+            this.lbFechaFinLicenciaContenido.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFechaFinLicenciaContenido.ForeColor = System.Drawing.Color.Red;
+            this.lbFechaFinLicenciaContenido.Location = new System.Drawing.Point(90, 50);
+            this.lbFechaFinLicenciaContenido.Name = "lbFechaFinLicenciaContenido";
+            this.lbFechaFinLicenciaContenido.Size = new System.Drawing.Size(254, 17);
+            this.lbFechaFinLicenciaContenido.TabIndex = 3;
+            // 
             // MisDatos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -928,6 +985,8 @@
             this.panel5.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panelLicencia.ResumeLayout(false);
+            this.panelLicencia.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -999,5 +1058,10 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label29;
         public System.Windows.Forms.TextBox txt_certificado;
+        private System.Windows.Forms.Panel panelLicencia;
+        private System.Windows.Forms.Label lbFechaFinLicenciaContenido;
+        private System.Windows.Forms.Label lbLicenciaContenido;
+        private System.Windows.Forms.Label lbFechaFinLicencia;
+        private System.Windows.Forms.Label lbLicencia;
     }
 }
