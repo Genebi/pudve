@@ -2156,7 +2156,9 @@ namespace PuntoDeVentaV2
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
+            BuscadorReporteClientes reporteClientes = new BuscadorReporteClientes();
 
+            reporteClientes.ShowDialog();
         }
     }
 }
