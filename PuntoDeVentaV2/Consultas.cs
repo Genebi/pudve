@@ -361,7 +361,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                consulta = $"UPDATE ProductosVenta SET IDProducto = '{datos[1]}', Nombre = '{datos[2]}', Cantidad = '{datos[3]}', Precio = '{datos[4]}', descuento = '{datos[6]}', TipoDescuento = '{datos[12]}' WHERE IDVenta = '{datos[0]}'";
+                consulta = $"UPDATE ProductosVenta SET Nombre = '{datos[2]}', Cantidad = '{datos[3]}', Precio = '{datos[4]}', descuento = '{datos[6]}', TipoDescuento = '{datos[12]}' WHERE IDVenta = '{datos[0]}' AND IDProducto = '{datos[1]}'";
             }
 
             return consulta;

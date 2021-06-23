@@ -2866,7 +2866,7 @@ namespace PuntoDeVentaV2
                                 }
                                 else if (!idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
                                 {
-                                    guardar[11] = idClienteTmp;
+                                    guardar[1] = idClienteTmp;
                                     mostrarVenta = 0;
                                     MessageBox.Show($"Esta venta ya fue guardada y facturada con un cliente distinto,\npor lo tanto se guardara como una venta nueva\ncon el cliente: {nombreCliente}.", "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
@@ -2905,7 +2905,7 @@ namespace PuntoDeVentaV2
                                     }
                                     else if (!idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
                                     {
-                                        guardar[11] = idClienteTmp;
+                                        guardar[1] = idClienteTmp;
                                         mostrarVenta = 0;
                                         respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
                                     }
@@ -3007,21 +3007,13 @@ namespace PuntoDeVentaV2
                         {
                             using (DataTable dtProductosVenta = cn.CargarDatos(cs.checarProductosVenta(idVenta)))
                             {
-                                if (!dtProductosVenta.Rows.Count.Equals(0))
+                                bool contains = dtProductosVenta.AsEnumerable().Any(row => Convert.ToInt32(IDProducto) == row.Field<int>("IDProducto"));
+
+                                if (contains)
                                 {
-                                    foreach (DataRow drProdVenta in dtProductosVenta.Rows)
-                                    {
-                                        if (drProdVenta["IDProducto"].ToString().Equals(IDProducto))
-                                        {
-                                            cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar, 1));
-                                        }
-                                        else if (!drProdVenta["IDProducto"].ToString().Equals(IDProducto))
-                                        {
-                                            cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
-                                        }
-                                    }
+                                    cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar, 1));
                                 }
-                                else if (dtProductosVenta.Rows.Count.Equals(0))
+                                else
                                 {
                                     cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
                                 }
@@ -3503,7 +3495,7 @@ namespace PuntoDeVentaV2
 
                         ventasGuardadas.Add(mostrarVenta);
 
-                        //mostrarVenta = 0;
+                        mostrarVenta = 0;
                     }
                 };
 
