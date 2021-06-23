@@ -265,7 +265,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[0].ToString()); //ID
                 lista.Add(dr[1].ToString()); //IDUsuario
                 lista.Add(dr[2].ToString()); //ChckName
-                lista.Add(dr[3].ToString()); //Descripcion
+                lista.Add(dr[3].ToString().Replace("_", " ")); //Descripcion
             }
 
             dr.Close();
@@ -548,7 +548,7 @@ namespace PuntoDeVentaV2
             {
                 lista.Add(dr["IDUsuario"].ToString());
                 lista.Add(dr["ChckName"].ToString());
-                lista.Add(dr["Descripcion"].ToString());
+                lista.Add(dr["Descripcion"].ToString().Replace("_"," "));
             }
 
             dr.Close();
@@ -1801,7 +1801,7 @@ namespace PuntoDeVentaV2
 
                     if (dr2.Read())
                     {
-                        var descripcion = dr2["Descripcion"].ToString();
+                        var descripcion = dr2["Descripcion"].ToString().Replace("_"," ");
 
                         resultado = descripcion;
                     }

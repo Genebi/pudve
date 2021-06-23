@@ -511,7 +511,7 @@ namespace PuntoDeVentaV2
 
                     // Agregamos el Botón de agregar item Más
                     Button bt = new Button();
-                    bt.Name = "bt" + chkDetalleProductoTxt;
+                    bt.Name = "bt" + chkDetalleProductoTxt.Replace("_", " ");
                     bt.Cursor = Cursors.Hand;
                     bt.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
                     bt.Height = 23;
@@ -1249,7 +1249,7 @@ namespace PuntoDeVentaV2
                             {
                                 if (contLblHijo.Name == "lblNombre" + textoBuscado)
                                 {
-                                    contLblHijo.Text = separadas[1].ToString();
+                                    contLblHijo.Text = separadas[1].ToString().Replace("_"," ");
                                     //contLblHijo.Text = "En Construcción está sección...";
                                 }
                             }
@@ -1833,7 +1833,7 @@ namespace PuntoDeVentaV2
                 {
                     var auxiliar = DetailGral.Split('|');
 
-                    detallesGral.Add(auxiliar[0], auxiliar[1]);
+                    detallesGral.Add(auxiliar[0], auxiliar[1].Replace("_", " "));
                 }
             }
             else
@@ -2697,7 +2697,7 @@ namespace PuntoDeVentaV2
                                 if (finalOrigenProdServCombo.Equals(1) || finalOrigenProdServCombo.Equals(3) || finalOrigenProdServCombo.Equals(4))
                                 {
                                     string rowDataList = string.Empty;
-                                    var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto);
+                                    var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
 
                                     int contieneIdFoundNew = idFoundNew.Length;
 
@@ -2721,7 +2721,7 @@ namespace PuntoDeVentaV2
                                         }
                                     }
 
-                                    var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto);
+                                    var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto.Replace(" ","_"));
 
                                     var idProductoBuscar = finalIdProducto;
 
@@ -2729,7 +2729,7 @@ namespace PuntoDeVentaV2
                                     {
                                         try
                                         {
-                                            cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamico("chk" + nameConcepto, FormPrincipal.userID, textoConcepto));
+                                            cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamico("chk" + nameConcepto, FormPrincipal.userID, textoConcepto.Replace(" ", "_")));
                                         }
                                         catch (Exception ex)
                                         {
@@ -2754,7 +2754,7 @@ namespace PuntoDeVentaV2
                                                 }
                                             }
 
-                                            var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto);
+                                            var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
 
                                             var idProductoBuscarGral = finalIdProducto;
 
@@ -2821,7 +2821,7 @@ namespace PuntoDeVentaV2
                                                     {
                                                         foreach (DataRow drDetallesProductoGenerales in dtDetallesProductoGenerales.Rows)
                                                         {
-                                                            var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto);
+                                                            var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
                                                             try
                                                             {
                                                                 infoDetailProdGral.Add(drDetallesProductoGenerales["ID"].ToString());

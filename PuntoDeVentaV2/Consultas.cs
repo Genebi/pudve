@@ -1083,7 +1083,7 @@ namespace PuntoDeVentaV2
         public string ActualizarDatoValueDinamico(string claveBuscar, int valueDato, int idUsuario)
         {
             var consulta = $"UPDATE appSettings SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
-
+            
             return consulta;
         }
 

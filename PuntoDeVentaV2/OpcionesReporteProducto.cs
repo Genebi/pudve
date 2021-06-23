@@ -489,7 +489,7 @@ namespace PuntoDeVentaV2
             // Se generan las columnas dinamicamente
             foreach (var opcion in opciones)
             {
-                PdfPCell colCustom = new PdfPCell(new Phrase(opcion.Value.Item1, fuenteTotales));
+                PdfPCell colCustom = new PdfPCell(new Phrase(opcion.Value.Item1.Replace("_"," "), fuenteTotales));
                 colCustom.BorderWidth = 0;
                 colCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                 colCustom.Padding = 3;

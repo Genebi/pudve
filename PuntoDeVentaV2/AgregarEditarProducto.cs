@@ -587,7 +587,7 @@ namespace PuntoDeVentaV2
                     //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
                     //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
 
-                    chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
+                    chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString().Replace("_", " ");
                     chkSettingVariableVal = lstListView.Items[i].Text.ToString();
 
                     if (chkSettingVariableVal.Equals("true"))
@@ -616,7 +616,7 @@ namespace PuntoDeVentaV2
                         CargarDetallesGral(name.ToString().Remove(0, 3));
 
                         ComboBox cbDetalleGral = new ComboBox();
-                        cbDetalleGral.Name = "cb" + name;
+                        cbDetalleGral.Name = "cb" + name.Replace("_", " ");
                         cbDetalleGral.Width = 815;
                         cbDetalleGral.Height = 30;
                         cbDetalleGral.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
@@ -748,7 +748,7 @@ namespace PuntoDeVentaV2
                     cadena = string.Join("", listaDetalleGral[comboBoxIndex - 1]);
                     separadas = cadena.Split(delimiterChars);
                     idProductoDetalleGral = Convert.ToInt32(separadas[0]);
-                    nombreDetalleGral = separadas[1];
+                    nombreDetalleGral = separadas[1].Replace("_", " ");
                 }
                 else if (comboBoxIndex <= 0)
                 {
@@ -823,7 +823,7 @@ namespace PuntoDeVentaV2
             string concepto = string.Empty;
             detallesGral = new Dictionary<string, string>();
 
-            concepto = textBuscado;
+            concepto = textBuscado.Replace(" ","_");
 
             listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, concepto);
 
@@ -835,7 +835,7 @@ namespace PuntoDeVentaV2
                 {
                     var auxiliar = DetailGral.Split('|');
 
-                    detallesGral.Add(auxiliar[0], auxiliar[1]);
+                    detallesGral.Add(auxiliar[0], auxiliar[1].Replace("_", " "));
                 }
                 Array.Clear(listaDetalleGral, 0, listaDetalleGral.Length);
             }
@@ -8592,7 +8592,7 @@ namespace PuntoDeVentaV2
             for (int i = 0; i < datosProductos.Rows.Count; i++)
             {
                 ItemsProductoComboBox itemCBProd = new ItemsProductoComboBox();
-                itemCBProd.Value = datosProductos.Rows[i]["Nombre"].ToString();
+                itemCBProd.Value = datosProductos.Rows[i]["Nombre"].ToString().Replace("_", " ");
                 itemCBProd.text = datosProductos.Rows[i]["ID"].ToString();
                 prodList.Add(itemCBProd);
             }

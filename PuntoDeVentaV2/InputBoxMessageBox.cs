@@ -77,4 +77,4 @@ namespace PuntoDeVentaV2
             this.strDefaultResponse = _DefaultResponse;
         }
     }
-}
+} 
