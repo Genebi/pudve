@@ -55,8 +55,11 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
+            fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
+
             var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
-            HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda);
+            HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
 
             if (tipoBusqurda.Equals("Seleccionar Empleado/Producto"))
             {

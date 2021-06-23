@@ -34,12 +34,18 @@ namespace PuntoDeVentaV2
         public static string procedencia { get; set; }
 
         string tipoBuscador = string.Empty;
+        string fechaInicialF = string.Empty;
+        string fechaFinalF = string.Empty;
 
-        public HistorialPrecioBuscador(string tipoBusqueda)
+        public HistorialPrecioBuscador(string tipoBusqueda, string fechaInicial, string fechaFinal)
         {
             InitializeComponent();
             this.tipoBuscador = tipoBusqueda;
             procedencia = tipoBuscador;
+            this.fechaInicial = fechaInicial;
+            fechaInicialF = fechaInicial;
+            this.fechaFinal = fechaFinal;
+            fechaFinalF = fechaFinal;
         }
 
         private void HistorialPrecioBuscador_Load(object sender, EventArgs e)
@@ -351,20 +357,22 @@ namespace PuntoDeVentaV2
 
         private void btnGenerarReporte_Click(object sender, EventArgs e)
         {
-            //if (tipoBuscador.Equals("Empleados"))
-            //{
+            string datosGet = string.Empty;
+            if (tipoBuscador.Equals("Empleados"))
+            {
+                datosGet = recorrerDiccionario(listaIdEmpleados);
 
-            //}
-            //else if (tipoBuscador.Equals("Productos"))
-            //{
+            }
+            else if (tipoBuscador.Equals("Productos"))
+            {
+                datosGet = recorrerDiccionario(listaIdProductos);
+            }
+            //var fechas = new FechasReportes();
+            //var fechas = new FechasReportes();
+            //fechaInicial = fechas.fechaInicial;
+            //fechaFinal = fechas.fechaFinal;
 
-            //}
-            var fechas = new FechasReportes();
-            fechaInicial = fechas.fechaInicial;
-            fechaFinal = fechas.fechaFinal;
-
-            var datosGet = recorrerDiccionario(listaIdEmpleados);
-            if (cs.validarInformacion(tipoBuscador, datosGet, fechaInicial, fechaFinal))
+            if (cs.validarInformacion(tipoBuscador, datosGet, fechaInicialF, fechaFinalF))
             {
                 ejecutarMovimiento();
             }
