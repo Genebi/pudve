@@ -837,13 +837,10 @@ namespace PuntoDeVentaV2
                         string fechaHoy = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaHoy"))).ToString("yyyy-MM-dd");
                         string licencia = dr.GetValue(dr.GetOrdinal("licencia")).ToString();
 
-                        if (string.IsNullOrWhiteSpace(Properties.Settings.Default.licencia))
-                        {
-                            Properties.Settings.Default.licencia = licencia;
-                            Properties.Settings.Default.fechaFinLicencia = fechaFin;
-                            Properties.Settings.Default.Save();
-                            Properties.Settings.Default.Reload();
-                        }
+                        Properties.Settings.Default.licencia = licencia;
+                        Properties.Settings.Default.fechaFinLicencia = fechaFin;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
 
                         // Comparar fecha actual con la fecha de caducidad de la licencia
                         int comparacion = DateTime.Compare(Convert.ToDateTime(fechaHoy), Convert.ToDateTime(fechaFin));
