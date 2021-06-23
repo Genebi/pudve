@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.DGVReportesClientes = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArticulosBuy = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ArticulosNotBuy = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DatosCliente = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,12 +55,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ArticulosBuy = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ArticulosNotBuy = new System.Windows.Forms.DataGridViewImageColumn();
-            this.DatosCliente = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVReportesClientes)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -80,6 +80,46 @@
             this.DGVReportesClientes.RowHeadersVisible = false;
             this.DGVReportesClientes.Size = new System.Drawing.Size(763, 283);
             this.DGVReportesClientes.TabIndex = 0;
+            this.DGVReportesClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVReportesClientes_CellClick);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // RFC
+            // 
+            this.RFC.HeaderText = "RFC";
+            this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
+            // 
+            // ArticulosBuy
+            // 
+            this.ArticulosBuy.HeaderText = "Articulos comprados";
+            this.ArticulosBuy.Name = "ArticulosBuy";
+            this.ArticulosBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ArticulosBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // ArticulosNotBuy
+            // 
+            this.ArticulosNotBuy.HeaderText = "Articulos no comprados";
+            this.ArticulosNotBuy.Name = "ArticulosNotBuy";
+            this.ArticulosNotBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ArticulosNotBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // DatosCliente
+            // 
+            this.DatosCliente.HeaderText = "Datos del cliente";
+            this.DatosCliente.Name = "DatosCliente";
+            this.DatosCliente.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DatosCliente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // btnBuscar
             // 
@@ -340,45 +380,6 @@
             this.label4.Text = "Total de productos \r\nencontrados:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Visible = false;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            // 
-            // Nombre
-            // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // RFC
-            // 
-            this.RFC.HeaderText = "RFC";
-            this.RFC.Name = "RFC";
-            this.RFC.ReadOnly = true;
-            // 
-            // ArticulosBuy
-            // 
-            this.ArticulosBuy.HeaderText = "Articulos comprados";
-            this.ArticulosBuy.Name = "ArticulosBuy";
-            this.ArticulosBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ArticulosBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // ArticulosNotBuy
-            // 
-            this.ArticulosNotBuy.HeaderText = "Articulos no comprados";
-            this.ArticulosNotBuy.Name = "ArticulosNotBuy";
-            this.ArticulosNotBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ArticulosNotBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // DatosCliente
-            // 
-            this.DatosCliente.HeaderText = "Datos del cliente";
-            this.DatosCliente.Name = "DatosCliente";
-            this.DatosCliente.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DatosCliente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // BuscadorReporteClientes
             // 
