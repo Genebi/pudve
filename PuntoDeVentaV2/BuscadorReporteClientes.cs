@@ -1,7 +1,11 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -275,5 +279,192 @@ namespace PuntoDeVentaV2
         {
             txtBuscar.CharacterCasing = CharacterCasing.Upper;
         }
+
+        private void DGVReportesClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var id = Convert.ToInt32(DGVReportesClientes.CurrentRow.Cells[0].Value.ToString());
+            var nameCliente = DGVReportesClientes.CurrentRow.Cells[1].Value.ToString();
+
+            if (e.ColumnIndex.Equals(3))//Articulos Comprados
+            {
+                GenerarReporteComprado(id, nameCliente);
+            }
+            else if (e.ColumnIndex.Equals(4))//Articulos no comprados
+            {
+
+            }
+            else if (e.ColumnIndex.Equals(5))//Datos del cliente
+            {
+
+            }
+        }
+
+        #region Reportes de articulos comprados
+        private void GenerarReporteComprado(int idCliente, string nameCliente)
+        {
+            var mostrarClave = FormPrincipal.clave;
+            //var numFolio = obtenerFolio(num);
+
+            // Datos del usuario
+            var datos = FormPrincipal.datosUsuario;
+
+            // Fuentes y Colores
+            var colorFuenteNegrita = new BaseColor(Color.Black);
+            var colorFuenteBlanca = new BaseColor(Color.White);
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
+
+            var numRow = 0;
+
+            // Ruta donde se creara el archivo PDF
+            var servidor = Properties.Settings.Default.Hosting;
+            var rutaArchivo = string.Empty;
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\clientes.pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Reportes\clientes.pdf";
+            }
+
+            var fechaHoy = DateTime.Now;
+            //var rutaArchivo = @"C:\Archivos PUDVE\Reportes\clientes.pdf";
+
+            Document reporte = new Document(PageSize.A3.Rotate());
+            PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+
+            reporte.Open();
+
+            Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+
+            Paragraph Usuario = new Paragraph("");
+
+            //Paragraph numeroFolio = new Paragraph("");
+
+            string UsuarioActivo = string.Empty;
+
+            string tipoReporte = string.Empty,
+                    encabezadoTipoReporte = string.Empty;
+
+            using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+            {
+                if (!dtDataUsr.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drDataUsr in dtDataUsr.Rows)
+                    {
+                        UsuarioActivo = drDataUsr["Usuario"].ToString();
+                    }
+                }
+            }
+
+            Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+
+            Paragraph subTitulo = new Paragraph("REPORTE DE CLIENTES\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+
+            //numeroFolio = new Paragraph("No. FOLIO: " + num, fuenteNormal);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
+            //numeroFolio.Alignment = Element.ALIGN_CENTER;
+
+
+            float[] anchoColumnas = new float[] { 30f, 270f, 60f, 80f};
+
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+
+            //============================
+            //=== TABLA DE INVENTARIO  ===
+            //============================
+
+            PdfPTable tablaClientes = new PdfPTable(4);
+            tablaClientes.WidthPercentage = 70;
+            tablaClientes.SetWidths(anchoColumnas);
+
+            PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
+            colNoConcepto.BorderWidth = 1;
+            colNoConcepto.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colNoConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colNombre = new PdfPCell(new Phrase("NOMBRE", fuenteTotales));
+            colNombre.BorderWidth = 1;
+            colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
+            colNombre.Padding = 3;
+            colNombre.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colCantidad = new PdfPCell(new Phrase("CANTIDAD VECES VENDIDO", fuenteTotales));
+            colCantidad.BorderWidth = 1;
+            colCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCantidad.Padding = 3;
+            colCantidad.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colFecha = new PdfPCell(new Phrase("FECHA ULTIMA VENTA", fuenteTotales));
+            colFecha.BorderWidth = 1;
+            colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
+            colFecha.Padding = 3;
+            colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            tablaClientes.AddCell(colNoConcepto);
+            tablaClientes.AddCell(colNombre);
+            tablaClientes.AddCell(colCantidad);
+            tablaClientes.AddCell(colFecha);
+
+            var consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY PV.Nombre ORDER BY PV.Cantidad, PV.Nombre ASC");
+
+            foreach (DataRow row in consulta.Rows)
+            {
+                var nombre = row["Nombre"].ToString();
+                var cantidad = row["Cantidad"].ToString();
+                var fecha = row["Fecha"].ToString();
+
+                numRow++;
+                PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                colNoConceptoTmp.BorderWidth = 1;
+                colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre.ToString(), fuenteNormal));
+                colNombreTmp.BorderWidth = 1;
+                colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colCantidadTmp = new PdfPCell(new Phrase(cantidad.ToString(), fuenteNormal));
+                colCantidadTmp.BorderWidth = 1;
+                colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colFechaTmp = new PdfPCell(new Phrase(fecha.ToString(), fuenteNormal));
+                colFechaTmp.BorderWidth = 1;
+                colFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                tablaClientes.AddCell(colNoConceptoTmp);
+                tablaClientes.AddCell(colNombreTmp);
+                tablaClientes.AddCell(colCantidadTmp);
+                tablaClientes.AddCell(colFechaTmp);
+
+            }
+
+            reporte.Add(titulo);
+            reporte.Add(Usuario);
+            //reporte.Add(numeroFolio);
+            reporte.Add(subTitulo);
+            reporte.Add(tablaClientes);
+
+            //================================
+            //=== FIN TABLA DE INVENTARIO  ===
+            //================================
+
+            reporte.AddTitle("Reporte Inventario");
+            reporte.AddAuthor("PUDVE");
+            reporte.Close();
+            writer.Close();
+
+            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            vr.ShowDialog();
+        }
+        #endregion
     }
 }
