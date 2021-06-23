@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            var DetalleGral = txtNombre.Text;
+            var DetalleGral = txtNombre.Text.Replace(" ", "_");
 
             if (string.IsNullOrWhiteSpace(DetalleGral))
             {
@@ -34,7 +34,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            int resultado = cn.EjecutarConsulta($"INSERT INTO DetalleGeneral (IDUsuario, ChckName, Descripcion) VALUES ('{IdUsr}', '{ChkName}', '{DetalleGral}')");
+            int resultado = cn.EjecutarConsulta($"INSERT INTO DetalleGeneral (IDUsuario, ChckName, Descripcion) VALUES ('{IdUsr}', '{ChkName.Replace(" ", "_")}', '{DetalleGral}')");
 
             if (resultado > 0)
             {
@@ -64,7 +64,7 @@ namespace PuntoDeVentaV2
         {
             IdUsr = getIdUsr;
             ChkName = getChkName;
-            label1.Text = "Concepto de " + ChkName;
+            label1.Text = "Concepto de: " + ChkName;
         }
     }
 }

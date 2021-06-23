@@ -27,7 +27,7 @@ namespace PuntoDeVentaV2
                 {
                     foreach(DataRow filaDatos in dtConceptoDinamico.Rows)
                     {
-                        txtConceptoActual.Text = filaDatos["Concepto"].ToString();
+                        txtConceptoActual.Text = filaDatos["Concepto"].ToString().Replace("_"," ");
                     }
                 }
             }
@@ -56,8 +56,8 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            string editDetalleNvo = txtConceptoNuevo.Text;
-            string editDetelle = txtConceptoActual.Text;
+            string editDetalleNvo = txtConceptoNuevo.Text.Replace(" ", "_");
+            string editDetelle = txtConceptoActual.Text.Replace(" ","_");
 
             if (!editDetalleNvo.Equals(string.Empty))
             {

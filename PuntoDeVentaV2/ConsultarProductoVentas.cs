@@ -328,7 +328,7 @@ namespace PuntoDeVentaV2
                 string Tipo = filaDatos["Tipo"].ToString();
                 string Proveedor = filaDatos["Proveedor"].ToString();
                 string chckName = filaDatos["ChckName"].ToString();
-                string Descripcion = filaDatos["Descripcion"].ToString();
+                string Descripcion = filaDatos["Descripcion"].ToString().Replace("_", " ");
 
                 if (DGVProductos.Rows.Count.Equals(0))
                 {
@@ -464,12 +464,12 @@ namespace PuntoDeVentaV2
 
                 // Este valor de proveedor esta agregado por defecto
                 DataGridViewColumn columna = new DataGridViewTextBoxColumn();
-                columna.HeaderText = concepto;
+                columna.HeaderText = concepto.Replace("_"," ");
                 columna.Name = concepto;
                 DGVProductos.Columns.Add(columna);
 
                 // Guardamos los nombres de las propiedades en la lista
-                propiedades.Add(concepto);
+                propiedades.Add(concepto.Replace("_"," "));
                 columnasAgregadas++;
             }
         }

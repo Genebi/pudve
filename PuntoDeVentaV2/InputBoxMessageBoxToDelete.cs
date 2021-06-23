@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
                         int numberOfRows = DGVConceptosHabilitados.Rows.Add();
                         DataGridViewRow row = DGVConceptosHabilitados.Rows[numberOfRows];
                         row.Cells["ID"].Value = filaDatos["ID"].ToString();
-                        row.Cells["Concepto"].Value = filaDatos["Concepto"].ToString();
+                        row.Cells["Concepto"].Value = filaDatos["Concepto"].ToString().Replace("_", " ");
                         row.Cells["Usuario"].Value = filaDatos["Usuario"].ToString();
                         System.Drawing.Image inhabilitar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
                         row.Cells["Inhabilitar"].Value = inhabilitar;
@@ -77,7 +77,7 @@ namespace PuntoDeVentaV2
             {
                 if (e.RowIndex >= 0)
                 {
-                    var idReg = Convert.ToInt32(DGVConceptosHabilitados.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    var idReg = Convert.ToInt32(DGVConceptosHabilitados.Rows[e.RowIndex].Cells[0].Value.ToString().Replace(" ", "_"));
 
                     try
                     {

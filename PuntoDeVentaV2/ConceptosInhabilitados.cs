@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
                         int numberOfRows = DGVConceptosInhabilitados.Rows.Add();
                         DataGridViewRow row = DGVConceptosInhabilitados.Rows[numberOfRows];
                         row.Cells["ID"].Value = filaDatos["ID"].ToString();
-                        row.Cells["Concepto"].Value = filaDatos["Concepto"].ToString();
+                        row.Cells["Concepto"].Value = filaDatos["Concepto"].ToString().Replace("_", " ");
                         row.Cells["Usuario"].Value = filaDatos["Usuario"].ToString();
                         System.Drawing.Image habilitar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\arrow-up.png");
                         row.Cells["Habilitar"].Value = habilitar;

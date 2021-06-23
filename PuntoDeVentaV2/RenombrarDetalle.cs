@@ -28,7 +28,7 @@ namespace PuntoDeVentaV2
                         int numberOfRows = DGVConceptosRenombrar.Rows.Add();
                         DataGridViewRow row = DGVConceptosRenombrar.Rows[numberOfRows];
                         row.Cells["ID"].Value = filaDatos["ID"].ToString();
-                        row.Cells["Concepto"].Value = filaDatos["Concepto"].ToString();
+                        row.Cells["Concepto"].Value = filaDatos["Concepto"].ToString().Replace("_"," ");
                         row.Cells["Usuario"].Value = filaDatos["Usuario"].ToString();
                         System.Drawing.Image renombrar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
                         row.Cells["Renombrar"].Value = renombrar;
