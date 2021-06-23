@@ -2103,7 +2103,7 @@ namespace PuntoDeVentaV2
         {
             var lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM appSettings WHERE IDUsuario = {FormPrincipal.userID} AND checkBoxConcepto = 1 AND Mostrar = 1");
+            DatosConexion($"SELECT * FROM appSettings WHERE IDUsuario = {FormPrincipal.userID}");
 
             var dr = sql_cmd.ExecuteReader();
 
