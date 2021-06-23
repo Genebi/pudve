@@ -334,7 +334,7 @@ namespace PuntoDeVentaV2
         {
             string consulta = null;
 
-            if (operacion == 0)
+            if (operacion.Equals(0))
             {
                 //Insertar nueva venta
                 consulta = "INSERT INTO Ventas (IDUsuario, IDCliente, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion, IDClienteDescuento, IDEmpleado, FormaPago)";
@@ -349,12 +349,20 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string GuardarProductosVenta(string[] datos)
+        public string GuardarProductosVenta(string[] datos, int opcion = 0)
         {
             // Se agrega campo descuento individual para efectos de facturación
+            var consulta = string.Empty;
 
-            string consulta = "INSERT INTO ProductosVenta (IDVenta, IDProducto, Nombre, Cantidad, Precio, descuento, TipoDescuento)";
-            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[6]}', '{datos[12]}')";
+            if (opcion.Equals(0))
+            {
+                consulta = "INSERT INTO ProductosVenta (IDVenta, IDProducto, Nombre, Cantidad, Precio, descuento, TipoDescuento)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[6]}', '{datos[12]}')";
+            }
+            else
+            {
+                consulta = $"UPDATE ProductosVenta SET Nombre = '{datos[2]}', Cantidad = '{datos[3]}', Precio = '{datos[4]}', descuento = '{datos[6]}', TipoDescuento = '{datos[12]}' WHERE IDVenta = '{datos[0]}' AND IDProducto = '{datos[1]}'";
+            }
 
             return consulta;
         }
@@ -2088,6 +2096,20 @@ namespace PuntoDeVentaV2
 
 
             return result;
+        }
+
+        public string ventaGuardadaEstaTimbrada(int idVenta)
+        {
+            var consulta = $"SELECT ID, IDUsuario, IDCliente, IDEmpleado, IDSucursal, Folio, Serie, `Status`, Timbrada, Cancelada, FechaOperacion FROM ventas WHERE ID = '{idVenta}' AND IDUsuario = '{FormPrincipal.userID}' AND `Status` = '2';";
+
+            return consulta;
+        }
+
+        public string checarProductosVenta(string idVenta)
+        {
+            var consulta = $"SELECT * FROM ProductosVenta WHERE IDVenta='{idVenta}'";
+
+            return consulta;
         }
     }
 }  

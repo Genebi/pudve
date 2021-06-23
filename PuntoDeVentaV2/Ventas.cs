@@ -2766,6 +2766,9 @@ namespace PuntoDeVentaV2
             var idClienteTmp = idCliente;
             string id_empleado = Convert.ToString(FormPrincipal.id_empleado);
 
+            // variable para saber si esta facturada la venta Guardada
+            var estaTimbrada = false;
+
             if (ventaGuardada)
             {
                 if (statusVenta.Equals(""))
@@ -2784,20 +2787,6 @@ namespace PuntoDeVentaV2
                 {
                     idClienteTmp = "0";
                 }
-                //else if (!cliente.Equals(string.Empty))
-                //{
-                //    using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(cliente)))
-                //    {
-                //        if (!dtIdCliente.Rows.Count.Equals(0))
-                //        {
-                //            foreach(DataRow drIdCliente in dtIdCliente.Rows)
-                //            {
-                //                idClienteTmp = drIdCliente["ID"].ToString();
-                //                idCliente = drIdCliente["ID"].ToString();
-                //            }
-                //        }
-                //    }
-                //}
             }
 
             aumentoFolio();
@@ -2818,8 +2807,118 @@ namespace PuntoDeVentaV2
 
             if (VerificarStockProducto())
             {
+                if (!ventasGuardadas.Count.Equals(0))
+                {
+                    foreach (var venta in ventasGuardadas)
+                    {
+                        using (DataTable dtVentaGuardada = cn.CargarDatos(cs.ventaGuardadaEstaTimbrada(venta)))
+                        {
+                            if (!dtVentaGuardada.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow drVentaGuardada in dtVentaGuardada.Rows)
+                                {
+                                    if (drVentaGuardada["Timbrada"].Equals(1))
+                                    {
+                                        //MessageBox.Show("Venta ya Facturada");
+                                        estaTimbrada = true;
+                                    }
+                                    else if (drVentaGuardada["Timbrada"].Equals(0))
+                                    {
+                                        //MessageBox.Show("Venta no Facturada");
+                                        estaTimbrada = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                int respuesta = 0;
+
                 // Se hace el guardado de la informacion general de la venta
-                int respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                if (estaTimbrada)
+                {
+                    foreach (var venta in ventasGuardadas)
+                    {
+                        using (DataTable dtVentaGuardada = cn.CargarDatos(cs.ventaGuardadaEstaTimbrada(venta)))
+                        {
+                            var nombreCliente = string.Empty;
+
+                            using (DataTable dtCliente = cn.CargarDatos(cs.getRazonNombreRfcCliente(idClienteTmp)))
+                            {
+                                if (!dtCliente.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow drCliente in dtCliente.Rows)
+                                    {
+                                        nombreCliente = drCliente["RazonSocial"].ToString();
+                                    }
+                                }
+                            }
+
+                            foreach (DataRow drVentaGuardada in dtVentaGuardada.Rows)
+                            {
+                                if (idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
+                                {
+                                    MessageBox.Show($"Esta venta ya fue guardada y facturada con el cliente {nombreCliente},\npor lo tanto se guardara como una venta nueva.", "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    mostrarVenta = 0;
+                                    respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                            
+                                }
+                                else if (!idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
+                                {
+                                    guardar[1] = idClienteTmp;
+                                    mostrarVenta = 0;
+                                    MessageBox.Show($"Esta venta ya fue guardada y facturada con un cliente distinto,\npor lo tanto se guardara como una venta nueva\ncon el cliente: {nombreCliente}.", "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (!estaTimbrada)
+                {
+                    if (!ventasGuardadas.Count.Equals(0))
+                    {
+                        foreach (var venta in ventasGuardadas)
+                        {
+                            using (DataTable dtVentaGuardada = cn.CargarDatos(cs.ventaGuardadaEstaTimbrada(venta)))
+                            {
+                                var nombreCliente = string.Empty;
+
+                                using (DataTable dtCliente = cn.CargarDatos(cs.getRazonNombreRfcCliente(idClienteTmp)))
+                                {
+                                    if (!dtCliente.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow drCliente in dtCliente.Rows)
+                                        {
+                                            nombreCliente = drCliente["RazonSocial"].ToString();
+                                        }
+                                    }
+                                }
+
+                                foreach (DataRow drVentaGuardada in dtVentaGuardada.Rows)
+                                {
+                                    if (idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
+                                    {
+                                        mostrarVenta = 0;
+                                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                    }
+                                    else if (!idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
+                                    {
+                                        guardar[1] = idClienteTmp;
+                                        mostrarVenta = 0;
+                                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        mostrarVenta = 0;
+                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                    }
+                }
 
                 if (respuesta > 0)
                 {
@@ -2848,19 +2947,15 @@ namespace PuntoDeVentaV2
 
                     // Si la lista ventasGuardadas contiene elementos quiere decir que son ventas que deberian 
                     // eliminarse junto con sus productos de la tabla ProductosVenta
-                    foreach (var venta in ventasGuardadas)
+                    if (!estaTimbrada)
                     {
-                        if (venta.Equals(idVenta))
+                        foreach (var venta in ventasGuardadas)
                         {
                             cn.EjecutarConsulta($"DELETE FROM Ventas WHERE ID = {venta} AND IDUsuario = {FormPrincipal.userID} AND Status = 2");
                             cn.EjecutarConsulta(cs.EliminarProductosVenta(venta));
                         }
-                        else
-                        {
-                            MessageBox.Show("Esta venta ya fue guardada y facturada con un cliente distinto,\npor lo tanto se guardara como una venta nueva.", "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
                     }
-
+                    
                     // Array para almacenar la informacion de los productos vendidos
                     string[][] infoProductos = new string[DGVentas.Rows.Count][];
 
@@ -2891,19 +2986,6 @@ namespace PuntoDeVentaV2
                         {
                             cliente = "PUBLICO GENERAL";
                         }
-                        //else
-                        //{
-                        //    using (DataTable dtCliente = cn.CargarDatos(cs.getRazonNombreRfcCliente(idCliente)))
-                        //    {
-                        //        if (!dtCliente.Rows.Count.Equals(0))
-                        //        {
-                        //            foreach(DataRow drCliente in dtCliente.Rows)
-                        //            {
-                        //                cliente = drCliente["RazonSocial"].ToString();
-                        //            }
-                        //        }
-                        //    }
-                        //}
 
                         // A partir de la variable DescuentoGeneral esos valores y datos se toman solo para el ticket de venta
                         guardar = new string[] {
@@ -2923,7 +3005,19 @@ namespace PuntoDeVentaV2
                         // Si es un producto, paquete o servicio lo guarda en la tabla de productos de venta
                         if (Tipo == "P" || Tipo == "S" || Tipo == "PQ")
                         {
-                            cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
+                            using (DataTable dtProductosVenta = cn.CargarDatos(cs.checarProductosVenta(idVenta)))
+                            {
+                                bool contains = dtProductosVenta.AsEnumerable().Any(row => Convert.ToInt32(IDProducto) == row.Field<int>("IDProducto"));
+
+                                if (contains)
+                                {
+                                    cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar, 1));
+                                }
+                                else
+                                {
+                                    cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
+                                }
+                            }
                         }
 
                         // Si la venta no fue guardada con el boton "Guardar"
