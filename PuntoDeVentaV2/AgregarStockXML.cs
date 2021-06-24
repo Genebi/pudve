@@ -938,18 +938,21 @@ namespace PuntoDeVentaV2
                         datosProductos();                                                   // llamamos la funcion de datosProductos
                         OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
                         ActivarBtnSi();
+                        button2.Text = "Aumentar";
                     }
                     else if (NoCodBar == ClaveInterna)
                     {
                         datosProductos();                                                   // llamamos la funcion de datosProductos
                         OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
                         ActivarBtnSi();
+                        button2.Text = "Aumentar";
                     }
                     else if (NoCodBarExt == ClaveInterna)
                     {
                         datosProductos();                                                   // llamamos la funcion de datosProductos
                         OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
                         ActivarBtnSi();
+                        button2.Text = "Aumentar";
                     }
                     else
                     {
@@ -957,12 +960,14 @@ namespace PuntoDeVentaV2
                         MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
                         buscarSugeridos();
                         DesactivarBtnSi();
+                        button2.Text = "Si";
                     }
                 }
                 else if (dtProductos.Rows[0]["Status"].ToString() == "0")
                 {
                     resultadoSearchProd = 0;        // busqueda negativa
                     DesactivarBtnSi();
+                    button2.Text = "Si";
                     RecorrerXML();
                 }
                 //MessageBox.Show("Producto Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -974,6 +979,7 @@ namespace PuntoDeVentaV2
                 MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
                 buscarSugeridos();
                 DesactivarBtnSi();
+                button2.Text = "Si";
             }
         }
 
