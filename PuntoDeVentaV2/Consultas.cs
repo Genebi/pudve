@@ -2111,5 +2111,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string consultarBuscarProductoXML()
+        {
+            var consulta = $"SELECT u.ID, u.Usuario, u.Password, u.RFC FROM Usuarios u WHERE u.ID = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
     }
 }  

@@ -443,15 +443,15 @@ namespace PuntoDeVentaV2
         {
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion
-            //buscar = $"SELECT u.ID, u.Usuario, u.Password, u.RFC FROM Usuarios u WHERE u.Usuario = '{userName}' AND u.Password = '{passwordUser}'";
-            buscar = $"SELECT u.ID, u.Usuario, u.Password, u.RFC FROM Usuarios u WHERE u.ID = {FormPrincipal.userID}";
+            buscar = cs.consultarBuscarProductoXML();
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
-            dt = cn.CargarDatos(buscar);
-
-            if (dt.Rows.Count > 0)
+            using (dt = cn.CargarDatos(buscar))
             {
-                cargarDatosXML();   // metodo para cargar los datos del XML
+                if (dt.Rows.Count > 0)
+                {
+                    cargarDatosXML();   // metodo para cargar los datos del XML
+                }
             }
         }
 
@@ -545,6 +545,7 @@ namespace PuntoDeVentaV2
         public void MostarPanelSinRegistro()
         {
             panel6.Show();
+            DesactivarBtnSi();
         }
 
         /// <summary>
