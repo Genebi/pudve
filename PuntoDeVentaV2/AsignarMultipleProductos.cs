@@ -48,7 +48,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar(propiedad.ToString(), idempleado)))
+                    using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar(propiedad.ToString().Replace(" ","_"), idempleado)))
                     {
                         if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
                         {
@@ -67,7 +67,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        MessageBox.Show("No cuentas con los privilegios requeridos en esta sección", "Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                       MessageBox.Show("No cuentas con los privilegios requeridos en esta sección", "Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
