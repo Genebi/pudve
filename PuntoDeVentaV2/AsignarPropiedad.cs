@@ -28,7 +28,7 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
 
-            this.propiedad = propiedad.ToString();
+            this.propiedad = propiedad.ToString().Replace(" ","_");
 
             productos = Productos.productosSeleccionados;
 
