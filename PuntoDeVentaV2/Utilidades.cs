@@ -1820,16 +1820,34 @@ namespace PuntoDeVentaV2
         public static void EnviarCorreoRespaldo(string correo, string ruta)
         {
             DateTime fechaActual = DateTime.Now;
+            var usuarioCreador = FormPrincipal.userNickName;
+            var tipoUsuario = string.Empty;
+            var usuarioFinal = string.Empty;
 
-            var asunto = "RESPALDO DE LA BASE DE DATOS";
+
+            if (usuarioCreador.Contains('@'))
+            {
+                tipoUsuario = "Empleado";
+                //string[] datoSeparado = usuarioCreador.Split('@');
+            }
+            else
+            {
+                tipoUsuario = "ADMIN";
+            }
+
+            var asunto = $"Respaldo de la base de datos - {usuarioCreador}";
             var html = $@"
                 <div style='text-align: center;'>
                 <h1 style='color: red;'>SE HA REALIZADO UN RESPALDO DE LA BASE DE DATOS</h1>
                 </div>
                 
                 <div style='text-align: center;'>
-                <h4> Usuario: {FormPrincipal.userNickName} </h4>
+                <h4> Usuario: {usuarioCreador} </h4>
                 <h4> Fecha: {fechaActual.ToString()} </h4>
+                </div>
+
+                <div style='text-align: left;'> 
+                <h4> El respaldo fue realizado por el {tipoUsuario} del usuario {usuarioCreador} </h4>
                 </div>
                 
             ";
