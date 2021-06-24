@@ -879,11 +879,11 @@
             this.button3.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.button3.ForeColor = System.Drawing.Color.White;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.Location = new System.Drawing.Point(570, 553);
+            this.button3.Location = new System.Drawing.Point(499, 553);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.button3.Size = new System.Drawing.Size(176, 30);
+            this.button3.Size = new System.Drawing.Size(189, 30);
             this.button3.TabIndex = 17;
             this.button3.Text = "Guardar Producto";
             this.button3.UseVisualStyleBackColor = false;
@@ -898,12 +898,12 @@
             this.button2.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.Location = new System.Drawing.Point(840, 553);
+            this.button2.Location = new System.Drawing.Point(813, 552);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(70, 32);
+            this.button2.Size = new System.Drawing.Size(115, 32);
             this.button2.TabIndex = 16;
-            this.button2.Text = "SÍ";
+            this.button2.Text = "Si";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -916,10 +916,10 @@
             this.button1.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.Location = new System.Drawing.Point(750, 553);
+            this.button1.Location = new System.Drawing.Point(693, 552);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 32);
+            this.button1.Size = new System.Drawing.Size(115, 32);
             this.button1.TabIndex = 15;
             this.button1.Text = "Omitir";
             this.button1.UseVisualStyleBackColor = false;
