@@ -2047,7 +2047,7 @@ namespace PuntoDeVentaV2
 
         public string obtenerProdRelacionados(string idProd)
         {
-            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDProducto = '{idProd}'";
+            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDProducto = '{idProd}'"; 
 
             return consulta;
         }
@@ -2116,6 +2116,12 @@ namespace PuntoDeVentaV2
         {
             var consulta = $"SELECT u.ID, u.Usuario, u.Password, u.RFC FROM Usuarios u WHERE u.ID = '{FormPrincipal.userID}'";
 
+            return consulta;
+        }
+
+        public string IDUsuarioSinContraseña(string usuario)
+        {
+            var consulta = $"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}'";
             return consulta;
         }
     }

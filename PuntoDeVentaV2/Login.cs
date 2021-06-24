@@ -65,6 +65,7 @@ namespace PuntoDeVentaV2
         string queryTabla = string.Empty;
         int count = 0;
         public int contadorMetodoTablas = 0;
+        string correo;
 
         bool IsEmpty;
 
@@ -188,8 +189,24 @@ namespace PuntoDeVentaV2
 
             int contadorSesiones = 0;
             var servidor = Properties.Settings.Default.Hosting;
-            datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
-            var correo = datosUsuario[9].ToString();
+            var usuarioemp = txtUsuario.Text.Split('@');
+
+            if (usuarioemp.Length.Equals(1))
+            {
+                datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
+                correo = datosUsuario[9].ToString();
+            }
+            else
+            {
+                var emp = cn.CargarDatos(cs.IDUsuarioSinContraseña(usuarioemp[0].ToString()));
+                foreach (DataRow dato in emp.Rows)
+                {
+                    IDUsuario = Convert.ToInt32(dato["ID"].ToString());
+                }
+                datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
+                correo = datosUsuario[9].ToString();
+            }
+
             //vs.printProductVersion();
 
             if (!VerificarServidor())
@@ -286,7 +303,6 @@ namespace PuntoDeVentaV2
                             //cn.DatosUsuario
                             usuario = usuario + "@" + usuario_empleado;
                             password = password_empleado;
-                            //Agregar el correo aqui-------------------------------------------------------------------------
                             cn.EjecutarConsulta(cs.registroSesiones(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"), correo));
                             cnx.registrarInicio(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                             Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDUsuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 3));
