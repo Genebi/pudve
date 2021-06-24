@@ -37,7 +37,7 @@ namespace PuntoDeVentaV2
 
         private void AsignarPropiedad_Load(object sender, EventArgs e)
         {
-            lbNombrePropiedad.Text = $"ASIGNAR {propiedad.ToUpper()}";
+            lbNombrePropiedad.Text = $"ASIGNAR {propiedad.ToUpper().Replace("_"," ")}";
 
             clavesUnidades = mb.CargarClavesUnidades();
 
@@ -330,7 +330,7 @@ namespace PuntoDeVentaV2
                 {
                     // Aqui van todos los que son dinamicos agregados en detalle de producto
                     ComboBox cbPropiedad = new ComboBox();
-                    cbPropiedad.Name = "cb" + propiedad;
+                    cbPropiedad.Name = "cb" + propiedad.Replace("_"," ");
                     cbPropiedad.Width = 300;
                     cbPropiedad.Height = 20;
                     cbPropiedad.Font = fuente;
@@ -946,7 +946,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                ComboBox combo = (ComboBox)this.Controls.Find("cb" + propiedad, true)[0];
+                ComboBox combo = (ComboBox)this.Controls.Find("cb" + propiedad.Replace("_"," "), true)[0];
 
                 var idPropiedad = combo.SelectedValue.ToString();
                 var nombreOpcion = combo.Text;

@@ -1222,7 +1222,7 @@ namespace PuntoDeVentaV2
             {
                 while (dr.Read())
                 {
-                    lista.Add(Convert.ToInt32(dr["ID"]), dr["Descripcion"].ToString());
+                    lista.Add(Convert.ToInt32(dr["ID"]), dr["Descripcion"].ToString().Replace("_"," "));
                 }
             }
 
