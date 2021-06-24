@@ -987,7 +987,7 @@ namespace PuntoDeVentaV2
         {
             var habilitado = 0;
 
-            if (cbCorreoDescuento.Checked)
+            if (chRespaldo.Checked)
             {
                 habilitado = 1;
             }
