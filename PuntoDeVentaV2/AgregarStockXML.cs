@@ -1000,7 +1000,7 @@ namespace PuntoDeVentaV2
                                FROM 
                                     Productos prod 
                                LEFT JOIN 
-                                    CodigoBarrasExtras codbarext 
+                                    CodigoBarrasExtras codbarext  ON codbarext.IDProducto = prod.ID 
                                WHERE 
                                     prod.IDUsuario = '{userId}' 
                                AND 
@@ -1813,8 +1813,44 @@ namespace PuntoDeVentaV2
             //query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}', datetime('now', 'localtime'), '{Inventario.idReporte}', '{idProducto}','{userId}')";
 
             //query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
-            query = $@"INSERT INTO 
-	                        HistorialCompras(Concepto,
+            if (string.IsNullOrEmpty(idProducto))
+            {
+                query = $@"INSERT INTO 
+	                        HistorialCompras(
+                            Concepto,
+		                    Cantidad,
+		                    ValorUnitario,
+		                    Descuento,
+		                    Precio,
+		                    FechaLarga,
+		                    Folio,
+		                    RFCEmisor,
+		                    NomEmisor,
+		                    ClaveProdEmisor,
+                            FechaOperacion, 
+                            IDReporte,
+		                    IDProducto,
+		                    IDUsuario) 
+                     VALUES('{concepto}',
+	                        '{cantidad}',
+	                        '{precioOriginalConIVA.ToString("N2")}',
+	                        '{descuento}',
+	                        '{PrecioProd}',
+	                        '{fechaCompleta}',
+	                        '{folio}',
+	                        '{RFCEmisor}',
+	                        '{nombreEmisor}',
+	                        '{claveProdEmisor}',
+                            '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
+                            '{Inventario.idReporte}',
+	                        '{idListProd}',
+	                        '{userId}')";
+            }
+            else
+            {
+                query = $@"INSERT INTO 
+	                        HistorialCompras(
+                            Concepto,
 		                    Cantidad,
 		                    ValorUnitario,
 		                    Descuento,
@@ -1842,6 +1878,8 @@ namespace PuntoDeVentaV2
                             '{Inventario.idReporte}',
 	                        '{idProducto}',
 	                        '{userId}')";
+            }
+            
             try
             {
                 cn.EjecutarConsulta(query);
@@ -2306,6 +2344,9 @@ namespace PuntoDeVentaV2
 
             if (consultListProd == 1)       // Si el producto es seleccionado desde la lista del Producto
             {
+                searchClavIntProd();    // hacemos la busqueda que no se repita en CalveInterna
+                searchCodBar();         // hacemos la busqueda que no se repita en CodigoBarra
+
                 PrecioProd = float.Parse(txtBoxPrecioProd.Text);    // Almacenamos el precio que tiene la caja de texto
                 PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text);   // Almacenamos el precio sugerido para hacer la comparacion
                 comprobarPrecioMayorIgualRecomendado();     // Llamamos la funsion para comparar el precio del producto con el sugerido
@@ -2319,16 +2360,16 @@ namespace PuntoDeVentaV2
                 }
                 else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                 {
-                    if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)
+                    if (opcionGuardarFin == 1 || opcionGuardarFin == 2)
                     {
                         RelacionarStockClaveInterna();  // En caso que alguno de los dos campos esten en blanco
                     }
-                    else if (ListProd.opcionGuardarFin == 3)
+                    else if (opcionGuardarFin == 3)
                     {
                         // En el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
                         RelacionarStockCodigoBarras();
                     }
-                    else if (ListProd.opcionGuardarFin == 4)
+                    else if (opcionGuardarFin == 4)
                     {
                         // En el caso que los dos campos tengan contenido se asigna el siguiente valor
                         CodigoBarrasExtras();
@@ -2342,6 +2383,8 @@ namespace PuntoDeVentaV2
                     {
                         // Si el resultado es 0
                     }
+                    button2.Text = "Si";
+                    RecorrerXML();          // recorrer el archivo XML
                 }
             }
             else if (seleccionarSugerido == 3 && txtBoxDescripcionProd.Text != "")
@@ -2526,11 +2569,13 @@ namespace PuntoDeVentaV2
                 PrecioProd = float.Parse(txtBoxPrecioProd.Text);  // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
                 seleccionarSugerido = 0;
                 ActivarBtnSi();
+                button2.Text = "Asociar";
             }
             if (consultListProd.Equals(0))   // si el valor es 0 si es que no selecciono nada
             {
                 MostarPanelSinRegistro();    // Mostramos la ventana Si no tiene registro del Stock
                 DesactivarBtnSi();
+                button2.Text = "Si";
             }
         }
 
