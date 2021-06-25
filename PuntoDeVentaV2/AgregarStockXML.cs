@@ -586,6 +586,7 @@ namespace PuntoDeVentaV2
             panel2.Show();
             panel12.Show();
             button1.Show();
+            panel7.Visible = true;
             this.Size = new Size(950, 640);
             this.CenterToScreen();
         }
@@ -955,6 +956,7 @@ namespace PuntoDeVentaV2
                         OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
                         ActivarBtnSi();
                         button2.Text = "Aumentar";
+                        panel7.Visible = true;
                     }
                     else
                     {
@@ -971,6 +973,7 @@ namespace PuntoDeVentaV2
                     DesactivarBtnSi();
                     button2.Text = "Si";
                     RecorrerXML();
+                    panel7.Visible = false;
                 }
                 //MessageBox.Show("Producto Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -982,6 +985,7 @@ namespace PuntoDeVentaV2
                 buscarSugeridos();
                 DesactivarBtnSi();
                 button2.Text = "Si";
+                panel7.Visible = false;
             }
         }
 
@@ -2933,6 +2937,7 @@ namespace PuntoDeVentaV2
                         // Si el resultado es 0
                     }
                     button2.Text = "Si";
+                    panel7.Visible = false;
                     RecorrerXML();          // recorrer el archivo XML
                 }
             }
@@ -3125,6 +3130,7 @@ namespace PuntoDeVentaV2
                 MostarPanelSinRegistro();    // Mostramos la ventana Si no tiene registro del Stock
                 DesactivarBtnSi();
                 button2.Text = "Si";
+                panel7.Visible = false;
             }
         }
 
@@ -3265,6 +3271,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarStockXML_Load(object sender, EventArgs e)
         {
+            lblMensajeRelacionado.Text = Utilidades.JustifyParagraph(lblMensajeRelacionado.Text, lblMensajeRelacionado.Font, lblMensajeRelacionado.ClientSize.Width);
+            panel7.Visible = false;
             // validación para verificar si el usuario que incio sesion
             // tiene o no clave Interna su cuenta de SIFO Punto de Venta
 
