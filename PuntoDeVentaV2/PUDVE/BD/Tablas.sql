@@ -1492,6 +1492,10 @@ ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS FechaConexionLimite DATE DEFAULT '
 -- Agregar columna para guardar los dias que han pasado para poder verificar la conexion a internet
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS DiasVerificacionInternet INT(2) DEFAULT 0;
 
+-- Agregar columna para guardar la ultima fecha en la que se hizo verificacion de la conexion a internet
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS UltimaVerificacion DATE DEFAULT '0001-01-01';
 
 ALTER TABLE iniciosdesesion ADD COLUMN IF NOT EXISTS Correo TEXT;
+
+-- Agregar columna para guardar la licencia
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS Licencia VARCHAR(30) DEFAULT NULL;

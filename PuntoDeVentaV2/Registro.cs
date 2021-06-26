@@ -115,8 +115,8 @@ namespace PuntoDeVentaV2
                         int resultado = registrar.ExecuteNonQuery();
 
                         //Consulta de MySQL local 
-                        string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email)";
-                               consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}')";
+                        string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email, Licencia)";
+                               consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}', '{licencia}')";
 
 
                         int respuesta = cn.EjecutarConsulta(consulta);
@@ -403,11 +403,6 @@ namespace PuntoDeVentaV2
         private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = (e.KeyChar == (char)Keys.Space);
-        }
-
-        private void Registro_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
