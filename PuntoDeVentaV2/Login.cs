@@ -858,6 +858,12 @@ namespace PuntoDeVentaV2
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.Reload();
 
+                        // Comprobar que la licencia esta guardada localmente
+                        if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.licencia))
+                        {
+                            cn.EjecutarConsulta($"UPDATE usuarios SET Licencia = '{Properties.Settings.Default.licencia}' WHERE usuario = '{usuario}'");
+                        }
+
                         // Comparar fecha actual con la fecha de caducidad de la licencia
                         int comparacion = DateTime.Compare(Convert.ToDateTime(fechaHoy), Convert.ToDateTime(fechaFin));
 
@@ -903,6 +909,107 @@ namespace PuntoDeVentaV2
             }
 
             return respuesta;
+        }
+
+        private string ComprobarLicenciaOnline(string usuario, string password)
+        {
+            string licencia = string.Empty;
+
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+
+                    MySqlCommand consultar = conexion.CreateCommand();
+                    consultar.CommandText = $"SELECT licencia FROM Usuarios WHERE usuario = '{usuario}' AND password = '{password}' AND (estadoLicencia = 1 OR estadoLicencia = 3)";
+                    MySqlDataReader dr = consultar.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        licencia = dr.GetValue(dr.GetOrdinal("licencia")).ToString();
+
+                        Properties.Settings.Default.licencia = licencia;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+
+                        // Comprobar que la licencia esta guardada localmente
+                        if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.licencia))
+                        {
+                            cn.EjecutarConsulta($"UPDATE usuarios SET Licencia = '{Properties.Settings.Default.licencia}' WHERE usuario = '{usuario}'");
+                        }
+                    }
+
+                    dr.Close();
+                    conexion.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message.ToString());
+                }
+            }
+
+            return licencia;
+        }
+
+        private void opcionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string usuario = txtUsuario.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            // Verificar que sea cuenta principal y no subusuario
+            if (usuario.Contains('@'))
+            {
+                string[] auxiliar = usuario.Split('@');
+
+                usuario = auxiliar[0];
+            }
+
+            if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Para utilizar esta opción es necesario ingresar tu usuario y contraseña en la ventana de inicio de sesión.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Comprobar licencia online
+            string licenciaOnline = ComprobarLicenciaOnline(usuario, password);
+
+            // Comprobar licencia
+            bool valido = (bool)cn.EjecutarSelect($"SELECT Usuario FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'");
+
+            if (valido)
+            {
+                string[] datos = mb.ObtenerFechaComprobacionInternet(usuario, password);
+
+                if (datos.Count() > 0)
+                {
+                    string licencia = datos[4];
+
+                    if (!string.IsNullOrWhiteSpace(licenciaOnline))
+                    {
+                        licencia = licenciaOnline;
+                    }
+
+                    string[] datosLicencia = licencia.Split('-');
+
+                    string tipoLicencia = datosLicencia[0].Trim();
+
+                    // Tipo servidor
+                    if (tipoLicencia.Equals("PVLS"))
+                    {
+                        vincularPCEnRedMenuItem.Enabled = true;
+                    }
+                    else
+                    {
+                        vincularPCEnRedMenuItem.Enabled = false;
+                    }
+                }
+            }
         }
 
         private bool ComprobarInternetMensualmente(string usuario)

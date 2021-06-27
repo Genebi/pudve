@@ -45,8 +45,8 @@
             this.desvincularPCMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importarBaseDeDatosMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vincularPCEnRedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRecuperarPassword = new System.Windows.Forms.Label();
             this.registroIniciosDeSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRecuperarPassword = new System.Windows.Forms.Label();
             this.menuLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -185,6 +185,7 @@
             this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
             this.opcionesToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
+            this.opcionesToolStripMenuItem.Click += new System.EventHandler(this.opcionesToolStripMenuItem_Click);
             // 
             // desvincularPCMenuItem
             // 
@@ -207,6 +208,13 @@
             this.vincularPCEnRedMenuItem.Text = "Vincular PC en red";
             this.vincularPCEnRedMenuItem.Click += new System.EventHandler(this.vincularPCEnRedMenuItem_Click);
             // 
+            // registroIniciosDeSesionToolStripMenuItem
+            // 
+            this.registroIniciosDeSesionToolStripMenuItem.Name = "registroIniciosDeSesionToolStripMenuItem";
+            this.registroIniciosDeSesionToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.registroIniciosDeSesionToolStripMenuItem.Text = "Registro Inicios de Sesion";
+            this.registroIniciosDeSesionToolStripMenuItem.Click += new System.EventHandler(this.registroIniciosDeSesionToolStripMenuItem_Click);
+            // 
             // btnRecuperarPassword
             // 
             this.btnRecuperarPassword.AutoSize = true;
@@ -219,13 +227,6 @@
             this.btnRecuperarPassword.TabIndex = 12;
             this.btnRecuperarPassword.Text = "¿Olvidaste tu contraseña?";
             this.btnRecuperarPassword.Click += new System.EventHandler(this.btnRecuperarPassword_Click);
-            // 
-            // registroIniciosDeSesionToolStripMenuItem
-            // 
-            this.registroIniciosDeSesionToolStripMenuItem.Name = "registroIniciosDeSesionToolStripMenuItem";
-            this.registroIniciosDeSesionToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.registroIniciosDeSesionToolStripMenuItem.Text = "Registro Inicios de Sesion";
-            this.registroIniciosDeSesionToolStripMenuItem.Click += new System.EventHandler(this.registroIniciosDeSesionToolStripMenuItem_Click);
             // 
             // Login
             // 

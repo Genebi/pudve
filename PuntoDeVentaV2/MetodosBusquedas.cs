@@ -2530,11 +2530,18 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public string[] ObtenerFechaComprobacionInternet(string usuario)
+        public string[] ObtenerFechaComprobacionInternet(string usuario, string password = "")
         {
             List<string> datosFecha = new List<string>();
 
-            DatosConexion($"SELECT * FROM usuarios WHERE Usuario = '{usuario}'");
+            string consulta = $"SELECT * FROM usuarios WHERE Usuario = '{usuario}'";
+
+            if (!string.IsNullOrWhiteSpace(password))
+            {
+                consulta = $"SELECT * FROM usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'";
+            }
+
+            DatosConexion(consulta);
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 
@@ -2544,6 +2551,7 @@ namespace PuntoDeVentaV2
                 datosFecha.Add(dr.GetValue(dr.GetOrdinal("FechaConexionLimite")).ToString());
                 datosFecha.Add(dr.GetValue(dr.GetOrdinal("DiasVerificacionInternet")).ToString());
                 datosFecha.Add(dr.GetValue(dr.GetOrdinal("UltimaVerificacion")).ToString());
+                datosFecha.Add(dr.GetValue(dr.GetOrdinal("Licencia")).ToString());
             }
 
             return datosFecha.ToArray();
