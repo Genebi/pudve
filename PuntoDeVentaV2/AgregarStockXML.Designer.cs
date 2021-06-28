@@ -963,8 +963,8 @@
             this.lblMensajeRelacionado.Size = new System.Drawing.Size(913, 48);
             this.lblMensajeRelacionado.TabIndex = 0;
             this.lblMensajeRelacionado.Text = "Este producto de tu XML ya se encuentra asociado a un producto de tu base de dato" +
-    "s, presiona Aumentar (Botón) para aumentar el stock u Omitir (Botón) para pasar " +
-    "al siguiente producto.";
+    "s, presiona \"Aumentar\" (Botón) para aumentar el stock u Omitir (Botón) para pasa" +
+    "r al siguiente producto.";
             this.lblMensajeRelacionado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AgregarStockXML
