@@ -325,6 +325,7 @@ namespace PuntoDeVentaV2
         private void ActivarBtnSi()
         {
             button2.Enabled = true;
+            button2.Visible = true;
         }
 
         /// <summary>
@@ -333,6 +334,7 @@ namespace PuntoDeVentaV2
         private void DesactivarBtnSi()
         {
             button2.Enabled = false;
+            button2.Visible = false;
         }
 
         // funcion para poder asignar los datos del XML a la ventana de Nvo Producto
