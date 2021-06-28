@@ -3330,6 +3330,7 @@ namespace PuntoDeVentaV2
             StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
             CoincidenciaSugerido = DGVSugeridos[3, numFila].Value.ToString();
             seleccionarSugerido = 2;
+            button2.Text = "Asociar";
             ActivarBtnSi();
         }
 
