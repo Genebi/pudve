@@ -24,8 +24,8 @@ namespace PuntoDeVentaV2
         Dictionary<string, string> clavesUnidades;
         Dictionary<int, float> datosHistPrecio;
 
-        public static Dictionary<int, string> aumentarPrecio = new Dictionary<int, string>();
-        public static Dictionary<int, string> disminuirPrecio = new Dictionary<int, string>();
+        public static Dictionary<int, string> modificarPrecio = new Dictionary<int, string>();
+        //public static Dictionary<int, string> disminuirPrecio = new Dictionary<int, string>();
 
 
         public AsignarPropiedad(object propiedad)
@@ -1066,8 +1066,8 @@ namespace PuntoDeVentaV2
 
         private void asignarActualizarInventario(Dictionary<int, float> recorrerDiccionario, int nuevoPrecio)
         {
-            aumentarPrecio.Clear();
-            disminuirPrecio.Clear();
+            modificarPrecio.Clear();
+            //disminuirPrecio.Clear();
 
             var datoUsuario = FormPrincipal.userNickName;
             var empleado = "0";
@@ -1093,17 +1093,17 @@ namespace PuntoDeVentaV2
 
             //Verificar que el diccionario no esta vacio. 
             string cadenaCompleta = string.Empty;
-            if (!aumentarPrecio.Count.Equals(0))
+            if (!modificarPrecio.Count.Equals(0))
             {//Agregar datos en tabla de aumentar
-                foreach (KeyValuePair<int, string> item in aumentarPrecio)
+                foreach (KeyValuePair<int, string> item in modificarPrecio)
                 {
                     cadenaCompleta += item.ToString();
                 }
                 //remplazar caracteress y comas para hacer el filtro por ID
                 cadenaCompleta = cadenaCompleta.Replace("[", "");
                 cadenaCompleta = cadenaCompleta.Replace("]", "");
-                cadenaCompleta = cadenaCompleta.Replace("P", "");
                 cadenaCompleta = cadenaCompleta.Replace("PQ", "");
+                cadenaCompleta = cadenaCompleta.Replace("P", "");
                 cadenaCompleta = cadenaCompleta.Replace("S", "");
                 cadenaCompleta = cadenaCompleta.Replace(", ,", ",");
                 cadenaCompleta = cadenaCompleta.Replace(" ", "");
@@ -1131,76 +1131,76 @@ namespace PuntoDeVentaV2
                     //    operacionPrecio = datoObtenidoPrecio - newPrecio;
                     //}
 
-                    var sentenciaAgregarInfoAumentar = "INSERT INTO DGVAumentarInventario (IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IDUsuario) VALUES";
-                    sentenciaAgregarInfoAumentar += $"('{datos[0]}', '{datos[1]}', '{datos[2]}', '{""}','{datos[2]}', '{precioTmp}', '{datos[4]}', '{datos[5]}', '{fechaActual}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{FormPrincipal.userID}')";
+                    //var sentenciaAgregarInfoAumentar = "INSERT INTO DGVAumentarInventario (IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IDUsuario) VALUES";
+                    //sentenciaAgregarInfoAumentar += $"('{datos[0]}', '{datos[1]}', '{datos[2]}', '{""}','{datos[2]}', '{precioTmp}', '{datos[4]}', '{datos[5]}', '{fechaActual}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{FormPrincipal.userID}')";
 
-                    cn.EjecutarConsulta(sentenciaAgregarInfoAumentar);
-                    sentenciaAgregarInfoAumentar = string.Empty;
+                    //cn.EjecutarConsulta(sentenciaAgregarInfoAumentar);
+                    //sentenciaAgregarInfoAumentar = string.Empty;
 
-                    //var info = new string[] {
-                    //    FormPrincipal.userID.ToString(), empleado, item.ToString(), datoObtenidoPrecio.ToString(), newPrecio.ToString(), "ASIGNAR PRODUCTO", fechaActual
-                    //};
-                    //cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
+                    var info = new string[] {
+                        FormPrincipal.userID.ToString(), empleado, item.ToString(), datoObtenidoPrecio.ToString(), newPrecio.ToString(), "ASIGNAR PRODUCTO", fechaActual
+                    };
+                    cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
                 }
             }
 
-            if (!disminuirPrecio.Count.Equals(0))
-            {//Agregar datos en tabla de disminuir
-                foreach (KeyValuePair<int, string> item in disminuirPrecio)
-                {
-                    cadenaCompleta += item.ToString();
-                }
-                //remplazar caracteress y comas para hacer el filtro por ID
-                cadenaCompleta = cadenaCompleta.Replace("[", "");
-                cadenaCompleta = cadenaCompleta.Replace("]", "");
-                cadenaCompleta = cadenaCompleta.Replace("P", "");
-                cadenaCompleta = cadenaCompleta.Replace("PQ", "");
-                cadenaCompleta = cadenaCompleta.Replace("S", "");
-                cadenaCompleta = cadenaCompleta.Replace(", ,", ",");
-                cadenaCompleta = cadenaCompleta.Replace(" ", "");
-                cadenaCompleta = cadenaCompleta.Remove(cadenaCompleta.Length - 1);
+            //if (!disminuirPrecio.Count.Equals(0))
+            //{//Agregar datos en tabla de disminuir
+            //    foreach (KeyValuePair<int, string> item in disminuirPrecio)
+            //    {
+            //        cadenaCompleta += item.ToString();
+            //    }
+            //    //remplazar caracteress y comas para hacer el filtro por ID
+            //    cadenaCompleta = cadenaCompleta.Replace("[", "");
+            //    cadenaCompleta = cadenaCompleta.Replace("]", "");
+            //    cadenaCompleta = cadenaCompleta.Replace("P", "");
+            //    cadenaCompleta = cadenaCompleta.Replace("PQ", "");
+            //    cadenaCompleta = cadenaCompleta.Replace("S", "");
+            //    cadenaCompleta = cadenaCompleta.Replace(", ,", ",");
+            //    cadenaCompleta = cadenaCompleta.Replace(" ", "");
+            //    cadenaCompleta = cadenaCompleta.Remove(cadenaCompleta.Length - 1);
 
-                var separarId = cadenaCompleta.Split(',');
+            //    var separarId = cadenaCompleta.Split(',');
                 
-                foreach (var item in separarId)
-                {
-                    var fechaActual = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            //    foreach (var item in separarId)
+            //    {
+            //        var fechaActual = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                    var datos = datosProducto(Convert.ToInt32(item));
+            //        var datos = datosProducto(Convert.ToInt32(item));
 
-                    var datoObtenidoPrecio = float.Parse(datos[3].ToString());
-                    var newPrecio = float.Parse(precioTmp);
-                    //var operacionPrecio = 0f;
+            //        var datoObtenidoPrecio = float.Parse(datos[3].ToString());
+            //        var newPrecio = float.Parse(precioTmp);
+            //        //var operacionPrecio = 0f;
 
 
-                    //if (datoObtenidoPrecio > newPrecio)
-                    //{
-                    //    operacionPrecio = newPrecio - datoObtenidoPrecio;
-                    //}
-                    //else if (datoObtenidoPrecio < newPrecio)
-                    //{
-                    //    operacionPrecio = datoObtenidoPrecio - newPrecio;
-                    //}
+            //        //if (datoObtenidoPrecio > newPrecio)
+            //        //{
+            //        //    operacionPrecio = newPrecio - datoObtenidoPrecio;
+            //        //}
+            //        //else if (datoObtenidoPrecio < newPrecio)
+            //        //{
+            //        //    operacionPrecio = datoObtenidoPrecio - newPrecio;
+            //        //}
 
-                    var sentenciaAgregarInfoDisminuir = $"INSERT INTO DGVDisminuirInventario (IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IDUsuario) VALUES";
+            //        var sentenciaAgregarInfoDisminuir = $"INSERT INTO DGVDisminuirInventario (IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IDUsuario) VALUES";
 
-                    sentenciaAgregarInfoDisminuir += $"('{datos[0]}', '{datos[1]}', '{datos[2]}', '{""}','{datos[2]}', '{precioTmp}', '{datos[4]}', '{datos[5]}', '{fechaActual}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{FormPrincipal.userID}')";
+            //        sentenciaAgregarInfoDisminuir += $"('{datos[0]}', '{datos[1]}', '{datos[2]}', '{""}','{datos[2]}', '{precioTmp}', '{datos[4]}', '{datos[5]}', '{fechaActual}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{FormPrincipal.userID}')";
 
-                    cn.EjecutarConsulta(sentenciaAgregarInfoDisminuir);
-                    sentenciaAgregarInfoDisminuir = string.Empty;
-                }
-            }
+            //        cn.EjecutarConsulta(sentenciaAgregarInfoDisminuir);
+            //        sentenciaAgregarInfoDisminuir = string.Empty;
+            //    }
+            //}
 
-            Inventario inventario = Application.OpenForms.OfType<Inventario>().FirstOrDefault();
+            //Inventario inventario = Application.OpenForms.OfType<Inventario>().FirstOrDefault();
 
-            if (inventario != null)
-            {
-                inventario.populateAumentarDGVInventario();
-            }
+            //if (inventario != null)
+            //{
+            //    inventario.populateAumentarDGVInventario();
+            //}
 
         }
 
-        //Se separan en 2 diccionarios temporales diferentes segun se aumente o disminuya para la sentencia de agregar datos para los reportes 
+        //Se guatdan en el diccionario los ID y el tipo de producto
         private void separarDiccionario(int id, int nuevoPrecio, string tipoProducto, float precioActual)
         {
             var query = cn.CargarDatos($"SELECT Precio FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{id}'");
@@ -1208,14 +1208,16 @@ namespace PuntoDeVentaV2
             {
                 var precio = float.Parse(query.Rows[0]["Precio"].ToString());
 
-                if (precio < precioActual)
-                {
-                    aumentarPrecio.Add(id,tipoProducto);
-                }
-                else if(precio > precioActual)
-                {
-                    disminuirPrecio.Add(id, tipoProducto);
-                }
+                modificarPrecio.Add(id,tipoProducto);
+
+                //if (precio < precioActual)
+                //{
+                //    modificarPrecio.Add(id,tipoProducto);
+                //}
+                //else if(precio > precioActual)
+                //{
+                //    disminuirPrecio.Add(id, tipoProducto);
+                //}
             }
         }
 

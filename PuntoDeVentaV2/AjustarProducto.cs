@@ -539,6 +539,14 @@ namespace PuntoDeVentaV2
                     this.Close();
                 }
             }
+
+            //Recargar el DGV de Productos
+            Productos productos = Application.OpenForms.OfType<Productos>().FirstOrDefault();
+
+            if (productos != null)
+            {
+                productos.CargarDatos();
+            }
         }
 
         private void RestaurarValores(int valorCB)
