@@ -24,11 +24,15 @@ namespace PuntoDeVentaV2
         Dictionary<string, string> clavesUnidades;
         Dictionary<int, float> datosHistPrecio;
 
+        public static Dictionary<int, string> aumentarPrecio = new Dictionary<int, string>();
+        public static Dictionary<int, string> disminuirPrecio = new Dictionary<int, string>();
+
+
         public AsignarPropiedad(object propiedad)
         {
             InitializeComponent();
 
-            this.propiedad = propiedad.ToString().Replace(" ","_");
+            this.propiedad = propiedad.ToString().Replace(" ", "_");
 
             productos = Productos.productosSeleccionados;
 
@@ -48,7 +52,7 @@ namespace PuntoDeVentaV2
         {
             Font fuente = new Font("Century Gothic", 10.0f);
             Font fuenteChica = new Font("Century Gothic", 8.0f);
-            
+
             if (propiedad == "MensajeVentas")
             {
                 TextBox tbMensaje = new TextBox();
@@ -253,7 +257,7 @@ namespace PuntoDeVentaV2
                     Width = 300,
                     Font = fuenteChica
                 };
-                
+
                 var checkboxes = new CheckBox[] { cuartoCB };
 
                 panelContenedor.Controls.AddRange(checkboxes);
@@ -356,7 +360,7 @@ namespace PuntoDeVentaV2
         private Button GenerarBoton(int tipo, string nombre, int ejeY = 125)
         {
             Button boton = new Button();
-            Font fuenteBoton = new Font("Century Gothic", 9.5f);     
+            Font fuenteBoton = new Font("Century Gothic", 9.5f);
 
             if (tipo == 0)
             {
@@ -375,7 +379,7 @@ namespace PuntoDeVentaV2
 
                 boton = btnCancelar;
             }
-            
+
             if (tipo == 1)
             {
                 Button btnAceptar = new Button();
@@ -653,6 +657,8 @@ namespace PuntoDeVentaV2
 
                 if (!string.IsNullOrWhiteSpace(precioTmp))
                 {
+                    asignarActualizarInventario(datosHistPrecio, Convert.ToInt32(precioTmp));
+
                     var precio = float.Parse(precioTmp);
                     var html = string.Empty;
                     var consulta = "INSERT IGNORE INTO Productos (ID, Precio) VALUES";
@@ -663,12 +669,13 @@ namespace PuntoDeVentaV2
                     {
                         empleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
                     }
-                    
+
                     // Guardamos los datos en la tabla historial de precios
                     foreach (var dato in datosHistPrecio)
                     {
                         var idProd = dato.Key;
                         var precioActual = dato.Value;
+
 
                         var info = new string[] {
                         FormPrincipal.userID.ToString(), empleado, idProd.ToString(),
@@ -678,7 +685,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
                     }
-     
+
                     foreach (var producto in productos)
                     {
                         var datosConfig = mb.ComprobarConfiguracion();
@@ -1056,5 +1063,183 @@ namespace PuntoDeVentaV2
                 Application.OpenForms.OfType<Cargando>().First().BringToFront();
             }
         }
+
+        private void asignarActualizarInventario(Dictionary<int, float> recorrerDiccionario, int nuevoPrecio)
+        {
+            aumentarPrecio.Clear();
+            disminuirPrecio.Clear();
+
+            var datoUsuario = FormPrincipal.userNickName;
+            var empleado = "0";
+
+            if (datoUsuario.Contains('@'))
+            {
+                empleado = cs.buscarIDEmpleado(datoUsuario);
+            }
+
+            var codigos = Productos.diccionarioAjustePrecio;
+
+            TextBox txtPrecio = (TextBox)this.Controls.Find("tbPrecio", true)[0];
+
+            var precioTmp = txtPrecio.Text;
+
+            foreach (var dato in codigos)
+            {
+                var idProd = dato.Key;
+                var tipoProducto = dato.Value;
+                
+                separarDiccionario(idProd, nuevoPrecio, tipoProducto, float.Parse(precioTmp));
+            }
+
+            //Verificar que el diccionario no esta vacio. 
+            string cadenaCompleta = string.Empty;
+            if (!aumentarPrecio.Count.Equals(0))
+            {//Agregar datos en tabla de aumentar
+                foreach (KeyValuePair<int, string> item in aumentarPrecio)
+                {
+                    cadenaCompleta += item.ToString();
+                }
+                //remplazar caracteress y comas para hacer el filtro por ID
+                cadenaCompleta = cadenaCompleta.Replace("[", "");
+                cadenaCompleta = cadenaCompleta.Replace("]", "");
+                cadenaCompleta = cadenaCompleta.Replace("P", "");
+                cadenaCompleta = cadenaCompleta.Replace("PQ", "");
+                cadenaCompleta = cadenaCompleta.Replace("S", "");
+                cadenaCompleta = cadenaCompleta.Replace(", ,", ",");
+                cadenaCompleta = cadenaCompleta.Replace(" ", "");
+                cadenaCompleta = cadenaCompleta.Remove(cadenaCompleta.Length - 1);
+
+                var separarId = cadenaCompleta.Split(',');
+                
+                foreach (var item in separarId)
+                {
+                    var fechaActual = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    var datos = datosProducto(Convert.ToInt32(item));
+
+                    var datoObtenidoPrecio = float.Parse(datos[3].ToString());
+                    var newPrecio = float.Parse(precioTmp);
+                    var operacionPrecio = 0f;
+
+
+                    if (datoObtenidoPrecio > newPrecio)
+                    {
+                        operacionPrecio = newPrecio - datoObtenidoPrecio;
+                    }
+                    else if (datoObtenidoPrecio < newPrecio)
+                    {
+                        operacionPrecio = datoObtenidoPrecio - newPrecio;
+                    }
+
+                    var sentenciaAgregarInfoAumentar = "INSERT INTO DGVAumentarInventario (IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IDUsuario) VALUES";
+                    sentenciaAgregarInfoAumentar += $"('{datos[0]}', '{datos[1]}', '{datos[2]}', '{operacionPrecio}','{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{fechaActual}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{FormPrincipal.userID}')";
+
+                    cn.EjecutarConsulta(sentenciaAgregarInfoAumentar);
+                    sentenciaAgregarInfoAumentar = string.Empty;
+
+                    //var info = new string[] {
+                    //    FormPrincipal.userID.ToString(), empleado, item.ToString(), datoObtenidoPrecio.ToString(), newPrecio.ToString(), "ASIGNAR PRODUCTO", fechaActual
+                    //};
+                    //cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
+                }
+            }
+
+            if (!disminuirPrecio.Count.Equals(0))
+            {//Agregar datos en tabla de disminuir
+                foreach (KeyValuePair<int, string> item in disminuirPrecio)
+                {
+                    cadenaCompleta += item.ToString();
+                }
+                //remplazar caracteress y comas para hacer el filtro por ID
+                cadenaCompleta = cadenaCompleta.Replace("[", "");
+                cadenaCompleta = cadenaCompleta.Replace("]", "");
+                cadenaCompleta = cadenaCompleta.Replace("P", "");
+                cadenaCompleta = cadenaCompleta.Replace("PQ", "");
+                cadenaCompleta = cadenaCompleta.Replace("S", "");
+                cadenaCompleta = cadenaCompleta.Replace(", ,", ",");
+                cadenaCompleta = cadenaCompleta.Replace(" ", "");
+                cadenaCompleta = cadenaCompleta.Remove(cadenaCompleta.Length - 1);
+
+                var separarId = cadenaCompleta.Split(',');
+                
+                foreach (var item in separarId)
+                {
+                    var fechaActual = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    var datos = datosProducto(Convert.ToInt32(item));
+
+                    var datoObtenidoPrecio = float.Parse(datos[3].ToString());
+                    var newPrecio = float.Parse(precioTmp);
+                    var operacionPrecio = 0f;
+
+
+                    if (datoObtenidoPrecio > newPrecio)
+                    {
+                        operacionPrecio = newPrecio - datoObtenidoPrecio;
+                    }
+                    else if (datoObtenidoPrecio < newPrecio)
+                    {
+                        operacionPrecio = datoObtenidoPrecio - newPrecio;
+                    }
+
+                    var sentenciaAgregarInfoDisminuir = $"INSERT INTO DGVDisminuirInventario (IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IDUsuario) VALUES";
+
+                    sentenciaAgregarInfoDisminuir += $"('{datos[0]}', '{datos[1]}', '{datos[2]}', '{operacionPrecio}','{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{fechaActual}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{FormPrincipal.userID}')";
+
+                    cn.EjecutarConsulta(sentenciaAgregarInfoDisminuir);
+                    sentenciaAgregarInfoDisminuir = string.Empty;
+                }
+            }
+
+        }
+
+        //Se separan en 2 diccionarios temporales diferentes segun se aumente o disminuya para la sentencia de agregar datos para los reportes 
+        private void separarDiccionario(int id, int nuevoPrecio, string tipoProducto, float precioActual)
+        {
+            var query = cn.CargarDatos($"SELECT Precio FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{id}'");
+            if (!query.Rows.Count.Equals(0))
+            {
+                var precio = float.Parse(query.Rows[0]["Precio"].ToString());
+
+                if (precio < precioActual)
+                {
+                    aumentarPrecio.Add(id,tipoProducto);
+                }
+                else if(precio > precioActual)
+                {
+                    disminuirPrecio.Add(id, tipoProducto);
+                }
+            }
+        }
+
+        private string[] datosProducto(int id)
+        {
+            List<string> lista = new List<string>();
+
+            //var consultaA = $"SELECT ID, Nombre, Stock, Precio, ClaveInterna, CodigoBarras, NumeroRevision, PrecioCompra FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{id}'";
+
+            var query = cn.CargarDatos($"SELECT P.ID AS ID, P.Nombre AS Nombre, P.Stock AS Stock, P.Precio AS Precio, P.ClaveInterna AS ClaveInterna, P.CodigoBarras AS CodigoBarras, P.NumeroRevision AS NumeroRevision, P.PrecioCompra AS PrecioCompra, DP.Proveedor AS Proveedor  FROM Productos AS P INNER JOIN detallesproducto AS DP ON P.IDUsuario = DP.IDUsuario WHERE P.IDUsuario = '{FormPrincipal.userID}' AND P.ID = '{id}' LIMIT 1");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                lista.Add(id.ToString());//0
+                lista.Add(query.Rows[0]["Nombre"].ToString());//1
+                lista.Add(query.Rows[0]["Stock"].ToString());//2
+                //lista.Add(diferencia);
+                //lista.Add(nuevo stock);
+                lista.Add(query.Rows[0]["Precio"].ToString());//3
+                lista.Add(query.Rows[0]["ClaveInterna"].ToString());//4
+                lista.Add(query.Rows[0]["CodigoBarras"].ToString());//5
+                //lista.Add(Fecha);
+                lista.Add(query.Rows[0]["NumeroRevision"].ToString());//6
+                lista.Add("0");//7
+                lista.Add(query.Rows[0]["Proveedor"].ToString());//8
+                lista.Add("");//9
+                lista.Add(query.Rows[0]["PrecioCompra"].ToString());//10
+            }
+
+            return lista.ToArray();
+        }
+
     }
 }
