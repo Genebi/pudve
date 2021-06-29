@@ -87,6 +87,8 @@ namespace PuntoDeVentaV2
         public int idProductoCambio { get; set; }
         public bool cambioProducto { get; set; }
 
+        public static Dictionary<int, string> diccionarioAjustePrecio { get; set; } 
+
         int paginacompletaMarcada = -1;
 
         //Variable para los checkbox que se desmarcan cuando todos estan seleccionados
@@ -6372,6 +6374,8 @@ namespace PuntoDeVentaV2
 
         private void btnAsignarMultiple_Click(object sender, EventArgs e)
         {
+            //Guardar los datos de un diccionario a otro para poder pasarlos a otro form
+            diccionarioAjustePrecio = checkboxMarcados;
             //Mostrar Mensaje ne la etiqueta de atajos
             timer1.Start();
             lAtajo.Visible = true;
