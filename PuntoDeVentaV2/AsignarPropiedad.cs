@@ -1119,20 +1119,20 @@ namespace PuntoDeVentaV2
 
                     var datoObtenidoPrecio = float.Parse(datos[3].ToString());
                     var newPrecio = float.Parse(precioTmp);
-                    var operacionPrecio = 0f;
+                    //var operacionPrecio = 0f;
 
 
-                    if (datoObtenidoPrecio > newPrecio)
-                    {
-                        operacionPrecio = newPrecio - datoObtenidoPrecio;
-                    }
-                    else if (datoObtenidoPrecio < newPrecio)
-                    {
-                        operacionPrecio = datoObtenidoPrecio - newPrecio;
-                    }
+                    //if (datoObtenidoPrecio > newPrecio)
+                    //{
+                    //    operacionPrecio = newPrecio - datoObtenidoPrecio;
+                    //}
+                    //else if (datoObtenidoPrecio < newPrecio)
+                    //{
+                    //    operacionPrecio = datoObtenidoPrecio - newPrecio;
+                    //}
 
                     var sentenciaAgregarInfoAumentar = "INSERT INTO DGVAumentarInventario (IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IDUsuario) VALUES";
-                    sentenciaAgregarInfoAumentar += $"('{datos[0]}', '{datos[1]}', '{datos[2]}', '{operacionPrecio}','{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{fechaActual}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{FormPrincipal.userID}')";
+                    sentenciaAgregarInfoAumentar += $"('{datos[0]}', '{datos[1]}', '{datos[2]}', '{""}','{datos[2]}', '{precioTmp}', '{datos[4]}', '{datos[5]}', '{fechaActual}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{FormPrincipal.userID}')";
 
                     cn.EjecutarConsulta(sentenciaAgregarInfoAumentar);
                     sentenciaAgregarInfoAumentar = string.Empty;
@@ -1170,25 +1170,32 @@ namespace PuntoDeVentaV2
 
                     var datoObtenidoPrecio = float.Parse(datos[3].ToString());
                     var newPrecio = float.Parse(precioTmp);
-                    var operacionPrecio = 0f;
+                    //var operacionPrecio = 0f;
 
 
-                    if (datoObtenidoPrecio > newPrecio)
-                    {
-                        operacionPrecio = newPrecio - datoObtenidoPrecio;
-                    }
-                    else if (datoObtenidoPrecio < newPrecio)
-                    {
-                        operacionPrecio = datoObtenidoPrecio - newPrecio;
-                    }
+                    //if (datoObtenidoPrecio > newPrecio)
+                    //{
+                    //    operacionPrecio = newPrecio - datoObtenidoPrecio;
+                    //}
+                    //else if (datoObtenidoPrecio < newPrecio)
+                    //{
+                    //    operacionPrecio = datoObtenidoPrecio - newPrecio;
+                    //}
 
                     var sentenciaAgregarInfoDisminuir = $"INSERT INTO DGVDisminuirInventario (IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IDUsuario) VALUES";
 
-                    sentenciaAgregarInfoDisminuir += $"('{datos[0]}', '{datos[1]}', '{datos[2]}', '{operacionPrecio}','{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{fechaActual}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{FormPrincipal.userID}')";
+                    sentenciaAgregarInfoDisminuir += $"('{datos[0]}', '{datos[1]}', '{datos[2]}', '{""}','{datos[2]}', '{precioTmp}', '{datos[4]}', '{datos[5]}', '{fechaActual}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{FormPrincipal.userID}')";
 
                     cn.EjecutarConsulta(sentenciaAgregarInfoDisminuir);
                     sentenciaAgregarInfoDisminuir = string.Empty;
                 }
+            }
+
+            Inventario inventario = Application.OpenForms.OfType<Inventario>().FirstOrDefault();
+
+            if (inventario != null)
+            {
+                inventario.populateAumentarDGVInventario();
             }
 
         }
@@ -1232,7 +1239,7 @@ namespace PuntoDeVentaV2
                 lista.Add(query.Rows[0]["CodigoBarras"].ToString());//5
                 //lista.Add(Fecha);
                 lista.Add(query.Rows[0]["NumeroRevision"].ToString());//6
-                lista.Add("0");//7
+                lista.Add("1");//7
                 lista.Add(query.Rows[0]["Proveedor"].ToString());//8
                 lista.Add("");//9
                 lista.Add(query.Rows[0]["PrecioCompra"].ToString());//10

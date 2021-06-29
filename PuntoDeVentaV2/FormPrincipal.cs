@@ -933,6 +933,14 @@ namespace PuntoDeVentaV2
             if (inventarios == 1)
             {
                 AbrirFormulario<Inventario>();
+
+                //Inventario inventario = Application.OpenForms.OfType<Inventario>().FirstOrDefault();
+
+                //if (inventario != null)
+                //{
+                
+                //    inventario.populateAumentarDGVInventario();
+                //}
             }
             else
             {

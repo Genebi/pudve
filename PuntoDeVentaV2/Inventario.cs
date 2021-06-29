@@ -165,7 +165,7 @@ namespace PuntoDeVentaV2
             DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
         }
 
-        private void populateAumentarDGVInventario()
+        public void populateAumentarDGVInventario()
         {
             using (DataTable dtRetriveAumentarInventario = cn.CargarDatos(cs.GetAumentarInventario()))
             {
