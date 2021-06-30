@@ -1721,11 +1721,7 @@ namespace PuntoDeVentaV2
             btnModificarEstado.Image = deshabilitarIcon;
 
             // Solo para dos cuentas
-<<<<<<< HEAD
-            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT" | FormPrincipal.userNickName == "HOUSEDEPOTREPARTO")
-=======
-            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT"| FormPrincipal.userNickName == "MUELASO")
->>>>>>> tipoDeMonedaEnUso
+            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT" | FormPrincipal.userNickName == "HOUSEDEPOTREPARTO" | FormPrincipal.userNickName == "MUELASO")
             {
                 btnAgregarXML.Visible = true;
             }

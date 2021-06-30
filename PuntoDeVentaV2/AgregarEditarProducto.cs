@@ -7281,7 +7281,7 @@ namespace PuntoDeVentaV2
             //tLPProducto.Controls.Add(label2, 2, 4);               // Código de Barras Label
 
             tLPProducto.Controls.Add(panelContenedor, 4, 4);
-            tLPProducto.SetColumnSpan(panelContenedor, 2);
+            tLPProducto.SetColumnSpan(panelContenedor, 3);
             tLPProducto.SetRowSpan(panelContenedor, 2);
             #endregion End Row 5
 
