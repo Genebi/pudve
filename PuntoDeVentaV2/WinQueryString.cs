@@ -925,7 +925,7 @@ namespace PuntoDeVentaV2
 
                         CheckBox checkDetalleGral = new CheckBox();
                         checkDetalleGral.Name = "chkBox" + name;
-                        checkDetalleGral.Text = name.Remove(0, 3);
+                        checkDetalleGral.Text = name.Remove(0, 3).Replace("_"," ");
                         checkDetalleGral.Width = 90;
                         checkDetalleGral.Height = 24;
                         checkDetalleGral.Location = new Point(10, 10);
@@ -1279,18 +1279,18 @@ namespace PuntoDeVentaV2
 
             if (listaDetalleGral.Length > 0)
             {
-                detallesGral.Add("0", "Selecciona " + concepto);
-
+                detallesGral.Add("0", "Selecciona " + concepto.Replace("_", " "));
+            
                 foreach (var DetailGral in listaDetalleGral)
                 {
                     var auxiliar = DetailGral.Split('|');
 
-                    detallesGral.Add(auxiliar[0], auxiliar[1]);
+                    detallesGral.Add(auxiliar[0], auxiliar[1].Replace("_"," "));
                 }
             }
             else
             {
-                detallesGral.Add("0", "Selecciona " + concepto);
+                detallesGral.Add("0", "Selecciona " + concepto.Replace("_"," "));
             }
         }
 

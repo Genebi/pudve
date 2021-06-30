@@ -88,6 +88,7 @@ namespace PuntoDeVentaV2
         int opcion10 = 1; // Mostrar panel dinero agregado
         int opcion11 = 1; // Mostrar panel total caja
 
+
         public CajaN()
         {
             InitializeComponent();
@@ -98,7 +99,7 @@ namespace PuntoDeVentaV2
         {
             // Obtener saldo inicial
             CargarSaldoInicial();
-
+            
             if (FormPrincipal.id_empleado > 0)
             {
                 var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Caja");
@@ -123,12 +124,16 @@ namespace PuntoDeVentaV2
             panelTotales.Visible = Convert.ToBoolean(opcion11);
 
             // verificarCantidadAbonos();
+
         }
 
         private void CargarSaldoInicial()
         {
+            var tipodeMoneda = FormPrincipal.Moneda.Split('-');
+            var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
+
             saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
-            tituloSeccion.Text = "SALDO INICIAL: \r\n $" + saldoInicial.ToString("0.00");
+            tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + saldoInicial.ToString("0.00");
         }
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
@@ -725,18 +730,21 @@ namespace PuntoDeVentaV2
             drDos.Close();
             sql_con.Close();
 
+            var tipodeMoneda = FormPrincipal.Moneda.Split('-');
+            var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
+
             var credi = (vCredito - retiroCredito);
             if (credi < 0) { credi = 0; }
             // Apartado VENTAS
-            lbTEfectivo.Text = "$" + vEfectivo.ToString("0.00");
-            lbTTarjeta.Text = "$" + vTarjeta.ToString("0.00");
-            lbTVales.Text = "$" + vVales.ToString("0.00");
-            lbTCheque.Text = "$" + vCheque.ToString("0.00");
-            lbTTrans.Text = "$" + vTrans.ToString("0.00");
-            lbTCredito.Text = "$" + credi.ToString("0.00");
+            lbTEfectivo.Text = moneda + vEfectivo.ToString("0.00");
+            lbTTarjeta.Text = moneda + vTarjeta.ToString("0.00");
+            lbTVales.Text = moneda + vVales.ToString("0.00");
+            lbTCheque.Text = moneda + vCheque.ToString("0.00");
+            lbTTrans.Text = moneda + vTrans.ToString("0.00");
+            lbTCredito.Text = moneda + credi.ToString("0.00");
             //lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
-            lbTAnticipos.Text = "$" + anticiposAplicados.ToString("0.00");
-            lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00");
+            lbTAnticipos.Text = moneda + anticiposAplicados.ToString("0.00");
+            lbTVentas.Text = moneda + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00");
 
             ////Variables de Abonos en Ventas
             //lbEfectivoAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
@@ -744,36 +752,36 @@ namespace PuntoDeVentaV2
             //lbValesAbonos.Text = "$" + abonoValesI.ToString("0.00");
             //lbChequeAbonos.Text = "$" + abonoChequeI.ToString("0.00");
             //lbTransferenciaAbonos.Text = "$" + abonoTransferenciaI.ToString("0.00");
-            lbTCreditoC.Text = "$" + abonos/*(abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI)*/.ToString("0.00");
+            lbTCreditoC.Text = moneda + abonos/*(abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI)*/.ToString("0.00");
 
             //lbTotalAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
 
             // Apartado ANTICIPOS RECIBIDOS
-            lbTEfectivoA.Text = "$" + aEfectivo.ToString("0.00");
-            lbTTarjetaA.Text = "$" + aTarjeta.ToString("0.00");
-            lbTValesA.Text = "$" + aVales.ToString("0.00");
-            lbTChequeA.Text = "$" + aCheque.ToString("0.00");
-            lbTTransA.Text = "$" + aTrans.ToString("0.00");
-            lbTAnticiposA.Text = "$" + (aEfectivo + aTarjeta + aVales + aCheque + aTrans).ToString("0.00");
+            lbTEfectivoA.Text = moneda + aEfectivo.ToString("0.00");
+            lbTTarjetaA.Text = moneda + aTarjeta.ToString("0.00");
+            lbTValesA.Text = moneda + aVales.ToString("0.00");
+            lbTChequeA.Text = moneda + aCheque.ToString("0.00");
+            lbTTransA.Text = moneda + aTrans.ToString("0.00");
+            lbTAnticiposA.Text = moneda + (aEfectivo + aTarjeta + aVales + aCheque + aTrans).ToString("0.00");
 
             // Apartado DINERO AGREGADO
-            lbTEfectivoD.Text = "$" + dEfectivo.ToString("0.00");
-            lbTTarjetaD.Text = "$" + dTarjeta.ToString("0.00");
-            lbTValesD.Text = "$" + dVales.ToString("0.00");
-            lbTChequeD.Text = "$" + dCheque.ToString("0.00");
-            lbTTransD.Text = "$" + dTrans.ToString("0.00");
-            lbTAgregado.Text = "$" + (dEfectivo + dTarjeta + dVales + dCheque + dTrans).ToString("0.00");
+            lbTEfectivoD.Text = moneda + dEfectivo.ToString("0.00");
+            lbTTarjetaD.Text = moneda + dTarjeta.ToString("0.00");
+            lbTValesD.Text = moneda + dVales.ToString("0.00");
+            lbTChequeD.Text = moneda + dCheque.ToString("0.00");
+            lbTTransD.Text = moneda + dTrans.ToString("0.00");
+            lbTAgregado.Text = moneda + (dEfectivo + dTarjeta + dVales + dCheque + dTrans).ToString("0.00");
 
             // Apartado Dinero Retirado
-            lbEfectivoR.Text = "$ -" + retiroEfectivo.ToString("0.00");
-            lbTarjetaR.Text = "$ -" + retiroTarjeta.ToString("0.00");
-            lbValesR.Text = "$ -" + retiroVales.ToString("0.00");
-            lbChequeR.Text = "$ -" + retiroCheque.ToString("0.00");
-            lbTransferenciaR.Text = "$ -" + retiroTrans.ToString("0.00");
+            lbEfectivoR.Text = moneda +" -" + retiroEfectivo.ToString("0.00");
+            lbTarjetaR.Text = moneda + " -" + retiroTarjeta.ToString("0.00");
+            lbValesR.Text = moneda + " -" + retiroVales.ToString("0.00");
+            lbChequeR.Text = moneda + " -" + retiroCheque.ToString("0.00");
+            lbTransferenciaR.Text = moneda + " -" + retiroTrans.ToString("0.00");
             //lbTAnticiposC.Text = "$ -" + vAnticipos.ToString("0.00");
-            lbTAnticiposC.Text = "$ -" + anticiposAplicados.ToString("0.00");
-            lbDevoluciones.Text = "$ -" + devoluciones.ToString("0.00");
-            lbTRetirado.Text = "$ -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");
+            lbTAnticiposC.Text = moneda + " -" + anticiposAplicados.ToString("0.00");
+            lbDevoluciones.Text = moneda + " -" + devoluciones.ToString("0.00");
+            lbTRetirado.Text = moneda + " -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");
 
             // Apartado TOTAL EN CAJA
             efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo; if (efectivo < 0) { efectivo = 0; }
@@ -792,18 +800,18 @@ namespace PuntoDeVentaV2
             var totalC = (cheque - retiroCheque); if (totalC < 0) { totalC = 0; }
             var totalTr = (trans - retiroTrans); if (totalTr < 0) { totalTr = 0; }
 
-            lbTEfectivoC.Text = "$" + (totalF).ToString("0.00");
-            lbTTarjetaC.Text = "$" + (totalTa).ToString("0.00");
-            lbTValesC.Text = "$" + (totalV).ToString("0.00");
-            lbTChequeC.Text = "$" + (totalC).ToString("0.00");
-            lbTTransC.Text = "$" + (totalTr).ToString("0.00");
+            lbTEfectivoC.Text = moneda + (totalF).ToString("0.00");
+            lbTTarjetaC.Text = moneda + (totalTa).ToString("0.00");
+            lbTValesC.Text = moneda + (totalV).ToString("0.00");
+            lbTChequeC.Text = moneda + (totalC).ToString("0.00");
+            lbTTransC.Text = moneda + (totalTr).ToString("0.00");
             //lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
-            lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
-            if (credito < retiroCredito) { lbTCreditoTotal.Text = "$" + "0.00"; } else { lbTCreditoTotal.Text = "$" + (vCredito - retiroCredito).ToString("0.00"); }
+            lbTSaldoInicial.Text = moneda + saldoInicial.ToString("0.00");
+            if (credito < retiroCredito) { lbTCreditoTotal.Text = "$" + "0.00"; } else { lbTCreditoTotal.Text = moneda + (vCredito - retiroCredito).ToString("0.00"); }
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             //lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
-            lbTTotalCaja.Text = "$" + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");
+            lbTTotalCaja.Text = moneda + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");
 
             // Variables de clase
             totalEfectivo = efectivo - retiroEfectivo;

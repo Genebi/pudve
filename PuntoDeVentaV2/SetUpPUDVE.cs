@@ -140,6 +140,12 @@ namespace PuntoDeVentaV2
             this.Focus();
             SetUpPUDVE form = this;
             Utilidades.EjecutarAtajoKeyPreviewDown(SetUpPUDVE_PreviewKeyDown, form);
+
+            if (cboTipoMoneda.Text.Equals(string.Empty))
+            {
+                cboTipoMoneda.SelectedIndex = 113;
+                FormPrincipal.Moneda = cboTipoMoneda.Text;
+            }
         }
 
         private void VerificarDatosInventario()
@@ -993,6 +999,17 @@ namespace PuntoDeVentaV2
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void cboTipoMoneda_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FormPrincipal.Moneda = cboTipoMoneda.SelectedItem.ToString();
+            Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
+
+            if (producto != null)
+            {
+                producto.recargarDGV();
+            }
         }
     }
 }

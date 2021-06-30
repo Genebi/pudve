@@ -231,22 +231,31 @@ namespace PuntoDeVentaV2
 
                     var id = Convert.ToInt32(DGVProductos.SelectedRows[e.ColumnIndex].Cells["_IDProducto"].Value);
                     var tipo = DGVProductos.SelectedRows[e.ColumnIndex].Cells["TipoProducto"].Value.ToString();
-                    var precioActual = (float)Convert.ToDecimal(DGVProductos.SelectedRows[e.ColumnIndex].Cells["Column3"].Value.ToString());
-  
 
-                    if (!checkboxMarcados.ContainsKey(id))
-                    {
-                        checkboxMarcados.Add(id, tipo);
-                    }
+                    var valor = DGVProductos.SelectedRows[e.ColumnIndex].Cells["Column3"].Value.ToString().Split(' ');
 
-                    if (!productosSeleccionados.ContainsKey(id))
-                    {
-                        productosSeleccionados.Add(id, tipo);
-                    }
+                    decimal number;
 
-                    if (!productosSeleccionadosParaHistorialPrecios.ContainsKey(id))
+                    bool success = decimal.TryParse(valor[1], out number);
+                    if (success)
                     {
-                        productosSeleccionadosParaHistorialPrecios.Add(id, precioActual);
+                        var precioActual = (float)Convert.ToDecimal(valor[1]);
+
+
+                        if (!checkboxMarcados.ContainsKey(id))
+                        {
+                            checkboxMarcados.Add(id, tipo);
+                        }
+
+                        if (!productosSeleccionados.ContainsKey(id))
+                        {
+                            productosSeleccionados.Add(id, tipo);
+                        }
+
+                        if (!productosSeleccionadosParaHistorialPrecios.ContainsKey(id))
+                        {
+                            productosSeleccionadosParaHistorialPrecios.Add(id, precioActual);
+                        }
                     }
                 }
                 else
@@ -1712,7 +1721,11 @@ namespace PuntoDeVentaV2
             btnModificarEstado.Image = deshabilitarIcon;
 
             // Solo para dos cuentas
+<<<<<<< HEAD
             if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT" | FormPrincipal.userNickName == "HOUSEDEPOTREPARTO")
+=======
+            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT"| FormPrincipal.userNickName == "MUELASO")
+>>>>>>> tipoDeMonedaEnUso
             {
                 btnAgregarXML.Visible = true;
             }
@@ -4026,6 +4039,9 @@ namespace PuntoDeVentaV2
                 contadorTmp = 0,
                 countFalse = 0;
 
+            var tipodeMoneda = FormPrincipal.Moneda.Split('-');
+            var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
+
             long theNumber;
 
             bool siFiltrar = false;
@@ -5072,7 +5088,7 @@ namespace PuntoDeVentaV2
                     row.Cells["StockMaximo"].Value = maximo.ToString();
                 }
 
-                row.Cells["Column3"].Value = decimal.Parse(filaDatos["Precio"].ToString());
+                row.Cells["Column3"].Value = moneda + decimal.Parse(filaDatos["Precio"].ToString());
                 row.Cells["Column4"].Value = filaDatos["NumeroRevision"].ToString(); //filaDatos["Categoria"].ToString(); esta era la de categoria
                 row.Cells["Column5"].Value = filaDatos["ClaveInterna"].ToString();
                 row.Cells["Column6"].Value = filaDatos["CodigoBarras"].ToString();

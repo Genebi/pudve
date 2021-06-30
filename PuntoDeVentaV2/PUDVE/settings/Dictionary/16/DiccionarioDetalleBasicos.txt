@@ -1,0 +1,5 @@
+16|chkBoxchkProveedor|False|Selecciona Proveedor|cbchkProveedor
+17|chkBoxchkalonso_jimenez|False|Selecciona alonso jimenez|cbchkalonso_jimenez
+18|chkBoxchktest_fallo_desmarcados|False|Selecciona test fallo desmarcados|cbchktest_fallo_desmarcados
+19|chkBoxchktest_2_3_4_5|False|Selecciona test 2 3 4 5|cbchktest_2_3_4_5
+20|chkBoxchktest_guiones_1|False|Selecciona test_guiones_1|cbchktest_guiones_1
