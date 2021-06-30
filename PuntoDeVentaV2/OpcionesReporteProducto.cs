@@ -79,7 +79,7 @@ namespace PuntoDeVentaV2
                         continue;
                     }
 
-                    opcionesDefault.Add(concepto, new Tuple<string, float>(concepto, 80));
+                    opcionesDefault.Add(concepto, new Tuple<string, float>(concepto.Replace("_"," "), 80));
                 }
             }
         }
@@ -645,7 +645,10 @@ namespace PuntoDeVentaV2
 
                             salesPrice += precio;
 
-                            valor = "$ " + precio.ToString("N2");
+                            var tipodeMoneda = FormPrincipal.Moneda.Split('-');
+                            var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
+
+                            valor = moneda + " " + precio.ToString("N2");
 
                             PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
                             //rowCustom.BorderWidth = 0;
@@ -658,7 +661,10 @@ namespace PuntoDeVentaV2
 
                             boughtPrice += precioCompraTmp;
 
-                            valor = "$ " + valor;
+                            var tipodeMoneda = FormPrincipal.Moneda.Split('-');
+                            var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
+
+                            valor = moneda +" "+ valor;
 
                             if (precioCompraTmp == 0)
                             {

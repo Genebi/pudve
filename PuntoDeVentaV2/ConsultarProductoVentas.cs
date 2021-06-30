@@ -453,7 +453,7 @@ namespace PuntoDeVentaV2
 
         private void GenerarColumnas()
         {
-            var conceptos = mb.ConceptosAppSettings();
+            var conceptos = mb.ConceptosAppSettingsBusqueda();
 
             foreach (var concepto in conceptos)
             {

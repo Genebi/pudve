@@ -227,12 +227,15 @@ namespace PuntoDeVentaV2
 
 
             //Variables de Abonos en Ventas
-            lbEfectivoAbonos.Text = "$" + efectivoI.ToString("0.00");
-            lbTarjetaAbonos.Text = "$" + tarjetaI.ToString("0.00");
-            lbValesAbonos.Text = "$" + valesI.ToString("0.00");
-            lbChequeAbonos.Text = "$" + chequeI.ToString("0.00");
-            lbTransferenciaAbonos.Text = "$" + transferenciaI.ToString("0.00");
-            lbTCreditoC.Text = "$" + /*abonos*/(efectivoI + tarjetaI + valesI + chequeI + transferenciaI).ToString("0.00");
+            var tipodeMoneda = FormPrincipal.Moneda.Split('-');
+            var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
+
+            lbEfectivoAbonos.Text = moneda + efectivoI.ToString("0.00");
+            lbTarjetaAbonos.Text = moneda + tarjetaI.ToString("0.00");
+            lbValesAbonos.Text = moneda + valesI.ToString("0.00");
+            lbChequeAbonos.Text = moneda + chequeI.ToString("0.00");
+            lbTransferenciaAbonos.Text = moneda + transferenciaI.ToString("0.00");
+            lbTCreditoC.Text = moneda + /*abonos*/(efectivoI + tarjetaI + valesI + chequeI + transferenciaI).ToString("0.00");
         }
     }
 }

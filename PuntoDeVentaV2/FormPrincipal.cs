@@ -422,6 +422,8 @@ namespace PuntoDeVentaV2
 
         }
 
+        public static string Moneda { get; set; }
+
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             //if (ApplicationDeployment.IsNetworkDeployed)
@@ -548,6 +550,8 @@ namespace PuntoDeVentaV2
 
             actualizarNameReportesEmpleados();
             agregarCamposDinamicosPermisos();
+
+            Moneda = "México / MXN - ($)";
         }
 
         public void agregarCamposDinamicosPermisos()
