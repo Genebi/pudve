@@ -1528,6 +1528,7 @@ namespace PuntoDeVentaV2
                     txtBoxPrecioProd.Text = PrecioRecomendado.ToString("N2");     // ponemos en el TxtBox el contenido PrecioProdToCompare
                     txtBoxPrecioProd.Focus();                                   // mandamos el cursor al textBox para el cambio de precio del Stock
                     PrecioProd = float.Parse(txtBoxPrecioProd.Text);            // actualizamos el precio de la caja de texto
+                    return;
                 }
                 else if (dialogResult == DialogResult.No)           // si el usario selecciona que no quiere modificarlo
                 {
@@ -2905,6 +2906,13 @@ namespace PuntoDeVentaV2
                 PrecioProd = float.Parse(txtBoxPrecioProd.Text);    // Almacenamos el precio que tiene la caja de texto
                 PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text);   // Almacenamos el precio sugerido para hacer la comparacion
                 comprobarPrecioMayorIgualRecomendado();     // Llamamos la funsion para comparar el precio del producto con el sugerido
+
+                if (!resultadoCambioPrecio.Equals(0))
+                {
+                    resultadoCambioPrecio = 0;
+                    return;
+                }
+
                 NombreProd = txtBoxDescripcionProd.Text;    // Almacenamos el contenido del TextBox
                 
                 verNvoStock();  // Funcion para ver el nvo stock
@@ -2981,6 +2989,12 @@ namespace PuntoDeVentaV2
                     // Llamamos la funcion para comparar el precio del producto con el sugerido
                     comprobarPrecioMayorIgualRecomendado();
 
+                    if (!resultadoCambioPrecio.Equals(0))
+                    {
+                        resultadoCambioPrecio = 0;
+                        return;
+                    }
+
                     if (lblStockProd.Text == "")    // si el label esta sin contenido
                     {
                         stockProd = 0;  // la variable la ponemos a 0
@@ -3011,6 +3025,13 @@ namespace PuntoDeVentaV2
                 else if (resultadoSearchProd == 1)  // si la busqueda del producto da positivo
                 {
                     comprobarPrecioMayorIgualRecomendado();     // Llamamos la funcion para comparar el precio del producto con el sugerido
+
+                    if (!resultadoCambioPrecio.Equals(0))
+                    {
+                        resultadoCambioPrecio = 0;
+                        return;
+                    }
+
                     verNvoStock();                              // funcion para ver el nvo stock
                     
                     if (NoClaveInterna != textBoxNoIdentificacion)      // si son diferentes los datos osea hubo un cambio
