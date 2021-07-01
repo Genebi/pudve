@@ -2124,5 +2124,113 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}'";
             return consulta;
         }
+
+        public string quitarSimboloRaroEspacios()
+        {
+            var comillas = '"';
+            var abrirLlave = '{';
+            var cerrarLlave = '}';
+            var consulta = $@"UPDATE AppSettings SET concepto = REPLACE ( concepto, '\'', '' ) WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '\\', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '?', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '/', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '.', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '>', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, ',', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '<', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, ':', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, ',', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '|', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, ']', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '[', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '+', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '=', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, ')', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '(', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '*', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '&', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '^', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '%', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '$', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '#', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '@', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '!', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '~', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '`', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+			UPDATE AppSettings SET concepto = REPLACE(concepto, '\'', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+			UPDATE AppSettings SET concepto = REPLACE(concepto, '{comillas}', '') WHERE IDUsuario = '{ FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '{abrirLlave}', '') WHERE IDUsuario = '{ FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, '{cerrarLlave}', '') WHERE IDUsuario = '{ FormPrincipal.userID}';
+            UPDATE AppSettings SET concepto = REPLACE(concepto, ' ', '_') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '\'', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '\\', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '?', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '/', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '.', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '>', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, ',', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '<', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, ':', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, ',', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '|', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, ']', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '[', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '+', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '=', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, ')', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '(', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '*', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '&', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '^', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '%', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '$', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '#', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '@', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '!', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '~', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '`', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '\'', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '{comillas}', '') WHERE IDUsuario = '{FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '{abrirLlave}', '') WHERE IDUsuario = '{ FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, '{cerrarLlave}', '') WHERE IDUsuario = '{ FormPrincipal.userID}';
+            UPDATE AppSettings SET textComboBoxConcepto = REPLACE(textComboBoxConcepto, ' ', '_') WHERE IDUsuario = '{FormPrincipal.userID}'; ";
+
+            return consulta;
+        }
+
+        public string verificarCuentaVieja()
+        {
+            var consulta = $"SELECT * FROM Usuarios WHERE ID = '{FormPrincipal.userID}' AND SinClaveInterna = '1';";
+
+            return consulta;
+        }
+
+        public string moverClaveInternaHaciaCodigoBarraExtra()
+        {
+            var consulta = $"INSERT INTO codigobarrasextras ( CodigoBarraExtra, IDProducto ) SELECT Prod.ClaveInterna, Prod.ID FROM productos AS Prod INNER JOIN usuarios AS Usr ON Prod.IDUsuario = Usr.ID WHERE Usr.ID = '{FormPrincipal.userID}' AND Usr.SinClaveInterna = '1' AND Prod.ClaveInterna <> '';";
+
+            return consulta;
+        }
+
+        public string quitarContenidoClaveInterna()
+        {
+            var consulta = $"UPDATE productos SET ClaveInterna = '' WHERE IDUsuario = '{FormPrincipal.userID}' AND ClaveInterna <> '';";
+
+            return consulta;
+        }
+
+        public string configurarUsuarioParaObtenerCuentaNueva()
+        {
+            var consulta = $"UPDATE usuarios SET SinClaveInterna = 0 WHERE ID = '{FormPrincipal.userID}' AND SinClaveInterna = '1';";
+
+            return consulta;
+        }
+
+        public string quitarCodigoBarraExtraVacios()
+        {
+            var consulta = $"DELETE FROM codigobarrasextras WHERE CodigoBarraExtra IS NULL OR CodigoBarraExtra = '';";
+
+            return consulta;
+        }
     }
 }  

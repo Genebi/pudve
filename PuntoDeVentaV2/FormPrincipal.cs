@@ -548,10 +548,23 @@ namespace PuntoDeVentaV2
 
             }
 
+            cn.EjecutarConsulta(cs.quitarSimboloRaroEspacios());
+
             actualizarNameReportesEmpleados();
             agregarCamposDinamicosPermisos();
 
             Moneda = "México / MXN - ($)";
+
+            using (DataTable dtCuentaVieja = cn.CargarDatos(cs.verificarCuentaVieja()))
+            {
+                if (!dtCuentaVieja.Rows.Count.Equals(0))
+                {
+                    cn.EjecutarConsulta(cs.moverClaveInternaHaciaCodigoBarraExtra());
+                    cn.EjecutarConsulta(cs.quitarContenidoClaveInterna());
+                    cn.EjecutarConsulta(cs.configurarUsuarioParaObtenerCuentaNueva());
+                    cn.EjecutarConsulta(cs.quitarCodigoBarraExtraVacios());
+                }
+            }
         }
 
         public void agregarCamposDinamicosPermisos()
