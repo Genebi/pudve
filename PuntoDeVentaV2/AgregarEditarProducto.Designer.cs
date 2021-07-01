@@ -751,6 +751,7 @@
             this.btnAddCodBar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddCodBar.UseVisualStyleBackColor = true;
             this.btnAddCodBar.Visible = false;
+            this.btnAddCodBar.Click += new System.EventHandler(this.btnAddCodBar_Click);
             // 
             // lblCodBarExtra
             // 

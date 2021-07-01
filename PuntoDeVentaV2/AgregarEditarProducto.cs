@@ -1607,6 +1607,11 @@ namespace PuntoDeVentaV2
             btnAdd.PerformClick();
         }
 
+        private void btnAddCodBar_Click(object sender, EventArgs e)
+        {
+            agregarCodigoBarraExtra();
+        }
+
         public void LimpiarCampos()
         {
             txtNombreProducto.Text = "";
@@ -1629,13 +1634,20 @@ namespace PuntoDeVentaV2
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
                 panelHijo.Height = 25;
-                panelHijo.Width = 200;
+                panelHijo.Width = 150;
                 panelHijo.HorizontalScroll.Visible = false;
 
                 // generamos el textbox dinamico 
                 TextBox tb = new TextBox();
                 tb.Name = "textboxGenerado" + id;
-                tb.Width = 165;
+                if (this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO")
+                {
+                    tb.Width = 122;
+                }
+                else
+                {
+                    tb.Width = 122;
+                }
                 tb.Height = 20;
                 tb.Text = renglon[1].ToString();
                 tb.Enter += new EventHandler(TextBox_Enter);
@@ -2345,17 +2357,22 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
-                string texto = txtCodigoBarras.Text.Trim();
+                agregarCodigoBarraExtra();
+            }
+        }
 
-                if (texto.Length >= 5)
-                {
-                    GenerarTextBox();
-                    //MessageBox.Show(texto, "Mensaje");
-                }
-                else if (texto.Length <= 4)
-                {
-                    MessageBox.Show("Ingrese minimo 5 numeros\npara agregar un código de barra extra", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+        private void agregarCodigoBarraExtra()
+        {
+            string texto = txtCodigoBarras.Text.Trim();
+
+            if (texto.Length >= 5)
+            {
+                GenerarTextBox();
+                //MessageBox.Show(texto, "Mensaje");
+            }
+            else if (texto.Length <= 4)
+            {
+                MessageBox.Show("Ingrese minimo 5 numeros\npara agregar un código de barra extra", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -7108,195 +7125,201 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            // Primera Fila del TableLayoutPanel
-            // Label titulos
-            #region Begin Row 1
+            if (conSinClaveInterna.Equals(false))
+            {
+                // Primera Fila del TableLayoutPanel
+                // Label titulos
+                #region Begin Row 1
 
-            // label para Stock Minimo
-            label1.Visible = true;
-            label1.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                // label para Stock Minimo
+                label1.Visible = true;
+                label1.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
 
-            // label para Stock Maximo
-            label12.Visible = true;
-            label12.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
-            //label12.TextAlign = ContentAlignment.MiddleCenter;
+                // label para Stock Maximo
+                label12.Visible = true;
+                label12.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label12.TextAlign = ContentAlignment.MiddleCenter;
 
-            // label de cantidad Stock Compra
-            label6.Visible = true;
-            label6.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
-            //label6.TextAlign = ContentAlignment.MiddleCenter;
-
-
-            tLPProducto.Controls.Add(label1, 0, 0);               // Stock Minimo Label
-            tLPProducto.Controls.Add(label12, 2, 0);              // Stock Maximo Label
-            tLPProducto.Controls.Add(label6, 4, 0);               // Stock Label
-
-            #endregion End Row 1
-
-            // Segunda Fila del TableLayoutPanel
-            // TextBox y label de información
-            #region Begin Row 2
-
-            // TextBox de Stock Minimo
-            txtStockMinimo.Visible = true;
-            txtStockMinimo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtStockMinimo.TabIndex = 1;
-            txtStockMinimo.TabStop = true;
-            // label de esclamation txtStockMinimo
-            lblStockMinimo.Visible = true;
-            lblStockMinimo.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
-
-            // TextBox de Stock Maxio
-            txtStockMaximo.Visible = true;
-            txtStockMaximo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtStockMaximo.TabIndex = 2;
-            txtStockMaximo.TabStop = true;
-            //Label de Excalmation Stock
-            lbStockMaximo.Visible = true;
-            lbStockMaximo.Anchor = AnchorStyles.Left;// | AnchorStyles.Right
-
-            // TextBox de Stock
-            txtStockProducto.Visible = true;
-            txtStockProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtStockProducto.TabIndex = 3;
-            txtStockProducto.TabStop = true;
-            //Label de Excalmation Stock
-            lbStock.Visible = true;
-            lbStock.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+                // label de cantidad Stock Compra
+                label6.Visible = true;
+                label6.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label6.TextAlign = ContentAlignment.MiddleCenter;
 
 
-            tLPProducto.Controls.Add(txtStockMinimo, 0, 1);       // Stock Minimo TextBox
-            tLPProducto.Controls.Add(lblStockMinimo, 1, 1);       // Label de exclamation Stock Minimo
-            tLPProducto.Controls.Add(txtStockMaximo, 2, 1);       // Stock Maximo TextBox
-            tLPProducto.Controls.Add(lbStockMaximo, 3, 1);        // Label de Excalmation Stock Maximo
-            tLPProducto.Controls.Add(txtStockProducto, 4, 1);     // Stock TextBox
-            tLPProducto.Controls.Add(lbStock, 5, 1);              // Label de Excalmation Stock
+                tLPProducto.Controls.Add(label1, 0, 0);               // Stock Minimo Label
+                tLPProducto.Controls.Add(label12, 2, 0);              // Stock Maximo Label
+                tLPProducto.Controls.Add(label6, 4, 0);               // Stock Label
 
-            #endregion End Row 1
+                #endregion End Row 1
 
-            // Tercera Fila del TableLayoutPanel
-            // Label titulos
-            #region Begin Row 3
+                // Segunda Fila del TableLayoutPanel
+                // TextBox y label de información
+                #region Begin Row 2
 
-            // label para Precio Compra
-            label7.Visible = true;
-            label7.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                // TextBox de Stock Minimo
+                txtStockMinimo.Visible = true;
+                txtStockMinimo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtStockMinimo.TabIndex = 1;
+                txtStockMinimo.TabStop = true;
+                // label de esclamation txtStockMinimo
+                lblStockMinimo.Visible = true;
+                lblStockMinimo.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
 
+                // TextBox de Stock Maxio
+                txtStockMaximo.Visible = true;
+                txtStockMaximo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtStockMaximo.TabIndex = 2;
+                txtStockMaximo.TabStop = true;
+                //Label de Excalmation Stock
+                lbStockMaximo.Visible = true;
+                lbStockMaximo.Anchor = AnchorStyles.Left;// | AnchorStyles.Right
 
-            // label para Precio Venta
-            label4.Visible = true;
-            label4.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
-            //label4.TextAlign = ContentAlignment.MiddleCenter;
-
-            // label para Código de Barras
-            label2.Visible = true;
-            label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Right;
-
-            lblCodigoBarras.Visible = true;
-            lblCodigoBarras.Anchor = AnchorStyles.Left;
-
-            //lblCodBarExtra.Visible = true;
-            //lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-
-            tLPProducto.Controls.Add(label7, 0, 2);               // Precio Compra Label
-            tLPProducto.Controls.Add(label4, 2, 2);               // Precio Venta Label
-            tLPProducto.Controls.Add(label2, 4, 2);               // Código de Barras Label
-            tLPProducto.Controls.Add(lblCodigoBarras, 5, 2);
-            //tLPProducto.Controls.Add(lblCodBarExtra, 6, 2);
-
-            #endregion End Row 3            
-
-            // Cuarta Fila del TableLayoutPanel
-            // TextBox y label de información
-            #region Begin Row 4
-
-            // TextBox para Precio Compra
-            txtPrecioCompra.Visible = true;
-            txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtPrecioCompra.TabIndex = 4;
-            txtPrecioCompra.TabStop = true;
-            // Label de exclamation Precio de Compra
-            lbPrecioCompra.Visible = true;
-            lbPrecioCompra.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
-
-            // TextBox para Precio Venta
-            txtPrecioProducto.Visible = true;
-            txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtPrecioProducto.TabIndex = 5;
-            txtPrecioProducto.TabStop = true;
-
-            // Label de exclamation Precio de Venta
-            lbPrecioVenta.Visible = true;
-            lbPrecioVenta.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
-
-            // TextBox Código de Barras
-            txtCodigoBarras.Visible = true;
-            txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtCodigoBarras.TabIndex = 7;
-            txtCodigoBarras.TabStop = true;
-
-            // Button Generar Código de Barras
-            btnGenerarCB.Visible = true;
-            btnGenerarCB.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
-            btnGenerarCB.TabIndex = 8;
-            btnGenerarCB.TabStop = true;
-
-            // Button Agregar Codigo Barras extra
-            btnAddCodBar.Visible = true;
-            btnAddCodBar.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
-            btnAddCodBar.TabIndex = 9;
-            btnAddCodBar.TabStop = true;
-
-            tLPProducto.Controls.Add(txtPrecioCompra, 0, 3);      // Precio Compra TextBox
-            tLPProducto.Controls.Add(lbPrecioCompra, 1, 3);       // Label de exclamation Precio de Compra
-            tLPProducto.Controls.Add(txtPrecioProducto, 2, 3);    // Precio Venta TextBox
-            tLPProducto.Controls.Add(lbPrecioVenta, 3, 3);        // Label de exclamation Precio de Venta
-            tLPProducto.Controls.Add(txtCodigoBarras, 4, 3);      // Código de Barras TextBox
-            tLPProducto.Controls.Add(btnGenerarCB, 5, 3);         // Generar Button
-            tLPProducto.Controls.Add(btnAddCodBar, 6, 3);         // Botón de generar códigos de barra extra
-
-            #endregion End Row 4
+                // TextBox de Stock
+                txtStockProducto.Visible = true;
+                txtStockProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtStockProducto.TabIndex = 3;
+                txtStockProducto.TabStop = true;
+                //Label de Excalmation Stock
+                lbStock.Visible = true;
+                lbStock.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
 
 
-            // Quinta Fila del TableLayoutPanel
-            // Label titulos
-            #region Begin Row 5
+                tLPProducto.Controls.Add(txtStockMinimo, 0, 1);       // Stock Minimo TextBox
+                tLPProducto.Controls.Add(lblStockMinimo, 1, 1);       // Label de exclamation Stock Minimo
+                tLPProducto.Controls.Add(txtStockMaximo, 2, 1);       // Stock Maximo TextBox
+                tLPProducto.Controls.Add(lbStockMaximo, 3, 1);        // Label de Excalmation Stock Maximo
+                tLPProducto.Controls.Add(txtStockProducto, 4, 1);     // Stock TextBox
+                tLPProducto.Controls.Add(lbStock, 5, 1);              // Label de Excalmation Stock
 
-            // label para Clave Interna
-            label5.Visible = true;
-            label5.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
-            //label5.TextAlign = ContentAlignment.MiddleCenter;
+                #endregion End Row 1
 
-            // label para Código de Barras
-            //label2.Visible = true;
-            //label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                // Tercera Fila del TableLayoutPanel
+                // Label titulos
+                #region Begin Row 3
 
-            // Panel para Generar Código de Barra Extra
-            panelContenedor.Visible = true;
-            panelContenedor.Anchor = AnchorStyles.Left;
-            panelContenedor.TabIndex = 10;
-            panelContenedor.TabStop = true;
+                // label para Precio Compra
+                label7.Visible = true;
+                label7.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
 
-            tLPProducto.Controls.Add(label5, 0, 4);               // Clave Interna Label
-            //tLPProducto.Controls.Add(label2, 2, 4);               // Código de Barras Label
 
-            tLPProducto.Controls.Add(panelContenedor, 4, 4);
-            tLPProducto.SetColumnSpan(panelContenedor, 3);
-            tLPProducto.SetRowSpan(panelContenedor, 2);
-            #endregion End Row 5
+                // label para Precio Venta
+                label4.Visible = true;
+                label4.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label4.TextAlign = ContentAlignment.MiddleCenter;
+
+                // label para Código de Barras
+                label2.Visible = true;
+                label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Right;
+
+                lblCodigoBarras.Visible = true;
+                lblCodigoBarras.Anchor = AnchorStyles.Left;
+
+                //lblCodBarExtra.Visible = true;
+                //lblCodBarExtra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+                tLPProducto.Controls.Add(label7, 0, 2);               // Precio Compra Label
+                tLPProducto.Controls.Add(label4, 2, 2);               // Precio Venta Label
+                tLPProducto.Controls.Add(label2, 4, 2);               // Código de Barras Label
+                tLPProducto.Controls.Add(lblCodigoBarras, 5, 2);
+                //tLPProducto.Controls.Add(lblCodBarExtra, 6, 2);
+
+                #endregion End Row 3
+
+                // Cuarta Fila del TableLayoutPanel
+                // TextBox y label de información
+                #region Begin Row 4
+
+                // TextBox para Precio Compra
+                txtPrecioCompra.Visible = true;
+                txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtPrecioCompra.TabIndex = 4;
+                txtPrecioCompra.TabStop = true;
+                // Label de exclamation Precio de Compra
+                lbPrecioCompra.Visible = true;
+                lbPrecioCompra.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+
+                // TextBox para Precio Venta
+                txtPrecioProducto.Visible = true;
+                txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtPrecioProducto.TabIndex = 5;
+                txtPrecioProducto.TabStop = true;
+
+                // Label de exclamation Precio de Venta
+                lbPrecioVenta.Visible = true;
+                lbPrecioVenta.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+
+                // TextBox Código de Barras
+                txtCodigoBarras.Visible = true;
+                txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                txtCodigoBarras.TabIndex = 7;
+                txtCodigoBarras.TabStop = true;
+
+                // Button Generar Código de Barras
+                btnGenerarCB.Visible = true;
+                btnGenerarCB.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+                btnGenerarCB.TabIndex = 8;
+                btnGenerarCB.TabStop = true;
+
+                // Button Agregar Codigo Barras extra
+                btnAddCodBar.Visible = true;
+                btnAddCodBar.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+                btnAddCodBar.TabIndex = 9;
+                btnAddCodBar.TabStop = true;
+
+                tLPProducto.Controls.Add(txtPrecioCompra, 0, 3);      // Precio Compra TextBox
+                tLPProducto.Controls.Add(lbPrecioCompra, 1, 3);       // Label de exclamation Precio de Compra
+                tLPProducto.Controls.Add(txtPrecioProducto, 2, 3);    // Precio Venta TextBox
+                tLPProducto.Controls.Add(lbPrecioVenta, 3, 3);        // Label de exclamation Precio de Venta
+                tLPProducto.Controls.Add(txtCodigoBarras, 4, 3);      // Código de Barras TextBox
+                tLPProducto.Controls.Add(btnGenerarCB, 5, 3);         // Generar Button
+                tLPProducto.Controls.Add(btnAddCodBar, 6, 3);         // Botón de generar códigos de barra extra
+
+                #endregion End Row 4
+
+                // Quinta Fila del TableLayoutPanel
+                // Label titulos
+                #region Begin Row 5
+
+                // label para Clave Interna
+                //label5.Visible = true;
+                //label5.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+                //label5.TextAlign = ContentAlignment.MiddleCenter;
+
+                // label para Código de Barras
+                //label2.Visible = true;
+                //label2.Anchor = AnchorStyles.Left | AnchorStyles.Bottom;
+
+                // Panel para Generar Código de Barra Extra
+                panelContenedor.Visible = true;
+                panelContenedor.Anchor = AnchorStyles.Left;
+                panelContenedor.TabIndex = 10;
+                panelContenedor.TabStop = true;
+
+                tLPProducto.Controls.Add(label5, 0, 4);               // Clave Interna Label
+                //tLPProducto.Controls.Add(label2, 2, 4);               // Código de Barras Label
+
+                tLPProducto.Controls.Add(panelContenedor, 4, 4);
+                tLPProducto.SetColumnSpan(panelContenedor, 3);
+                tLPProducto.SetRowSpan(panelContenedor, 2);
+                #endregion End Row 5
+            }
+            if (conSinClaveInterna.Equals(true))
+            {
+
+            }
 
             // Sexta Fila del TableLayoutPanel
             // TextBox
             #region Begin Row 6
 
             // TextBox para Clave Interna
-            txtClaveProducto.Visible = true;
-            txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtClaveProducto.TabIndex = 6;
-            txtClaveProducto.TabStop = true;
+            //txtClaveProducto.Visible = true;
+            //txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            //txtClaveProducto.TabIndex = 6;
+            //txtClaveProducto.TabStop = true;
             // Label de exclamation Clave Interna
-            lbClaveInterna.Visible = true;
-            lbClaveInterna.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
+            //lbClaveInterna.Visible = true;
+            //lbClaveInterna.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
 
             //// TextBox Código de Barras
             //txtCodigoBarras.Visible = true;
@@ -7311,8 +7334,8 @@ namespace PuntoDeVentaV2
             //btnGenerarCB.TabStop = true;
 
 
-            tLPProducto.Controls.Add(txtClaveProducto, 0, 5);     // Clave Interna TextBox
-            tLPProducto.Controls.Add(lbClaveInterna, 1, 5);       // Label de exclamation Clave Interna
+            //tLPProducto.Controls.Add(txtClaveProducto, 0, 5);     // Clave Interna TextBox
+            //tLPProducto.Controls.Add(lbClaveInterna, 1, 5);       // Label de exclamation Clave Interna
             //tLPProducto.Controls.Add(txtCodigoBarras, 2, 5);      // Código de Barras TextBox
             //tLPProducto.Controls.Add(btnGenerarCB, 3, 5);         // Generar Button
 
