@@ -2232,5 +2232,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string buscarProductoDesdeXML(string userId, string busca_claveinterna)
+        {
+            var consulta = $"SELECT prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna, prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status, codbarext.CodigoBarraExtra,codbarext.IDProducto FROM Productos prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE prod.IDUsuario = '{userId}' AND prod.Status = 1 AND (prod.CodigoBarras = '{busca_claveinterna}' OR prod.ClaveInterna = '{busca_claveinterna}' OR codbarext.CodigoBarraExtra = '{busca_claveinterna}')";
+
+            return consulta;
+        }
     }
 }  
