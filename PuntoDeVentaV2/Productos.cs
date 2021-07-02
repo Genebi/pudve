@@ -1721,10 +1721,10 @@ namespace PuntoDeVentaV2
             btnModificarEstado.Image = deshabilitarIcon;
 
             // Solo para dos cuentas
-            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT" | FormPrincipal.userNickName == "HOUSEDEPOTREPARTO" | FormPrincipal.userNickName == "MUELASO")
-            {
-                btnAgregarXML.Visible = true;
-            }
+            //if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT" | FormPrincipal.userNickName == "HOUSEDEPOTREPARTO" | FormPrincipal.userNickName == "MUELASO")
+            //{
+            //    btnAgregarXML.Visible = true;
+            //}
         }
 
         private void validarConexionServidor()
