@@ -1634,7 +1634,7 @@ namespace PuntoDeVentaV2
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
                 panelHijo.Height = 25;
-                panelHijo.Width = 150;
+                panelHijo.Width = 180;
                 panelHijo.HorizontalScroll.Visible = false;
 
                 // generamos el textbox dinamico 
@@ -2381,7 +2381,7 @@ namespace PuntoDeVentaV2
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
             panelHijo.Name = "panelGenerado" + id;
             panelHijo.Height = 25;
-            panelHijo.Width = 160;
+            panelHijo.Width = 180;
             //panelHijo.BackColor = Color.AliceBlue;
             //panelHijo.Location = new Point(0, 0);
             panelHijo.HorizontalScroll.Visible = false;
