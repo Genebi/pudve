@@ -110,7 +110,6 @@
             this.btnActualizarXML.TabIndex = 102;
             this.btnActualizarXML.Text = "Actualizar Inventario XML";
             this.btnActualizarXML.UseVisualStyleBackColor = false;
-            this.btnActualizarXML.Visible = false;
             this.btnActualizarXML.Click += new System.EventHandler(this.btnActualizarXML_Click);
             this.btnActualizarXML.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnActualizarXML_KeyDown);
             // 

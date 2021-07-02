@@ -125,10 +125,10 @@ namespace PuntoDeVentaV2
 
 
             // Solo para dos cuentas
-            if (FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6")
-            {
-                btnActualizarXML.Visible = true;
-            }
+            //if (FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6")
+            //{
+            //    btnActualizarXML.Visible = true;
+            //}
         }
 
         private void populateDisminuirDGVInventario()
