@@ -928,7 +928,7 @@ namespace PuntoDeVentaV2
             }
 
             // preparamos el Query
-            string search = $@"SELECT prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna, prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status, codbarext.CodigoBarraExtra,codbarext.IDProducto FROM Productos prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE prod.IDUsuario = '{userId}' AND prod.Status = 1 AND (prod.CodigoBarras = '{busca_claveinterna}' OR prod.ClaveInterna = '{busca_claveinterna}' OR codbarext.CodigoBarraExtra = '{busca_claveinterna}')";
+            string search = cs.buscarProductoDesdeXML(userId, busca_claveinterna);
             dtProductos = cn.CargarDatos(search); // alamcenamos el resultado de la busqueda en dtProductos
             if (dtProductos.Rows.Count >= 1) // si el resultado arroja al menos una fila
             {
@@ -1004,40 +1004,13 @@ namespace PuntoDeVentaV2
             string search = string.Empty;
             if (conSinClaveInterna.Equals(1))
             {
-                search = $@"SELECT 
-                                prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna,
-                                prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status,
-                                codbarext.CodigoBarraExtra,codbarext.IDProducto 
-                            FROM 
-                                Productos prod 
-                            LEFT JOIN 
-                                CodigoBarrasExtras codbarext  ON codbarext.IDProducto = prod.ID 
-                            WHERE 
-                                prod.IDUsuario = '{userId}' 
-                            AND 
-                                prod.Status = 1 
-                            AND (prod.CodigoBarras = '{ClaveInterna}' 
-                                OR prod.ClaveInterna = '{ClaveInterna}' 
-                                OR codbarext.CodigoBarraExtra = '{ClaveInterna}')";
+                search = $@"SELECT prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna, prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status, codbarext.CodigoBarraExtra,codbarext.IDProducto FROM Productos prod LEFT JOIN CodigoBarrasExtras codbarext  ON codbarext.IDProducto = prod.ID WHERE prod.IDUsuario = '{userId}' AND prod.Status = 1 AND (prod.CodigoBarras = '{ClaveInterna}' OR prod.ClaveInterna = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}')";
             }
             else if (conSinClaveInterna.Equals(0))
             {
-                search = $@"SELECT 
-                                prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna,
-                                prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status,
-                                codbarext.CodigoBarraExtra,codbarext.IDProducto 
-                            FROM 
-                                Productos prod 
-                            LEFT JOIN 
-                                CodigoBarrasExtras codbarext  ON codbarext.IDProducto = prod.ID 
-                            WHERE 
-                                prod.IDUsuario = '{userId}' 
-                            AND 
-                                prod.Status = 1 
-                            AND (prod.CodigoBarras = '{ClaveInterna}' 
-                                OR codbarext.CodigoBarraExtra = '{ClaveInterna}')";
+                search = $@"SELECT prod.ID,prod.Nombre,prod.Stock,prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status, codbarext.CodigoBarraExtra,codbarext.IDProducto FROM Productos prod LEFT JOIN CodigoBarrasExtras codbarext  ON codbarext.IDProducto = prod.ID WHERE prod.IDUsuario = '{userId}' AND prod.Status = 1 AND (prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}')";
             }
-            
+
             dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
             if (dtClaveInterna.Rows.Count > 0)          // si el resultado arroja al menos una fila
             {
@@ -1069,11 +1042,10 @@ namespace PuntoDeVentaV2
             }
             else if (conSinClaveInterna.Equals(0))
             {
-                search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+                search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
             }
 
             dtCodBar = cn.CargarDatos(search);  // alamcenamos el resultado de la busqueda en dtClaveInterna
-
             if (dtCodBar.Rows.Count > 0)        // si el resultado arroja al menos una fila
             {
                 resultadoSearchCodBar = 1; // busqueda positiva
@@ -1620,64 +1592,24 @@ namespace PuntoDeVentaV2
             // Almacenamos el contenido del TextBox
             NombreProd = txtBoxDescripcionProd.Text;
 
-            // Es un PRODUCTO
-            if (dtProductos.Rows[0]["Tipo"].ToString() == "P")
+            if (dtProductos.Rows.Count.Equals(0))
             {
-                CompararPrecios(idProducto, PrecioProd, NombreProd);
-                // Hacemos el query para la actualizacion del Stock
-                query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
-                // Aqui vemos el resultado de la consulta
-                resultadoConsulta = cn.EjecutarConsulta(query);
-
-                /* Si el resultado es 1
-                if (resultadoConsulta == 1)                         
-                {
-                    //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    //MessageBox.Show("se actualizo mas" + resultadoConsulta);
-                }*/
+                dtProductos = cn.CargarDatos(cs.buscarProductoDesdeXML(userId, lblNoIdentificacionXML.Text));
             }
-            // Es un SERVICIO
-            else if (dtProductos.Rows[0]["Tipo"].ToString() == "S")
+
+            if (!dtProductos.Rows.Equals(0))
             {
-                query = $"SELECT usr.NombreCompleto AS 'Usuario', prod.ID AS 'Producto', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Calve Interna', prod.CodigoBarras AS 'Codigo  de Barra', prod.Tipo AS 'Producto o Servicio', codBarExt.CodigoBarraExtra AS 'Codigo de Barras Extra', prodOfServ.IDServicio AS 'No de Servicio', prodOfServ.IDProducto AS 'No de Producto', prodOfServ.Cantidad AS 'Cantidad', prodOfServ.NombreProducto AS 'Producto Incluido' FROM Usuarios AS usr LEFT JOIN Productos AS prod ON prod.IDUsuario = usr.ID LEFT JOIN CodigoBarrasExtras AS codBarExt ON codBarExt.IDProducto = prod.ID LEFT JOIN ProductosDeServicios AS prodOfServ ON prodOfServ.IDServicio = prod.ID WHERE usr.ID = '{userId}' AND prod.ClaveInterna = '{ClaveInterna}' OR prod.CodigoBarras = '{ClaveInterna}' OR codBarExt.CodigoBarraExtra = '{ClaveInterna}'";
-
-                DataTable resultadoServicio = cn.CargarDatos(query);
-
-                int nvoStock, oldStock, stockService, numProd, numServicio;
-
-                numServicio = Convert.ToInt32(resultadoServicio.Rows[0]["Producto"].ToString());
-
-                string queryConsultaSinProductos = $"SELECT usr.NombreCompleto AS 'Usuario', prod.ID AS 'Producto', prod.Nombre AS 'Nombre',  prod.Stock AS 'Existencia', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Calve Interna', prod.CodigoBarras AS 'Codigo  de Barra', prod.Tipo AS 'Producto o Servicio', prodOfServ.IDServicio AS 'No de Servicio', prodOfServ.IDProducto AS 'No de Producto', prodOfServ.Cantidad AS 'Cantidad', prodOfServ.NombreProducto AS 'Producto Incluido' FROM Usuarios AS usr LEFT JOIN Productos AS prod ON prod.IDUsuario = usr.ID LEFT JOIN ProductosDeServicios AS prodOfServ ON prodOfServ.IDServicio = prod.ID WHERE usr.ID = '{userId}' AND prodOfServ.IDServicio = '{numServicio}'";
-
-                DataTable resultadoSinProducto = cn.CargarDatos(queryConsultaSinProductos);
-
-                if (resultadoSinProducto.Rows.Count == 0)
+                // Es un PRODUCTO
+                if (dtProductos.Rows[0]["Tipo"].ToString() == "P")
                 {
-                    // si hay algo por hacer para solo los paquetes 
-                    // sin producto relacionado
-                }
-                else if (resultadoSinProducto.Rows.Count > 0)
-                {
-                    numProd = Convert.ToInt32(resultadoServicio.Rows[0]["No de Producto"].ToString());
-
-                    string searchProducto = $"SELECT * FROM Productos WHERE ID = '{numProd}'";
-
-                    DataTable resultadoBuscarProd = cn.CargarDatos(searchProducto);
-
-                    oldStock = Convert.ToInt32(resultadoBuscarProd.Rows[0]["Stock"].ToString());
-
-                    stockService = Convert.ToInt32(resultadoServicio.Rows[0]["Cantidad"].ToString()) * stockProdXML;
-
-                    nvoStock = oldStock + stockService;
-
-                    string queryUpDateServicio = $"UPDATE Productos SET Stock = '{nvoStock}' WHERE ID = '{numProd}'";
+                    CompararPrecios(idProducto, PrecioProd, NombreProd);
+                    // Hacemos el query para la actualizacion del Stock
+                    query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
                     // Aqui vemos el resultado de la consulta
-                    resultadoConsulta = cn.EjecutarConsulta(queryUpDateServicio);
-                    /* si el resultado es 1
-                    if (resultadoConsulta == 1)
+                    resultadoConsulta = cn.EjecutarConsulta(query);
+
+                    /* Si el resultado es 1
+                    if (resultadoConsulta == 1)                         
                     {
                         //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -1686,21 +1618,69 @@ namespace PuntoDeVentaV2
                         //MessageBox.Show("se actualizo mas" + resultadoConsulta);
                     }*/
                 }
-            }
-            // Es un PAQUETE
-            else if (dtProductos.Rows[0]["Tipo"].ToString() == "PQ")
-            {
-                // Obtener los productos relacionados al paquete (ID, Cantidad)
-                var datosPaquete = cn.ObtenerProductosServicio(Convert.ToInt32(idProducto));
-
-                if (datosPaquete.Length > 0)
+                // Es un SERVICIO
+                else if (dtProductos.Rows[0]["Tipo"].ToString() == "S")
                 {
-                    for (int i = 0; i < datosPaquete.Length; i++)
-                    {
-                        // Actualizar el stock del producto en la tabla de Productos
-                        var info = datosPaquete[i].Split('|');
+                    query = $"SELECT usr.NombreCompleto AS 'Usuario', prod.ID AS 'Producto', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Calve Interna', prod.CodigoBarras AS 'Codigo  de Barra', prod.Tipo AS 'Producto o Servicio', codBarExt.CodigoBarraExtra AS 'Codigo de Barras Extra', prodOfServ.IDServicio AS 'No de Servicio', prodOfServ.IDProducto AS 'No de Producto', prodOfServ.Cantidad AS 'Cantidad', prodOfServ.NombreProducto AS 'Producto Incluido' FROM Usuarios AS usr LEFT JOIN Productos AS prod ON prod.IDUsuario = usr.ID LEFT JOIN CodigoBarrasExtras AS codBarExt ON codBarExt.IDProducto = prod.ID LEFT JOIN ProductosDeServicios AS prodOfServ ON prodOfServ.IDServicio = prod.ID WHERE usr.ID = '{userId}' AND prod.ClaveInterna = '{ClaveInterna}' OR prod.CodigoBarras = '{ClaveInterna}' OR codBarExt.CodigoBarraExtra = '{ClaveInterna}'";
 
-                        cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {info[1]} WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}");
+                    DataTable resultadoServicio = cn.CargarDatos(query);
+
+                    int nvoStock, oldStock, stockService, numProd, numServicio;
+
+                    numServicio = Convert.ToInt32(resultadoServicio.Rows[0]["Producto"].ToString());
+
+                    string queryConsultaSinProductos = $"SELECT usr.NombreCompleto AS 'Usuario', prod.ID AS 'Producto', prod.Nombre AS 'Nombre',  prod.Stock AS 'Existencia', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Calve Interna', prod.CodigoBarras AS 'Codigo  de Barra', prod.Tipo AS 'Producto o Servicio', prodOfServ.IDServicio AS 'No de Servicio', prodOfServ.IDProducto AS 'No de Producto', prodOfServ.Cantidad AS 'Cantidad', prodOfServ.NombreProducto AS 'Producto Incluido' FROM Usuarios AS usr LEFT JOIN Productos AS prod ON prod.IDUsuario = usr.ID LEFT JOIN ProductosDeServicios AS prodOfServ ON prodOfServ.IDServicio = prod.ID WHERE usr.ID = '{userId}' AND prodOfServ.IDServicio = '{numServicio}'";
+
+                    DataTable resultadoSinProducto = cn.CargarDatos(queryConsultaSinProductos);
+
+                    if (resultadoSinProducto.Rows.Count == 0)
+                    {
+                        // si hay algo por hacer para solo los paquetes 
+                        // sin producto relacionado
+                    }
+                    else if (resultadoSinProducto.Rows.Count > 0)
+                    {
+                        numProd = Convert.ToInt32(resultadoServicio.Rows[0]["No de Producto"].ToString());
+
+                        string searchProducto = $"SELECT * FROM Productos WHERE ID = '{numProd}'";
+
+                        DataTable resultadoBuscarProd = cn.CargarDatos(searchProducto);
+
+                        oldStock = Convert.ToInt32(resultadoBuscarProd.Rows[0]["Stock"].ToString());
+
+                        stockService = Convert.ToInt32(resultadoServicio.Rows[0]["Cantidad"].ToString()) * stockProdXML;
+
+                        nvoStock = oldStock + stockService;
+
+                        string queryUpDateServicio = $"UPDATE Productos SET Stock = '{nvoStock}' WHERE ID = '{numProd}'";
+                        // Aqui vemos el resultado de la consulta
+                        resultadoConsulta = cn.EjecutarConsulta(queryUpDateServicio);
+                        /* si el resultado es 1
+                        if (resultadoConsulta == 1)
+                        {
+                            //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            //MessageBox.Show("se actualizo mas" + resultadoConsulta);
+                        }*/
+                    }
+                }
+                // Es un PAQUETE
+                else if (dtProductos.Rows[0]["Tipo"].ToString() == "PQ")
+                {
+                    // Obtener los productos relacionados al paquete (ID, Cantidad)
+                    var datosPaquete = cn.ObtenerProductosServicio(Convert.ToInt32(idProducto));
+
+                    if (datosPaquete.Length > 0)
+                    {
+                        for (int i = 0; i < datosPaquete.Length; i++)
+                        {
+                            // Actualizar el stock del producto en la tabla de Productos
+                            var info = datosPaquete[i].Split('|');
+
+                            cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {info[1]} WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}");
+                        }
                     }
                 }
             }
@@ -2946,6 +2926,7 @@ namespace PuntoDeVentaV2
                     {
                         // Si el resultado es 0
                     }
+                    ActualizarStock();
                     button2.Text = "Si";
                     panel7.Visible = false;
                     RecorrerXML();          // recorrer el archivo XML
