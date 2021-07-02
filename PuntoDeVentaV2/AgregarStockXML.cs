@@ -1431,6 +1431,10 @@ namespace PuntoDeVentaV2
         {
             int totalRegistroXML;                           // variable para saber cuantos concepctos tiene el XML
             totalRegistroXML = ds.Conceptos.Count();        // almacenamos el total de conceptos del XML
+            if (lblPosicionActualXML.Text.Equals(0))
+            {
+                lblPosicionActualXML.Text = "1";
+            }
             index = int.Parse(lblPosicionActualXML.Text);   // alamcenamos el valor de la etiqueta lblPosicionActuakXML nos ayudara para saber en que concepto va del XML
             
             if (index == totalRegistroXML)                  // comparamos la posicion actual y vemo si es igual al total de conceptos del XML
@@ -3252,8 +3256,7 @@ namespace PuntoDeVentaV2
                             else                                                                // so es que no son iguales los RFC
                             {
                                 // mostramos este mensaje al usuario del sistema
-                                MessageBox.Show("El archivo XML seleccionado no contiene tu RFC,\nDebes seleccionar un archivo XML con tu RFC",
-                                        "No tiene tu RFC.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("El archivo XML seleccionado no contiene tu RFC,\nDebes seleccionar un archivo XML con tu RFC", "No tiene tu RFC.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 MostrarPanelCarga();        // mostramos el panel de carga del archivo XML
                                 btnLoadXML.Show();          // mostramos el botonXML
                             }

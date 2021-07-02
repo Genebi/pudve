@@ -741,10 +741,10 @@
             // 
             this.lblLargodelXML.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.lblLargodelXML.ForeColor = System.Drawing.Color.Red;
-            this.lblLargodelXML.Location = new System.Drawing.Point(873, 15);
+            this.lblLargodelXML.Location = new System.Drawing.Point(862, 15);
             this.lblLargodelXML.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLargodelXML.Name = "lblLargodelXML";
-            this.lblLargodelXML.Size = new System.Drawing.Size(30, 19);
+            this.lblLargodelXML.Size = new System.Drawing.Size(41, 19);
             this.lblLargodelXML.TabIndex = 5;
             this.lblLargodelXML.Text = "0";
             this.lblLargodelXML.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -754,7 +754,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Schoolbook", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(841, 15);
+            this.label3.Location = new System.Drawing.Point(830, 15);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(28, 20);
@@ -765,10 +765,10 @@
             // 
             this.lblPosicionActualXML.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.lblPosicionActualXML.ForeColor = System.Drawing.Color.Red;
-            this.lblPosicionActualXML.Location = new System.Drawing.Point(808, 15);
+            this.lblPosicionActualXML.Location = new System.Drawing.Point(777, 15);
             this.lblPosicionActualXML.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPosicionActualXML.Name = "lblPosicionActualXML";
-            this.lblPosicionActualXML.Size = new System.Drawing.Size(26, 19);
+            this.lblPosicionActualXML.Size = new System.Drawing.Size(46, 19);
             this.lblPosicionActualXML.TabIndex = 3;
             this.lblPosicionActualXML.Text = "0";
             this.lblPosicionActualXML.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -778,7 +778,7 @@
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Century Schoolbook", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.Red;
-            this.label23.Location = new System.Drawing.Point(723, 15);
+            this.label23.Location = new System.Drawing.Point(688, 15);
             this.label23.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(85, 20);
