@@ -243,6 +243,8 @@ namespace PuntoDeVentaV2
                 totalRetiradoCorte = cantidad.ToString();
             }
 
+            totalRetiradoCorte = !string.IsNullOrWhiteSpace(totalRetiradoCorte) ? totalRetiradoCorte : "0";
+
             // Si es igual a cero no procede la operacion de depositar o retirar
             if (cantidad == 0)
             {
@@ -310,15 +312,16 @@ namespace PuntoDeVentaV2
                         efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
                         trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
                     };
+
                 CajaN.botones = true;
             }
             else
             {
                 datos = new string[] {
-                tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
-                efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
-                trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, nombreEmpleado, usuarioEmpleado
-            };
+                    tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                    efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
+                    trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                };
             }
 
             int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
