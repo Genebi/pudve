@@ -31,6 +31,8 @@ namespace PuntoDeVentaV2
         private float precioAdquision = 0f; // Precio de compra
 
         private string[] listaProveedores = new string[] { };
+        // Listas para guardar los ID's de los productos que se enviara correo
+        private Dictionary<int, string> enviarStockMinimo;
 
         public int cantidadPasadaProductoCombo { set; get; }
         public static int cantidadProductoCombo = 0;
@@ -66,6 +68,8 @@ namespace PuntoDeVentaV2
             listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
 
             Dictionary<string, string> proveedores = new Dictionary<string, string>();
+
+            enviarStockMinimo = new Dictionary<int, string>();
 
             proveedores.Add("0", "Seleccionar un proveedor...");
 
@@ -503,6 +507,11 @@ namespace PuntoDeVentaV2
                         Inventario.botonAceptar = true;
                     }
 
+                    //Datos del producto que se actualizará
+                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                    cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
                     // Envio de correo al agregar cantidad de producto
                     var datosConfig = mb.ComprobarConfiguracion();
 
@@ -529,12 +538,48 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+
+                        // Correo de stock minimo
+                        if (Convert.ToInt16(datosConfig[2]) == 1)
+                        {
+                            var datosProductoTmp = cn.BuscarProducto(Convert.ToInt32(IDProducto), FormPrincipal.userID);
+
+                            var configProducto = mb.ComprobarCorreoProducto(IDProducto);
+
+                            if (configProducto.Count > 0)
+                            {
+                                if (configProducto[2] == 1)
+                                {
+                                    // Obtener el stock minimo del producto
+                                    var stockMinimo = Convert.ToInt32(datosProductoTmp[10]);
+                                    var stockTmp = Convert.ToDecimal(datosProductoTmp[4]);
+
+                                    if (stockTmp <= stockMinimo)
+                                    {
+                                        if (!enviarStockMinimo.ContainsKey(Convert.ToInt32(IDProducto)))
+                                        {
+                                            var terminacion = datosProductoTmp[4].Split('.');
+
+                                            if (terminacion.Count() > 0)
+                                            {
+                                                if (terminacion[1] == "00")
+                                                {
+                                                    datosProductoTmp[4] = terminacion[0];
+                                                }
+                                            }
+
+                                            var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK MINIMO: {datosProductoTmp[10]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
+                                            enviarStockMinimo.Add(Convert.ToInt32(IDProducto), nombre);
+                                        }
+                                    }
+
+                                    // Hilo para envio de correos en segundo plano
+                                    Thread envio = new Thread(() => CorreoStockMinimo());
+                                    envio.Start();
+                                }
+                            }
+                        }
                     }
-
-                    //Datos del producto que se actualizará
-                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
-
-                    cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
 
                     this.Close();
                 }
@@ -995,6 +1040,63 @@ namespace PuntoDeVentaV2
             else
             {
                 precioProductoAux = float.Parse(txtPrecio.Text);
+            }
+        }
+
+        private void CorreoStockMinimo()
+        {
+            var correo = FormPrincipal.datosUsuario[9];
+            var asunto = string.Empty;
+            var asuntoAdicional = string.Empty;
+            var html = string.Empty;
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            if (!string.IsNullOrWhiteSpace(correo))
+            {
+                // Comprobar stock minimo
+                if (enviarStockMinimo.Count > 0)
+                {
+                    asunto = "¡AVISO! Stock mínimo alcanzado por ventas.";
+
+                    html = @"
+                        <div style='margin-bottom: 50px;'>
+                            <h4 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h4><hr>
+                            <ul style='color: red; font-size: 0.8em;'>";
+
+                    foreach (var producto in enviarStockMinimo)
+                    {
+                        html += $"<li>{producto.Value}</li>";
+                    }
+
+                    var footerCorreo = string.Empty;
+
+
+                    if (FormPrincipal.id_empleado > 0)
+                    {
+                        var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
+
+                        string nombreEmpleado = datosEmpleado[14];
+                        string usuarioEmpleado = datosEmpleado[15];
+
+                        var infoEmpleado = usuarioEmpleado.Split('@');
+
+                        footerCorreo = $"<p style='font-size: 12px;'>Este ajuste fue realizado por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                    }
+                    else
+                    {
+                        footerCorreo = $"<p style='font-size: 12px;'>Este ajuste fue realizado por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                    }
+
+                    html += $@"
+                        </ul><hr>
+                        {footerCorreo}
+                    </div>";
+                }
+
+                if (!string.IsNullOrWhiteSpace(html))
+                {
+                    Utilidades.EnviarEmail(html, asunto, correo);
+                }
             }
         }
     }
