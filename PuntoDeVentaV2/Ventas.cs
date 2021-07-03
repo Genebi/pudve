@@ -2594,7 +2594,7 @@ namespace PuntoDeVentaV2
                         primerClickBtnUltimoEliminado = false;
                     }
 
-                    ventaFinalizada = true;
+                    //ventaFinalizada = true;
 
                     var totalVenta = float.Parse(cTotal.Text);
 
@@ -2642,6 +2642,7 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
+                            ventaFinalizada = true;
                             DatosVenta();
                             botonAceptar = false;
                             idCliente = string.Empty;
