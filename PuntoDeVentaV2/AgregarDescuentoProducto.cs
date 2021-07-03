@@ -721,6 +721,18 @@ namespace PuntoDeVentaV2
                     tb3.ReadOnly = true;
                     tb3.BackColor = Color.White;
 
+                    Button btAgregar = new Button();
+                    btAgregar.Cursor = Cursors.Hand;
+                    btAgregar.Text = "+";
+                    btAgregar.Name = $"btnAgregarD1";
+                    btAgregar.Width = 20;
+                    btAgregar.Height = 20;
+                    btAgregar.BackColor = ColorTranslator.FromHtml("#4CAC18");
+                    btAgregar.ForeColor = ColorTranslator.FromHtml("white");
+                    btAgregar.FlatStyle = FlatStyle.Flat;
+                    btAgregar.Click += new EventHandler(eliminarDescuentos);
+                    btAgregar.Margin = new Padding(5, 5, 0, 0);
+
                     CheckBox cb1 = new CheckBox();
                     cb1.Name = "checkMayoreo1";
                     cb1.Text = "Las primeras siempre costarán " + precioProducto.ToString("0.00");
@@ -735,7 +747,8 @@ namespace PuntoDeVentaV2
                     panelHijo2.Controls.Add(tb1);
                     panelHijo2.Controls.Add(tb2);
                     panelHijo2.Controls.Add(tb3);
-                    panelHijo2.SetFlowBreak(tb3, true);
+                    panelHijo2.Controls.Add(btAgregar);
+                    panelHijo2.SetFlowBreak(btAgregar, true);
                     panelHijo2.Controls.Add(cb1);
 
                     panelHijo1.FlowDirection = FlowDirection.LeftToRight;
@@ -1072,6 +1085,7 @@ namespace PuntoDeVentaV2
             panelHijo.Name = $"panelMayoreo{idGenerado}";
             panelHijo.Width = 725;
             panelHijo.Height = 50;
+
             TextBox tb1 = new TextBox();
             tb1.Name = $"tbMayoreo{idGenerado}_1";
             tb1.Width = 100;
@@ -1081,6 +1095,7 @@ namespace PuntoDeVentaV2
             tb1.Text = (Convert.ToInt32(rangoInicial) + 1).ToString();
             tb1.ReadOnly = true;
             tb1.BackColor = Color.White;
+
             TextBox tb2 = new TextBox();
             tb2.Name = $"tbMayoreo{idGenerado}_2";
             tb2.Width = 100;
@@ -1088,6 +1103,7 @@ namespace PuntoDeVentaV2
             tb2.Margin = new Padding(50, 5, 0, 0);
             tb2.TextAlign = HorizontalAlignment.Center;
             tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
+
             TextBox tb3 = new TextBox();
             tb3.Name = $"tbMayoreo{idGenerado}_3";
             tb3.Width = 100;
@@ -1095,6 +1111,19 @@ namespace PuntoDeVentaV2
             tb3.Margin = new Padding(95, 5, 0, 0);
             tb3.TextAlign = HorizontalAlignment.Center;
             tb3.KeyUp += new KeyEventHandler(rangoProductosTB);
+
+            Button btAgregar = new Button();
+            btAgregar.Cursor = Cursors.Hand;
+            btAgregar.Text = "+";
+            btAgregar.Name = $"btnAgregarD{idGenerado}";
+            btAgregar.Width = 20;
+            btAgregar.Height = 20;
+            btAgregar.BackColor = ColorTranslator.FromHtml("#4CAC18");
+            btAgregar.ForeColor = ColorTranslator.FromHtml("white");
+            btAgregar.FlatStyle = FlatStyle.Flat;
+            btAgregar.Click += new EventHandler(eliminarDescuentos);
+            btAgregar.Margin = new Padding(5, 5, 0, 0);
+
             Button bt = new Button();
             bt.Cursor = Cursors.Hand;
             bt.Text = "X";
@@ -1106,6 +1135,7 @@ namespace PuntoDeVentaV2
             bt.FlatStyle = FlatStyle.Flat;
             bt.Click += new EventHandler(eliminarDescuentos);
             bt.Margin = new Padding(5, 5, 0, 0);
+
             CheckBox cb1 = new CheckBox();
             cb1.Name = $"checkMayoreo{idGenerado}";
             cb1.Margin = new Padding(120, 5, 0, 0);
@@ -1113,16 +1143,21 @@ namespace PuntoDeVentaV2
             cb1.CheckedChanged += seleccionCheckBoxes;
             cb1.Width = 400;
             cb1.Tag = idGenerado;
+
             panelHijo.Controls.Add(tb1);
             panelHijo.Controls.Add(tb2);
             panelHijo.Controls.Add(tb3);
+            panelHijo.Controls.Add(btAgregar);
             panelHijo.Controls.Add(bt);
             panelHijo.SetFlowBreak(bt, true);
             panelHijo.Controls.Add(cb1);
+
             panelHijo.FlowDirection = FlowDirection.LeftToRight;
             panelContenedor.Controls.Add(panelHijo);
             panelContenedor.FlowDirection = FlowDirection.TopDown;
+
             tb2.Focus();
+
             idGenerado++;
         }
 
