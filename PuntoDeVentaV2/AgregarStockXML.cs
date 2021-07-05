@@ -473,8 +473,7 @@ namespace PuntoDeVentaV2
         private void button3_Click(object sender, EventArgs e)
         {
             origenDeLosDatos = 3;
-
-
+            
             string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre.Trim()}' AND RFC = '{ds.Emisor.Rfc.Trim()}'";
             dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
             
