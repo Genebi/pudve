@@ -79,6 +79,7 @@
             this.DGVProductos.Name = "DGVProductos";
             this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
+            this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVProductos.Size = new System.Drawing.Size(1208, 377);
             this.DGVProductos.TabIndex = 0;
             this.DGVProductos.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DGVProductos_CellMouseDoubleClick);

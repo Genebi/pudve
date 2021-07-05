@@ -5234,6 +5234,7 @@ namespace PuntoDeVentaV2
 
                 consulta.FormClosing += delegate
                 {
+                    //
                     mostrarDatosTraidosBuscador();
                 };
                 consulta.Show();
@@ -5243,11 +5244,26 @@ namespace PuntoDeVentaV2
         private void mostrarDatosTraidosBuscador()
         {
             var datoObtenidoBuscador = ConsultarProductoVentas.datosDeProducto;
-
-            if (!datoObtenidoBuscador.Count.Equals(0))
+            foreach (var producto in datoObtenidoBuscador)
             {
-                AgregarProducto(datoObtenidoBuscador.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                var datosProducto = producto.Split('|');
+                if (!datoObtenidoBuscador.Count.Equals(0))
+                {
+                    var cantidadaPedir = ConsultarProductoVentas.cantidad;
+                    if (cantidadaPedir.Equals(string.Empty) || cantidadaPedir.Equals(0))
+                    {
+                        nudCantidadPS.Value = Convert.ToInt32(1);
+                        AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                    }
+                    else
+                    {
+                        nudCantidadPS.Value = Convert.ToInt32(cantidadaPedir);
+                        AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                    }
+                    
+                }
             }
+
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
