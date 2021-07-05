@@ -1725,6 +1725,11 @@ namespace PuntoDeVentaV2
             //{
             //    btnAgregarXML.Visible = true;
             //}
+            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT" | FormPrincipal.userNickName == "HOUSEDEPOTREPARTO")
+            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT"| FormPrincipal.userNickName == "MUELASO")
+            {
+                btnAgregarXML.Visible = true;
+            }
         }
 
         private void validarConexionServidor()
