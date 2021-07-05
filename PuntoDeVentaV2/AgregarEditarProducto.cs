@@ -2363,16 +2363,54 @@ namespace PuntoDeVentaV2
 
         private void agregarCodigoBarraExtra()
         {
-            string texto = txtCodigoBarras.Text.Trim();
+            var texto = string.Empty;
+            var message = "Ingrese minimo 5 caracteres\npara agregar un código de barra extra";
+            var title = "Mensaje de Sistema";
+            var id = 0;
 
-            if (texto.Length >= 5)
+            if (!txtCodigoBarras.Text.Equals(string.Empty) || !panelContenedor.Controls.Count.Equals(0))
             {
-                GenerarTextBox();
-                //MessageBox.Show(texto, "Mensaje");
-            }
-            else if (texto.Length <= 4)
-            {
-                MessageBox.Show("Ingrese minimo 5 numeros\npara agregar un código de barra extra", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (!txtCodigoBarras.Text.Equals(string.Empty) && !panelContenedor.Controls.Count.Equals(0))
+                {
+                    int countControles = panelContenedor.Controls.Count;
+
+                    foreach(Control ctrPanelContenedor in panelContenedor.Controls)
+                    {
+                        if (id.Equals(countControles-1))
+                        {
+                            foreach (Control subCtrPanelCont in ctrPanelContenedor.Controls)
+                            {
+                                if (subCtrPanelCont is TextBox)
+                                {
+                                    texto = subCtrPanelCont.Text;
+
+                                    if (texto.Length >= 5)
+                                    {
+                                        GenerarTextBox();
+                                    }
+                                    else if (texto.Length <= 4)
+                                    {
+                                        MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
+                                }
+                            }
+                        }
+                        id++;
+                    }
+                }
+                if (!txtCodigoBarras.Text.Equals(string.Empty) && panelContenedor.Controls.Count.Equals(0))
+                {
+                    texto = txtCodigoBarras.Text.Trim();
+
+                    if (texto.Length >= 5)
+                    {
+                        GenerarTextBox();
+                    }
+                    else if (texto.Length <= 4)
+                    {
+                        MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
             }
         }
 
