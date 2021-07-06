@@ -28,6 +28,7 @@ namespace PuntoDeVentaV2
         MetodosGenerales mg = new MetodosGenerales();
         MetodosBusquedas mb = new MetodosBusquedas();
         Consultas cs = new Consultas();
+        RespadoBaseDatos backUpDB = new RespadoBaseDatos(); 
         //checarVersion vs = new checarVersion();
 
         public static string[] datosUsuario = new string[] { };
@@ -1083,6 +1084,8 @@ namespace PuntoDeVentaV2
 
                 if (respuesta == DialogResult.Yes)
                 {
+                    //backUpDB.sendEmail();
+                    backUpDB.crearsaveFile();
                     e.Cancel = true;
                     cerrarSesion();
                     cerrarAplicacion = false;

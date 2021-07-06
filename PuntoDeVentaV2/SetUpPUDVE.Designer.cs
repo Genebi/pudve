@@ -57,6 +57,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chRespaldo = new System.Windows.Forms.CheckBox();
             this.cbCorreoDescuento = new System.Windows.Forms.CheckBox();
             this.cbCorreoIniciar = new System.Windows.Forms.CheckBox();
             this.cbCorreoVenta = new System.Windows.Forms.CheckBox();
@@ -67,7 +68,6 @@
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.chRespaldo = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -467,6 +467,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envío de Correo:";
             // 
+            // chRespaldo
+            // 
+            this.chRespaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chRespaldo.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.chRespaldo.Location = new System.Drawing.Point(468, 159);
+            this.chRespaldo.Name = "chRespaldo";
+            this.chRespaldo.Size = new System.Drawing.Size(381, 21);
+            this.chRespaldo.TabIndex = 126;
+            this.chRespaldo.Text = "Enviar respaldo al cerrar sesion";
+            this.chRespaldo.UseVisualStyleBackColor = true;
+            this.chRespaldo.CheckedChanged += new System.EventHandler(this.chRespaldo_CheckedChanged);
+            // 
             // cbCorreoDescuento
             // 
             this.cbCorreoDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -600,18 +612,6 @@
             this.groupBox2.Size = new System.Drawing.Size(869, 130);
             this.groupBox2.TabIndex = 129;
             this.groupBox2.TabStop = false;
-            // 
-            // chRespaldo
-            // 
-            this.chRespaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chRespaldo.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.chRespaldo.Location = new System.Drawing.Point(468, 159);
-            this.chRespaldo.Name = "chRespaldo";
-            this.chRespaldo.Size = new System.Drawing.Size(381, 21);
-            this.chRespaldo.TabIndex = 126;
-            this.chRespaldo.Text = "Al respaldar información";
-            this.chRespaldo.UseVisualStyleBackColor = true;
-            this.chRespaldo.CheckedChanged += new System.EventHandler(this.chRespaldo_CheckedChanged);
             // 
             // SetUpPUDVE
             // 
