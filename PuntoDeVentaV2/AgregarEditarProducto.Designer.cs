@@ -371,7 +371,6 @@
             this.cbTipo.Size = new System.Drawing.Size(165, 21);
             this.cbTipo.TabIndex = 1;
             this.cbTipo.Tag = "";
-            this.cbTipo.Visible = false;
             this.cbTipo.SelectedIndexChanged += new System.EventHandler(this.cbTipo_SelectedIndexChanged);
             this.cbTipo.Enter += new System.EventHandler(this.cbTipo_Enter);
             // 
@@ -508,7 +507,6 @@
             this.label10.Size = new System.Drawing.Size(34, 17);
             this.label10.TabIndex = 28;
             this.label10.Text = "Tipo";
-            this.label10.Visible = false;
             // 
             // txtPrecioCompra
             // 
