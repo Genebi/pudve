@@ -5200,7 +5200,7 @@ namespace PuntoDeVentaV2
                 {
                     toolTip1.SetToolTip(lblCantCombServ, "En este apartado podrá indicarle al sistema la cantidad\nde productos que se descontaran al venderse un Combo");
                     agregarCombo();
-                    Titulo = "Agregar Combo";
+                    Titulo = "Agregar Combos";
                     TituloForm = Titulo;
                     cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Combo)
                     tituloSeccion.Text = TituloForm;
@@ -5221,7 +5221,7 @@ namespace PuntoDeVentaV2
                 {
                     toolTip1.SetToolTip(lblCantCombServ, "En este apartado podrá indicarle al sistema la cantidad\nde productos que se descontaran al venderse un Servicio");
                     agregarServicio();
-                    Titulo = "Agregar Servicio";
+                    Titulo = "Agregar Servicios";
                     TituloForm = Titulo;
                     cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Servicio)
                     tituloSeccion.Text = TituloForm;
@@ -7537,7 +7537,7 @@ namespace PuntoDeVentaV2
 
             if (conSinClaveInterna.Equals(false))
             {
-                if (DatosSourceFinal.Equals(1))
+                if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(2))
                 {
                     // Primera Fila del TableLayoutPanel
                     // Label títulos
@@ -8158,7 +8158,7 @@ namespace PuntoDeVentaV2
 
             if (conSinClaveInterna.Equals(false))
             {
-                if (DatosSourceFinal.Equals(1))
+                if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(2))
                 {
                     // Primera Fila del TableLayoutPanel
                     // Label títulos
