@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        RespadoBaseDatos backUp = new RespadoBaseDatos();
 
         private int numeroRevision = 0;
 
@@ -68,6 +69,8 @@ namespace PuntoDeVentaV2
         bool check21 = false;
         bool check22 = false;
         bool check23 = false;
+
+        int contadorValidarCambioCheckBoxRespaldo = -1;
 
         List<string> usuariosPermitidos = new List<string>()
         {
@@ -248,125 +251,71 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            guardarArchivo.FileName = $"{FormPrincipal.userNickName}";
-            guardarArchivo.Filter = "SQL (*.sql)|*.sql";
-            guardarArchivo.FilterIndex = 1;
-            guardarArchivo.RestoreDirectory = true;
+            //guardarArchivo.FileName = $"{FormPrincipal.userNickName}";
+            //guardarArchivo.Filter = "SQL (*.sql)|*.sql";
+            //guardarArchivo.FilterIndex = 1;
+            //guardarArchivo.RestoreDirectory = true;
 
-            if (guardarArchivo.ShowDialog() == DialogResult.OK)
+            //if (guardarArchivo.ShowDialog() == DialogResult.OK)
+            //{
+            //    try
+            //    {
+            //        string conexion = string.Empty;
+
+            //        if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            //        {
+            //            conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+            //        }
+            //        else
+            //        {
+            //            conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+            //        }
+
+            //        // Important Additional Connection Options
+            //        conexion += "charset=utf8;convertzerodatetime=true;";
+
+            //        string archivo = guardarArchivo.FileName;
+
+            //        using (MySqlConnection con = new MySqlConnection(conexion))
+            //        {
+            //            using (MySqlCommand cmd = new MySqlCommand())
+            //            {
+            //                using (MySqlBackup backup = new MySqlBackup(cmd))
+            //                {
+            //                    cmd.Connection = con;
+            //                    con.Open();
+            //                    backup.ExportToFile(archivo);
+            //                    con.Close();
+
+
+            //                    //if (validarMandarRespaldoCorreo())
+            //                    //{
+            //                    //    Enviar la base de datos por correo
+            //                    //    Thread hilo = new Thread(() => Utilidades.sendEmail(archivo));
+            //                    //    hilo.Start();
+            //                    //}
+            //                }
+            //            }
+            //        }
+
+            //        MessageBox.Show("Información respaldada exitosamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            EscogerTipoRespaldo tipoRespaldo = new EscogerTipoRespaldo();
+            var tipo = 0;
+
+            tipoRespaldo.FormClosed += delegate
             {
-                try
-                {
-                    string conexion = string.Empty;
+                tipo = EscogerTipoRespaldo.typeBackUp;
 
-                    if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-                    {
-                        conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
-                    }
-                    else
-                    {
-                        conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
-                    }
+                backUp.crearsaveFile(tipo);
+            };
 
-                    // Important Additional Connection Options
-                    conexion += "charset=utf8;convertzerodatetime=true;";
-
-                    string archivo = guardarArchivo.FileName;
-
-                    using (MySqlConnection con = new MySqlConnection(conexion))
-                    {
-                        using (MySqlCommand cmd = new MySqlCommand())
-                        {
-                            using (MySqlBackup backup = new MySqlBackup(cmd))
-                            {
-                                cmd.Connection = con;
-                                con.Open();
-                                backup.ExportToFile(archivo);
-                                con.Close();
-
-
-                                if (validarMandarRespaldoCorreo())
-                                {
-                                    //Enviar la base de datos por correo
-                                    Thread hilo = new Thread(() => sendEmail(archivo));
-                                    hilo.Start();
-                                }
-                            }
-                        }
-                    }
-
-                    MessageBox.Show("Información respaldada exitosamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void varificarCarpetaRespaldos()
-        {//Crea la carpeta Respaldos si no existe 
-            string directorio = @"C:\Archivos PUDVE\Respaldos";
-
-            if (!Directory.Exists(directorio))
-            {
-                Directory.CreateDirectory(directorio);
-            }
-
-            string directorioZipTerminados = @"C:\Archivos PUDVE\Respaldos\Terminados";
-
-            if (!Directory.Exists(directorioZipTerminados))
-            {
-                Directory.CreateDirectory(directorioZipTerminados);
-            }
-
-            string directorioZip = @"C:\Archivos PUDVE\Respaldos\Terminados\Zip";
-
-            if (!Directory.Exists(directorioZip))
-            {
-                Directory.CreateDirectory(directorioZip);
-            }
-        }
-
-        private void sendEmail(string rutaGuardado)
-        {
-            DateTime fechaCreacion = DateTime.Now;
-
-            varificarCarpetaRespaldos();
-
-            //Variables con las rutas para mover los archivos
-            var rutaDestino = $@"C:\Archivos PUDVE\Respaldos\Terminados\Zip\{FormPrincipal.userNickName}_{fechaCreacion.ToString("yyyyMMddHHmmss")}.sql";
-            var rutaSalida = rutaGuardado;
-            var segundaCarpeta = $@"C:\Archivos PUDVE\Respaldos\Terminados\{FormPrincipal.userNickName}_{fechaCreacion.ToString("yyyyMMddHHmmss")}.sql";
-
-            var pathCorreo = $@"C:\Archivos PUDVE\Respaldos\{FormPrincipal.userNickName}_{ fechaCreacion.ToString("yyyyMMddHHmmss")}.zip";
-
-            //Copiar la bd para poder mandarla por correo
-            File.Copy(rutaSalida, rutaDestino);
-            
-            //Comprimir en archivo Sql para poder enviarlo por correo
-            ZipFile.CreateFromDirectory(@"C:\Archivos PUDVE\Respaldos\Terminados\Zip", pathCorreo);
-
-            //Mover archivos para poder comprimir futuros respaldos
-            File.Move(rutaDestino, segundaCarpeta);//Mover de carpeta
-
-            //Enviar por correo la base de datos
-            var correoUsuario = mb.correoUsuario();
-            Utilidades.EnviarCorreoRespaldo(correoUsuario, pathCorreo);
-        }
-
-        private bool validarMandarRespaldoCorreo()
-        {
-            var result = false;
-
-            var query = cn.CargarDatos($"SELECT CorreoRespaldo FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
-
-            if (!query.Rows.Count.Equals(0))
-            {
-                result = Convert.ToBoolean(query.Rows[0]["CorreoRespaldo"].ToString());
-            }
-
-            return result;
+            tipoRespaldo.ShowDialog();
         }
 
         private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
@@ -991,11 +940,23 @@ namespace PuntoDeVentaV2
 
         private void chRespaldo_CheckedChanged(object sender, EventArgs e)
         {
+            //contadorValidarCambioCheckBoxRespaldo += 1;
             var habilitado = 0;
-
+            
             if (chRespaldo.Checked)
             {
                 habilitado = 1;
+                //if (contadorValidarCambioCheckBoxRespaldo > 0 && chRespaldo.Checked)
+                //{
+                //    EscogerTipoRespaldo tipoRespaldo = new EscogerTipoRespaldo();
+
+                //    tipoRespaldo.ShowDialog();
+
+                //    tipoRespaldo.FormClosed += delegate
+                //    {
+                //        habilitado = EscogerTipoRespaldo.typeBackUp;
+                //    };
+                //}
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");

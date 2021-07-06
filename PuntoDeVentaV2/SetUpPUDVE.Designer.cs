@@ -68,8 +68,10 @@
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+
             this.cboTipoMoneda = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -478,6 +480,7 @@
             this.chRespaldo.Size = new System.Drawing.Size(381, 21);
             this.chRespaldo.TabIndex = 126;
             this.chRespaldo.Text = "Al respaldar información";
+            this.chRespaldo.Text = "Enviar respaldo al cerrar sesion";
             this.chRespaldo.UseVisualStyleBackColor = true;
             this.chRespaldo.CheckedChanged += new System.EventHandler(this.chRespaldo_CheckedChanged);
             // 
