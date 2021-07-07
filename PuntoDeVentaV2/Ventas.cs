@@ -5250,17 +5250,34 @@ namespace PuntoDeVentaV2
                 var datosProducto = producto.Split('|');
                 if (!datoObtenidoBuscador.Count.Equals(0))
                 {
-                    var cantidadaPedir = ConsultarProductoVentas.cantidad;
-                    if (cantidadaPedir.Equals(string.Empty) || cantidadaPedir.Equals(0))
+                    if (datoObtenidoBuscador.Count.Equals(1))
                     {
-                        nudCantidadPS.Value = Convert.ToInt32(1);
                         AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
                     }
                     else
                     {
-                        nudCantidadPS.Value = Convert.ToInt32(cantidadaPedir);
-                        AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                        var cantidadaPedir = ConsultarProductoVentas.cantidadPedida;
+                        if (cantidadaPedir.Equals("Cancelar"))
+                        {
+                            return;
+                        }
+                        else
+                        {
+
+                        
+                            if (cantidadaPedir.Equals(string.Empty) || cantidadaPedir.Equals(0))
+                            {
+                                nudCantidadPS.Value = Convert.ToInt32(1);
+                                AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                            }
+                            else
+                            {
+                                nudCantidadPS.Value = Convert.ToInt32(cantidadaPedir);
+                                AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                            }
+                        }
                     }
+                    
                     
                 }
             }
