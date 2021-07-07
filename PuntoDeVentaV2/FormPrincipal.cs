@@ -1101,8 +1101,11 @@ namespace PuntoDeVentaV2
 
                 if (respuesta == DialogResult.Yes)
                 {
-                    //backUpDB.sendEmail();
-                    backUpDB.crearsaveFile();
+                    if (backUpDB.validarMandarRespaldoCorreo())
+                    {
+                        backUpDB.crearsaveFile();
+                    }
+
                     e.Cancel = true;
                     cerrarSesion();
                     cerrarAplicacion = false;

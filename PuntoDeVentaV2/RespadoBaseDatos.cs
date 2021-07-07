@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        MessageBox.Show("Información respaldada exitosamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Información enviada al correo exitosamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
@@ -171,7 +171,7 @@ namespace PuntoDeVentaV2
         }
 
 
-        private bool validarMandarRespaldoCorreo()
+        public bool validarMandarRespaldoCorreo()
         {
             var result = false;
 
