@@ -35,6 +35,7 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblPrompt = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -44,7 +45,7 @@
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.txtCantidad);
-            this.panel3.Location = new System.Drawing.Point(25, 24);
+            this.panel3.Location = new System.Drawing.Point(25, 59);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(351, 51);
             this.panel3.TabIndex = 5;
@@ -52,7 +53,7 @@
             // txtCantidad
             // 
             this.txtCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidad.Location = new System.Drawing.Point(7, 11);
+            this.txtCantidad.Location = new System.Drawing.Point(7, 7);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(329, 26);
             this.txtCantidad.TabIndex = 0;
@@ -62,7 +63,7 @@
             // 
             this.panel2.Controls.Add(this.btnCancelar);
             this.panel2.Controls.Add(this.btnAceptar);
-            this.panel2.Location = new System.Drawing.Point(25, 85);
+            this.panel2.Location = new System.Drawing.Point(25, 120);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(351, 60);
             this.panel2.TabIndex = 4;
@@ -122,15 +123,30 @@
             this.lblPrompt.Size = new System.Drawing.Size(325, 54);
             this.lblPrompt.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(34, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(333, 18);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Ingrese la cantidad de productos que necesita:";
+            // 
             // inputMessageBoxVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 159);
+            this.ClientSize = new System.Drawing.Size(404, 208);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "inputMessageBoxVentas";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "inputMessageBoxVentas";
             this.Load += new System.EventHandler(this.inputMessageBoxVentas_Load);
@@ -139,6 +155,7 @@
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -151,5 +168,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblPrompt;
+        private System.Windows.Forms.Label label1;
     }
 }

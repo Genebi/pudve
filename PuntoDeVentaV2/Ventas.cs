@@ -39,6 +39,8 @@ namespace PuntoDeVentaV2
         float porcentajeGeneral = 0;
         float descuentoCliente = 0;
 
+        public static string cantidadAPedir = string.Empty;
+
         public static bool ventaGuardada = false; //Para saber si la venta se guardo o no
         int cantidadExtra = 0;
 
@@ -5225,6 +5227,7 @@ namespace PuntoDeVentaV2
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
+            cantidadAPedir = nudCantidadPS.Value.ToString();
             if (Application.OpenForms.OfType<ConsultarProductoVentas>().Count() == 1)
             {
                 Application.OpenForms.OfType<ConsultarProductoVentas>().First().BringToFront();
@@ -5235,7 +5238,6 @@ namespace PuntoDeVentaV2
 
                 consulta.FormClosing += delegate
                 {
-                    //
                     mostrarDatosTraidosBuscador();
                 };
                 consulta.Show();
@@ -5252,7 +5254,17 @@ namespace PuntoDeVentaV2
                 {
                     if (datoObtenidoBuscador.Count.Equals(1))
                     {
-                        AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                        var cantidadaPedir = ConsultarProductoVentas.cantidadPedida;
+                        
+                        if (cantidadaPedir.Equals("Cancelar"))
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            nudCantidadPS.Value = Convert.ToInt32(cantidadaPedir);
+                            AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                        }
                     }
                     else
                     {
