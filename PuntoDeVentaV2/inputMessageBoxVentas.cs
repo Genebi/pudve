@@ -57,7 +57,7 @@ namespace PuntoDeVentaV2
             this.Text = titleWindow;
             txtCantidad.Text = strDefaultResponse;
             txtCantidad.Focus();
-            txtCantidad.SelectAll();
+            txtCantidad.Select();
         }
     }
 }

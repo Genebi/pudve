@@ -616,7 +616,7 @@ namespace PuntoDeVentaV2
 
                 mensajeMostrar = "Ingrese la cantidad de productos que necesita";
                 tituloVentana = "Cantidad a pedir";
-                mensajeDefault = "1";
+                mensajeDefault = Ventas.cantidadAPedir;
 
                 inputMessageBoxVentas inputMessageBox = new inputMessageBoxVentas(mensajeMostrar, tituloVentana, mensajeDefault);
 
@@ -751,6 +751,12 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            mensajeMostrar = "Ingrese la cantidad de productos que necesita";
+            tituloVentana = "Cantidad a pedir";
+            mensajeDefault = Ventas.cantidadAPedir;
+
+            inputMessageBoxVentas inputMessageBox = new inputMessageBoxVentas(mensajeMostrar, tituloVentana, mensajeDefault);
+            inputMessageBox.ShowDialog();
             newObtenerDatoProductoSeleccionado();
         }
     }
