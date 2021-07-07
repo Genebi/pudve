@@ -3491,11 +3491,13 @@ namespace PuntoDeVentaV2
                                 {
                                     ProdServPaq = "S";
                                     FuenteServPaq = "Servicio";
+                                    categoria = "SERVICIOS";
                                 }
                                 else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS")
                                 {
                                     ProdServPaq = "PQ";
                                     FuenteServPaq = "Combo";
+                                    categoria = "COMBOS";
                                 }
                                 #endregion Final Saber si es Servicio ó Combo
 
@@ -6198,11 +6200,8 @@ namespace PuntoDeVentaV2
             if (!int.TryParse(CBNombProd, out numero))
             {
                 if ((this.Text.Trim().Equals("AGREGAR COMBOS") ||
-                     this.Text.Trim().Equals("EDITAR COMBOS") ||
-                     this.Text.Trim().Equals("COPIAR COMBOS") ||
-                     this.Text.Trim().Equals("AGREGAR SERVICIOS") ||
-                     this.Text.Trim().Equals("EDITAR SERVICIOS") ||
-                     this.Text.Trim().Equals("COPIAR SERVICIOS")) && DatosSourceFinal.Equals(1))
+                     this.Text.Trim().Equals("AGREGAR SERVICIOS")) && 
+                     (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3)))
                 {
                     string prodSerPaq = null;
                     DataTable dtProductos;
@@ -6235,10 +6234,8 @@ namespace PuntoDeVentaV2
                     }
                     GenerarPanelProductosServPlus();
                 }
-                else if ((this.Text.Trim().Equals("AGREGAR COMBOS") ||
-                          this.Text.Trim().Equals("EDITAR COMBOS") ||
+                else if ((this.Text.Trim().Equals("EDITAR COMBOS") ||
                           this.Text.Trim().Equals("COPIAR COMBOS") ||
-                          this.Text.Trim().Equals("AGREGAR SERVICIOS") ||
                           this.Text.Trim().Equals("EDITAR SERVICIOS") ||
                           this.Text.Trim().Equals("COPIAR SERVICIOS")) && DatosSourceFinal.Equals(2))
                 {
