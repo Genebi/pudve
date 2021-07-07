@@ -47,6 +47,7 @@
             this.rbRespaldoEquipo.TabStop = true;
             this.rbRespaldoEquipo.Text = "Respaldar en este equipo";
             this.rbRespaldoEquipo.UseVisualStyleBackColor = true;
+            this.rbRespaldoEquipo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rbRespaldoEquipo_KeyDown);
             // 
             // rbRespaldoCorreo
             // 
@@ -59,6 +60,7 @@
             this.rbRespaldoCorreo.TabStop = true;
             this.rbRespaldoCorreo.Text = "Mandar respaldo al correo";
             this.rbRespaldoCorreo.UseVisualStyleBackColor = true;
+            this.rbRespaldoCorreo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rbRespaldoCorreo_KeyDown);
             // 
             // rbAmbos
             // 
@@ -71,6 +73,7 @@
             this.rbAmbos.TabStop = true;
             this.rbAmbos.Text = "Respaldar en este equipo y mandar al correo";
             this.rbAmbos.UseVisualStyleBackColor = true;
+            this.rbAmbos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rbAmbos_KeyDown);
             // 
             // label1
             // 
@@ -84,7 +87,7 @@
             // 
             // btnGuadar
             // 
-            this.btnGuadar.Location = new System.Drawing.Point(169, 160);
+            this.btnGuadar.Location = new System.Drawing.Point(185, 173);
             this.btnGuadar.Name = "btnGuadar";
             this.btnGuadar.Size = new System.Drawing.Size(75, 23);
             this.btnGuadar.TabIndex = 7;
@@ -94,7 +97,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(50, 160);
+            this.btnCancelar.Location = new System.Drawing.Point(24, 173);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 8;
@@ -106,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 195);
+            this.ClientSize = new System.Drawing.Size(299, 208);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuadar);
             this.Controls.Add(this.label1);

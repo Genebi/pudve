@@ -54,5 +54,41 @@ namespace PuntoDeVentaV2
 
             this.Close();
         }
+
+        private void rbRespaldoEquipo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnGuadar.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                btnCancelar.PerformClick();
+            }
+        }
+
+        private void rbRespaldoCorreo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnGuadar.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                btnCancelar.PerformClick();
+            }
+        }
+
+        private void rbAmbos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnGuadar.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                btnCancelar.PerformClick();
+            }
+        }
     }
 }
