@@ -1229,7 +1229,7 @@ namespace PuntoDeVentaV2
                 }
 
                 var codigosBuscar = RecorrerLista(idObtenidosAumentar); 
-                cn.EjecutarConsulta($"UPDATE {tablaAumentar} SET Folio = '{numFolio}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})");
+                cn.EjecutarConsulta($"UPDATE {tablaAumentar} SET Folio = '{numFolio}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) OR Folio = 0");
             }
             else if (rbDisminuirProducto.Checked)
             {
@@ -1264,18 +1264,19 @@ namespace PuntoDeVentaV2
         {
             int result = 0;
 
-            var query = cn.CargarDatos($"SELECT Folio FROM {tabla} WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC LIMIT 2");
+            var query = cn.CargarDatos($"SELECT Folio FROM {tabla} WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha ASC LIMIT 2");
 
             if (!query.Rows.Count.Equals(0))    
             {
-                if (query.Rows.Count.Equals(1))
-                {
-                    result = Convert.ToInt32(query.Rows[0]["Folio"].ToString());
-                }
-                else
-                {
-                    result = Convert.ToInt32(query.Rows[1]["Folio"].ToString());
-                }
+                //if (query.Rows.Count.Equals(1))
+                //{
+                //    result = Convert.ToInt32(query.Rows[0]["Folio"].ToString());
+                //}
+                //else
+                //{
+                //    result = Convert.ToInt32(query.Rows[1]["Folio"].ToString());
+                //}
+                result = Convert.ToInt32(query.Rows[0]["Folio"].ToString());
             }
 
             return result;
