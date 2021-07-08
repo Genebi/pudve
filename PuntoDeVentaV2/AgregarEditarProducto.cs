@@ -3491,11 +3491,13 @@ namespace PuntoDeVentaV2
                                 {
                                     ProdServPaq = "S";
                                     FuenteServPaq = "Servicio";
+                                    categoria = "SERVICIOS";
                                 }
                                 else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS")
                                 {
                                     ProdServPaq = "PQ";
                                     FuenteServPaq = "Combo";
+                                    categoria = "COMBOS";
                                 }
                                 #endregion Final Saber si es Servicio ó Combo
 
@@ -3791,7 +3793,7 @@ namespace PuntoDeVentaV2
                                                                 string buscar = null;
                                                                 string comboBoxText = item.Text;
                                                                 string comboBoxValue = null;
-                                                                buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
+                                                                buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = '1'";
                                                                 dtProductos = cn.CargarDatos(buscar);
                                                                 DataRow row = dtProductos.Rows[0];
                                                                 comboBoxValue = row["ID"].ToString();
@@ -3834,6 +3836,31 @@ namespace PuntoDeVentaV2
                                                 }
                                             }
                                             flowLayoutPanel2.Controls.Clear();
+                                        }
+
+                                        using (DataTable dtProdDeServComb = cn.CargarDatos(cs.ProductosDeServicios(idProducto)))
+                                        {
+                                            if (!dtProdDeServComb.Rows.Count.Equals(0))
+                                            {
+                                                foreach(DataRow drProdServComb in dtProdDeServComb.Rows)
+                                                {
+                                                    var cantidadProducto = Convert.ToDecimal(drProdServComb["Cantidad"].ToString());
+                                                    var NoProducto = Convert.ToInt32(drProdServComb["IDProducto"].ToString());
+                                                    try
+                                                    {
+                                                        cn.EjecutarConsulta(cs.actualizarStockProdServCombo(cantidadProducto, NoProducto));
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show("Advertencia en el proceso de aumento de Stock de producto relacionado", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
+                                                    finally
+                                                    {
+                                                        cantidadProducto = 0;
+                                                        NoProducto = 0;
+                                                    }
+                                                }
+                                            }
                                         }
                                         #endregion  Final Seccion de Agregar desde XML
 
@@ -5216,6 +5243,22 @@ namespace PuntoDeVentaV2
                     {
                         chkBoxConProductos.Visible = true;
                     }
+
+                    if (!string.IsNullOrWhiteSpace(ProdStock) && !string.IsNullOrWhiteSpace(PrecioCompraXML))
+                    {
+                        var ProdStockXML = Convert.ToDecimal(ProdStock.ToString());
+                        var CostoCompraXML = Convert.ToDecimal(PrecioCompraXML.ToString());
+
+                        var precioVentaComboServicio = CostoCompraXML * ProdStockXML;
+                        precioVentaComboServicio = Decimal.Ceiling(precioVentaComboServicio);
+
+                        txtPrecioCompra.Text = Convert.ToString(precioVentaComboServicio);
+                        txtPrecioCompra.Focus();
+                        txtPrecioProducto.Focus();
+                        txtCantPaqServ.Text = Convert.ToString(ProdStockXML);
+                        txtCodigoBarras.Clear();
+                        txtCodigoBarras.Focus();
+                    }
                 }
                 else if (filtro == "Servicio")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
                 {
@@ -5231,6 +5274,22 @@ namespace PuntoDeVentaV2
 
                     lblCantPaqServ.Text = "Cantidad por servicio";
                     button1.Text = "Productos";
+
+                    if (!string.IsNullOrWhiteSpace(ProdStock) && !string.IsNullOrWhiteSpace(PrecioCompraXML))
+                    {
+                        var ProdStockXML = Convert.ToDecimal(ProdStock.ToString());
+                        var CostoCompraXML = Convert.ToDecimal(PrecioCompraXML.ToString());
+
+                        var precioVentaComboServicio = CostoCompraXML * ProdStockXML;
+                        precioVentaComboServicio = Decimal.Ceiling(precioVentaComboServicio);
+
+                        txtPrecioCompra.Text = Convert.ToString(precioVentaComboServicio);
+                        txtPrecioCompra.Focus();
+                        txtPrecioProducto.Focus();
+                        txtCantPaqServ.Text = Convert.ToString(ProdStockXML);
+                        txtCodigoBarras.Clear();
+                        txtCodigoBarras.Focus();
+                    }
                 }
             }
         }
@@ -6198,11 +6257,8 @@ namespace PuntoDeVentaV2
             if (!int.TryParse(CBNombProd, out numero))
             {
                 if ((this.Text.Trim().Equals("AGREGAR COMBOS") ||
-                     this.Text.Trim().Equals("EDITAR COMBOS") ||
-                     this.Text.Trim().Equals("COPIAR COMBOS") ||
-                     this.Text.Trim().Equals("AGREGAR SERVICIOS") ||
-                     this.Text.Trim().Equals("EDITAR SERVICIOS") ||
-                     this.Text.Trim().Equals("COPIAR SERVICIOS")) && DatosSourceFinal.Equals(1))
+                     this.Text.Trim().Equals("AGREGAR SERVICIOS")) && 
+                     (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3)))
                 {
                     string prodSerPaq = null;
                     DataTable dtProductos;
@@ -6235,10 +6291,8 @@ namespace PuntoDeVentaV2
                     }
                     GenerarPanelProductosServPlus();
                 }
-                else if ((this.Text.Trim().Equals("AGREGAR COMBOS") ||
-                          this.Text.Trim().Equals("EDITAR COMBOS") ||
+                else if ((this.Text.Trim().Equals("EDITAR COMBOS") ||
                           this.Text.Trim().Equals("COPIAR COMBOS") ||
-                          this.Text.Trim().Equals("AGREGAR SERVICIOS") ||
                           this.Text.Trim().Equals("EDITAR SERVICIOS") ||
                           this.Text.Trim().Equals("COPIAR SERVICIOS")) && DatosSourceFinal.Equals(2))
                 {
