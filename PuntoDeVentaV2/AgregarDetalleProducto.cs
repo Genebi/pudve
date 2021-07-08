@@ -2937,10 +2937,21 @@ namespace PuntoDeVentaV2
                                             int contieneDetalleProveedor = idFound.Length;
                                             if (contieneDetalleProveedor > 0)
                                             {
-                                                AgregarEditarProducto.detalleProductoBasico.Add(finalIdProducto);
-                                                AgregarEditarProducto.detalleProductoBasico.Add(Convert.ToString(FormPrincipal.userID));
-                                                AgregarEditarProducto.detalleProductoBasico.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                AgregarEditarProducto.detalleProductoBasico.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                if (AgregarEditarProducto.detalleProductoBasico.Count.Equals(0))
+                                                {
+                                                    AgregarEditarProducto.detalleProductoBasico.Add(finalIdProducto);
+                                                    AgregarEditarProducto.detalleProductoBasico.Add(Convert.ToString(FormPrincipal.userID));
+                                                    AgregarEditarProducto.detalleProductoBasico.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                    AgregarEditarProducto.detalleProductoBasico.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                }
+                                                else
+                                                {
+                                                    AgregarEditarProducto.detalleProductoBasico.Clear();
+                                                    AgregarEditarProducto.detalleProductoBasico.Add(finalIdProducto);
+                                                    AgregarEditarProducto.detalleProductoBasico.Add(Convert.ToString(FormPrincipal.userID));
+                                                    AgregarEditarProducto.detalleProductoBasico.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                    AgregarEditarProducto.detalleProductoBasico.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                }
                                             }
                                         }
                                         else if (finalOrigenProdServCombo.Equals(2))
