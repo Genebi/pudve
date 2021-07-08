@@ -40,7 +40,7 @@
             // 
             this.rbRespaldoEquipo.AutoSize = true;
             this.rbRespaldoEquipo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbRespaldoEquipo.Location = new System.Drawing.Point(22, 57);
+            this.rbRespaldoEquipo.Location = new System.Drawing.Point(24, 59);
             this.rbRespaldoEquipo.Name = "rbRespaldoEquipo";
             this.rbRespaldoEquipo.Size = new System.Drawing.Size(146, 17);
             this.rbRespaldoEquipo.TabIndex = 3;
