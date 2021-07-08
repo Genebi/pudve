@@ -28,7 +28,9 @@ namespace PuntoDeVentaV2
         MetodosGenerales mg = new MetodosGenerales();
         MetodosBusquedas mb = new MetodosBusquedas();
         Consultas cs = new Consultas();
-        RespadoBaseDatos backUpDB = new RespadoBaseDatos(); 
+        RespadoBaseDatos backUpDB = new RespadoBaseDatos();
+        Cargando cargando = new Cargando();
+
         //checarVersion vs = new checarVersion();
 
         public static string[] datosUsuario = new string[] { };
@@ -1093,7 +1095,7 @@ namespace PuntoDeVentaV2
             }
 }
 
-        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        private async void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (cerrarAplicacion.Equals(true) && this.Visible.Equals(true))
             {

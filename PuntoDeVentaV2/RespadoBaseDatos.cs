@@ -18,7 +18,6 @@ namespace PuntoDeVentaV2
 
         SaveFileDialog saveFile = new SaveFileDialog();
 
-        DateTime fechaCreacion = DateTime.Now;
 
         public void crearsaveFile(int tipoRespaldo = 2)
         {//Crear un SaveFileDialog con codigo para respaldar la base de datos
@@ -26,6 +25,8 @@ namespace PuntoDeVentaV2
 
             if (tipoRespaldo != 0)
             {
+                DateTime fechaCreacion = DateTime.Now;
+
                 //Stream steam;
 
                 saveFile.FileName = $"{FormPrincipal.userNickName}";
@@ -141,6 +142,8 @@ namespace PuntoDeVentaV2
         private void sendEmail(string rutaGuardado, int tipoRespaldo = 0)
         {
             //varificarCarpetaRespaldos();
+            DateTime fechaCreacion = DateTime.Now;
+
 
             //Variables con las rutas para mover los archivos
             var rutaDestino = $@"C:\Archivos PUDVE\Respaldos\Terminados\Zip\{FormPrincipal.userNickName}_{fechaCreacion.ToString("yyyyMMddHHmmss")}.sql";
