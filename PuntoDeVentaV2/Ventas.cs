@@ -5240,7 +5240,7 @@ namespace PuntoDeVentaV2
                 {
                     mostrarDatosTraidosBuscador();
                 };
-                consulta.Show();
+                consulta.ShowDialog();
             }
         }
 
@@ -5262,7 +5262,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            nudCantidadPS.Value = Convert.ToInt32(cantidadaPedir);
+                            nudCantidadPS.Value = Convert.ToDecimal(cantidadaPedir);
                             AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
                         }
                     }
