@@ -2239,5 +2239,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string actualizarStockProdServCombo(decimal Cantidad, int IdProducto)
+        {
+            var consulta = $"UPDATE Productos SET Stock = Stock + {Cantidad} WHERE ID = '{IdProducto}';";
+
+            return consulta;
+        }
     }
 }  

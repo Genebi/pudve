@@ -3842,7 +3842,24 @@ namespace PuntoDeVentaV2
                                         {
                                             if (!dtProdDeServComb.Rows.Count.Equals(0))
                                             {
-
+                                                foreach(DataRow drProdServComb in dtProdDeServComb.Rows)
+                                                {
+                                                    var cantidadProducto = Convert.ToDecimal(drProdServComb["Cantidad"].ToString());
+                                                    var NoProducto = Convert.ToInt32(drProdServComb["IDProducto"].ToString());
+                                                    try
+                                                    {
+                                                        cn.EjecutarConsulta(cs.actualizarStockProdServCombo(cantidadProducto, NoProducto));
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show("Advertencia en el proceso de aumento de Stock de producto relacionado", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
+                                                    finally
+                                                    {
+                                                        cantidadProducto = 0;
+                                                        NoProducto = 0;
+                                                    }
+                                                }
                                             }
                                         }
                                         #endregion  Final Seccion de Agregar desde XML
