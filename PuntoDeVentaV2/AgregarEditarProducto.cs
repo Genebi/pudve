@@ -3793,7 +3793,7 @@ namespace PuntoDeVentaV2
                                                                 string buscar = null;
                                                                 string comboBoxText = item.Text;
                                                                 string comboBoxValue = null;
-                                                                buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
+                                                                buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = '1'";
                                                                 dtProductos = cn.CargarDatos(buscar);
                                                                 DataRow row = dtProductos.Rows[0];
                                                                 comboBoxValue = row["ID"].ToString();
@@ -3836,6 +3836,14 @@ namespace PuntoDeVentaV2
                                                 }
                                             }
                                             flowLayoutPanel2.Controls.Clear();
+                                        }
+
+                                        using (DataTable dtProdDeServComb = cn.CargarDatos(cs.ProductosDeServicios(idProducto)))
+                                        {
+                                            if (!dtProdDeServComb.Rows.Count.Equals(0))
+                                            {
+
+                                            }
                                         }
                                         #endregion  Final Seccion de Agregar desde XML
 
