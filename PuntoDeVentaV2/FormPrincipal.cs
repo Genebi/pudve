@@ -352,7 +352,7 @@ namespace PuntoDeVentaV2
 
             foreach (Form f in formulariosApp)
             {
-                if (f.Name != "FormPrincipal" && f.Name != "Login")
+                if (f.Name != "FormPrincipal" && f.Name != "Login" && f.Name != "RespadoBaseDatos")
                 {
                     formularioCerrar.Add(f);
                 }
@@ -1095,7 +1095,7 @@ namespace PuntoDeVentaV2
             }
 }
 
-        private async void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (cerrarAplicacion.Equals(true) && this.Visible.Equals(true))
             {
@@ -1105,8 +1105,16 @@ namespace PuntoDeVentaV2
                 {
                     if (backUpDB.validarMandarRespaldoCorreo())
                     {
-                        backUpDB.crearsaveFile();
+                        MessageBox.Show("Este proceso podria tardar unos minutos.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (Application.OpenForms.OfType<Cargando>().Count() == 1)
+                        {
+                            //e.Cancel = true;
+                            Application.OpenForms.OfType<Cargando>().First().BringToFront();
+                        }
+
                     }
+
+                    backUpDB.crearsaveFile();
 
                     e.Cancel = true;
                     cerrarSesion();
