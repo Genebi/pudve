@@ -5243,6 +5243,22 @@ namespace PuntoDeVentaV2
                     {
                         chkBoxConProductos.Visible = true;
                     }
+
+                    if (!string.IsNullOrWhiteSpace(ProdStock) && !string.IsNullOrWhiteSpace(PrecioCompraXML))
+                    {
+                        var ProdStockXML = Convert.ToDecimal(ProdStock.ToString());
+                        var CostoCompraXML = Convert.ToDecimal(PrecioCompraXML.ToString());
+
+                        var precioVentaComboServicio = CostoCompraXML * ProdStockXML;
+                        precioVentaComboServicio = Decimal.Ceiling(precioVentaComboServicio);
+
+                        txtPrecioCompra.Text = Convert.ToString(precioVentaComboServicio);
+                        txtPrecioCompra.Focus();
+                        txtPrecioProducto.Focus();
+                        txtCantPaqServ.Text = Convert.ToString(ProdStockXML);
+                        txtCodigoBarras.Clear();
+                        txtCodigoBarras.Focus();
+                    }
                 }
                 else if (filtro == "Servicio")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
                 {
@@ -5258,6 +5274,22 @@ namespace PuntoDeVentaV2
 
                     lblCantPaqServ.Text = "Cantidad por servicio";
                     button1.Text = "Productos";
+
+                    if (!string.IsNullOrWhiteSpace(ProdStock) && !string.IsNullOrWhiteSpace(PrecioCompraXML))
+                    {
+                        var ProdStockXML = Convert.ToDecimal(ProdStock.ToString());
+                        var CostoCompraXML = Convert.ToDecimal(PrecioCompraXML.ToString());
+
+                        var precioVentaComboServicio = CostoCompraXML * ProdStockXML;
+                        precioVentaComboServicio = Decimal.Ceiling(precioVentaComboServicio);
+
+                        txtPrecioCompra.Text = Convert.ToString(precioVentaComboServicio);
+                        txtPrecioCompra.Focus();
+                        txtPrecioProducto.Focus();
+                        txtCantPaqServ.Text = Convert.ToString(ProdStockXML);
+                        txtCodigoBarras.Clear();
+                        txtCodigoBarras.Focus();
+                    }
                 }
             }
         }
