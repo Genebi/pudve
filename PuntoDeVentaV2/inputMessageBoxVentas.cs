@@ -12,7 +12,7 @@ namespace PuntoDeVentaV2
 {
     public partial class inputMessageBoxVentas : Form
     {
-        string promptMsg = string.Empty,
+        string promptMsg = string.Empty, 
                 titleWindow = string.Empty,
                 strDefaultResponse = string.Empty;
 
@@ -43,6 +43,20 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Enter)
             {
                 btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            //Si deseas, puedes permitir numeros decimales (o float)
+            //If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
             }
         }
 
