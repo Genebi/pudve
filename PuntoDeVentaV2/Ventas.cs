@@ -40,6 +40,8 @@ namespace PuntoDeVentaV2
         float descuentoCliente = 0;
 
         public static string cantidadAPedir = string.Empty;
+        public static List<string> listProductos = new List<string>();
+        public static List<string> liststock = new List<string>();
 
         public static bool ventaGuardada = false; //Para saber si la venta se guardo o no
         int cantidadExtra = 0;
@@ -769,6 +771,8 @@ namespace PuntoDeVentaV2
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 row.Cells["Descuento"].Value = datosProducto[3];
                 row.Cells["Importe"].Value = datosProducto[2];
+                listProductos.Add(datosProducto[0]);
+                liststock.Add(datosProducto[4]);
             }
             else
             {
@@ -811,7 +815,8 @@ namespace PuntoDeVentaV2
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
-
+                listProductos.Add(datosProducto[0]);
+                liststock.Add(cantidad.ToString());
 
                 if ((datosProducto.Length - 1) == 14)
                 {
@@ -2486,7 +2491,7 @@ namespace PuntoDeVentaV2
             {
                 return;
             }
-
+            listProductos.Clear();
         }
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)
@@ -3725,6 +3730,8 @@ namespace PuntoDeVentaV2
                 descuentosDirectos.Clear();
             }
             //PuertoSerieBascula.Close();
+            listProductos.Clear();
+            liststock.Clear();
         }
 
         private void GenerarTicket(string[][] productos)
@@ -5293,7 +5300,7 @@ namespace PuntoDeVentaV2
                     
                 }
             }
-
+            ConsultarProductoVentas.datosDeProducto.Clear();
         }
 
         private void btnClientes_Click(object sender, EventArgs e)

@@ -28,6 +28,8 @@ namespace PuntoDeVentaV2
                 conceptoProductoAgregar = string.Empty,
                 conceptoProductoEliminar = string.Empty;
 
+        List<String> ID = new List<string>();
+        int contador = 0;
 
         public static List<string> datosDeProducto = new List<string>();
         public static int idABuscar { get; set; }
@@ -55,7 +57,6 @@ namespace PuntoDeVentaV2
             busqueda = txtBuscar.Text;
 
             filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
-
             p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
 
             DGVProductos.Rows.Clear();
@@ -322,19 +323,59 @@ namespace PuntoDeVentaV2
 
             DGVProductos.Rows.Clear();
 
+            foreach (DataRow items in dtDatos.Rows)//OBtengo la lista de productos agregados para la venta
+            {
+                ID.Add(items["ID"].ToString());
+            }
+
             if (dtDatos.Rows.Count.Equals(0))
             {
                 MessageBox.Show("No se encuntra ninguna coincidencia\ncon la busqueda que desea realizar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
+            int posicion = 0;
+
             foreach (DataRow filaDatos in dtDatos.Rows)
             {
+
                 var tipodeMoneda = FormPrincipal.Moneda.Split('-');
                 var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
                 var numeroFilas = DGVProductos.Rows.Count;
 
-                string Nombre = filaDatos["Nombre"].ToString();
+
+                if (Ventas.listProductos.Count.Equals(0))//Si no hay ningun producto no se hace nada
+                {
+
+                }
+                else//Si encuentra algun prodcuto se comparan las 2 listas y marcar las que ya estan para la venta
+                {
+                    //if (contador < Ventas.listProductos.Count)
+                    //{
+                    //    for (int i = 0; i <= ID.Count; i++)
+                    //    {
+                    //        if (ID[i].ToString() == Ventas.listProductos[contador].ToString())
+                    //        {
+                    //            break;
+                    //        }
+
+                    //    }
+                    //}
+                    //contador++;
+                }
+
+                string Nombre = string.Empty;
+
+                if (Ventas.listProductos.Contains(filaDatos[0].ToString()))
+                {
+                    string cantidad = Ventas.liststock[posicion].ToString();
+                    Nombre = "* "+"("+cantidad+")"+ filaDatos["Nombre"].ToString();
+                    posicion++;
+                }
+                else
+                {
+                    Nombre = filaDatos["Nombre"].ToString();
+                }
                 string Stock = filaDatos["Stock"].ToString();
                 string Precio =  moneda + filaDatos["Precio"].ToString();
                 string Clave = filaDatos["ClaveInterna"].ToString();
@@ -343,6 +384,7 @@ namespace PuntoDeVentaV2
                 string Proveedor = filaDatos["Proveedor"].ToString();
                 string chckName = filaDatos["ChckName"].ToString();
                 string Descripcion = filaDatos["Descripcion"].ToString().Replace("_", " ");
+
 
                 if (DGVProductos.Rows.Count.Equals(0))
                 {
