@@ -379,6 +379,8 @@ namespace PuntoDeVentaV2
 
             var credi = (vCredito - retiroCredito);
             if (credi < 0) { credi = 0; }
+
+            var totalAbonos = (abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI);
             // Apartado VENTAS
             lista.Add(vEfectivo);//lbTEfectivo.Text = moneda + vEfectivo.ToString("0.00");  //0
             lista.Add(vTarjeta);//lbTTarjeta.Text = moneda + vTarjeta.ToString("0.00");     //1
@@ -388,7 +390,7 @@ namespace PuntoDeVentaV2
             lista.Add(credi);//lbTCredito.Text = moneda + credi.ToString("0.00");           //5
             ////lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
             lista.Add(anticiposAplicados);//lbTAnticipos.Text = moneda + anticiposAplicados.ToString("0.00"); //6
-            lista.Add((vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + anticiposAplicados));//lbTVentas.Text = moneda + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00"); //7
+            lista.Add((vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + anticiposAplicados) + totalAbonos);//lbTVentas.Text = moneda + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00"); //7
 
             ////Variables de Abonos en Ventas
             lista.Add(abonoEfectivoI);//lbEfectivoAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");  //8
@@ -396,7 +398,7 @@ namespace PuntoDeVentaV2
             lista.Add(abonoValesI);//lbValesAbonos.Text = "$" + abonoValesI.ToString("0.00");           //10
             lista.Add(abonoChequeI);//lbChequeAbonos.Text = "$" + abonoChequeI.ToString("0.00");        //11
             lista.Add(abonoTransferenciaI);//lbTransferenciaAbonos.Text = "$" + abonoTransferenciaI.ToString("0.00");   //12
-            lista.Add((abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI));//lbTCreditoC.Text = moneda + abonos/*(abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI)*/.ToString("0.00");    //13
+            lista.Add(totalAbonos);//lbTCreditoC.Text = moneda + abonos/*(abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI)*/.ToString("0.00");    //13
 
             //lbTotalAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
 
@@ -438,7 +440,7 @@ namespace PuntoDeVentaV2
             lista.Add(cheque);          //37
             trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia; if (trans < 0) { trans = 0; }
             lista.Add(trans);           //38
-            credito = vCredito;
+            credito = credi;
             lista.Add(credito);         //39
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
@@ -462,7 +464,7 @@ namespace PuntoDeVentaV2
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
             var ant = 0f;
             lista.Add(CargarSaldoInicial()); //lbTSaldoInicial.Text = moneda + saldoInicial.ToString("0.00"); //48
-            if (credito < retiroCredito) { ant = 0f; } else { ant = (vCredito - retiroCredito); }
+            if (credito < retiroCredito) { ant = 0f; } else { ant = (credi - retiroCredito); }
             lista.Add(ant);                                                                                   //49
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             //lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");

@@ -134,6 +134,7 @@ namespace PuntoDeVentaV2
             var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
             //saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
+            saldoInicial = cdc.CargarSaldoInicial();
 
             tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
         }
