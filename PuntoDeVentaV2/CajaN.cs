@@ -23,6 +23,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        CargarDatosCaja cdc = new CargarDatosCaja();
 
         public static bool recargarDatos = false;
         public static bool botones = false;
@@ -132,8 +133,9 @@ namespace PuntoDeVentaV2
             var tipodeMoneda = FormPrincipal.Moneda.Split('-');
             var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
-            saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
-            tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + saldoInicial.ToString("0.00");
+            //saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
+
+            tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
         }
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
@@ -412,414 +414,469 @@ namespace PuntoDeVentaV2
         #region Metodo para cargar saldos y totales
         private void CargarSaldo()
         {
-            this.Focus();
-            //verificarCantidadAbonos();
+            //this.Focus();
+            ////verificarCantidadAbonos();
 
 
-            MySqlConnection sql_con;
-            MySqlCommand consultaUno, consultaDos;
-            MySqlDataReader drUno, drDos;
+            //MySqlConnection sql_con;
+            //MySqlCommand consultaUno, consultaDos;
+            //MySqlDataReader drUno, drDos;
 
-            var servidor = Properties.Settings.Default.Hosting;
+            //var servidor = Properties.Settings.Default.Hosting;
 
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                sql_con = new MySqlConnection($"datasource={servidor};port=6666;username=root;password=;database=pudve;");
-            }
-            else
-            {
-                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
-            }
+            //if (!string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    sql_con = new MySqlConnection($"datasource={servidor};port=6666;username=root;password=;database=pudve;");
+            //}
+            //else
+            //{
+            //    sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
+            //}
 
-            sql_con.Open();
+            //sql_con.Open();
 
-            var fechaDefault = Convert.ToDateTime("0001-01-01 00:00:00");
+            //var fechaDefault = Convert.ToDateTime("0001-01-01 00:00:00");
 
-            var consultarFecha = $"SELECT FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte' ORDER BY FeChaOperacion DESC LIMIT 1";
-            consultaUno = new MySqlCommand(consultarFecha, sql_con);
-            drUno = consultaUno.ExecuteReader();
+            //var consultarFecha = $"SELECT FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte' ORDER BY FeChaOperacion DESC LIMIT 1";
+            //consultaUno = new MySqlCommand(consultarFecha, sql_con);
+            //drUno = consultaUno.ExecuteReader();
 
-            if (drUno.Read())
-            {
-                var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
-                fechaDefault = Convert.ToDateTime(fechaTmp);
-            }
+            //if (drUno.Read())
+            //{
+            //    var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+            //    fechaDefault = Convert.ToDateTime(fechaTmp);
+            //}
 
-            fechaGeneral = fechaDefault;
-            drUno.Close();
-
-            var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
-            consultaDos = new MySqlCommand(consulta, sql_con);
-            drDos = consultaDos.ExecuteReader();
-
-            // Variables ventas
-            float vEfectivo = 0f;
-            float vTarjeta = 0f;
-            float vVales = 0f;
-            float vCheque = 0f;
-            float vTrans = 0f;
-            float vCredito = 0f;
-            float vAnticipos = 0f;
-
-            // Variables anticipos
-            float aEfectivo = 0f;
-            float aTarjeta = 0f;
-            float aVales = 0f;
-            float aCheque = 0f;
-            float aTrans = 0f;
-
-            // Variables depositos
-            float dEfectivo = 0f;
-            float dTarjeta = 0f;
-            float dVales = 0f;
-            float dCheque = 0f;
-            float dTrans = 0f;
-
-            // Variables retiros
-            float rEfectivo = 0f;
-            float rTarjeta = 0f;
-            float rVales = 0f;
-            float rCheque = 0f;
-            float rTransferencia = 0f;
-            float devoluciones = 0f;
-
-            // Variables caja
-            float efectivo = 0f;
-            float tarjeta = 0f;
-            float vales = 0f;
-            float cheque = 0f;
-            float trans = 0f;
-            //float abono = 0f;////
-            float credito = 0f;
-            float subtotal = 0f;
-            float anticipos = 0f;
-
-            // Variable retiro
-            float dineroRetirado = 0f;
-            retiroEfectivo = 0f;
-            retiroTarjeta = 0f;
-            retiroVales = 0f;
-            retiroCheque = 0f;
-            retiroTrans = 0f;
-            retiroCredito = 0f;
-
-            int saltar = 0;
-
-            //Variables para anticipos y abonos
-            float anticiposAplicados = 0f;
-            float abonos = 0f;
-            float abonoEfectivoI = 0f;
-            float abonoTarjetaI = 0f;
-            float abonoValesI = 0f;
-            float abonoChequeI = 0f;
-            float abonoTransferenciaI = 0f;
-
-            var consultaAnticipoAplicado = ""; //Se agrego esta linea desde esta linea...
-            string ultimoDate = "";
-            try
-            {
-                var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) AS AnticipoAplicado FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
-                if (!segundaConsulta.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(segundaConsulta.ToString())*/)
-                {
-                    foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
-                    {
-                        if (string.IsNullOrWhiteSpace(obtenerAnticipoAplicado["AnticipoAplicado"].ToString()))
-                        {
-                            consultaAnticipoAplicado = "0";
-                        }
-                        else
-                        {
-                            consultaAnticipoAplicado = obtenerAnticipoAplicado["AnticipoAplicado"].ToString();
-                        }
-                    }
-                    anticiposAplicados = float.Parse(consultaAnticipoAplicado); //Hasta esta linea.
-                }
-                //Obtenemos la fecha del ultimo corte
-                var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
-                if (!fechaCorteUltima.Rows.Count.Equals(0))
-                {
-                    //if (!fechaCorteUltima.Rows.Count.Equals(0)) {  }
-
-                    foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
-                    {
-                        ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
-                    }
-                    DateTime ultimoDateCorte = DateTime.Parse(ultimoDate);
-
-                    //Obtenemos la cantidad de abonos realizados despues del ultimo corte de caja
-                    var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
-                    using (var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'"))
-                    {
-                        //var abono = "";
-                        if (!fechaMovimientos.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(fechaMovimientos.ToString())*/)
-                        {
-
-                            foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
-                            {
-                                if (string.IsNullOrWhiteSpace(cantidadAbono["Efectivo"].ToString()))
-                                {
-                                    abonoEfectivo = "0";
-                                }
-                                else
-                                {
-                                    abonoEfectivo = cantidadAbono["Efectivo"].ToString();
-                                }
-
-                                if (string.IsNullOrWhiteSpace(cantidadAbono["Tarjeta"].ToString()))
-                                {
-                                    abonoTarjeta = "0";
-                                }
-                                else
-                                {
-                                    abonoTarjeta = cantidadAbono["Tarjeta"].ToString();
-                                }
-
-                                if (string.IsNullOrWhiteSpace(cantidadAbono["Vales"].ToString()))
-                                {
-                                    abonoVales = "0";
-                                }
-                                else
-                                {
-                                    abonoVales = cantidadAbono["Vales"].ToString();
-                                }
-
-                                if (string.IsNullOrWhiteSpace(cantidadAbono["Cheque"].ToString()))
-                                {
-                                    abonoCheque = "0";
-                                }
-                                else
-                                {
-                                    abonoCheque = cantidadAbono["Cheque"].ToString();
-                                }
-
-                                if (string.IsNullOrWhiteSpace(cantidadAbono["Transferencia"].ToString()))
-                                {
-                                    abonoTransferencia = "0";
-                                }
-                                else
-                                {
-                                    abonoTransferencia = cantidadAbono["Transferencia"].ToString();
-                                }
-
-                            }
-                            //abonos = float.Parse(abono);
-                            abonoEfectivoI = float.Parse(abonoEfectivo);
-                            abonoTarjetaI = float.Parse(abonoTarjeta);
-                            abonoValesI = float.Parse(abonoVales);
-                            abonoChequeI = float.Parse(abonoCheque);
-                            abonoTransferenciaI = float.Parse(abonoTransferencia);
-                            abonos = (abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI);
-                        }
-                    }
-
-
-
-                    //Obtenemos la cantidad de Devoluciones realizados despues del ultimo corte de caja
-                    using (var obtenerDevoluciones = cn.CargarDatos($@"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'"))
-                    {
-                        if (!obtenerDevoluciones.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(obtenerDevoluciones.ToString())*/)
-                        {
-                            string devolucionTotal = string.Empty, devolucionEfectivo = string.Empty, devolucionTarjeta = string.Empty, devolucionVales = string.Empty, devolucionCheque = string.Empty, devolucionTrans = string.Empty;
-                            foreach (DataRow devol in obtenerDevoluciones.Rows)
-                            {
-                                if (string.IsNullOrWhiteSpace(devol["Total"].ToString()))
-                                {
-                                    devolucionTotal = "0";
-                                    devolucionEfectivo = "0";
-                                    devolucionTarjeta = "0";
-                                    devolucionVales = "0";
-                                    devolucionCheque = "0";
-                                    devolucionTrans = "0";
-
-                                }
-                                else
-                                {
-                                    devolucionTotal = devol["Total"].ToString();
-                                    devolucionEfectivo = devol["Efectivo"].ToString();
-                                    devolucionTarjeta = devol["Tarjeta"].ToString();
-                                    devolucionVales = devol["Vales"].ToString();
-                                    devolucionCheque = devol["Cheque"].ToString();
-                                    devolucionTrans = devol["Transferencia"].ToString();
-                                }
-                            }
-
-                            devoluciones = float.Parse(devolucionTotal);
-
-                            efectivoCorte = devolucionEfectivo.ToString();
-                            tarjetaCorte = devolucionTarjeta.ToString();
-                            valesCorte = devolucionVales.ToString();
-                            chequeCorte = devolucionCheque.ToString();
-                            transCorte = devolucionTrans.ToString();
-                            totCorte = devoluciones.ToString();
-                        }
-                    }
-
-
-                }
-            }
-            catch
-            {
-
-            }
-
-            while (drDos.Read())
-            {
-                string operacion = drDos.GetValue(drDos.GetOrdinal("Operacion")).ToString();
-                var auxiliar = Convert.ToDateTime(drDos.GetValue(drDos.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
-                var fechaOperacion = Convert.ToDateTime(auxiliar);
-
-                if (operacion == "venta" && fechaOperacion > fechaDefault)
-                {
-                    if (saltar == 0 && !fechaDefault.ToString("yyyy-MM-dd HH:mm:ss").Equals("0001-01-01 00:00:00"))
-                    {
-                        saltar++;
-                        continue;
-                    }
-
-                    vEfectivo += (float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString())/*+MetodosBusquedas.efectivoInicial*/);
-                    vTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
-                    vVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
-                    vCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
-                    vTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
-                    vCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
-                    vAnticipos += float.Parse(drDos.GetValue(drDos.GetOrdinal("Anticipo")).ToString());
-                }
-
-                if (operacion == "anticipo" && fechaOperacion > fechaDefault)
-                {
-                    aEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
-                    aTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
-                    aVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
-                    aCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
-                    aTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
-                }
-
-                if (operacion == "deposito" && fechaOperacion > fechaDefault)
-                {
-                    dEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
-                    dTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
-                    dVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
-                    dCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
-                    dTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
-                }
-
-                if (operacion == "retiro" && fechaOperacion > fechaDefault)
-                {
-                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
-                    retiroEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
-
-                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
-                    retiroTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
-
-                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
-                    retiroVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
-
-                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
-                    retiroCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
-
-                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
-                    retiroTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
-
-                    //dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
-                    retiroCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
-                }
-            }
-
-            // Cerramos la conexion y el datareader
+            //fechaGeneral = fechaDefault;
             //drUno.Close();
-            drDos.Close();
-            sql_con.Close();
+
+            //var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
+            //consultaDos = new MySqlCommand(consulta, sql_con);
+            //drDos = consultaDos.ExecuteReader();
+
+            //// Variables ventas
+            //float vEfectivo = 0f;
+            //float vTarjeta = 0f;
+            //float vVales = 0f;
+            //float vCheque = 0f;
+            //float vTrans = 0f;
+            //float vCredito = 0f;
+            //float vAnticipos = 0f;
+
+            //// Variables anticipos
+            //float aEfectivo = 0f;
+            //float aTarjeta = 0f;
+            //float aVales = 0f;
+            //float aCheque = 0f;
+            //float aTrans = 0f;
+
+            //// Variables depositos
+            //float dEfectivo = 0f;
+            //float dTarjeta = 0f;
+            //float dVales = 0f;
+            //float dCheque = 0f;
+            //float dTrans = 0f;
+
+            //// Variables retiros
+            //float rEfectivo = 0f;
+            //float rTarjeta = 0f;
+            //float rVales = 0f;
+            //float rCheque = 0f;
+            //float rTransferencia = 0f;
+            //float devoluciones = 0f;
+
+            //// Variables caja
+            //float efectivo = 0f;
+            //float tarjeta = 0f;
+            //float vales = 0f;
+            //float cheque = 0f;
+            //float trans = 0f;
+            ////float abono = 0f;////
+            //float credito = 0f;
+            //float subtotal = 0f;
+            //float anticipos = 0f;
+
+            //// Variable retiro
+            //float dineroRetirado = 0f;
+            //retiroEfectivo = 0f;
+            //retiroTarjeta = 0f;
+            //retiroVales = 0f;
+            //retiroCheque = 0f;
+            //retiroTrans = 0f;
+            //retiroCredito = 0f;
+
+            //int saltar = 0;
+
+            ////Variables para anticipos y abonos
+            //float anticiposAplicados = 0f;
+            //float abonos = 0f;
+            //float abonoEfectivoI = 0f;
+            //float abonoTarjetaI = 0f;
+            //float abonoValesI = 0f;
+            //float abonoChequeI = 0f;
+            //float abonoTransferenciaI = 0f;
+
+            //var consultaAnticipoAplicado = ""; //Se agrego esta linea desde esta linea...
+            //string ultimoDate = "";
+            //try
+            //{
+            //    var segundaConsulta = cn.CargarDatos($"SELECT sum(AnticipoAplicado) AS AnticipoAplicado FROM Anticipos  WHERE IDUsuario = '{FormPrincipal.userID}'");
+            //    if (!segundaConsulta.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(segundaConsulta.ToString())*/)
+            //    {
+            //        foreach (DataRow obtenerAnticipoAplicado in segundaConsulta.Rows)
+            //        {
+            //            if (string.IsNullOrWhiteSpace(obtenerAnticipoAplicado["AnticipoAplicado"].ToString()))
+            //            {
+            //                consultaAnticipoAplicado = "0";
+            //            }
+            //            else
+            //            {
+            //                consultaAnticipoAplicado = obtenerAnticipoAplicado["AnticipoAplicado"].ToString();
+            //            }
+            //        }
+            //        anticiposAplicados = float.Parse(consultaAnticipoAplicado); //Hasta esta linea.
+            //    }
+            //    //Obtenemos la fecha del ultimo corte
+            //    var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+            //    if (!fechaCorteUltima.Rows.Count.Equals(0))
+            //    {
+            //        //if (!fechaCorteUltima.Rows.Count.Equals(0)) {  }
+
+            //        foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
+            //        {
+            //            ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
+            //        }
+            //        DateTime ultimoDateCorte = DateTime.Parse(ultimoDate);
+
+            //        //Obtenemos la cantidad de abonos realizados despues del ultimo corte de caja
+            //        var abonoEfectivo = ""; var abonoTarjeta = ""; var abonoVales = ""; var abonoCheque = ""; var abonoTransferencia = "";
+            //        using (var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'"))
+            //        {
+            //            //var abono = "";
+            //            if (!fechaMovimientos.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(fechaMovimientos.ToString())*/)
+            //            {
+
+            //                foreach (DataRow cantidadAbono in fechaMovimientos.Rows)
+            //                {
+            //                    if (string.IsNullOrWhiteSpace(cantidadAbono["Efectivo"].ToString()))
+            //                    {
+            //                        abonoEfectivo = "0";
+            //                    }
+            //                    else
+            //                    {
+            //                        abonoEfectivo = cantidadAbono["Efectivo"].ToString();
+            //                    }
+
+            //                    if (string.IsNullOrWhiteSpace(cantidadAbono["Tarjeta"].ToString()))
+            //                    {
+            //                        abonoTarjeta = "0";
+            //                    }
+            //                    else
+            //                    {
+            //                        abonoTarjeta = cantidadAbono["Tarjeta"].ToString();
+            //                    }
+
+            //                    if (string.IsNullOrWhiteSpace(cantidadAbono["Vales"].ToString()))
+            //                    {
+            //                        abonoVales = "0";
+            //                    }
+            //                    else
+            //                    {
+            //                        abonoVales = cantidadAbono["Vales"].ToString();
+            //                    }
+
+            //                    if (string.IsNullOrWhiteSpace(cantidadAbono["Cheque"].ToString()))
+            //                    {
+            //                        abonoCheque = "0";
+            //                    }
+            //                    else
+            //                    {
+            //                        abonoCheque = cantidadAbono["Cheque"].ToString();
+            //                    }
+
+            //                    if (string.IsNullOrWhiteSpace(cantidadAbono["Transferencia"].ToString()))
+            //                    {
+            //                        abonoTransferencia = "0";
+            //                    }
+            //                    else
+            //                    {
+            //                        abonoTransferencia = cantidadAbono["Transferencia"].ToString();
+            //                    }
+
+            //                }
+            //                //abonos = float.Parse(abono);
+            //                abonoEfectivoI = float.Parse(abonoEfectivo);
+            //                abonoTarjetaI = float.Parse(abonoTarjeta);
+            //                abonoValesI = float.Parse(abonoVales);
+            //                abonoChequeI = float.Parse(abonoCheque);
+            //                abonoTransferenciaI = float.Parse(abonoTransferencia);
+            //                abonos = (abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI);
+            //            }
+            //        }
+
+
+
+            //        //Obtenemos la cantidad de Devoluciones realizados despues del ultimo corte de caja
+            //        using (var obtenerDevoluciones = cn.CargarDatos($@"SELECT sum(Total)AS Total, sum(Efectivo)AS Efectivo, sum(Tarjeta)AS Tarjeta, sum(Vales)AS Vales, sum(Cheque)AS Cheque, sum(Transferencia)AS Transferencia FROM Devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimoDateCorte.ToString("yyyy-MM-dd HH:mm:ss")}'"))
+            //        {
+            //            if (!obtenerDevoluciones.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(obtenerDevoluciones.ToString())*/)
+            //            {
+            //                string devolucionTotal = string.Empty, devolucionEfectivo = string.Empty, devolucionTarjeta = string.Empty, devolucionVales = string.Empty, devolucionCheque = string.Empty, devolucionTrans = string.Empty;
+            //                foreach (DataRow devol in obtenerDevoluciones.Rows)
+            //                {
+            //                    if (string.IsNullOrWhiteSpace(devol["Total"].ToString()))
+            //                    {
+            //                        devolucionTotal = "0";
+            //                        devolucionEfectivo = "0";
+            //                        devolucionTarjeta = "0";
+            //                        devolucionVales = "0";
+            //                        devolucionCheque = "0";
+            //                        devolucionTrans = "0";
+
+            //                    }
+            //                    else
+            //                    {
+            //                        devolucionTotal = devol["Total"].ToString();
+            //                        devolucionEfectivo = devol["Efectivo"].ToString();
+            //                        devolucionTarjeta = devol["Tarjeta"].ToString();
+            //                        devolucionVales = devol["Vales"].ToString();
+            //                        devolucionCheque = devol["Cheque"].ToString();
+            //                        devolucionTrans = devol["Transferencia"].ToString();
+            //                    }
+            //                }
+
+            //                devoluciones = float.Parse(devolucionTotal);
+
+            //                efectivoCorte = devolucionEfectivo.ToString();
+            //                tarjetaCorte = devolucionTarjeta.ToString();
+            //                valesCorte = devolucionVales.ToString();
+            //                chequeCorte = devolucionCheque.ToString();
+            //                transCorte = devolucionTrans.ToString();
+            //                totCorte = devoluciones.ToString();
+            //            }
+            //        }
+
+
+            //    }
+            //}
+            //catch
+            //{
+
+            //}
+
+            //while (drDos.Read())
+            //{
+            //    string operacion = drDos.GetValue(drDos.GetOrdinal("Operacion")).ToString();
+            //    var auxiliar = Convert.ToDateTime(drDos.GetValue(drDos.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+            //    var fechaOperacion = Convert.ToDateTime(auxiliar);
+
+            //    if (operacion == "venta" && fechaOperacion > fechaDefault)
+            //    {
+            //        if (saltar == 0 && !fechaDefault.ToString("yyyy-MM-dd HH:mm:ss").Equals("0001-01-01 00:00:00"))
+            //        {
+            //            saltar++;
+            //            continue;
+            //        }
+
+            //        vEfectivo += (float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString())/*+MetodosBusquedas.efectivoInicial*/);
+            //        vTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+            //        vVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+            //        vCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+            //        vTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+            //        vCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
+            //        vAnticipos += float.Parse(drDos.GetValue(drDos.GetOrdinal("Anticipo")).ToString());
+            //    }
+
+            //    if (operacion == "anticipo" && fechaOperacion > fechaDefault)
+            //    {
+            //        aEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+            //        aTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+            //        aVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+            //        aCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+            //        aTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+            //    }
+
+            //    if (operacion == "deposito" && fechaOperacion > fechaDefault)
+            //    {
+            //        dEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+            //        dTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+            //        dVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+            //        dCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+            //        dTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+            //    }
+
+            //    if (operacion == "retiro" && fechaOperacion > fechaDefault)
+            //    {
+            //        dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+            //        retiroEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+
+            //        dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+            //        retiroTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+
+            //        dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+            //        retiroVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+
+            //        dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+            //        retiroCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+
+            //        dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+            //        retiroTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+
+            //        //dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
+            //        retiroCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
+            //    }
+            //}
+
+            //// Cerramos la conexion y el datareader
+            ////drUno.Close();
+            //drDos.Close();
+            //sql_con.Close();
 
             var tipodeMoneda = FormPrincipal.Moneda.Split('-');
             var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
-            var credi = (vCredito - retiroCredito);
-            if (credi < 0) { credi = 0; }
-            // Apartado VENTAS
-            lbTEfectivo.Text = moneda + vEfectivo.ToString("0.00");
-            lbTTarjeta.Text = moneda + vTarjeta.ToString("0.00");
-            lbTVales.Text = moneda + vVales.ToString("0.00");
-            lbTCheque.Text = moneda + vCheque.ToString("0.00");
-            lbTTrans.Text = moneda + vTrans.ToString("0.00");
-            lbTCredito.Text = moneda + credi.ToString("0.00");
+            var datos = cdc.CargarSaldo();
+
+            //var credi = (vCredito - retiroCredito);
+            //if (credi < 0) { credi = 0; }
+            //// Apartado VENTAS
+            //lbTEfectivo.Text = moneda + vEfectivo.ToString("0.00");
+            //lbTTarjeta.Text = moneda + vTarjeta.ToString("0.00");
+            //lbTVales.Text = moneda + vVales.ToString("0.00");
+            //lbTCheque.Text = moneda + vCheque.ToString("0.00");
+            //lbTTrans.Text = moneda + vTrans.ToString("0.00");
+            //lbTCredito.Text = moneda + credi.ToString("0.00");
+            ////lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
+            //lbTAnticipos.Text = moneda + anticiposAplicados.ToString("0.00");
+            //lbTVentas.Text = moneda + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00");
+            lbTEfectivo.Text = moneda + datos[0].ToString("0.00");
+            lbTTarjeta.Text = moneda + datos[1].ToString("0.00");
+            lbTVales.Text = moneda + datos[2].ToString("0.00");
+            lbTCheque.Text = moneda + datos[3].ToString("0.00");
+            lbTTrans.Text = moneda + datos[4].ToString("0.00");
+            lbTCredito.Text = moneda + datos[5].ToString("0.00");
             //lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
-            lbTAnticipos.Text = moneda + anticiposAplicados.ToString("0.00");
-            lbTVentas.Text = moneda + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00");
+            lbTAnticipos.Text = moneda + datos[6].ToString("0.00");
+            lbTVentas.Text = moneda + datos[7].ToString("0.00");
 
-            ////Variables de Abonos en Ventas
-            //lbEfectivoAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
-            //lbTarjetaAbonos.Text = "$" + abonoTarjetaI.ToString("0.00");
-            //lbValesAbonos.Text = "$" + abonoValesI.ToString("0.00");
-            //lbChequeAbonos.Text = "$" + abonoChequeI.ToString("0.00");
-            //lbTransferenciaAbonos.Text = "$" + abonoTransferenciaI.ToString("0.00");
-            lbTCreditoC.Text = moneda + abonos/*(abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI)*/.ToString("0.00");
 
-            //lbTotalAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
+            //////Variables de Abonos en Ventas
+            ////lbEfectivoAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
+            ////lbTarjetaAbonos.Text = "$" + abonoTarjetaI.ToString("0.00");
+            ////lbValesAbonos.Text = "$" + abonoValesI.ToString("0.00");
+            ////lbChequeAbonos.Text = "$" + abonoChequeI.ToString("0.00");
+            ////lbTransferenciaAbonos.Text = "$" + abonoTransferenciaI.ToString("0.00");
+            //lbTCreditoC.Text = moneda + abonos/*(abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI)*/.ToString("0.00");
+            lbTCreditoC.Text = moneda + datos[13].ToString("0.00");
 
-            // Apartado ANTICIPOS RECIBIDOS
-            lbTEfectivoA.Text = moneda + aEfectivo.ToString("0.00");
-            lbTTarjetaA.Text = moneda + aTarjeta.ToString("0.00");
-            lbTValesA.Text = moneda + aVales.ToString("0.00");
-            lbTChequeA.Text = moneda + aCheque.ToString("0.00");
-            lbTTransA.Text = moneda + aTrans.ToString("0.00");
-            lbTAnticiposA.Text = moneda + (aEfectivo + aTarjeta + aVales + aCheque + aTrans).ToString("0.00");
+            ////lbTotalAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
 
-            // Apartado DINERO AGREGADO
-            lbTEfectivoD.Text = moneda + dEfectivo.ToString("0.00");
-            lbTTarjetaD.Text = moneda + dTarjeta.ToString("0.00");
-            lbTValesD.Text = moneda + dVales.ToString("0.00");
-            lbTChequeD.Text = moneda + dCheque.ToString("0.00");
-            lbTTransD.Text = moneda + dTrans.ToString("0.00");
-            lbTAgregado.Text = moneda + (dEfectivo + dTarjeta + dVales + dCheque + dTrans).ToString("0.00");
+            //// Apartado ANTICIPOS RECIBIDOS
+            //lbTEfectivoA.Text = moneda + aEfectivo.ToString("0.00");
+            //lbTTarjetaA.Text = moneda + aTarjeta.ToString("0.00");
+            //lbTValesA.Text = moneda + aVales.ToString("0.00");
+            //lbTChequeA.Text = moneda + aCheque.ToString("0.00");
+            //lbTTransA.Text = moneda + aTrans.ToString("0.00");
+            //lbTAnticiposA.Text = moneda + (aEfectivo + aTarjeta + aVales + aCheque + aTrans).ToString("0.00");
+            lbTEfectivoA.Text = moneda + datos[14].ToString("0.00");
+            lbTTarjetaA.Text = moneda + datos[15].ToString("0.00");
+            lbTValesA.Text = moneda + datos[16].ToString("0.00");
+            lbTChequeA.Text = moneda + datos[17].ToString("0.00");
+            lbTTransA.Text = moneda + datos[18].ToString("0.00");
+            lbTAnticiposA.Text = moneda + datos[19].ToString("0.00");
 
-            // Apartado Dinero Retirado
-            lbEfectivoR.Text = moneda +" -" + retiroEfectivo.ToString("0.00");
-            lbTarjetaR.Text = moneda + " -" + retiroTarjeta.ToString("0.00");
-            lbValesR.Text = moneda + " -" + retiroVales.ToString("0.00");
-            lbChequeR.Text = moneda + " -" + retiroCheque.ToString("0.00");
-            lbTransferenciaR.Text = moneda + " -" + retiroTrans.ToString("0.00");
+
+            //// Apartado DINERO AGREGADO
+            //lbTEfectivoD.Text = moneda + dEfectivo.ToString("0.00");
+            //lbTTarjetaD.Text = moneda + dTarjeta.ToString("0.00");
+            //lbTValesD.Text = moneda + dVales.ToString("0.00");
+            //lbTChequeD.Text = moneda + dCheque.ToString("0.00");
+            //lbTTransD.Text = moneda + dTrans.ToString("0.00");
+            //lbTAgregado.Text = moneda + (dEfectivo + dTarjeta + dVales + dCheque + dTrans).ToString("0.00");
+            lbTEfectivoD.Text = moneda + datos[20].ToString("0.00");
+            lbTTarjetaD.Text = moneda + datos[21].ToString("0.00");
+            lbTValesD.Text = moneda + datos[22].ToString("0.00");
+            lbTChequeD.Text = moneda + datos[23].ToString("0.00");
+            lbTTransD.Text = moneda + datos[24].ToString("0.00");
+            lbTAgregado.Text = moneda + datos[25].ToString("0.00");
+
+            //// Apartado Dinero Retirado
+            //lbEfectivoR.Text = moneda +" -" + retiroEfectivo.ToString("0.00");
+            //lbTarjetaR.Text = moneda + " -" + retiroTarjeta.ToString("0.00");
+            //lbValesR.Text = moneda + " -" + retiroVales.ToString("0.00");
+            //lbChequeR.Text = moneda + " -" + retiroCheque.ToString("0.00");
+            //lbTransferenciaR.Text = moneda + " -" + retiroTrans.ToString("0.00");
+            ////lbTAnticiposC.Text = "$ -" + vAnticipos.ToString("0.00");
+            //lbTAnticiposC.Text = moneda + " -" + anticiposAplicados.ToString("0.00");
+            //lbDevoluciones.Text = moneda + " -" + devoluciones.ToString("0.00");
+            //lbTRetirado.Text = moneda + " -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");
+            lbEfectivoR.Text = moneda + " -" + datos[26].ToString("0.00");
+            lbTarjetaR.Text = moneda + " -" + datos[27].ToString("0.00");
+            lbValesR.Text = moneda + " -" + datos[28].ToString("0.00");
+            lbChequeR.Text = moneda + " -" + datos[29].ToString("0.00");
+            lbTransferenciaR.Text = moneda + " -" + datos[30].ToString("0.00");
             //lbTAnticiposC.Text = "$ -" + vAnticipos.ToString("0.00");
-            lbTAnticiposC.Text = moneda + " -" + anticiposAplicados.ToString("0.00");
-            lbDevoluciones.Text = moneda + " -" + devoluciones.ToString("0.00");
-            lbTRetirado.Text = moneda + " -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");
+            lbTAnticiposC.Text = moneda + " -" + datos[31].ToString("0.00");
+            lbDevoluciones.Text = moneda + " -" + datos[32].ToString("0.00");
+            lbTRetirado.Text = moneda + " -" + datos[33].ToString("0.00");
 
-            // Apartado TOTAL EN CAJA
-            efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo; if (efectivo < 0) { efectivo = 0; }
-            tarjeta = (vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI) - rTarjeta; if (tarjeta < 0) { tarjeta = 0; }
-            vales = (vVales + aVales + dVales + abonoValesI) - rVales; if (vales < 0) { vales = 0; }
-            cheque = (vCheque + aCheque + dCheque + abonoChequeI) - rCheque; if (cheque < 0) { cheque = 0; }
-            trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia; if (trans < 0) { trans = 0; }
-            credito = vCredito;
-            //anticipos = vAnticipos;
-            anticipos = anticiposAplicados;
-            subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + saldoInicial /*+ vCredito*/)/* - devoluciones*/; if (subtotal < 0) { subtotal = 0; }
+            //// Apartado TOTAL EN CAJA
+            //efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo; if (efectivo < 0) { efectivo = 0; }
+            //tarjeta = (vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI) - rTarjeta; if (tarjeta < 0) { tarjeta = 0; }
+            //vales = (vVales + aVales + dVales + abonoValesI) - rVales; if (vales < 0) { vales = 0; }
+            //cheque = (vCheque + aCheque + dCheque + abonoChequeI) - rCheque; if (cheque < 0) { cheque = 0; }
+            //trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia; if (trans < 0) { trans = 0; }
+            //credito = vCredito;
+            ////anticipos = vAnticipos;
+            //anticipos = anticiposAplicados;
+            //subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + saldoInicial /*+ vCredito*/)/* - devoluciones*/; if (subtotal < 0) { subtotal = 0; }
 
-            var totalF = (efectivo - retiroEfectivo); if (totalF < 0) { totalF = 0; }
-            var totalTa = (tarjeta - retiroTarjeta); if (totalTa < 0) { totalTa = 0; }
-            var totalV = (vales - retiroVales); if (totalV < 0) { totalV = 0; }
-            var totalC = (cheque - retiroCheque); if (totalC < 0) { totalC = 0; }
-            var totalTr = (trans - retiroTrans); if (totalTr < 0) { totalTr = 0; }
 
-            lbTEfectivoC.Text = moneda + (totalF).ToString("0.00");
-            lbTTarjetaC.Text = moneda + (totalTa).ToString("0.00");
-            lbTValesC.Text = moneda + (totalV).ToString("0.00");
-            lbTChequeC.Text = moneda + (totalC).ToString("0.00");
-            lbTTransC.Text = moneda + (totalTr).ToString("0.00");
+            //var totalF = (efectivo - retiroEfectivo); if (totalF < 0) { totalF = 0; }
+            //var totalTa = (tarjeta - retiroTarjeta); if (totalTa < 0) { totalTa = 0; }
+            //var totalV = (vales - retiroVales); if (totalV < 0) { totalV = 0; }
+            //var totalC = (cheque - retiroCheque); if (totalC < 0) { totalC = 0; }
+            //var totalTr = (trans - retiroTrans); if (totalTr < 0) { totalTr = 0; }
+
+            //lbTEfectivoC.Text = moneda + (totalF).ToString("0.00");
+            //lbTTarjetaC.Text = moneda + (totalTa).ToString("0.00");
+            //lbTValesC.Text = moneda + (totalV).ToString("0.00");
+            //lbTChequeC.Text = moneda + (totalC).ToString("0.00");
+            //lbTTransC.Text = moneda + (totalTr).ToString("0.00");
+            ////lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
+            ////lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
+            //lbTSaldoInicial.Text = moneda + saldoInicial.ToString("0.00");
+            //if (credito < retiroCredito) { lbTCreditoTotal.Text = "$" + "0.00"; } else { lbTCreditoTotal.Text = moneda + (vCredito - retiroCredito).ToString("0.00"); }
+            ////lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
+            ////lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
+            //lbTTotalCaja.Text = moneda + datos[42].ToString("0.00");
+            lbTEfectivoC.Text = moneda + datos[42].ToString("0.00");
+            lbTTarjetaC.Text = moneda + datos[43].ToString("0.00");
+            lbTValesC.Text = moneda + datos[44].ToString("0.00");
+            lbTChequeC.Text = moneda + datos[45].ToString("0.00");
+            lbTTransC.Text = moneda + datos[46].ToString("0.00");
             //lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
-            lbTSaldoInicial.Text = moneda + saldoInicial.ToString("0.00");
-            if (credito < retiroCredito) { lbTCreditoTotal.Text = "$" + "0.00"; } else { lbTCreditoTotal.Text = moneda + (vCredito - retiroCredito).ToString("0.00"); }
+            lbTSaldoInicial.Text = moneda + datos[48].ToString("0.00");
+            //if (datos[39] < retiroCredito) { lbTCreditoTotal.Text = "$" + "0.00"; } else { lbTCreditoTotal.Text = moneda + (vCredito - retiroCredito).ToString("0.00"); 
+            lbTCreditoTotal.Text = "$" + datos[49].ToString("0.00");
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             //lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
-            lbTTotalCaja.Text = moneda + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");
+            lbTTotalCaja.Text = moneda + datos[50].ToString("0.00");
 
-            // Variables de clase
-            totalEfectivo = efectivo - retiroEfectivo;
-            totalTarjeta = tarjeta - retiroTarjeta;
-            totalVales = vales - retiroVales;
-            totalCheque = cheque - retiroCheque;
-            totalTransferencia = trans - retiroTrans;
-            totalCredito = credito - retiroCredito;
+            //// Variables de totales, ayuda a retirar dinero
+            //totalEfectivo = efectivo - retiroEfectivo;
+            //totalTarjeta = tarjeta - retiroTarjeta;
+            //totalVales = vales - retiroVales;
+            //totalCheque = cheque - retiroCheque;
+            //totalTransferencia = trans - retiroTrans;
+            //totalCredito = credito - retiroCredito;
+            totalEfectivo = datos[51];
+            totalTarjeta = datos[52];
+            totalVales = datos[53];
+            totalCheque = datos[54];
+            totalTransferencia = datos[55];
+            totalCredito = datos[56];
 
             verificarCantidadAbonos();
         }

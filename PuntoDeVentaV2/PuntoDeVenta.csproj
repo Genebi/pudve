@@ -453,6 +453,7 @@
     <Compile Include="Cargando.Designer.cs">
       <DependentUpon>Cargando.cs</DependentUpon>
     </Compile>
+    <Compile Include="CargarDatosCaja.cs" />
     <Compile Include="Carga_logo.cs" />
     <Compile Include="catCFDI_tdCFDI_catPagos_Pagos10.cs" />
     <Compile Include="CFDI\OpenSSLKey.cs">
