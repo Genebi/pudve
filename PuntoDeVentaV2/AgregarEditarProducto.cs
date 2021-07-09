@@ -2374,9 +2374,9 @@ namespace PuntoDeVentaV2
                 {
                     int countControles = panelContenedor.Controls.Count;
 
-                    foreach(Control ctrPanelContenedor in panelContenedor.Controls)
+                    foreach (Control ctrPanelContenedor in panelContenedor.Controls)
                     {
-                        if (id.Equals(countControles-1))
+                        if (id.Equals(countControles - 1))
                         {
                             foreach (Control subCtrPanelCont in ctrPanelContenedor.Controls)
                             {
@@ -3842,7 +3842,7 @@ namespace PuntoDeVentaV2
                                         {
                                             if (!dtProdDeServComb.Rows.Count.Equals(0))
                                             {
-                                                foreach(DataRow drProdServComb in dtProdDeServComb.Rows)
+                                                foreach (DataRow drProdServComb in dtProdDeServComb.Rows)
                                                 {
                                                     var cantidadProducto = Convert.ToDecimal(drProdServComb["Cantidad"].ToString());
                                                     var NoProducto = Convert.ToInt32(drProdServComb["IDProducto"].ToString());
@@ -6257,7 +6257,7 @@ namespace PuntoDeVentaV2
             if (!int.TryParse(CBNombProd, out numero))
             {
                 if ((this.Text.Trim().Equals("AGREGAR COMBOS") ||
-                     this.Text.Trim().Equals("AGREGAR SERVICIOS")) && 
+                     this.Text.Trim().Equals("AGREGAR SERVICIOS")) &&
                      (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3)))
                 {
                     string prodSerPaq = null;
@@ -7810,7 +7810,7 @@ namespace PuntoDeVentaV2
                     // Label para Precio Venta
                     label4.Visible = true;
                     label4.Anchor = AnchorStyles.Left | AnchorStyles.Bottom; // | AnchorStyles.Right
-                    
+
                     tLPCombo.Controls.Add(label7, 0, 0);               // Precio Compra Label
                     tLPCombo.Controls.Add(label4, 2, 0);               // Precio Venta Label
 
@@ -8829,60 +8829,41 @@ namespace PuntoDeVentaV2
             //loadFormConfig();
             loadFromConfigDB();
             BuscarChkBoxListView(chkDatabase);
-            bool isEmpty = !detalleProductoBasico.Any();
-            if (!isEmpty)
+
+            bool isEmptyProdBasic = !detalleProductoBasico.Any();
+            bool isEmpyDetailProdGral = !detalleProductoGeneral.Any();
+
+            if (!isEmptyProdBasic)
             {
-                // Cuando se da click en la opcion editar producto
-                if (DatosSourceFinal == 1)
+                if (DatosSourceFinal.Equals(1) ||
+                    DatosSourceFinal.Equals(3) ||
+                    DatosSourceFinal.Equals(4))
                 {
                     string Descripcion = string.Empty,
-                            name = string.Empty,
-                            value = string.Empty,
-                            namegral = string.Empty;
+                        name = string.Empty,
+                        value = string.Empty,
+                        namegral = string.Empty;
 
-                    for (int i = 0; i < chkDatabase.Items.Count; i++)
+                    for (int i = 0; i < detalleProductoBasico.Count; i++)
                     {
-                        name = chkDatabase.Items[i].Text.ToString();
-                        value = chkDatabase.Items[i].SubItems[1].Text.ToString();
-                        foreach (Control contHijo in flowLayoutPanel3.Controls)
+                        if (i.Equals(2))
                         {
-                            foreach (Control contSubHijo in contHijo.Controls)
+                            var prveedorNombre = detalleProductoBasico[i].ToString();
+                            for (int x = 0; x < chkDatabase.Items.Count; x++)
                             {
-                                if (contSubHijo.Name.Equals("panelContenido" + name) && value.Equals("true"))
+                                name = chkDatabase.Items[x].Text.ToString();
+                                value = chkDatabase.Items[x].SubItems[1].Text.ToString();
+                                foreach (Control contHijo in flowLayoutPanel3.Controls)
                                 {
-                                    foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                    foreach (Control contSubHijo in contHijo.Controls)
                                     {
-                                        if (contItemSubHijo is Label)
-                                        {
-                                            contItemSubHijo.Text = detalleProductoBasico[2].ToString();
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    for (int i = 0; i < chkDatabase.Items.Count; i++)
-                    {
-                        name = chkDatabase.Items[i].Text.ToString().Remove(0, 3);
-                        value = chkDatabase.Items[i].SubItems[1].Text.ToString();
-                        foreach (Control contHijo in flowLayoutPanel3.Controls)
-                        {
-                            foreach (Control contSubHijo in contHijo.Controls)
-                            {
-                                if (contSubHijo.Name.Equals("panelContenido" + name) && value.Equals("true"))
-                                {
-                                    for (int j = 0; j < detalleProductoGeneral.Count; j++)
-                                    {
-                                        namegral = detalleProductoGeneral[j].ToString();
-                                        if (namegral.Equals(name) &&
-                                            contSubHijo.Name.Equals("panelContenido" + name))
+                                        if (contSubHijo.Name.Equals("panelContenido" + name) && value.Equals("true"))
                                         {
                                             foreach (Control contItemSubHijo in contSubHijo.Controls)
                                             {
                                                 if (contItemSubHijo is Label)
                                                 {
-                                                    contItemSubHijo.Text = detalleProductoGeneral[j + 2].ToString();
+                                                    contItemSubHijo.Text = detalleProductoBasico[i].ToString();
                                                     break;
                                                 }
                                             }
@@ -8894,6 +8875,109 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            if (!isEmpyDetailProdGral)
+            {
+                if (DatosSourceFinal.Equals(1) ||
+                    DatosSourceFinal.Equals(3) ||
+                    DatosSourceFinal.Equals(4))
+                {
+                    string Descripcion = string.Empty,
+                           name = string.Empty,
+                           value = string.Empty,
+                           namegral = string.Empty;
+
+                    foreach (var item in detalleProductoGeneral)
+                    {
+                        var words = item.Split('|');
+                        name = words[4].ToString();
+                        foreach (Control contHijo in flowLayoutPanel3.Controls)
+                        {
+                            foreach (Control contSubHijo in contHijo.Controls)
+                            {
+                                if (contSubHijo.Name.Equals(name))
+                                {
+                                    foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                    {
+                                        if (contItemSubHijo is Label)
+                                        {
+                                            var conceptoDinamico = words[5].ToString().Replace("_", " ");
+                                            contItemSubHijo.Text = conceptoDinamico;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            //if (!isEmpty)
+            //{
+            //    // Cuando se da click en la opcion editar producto
+            //    if (DatosSourceFinal.Equals(1) || 
+            //        DatosSourceFinal.Equals(3) || 
+            //        DatosSourceFinal.Equals(4))
+            //    {
+            //        string Descripcion = string.Empty,
+            //                name = string.Empty,
+            //                value = string.Empty,
+            //                namegral = string.Empty;
+
+            //        for (int i = 0; i < chkDatabase.Items.Count; i++)
+            //        {
+            //            name = chkDatabase.Items[i].Text.ToString();
+            //            value = chkDatabase.Items[i].SubItems[1].Text.ToString();
+            //            foreach (Control contHijo in flowLayoutPanel3.Controls)
+            //            {
+            //              foreach (Control contSubHijo in contHijo.Controls)
+            //              {
+            //                  if (contSubHijo.Name.Equals("panelContenido" + name) && value.Equals("true"))
+            //                  {
+            //                      foreach (Control contItemSubHijo in contSubHijo.Controls)
+            //                      {
+            //                          if (contItemSubHijo is Label)
+            //                          {
+            //                              contItemSubHijo.Text = detalleProductoBasico[2].ToString();
+            //                              break;
+            //                          }
+            //                      }
+            //                  }
+            //              }
+            //            }
+            //        } 
+            //        for (int i = 0; i < chkDatabase.Items.Count; i++)
+            //        {
+            //            name = chkDatabase.Items[i].Text.ToString().Remove(0, 3);
+            //            value = chkDatabase.Items[i].SubItems[1].Text.ToString();
+            //            foreach (Control contHijo in flowLayoutPanel3.Controls)
+            //            {
+            //                foreach (Control contSubHijo in contHijo.Controls)
+            //                {
+            //                    if (contSubHijo.Name.Equals("panelContenido" + name) && value.Equals("true"))
+            //                    {
+            //                        for (int j = 0; j < detalleProductoGeneral.Count; j++)
+            //                        {
+            //                            namegral = detalleProductoGeneral[j].ToString();
+            //                            if (namegral.Equals(name) &&
+            //                                contSubHijo.Name.Equals("panelContenido" + name))
+            //                            {
+            //                                foreach (Control contItemSubHijo in contSubHijo.Controls)
+            //                                {
+            //                                    if (contItemSubHijo is Label)
+            //                                    {
+            //                                        contItemSubHijo.Text = detalleProductoGeneral[j + 2].ToString();
+            //                                        break;
+            //                                    }
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void loadFromConfigDB()
