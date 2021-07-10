@@ -2969,6 +2969,8 @@ namespace PuntoDeVentaV2
 
                     int contador = 0;
 
+                    string datosCorreoVenta = string.Empty;
+
                     // Datos de los productos vendidos
                     foreach (DataGridViewRow fila in DGVentas.Rows)
                     {
@@ -3003,7 +3005,7 @@ namespace PuntoDeVentaV2
                             formaDePagoDeVenta, cliente, referencia, idClienteTmp
                         };
 
-                        string datosCorreoVenta = formaDePagoDeVenta + "|" + cliente + "|" + Folio;
+                        datosCorreoVenta = formaDePagoDeVenta + "|" + cliente + "|" + Folio;
 
                         // Guardar info de los productos
                         infoProductos[contador] = guardar;
@@ -3195,19 +3197,22 @@ namespace PuntoDeVentaV2
                             // Guardar detalles de la venta
                             DetallesVenta(idVenta);
                             DetallesCliente(idVenta);
-
-                            if (correoVenta == 1 || correoDescuento == 1)
-                            {
-                                foreach (DataGridViewRow articulo in DGVentas.Rows)
-                                {
-                                    enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta + "|" + cAnticipo.Text.Trim() + "|" + cAnticipoUtilizado.Text.Trim() + "|" + cDescuento.Text.Trim());
-                                }
-                            }
                         }
                         else
                         {
                             DetallesVenta(idVenta);
                             DetallesCliente(idVenta);
+                        }
+                    }
+
+                    if (!ventaGuardada)
+                    {
+                        if (correoVenta == 1 || correoDescuento == 1)
+                        {
+                            foreach (DataGridViewRow articulo in DGVentas.Rows)
+                            {
+                                enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta + "|" + cAnticipo.Text.Trim() + "|" + cAnticipoUtilizado.Text.Trim() + "|" + cDescuento.Text.Trim());
+                            }
                         }
                     }
 
