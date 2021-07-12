@@ -2344,5 +2344,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string obtenerIDProveedor(string nombreProveedor)
+        {
+            var consulta = $"SELECT * FROM Proveedores WHERE Nombre = '{nombreProveedor}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = '1'";
+
+            return consulta;
+        }
+
+        public string obtenerIDDetalleGeneral(string nombreDetalleGeneral)
+        {
+            var consulta = $"SELECT * FROM DetalleGeneral WHERE Descripcion = '{nombreDetalleGeneral}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
     }
 }  

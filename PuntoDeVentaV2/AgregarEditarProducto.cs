@@ -527,32 +527,6 @@ namespace PuntoDeVentaV2
                             cbProveedor.DisplayMember = "Value";
                             cbProveedor.ValueMember = "Key";
                             cbProveedor.SelectedValue = "0";
-
-                            // Cuando se le da click en la opcion editar producto
-                            if (DatosSourceFinal == 2 || DatosSourceFinal == 4)
-                            {
-                                var idProducto = Convert.ToInt32(idEditarProducto);
-                                var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
-                                int cantidad = idProveedor.Length;
-
-                                if (cantidad > 0)
-                                {
-                                    if (!idProveedor[1].Equals(""))
-                                    {
-                                        if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
-                                        {
-                                            cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
-                                            if (!datosProveedor.Equals(null))
-                                            {
-                                                lblNombreProveedor.Text = datosProveedor[0];
-                                                diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
-                                                contadorIndex++;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                         }
                         else if (listaProveedores.Length < 0)
                         {
@@ -571,6 +545,32 @@ namespace PuntoDeVentaV2
 
                         panelContenedor.Controls.Add(panelContenido);
                         flowLayoutPanel3.Controls.Add(panelContenedor);
+
+                        // Cuando se le da click en la opcion editar producto
+                        if (DatosSourceFinal == 2 || DatosSourceFinal == 4)
+                        {
+                            var idProducto = Convert.ToInt32(idEditarProducto);
+                            var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                            int cantidad = idProveedor.Length;
+
+                            if (cantidad > 0)
+                            {
+                                if (!idProveedor[1].Equals(""))
+                                {
+                                    if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
+                                    {
+                                        cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
+                                        if (!datosProveedor.Equals(null))
+                                        {
+                                            lblNombreProveedor.Text = datosProveedor[0];
+                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
+                                            contadorIndex++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 } // aqui se continua con los demas else if
                 else if (!name.Equals("chkProveedor") && value.Equals("true"))// cualquier otro 
@@ -760,6 +760,8 @@ namespace PuntoDeVentaV2
                     cargarDatosGral(Convert.ToInt32(idProductoDetalleGral));
                     llenarDatosGral(namePanel);
                 }
+
+                llenarListaDatosDinamicos();
             }
         }
 
@@ -876,6 +878,7 @@ namespace PuntoDeVentaV2
                     cargarDatosProveedor(Convert.ToInt32(idProveedor));
                     llenarDatosProveedor(namePanel);
                 }
+                llenarListaDatosDinamicos();
             }
         }
 
@@ -1010,7 +1013,7 @@ namespace PuntoDeVentaV2
                                     {
                                         if (intoSubItemPanel is Label)
                                         {
-                                            intoSubItemPanel.Text = words[5].ToString();
+                                            intoSubItemPanel.Text = words[5].ToString().Replace("_", " ");
                                         }
                                     }
                                 }
@@ -7057,6 +7060,8 @@ namespace PuntoDeVentaV2
 
             mostrarOcultarLblArrow();
 
+            llenarListaDatosDinamicos();
+
             //if (DatosSourceFinal.Equals(3))
             //{
             //    if (!nameProveedorXML.Equals(string.Empty))
@@ -7095,6 +7100,87 @@ namespace PuntoDeVentaV2
             //        }
             //    }
             //}
+        }
+
+        private void llenarListaDatosDinamicos()
+        {
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
+            {
+                detalleProductoBasico.Clear();
+                detalleProductoGeneral.Clear();
+                foreach (Control ctrPanel in flowLayoutPanel3.Controls)
+                {
+                    if (ctrPanel is Panel)
+                    {
+                        if (ctrPanel.Name.Equals("panelContenedorchkProveedor"))
+                        {
+                            foreach (Control subCtrPanel in ctrPanel.Controls)
+                            {
+                                if (subCtrPanel is Panel)
+                                {
+                                    if (subCtrPanel.Name.Equals("panelContenidochkProveedor"))
+                                    {
+                                        foreach (Control itemSubCtrPanel in subCtrPanel.Controls)
+                                        {
+                                            if (itemSubCtrPanel is Label)
+                                            {
+                                                if (!itemSubCtrPanel.Text.Equals(string.Empty))
+                                                {
+                                                    detalleProductoBasico.Clear();
+                                                    detalleProductoBasico.Add(string.Empty);
+                                                    detalleProductoBasico.Add(Convert.ToString(FormPrincipal.userID));
+                                                    detalleProductoBasico.Add(itemSubCtrPanel.Text);
+                                                    using (DataTable dtProveedores = cn.CargarDatos(cs.obtenerIDProveedor(itemSubCtrPanel.Text.ToString())))
+                                                    {
+                                                        if (!dtProveedores.Rows.Count.Equals(0))
+                                                        {
+                                                            foreach (DataRow drProveedor in dtProveedores.Rows)
+                                                            {
+                                                                detalleProductoBasico.Add(drProveedor["ID"].ToString());
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (!ctrPanel.Name.Equals("panelContenedorchkProveedor"))
+                        {
+                            foreach (Control subCtrPanel in ctrPanel.Controls)
+                            {
+                                if (subCtrPanel is Panel)
+                                {
+                                    foreach (Control itemSubCtrPanel in subCtrPanel.Controls)
+                                    {
+                                        if (!subCtrPanel.Name.Equals("panelContenidochkProveedor"))
+                                        {
+                                            if (itemSubCtrPanel is Label)
+                                            {
+                                                if (!itemSubCtrPanel.Text.Equals(string.Empty))
+                                                {
+                                                    using (DataTable dtDetalleGeneral = cn.CargarDatos(cs.obtenerIDDetalleGeneral(itemSubCtrPanel.Text.ToString().Replace(" ", "_"))))
+                                                    {
+                                                        if (!dtDetalleGeneral.Rows.Count.Equals(0))
+                                                        {
+                                                            foreach (DataRow drDetalleGeneral in dtDetalleGeneral.Rows)
+                                                            {
+                                                                detalleProductoGeneral.Add($"|{drDetalleGeneral[1]}|{drDetalleGeneral[0]}|1|panelContenido{drDetalleGeneral[2]}|{drDetalleGeneral[3]}");
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public void validarClave()
@@ -8912,6 +8998,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
             //if (!isEmpty)
             //{
             //    // Cuando se da click en la opcion editar producto
