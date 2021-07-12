@@ -1949,6 +1949,76 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            if (finalOrigenProdServCombo.Equals(1) || finalOrigenProdServCombo.Equals(3))
+            {
+                if (!AgregarEditarProducto.detalleProductoBasico.Count.Equals(0))
+                {
+                    if (!fLPCentralDetalle.Controls.Count.Equals(0))
+                    {
+                        foreach (Control ctrPanelCentral in fLPCentralDetalle.Controls)
+                        {
+                            if (ctrPanelCentral.Name.Equals("panelContenedorProveedor"))
+                            {
+                                foreach (Control subCtrPanelCentral in ctrPanelCentral.Controls)
+                                {
+                                    if (subCtrPanelCentral.Name.Equals("panelContenidoProveedor"))
+                                    {
+                                        foreach (Control itemSubCtrPanelCentral in subCtrPanelCentral.Controls)
+                                        {
+                                            if (itemSubCtrPanelCentral is ComboBox)
+                                            {
+                                                for (var i = 0; i < AgregarEditarProducto.detalleProductoBasico.Count; i++)
+                                                {
+                                                    if (i.Equals(2))
+                                                    {
+                                                        itemSubCtrPanelCentral.Text = AgregarEditarProducto.detalleProductoBasico[i].ToString();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!AgregarEditarProducto.detalleProductoGeneral.Count.Equals(0))
+                {
+                    if (!fLPCentralDetalle.Controls.Count.Equals(0))
+                    {
+                        foreach (var item in AgregarEditarProducto.detalleProductoGeneral)
+                        {
+                            var words = item.Split('|');
+                            foreach(Control ctrPanelCentral in fLPCentralDetalle.Controls)
+                            {
+                                if(ctrPanelCentral is Panel)
+                                {
+                                    if (!ctrPanelCentral.Name.Equals("panelContenedorProveedor"))
+                                    {
+                                        foreach(Control subCtrPanelCentral in ctrPanelCentral.Controls)
+                                        {
+                                            if(subCtrPanelCentral is Panel)
+                                            {
+                                                if (subCtrPanelCentral.Name.Equals(words[4].ToString()))
+                                                {
+                                                    foreach (Control itemSubCtrPanelCentral in subCtrPanelCentral.Controls)
+                                                    {
+                                                        if(itemSubCtrPanelCentral is ComboBox)
+                                                        {
+                                                            itemSubCtrPanelCentral.Text = words[5].ToString().Replace("_", " ");
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             //if (!nameXMLProveedor.Equals(string.Empty))
             //{
             //    foreach (Control panelDinamico in fLPCentralDetalle.Controls)
