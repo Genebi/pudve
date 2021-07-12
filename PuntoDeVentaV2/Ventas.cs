@@ -40,6 +40,8 @@ namespace PuntoDeVentaV2
         float descuentoCliente = 0;
 
         public static string cantidadAPedir = string.Empty;
+        public static List<string> listProductos = new List<string>();
+        public static List<string> liststock = new List<string>();
 
         public static bool ventaGuardada = false; //Para saber si la venta se guardo o no
         int cantidadExtra = 0;
@@ -769,6 +771,8 @@ namespace PuntoDeVentaV2
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 row.Cells["Descuento"].Value = datosProducto[3];
                 row.Cells["Importe"].Value = datosProducto[2];
+                listProductos.Add(datosProducto[0]);
+                liststock.Add(datosProducto[4]);
             }
             else
             {
@@ -811,7 +815,8 @@ namespace PuntoDeVentaV2
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
-
+                listProductos.Add(datosProducto[0]);
+                liststock.Add(cantidad.ToString());
 
                 if ((datosProducto.Length - 1) == 14)
                 {
@@ -2486,7 +2491,7 @@ namespace PuntoDeVentaV2
             {
                 return;
             }
-
+            listProductos.Clear();
         }
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)
@@ -2964,6 +2969,8 @@ namespace PuntoDeVentaV2
 
                     int contador = 0;
 
+                    string datosCorreoVenta = string.Empty;
+
                     // Datos de los productos vendidos
                     foreach (DataGridViewRow fila in DGVentas.Rows)
                     {
@@ -2998,7 +3005,7 @@ namespace PuntoDeVentaV2
                             formaDePagoDeVenta, cliente, referencia, idClienteTmp
                         };
 
-                        string datosCorreoVenta = formaDePagoDeVenta + "|" + cliente + "|" + Folio;
+                        datosCorreoVenta = formaDePagoDeVenta + "|" + cliente + "|" + Folio;
 
                         // Guardar info de los productos
                         infoProductos[contador] = guardar;
@@ -3190,19 +3197,22 @@ namespace PuntoDeVentaV2
                             // Guardar detalles de la venta
                             DetallesVenta(idVenta);
                             DetallesCliente(idVenta);
-
-                            if (correoVenta == 1 || correoDescuento == 1)
-                            {
-                                foreach (DataGridViewRow articulo in DGVentas.Rows)
-                                {
-                                    enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta + "|" + cAnticipo.Text.Trim() + "|" + cAnticipoUtilizado.Text.Trim() + "|" + cDescuento.Text.Trim());
-                                }
-                            }
                         }
                         else
                         {
                             DetallesVenta(idVenta);
                             DetallesCliente(idVenta);
+                        }
+                    }
+
+                    if (!ventaGuardada)
+                    {
+                        if (correoVenta == 1 || correoDescuento == 1)
+                        {
+                            foreach (DataGridViewRow articulo in DGVentas.Rows)
+                            {
+                                enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta + "|" + cAnticipo.Text.Trim() + "|" + cAnticipoUtilizado.Text.Trim() + "|" + cDescuento.Text.Trim());
+                            }
                         }
                     }
 
@@ -3725,6 +3735,8 @@ namespace PuntoDeVentaV2
                 descuentosDirectos.Clear();
             }
             //PuertoSerieBascula.Close();
+            listProductos.Clear();
+            liststock.Clear();
         }
 
         private void GenerarTicket(string[][] productos)
@@ -5293,7 +5305,7 @@ namespace PuntoDeVentaV2
                     
                 }
             }
-
+            ConsultarProductoVentas.datosDeProducto.Clear();
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
