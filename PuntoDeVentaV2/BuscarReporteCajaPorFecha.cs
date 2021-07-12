@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        CargarDatosCaja cdc = new CargarDatosCaja();
 
         System.Drawing.Image pdf = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
 
@@ -193,7 +194,8 @@ namespace PuntoDeVentaV2
 
             if (e.ColumnIndex.Equals(3))//Corte de Caja
             {
-                var dato = traerDatosCaja(id);
+                //var dato = traerDatosCaja(id);
+                var dato = cdc.CargarSaldo("Reportes", id);
                 GenerarReporte(dato, "CORTE DE CAJA", id);
             }
             else if (e.ColumnIndex.Equals(4))//Dinero Agregado
@@ -233,7 +235,7 @@ namespace PuntoDeVentaV2
             var saldoInicial = mb.SaldoInicialCajaReportes(FormPrincipal.userID, id);
 
             var cantidadFinal = 0f;
-            var consultaUltimoCorte = cn.CargarDatos($"SELECT CantidadRetiradaCorte FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' AND ID  = '{id}' ORDER BY FechaOperacion DESC ");
+            var consultaUltimoCorte = cn.CargarDatos($"SELECT CantidadRetiradaCorte FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' AND ID  = '{id}' ORDER BY FechaOperacion DESC");
 
 
             //var consultaAlterna = $"SELECT IFNULL(SUM(Cantidad), 0) AS Total FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND Operacion != 'corte' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')";
@@ -439,6 +441,8 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+
+
         private string[] obtenerFechas(int id)
         {
             List<string> lista = new List<string>();
@@ -620,7 +624,7 @@ namespace PuntoDeVentaV2
 
             foreach (var iterador in datosCaja)
             {
-                string[] words = iterador.Split('|');
+                string[] words = iterador.ToString().Split('|');
                 //numRow += 1;
 
                 //PdfPCell colNoFila = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));

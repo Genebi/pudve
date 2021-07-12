@@ -55,9 +55,10 @@ namespace PuntoDeVentaV2
             return saldoInicial;
         }
 
-        public float[] CargarSaldo()
+        public string[] CargarSaldo(string procedencia, int id = 0)
         {
-            List<float> lista = new List<float>();
+            List<string> listaCaja = new List<string>();
+            List<string> listaReportes = new List<string>();
             //verificarCantidadAbonos();
 
             MySqlConnection sql_con;
@@ -382,71 +383,71 @@ namespace PuntoDeVentaV2
 
             var totalAbonos = (abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI);
             // Apartado VENTAS
-            lista.Add(vEfectivo);//lbTEfectivo.Text = moneda + vEfectivo.ToString("0.00");  //0
-            lista.Add(vTarjeta);//lbTTarjeta.Text = moneda + vTarjeta.ToString("0.00");     //1
-            lista.Add(vVales);//lbTVales.Text = moneda + vVales.ToString("0.00");           //2
-            lista.Add(vCheque);//lbTCheque.Text = moneda + vCheque.ToString("0.00");        //3
-            lista.Add(vTrans);//lbTTrans.Text = moneda + vTrans.ToString("0.00");           //4
-            lista.Add(credi);//lbTCredito.Text = moneda + credi.ToString("0.00");           //5
+            listaCaja.Add(vEfectivo.ToString());//lbTEfectivo.Text = moneda + vEfectivo.ToString("0.00");  //0
+            listaCaja.Add(vTarjeta.ToString());//lbTTarjeta.Text = moneda + vTarjeta.ToString("0.00");     //1
+            listaCaja.Add(vVales.ToString());//lbTVales.Text = moneda + vVales.ToString("0.00");           //2
+            listaCaja.Add(vCheque.ToString());//lbTCheque.Text = moneda + vCheque.ToString("0.00");        //3
+            listaCaja.Add(vTrans.ToString());//lbTTrans.Text = moneda + vTrans.ToString("0.00");           //4
+            listaCaja.Add(credi.ToString());//lbTCredito.Text = moneda + credi.ToString("0.00");           //5
             ////lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
-            lista.Add(anticiposAplicados);//lbTAnticipos.Text = moneda + anticiposAplicados.ToString("0.00"); //6
-            lista.Add((vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + anticiposAplicados) + totalAbonos);//lbTVentas.Text = moneda + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00"); //7
+            listaCaja.Add(anticiposAplicados.ToString());//lbTAnticipos.Text = moneda + anticiposAplicados.ToString("0.00"); //6
+            listaCaja.Add(((vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + anticiposAplicados) + totalAbonos).ToString());//lbTVentas.Text = moneda + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00"); //7
 
             ////Variables de Abonos en Ventas
-            lista.Add(abonoEfectivoI);//lbEfectivoAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");  //8
-            lista.Add(abonoTarjetaI);//lbTarjetaAbonos.Text = "$" + abonoTarjetaI.ToString("0.00");     //9
-            lista.Add(abonoValesI);//lbValesAbonos.Text = "$" + abonoValesI.ToString("0.00");           //10
-            lista.Add(abonoChequeI);//lbChequeAbonos.Text = "$" + abonoChequeI.ToString("0.00");        //11
-            lista.Add(abonoTransferenciaI);//lbTransferenciaAbonos.Text = "$" + abonoTransferenciaI.ToString("0.00");   //12
-            lista.Add(totalAbonos);//lbTCreditoC.Text = moneda + abonos/*(abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI)*/.ToString("0.00");    //13
+            listaCaja.Add(abonoEfectivoI.ToString());//lbEfectivoAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");  //8
+            listaCaja.Add(abonoTarjetaI.ToString());//lbTarjetaAbonos.Text = "$" + abonoTarjetaI.ToString("0.00");     //9
+            listaCaja.Add(abonoValesI.ToString());//lbValesAbonos.Text = "$" + abonoValesI.ToString("0.00");           //10
+            listaCaja.Add(abonoChequeI.ToString());//lbChequeAbonos.Text = "$" + abonoChequeI.ToString("0.00");        //11
+            listaCaja.Add(abonoTransferenciaI.ToString());//lbTransferenciaAbonos.Text = "$" + abonoTransferenciaI.ToString("0.00");   //12
+            listaCaja.Add(totalAbonos.ToString());//lbTCreditoC.Text = moneda + abonos/*(abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI)*/.ToString("0.00");    //13
 
             //lbTotalAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
 
             // Apartado ANTICIPOS RECIBIDOS
-            lista.Add(aEfectivo);//lbTEfectivoA.Text = moneda + aEfectivo.ToString("0.00");         //14
-            lista.Add(aTarjeta);//lbTTarjetaA.Text = moneda + aTarjeta.ToString("0.00");            //15
-            lista.Add(aVales);//lbTValesA.Text = moneda + aVales.ToString("0.00");                  //16
-            lista.Add(aCheque);//lbTChequeA.Text = moneda + aCheque.ToString("0.00");               //17
-            lista.Add(aTrans);//lbTTransA.Text = moneda + aTrans.ToString("0.00");                  //18
-            lista.Add((aEfectivo + aTarjeta + aVales + aCheque + aTrans));//lbTAnticiposA.Text = moneda + (aEfectivo + aTarjeta + aVales + aCheque + aTrans).ToString("0.00");                                                   //19
+            listaCaja.Add(aEfectivo.ToString());//lbTEfectivoA.Text = moneda + aEfectivo.ToString("0.00");         //14
+            listaCaja.Add(aTarjeta.ToString());//lbTTarjetaA.Text = moneda + aTarjeta.ToString("0.00");            //15
+            listaCaja.Add(aVales.ToString());//lbTValesA.Text = moneda + aVales.ToString("0.00");                  //16
+            listaCaja.Add(aCheque.ToString());//lbTChequeA.Text = moneda + aCheque.ToString("0.00");               //17
+            listaCaja.Add(aTrans.ToString());//lbTTransA.Text = moneda + aTrans.ToString("0.00");                  //18
+            listaCaja.Add((aEfectivo + aTarjeta + aVales + aCheque + aTrans).ToString());//lbTAnticiposA.Text = moneda + (aEfectivo + aTarjeta + aVales + aCheque + aTrans).ToString("0.00");                                                   //19
 
             // Apartado DINERO AGREGADO
-            lista.Add(dEfectivo);//lbTEfectivoD.Text = moneda + dEfectivo.ToString("0.00");         //20
-            lista.Add(dTarjeta);//lbTTarjetaD.Text = moneda + dTarjeta.ToString("0.00");            //21
-            lista.Add(dVales);//lbTValesD.Text = moneda + dVales.ToString("0.00");                  //22
-            lista.Add(dCheque);//lbTChequeD.Text = moneda + dCheque.ToString("0.00");               //23
-            lista.Add(dTrans);//lbTTransD.Text = moneda + dTrans.ToString("0.00");                  //24
-            lista.Add((dEfectivo + dTarjeta + dVales + dCheque + dTrans));//lbTAgregado.Text = moneda + (dEfectivo + dTarjeta + dVales + dCheque + dTrans).ToString("0.00");                                                          //25
+            listaCaja.Add(dEfectivo.ToString());//lbTEfectivoD.Text = moneda + dEfectivo.ToString("0.00");         //20
+            listaCaja.Add(dTarjeta.ToString());//lbTTarjetaD.Text = moneda + dTarjeta.ToString("0.00");            //21
+            listaCaja.Add(dVales.ToString());//lbTValesD.Text = moneda + dVales.ToString("0.00");                  //22
+            listaCaja.Add(dCheque.ToString());//lbTChequeD.Text = moneda + dCheque.ToString("0.00");               //23
+            listaCaja.Add(dTrans.ToString());//lbTTransD.Text = moneda + dTrans.ToString("0.00");                  //24
+            listaCaja.Add((dEfectivo + dTarjeta + dVales + dCheque + dTrans).ToString());//lbTAgregado.Text = moneda + (dEfectivo + dTarjeta + dVales + dCheque + dTrans).ToString("0.00");                                                          //25
 
             // Apartado Dinero Retirado
-            lista.Add(retiroEfectivo);//lbEfectivoR.Text = moneda + " -" + retiroEfectivo.ToString("0.00");         //26
-            lista.Add(retiroTarjeta);//lbTarjetaR.Text = moneda + " -" + retiroTarjeta.ToString("0.00");            //27
-            lista.Add(retiroVales);//lbValesR.Text = moneda + " -" + retiroVales.ToString("0.00");                  //28
-            lista.Add(retiroCheque);//lbChequeR.Text = moneda + " -" + retiroCheque.ToString("0.00");               //29
-            lista.Add(retiroTrans);//lbTransferenciaR.Text = moneda + " -" + retiroTrans.ToString("0.00");          //30
+            listaCaja.Add(retiroEfectivo.ToString());//lbEfectivoR.Text = moneda + " -" + retiroEfectivo.ToString("0.00");         //26
+            listaCaja.Add(retiroTarjeta.ToString());//lbTarjetaR.Text = moneda + " -" + retiroTarjeta.ToString("0.00");            //27
+            listaCaja.Add(retiroVales.ToString());//lbValesR.Text = moneda + " -" + retiroVales.ToString("0.00");                  //28
+            listaCaja.Add(retiroCheque.ToString());//lbChequeR.Text = moneda + " -" + retiroCheque.ToString("0.00");               //29
+            listaCaja.Add(retiroTrans.ToString());//lbTransferenciaR.Text = moneda + " -" + retiroTrans.ToString("0.00");          //30
             ////lbTAnticiposC.Text = "$ -" + vAnticipos.ToString("0.00");
-            lista.Add(anticiposAplicados);//lbTAnticiposC.Text = moneda + " -" + anticiposAplicados.ToString("0.00");//31
-            lista.Add(devoluciones);//lbDevoluciones.Text = moneda + " -" + devoluciones.ToString("0.00");          //32
-            lista.Add((retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones));//lbTRetirado.Text = moneda + " -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");                                     //33
+            listaCaja.Add(anticiposAplicados.ToString());//lbTAnticiposC.Text = moneda + " -" + anticiposAplicados.ToString("0.00");//31
+            listaCaja.Add(devoluciones.ToString());//lbDevoluciones.Text = moneda + " -" + devoluciones.ToString("0.00");          //32
+            listaCaja.Add((retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString());//lbTRetirado.Text = moneda + " -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");                                     //33
 
             // Apartado TOTAL EN CAJA
             efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo; if (efectivo < 0) { efectivo = 0; }
-            lista.Add(efectivo);        //34
+            listaCaja.Add(efectivo.ToString());        //34
             tarjeta = (vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI) - rTarjeta; if (tarjeta < 0) { tarjeta = 0; }
-            lista.Add(tarjeta);         //35
+            listaCaja.Add(tarjeta.ToString());         //35
             vales = (vVales + aVales + dVales + abonoValesI) - rVales; if (vales < 0) { vales = 0; }
-            lista.Add(vales);           //36
+            listaCaja.Add(vales.ToString());           //36
             cheque = (vCheque + aCheque + dCheque + abonoChequeI) - rCheque; if (cheque < 0) { cheque = 0; }
-            lista.Add(cheque);          //37
+            listaCaja.Add(cheque.ToString());          //37
             trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia; if (trans < 0) { trans = 0; }
-            lista.Add(trans);           //38
+            listaCaja.Add(trans.ToString());           //38
             credito = credi;
-            lista.Add(credito);         //39
+            listaCaja.Add(credito.ToString());         //39
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
-            lista.Add(anticipos);       //40
+            listaCaja.Add(anticipos.ToString());       //40
             subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + CargarSaldoInicial() /*+ vCredito*/)/* - devoluciones*/; if (subtotal < 0) { subtotal = 0; }
-            lista.Add(subtotal);        //41
+            listaCaja.Add(subtotal.ToString());        //41
 
             var totalF = (efectivo - retiroEfectivo); if (totalF < 0) { totalF = 0; }   
             var totalTa = (tarjeta - retiroTarjeta); if (totalTa < 0) { totalTa = 0; }       
@@ -454,33 +455,74 @@ namespace PuntoDeVentaV2
             var totalC = (cheque - retiroCheque); if (totalC < 0) { totalC = 0; }            
             var totalTr = (trans - retiroTrans); if (totalTr < 0) { totalTr = 0; }           
 
-            lista.Add(totalF); //lbTEfectivoC.Text = moneda + (totalF).ToString("0.00");         //42
-            lista.Add(totalTa); //lbTTarjetaC.Text = moneda + (totalTa).ToString("0.00");        //43
-            lista.Add(totalV); //lbTValesC.Text = moneda + (totalV).ToString("0.00");            //44
-            lista.Add(totalC); //lbTChequeC.Text = moneda + (totalC).ToString("0.00");           //45
-            lista.Add(totalTr); //lbTTransC.Text = moneda + (totalTr).ToString("0.00");          //46
-            lista.Add(abonos); //lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------                                            //47
+            listaCaja.Add(totalF.ToString()); //lbTEfectivoC.Text = moneda + (totalF).ToString("0.00");         //42
+            listaCaja.Add(totalTa.ToString()); //lbTTarjetaC.Text = moneda + (totalTa).ToString("0.00");        //43
+            listaCaja.Add(totalV.ToString()); //lbTValesC.Text = moneda + (totalV).ToString("0.00");            //44
+            listaCaja.Add(totalC.ToString()); //lbTChequeC.Text = moneda + (totalC).ToString("0.00");           //45
+            listaCaja.Add(totalTr.ToString()); //lbTTransC.Text = moneda + (totalTr).ToString("0.00");          //46
+            listaCaja.Add(abonos.ToString()); //lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------                                            //47
 
             //lbTAnticiposC.Text = "$" + anticipos.ToString("0.00"); 
             var ant = 0f;
-            lista.Add(CargarSaldoInicial()); //lbTSaldoInicial.Text = moneda + saldoInicial.ToString("0.00"); //48
+            listaCaja.Add(CargarSaldoInicial().ToString()); //lbTSaldoInicial.Text = moneda + saldoInicial.ToString("0.00"); //48
             if (credito < retiroCredito) { ant = 0f; } else { ant = (credi - retiroCredito); }
-            lista.Add(ant);                                                                                   //49
+            listaCaja.Add(ant.ToString());                                                                                   //49
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             //lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
-            lista.Add((subtotal - (dineroRetirado + devoluciones))); //lbTTotalCaja.Text = moneda + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");                                                                //50
+            listaCaja.Add((subtotal - (dineroRetirado + devoluciones)).ToString()); //lbTTotalCaja.Text = moneda + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");                                                                //50
 
             // Variables de clase
-            totalEfectivo = efectivo - retiroEfectivo;  lista.Add(totalEfectivo);           //51
-            totalTarjeta = tarjeta - retiroTarjeta;     lista.Add(totalTarjeta);            //52
-            totalVales = vales - retiroVales;           lista.Add(totalVales);              //53
-            totalCheque = cheque - retiroCheque;        lista.Add(totalCheque);             //54
-            totalTransferencia = trans - retiroTrans;   lista.Add(totalTransferencia);      //55
-            totalCredito = credito - retiroCredito;     lista.Add(totalCredito);            //56
+            totalEfectivo = efectivo - retiroEfectivo;  listaCaja.Add(totalEfectivo.ToString());           //51
+            totalTarjeta = tarjeta - retiroTarjeta;     listaCaja.Add(totalTarjeta.ToString());            //52
+            totalVales = vales - retiroVales;           listaCaja.Add(totalVales.ToString());              //53
+            totalCheque = cheque - retiroCheque;        listaCaja.Add(totalCheque.ToString());             //54
+            totalTransferencia = trans - retiroTrans;   listaCaja.Add(totalTransferencia.ToString());      //55
+            totalCredito = credito - retiroCredito;     listaCaja.Add(totalCredito.ToString());            //56
 
             verificarCantidadAbonos();
 
-            return lista.ToArray();
+            /////////////////////////////////////////////////// Lista para los reportes ////////////////////////////////////////////////////
+
+            if (!id.Equals(0))
+            {
+                var cantRetiradaCorte = consultaTotales(id);
+
+
+                var totalesVentas = ((vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + anticiposAplicados) + totalAbonos);
+                var totalesAnticipos = (aEfectivo + aTarjeta + aVales + aCheque + aTrans);
+                var totalesAgregado = (dEfectivo + dTarjeta + dVales + dCheque + dTrans);
+                var totalesRetirado = (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones);
+                var totales = (subtotal - (dineroRetirado + devoluciones));
+
+                listaReportes.Add($"Efectivo:|{vEfectivo}|Efectivo:|{aEfectivo}|Efectivo:|{dEfectivo}|Efectivo:|{retiroEfectivo}|Efectivo:|{efectivo}"); //1
+                listaReportes.Add($"Tarjeta:|{vTarjeta}|Tarjeta:|{aTarjeta}|Tarjeta:|{dTarjeta}|Tarjeta:|{retiroTarjeta}|Tarjeta:|{tarjeta}");
+                listaReportes.Add($"Vales:|{vVales}|Vales:|{aVales}|Vales:|{dVales}|Vales:|{retiroVales}|Vales:|{vales}");
+                listaReportes.Add($"Cheque:|{vCheque}|Cheque:|{aCheque}|Cheque:|{dCheque}|Cheque:|{retiroCheque}|Cheque:|{cheque}");
+                listaReportes.Add($"Transferencia:|{vTrans}|Transferencia:|{aTrans}|Transferencia:|{dTrans}|Transferencia:|{retiroTrans}|Transferencia:|{trans}");
+                listaReportes.Add($"Crédito:|{credi}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|Anticipos Utilizados::|{anticiposAplicados}|Saldo Inicial::|{CargarSaldoInicial().ToString()}");
+                listaReportes.Add($"Abonos:|{totalAbonos}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|Devoluciones:|{devoluciones}|Crédito:|{ant}");
+                listaReportes.Add($"Anticipos Utilizados:|{anticiposAplicados}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}");
+                listaReportes.Add($"{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|Cantidad retirada al corte:|{cantRetiradaCorte}");
+                listaReportes.Add($"{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|{string.Empty}|Total en Caja antes del corte:|{(subtotal - (dineroRetirado + devoluciones))}");
+
+                listaReportes.Add($"Total Ventas:|{totalesVentas}|Total Anticipos:|{totalesAnticipos}|Total Agregado:|{totalesAgregado}|Total Retirado:|{totalesRetirado}|Total en Caja despues del corte:|{totales}");
+
+            }
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+            string[] result = { };
+            if (procedencia.Equals("Caja"))
+            {
+                result = listaCaja.ToArray();
+            }
+            else if (procedencia.Equals("Reportes"))
+            {
+                result =  listaReportes.ToArray();
+            }
+
+            return result;
+
         }
 
         public void verificarCantidadAbonos()
@@ -603,6 +645,22 @@ namespace PuntoDeVentaV2
             //{
             //    lbSaldoInicialInfo.Visible = false;
             //}
+        }
+
+        private string consultaTotales(int id)
+        {
+            var result = string.Empty;
+            var consultaUltimoCorte = cn.CargarDatos($"SELECT CantidadRetiradaCorte FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' AND ID  = '{id}' ORDER BY FechaOperacion DESC");
+
+            if (consultaUltimoCorte.Rows.Count.Equals(0))
+            {
+                result = consultaUltimoCorte.Rows[0]["CantidadRetiradaCorte"].ToString();
+            }else
+            {
+                result = "0";
+            }
+
+            return result;
         }
 
     }
