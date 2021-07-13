@@ -200,7 +200,8 @@ namespace PuntoDeVentaV2
             }
             else if (e.ColumnIndex.Equals(4))//Dinero Agregado
             {
-                var dato = obtenerDatosReporte(id, "deposito");
+                //var dato = obtenerDatosReporte(id, "deposito");
+                var dato = cdc.obtenerDepositosRetiros("Reportes", "deposito", id);
                 if (!dato.Rows.Count.Equals(0))
                 {
                     GenerarReporteAgregarRetirar("DINERO AGREGADO", dato, id);
@@ -212,7 +213,8 @@ namespace PuntoDeVentaV2
             }
             else if (e.ColumnIndex.Equals(5))//Dinero Retirado
             {
-                var dato = obtenerDatosReporte(id, "retiro");
+                //var dato = obtenerDatosReporte(id, "retiro");
+                var dato = cdc.obtenerDepositosRetiros("Reportes", "retiro", id);
                 if (!dato.Rows.Count.Equals(0))
                 {
                     GenerarReporteAgregarRetirar("DINERO RETIRADO", dato, id);
