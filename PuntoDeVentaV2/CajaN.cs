@@ -1877,22 +1877,27 @@ namespace PuntoDeVentaV2
             //===============================
             //===    TABLA DE DEPOSITOS   ===
             //===============================
+
+            var procedencia = "Caja";
+
             #region Tabla de Depositos
             anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f };
 
             Paragraph tituloDepositos = new Paragraph("HISTORIAL DE DEPOSITOS\n\n", fuenteGrande);
             tituloDepositos.Alignment = Element.ALIGN_CENTER;
 
-            MySqlConnection sql_con;
-            MySqlCommand sql_cmd;
-            MySqlDataReader dr;
+            //MySqlConnection sql_con;
+            //MySqlCommand sql_cmd;
+            //MySqlDataReader dr;
 
-            sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
-            sql_con.Open();
-            sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
-            dr = sql_cmd.ExecuteReader();
+            //sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
+            //sql_con.Open();
+            //sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
+            //dr = sql_cmd.ExecuteReader();
 
-            if (dr.HasRows)
+            var dr = cdc.obtenerDepositosRetiros(procedencia, "deposito");
+
+            if (!dr.Rows.Count.Equals(0))
             {
                 PdfPTable tablaDepositos = new PdfPTable(7);
                 tablaDepositos.WidthPercentage = 100;
@@ -1941,50 +1946,60 @@ namespace PuntoDeVentaV2
                 tablaDepositos.AddCell(colDepositoTrans);
                 tablaDepositos.AddCell(colDepositoFecha);
 
-                while (dr.Read())
+                if (!dr.Rows.Count.Equals(0))
                 {
-                    var efectivo = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Efectivo"))).ToString("0.00");
-                    var tarjeta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Tarjeta"))).ToString("0.00");
-                    var vales = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
-                    var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
-                    var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
-                    var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                    foreach (DataRow item in dr.Rows)
+                    {
+                        //var efectivo = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Efectivo"))).ToString("0.00");
+                        //var tarjeta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Tarjeta"))).ToString("0.00");
+                        //var vales = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
+                        //var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
+                        //var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
+                        //var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                        var efectivo = Convert.ToDouble(item["Efectivo"]).ToString("0.00");
+                        var tarjeta = Convert.ToDouble(item["Tarjeta"]).ToString("0.00");
+                        var vales = Convert.ToDouble(item["Vales"]).ToString("0.00");
+                        var cheque = Convert.ToDouble(item["Cheque"]).ToString("0.00");
+                        var trans = Convert.ToDouble(item["Transferencia"]).ToString("0.00");
+                        var fecha = Convert.ToDateTime(item["FechaOperacion"]).ToString("0.00");
 
-                    PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
-                    colEmpleadoTmp.BorderWidth = 0;
-                    colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
+                        colEmpleadoTmp.BorderWidth = 0;
+                        colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
-                    colDepositoEfectivoTmp.BorderWidth = 0;
-                    colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
+                        colDepositoEfectivoTmp.BorderWidth = 0;
+                        colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
-                    colDepositoTarjetaTmp.BorderWidth = 0;
-                    colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
+                        colDepositoTarjetaTmp.BorderWidth = 0;
+                        colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
-                    colDepositoValesTmp.BorderWidth = 0;
-                    colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
+                        colDepositoValesTmp.BorderWidth = 0;
+                        colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
-                    colDepositoChequeTmp.BorderWidth = 0;
-                    colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
+                        colDepositoChequeTmp.BorderWidth = 0;
+                        colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
-                    colDepositoTransTmp.BorderWidth = 0;
-                    colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
+                        colDepositoTransTmp.BorderWidth = 0;
+                        colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
-                    colDepositoFechaTmp.BorderWidth = 0;
-                    colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
+                        colDepositoFechaTmp.BorderWidth = 0;
+                        colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    tablaDepositos.AddCell(colEmpleadoTmp);
-                    tablaDepositos.AddCell(colDepositoEfectivoTmp);
-                    tablaDepositos.AddCell(colDepositoTarjetaTmp);
-                    tablaDepositos.AddCell(colDepositoValesTmp);
-                    tablaDepositos.AddCell(colDepositoChequeTmp);
-                    tablaDepositos.AddCell(colDepositoTransTmp);
-                    tablaDepositos.AddCell(colDepositoFechaTmp);
+                        tablaDepositos.AddCell(colEmpleadoTmp);
+                        tablaDepositos.AddCell(colDepositoEfectivoTmp);
+                        tablaDepositos.AddCell(colDepositoTarjetaTmp);
+                        tablaDepositos.AddCell(colDepositoValesTmp);
+                        tablaDepositos.AddCell(colDepositoChequeTmp);
+                        tablaDepositos.AddCell(colDepositoTransTmp);
+                        tablaDepositos.AddCell(colDepositoFechaTmp);
+                    }
+                    
                 }
 
                 reporte.Add(tituloDepositos);
@@ -1992,8 +2007,8 @@ namespace PuntoDeVentaV2
                 reporte.Add(linea);
             }
 
-            dr.Close();
-            sql_con.Close();
+            //dr.Close();
+            //sql_con.Close();
 
             #endregion
             //===============================
@@ -2010,12 +2025,9 @@ namespace PuntoDeVentaV2
 
             anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f, 100f };
 
-            sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
-            sql_con.Open();
-            sql_cmd = new MySqlCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
-            dr = sql_cmd.ExecuteReader();
+            dr = cdc.obtenerDepositosRetiros(procedencia, "retiro");
 
-            if (dr.HasRows)
+            if (!dr.Rows.Count.Equals(0))
             {
                 PdfPTable tablaRetiros = new PdfPTable(8);
                 tablaRetiros.WidthPercentage = 100;
@@ -2073,65 +2085,72 @@ namespace PuntoDeVentaV2
                 //MySqlCommand sql_cmd;
                 //MySqlDataReader dr;
 
-                while (dr.Read())
+                if (!dr.Rows.Count.Equals(0))
                 {
-                    var efectivo = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Efectivo"))).ToString("0.00");
-                    var tarjeta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Tarjeta"))).ToString("0.00");
-                    var vales = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
-                    var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
-                    var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
-                    var credito = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Credito"))).ToString("0.00");
-                    var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                    foreach (DataRow item in dr.Rows)
+                    {
+                        //var efectivo = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Efectivo"))).ToString("0.00");
+                        //var tarjeta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Tarjeta"))).ToString("0.00");
+                        //var vales = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
+                        //var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
+                        //var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
+                        //var credito = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Credito"))).ToString("0.00");
+                        //var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                        var efectivo = Convert.ToDouble(item["Efectivo"]).ToString("0.00");
+                        var tarjeta = Convert.ToDouble(item["Tarjeta"]).ToString("0.00");
+                        var vales = Convert.ToDouble(item["Vales"]).ToString("0.00");
+                        var cheque = Convert.ToDouble(item["Cheque"]).ToString("0.00");
+                        var trans = Convert.ToDouble(item["Transferencia"]).ToString("0.00");
+                        var fecha = Convert.ToDateTime(item["FechaOperacion"]).ToString("0.00");
 
-                    PdfPCell colEmpleadoTmpR = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
-                    colEmpleadoTmpR.BorderWidth = 0;
-                    colEmpleadoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colEmpleadoTmpR = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
+                        colEmpleadoTmpR.BorderWidth = 0;
+                        colEmpleadoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoEfectivoTmpR = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
-                    colDepositoEfectivoTmpR.BorderWidth = 0;
-                    colDepositoEfectivoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoEfectivoTmpR = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
+                        colDepositoEfectivoTmpR.BorderWidth = 0;
+                        colDepositoEfectivoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoTarjetaTmpR = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
-                    colDepositoTarjetaTmpR.BorderWidth = 0;
-                    colDepositoTarjetaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoTarjetaTmpR = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
+                        colDepositoTarjetaTmpR.BorderWidth = 0;
+                        colDepositoTarjetaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoValesTmpR = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
-                    colDepositoValesTmpR.BorderWidth = 0;
-                    colDepositoValesTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoValesTmpR = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
+                        colDepositoValesTmpR.BorderWidth = 0;
+                        colDepositoValesTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoChequeTmpR = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
-                    colDepositoChequeTmpR.BorderWidth = 0;
-                    colDepositoChequeTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoChequeTmpR = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
+                        colDepositoChequeTmpR.BorderWidth = 0;
+                        colDepositoChequeTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoTransTmpR = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
-                    colDepositoTransTmpR.BorderWidth = 0;
-                    colDepositoTransTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoTransTmpR = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
+                        colDepositoTransTmpR.BorderWidth = 0;
+                        colDepositoTransTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoCreditoTmpR = new PdfPCell(new Phrase("$" + credito, fuenteNormal));
-                    colDepositoCreditoTmpR.BorderWidth = 0;
-                    colDepositoCreditoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                        //PdfPCell colDepositoCreditoTmpR = new PdfPCell(new Phrase("$" + credito, fuenteNormal));
+                        //colDepositoCreditoTmpR.BorderWidth = 0;
+                        //colDepositoCreditoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoFechaTmpR = new PdfPCell(new Phrase(fecha, fuenteNormal));
-                    colDepositoFechaTmpR.BorderWidth = 0;
-                    colDepositoFechaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                        PdfPCell colDepositoFechaTmpR = new PdfPCell(new Phrase(fecha, fuenteNormal));
+                        colDepositoFechaTmpR.BorderWidth = 0;
+                        colDepositoFechaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    tablaRetiros.AddCell(colEmpleadoTmpR);
-                    tablaRetiros.AddCell(colDepositoEfectivoTmpR);
-                    tablaRetiros.AddCell(colDepositoTarjetaTmpR);
-                    tablaRetiros.AddCell(colDepositoValesTmpR);
-                    tablaRetiros.AddCell(colDepositoChequeTmpR);
-                    tablaRetiros.AddCell(colDepositoTransTmpR);
-                    tablaRetiros.AddCell(colDepositoCreditoTmpR);
-                    tablaRetiros.AddCell(colDepositoFechaTmpR);
+                        tablaRetiros.AddCell(colEmpleadoTmpR);
+                        tablaRetiros.AddCell(colDepositoEfectivoTmpR);
+                        tablaRetiros.AddCell(colDepositoTarjetaTmpR);
+                        tablaRetiros.AddCell(colDepositoValesTmpR);
+                        tablaRetiros.AddCell(colDepositoChequeTmpR);
+                        tablaRetiros.AddCell(colDepositoTransTmpR);
+                        //tablaRetiros.AddCell(colDepositoCreditoTmpR);
+                        tablaRetiros.AddCell(colDepositoFechaTmpR);
+                    }
+
                 }
 
                 reporte.Add(tituloRetiros);
                 reporte.Add(tablaRetiros);
             }
-
-            dr.Close();
-            sql_con.Close();
-
+            
             #endregion
             //=============================
             //=== FIN TABLA DE RETIROS  ===

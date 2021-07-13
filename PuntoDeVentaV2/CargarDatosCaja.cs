@@ -10,7 +10,6 @@ namespace PuntoDeVentaV2
 {
     class CargarDatosCaja
     {
-
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
@@ -449,11 +448,11 @@ namespace PuntoDeVentaV2
             subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + CargarSaldoInicial() /*+ vCredito*/)/* - devoluciones*/; if (subtotal < 0) { subtotal = 0; }
             listaCaja.Add(subtotal.ToString());        //41
 
-            var totalF = (efectivo - retiroEfectivo); if (totalF < 0) { totalF = 0; }   
-            var totalTa = (tarjeta - retiroTarjeta); if (totalTa < 0) { totalTa = 0; }       
-            var totalV = (vales - retiroVales); if (totalV < 0) { totalV = 0; }              
-            var totalC = (cheque - retiroCheque); if (totalC < 0) { totalC = 0; }            
-            var totalTr = (trans - retiroTrans); if (totalTr < 0) { totalTr = 0; }           
+            var totalF = (efectivo - retiroEfectivo); if (totalF < 0) { totalF = 0; }
+            var totalTa = (tarjeta - retiroTarjeta); if (totalTa < 0) { totalTa = 0; }
+            var totalV = (vales - retiroVales); if (totalV < 0) { totalV = 0; }
+            var totalC = (cheque - retiroCheque); if (totalC < 0) { totalC = 0; }
+            var totalTr = (trans - retiroTrans); if (totalTr < 0) { totalTr = 0; }
 
             listaCaja.Add(totalF.ToString()); //lbTEfectivoC.Text = moneda + (totalF).ToString("0.00");         //42
             listaCaja.Add(totalTa.ToString()); //lbTTarjetaC.Text = moneda + (totalTa).ToString("0.00");        //43
@@ -472,12 +471,12 @@ namespace PuntoDeVentaV2
             listaCaja.Add((subtotal - (dineroRetirado + devoluciones)).ToString()); //lbTTotalCaja.Text = moneda + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");                                                                //50
 
             // Variables de clase
-            totalEfectivo = efectivo - retiroEfectivo;  listaCaja.Add(totalEfectivo.ToString());           //51
-            totalTarjeta = tarjeta - retiroTarjeta;     listaCaja.Add(totalTarjeta.ToString());            //52
-            totalVales = vales - retiroVales;           listaCaja.Add(totalVales.ToString());              //53
-            totalCheque = cheque - retiroCheque;        listaCaja.Add(totalCheque.ToString());             //54
-            totalTransferencia = trans - retiroTrans;   listaCaja.Add(totalTransferencia.ToString());      //55
-            totalCredito = credito - retiroCredito;     listaCaja.Add(totalCredito.ToString());            //56
+            totalEfectivo = efectivo - retiroEfectivo; listaCaja.Add(totalEfectivo.ToString());           //51
+            totalTarjeta = tarjeta - retiroTarjeta; listaCaja.Add(totalTarjeta.ToString());            //52
+            totalVales = vales - retiroVales; listaCaja.Add(totalVales.ToString());              //53
+            totalCheque = cheque - retiroCheque; listaCaja.Add(totalCheque.ToString());             //54
+            totalTransferencia = trans - retiroTrans; listaCaja.Add(totalTransferencia.ToString());      //55
+            totalCredito = credito - retiroCredito; listaCaja.Add(totalCredito.ToString());            //56
 
             verificarCantidadAbonos();
 
@@ -518,7 +517,7 @@ namespace PuntoDeVentaV2
             }
             else if (procedencia.Equals("Reportes"))
             {
-                result =  listaReportes.ToArray();
+                result = listaReportes.ToArray();
             }
 
             return result;
@@ -655,7 +654,8 @@ namespace PuntoDeVentaV2
             if (consultaUltimoCorte.Rows.Count.Equals(0))
             {
                 result = consultaUltimoCorte.Rows[0]["CantidadRetiradaCorte"].ToString();
-            }else
+            }
+            else
             {
                 result = "0";
             }
@@ -663,5 +663,95 @@ namespace PuntoDeVentaV2
             return result;
         }
 
+        public DataTable obtenerDepositosRetiros(string procedencia, string operacion, int id = 0)
+        {
+            string[] fechas;
+            DateTime primerFecha = new DateTime();
+            DateTime segundaFecha = new DateTime();
+            //DateTime fechaGeneral = new DateTime();
+
+            if (procedencia.Equals("Reportes"))
+            {
+                fechas = obtenerFechas(id);
+                primerFecha = Convert.ToDateTime(fechas[1]);
+                segundaFecha = Convert.ToDateTime(fechas[0]);
+            }
+
+
+            //anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f };
+
+            //Paragraph tituloDepositos = new Paragraph("HISTORIAL DE DEPOSITOS\n\n", fuenteGrande);
+            //tituloDepositos.Alignment = Element.ALIGN_CENTER;
+
+            //MySqlConnection sql_con;
+            //MySqlCommand sql_cmd;
+            //MySqlDataReader dr;
+
+
+            var query = string.Empty;
+            if (procedencia.Equals("Caja"))
+            {
+                query = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = '{operacion}' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'";
+            }
+            else if (procedencia.Equals("Reportes"))
+            {
+                query = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND (FechaOperacion BETWEEN '{primerFecha.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{segundaFecha.ToString("yyyy-MM-dd HH:mm:ss")}')";
+            }
+
+            //using (sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;")) {
+            //    //sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
+            //    sql_con.Open();
+            //    sql_cmd = new MySqlCommand(query, sql_con);
+            //    dr = sql_cmd.ExecuteReader();
+
+            var dr = cn.CargarDatos(query);
+            return dr;
+        }
+
+        //dr.Close();
+        //sql_con.Close();
+
+        private string[] obtenerFechas(int id)
+        {
+            List<string> lista = new List<string>();
+
+            var fecha = string.Empty;
+
+            var primerFecha = string.Empty; var segundaFecha = string.Empty;
+            var query = cn.CargarDatos($"SELECT DISTINCT FechaOperacion FROM Caja  WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{id}'");
+            var segundaQuery = cn.CargarDatos($"SELECT DISTINCT FechaOperacion FROM Caja  WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' AND ID < '{id}' ORDER BY FechaOperacion DESC LIMIT 1");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                segundaFecha = query.Rows[0]["FechaOperacion"].ToString();
+
+                if (!segundaQuery.Rows.Count.Equals(0))
+                {
+                    primerFecha = segundaQuery.Rows[0]["FechaOperacion"].ToString();
+                }
+                else
+                {
+                    primerFecha = $"<{segundaFecha}";
+                }
+
+                lista.Add(segundaFecha.ToString());
+                lista.Add(primerFecha);
+            }
+
+            //if (tipoBusqueda.Equals("Corte"))//Cuando es corte de caja
+            //{
+
+            //}
+            //else if (tipoBusqueda.Equals("DA"))//Cuanto es dinero agregado
+            //{
+
+            //}
+            //else if (tipoBusqueda.Equals("DR"))//Cuando es dinero retirado
+            //{
+
+            //}
+            return lista.ToArray();
+        }
     }
 }
+
