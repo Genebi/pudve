@@ -2358,5 +2358,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string reporteActualizarInventarioDesdeXML(int IdUsuario, int IdReporte)
+        {
+            var consulta = $"SELECT Concepto AS Producto, Cantidad AS UnidadesCompradas, ValorUnitario AS PrecioCompra, Descuento, Precio AS PrecioVenta, FechaOperacion, NomEmisor As Proveedor, RFCEmisor AS RFC, IDReporte AS Reporte FROM HistorialCompras WHERE IDUsuario = {IdUsuario} AND IDReporte = {IdReporte};";
+
+            return consulta;
+        }
     }
 }  
