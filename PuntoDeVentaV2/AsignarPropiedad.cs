@@ -657,8 +657,9 @@ namespace PuntoDeVentaV2
 
                 if (!string.IsNullOrWhiteSpace(precioTmp))
                 {
-                    Thread hilo = new Thread(() => asignarActualizarInventario(datosHistPrecio, Convert.ToInt32(precioTmp)));
-                    hilo.Start();
+                    //Thread hilo = new Thread(() => asignarActualizarInventario(datosHistPrecio, Convert.ToInt32(precioTmp)));
+                    //hilo.Start();
+                    asignarActualizarInventario(datosHistPrecio, Convert.ToInt32(precioTmp));
 
                     var precio = float.Parse(precioTmp);
                     var html = string.Empty;

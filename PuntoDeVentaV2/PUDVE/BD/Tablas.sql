@@ -1108,6 +1108,20 @@ CREATE UNIQUE INDEX
 IF
 	NOT EXISTS Num_Version_App ON AppVersionRecord ( AppVersion, AppMajorVersion, AppMinorVersion, AppBuildNumber, AppRevision );
 
+-- Index de Asignar Precio en Productos
+CREATE INDEX 
+IF
+	NOT EXISTS INSERT_NEW_PRICE ON HistorialPrecios (IDEmpleado);
+	CREATE INDEX 
+IF
+	NOT EXISTS INSERT_NEW_PRICE ON HistorialPrecios (PrecioAnterior);
+	CREATE INDEX 
+IF
+	NOT EXISTS INSERT_NEW_PRICE ON HistorialPrecios (PrecioNuevo);
+	CREATE INDEX 
+IF
+	NOT EXISTS INSERT_NEW_PRICE ON HistorialPrecios (Origen);
+
 -- Agregari indice para no duplicar consulta de la tabla catalogo_monedas
 ALTER IGNORE TABLE catalogo_monedas ADD UNIQUE INDEX IF NOT EXISTS (clave_moneda, descripcion, cant_decimales);
 
