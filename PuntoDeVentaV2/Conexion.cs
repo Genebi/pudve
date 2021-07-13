@@ -345,7 +345,9 @@ namespace PuntoDeVentaV2
                 //Descuento Cliente
                 if (tipo == 1)
                 {
+                    var cadena = $"{dr["PrecioProducto"]}-{dr["PorcentajeDescuento"]}-{dr["PrecioDescuento"]}-{dr["Descuento"]}";
 
+                    lista.Add(cadena);
                 }
 
                 //Descuento Mayoreo

@@ -1651,7 +1651,14 @@ namespace PuntoDeVentaV2
             //Cliente
             if (tipo == 1)
             {
+                var descuento = datosDescuento[0].Split('-');
+                var precioAux = float.Parse(descuento[0]) * cantidad;
+                var porcentajeAux = float.Parse(descuento[1]);
 
+                var descuentoFinal = precioAux * (porcentajeAux / 100);
+
+                DGVentas.Rows[fila].Cells["Descuento"].Value = descuentoFinal;
+                DGVentas.Rows[fila].Cells["Importe"].Value = precioAux;
             }
 
             //Mayoreo
