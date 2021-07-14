@@ -658,18 +658,30 @@ namespace PuntoDeVentaV2
                 {
                     if (typeStockFinal.Equals("Combos") || typeStockFinal.Equals("Servicios"))  // cuando es Editar Productos
                     {
+                        var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
                         using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionProducto(idProdEdit)))
                         {
                             if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
                             {
                                 foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
                                 {
-                                    var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
                                     if (drRelacion["IDServicio"].Equals(idServ))
                                     {
                                         MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         return;
                                     }
+                                }
+                            }
+                        }
+                        if (!AgregarEditarProducto.listaProductoToCombo.Count.Equals(0))
+                        {
+                            foreach(var item in AgregarEditarProducto.listaProductoToCombo)
+                            {
+                                var claves = item.Split('|');
+                                if (claves[2].Equals(Convert.ToString(idServ)))
+                                {
+                                    MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
                                 }
                             }
                         }
@@ -689,6 +701,18 @@ namespace PuntoDeVentaV2
                                         MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         return;
                                     }
+                                }
+                            }
+                        }
+                        if (!AgregarEditarProducto.ProductosDeServicios.Count.Equals(0))
+                        {
+                            foreach (var item in AgregarEditarProducto.ProductosDeServicios)
+                            {
+                                var claves = item.Split('|');
+                                if (claves[2].Equals(Convert.ToString(idServ)))
+                                {
+                                    MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
                                 }
                             }
                         }
