@@ -143,6 +143,7 @@
             this.rbMayoreo.TabStop = true;
             this.rbMayoreo.Text = "Descuento por Mayoreo";
             this.rbMayoreo.UseVisualStyleBackColor = true;
+            this.rbMayoreo.Visible = false;
             this.rbMayoreo.CheckedChanged += new System.EventHandler(this.rbMayoreo_CheckedChanged);
             // 
             // btnEliminarDescuentos
