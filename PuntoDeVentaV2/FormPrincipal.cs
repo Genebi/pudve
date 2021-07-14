@@ -1111,10 +1111,8 @@ namespace PuntoDeVentaV2
                             //e.Cancel = true;
                             Application.OpenForms.OfType<Cargando>().First().BringToFront();
                         }
-
+                        backUpDB.crearsaveFile();
                     }
-
-                    backUpDB.crearsaveFile();
 
                     e.Cancel = true;
                     cerrarSesion();
