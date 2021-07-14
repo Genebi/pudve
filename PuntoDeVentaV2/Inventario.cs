@@ -3035,11 +3035,11 @@ namespace PuntoDeVentaV2
                     PdfPCell colFechaOperacionTmp;
                     if (!fechaOperacion.Equals(string.Empty))
                     {
-                        colFechaOperacionTmp = new PdfPCell(new Phrase("$" + fechaOperacion, fuenteNormal));
+                        colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
                     }
                     else
                     {
-                        colFechaOperacionTmp = new PdfPCell(new Phrase("$ ---", fuenteNormal));
+                        colFechaOperacionTmp = new PdfPCell(new Phrase("---", fuenteNormal));
                     }
                     colFechaOperacionTmp.BorderWidth = 1;
                     colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
