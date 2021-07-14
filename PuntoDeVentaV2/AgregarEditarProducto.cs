@@ -5382,7 +5382,7 @@ namespace PuntoDeVentaV2
             ConsultarListaRelacionados consultarListaRelacion = new ConsultarListaRelacionados();
             consultarListaRelacion.FormClosing += delegate
             {
-                if (DatosSourceFinal.Equals(1))
+                if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(3))
                 {
                     listaProductoToCombo = consultarListaRelacion.listaServCombo;
                     ProductosDeServicios = consultarListaRelacion.listaProd;
