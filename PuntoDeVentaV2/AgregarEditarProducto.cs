@@ -252,8 +252,8 @@ namespace PuntoDeVentaV2
         int PH;
         bool Hided, Hided1;
 
-        public List<string> listaProductoToCombo = new List<string>(); // para agregar los combos o servicios a un producto
-        public List<string> ProductosDeServicios = new List<string>(); // para agregar los productos del servicio o paquete
+        public static List<string> listaProductoToCombo = new List<string>(); // para agregar los combos o servicios a un producto
+        public static List<string> ProductosDeServicios = new List<string>(); // para agregar los productos del servicio o paquete
         List<ItemsProductoComboBox> prodList;
 
         int numCombo = 1, indexItem = 1, totCB = 0;
@@ -6448,12 +6448,6 @@ namespace PuntoDeVentaV2
                         listaProductoToCombo.Add(fechaServCombo + "|" + idServCombo + "|" + idProducto + "|" + nombreProducto + "|" + cantidadServCombo);
                     }
                 }
-            }
-            else if ((this.Text.Trim().Equals("AGREGAR PRODUCTO") ||
-                      this.Text.Trim().Equals("EDITAR PRODUCTO") ||
-                      this.Text.Trim().Equals("COPIAR PRODUCTO")) && DatosSourceFinal.Equals(1))
-            {
-
             }
 
             // Limpiar para evitar error de relacionar producto a servicio 
