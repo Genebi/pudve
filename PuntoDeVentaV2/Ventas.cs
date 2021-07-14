@@ -3544,8 +3544,7 @@ namespace PuntoDeVentaV2
             // Cuando la venta guardada tiene descuento por cliente
             var idClienteDesc = Convert.ToInt32(datos[8]);
             var nombreCliente = datos[9].ToString();
-
-
+            
             if (idClienteDesc > 0)
             {
                 var datosCliente = mb.ObtenerDatosCliente(idClienteDesc, FormPrincipal.userID);
@@ -5524,6 +5523,24 @@ namespace PuntoDeVentaV2
             {
                 productosDescuentoG.Add(idProducto, aplicarDescuentoG);
             }
+
+            //if (datosProducto[5].ToString().Equals("P"))
+            //{
+            //    AgregarProducto(datosProducto, Convert.ToDecimal(nudCantidadPS.Value));
+            //}
+            //else
+            //{
+            //    using (DataTable dtComboServicio = cn.CargarDatos(cs.cantidadDeComboServicio(idProducto)))
+            //    {
+            //        if (!dtComboServicio.Rows.Count.Equals(0))
+            //        {
+            //            foreach (DataRow drCombServ in dtComboServicio.Rows)
+            //            {
+            //                AgregarProducto(datosProducto, Convert.ToDecimal(drCombServ["Cantidad"]));
+            //            }
+            //        }
+            //    }
+            //}
 
             AgregarProducto(datosProducto, Convert.ToDecimal(nudCantidadPS.Value));
         }

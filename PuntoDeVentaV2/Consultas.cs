@@ -2365,5 +2365,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string cantidadDeComboServicio(int IdComboServicio)
+        {
+            var consulta = $"SELECT * FROM productosdeservicios WHERE IDServicio = '{IdComboServicio}' ORDER BY Fecha ASC LIMIT 1;";
+
+            return consulta;
+        }
     }
 }  
