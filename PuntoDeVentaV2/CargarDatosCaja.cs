@@ -344,7 +344,7 @@ namespace PuntoDeVentaV2
                 var auxiliar = Convert.ToDateTime(drDos.GetValue(drDos.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 var fechaOperacion = Convert.ToDateTime(auxiliar);
 
-                if (operacion == "venta" && fechaOperacion > fechaDefault || procedencia.Equals("Reportes") && fechaOperacion < fechaDefault)
+                if (operacion == "venta" || operacion == "retiro" && fechaOperacion > fechaDefault || procedencia.Equals("Reportes") && fechaOperacion < fechaDefault)
                 {
                     if (saltar < 3 && !fechaDefault.ToString("yyyy-MM-dd HH:mm:ss").Equals("0001-01-01 00:00:00"))
                     {
@@ -356,16 +356,23 @@ namespace PuntoDeVentaV2
                         {
                             saltar++;
                         }
-                        continue;
+                        if ((float.Parse(drDos.GetValue(drDos.GetOrdinal("Cantidad")).ToString())) == 0.00)
+                        {
+                            continue;
+                        }
+                        //continue;
                     }
 
-                    vEfectivo += (float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString())/*+MetodosBusquedas.efectivoInicial*/);
-                    vTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
-                    vVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
-                    vCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
-                    vTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
-                    vCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
-                    vAnticipos += float.Parse(drDos.GetValue(drDos.GetOrdinal("Anticipo")).ToString());
+                    if (operacion.Equals("venta"))
+                    {
+                        vEfectivo += (float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString())/*+MetodosBusquedas.efectivoInicial*/);
+                        vTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+                        vVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+                        vCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+                        vTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+                        vCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
+                        vAnticipos += float.Parse(drDos.GetValue(drDos.GetOrdinal("Anticipo")).ToString());
+                    }
                 }
                 
                 if (operacion == "anticipo" && fechaOperacion > fechaDefault || operacion == "anticipo" & procedencia.Equals("Reportes") && fechaOperacion < fechaDefault)
