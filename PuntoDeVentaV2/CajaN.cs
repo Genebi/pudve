@@ -2023,13 +2023,13 @@ namespace PuntoDeVentaV2
             Paragraph tituloRetiros = new Paragraph("HISTORIAL DE RETIROS\n\n", fuenteGrande);
             tituloRetiros.Alignment = Element.ALIGN_CENTER;
 
-            anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f, 100f };
+            anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f };
 
             dr = cdc.obtenerDepositosRetiros(procedencia, "retiro");
 
             if (!dr.Rows.Count.Equals(0))
             {
-                PdfPTable tablaRetiros = new PdfPTable(8);
+                PdfPTable tablaRetiros = new PdfPTable(7);
                 tablaRetiros.WidthPercentage = 100;
                 tablaRetiros.SetWidths(anchoColumnas);
 
@@ -2063,10 +2063,10 @@ namespace PuntoDeVentaV2
                 colDepositoTransR.HorizontalAlignment = Element.ALIGN_CENTER;
                 colDepositoTransR.Padding = 3;
 
-                PdfPCell colDepositoCreditoR = new PdfPCell(new Phrase("CRÉDITO", fuenteNegrita));
-                colDepositoCreditoR.BorderWidth = 0;
-                colDepositoCreditoR.HorizontalAlignment = Element.ALIGN_CENTER;
-                colDepositoCreditoR.Padding = 3;
+                //PdfPCell colDepositoCreditoR = new PdfPCell(new Phrase("CRÉDITO", fuenteNegrita));
+                //colDepositoCreditoR.BorderWidth = 0;
+                //colDepositoCreditoR.HorizontalAlignment = Element.ALIGN_CENTER;
+                //colDepositoCreditoR.Padding = 3;
 
                 PdfPCell colDepositoFechaR = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
                 colDepositoFechaR.BorderWidth = 0;
@@ -2079,7 +2079,7 @@ namespace PuntoDeVentaV2
                 tablaRetiros.AddCell(colDepositoValesR);
                 tablaRetiros.AddCell(colDepositoChequeR);
                 tablaRetiros.AddCell(colDepositoTransR);
-                tablaRetiros.AddCell(colDepositoCreditoR);
+                //tablaRetiros.AddCell(colDepositoCreditoR);
                 tablaRetiros.AddCell(colDepositoFechaR);
 
                 //MySqlCommand sql_cmd;

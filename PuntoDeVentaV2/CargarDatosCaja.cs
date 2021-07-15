@@ -734,7 +734,7 @@ namespace PuntoDeVentaV2
             }
             else if (procedencia.Equals("Reportes"))
             {
-                query = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND (FechaOperacion BETWEEN '{primerFecha.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{segundaFecha.ToString("yyyy-MM-dd HH:mm:ss")}')";
+                query = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = '{operacion}' AND (FechaOperacion BETWEEN '{primerFecha.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{segundaFecha.ToString("yyyy-MM-dd HH:mm:ss")}')";
             }
 
             //using (sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;")) {
