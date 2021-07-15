@@ -42,6 +42,7 @@ namespace PuntoDeVentaV2
         public static string cantidadAPedir = string.Empty;
         public static List<string> listProductos = new List<string>();
         public static List<string> liststock = new List<string>();
+        public static List<string> liststock2 = new List<string>();
 
         public static bool ventaGuardada = false; //Para saber si la venta se guardo o no
         int cantidadExtra = 0;
@@ -418,6 +419,7 @@ namespace PuntoDeVentaV2
                     restarProducto = false;
                     buscarVG = false;
                 }
+                listaProductosVenta();
             }
         }
 
@@ -771,8 +773,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 row.Cells["Descuento"].Value = datosProducto[3];
                 row.Cells["Importe"].Value = datosProducto[2];
-                listProductos.Add(datosProducto[0]);
-                liststock.Add(datosProducto[4]);
+
             }
             else
             {
@@ -815,8 +816,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
-                listProductos.Add(datosProducto[0]);
-                liststock.Add(cantidad.ToString());
+                listProductos.Add(datosProducto[0] + "|" + cantidadTmp.ToString());//ID producto
 
                 if ((datosProducto.Length - 1) == 14)
                 {
@@ -1604,6 +1604,7 @@ namespace PuntoDeVentaV2
             //DGVentas.ClearSelection();
             //CalculoMayoreo();
             //CantidadesFinalesVenta();
+            listaProductosVenta();
         }
 
         private void AgregarMultiplesProductos()
@@ -2446,6 +2447,8 @@ namespace PuntoDeVentaV2
 
                 CalculoMayoreo();
                 CantidadesFinalesVenta();
+                listaProductosVenta();
+
             }
         }
 
@@ -2499,6 +2502,7 @@ namespace PuntoDeVentaV2
                 return;
             }
             listProductos.Clear();
+            liststock2.Clear();
         }
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)
@@ -5258,7 +5262,21 @@ namespace PuntoDeVentaV2
                 {
                     mostrarDatosTraidosBuscador();
                 };
+                
+                //listProductos.Add(datosProducto[0] + "|" + cantidad.ToString());
                 consulta.ShowDialog();
+            }
+
+            listaProductosVenta();
+        }
+
+        private void listaProductosVenta()
+        {
+            liststock2.Clear();
+            foreach (DataGridViewRow row in DGVentas.Rows)
+            {
+
+                liststock2.Add(row.Cells["Cantidad"].Value.ToString() + "|" + row.Cells["IDProducto"].Value.ToString());
             }
         }
 

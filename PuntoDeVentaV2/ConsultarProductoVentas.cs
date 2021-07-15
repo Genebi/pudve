@@ -333,7 +333,6 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("No se encuntra ninguna coincidencia\ncon la busqueda que desea realizar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            int posicion = 0;
 
             foreach (DataRow filaDatos in dtDatos.Rows)
             {
@@ -343,39 +342,10 @@ namespace PuntoDeVentaV2
 
                 var numeroFilas = DGVProductos.Rows.Count;
 
-
-                if (Ventas.listProductos.Count.Equals(0))//Si no hay ningun producto no se hace nada
-                {
-
-                }
-                else//Si encuentra algun prodcuto se comparan las 2 listas y marcar las que ya estan para la venta
-                {
-                    //if (contador < Ventas.listProductos.Count)
-                    //{
-                    //    for (int i = 0; i <= ID.Count; i++)
-                    //    {
-                    //        if (ID[i].ToString() == Ventas.listProductos[contador].ToString())
-                    //        {
-                    //            break;
-                    //        }
-
-                    //    }
-                    //}
-                    //contador++;
-                }
-
                 string Nombre = string.Empty;
+                string idProducto = string.Empty;
 
-                if (Ventas.listProductos.Contains(filaDatos[0].ToString()))
-                {
-                    string cantidad = Ventas.liststock[posicion].ToString();
-                    Nombre = "* "+"("+cantidad+")"+ filaDatos["Nombre"].ToString();
-                    posicion++;
-                }
-                else
-                {
-                    Nombre = filaDatos["Nombre"].ToString();
-                }
+                Nombre = filaDatos["Nombre"].ToString();
                 string Stock = filaDatos["Stock"].ToString();
                 string Precio =  moneda + filaDatos["Precio"].ToString();
                 string Clave = filaDatos["ClaveInterna"].ToString();
@@ -384,6 +354,25 @@ namespace PuntoDeVentaV2
                 string Proveedor = filaDatos["Proveedor"].ToString();
                 string chckName = filaDatos["ChckName"].ToString();
                 string Descripcion = filaDatos["Descripcion"].ToString().Replace("_", " ");
+                idProducto = filaDatos["ID"].ToString();
+
+                if (Ventas.liststock2.Count.Equals(0))
+                {
+
+                }
+                else  
+                {
+
+                    foreach (var item in Ventas.liststock2)
+                    {
+                        var producto = item.Split('|');
+                        if (idProducto.Equals(producto[1]))
+                        {
+                            Nombre = "(" + producto[0] +") "+"* "+ Nombre;
+                        }
+                    }
+                }
+                
 
 
                 if (DGVProductos.Rows.Count.Equals(0))
@@ -395,6 +384,7 @@ namespace PuntoDeVentaV2
                         var number_of_rows = DGVProductos.Rows.Add();
                         DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
+                        row.Cells["_id"].Value = idProducto;
                         row.Cells["Nombre"].Value = Nombre;     // Columna Nombre
                         row.Cells["Stock"].Value = Stock;       // Columna Stock
                         row.Cells["Precio"].Value = Precio;     // Columna Precio
