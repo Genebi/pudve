@@ -1272,7 +1272,7 @@ namespace PuntoDeVentaV2
             return coincidencias;
         }
 
-        public string[] BusquedaCodigosBarrasClaveInterna(string codigo)
+        public string[] BusquedaCodigosBarrasClaveInterna(string codigo, int opcionBusqueda = 1)
         {
             List<string> lista = new List<string>();
 
@@ -1282,7 +1282,18 @@ namespace PuntoDeVentaV2
             {
                 foreach (var palabra in palabras)
                 {
-                    DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras = '{palabra}' OR ClaveInterna = '{palabra}')");
+                    if (opcionBusqueda.Equals(1))   // buscar en Activos
+                    {
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras = '{palabra}' OR ClaveInterna = '{palabra}') AND Status = '{opcionBusqueda}'");
+                    }
+                    else if (opcionBusqueda.Equals(0))  // buscar en Inactivos
+                    {
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras = '{palabra}' OR ClaveInterna = '{palabra}') AND Status = '{opcionBusqueda}'");
+                    }
+                    else if (opcionBusqueda.Equals(2))  // buscar en todos
+                    {
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras = '{palabra}' OR ClaveInterna = '{palabra}')");
+                    }
 
                     MySqlDataReader dr = sql_cmd.ExecuteReader();
 

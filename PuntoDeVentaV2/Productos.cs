@@ -4325,8 +4325,21 @@ namespace PuntoDeVentaV2
                 if (/*!numBusqueda.Trim().Equals("")*/!txtAndNumSearch.Trim().Equals(""))
                 {
                     var buscarSinDuplicados = quitarDuplicadosPorBuscar(txtAndNumSearch.Trim());
+                    string[] resultadoCodBarClavInt = new string[] { };
                     // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
-                    var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(buscarSinDuplicados.Trim());
+                    if (cbMostrar.Text.Equals("Habilitados"))
+                    {
+                        resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(buscarSinDuplicados.Trim(), 1);
+                    }
+                    else if (cbMostrar.Text.Equals("Deshabilitados"))
+                    {
+                        resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(buscarSinDuplicados.Trim(), 0);
+                    }
+                    else if (cbMostrar.Text.Equals("Todos"))
+                    {
+                        resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(buscarSinDuplicados.Trim(), 2);
+                    }
+                    //var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(buscarSinDuplicados.Trim());
                     //var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(numBusqueda.Trim());
 
                     buscarCodigosBarraExtra = string.Empty;
