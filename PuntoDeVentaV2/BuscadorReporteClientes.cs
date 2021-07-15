@@ -415,7 +415,7 @@ namespace PuntoDeVentaV2
             tablaClientes.AddCell(colCantidad);
             tablaClientes.AddCell(colFecha);
 
-            var consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY PV.Nombre ORDER BY PV.Cantidad, PV.Nombre ASC");
+            var consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY Cantidad ORDER BY Cantidad DESC");
 
             foreach (DataRow row in consulta.Rows)
             {
