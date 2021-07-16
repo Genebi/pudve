@@ -191,20 +191,23 @@ namespace PuntoDeVentaV2
             var servidor = Properties.Settings.Default.Hosting;
             var usuarioemp = txtUsuario.Text.Split('@');
 
-            if (usuarioemp.Length.Equals(1))
+            if (!query.Rows.Count.Equals(0))
             {
-                datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
-                correo = datosUsuario[9].ToString();
-            }
-            else
-            {
-                var emp = cn.CargarDatos(cs.IDUsuarioSinContraseña(usuarioemp[0].ToString()));
-                foreach (DataRow dato in emp.Rows)
+                if (usuarioemp.Length.Equals(1))
                 {
-                    IDUsuario = Convert.ToInt32(dato["ID"].ToString());
+                    datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
+                    correo = datosUsuario[9].ToString();
                 }
-                datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
-                correo = datosUsuario[9].ToString();
+                else
+                {
+                    var emp = cn.CargarDatos(cs.IDUsuarioSinContraseña(usuarioemp[0].ToString()));
+                    foreach (DataRow dato in emp.Rows)
+                    {
+                        IDUsuario = Convert.ToInt32(dato["ID"].ToString());
+                    }
+                    datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
+                    correo = datosUsuario[9].ToString();
+                }
             }
 
             //vs.printProductVersion();
