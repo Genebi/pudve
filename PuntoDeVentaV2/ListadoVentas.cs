@@ -1094,7 +1094,7 @@ namespace PuntoDeVentaV2
                                     {
                                         DataRow r_prod_venta = d_prod_venta.Rows[0];
                                         int id_prod = Convert.ToInt32(r_prod_venta["IDProducto"]);
-                                        int cantidad_combo = Convert.ToInt32(r_prod_venta["Cantidad"]);
+                                        decimal cantidad_combo = Convert.ToDecimal(r_prod_venta["Cantidad"]);
 
                                         // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
                                         DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
@@ -1103,8 +1103,8 @@ namespace PuntoDeVentaV2
                                         {
                                             foreach(DataRow drprod_relacionados in dtprod_relacionados.Rows)
                                             {
-                                                int cantidad_prod_rel = Convert.ToInt32(drprod_relacionados["Cantidad"]);
-                                                int cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
+                                                decimal cantidad_prod_rel = Convert.ToDecimal(drprod_relacionados["Cantidad"]);
+                                                decimal cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
 
                                                 cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
                                             }
