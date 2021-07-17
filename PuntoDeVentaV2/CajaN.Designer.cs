@@ -977,7 +977,7 @@
             this.lbTTotalCaja.AutoSize = true;
             this.lbTTotalCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTTotalCaja.ForeColor = System.Drawing.Color.Red;
-            this.lbTTotalCaja.Location = new System.Drawing.Point(142, 365);
+            this.lbTTotalCaja.Location = new System.Drawing.Point(144, 365);
             this.lbTTotalCaja.Name = "lbTTotalCaja";
             this.lbTTotalCaja.Size = new System.Drawing.Size(39, 17);
             this.lbTTotalCaja.TabIndex = 13;
