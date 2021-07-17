@@ -116,14 +116,14 @@ namespace PuntoDeVentaV2
             var consulta = string.Empty;
 
 
-            if (procedencia.Equals("Reportes"))
-            {
-                consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}') ORDER BY ID  ASC";
-            }
-            else if(procedencia.Equals("Caja"))
-            {
-                consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
-            }
+            //if (procedencia.Equals("Reportes"))
+            //{
+            //    consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}') ORDER BY ID  ASC";
+            //}
+            //else if(procedencia.Equals("Caja"))
+            //{
+            //    consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
+            //}
             
             consultaDos = new MySqlCommand(consulta, sql_con);
             drDos = consultaDos.ExecuteReader();

@@ -408,14 +408,14 @@ namespace PuntoDeVentaV2
             colFecha.BorderWidth = 1;
             colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
             colFecha.Padding = 3;
-            colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colFecha.BackgroundColor = new BaseColor(Color.SkyBlue); 
 
             tablaClientes.AddCell(colNoConcepto);
             tablaClientes.AddCell(colNombre);
             tablaClientes.AddCell(colCantidad);
             tablaClientes.AddCell(colFecha);
 
-            var consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY Cantidad ORDER BY Cantidad DESC");
+            var consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY Nombre ORDER BY Cantidad DESC");
 
             foreach (DataRow row in consulta.Rows)
             {
