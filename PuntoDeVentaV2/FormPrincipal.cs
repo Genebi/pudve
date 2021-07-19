@@ -518,8 +518,8 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            //InitializarTimerAndroid();
-            
+            InitializarTimerAndroid();
+
             //====================================================================
 
             // Verificar si existe registro de la tabla configuracion
