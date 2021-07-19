@@ -79,7 +79,7 @@
             this.cbStockNegativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbStockNegativo.AutoSize = true;
             this.cbStockNegativo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStockNegativo.Location = new System.Drawing.Point(301, 51);
+            this.cbStockNegativo.Location = new System.Drawing.Point(301, 53);
             this.cbStockNegativo.Name = "cbStockNegativo";
             this.cbStockNegativo.Size = new System.Drawing.Size(177, 21);
             this.cbStockNegativo.TabIndex = 1;
@@ -281,13 +281,12 @@
             // 
             this.pagWeb.AutoSize = true;
             this.pagWeb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pagWeb.Location = new System.Drawing.Point(11, 78);
+            this.pagWeb.Location = new System.Drawing.Point(11, 51);
             this.pagWeb.Name = "pagWeb";
             this.pagWeb.Size = new System.Drawing.Size(267, 21);
             this.pagWeb.TabIndex = 115;
             this.pagWeb.Text = "Habilitar información en página web";
             this.pagWeb.UseVisualStyleBackColor = true;
-            this.pagWeb.Visible = false;
             this.pagWeb.CheckedChanged += new System.EventHandler(this.pagWeb_CheckedChanged);
             // 
             // cbMostrarPrecio
@@ -307,7 +306,7 @@
             // 
             this.cbMostrarCB.AutoSize = true;
             this.cbMostrarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarCB.Location = new System.Drawing.Point(11, 51);
+            this.cbMostrarCB.Location = new System.Drawing.Point(11, 78);
             this.cbMostrarCB.Name = "cbMostrarCB";
             this.cbMostrarCB.Size = new System.Drawing.Size(283, 21);
             this.cbMostrarCB.TabIndex = 117;
