@@ -194,9 +194,10 @@ namespace PuntoDeVentaV2
 
             if (e.ColumnIndex.Equals(3))//Corte de Caja
             {
-                //var dato = traerDatosCaja(id);
-                var dato = cdc.CargarSaldo("Reportes", id);
-                GenerarReporte(dato, "CORTE DE CAJA", id);
+                ////var dato = traerDatosCaja(id);
+                //var dato = cdc.CargarSaldo("Reportes", id);
+                //GenerarReporte(dato, "CORTE DE CAJA", id);
+                recargarReporteExistente(id);
             }
             else if (e.ColumnIndex.Equals(4))//Dinero Agregado
             {
@@ -224,6 +225,33 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("No existe información para generar reporte", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+
+        private void recargarReporteExistente(int id)
+        {
+            var rutaArchivo = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{id}'");
+            var fechaReporte = string.Empty;
+            var fecha = string.Empty;
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                fecha = query.Rows[0]["FechaOperacion"].ToString();
+            }
+
+            DateTime date = DateTime.Parse(fecha);
+
+            fechaReporte = date.ToString("yyyyMMddHHmmss");
+
+            //fechaReporte = fechaReporte.Replace("/", "");
+            //fechaReporte = fechaReporte.Replace(":", "");
+            //fechaReporte = fechaReporte.Replace(" ", "");
+
+            rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_{fechaReporte}.pdf";
+
+            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            vr.ShowDialog();
         }
 
         private string[] traerDatosCaja(int id)
