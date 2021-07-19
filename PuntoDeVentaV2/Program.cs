@@ -35,18 +35,27 @@ namespace PuntoDeVentaV2
         {
             StreamWriter log;
 
-            if (!Directory.Exists(@"C:\Archivos PUDVE\LogFile"))
-            {
-                Directory.CreateDirectory(@"C:\Archivos PUDVE\LogFile");
-            }
+            //if (!Directory.Exists(@"C:\Archivos PUDVE\LogFile"))
+            //{
+            //    Directory.CreateDirectory(@"C:\Archivos PUDVE\LogFile");
+            //}
 
-            if (!File.Exists(@"C:\Archivos PUDVE\LogFile\LogFileError.txt"))
+            //if (!File.Exists(@"C:\Archivos PUDVE\LogFile\LogFileError.txt"))
+            //{
+            //    log = new StreamWriter(@"C:\Archivos PUDVE\LogFile\LogFileError.txt");
+            //}
+            //else
+            //{
+            //    log = File.AppendText(@"C:\Archivos PUDVE\LogFile\LogFileError.txt");
+            //}
+
+            if (!File.Exists("LogFileError.txt"))
             {
-                log = new StreamWriter(@"C:\Archivos PUDVE\LogFile\LogFileError.txt");
+                log = new StreamWriter("LogFileError.txt");
             }
             else
             {
-                log = File.AppendText(@"C:\Archivos PUDVE\LogFile\LogFileError.txt");
+                log = File.AppendText("LogFileError.txt");
             }
 
             // Write to the File:
