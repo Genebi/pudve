@@ -15,6 +15,9 @@ namespace PuntoDeVentaV2
         string promptMsg = string.Empty, 
                 titleWindow = string.Empty,
                 strDefaultResponse = string.Empty;
+        string validGuion = string.Empty;
+        string validPunto = string.Empty;
+        int conteoPunto, conteoGuion;
 
         public static string cantidad = string.Empty;
 
@@ -24,7 +27,7 @@ namespace PuntoDeVentaV2
             this.promptMsg = _Prompt;
             this.titleWindow = _Title;
             this.strDefaultResponse = _DefaultResponse;
-        }
+        } 
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -42,22 +45,120 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
+                
                 btnAceptar.PerformClick();
             }
+
         }
 
         private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+
+            var validarGuion = txtCantidad.Text;
+            Boolean guion = validarGuion.Contains('-');
+            if (guion == true)
             {
-                e.Handled = true;
+                validGuion = "guion";
             }
-            //Si deseas, puedes permitir numeros decimales (o float)
-            //If you want, you can allow decimal (float) numbers
-            if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+            else
             {
-                e.Handled = true;
+                validGuion = "Todo";
+                conteoGuion = 0;
             }
+
+            var validarPunto = txtCantidad.Text;
+            Boolean punto = validarPunto.Contains('.');
+            if (punto == true)
+            {
+                validPunto = "punto";
+            }
+            else
+            {
+                validPunto = "Todo";
+                conteoPunto = 0;
+            }
+
+            ////////////////////////////////////Validacion de punto y guion/////////////////////////////////////////
+
+            if (!txtCantidad.Text.Equals(string.Empty))
+            {
+                validGuion = "guion";
+            }
+            if (validGuion == "Todo" && validPunto == "Todo")
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
+                {
+                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+                    {
+                        e.Handled = true;
+                    }
+                    //Si deseas, puedes permitir numeros decimales (o float)
+                    //If you want, you can allow decimal (float) numbers
+                    if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+                    {
+                        e.Handled = true;
+                    }
+                }
+            }
+
+            else if(validPunto == "punto" && conteoPunto == 0)
+            {
+                if (!char.IsControl(e.KeyChar))
+                {
+                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                    {
+                        e.Handled = true;
+                    }
+                    //Si deseas, puedes permitir numeros decimales (o float)
+                    //If you want, you can allow decimal (float) numbers
+                    if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+                    {
+                        e.Handled = true;
+                    }
+                }
+                conteoGuion = 1;
+            }
+
+            else if (validGuion == "guion" && conteoGuion == 0)
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+                {
+                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                    {
+                        e.Handled = true;
+                    }
+                    //Si deseas, puedes permitir numeros decimales (o float)
+                    //If you want, you can allow decimal (float) numbers
+                    if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+                    {
+                        e.Handled = true;
+                    }
+                }
+                conteoPunto = 1;
+            }
+
+            if (validGuion == "guion" && validPunto == "punto")
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                    {
+                        e.Handled = true;
+                    }
+                    //Si deseas, puedes permitir numeros decimales (o float)
+                    //If you want, you can allow decimal (float) numbers
+                    if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+                    {
+                        e.Handled = true;
+                    }
+                }
+            }
+
+        }
+
+        private void txtCantidad_KeyUp(object sender, KeyEventArgs e)
+        {
+            
         }
 
         private void inputMessageBoxVentas_Load(object sender, EventArgs e)
