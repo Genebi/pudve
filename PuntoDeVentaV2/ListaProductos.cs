@@ -579,8 +579,8 @@ namespace PuntoDeVentaV2
                 row.Cells["Categoria"].Value = Categoria;
 
                 // Columna ClaveInterna
-                string ClaveInterna = filaDatos["ClaveInterna"].ToString();
-                row.Cells["ClaveInterna"].Value = ClaveInterna;
+                //string ClaveInterna = filaDatos["ClaveInterna"].ToString();
+                //row.Cells["ClaveInterna"].Value = ClaveInterna;
 
                 // Columna CodigBarras
                 string CodigoBarras = filaDatos["CodigoBarras"].ToString();
