@@ -389,16 +389,16 @@ namespace PuntoDeVentaV2
             var credi = (vCredito - retiroCredito);
             if (credi < 0) { credi = 0; }
 
-            // Apartado TOTAL EN CAJA
-            efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo; if (efectivo < 0) { efectivo = 0; }
-            tarjeta = (vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI) - rTarjeta; if (tarjeta < 0) { tarjeta = 0; }
-            vales = (vVales + aVales + dVales + abonoValesI) - rVales; if (vales < 0) { vales = 0; }
-            cheque = (vCheque + aCheque + dCheque + abonoChequeI) - rCheque; if (cheque < 0) { cheque = 0; }
-            trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia; if (trans < 0) { trans = 0; }
-            credito = vCredito;
-            //anticipos = vAnticipos;
-            anticipos = anticiposAplicados;
-            subtotal = (efectivo + tarjeta + vales + cheque + trans + /*saldoInicial*/CargarSaldoInicial()); if (subtotal < 0) { subtotal = 0; }
+            //// Apartado TOTAL EN CAJA
+            //efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo; if (efectivo < 0) { efectivo = 0; }
+            //tarjeta = (vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI) - rTarjeta; if (tarjeta < 0) { tarjeta = 0; }
+            //vales = (vVales + aVales + dVales + abonoValesI) - rVales; if (vales < 0) { vales = 0; }
+            //cheque = (vCheque + aCheque + dCheque + abonoChequeI) - rCheque; if (cheque < 0) { cheque = 0; }
+            //trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia; if (trans < 0) { trans = 0; }
+            //credito = vCredito;
+            ////anticipos = vAnticipos;
+            //anticipos = anticiposAplicados;
+            //subtotal = (efectivo + tarjeta + vales + cheque + trans + /*saldoInicial*/CargarSaldoInicial()); if (subtotal < 0) { subtotal = 0; }
 
             // Apartado VENTAS
             listaCaja.Add(vEfectivo.ToString());//lbTEfectivo.Text = moneda + vEfectivo.ToString("0.00");  //0
@@ -464,7 +464,7 @@ namespace PuntoDeVentaV2
             //anticipos = vAnticipos;
             anticipos = anticiposAplicados;
             listaCaja.Add(anticipos.ToString());       //40
-            subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos*/ + CargarSaldoInicial() /*+ vCredito*/)/* - devoluciones*/; if (subtotal < 0) { subtotal = 0; }
+            subtotal = (efectivo + tarjeta + vales + cheque + trans /*+ credito*//*+ abonos */+ CargarSaldoInicial() /*+ vCredito*/)/* - devoluciones*/; if (subtotal < 0) { subtotal = 0; }
             listaCaja.Add(subtotal.ToString());        //41
 
             var totalF = (efectivo - retiroEfectivo); if (totalF < 0) { totalF = 0; }

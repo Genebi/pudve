@@ -773,7 +773,7 @@ namespace PuntoDeVentaV2
             ////lbChequeAbonos.Text = "$" + abonoChequeI.ToString("0.00");
             ////lbTransferenciaAbonos.Text = "$" + abonoTransferenciaI.ToString("0.00");
             //lbTCreditoC.Text = moneda + abonos/*(abonoEfectivoI + abonoTarjetaI + abonoValesI + abonoChequeI + abonoTransferenciaI)*/.ToString("0.00");
-            ////lbTCreditoC.Text = moneda + float.Parse(datos[13]).ToString("0.00");
+            lbTCreditoC.Text = moneda + float.Parse(datos[13]).ToString("0.00");
 
             ////lbTotalAbonos.Text = "$" + abonoEfectivoI.ToString("0.00");
 
@@ -855,7 +855,7 @@ namespace PuntoDeVentaV2
             ////if (credito < retiroCredito) { lbTCreditoTotal.Text = "$" + "0.00"; } else { lbTCreditoTotal.Text = moneda + (vCredito - retiroCredito).ToString("0.00"); }
             ////lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             ////lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
-            lbTTotalCaja.Text = moneda + float.Parse(datos[42]).ToString("0.00");
+            lbTTotalCaja.Text = moneda + float.Parse(datos[50]).ToString("0.00");
             lbTEfectivoC.Text = moneda + float.Parse(datos[42]).ToString("0.00");
             lbTTarjetaC.Text = moneda + float.Parse(datos[43]).ToString("0.00");
             lbTValesC.Text = moneda + float.Parse(datos[44]).ToString("0.00");
@@ -870,7 +870,7 @@ namespace PuntoDeVentaV2
             ////lbTTransC.Text = moneda + totalTr.ToString("0.00");
             ////lbTCreditoC.Text = "$" + /*credito*/abonos.ToString("0.00");   // lbTCreditoC Esta etiqueta es la de Abonos---------------------------------
             ////lbTAnticiposC.Text = "$" + anticipos.ToString("0.00");
-            //lbTSaldoInicial.Text = moneda + float.Parse(datos[48]).ToString("0.00");
+            lbTSaldoInicial.Text = moneda + float.Parse(datos[48]).ToString("0.00");
             if (float.Parse(datos[39])/*credito*/ < retiroCredito) { lbTCreditoTotal.Text = "$" + "0.00"; }
             else
             {
@@ -2021,10 +2021,12 @@ namespace PuntoDeVentaV2
                 reporte.Add(tituloDepositos);
                 reporte.Add(tablaDepositos);
                 reporte.Add(linea);
+
+                dr.Close();
+                sql_con.Close();
             }
 
-            dr.Close();
-            sql_con.Close();
+
 
             #endregion
             //===============================
@@ -2170,10 +2172,12 @@ namespace PuntoDeVentaV2
 
                 reporte.Add(tituloRetiros);
                 reporte.Add(tablaRetiros);
+
+                dr.Close();
+                sql_con.Close();
             }
 
-            dr.Close();
-            sql_con.Close();
+
             
             #endregion
             //=============================
