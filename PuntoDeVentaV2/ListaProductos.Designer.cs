@@ -56,7 +56,6 @@
             this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClaveInterna = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -130,7 +129,6 @@
             this.Stock,
             this.Precio,
             this.Categoria,
-            this.ClaveInterna,
             this.Codigo});
             this.DGVStockProductos.Location = new System.Drawing.Point(11, 11);
             this.DGVStockProductos.Margin = new System.Windows.Forms.Padding(2);
@@ -412,14 +410,6 @@
             this.Categoria.ReadOnly = true;
             this.Categoria.Width = 130;
             // 
-            // ClaveInterna
-            // 
-            this.ClaveInterna.FillWeight = 20.86484F;
-            this.ClaveInterna.HeaderText = "Clave Interna";
-            this.ClaveInterna.Name = "ClaveInterna";
-            this.ClaveInterna.ReadOnly = true;
-            this.ClaveInterna.Width = 130;
-            // 
             // Codigo
             // 
             this.Codigo.FillWeight = 32.48963F;
@@ -488,7 +478,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ClaveInterna;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
     }
 }
