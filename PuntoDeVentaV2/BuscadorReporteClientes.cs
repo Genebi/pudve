@@ -298,6 +298,7 @@ namespace PuntoDeVentaV2
 
             }
         }
+        
 
         #region Reportes de articulos comprados
         private void GenerarReporteComprado(int idCliente, string nameCliente)
