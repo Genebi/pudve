@@ -1855,11 +1855,14 @@ namespace PuntoDeVentaV2
             EnviarEmailConArchivoPDF(html, asunto, correo, ruta);
         }
 
-        public static bool BuscarDataGridView(string TextoABuscar, string Columna, DataGridView grid)
+        public static bool BuscarDataGridView(string TextoABuscar1, string Columna1, DataGridView grid, string TextoABuscar2, string Columna2)
         {
             bool encontrado = false;
+            bool textoBuscarUnoEncontrado = false;
+            bool textoBuscarDosEncontrado = false;
 
-            if (TextoABuscar == string.Empty)
+            if (TextoABuscar1 == string.Empty || 
+                TextoABuscar2 == string.Empty)
             {
                 return false;
             }
@@ -1869,31 +1872,74 @@ namespace PuntoDeVentaV2
                 return false;
             }
 
+            if (TextoABuscar2.Equals("P"))
+            {
+                TextoABuscar2 = "PRODUCTO";
+            }
+            else if (TextoABuscar2.Equals("S"))
+            {
+                TextoABuscar2 = "SERVICIO";
+            }
+            else if (TextoABuscar2.Equals("PQ"))
+            {
+                TextoABuscar2 = "COMBO";
+            }
+
             grid.ClearSelection();
 
-            if (Columna == string.Empty)
+            if (Columna1 == string.Empty || Columna2 == string.Empty)
             {
                 foreach (DataGridViewRow row in grid.Rows)
                 {
                     foreach (DataGridViewCell cell in row.Cells)
                     {
-                        if (cell.Value.ToString() == TextoABuscar)
+                        if (cell.Value.ToString() == TextoABuscar1)
                         {
-                            row.Selected = true;
-                            return true;
+                            //row.Selected = true;
+                            textoBuscarUnoEncontrado = true;
+                            //return true;
                         }
                     }
+                }
+                foreach (DataGridViewRow row in grid.Rows)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        if (cell.Value.ToString() == TextoABuscar2)
+                        {
+                            //row.Selected = true;
+                            textoBuscarDosEncontrado = true;
+                            //return true;
+                        }
+                    }
+                }
+                if (textoBuscarUnoEncontrado.Equals(true) && 
+                    textoBuscarDosEncontrado.Equals(true))
+                {
+                    return true;
                 }
             }
             else
             {
                 foreach (DataGridViewRow row in grid.Rows)
                 {
-                    if (row.Cells[Columna].Value.ToString() == TextoABuscar)
+                    if (row.Cells[Columna1].Value.ToString() == TextoABuscar1)
                     {
-                        row.Selected = true;
-                        return true;
+                        //row.Selected = true;
+                        textoBuscarUnoEncontrado = true;
+                        //return true;
                     }
+                    if (row.Cells[Columna2].Value.ToString() == TextoABuscar2)
+                    {
+                        //row.Selected = true;
+                        textoBuscarDosEncontrado = true;
+                        //return true;
+                    }
+                }
+                if (textoBuscarUnoEncontrado.Equals(true) &&
+                    textoBuscarDosEncontrado.Equals(true))
+                {
+                    return true;
                 }
             }
 

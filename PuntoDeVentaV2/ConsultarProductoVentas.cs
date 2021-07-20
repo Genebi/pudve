@@ -377,7 +377,7 @@ namespace PuntoDeVentaV2
 
                 if (DGVProductos.Rows.Count.Equals(0))
                 {
-                    bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVProductos);
+                    bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVProductos, Tipo, "Tipo");
 
                     if (encontrado.Equals(false))
                     {
@@ -417,7 +417,7 @@ namespace PuntoDeVentaV2
                 {
                     foreach (DataGridViewRow Row in DGVProductos.Rows)
                     {
-                        bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVProductos);
+                        bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVProductos, Tipo, "Tipo");
 
                         if (encontrado.Equals(true))
                         {
