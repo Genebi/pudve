@@ -295,12 +295,12 @@ namespace PuntoDeVentaV2
             }
             else if (e.ColumnIndex.Equals(5))//Datos del cliente
             {
-                GenerarReporteDatosCliente();
+                GenerarReporteDatosCliente(id);
             }
         }
 
         #region Reporte datos del cliente
-        private void GenerarReporteDatosCliente()
+        private void GenerarReporteDatosCliente(int idObtenido)
         {
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
@@ -453,7 +453,7 @@ namespace PuntoDeVentaV2
             tablaClientes.AddCell(colEmail);
             tablaClientes.AddCell(colTelefono);
 
-            var consulta = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}'");
+            var consulta = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' WHERE ID = '{idObtenido}'");
 
             //foreach (DataRow row in consulta.Rows)
             //{
