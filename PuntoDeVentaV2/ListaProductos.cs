@@ -731,28 +731,28 @@ namespace PuntoDeVentaV2
             // almacenamos en la variable CategoriaProdStr del resultado de la consulta en DB
             CategoriaProdStr = DGVStockProductos[4, numfila].Value.ToString();
             // almacenamos en la variable ClaveInternaProdStr del resultado de la consulta en DB
-            ClaveInternaProdStr = DGVStockProductos[5, numfila].Value.ToString();
+            //ClaveInternaProdStr = DGVStockProductos[5, numfila].Value.ToString();
             // almacenamos en la variable CodigoBarrasProdStr del resultado de la consulta en DB
-            CodigoBarrasProdStr = DGVStockProductos[6, numfila].Value.ToString();
+            CodigoBarrasProdStr = DGVStockProductos[5, numfila].Value.ToString();
 
             /************************************************************************
             *       verificamos en que campo va ir guardado la clave interna        *
             ************************************************************************/
 
             // en el caso los dos campos esten en blanco por default va ir en el de clave Interna
-            if ((ClaveInternaProdStr == "") && (CodigoBarrasProdStr == ""))
+            if (/*(ClaveInternaProdStr == "") && */(CodigoBarrasProdStr == ""))
             {
                 // indicamos que el valor de la variable a donde va guardarse sera 1
                 opcionGuardar = 1;
             }
             // en el caso que tenga en blanco el campo de ClaveInterna en blanco va ir en el de clave Interna
-            else if ((ClaveInternaProdStr == "") && (CodigoBarrasProdStr != ""))
+            else if (/*(ClaveInternaProdStr == "") &&*/ (CodigoBarrasProdStr != ""))
             {
                 // indicamos que el valor de la variable a donde va guardarse sera 2
                 opcionGuardar = 2;
             }
             // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
-            else if ((ClaveInternaProdStr != "") && (CodigoBarrasProdStr == ""))
+            else if (/*(ClaveInternaProdStr != "") && */(CodigoBarrasProdStr == ""))
             {
                 // indicamos que el valor de la variable a donde va guardarse sera 3
                 opcionGuardar = 3;
@@ -773,7 +773,7 @@ namespace PuntoDeVentaV2
             StockProdStrFin = StockProdStr;                         // almacenamos el valor de StockProd
             PrecioDelProdStrFin = PrecioDelProdStr;                 // almacenamos el valor de PrecioDelProd
             CategoriaProdStrFin = CategoriaProdStr;                 // almacenamos el valor de CategoriaProd
-            ClaveInternaProdStrFin = ClaveInternaProdStr;           // almacenamos el valor de ClaveInternaProd
+            //ClaveInternaProdStrFin = ClaveInternaProdStr;           // almacenamos el valor de ClaveInternaProd
             CodigoBarrasProdStrFin = CodigoBarrasProdStr;           // almacenamos el valor de CodigoBarrasProd
             consultadoDesdeListProd = 1;                            // almacenamos el valor si selecciono un producto
             consultadoDesdeListProdFin = consultadoDesdeListProd;   // almacenamos el valor de consultadoDesdeListProd
@@ -798,7 +798,7 @@ namespace PuntoDeVentaV2
                     AgregarStockXML.StockProdStrFin = StockProdStr;  // almacenamos el valor de StockProd
                     AgregarStockXML.PrecioDelProdStrFin = PrecioDelProdStr;                 // almacenamos el valor de PrecioDelProd
                     AgregarStockXML.CategoriaProdStrFin = CategoriaProdStr;                 // almacenamos el valor de CategoriaProd
-                    AgregarStockXML.ClaveInternaProdStrFin = ClaveInternaProdStr;           // almacenamos el valor de ClaveInternaProd
+                    //AgregarStockXML.ClaveInternaProdStrFin = ClaveInternaProdStr;           // almacenamos el valor de ClaveInternaProd
                     AgregarStockXML.CodigoBarrasProdStrFin = CodigoBarrasProdStr;           // almacenamos el valor de CodigoBarrasProd
                     consultadoDesdeListProd = 1;                                            // almacenamos el valor si selecciono un producto
                     AgregarStockXML.consultadoDesdeListProdFin = consultadoDesdeListProd;   // almacenamos el valor de consultadoDesdeListProd
