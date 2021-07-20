@@ -295,10 +295,266 @@ namespace PuntoDeVentaV2
             }
             else if (e.ColumnIndex.Equals(5))//Datos del cliente
             {
-
+                GenerarReporteDatosCliente();
             }
         }
-        
+
+        #region Reporte datos del cliente
+        private void GenerarReporteDatosCliente()
+        {
+            // Datos del usuario
+            var datos = FormPrincipal.datosUsuario;
+
+            // Fuentes y Colores
+            var colorFuenteNegrita = new BaseColor(Color.Black);
+            var colorFuenteBlanca = new BaseColor(Color.White);
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
+
+            //var numRow = 0;
+
+            // Ruta donde se creara el archivo PDF
+            var servidor = Properties.Settings.Default.Hosting;
+            var rutaArchivo = string.Empty;
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\datosClientes.pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Reportes\datosClientes.pdf";
+            }
+
+            var fechaHoy = DateTime.Now;
+
+            Document reporte = new Document(PageSize.A3.Rotate());
+            PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+
+            reporte.Open();
+
+            Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+
+            Paragraph Usuario = new Paragraph("");
+
+            //Paragraph numeroFolio = new Paragraph("");
+
+            string UsuarioActivo = string.Empty;
+
+            string tipoReporte = string.Empty,
+                    encabezadoTipoReporte = string.Empty;
+
+            using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+            {
+                if (!dtDataUsr.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drDataUsr in dtDataUsr.Rows)
+                    {
+                        UsuarioActivo = drDataUsr["Usuario"].ToString();
+                    }
+                }
+            }
+
+            Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+
+            Paragraph subTitulo = new Paragraph("REPORTE DE CLIENTES\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+
+            //numeroFolio = new Paragraph("No. FOLIO: " + num, fuenteNormal);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
+            //numeroFolio.Alignment = Element.ALIGN_CENTER;
+
+
+            float[] anchoColumnas = new float[] { 190f, 90f, 80f, 80f, 120f, 70f, 70f, 120f, 80f};
+
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+
+            //============================
+            //=== TABLA DE Clientes  =====
+            //============================
+
+            PdfPTable tablaClientes = new PdfPTable(9);
+            tablaClientes.WidthPercentage = 70;
+            tablaClientes.SetWidths(anchoColumnas);
+
+            //PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
+            //colNoConcepto.BorderWidth = 1;
+            //colNoConcepto.BackgroundColor = new BaseColor(Color.SkyBlue);
+            //colNoConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colNombre = new PdfPCell(new Phrase("NOMBRE COMERCIAL", fuenteTotales));
+            colNombre.BorderWidth = 1;
+            colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
+            colNombre.Padding = 3;
+            colNombre.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colRFC = new PdfPCell(new Phrase("RFC", fuenteTotales));
+            colRFC.BorderWidth = 1;
+            colRFC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colRFC.Padding = 3;
+            colRFC.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colPais = new PdfPCell(new Phrase("PAIS", fuenteTotales));
+            colPais.BorderWidth = 1;
+            colPais.HorizontalAlignment = Element.ALIGN_CENTER;
+            colPais.Padding = 3;
+            colPais.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colEstado = new PdfPCell(new Phrase("ESTADO", fuenteTotales));
+            colEstado.BorderWidth = 1;
+            colEstado.HorizontalAlignment = Element.ALIGN_CENTER;
+            colEstado.Padding = 3;
+            colEstado.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colMunicipio = new PdfPCell(new Phrase("MUNICIPIO", fuenteTotales));
+            colMunicipio.BorderWidth = 1;
+            colMunicipio.HorizontalAlignment = Element.ALIGN_CENTER;
+            colMunicipio.Padding = 3;
+            colMunicipio.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colCodigoPostal = new PdfPCell(new Phrase("CODIGO POSTAL", fuenteTotales));
+            colCodigoPostal.BorderWidth = 1;
+            colCodigoPostal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCodigoPostal.Padding = 3;
+            colCodigoPostal.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colRegimenFiscal = new PdfPCell(new Phrase("REGIMEN FISCAL", fuenteTotales));
+            colRegimenFiscal.BorderWidth = 1;
+            colRegimenFiscal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colRegimenFiscal.Padding = 3;
+            colRegimenFiscal.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colEmail = new PdfPCell(new Phrase("EMAIL", fuenteTotales));
+            colEmail.BorderWidth = 1;
+            colEmail.HorizontalAlignment = Element.ALIGN_CENTER;
+            colEmail.Padding = 3;
+            colEmail.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colTelefono = new PdfPCell(new Phrase("TELEFONO", fuenteTotales));
+            colTelefono.BorderWidth = 1;
+            colTelefono.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTelefono.Padding = 3;
+            colTelefono.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            //tablaClientes.AddCell(colNoConcepto);
+            tablaClientes.AddCell(colNombre);
+            tablaClientes.AddCell(colRFC);
+            tablaClientes.AddCell(colPais);
+            tablaClientes.AddCell(colEstado);
+            tablaClientes.AddCell(colMunicipio);
+            tablaClientes.AddCell(colCodigoPostal);
+            tablaClientes.AddCell(colRegimenFiscal);
+            tablaClientes.AddCell(colEmail);
+            tablaClientes.AddCell(colTelefono);
+
+            var consulta = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}'");
+
+            //foreach (DataRow row in consulta.Rows)
+            //{
+            //var nombre = row["NombreComercial"].ToString();
+            //var rfc = row["RFC"].ToString();
+            //var pais = row["Pais"].ToString();
+            //var estado = row["Estado"].ToString();
+            //var municipio = row["Municipio"].ToString();
+            //var codigoPostal = row["CodigoPostal"].ToString();
+            //var regimenFiscal = row["RegimenFiscal"].ToString();
+            //var email = row["Email"].ToString();
+            //var telefono = row["Telefono"].ToString();
+            //var tipoCliente = row["TipoCliente"].ToString();
+            if (!consulta.Rows.Count.Equals(0))
+            {
+                var nombre = consulta.Rows[0]["RazonSocial"].ToString();
+                var rfc = consulta.Rows[0]["RFC"].ToString();
+                var pais = consulta.Rows[0]["Pais"].ToString();
+                var estado = consulta.Rows[0]["Estado"].ToString();
+                var municipio = consulta.Rows[0]["Municipio"].ToString();
+                var codigoPostal = consulta.Rows[0]["CodigoPostal"].ToString();
+                var regimenFiscal = consulta.Rows[0]["RegimenFiscal"].ToString();
+                var email = consulta.Rows[0]["Email"].ToString();
+                var telefono = consulta.Rows[0]["Telefono"].ToString();
+
+                //numRow++;
+                //PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                //colNoConceptoTmp.BorderWidth = 1;
+                //colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre.ToString(), fuenteNormal));
+                colNombreTmp.BorderWidth = 1;
+                colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colRFCTmp = new PdfPCell(new Phrase(rfc.ToString(), fuenteNormal));
+                colRFCTmp.BorderWidth = 1;
+                colRFCTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colPaisTmp = new PdfPCell(new Phrase(pais.ToString(), fuenteNormal));
+                colPaisTmp.BorderWidth = 1;
+                colPaisTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colEstadoTmp = new PdfPCell(new Phrase(estado.ToString(), fuenteNormal));
+                colEstadoTmp.BorderWidth = 1;
+                colEstadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colMunicipioTmp = new PdfPCell(new Phrase(municipio.ToString(), fuenteNormal));
+                colMunicipioTmp.BorderWidth = 1;
+                colMunicipioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colCodigoPostalTmp = new PdfPCell(new Phrase(codigoPostal.ToString(), fuenteNormal));
+                colCodigoPostalTmp.BorderWidth = 1;
+                colCodigoPostalTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colRegimenFiscalTmp = new PdfPCell(new Phrase(regimenFiscal.ToString(), fuenteNormal));
+                colRegimenFiscalTmp.BorderWidth = 1;
+                colRegimenFiscalTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colEmailTmp = new PdfPCell(new Phrase(email.ToString(), fuenteNormal));
+                colEmailTmp.BorderWidth = 1;
+                colEmailTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colTelefonoTmp = new PdfPCell(new Phrase(telefono.ToString(), fuenteNormal));
+                colTelefonoTmp.BorderWidth = 1;
+                colTelefonoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                
+
+                //tablaClientes.AddCell(colNoConceptoTmp);
+                tablaClientes.AddCell(colNombreTmp);
+                tablaClientes.AddCell(colRFCTmp);
+                tablaClientes.AddCell(colPaisTmp);
+                tablaClientes.AddCell(colEstadoTmp);
+                tablaClientes.AddCell(colMunicipioTmp);
+                tablaClientes.AddCell(colCodigoPostalTmp);
+                tablaClientes.AddCell(colRegimenFiscalTmp);
+                tablaClientes.AddCell(colEmailTmp);
+                tablaClientes.AddCell(colTelefonoTmp);
+            }
+            //}
+
+            reporte.Add(titulo);
+            reporte.Add(Usuario);
+            //reporte.Add(numeroFolio);
+            reporte.Add(subTitulo);
+            reporte.Add(tablaClientes);
+
+            //================================
+            //=== FIN TABLA DE Clientes  =====
+            //================================
+
+            reporte.AddTitle("Reporte Inventario");
+            reporte.AddAuthor("PUDVE");
+            reporte.Close();
+            writer.Close();
+
+            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            vr.ShowDialog();
+
+
+        }
+        #endregion
 
         #region Reportes de articulos comprados
         private void GenerarReporteComprado(int idCliente, string nameCliente)
@@ -375,7 +631,7 @@ namespace PuntoDeVentaV2
             //numeroFolio.Alignment = Element.ALIGN_CENTER;
 
 
-            float[] anchoColumnas = new float[] { 30f, 270f, 60f, 80f};
+            float[] anchoColumnas = new float[] { 30f, 270f, 60f, 80f };
 
             // Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -409,7 +665,7 @@ namespace PuntoDeVentaV2
             colFecha.BorderWidth = 1;
             colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
             colFecha.Padding = 3;
-            colFecha.BackgroundColor = new BaseColor(Color.SkyBlue); 
+            colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             tablaClientes.AddCell(colNoConcepto);
             tablaClientes.AddCell(colNombre);
