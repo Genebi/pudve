@@ -421,7 +421,7 @@ namespace PuntoDeVentaV2
         {
             string[] datos;
 
-            if (propiedad == "mensajeVentas")
+            if (propiedad == "MensajeVentas")
             {
                 TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensaje", true)[0];
 
@@ -459,7 +459,7 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta(consulta);
                 }
             }
-            else if (propiedad == "mensajeInventario")
+            else if (propiedad == "MensajeInventario")
             {
                 TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
 
