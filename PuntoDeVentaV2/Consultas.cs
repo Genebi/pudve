@@ -2372,5 +2372,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string nombreTipoDelProducto(int idProducto)
+        {
+            var consulta = $"SELECT DISTINCT Prod.Nombre, IF (Prod.Tipo = 'P', 'PRODUCTO', 'N/A') AS Tipo FROM productos AS Prod INNER JOIN ProductosDeServicios AS ServicesProd ON Prod.ID = ServicesProd.IDProducto WHERE ServicesProd.IDProducto = '{idProducto}'; ";
+
+            return consulta;
+        }
     }
 }  

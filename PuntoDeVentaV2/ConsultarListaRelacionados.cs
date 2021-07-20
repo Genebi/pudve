@@ -131,6 +131,15 @@ namespace PuntoDeVentaV2
             }
             else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
             {
+                string ID = string.Empty;
+                string Fecha = string.Empty;
+                string IDServicio = string.Empty;
+                string CombServ = string.Empty;
+                string IDProducto = string.Empty;
+                string NombreProducto = string.Empty;
+                string Cantidad = string.Empty;
+                string Tipo = string.Empty;
+
                 using (DataTable dtProdServ = cn.CargarDatos(cs.buscarProdIntoServComb(idProdEdit)))
                 {
                     if (!dtProdServ.Rows.Count.Equals(0))
@@ -141,14 +150,14 @@ namespace PuntoDeVentaV2
                             var numberOfRows = DGVProdServCombo.Rows.Add();
                             DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
 
-                            string ID = drProdServ["ID"].ToString();
-                            string Fecha = drProdServ["Fecha"].ToString();
-                            string IDServicio = drProdServ["NoServicio"].ToString();
-                            string CombServ = drProdServ["ServicioCombo"].ToString();
-                            string IDProducto = drProdServ["NoProducto"].ToString();
-                            string NombreProducto = drProdServ["Producto"].ToString();
-                            string Cantidad = drProdServ["Cantidad"].ToString();
-                            string Tipo = drProdServ["Tipo"].ToString();
+                            ID = drProdServ["ID"].ToString();
+                            Fecha = drProdServ["Fecha"].ToString();
+                            IDServicio = drProdServ["NoServicio"].ToString();
+                            CombServ = drProdServ["ServicioCombo"].ToString();
+                            IDProducto = drProdServ["NoProducto"].ToString();
+                            NombreProducto = drProdServ["Producto"].ToString();
+                            Cantidad = drProdServ["Cantidad"].ToString();
+                            Tipo = drProdServ["Tipo"].ToString();
                             var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
 
                             row.Cells["ID"].Value = ID;
@@ -171,16 +180,20 @@ namespace PuntoDeVentaV2
                         var numberOfRows = DGVProdServCombo.Rows.Add();
                         DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
 
-                        string Fecha = words[0].ToString();
-                        string IDServicio = words[1].ToString();
-                        string IDProducto = words[2].ToString();
-                        string NombreProducto = words[3].ToString();
-                        string Cantidad = words[4].ToString();
+                        Fecha = words[0].ToString();
+                        IDServicio = words[1].ToString();
+                        IDProducto = words[2].ToString();
+                        NombreProducto = words[3].ToString();
+                        if (!words[4].ToString().Equals("0"))
+                        {
+                            Cantidad = words[4].ToString();
+                        }
+                        
                         var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
 
                         row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
                         row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
-                        using (DataTable dtServComb = cn.CargarDatos(cs.obtenerServicioCombo(Convert.ToInt32(IDServicio))))
+                        using (DataTable dtServComb = cn.CargarDatos(cs.nombreTipoDelProducto(Convert.ToInt32(IDServicio))))
                         {
                             if (!dtServComb.Rows.Count.Equals(0))
                             {
