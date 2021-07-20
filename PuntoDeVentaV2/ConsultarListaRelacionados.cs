@@ -181,8 +181,8 @@ namespace PuntoDeVentaV2
                         DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
 
                         Fecha = words[0].ToString();
-                        IDServicio = words[1].ToString();
-                        IDProducto = words[2].ToString();
+                        IDServicio = words[2].ToString();
+                        IDProducto = words[1].ToString();
                         NombreProducto = words[3].ToString();
                         if (!words[4].ToString().Equals("0"))
                         {
