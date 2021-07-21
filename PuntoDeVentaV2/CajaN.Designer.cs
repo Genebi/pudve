@@ -419,6 +419,7 @@
             this.lbTAnticiposC.Size = new System.Drawing.Size(39, 17);
             this.lbTAnticiposC.TabIndex = 18;
             this.lbTAnticiposC.Text = "$0.00";
+            this.lbTAnticiposC.Visible = false;
             // 
             // lbTarjetaR
             // 
@@ -441,6 +442,7 @@
             this.lbAnticiposC.Size = new System.Drawing.Size(130, 35);
             this.lbAnticiposC.TabIndex = 17;
             this.lbAnticiposC.Text = "Anticipos utilizados al corte";
+            this.lbAnticiposC.Visible = false;
             // 
             // lbEfectivoR
             // 

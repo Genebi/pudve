@@ -874,6 +874,7 @@ namespace PuntoDeVentaV2
             if (float.Parse(datos[39])/*credito*/ < retiroCredito) { lbTCreditoTotal.Text = "$" + "0.00"; }
             else
             {
+                lbTCreditoTotal.Text = moneda + float.Parse(datos[5]).ToString("0.00");
                 ////lbTCreditoTotal.Text = moneda + (vCredito - retiroCredito).ToString("0.00");
                 //////lbTCreditoTotal.Text = "$" + float.Parse(datos[49]).ToString("0.00");
                 ////lbTSubtotal.Text = "$" + subtotal.ToString("0.00");

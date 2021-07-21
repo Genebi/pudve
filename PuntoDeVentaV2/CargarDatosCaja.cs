@@ -444,9 +444,9 @@ namespace PuntoDeVentaV2
             listaCaja.Add(retiroCheque.ToString());//lbChequeR.Text = moneda + " -" + retiroCheque.ToString("0.00");               //29
             listaCaja.Add(retiroTrans.ToString());//lbTransferenciaR.Text = moneda + " -" + retiroTrans.ToString("0.00");          //30
             ////lbTAnticiposC.Text = "$ -" + vAnticipos.ToString("0.00");
-            listaCaja.Add(anticiposAplicados.ToString());//lbTAnticiposC.Text = moneda + " -" + anticiposAplicados.ToString("0.00");//31
+            //listaCaja.Add(anticiposAplicados.ToString());//lbTAnticiposC.Text = moneda + " -" + anticiposAplicados.ToString("0.00");//31
             listaCaja.Add(devoluciones.ToString());//lbDevoluciones.Text = moneda + " -" + devoluciones.ToString("0.00");          //32
-            listaCaja.Add((retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString());//lbTRetirado.Text = moneda + " -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");                                     //33
+            listaCaja.Add((retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*anticiposAplicados +*/ devoluciones).ToString());//lbTRetirado.Text = moneda + " -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");                                     //33
 
             // Apartado TOTAL EN CAJA
             efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo; if (efectivo < 0) { efectivo = 0; }
