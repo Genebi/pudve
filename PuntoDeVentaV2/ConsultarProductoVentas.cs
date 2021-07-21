@@ -479,6 +479,7 @@ namespace PuntoDeVentaV2
 
         private void ConsultarProductoVentas_Load(object sender, EventArgs e)
         {
+            
             filtroLoadProductos();
 
             GenerarColumnas();

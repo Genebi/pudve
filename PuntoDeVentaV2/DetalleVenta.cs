@@ -298,7 +298,7 @@ namespace PuntoDeVentaV2
             }
             //validarNoDuplicarVentas = 0;
 
-            
+
         }
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

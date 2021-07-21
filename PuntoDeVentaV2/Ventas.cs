@@ -2684,6 +2684,8 @@ namespace PuntoDeVentaV2
                     noDuplicadoVentas = 1;
                 }
             }
+            listProductos.Clear();
+            liststock2.Clear();
         }
 
         private string buscarIdCliente(string nameCliente)
