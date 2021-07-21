@@ -291,13 +291,181 @@ namespace PuntoDeVentaV2
             }
             else if (e.ColumnIndex.Equals(4))//Articulos no comprados
             {
-
+                GenerarReporteNoComprado(id, nameCliente);
             }
             else if (e.ColumnIndex.Equals(5))//Datos del cliente
             {
                 GenerarReporteDatosCliente(id);
             }
         }
+
+        #region Reporte de articulos no comprados por el cliente
+        private void GenerarReporteNoComprado(int id, string nameCliente)
+        {
+            var mostrarClave = FormPrincipal.clave;
+            //var numFolio = obtenerFolio(num);
+
+            // Datos del usuario
+            var datos = FormPrincipal.datosUsuario;
+
+            // Fuentes y Colores
+            var colorFuenteNegrita = new BaseColor(Color.Black);
+            var colorFuenteBlanca = new BaseColor(Color.White);
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
+
+            var numRow = 0;
+
+            // Ruta donde se creara el archivo PDF
+            var servidor = Properties.Settings.Default.Hosting;
+            var rutaArchivo = string.Empty;
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\clientes.pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Reportes\clientes.pdf";
+            }
+
+            var fechaHoy = DateTime.Now;
+            //var rutaArchivo = @"C:\Archivos PUDVE\Reportes\clientes.pdf";
+
+            Document reporte = new Document(PageSize.A3.Rotate());
+            PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+
+            reporte.Open();
+
+            Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+
+            Paragraph Usuario = new Paragraph("");
+
+            //Paragraph numeroFolio = new Paragraph("");
+
+            string UsuarioActivo = string.Empty;
+
+            string tipoReporte = string.Empty,
+                    encabezadoTipoReporte = string.Empty;
+
+            using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+            {
+                if (!dtDataUsr.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drDataUsr in dtDataUsr.Rows)
+                    {
+                        UsuarioActivo = drDataUsr["Usuario"].ToString();
+                    }
+                }
+            }
+
+            Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
+
+            Paragraph subTitulo = new Paragraph("REPORTE DE ARTICULOS NO COMPRADOS\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+
+            //numeroFolio = new Paragraph("No. FOLIO: " + num, fuenteNormal);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
+            //numeroFolio.Alignment = Element.ALIGN_CENTER;
+
+
+            float[] anchoColumnas = new float[] { 30f, 270f, 60f, 80f };
+
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+
+            //============================
+            //=== TABLA DE INVENTARIO  ===
+            //============================
+
+            PdfPTable tablaClientes = new PdfPTable(4);
+            tablaClientes.WidthPercentage = 70;
+            tablaClientes.SetWidths(anchoColumnas);
+
+            PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
+            colNoConcepto.BorderWidth = 1;
+            colNoConcepto.BackgroundColor = new BaseColor(Color.SkyBlue);
+            colNoConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colNombre = new PdfPCell(new Phrase("NOMBRE", fuenteTotales));
+            colNombre.BorderWidth = 1;
+            colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
+            colNombre.Padding = 3;
+            colNombre.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colPrecio = new PdfPCell(new Phrase("PRECIO", fuenteTotales));
+            colPrecio.BorderWidth = 1;
+            colPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
+            colPrecio.Padding = 3;
+            colPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            PdfPCell colCodigoBarras = new PdfPCell(new Phrase("CODIGO DE BARRAS", fuenteTotales));
+            colCodigoBarras.BorderWidth = 1;
+            colCodigoBarras.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCodigoBarras.Padding = 3;
+            colCodigoBarras.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+            tablaClientes.AddCell(colNoConcepto);
+            tablaClientes.AddCell(colNombre);
+            tablaClientes.AddCell(colPrecio);
+            tablaClientes.AddCell(colCodigoBarras);
+
+            var consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Name, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente != '{id}'"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
+
+            foreach (DataRow row in consulta.Rows)
+            {
+                var nombre = row["Name"].ToString();
+                var precio = row["Price"].ToString();
+                var codigo = row["Codigo"].ToString();
+
+                numRow++;
+                PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                colNoConceptoTmp.BorderWidth = 1;
+                colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre.ToString(), fuenteNormal));
+                colNombreTmp.BorderWidth = 1;
+                colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$ "+precio.ToString(), fuenteNormal));
+                colPrecioTmp.BorderWidth = 1;
+                colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colCodigoBarrasTmp = new PdfPCell(new Phrase(codigo.ToString(), fuenteNormal));
+                colCodigoBarrasTmp.BorderWidth = 1;
+                colCodigoBarrasTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                tablaClientes.AddCell(colNoConceptoTmp);
+                tablaClientes.AddCell(colNombreTmp);
+                tablaClientes.AddCell(colPrecioTmp);
+                tablaClientes.AddCell(colCodigoBarrasTmp);
+
+            }
+
+            reporte.Add(titulo);
+            reporte.Add(Usuario);
+            //reporte.Add(numeroFolio);
+            reporte.Add(subTitulo);
+            reporte.Add(tablaClientes);
+
+            //================================
+            //=== FIN TABLA DE INVENTARIO  ===
+            //================================
+
+            reporte.AddTitle("Reporte Inventario");
+            reporte.AddAuthor("PUDVE");
+            reporte.Close();
+            writer.Close();
+
+            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            vr.ShowDialog();
+        }
+        #endregion
 
         #region Reporte datos del cliente
         private void GenerarReporteDatosCliente(int idObtenido)
@@ -453,7 +621,7 @@ namespace PuntoDeVentaV2
             tablaClientes.AddCell(colEmail);
             tablaClientes.AddCell(colTelefono);
 
-            var consulta = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' WHERE ID = '{idObtenido}'");
+            var consulta = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idObtenido}'");
 
             //foreach (DataRow row in consulta.Rows)
             //{
@@ -621,7 +789,7 @@ namespace PuntoDeVentaV2
 
             Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
 
-            Paragraph subTitulo = new Paragraph("REPORTE DE CLIENTES\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            Paragraph subTitulo = new Paragraph("REPORTE DE ARTICULOS COMPRADOS\nSECCIÓN ELEGIDA " + encabezadoTipoReporte.ToUpper() + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             //numeroFolio = new Paragraph("No. FOLIO: " + num, fuenteNormal);
 
