@@ -627,7 +627,7 @@ namespace PuntoDeVentaV2
                 foreach (DataGridViewRow fila in DGVentas.Rows)
                 {
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
-                    if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]))
+                    if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]) && fila.Cells["IDProducto"].Value.Equals(datosProducto[0]))
                     {
                         decimal sumar = cnt;// 1;
 

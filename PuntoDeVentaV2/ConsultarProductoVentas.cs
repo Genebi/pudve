@@ -683,7 +683,10 @@ namespace PuntoDeVentaV2
                 for (int i = 0; i < rows.Count; i++)
                 {
                     var codigoProd = DGVProductos.SelectedRows[i].Cells[4].Value.ToString();
-                    var datosProducto = cn.CargarDatos($"SELECT ID, Nombre, Precio, TipoDescuento, Stock, Tipo, ClaveInterna, CodigoBarras, StockNecesario, ProdImage, StockMinimo, PrecioCompra, PrecioMayoreo, Impuesto, Categoria, ProdImage, ClaveProducto, UnidadMedida  FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigoProd}'");
+
+                    var datosProducto = cn.CargarDatos($"SELECT ID, Nombre, Precio, TipoDescuento, Stock, Tipo, ClaveInterna, CodigoBarras, StockNecesario, ProdImage, StockMinimo, PrecioCompra, PrecioMayoreo, Impuesto, Categoria, ProdImage, ClaveProducto, UnidadMedida  FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigoProd}' AND Status = '1'");
+
+                    //var datosProducto = cn.CargarDatos(cs.searchSaleProduct(codigoProd));
 
                     var id = string.Empty; var nombre = string.Empty; var precio = string.Empty; var tipoDescuento = string.Empty; var stock = string.Empty; var tipo = string.Empty; var claveInterna = string.Empty; var codigoBarras = string.Empty; var stockNecesario = string.Empty; var prodImage = string.Empty; var stockMinimo = string.Empty; var precioCompra = string.Empty; var precioMayoreo = string.Empty; var impuesto = string.Empty; var categoria = string.Empty; var prodimage = string.Empty; var claveProducto = string.Empty; var unidadMedida = string.Empty;
 
