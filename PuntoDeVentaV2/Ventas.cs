@@ -43,6 +43,7 @@ namespace PuntoDeVentaV2
         public static List<string> listProductos = new List<string>();
         public static List<string> liststock = new List<string>();
         public static List<string> liststock2 = new List<string>();
+        List<string> stockCantidad = new List<string>();
 
         public static bool ventaGuardada = false; //Para saber si la venta se guardo o no
         int cantidadExtra = 0;
@@ -606,6 +607,11 @@ namespace PuntoDeVentaV2
 
         private void AgregarProducto(string[] datosProducto, decimal cnt = 1)
         {
+            stockCantidad.Clear();
+            foreach (DataGridViewRow cantidades in DGVentas.Rows)
+            {
+                stockCantidad.Add(cantidades.Cells["Cantidad"].Value.ToString());
+            }
             if (DGVentas.Rows.Count == 0 && buscarvVentaGuardada == ".#")
             {
                 if (cnt >= 1)
@@ -626,6 +632,7 @@ namespace PuntoDeVentaV2
 
                 foreach (DataGridViewRow fila in DGVentas.Rows)
                 {
+                     
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]) && fila.Cells["IDProducto"].Value.Equals(datosProducto[0]))
                     {
@@ -651,8 +658,17 @@ namespace PuntoDeVentaV2
 
                             nudCantidadPS.Value = 1;
                         }
+                        decimal cantidad = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
+                        var resultado = Convert.ToString(sumar).Contains('-');
+                        if (resultado == true && ConsultarProductoVentas.cancelarResta == "return")
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            cantidad = Convert.ToDecimal(fila.Cells["Cantidad"].Value) + sumar;
+                        }
 
-                        decimal cantidad = Convert.ToDecimal(fila.Cells["Cantidad"].Value) + sumar;
                         float importe = float.Parse(cantidad.ToString()) * float.Parse(fila.Cells["Precio"].Value.ToString());
 
                         fila.Cells["Cantidad"].Value = cantidad;
@@ -750,6 +766,11 @@ namespace PuntoDeVentaV2
         {
             decimal cantidadTmp = cantidad;
 
+            if (cantidad.ToString().Contains('-'))
+            {
+                //MessageBox.Show("Uno de los productos a disminuir es menor a la                 cantidad indicada", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             // Se agrega la nueva fila y se obtiene el ID que tendrá
             int rowId = DGVentas.Rows.Add();
 
@@ -817,6 +838,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 listProductos.Add(datosProducto[0] + "|" + cantidadTmp.ToString());//ID producto
+
 
                 if ((datosProducto.Length - 1) == 14)
                 {
@@ -2684,8 +2706,6 @@ namespace PuntoDeVentaV2
                     noDuplicadoVentas = 1;
                 }
             }
-            listProductos.Clear();
-            liststock2.Clear();
         }
 
         private string buscarIdCliente(string nameCliente)
@@ -3382,12 +3402,14 @@ namespace PuntoDeVentaV2
                     if (ventaGuardada)
                     {
                         DatosVenta();
+                        liststock2.Clear();
                         idCliente = string.Empty;
                         statusVenta = string.Empty;
                         ventaGuardada = false;
                         DetalleVenta.idCliente = 0;
                         DetalleVenta.cliente = string.Empty;
                         DetalleVenta.nameClienteNameVenta = string.Empty;
+                        
                     }
                 };
 
@@ -3397,6 +3419,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No hay productos agregados a la lista", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+           
         }
 
         private bool VerificarStockProducto()
@@ -5256,6 +5279,7 @@ namespace PuntoDeVentaV2
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
+            listaProductosVenta();
             cantidadAPedir = nudCantidadPS.Value.ToString();
             if (Application.OpenForms.OfType<ConsultarProductoVentas>().Count() == 1)
             {
@@ -5274,7 +5298,7 @@ namespace PuntoDeVentaV2
                 consulta.ShowDialog();
             }
 
-            listaProductosVenta();
+            
         }
 
         private void listaProductosVenta()
@@ -5299,7 +5323,7 @@ namespace PuntoDeVentaV2
                     {
                         var cantidadaPedir = ConsultarProductoVentas.cantidadPedida;
                         
-                        if (cantidadaPedir.Equals("Cancelar"))
+                        if (cantidadaPedir.Equals("Cancelar") || cantidadAPedir.Equals("return"))
                         {
                             return;
                         }
@@ -5312,7 +5336,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         var cantidadaPedir = ConsultarProductoVentas.cantidadPedida;
-                        if (cantidadaPedir.Equals("Cancelar"))
+                        if (cantidadaPedir.Equals("Cancelar") || cantidadAPedir.Equals("return"))
                         {
                             return;
                         }
@@ -5327,7 +5351,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                nudCantidadPS.Value = Convert.ToInt32(cantidadaPedir);
+                                nudCantidadPS.Value = Convert.ToDecimal(cantidadaPedir);
                                 AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
                             }
                         }
@@ -6481,6 +6505,8 @@ namespace PuntoDeVentaV2
             {
                 Application.OpenForms.OfType<ListadoVentasGuardadas>().First().Close();
             }
+            listProductos.Clear();
+            liststock2.Clear();
         }
 
         private bool verificarImpresionTicket()

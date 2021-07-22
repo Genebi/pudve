@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
         int conteoPunto, conteoGuion;
 
         public static string cantidad = string.Empty;
+        public static string cantidadMayoraStock = string.Empty;
 
         public inputMessageBoxVentas(string _Prompt, string _Title, string _DefaultResponse)
         {

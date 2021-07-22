@@ -63,6 +63,7 @@ namespace PuntoDeVentaV2
         }
 
         public static object cantidadPedida;
+        public static object cancelarResta; 
 
         private void actualizar()
         {
@@ -720,6 +721,30 @@ namespace PuntoDeVentaV2
                 }
 
                 cantidadPedida = inputMessageBoxVentas.cantidad;
+                foreach (DataGridViewRow item in DGVProductos.Rows)
+                {
+                    if (item.Selected)
+                    {
+                        var dato = item.Cells["Nombre"].Value.ToString();
+                        if (dato.Contains('(') && dato.Contains(')') && dato.Contains('*'))
+                        {
+                            var Cantidad = dato.Split(')');
+                            var validarCantidad = Cantidad[0].Replace("(", "");
+                            if (cantidadPedida == "Cancelar")
+                            {
+                                cantidadPedida = 0;
+                            }
+                            if (cantidadPedida.ToString().Contains('-') && Convert.ToDecimal(validarCantidad) <= Math.Abs(Convert.ToDecimal(cantidadPedida) ))
+                            {
+                                MessageBox.Show("Uno de los productos a disminuir es menor a la                 cantidad indicada", "Aviso del sistema", MessageBoxButtons.OK,          MessageBoxIcon.Information);
+                                cancelarResta = "return";
+                                return;
+                                
+                            }
+                        }
+                    }
+                    
+                }
                 this.Close();
             }
         }
