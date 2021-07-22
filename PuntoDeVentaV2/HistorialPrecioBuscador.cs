@@ -593,7 +593,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else if(tipoBuscador.Equals("Productos"))

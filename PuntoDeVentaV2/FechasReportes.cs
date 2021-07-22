@@ -59,26 +59,61 @@ namespace PuntoDeVentaV2
             fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
 
             var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
-            HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
 
-            if (tipoBusqurda.Equals("Seleccionar Empleado/Producto"))
+            var existencia = verificarExistencia(tipoBusqurda);
+
+            if (existencia)
             {
-                terminarOperaciones();
-            }
-            else
-            {
-                hpBuscador.FormClosed += delegate
+                HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
+
+                if (tipoBusqurda.Equals("Seleccionar Empleado/Producto"))
                 {
-                    var idBusqueda = HistorialPrecioBuscador.idEmpleadoObtenido;
-                    if (!string.IsNullOrEmpty(idBusqueda))
+                    terminarOperaciones();
+                }
+                else
+                {
+                    hpBuscador.FormClosed += delegate
                     {
-                        terminarOperaciones();
-                    }
-                };
+                        var idBusqueda = HistorialPrecioBuscador.idEmpleadoObtenido;
+                        if (!string.IsNullOrEmpty(idBusqueda))
+                        {
+                            terminarOperaciones();
+                        }
+                    };
 
-                hpBuscador.ShowDialog();
+                    hpBuscador.ShowDialog();
+                }
+            }else
+            {
+                MessageBox.Show($"No cuenta con ningun {tipoBusqurda}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private bool verificarExistencia(string empleadoProducto)
+        {
+            var result = false;
+            var tipoEstado = string.Empty;
+            if (empleadoProducto.Equals("Empleados"))
+            {
+                tipoEstado = "estatus";
+            }
+            else if(empleadoProducto.Equals("Productos"))
+            {
+                tipoEstado = "`Status`";
+            }
+            else if (empleadoProducto.Equals("Seleccionar Empleado/Producto"))
+            {
+                result = true;
             }
 
+            var query = cn.CargarDatos($"SELECT * FROM {empleadoProducto} WHERE IDUsuario = '{FormPrincipal.userID}' AND {tipoEstado} = 1");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = true;
+            }
+
+            return result;
         }
 
         private void cargarDatosCombo()
