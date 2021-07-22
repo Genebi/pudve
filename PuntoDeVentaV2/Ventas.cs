@@ -3265,11 +3265,7 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE DetallesVenta SET Anticipo = '{Anticipo}' WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
                     }
 
-                    var validarImpresionTicket = verificarImpresionTicket();
-                    if (validarImpresionTicket)
-                    {
-                        GenerarTicket(infoProductos);
-                    }
+                    GenerarTicket(infoProductos);
 
                     if (ventaGuardada)
                     {
@@ -3279,6 +3275,8 @@ namespace PuntoDeVentaV2
                             Utilidades.CrearMarcaDeAgua(Convert.ToInt32(idVenta), "PRESUPUESTO");
                         }
                     }
+
+                    var validarImpresionTicket = verificarImpresionTicket();
 
                     if (validarImpresionTicket)
                     {
@@ -3911,7 +3909,7 @@ namespace PuntoDeVentaV2
 
             string encabezado = $"{salto}{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
 
-            ticket.Open();
+                ticket.Open();
 
             //Validación para verificar si existe logotipo
             if (logotipo != "")
