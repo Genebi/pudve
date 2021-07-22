@@ -3265,7 +3265,11 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE DetallesVenta SET Anticipo = '{Anticipo}' WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
                     }
 
-                    GenerarTicket(infoProductos);
+                    var validarImpresionTicket = verificarImpresionTicket();
+                    if (validarImpresionTicket)
+                    {
+                        GenerarTicket(infoProductos);
+                    }
 
                     if (ventaGuardada)
                     {
@@ -3276,13 +3280,16 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    if (Utilidades.AdobeReaderInstalado())
+                    if (validarImpresionTicket)
                     {
-                        ImprimirTicket(idVenta);
-                    }
-                    else
-                    {
-                        Utilidades.MensajeAdobeReader();
+                        if (Utilidades.AdobeReaderInstalado())
+                        {
+                            ImprimirTicket(idVenta);
+                        }
+                        else
+                        {
+                            Utilidades.MensajeAdobeReader();
+                        }
                     }
                 }
 
@@ -6478,6 +6485,19 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private bool verificarImpresionTicket()
+        {
+            var result = false;
+
+            var consulta = cn.CargarDatos($"SELECT HabilitarTicketVentas FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'");
+
+            if (!consulta.Rows.Count.Equals(0))
+            {
+                result = Convert.ToBoolean(consulta.Rows[0]["HabilitarTicketVentas"].ToString());
+            }
+
+            return result;
+        }
 
         /*private void DrawEllipseInt(PaintEventArgs e)
         {

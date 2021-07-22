@@ -1234,6 +1234,9 @@ IF
 -- Agregar Columna (CorreoRespaldo) a la tabla configuracion 
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoRespaldo tinyint(1) DEFAULT 0;
 
+-- Agregar Columna (HabilitarTicketVentas) a la tabla configuracion
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS HabilitarTicketVentas tinyint(1) DEFAULT 1;
+
 -- Editar el tipo de dato de la Columna FechaHoy en la tabla de usuarios
 ALTER TABLE usuarios MODIFY COLUMN FechaHoy DateTime;
 

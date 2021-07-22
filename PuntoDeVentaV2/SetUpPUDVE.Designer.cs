@@ -68,6 +68,7 @@
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chTicketVentas = new System.Windows.Forms.CheckBox();
             this.cboTipoMoneda = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -596,6 +597,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox2.Controls.Add(this.chTicketVentas);
             this.groupBox2.Controls.Add(this.checkCBVenta);
             this.groupBox2.Controls.Add(this.pagWeb);
             this.groupBox2.Controls.Add(this.label3);
@@ -614,6 +616,19 @@
             this.groupBox2.Size = new System.Drawing.Size(869, 130);
             this.groupBox2.TabIndex = 129;
             this.groupBox2.TabStop = false;
+            // 
+            // chTicketVentas
+            // 
+            this.chTicketVentas.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chTicketVentas.AutoSize = true;
+            this.chTicketVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chTicketVentas.Location = new System.Drawing.Point(301, 80);
+            this.chTicketVentas.Name = "chTicketVentas";
+            this.chTicketVentas.Size = new System.Drawing.Size(232, 21);
+            this.chTicketVentas.TabIndex = 128;
+            this.chTicketVentas.Text = "Generar ticket al realizar ventas";
+            this.chTicketVentas.UseVisualStyleBackColor = true;
+            this.chTicketVentas.CheckedChanged += new System.EventHandler(this.chTicketVentas_CheckedChanged);
             // 
             // cboTipoMoneda
             // 
@@ -904,5 +919,6 @@
         private System.Windows.Forms.CheckBox chRespaldo;
         private System.Windows.Forms.ComboBox cboTipoMoneda;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox chTicketVentas;
     }
 }

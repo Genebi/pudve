@@ -236,6 +236,8 @@ namespace PuntoDeVentaV2
                 cbCorreoDescuento.Checked = Convert.ToBoolean(datosConfig[23]);
 
                 chRespaldo.Checked = Convert.ToBoolean(datosConfig[24]);
+
+                chTicketVentas.Checked = Convert.ToBoolean(datosConfig[25]);
             }
             else
             {
@@ -971,6 +973,18 @@ namespace PuntoDeVentaV2
             {
                 producto.recargarDGV();
             }
+        }
+
+        private void chTicketVentas_CheckedChanged(object sender, EventArgs e)
+        {
+            var habilitado = 0;
+
+            if (chTicketVentas.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }
