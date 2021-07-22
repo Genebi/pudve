@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
+        CargarDatosCaja cdc = new CargarDatosCaja();
 
         //Metodos de otros form
 
@@ -276,13 +277,33 @@ namespace PuntoDeVentaV2
 
             iniciarVariablesWebService();
             CargarSaldoInicial();
-            CargarSaldo();
+            var datos = cdc.CargarSaldo("Web Service");
+            //CargarSaldo();
 
             //Consulta para insertar seccionCaja
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
             {
                 MySqlCommand agregar = conexion.CreateCommand();
                 conexion.Open();
+
+                //////////////////////////////// Antiguos datos y forma de mandar datos a web service ////////////////////////////
+                //agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, abonosVentas, anticiposUtilizadosVentas, totalVentas,  
+                //                                                  efectivoAbonos, tarjetaAbonos, valesAbonos, chequeAbonos, transferenciaAbonos, totalAbonos,
+                //                                                  efectivoAnticipos, tarjetaAnticipos, valesAnticipos, chequeAnticipos, transferenciaAnticipos, totalAnticipos,   
+                //                                                  efectivoDineroAgregado, tarjetaDineroAgregado, valesDineroAgregado, chequeDineroAgregado, transferenciaDineroAgregado, totalDineroAgregado,   
+                //                                                  efectivoRetirado, tarjetaRetirado, valesRetirado, chequeRetirado, transferenciaRetirado, anticiposUtilizadosRetiro, totalRetirado,
+                //                                                  efectivoTotalCaja, tarjetaTotalCaja, valesTotalCaja, chequeTotalCaja, transferenciaTotalCaja, creditoTotalCaja, anticiposUtilizadosTotalCaja, saldoInicialTotalCaja, subtotalEnCajaTotalCaja, dineroRetiradoTotalCaja, totalEnCajaTotalCaja, 
+                //                                                  fechaActualizacion, nickUsuario, idUsuario) 
+                //                                         VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{abonos}', '{vAnticipos}', '{totalVentas}',
+                //                                                 '{abonoEfectivoI}', '{abonoTarjetaI}', '{abonoValesI}', '{abonoChequeI}', '{abonoTransferenciaI}', '{abonos}',
+                //                                                 '{aEfectivo}', '{aTarjeta}', '{aVales}', '{aCheque}', '{aTrans}', '{totalAnticipos}', 
+                //                                                 '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}', 
+                //                                                 '{retiroEfectivo}', '{retiroTarjeta}', '{retiroVales}', '{retiroCheque}', '{retiroTrans}', '{anticipos1}','{dineroRetirado}', 
+                //                                                 '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos1}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}',
+                //                                                 '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{userNickName}', '{FormPrincipal.userID.ToString()}')";
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                /////////////////////////////// Nuevos datos y forma de mandar datos a web service /////////////////////////////
 
                 agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, abonosVentas, anticiposUtilizadosVentas, totalVentas,  
                                                                   efectivoAbonos, tarjetaAbonos, valesAbonos, chequeAbonos, transferenciaAbonos, totalAbonos,
@@ -291,17 +312,18 @@ namespace PuntoDeVentaV2
                                                                   efectivoRetirado, tarjetaRetirado, valesRetirado, chequeRetirado, transferenciaRetirado, anticiposUtilizadosRetiro, totalRetirado,
                                                                   efectivoTotalCaja, tarjetaTotalCaja, valesTotalCaja, chequeTotalCaja, transferenciaTotalCaja, creditoTotalCaja, anticiposUtilizadosTotalCaja, saldoInicialTotalCaja, subtotalEnCajaTotalCaja, dineroRetiradoTotalCaja, totalEnCajaTotalCaja, 
                                                                   fechaActualizacion, nickUsuario, idUsuario) 
-                                                         VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{abonos}', '{vAnticipos}', '{totalVentas}',
-                                                                 '{abonoEfectivoI}', '{abonoTarjetaI}', '{abonoValesI}', '{abonoChequeI}', '{abonoTransferenciaI}', '{abonos}',
-                                                                 '{aEfectivo}', '{aTarjeta}', '{aVales}', '{aCheque}', '{aTrans}', '{totalAnticipos}', 
-                                                                 '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}', 
-                                                                 '{retiroEfectivo}', '{retiroTarjeta}', '{retiroVales}', '{retiroCheque}', '{retiroTrans}', '{anticipos1}','{dineroRetirado}', 
-                                                                 '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos1}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}',
+                                                         VALUES ('{datos[0]}', '{datos[1]}','{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[13]}', '{datos[6]}', '{datos[7]}',
+                                                                 '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}',
+                                                                 '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', 
+                                                                 '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', 
+                                                                 '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}','{datos[33]}', 
+                                                                 '{datos[51]}', '{datos[52]}', '{datos[53]}', '{datos[54]}', '{datos[55]}', '{datos[39]}', '{datos[31]}', '{mb.SaldoInicialCaja(FormPrincipal.userID)}', '{datos[41]}', '{datos[33]}', '{datos[41]}',
                                                                  '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{userNickName}', '{FormPrincipal.userID.ToString()}')";
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                 int add = agregar.ExecuteNonQuery();
                 conexion.Close();
-
-
             }
         }
 

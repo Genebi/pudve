@@ -444,7 +444,7 @@ namespace PuntoDeVentaV2
             listaCaja.Add(retiroCheque.ToString());//lbChequeR.Text = moneda + " -" + retiroCheque.ToString("0.00");               //29
             listaCaja.Add(retiroTrans.ToString());//lbTransferenciaR.Text = moneda + " -" + retiroTrans.ToString("0.00");          //30
             ////lbTAnticiposC.Text = "$ -" + vAnticipos.ToString("0.00");
-            //listaCaja.Add(anticiposAplicados.ToString());//lbTAnticiposC.Text = moneda + " -" + anticiposAplicados.ToString("0.00");//31
+            listaCaja.Add(anticiposAplicados.ToString());//lbTAnticiposC.Text = moneda + " -" + anticiposAplicados.ToString("0.00");//31
             listaCaja.Add(devoluciones.ToString());//lbDevoluciones.Text = moneda + " -" + devoluciones.ToString("0.00");          //32
             listaCaja.Add((retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*anticiposAplicados +*/ devoluciones).ToString());//lbTRetirado.Text = moneda + " -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");                                     //33
 
@@ -499,11 +499,11 @@ namespace PuntoDeVentaV2
 
             verificarCantidadAbonos();
 
-            /////////////////////////////////////////////////// Lista para los reportes ////////////////////////////////////////////////////
+            ///////////////////////////////////////////////// Lista para losreportes /////////////////////////////////////////
 
             //if (!id.Equals(0))
             //{
-            //    var cantRetiradaCorte = consultaTotales(id);
+            //    var cantRetiradaCorte = consultaTotales(id); v 
 
 
             //    var totalesVentas = ((vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + anticiposAplicados) + totalAbonos);
@@ -530,14 +530,15 @@ namespace PuntoDeVentaV2
 
 
             string[] result = { };
-            if (procedencia.Equals("Caja"))
-            {
-                result = listaCaja.ToArray();
-            }
-            else if (procedencia.Equals("Reportes"))
-            {
-                result = listaReportes.ToArray();
-            }
+            //if (procedencia.Equals("Caja"))
+            //{
+            //    result = listaCaja.ToArray();
+            //}
+            //else if (procedencia.Equals("Reportes"))
+            //{
+            //    result = listaReportes.ToArray();
+            //}
+            result = listaCaja.ToArray();
 
             return result;
 
