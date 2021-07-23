@@ -1003,9 +1003,23 @@ namespace PuntoDeVentaV2
             }
             obtenerRutaPDF = rutaArchivo;
 
+            Paragraph Usuario = new Paragraph();
+            Paragraph Empleado = new Paragraph();
+
+            var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
+            var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
+
+            Usuario = new Paragraph($"USUARIO: ADMIN ({obtenerUsuarioPrincipal})", fuenteNegrita);
+            if (!string.IsNullOrEmpty(UsuarioActivo))
+            {
+                Empleado = new Paragraph($"EMPLEADO: {UsuarioActivo}", fuenteNegrita);
+            }
+
+            var numFolio = obtenerFolioCorte();
 
             Document reporte = new Document(PageSize.A3);
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+            Paragraph NumeroFolio = new Paragraph("No. Folio: " + numFolio, fuenteGrande);
 
             reporte.Open();
 
@@ -1014,6 +1028,15 @@ namespace PuntoDeVentaV2
 
             titulo.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
+            NumeroFolio.Alignment = Element.ALIGN_CENTER;
+            if (!string.IsNullOrEmpty(UsuarioActivo)) { Empleado.Alignment = Element.ALIGN_CENTER; }
+
+            reporte.Add(titulo);
+            reporte.Add(Usuario);
+            if (!string.IsNullOrEmpty(UsuarioActivo)) { reporte.Add(Empleado); }
+            reporte.Add(NumeroFolio);
+            reporte.Add(subTitulo);
 
             //===========================================
             //===       TABLAS DE CORTE DE CAJA       ===
@@ -1886,8 +1909,7 @@ namespace PuntoDeVentaV2
             //===    FIN  TABLAS DE CORTE DE CAJA     ===
             //===========================================
 
-            reporte.Add(titulo);
-            reporte.Add(subTitulo);
+
             reporte.Add(tabla);
             reporte.Add(linea);
 
@@ -2194,7 +2216,19 @@ namespace PuntoDeVentaV2
             vr.ShowDialog();
         }
 
-    
+        private int obtenerFolioCorte()
+        {
+            var result = 0;
+
+            var query = cn.CargarDatos($"SELECT NumFolio FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY ID DESC LIMIT 1");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToInt32(query.Rows[0]["NumFolio"].ToString());
+            }
+
+            return result; 
+        }
 
         private void GenerarTicket()
         {

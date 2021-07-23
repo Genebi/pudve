@@ -1209,7 +1209,7 @@ namespace PuntoDeVentaV2
                 Empleado = new Paragraph($"EMPLEADO: {UsuarioActivo}", fuenteNegrita);
             }
 
-            var numFOlio = obtenerFolio(id);
+            var numFolio = obtenerFolio(id);
 
             Document reporte = new Document(PageSize.A3);
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -1219,7 +1219,7 @@ namespace PuntoDeVentaV2
             Paragraph titulo = new Paragraph(tipoReporte, fuenteGrande);
 
 
-            Paragraph NumeroFolio = new Paragraph("No. Folio: " + numFOlio, fuenteGrande);
+            Paragraph NumeroFolio = new Paragraph("No. Folio: " + numFolio, fuenteGrande);
 
             Paragraph subTitulo = new Paragraph($"{tipoReporte}\nFecha:   {dateReporte.ToString("dddd, dd MMMM yyyy HH:mm:ss")}  \n\n\n", fuenteNormal);
 
