@@ -23,6 +23,8 @@ namespace PuntoDeVentaV2
 
         System.Drawing.Image icono = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
 
+        Dictionary<int, string> IDClientes = new Dictionary<int, string>();
+
         string filtroConSinFiltroAvanzado = string.Empty;
         string DataMemberDGV = "Clientes";
         string busqueda = string.Empty;
@@ -34,19 +36,25 @@ namespace PuntoDeVentaV2
         int maximo_x_pagina = 10;
         int clickBoton = 0;
 
+
         public BuscadorReporteClientes()
         {
             InitializeComponent();
+
+            
         }
 
         private void BuscadorReporteClientes_Load(object sender, EventArgs e)
         {
-            DGVReportesClientes.Columns[3].Width = 50;
+
+            DGVReportesClientes.Columns[1].Width = 20;
             DGVReportesClientes.Columns[4].Width = 50;
-            DGVReportesClientes.Columns[5].Width = 60;
+            DGVReportesClientes.Columns[5].Width = 50;
+            DGVReportesClientes.Columns[6].Width = 60;
 
             txtBuscar.Focus();
             cargarDatos();
+
         }
 
         private void cargarDatos()
@@ -170,11 +178,22 @@ namespace PuntoDeVentaV2
 
                     foreach (DataRow filaDatos in dtDatos.Rows)
                     {
-                        idObtenido = filaDatos["ID"].ToString();
-                        name = filaDatos["RazonSocial"].ToString();
-                        rfc = filaDatos["RFC"].ToString();
+                        int filaID = DGVReportesClientes.Rows.Add();
+                        DataGridViewRow fila = DGVReportesClientes.Rows[filaID];
 
-                        DGVReportesClientes.Rows.Add(idObtenido, name, rfc, icono, icono, icono);
+                        //idObtenido = filaDatos["ID"].ToString();
+                        //name = filaDatos["RazonSocial"].ToString();
+                        //rfc = filaDatos["RFC"].ToString();
+
+                        fila.Cells["ID"].Value = filaDatos["ID"].ToString();
+                        fila.Cells["marcar"].Value = false;
+                        fila.Cells["Nombre"].Value = filaDatos["RazonSocial"].ToString();
+                        fila.Cells["RFC"].Value = filaDatos["RFC"].ToString();
+                        fila.Cells["ArticulosBuy"].Value = icono;
+                        fila.Cells["ArticulosNotBuy"].Value = icono;
+                        fila.Cells["DatosCliente"].Value = icono;
+
+                        //DGVReportesClientes.Rows.Add(idObtenido, name, rfc, icono, icono, icono);
                     }
                 }
                 else
@@ -194,11 +213,22 @@ namespace PuntoDeVentaV2
 
                     foreach (DataRow filaDatos in dtDatos.Rows)
                     {
-                        idObtenido = filaDatos["ID"].ToString();
-                        name = filaDatos["RazonSocial"].ToString();
-                        rfc = filaDatos["RFC"].ToString();
+                        int filaID = DGVReportesClientes.Rows.Add();
+                        DataGridViewRow fila = DGVReportesClientes.Rows[filaID];
 
-                        DGVReportesClientes.Rows.Add(idObtenido, name, rfc, icono, icono, icono);
+                        //idObtenido = filaDatos["ID"].ToString();
+                        //name = filaDatos["RazonSocial"].ToString();
+                        //rfc = filaDatos["RFC"].ToString();
+
+                        fila.Cells["ID"].Value = filaDatos["ID"].ToString();
+                        fila.Cells["marcar"].Value = false;
+                        fila.Cells["Nombre"].Value = filaDatos["RazonSocial"].ToString();
+                        fila.Cells["RFC"].Value = filaDatos["RFC"].ToString();
+                        fila.Cells["ArticulosBuy"].Value = icono;
+                        fila.Cells["ArticulosNotBuy"].Value = icono;
+                        fila.Cells["DatosCliente"].Value = icono;
+
+                        //DGVReportesClientes.Rows.Add(idObtenido, name, rfc, icono, icono, icono);
                     }
                 }
             }
@@ -891,5 +921,7 @@ namespace PuntoDeVentaV2
             vr.ShowDialog();
         }
         #endregion
+
+        
     }
 }

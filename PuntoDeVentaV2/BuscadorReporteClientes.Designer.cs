@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             this.DGVReportesClientes = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ArticulosBuy = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ArticulosNotBuy = new System.Windows.Forms.DataGridViewImageColumn();
-            this.DatosCliente = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -55,6 +49,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marcar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArticulosBuy = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ArticulosNotBuy = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DatosCliente = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVReportesClientes)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -69,6 +70,7 @@
             this.DGVReportesClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVReportesClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
+            this.marcar,
             this.Nombre,
             this.RFC,
             this.ArticulosBuy,
@@ -78,53 +80,14 @@
             this.DGVReportesClientes.Location = new System.Drawing.Point(12, 117);
             this.DGVReportesClientes.Name = "DGVReportesClientes";
             this.DGVReportesClientes.RowHeadersVisible = false;
-            this.DGVReportesClientes.Size = new System.Drawing.Size(763, 283);
+            this.DGVReportesClientes.Size = new System.Drawing.Size(842, 283);
             this.DGVReportesClientes.TabIndex = 0;
             this.DGVReportesClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVReportesClientes_CellClick);
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            // 
-            // Nombre
-            // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // RFC
-            // 
-            this.RFC.HeaderText = "RFC";
-            this.RFC.Name = "RFC";
-            this.RFC.ReadOnly = true;
-            // 
-            // ArticulosBuy
-            // 
-            this.ArticulosBuy.HeaderText = "Articulos comprados";
-            this.ArticulosBuy.Name = "ArticulosBuy";
-            this.ArticulosBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ArticulosBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // ArticulosNotBuy
-            // 
-            this.ArticulosNotBuy.HeaderText = "Articulos no comprados";
-            this.ArticulosNotBuy.Name = "ArticulosNotBuy";
-            this.ArticulosNotBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ArticulosNotBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // DatosCliente
-            // 
-            this.DatosCliente.HeaderText = "Datos del cliente";
-            this.DatosCliente.Name = "DatosCliente";
-            this.DatosCliente.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DatosCliente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // btnBuscar
             // 
             this.btnBuscar.Image = global::PuntoDeVentaV2.Properties.Resources.search;
-            this.btnBuscar.Location = new System.Drawing.Point(688, 76);
+            this.btnBuscar.Location = new System.Drawing.Point(767, 74);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(87, 23);
             this.btnBuscar.TabIndex = 1;
@@ -136,7 +99,7 @@
             this.txtBuscar.Location = new System.Drawing.Point(12, 76);
             this.txtBuscar.Multiline = true;
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(636, 23);
+            this.txtBuscar.Size = new System.Drawing.Size(698, 23);
             this.txtBuscar.TabIndex = 2;
             this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             this.txtBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyDown);
@@ -145,7 +108,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(290, 21);
+            this.label1.Location = new System.Drawing.Point(359, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(152, 16);
             this.label1.TabIndex = 3;
@@ -381,11 +344,55 @@
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Visible = false;
             // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            // 
+            // marcar
+            // 
+            this.marcar.HeaderText = "";
+            this.marcar.Name = "marcar";
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // RFC
+            // 
+            this.RFC.HeaderText = "RFC";
+            this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
+            // 
+            // ArticulosBuy
+            // 
+            this.ArticulosBuy.HeaderText = "Articulos comprados";
+            this.ArticulosBuy.Name = "ArticulosBuy";
+            this.ArticulosBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ArticulosBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // ArticulosNotBuy
+            // 
+            this.ArticulosNotBuy.HeaderText = "Articulos no comprados";
+            this.ArticulosNotBuy.Name = "ArticulosNotBuy";
+            this.ArticulosNotBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ArticulosNotBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // DatosCliente
+            // 
+            this.DatosCliente.HeaderText = "Datos del cliente";
+            this.DatosCliente.Name = "DatosCliente";
+            this.DatosCliente.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DatosCliente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // BuscadorReporteClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(787, 466);
+            this.ClientSize = new System.Drawing.Size(866, 466);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBuscar);
@@ -431,6 +438,7 @@
         private System.Windows.Forms.Label lblCantidadRegistros;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn marcar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn RFC;
         private System.Windows.Forms.DataGridViewImageColumn ArticulosBuy;
