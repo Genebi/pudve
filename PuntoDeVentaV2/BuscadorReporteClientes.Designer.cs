@@ -49,13 +49,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.marcar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ArticulosBuy = new System.Windows.Forms.DataGridViewImageColumn();
             this.ArticulosNotBuy = new System.Windows.Forms.DataGridViewImageColumn();
             this.DatosCliente = new System.Windows.Forms.DataGridViewImageColumn();
+            this.btnComprados = new System.Windows.Forms.Button();
+            this.btnDatosCliente = new System.Windows.Forms.Button();
+            this.btnNoComprados = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVReportesClientes)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -69,25 +72,26 @@
             this.DGVReportesClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVReportesClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVReportesClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
             this.marcar,
+            this.ID,
             this.Nombre,
             this.RFC,
             this.ArticulosBuy,
             this.ArticulosNotBuy,
             this.DatosCliente});
             this.DGVReportesClientes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DGVReportesClientes.Location = new System.Drawing.Point(12, 117);
+            this.DGVReportesClientes.Location = new System.Drawing.Point(12, 101);
             this.DGVReportesClientes.Name = "DGVReportesClientes";
             this.DGVReportesClientes.RowHeadersVisible = false;
-            this.DGVReportesClientes.Size = new System.Drawing.Size(842, 283);
+            this.DGVReportesClientes.Size = new System.Drawing.Size(893, 283);
             this.DGVReportesClientes.TabIndex = 0;
             this.DGVReportesClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVReportesClientes_CellClick);
+            this.DGVReportesClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVReportesClientes_CellContentClick);
             // 
             // btnBuscar
             // 
             this.btnBuscar.Image = global::PuntoDeVentaV2.Properties.Resources.search;
-            this.btnBuscar.Location = new System.Drawing.Point(767, 74);
+            this.btnBuscar.Location = new System.Drawing.Point(818, 58);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(87, 23);
             this.btnBuscar.TabIndex = 1;
@@ -96,10 +100,10 @@
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(12, 76);
+            this.txtBuscar.Location = new System.Drawing.Point(12, 60);
             this.txtBuscar.Multiline = true;
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(698, 23);
+            this.txtBuscar.Size = new System.Drawing.Size(755, 23);
             this.txtBuscar.TabIndex = 2;
             this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             this.txtBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyDown);
@@ -108,7 +112,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(359, 21);
+            this.label1.Location = new System.Drawing.Point(401, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(152, 16);
             this.label1.TabIndex = 3;
@@ -126,7 +130,7 @@
             this.panel5.Controls.Add(this.label7);
             this.panel5.Controls.Add(this.lblCantidadRegistros);
             this.panel5.Controls.Add(this.label4);
-            this.panel5.Location = new System.Drawing.Point(55, 414);
+            this.panel5.Location = new System.Drawing.Point(168, 398);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(703, 43);
             this.panel5.TabIndex = 40;
@@ -344,16 +348,16 @@
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Visible = false;
             // 
+            // marcar
+            // 
+            this.marcar.HeaderText = "";
+            this.marcar.Name = "marcar";
+            // 
             // ID
             // 
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
             this.ID.Visible = false;
-            // 
-            // marcar
-            // 
-            this.marcar.HeaderText = "";
-            this.marcar.Name = "marcar";
             // 
             // Nombre
             // 
@@ -388,11 +392,56 @@
             this.DatosCliente.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.DatosCliente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
+            // btnComprados
+            // 
+            this.btnComprados.BackColor = System.Drawing.Color.Red;
+            this.btnComprados.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnComprados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnComprados.ForeColor = System.Drawing.Color.White;
+            this.btnComprados.Location = new System.Drawing.Point(771, 408);
+            this.btnComprados.Name = "btnComprados";
+            this.btnComprados.Size = new System.Drawing.Size(134, 23);
+            this.btnComprados.TabIndex = 41;
+            this.btnComprados.Text = "Articulos Comprados";
+            this.btnComprados.UseVisualStyleBackColor = false;
+            this.btnComprados.Click += new System.EventHandler(this.btnComprados_Click);
+            // 
+            // btnDatosCliente
+            // 
+            this.btnDatosCliente.BackColor = System.Drawing.Color.Red;
+            this.btnDatosCliente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDatosCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDatosCliente.ForeColor = System.Drawing.Color.White;
+            this.btnDatosCliente.Location = new System.Drawing.Point(771, 466);
+            this.btnDatosCliente.Name = "btnDatosCliente";
+            this.btnDatosCliente.Size = new System.Drawing.Size(134, 23);
+            this.btnDatosCliente.TabIndex = 42;
+            this.btnDatosCliente.Text = "Datos de clientes";
+            this.btnDatosCliente.UseVisualStyleBackColor = false;
+            this.btnDatosCliente.Click += new System.EventHandler(this.btnDatosCliente_Click);
+            // 
+            // btnNoComprados
+            // 
+            this.btnNoComprados.BackColor = System.Drawing.Color.Red;
+            this.btnNoComprados.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNoComprados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNoComprados.ForeColor = System.Drawing.Color.White;
+            this.btnNoComprados.Location = new System.Drawing.Point(771, 437);
+            this.btnNoComprados.Name = "btnNoComprados";
+            this.btnNoComprados.Size = new System.Drawing.Size(134, 23);
+            this.btnNoComprados.TabIndex = 43;
+            this.btnNoComprados.Text = "Articulos no Comprados";
+            this.btnNoComprados.UseVisualStyleBackColor = false;
+            this.btnNoComprados.Click += new System.EventHandler(this.btnNoComprados_Click);
+            // 
             // BuscadorReporteClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(866, 466);
+            this.ClientSize = new System.Drawing.Size(917, 502);
+            this.Controls.Add(this.btnNoComprados);
+            this.Controls.Add(this.btnDatosCliente);
+            this.Controls.Add(this.btnComprados);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBuscar);
@@ -437,12 +486,15 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblCantidadRegistros;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewCheckBoxColumn marcar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn RFC;
         private System.Windows.Forms.DataGridViewImageColumn ArticulosBuy;
         private System.Windows.Forms.DataGridViewImageColumn ArticulosNotBuy;
         private System.Windows.Forms.DataGridViewImageColumn DatosCliente;
+        private System.Windows.Forms.Button btnComprados;
+        private System.Windows.Forms.Button btnDatosCliente;
+        private System.Windows.Forms.Button btnNoComprados;
     }
 }

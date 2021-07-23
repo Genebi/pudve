@@ -41,18 +41,18 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
 
-            
+            MostrarCheckBox();
         }
 
         private void BuscadorReporteClientes_Load(object sender, EventArgs e)
         {
 
-            DGVReportesClientes.Columns[1].Width = 20;
-            DGVReportesClientes.Columns[4].Width = 50;
-            DGVReportesClientes.Columns[5].Width = 50;
-            DGVReportesClientes.Columns[6].Width = 60;
+            DGVReportesClientes.Columns[0].Width = 20;
+            DGVReportesClientes.Columns[4].Width = 70;
+            DGVReportesClientes.Columns[5].Width = 70;
+            DGVReportesClientes.Columns[6].Width = 70;
 
-            txtBuscar.Focus();
+            this.Focus();
             cargarDatos();
 
         }
@@ -185,8 +185,8 @@ namespace PuntoDeVentaV2
                         //name = filaDatos["RazonSocial"].ToString();
                         //rfc = filaDatos["RFC"].ToString();
 
-                        fila.Cells["ID"].Value = filaDatos["ID"].ToString();
                         fila.Cells["marcar"].Value = false;
+                        fila.Cells["ID"].Value = filaDatos["ID"].ToString();
                         fila.Cells["Nombre"].Value = filaDatos["RazonSocial"].ToString();
                         fila.Cells["RFC"].Value = filaDatos["RFC"].ToString();
                         fila.Cells["ArticulosBuy"].Value = icono;
@@ -220,8 +220,8 @@ namespace PuntoDeVentaV2
                         //name = filaDatos["RazonSocial"].ToString();
                         //rfc = filaDatos["RFC"].ToString();
 
-                        fila.Cells["ID"].Value = filaDatos["ID"].ToString();
                         fila.Cells["marcar"].Value = false;
+                        fila.Cells["ID"].Value = filaDatos["ID"].ToString();
                         fila.Cells["Nombre"].Value = filaDatos["RazonSocial"].ToString();
                         fila.Cells["RFC"].Value = filaDatos["RFC"].ToString();
                         fila.Cells["ArticulosBuy"].Value = icono;
@@ -312,18 +312,37 @@ namespace PuntoDeVentaV2
 
         private void DGVReportesClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var id = Convert.ToInt32(DGVReportesClientes.CurrentRow.Cells[0].Value.ToString());
-            var nameCliente = DGVReportesClientes.CurrentRow.Cells[1].Value.ToString();
+            var id = Convert.ToInt32(DGVReportesClientes.CurrentRow.Cells[1].Value.ToString());
+            var nameCliente = DGVReportesClientes.CurrentRow.Cells[2].Value.ToString();
+            var fila = DGVReportesClientes.CurrentCell.RowIndex;
 
-            if (e.ColumnIndex.Equals(3))//Articulos Comprados
+
+            if (e.ColumnIndex.Equals(0))// columna del CheckBox
+            {
+                var estado = Convert.ToBoolean(DGVReportesClientes.Rows[fila].Cells["marcar"].Value);
+
+                //En esta condicion se ponen 
+                if (estado.Equals(false))//Se pone falso por que al dar click inicialmente esta en false
+                {
+                    if (!IDClientes.ContainsKey(id))
+                    {
+                        IDClientes.Add(id, string.Empty);
+                    }
+                }
+                else if (estado.Equals(true))//Se pone verdadero por que al dar click inicialmente esta en true
+                {
+                    IDClientes.Remove(id);
+                }
+            }
+            else if (e.ColumnIndex.Equals(4))//Articulos Comprados
             {
                 GenerarReporteComprado(id, nameCliente);
             }
-            else if (e.ColumnIndex.Equals(4))//Articulos no comprados
+            else if (e.ColumnIndex.Equals(5))//Articulos no comprados
             {
                 GenerarReporteNoComprado(id, nameCliente);
             }
-            else if (e.ColumnIndex.Equals(5))//Datos del cliente
+            else if (e.ColumnIndex.Equals(6))//Datos del cliente
             {
                 GenerarReporteDatosCliente(id);
             }
@@ -922,6 +941,107 @@ namespace PuntoDeVentaV2
         }
         #endregion
 
-        
+        #region Funcionalidad del checkBoxMaster
+        private void MostrarCheckBox()
+        {
+            System.Drawing.Rectangle rect = DGVReportesClientes.GetCellDisplayRectangle(0, -1, true);
+            // set checkbox header to center of header cell. +1 pixel to position 
+            rect.Y = 5;
+            rect.X = 10;// rect.Location.X + (rect.Width / 4);
+            CheckBox checkBoxHeader = new CheckBox();
+            checkBoxHeader.Name = "checkBoxMaster";
+            checkBoxHeader.Size = new Size(15, 15);
+            checkBoxHeader.Location = rect.Location;
+            checkBoxHeader.CheckedChanged += new EventHandler(checkBoxMaster_CheckedChanged);
+            DGVReportesClientes.Controls.Add(checkBoxHeader);
+
+        }
+
+        private void checkBoxMaster_CheckedChanged(object sender, EventArgs e)
+        {
+            txtBuscar.Focus();
+
+            var incremento = -1;
+
+            CheckBox headerBox = ((CheckBox)DGVReportesClientes.Controls.Find("checkBoxMaster", true)[0]);
+
+            //DGVReportesClientes.Rows[0].Cells["marcar"].Value = true;
+            foreach (DataGridViewRow dgv in DGVReportesClientes.Rows)
+            {
+                incremento += 1;
+
+                try
+                {
+                    //var recorrerCheckBox = Convert.ToBoolean(DGVReportesClientes.Rows[incremento].Cells["mostrar"].Value);
+
+                    var idRevision = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+
+                    if (headerBox.Checked)
+                    {
+                        if (!IDClientes.ContainsKey(idRevision))
+                        {
+                            IDClientes.Add(idRevision, string.Empty);
+                            DGVReportesClientes.Rows[incremento].Cells["marcar"].Value = true;
+                        }
+                    }
+                    else if (!headerBox.Checked)
+                    {
+                        IDClientes.Remove(idRevision);
+                        DGVReportesClientes.Rows[incremento].Cells["marcar"].Value = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
+        #endregion
+
+        private void DGVReportesClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        //    if (e.ColumnIndex == DGVReportesClientes.Columns[0].Index)
+        //    {
+        //        DataGridViewCheckBoxCell celda = (DataGridViewCheckBoxCell)this.DGVReportesClientes.Rows[e.RowIndex].Cells[0];
+
+        //        if (Convert.ToBoolean(celda.Value) == false)
+        //        {
+        //            celda.Value = true;
+        //            DGVReportesClientes.Rows[e.RowIndex].Selected = true;
+        //        }
+        //        else
+        //        {
+        //            celda.Value = false;
+        //            DGVReportesClientes.Rows[e.RowIndex].Selected = false;
+        //        }
+        //    }
+        }
+
+        private void btnComprados_Click(object sender, EventArgs e)
+        {
+            realizarReporteBotones("comprados");
+        }
+
+        private void btnNoComprados_Click(object sender, EventArgs e)
+        {
+            realizarReporteBotones("noComprados");
+        }
+
+        private void btnDatosCliente_Click(object sender, EventArgs e)
+        {
+            realizarReporteBotones("datosCliente");
+        }
+
+        private void realizarReporteBotones(string tipoReporte)
+        {
+            if (!IDClientes.Count.Equals(0))
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("No tiene clientes seleccionado para esta opción", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
