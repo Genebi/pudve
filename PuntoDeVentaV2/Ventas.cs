@@ -1718,7 +1718,12 @@ namespace PuntoDeVentaV2
                     var rangoFinalCheck = info[1];
                     var precioFinalCheck = float.Parse(info[2]);
 
-                    if (rangoFinalCheck != "N")
+                    // Se agregó esto en el ultimo cambio para que si el ultimo checkbox no tiene cantidad especificada
+                    // tome la que el cliente esta agregando de producto
+                    rangoFinalCheck = rangoFinalCheck == "N" ? cantidad.ToString() : rangoFinalCheck;
+
+                    // Aqui tenia rangoFinalCheck != "N"
+                    if (rangoFinalCheck != "")
                     {
                         // Aqui se puso directamente el 1 en lugar de la variable rangoInicialCheck
                         // para el caso cuando el checkbox marcado no es el primero sino el segundo por ejemplo
@@ -1758,10 +1763,10 @@ namespace PuntoDeVentaV2
 
                         datosDescuento = auxiliar.ToArray();
                     }
-                    else
-                    {
-                        // Aqui no se hace porque no fue necesario
-                    }
+                    //else
+                    //{
+                    //    // Aqui no se hace porque no fue necesario
+                    //}
                 }
                 else
                 {
