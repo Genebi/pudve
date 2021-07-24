@@ -584,6 +584,8 @@ namespace PuntoDeVentaV2
             {
                 if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
                 {
+                    idGenerado = 1;
+
                     FlowLayoutPanel panelHijo1 = new FlowLayoutPanel();
                     panelHijo1.Name = "panelMayoreoTitulos";
                     panelHijo1.Width = 725;
@@ -614,15 +616,24 @@ namespace PuntoDeVentaV2
 
                     panelContenedor.Controls.Add(panelHijo1);
 
+                    int cantidadRangos = AgregarEditarProducto.SearchDesMayoreo.Rows.Count;
+
                     foreach (DataRow renglon in AgregarEditarProducto.SearchDesMayoreo.Rows)
                     {
+                        bool habilitado = true;
+
+                        if (cantidadRangos != idGenerado)
+                        {
+                            habilitado = false;
+                        }
+
                         FlowLayoutPanel panelHijo2 = new FlowLayoutPanel();
-                        panelHijo2.Name = "panelMayoreo1";
+                        panelHijo2.Name = $"panelMayoreo{idGenerado}";
                         panelHijo2.Width = 725;
                         panelHijo2.Height = 50;
 
                         TextBox tb1 = new TextBox();
-                        tb1.Name = "tbMayoreo1_1";
+                        tb1.Name = $"tbMayoreo{idGenerado}_1";
                         tb1.Width = 100;
                         tb1.Height = 20;
                         tb1.Margin = new Padding(120, 5, 0, 0);
@@ -632,17 +643,18 @@ namespace PuntoDeVentaV2
                         tb1.BackColor = Color.White;
 
                         TextBox tb2 = new TextBox();
-                        tb2.Name = "tbMayoreo1_2";
+                        tb2.Name = $"tbMayoreo{idGenerado}_2";
                         tb2.Width = 100;
                         tb2.Height = 20;
                         tb2.Margin = new Padding(50, 5, 0, 0);
                         tb2.TextAlign = HorizontalAlignment.Center;
                         tb2.Leave += new EventHandler(borrarTextoMensaje);
                         tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
-                        tb2.Text = renglon[2].ToString();
+                        tb2.Text = renglon[2].ToString() != "N" ? renglon[2].ToString() : "";
+                        tb2.Enabled = habilitado;
 
                         TextBox tb3 = new TextBox();
-                        tb3.Name = "tbMayoreo1_3";
+                        tb3.Name = $"tbMayoreo{idGenerado}_3";
                         tb3.Width = 100;
                         tb3.Height = 20;
                         tb3.Margin = new Padding(95, 5, 0, 0);
@@ -651,9 +663,36 @@ namespace PuntoDeVentaV2
                         tb3.ReadOnly = true;
                         tb3.BackColor = Color.White;
                         tb3.Text = renglon[3].ToString();
+                        tb3.Enabled = habilitado;
+
+                        Button btAgregar = new Button();
+                        btAgregar.Cursor = Cursors.Hand;
+                        btAgregar.Text = "+";
+                        btAgregar.Name = $"btnAgregarD{idGenerado}";
+                        btAgregar.Width = 20;
+                        btAgregar.Height = 20;
+                        btAgregar.BackColor = ColorTranslator.FromHtml("#4CAC18");
+                        btAgregar.ForeColor = ColorTranslator.FromHtml("white");
+                        btAgregar.FlatStyle = FlatStyle.Flat;
+                        btAgregar.Click += new EventHandler(AgregarLineaDescuento);
+                        btAgregar.Margin = new Padding(5, 5, 0, 0);
+                        btAgregar.Enabled = habilitado;
+
+                        Button bt = new Button();
+                        bt.Cursor = Cursors.Hand;
+                        bt.Text = "X";
+                        bt.Name = $"btnEliminarD{idGenerado}";
+                        bt.Width = 20;
+                        bt.Height = 20;
+                        bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                        bt.ForeColor = ColorTranslator.FromHtml("white");
+                        bt.FlatStyle = FlatStyle.Flat;
+                        bt.Click += new EventHandler(eliminarDescuentos);
+                        bt.Margin = new Padding(5, 5, 0, 0);
+                        bt.Enabled = habilitado;
 
                         CheckBox cb1 = new CheckBox();
-                        cb1.Name = "checkMayoreo1";
+                        cb1.Name = $"checkMayoreo{idGenerado}";
                         cb1.Text = $"Las primeras siempre costarán {precioProducto.ToString("0.00")}";
                         cb1.Margin = new Padding(120, 5, 0, 0);
                         cb1.TextAlign = ContentAlignment.MiddleLeft;
@@ -665,14 +704,29 @@ namespace PuntoDeVentaV2
                         panelHijo2.Controls.Add(tb1);
                         panelHijo2.Controls.Add(tb2);
                         panelHijo2.Controls.Add(tb3);
-                        panelHijo2.SetFlowBreak(tb3, true);
-                        panelHijo2.Controls.Add(cb1);
+
+                        // Condiciones para cuando carga el descuento por rango al editar
+                        // al primer rango no debe de agregarle la opcion de eliminar (boton rojo)
+                        if (idGenerado == 1)
+                        {
+                            panelHijo2.Controls.Add(btAgregar);
+                            panelHijo2.SetFlowBreak(btAgregar, true);
+                            panelHijo2.Controls.Add(cb1);
+                        }
+
+                        if (idGenerado > 1)
+                        {
+                            panelHijo2.Controls.Add(btAgregar);
+                            panelHijo2.Controls.Add(bt);
+                            panelHijo2.SetFlowBreak(bt, true);
+                            panelHijo2.Controls.Add(cb1);
+                        }
                         
                         panelHijo2.FlowDirection = FlowDirection.LeftToRight;
-
                         panelContenedor.Controls.Add(panelHijo2);
-
                         panelContenedor.FlowDirection = FlowDirection.TopDown;
+
+                        idGenerado++;
                     }
                 }
                 if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count == 0)
@@ -1051,6 +1105,7 @@ namespace PuntoDeVentaV2
         {
             Button bt = sender as Button;
             var id = bt.Name.Replace("btnEliminarD", "");
+
             foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
             {
                 if (panel.Name == "panelMayoreo" + id)
