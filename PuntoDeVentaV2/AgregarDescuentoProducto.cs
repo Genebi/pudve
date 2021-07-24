@@ -698,7 +698,7 @@ namespace PuntoDeVentaV2
                         cb1.TextAlign = ContentAlignment.MiddleLeft;
                         cb1.CheckedChanged += seleccionCheckBoxes;
                         cb1.Width = 400;
-                        cb1.Tag = 1;
+                        cb1.Tag = idGenerado;
                         cb1.Checked = Convert.ToBoolean(Convert.ToInt32(renglon[4].ToString()));
 
                         panelHijo2.Controls.Add(tb1);
