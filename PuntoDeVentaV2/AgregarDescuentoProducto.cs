@@ -134,8 +134,10 @@ namespace PuntoDeVentaV2
 
                 foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                 {
-                    string descuentoMayoreo = null;
+                    string descuentoMayoreo = string.Empty;
+
                     if (panel.Name == "panelMayoreoTitulos") { continue; }
+
                     foreach (Control item in panel.Controls)
                     {
                         if (item is TextBox)
@@ -162,16 +164,13 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    string cadenaDescuentoMayoreo = string.Empty, cadenaParaBuscar = string.Empty;
-                    bool cadenaEncontrada = false;
-
-                    cadenaDescuentoMayoreo = descuentoMayoreo;
-                    cadenaParaBuscar = "N";
-
-                    cadenaEncontrada = cadenaDescuentoMayoreo.Contains(cadenaParaBuscar);
+                    string cadenaDescuentoMayoreo = descuentoMayoreo;
+                    string cadenaParaBuscar = "N";
+                    bool cadenaEncontrada = cadenaDescuentoMayoreo.Contains(cadenaParaBuscar);
 
                     if (cadenaEncontrada)
                     {
+                        AgregarEditarProducto.descuentos.Add(descuentoMayoreo);
                         btnCancelarDesc.PerformClick();
                     }
                     else if (!cadenaEncontrada)
@@ -179,9 +178,10 @@ namespace PuntoDeVentaV2
                         AgregarEditarProducto.descuentos.Add(descuentoMayoreo);
                     }
                     
-                    descuentoMayoreo = null;
+                    descuentoMayoreo = string.Empty;
                 }
             }
+
             this.Hide();
         }
 
