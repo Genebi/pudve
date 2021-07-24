@@ -339,6 +339,18 @@ namespace PuntoDeVentaV2
                 tb3.ReadOnly = true;
                 tb3.BackColor = Color.White;
 
+                Button btAgregar = new Button();
+                btAgregar.Cursor = Cursors.Hand;
+                btAgregar.Text = "+";
+                btAgregar.Name = $"btnAgregarD1";
+                btAgregar.Width = 20;
+                btAgregar.Height = 20;
+                btAgregar.BackColor = ColorTranslator.FromHtml("#4CAC18");
+                btAgregar.ForeColor = ColorTranslator.FromHtml("white");
+                btAgregar.FlatStyle = FlatStyle.Flat;
+                btAgregar.Click += new EventHandler(AgregarLineaDescuento);
+                btAgregar.Margin = new Padding(5, 5, 0, 0);
+
                 CheckBox cb1 = new CheckBox();
                 cb1.Name = "checkMayoreo1";
                 cb1.Text = $"Las primeras siempre costarán {precioProducto.ToString("0.00")}";
@@ -353,7 +365,8 @@ namespace PuntoDeVentaV2
                 panelHijo2.Controls.Add(tb1);
                 panelHijo2.Controls.Add(tb2);
                 panelHijo2.Controls.Add(tb3);
-                panelHijo2.SetFlowBreak(tb3, true);
+                panelHijo2.Controls.Add(btAgregar);
+                panelHijo2.SetFlowBreak(btAgregar, true);
                 panelHijo2.Controls.Add(cb1);
 
                 panelHijo1.FlowDirection = FlowDirection.LeftToRight;
@@ -908,6 +921,12 @@ namespace PuntoDeVentaV2
         
         private void generarLineaMayoreo()
         {
+            if (string.IsNullOrWhiteSpace(rangoInicial))
+            {
+                MessageBox.Show("Es necesario ingresar una cantidad para el rango.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
             panelHijo.Name = $"panelMayoreo{idGenerado}";
             panelHijo.Width = 725;
