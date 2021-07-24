@@ -691,9 +691,28 @@ namespace PuntoDeVentaV2
                         bt.Margin = new Padding(5, 5, 0, 0);
                         bt.Enabled = habilitado;
 
+                        string textoCheckbox = string.Empty;
+
+                        if (idGenerado == 1)
+                        {
+                            textoCheckbox = $"Las primeras {tb2.Text} siempre costarán {precioProducto.ToString("0.00")}";
+
+                        } else if (idGenerado > 1)
+                        {
+                            if (string.IsNullOrWhiteSpace(tb2.Text))
+                            {
+                                textoCheckbox = $"De {tb1.Text} en adelante siempre costarán {tb3.Text}";
+                            } 
+                            else
+                            {
+                                textoCheckbox = $"De entre {tb1.Text} a {tb2.Text} siempre costarán {tb3.Text}";
+                            }
+                            
+                        }
+
                         CheckBox cb1 = new CheckBox();
                         cb1.Name = $"checkMayoreo{idGenerado}";
-                        cb1.Text = $"Las primeras siempre costarán {precioProducto.ToString("0.00")}";
+                        cb1.Text = textoCheckbox;
                         cb1.Margin = new Padding(120, 5, 0, 0);
                         cb1.TextAlign = ContentAlignment.MiddleLeft;
                         cb1.CheckedChanged += seleccionCheckBoxes;
@@ -938,6 +957,7 @@ namespace PuntoDeVentaV2
             TextBox tb2 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_3", true).FirstOrDefault();
             //Se cambia el mensaje del CheckBox
             CheckBox cb = (CheckBox)this.Controls.Find("checkMayoreo" + tmp[0], true).FirstOrDefault();
+
             if (tmp[0] == "1")
             {
                 cb.Text = "Las primeras " + tb1.Text + " siempre costarán " + precioProducto.ToString("0.00");
