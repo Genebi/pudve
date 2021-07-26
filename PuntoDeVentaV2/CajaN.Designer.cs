@@ -310,7 +310,7 @@
             // 
             this.lbCambioDevoluciones.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbCambioDevoluciones.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbCambioDevoluciones.Location = new System.Drawing.Point(194, 244);
+            this.lbCambioDevoluciones.Location = new System.Drawing.Point(194, 199);
             this.lbCambioDevoluciones.Name = "lbCambioDevoluciones";
             this.lbCambioDevoluciones.Size = new System.Drawing.Size(30, 26);
             this.lbCambioDevoluciones.TabIndex = 39;
@@ -323,7 +323,7 @@
             this.lbDevoluciones.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbDevoluciones.AutoSize = true;
             this.lbDevoluciones.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDevoluciones.Location = new System.Drawing.Point(137, 250);
+            this.lbDevoluciones.Location = new System.Drawing.Point(137, 205);
             this.lbDevoluciones.Name = "lbDevoluciones";
             this.lbDevoluciones.Size = new System.Drawing.Size(39, 17);
             this.lbDevoluciones.TabIndex = 20;
@@ -334,7 +334,7 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(11, 250);
+            this.label4.Location = new System.Drawing.Point(11, 205);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(90, 17);
             this.label4.TabIndex = 19;
@@ -414,7 +414,7 @@
             this.lbTAnticiposC.AutoSize = true;
             this.lbTAnticiposC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTAnticiposC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
-            this.lbTAnticiposC.Location = new System.Drawing.Point(137, 205);
+            this.lbTAnticiposC.Location = new System.Drawing.Point(137, 236);
             this.lbTAnticiposC.Name = "lbTAnticiposC";
             this.lbTAnticiposC.Size = new System.Drawing.Size(39, 17);
             this.lbTAnticiposC.TabIndex = 18;
@@ -437,7 +437,7 @@
             this.lbAnticiposC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbAnticiposC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAnticiposC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
-            this.lbAnticiposC.Location = new System.Drawing.Point(11, 205);
+            this.lbAnticiposC.Location = new System.Drawing.Point(11, 236);
             this.lbAnticiposC.Name = "lbAnticiposC";
             this.lbAnticiposC.Size = new System.Drawing.Size(130, 35);
             this.lbAnticiposC.TabIndex = 17;

@@ -1437,15 +1437,24 @@ namespace PuntoDeVentaV2
             colCreditoDineroC.HorizontalAlignment = Element.ALIGN_CENTER;
             colCreditoDineroC.Padding = 3;
 
-            PdfPCell colCreditoAnticiposRetirado = new PdfPCell(new Phrase($"Anticipos utilizados al corte", fuenteNormal));/////////////
-            colCreditoAnticiposRetirado.BorderWidth = 0;
-            colCreditoAnticiposRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
-            colCreditoAnticiposRetirado.Padding = 3;
+            //PdfPCell colCreditoAnticiposRetirado = new PdfPCell(new Phrase($"Anticipos utilizados al corte", fuenteNormal));/////////////
+            //colCreditoAnticiposRetirado.BorderWidth = 0;
+            //colCreditoAnticiposRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
+            //colCreditoAnticiposRetirado.Padding = 3;
 
-            PdfPCell colCreditoAnticiposTotalRetirado = new PdfPCell(new Phrase($"{datosCajaShow[26]}", fuenteNormal));////////////
-            colCreditoAnticiposTotalRetirado.BorderWidth = 0;
-            colCreditoAnticiposTotalRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
-            colCreditoAnticiposTotalRetirado.Padding = 3;
+            //PdfPCell colCreditoAnticiposTotalRetirado = new PdfPCell(new Phrase($"{datosCajaShow[26]}", fuenteNormal));////////////
+            //colCreditoAnticiposTotalRetirado.BorderWidth = 0;
+            //colCreditoAnticiposTotalRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
+            //colCreditoAnticiposTotalRetirado.Padding = 3;
+            PdfPCell colAbonosDevolucionesRetirado = new PdfPCell(new Phrase($"Devoluciones", fuenteNormal));/////////////
+            colAbonosDevolucionesRetirado.BorderWidth = 0;
+            colAbonosDevolucionesRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
+            colAbonosDevolucionesRetirado.Padding = 3;
+
+            PdfPCell colAbonosDevolucionesR = new PdfPCell(new Phrase($"{datosCajaShow[27]}", fuenteNormal));////////////
+            colAbonosDevolucionesR.BorderWidth = 0;
+            colAbonosDevolucionesR.HorizontalAlignment = Element.ALIGN_CENTER;
+            colAbonosDevolucionesR.Padding = 3;
 
             PdfPCell colSaldoInicial_IV = new PdfPCell(new Phrase($"Saldo inicial", fuenteNormal));
             colSaldoInicial_IV.BorderWidth = 0;
@@ -1463,8 +1472,8 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colCreditoAnticiposC);
             tabla.AddCell(colCreditoDinero);
             tabla.AddCell(colCreditoDineroC);
-            tabla.AddCell(colCreditoAnticiposRetirado);
-            tabla.AddCell(colCreditoAnticiposTotalRetirado);
+            tabla.AddCell(colAbonosDevolucionesRetirado);
+            tabla.AddCell(colAbonosDevolucionesR);
             tabla.AddCell(colSaldoInicial_IV);
             tabla.AddCell(colSaldoInicialC_IV);
 
@@ -1499,15 +1508,24 @@ namespace PuntoDeVentaV2
             colAbonosDineroC.HorizontalAlignment = Element.ALIGN_CENTER;
             colAbonosDineroC.Padding = 3;
 
-            PdfPCell colAbonosDevolucionesRetirado = new PdfPCell(new Phrase($"Devoluciones", fuenteNormal));/////////////
-            colAbonosDevolucionesRetirado.BorderWidth = 0;
-            colAbonosDevolucionesRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
-            colAbonosDevolucionesRetirado.Padding = 3;
+            //PdfPCell colAbonosDevolucionesRetirado = new PdfPCell(new Phrase($"Devoluciones", fuenteNormal));/////////////
+            //colAbonosDevolucionesRetirado.BorderWidth = 0;
+            //colAbonosDevolucionesRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
+            //colAbonosDevolucionesRetirado.Padding = 3;
 
-            PdfPCell colAbonosDevolucionesR = new PdfPCell(new Phrase($"{datosCajaShow[27]}", fuenteNormal));////////////
-            colAbonosDevolucionesR.BorderWidth = 0;
-            colAbonosDevolucionesR.HorizontalAlignment = Element.ALIGN_CENTER;
-            colAbonosDevolucionesR.Padding = 3;
+            //PdfPCell colAbonosDevolucionesR = new PdfPCell(new Phrase($"{datosCajaShow[27]}", fuenteNormal));////////////
+            //colAbonosDevolucionesR.BorderWidth = 0;
+            //colAbonosDevolucionesR.HorizontalAlignment = Element.ALIGN_CENTER;
+            //colAbonosDevolucionesR.Padding = 3;
+            PdfPCell colCreditoAnticiposRetirado = new PdfPCell(new Phrase("", fuenteNormal));///////////// Anticipos
+            colCreditoAnticiposRetirado.BorderWidth = 0;
+            colCreditoAnticiposRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCreditoAnticiposRetirado.Padding = 3;
+
+            PdfPCell colCreditoAnticiposTotalRetirado = new PdfPCell(new Phrase("", fuenteNormal));////////////Anticipos
+            colCreditoAnticiposTotalRetirado.BorderWidth = 0;
+            colCreditoAnticiposTotalRetirado.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCreditoAnticiposTotalRetirado.Padding = 3;
 
             PdfPCell colCreditoTotal = new PdfPCell(new Phrase($"Total Crédito", fuenteNormal));
             colCreditoTotal.BorderWidth = 0;
@@ -1525,8 +1543,8 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colAbonosUtilizadosC);
             tabla.AddCell(colAbonosDinero);
             tabla.AddCell(colAbonosDineroC);
-            tabla.AddCell(colAbonosDevolucionesRetirado);
-            tabla.AddCell(colAbonosDevolucionesR);
+            tabla.AddCell(colCreditoAnticiposRetirado);
+            tabla.AddCell(colCreditoAnticiposTotalRetirado);
             tabla.AddCell(colCreditoTotal);
             tabla.AddCell(colCreditoTotalC);
 
