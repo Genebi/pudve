@@ -188,7 +188,6 @@ namespace PuntoDeVentaV2
                         {
                             Cantidad = words[4].ToString();
                         }
-                        
                         var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
 
                         row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
