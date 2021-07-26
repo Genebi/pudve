@@ -336,20 +336,20 @@ namespace PuntoDeVentaV2
             }
             else if (e.ColumnIndex.Equals(4))//Articulos Comprados
             {
-                GenerarReporteComprado(id, nameCliente);
+                GenerarReporteComprado(false, string.Empty, nameCliente);
             }
             else if (e.ColumnIndex.Equals(5))//Articulos no comprados
             {
-                GenerarReporteNoComprado(id, nameCliente);
+                GenerarReporteNoComprado(false, nameCliente, id);
             }
             else if (e.ColumnIndex.Equals(6))//Datos del cliente
             {
-                GenerarReporteDatosCliente(id);
+                GenerarReporteDatosCliente(false, id.ToString());
             }
         }
 
         #region Reporte de articulos no comprados por el cliente
-        private void GenerarReporteNoComprado(int id, string nameCliente)
+        private void GenerarReporteNoComprado(bool multiplesID, string idMultiples = "", int id = 0)
         {
             var mostrarClave = FormPrincipal.clave;
             //var numFolio = obtenerFolio(num);
@@ -464,7 +464,16 @@ namespace PuntoDeVentaV2
             tablaClientes.AddCell(colPrecio);
             tablaClientes.AddCell(colCodigoBarras);
 
-            var consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Name, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente != '{id}'"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
+            DataTable consulta = new DataTable();
+
+            if (multiplesID)
+            {
+                consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Name, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente NOT IN ({idMultiples})"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
+            }
+            else
+            {
+                consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Name, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente != '{id}'"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
+            }
 
             foreach (DataRow row in consulta.Rows)
             {
@@ -517,7 +526,7 @@ namespace PuntoDeVentaV2
         #endregion
 
         #region Reporte datos del cliente
-        private void GenerarReporteDatosCliente(int idObtenido)
+        private void GenerarReporteDatosCliente(bool idMulttiples, string idObtenido)
         {
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
@@ -670,7 +679,16 @@ namespace PuntoDeVentaV2
             tablaClientes.AddCell(colEmail);
             tablaClientes.AddCell(colTelefono);
 
-            var consulta = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idObtenido}'");
+            DataTable consulta = new DataTable();
+
+            if (idMulttiples)
+            {
+                consulta = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({idObtenido})");
+            }
+            else
+            {
+                consulta = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idObtenido}'");
+            }
 
             //foreach (DataRow row in consulta.Rows)
             //{
@@ -686,68 +704,71 @@ namespace PuntoDeVentaV2
             //var tipoCliente = row["TipoCliente"].ToString();
             if (!consulta.Rows.Count.Equals(0))
             {
-                var nombre = consulta.Rows[0]["RazonSocial"].ToString();
-                var rfc = consulta.Rows[0]["RFC"].ToString();
-                var pais = consulta.Rows[0]["Pais"].ToString();
-                var estado = consulta.Rows[0]["Estado"].ToString();
-                var municipio = consulta.Rows[0]["Municipio"].ToString();
-                var codigoPostal = consulta.Rows[0]["CodigoPostal"].ToString();
-                var regimenFiscal = consulta.Rows[0]["RegimenFiscal"].ToString();
-                var email = consulta.Rows[0]["Email"].ToString();
-                var telefono = consulta.Rows[0]["Telefono"].ToString();
+                foreach (DataRow item in consulta.Rows)
+                {
+                    var nombre = item["RazonSocial"].ToString();
+                    var rfc = item["RFC"].ToString();
+                    var pais = item["Pais"].ToString();
+                    var estado = item["Estado"].ToString();
+                    var municipio = item["Municipio"].ToString();
+                    var codigoPostal = item["CodigoPostal"].ToString();
+                    var regimenFiscal = item["RegimenFiscal"].ToString();
+                    var email = item["Email"].ToString();
+                    var telefono = item["Telefono"].ToString();
 
-                //numRow++;
-                //PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
-                //colNoConceptoTmp.BorderWidth = 1;
-                //colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    //numRow++;
+                    //PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                    //colNoConceptoTmp.BorderWidth = 1;
+                    //colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre.ToString(), fuenteNormal));
-                colNombreTmp.BorderWidth = 1;
-                colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre.ToString(), fuenteNormal));
+                    colNombreTmp.BorderWidth = 1;
+                    colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colRFCTmp = new PdfPCell(new Phrase(rfc.ToString(), fuenteNormal));
-                colRFCTmp.BorderWidth = 1;
-                colRFCTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colRFCTmp = new PdfPCell(new Phrase(rfc.ToString(), fuenteNormal));
+                    colRFCTmp.BorderWidth = 1;
+                    colRFCTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colPaisTmp = new PdfPCell(new Phrase(pais.ToString(), fuenteNormal));
-                colPaisTmp.BorderWidth = 1;
-                colPaisTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colPaisTmp = new PdfPCell(new Phrase(pais.ToString(), fuenteNormal));
+                    colPaisTmp.BorderWidth = 1;
+                    colPaisTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colEstadoTmp = new PdfPCell(new Phrase(estado.ToString(), fuenteNormal));
-                colEstadoTmp.BorderWidth = 1;
-                colEstadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colEstadoTmp = new PdfPCell(new Phrase(estado.ToString(), fuenteNormal));
+                    colEstadoTmp.BorderWidth = 1;
+                    colEstadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colMunicipioTmp = new PdfPCell(new Phrase(municipio.ToString(), fuenteNormal));
-                colMunicipioTmp.BorderWidth = 1;
-                colMunicipioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colMunicipioTmp = new PdfPCell(new Phrase(municipio.ToString(), fuenteNormal));
+                    colMunicipioTmp.BorderWidth = 1;
+                    colMunicipioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colCodigoPostalTmp = new PdfPCell(new Phrase(codigoPostal.ToString(), fuenteNormal));
-                colCodigoPostalTmp.BorderWidth = 1;
-                colCodigoPostalTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colCodigoPostalTmp = new PdfPCell(new Phrase(codigoPostal.ToString(), fuenteNormal));
+                    colCodigoPostalTmp.BorderWidth = 1;
+                    colCodigoPostalTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colRegimenFiscalTmp = new PdfPCell(new Phrase(regimenFiscal.ToString(), fuenteNormal));
-                colRegimenFiscalTmp.BorderWidth = 1;
-                colRegimenFiscalTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colRegimenFiscalTmp = new PdfPCell(new Phrase(regimenFiscal.ToString(), fuenteNormal));
+                    colRegimenFiscalTmp.BorderWidth = 1;
+                    colRegimenFiscalTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colEmailTmp = new PdfPCell(new Phrase(email.ToString(), fuenteNormal));
-                colEmailTmp.BorderWidth = 1;
-                colEmailTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colEmailTmp = new PdfPCell(new Phrase(email.ToString(), fuenteNormal));
+                    colEmailTmp.BorderWidth = 1;
+                    colEmailTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colTelefonoTmp = new PdfPCell(new Phrase(telefono.ToString(), fuenteNormal));
-                colTelefonoTmp.BorderWidth = 1;
-                colTelefonoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-                
+                    PdfPCell colTelefonoTmp = new PdfPCell(new Phrase(telefono.ToString(), fuenteNormal));
+                    colTelefonoTmp.BorderWidth = 1;
+                    colTelefonoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                //tablaClientes.AddCell(colNoConceptoTmp);
-                tablaClientes.AddCell(colNombreTmp);
-                tablaClientes.AddCell(colRFCTmp);
-                tablaClientes.AddCell(colPaisTmp);
-                tablaClientes.AddCell(colEstadoTmp);
-                tablaClientes.AddCell(colMunicipioTmp);
-                tablaClientes.AddCell(colCodigoPostalTmp);
-                tablaClientes.AddCell(colRegimenFiscalTmp);
-                tablaClientes.AddCell(colEmailTmp);
-                tablaClientes.AddCell(colTelefonoTmp);
+
+                    //tablaClientes.AddCell(colNoConceptoTmp);
+                    tablaClientes.AddCell(colNombreTmp);
+                    tablaClientes.AddCell(colRFCTmp);
+                    tablaClientes.AddCell(colPaisTmp);
+                    tablaClientes.AddCell(colEstadoTmp);
+                    tablaClientes.AddCell(colMunicipioTmp);
+                    tablaClientes.AddCell(colCodigoPostalTmp);
+                    tablaClientes.AddCell(colRegimenFiscalTmp);
+                    tablaClientes.AddCell(colEmailTmp);
+                    tablaClientes.AddCell(colTelefonoTmp);
+                }
             }
             //}
 
@@ -773,8 +794,9 @@ namespace PuntoDeVentaV2
         }
         #endregion
 
+
         #region Reportes de articulos comprados
-        private void GenerarReporteComprado(int idCliente, string nameCliente)
+        private void GenerarReporteComprado(bool multiplesId, string idCliente = "", string nameCliente = "")
         {
             var mostrarClave = FormPrincipal.clave;
             //var numFolio = obtenerFolio(num);
@@ -889,7 +911,16 @@ namespace PuntoDeVentaV2
             tablaClientes.AddCell(colCantidad);
             tablaClientes.AddCell(colFecha);
 
-            var consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY Nombre ORDER BY Cantidad DESC");
+            DataTable consulta = new DataTable();
+
+            if (multiplesId)
+            {
+                consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.IDCliente IN ({idCliente}) GROUP BY Nombre ORDER BY Cantidad DESC");
+            }
+            else
+            {
+                consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY Nombre ORDER BY Cantidad DESC");
+            }
 
             foreach (DataRow row in consulta.Rows)
             {
@@ -1034,14 +1065,42 @@ namespace PuntoDeVentaV2
 
         private void realizarReporteBotones(string tipoReporte)
         {
+            var idClientesObtenidos = recorrerDiccionario();
+
             if (!IDClientes.Count.Equals(0))
             {
-
+                if (tipoReporte.Equals("comprados"))
+                {
+                    GenerarReporteComprado(true, idClientesObtenidos);
+                }
+                else if (tipoReporte.Equals("noComprados"))
+                {
+                    GenerarReporteNoComprado(true, idClientesObtenidos);
+                }
+                else if (tipoReporte.Equals("datosCliente"))
+                {
+                    GenerarReporteDatosCliente(true, idClientesObtenidos);
+                }
             }
             else
             {
                 MessageBox.Show("No tiene clientes seleccionado para esta opción", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private string recorrerDiccionario()
+        {
+            var result = string.Empty;
+
+            foreach (var item in IDClientes)
+            {
+                result += item.Key.ToString();
+                result += ",";
+            }
+
+            result = result.Remove(result.Length -1);
+
+            return result;
         }
     }
 }
