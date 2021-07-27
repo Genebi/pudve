@@ -101,7 +101,7 @@ namespace PuntoDeVentaV2
                                                 {
                                                     foreach (DataRow drProdVenta in dtProdVenta.Rows)
                                                     {
-                                                        cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), ((float)cantidad_combo + (float)Convert.ToDouble(drProdVenta["Stock"].ToString()))));
+                                                        cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), (float)(Convert.ToDecimal(drProdVenta["Stock"].ToString()) + Convert.ToDecimal(drProdVenta["Cantidad"].ToString()))));
                                                     }
                                                 }
                                             }
