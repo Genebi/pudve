@@ -312,5 +312,202 @@ namespace PuntoDeVentaV2
             set { _modality = value; }
         }
         #endregion
+
+        #region Implementación
+        /// <summary>
+        /// Asegúrese de que tengamos una instancia desde la que cargar recursos.
+        /// </summary>
+        private void EnsureInstance()
+        {
+            if (Instance.Equals(IntPtr.Zero))
+            {
+                // El usuario no especificó una instancia desde la que cargar, por lo que el valor predeterminado es el que se ejecuta actualmente.
+                // módulo.
+                Instance = Marshal.GetHINSTANCE(System.Reflection.Assembly.GetExecutingAssembly().GetModules()[0]);
+            }
+        }
+
+        /// <summary>
+        /// Convierta todas las propiedades relacionadas con el estilo establecidas en la clase en una uint adecuada para pasar a la API.
+        /// </summary>
+        /// <returns>Regresa todas las propiedades con los estilos establecidos</returns>
+        private uint BuildStyle()
+        {
+            uint result = 0;
+
+            // Buttons
+            if (Buttons.Equals(MessageBoxButtons.OK))
+            {
+                result |= MB_OK;
+            }
+            else if (Buttons.Equals(MessageBoxButtons.OKCancel))
+            {
+                result |= MB_OKCANCEL;
+            }
+            else if (Buttons.Equals(MessageBoxButtons.AbortRetryIgnore))
+            {
+                result |= MB_ABORTRETRYIGNORE;
+            }
+            else if (Buttons.Equals(MessageBoxButtons.RetryCancel))
+            {
+                result |= MB_RETRYCANCEL;
+            }
+            else if (Buttons.Equals(MessageBoxButtons.YesNo))
+            {
+                result |= MB_YESNO;
+            }
+            else if (Buttons.Equals(MessageBoxButtons.YesNoCancel))
+            {
+                result |= MB_YESNOCANCEL;
+            }
+
+            // Help
+            if (ShowHelp)
+            {
+                result |= MB_HELP;
+            }
+
+            // Icono de usuario
+            if (!UserIcon.Equals(IntPtr.Zero))
+            {
+                result |= MB_USERICON;
+                EnsureInstance();
+            }
+
+            // Icono
+            if (Icon.Equals(MessageBoxIcon.Asterisk))
+            {
+                result |= MB_ICONASTERISK;
+            }
+            else if (Icon.Equals(MessageBoxIcon.Error))
+            {
+                result |= MB_ICONERROR;
+            }
+            else if (Icon.Equals(MessageBoxIcon.Exclamation))
+            {
+                result |= MB_ICONEXCLAMATION;
+            }
+            else if (Icon.Equals(MessageBoxIcon.Hand))
+            {
+                result |= MB_ICONHAND;
+            }
+            else if (Icon.Equals(MessageBoxIcon.Information))
+            {
+                result |= MB_ICONINFORMATION;
+            }
+            else if (Icon.Equals(MessageBoxIcon.Question))
+            {
+                result |= MB_ICONQUESTION;
+            }
+            else if (Icon.Equals(MessageBoxIcon.Stop))
+            {
+                result |= MB_ICONSTOP;
+            }
+            else if (Icon.Equals(MessageBoxIcon.Warning))
+            {
+                result |= MB_ICONWARNING;
+            }
+
+            // Botones default
+            if (DefaultButton.Equals(MessageBoxDefaultButton.Button1))
+            {
+                result |= MB_DEFBUTTON1;
+            }
+            else if (DefaultButton.Equals(MessageBoxDefaultButton.Button2))
+            {
+                result |= MB_DEFBUTTON2;
+            }
+            else if (DefaultButton.Equals(MessageBoxDefaultButton.Button3))
+            {
+                result |= MB_DEFBUTTON3;
+            }
+
+            // Opciones
+            result |= (uint)Options;
+
+            // Modalidad
+            result |= (uint)Modality;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Utilice el enlace CBT para utilizar el identificador de la ventana del MessageBox en la creación.
+        /// </summary>
+        private int CbtHookProc(int nCode, IntPtr wParam, IntPtr lParam)
+        {
+            if (nCode.Equals(HCBT_CREATEWND))
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Capacity = 100;
+                GetClassName(wParam, sb, sb.Capacity);
+                string className = sb.ToString();
+
+                if (className.Equals("#32770"))
+                {
+                    if (!_sysSmallIcon.Equals(IntPtr.Zero))
+                    {
+                        EnsureInstance();
+                        IntPtr hSmallsysIcon = LoadIcon(Instance, new IntPtr((long)((short)_sysSmallIcon.ToInt32())));
+                        if (!hSmallsysIcon.Equals(IntPtr.Zero))
+                        {
+                            SendMessage(wParam, WM_SETICON, new IntPtr(ICON_SMALL), hSmallsysIcon);
+                        }
+                    }
+                }
+            }
+
+            return CallNextHookEx(hHook, nCode, wParam, lParam);
+        }
+
+        /// <summary>
+        /// Coloque el MessageBox y devuelva el resultado.
+        /// </summary>
+        public DialogResult Show()
+        {
+            MSGBOXPARAMS parms = new MSGBOXPARAMS();
+            parms.dwStyle = BuildStyle();
+            parms.lpszText = Text;
+            parms.lpszCaption = Caption;
+
+            if (!Owner.Equals(null))
+            {
+                parms.hwndOwner = Owner.Handle;
+            }
+
+            parms.hInstance = Instance;
+            parms.cbSize = (uint)Marshal.SizeOf(typeof(MSGBOXPARAMS));
+            parms.lpfnMsgBoxCallback = Callback;
+            parms.lpszIcon = UserIcon;
+            parms.dwLanguageId = LanguageID;
+            parms.dwContextHelpId = new IntPtr(_contextID);
+
+            DialogResult retval = DialogResult.Cancel;
+
+            try
+            {
+                // Solo se ancla si tenemos una razón para hacerlo, es decir, para configurar el icono personalizado.
+                if (!_sysSmallIcon.Equals(IntPtr.Zero))
+                {
+                    HookProc CbtHookProcedure = new HookProc(CbtHookProc);
+                    hHook = SetWindowsHookEx(WH_CBT, CbtHookProcedure, (IntPtr)0, AppDomain.GetCurrentThreadId());
+                }
+
+                retval = (DialogResult)_MessageBoxIndirect(ref parms);
+            }
+            finally
+            {
+                if (hHook > 0)
+                {
+                    UnhookWindowsHookEx(hHook);
+                    hHook = 0;
+                }
+            }
+
+            return retval;
+        }
+        #endregion
+
+
     }
 }
