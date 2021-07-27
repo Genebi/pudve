@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
@@ -156,7 +157,160 @@ namespace PuntoDeVentaV2
         #endregion
 
         #region VARIABLES DE MIEMBRO
+        private string _text;
+        private string _caption;
+        private IWin32Window _owner;
+        private IntPtr _instance;
+        private IntPtr _sysSmallIcon;
+        private int _contextID = 0;
+        private uint _languageID;
+        private MsgBoxCallback _callback;
+        private MessageBoxButtons _buttons = MessageBoxButtons.OK;
+        private bool _showHelp = false;
+        private IntPtr _userIcon = IntPtr.Zero;
+        private MessageBoxIcon _icon = MessageBoxIcon.None;
+        private MessageBoxDefaultButton _defaultButton = MessageBoxDefaultButton.Button1;
+        private MessageBoxOptions _options = 0;
+        private MessageBoxExModality _modality = MessageBoxExModality.AppModal;
+        private int hHook;
+        #endregion
 
+        #region Propiedades
+        /// <summary>
+        /// El texto del MessageBox.
+        /// </summary>
+        public string Text
+        {
+            get { return _text; }
+            set { _text = value; }
+        }
+
+        /// <summary>
+        /// El título del MessageBox.
+        /// </summary>
+        public string Caption
+        {
+            get { return _caption; }
+            set { _caption = value; }
+        }
+
+        /// <summary>
+        /// El ID del icono personalizado en el recurso no administrado.
+        /// </summary>
+        public IntPtr UserIcon
+        {
+            get { return _userIcon; }
+            set { _userIcon = value; }
+        }
+
+        /// <summary>
+        /// El ID del ícono personalizado en el recurso no administrado para usar como ícono
+        /// en el menú del sistema de la ventana de alerta.
+        /// </summary>
+        public IntPtr SysSmallIcon
+        {
+            get { return _sysSmallIcon; }
+            set { _sysSmallIcon = value; }
+        }
+
+        /// <summary>
+        /// Ventana de propietario.
+        /// </summary>
+        public IWin32Window Owner
+        {
+            get { return _owner; }
+            set { _owner = value; }
+        }
+
+        /// <summary>
+        /// Identificador de instancia utilizado para cargar un recurso de icono personalizado.
+        /// </summary>
+        public IntPtr Instance
+        {
+            get { return _instance; }
+            set { _instance = value; }
+        }
+
+        /// <summary>
+        /// ID de idioma para los botones del cuadro de mensajes.
+        /// </summary>
+        public uint LanguageID
+        {
+            get { return _languageID; }
+            set { _languageID = value; }
+        }
+
+        /// <summary>
+        /// El ID de contexto de ayuda que se transmite en la instancia HELPINFO cuando se invoca la ayuda.
+        /// </summary>
+        public int ContextHelpID
+        {
+            get { return _contextID; }
+            set { _contextID = value; }
+        }
+
+        /// <summary>
+        /// La devolución de llamada del botón de ayuda (si hay alguna).
+        /// </summary>
+        public MsgBoxCallback Callback
+        {
+            get { return _callback; }
+            set { _callback = value; }
+        }
+
+        /// <summary>
+        /// Opciones de botones de cuadro de mensajes estándar.
+        /// </summary>
+        public MessageBoxButtons Buttons
+        {
+            get { return _buttons; }
+            set { _buttons = value; }
+        }
+
+        /// <summary>
+        /// Si queremos o no un botón de ayuda en nuestro MessageBox.
+        /// </summary>
+        public bool ShowHelp
+        {
+            get { return _showHelp; }
+            set { _showHelp = value; }
+        }
+
+        /// <summary>
+        /// Cualquier ícono estándar de Windows que deseemos mostrar.
+        /// </summary>
+        public MessageBoxIcon Icon
+        {
+            get { return _icon; }
+            set { _icon = value; }
+        }
+
+        /// <summary>
+        /// Botón predeterminado del MessageBox estándar.
+        /// </summary>
+        public MessageBoxDefaultButton DefaultButton
+        {
+            get { return _defaultButton; }
+            set { _defaultButton = value; }
+        }
+
+        /// <summary>
+        /// Opciones de MessageBox estándar.
+        /// </summary>
+        public MessageBoxOptions Options
+        {
+            get { return _options; }
+            set { _options = value; }
+        }
+
+        /// <summary>
+        /// Indique la modalidad del cuadro de mensaje (sysmodal / appmodal / taskmodal).
+        /// </summary>
+        public MessageBoxExModality Modality
+        {
+            get { return _modality; }
+            set { _modality = value; }
+        }
         #endregion
     }
 }
