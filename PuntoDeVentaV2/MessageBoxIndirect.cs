@@ -508,6 +508,139 @@ namespace PuntoDeVentaV2
         }
         #endregion
 
+        #region Cosntructores
+        /// <summary>
+        /// Muestra un MessageBox con el texto especificado.
+        /// </summary>
+		public MessageBoxIndirect(string text)
+        {
+            Text = text;
+        }
 
+        /// <summary>
+        /// Muestra un MessageBox delante del objeto especificado y con el texto especificado.
+        /// </summary>
+        public MessageBoxIndirect(IWin32Window owner, string text)
+        {
+            Owner = owner;
+            Text = text;
+        }
+
+        /// <summary>
+        /// Muestra un MessageBox con el texto y el título especificados.
+        /// </summary>
+        public MessageBoxIndirect(string text, string caption)
+        {
+            Text = text;
+            Caption = caption;
+        }
+
+        /// <summary>
+        /// Muestra un MessageBox delante del objeto especificado y con el texto y el título especificados.
+        /// </summary>
+        public MessageBoxIndirect(IWin32Window owner, string text, string caption)
+        {
+            Owner = owner;
+            Text = text;
+            Caption = caption;
+        }
+
+        /// <summary>
+        /// Muestra un MessageBox con texto, título y botones especificados.
+        /// </summary>
+        public MessageBoxIndirect(string text, string caption, MessageBoxButtons buttons)
+        {
+            Text = text;
+            Caption = caption;
+            Buttons = buttons;
+        }
+
+        /// <summary>
+        /// Muestra un MessageBox delante del objeto especificado y con el texto, el título y los botones especificados.
+        /// </summary>
+        public MessageBoxIndirect(IWin32Window owner, string text, string caption, MessageBoxButtons buttons)
+        {
+            Owner = owner;
+            Text = text;
+            Caption = caption;
+            Buttons = buttons;
+        }
+
+        /// <summary>
+        /// Muestra un MessageBox con texto, título, botones e íconos especificados.
+        /// </summary>
+        public MessageBoxIndirect(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            Text = text;
+            Caption = caption;
+            Buttons = buttons;
+            Icon = icon;
+        }
+
+        /// <summary>
+        /// Muestra un MessageBox delante del objeto especificado y con el texto, el título, los botones y el icono especificados.
+        /// </summary>
+        public MessageBoxIndirect(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            Owner = owner;
+            Text = text;
+            Caption = caption;
+            Buttons = buttons;
+            Icon = icon;
+        }
+
+        /// <summary>
+        /// Muestra un MessageBox con el texto, el título, los botones, el icono y el botón predeterminados especificados.
+        /// </summary>
+        public MessageBoxIndirect(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
+        {
+            Text = text;
+            Caption = caption;
+            Buttons = buttons;
+            Icon = icon;
+            DefaultButton = defaultButton;
+        }
+
+        /// <summary>
+        /// Muestra un MessageBox delante del objeto especificado y con el texto, título, botones, icono y botón predeterminado especificados.
+        /// </summary>
+        public MessageBoxIndirect(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
+        {
+            Owner = owner;
+            Text = text;
+            Caption = caption;
+            Buttons = buttons;
+            Icon = icon;
+            DefaultButton = defaultButton;
+        }
+
+        /// <summary>
+        /// Muestra un MessageBox con el texto, el título, los botones, el icono, el botón predeterminado y las opciones especificados.
+        /// </summary>
+        public MessageBoxIndirect(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options)
+        {
+            Text = text;
+            Caption = caption;
+            Buttons = buttons;
+            Icon = icon;
+            DefaultButton = defaultButton;
+            Options = options;
+        }
+
+        /// <summary>
+        /// Muestra un MessageBox delante del objeto especificado y con el texto, el título, los botones, el icono, 
+        /// el botón predeterminado y las opciones especificados.
+        /// </summary>
+        public MessageBoxIndirect(IWin32Window owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options)
+        {
+            Owner = owner;
+            Text = text;
+            Caption = caption;
+            Buttons = buttons;
+            Icon = icon;
+            DefaultButton = defaultButton;
+            Options = options;
+        }
+        #endregion
     }
 }
