@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,6 +62,59 @@ namespace PuntoDeVentaV2
         }
         #endregion
 
+        #region Estructura API
+        /// <summary>
+        /// Punto estándar de la Ventana (MessageBox)
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public long x;
+            public long y;
+        };
 
+        /// <summary>
+        /// Desde winuser.h
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct HELPINFO
+        {
+            public int cbSize;
+            public int iContextType;
+            public int iCtrlId;
+            public IntPtr hItemHandle;
+            public IntPtr dwContextId;
+            public POINT MousePos;
+
+            /// <summary>
+            /// Desmarque la información de ayuda del intptr dado, que es presumiblemente es el lParam recibido
+            /// en un mensaje WM_HELP.
+            /// </summary>
+            /// <param name="lParam"></param>
+            /// <returns></returns>
+            public static HELPINFO UnmarshalForm(IntPtr lParam)
+            {
+                return (HELPINFO)Marshal.PtrToStructure(lParam, typeof(HELPINFO));
+            }
+        };
+
+        /// <summary>
+        /// Desde winuser.h
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MSGBOXPARAMS
+        {
+            public uint cbSize;
+            public IntPtr hwndOwner;
+            public IntPtr hInstance;
+            public string lpszText;
+            public string lpszCaption;
+            public uint dwStyle;
+            public IntPtr lpszIcon;
+            public IntPtr dwContextHelpId;
+            public MsgBoxCallback lpfnMsgBoxCallback;
+            public uint dwLanguageId;
+        };
+        #endregion
     }
 }
