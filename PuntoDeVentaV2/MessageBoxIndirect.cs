@@ -116,5 +116,17 @@ namespace PuntoDeVentaV2
             public uint dwLanguageId;
         };
         #endregion
+
+        #region Delegados
+        /// <summary>
+        /// Declaración de delegado para una devolución de llamada que se llama cuando se presiona el botón de ayuda.
+        /// </summary>
+        public delegate void MsgBoxCallback(HELPINFO lpHelpInfo);
+
+        /// <summary>
+        /// Delegado para las anclas locales de la Ventana.
+        /// </summary>
+        public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+        #endregion
     }
 }
