@@ -51,5 +51,16 @@ namespace PuntoDeVentaV2
 
         private const int HCBT_CREATEWND = 3;
         #endregion
+
+        #region Tipos de enumeración como uint
+        public enum MessageBoxExModality : uint
+        {
+            AppModal = MB_APPLMODAL,
+            SystemModal = MB_SYSTEMMODAL,
+            TaskModal = MB_TASKMODAL
+        }
+        #endregion
+
+
     }
 }
