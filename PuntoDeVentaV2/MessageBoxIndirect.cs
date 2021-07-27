@@ -154,5 +154,9 @@ namespace PuntoDeVentaV2
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr LoadIcon(IntPtr hInstance, IntPtr lpIconName);
         #endregion
+
+        #region VARIABLES DE MIEMBRO
+
+        #endregion
     }
 }
