@@ -128,5 +128,31 @@ namespace PuntoDeVentaV2
         /// </summary>
         public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
         #endregion
+
+        #region Métodos que se implementaran externamente
+        /// <summary>
+        /// La declaración de API MessageBoxIndirect.
+        /// </summary>
+        [DllImport("user32", EntryPoint = "MessageBoxIndirect")]
+        private static extern int _MessageBoxIndirect(ref MSGBOXPARAMS msgboxParams);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool UnhookWindowsHookEx(int idHook);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        public static extern int GetClassName(IntPtr hwnd, StringBuilder lpClassName, int nMaxCount);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr LoadIcon(IntPtr hInstance, IntPtr lpIconName);
+        #endregion
     }
 }
