@@ -105,6 +105,9 @@ namespace PuntoDeVentaV2
         [DllImport("kernel32.dll")]
         public static extern IntPtr LoadLibraryEx(string fileName, IntPtr hFile, long dwFlags);
 
+        string mensajeMessageBox = "Podras vizualizar tus productos relacionados\nen el siguiente botón (que se muestra \n\"Botón del ojito con la flecha\")";
+        string tituloMessageBox = "Aviso del sistema";
+
         // metodo para poder cargar los datos al inicio
         public void CargarDataGridView()
         {
@@ -632,8 +635,8 @@ namespace PuntoDeVentaV2
 
                         if (IDServicio.Equals(idServ))
                         {
-                            mensajeDeRelacionConImagenParaElUsuario();
-                            MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                            //MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }
@@ -652,7 +655,8 @@ namespace PuntoDeVentaV2
 
                         if (IDProducto.Equals(idServ))
                         {
-                            MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                            //MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }
@@ -674,7 +678,8 @@ namespace PuntoDeVentaV2
                                 {
                                     if (drRelacion["IDServicio"].Equals(idServ))
                                     {
-                                        MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                                        //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         return;
                                     }
                                 }
@@ -687,7 +692,8 @@ namespace PuntoDeVentaV2
                                 var claves = item.Split('|');
                                 if (claves[2].Equals(Convert.ToString(idServ)))
                                 {
-                                    MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                                    //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
                                 }
                             }
@@ -705,7 +711,8 @@ namespace PuntoDeVentaV2
                                     var idProducto = Convert.ToInt32(drRelacion["IDProducto"].ToString());
                                     if (idProducto.Equals(idServ))
                                     {
-                                        MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                                        //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         return;
                                     }
                                 }
@@ -718,7 +725,8 @@ namespace PuntoDeVentaV2
                                 var claves = item.Split('|');
                                 if (claves[2].Equals(Convert.ToString(idServ)))
                                 {
-                                    MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                                    //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
                                 }
                             }
@@ -817,9 +825,9 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
-        private void mensajeDeRelacionConImagenParaElUsuario()
+        private void mensajeDeRelacionConImagenParaElUsuario(string mensajeMessageBox, string tituloMessageBox)
         {
-            
+            MessageBox.Show("Test");
         }
     }
 }
