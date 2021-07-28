@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -98,6 +99,11 @@ namespace PuntoDeVentaV2
         int maximo_x_pagina = 18;
         int clickBoton = 0;
         #endregion
+
+        private IntPtr hWin32Resources = IntPtr.Zero;
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr LoadLibraryEx(string fileName, IntPtr hFile, long dwFlags);
 
         // metodo para poder cargar los datos al inicio
         public void CargarDataGridView()
@@ -808,6 +814,11 @@ namespace PuntoDeVentaV2
             }
 
             this.Close();
+        }
+
+        private void mensajeDeRelacionConImagenParaElUsuario()
+        {
+            
         }
     }
 }
