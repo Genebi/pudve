@@ -1522,6 +1522,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IconoRelacionProductoMessageBox.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="loading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

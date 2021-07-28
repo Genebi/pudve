@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -105,7 +106,7 @@ namespace PuntoDeVentaV2
         [DllImport("kernel32.dll")]
         public static extern IntPtr LoadLibraryEx(string fileName, IntPtr hFile, long dwFlags);
 
-        string mensajeMessageBox = "Podras vizualizar tus productos relacionados\nen el siguiente botón (que se muestra \n\"Botón del ojito con la flecha\")";
+        string mensajeMessageBox = "Podras vizualizar tus productos relacionados en el siguiente\nbotón que se encuentra en la ventana principal de Agregar o\nEditar Productos (Igual al que se muestra en esté mensaje\n\"Botón del ojito con la flecha\" del lado Izquierdo)";
         string tituloMessageBox = "Aviso del sistema";
 
         // metodo para poder cargar los datos al inicio
@@ -827,7 +828,27 @@ namespace PuntoDeVentaV2
 
         private void mensajeDeRelacionConImagenParaElUsuario(string mensajeMessageBox, string tituloMessageBox)
         {
-            MessageBox.Show("Test");
+            //MessageBox.Show("Ruta Directorio:\n\n" + Properties.Settings.Default.rutaDirectorio + "\n" + Properties.Settings.Default.pathPUDVE);
+
+            if (hWin32Resources == IntPtr.Zero)
+            {
+                hWin32Resources = LoadLibraryEx(Properties.Settings.Default.rutaDirectorio + "\\IconoRelacionProductoMessageBox.dll", IntPtr.Zero, 0);
+                Debug.Assert(hWin32Resources != IntPtr.Zero);
+            }
+
+            // Identificador de recurso Win32 del icono que queremos poner en el cuadro de mensaje.
+            const int Smiley = 104;
+
+            MessageBoxIndirect mb = new MessageBoxIndirect(this, mensajeMessageBox, tituloMessageBox);
+
+            // Cargue el icono de la DLL de recursos que cargamos.
+            mb.Instance = hWin32Resources;
+            mb.UserIcon = new IntPtr(Smiley);       // pasar el ID del icono como un IntPtr: el mismo resultado final que la macro MAKEINTRESOURCE en C ++
+            mb.SysSmallIcon = new IntPtr(Smiley);
+
+            mb.Modality = MessageBoxIndirect.MessageBoxExModality.SystemModal;
+
+            mb.Show();
         }
     }
 }
