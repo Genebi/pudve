@@ -632,6 +632,7 @@ namespace PuntoDeVentaV2
 
                         if (IDServicio.Equals(idServ))
                         {
+                            mensajeDeRelacionConImagenParaElUsuario();
                             MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
