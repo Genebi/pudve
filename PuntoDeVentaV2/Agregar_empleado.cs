@@ -64,11 +64,11 @@ namespace PuntoDeVentaV2
 
                 if (datos.Length > 0)
                 {
-                    var tmp = datos[15].Split('@');
+                    var tmp = datos[16].Split('@');
 
-                    nombre = datos[14];
+                    nombre = datos[15];
                     usuario = tmp[1];
-                    password = datos[16];
+                    password = datos[17];
 
                     txt_nombre.Text = nombre;
                     txt_usuario.Text = usuario;
