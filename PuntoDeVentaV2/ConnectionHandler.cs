@@ -210,12 +210,66 @@ namespace PuntoDeVentaV2
                 if (ConectadoInternet())
                 {
                     var servidor = Properties.Settings.Default.Hosting;
+
                     if (string.IsNullOrWhiteSpace(servidor))
                     {
-                        eliminarCaja();
-                        insertarCaja();
-                        eliminarProductos();
-                        insertarProductos();
+                        bool consultarCaja = false;
+                        bool consultarProductos = false;
+
+                        MySqlConnection conexion = new MySqlConnection();
+
+                        conexion.ConnectionString = $"server={_server};database={_database};uid={_username};pwd={_password};";
+
+                        try
+                        {
+                            conexion.Open();
+                            MySqlCommand consultar = conexion.CreateCommand();
+                            MySqlCommand actualizar = conexion.CreateCommand();
+
+                            //Verificamos si el usuario que se quiere registrar ya se encuentra registrado en la base de datos online
+                            consultar.CommandText = $"SELECT consultarProductos, consultarCaja FROM usuarios WHERE usuario = '{FormPrincipal.userNickName}'";
+                            MySqlDataReader dr = consultar.ExecuteReader();
+
+                            if (dr.Read())
+                            {
+                                consultarProductos = Convert.ToBoolean(dr.GetValue(dr.GetOrdinal("consultarProductos")));
+                                consultarCaja = Convert.ToBoolean(dr.GetValue(dr.GetOrdinal("consultarCaja")));
+                            }
+
+                            dr.Close();
+
+                            if (consultarProductos)
+                            {
+                                actualizar.CommandText = $"UPDATE usuarios SET consultarProductos = 0 WHERE usuario = '{FormPrincipal.userNickName}'";
+
+                                actualizar.ExecuteNonQuery();
+                            }
+
+                            if (consultarCaja)
+                            {
+                                actualizar.CommandText = $"UPDATE usuarios SET consultarCaja = 0 WHERE usuario = '{FormPrincipal.userNickName}'";
+
+                                actualizar.ExecuteNonQuery();
+                            }
+
+                            conexion.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            //MessageBox.Show(ex.Message.ToString());
+                        }
+
+                        if (consultarCaja)
+                        {
+                            eliminarCaja();
+                            insertarCaja();
+                        }
+
+                        if (consultarProductos)
+                        {
+                            eliminarProductos();
+                            insertarProductos();
+                        }
                     }
                 }
             }
@@ -301,11 +355,11 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void eliminarProductos()
+        private int eliminarProductos()
         {
-            string connectionString = string.Empty;
+            int borrados = 0;
 
-            connectionString = "SERVER=" + _server + ";" + "DATABASE=" + _database + ";" + "UID=" + _username + ";" + "PASSWORD=" + _password + ";";
+            string connectionString = "SERVER=" + _server + ";" + "DATABASE=" + _database + ";" + "UID=" + _username + ";" + "PASSWORD=" + _password + ";";
 
             //Consulta Borrar de MySQL por ID de Usuario
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
@@ -315,7 +369,7 @@ namespace PuntoDeVentaV2
                     MySqlCommand eliminar = conexion.CreateCommand();
                     conexion.Open();
                     eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}' AND nickUsuario = '{FormPrincipal.userNickName}'";
-                    int borrrado1 = eliminar.ExecuteNonQuery();
+                    borrados = eliminar.ExecuteNonQuery();
                     conexion.Close();
                 }
                 catch (Exception ex)
@@ -323,6 +377,8 @@ namespace PuntoDeVentaV2
                     //MessageBox.Show("Error al Tratar de borrar Seccion Productos; Causa: " + ex.Message.ToString(), "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            return borrados;
         }
 
         private void insertarProductos()
@@ -407,6 +463,8 @@ namespace PuntoDeVentaV2
 
                     }
                 }
+
+                using (MySqlCommand comando = new MySqlCommand())
 
                 conexion.Close();
             }
