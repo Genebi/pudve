@@ -5311,7 +5311,6 @@ namespace PuntoDeVentaV2
             liststock2.Clear();
             foreach (DataGridViewRow row in DGVentas.Rows)
             {
-
                 liststock2.Add(row.Cells["Cantidad"].Value.ToString() + "|" + row.Cells["IDProducto"].Value.ToString());
             }
         }

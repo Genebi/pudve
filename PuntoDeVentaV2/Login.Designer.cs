@@ -36,7 +36,7 @@
             this.btnEntrar = new System.Windows.Forms.Button();
             this.btnCrearCuenta = new System.Windows.Forms.Label();
             this.txtMensaje = new System.Windows.Forms.Label();
-            this.checkBoxRecordarDatos = new System.Windows.Forms.CheckBox();
+            this.checkBoxRecordarUsuarui = new System.Windows.Forms.CheckBox();
             this.btnLimpiarDatos = new System.Windows.Forms.Button();
             this.buscarArchivoBD = new System.Windows.Forms.OpenFileDialog();
             this.mensajeBoton = new System.Windows.Forms.ToolTip(this.components);
@@ -47,6 +47,9 @@
             this.vincularPCEnRedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registroIniciosDeSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRecuperarPassword = new System.Windows.Forms.Label();
+            this.chkRecordarContraseña = new System.Windows.Forms.CheckBox();
+            this.OlvidarUsuariosGuardados = new System.Windows.Forms.Label();
+            this.lbUsuarios = new System.Windows.Forms.ListBox();
             this.menuLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,6 +82,8 @@
             this.txtUsuario.Size = new System.Drawing.Size(190, 23);
             this.txtUsuario.TabIndex = 2;
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtUsuario.Click += new System.EventHandler(this.txtUsuario_Click);
+            this.txtUsuario.Enter += new System.EventHandler(this.txtUsuario_Enter);
             this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
             // 
             // txtPassword
@@ -118,7 +123,7 @@
             this.btnCrearCuenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCrearCuenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearCuenta.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnCrearCuenta.Location = new System.Drawing.Point(139, 284);
+            this.btnCrearCuenta.Location = new System.Drawing.Point(269, 286);
             this.btnCrearCuenta.Name = "btnCrearCuenta";
             this.btnCrearCuenta.Size = new System.Drawing.Size(139, 17);
             this.btnCrearCuenta.TabIndex = 6;
@@ -135,16 +140,16 @@
             this.txtMensaje.TabIndex = 7;
             this.txtMensaje.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // checkBoxRecordarDatos
+            // checkBoxRecordarUsuarui
             // 
-            this.checkBoxRecordarDatos.AutoSize = true;
-            this.checkBoxRecordarDatos.Location = new System.Drawing.Point(167, 141);
-            this.checkBoxRecordarDatos.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxRecordarDatos.Name = "checkBoxRecordarDatos";
-            this.checkBoxRecordarDatos.Size = new System.Drawing.Size(101, 17);
-            this.checkBoxRecordarDatos.TabIndex = 8;
-            this.checkBoxRecordarDatos.Text = "Recordar Datos";
-            this.checkBoxRecordarDatos.UseVisualStyleBackColor = true;
+            this.checkBoxRecordarUsuarui.AutoSize = true;
+            this.checkBoxRecordarUsuarui.Location = new System.Drawing.Point(99, 141);
+            this.checkBoxRecordarUsuarui.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxRecordarUsuarui.Name = "checkBoxRecordarUsuarui";
+            this.checkBoxRecordarUsuarui.Size = new System.Drawing.Size(109, 17);
+            this.checkBoxRecordarUsuarui.TabIndex = 8;
+            this.checkBoxRecordarUsuarui.Text = "Recordar Usuario";
+            this.checkBoxRecordarUsuarui.UseVisualStyleBackColor = true;
             // 
             // btnLimpiarDatos
             // 
@@ -221,21 +226,58 @@
             this.btnRecuperarPassword.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRecuperarPassword.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRecuperarPassword.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnRecuperarPassword.Location = new System.Drawing.Point(139, 100);
+            this.btnRecuperarPassword.Location = new System.Drawing.Point(12, 286);
             this.btnRecuperarPassword.Name = "btnRecuperarPassword";
             this.btnRecuperarPassword.Size = new System.Drawing.Size(154, 16);
             this.btnRecuperarPassword.TabIndex = 12;
             this.btnRecuperarPassword.Text = "¿Olvidaste tu contraseña?";
             this.btnRecuperarPassword.Click += new System.EventHandler(this.btnRecuperarPassword_Click);
             // 
+            // chkRecordarContraseña
+            // 
+            this.chkRecordarContraseña.AutoSize = true;
+            this.chkRecordarContraseña.Location = new System.Drawing.Point(212, 141);
+            this.chkRecordarContraseña.Margin = new System.Windows.Forms.Padding(2);
+            this.chkRecordarContraseña.Name = "chkRecordarContraseña";
+            this.chkRecordarContraseña.Size = new System.Drawing.Size(127, 17);
+            this.chkRecordarContraseña.TabIndex = 13;
+            this.chkRecordarContraseña.Text = "Recordar Contraseña";
+            this.chkRecordarContraseña.UseVisualStyleBackColor = true;
+            // 
+            // OlvidarUsuariosGuardados
+            // 
+            this.OlvidarUsuariosGuardados.AutoSize = true;
+            this.OlvidarUsuariosGuardados.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OlvidarUsuariosGuardados.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OlvidarUsuariosGuardados.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.OlvidarUsuariosGuardados.Location = new System.Drawing.Point(139, 112);
+            this.OlvidarUsuariosGuardados.Name = "OlvidarUsuariosGuardados";
+            this.OlvidarUsuariosGuardados.Size = new System.Drawing.Size(156, 16);
+            this.OlvidarUsuariosGuardados.TabIndex = 14;
+            this.OlvidarUsuariosGuardados.Text = "Olvidar registros guardados";
+            this.OlvidarUsuariosGuardados.Click += new System.EventHandler(this.OlvidarUsuariosGuardados_Click);
+            // 
+            // lbUsuarios
+            // 
+            this.lbUsuarios.FormattingEnabled = true;
+            this.lbUsuarios.Location = new System.Drawing.Point(120, 64);
+            this.lbUsuarios.Name = "lbUsuarios";
+            this.lbUsuarios.Size = new System.Drawing.Size(190, 82);
+            this.lbUsuarios.TabIndex = 15;
+            this.lbUsuarios.Visible = false;
+            this.lbUsuarios.Click += new System.EventHandler(this.lbUsuarios_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 312);
+            this.Controls.Add(this.lbUsuarios);
+            this.Controls.Add(this.OlvidarUsuariosGuardados);
+            this.Controls.Add(this.chkRecordarContraseña);
             this.Controls.Add(this.btnRecuperarPassword);
             this.Controls.Add(this.btnLimpiarDatos);
-            this.Controls.Add(this.checkBoxRecordarDatos);
+            this.Controls.Add(this.checkBoxRecordarUsuarui);
             this.Controls.Add(this.txtMensaje);
             this.Controls.Add(this.btnCrearCuenta);
             this.Controls.Add(this.btnEntrar);
@@ -250,6 +292,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Login_Load);
+            this.Click += new System.EventHandler(this.Login_Click);
             this.menuLogin.ResumeLayout(false);
             this.menuLogin.PerformLayout();
             this.ResumeLayout(false);
@@ -266,7 +309,7 @@
         private System.Windows.Forms.Button btnEntrar;
         private System.Windows.Forms.Label btnCrearCuenta;
         private System.Windows.Forms.Label txtMensaje;
-        private System.Windows.Forms.CheckBox checkBoxRecordarDatos;
+        private System.Windows.Forms.CheckBox checkBoxRecordarUsuarui;
         private System.Windows.Forms.Button btnLimpiarDatos;
         private System.Windows.Forms.OpenFileDialog buscarArchivoBD;
         private System.Windows.Forms.ToolTip mensajeBoton;
@@ -277,5 +320,8 @@
         private System.Windows.Forms.Label btnRecuperarPassword;
         private System.Windows.Forms.ToolStripMenuItem vincularPCEnRedMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registroIniciosDeSesionToolStripMenuItem;
+        private System.Windows.Forms.CheckBox chkRecordarContraseña;
+        private System.Windows.Forms.Label OlvidarUsuariosGuardados;
+        private System.Windows.Forms.ListBox lbUsuarios;
     }
 }

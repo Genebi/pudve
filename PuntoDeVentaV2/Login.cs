@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Data.SQLite;
 using System.Net.NetworkInformation;
 using System.Deployment.Application;
+using System.Security.Cryptography;
 
 namespace PuntoDeVentaV2
 {
@@ -65,11 +66,13 @@ namespace PuntoDeVentaV2
         string queryTabla = string.Empty;
         int count = 0;
         public int contadorMetodoTablas = 0;
-        string correo;
-
+        string correo, usuarioGuardado;
+        int guardarUsuario = 1;
         bool IsEmpty;
-
+        string hash = "Password@2021$";
+        string eliminar;
         DBTables dbTables = new DBTables();
+        string[] user;
 
         public static string[] datosUsuario = new string[] { };
 
@@ -83,10 +86,10 @@ namespace PuntoDeVentaV2
         string usuario;
         string password;
 
-        public void GuardarDatosLogin()
+        public void GuardarDatosLoginUsuarios()
         {
             Properties.Settings.Default.Usuario = usuario;      // hacemos que se almacene el dato del Usuario en la variable del sistema Usuario
-            Properties.Settings.Default.Password = password;    // hacemos que se almacene el dato del Password en la variable del sistema Password
+            //Properties.Settings.Default.Password = password;    // hacemos que se almacene el dato del Password en la variable del sistema Password
             Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
             Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
         }
@@ -300,6 +303,8 @@ namespace PuntoDeVentaV2
                             cnx.actualizarConteo(usuario);//actualiza el conteo online
                             cn.EjecutarConsulta(cs.registroSesiones(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),correo));
                             cnx.registrarInicio(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+
+                            guardarUsuarioyContraseñaEntxt();
                         }
                         else // Empleado
                         {
@@ -314,7 +319,9 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta(cs.aumentoContadorSesiones(Id));
                             string [] newUsuario = usuario.Split('@');
                             cnx.actualizarConteo(newUsuario[0].ToString());
-                            
+
+                            guardarUsuarioyContraseñaEntxt();
+
                         }
 
                         if (!ComprobarEstadoLicencia(usuario))
@@ -332,9 +339,13 @@ namespace PuntoDeVentaV2
                         FormPrincipal fp = new FormPrincipal();
 
                         // validacion para recordar los datos de Login
-                        if (checkBoxRecordarDatos.Checked == true)      // si es que el Check Box de Recordar los Datos esta marcado
+                        if (checkBoxRecordarUsuarui.Checked == true)      // si es que el Check Box de Recordar los Datos esta marcado
                         {
-                            GuardarDatosLogin();
+                            GuardarDatosLoginUsuarios();
+                        }
+                        if (chkRecordarContraseña.Checked == true)
+                        {
+                            GuardarDatosLoginContraseñas();
                         }
 
                         this.Hide();
@@ -347,6 +358,7 @@ namespace PuntoDeVentaV2
                         fp.TempPassUsr = password;
                         fp.t_id_empleado = id_emp;
                         fp.ShowDialog();
+
 
                         this.Close();
                     }
@@ -370,6 +382,91 @@ namespace PuntoDeVentaV2
             {
                 txtMensaje.Text = "Ingrese sus datos de inicio de sesión";
             }
+        }
+
+        private void guardarUsuarioyContraseñaEntxt()
+        {
+            ///// SE CREA LA CARPETA DONDE ESTARA EL ARCHIVO CON LAS CONTRASEÑAS Y USUARIOS RECORDADOS.
+            string folderPath = @"C:\Archivos PUDVE\DatosDeUsuarios";
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+                Console.WriteLine(folderPath);
+            }
+            ///// SE CREA EL ARCHIVO TXT DONDE SE GUARDAN LOS USUARIOS Y CONTRASEÑAS.
+            string path = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
+            if (!File.Exists(path))
+            {
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                }
+            }
+
+            ///// SE GUARDAN LOS USUARIOS RECORDADOS Y EN SU DEFECTO LAS CONTRASEÑAS.
+            using (StreamReader sr = File.OpenText(path))
+            {
+     
+                string s = "";
+                while ((s = sr.ReadLine()) != null)
+                {
+                    user = s.Split(',');
+                    if (usuario == user[0].ToString().Replace("[",""))
+                    {
+                        guardarUsuario = 0;
+                    }
+                }
+            }
+
+            using (StreamReader sr2 = File.OpenText(path))
+            {
+                string s2 = "";
+                while ((s2 = sr2.ReadLine()) != null)
+                {
+                    user = s2.Split(',');
+                    if ("o8VKT4mG4Gg="== user[1].ToString().Replace("]", ""))
+                    {
+                        guardarUsuario = 1;
+                        eliminar = "1";
+                    }
+                }
+            }
+
+            if (eliminar == "1")
+            {
+                string item = "[" + txtUsuario.Text.Trim()+",o8VKT4mG4Gg=]";
+                var lines = File.ReadAllLines(path).Where(line => line.Trim() != item).ToArray();
+                File.WriteAllLines(path, lines);
+            }
+
+
+
+            if (guardarUsuario == 1)
+            {
+                if (checkBoxRecordarUsuarui.Checked == true)
+                {
+                    if (chkRecordarContraseña.Checked == false)
+                    {
+                        password = "";
+                    }
+                    string usuarios = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
+
+                    using (StreamWriter sw = File.AppendText(usuarios))
+                    {
+                        var contraseñaEncriptada = Encriptar(password);
+                        sw.WriteLine("[" + usuario + "," + contraseñaEncriptada + "]");
+                    }
+                }
+                
+            }
+            
+
+        }
+
+        private void GuardarDatosLoginContraseñas()
+        {
+            Properties.Settings.Default.Password = password;    // hacemos que se almacene el dato del Password en la variable del sistema Password
+            Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
+            Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
         }
 
         private bool ComprobarLicencia()
@@ -477,6 +574,7 @@ namespace PuntoDeVentaV2
 
         private void Login_Load(object sender, EventArgs e)
         {
+            
             //if (ApplicationDeployment.IsNetworkDeployed)
             //{
             //    try
@@ -609,19 +707,36 @@ namespace PuntoDeVentaV2
             }
 
           
-            txtUsuario.Text = Properties.Settings.Default.Usuario;
-            txtPassword.Text = Properties.Settings.Default.Password;
+            //txtUsuario.Text = Properties.Settings.Default.Usuario;
+            //txtPassword.Text = Properties.Settings.Default.Password;
 
             if (txtUsuario.Text != "" && txtPassword.Text != "")
             {
                 btnEntrar.Focus();
-                checkBoxRecordarDatos.Checked = true;
+                //checkBoxRecordarUsuarui.Checked = true;
+            }
+            string verificarArchivo = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
+            bool result = File.Exists(verificarArchivo);
+            if (result == true)
+            {
+                if (!Properties.Settings.Default.Hosting.Equals(string.Empty))
+                {
+                    vs.printProductVersion();
+                }
+                string path = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
+                using (StreamReader sr = File.OpenText(path))
+                {
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        var user = s.Split(',');
+                        usuarioGuardado = user[0].ToString().Replace("[", "");
+                        lbUsuarios.Items.Add(usuarioGuardado);
+                    }
+                }
             }
 
-            //if (!Properties.Settings.Default.Hosting.Equals(string.Empty))
-            //{
-            //    vs.printProductVersion();
-            //}
+            txtUsuario.Select();
         }
 
         /// <summary>
@@ -714,7 +829,9 @@ namespace PuntoDeVentaV2
         private void btnLimpiarDatos_Click(object sender, EventArgs e)
         {
             // limpiamos los datos de las variables del sistema para poder olvidar los datos de inicio de login
-            BorrarDatosLogin();
+            txtUsuario.Clear();
+            txtPassword.Clear();
+            //BorrarDatosLogin();
         }
 
         private void desvincularPCMenuItem_Click(object sender, EventArgs e)
@@ -1013,6 +1130,104 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        public string Encriptar(string decrypted)
+        {
+            byte[] data = UTF8Encoding.UTF8.GetBytes(decrypted);
+
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            TripleDESCryptoServiceProvider tripDes = new TripleDESCryptoServiceProvider();
+
+            tripDes.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+            tripDes.Mode = CipherMode.ECB;
+
+            ICryptoTransform transform = tripDes.CreateEncryptor();
+            byte[] result = transform.TransformFinalBlock(data, 0, data.Length);
+
+            return Convert.ToBase64String(result);
+        }
+
+        public string Desencriptar(string encrypted)
+        {
+            byte[] data = Convert.FromBase64String(encrypted);
+
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            TripleDESCryptoServiceProvider tripDes = new TripleDESCryptoServiceProvider();
+
+            tripDes.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+            tripDes.Mode = CipherMode.ECB;
+
+            ICryptoTransform transform = tripDes.CreateDecryptor();
+            byte[] result = transform.TransformFinalBlock(data, 0, data.Length);
+
+            return UTF8Encoding.UTF8.GetString(result);
+        }
+
+        private void txtUsuario_Click(object sender, EventArgs e)
+        {
+            if (txtUsuario.Text.Equals(string.Empty))
+            {
+                lbUsuarios.Visible = true;
+            }
+        }
+
+        private void Login_Click(object sender, EventArgs e)
+        {
+            lbUsuarios.Visible = false;
+        }
+
+        private void lbUsuarios_Click(object sender, EventArgs e)
+        {
+            var txtuser= string.Empty;
+            if (lbUsuarios.SelectedItem != null)
+            {
+                txtuser = lbUsuarios.SelectedItem.ToString();
+            }
+          
+            if (!string.IsNullOrWhiteSpace(txtuser))
+            {
+                var usuarioSeleccionado = lbUsuarios.SelectedItem.ToString();
+
+                string path = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
+                using (StreamReader sr = File.OpenText(path))
+                {
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        var user = s.Split(',');
+                        if (usuarioSeleccionado == user[0].ToString().Replace("[", ""))
+                        {
+                            txtUsuario.Clear();
+                            txtPassword.Clear();
+                            txtUsuario.Text = user[0].ToString().Replace("[", "");
+                            txtPassword.Text = Desencriptar(user[1].ToString().Replace("]", ""));
+                            lbUsuarios.Visible = false;
+                        }
+                    }
+                }
+            }
+            
+            
+        }
+
+        private void OlvidarUsuariosGuardados_Click(object sender, EventArgs e)
+        {
+            UsuariosGuardados olvidarUsuarios = new UsuariosGuardados();
+            olvidarUsuarios.Show();
+        }
+
+        private void txtUsuario_Enter(object sender, EventArgs e)
+        {
+            if (txtUsuario.Text.Equals(string.Empty))
+            {
+                lbUsuarios.Visible = true;
+            }
+            else
+            {
+                lbUsuarios.Visible = false;
+            }
+            
         }
 
         private bool ComprobarInternetMensualmente(string usuario)
