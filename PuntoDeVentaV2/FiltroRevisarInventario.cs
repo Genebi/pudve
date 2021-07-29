@@ -119,7 +119,12 @@ namespace PuntoDeVentaV2
             else if (filtro == "Filtros")
             {
                 var fieldTable = cbOperadores.SelectedValue.ToString();
-                var strFiltro = cbFiltroDinamico.SelectedItem.ToString();
+                var strFiltro = string.Empty;
+
+                if (!fieldTable.Equals("NA"))
+                {
+                    strFiltro = cbFiltroDinamico.SelectedItem.ToString();
+                }
 
                 if (fieldTable == "NA")
                 {

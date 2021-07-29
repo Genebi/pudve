@@ -679,7 +679,15 @@ namespace PuntoDeVentaV2
                         var extraerDatos = CodigoBarrasAgregados.ToArray();
                         var validarProveedor = CodigoPorProveedor.ToArray();
 
-                        var espacioBuscar = (cantidadRegistrosAux - 2);
+                        var espacioBuscar = 0;
+                        if (cantidadRegistrosAux > 2)
+                        {
+                            espacioBuscar = (cantidadRegistrosAux - 2);
+                        }
+                        else
+                        {
+                            espacioBuscar = (cantidadRegistrosAux - 1);
+                        }
 
                         var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[espacioBuscar].ToString());
 
