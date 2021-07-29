@@ -212,37 +212,11 @@ namespace PuntoDeVentaV2
                     var servidor = Properties.Settings.Default.Hosting;
                     if (string.IsNullOrWhiteSpace(servidor))
                     {
-
-                        actualizarIdUsuario();
                         eliminarCaja();
                         insertarCaja();
                         eliminarProductos();
                         insertarProductos();
                     }
-                }
-            }
-        }
-
-        private void actualizarIdUsuario()
-        {
-            string connectionString = string.Empty;
-            connectionString = "SERVER=" + _server + ";" + "DATABASE=" + _database + ";" + "UID=" + _username + ";" + "PASSWORD=" + _password + ";";
-
-            //Actualizar IdUsuario en tabla Usuarios en MySQL
-            using (MySqlConnection conexion = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    userNickName = FormPrincipal.userNickName;
-                    MySqlCommand upDateUsr = conexion.CreateCommand();
-                    conexion.Open();
-                    upDateUsr.CommandText = $"UPDATE usuarios SET idLocal ='{FormPrincipal.userID.ToString()}' WHERE usuario = '{userNickName}'";
-                    int actualizarUsr = upDateUsr.ExecuteNonQuery();
-                    conexion.Close();
-                }
-                catch (Exception)
-                {
-                    //MessageBox.Show("Error al Tratar de Actualizar Usuarios; Causa: " + ex.Message.ToString(), "Error de Update Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

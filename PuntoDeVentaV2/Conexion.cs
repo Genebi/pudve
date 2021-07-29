@@ -82,15 +82,21 @@ namespace PuntoDeVentaV2
         }
 
         //Sirve para los INSERT, UPDATE, DELETE
-        public int EjecutarConsulta(string consulta, bool ignorar = false)
+        public int EjecutarConsulta(string consulta, bool ignorar = false, bool regresarID = false)
         {
+            int resultado = 0;
             Conectarse(ignorar);
             sql_con.Open();
 
             sql_cmd = sql_con.CreateCommand();
             sql_cmd.CommandText = consulta;
-            int resultado = sql_cmd.ExecuteNonQuery();
+            resultado = sql_cmd.ExecuteNonQuery();
             sql_con.Close();
+
+            if (regresarID)
+            {
+                resultado = Convert.ToInt32(sql_cmd.LastInsertedId);
+            }
 
             return resultado;
         }
