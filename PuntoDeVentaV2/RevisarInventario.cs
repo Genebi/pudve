@@ -455,120 +455,8 @@ namespace PuntoDeVentaV2
 
                             codigo = txtBoxBuscarCodigoBarras.Text;
 
-                            if (operadorFiltro.Equals("chkProveedor"))
-                            {
-                                if (!CodigoBarrasAgregados.ContainsKey(listaCodigosBarras[cantidadRegistrosAux]) && !string.IsNullOrEmpty(codigo) || !CodigoPorProveedor.ContainsKey(codigo))
-                                {//Para cuando no se ha guardado el Stock
-                                    var idABuscar = string.Empty;
-                                    if (deshabilitarProdProveedor.Equals(true))
-                                    {
-                                        if (deshabilitarProdProveedor.Equals(true))
-                                        {
-                                            listaCodigosBarras.Remove(validarCodigoProv);
-                                        }
-
-                                        if (CodigoBarrasAgregados.Count.Equals(0)) { CodigoBarrasAgregados.Add(listaCodigosBarras[0], string.Empty); }
-
-                                        var extraerDatos = CodigoBarrasAgregados.ToArray();
-                                        var validarProveedor = CodigoPorProveedor.ToArray();
-
-                                        var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[cantidadRegistrosAux - 1].ToString());
-
-                                        int codigoBuscar = 0;
-                                        if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar); } else { codigoBuscar = (indice + 1); }
-
-                                        if (CodigoBarrasAgregados.Count.Equals(0)) { codigoBuscar = 0; }
-
-                                        if (codigoBuscar < 0) { codigoBuscar = (cantidadRegistrosAux + contadorDeshabilitar); }
-                                        var codigoActual = string.Empty;
-
-                                        //if (!CodigoBarrasAgregados.Count.Equals(0))
-                                        //{
-                                        //    var separacionArreglo = separarArreglo(extraerDatos[codigoBuscar].ToString());
-                                        //    mostrarId(separacionArreglo);
-                                        //}
-
-                                        if (!CodigoBarrasAgregados.Count.Equals(0) /*&& deshabilitarProdProveedor.Equals(false)*/) { codigoActual = extraerDatos[codigoBuscar].ToString(); } else { codigoActual = listaCodigosBarras[0].ToString(); }
-
-                                        string[] words = codigoActual.Split(',');
-                                        string code = words[0].Replace("[", "");
-                                        var convertirAID = mostrarId(code);
-                                        codigo = code;
-                                        var codigoSecundario = validarfiltroProveedor(convertirAID);
-                                        if (deshabilitarProdProveedor.Equals(true))
-                                        {
-                                            CodigoBarrasAgregados.Remove(txtBoxBuscarCodigoBarras.Text);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (!CodigoBarrasAgregados.ContainsKey(codigo))
-                                        {
-                                            CodigoBarrasAgregados.Add(codigo, string.Empty);
-                                        }
-                                    }
-
-                                    if (deshabilitarProdProveedor.Equals(true))
-                                    {
-                                        CodigoPorProveedor.Remove(validarCodigoProv);
-                                        codigoProveedor.Remove(validarCodigoProv);
-                                    }
-                                }
-                                else
-                                {//Para cuando ya se guardo el Stock
-                                    string codigoActual = string.Empty;
-                                    var separacionArreglo = string.Empty;
-                                    var idEncontrado = string.Empty;
-
-                                    if (deshabilitarProdProveedor.Equals(true))
-                                    {
-                                        listaCodigosBarras.Remove(validarCodigoProv);
-                                    }
-
-                                    var extraerDatos = CodigoBarrasAgregados.ToArray();
-                                    var validarProveedor = CodigoPorProveedor.ToArray();
-
-                                    var buscarPosicion = 0;
-                                    //if (deshabilitarProdProveedor.Equals(true)) { buscarPosicion = (cantidadRegistrosAux - 1); } else { buscarPosicion = cantidadRegistrosAux; }
-                                    buscarPosicion = (cantidadRegistrosAux - 1);
-
-                                    var indice = Array.FindIndex(validarProveedor, row => row.Key == codigoProveedor[buscarPosicion].ToString());
-
-                                    int codigoBuscar = 0;
-                                    if (deshabilitarEsteProducto.Equals(false)) { contadorDeshabilitar = 0; }
-                                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice+1); }
-
-                                    if (!CodigoBarrasAgregados.Count.Equals(0))
-                                    {
-                                        separacionArreglo = separarArreglo(extraerDatos[codigoBuscar].ToString());
-                                        idEncontrado = mostrarId(separacionArreglo);
-                                    }
-
-                                    if (codigoBuscar < 0) { codigoBuscar = (cantidadRegistrosAux); }
-                                    if (!CodigoBarrasAgregados.ContainsKey(separacionArreglo) && deshabilitarProdProveedor.Equals(false))
-                                    {
-                                        codigoActual = extraerDatos[codigoBuscar].ToString();
-                                    }
-                                    else
-                                    {
-                                        codigoActual = listaCodigosBarras[codigoBuscar].ToString();
-                                    }
-
-
-                                    string[] words = codigoActual.Split(',');
-                                    string code = words[0].Replace("[", "");
-                                    var convertirAID = mostrarId(code);
-                                    codigo = code;
-                                    var codigoSecundario = validarfiltroProveedor(convertirAID);
-                                    if (deshabilitarProdProveedor.Equals(true))
-                                    {
-                                        CodigoBarrasAgregados.Remove(validarCodigoProv);
-                                        CodigoPorProveedor.Remove(validarCodigoProv);
-                                        codigoProveedor.Remove(validarCodigoProv);
-                                    }
-                                }
-                            }
-
+                            funcionesFiltroProveedor(listaCodigosBarras, codigo);//Metodo para cuando se hace filtro por proveedor
+                            
                             realizarBusqueda(codigo, aplicar);
 
                             countListaCodigosBarras++;
@@ -767,6 +655,125 @@ namespace PuntoDeVentaV2
                         ultimoProductoRevision();
 
                         //this.Close();
+                    }
+                }
+            }
+        }
+
+        private void funcionesFiltroProveedor(List<string> listaCodigosBarras, string codigo)
+        {
+            if (operadorFiltro.Equals("chkProveedor"))
+            {
+                if (!CodigoBarrasAgregados.ContainsKey(listaCodigosBarras[cantidadRegistrosAux]) && !string.IsNullOrEmpty(codigo) || !CodigoPorProveedor.ContainsKey(codigo))
+                 {//Para cuando no se ha guardado el Stock
+                    var idABuscar = string.Empty;
+                    if (deshabilitarProdProveedor.Equals(true))
+                    {
+                        if (deshabilitarProdProveedor.Equals(true))
+                        {
+                            listaCodigosBarras.Remove(validarCodigoProv);
+                        }
+
+                        if (CodigoBarrasAgregados.Count.Equals(0)) { CodigoBarrasAgregados.Add(listaCodigosBarras[0], string.Empty); }
+
+                        var extraerDatos = CodigoBarrasAgregados.ToArray();
+                        var validarProveedor = CodigoPorProveedor.ToArray();
+
+                        var espacioBuscar = (cantidadRegistrosAux - 2);
+
+                        var indice = Array.FindIndex(extraerDatos, row => row.Key == listaCodigosBarras[espacioBuscar].ToString());
+
+                        int codigoBuscar = 0;
+                        if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar); } else { codigoBuscar = (indice + 1); }
+
+                        if (CodigoBarrasAgregados.Count.Equals(0)) { codigoBuscar = 0; }
+
+                        if (codigoBuscar < 0) { codigoBuscar = (cantidadRegistrosAux + contadorDeshabilitar); }
+                        var codigoActual = string.Empty;
+
+                        //if (!CodigoBarrasAgregados.Count.Equals(0))
+                        //{
+                        //    var separacionArreglo = separarArreglo(extraerDatos[codigoBuscar].ToString());
+                        //    mostrarId(separacionArreglo);
+                        //}
+
+                        if (!CodigoBarrasAgregados.Count.Equals(0) /*&& deshabilitarProdProveedor.Equals(false)*/) { codigoActual = extraerDatos[espacioBuscar].ToString(); } else { codigoActual = listaCodigosBarras[0].ToString(); }
+
+                        string[] words = codigoActual.Split(',');
+                        string code = words[0].Replace("[", "");
+                        var convertirAID = mostrarId(code);
+                        codigo = code;
+                        var codigoSecundario = validarfiltroProveedor(convertirAID);
+                        //if (deshabilitarProdProveedor.Equals(true))
+                        //{
+                        //    CodigoBarrasAgregados.Remove(txtBoxBuscarCodigoBarras.Text);
+                        //}
+                    }
+                    else
+                    {
+                        if (!CodigoBarrasAgregados.ContainsKey(codigo))
+                        {
+                            CodigoBarrasAgregados.Add(codigo, string.Empty);
+                        }
+                    }
+
+                    if (deshabilitarProdProveedor.Equals(true))
+                    {
+                        CodigoPorProveedor.Remove(validarCodigoProv);
+                        codigoProveedor.Remove(validarCodigoProv);
+                    }
+                }
+                else
+                {//Para cuando ya se guardo el Stock
+                    string codigoActual = string.Empty;
+                    var separacionArreglo = string.Empty;
+                    var idEncontrado = string.Empty;
+
+                    if (deshabilitarProdProveedor.Equals(true))
+                    {
+                        listaCodigosBarras.Remove(validarCodigoProv);
+                    }
+
+                    var extraerDatos = CodigoBarrasAgregados.ToArray();
+                    var validarProveedor = CodigoPorProveedor.ToArray();
+
+                    var buscarPosicion = 0;
+                    //if (deshabilitarProdProveedor.Equals(true)) { buscarPosicion = (cantidadRegistrosAux - 1); } else { buscarPosicion = cantidadRegistrosAux; }
+                    buscarPosicion = (cantidadRegistrosAux - 1);
+
+                    var indice = Array.FindIndex(validarProveedor, row => row.Key == codigoProveedor[buscarPosicion].ToString());
+
+                    int codigoBuscar = 0;
+                    if (deshabilitarEsteProducto.Equals(false)) { contadorDeshabilitar = 0; }
+                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice + 1); }
+
+                    if (!CodigoBarrasAgregados.Count.Equals(0))
+                    {
+                        separacionArreglo = separarArreglo(extraerDatos[codigoBuscar].ToString());
+                        idEncontrado = mostrarId(separacionArreglo);
+                    }
+
+                    if (codigoBuscar < 0) { codigoBuscar = (cantidadRegistrosAux); }
+                    if (!CodigoBarrasAgregados.ContainsKey(separacionArreglo) && deshabilitarProdProveedor.Equals(false))
+                    {
+                        codigoActual = extraerDatos[codigoBuscar].ToString();
+                    }
+                    else
+                    {
+                        codigoActual = listaCodigosBarras[codigoBuscar].ToString();
+                    }
+
+
+                    string[] words = codigoActual.Split(',');
+                    string code = words[0].Replace("[", "");
+                    var convertirAID = mostrarId(code);
+                    codigo = code;
+                    var codigoSecundario = validarfiltroProveedor(convertirAID);
+                    if (deshabilitarProdProveedor.Equals(true))
+                    {
+                        CodigoBarrasAgregados.Remove(validarCodigoProv);
+                        CodigoPorProveedor.Remove(validarCodigoProv);
+                        codigoProveedor.Remove(validarCodigoProv);
                     }
                 }
             }
