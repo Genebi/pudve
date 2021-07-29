@@ -6681,24 +6681,12 @@ namespace PuntoDeVentaV2
             _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
 
-        private void AgregarEditarProducto_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //if (FormDetalle.Visible == false)
-            //{
-            //    FormDetalleProducto.Close();
-            //}
-            //LimpiarDatos();
-        }
-
         private void AgregarEditarProducto_FormClosed(object sender, FormClosedEventArgs e)
         {
             Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
 
             if (producto != null)
             {
-                //producto.DGVProductos.Rows.Clear();
-                //producto.filtroLoadProductos();
-                //producto.CargarDatos();
                 producto.retornoAgregarEditarProductoDatosSourceFinal = DatosSourceFinal;
                 producto.recargarDGV();
             }

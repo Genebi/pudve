@@ -36,37 +36,54 @@ namespace PuntoDeVentaV2
 
         private void verificarTipoYLlenadoDataGridView()
         {
+            var primeraLetraMayuscula = string.Empty;
+            var restoPalabra = string.Empty;
+            var complementoTituloProducto = " relaciónado con Combo(s) / Servicio(s)";
+            var complementoTituloComboServicio = " relaciónado con Producto(s)";
+
             if (tipo.Equals("AGREGAR PRODUCTO"))
             {
-                lblTitulo.Text = "Relaciónado con Combos / Servicios";
+                primeraLetraMayuscula = tipo.Remove(0, 8).Remove(1);
+                restoPalabra = tipo.Remove(0, 8).Remove(0, 1);
+                lblTitulo.Text = primeraLetraMayuscula.ToUpper() + restoPalabra.ToLower() + complementoTituloProducto.ToLower();
                 llenarDatosProductos();
             }
             if (tipo.Equals("AGREGAR COMBOS"))
             {
-                lblTitulo.Text = "Relaciónado con Productos";
+                primeraLetraMayuscula = tipo.Remove(0, 8).Remove(1);
+                restoPalabra = tipo.Remove(0, 8).Remove(0, 1).Remove(4);
+                lblTitulo.Text = primeraLetraMayuscula.ToUpper() + restoPalabra.ToLower() + complementoTituloComboServicio.ToLower();
                 llenarDatosServicioCombo();
             }
             if (tipo.Equals("AGREGAR SERVICIOS"))
             {
-                lblTitulo.Text = "Relaciónado con Productos";
+                primeraLetraMayuscula = tipo.Remove(0, 8).Remove(1);
+                restoPalabra = tipo.Remove(0, 8).Remove(0, 1).Remove(7);
+                lblTitulo.Text = primeraLetraMayuscula.ToUpper() + restoPalabra.ToLower() + complementoTituloComboServicio.ToLower();
                 llenarDatosServicioCombo();
             }
 
             if (tipo.Equals("EDITAR PRODUCTO") || tipo.Equals("COPIAR PRODUCTO"))
             {
-                lblTitulo.Text = "Relaciónado con Combos / Servicios";
+                primeraLetraMayuscula = tipo.Remove(0, 7).Remove(1);
+                restoPalabra = tipo.Remove(0, 7).Remove(0, 1);
+                lblTitulo.Text = primeraLetraMayuscula.ToUpper() + restoPalabra.ToLower() + complementoTituloProducto.ToLower();
                 llenarDatosProductos();
             }
 
             if (tipo.Equals("EDITAR COMBOS") || tipo.Equals("COPIAR COMBOS"))
             {
-                lblTitulo.Text = "Relaciónado con Productos";
+                primeraLetraMayuscula = tipo.Remove(0, 7).Remove(1);
+                restoPalabra = tipo.Remove(0, 7).Remove(0, 1).Remove(4);
+                lblTitulo.Text = primeraLetraMayuscula.ToUpper() + restoPalabra.ToLower() + complementoTituloComboServicio.ToLower();
                 llenarDatosServicioCombo();
             }
 
             if (tipo.Equals("EDITAR SERVICIOS") || tipo.Equals("COPIAR SERVICIOS"))
             {
-                lblTitulo.Text = "Relaciónado con Productos";
+                primeraLetraMayuscula = tipo.Remove(0, 7).Remove(1);
+                restoPalabra = tipo.Remove(0, 7).Remove(0, 1).Remove(7);
+                lblTitulo.Text = primeraLetraMayuscula.ToUpper() + restoPalabra.ToLower() + complementoTituloComboServicio.ToLower();
                 llenarDatosServicioCombo();
             }
         }
