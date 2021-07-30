@@ -170,7 +170,14 @@ namespace PuntoDeVentaV2
                             ID = drProdServ["ID"].ToString();
                             Fecha = drProdServ["Fecha"].ToString();
                             IDServicio = drProdServ["NoServicio"].ToString();
-                            CombServ = drProdServ["ServicioCombo"].ToString();
+                            if (!idProdEdit.ToString().Equals(drProdServ["NoServicio"].ToString()))
+                            {
+                                CombServ = drProdServ["ServicioCombo"].ToString();
+                            }
+                            else
+                            {
+                                CombServ = drProdServ["Producto"].ToString();
+                            }
                             IDProducto = drProdServ["NoProducto"].ToString();
                             NombreProducto = drProdServ["Producto"].ToString();
                             Cantidad = drProdServ["Cantidad"].ToString();
@@ -443,31 +450,59 @@ namespace PuntoDeVentaV2
                         {
                             if (!listaServCombo.Count().Equals(0))
                             {
-                                for (int i = 0; i < listaServCombo.Count(); i++)
+                                for (int i = 0; i < DGVProdServCombo.Rows.Count; i++)
                                 {
-                                    if (listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[1].Value.ToString()) &&
-                                        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[2].Value.ToString()) &&
-                                        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[4].Value.ToString()) &&
-                                        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[5].Value.ToString()) &&
-                                        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[6].Value.ToString()))
+                                    for (int z = 0; z < listaServCombo.Count(); z++)
                                     {
-                                        listaServCombo.RemoveAll(x => x == listaServCombo[i]);
+                                        if (listaServCombo[z].Contains(DGVProdServCombo.Rows[i].Cells[1].Value.ToString()) &&
+                                            listaServCombo[z].Contains(DGVProdServCombo.Rows[i].Cells[2].Value.ToString()) &&
+                                            listaServCombo[z].Contains(DGVProdServCombo.Rows[i].Cells[4].Value.ToString()) &&
+                                            listaServCombo[z].Contains(DGVProdServCombo.Rows[i].Cells[5].Value.ToString()) &&
+                                            listaServCombo[z].Contains(DGVProdServCombo.Rows[i].Cells[6].Value.ToString()))
+                                        {
+                                            listaServCombo.RemoveAll(x => x == listaServCombo[z]);
+                                        }
                                     }
                                 }
+                                //for (int i = 0; i < listaServCombo.Count(); i++)
+                                //{
+                                //    if (listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[1].Value.ToString()) &&
+                                //        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[2].Value.ToString()) &&
+                                //        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[4].Value.ToString()) &&
+                                //        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[5].Value.ToString()) &&
+                                //        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[6].Value.ToString()))
+                                //    {
+                                //        listaServCombo.RemoveAll(x => x == listaServCombo[i]);
+                                //    }
+                                //}
                             }
                             if (!listaProd.Count().Equals(0))
                             {
-                                for (int i = 0; i < listaProd.Count(); i++)
+                                for (int i = 0; i < DGVProdServCombo.Rows.Count; i++)
                                 {
-                                    if (listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[1].Value.ToString()) &&
-                                        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[2].Value.ToString()) &&
-                                        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[4].Value.ToString()) &&
-                                        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[5].Value.ToString()) &&
-                                        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[6].Value.ToString()))
+                                    for (int z = 0; z < listaProd.Count(); z++)
                                     {
-                                        listaProd.RemoveAll(x => x == listaProd[i]);
+                                        if (listaProd[z].Contains(DGVProdServCombo.Rows[i].Cells[1].Value.ToString()) &&
+                                            listaProd[z].Contains(DGVProdServCombo.Rows[i].Cells[2].Value.ToString()) &&
+                                            listaProd[z].Contains(DGVProdServCombo.Rows[i].Cells[4].Value.ToString()) &&
+                                            listaProd[z].Contains(DGVProdServCombo.Rows[i].Cells[5].Value.ToString()) &&
+                                            listaProd[z].Contains(DGVProdServCombo.Rows[i].Cells[6].Value.ToString()))
+                                            {
+                                                listaProd.RemoveAll(x => x == listaProd[z]);
+                                            }
                                     }
                                 }
+                                //for (int i = 0; i < listaProd.Count(); i++)
+                                //{
+                                //    if (listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[1].Value.ToString()) &&
+                                //        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[2].Value.ToString()) &&
+                                //        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[4].Value.ToString()) &&
+                                //        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[5].Value.ToString()) &&
+                                //        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[6].Value.ToString()))
+                                //    {
+                                //        listaProd.RemoveAll(x => x == listaProd[i]);
+                                //    }
+                                //}
                             }
                         }
                         else if (!contenido.Equals(string.Empty))
