@@ -6696,22 +6696,18 @@ namespace PuntoDeVentaV2
 
         private void mostrarOcultarLblArrow()
         {
-            if (DatosSourceFinal.Equals(1) ||
-                DatosSourceFinal.Equals(3))
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
             {
-                if (listaProductoToCombo.Count() > 0 ||
-                    ProductosDeServicios.Count() > 0)
+                if (listaProductoToCombo.Count() > 0 || ProductosDeServicios.Count() > 0)
                 {
                     lblArrow.Visible = true;
                 }
-                else if (listaProductoToCombo.Count().Equals(0) &&
-                         ProductosDeServicios.Count().Equals(0))
+                else if (listaProductoToCombo.Count().Equals(0) && ProductosDeServicios.Count().Equals(0))
                 {
                     lblArrow.Visible = false;
                 }
             }
-            else if (DatosSourceFinal.Equals(2) ||
-                     DatosSourceFinal.Equals(4))
+            else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
             {
                 using (DataTable dtProductos = cn.CargarDatos(cs.encontrarProductoComboServicio(Convert.ToInt32(idEditarProducto))))
                 {
@@ -6730,13 +6726,11 @@ namespace PuntoDeVentaV2
                                     else if (dtCombdServ.Rows.Count.Equals(0))
                                     {
                                         //lblArrow.Visible = false;
-                                        if (listaProductoToCombo.Count() > 0 ||
-                                            ProductosDeServicios.Count() > 0)
+                                        if (listaProductoToCombo.Count() > 0 || ProductosDeServicios.Count() > 0)
                                         {
                                             lblArrow.Visible = true;
                                         }
-                                        else if (listaProductoToCombo.Count().Equals(0) &&
-                                                 ProductosDeServicios.Count().Equals(0))
+                                        else if (listaProductoToCombo.Count().Equals(0) && ProductosDeServicios.Count().Equals(0))
                                         {
                                             lblArrow.Visible = false;
                                         }
@@ -6754,13 +6748,11 @@ namespace PuntoDeVentaV2
                                     else if (dtProd.Rows.Count.Equals(0))
                                     {
                                         //lblArrow.Visible = false;
-                                        if (listaProductoToCombo.Count() > 0 ||
-                                            ProductosDeServicios.Count() > 0)
+                                        if (listaProductoToCombo.Count() > 0 || ProductosDeServicios.Count() > 0)
                                         {
                                             lblArrow.Visible = true;
                                         }
-                                        else if (listaProductoToCombo.Count().Equals(0) &&
-                                                 ProductosDeServicios.Count().Equals(0))
+                                        else if (listaProductoToCombo.Count().Equals(0) && ProductosDeServicios.Count().Equals(0))
                                         {
                                             lblArrow.Visible = false;
                                         }

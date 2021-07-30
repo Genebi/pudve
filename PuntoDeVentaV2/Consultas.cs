@@ -2047,7 +2047,7 @@ namespace PuntoDeVentaV2
 
         public string obtenerProdRelacionados(string idProd)
         {
-            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProd}'"; 
+            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDProducto = '{idProd}'"; 
 
             return consulta;
         }
