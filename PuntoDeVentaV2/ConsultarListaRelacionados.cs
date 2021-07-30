@@ -227,11 +227,12 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
             DGVProdServCombo.Columns[0].Visible = false;
             DGVProdServCombo.Columns[1].Visible = false;
             DGVProdServCombo.Columns[2].Visible = false;
-            DGVProdServCombo.Columns[3].Visible = false;
             DGVProdServCombo.Columns[4].Visible = false;
+            DGVProdServCombo.Columns[5].Visible = false;
             DGVProdServCombo.Columns[6].Visible = false;
 
             notSortableDataGridView();
@@ -336,6 +337,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
             DGVProdServCombo.Columns[0].Visible = false;
             DGVProdServCombo.Columns[1].Visible = false;
             DGVProdServCombo.Columns[2].Visible = false;
