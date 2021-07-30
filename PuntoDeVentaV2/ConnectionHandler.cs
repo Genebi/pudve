@@ -170,7 +170,7 @@ namespace PuntoDeVentaV2
 
         public bool verificarInternet()
         {
-            string host = "sifo.com.mx";
+            string host = "google.com.mx";
             bool resul = false;
             Ping p = new Ping();
             try
@@ -179,13 +179,13 @@ namespace PuntoDeVentaV2
                 if (reply.Status == IPStatus.Success)
                 {
                     resul = true;
-                    MessageBox.Show("Conecxion Exitosa");
+                    //MessageBox.Show("Conecxion Exitosa");
                 }
             }
             catch
             {
                 resul = false;
-                MessageBox.Show("Conecxion Fallida");
+                //MessageBox.Show("Conecxion Fallida");
             }
             return resul;
             }
