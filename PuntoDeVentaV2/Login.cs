@@ -808,6 +808,42 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void filtrarUsuariosGuardados()
+        {
+            string verificarArchivo = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
+            bool result = File.Exists(verificarArchivo);
+            if (result == true)
+            {
+                if (!Properties.Settings.Default.Hosting.Equals(string.Empty))
+                {
+                    vs.printProductVersion();
+                }
+                string path = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
+                using (StreamReader sr = File.OpenText(path))
+                {
+                    lbUsuarios.Items.Clear();
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        var user = s.Split(',');
+                        usuarioGuardado = user[0].ToString().Replace("[", "");
+                        if (usuarioGuardado.StartsWith(txtUsuario.Text))
+                        {
+
+                            lbUsuarios.Visible = true;
+                            lbUsuarios.Items.Add(usuarioGuardado);
+                        }
+                        else if (lbUsuarios.Items.Count == 0 || string.IsNullOrEmpty(txtUsuario.Text))
+                        {
+
+                            lbUsuarios.Visible = false;
+                        }
+
+                    }
+                }
+            }
+        }
+
         private void modoDebug()
         {
             Properties.Settings.Default.baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -1242,6 +1278,11 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
             llenarUsuarioGuardado();
+        }
+
+        private void txtUsuario_KeyUp(object sender, KeyEventArgs e)
+        {
+            filtrarUsuariosGuardados();
         }
 
         private void txtUsuario_Enter(object sender, EventArgs e)
