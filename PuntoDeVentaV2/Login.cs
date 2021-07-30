@@ -88,8 +88,7 @@ namespace PuntoDeVentaV2
 
         public void GuardarDatosLoginUsuarios()
         {
-            Properties.Settings.Default.Usuario = usuario;      // hacemos que se almacene el dato del Usuario en la variable del sistema Usuario
-            //Properties.Settings.Default.Password = password;    // hacemos que se almacene el dato del Password en la variable del sistema Password
+            Properties.Settings.Default.Usuario = usuario;      // hacemos que se almacene el dato Password en la variable del sistema Password
             Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
             Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
         }
@@ -572,6 +571,12 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void llenarUsuarioGuardado()
+        {
+            txtUsuario.Text = Properties.Settings.Default.Usuario;
+            txtPassword.Text = Properties.Settings.Default.Password;
+        }
+
         private void Login_Load(object sender, EventArgs e)
         {
             
@@ -706,15 +711,22 @@ namespace PuntoDeVentaV2
                 Show();
             }
 
-          
-            //txtUsuario.Text = Properties.Settings.Default.Usuario;
-            //txtPassword.Text = Properties.Settings.Default.Password;
+            llenarUsuarioGuardado();
 
             if (txtUsuario.Text != "" && txtPassword.Text != "")
             {
                 btnEntrar.Focus();
                 //checkBoxRecordarUsuarui.Checked = true;
             }
+
+            cargarUsuariosGuardados();
+            lbUsuarios.Visible = false;
+            txtUsuario.Select();
+        }
+
+
+        private void cargarUsuariosGuardados()
+        {
             string verificarArchivo = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
             bool result = File.Exists(verificarArchivo);
             if (result == true)
@@ -735,10 +747,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
-            txtUsuario.Select();
         }
-
         /// <summary>
         /// Metodo para hacer el copiado de archivos 
         /// necesarios para el funcionamiento
@@ -1214,7 +1223,25 @@ namespace PuntoDeVentaV2
         private void OlvidarUsuariosGuardados_Click(object sender, EventArgs e)
         {
             UsuariosGuardados olvidarUsuarios = new UsuariosGuardados();
+            olvidarUsuarios.FormClosing += delegate 
+            {
+                if (UsuariosGuardados.verificarBorrado.Equals(true))
+                {
+                    limpiarUsuarioGuardado();
+                    lbUsuarios.Items.Clear();
+                    cargarUsuariosGuardados();
+                }
+            };
             olvidarUsuarios.Show();
+        }
+
+        public void limpiarUsuarioGuardado()
+        {
+            Properties.Settings.Default.Password = string.Empty;
+            Properties.Settings.Default.Usuario = string.Empty;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+            llenarUsuarioGuardado();
         }
 
         private void txtUsuario_Enter(object sender, EventArgs e)
@@ -1301,5 +1328,7 @@ namespace PuntoDeVentaV2
 
             return respuesta;
         }
+
+
     }
 }

@@ -75,6 +75,7 @@
             this.Name = "UsuariosGuardados";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UsuariosGuardados";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UsuariosGuardados_FormClosing);
             this.Load += new System.EventHandler(this.UsuariosGuardados_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuariosGuardados)).EndInit();
             this.ResumeLayout(false);
