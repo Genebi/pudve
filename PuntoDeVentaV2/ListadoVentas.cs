@@ -1559,16 +1559,49 @@ namespace PuntoDeVentaV2
             string arch_key = "";
             string numero_cer = "";
             string cp = "";
+            bool cambia_nombre_carpeta = false;
 
             //int sin_cliente = 0;
             //int n_filas = 0;
             int i = 1;
 
+            
+            
+            // Obtiene el número de usuarios. 
 
+            DataTable dt_usuarios = cn.CargarDatos("SELECT ID, Usuario FROM usuarios");
+            int tam_usuarios = dt_usuarios.Rows.Count;
+
+            if (tam_usuarios > 1)
+            {
+                DataRow dr_usuarios = dt_usuarios.Rows[0];
+
+                if (dr_usuarios["Usuario"].ToString() == FormPrincipal.userNickName)
+                {
+                    // Verifica si existe la carpeta CSD.
+                    // Si la carpeta CSD no existe, entonces se deberá modificar la ruta de acceso a los archivos CSD.
+
+                    if (!Directory.Exists(ruta_carpeta_csd))
+                    {
+                        cambia_nombre_carpeta = true;
+                        ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                    }
+                }
+                else
+                {
+                    cambia_nombre_carpeta = true;
+                    ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                }
+            }
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
                 ruta_carpeta_csd = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD\";
+
+                if(cambia_nombre_carpeta == true)
+                {
+                    ruta_carpeta_csd = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                }
             }
 
             // Consulta IDCliente

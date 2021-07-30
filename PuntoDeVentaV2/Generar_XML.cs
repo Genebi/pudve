@@ -78,8 +78,9 @@ namespace PuntoDeVentaV2
             // Complemento de pago
             string pg_fecha_pago = "";
             decimal monto_cpago = 0;
+            bool cambia_nombre_carpeta = false;
 
-            
+
 
 
             // .................................
@@ -145,9 +146,41 @@ namespace PuntoDeVentaV2
             // .   Obtener archivos digitales   .
             // ..................................
 
+            // Obtiene el número de usuarios. 
+
+            DataTable dt_usuarios = cn.CargarDatos("SELECT ID, Usuario FROM usuarios");
+            int tam_usuarios = dt_usuarios.Rows.Count;
+
+            if (tam_usuarios > 1)
+            {
+                DataRow dr_usuarios = dt_usuarios.Rows[0];
+
+                if (dr_usuarios["Usuario"].ToString() == FormPrincipal.userNickName)
+                {
+                    // Verifica si existe la carpeta CSD.
+                    // Si la carpeta CSD no existe, entonces se deberá modificar la ruta de acceso a los archivos CSD.
+
+                    if (!Directory.Exists(ruta_carpeta_archivos))
+                    {
+                        cambia_nombre_carpeta = true;
+                        ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                    }
+                }
+                else
+                {
+                    cambia_nombre_carpeta = true;
+                    ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                }
+            }
+
             if (!string.IsNullOrWhiteSpace(servidor))
             {
                 ruta_carpeta_archivos = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD\";
+
+                if(cambia_nombre_carpeta == true)
+                {
+                    ruta_carpeta_archivos = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                }
             }
 
             if (Directory.Exists(ruta_carpeta_archivos))
