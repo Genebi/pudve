@@ -684,7 +684,7 @@ namespace PuntoDeVentaV2
                         {
                             espacioBuscar = (cantidadRegistrosAux - 2);
                         }
-                        else
+                        else  
                         {
                             espacioBuscar = (cantidadRegistrosAux - 1);
                         }
@@ -753,10 +753,16 @@ namespace PuntoDeVentaV2
 
                     int codigoBuscar = 0;
                     if (deshabilitarEsteProducto.Equals(false)) { contadorDeshabilitar = 0; }
-                    if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice + 1); }
+                    //if (contadorDeshabilitar > 0) { codigoBuscar = (indice + 1) - (contadorDeshabilitar /*+ contadorDeshabilitar*/); } else { codigoBuscar = (indice + 1); }
+                    codigoBuscar = (indice + 1);
 
                     if (!CodigoBarrasAgregados.Count.Equals(0))
                     {
+                        if (deshabilitarEsteProducto.Equals(true))
+                        {
+                            codigoBuscar = buscarPosicion;
+                        }
+
                         separacionArreglo = separarArreglo(extraerDatos[codigoBuscar].ToString());
                         idEncontrado = mostrarId(separacionArreglo);
                     }
