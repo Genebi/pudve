@@ -13,6 +13,7 @@ namespace PuntoDeVentaV2
 {
     public partial class UsuariosGuardados : Form
     {
+        public static bool verificarBorrado = false;
         public UsuariosGuardados()
         {
             InitializeComponent();
@@ -61,6 +62,7 @@ namespace PuntoDeVentaV2
 
                 var lines = File.ReadAllLines(path).Where(line => line.Trim() != item).ToArray();
                 File.WriteAllLines(path, lines);
+                verificarBorrado = true;
             }
             dgvUsuariosGuardados.Rows.Clear();
             cargarDatos();
@@ -75,6 +77,18 @@ namespace PuntoDeVentaV2
             else
             {
                 dgvUsuariosGuardados.Cursor = Cursors.Default;
+            }
+        }
+
+        private void UsuariosGuardados_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Login formloggin = Application.OpenForms.OfType<Login>().FirstOrDefault();
+            if (formloggin != null)
+            {
+                if (verificarBorrado == true)
+                {
+                    formloggin.limpiarUsuarioGuardado();
+                }
             }
         }
     }
