@@ -1885,7 +1885,7 @@ namespace PuntoDeVentaV2
 
         public string buscarProdIntoServComb(int idProd)
         {
-            var consulta = $"SELECT DISTINCT ServProds.ID, ServProds.Fecha, ServProds.IDServicio NoServicio, Prod.Nombre ServicioCombo, ServProds.IDProducto NoProducto, ServProds.NombreProducto Producto, ServProds.Cantidad, IF(Prod.Tipo = 'S', 'SERVICIO', 'COMBO') AS Tipo FROM productosdeservicios AS ServProds INNER JOIN Productos AS Prod ON Prod.ID = ServProds.IDServicio WHERE ServProds.IDServicio = '{idProd}' ORDER BY Prod.Nombre ASC; ";
+            var consulta = $"SELECT DISTINCT ServProds.ID, ServProds.Fecha, ServProds.IDServicio NoServicio, Prod.Nombre ServicioCombo, ServProds.IDProducto NoProducto, ServProds.NombreProducto Producto, ServProds.Cantidad, IF(Prod.Tipo = 'S', 'SERVICIO', 'COMBO') AS Tipo FROM productosdeservicios AS ServProds INNER JOIN Productos AS Prod ON Prod.ID = ServProds.IDServicio WHERE ServProds.IDServicio = '{idProd}' OR ServProds.IDProducto = '{idProd}'  ORDER BY Prod.Nombre ASC; ";
 
             return consulta;
         }
@@ -2047,7 +2047,7 @@ namespace PuntoDeVentaV2
 
         public string obtenerProdRelacionados(string idProd)
         {
-            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProd}'"; 
+            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDProducto = '{idProd}'"; 
 
             return consulta;
         }
