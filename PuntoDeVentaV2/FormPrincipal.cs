@@ -1087,12 +1087,12 @@ namespace PuntoDeVentaV2
            
             //if (datoMEtodoMAfufo)
             //{
-                if (pasar == 1)
-                {
-                    _conHandler.StartCheckConnectionState();
-                //}
+            if (pasar == 1)
+            {
+                _conHandler.StartCheckConnectionState();
+            //}
             }
-}
+        }
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {

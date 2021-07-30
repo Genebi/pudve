@@ -205,7 +205,7 @@ namespace PuntoDeVentaV2
 
         public void MejoraMysql()
         {
-            var datoMEtodoMAfufo = verificarInternet();
+            var datoMEtodoMAfufo = verificarInternet(); // Este metodo no funciona siempre es false
 
             if (datoMEtodoMAfufo)
             {
@@ -263,39 +263,14 @@ namespace PuntoDeVentaV2
 
                         if (consultarCaja)
                         {
-                            eliminarCaja();
                             insertarCaja();
                         }
 
                         if (consultarProductos)
                         {
-                            eliminarProductos();
                             insertarProductos();
                         }
                     }
-                }
-            }
-        }
-
-        private void eliminarCaja()
-        {
-            string connectionString = string.Empty;
-            connectionString = "SERVER=" + _server + ";" + "DATABASE=" + _database + ";" + "UID=" + _username + ";" + "PASSWORD=" + _password + ";";
-
-            // Consulta Borrar de MySQL por ID de Usuario
-            using (MySqlConnection conexion = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    MySqlCommand eliminarCaja = conexion.CreateCommand();
-                    conexion.Open();
-                    eliminarCaja.CommandText = $@"DELETE FROM seccionCaja WHERE idUsuario ='{FormPrincipal.userID.ToString()}' AND nickUsuario = '{FormPrincipal.userNickName}'";
-                    int delete = eliminarCaja.ExecuteNonQuery();
-                    conexion.Close();
-                }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show("Error al Tratar de borrar Seccion Caja; Causa: " + ex.Message.ToString(), "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -355,32 +330,6 @@ namespace PuntoDeVentaV2
                 int add = agregar.ExecuteNonQuery();
                 conexion.Close();
             }
-        }
-
-        private int eliminarProductos()
-        {
-            int borrados = 0;
-
-            string connectionString = "SERVER=" + _server + ";" + "DATABASE=" + _database + ";" + "UID=" + _username + ";" + "PASSWORD=" + _password + ";";
-
-            //Consulta Borrar de MySQL por ID de Usuario
-            using (MySqlConnection conexion = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    MySqlCommand eliminar = conexion.CreateCommand();
-                    conexion.Open();
-                    eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}' AND nickUsuario = '{FormPrincipal.userNickName}'";
-                    borrados = eliminar.ExecuteNonQuery();
-                    conexion.Close();
-                }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show("Error al Tratar de borrar Seccion Productos; Causa: " + ex.Message.ToString(), "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
-            return borrados;
         }
 
         private void insertarProductos()
