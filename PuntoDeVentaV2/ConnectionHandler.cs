@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -170,25 +171,42 @@ namespace PuntoDeVentaV2
 
         public bool verificarInternet()
         {
-            string host = "google.com.mx";
-            bool resul = false;
-            Ping p = new Ping();
+            //string host = "google.com.mx";
+            //bool resul = false;
+            //Ping p = new Ping();
+            //try
+            //{
+            //    PingReply reply = p.Send(host, 2000);
+            //    if (reply.Status == IPStatus.Success)
+            //    {
+            //        resul = true;
+            //        //MessageBox.Show("Conecxion Exitosa");
+            //    }
+            //}
+            //catch
+            //{
+            //    resul = false;
+            //    //MessageBox.Show("Conecxion Fallida");
+            //}
+            //return resul;
+
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://sifo.com.mx");
+            request.AllowAutoRedirect = false; // find out if this site is up and don't follow a redirector
+            request.Method = "HEAD";
             try
             {
-                PingReply reply = p.Send(host, 2000);
-                if (reply.Status == IPStatus.Success)
+                using (var response = request.GetResponse())
                 {
-                    resul = true;
-                    //MessageBox.Show("Conecxion Exitosa");
+                    return true;
                 }
+                // do something with response.Headers to find out information about the request
             }
-            catch
+            catch (WebException wex)
             {
-                resul = false;
-                //MessageBox.Show("Conecxion Fallida");
+                //set flag if there was a timeout or some other issues
+                return false;
             }
-            return resul;
-            }
+        }
 
 
         //Se necesita para saber si la computadora tiene conexion a internet
