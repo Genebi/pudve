@@ -191,19 +191,18 @@ namespace PuntoDeVentaV2
             //return resul;
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://sifo.com.mx");
-            request.AllowAutoRedirect = false; // find out if this site is up and don't follow a redirector
+            request.AllowAutoRedirect = false;
             request.Method = "HEAD";
+
             try
             {
                 using (var response = request.GetResponse())
                 {
                     return true;
                 }
-                // do something with response.Headers to find out information about the request
             }
             catch (WebException wex)
             {
-                //set flag if there was a timeout or some other issues
                 return false;
             }
         }
