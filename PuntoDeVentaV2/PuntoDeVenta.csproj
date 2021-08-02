@@ -3553,6 +3553,9 @@
     <Content Include="PUDVE\icon\black16\star-o.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black16\statistics.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black16\steam.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -5926,6 +5929,9 @@
     <Content Include="PUDVE\icon\black\star-o.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\statistics.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\steam.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -6406,18 +6412,24 @@
     <Content Include="PUDVE\icon\botones\abrir_caja.png" />
     <Content Include="PUDVE\icon\botones\agregar_descuento.png" />
     <Content Include="PUDVE\icon\botones\aplicar_anticipo.png" />
-    <None Include="PUDVE\icon\botones\aumentarInventario.png" />
+    <Content Include="PUDVE\icon\botones\aumentarInventario.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\botones\cancelar_ventas.png" />
     <Content Include="PUDVE\icon\botones\descuento_cliente.png" />
     <Content Include="PUDVE\icon\botones\detalle_facturacion.png" />
     <Content Include="PUDVE\icon\botones\detalle_producto.png" />
-    <None Include="PUDVE\icon\botones\disminuirInventario.png" />
+    <Content Include="PUDVE\icon\botones\disminuirInventario.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\botones\guardar_producto.png" />
     <Content Include="PUDVE\icon\botones\guardar_venta_ppto.png" />
     <Content Include="PUDVE\icon\botones\historial_compras.png" />
     <Content Include="PUDVE\icon\botones\historial_ventas.png" />
     <Content Include="PUDVE\icon\botones\relacionar_combo_servicio_producto.png" />
-    <None Include="PUDVE\icon\botones\revisarInventario.png" />
+    <Content Include="PUDVE\icon\botones\revisarInventario.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\botones\ventas_guardadas.png" />
     <Content Include="PUDVE\icon\gifs\cargando.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
