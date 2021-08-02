@@ -24,6 +24,7 @@ namespace PuntoDeVentaV2
         *                                                           *   
         ************************************************************/
         [XmlRootAttribute(Namespace = "http://www.sat.gob.mx/cfd/3")]
+        
         public class Comprobante
         {
             [XmlAttributeAttribute()]
@@ -3156,8 +3157,8 @@ namespace PuntoDeVentaV2
             NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
 
             querySeleccionado = $"SELECT * FROM Productos WHERE ID = '{IdProductoSugerido}' AND Nombre = '{NombProductoSugerido}' AND IDUsuario = '{FormPrincipal.userID}'";
-            dtSelectSugerido = cn.CargarDatos(querySeleccionado);
 
+            dtSelectSugerido = cn.CargarDatos(querySeleccionado);
             DataRow row = dtSelectSugerido.Rows[0];
 
             txtBoxDescripcionProd.Text = row["Nombre"].ToString();
@@ -3367,7 +3368,16 @@ namespace PuntoDeVentaV2
 
         private void btn_ver_codbarras_extra_Click(object sender, EventArgs e)
         {
-            DataRow dr_prod_sug = dtSelectSugerido.Rows[0];
+            var nombreProducto = concepto; 
+            NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
+
+            var query = $"SELECT * FROM Productos WHERE CodigoBarras = '{nombreProducto}' AND Nombre = '{NombProductoSugerido}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+            var ejecutarSelect = cn.CargarDatos(query);
+
+
+
+            DataRow dr_prod_sug = ejecutarSelect.Rows[0];
 
             string[] codigos_extra = mb.ObtenerCodigoBarrasExtras(Convert.ToInt32(dr_prod_sug["ID"].ToString()), 1);
 

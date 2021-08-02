@@ -57,8 +57,8 @@ namespace PuntoDeVentaV2
         private void FiltroRevisarInventario_Load(object sender, EventArgs e)
         {   
             //Esta condicion es para que solo se muestren todos los tipos de filtros para los primeros usuarios y para los demas solo tenga el filtro normal
-            if (FormPrincipal.clave == 1 || FormPrincipal.userNickName.Equals("OXXOCLARA8") || FormPrincipal.userNickName.Equals("ALEXHIT") || FormPrincipal.userNickName.Equals("HOUSEDEPOTAUTLAN"))
-            {
+            //if (FormPrincipal.clave == 1 )
+            //{
                 filtros.Add("Normal", "Revision Normal");
                 filtros.Add("Stock", "Stock");
                 filtros.Add("StockMinimo", "Stock Mínimo");
@@ -73,12 +73,12 @@ namespace PuntoDeVentaV2
                 operadores.Add("=", "Igual que");
                 operadores.Add(">", "Mayor que");
                 operadores.Add("<", "Menor que");
-            }
-            else
-            {
-                filtros.Add("Normal", "Revision Normal");
+            //}
+            //else
+            //{
+            //    filtros.Add("Normal", "Revision Normal");
 
-            }
+            //}
             
 
             filtroDinamico.Add("NA", "Selecciona filtro...");
