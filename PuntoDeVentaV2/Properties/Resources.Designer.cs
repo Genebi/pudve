@@ -1137,6 +1137,16 @@ namespace PuntoDeVentaV2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap aumentarInventario {
+            get {
+                object obj = ResourceManager.GetObject("aumentarInventario", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap automobile {
             get {
                 object obj = ResourceManager.GetObject("automobile", resourceCulture);
@@ -4671,6 +4681,16 @@ namespace PuntoDeVentaV2.Properties {
         internal static System.Drawing.Bitmap discount {
             get {
                 object obj = ResourceManager.GetObject("discount", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap disminuirInventario {
+            get {
+                object obj = ResourceManager.GetObject("disminuirInventario", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -12053,6 +12073,16 @@ namespace PuntoDeVentaV2.Properties {
         internal static System.Drawing.Bitmap retweet1 {
             get {
                 object obj = ResourceManager.GetObject("retweet1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap revisarInventario {
+            get {
+                object obj = ResourceManager.GetObject("revisarInventario", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
