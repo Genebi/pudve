@@ -3368,14 +3368,14 @@ namespace PuntoDeVentaV2
 
         private void btn_ver_codbarras_extra_Click(object sender, EventArgs e)
         {
-            var nombreProducto = concepto; 
-            NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
+            var nombreProducto = concepto;
+            //NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
 
-            var query = $"SELECT * FROM Productos WHERE CodigoBarras = '{nombreProducto}' AND Nombre = '{NombProductoSugerido}' AND IDUsuario = '{FormPrincipal.userID}'";
+            var codigoBarrasProducto = NoCodBar;
+
+            var query = $"SELECT * FROM Productos WHERE CodigoBarras = '{codigoBarrasProducto}' AND Nombre = '{nombreProducto}' AND IDUsuario = '{FormPrincipal.userID}'";
 
             var ejecutarSelect = cn.CargarDatos(query);
-
-
 
             DataRow dr_prod_sug = ejecutarSelect.Rows[0];
 
