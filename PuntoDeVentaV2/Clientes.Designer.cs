@@ -29,7 +29,17 @@
         private void InitializeComponent()
         {
             this.DGVClientes = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NombreComercial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Editar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtBuscador = new System.Windows.Forms.TextBox();
             this.btnListaDescuentos = new System.Windows.Forms.Button();
@@ -48,16 +58,6 @@
             this.linkLblPaginaSiguiente = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NombreComercial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NoCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Editar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.cbStatus = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panelAbajo.SuspendLayout();
@@ -87,12 +87,86 @@
             this.DGVClientes.Name = "DGVClientes";
             this.DGVClientes.ReadOnly = true;
             this.DGVClientes.RowHeadersVisible = false;
-            this.DGVClientes.Size = new System.Drawing.Size(845, 217);
+            this.DGVClientes.Size = new System.Drawing.Size(1201, 217);
             this.DGVClientes.TabIndex = 11;
             this.DGVClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellClick);
             this.DGVClientes.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseEnter);
             this.DGVClientes.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseLeave);
             this.DGVClientes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVClientes_KeyDown);
+            this.DGVClientes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DGVClientes_MouseDoubleClick);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            this.ID.Width = 200;
+            // 
+            // RFC
+            // 
+            this.RFC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.RFC.HeaderText = "RFC";
+            this.RFC.MinimumWidth = 100;
+            this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
+            this.RFC.Width = 120;
+            // 
+            // Cliente
+            // 
+            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cliente.FillWeight = 23.2687F;
+            this.Cliente.HeaderText = "Razón Social";
+            this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
+            // 
+            // NombreComercial
+            // 
+            this.NombreComercial.FillWeight = 249.0413F;
+            this.NombreComercial.HeaderText = "Nombre Comercial";
+            this.NombreComercial.Name = "NombreComercial";
+            this.NombreComercial.ReadOnly = true;
+            this.NombreComercial.Width = 257;
+            // 
+            // Tipo
+            // 
+            this.Tipo.FillWeight = 106.0011F;
+            this.Tipo.HeaderText = "Tipo Cliente";
+            this.Tipo.Name = "Tipo";
+            this.Tipo.ReadOnly = true;
+            this.Tipo.Width = 109;
+            // 
+            // NoCliente
+            // 
+            this.NoCliente.FillWeight = 73.20717F;
+            this.NoCliente.HeaderText = "No. Cliente";
+            this.NoCliente.Name = "NoCliente";
+            this.NoCliente.ReadOnly = true;
+            this.NoCliente.Width = 76;
+            // 
+            // Fecha
+            // 
+            this.Fecha.FillWeight = 125.0244F;
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            this.Fecha.Width = 129;
+            // 
+            // Editar
+            // 
+            this.Editar.FillWeight = 44.92147F;
+            this.Editar.HeaderText = "Editar";
+            this.Editar.Name = "Editar";
+            this.Editar.ReadOnly = true;
+            this.Editar.Width = 46;
+            // 
+            // Eliminar
+            // 
+            this.Eliminar.FillWeight = 78.53589F;
+            this.Eliminar.HeaderText = "Deshabilitar";
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
+            this.Eliminar.Width = 81;
             // 
             // panelBotones
             // 
@@ -106,8 +180,22 @@
             this.panelBotones.Controls.Add(this.btnNuevoCliente);
             this.panelBotones.Location = new System.Drawing.Point(12, 72);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(845, 79);
+            this.panelBotones.Size = new System.Drawing.Size(1201, 79);
             this.panelBotones.TabIndex = 10;
+            // 
+            // cbStatus
+            // 
+            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStatus.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Items.AddRange(new object[] {
+            "Habilitados",
+            "Deshabilitados"});
+            this.cbStatus.Location = new System.Drawing.Point(3, 14);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(187, 25);
+            this.cbStatus.TabIndex = 24;
+            this.cbStatus.SelectionChangeCommitted += new System.EventHandler(this.cbStatus_SelectionChangeCommitted);
             // 
             // btnBuscar
             // 
@@ -183,7 +271,7 @@
             this.btnNuevoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevoCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoCliente.ForeColor = System.Drawing.Color.White;
-            this.btnNuevoCliente.Location = new System.Drawing.Point(716, 50);
+            this.btnNuevoCliente.Location = new System.Drawing.Point(1072, 50);
             this.btnNuevoCliente.Name = "btnNuevoCliente";
             this.btnNuevoCliente.Size = new System.Drawing.Size(125, 24);
             this.btnNuevoCliente.TabIndex = 5;
@@ -197,7 +285,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(388, 27);
+            this.tituloSeccion.Location = new System.Drawing.Point(566, 27);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(101, 25);
             this.tituloSeccion.TabIndex = 9;
@@ -212,7 +300,7 @@
             this.panelAbajo.Controls.Add(this.linkLblPaginaSiguiente);
             this.panelAbajo.Controls.Add(this.linkLblPaginaActual);
             this.panelAbajo.Controls.Add(this.linkLblPaginaAnterior);
-            this.panelAbajo.Location = new System.Drawing.Point(12, 377);
+            this.panelAbajo.Location = new System.Drawing.Point(190, 377);
             this.panelAbajo.Name = "panelAbajo";
             this.panelAbajo.Size = new System.Drawing.Size(846, 100);
             this.panelAbajo.TabIndex = 24;
@@ -367,96 +455,17 @@
             this.linkLblPaginaAnterior.Text = "2";
             this.linkLblPaginaAnterior.Click += new System.EventHandler(this.linkLblPaginaAnterior_Click);
             // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            this.ID.Width = 200;
-            // 
-            // RFC
-            // 
-            this.RFC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.RFC.HeaderText = "RFC";
-            this.RFC.MinimumWidth = 100;
-            this.RFC.Name = "RFC";
-            this.RFC.ReadOnly = true;
-            this.RFC.Width = 120;
-            // 
-            // Cliente
-            // 
-            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Cliente.HeaderText = "Razón Social";
-            this.Cliente.Name = "Cliente";
-            this.Cliente.ReadOnly = true;
-            // 
-            // NombreComercial
-            // 
-            this.NombreComercial.HeaderText = "Nombre Comercial";
-            this.NombreComercial.Name = "NombreComercial";
-            this.NombreComercial.ReadOnly = true;
-            this.NombreComercial.Width = 230;
-            // 
-            // Tipo
-            // 
-            this.Tipo.HeaderText = "Tipo Cliente";
-            this.Tipo.Name = "Tipo";
-            this.Tipo.ReadOnly = true;
-            this.Tipo.Width = 120;
-            // 
-            // NoCliente
-            // 
-            this.NoCliente.HeaderText = "No. Cliente";
-            this.NoCliente.Name = "NoCliente";
-            this.NoCliente.ReadOnly = true;
-            this.NoCliente.Width = 83;
-            // 
-            // Fecha
-            // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
-            this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 135;
-            // 
-            // Editar
-            // 
-            this.Editar.HeaderText = "Editar";
-            this.Editar.Name = "Editar";
-            this.Editar.ReadOnly = true;
-            this.Editar.Width = 50;
-            // 
-            // Eliminar
-            // 
-            this.Eliminar.HeaderText = "Deshabilitar";
-            this.Eliminar.Name = "Eliminar";
-            this.Eliminar.ReadOnly = true;
-            this.Eliminar.Width = 80;
-            // 
-            // cbStatus
-            // 
-            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbStatus.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Items.AddRange(new object[] {
-            "Habilitados",
-            "Deshabilitados"});
-            this.cbStatus.Location = new System.Drawing.Point(3, 14);
-            this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(187, 25);
-            this.cbStatus.TabIndex = 24;
-            this.cbStatus.SelectionChangeCommitted += new System.EventHandler(this.cbStatus_SelectionChangeCommitted);
-            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(869, 561);
+            this.ClientSize = new System.Drawing.Size(1225, 561);
             this.Controls.Add(this.panelAbajo);
             this.Controls.Add(this.DGVClientes);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.tituloSeccion);
             this.Name = "Clientes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Clientes";
             this.Load += new System.EventHandler(this.Clientes_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Clientes_KeyDown);

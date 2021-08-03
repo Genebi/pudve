@@ -18,6 +18,8 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+        public static string procedencia { get; set; }
+
         Dictionary<string, string> clientes = new Dictionary<string, string>();
 
         string mensajeClientes = "Seleccionar cliente",
@@ -416,15 +418,48 @@ namespace PuntoDeVentaV2
 
         private void ir_a_clientes(object sender, EventArgs e)
         {
+            procedencia = "timbrado Factura";
             Clientes ir_clientes = new Clientes();
 
             ir_clientes.FormClosed += delegate
             {
-                 limpiar_campos();
+                if (Clientes.idClienteParaFacturas > 0)
+                {
+                    limpiar_campos();
+                    llenarCaposDesdeClientes(Clientes.idClienteParaFacturas);
+                    //Clientes.idClienteParaFacturas = 0;
+                }
             };
 
-            this.Dispose();
+            //this.Dispose();
             ir_clientes.ShowDialog();
+        }
+
+
+        private void llenarCaposDesdeClientes (int id)
+        {
+            pnl_datos_cliente.Visible = true;
+            var query = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{id}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                //cmb_bx_clientes.Text = query.Rows[0]["RazonSocial"].ToString()+" - "+query.Rows[0]["RFC"].ToString();
+                txt_razon_social.Text = query.Rows[0]["RazonSocial"].ToString();
+                txt_rfc.Text = query.Rows[0]["RFC"].ToString();
+                txt_telefono.Text = query.Rows[0]["Telefono"].ToString();
+                txt_correo.Text = query.Rows[0]["Email"].ToString();
+                txt_nombre_comercial.Text = query.Rows[0]["NombreComercial"].ToString();
+                txt_pais.Text = query.Rows[0]["Pais"].ToString();
+                txt_estado.Text = query.Rows[0]["Estado"].ToString();
+                txt_municipio.Text = query.Rows[0]["Municipio"].ToString();
+                txt_localidad.Text = query.Rows[0]["Localidad"].ToString();
+                txt_cp.Text = query.Rows[0]["CodigoPostal"].ToString();
+                txt_colonia.Text = query.Rows[0]["Colonia"].ToString();
+                txt_calle.Text = query.Rows[0]["Calle"].ToString();
+                txt_num_ext.Text = query.Rows[0]["NoExterior"].ToString();
+                txt_num_int.Text = query.Rows[0]["NoInterior"].ToString();
+
+            }
         }
 
         private void sel_clientes(object sender, EventArgs e)
