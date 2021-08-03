@@ -13,6 +13,13 @@ namespace PuntoDeVentaV2
 {
     public class BotonRedondo : Button
     {
+        /// <summary>
+        /// Variables privada para personalizar el boton
+        /// </summary>
+        private int borderSize = 0;
+        private int borderRadius = 40;
+        private Color borderColor = Color.PaleVioletRed;
+
 
     }
 }

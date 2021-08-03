@@ -386,6 +386,9 @@
     </Compile>
     <Compile Include="Aux_venta_pdf.cs" />
     <Compile Include="BaseDatosMySQL.cs" />
+    <Compile Include="BotonRedondo.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="BuscadorReporteClientes.cs">
       <SubType>Form</SubType>
     </Compile>
