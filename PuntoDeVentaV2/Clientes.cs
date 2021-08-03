@@ -24,6 +24,8 @@ namespace PuntoDeVentaV2
 
        public static int editarFor { get; set; } 
 
+        public static int idClienteParaFacturas { get; set; }
+
         // Permisos botones
         int opcion1 = 1; // Boton buscar
         int opcion2 = 1; // Nuevo tipo cliente
@@ -56,6 +58,12 @@ namespace PuntoDeVentaV2
                 opcion5 = permisos[4];
                 opcion6 = permisos[5];
             }
+
+
+            //if (Crear_factura.procedencia.Equals("timbrado Factura"))
+            //{
+            //    DGVClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //}
         }
 
         private void CargarDatos(string busqueda = "", int status = 1)
@@ -521,6 +529,20 @@ namespace PuntoDeVentaV2
             int status = cbStatus.SelectedIndex + 1;
 
             CargarDatos(status: status);
+        }
+
+        private void DGVClientes_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var idCliente = DGVClientes.CurrentRow.Cells[0].Value.ToString();
+
+            //Validamos este apartado para cuando entre a clientes cuando sea de facturas del listado de ventas
+            if (Crear_factura.procedencia.Equals("timbrado Factura"))
+            {
+                idClienteParaFacturas = Convert.ToInt32(idCliente);
+
+                Crear_factura.procedencia = string.Empty;//Limpia la variable para evitar errores
+                this.Close();
+            }
         }
     }
 }
