@@ -16,9 +16,91 @@ namespace PuntoDeVentaV2
         /// <summary>
         /// Variables privada para personalizar el boton
         /// </summary>
+        #region Variables privadas
         private int borderSize = 0;
         private int borderRadius = 40;
         private Color borderColor = Color.PaleVioletRed;
+        #endregion
+
+        /// <summary>
+        /// Get y Set para las propiedades de presonalizar el Boton
+        /// </summary>
+        #region Propiedades
+        [Category("SIFO Controls")]
+        public int BroderSize
+        {
+            get
+            {
+                return borderSize;
+            }
+            set
+            {
+                borderSize = value;
+                this.Invalidate();
+            }
+        }
+
+        [Category("SIFO Controls")]
+        public int BorderRadius
+        {
+            get
+            {
+                return borderRadius;
+            }
+            set
+            {
+                if (value <= this.Height)
+                {
+                    borderRadius = value;
+                }
+                else
+                {
+                    borderRadius = this.Height;
+                }
+                this.Invalidate();
+            }
+        }
+
+        [Category("SIFO Controls")]
+        public Color BorderColor
+        {
+            get
+            {
+                return borderColor;
+            }
+            set
+            {
+                borderColor = value;
+                this.Invalidate();
+            }
+        }
+
+        [Category("SIFO Controls")]
+        public Color BackGroundColor
+        {
+            get
+            {
+                return this.BackColor;
+            }
+            set
+            {
+                this.BackColor = value;
+            }
+        }
+
+        [Category("SIFO Controls")]
+        public Color TextColor
+        {
+            get
+            {
+                return this.ForeColor;
+            }
+            set
+            {
+                this.ForeColor = value;
+            }
+        }
+        #endregion
 
 
     }
