@@ -27,7 +27,7 @@ namespace PuntoDeVentaV2
         /// </summary>
         #region Propiedades
         [Category("SIFO Controls")]
-        public int BroderSize
+        public int BorderSize
         {
             get
             {
@@ -82,6 +82,7 @@ namespace PuntoDeVentaV2
             {
                 return this.BackColor;
             }
+
             set
             {
                 this.BackColor = value;
@@ -95,6 +96,7 @@ namespace PuntoDeVentaV2
             {
                 return this.ForeColor;
             }
+
             set
             {
                 this.ForeColor = value;
