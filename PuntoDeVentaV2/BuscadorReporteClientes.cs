@@ -840,6 +840,9 @@ namespace PuntoDeVentaV2
 
             Paragraph Usuario = new Paragraph("");
 
+            Paragraph nombreClienteHeader = new Paragraph("");
+
+
             //Paragraph numeroFolio = new Paragraph("");
 
             string UsuarioActivo = string.Empty;
@@ -878,86 +881,109 @@ namespace PuntoDeVentaV2
             //============================
             //=== TABLA DE INVENTARIO  ===
             //============================
+            DataTable consultaCliente = new DataTable();
 
-            PdfPTable tablaClientes = new PdfPTable(4);
-            tablaClientes.WidthPercentage = 70;
-            tablaClientes.SetWidths(anchoColumnas);
-
-            PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
-            colNoConcepto.BorderWidth = 1;
-            colNoConcepto.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colNoConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            PdfPCell colNombre = new PdfPCell(new Phrase("NOMBRE", fuenteTotales));
-            colNombre.BorderWidth = 1;
-            colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
-            colNombre.Padding = 3;
-            colNombre.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            PdfPCell colCantidad = new PdfPCell(new Phrase("CANTIDAD VECES VENDIDO", fuenteTotales));
-            colCantidad.BorderWidth = 1;
-            colCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
-            colCantidad.Padding = 3;
-            colCantidad.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            PdfPCell colFecha = new PdfPCell(new Phrase("FECHA ULTIMA VENTA", fuenteTotales));
-            colFecha.BorderWidth = 1;
-            colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
-            colFecha.Padding = 3;
-            colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            tablaClientes.AddCell(colNoConcepto);
-            tablaClientes.AddCell(colNombre);
-            tablaClientes.AddCell(colCantidad);
-            tablaClientes.AddCell(colFecha);
-
-            DataTable consulta = new DataTable();
-
-            if (multiplesId)
+            if (!multiplesId)
             {
-                consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.IDCliente IN ({idCliente}) GROUP BY Nombre ORDER BY Cantidad DESC");
+                consultaCliente = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RazonSocial = '{nameCliente}'");
             }
             else
             {
-                consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY Nombre ORDER BY Cantidad DESC");
+                consultaCliente = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({idCliente})");
             }
 
-            foreach (DataRow row in consulta.Rows)
-            {
-                var nombre = row["Nombre"].ToString();
-                var cantidad = row["Cantidad"].ToString();
-                var fecha = row["Fecha"].ToString();
 
-                numRow++;
-                PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
-                colNoConceptoTmp.BorderWidth = 1;
-                colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+            PdfPTable tablaClientes = new PdfPTable(4);
 
-                PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre.ToString(), fuenteNormal));
-                colNombreTmp.BorderWidth = 1;
-                colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+            if (!consultaCliente.Rows.Count.Equals(0))
 
-                PdfPCell colCantidadTmp = new PdfPCell(new Phrase(cantidad.ToString(), fuenteNormal));
-                colCantidadTmp.BorderWidth = 1;
-                colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                foreach (DataRow item in consultaCliente.Rows)
+                {
+                    nombreClienteHeader = new Paragraph($"{item["RazonSocial"].ToString()}");
+                    nombreClienteHeader.Alignment = Element.ALIGN_CENTER;
 
-                PdfPCell colFechaTmp = new PdfPCell(new Phrase(fecha.ToString(), fuenteNormal));
-                colFechaTmp.BorderWidth = 1;
-                colFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    reporte.Add(nombreClienteHeader);
 
-                tablaClientes.AddCell(colNoConceptoTmp);
-                tablaClientes.AddCell(colNombreTmp);
-                tablaClientes.AddCell(colCantidadTmp);
-                tablaClientes.AddCell(colFechaTmp);
+                    tablaClientes.WidthPercentage = 70;
+                    tablaClientes.SetWidths(anchoColumnas);
 
-            }
+                    PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
+                    colNoConcepto.BorderWidth = 1;
+                    colNoConcepto.BackgroundColor = new BaseColor(Color.SkyBlue);
+                    colNoConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            reporte.Add(titulo);
-            reporte.Add(Usuario);
-            //reporte.Add(numeroFolio);
-            reporte.Add(subTitulo);
-            reporte.Add(tablaClientes);
+                    PdfPCell colNombre = new PdfPCell(new Phrase("NOMBRE", fuenteTotales));
+                    colNombre.BorderWidth = 1;
+                    colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colNombre.Padding = 3;
+                    colNombre.BackgroundColor = new BaseColor(Color.SkyBlue);
 
+                    PdfPCell colCantidad = new PdfPCell(new Phrase("CANTIDAD VECES VENDIDO", fuenteTotales));
+                    colCantidad.BorderWidth = 1;
+                    colCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colCantidad.Padding = 3;
+                    colCantidad.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+                    PdfPCell colFecha = new PdfPCell(new Phrase("FECHA ULTIMA VENTA", fuenteTotales));
+                    colFecha.BorderWidth = 1;
+                    colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colFecha.Padding = 3;
+                    colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+                    tablaClientes.AddCell(colNoConcepto);
+                    tablaClientes.AddCell(colNombre);
+                    tablaClientes.AddCell(colCantidad);
+                    tablaClientes.AddCell(colFecha);
+
+                    DataTable consulta = new DataTable();
+
+                    if (multiplesId)
+                    {
+                        consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.IDCliente IN ({idCliente}) GROUP BY Nombre ORDER BY Cantidad DESC");
+                    }
+                    else
+                    {
+                        consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY Nombre ORDER BY Cantidad DESC");
+                    }
+
+                    foreach (DataRow row in consulta.Rows)
+                    {
+                        var nombre = row["Nombre"].ToString();
+                        var cantidad = row["Cantidad"].ToString();
+                        var fecha = row["Fecha"].ToString();
+
+                        numRow++;
+                        PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                        colNoConceptoTmp.BorderWidth = 1;
+                        colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre.ToString(), fuenteNormal));
+                        colNombreTmp.BorderWidth = 1;
+                        colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colCantidadTmp = new PdfPCell(new Phrase(cantidad.ToString(), fuenteNormal));
+                        colCantidadTmp.BorderWidth = 1;
+                        colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colFechaTmp = new PdfPCell(new Phrase(fecha.ToString(), fuenteNormal));
+                        colFechaTmp.BorderWidth = 1;
+                        colFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        tablaClientes.AddCell(colNoConceptoTmp);
+                        tablaClientes.AddCell(colNombreTmp);
+                        tablaClientes.AddCell(colCantidadTmp);
+                        tablaClientes.AddCell(colFechaTmp);
+
+                    }
+                }
+                    reporte.Add(titulo);
+                    reporte.Add(Usuario);
+                    //reporte.Add(numeroFolio);
+                    reporte.Add(subTitulo);
+                    reporte.Add(tablaClientes);
+                
+
+        
             //================================
             //=== FIN TABLA DE INVENTARIO  ===
             //================================
