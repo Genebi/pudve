@@ -344,7 +344,7 @@ namespace PuntoDeVentaV2
             }
             if(txt_password.Text == "")
             {
-                mnsj = "Debe agregar la contraseña. La contraseña debe ser la perteneciente a sus archivos digitales.";
+                mnsj = "Debe agregar la contraseña. La contraseña debe ser la perteneciente a sus archivos digitales. Elimine sus archivos y vuelva a subir su archivo comprimido.";
             }
             if (txt_llave_pem.Text == "")
             {
@@ -368,9 +368,7 @@ namespace PuntoDeVentaV2
             if (mnsj == "")
             {
                 ban = false;
-
                 ////btn_vnt_subir_archivos.PerformClick();
-
                 this.Dispose();
                 
             }

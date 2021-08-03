@@ -662,7 +662,25 @@ namespace PuntoDeVentaV2
                         
                         if (subir_arch.ban == true)
                         {
-                            DirectoryInfo dir_info = new DirectoryInfo(@"C:\Archivos PUDVE\MisDatos\CSD\");
+                            string ruta = @"C:\Archivos PUDVE\MisDatos\CSD\";
+
+                            if (usuario_ini == true)
+                            {
+                                // Verifica si existe la carpeta CSD.
+                                // Si la carpeta CSD no existe, entonces se deberá modificar la ruta de acceso a los archivos CSD.
+
+                                if (!Directory.Exists(ruta_archivos_guadados))
+                                {
+                                    ruta = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                                }
+                            }
+                            else
+                            {
+                                ruta = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                            }
+
+
+                            DirectoryInfo dir_info = new DirectoryInfo(ruta);
 
                             foreach (FileInfo f in dir_info.GetFiles())
                             {
