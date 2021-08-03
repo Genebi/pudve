@@ -102,6 +102,19 @@ namespace PuntoDeVentaV2
         }
         #endregion
 
-
+        /// <summary>
+        /// Constructor de botón redondo
+        /// </summary>
+        #region Constructor 
+        public BotonRedondo()
+        {
+            this.FlatStyle = FlatStyle.Flat;
+            this.FlatAppearance.BorderSize = 0;
+            this.Size = new Size(150, 40);
+            this.BackColor = Color.MediumSlateBlue;
+            this.ForeColor = Color.White;
+            this.Resize += new EventHandler(Button_Resize);
+        }
+        #endregion
     }
 }
