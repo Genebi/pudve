@@ -427,7 +427,7 @@ namespace PuntoDeVentaV2
                 {
                     limpiar_campos();
                     llenarCaposDesdeClientes(Clientes.idClienteParaFacturas);
-                    //Clientes.idClienteParaFacturas = 0;
+                    Clientes.idClienteParaFacturas = 0;
                 }
             };
 
@@ -440,6 +440,7 @@ namespace PuntoDeVentaV2
         {
             pnl_datos_cliente.Visible = true;
             var query = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{id}'");
+            var queryVenta = cn.CargarDatos($"SELECT Total, FormaPago FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{ListadoVentas.obtenerIDVentaTimbrado}'");
 
             if (!query.Rows.Count.Equals(0))
             {
@@ -459,6 +460,37 @@ namespace PuntoDeVentaV2
                 txt_num_ext.Text = query.Rows[0]["NoExterior"].ToString();
                 txt_num_int.Text = query.Rows[0]["NoInterior"].ToString();
 
+                //cmb_bx_forma_pago.Text = query.Rows[0]["FormaPago"].ToString();
+            }
+
+            if (!queryVenta.Rows.Count.Equals(0))
+            {
+                var totalCantidadVenta = (float)double.Parse(queryVenta.Rows[0]["Total"].ToString());
+                lb_total_n.Text = totalCantidadVenta.ToString("0.00");
+                var formaPago = queryVenta.Rows[0]["FormaPago"].ToString();
+
+                if (formaPago.Equals("Efectivo"))
+                {
+                    formaPago = "01 - Efectivo";
+                }
+                else if (formaPago.Equals("Tarjeta"))
+                {
+                    formaPago = "04 - Tarjeta de crédito";
+                }
+                else if (formaPago.Equals("Vales"))
+                {
+                    formaPago = "08 - Vales de despensa";
+                }
+                else if (formaPago.Equals("Cheque"))
+                {
+                    formaPago = "02 - Cheque nominativo";
+                }
+                else if (formaPago.Equals("Transferencia"))
+                {
+                    formaPago = "03 - Transferencia electrónica de fondos";
+                }
+
+                cmb_bx_forma_pago.Text = formaPago.ToString();
             }
         }
 

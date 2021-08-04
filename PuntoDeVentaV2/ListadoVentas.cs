@@ -49,6 +49,7 @@ namespace PuntoDeVentaV2
         public static int retomarVentasCanceladas { get; set; }
         public static int obtenerIdVenta { get; set; }
         public static int folioVenta { get; set; }
+        public static int obtenerIDVentaTimbrado { get; set; }
 
         public static int tipo_venta = 0;
         public static string[][] faltantes_productos;
@@ -1550,6 +1551,8 @@ namespace PuntoDeVentaV2
 
         private void comprobar_venta_f(int id_venta)
         {
+            obtenerIDVentaTimbrado = id_venta;
+
             DataTable d_id_productos;
             DataTable d_claves;
 

@@ -28,65 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnRevisarInventario = new System.Windows.Forms.Button();
-            this.btnAIAumentar = new System.Windows.Forms.Button();
-            this.btnAIDisminuir = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnActualizarInventarioDisminuir = new PuntoDeVentaV2.BotonRedondo();
+            this.btnActualizarInventarioAumentar = new PuntoDeVentaV2.BotonRedondo();
+            this.btnActualizarInventarioNew = new PuntoDeVentaV2.BotonRedondo();
             this.SuspendLayout();
-            // 
-            // btnRevisarInventario
-            // 
-            this.btnRevisarInventario.BackColor = System.Drawing.Color.White;
-            this.btnRevisarInventario.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRevisarInventario.FlatAppearance.BorderSize = 0;
-            this.btnRevisarInventario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRevisarInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRevisarInventario.ForeColor = System.Drawing.Color.Transparent;
-            this.btnRevisarInventario.Image = global::PuntoDeVentaV2.Properties.Resources.revisarInventario;
-            this.btnRevisarInventario.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnRevisarInventario.Location = new System.Drawing.Point(34, 66);
-            this.btnRevisarInventario.Name = "btnRevisarInventario";
-            this.btnRevisarInventario.Size = new System.Drawing.Size(154, 104);
-            this.btnRevisarInventario.TabIndex = 108;
-            this.btnRevisarInventario.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnRevisarInventario.UseVisualStyleBackColor = false;
-            this.btnRevisarInventario.Click += new System.EventHandler(this.btnRevisarInventario_Click);
-            // 
-            // btnAIAumentar
-            // 
-            this.btnAIAumentar.BackColor = System.Drawing.Color.White;
-            this.btnAIAumentar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAIAumentar.FlatAppearance.BorderSize = 0;
-            this.btnAIAumentar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAIAumentar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAIAumentar.ForeColor = System.Drawing.Color.Transparent;
-            this.btnAIAumentar.Image = global::PuntoDeVentaV2.Properties.Resources.aumentarInventario;
-            this.btnAIAumentar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAIAumentar.Location = new System.Drawing.Point(194, 66);
-            this.btnAIAumentar.Name = "btnAIAumentar";
-            this.btnAIAumentar.Size = new System.Drawing.Size(155, 104);
-            this.btnAIAumentar.TabIndex = 109;
-            this.btnAIAumentar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnAIAumentar.UseVisualStyleBackColor = false;
-            this.btnAIAumentar.Click += new System.EventHandler(this.btnAIAumentar_Click);
-            // 
-            // btnAIDisminuir
-            // 
-            this.btnAIDisminuir.BackColor = System.Drawing.Color.White;
-            this.btnAIDisminuir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAIDisminuir.FlatAppearance.BorderSize = 0;
-            this.btnAIDisminuir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAIDisminuir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAIDisminuir.ForeColor = System.Drawing.Color.Transparent;
-            this.btnAIDisminuir.Image = global::PuntoDeVentaV2.Properties.Resources.disminuirInventario;
-            this.btnAIDisminuir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAIDisminuir.Location = new System.Drawing.Point(355, 66);
-            this.btnAIDisminuir.Name = "btnAIDisminuir";
-            this.btnAIDisminuir.Size = new System.Drawing.Size(152, 104);
-            this.btnAIDisminuir.TabIndex = 110;
-            this.btnAIDisminuir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnAIDisminuir.UseVisualStyleBackColor = false;
-            this.btnAIDisminuir.Click += new System.EventHandler(this.btnAIDisminuir_Click);
             // 
             // label1
             // 
@@ -99,15 +45,90 @@
             this.label1.Text = "Seleccione una opción ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnActualizarInventarioDisminuir
+            // 
+            this.btnActualizarInventarioDisminuir.BackColor = System.Drawing.Color.DarkRed;
+            this.btnActualizarInventarioDisminuir.BackGroundColor = System.Drawing.Color.DarkRed;
+            this.btnActualizarInventarioDisminuir.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnActualizarInventarioDisminuir.BorderRadius = 40;
+            this.btnActualizarInventarioDisminuir.BorderSize = 1;
+            this.btnActualizarInventarioDisminuir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnActualizarInventarioDisminuir.FlatAppearance.BorderSize = 0;
+            this.btnActualizarInventarioDisminuir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnActualizarInventarioDisminuir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.btnActualizarInventarioDisminuir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualizarInventarioDisminuir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizarInventarioDisminuir.ForeColor = System.Drawing.Color.White;
+            this.btnActualizarInventarioDisminuir.Image = global::PuntoDeVentaV2.Properties.Resources.statistics;
+            this.btnActualizarInventarioDisminuir.Location = new System.Drawing.Point(357, 66);
+            this.btnActualizarInventarioDisminuir.Name = "btnActualizarInventarioDisminuir";
+            this.btnActualizarInventarioDisminuir.Size = new System.Drawing.Size(150, 104);
+            this.btnActualizarInventarioDisminuir.TabIndex = 114;
+            this.btnActualizarInventarioDisminuir.Text = "Actualizar Inventario (Disminuir)";
+            this.btnActualizarInventarioDisminuir.TextColor = System.Drawing.Color.White;
+            this.btnActualizarInventarioDisminuir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnActualizarInventarioDisminuir.UseVisualStyleBackColor = false;
+            this.btnActualizarInventarioDisminuir.Click += new System.EventHandler(this.btnActualizarInventarioDisminuir_Click);
+            // 
+            // btnActualizarInventarioAumentar
+            // 
+            this.btnActualizarInventarioAumentar.BackColor = System.Drawing.Color.DarkRed;
+            this.btnActualizarInventarioAumentar.BackGroundColor = System.Drawing.Color.DarkRed;
+            this.btnActualizarInventarioAumentar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnActualizarInventarioAumentar.BorderRadius = 40;
+            this.btnActualizarInventarioAumentar.BorderSize = 1;
+            this.btnActualizarInventarioAumentar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnActualizarInventarioAumentar.FlatAppearance.BorderSize = 0;
+            this.btnActualizarInventarioAumentar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnActualizarInventarioAumentar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.btnActualizarInventarioAumentar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualizarInventarioAumentar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizarInventarioAumentar.ForeColor = System.Drawing.Color.White;
+            this.btnActualizarInventarioAumentar.Image = global::PuntoDeVentaV2.Properties.Resources.statistics;
+            this.btnActualizarInventarioAumentar.Location = new System.Drawing.Point(193, 66);
+            this.btnActualizarInventarioAumentar.Name = "btnActualizarInventarioAumentar";
+            this.btnActualizarInventarioAumentar.Size = new System.Drawing.Size(150, 104);
+            this.btnActualizarInventarioAumentar.TabIndex = 113;
+            this.btnActualizarInventarioAumentar.Text = "Actualizar Inventario (Aumentar)";
+            this.btnActualizarInventarioAumentar.TextColor = System.Drawing.Color.White;
+            this.btnActualizarInventarioAumentar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnActualizarInventarioAumentar.UseVisualStyleBackColor = false;
+            this.btnActualizarInventarioAumentar.Click += new System.EventHandler(this.btnActualizarInventarioAumentar_Click);
+            // 
+            // btnActualizarInventarioNew
+            // 
+            this.btnActualizarInventarioNew.BackColor = System.Drawing.Color.MediumBlue;
+            this.btnActualizarInventarioNew.BackGroundColor = System.Drawing.Color.MediumBlue;
+            this.btnActualizarInventarioNew.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnActualizarInventarioNew.BorderRadius = 40;
+            this.btnActualizarInventarioNew.BorderSize = 1;
+            this.btnActualizarInventarioNew.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnActualizarInventarioNew.FlatAppearance.BorderSize = 0;
+            this.btnActualizarInventarioNew.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnActualizarInventarioNew.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.btnActualizarInventarioNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualizarInventarioNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizarInventarioNew.ForeColor = System.Drawing.Color.White;
+            this.btnActualizarInventarioNew.Image = global::PuntoDeVentaV2.Properties.Resources.statistics;
+            this.btnActualizarInventarioNew.Location = new System.Drawing.Point(29, 66);
+            this.btnActualizarInventarioNew.Name = "btnActualizarInventarioNew";
+            this.btnActualizarInventarioNew.Size = new System.Drawing.Size(150, 104);
+            this.btnActualizarInventarioNew.TabIndex = 112;
+            this.btnActualizarInventarioNew.Text = "Actualizar Inventario";
+            this.btnActualizarInventarioNew.TextColor = System.Drawing.Color.White;
+            this.btnActualizarInventarioNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnActualizarInventarioNew.UseVisualStyleBackColor = false;
+            this.btnActualizarInventarioNew.Click += new System.EventHandler(this.btnActualizarInventarioNew_Click);
+            // 
             // TipoReportesInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(519, 199);
+            this.Controls.Add(this.btnActualizarInventarioDisminuir);
+            this.Controls.Add(this.btnActualizarInventarioAumentar);
+            this.Controls.Add(this.btnActualizarInventarioNew);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnAIDisminuir);
-            this.Controls.Add(this.btnAIAumentar);
-            this.Controls.Add(this.btnRevisarInventario);
             this.Name = "TipoReportesInventario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TipoReportesInventario";
@@ -118,9 +139,9 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnRevisarInventario;
-        private System.Windows.Forms.Button btnAIAumentar;
-        private System.Windows.Forms.Button btnAIDisminuir;
         private System.Windows.Forms.Label label1;
+        private BotonRedondo btnActualizarInventarioNew;
+        private BotonRedondo btnActualizarInventarioAumentar;
+        private BotonRedondo btnActualizarInventarioDisminuir;
     }
 }

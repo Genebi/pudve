@@ -70,9 +70,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.lb_total_n = new System.Windows.Forms.Label();
             this.lb_total = new System.Windows.Forms.Label();
-            this.groupb_monto_max = new System.Windows.Forms.GroupBox();
-            this.txt_cantidad_max = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
             this.groupb_productos = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.pnl_productos = new System.Windows.Forms.Panel();
@@ -90,13 +87,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cmb_bx_clientes = new CustomControlPUDVE.ComboBoxPUDVE();
+            this.groupb_monto_max = new System.Windows.Forms.GroupBox();
+            this.txt_cantidad_max = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.btn_anterior = new System.Windows.Forms.Button();
             this.pnl_datos_cliente.SuspendLayout();
             this.tab_control.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupb_monto_max.SuspendLayout();
             this.groupb_productos.SuspendLayout();
             this.groupb_pago.SuspendLayout();
+            this.groupb_monto_max.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_datos_cliente
@@ -491,12 +491,12 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupb_pago);
             this.tabPage1.Controls.Add(this.pnl_datos_cliente);
             this.tabPage1.Controls.Add(this.lb_total_n);
             this.tabPage1.Controls.Add(this.lb_total);
             this.tabPage1.Controls.Add(this.groupb_productos);
             this.tabPage1.Controls.Add(this.btn_crear_cliente);
-            this.tabPage1.Controls.Add(this.groupb_pago);
             this.tabPage1.Controls.Add(this.cmb_bx_clientes);
             this.tabPage1.Controls.Add(this.groupb_monto_max);
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
@@ -529,40 +529,6 @@
             this.lb_total.TabIndex = 15;
             this.lb_total.Text = "TOTAL";
             this.lb_total.Visible = false;
-            // 
-            // groupb_monto_max
-            // 
-            this.groupb_monto_max.Controls.Add(this.txt_cantidad_max);
-            this.groupb_monto_max.Controls.Add(this.label27);
-            this.groupb_monto_max.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupb_monto_max.ForeColor = System.Drawing.Color.Navy;
-            this.groupb_monto_max.Location = new System.Drawing.Point(8, 15);
-            this.groupb_monto_max.Name = "groupb_monto_max";
-            this.groupb_monto_max.Size = new System.Drawing.Size(825, 63);
-            this.groupb_monto_max.TabIndex = 18;
-            this.groupb_monto_max.TabStop = false;
-            this.groupb_monto_max.Text = "Monto por factura";
-            this.groupb_monto_max.Visible = false;
-            // 
-            // txt_cantidad_max
-            // 
-            this.txt_cantidad_max.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_cantidad_max.Location = new System.Drawing.Point(202, 28);
-            this.txt_cantidad_max.Name = "txt_cantidad_max";
-            this.txt_cantidad_max.Size = new System.Drawing.Size(179, 22);
-            this.txt_cantidad_max.TabIndex = 1;
-            this.txt_cantidad_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.solo_numeros_facturamax);
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.ForeColor = System.Drawing.Color.Black;
-            this.label27.Location = new System.Drawing.Point(12, 31);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(184, 17);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "Cantidad máxima por factura";
             // 
             // groupb_productos
             // 
@@ -772,6 +738,40 @@
             this.cmb_bx_clientes.SelectedIndexChanged += new System.EventHandler(this.sel_clientes);
             this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
             // 
+            // groupb_monto_max
+            // 
+            this.groupb_monto_max.Controls.Add(this.txt_cantidad_max);
+            this.groupb_monto_max.Controls.Add(this.label27);
+            this.groupb_monto_max.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupb_monto_max.ForeColor = System.Drawing.Color.Navy;
+            this.groupb_monto_max.Location = new System.Drawing.Point(8, 15);
+            this.groupb_monto_max.Name = "groupb_monto_max";
+            this.groupb_monto_max.Size = new System.Drawing.Size(825, 63);
+            this.groupb_monto_max.TabIndex = 18;
+            this.groupb_monto_max.TabStop = false;
+            this.groupb_monto_max.Text = "Monto por factura";
+            this.groupb_monto_max.Visible = false;
+            // 
+            // txt_cantidad_max
+            // 
+            this.txt_cantidad_max.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_cantidad_max.Location = new System.Drawing.Point(202, 28);
+            this.txt_cantidad_max.Name = "txt_cantidad_max";
+            this.txt_cantidad_max.Size = new System.Drawing.Size(179, 22);
+            this.txt_cantidad_max.TabIndex = 1;
+            this.txt_cantidad_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.solo_numeros_facturamax);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.Black;
+            this.label27.Location = new System.Drawing.Point(12, 31);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(184, 17);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "Cantidad máxima por factura";
+            // 
             // btn_anterior
             // 
             this.btn_anterior.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -811,12 +811,12 @@
             this.tab_control.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupb_monto_max.ResumeLayout(false);
-            this.groupb_monto_max.PerformLayout();
             this.groupb_productos.ResumeLayout(false);
             this.groupb_productos.PerformLayout();
             this.groupb_pago.ResumeLayout(false);
             this.groupb_pago.PerformLayout();
+            this.groupb_monto_max.ResumeLayout(false);
+            this.groupb_monto_max.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
