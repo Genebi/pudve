@@ -20,6 +20,8 @@ namespace PuntoDeVentaV2
 
         public static string procedencia { get; set; }
 
+        string[] datos; 
+
         Dictionary<string, string> clientes = new Dictionary<string, string>();
 
         string mensajeClientes = "Seleccionar cliente",
@@ -413,11 +415,14 @@ namespace PuntoDeVentaV2
                 pnl_datos_cliente.Visible = true;
                 btn_facturar.Enabled = true;
             }
+
+            datos = obtenerDatosIniciales();
         }
 
 
         private void ir_a_clientes(object sender, EventArgs e)
         {
+            
             procedencia = "timbrado Factura";
             Clientes ir_clientes = new Clientes();
 
@@ -429,13 +434,55 @@ namespace PuntoDeVentaV2
                     llenarCaposDesdeClientes(Clientes.idClienteParaFacturas);
                     Clientes.idClienteParaFacturas = 0;
                 }
+                else
+                {
+                    txt_razon_social.Text = datos[0];
+                    txt_rfc.Text = datos[1];
+                    txt_telefono.Text = datos[2];
+                    txt_correo.Text = datos[3];
+                    txt_nombre_comercial.Text = datos[4];
+                    txt_pais.Text = datos[5];
+                    txt_estado.Text = datos[6];
+                    txt_municipio.Text = datos[7];
+                    txt_localidad.Text = datos[8];
+                    txt_cp.Text = datos[9];
+                    txt_colonia.Text = datos[10];
+                    txt_calle.Text = datos[11];
+                    txt_num_ext.Text = datos[12];
+                    txt_num_int.Text = datos[13];
+
+                    cmb_bx_forma_pago.Text = datos[14];
+                    lb_total_n.Text = datos[15];
+                }
             };
 
             //this.Dispose();
             ir_clientes.ShowDialog();
         }
 
+        private string[] obtenerDatosIniciales()
+        {
+            List<string> datosIniciales = new List<string>();
+            datosIniciales.Add(txt_razon_social.Text);
+            datosIniciales.Add(txt_rfc.Text);
+            datosIniciales.Add(txt_telefono.Text);
+            datosIniciales.Add(txt_correo.Text);
+            datosIniciales.Add(txt_nombre_comercial.Text);
+            datosIniciales.Add(txt_pais.Text);
+            datosIniciales.Add(txt_estado.Text);
+            datosIniciales.Add(txt_municipio.Text);
+            datosIniciales.Add(txt_localidad.Text);
+            datosIniciales.Add(txt_cp.Text);
+            datosIniciales.Add(txt_colonia.Text);
+            datosIniciales.Add(txt_calle.Text);
+            datosIniciales.Add(txt_num_ext.Text);
+            datosIniciales.Add(txt_num_int.Text);
 
+            datosIniciales.Add(cmb_bx_forma_pago.Text);
+            datosIniciales.Add(lb_total_n.Text);
+
+            return datosIniciales.ToArray();
+        }
         private void llenarCaposDesdeClientes (int id)
         {
             pnl_datos_cliente.Visible = true;

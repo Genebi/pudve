@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
         public TipoReportesInventario()
         {
             InitializeComponent();
+            this.Text = "Escoger Tipo Reporte";
         }
 
         private void TipoReportesInventario_Load(object sender, EventArgs e)

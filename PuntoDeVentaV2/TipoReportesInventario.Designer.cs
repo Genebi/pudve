@@ -49,13 +49,13 @@
             // 
             this.btnActualizarInventarioDisminuir.BackColor = System.Drawing.Color.DarkRed;
             this.btnActualizarInventarioDisminuir.BackGroundColor = System.Drawing.Color.DarkRed;
-            this.btnActualizarInventarioDisminuir.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnActualizarInventarioDisminuir.BorderColor = System.Drawing.Color.DarkRed;
             this.btnActualizarInventarioDisminuir.BorderRadius = 40;
             this.btnActualizarInventarioDisminuir.BorderSize = 1;
             this.btnActualizarInventarioDisminuir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarInventarioDisminuir.FlatAppearance.BorderSize = 0;
             this.btnActualizarInventarioDisminuir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnActualizarInventarioDisminuir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.btnActualizarInventarioDisminuir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.btnActualizarInventarioDisminuir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarInventarioDisminuir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarInventarioDisminuir.ForeColor = System.Drawing.Color.White;
@@ -74,13 +74,13 @@
             // 
             this.btnActualizarInventarioAumentar.BackColor = System.Drawing.Color.DarkRed;
             this.btnActualizarInventarioAumentar.BackGroundColor = System.Drawing.Color.DarkRed;
-            this.btnActualizarInventarioAumentar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnActualizarInventarioAumentar.BorderColor = System.Drawing.Color.DarkRed;
             this.btnActualizarInventarioAumentar.BorderRadius = 40;
             this.btnActualizarInventarioAumentar.BorderSize = 1;
             this.btnActualizarInventarioAumentar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarInventarioAumentar.FlatAppearance.BorderSize = 0;
             this.btnActualizarInventarioAumentar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnActualizarInventarioAumentar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.btnActualizarInventarioAumentar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
             this.btnActualizarInventarioAumentar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarInventarioAumentar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarInventarioAumentar.ForeColor = System.Drawing.Color.White;
@@ -99,13 +99,13 @@
             // 
             this.btnActualizarInventarioNew.BackColor = System.Drawing.Color.MediumBlue;
             this.btnActualizarInventarioNew.BackGroundColor = System.Drawing.Color.MediumBlue;
-            this.btnActualizarInventarioNew.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnActualizarInventarioNew.BorderColor = System.Drawing.Color.MediumBlue;
             this.btnActualizarInventarioNew.BorderRadius = 40;
             this.btnActualizarInventarioNew.BorderSize = 1;
             this.btnActualizarInventarioNew.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarInventarioNew.FlatAppearance.BorderSize = 0;
             this.btnActualizarInventarioNew.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnActualizarInventarioNew.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+            this.btnActualizarInventarioNew.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
             this.btnActualizarInventarioNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarInventarioNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarInventarioNew.ForeColor = System.Drawing.Color.White;
