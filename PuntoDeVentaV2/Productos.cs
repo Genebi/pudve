@@ -4089,8 +4089,12 @@ namespace PuntoDeVentaV2
                     nameTag = item.Value.Item1.Remove(0, 9);    // tomamos el nombre del concepto dinamico
                     if (item.Value.Item2.Equals("True") && nameTag.Equals("Proveedor")) // verifica que sea true Y Nombre sea Proveedor
                     {
+                        // Obtener ID del proveedor
+                        int idProveedor = (int)cn.EjecutarSelect($"SELECT ID FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Nombre = '{item.Value.Item3}'", 1);
+
                         queryHeadAdvancedProveedor = "INNER JOIN DetallesProducto AS ProdDetail ON ProdDetail.IDProducto = P.ID INNER JOIN Proveedores AS Prove ON Prove.ID = ProdDetail.IDProveedor ";
-                        queryAndAdvancedProveedor = $"AND ProdDetail.Proveedor = '{item.Value.Item3.ToString()}' ";
+                        //queryAndAdvancedProveedor = $"AND ProdDetail.Proveedor = '{item.Value.Item3.ToString()}' ";
+                        queryAndAdvancedProveedor = $"AND ProdDetail.IDProveedor = {idProveedor} ";
                     }
                     else if (item.Value.Item2.Equals("True") && !nameTag.Equals("Proveedor")) // verifica que sea true Y sea diferente Nombre a Proveedor
                     {
@@ -4808,7 +4812,8 @@ namespace PuntoDeVentaV2
                     {
                         if (!queryHeadAdvancedProveedor.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
+                            filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + queryAndAdvancedProveedor + extra;
+                            //filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
                             //filtroConSinFiltroAvanzado += extra;
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
