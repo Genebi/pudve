@@ -978,10 +978,10 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void botonRedondo1_Click(object sender, EventArgs e)
         {
-            //EditarTicket editTicket = new EditarTicket();
-            //editTicket.Show();
+            EditarTicket editTicket = new EditarTicket();
+            editTicket.Show();
         }
     }
 }
