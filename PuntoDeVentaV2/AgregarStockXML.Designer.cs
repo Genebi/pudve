@@ -981,8 +981,8 @@
             this.Controls.Add(this.panel17);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnLoadXML);
-            this.Controls.Add(this.panel12);
             this.Controls.Add(this.panel6);
+            this.Controls.Add(this.panel12);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
