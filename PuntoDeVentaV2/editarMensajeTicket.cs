@@ -27,7 +27,7 @@ namespace PuntoDeVentaV2
             foreach (DataRow item in mensaje.Rows)
             {
                 cargarmensaje = item[0].ToString();
-                txtMensajeTicket.Text = cargarmensaje;
+                txtMensajeTicket.Text = cargarmensaje+"";
             }
         }
 
