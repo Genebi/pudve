@@ -25,6 +25,8 @@ namespace PuntoDeVentaV2
 
         Dictionary<int, string> IDClientes = new Dictionary<int, string>();
 
+        Dictionary<string, string> ProductosReporte = new Dictionary<string, string>();
+
         string filtroConSinFiltroAvanzado = string.Empty;
         string DataMemberDGV = "Clientes";
         string busqueda = string.Empty;
@@ -798,6 +800,8 @@ namespace PuntoDeVentaV2
         #region Reportes de articulos comprados
         private void GenerarReporteComprado(bool multiplesId, string idCliente = "", string nameCliente = "")
         {
+            ProductosReporte.Clear();
+
             var mostrarClave = FormPrincipal.clave;
             //var numFolio = obtenerFolio(num);
 
@@ -814,7 +818,7 @@ namespace PuntoDeVentaV2
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
 
-            var numRow = 0;
+            
 
             // Ruta donde se creara el archivo PDF
             var servidor = Properties.Settings.Default.Hosting;
@@ -896,13 +900,19 @@ namespace PuntoDeVentaV2
             PdfPTable tablaClientes = new PdfPTable(4);
 
             if (!consultaCliente.Rows.Count.Equals(0))
-
+            { 
+                int incremento = 0;
                 foreach (DataRow item in consultaCliente.Rows)
                 {
+                    var numRow = 0;
+                    incremento += 1;
+
+                    PdfPCell colSeparador = new PdfPCell(new Phrase(Chunk.NEWLINE));
+                    colSeparador.Colspan = 10;
+                    colSeparador.BorderWidth = 0;
+
                     nombreClienteHeader = new Paragraph($"{item["RazonSocial"].ToString()}");
                     nombreClienteHeader.Alignment = Element.ALIGN_CENTER;
-
-                    reporte.Add(nombreClienteHeader);
 
                     tablaClientes.WidthPercentage = 70;
                     tablaClientes.SetWidths(anchoColumnas);
@@ -930,6 +940,7 @@ namespace PuntoDeVentaV2
                     colFecha.Padding = 3;
                     colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
 
+                    tablaClientes.AddCell(colSeparador);
                     tablaClientes.AddCell(colNoConcepto);
                     tablaClientes.AddCell(colNombre);
                     tablaClientes.AddCell(colCantidad);
@@ -951,6 +962,22 @@ namespace PuntoDeVentaV2
                         var nombre = row["Nombre"].ToString();
                         var cantidad = row["Cantidad"].ToString();
                         var fecha = row["Fecha"].ToString();
+                        var nombreCliente = row["Cliente"].ToString();
+
+                        if (!ProductosReporte.ContainsKey(nombre))//Validacion para separar el reporte por cliente
+                        {
+                            if (!ProductosReporte.ContainsValue(nombreCliente) && ProductosReporte.Count > 0 && incremento > 0)
+                            {
+                                continue;
+                            }
+                                ProductosReporte.Add(nombre, nombreCliente);
+
+                        }
+                        else// si en el diccionario ya se encuentra guardado el producto, no se vuelve a agregar
+                        {
+                            continue;
+                        }
+
 
                         numRow++;
                         PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
@@ -974,8 +1001,12 @@ namespace PuntoDeVentaV2
                         tablaClientes.AddCell(colCantidadTmp);
                         tablaClientes.AddCell(colFechaTmp);
 
+                        //reporte.Add(Chunk.NEWLINE);
+
+                        //reporte.Add(nombreClienteHeader);
                     }
                 }
+        }
                     reporte.Add(titulo);
                     reporte.Add(Usuario);
                     //reporte.Add(numeroFolio);
