@@ -19,7 +19,7 @@ namespace PuntoDeVentaV2
 
         private void EditarTicket_Load(object sender, EventArgs e)
         {
-            //Ventas.
+            //Ventas.dffss
         }
 
         private void button2_Click(object sender, EventArgs e)
