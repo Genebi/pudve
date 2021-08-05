@@ -29,11 +29,6 @@ namespace PuntoDeVentaV2
             BRInventario.ShowDialog();
         }
 
-        private void btnAIDisminuir_Click(object sender, EventArgs e)
-        {
-            llamarVentana("AIDisminuir");
-        }
-
         private void btnActualizarInventarioNew_Click(object sender, EventArgs e)
         {
             llamarVentana("RInventario");
