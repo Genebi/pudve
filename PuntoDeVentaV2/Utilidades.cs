@@ -26,6 +26,8 @@ namespace PuntoDeVentaV2
             var archivoCopia = string.Empty;
             var archivoPDF = string.Empty;
             var nuevoPDF = string.Empty;
+            Conexion cn = new Conexion();
+            Consultas cs = new Consultas();
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
@@ -936,8 +938,18 @@ namespace PuntoDeVentaV2
             /******************************************
              ** Fin tabla con los productos vendidos **
              ******************************************/
+            Conexion cn = new Conexion();
+            Consultas cs = new Consultas();
+            string cargarMensaje = string.Empty;
 
-            Paragraph mensaje = new Paragraph("\nCambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.\n\n", fuenteNormal);
+            var mensaje2 = cn.CargarDatos(cs.MensajeTicket(FormPrincipal.userID));
+            foreach (DataRow item in mensaje2.Rows)
+            {
+                cargarMensaje = item[0].ToString();
+            }
+            var mensajeTicket = cargarMensaje;
+
+            Paragraph mensaje = new Paragraph(cargarMensaje, fuenteNormal);
             mensaje.Alignment = Element.ALIGN_CENTER;
 
             string drFecha = tbVenta.Rows[0]["FechaOperacion"].ToString();
@@ -951,8 +963,6 @@ namespace PuntoDeVentaV2
             var culture = new System.Globalization.CultureInfo("es-MX");
             var dia = culture.DateTimeFormat.GetDayName(DiaFecha.DayOfWeek);
             var fecha = drFecha;
-
-            Conexion cn = new Conexion();
 
             dia = cn.Capitalizar(dia);
 

@@ -1,16 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO.Compression;
 
 namespace PuntoDeVentaV2
 {
@@ -985,6 +976,12 @@ namespace PuntoDeVentaV2
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            EditarTicket editTicket = new EditarTicket();
+            editTicket.Show();
         }
     }
 }
