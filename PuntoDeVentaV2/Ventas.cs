@@ -44,6 +44,7 @@ namespace PuntoDeVentaV2
         public static List<string> liststock = new List<string>();
         public static List<string> liststock2 = new List<string>();
         List<string> stockCantidad = new List<string>();
+        string cargarmensaje;
 
         public static bool ventaGuardada = false; //Para saber si la venta se guardo o no
         int cantidadExtra = 0;
@@ -3784,6 +3785,10 @@ namespace PuntoDeVentaV2
             liststock.Clear();
         }
 
+       
+            
+        
+
         private void GenerarTicket(string[][] productos)
         {
             var datos = FormPrincipal.datosUsuario;
@@ -4163,8 +4168,14 @@ namespace PuntoDeVentaV2
             /******************************************
              ** Fin tabla con los productos vendidos **
              ******************************************/
+            var mensaje2 = cn.CargarDatos(cs.MensajeTicket(FormPrincipal.userID));
+            foreach (DataRow item in mensaje2.Rows)
+            {
+                cargarmensaje = item[0].ToString();
+            }
+            var mensajeTicket = cargarmensaje;
 
-            Paragraph mensaje = new Paragraph("\nCambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.\n\n", fuenteNormal);
+            Paragraph mensaje = new Paragraph(mensajeTicket, fuenteNormal);
             mensaje.Alignment = Element.ALIGN_CENTER;
 
             var culture = new System.Globalization.CultureInfo("es-MX");

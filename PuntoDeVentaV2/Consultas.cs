@@ -51,7 +51,7 @@ namespace PuntoDeVentaV2
 
         public string GuardarProducto(string[] datos, int id)
         {
-            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario, ProdImage, Tipo, Base, IVA, Impuesto, NombreAlterno1, NombreAlterno2, StockNecesario, StockMinimo, PrecioCompra, PrecioMayoreo)";
+            string consulta = "sINTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario, ProdImage, Tipo, Base, IVA, Impuesto, NombreAlterno1, NombreAlterno2, StockNecesario, StockMinimo, PrecioCompra, PrecioMayoreo)";
             consulta += $"VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}')";
 
             return consulta;
@@ -2377,6 +2377,31 @@ namespace PuntoDeVentaV2
         {
             var consulta = $"SELECT DISTINCT Prod.Nombre, IF( Prod.Tipo = 'PQ', 'COMBO', 'SERVICIO' ) AS Tipo FROM productos AS Prod INNER JOIN ProductosDeServicios AS ServicesProd ON Prod.ID = ServicesProd.IDServicio WHERE ServicesProd.IDServicio = '{idProducto}'; ";
 
+            return consulta;
+        }
+
+        public string insertarMensajeDeTicket(int idUsuario,string mensaje)
+        {
+            string consulta = "INSERT INTO editarticket (IDUsuario, mensajeTicket)";
+            consulta += $"VALUES ('{idUsuario}', '{mensaje}')";
+            return consulta;
+        }
+
+        public string editarMensajeDeTicket(int idUsuario, string mensaje)
+        {
+            string consulta = $"UPDATE editarticket SET MensajeTicket = '{mensaje}' where IDUsuario = '{idUsuario}'";
+            return consulta;
+        }
+
+        public string consultarMensajeTicket(int idUsuario)
+        {
+            string consulta = $"SELECT COUNT(MensajeTicket) AS mensaje FROM editarticket WHERE IDUsuario = '{idUsuario}'; ";
+            return consulta;
+        }
+
+        public string MensajeTicket(int idUsuario)
+        {
+            string consulta = $"SELECT MensajeTicket FROM editarticket WHERE IDUsuario = '{idUsuario}'; ";
             return consulta;
         }
     }

@@ -1516,3 +1516,12 @@ ALTER TABLE iniciosdesesion ADD COLUMN IF NOT EXISTS Correo TEXT;
 
 -- Agregar columna para guardar la licencia
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS Licencia VARCHAR(30) DEFAULT NULL;
+
+-- Tabla de editar ticket 
+CREATE TABLE 
+IF 
+	NOT EXISTS editarticket (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		IDUsuario INT, 
+		MensajeTicket TEXT 
+	);
