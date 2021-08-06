@@ -19,9 +19,21 @@ namespace PuntoDeVentaV2
         Dictionary<string, string> opcionesDefault;
         private Dictionary<string, Tuple<string, float>> filtros;
 
-        public FiltroReporteProductos()
+        // origen 1 = OpcionesReporteProducto.cs
+        // origen 2 = Productos.cs
+        public FiltroReporteProductos(int origen = 1)
         {
             InitializeComponent();
+
+            if (origen == 1)
+            {
+                this.Text = "PUDVE - Filtro del Reporte";
+            }
+
+            if (origen == 2)
+            {
+                this.Text = "PUDVE - Filtro Avanzado de Productos";
+            }
         }
 
         private void FiltroReporteProductos_Load(object sender, EventArgs e)
