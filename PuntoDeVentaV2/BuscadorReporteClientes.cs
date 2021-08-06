@@ -26,6 +26,7 @@ namespace PuntoDeVentaV2
         Dictionary<int, string> IDClientes = new Dictionary<int, string>();
 
         Dictionary<string, string> ProductosReporte = new Dictionary<string, string>();
+        List<string> listaProductosTemporal = new List<string>();
 
         string filtroConSinFiltroAvanzado = string.Empty;
         string DataMemberDGV = "Clientes";
@@ -964,19 +965,32 @@ namespace PuntoDeVentaV2
                         var fecha = row["Fecha"].ToString();
                         var nombreCliente = row["Cliente"].ToString();
 
-                        if (!ProductosReporte.ContainsKey(nombre))//Validacion para separar el reporte por cliente
+                        if (!listaProductosTemporal.Contains(nombreCliente))
                         {
-                            if (!ProductosReporte.ContainsValue(nombreCliente) && ProductosReporte.Count > 0 && incremento > 0)
+                            if ()
                             {
                                 continue;
                             }
-                                ProductosReporte.Add(nombre, nombreCliente);
-
+                            listaProductosTemporal.Add($"{nombreCliente}-{nombre}");
                         }
-                        else// si en el diccionario ya se encuentra guardado el producto, no se vuelve a agregar
+                        else
                         {
                             continue;
                         }
+
+                        //if (!ProductosReporte.ContainsKey(nombre))//Validacion para separar el reporte por cliente
+                        //{
+                        //    if (!ProductosReporte.ContainsValue(nombreCliente) && ProductosReporte.Count > 0 && incremento > 0)
+                        //    {
+                        //        continue;
+                        //    }
+                        //        ProductosReporte.Add(nombre, nombreCliente);
+
+                        //}
+                        //else// si en el diccionario ya se encuentra guardado el producto, no se vuelve a agregar
+                        //{
+                        //    continue;
+                        //}
 
 
                         numRow++;
