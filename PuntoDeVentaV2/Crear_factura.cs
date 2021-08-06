@@ -93,7 +93,6 @@ namespace PuntoDeVentaV2
 
         private void Crear_factura_Load(object sender, EventArgs e)
         {
-            
             // Obtiene los clientes
 
             DataTable d_clientes;
@@ -506,10 +505,13 @@ namespace PuntoDeVentaV2
                 txt_calle.Text = query.Rows[0]["Calle"].ToString();
                 txt_num_ext.Text = query.Rows[0]["NoExterior"].ToString();
                 txt_num_int.Text = query.Rows[0]["NoInterior"].ToString();
+                cmb_bx_uso_cfdi.Text = buscarTipoCFDI(query.Rows[0]["UsoCFDI"].ToString());
+
 
                 //cmb_bx_forma_pago.Text = query.Rows[0]["FormaPago"].ToString();
             }
 
+            
             if (!queryVenta.Rows.Count.Equals(0))
             {
                 var totalCantidadVenta = (float)double.Parse(queryVenta.Rows[0]["Total"].ToString());
@@ -539,6 +541,73 @@ namespace PuntoDeVentaV2
 
                 cmb_bx_forma_pago.Text = formaPago.ToString();
             }
+        }
+
+        private string buscarTipoCFDI(string tipo)
+        {
+            var result = string.Empty;
+
+            if (tipo.Equals("G01"))
+            {
+                result = "Adquisición de mercancias";
+            }
+            else if (tipo.Equals("G02"))
+            {
+                result = "Devoluciones, descuentos o bonificaciones";
+
+            }
+            else if (tipo.Equals("G03"))
+            {
+                result = "Gastos en general";
+
+            }
+            else if (tipo.Equals("I01"))
+            {
+                result = "Construcciones";
+
+            }
+            else if (tipo.Equals("I02"))
+            {
+                result = "Mobilario y equipo de oficina por inversiones";
+
+            }
+            else if (tipo.Equals("I03"))
+            {
+                result = "Equipo de transporte";
+
+            }
+            else if (tipo.Equals("I04"))
+            {
+                result = "Equipo de computo y accesorios";
+
+            }
+            else if (tipo.Equals("I05"))
+            {
+                result = "Dados, troqueles, moldes, matrices y herramental";
+
+            }
+            else if (tipo.Equals("I06"))
+            {
+                result = "Comunicaciones telefónica";
+
+            }
+            else if (tipo.Equals("I07"))
+            {
+                result = "Comunicaciones satelitale";
+
+            }
+            else if (tipo.Equals("I08"))
+            {
+                result = "Otra maquinaria y equipo";
+
+            }
+            else if (tipo.Equals("P01"))
+            {
+                result = "Por definir";
+
+            }
+
+            return result;
         }
 
         private void sel_clientes(object sender, EventArgs e)

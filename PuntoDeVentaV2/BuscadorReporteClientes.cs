@@ -967,11 +967,11 @@ namespace PuntoDeVentaV2
 
                         if (!listaProductosTemporal.Contains(nombreCliente))
                         {
-                            if ()
-                            {
-                                continue;
-                            }
-                            listaProductosTemporal.Add($"{nombreCliente}-{nombre}");
+                            //if ()
+                            //{
+                            //    continue;
+                            //}
+                            //listaProductosTemporal.Add($"{nombreCliente}-{nombre}");
                         }
                         else
                         {
