@@ -627,31 +627,42 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (Application.OpenForms.OfType<WinQueryString>().Count() == 1)
+            if (Application.OpenForms.OfType<FiltroReporteProductos>().Count() == 1)
             {
-                Application.OpenForms.OfType<WinQueryString>().First().BringToFront();
+                Application.OpenForms.OfType<FiltroReporteProductos>().First().BringToFront();
             }
             else
             {
-                WinQueryString FiltroAvanzado = new WinQueryString();
+                FiltroReporteProductos filtroBusqueda = new FiltroReporteProductos(2);
 
-                FiltroAvanzado.FormClosed += delegate
-                {
-                    if (txtBusqueda.Text.Equals(""))
-                    {
-                        CargarDatos();
-                    }
-                    else if (!txtBusqueda.Text.Equals(""))
-                    {
-                        quitarEspacioEnBlanco();
-                        busquedaDelUsuario();
-                    }
-
-                    verificarBotonLimpiarTags();
-                };
-
-                FiltroAvanzado.Show();
+                filtroBusqueda.Show();
             }
+
+            //if (Application.OpenForms.OfType<WinQueryString>().Count() == 1)
+            //{
+            //    Application.OpenForms.OfType<WinQueryString>().First().BringToFront();
+            //}
+            //else
+            //{
+            //    WinQueryString FiltroAvanzado = new WinQueryString();
+
+            //    FiltroAvanzado.FormClosed += delegate
+            //    {
+            //        if (txtBusqueda.Text.Equals(""))
+            //        {
+            //            CargarDatos();
+            //        }
+            //        else if (!txtBusqueda.Text.Equals(""))
+            //        {
+            //            quitarEspacioEnBlanco();
+            //            busquedaDelUsuario();
+            //        }
+
+            //        verificarBotonLimpiarTags();
+            //    };
+
+            //    FiltroAvanzado.Show();
+            //}
         }
 
         private void searchPhotoProdInactivo()
@@ -1638,6 +1649,9 @@ namespace PuntoDeVentaV2
             verificarBotonLimpiarTags();
         }
 
+
+        public static Dictionary<string, Tuple<string, float>> filtros;
+
         public Productos()
         {
             InitializeComponent();
@@ -1661,6 +1675,7 @@ namespace PuntoDeVentaV2
 
             productosSeleccionados = new Dictionary<int, string>();
             checkboxMarcados = new Dictionary<int, string>();
+            filtros = new Dictionary<string, Tuple<string, float>>();
 
             listVariables = new List<Control>();
 

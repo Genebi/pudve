@@ -18,12 +18,15 @@ namespace PuntoDeVentaV2
 
         Dictionary<string, string> opcionesDefault;
         private Dictionary<string, Tuple<string, float>> filtros;
+        private int origen = 0;
 
         // origen 1 = OpcionesReporteProducto.cs
         // origen 2 = Productos.cs
         public FiltroReporteProductos(int origen = 1)
         {
             InitializeComponent();
+
+            this.origen = origen;
 
             if (origen == 1)
             {
@@ -295,7 +298,15 @@ namespace PuntoDeVentaV2
 
             if (filtros.Count > 0)
             {
-                OpcionesReporteProducto.filtros = filtros;
+                if (origen == 1)
+                {
+                    OpcionesReporteProducto.filtros = filtros;
+                }
+
+                if (origen == 2)
+                {
+                    Productos.filtros = filtros;
+                }
 
                 this.Hide();
             }
