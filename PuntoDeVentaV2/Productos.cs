@@ -4081,6 +4081,9 @@ namespace PuntoDeVentaV2
         /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
         public void CargarDatos(int status = 1, string busquedaEnProductos = "")
         {
+            var tipodeMoneda = FormPrincipal.Moneda.Split('-');
+            var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
+
             string extra = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(busquedaEnProductos))
@@ -4362,7 +4365,7 @@ namespace PuntoDeVentaV2
                     row.Cells["StockMaximo"].Value = maximo.ToString();
                 }
 
-                row.Cells["Column3"].Value = "X";// moneda + decimal.Parse(filaDatos["Precio"].ToString());
+                row.Cells["Column3"].Value = moneda + decimal.Parse(filaDatos["Precio"].ToString());
                 row.Cells["Column4"].Value = filaDatos["NumeroRevision"].ToString(); //filaDatos["Categoria"].ToString(); esta era la de categoria
                 row.Cells["Column5"].Value = filaDatos["ClaveInterna"].ToString();
                 row.Cells["Column6"].Value = filaDatos["CodigoBarras"].ToString();
