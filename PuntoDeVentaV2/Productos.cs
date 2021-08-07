@@ -4104,140 +4104,74 @@ namespace PuntoDeVentaV2
             // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
             if (filtros.Count > 0)
             {
-                // CUANDO EL FILTRO FUE APLICADO
-                var respuesta = true;
+                extraProductos += "AND ";
 
-                extraProductos += "AND ID IN (";
-
-                // Se hace una consulta previa antes de volver a hacer una consulta final que es la que vera el usuario en el paginador con los resultados
-                var listaProductos = cn.CargarDatos(consultaFiltro);
-                var longitudLista = listaProductos.Rows.Count;
-
-                // Una vez que se tienen todos los productos iteramos esa informacion con la informacion de los filtros seleccionados para dejar solo los ID
-                // de los productos que cumplen con las condiciones del filtro, estos ID se van concatenando al final del ciclo en la variable extraProductos
-                // y extraProductosAux
-                for (int i = 0; i < longitudLista; i++)
+                foreach (var filtro in filtros)
                 {
-                    foreach (var filtro in filtros)
+                    // Busca el valor de cualquiera de estas columnas y aplica las condiciones
+                    // elegidas por el usuario para comparar las cantidades
+                    if (filtro.Key == "Stock" || filtro.Key == "StockMinimo" || filtro.Key == "StockNecesario")
                     {
-                        // Busca el valor de cualquiera de estas columnas y aplica las condiciones
-                        // elegidas por el usuario para comparar las cantidades
-                        if (filtro.Key == "Stock" || filtro.Key == "StockMinimo" || filtro.Key == "StockNecesario")
-                        {
-                            var cantidad = float.Parse(listaProductos.Rows[i][filtro.Key].ToString());
-
-                            respuesta = OperadoresComparacion(filtro, cantidad);
-                        }
-                        else if (filtro.Key == "Precio" || filtro.Key == "NumeroRevision")
-                        {
-                            var cantidad = float.Parse(listaProductos.Rows[i][filtro.Key].ToString());
-
-                            respuesta = OperadoresComparacion(filtro, cantidad);
-                        }
-                        else if (filtro.Key == "CantidadPedir")
-                        {
-                            long cantidad = 0;
-
-                            var stockActual = Convert.ToInt64(listaProductos.Rows[i]["Stock"]);
-                            var stockMinimo = Convert.ToInt64(listaProductos.Rows[i]["StockMinimo"]);
-                            var stockMaximo = Convert.ToInt64(listaProductos.Rows[i]["StockNecesario"]);
-
-                            if (stockMinimo > stockActual)
-                            {
-                                var cantidadPedir = stockMaximo - stockActual;
-
-                                cantidad = cantidadPedir;
-                            }
-                            else
-                            {
-                                cantidad = 0;
-                            }
-
-                            respuesta = OperadoresComparacion(filtro, cantidad);
-                        }
-                        else if (filtro.Key == "Proveedor")
-                        {
-                            var idProductoAux = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
-                            var datosProveedor = mb.DetallesProducto(idProductoAux, FormPrincipal.userID);
-
-                            if (datosProveedor.Length > 0)
-                            {
-                                // Compara el ID del proveedor (los dos valores son string)
-                                respuesta = filtro.Value.Item1.Equals(datosProveedor[1]);
-                            }
-                            else
-                            {
-                                respuesta = false;
-                            }
-                        }
-                        else if (filtro.Key == "Tipo")
-                        {
-                            var tipo = listaProductos.Rows[i][filtro.Key].ToString();
-
-                            if (!tipo.Equals(filtro.Value.Item1))
-                            {
-                                respuesta = false;
-                            }
-                        }
-                        else if (filtro.Key == "Imagen")
-                        {
-                            var imagen = listaProductos.Rows[i]["ProdImage"].ToString();
-
-                            // Con imagen
-                            if (filtro.Value.Item1 == "1")
-                            {
-                                if (string.IsNullOrWhiteSpace(imagen))
-                                {
-                                    respuesta = false;
-                                }
-                            }
-
-                            // Sin imagen
-                            if (filtro.Value.Item1 == "0")
-                            {
-                                if (!string.IsNullOrWhiteSpace(imagen))
-                                {
-                                    respuesta = false;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            // Busca si el valor del detalle de producto esta asignado a este producto
-                            var idProductoAux = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
-                            var detalle = mb.DatosDetallesProducto(idProductoAux, filtro.Key);
-
-                            respuesta = filtro.Value.Item1.Equals(detalle);
-                        }
-
-                        if (respuesta == false)
-                        {
-                            break;
-                        }
-
-                        extraProductos += $"{listaProductos.Rows[i]["ID"]},";
-                        extraProductosAux += $"WHEN {listaProductos.Rows[i]["ID"]} THEN {i} ";
+                        extraProductos += $"{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
                     }
-
-                    // Si cualquiera de los filtros devuelve "false" se salta la iteracion actual
-                    // para buscar en el siguiente producto
-                    if (respuesta == false)
+                    else if (filtro.Key == "Precio" || filtro.Key == "NumeroRevision")
                     {
-                        continue;
+                        extraProductos += $"{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
+                    }
+                    else if (filtro.Key == "CantidadPedir")
+                    {
+                        extraProductos += $"{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
+                    }
+                    else if (filtro.Key == "Proveedor")
+                    {
+                        //var idProductoAux = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
+                        //var datosProveedor = mb.DetallesProducto(idProductoAux, FormPrincipal.userID);
+
+                        //if (datosProveedor.Length > 0)
+                        //{
+                        //    // Compara el ID del proveedor (los dos valores son string)
+                        //    respuesta = filtro.Value.Item1.Equals(datosProveedor[1]);
+                        //}
+                        //else
+                        //{
+                        //    respuesta = false;
+                        //}
+                    }
+                    else if (filtro.Key == "Tipo")
+                    {
+                        extraProductos += $"{filtro.Key} = '{filtro.Value.Item1}' AND ";
+                    }
+                    else if (filtro.Key == "Imagen")
+                    {
+                        // Con imagen
+                        if (filtro.Value.Item1 == "1")
+                        {
+                            extraProductos += $"ProdImage != '' AND ";
+                        }
+
+                        // Sin imagen
+                        if (filtro.Value.Item1 == "0")
+                        {
+                            extraProductos += $"ProdImage = '' AND ";
+                        }
+                    }
+                    else
+                    {
+                        // Busca si el valor del detalle de producto esta asignado a este producto
+                        //var idProductoAux = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
+                        //var detalle = mb.DatosDetallesProducto(idProductoAux, filtro.Key);
+
+                        //respuesta = filtro.Value.Item1.Equals(detalle);
                     }
                 }
 
-                // Eliminamos el último caracter que es una coma (,)
-                extraProductos = extraProductos.Remove(extraProductos.Length - 1);
-                extraProductos += ") ORDER BY CASE ID ";
-                extraProductosAux += "END ";
-                extraProductos += extraProductosAux;
-
-                // Al llegar a este punto ya deberiamos de tener los productos que cumplen con los filtros y estas variables
-                // las concatenamos a la consulta nueva que se hará para mostrar los productos con el paginador
-                // NOTA: se hizo esta doble consulta porque daba problemas con el paginador al filtrar los productos directamente ahi
-                // mostraba las paginas incompletas
+                if (!extraProductos.Equals("AND "))
+                {
+                    extraProductos = extraProductos.Remove(extraProductos.Length - 4);
+                }
             }
+
+            Console.WriteLine(consultaFiltro);
 
             // Status 2 es poner el listado en todos los 
             // productos y servecios sin importar es activo o desactivado
@@ -4252,6 +4186,7 @@ namespace PuntoDeVentaV2
             // productos activos
             if (status == 1)
             {
+                //Console.WriteLine(consultaFiltro + extraProductos);
                 if (DGVProductos.RowCount <= 0)
                 {
                     p = new Paginar(consultaFiltro + extraProductos, DataMemberDGV, maximo_x_pagina);
