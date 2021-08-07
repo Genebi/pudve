@@ -306,6 +306,7 @@ namespace PuntoDeVentaV2
                 if (origen == 2)
                 {
                     Productos.filtros = filtros;
+                    DialogResult = DialogResult.OK;
                 }
 
                 this.Hide();
