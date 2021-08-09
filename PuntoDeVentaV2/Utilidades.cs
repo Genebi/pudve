@@ -608,7 +608,7 @@ namespace PuntoDeVentaV2
                 {
                     idVenta = item["idVenta"].ToString();
                     IDProducto = item["IDProducto"].ToString();
-                    Nombre = item["Nombre"].ToString();
+                     Nombre = item["Nombre"].ToString();
                     Cantidad = item["Cantidad"].ToString();
                     Precio = item["Precio"].ToString();
                     DescuentoGeneral = item["DescuentoGeneral"].ToString();

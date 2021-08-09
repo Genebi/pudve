@@ -3942,7 +3942,7 @@ namespace PuntoDeVentaV2
 
             string encabezado = $"{salto}{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
 
-                ticket.Open();
+            ticket.Open();
 
             //Validación para verificar si existe logotipo
             if (logotipo != "")
