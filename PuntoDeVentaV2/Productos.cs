@@ -4085,12 +4085,6 @@ namespace PuntoDeVentaV2
             var tipodeMoneda = FormPrincipal.Moneda.Split('-');
             var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
-            string extra = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(busquedaEnProductos) && filtros.Count() == 0)
-            {
-                extra = $"AND (P.Nombre LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno1 LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno2 LIKE '%{busquedaEnProductos}%')";
-            }
 
             // CONSULTA GENERAL
             string consultaFiltro = $"SELECT * FROM Productos AS P ";
@@ -4165,7 +4159,15 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            string extra = string.Empty;
 
+            // Se crea solo si el usuario escribio algo en el buscador y no hay filtros aplicados
+            if (!string.IsNullOrWhiteSpace(busquedaEnProductos) && filtros.Count() == 0)
+            {
+                extra = $"AND (P.Nombre LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno1 LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno2 LIKE '%{busquedaEnProductos}%')";
+            }
+
+            // Consulta final despues de aplicador filtros, condiciones, etc
             consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
 
             Console.WriteLine(consultaFiltro);
