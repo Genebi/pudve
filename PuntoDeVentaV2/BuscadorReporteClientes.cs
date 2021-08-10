@@ -965,32 +965,19 @@ namespace PuntoDeVentaV2
                         var fecha = row["Fecha"].ToString();
                         var nombreCliente = row["Cliente"].ToString();
 
-                        if (!listaProductosTemporal.Contains(nombreCliente))
+                        if (!ProductosReporte.ContainsKey(nombre))//Validacion para separar el reporte por cliente
                         {
-                            //if ()
-                            //{
-                            //    continue;
-                            //}
-                            //listaProductosTemporal.Add($"{nombreCliente}-{nombre}");
+                            if (!ProductosReporte.ContainsValue(nombreCliente) && ProductosReporte.Count > 0 && incremento > 0)
+                            {
+                                continue;
+                            }
+                            ProductosReporte.Add(nombre, nombreCliente);
+
                         }
-                        else
+                        else// si en el diccionario ya se encuentra guardado el producto, no se vuelve a agregar
                         {
                             continue;
                         }
-
-                        //if (!ProductosReporte.ContainsKey(nombre))//Validacion para separar el reporte por cliente
-                        //{
-                        //    if (!ProductosReporte.ContainsValue(nombreCliente) && ProductosReporte.Count > 0 && incremento > 0)
-                        //    {
-                        //        continue;
-                        //    }
-                        //        ProductosReporte.Add(nombre, nombreCliente);
-
-                        //}
-                        //else// si en el diccionario ya se encuentra guardado el producto, no se vuelve a agregar
-                        //{
-                        //    continue;
-                        //}
 
 
                         numRow++;

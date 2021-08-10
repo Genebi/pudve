@@ -81,7 +81,8 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (SumaMetodos() > 0)
+
+            if (sumarMetodosTemporal() > 0)
             {
                 float total = 0f;
                 float efectiv = 0f;
@@ -183,6 +184,19 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Ingrese una cantidad para poder realizar el abono.","Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private float sumarMetodosTemporal()
+        {
+            float efectivo = CantidadDecimal(txtEfectivo.Text);
+            float tarjeta = CantidadDecimal(txtTarjeta.Text);
+            float vales = CantidadDecimal(txtVales.Text);
+            float cheque = CantidadDecimal(txtCheque.Text);
+            float transferencia = CantidadDecimal(txtTransferencia.Text);
+
+            float suma = efectivo + tarjeta + vales + cheque + transferencia;
+
+            return suma;
         }
 
         private void MostrarTicketAbonos(string idVenta, string idAbono)
