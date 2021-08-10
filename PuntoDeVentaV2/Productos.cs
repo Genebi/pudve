@@ -4098,7 +4098,7 @@ namespace PuntoDeVentaV2
 
             string extraProductos = string.Empty;
             string extraProveedor = string.Empty;
-
+            string extraDetalles = string.Empty;
 
             // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
             // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
@@ -4147,6 +4147,8 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
+                        extraDetalles += "INNER JOIN DetallesProductoGenerales AS DPG ON (P.ID = DPG.IDProducto AND P.IDUsuario = DPG.IDUsuario AND DPG.StatusDetalleGral = 1) INNER JOIN DetalleGeneral AS DG ON (DPG.IDDetalleGral = DG.ID AND DPG.IDUsuario = DG.IDUsuario) ";
+                        extraProductos += $"DG.ChckName = '{filtro.Key}' AND DG.Descripcion = '{filtro.Value.Item1}' AND ";
                         // Busca si el valor del detalle de producto esta asignado a este producto
                         //var idProductoAux = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
                         //var detalle = mb.DatosDetallesProducto(idProductoAux, filtro.Key);
@@ -4162,7 +4164,7 @@ namespace PuntoDeVentaV2
             }
 
 
-            consultaFiltro += extraProveedor + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
+            consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
 
             Console.WriteLine(consultaFiltro);
 
