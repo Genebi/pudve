@@ -4110,17 +4110,24 @@ namespace PuntoDeVentaV2
                 {
                     // Busca el valor de cualquiera de estas columnas y aplica las condiciones
                     // elegidas por el usuario para comparar las cantidades
+                    string operador = string.Empty;
+
+                    if (filtro.Value.Item1.Equals("=="))
+                    {
+                        operador = "=";
+                    }
+
                     if (filtro.Key == "Stock" || filtro.Key == "StockMinimo" || filtro.Key == "StockNecesario")
                     {
-                        extraProductos += $"P.{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
+                        extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
                     }
                     else if (filtro.Key == "Precio" || filtro.Key == "NumeroRevision")
                     {
-                        extraProductos += $"P.{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
+                        extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
                     }
                     else if (filtro.Key == "CantidadPedir")
                     {
-                        extraProductos += $"P.{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
+                        extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
                     }
                     else if (filtro.Key == "Proveedor")
                     {
@@ -4149,11 +4156,6 @@ namespace PuntoDeVentaV2
                     {
                         extraDetalles += "INNER JOIN DetallesProductoGenerales AS DPG ON (P.ID = DPG.IDProducto AND P.IDUsuario = DPG.IDUsuario AND DPG.StatusDetalleGral = 1) INNER JOIN DetalleGeneral AS DG ON (DPG.IDDetalleGral = DG.ID AND DPG.IDUsuario = DG.IDUsuario) ";
                         extraProductos += $"DG.ChckName = '{filtro.Key}' AND DG.Descripcion = '{filtro.Value.Item1}' AND ";
-                        // Busca si el valor del detalle de producto esta asignado a este producto
-                        //var idProductoAux = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
-                        //var detalle = mb.DatosDetallesProducto(idProductoAux, filtro.Key);
-
-                        //respuesta = filtro.Value.Item1.Equals(detalle);
                     }
                 }
 
