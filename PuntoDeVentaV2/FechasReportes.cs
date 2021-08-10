@@ -93,17 +93,23 @@ namespace PuntoDeVentaV2
         {
             var result = false;
             var tipoEstado = string.Empty;
-            if (empleadoProducto.Equals("Empleados"))
+            if (origen.Equals("Productos"))
             {
-                tipoEstado = "estatus";
-            }
-            else if(empleadoProducto.Equals("Productos"))
-            {
+                empleadoProducto = "Productos";
                 tipoEstado = "`Status`";
-            }
-            else if (empleadoProducto.Equals("Seleccionar Empleado/Producto"))
-            {
-                result = true;
+
+                if (empleadoProducto.Equals("Empleados"))
+                {
+                    tipoEstado = "estatus";
+                }
+                else if (empleadoProducto.Equals("Productos"))
+                {
+                    tipoEstado = "`Status`";
+                }
+                else if (empleadoProducto.Equals("Seleccionar Empleado/Producto"))
+                {
+                    result = true;
+                }
             }
 
             var query = cn.CargarDatos($"SELECT * FROM {empleadoProducto} WHERE IDUsuario = '{FormPrincipal.userID}' AND {tipoEstado} = 1");
@@ -120,7 +126,11 @@ namespace PuntoDeVentaV2
         {
             cbEmpleados.Items.Add("Seleccionar Empleado/Producto");
             cbEmpleados.Items.Add("Empleados");
-            cbEmpleados.Items.Add("Productos");
+
+            if (!origen.Equals("Productos"))
+            {
+                cbEmpleados.Items.Add("Productos");
+            }
 
             cbEmpleados.SelectedIndex = 0;
             //var query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}'");
