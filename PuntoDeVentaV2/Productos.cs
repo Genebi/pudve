@@ -4164,7 +4164,7 @@ namespace PuntoDeVentaV2
             // Se crea solo si el usuario escribio algo en el buscador y no hay filtros aplicados
             if (!string.IsNullOrWhiteSpace(busquedaEnProductos) && filtros.Count() == 0)
             {
-                extra = $"AND (P.Nombre LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno1 LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno2 LIKE '%{busquedaEnProductos}%')";
+                //extra = $"AND (P.Nombre LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno1 LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno2 LIKE '%{busquedaEnProductos}%')";
 
                 // retorna un diccionario con las coincidencias que hubo en la base de datos
                 var coincidencias = mb.BusquedaCoincidencias(busquedaEnProductos.Trim());
@@ -4188,6 +4188,7 @@ namespace PuntoDeVentaV2
                                     int begin, end;
                                     string producto = drProd["Nombre"].ToString();
                                     string auxTxtBusquedaString = string.Empty;
+                                    string NvoTxtBusquedaString = string.Empty;
 
                                     // Separamos las palabras de la busqueda
                                     string[] wordSearch = busquedaEnProductos.Trim().Split(' ');
@@ -4222,7 +4223,7 @@ namespace PuntoDeVentaV2
                     // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
                     // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
                     extra2 = string.Empty;
-                    contadorTmp = 1;
+                    int contadorTmp = 1;
                     // almacenamos las coincidencias en el diccionario
                     var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
                     listaCoincidenciasAux = listaCoincidenciasAux.Concat(coincidencias).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
