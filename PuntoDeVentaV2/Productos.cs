@@ -4089,15 +4089,15 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(busquedaEnProductos) && filtros.Count() == 0)
             {
-                extra = $"AND (Nombre LIKE '%{busquedaEnProductos}%' OR NombreAlterno1 LIKE '%{busquedaEnProductos}%' OR NombreAlterno2 LIKE '%{busquedaEnProductos}%')";
+                extra = $"AND (P.Nombre LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno1 LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno2 LIKE '%{busquedaEnProductos}%')";
             }
 
             // CONSULTA GENERAL
-            string consultaFiltro = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {status} {extra}";
+            string consultaFiltro = $"SELECT * FROM Productos AS P ";
 
 
             string extraProductos = string.Empty;
-            string extraProductosAux = string.Empty;
+            string extraProveedor = string.Empty;
 
 
             // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
@@ -4112,47 +4112,37 @@ namespace PuntoDeVentaV2
                     // elegidas por el usuario para comparar las cantidades
                     if (filtro.Key == "Stock" || filtro.Key == "StockMinimo" || filtro.Key == "StockNecesario")
                     {
-                        extraProductos += $"{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
+                        extraProductos += $"P.{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
                     }
                     else if (filtro.Key == "Precio" || filtro.Key == "NumeroRevision")
                     {
-                        extraProductos += $"{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
+                        extraProductos += $"P.{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
                     }
                     else if (filtro.Key == "CantidadPedir")
                     {
-                        extraProductos += $"{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
+                        extraProductos += $"P.{filtro.Key} {filtro.Value.Item1} {filtro.Value.Item2} AND ";
                     }
                     else if (filtro.Key == "Proveedor")
                     {
-                        //var idProductoAux = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
-                        //var datosProveedor = mb.DetallesProducto(idProductoAux, FormPrincipal.userID);
-
-                        //if (datosProveedor.Length > 0)
-                        //{
-                        //    // Compara el ID del proveedor (los dos valores son string)
-                        //    respuesta = filtro.Value.Item1.Equals(datosProveedor[1]);
-                        //}
-                        //else
-                        //{
-                        //    respuesta = false;
-                        //}
+                        extraProveedor += "INNER JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) ";
+                        extraProductos += $"D.IDProveedor = {filtro.Value.Item1} AND ";
                     }
                     else if (filtro.Key == "Tipo")
                     {
-                        extraProductos += $"{filtro.Key} = '{filtro.Value.Item1}' AND ";
+                        extraProductos += $"P.{filtro.Key} = '{filtro.Value.Item1}' AND ";
                     }
                     else if (filtro.Key == "Imagen")
                     {
                         // Con imagen
                         if (filtro.Value.Item1 == "1")
                         {
-                            extraProductos += $"ProdImage != '' AND ";
+                            extraProductos += $"P.ProdImage != '' AND ";
                         }
 
                         // Sin imagen
                         if (filtro.Value.Item1 == "0")
                         {
-                            extraProductos += $"ProdImage = '' AND ";
+                            extraProductos += $"P.ProdImage = '' AND ";
                         }
                     }
                     else
@@ -4171,6 +4161,9 @@ namespace PuntoDeVentaV2
                 }
             }
 
+
+            consultaFiltro += extraProveedor + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
+
             Console.WriteLine(consultaFiltro);
 
             // Status 2 es poner el listado en todos los 
@@ -4179,7 +4172,7 @@ namespace PuntoDeVentaV2
             {
                 if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
                 {
-                    p = new Paginar(consultaFiltro + extraProductos, DataMemberDGV, maximo_x_pagina);
+                    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
             }
             // Status 1 es poner el listado en todos los
@@ -4189,15 +4182,15 @@ namespace PuntoDeVentaV2
                 //Console.WriteLine(consultaFiltro + extraProductos);
                 if (DGVProductos.RowCount <= 0)
                 {
-                    p = new Paginar(consultaFiltro + extraProductos, DataMemberDGV, maximo_x_pagina);
+                    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
                 else if (DGVProductos.RowCount >= 1 && clickBoton == 0)
                 {
-                    p = new Paginar(consultaFiltro + extraProductos, DataMemberDGV, maximo_x_pagina);
+                    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
                 else if (DGVProductos.RowCount >= 0 && clickBoton == 0)
                 {
-                    p = new Paginar(consultaFiltro + extraProductos, DataMemberDGV, maximo_x_pagina);
+                    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
             }
             // Status 0 es poner el listado en todos los
@@ -4206,11 +4199,11 @@ namespace PuntoDeVentaV2
             {
                 if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
                 {
-                    p = new Paginar(consultaFiltro + extraProductos, DataMemberDGV, maximo_x_pagina);
+                    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
                 else if (DGVProductos.RowCount >= 0)
                 {
-                    p = new Paginar(consultaFiltro + extraProductos, DataMemberDGV, maximo_x_pagina);
+                    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
             }
 
