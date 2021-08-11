@@ -25,7 +25,6 @@ namespace PuntoDeVentaV2
 
         Dictionary<int, string> IDClientes = new Dictionary<int, string>();
 
-        Dictionary<string, string> ProductosReporte = new Dictionary<string, string>();
         List<string> listaProductosTemporal = new List<string>();
 
         string filtroConSinFiltroAvanzado = string.Empty;
@@ -801,8 +800,6 @@ namespace PuntoDeVentaV2
         #region Reportes de articulos comprados
         private void GenerarReporteComprado(bool multiplesId, string idCliente = "", string nameCliente = "")
         {
-            ProductosReporte.Clear();
-
             var mostrarClave = FormPrincipal.clave;
             //var numFolio = obtenerFolio(num);
 
@@ -886,34 +883,67 @@ namespace PuntoDeVentaV2
             //============================
             //=== TABLA DE INVENTARIO  ===
             //============================
-            DataTable consultaCliente = new DataTable();
+            //DataTable consultaCliente = new DataTable();
 
-            if (!multiplesId)
-            {
-                consultaCliente = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RazonSocial = '{nameCliente}'");
-            }
-            else
-            {
-                consultaCliente = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({idCliente})");
-            }
+            //if (!multiplesId)
+            //{
+            //    consultaCliente = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RazonSocial = '{nameCliente}'");
+            //}
+            //else
+            //{
+            //    consultaCliente = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({idCliente})");
+            //}
 
 
             PdfPTable tablaClientes = new PdfPTable(4);
 
-            if (!consultaCliente.Rows.Count.Equals(0))
-            { 
-                int incremento = 0;
-                foreach (DataRow item in consultaCliente.Rows)
-                {
-                    var numRow = 0;
-                    incremento += 1;
+            //if (!consultaCliente.Rows.Count.Equals(0))
+            //{
+                var nombreTemporal = string.Empty;
 
+                int incremento = 0;
+                //foreach (DataRow item in consultaCliente.Rows)
+                //{
+                    var numRow = 0;
+
+            DataTable consulta = new DataTable();
+
+            if (multiplesId)
+            {
+                consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.IDCliente IN ({idCliente}) GROUP BY Nombre ORDER BY Cantidad DESC");
+            }
+            else
+            {
+                consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY Nombre ORDER BY Cantidad DESC");
+            }
+
+            var nombre = string.Empty;
+            var cantidad = string.Empty;
+            var fecha = string.Empty;
+            var nombreCliente = string.Empty;
+
+            var validarHeader = string.Empty;
+
+            foreach (DataRow row in consulta.Rows)
+            {
+                nombre = row["Nombre"].ToString();
+                cantidad = row["Cantidad"].ToString();
+                fecha = row["Fecha"].ToString();
+                nombreCliente = row["Cliente"].ToString();
+
+                //Valida si es diferente nombre de cliente para agregar un nuevo header
+                if (!nombreCliente.Equals(validarHeader))
+                {
                     PdfPCell colSeparador = new PdfPCell(new Phrase(Chunk.NEWLINE));
                     colSeparador.Colspan = 10;
                     colSeparador.BorderWidth = 0;
 
-                    nombreClienteHeader = new Paragraph($"{item["RazonSocial"].ToString()}");
-                    nombreClienteHeader.Alignment = Element.ALIGN_CENTER;
+                    //nombreClienteHeader = new Paragraph($"{item["RazonSocial"].ToString()}");
+                    //nombreClienteHeader.Alignment = Element.ALIGN_CENTER;
+                    PdfPCell colNombreCliente = new PdfPCell(new Phrase(nombreCliente, fuenteNegrita));
+                    colNombreCliente.Colspan = 10;
+                    colNombreCliente.BorderWidth = 0;
+                    colNombreCliente.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     tablaClientes.WidthPercentage = 70;
                     tablaClientes.SetWidths(anchoColumnas);
@@ -942,72 +972,47 @@ namespace PuntoDeVentaV2
                     colFecha.BackgroundColor = new BaseColor(Color.SkyBlue);
 
                     tablaClientes.AddCell(colSeparador);
+                    tablaClientes.AddCell(colNombreCliente);
                     tablaClientes.AddCell(colNoConcepto);
                     tablaClientes.AddCell(colNombre);
                     tablaClientes.AddCell(colCantidad);
                     tablaClientes.AddCell(colFecha);
 
-                    DataTable consulta = new DataTable();
-
-                    if (multiplesId)
-                    {
-                        consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.IDCliente IN ({idCliente}) GROUP BY Nombre ORDER BY Cantidad DESC");
-                    }
-                    else
-                    {
-                        consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY Nombre ORDER BY Cantidad DESC");
-                    }
-
-                    foreach (DataRow row in consulta.Rows)
-                    {
-                        var nombre = row["Nombre"].ToString();
-                        var cantidad = row["Cantidad"].ToString();
-                        var fecha = row["Fecha"].ToString();
-                        var nombreCliente = row["Cliente"].ToString();
-
-                        if (!ProductosReporte.ContainsKey(nombre))//Validacion para separar el reporte por cliente
-                        {
-                            if (!ProductosReporte.ContainsValue(nombreCliente) && ProductosReporte.Count > 0 && incremento > 0)
-                            {
-                                continue;
-                            }
-                            ProductosReporte.Add(nombre, nombreCliente);
-
-                        }
-                        else// si en el diccionario ya se encuentra guardado el producto, no se vuelve a agregar
-                        {
-                            continue;
-                        }
-
-
-                        numRow++;
-                        PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
-                        colNoConceptoTmp.BorderWidth = 1;
-                        colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                        PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre.ToString(), fuenteNormal));
-                        colNombreTmp.BorderWidth = 1;
-                        colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                        PdfPCell colCantidadTmp = new PdfPCell(new Phrase(cantidad.ToString(), fuenteNormal));
-                        colCantidadTmp.BorderWidth = 1;
-                        colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                        PdfPCell colFechaTmp = new PdfPCell(new Phrase(fecha.ToString(), fuenteNormal));
-                        colFechaTmp.BorderWidth = 1;
-                        colFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                        tablaClientes.AddCell(colNoConceptoTmp);
-                        tablaClientes.AddCell(colNombreTmp);
-                        tablaClientes.AddCell(colCantidadTmp);
-                        tablaClientes.AddCell(colFechaTmp);
-
-                        //reporte.Add(Chunk.NEWLINE);
-
-                        //reporte.Add(nombreClienteHeader);
-                    }
+                    numRow = 0;
                 }
-        }
+                
+                    numRow++;
+                    PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                    colNoConceptoTmp.BorderWidth = 1;
+                    colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colNombreTmp = new PdfPCell(new Phrase(nombre.ToString(), fuenteNormal));
+                    colNombreTmp.BorderWidth = 1;
+                    colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colCantidadTmp = new PdfPCell(new Phrase(cantidad.ToString(), fuenteNormal));
+                    colCantidadTmp.BorderWidth = 1;
+                    colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colFechaTmp = new PdfPCell(new Phrase(fecha.ToString(), fuenteNormal));
+                    colFechaTmp.BorderWidth = 1;
+                    colFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    tablaClientes.AddCell(colNoConceptoTmp);
+                    tablaClientes.AddCell(colNombreTmp);
+                    tablaClientes.AddCell(colCantidadTmp);
+                    tablaClientes.AddCell(colFechaTmp);
+
+                    //reporte.Add(Chunk.NEWLINE);
+
+                    //reporte.Add(nombreClienteHeader);
+                    //}
+                    //       }
+                    //}
+                    //}
+
+                validarHeader = nombreCliente;
+            }
                     reporte.Add(titulo);
                     reporte.Add(Usuario);
                     //reporte.Add(numeroFolio);
