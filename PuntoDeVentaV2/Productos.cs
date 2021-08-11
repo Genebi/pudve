@@ -633,9 +633,10 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                filtros.Clear();
                 CargarDatos();
             }
+
+            filtros.Clear();
 
             //if (Application.OpenForms.OfType<WinQueryString>().Count() == 1)
             //{
@@ -4094,22 +4095,22 @@ namespace PuntoDeVentaV2
             string extraProveedor = string.Empty;
             string extraDetalles = string.Empty;
 
+            string extraDetallesNombres = string.Empty;
+            string extraDetallesValores = string.Empty;
+
             // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
             // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
             if (filtros.Count > 0)
             {
                 extraProductos += "AND ";
 
+                Dictionary<string, string> dinamicos = new Dictionary<string, string>();
+
                 foreach (var filtro in filtros)
                 {
                     // Busca el valor de cualquiera de estas columnas y aplica las condiciones
                     // elegidas por el usuario para comparar las cantidades
-                    string operador = string.Empty;
-
-                    if (filtro.Value.Item1.Equals("=="))
-                    {
-                        operador = "=";
-                    }
+                    string operador = filtro.Value.Item1 == "==" ? "=" : filtro.Value.Item1;
 
                     if (filtro.Key == "Stock" || filtro.Key == "StockMinimo" || filtro.Key == "StockNecesario")
                     {
@@ -4148,9 +4149,44 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        extraDetalles += "INNER JOIN DetallesProductoGenerales AS DPG ON (P.ID = DPG.IDProducto AND P.IDUsuario = DPG.IDUsuario AND DPG.StatusDetalleGral = 1) INNER JOIN DetalleGeneral AS DG ON (DPG.IDDetalleGral = DG.ID AND DPG.IDUsuario = DG.IDUsuario) ";
-                        extraProductos += $"DG.ChckName = '{filtro.Key}' AND DG.Descripcion = '{filtro.Value.Item1}' AND ";
+                        if (string.IsNullOrWhiteSpace(extraDetalles))
+                        {
+                            extraDetalles += "INNER JOIN DetallesProductoGenerales AS DPG ON (P.ID = DPG.IDProducto AND P.IDUsuario = DPG.IDUsuario AND DPG.StatusDetalleGral = 1) INNER JOIN DetalleGeneral AS DG ON (DPG.IDDetalleGral = DG.ID AND DPG.IDUsuario = DG.IDUsuario) ";
+                        }
+
+                        // Se guardan los valores dinamicos creados por el usuario
+                        dinamicos.Add(filtro.Key, filtro.Value.Item1);
                     }
+                }
+
+                // Si se uso solo un valor dinamico se agrega directamente a la consulta final
+                if (dinamicos.Count() == 1)
+                {
+                    foreach (var dinamico in dinamicos)
+                    {
+                        extraProductos += $"DG.ChckName = '{dinamico.Key}' AND DG.Descripcion = '{dinamico.Value}' AND ";
+                    }
+                }
+                else if (dinamicos.Count() > 1)
+                {
+                    // En caso de que sea mas de un valor dinamico agregado para el filtro
+                    extraDetallesNombres = "(";
+                    extraDetallesValores = "(";
+
+                    foreach (var dinamico in dinamicos)
+                    {
+                        extraDetallesNombres += $"DG.ChckName = '{dinamico.Key}' OR ";
+                        extraDetallesValores += $"DG.Descripcion = '{dinamico.Value}' OR ";
+                    }
+
+                    extraDetallesNombres = extraDetallesNombres.Remove(extraDetallesNombres.Length - 4);
+                    extraDetallesValores = extraDetallesValores.Remove(extraDetallesValores.Length - 4);
+
+                    extraDetallesNombres += ")";
+                    extraDetallesValores += ")";
+
+                    extraDetallesNombres += $" AND {extraDetallesValores} GROUP BY P.ID HAVING COUNT(*) = {dinamicos.Count()} AND ";
+                    extraProductos += extraDetallesNombres;
                 }
 
                 if (!extraProductos.Equals("AND "))
@@ -4176,7 +4212,7 @@ namespace PuntoDeVentaV2
                     foreach (KeyValuePair<int, int> prod in coincidencias)
                     {
                         // obtenemos los datos de cada uno de los productos en una tabla para procesarlo
-                        using (DataTable dtCoincidenciaProducto = cn.CargarDatos($"SELECT ID, Nombre FROM Productos WHERE ID = '{prod.Key.ToString()}'"))
+                        using (DataTable dtCoincidenciaProducto = cn.CargarDatos($"SELECT ID, Nombre FROM Productos WHERE ID = '{prod.Key}'"))
                         {
                             // Si la tabla tiene algun registro
                             if (!dtCoincidenciaProducto.Rows.Count.Equals(0))
