@@ -4206,55 +4206,8 @@ namespace PuntoDeVentaV2
                 var coincidencias = mb.BusquedaCoincidencias(busquedaEnProductos.Trim());
 
                 // Si hay concidencias de la busqueda de la palabra
-                if (coincidencias.Count > 0)    // si el diccionario tiene 1 o mas registros
+                if (coincidencias.Count > 0)
                 {
-                    // Recorremos diccionario para eliminar coincidencias de la busqueda
-                    foreach (KeyValuePair<int, int> prod in coincidencias)
-                    {
-                        // obtenemos los datos de cada uno de los productos en una tabla para procesarlo
-                        using (DataTable dtCoincidenciaProducto = cn.CargarDatos($"SELECT ID, Nombre FROM Productos WHERE ID = '{prod.Key}'"))
-                        {
-                            // Si la tabla tiene algun registro
-                            if (!dtCoincidenciaProducto.Rows.Count.Equals(0))
-                            {
-                                // Recorremos cada una de los filas de la tabla
-                                foreach (DataRow drProd in dtCoincidenciaProducto.Rows)
-                                {
-                                    bool found = false;
-                                    int begin, end;
-                                    string producto = drProd["Nombre"].ToString();
-                                    string auxTxtBusquedaString = string.Empty;
-                                    string NvoTxtBusquedaString = string.Empty;
-
-                                    // Separamos las palabras de la busqueda
-                                    string[] wordSearch = busquedaEnProductos.Trim().Split(' ');
-
-                                    foreach (var item in wordSearch) // recorremos cada una de las palabras
-                                    {
-                                        // verificamos que se se encuentra en el nombre del producto
-                                        found = producto.Contains(item);
-
-                                        // Si es true la busqueda 
-                                        if (found)  
-                                        {
-                                            // Tomamos el inicio de la palabra en el nombre
-                                            begin = busquedaEnProductos.IndexOf(item);
-                                            // Tomamos el final de la palabra en el nombre
-                                            end = item.Length;
-                                            // Removemos la palabra de la busqueda
-                                            auxTxtBusquedaString = busquedaEnProductos.Remove(begin, end);
-                                            busquedaEnProductos.Trim();
-                                            auxTxtBusquedaString.Trim();
-                                            NvoTxtBusquedaString = auxTxtBusquedaString;
-                                            busquedaEnProductos = auxTxtBusquedaString;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
                     extra = string.Empty;
                     // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
                     // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
@@ -4263,14 +4216,19 @@ namespace PuntoDeVentaV2
                     // almacenamos las coincidencias en el diccionario
                     var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
                     listaCoincidenciasAux = listaCoincidenciasAux.Concat(coincidencias).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
-                    // aui se inicia el reordenamiento de las coincidencias
+                    // Aqui se inicia el reordenamiento de las coincidencias
                     extra += "AND P.ID IN (";
-                    foreach (var producto in listaCoincidencias)    // recorremos el diccionario
+
+                    // recorremos el diccionario
+                    foreach (var producto in listaCoincidencias)
                     {
-                        extra += $"{producto.Key},";    // almacenamos y concatenamos el ID del producto
-                        extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";   // almacenamos y concatenamos el numero de priodad
+                        // Almacenamos y concatenamos el ID del producto
+                        extra += $"{producto.Key},";
+                        // Almacenamos y concatenamos el numero de prioridad
+                        extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
                         contadorTmp++;
                     }
+
                     // Eliminamos el último caracter que es una coma (,)
                     extra = extra.Remove(extra.Length - 1);
                     extra += ") ORDER BY CASE P.ID ";
