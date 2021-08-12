@@ -4106,28 +4106,25 @@ namespace PuntoDeVentaV2
 
                 Dictionary<string, string> dinamicos = new Dictionary<string, string>();
 
+                string[] columnasComunes = new string[] { 
+                    "Stock", "StockMinimo", "StockNecesario", 
+                    "Precio", "NumeroRevision", "CantidadPedir" 
+                };
+
                 foreach (var filtro in filtros)
                 {
                     // Busca el valor de cualquiera de estas columnas y aplica las condiciones
                     // elegidas por el usuario para comparar las cantidades
                     string operador = filtro.Value.Item1 == "==" ? "=" : filtro.Value.Item1;
 
-                    if (filtro.Key == "Stock" || filtro.Key == "StockMinimo" || filtro.Key == "StockNecesario")
-                    {
-                        extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
-                    }
-                    else if (filtro.Key == "Precio" || filtro.Key == "NumeroRevision")
-                    {
-                        extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
-                    }
-                    else if (filtro.Key == "CantidadPedir")
+                    if (columnasComunes.Contains(filtro.Key))
                     {
                         extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
                     }
                     else if (filtro.Key == "Proveedor")
                     {
-                        extraProveedor += "INNER JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) ";
                         extraProductos += $"D.IDProveedor = {filtro.Value.Item1} AND ";
+                        extraProveedor += "INNER JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) "; 
                     }
                     else if (filtro.Key == "Tipo")
                     {
@@ -4135,16 +4132,10 @@ namespace PuntoDeVentaV2
                     }
                     else if (filtro.Key == "Imagen")
                     {
-                        // Con imagen
-                        if (filtro.Value.Item1 == "1")
+                        // Con imagen = 1 || sin imagen = 0
+                        if (filtro.Value.Item1 == "1" || filtro.Value.Item1 == "0")
                         {
-                            extraProductos += $"P.ProdImage != '' AND ";
-                        }
-
-                        // Sin imagen
-                        if (filtro.Value.Item1 == "0")
-                        {
-                            extraProductos += $"P.ProdImage = '' AND ";
+                            extraProductos += filtro.Value.Item1 == "1" ? "P.ProdImage != '' AND " : "P.ProdImage = '' AND ";
                         }
                     }
                     else
@@ -4242,6 +4233,10 @@ namespace PuntoDeVentaV2
             consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
 
             Console.WriteLine(consultaFiltro);
+
+            //================================================================================================================================================
+            //================================================================================================================================================
+            //================================================================================================================================================
 
             // Status 2 es poner el listado en todos los 
             // productos y servecios sin importar es activo o desactivado
