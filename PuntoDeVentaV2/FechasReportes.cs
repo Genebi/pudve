@@ -39,7 +39,7 @@ namespace PuntoDeVentaV2
             {
                 var conceptos = mb.ObtenerConceptosDinamicos(origen: origen);
 
-                cbConceptos.Visible = true;
+                //cbConceptos.Visible = true;
                 cbConceptos.DataSource = conceptos.ToArray();
                 cbConceptos.DisplayMember = "Value";
                 cbConceptos.ValueMember = "Key";
@@ -124,7 +124,11 @@ namespace PuntoDeVentaV2
 
         private void cargarDatosCombo()
         {
-            cbEmpleados.Items.Add("Seleccionar Empleado/Producto");
+            if (!origen.Equals("Productos"))
+            {
+                cbEmpleados.Items.Add("Seleccionar Empleado/Producto");
+            }
+
             cbEmpleados.Items.Add("Empleados");
 
             if (!origen.Equals("Productos"))

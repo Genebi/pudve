@@ -1110,21 +1110,6 @@ namespace PuntoDeVentaV2
         //    }
         }
 
-        private void btnComprados_Click(object sender, EventArgs e)
-        {
-            realizarReporteBotones("comprados");
-        }
-
-        private void btnNoComprados_Click(object sender, EventArgs e)
-        {
-            realizarReporteBotones("noComprados");
-        }
-
-        private void btnDatosCliente_Click(object sender, EventArgs e)
-        {
-            realizarReporteBotones("datosCliente");
-        }
-
         private void realizarReporteBotones(string tipoReporte)
         {
             var idClientesObtenidos = recorrerDiccionario();
@@ -1163,6 +1148,21 @@ namespace PuntoDeVentaV2
             result = result.Remove(result.Length -1);
 
             return result;
+        }
+
+        private void btnComprados_Click_1(object sender, EventArgs e)
+        {
+            realizarReporteBotones("comprados");
+        }
+
+        private void btnNoComprados_Click_1(object sender, EventArgs e)
+        {
+            realizarReporteBotones("noComprados");
+        }
+
+        private void btnDatosCLiente_Click_1(object sender, EventArgs e)
+        {
+            realizarReporteBotones("datosCliente");
         }
     }
 }
