@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,6 +26,7 @@ namespace PuntoDeVentaV2
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosGenerales mg = new MetodosGenerales();
         private MySqlConnection sql_con;
         private MySqlCommand sql_cmd;
 
@@ -2429,7 +2431,11 @@ namespace PuntoDeVentaV2
                     foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
                     {
                         var concepto = drConcepto["concepto"].ToString();
-                        lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(concepto))));
+
+                        //var normalizacionCadena = Regex.Replace(concepto, @"[^a-zA-Z0-9]+", "");
+                        var normalizacionCadena = mg.quitarTildesYÑ(concepto);
+
+                        lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(normalizacionCadena))));
                     }
                 }
             }
