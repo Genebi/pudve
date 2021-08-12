@@ -1152,17 +1152,38 @@ namespace PuntoDeVentaV2
 
         private void btnComprados_Click_1(object sender, EventArgs e)
         {
-            realizarReporteBotones("comprados");
+            if (!IDClientes.Count.Equals(0))
+            {
+                realizarReporteBotones("comprados");
+            }
+            else
+            {
+                MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnNoComprados_Click_1(object sender, EventArgs e)
         {
-            realizarReporteBotones("noComprados");
+            if (!IDClientes.Count.Equals(0))
+            {
+                realizarReporteBotones("noComprados");
+            }
+            else
+            {
+                MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnDatosCLiente_Click_1(object sender, EventArgs e)
         {
-            realizarReporteBotones("datosCliente");
+            if (!IDClientes.Count.Equals(0))
+            {
+                realizarReporteBotones("datosCliente");
+            }
+            else
+            {
+                MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

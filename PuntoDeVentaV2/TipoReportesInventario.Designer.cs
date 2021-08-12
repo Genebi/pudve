@@ -114,7 +114,7 @@
             this.btnActualizarInventarioNew.Name = "btnActualizarInventarioNew";
             this.btnActualizarInventarioNew.Size = new System.Drawing.Size(150, 104);
             this.btnActualizarInventarioNew.TabIndex = 112;
-            this.btnActualizarInventarioNew.Text = "Actualizar Inventario";
+            this.btnActualizarInventarioNew.Text = "Revisar Inventario";
             this.btnActualizarInventarioNew.TextColor = System.Drawing.Color.White;
             this.btnActualizarInventarioNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnActualizarInventarioNew.UseVisualStyleBackColor = false;
