@@ -66,7 +66,7 @@ namespace PuntoDeVentaV2
             {
                 HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
 
-                if (tipoBusqurda.Equals("Seleccionar Empleado/Producto"))
+                if (tipoBusqurda.Equals("Seleccionar Empleado/Producto") || tipoBusqurda.Equals("Reporte general"))
                 {
                     terminarOperaciones();
                 }
@@ -93,8 +93,13 @@ namespace PuntoDeVentaV2
         {
             var result = false;
             var tipoEstado = string.Empty;
-            if (origen.Equals("Productos"))
+            //if (origen.Equals("Productos"))
+            //{
+
+            if (empleadoProducto.Equals("Reporte general"))
             {
+                empleadoProducto = "Seleccionar Empleado/Producto";
+            }
                 empleadoProducto = "Productos";
                 tipoEstado = "`Status`";
 
@@ -110,7 +115,7 @@ namespace PuntoDeVentaV2
                 {
                     result = true;
                 }
-            }
+            //}
 
             var query = cn.CargarDatos($"SELECT * FROM {empleadoProducto} WHERE IDUsuario = '{FormPrincipal.userID}' AND {tipoEstado} = 1");
 
@@ -127,6 +132,10 @@ namespace PuntoDeVentaV2
             if (!origen.Equals("Productos"))
             {
                 cbEmpleados.Items.Add("Seleccionar Empleado/Producto");
+            }
+            else
+            {
+                cbEmpleados.Items.Add("Reporte general");
             }
 
             cbEmpleados.Items.Add("Empleados");

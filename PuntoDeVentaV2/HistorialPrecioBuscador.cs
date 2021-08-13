@@ -357,28 +357,38 @@ namespace PuntoDeVentaV2
 
         private void btnGenerarReporte_Click(object sender, EventArgs e)
         {
-            string datosGet = string.Empty;
-            if (tipoBuscador.Equals("Empleados"))
-            {
-                datosGet = recorrerDiccionario(listaIdEmpleados);
+            var lista1 = listaIdEmpleados.Count();
+            var lista2 = listaIdProductos.Count();
 
-            }
-            else if (tipoBuscador.Equals("Productos"))
+            if ((lista1 + lista2) > 0)
             {
-                datosGet = recorrerDiccionario(listaIdProductos);
-            }
-            //var fechas = new FechasReportes();
-            //var fechas = new FechasReportes();
-            //fechaInicial = fechas.fechaInicial;
-            //fechaFinal = fechas.fechaFinal;
+                string datosGet = string.Empty;
+                if (tipoBuscador.Equals("Empleados"))
+                {
+                    datosGet = recorrerDiccionario(listaIdEmpleados);
 
-            if (cs.validarInformacion(tipoBuscador, datosGet, fechaInicialF, fechaFinalF))
-            {
-                ejecutarMovimiento();
+                }
+                else if (tipoBuscador.Equals("Productos"))
+                {
+                    datosGet = recorrerDiccionario(listaIdProductos);
+                }
+                //var fechas = new FechasReportes();
+                //var fechas = new FechasReportes();
+                //fechaInicial = fechas.fechaInicial;
+                //fechaFinal = fechas.fechaFinal;
+
+                if (cs.validarInformacion(tipoBuscador, datosGet, fechaInicialF, fechaFinalF))
+                {
+                    ejecutarMovimiento();
+                }
+                else
+                {
+                    MessageBox.Show("No existe infomación para generar el reporte.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
             {
-                MessageBox.Show("No existe infomación para generar el reporte.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
