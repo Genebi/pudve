@@ -4237,6 +4237,41 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+
+                        //==================== CODIGOS DE BARRA EXTRA ====================
+
+                        // Verificamos si esos codigos no existen como codigos de barra extra
+                        var resultadoExtra = mb.BuscarCodigoBarrasExtraFormProductos(codigo.Trim());
+
+                        if (resultadoExtra.Count() > 0)
+                        {
+                            foreach (var valor in resultadoExtra)
+                            {
+                                var valorAux = valor.Split('|');
+
+                                if (valorAux[0] == "1")
+                                {
+                                    // Verificar que pertenezca al usuario
+                                    var perteneceAlUsuario = cn.BuscarProducto(Convert.ToInt32(valorAux[1]), FormPrincipal.userID);
+
+                                    if (perteneceAlUsuario.Count() > 0)
+                                    {
+                                        if (!codigosExistentes.Contains(valorAux[1]))
+                                        {
+                                            codigosExistentes.Add(valorAux[1]);
+                                        }
+                                    }
+                                }
+
+                                if (valorAux[0] == "0")
+                                {
+                                    if (!codigosNuevos.Contains(valorAux[1]))
+                                    {
+                                        codigosNuevos.Add(valorAux[1]);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
