@@ -635,42 +635,21 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (filtroBusqueda.ShowDialog() == DialogResult.OK)
+            if (Application.OpenForms.OfType<FiltroReporteProductos>().Count() == 1)
+            {
+                Application.OpenForms.OfType<FiltroReporteProductos>().First().Close();
+            }
+
+            FiltroReporteProductos filtroBusqueda = new FiltroReporteProductos(2);
+
+            filtroBusqueda.FormClosed += delegate
             {
                 CargarDatos();
-            }
-            else
-            {
-                CargarDatos();
-            }
+            };
+
+            filtroBusqueda.ShowDialog();
 
             filtros.Clear();
-
-            //if (Application.OpenForms.OfType<WinQueryString>().Count() == 1)
-            //{
-            //    Application.OpenForms.OfType<WinQueryString>().First().BringToFront();
-            //}
-            //else
-            //{
-            //    WinQueryString FiltroAvanzado = new WinQueryString();
-
-            //    FiltroAvanzado.FormClosed += delegate
-            //    {
-            //        if (txtBusqueda.Text.Equals(""))
-            //        {
-            //            CargarDatos();
-            //        }
-            //        else if (!txtBusqueda.Text.Equals(""))
-            //        {
-            //            quitarEspacioEnBlanco();
-            //            busquedaDelUsuario();
-            //        }
-
-            //        verificarBotonLimpiarTags();
-            //    };
-
-            //    FiltroAvanzado.Show();
-            //}
         }
 
         private void searchPhotoProdInactivo()
@@ -1660,8 +1639,6 @@ namespace PuntoDeVentaV2
 
         public static Dictionary<string, Tuple<string, float>> filtros;
 
-        FiltroReporteProductos filtroBusqueda;
-
         public Productos()
         {
             InitializeComponent();
@@ -1686,7 +1663,7 @@ namespace PuntoDeVentaV2
             productosSeleccionados = new Dictionary<int, string>();
             checkboxMarcados = new Dictionary<int, string>();
             filtros = new Dictionary<string, Tuple<string, float>>();
-            filtroBusqueda = new FiltroReporteProductos(2);
+            
 
             listVariables = new List<Control>();
 
@@ -4182,22 +4159,8 @@ namespace PuntoDeVentaV2
             }
         }
 
-        /// <summary>
-        /// Metodo CargarDatos
-        /// </summary>
-        /// <param name="status">El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos</param>
-        /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
-        public void CargarDatos(int status = 1, string busquedaEnProductos = "")
+        private string ManejandoCoincidenciasBusqueda(string busquedaEnProductos)
         {
-            // CONSULTA GENERAL
-            string consultaFiltro = $"SELECT * FROM Productos AS P ";
-
-            // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
-            // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
-            AplicandoConsultaFiltros();
-
-            string extra = string.Empty;
-
             // Se crea solo si el usuario escribio algo en el buscador y no hay filtros aplicados
             if (!string.IsNullOrWhiteSpace(busquedaEnProductos) && filtros.Count() == 0)
             {
@@ -4238,6 +4201,27 @@ namespace PuntoDeVentaV2
                     extra += extra2;
                 }
             }
+
+            return extra;
+        }
+
+        /// <summary>
+        /// Metodo CargarDatos
+        /// </summary>
+        /// <param name="status">El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos</param>
+        /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
+        public void CargarDatos(int status = 1, string busquedaEnProductos = "")
+        {
+            // CONSULTA GENERAL
+            string consultaFiltro = $"SELECT * FROM Productos AS P ";
+
+            // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
+            // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
+            AplicandoConsultaFiltros();
+
+            extra = string.Empty;
+
+            extra = ManejandoCoincidenciasBusqueda(busquedaEnProductos);
 
             // Consulta final despues de aplicador filtros, condiciones, etc
             consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;

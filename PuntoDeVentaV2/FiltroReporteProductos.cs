@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
 
         private void FiltroReporteProductos_Load(object sender, EventArgs e)
         {
-            if (!OpcionesReporteProducto.filtroAbierto)
+            if (!OpcionesReporteProducto.filtroAbierto || origen == 2)
             {
                 opcionesDefault = new Dictionary<string, string>();
                 filtros = new Dictionary<string, Tuple<string, float>>();
@@ -148,7 +148,11 @@ namespace PuntoDeVentaV2
                 checkNumeroRevision.CheckedChanged += checkEstaticos_CheckedChanged;
             }
             
-            OpcionesReporteProducto.filtroAbierto = true;
+            if (origen != 2)
+            {
+                OpcionesReporteProducto.filtroAbierto = true;
+            }
+            
         }
 
         private void ObtenerDetalles()
@@ -301,15 +305,14 @@ namespace PuntoDeVentaV2
                 if (origen == 1)
                 {
                     OpcionesReporteProducto.filtros = filtros;
+                    Hide();
                 }
 
                 if (origen == 2)
                 {
                     Productos.filtros = filtros;
-                    DialogResult = DialogResult.OK;
+                    Close();
                 }
-
-                this.Hide();
             }
             else
             {
