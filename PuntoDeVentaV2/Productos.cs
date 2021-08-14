@@ -4031,36 +4031,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-
-        private bool OperadoresComparacion(KeyValuePair<string, Tuple<string, float>> filtro, float cantidad)
-        {
-            var respuesta = true;
-
-            if (filtro.Value.Item1 == ">=")
-            {
-                respuesta = cantidad >= filtro.Value.Item2;
-            }
-            else if (filtro.Value.Item1 == "<=")
-            {
-                respuesta = cantidad <= filtro.Value.Item2;
-            }
-            else if (filtro.Value.Item1 == "==")
-            {
-                respuesta = cantidad == filtro.Value.Item2;
-            }
-            else if (filtro.Value.Item1 == ">")
-            {
-                respuesta = cantidad > filtro.Value.Item2;
-            }
-            else if (filtro.Value.Item1 == "<")
-            {
-                respuesta = cantidad < filtro.Value.Item2;
-            }
-
-            return respuesta;
-        }
-
-
         private void LimpiarAplicandoConsultaFiltros()
         {
             extraProductos = string.Empty;
@@ -4205,6 +4175,73 @@ namespace PuntoDeVentaV2
             return extra;
         }
 
+        private void DetectarCodigosBarra(string busqueda, int status)
+        {
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                List<string> codigos = new List<string>();
+                List<string> codigosNuevos = new List<string>();
+                List<string> codigosExistentes = new List<string>();
+
+                string[] palabrasBuscadas = busqueda.Trim().Split(' ');
+
+                if (palabrasBuscadas.Count() > 0)
+                {
+                    foreach (var palabra in palabrasBuscadas)
+                    {
+                        long codigoEncontrado;
+
+                        if (long.TryParse(palabra, out codigoEncontrado))
+                        {
+                            if (!codigos.Contains(codigoEncontrado.ToString().Trim()))
+                            {
+                                codigos.Add(codigoEncontrado.ToString().Trim());
+                            }
+                        }
+                    }
+                }
+
+                // Si a la lista se agregaron codigos ya sea que existan o no
+                if (codigos.Count() > 0)
+                {
+                    foreach (var codigo in codigos)
+                    {
+                        var resultado = mb.BusquedaCodigosBarrasClaveInterna(codigo, status);
+
+                        if (resultado.Count() > 0)
+                        {
+                            foreach (var valor in resultado)
+                            {
+                                var valorAux = valor.Split('|');
+
+                                if (valorAux[0] == "1")
+                                {
+                                    // Verificar que pertenezca al usuario
+                                    var perteneceAlUsuario = cn.BuscarProducto(Convert.ToInt32(valorAux[1]), FormPrincipal.userID);
+
+                                    if (perteneceAlUsuario.Count() > 0)
+                                    {
+                                        if (!codigosExistentes.Contains(valorAux[1]))
+                                        {
+                                            codigosExistentes.Add(valorAux[1]);
+                                        }
+                                    }
+                                }
+
+                                if (valorAux[0] == "0")
+                                {
+                                    if (!codigosNuevos.Contains(valorAux[1]))
+                                    {
+                                        codigosNuevos.Add(valorAux[1]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Metodo CargarDatos
         /// </summary>
@@ -4212,6 +4249,8 @@ namespace PuntoDeVentaV2
         /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
         public void CargarDatos(int status = 1, string busquedaEnProductos = "")
         {
+            DetectarCodigosBarra(busquedaEnProductos, status);
+            return;
             // CONSULTA GENERAL
             string consultaFiltro = $"SELECT * FROM Productos AS P ";
 
