@@ -214,6 +214,14 @@ namespace PuntoDeVentaV2
 
         public int retornoAgregarEditarProductoDatosSourceFinal;
 
+
+        // Variables para el metodo AplicandoConsultaFiltros()
+        private string extraProductos = string.Empty;
+        private string extraProveedor = string.Empty;
+        private string extraDetalles = string.Empty;
+        private string extraDetallesNombres = string.Empty;
+        private string extraDetallesValores = string.Empty;
+
         // Imagenes para el boton habilitar/deshabilitar productos
         System.Drawing.Image deshabilitarIcon = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
         System.Drawing.Image habilitarIcon = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\arrow-up.png");
@@ -4075,40 +4083,27 @@ namespace PuntoDeVentaV2
             return respuesta;
         }
 
-        /// <summary>
-        /// Metodo CargarDatos
-        /// </summary>
-        /// <param name="status">El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos</param>
-        /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
-        public void CargarDatos(int status = 1, string busquedaEnProductos = "")
+
+        private void LimpiarAplicandoConsultaFiltros()
         {
-            // Esto estaba en el codigo anterior se respeta tal cual
-            var tipodeMoneda = FormPrincipal.Moneda.Split('-');
-            var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
+            extraProductos = string.Empty;
+            extraProveedor = string.Empty;
+            extraDetalles = string.Empty;
+            extraDetallesNombres = string.Empty;
+            extraDetallesValores = string.Empty;
+        }
 
-
-            // CONSULTA GENERAL
-            string consultaFiltro = $"SELECT * FROM Productos AS P ";
-
-
-            string extraProductos = string.Empty;
-            string extraProveedor = string.Empty;
-            string extraDetalles = string.Empty;
-
-            string extraDetallesNombres = string.Empty;
-            string extraDetallesValores = string.Empty;
-
-            // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
-            // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
+        private void AplicandoConsultaFiltros()
+        {
             if (filtros.Count > 0)
             {
                 extraProductos += "AND ";
 
                 Dictionary<string, string> dinamicos = new Dictionary<string, string>();
 
-                string[] columnasComunes = new string[] { 
-                    "Stock", "StockMinimo", "StockNecesario", 
-                    "Precio", "NumeroRevision", "CantidadPedir" 
+                string[] columnasComunes = new string[] {
+                    "Stock", "StockMinimo", "StockNecesario",
+                    "Precio", "NumeroRevision", "CantidadPedir"
                 };
 
                 foreach (var filtro in filtros)
@@ -4124,7 +4119,7 @@ namespace PuntoDeVentaV2
                     else if (filtro.Key == "Proveedor")
                     {
                         extraProductos += $"D.IDProveedor = {filtro.Value.Item1} AND ";
-                        extraProveedor += "INNER JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) "; 
+                        extraProveedor += "INNER JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) ";
                     }
                     else if (filtro.Key == "Tipo")
                     {
@@ -4185,6 +4180,21 @@ namespace PuntoDeVentaV2
                     extraProductos = extraProductos.Remove(extraProductos.Length - 4);
                 }
             }
+        }
+
+        /// <summary>
+        /// Metodo CargarDatos
+        /// </summary>
+        /// <param name="status">El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos</param>
+        /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
+        public void CargarDatos(int status = 1, string busquedaEnProductos = "")
+        {
+            // CONSULTA GENERAL
+            string consultaFiltro = $"SELECT * FROM Productos AS P ";
+
+            // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
+            // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
+            AplicandoConsultaFiltros();
 
             string extra = string.Empty;
 
@@ -4232,14 +4242,15 @@ namespace PuntoDeVentaV2
             // Consulta final despues de aplicador filtros, condiciones, etc
             consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
 
+            LimpiarAplicandoConsultaFiltros();
+
             Console.WriteLine(consultaFiltro);
 
             //================================================================================================================================================
             //================================================================================================================================================
             //================================================================================================================================================
 
-            // Status 2 es poner el listado en todos los 
-            // productos y servecios sin importar es activo o desactivado
+            // Status 2 es poner el listado en todos los productos y servicios sin importar es activo o desactivado
             if (status == 2)
             {
                 if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
@@ -4247,11 +4258,9 @@ namespace PuntoDeVentaV2
                     p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
             }
-            // Status 1 es poner el listado en todos los
-            // productos activos
+            // Status 1 es poner el listado en todos los productos activos
             if (status == 1)
             {
-                //Console.WriteLine(consultaFiltro + extraProductos);
                 if (DGVProductos.RowCount <= 0)
                 {
                     p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
@@ -4265,8 +4274,7 @@ namespace PuntoDeVentaV2
                     p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
             }
-            // Status 0 es poner el listado en todos los
-            // productos Desactivados
+            // Status 0 es poner el listado en todos los productos Desactivados
             if (status == 0)
             {
                 if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
@@ -4278,6 +4286,14 @@ namespace PuntoDeVentaV2
                     p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
             }
+
+            //================================================================================================================================================
+            //================================================================================================================================================
+            //================================================================================================================================================
+
+            // Esto estaba en el codigo anterior se respeta tal cual
+            var tipodeMoneda = FormPrincipal.Moneda.Split('-');
+            var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
             bool mostrarColumnas = true;
 
