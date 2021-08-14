@@ -4129,19 +4129,26 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private string ManejandoCoincidenciasBusqueda(string busquedaEnProductos)
+        private string ManejandoCoincidenciasBusqueda(string busquedaEnProductos, List<string> listaCodigosExistentes)
         {
             // Se crea solo si el usuario escribio algo en el buscador y no hay filtros aplicados
             if (!string.IsNullOrWhiteSpace(busquedaEnProductos) && filtros.Count() == 0)
             {
-                //extra = $"AND (P.Nombre LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno1 LIKE '%{busquedaEnProductos}%' OR P.NombreAlterno2 LIKE '%{busquedaEnProductos}%')";
-
                 // retorna un diccionario con las coincidencias que hubo en la base de datos
                 var coincidencias = mb.BusquedaCoincidencias(busquedaEnProductos.Trim());
 
                 // Si hay concidencias de la busqueda de la palabra
                 if (coincidencias.Count > 0)
                 {
+                    // Aqui agregamos los ID de producto existentes obtenidos del método DetectarCodigosBarra
+                    if (listaCodigosExistentes.Count > 0)
+                    {
+                        foreach (var codigo in listaCodigosExistentes)
+                        {
+                            coincidencias.Add(Convert.ToInt32(codigo), 1);
+                        }
+                    }
+
                     extra = string.Empty;
                     // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
                     // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
@@ -4149,7 +4156,8 @@ namespace PuntoDeVentaV2
                     int contadorTmp = 1;
                     // almacenamos las coincidencias en el diccionario
                     var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
-                    listaCoincidenciasAux = listaCoincidenciasAux.Concat(coincidencias).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
+
+                    //listaCoincidenciasAux = listaCoincidenciasAux.Concat(coincidencias).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
                     // Aqui se inicia el reordenamiento de las coincidencias
                     extra += "AND P.ID IN (";
 
@@ -4175,14 +4183,14 @@ namespace PuntoDeVentaV2
             return extra;
         }
 
-        private void DetectarCodigosBarra(string busqueda, int status)
+        private IEnumerable<List<string>> DetectarCodigosBarra(string busqueda, int status)
         {
+            List<string> codigos = new List<string>();
+            List<string> codigosNuevos = new List<string>();
+            List<string> codigosExistentes = new List<string>();
+
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
-                List<string> codigos = new List<string>();
-                List<string> codigosNuevos = new List<string>();
-                List<string> codigosExistentes = new List<string>();
-
                 string[] palabrasBuscadas = busqueda.Trim().Split(' ');
 
                 if (palabrasBuscadas.Count() > 0)
@@ -4275,6 +4283,36 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            return new List<List<string>> { codigosExistentes, codigosNuevos };
+        }
+
+        private void MensajeCodigosNuevos(List<string> codigosNuevos)
+        {
+            if (codigosNuevos.Count > 0)
+            {
+                // Mostramos el mensaje para saber si nos recomienda agregar un producto con un codigo nuevo o nos indica que no es válido
+                foreach (var codigo in codigosNuevos)
+                {
+                    if (codigo.Length >= 5)
+                    {
+                        var respuesta = MessageBox.Show("El código escaneado: " + codigo + "\nno pertenece a un producto existente,\n\t¿Desea Registrarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                        if (respuesta == DialogResult.Yes)
+                        {
+                            origenDeLosDatos = 5;
+                            seleccionadoDato = 2;
+                            nuevoCodigoBarrasDeProducto = codigo;
+                            btnAgregarProducto.PerformClick();
+                            clickBoton = 1;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Código proporcionado:\n" + codigo + "No esta registrado ó no es valido su formato.", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -4284,8 +4322,6 @@ namespace PuntoDeVentaV2
         /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
         public void CargarDatos(int status = 1, string busquedaEnProductos = "")
         {
-            DetectarCodigosBarra(busquedaEnProductos, status);
-            return;
             // CONSULTA GENERAL
             string consultaFiltro = $"SELECT * FROM Productos AS P ";
 
@@ -4295,7 +4331,9 @@ namespace PuntoDeVentaV2
 
             extra = string.Empty;
 
-            extra = ManejandoCoincidenciasBusqueda(busquedaEnProductos);
+            var listasCodigos = DetectarCodigosBarra(busquedaEnProductos, status);
+
+            extra = ManejandoCoincidenciasBusqueda(busquedaEnProductos, listasCodigos.ElementAt(0));
 
             // Consulta final despues de aplicador filtros, condiciones, etc
             consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
@@ -4561,6 +4599,9 @@ namespace PuntoDeVentaV2
             //MarcarCheckBoxes(filtroConSinFiltroAvanzado);
 
             clickBoton = 0;
+
+            // Aqui se ejecutan los mensajes para los códigos nuevos en la búsqueda tanto si son válidos o no
+            MensajeCodigosNuevos(listasCodigos.ElementAt(1));
         }
 
         private string quitarDuplicadosPorBuscar(string Datos)
