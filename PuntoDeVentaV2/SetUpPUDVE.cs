@@ -312,6 +312,7 @@ namespace PuntoDeVentaV2
             tipoRespaldo.ShowDialog();
         }
 
+
         private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
         {
             if (opcion9 == 0)
