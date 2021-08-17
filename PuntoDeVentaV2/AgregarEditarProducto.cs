@@ -3884,7 +3884,10 @@ namespace PuntoDeVentaV2
                                                     var NoProducto = Convert.ToInt32(drProdServComb["IDProducto"].ToString());
                                                     try
                                                     {
-                                                        cn.EjecutarConsulta(cs.actualizarStockProdServCombo(cantidadProducto, NoProducto));
+                                                        if (!this.Text.Equals("AGREGAR COMBOS"))
+                                                        {
+                                                            cn.EjecutarConsulta(cs.actualizarStockProdServCombo(cantidadProducto, NoProducto));
+                                                        }
                                                     }
                                                     catch (Exception ex)
                                                     {
