@@ -2404,5 +2404,95 @@ namespace PuntoDeVentaV2
             string consulta = $"SELECT MensajeTicket FROM editarticket WHERE IDUsuario = '{idUsuario}'; ";
             return consulta;
         }
+
+        public string nombreusTicket(int nombre)
+        {
+            var consulta = $"UPDATE editarticket SET Usuario = {nombre} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+        public string direccionTicket(int direccion)
+        {
+            var consulta = $"UPDATE editarticket SET Direccion = {direccion} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string colycpTicket(int colycp)
+        {
+            var consulta = $"UPDATE editarticket SET ColyCP = {colycp} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string rfcTicket(int RFC)
+        {
+            var consulta = $"UPDATE editarticket SET RFC = {RFC} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string correoTicket(int Correo)
+        {
+            var consulta = $"UPDATE editarticket SET Correo = {Correo} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string telTicket(int telefono)
+        {
+            var consulta = $"UPDATE editarticket SET Telefono = {telefono} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+        //Updates cliente
+
+        public string nombreCTicket(int nombre)
+        {
+            var consulta = $"UPDATE editarticket SET NombreC = {nombre} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string domicilioCTicket(int domicilio)
+        {
+            var consulta = $"UPDATE editarticket SET DomicilioC = {domicilio} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string rfcCTicket(int rfc)
+        {
+            var consulta = $"UPDATE editarticket SET RFCC = {rfc} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string correoCTicket(int correo)
+        {
+            var consulta = $"UPDATE editarticket SET CorreoC = {correo} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string telefonoCTicket(int telefono)
+        {
+            var consulta = $"UPDATE editarticket SET TelefonoC = {telefono} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string formapagoCTicket(int formapago)
+        {
+            var consulta = $"UPDATE editarticket SET FormaPagoC = {formapago} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string colycpCTicket(int colycp)
+        {
+            var consulta = $"UPDATE editarticket SET ColyCPC = {colycp} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
+        public string checkboxTicket()
+        {
+            var consulta = $"SELECT * FROM `editarticket` WHERE IDUsuario = '{FormPrincipal.userID}'";
+            return consulta;
+        }
+        public string consultarEstadoTicket(string apartado,int user)
+        {
+            var consulta = $"SELECT '{apartado}' FROM `editarticket` WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
     }
 }  
