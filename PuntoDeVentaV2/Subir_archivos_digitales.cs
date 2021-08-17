@@ -183,7 +183,7 @@ namespace PuntoDeVentaV2
 
                 // Saca los archivos que estan en la carpeta pudve_gpem y la anidada
 
-                var ruta_carpeta_pem = ruta_guardar_archivos + @"\Pudve_gpem\";
+                var ruta_carpeta_pem = ruta_guardar_archivos + @"Pudve_gpem\";
                 
                 DirectoryInfo dir = new DirectoryInfo(ruta_carpeta_pem);
 
