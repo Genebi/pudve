@@ -61,7 +61,7 @@ namespace PuntoDeVentaV2
 
         private void cargarDatos()
         {
-            var query = $"SELECT ID, RazonSocial, RFC FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}'";
+            var query = $"SELECT ID, RazonSocial, RFC FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND `Status` = 1";
 
             filtroConSinFiltroAvanzado = query;
 
@@ -290,7 +290,7 @@ namespace PuntoDeVentaV2
 
             var datoBuscar = txtBuscar.Text.ToString().Replace("\r\n", string.Empty);
 
-            var query = $"SELECT ID, RazonSocial, RFC FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RazonSocial LIKE '%{datoBuscar}%'";
+            var query = $"SELECT ID, RazonSocial, RFC FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RazonSocial LIKE '%{datoBuscar}%' AND `Status` = 1";
 
             filtroConSinFiltroAvanzado = query;
 
