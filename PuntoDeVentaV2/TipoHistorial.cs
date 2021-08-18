@@ -43,7 +43,7 @@ namespace PuntoDeVentaV2
         private void btnHistorialVentas_Click(object sender, EventArgs e)
         {
             //MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            using (var fechas = new FechasReportes())
+            using (var fechas = new FechasReportes("Productos"))
             {
                 var respuesta = fechas.ShowDialog();
 

@@ -177,6 +177,8 @@ namespace PuntoDeVentaV2
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
         public delegate void MostrarRecepcion(string Texto);    // Delegado para asignar el valor recibido
 
+        int nombreus, direccionus, colycpus, rfcus, correous, telefonous, nombrec, domicilioc, rfcc, correoc, telefonoc, colycpc, formapagoc;
+
         // al recibir de la bascula los bytesToRead indicara
         // un valor superior a 0, indicando el numero de caracteres
         private void Recibir(object sender, SerialDataReceivedEventArgs e)
@@ -3942,7 +3944,7 @@ namespace PuntoDeVentaV2
 
             string encabezado = $"{salto}{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
 
-                ticket.Open();
+            ticket.Open();
 
             //Validación para verificar si existe logotipo
             if (logotipo != "")
@@ -3957,16 +3959,31 @@ namespace PuntoDeVentaV2
             }
 
             Paragraph titulo = new Paragraph(datos[0] + "\n", fuenteGrande);
-            Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
+            Paragraph direccion = new Paragraph("Direccion: "+datos[1]+", "+datos[2]+", " +datos[4] + ", " +datos[5] + "\n", fuenteNormal);
+            Paragraph colYCP = new Paragraph("Colonia: "+datos[6]+", "+"C.P.: "+datos[7] + "\n", fuenteNormal);
+            Paragraph RFC = new Paragraph("RFC: "+datos[8] + "\n", fuenteNormal);
+            Paragraph correo = new Paragraph("Correo: "+datos[9] + "\n", fuenteNormal);
+            Paragraph telefono = new Paragraph("Telefono: "+datos[10] + "\n" + "\n", fuenteNormal );
+            //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
-            domicilio.Alignment = Element.ALIGN_CENTER;
-            domicilio.SetLeading(espacio, 0);
+            direccion.Alignment = Element.ALIGN_CENTER;
+            colYCP.Alignment = Element.ALIGN_CENTER;
+            RFC.Alignment = Element.ALIGN_CENTER;
+            correo.Alignment = Element.ALIGN_CENTER;
+            telefono.Alignment = Element.ALIGN_CENTER;
+            //domicilio.Alignment = Element.ALIGN_CENTER;
+            //domicilio.SetLeading(espacio, 0);
 
 
             Paragraph cliente = new Paragraph($"{productos[0][14]}", fuenteNormal);
 
             string datosCliente = string.Empty;
+            string RFCcliente = string.Empty;
+            string domicilioCliente = string.Empty;
+            string correoCliente = string.Empty;
+            string telefonoCliente = string.Empty;
+            string colYCPCliente = string.Empty;
 
             if (!productos[0][16].Equals("0"))
             {
@@ -3974,16 +3991,19 @@ namespace PuntoDeVentaV2
 
                 if (infoCliente.Length > 0)
                 {
-                    datosCliente += $"RFC: {infoCliente[1]}\n";
+                    RFCcliente = $"RFC: {infoCliente[1]}";
+                    datosCliente += $"{infoCliente[1]}\n";
                     datosCliente += $"Domicilio: ";
 
                     if (!string.IsNullOrWhiteSpace(infoCliente[10]))
                     {
+                        domicilioCliente = $"{infoCliente[10]}, ";
                         datosCliente += $"{infoCliente[10]}, ";
                     }
 
                     if (!string.IsNullOrWhiteSpace(infoCliente[11]))
                     {
+                        domicilioCliente += $"{ infoCliente[11]}, ";
                         datosCliente += $"{infoCliente[11]}, ";
                     }
 
@@ -3994,16 +4014,19 @@ namespace PuntoDeVentaV2
 
                     if (!string.IsNullOrWhiteSpace(infoCliente[9]))
                     {
+                        colYCPCliente = $"Col. {infoCliente[9]}, ";
                         datosCliente += $"Col. {infoCliente[9]}, ";
                     }
 
                     if (!string.IsNullOrWhiteSpace(infoCliente[8]))
                     {
+                        colYCPCliente += $"C.P. { infoCliente[8]}";
                         datosCliente += $"C.P. {infoCliente[8]}, ";
                     }
 
                     if (!string.IsNullOrWhiteSpace(infoCliente[7]))
                     {
+                        domicilioCliente += $"{infoCliente[7]}, ";
                         datosCliente += $"{infoCliente[7]}, ";
                     }
 
@@ -4014,28 +4037,41 @@ namespace PuntoDeVentaV2
 
                     if (!string.IsNullOrWhiteSpace(infoCliente[5]))
                     {
+                        domicilioCliente += $"{infoCliente[5]}, ";
                         datosCliente += $"{infoCliente[5]}, ";
                     }
 
                     if (!string.IsNullOrWhiteSpace(infoCliente[4]))
                     {
+                        domicilioCliente += $"{infoCliente[4]}";
                         datosCliente += $"{infoCliente[4]}";
                     }
 
                     if (!string.IsNullOrWhiteSpace(infoCliente[13]))
                     {
-                        datosCliente += $"\nCorreo: {infoCliente[13]}";
+                        correoCliente = $"{infoCliente[13]}";
+                        datosCliente += $"{infoCliente[13]}";
+                    }
+                    if (!string.IsNullOrWhiteSpace(infoCliente[14]))
+                    {
+                        telefonoCliente = $" {infoCliente[14]}";
                     }
 
                     datosCliente = datosCliente.TrimEnd(',');
                 }
-            }
+             }
 
             Paragraph colCliente = new Paragraph($"{datosCliente}", fuenteNormal);
             Paragraph referencia = new Paragraph($"Referencia: {productos[0][15]}", fuenteNormal);
             Paragraph FormPago = new Paragraph(txtFormaPago + " " + productos[0][13] + "\n\n", fuenteNormal);
+            Paragraph formapagoCliente = new Paragraph(txtFormaPago + " " + productos[0][13]);
+            Paragraph RFCclientep = new Paragraph("RFC: "+ RFCcliente, fuenteNormal);
+            Paragraph domicilioClientep = new Paragraph("Domicilio: " + domicilioCliente, fuenteNormal);
+            Paragraph correoClientep = new Paragraph("Correo: " + correoCliente, fuenteNormal);
+            Paragraph telefonoClientep = new Paragraph("Telefono: " + telefonoCliente, fuenteNormal);
+            Paragraph colYCPp = new Paragraph("Colonia y C.P.: " + colYCPCliente, fuenteNormal);
 
-            /**************************************
+            /**************************************"
              ** Tabla con los productos vendidos **
              **************************************/
 
@@ -4168,7 +4204,28 @@ namespace PuntoDeVentaV2
             /******************************************
              ** Fin tabla con los productos vendidos **
              ******************************************/
-            var mensaje2 = cn.CargarDatos(cs.MensajeTicket(FormPrincipal.userID));
+            var checkboxTicket = cn.CargarDatos($"SELECT * FROM `editarticket` WHERE IDUsuario = '{FormPrincipal.userID}'");
+
+            foreach (DataRow item in checkboxTicket.Rows)
+            {
+                var datos2 = item;
+                nombreus = Convert.ToInt32(datos2[3]);
+                direccionus = Convert.ToInt32(datos2[4]);
+                colycpus = Convert.ToInt32(datos2[5]);
+                rfcus = Convert.ToInt32(datos2[6]);
+                correous = Convert.ToInt32(datos2[7]);
+                telefonous = Convert.ToInt32(datos2[8]);
+
+                nombrec = Convert.ToInt32(datos2[9]);
+                domicilioc = Convert.ToInt32(datos2[10]);
+                rfcc = Convert.ToInt32(datos2[11]);
+                correoc = Convert.ToInt32(datos2[12]);
+                telefonoc = Convert.ToInt32(datos2[13]);
+                colycpc = Convert.ToInt32(datos2[14]);
+                formapagoc = Convert.ToInt32(datos2[15]);
+            }
+
+                var mensaje2 = cn.CargarDatos(cs.MensajeTicket(FormPrincipal.userID));
             foreach (DataRow item in mensaje2.Rows)
             {
                 cargarmensaje = item[0].ToString();
@@ -4186,27 +4243,80 @@ namespace PuntoDeVentaV2
 
             Paragraph diaVenta = new Paragraph($"{dia} - {fecha} - Folio: {productos[0][10]}", fuenteNormal);
             diaVenta.Alignment = Element.ALIGN_CENTER;
+            if (nombreus == 1)
+            {
+                ticket.Add(titulo);
+            }
+            if (direccionus == 1)
+            {
+                ticket.Add(direccion);
+            }
+            if (colycpus == 1)
+            {
+                ticket.Add(colYCP);
+            }
+            if (rfcus == 1)
+            {
+                ticket.Add(RFC);
+            }
+            if (correous == 1)
+            {
+                ticket.Add(correo);
+            }
+            if (telefonous == 1)
+            {
+                ticket.Add(telefono); 
+            }
+            
+            //ticket.Add(domicilio);
 
-            ticket.Add(titulo);
-            ticket.Add(domicilio);
-
+/////////////////////////////DATOS DEL  CLIENTE "TICKET"////////////////////////////////
             if (!string.IsNullOrWhiteSpace(productos[0][14]))
             {
-                ticket.Add(cliente);
+                if (nombrec == 1)
+                {
+                    ticket.Add(cliente);
+                }
+                
             }
 
             if (!string.IsNullOrWhiteSpace(datosCliente))
             {
-                ticket.Add(colCliente);
+                if (rfcc == 1)
+                {
+                    ticket.Add(RFCclientep);
+                }
+                if (domicilioc == 1)
+                {
+                    ticket.Add(domicilioClientep);
+                }
+                if (colycpc == 1)
+                {
+                    ticket.Add(colYCPp);
+                }
+                if (correoc == 1)
+                {
+                    ticket.Add(correoClientep);
+                }
+                if (telefonoc == 1)
+                {
+                    ticket.Add(telefonoClientep);
+                }
+                
+                //ticket.Add(formapagoCliente);
+                //ticket.Add(colCliente);
             }
 
             if (!string.IsNullOrWhiteSpace(productos[0][15]))
             {
                 ticket.Add(referencia);
             }
-
-            ticket.Add(FormPago);
-            ticket.Add(tabla);
+            if (formapagoc == 1)
+            {
+                ticket.Add(FormPago);
+            }
+            
+            ticket.Add(tabla);//De la venta
             ticket.Add(mensaje);
 
             // Imprimir codigo de barras en el ticket

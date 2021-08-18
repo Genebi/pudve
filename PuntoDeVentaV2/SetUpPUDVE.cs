@@ -305,11 +305,14 @@ namespace PuntoDeVentaV2
             {
                 tipo = EscogerTipoRespaldo.typeBackUp;
 
+
+                MessageBox.Show("Este proceso tardara unos minutos.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 backUp.crearsaveFile(tipo);
             };
 
             tipoRespaldo.ShowDialog();
         }
+
 
         private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
         {

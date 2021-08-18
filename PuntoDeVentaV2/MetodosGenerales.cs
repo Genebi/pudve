@@ -49,5 +49,37 @@ namespace PuntoDeVentaV2
 
             return string.Join(" ", palabras);
         }
+
+        public string quitarTildesYÑ(string cadena)
+        {
+            var result = cadena;
+
+            if (cadena.Contains("Á"))
+            {
+                result = cadena.Replace("Á","A");
+            }
+            else if (cadena.Contains("É"))
+            {
+                result = cadena.Replace("É", "E");
+            }
+            else if (cadena.Contains("Í"))
+            {
+                result = cadena.Replace("Í", "I");
+            }
+            else if (cadena.Contains("Ó"))
+            {
+                result = cadena.Replace("Ó", "O");
+            }
+            else if (cadena.Contains("Ú"))
+            {
+                result = cadena.Replace("Ú", "U");
+            }
+            else if (cadena.Contains("Ñ")) 
+            {
+                result = cadena.Replace("Ñ", "N");
+            }
+
+            return result;
+        } 
     }
 }

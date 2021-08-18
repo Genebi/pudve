@@ -2208,7 +2208,7 @@ namespace PuntoDeVentaV2
                             {
                                 keyName = "true";
                             }
-                            else if (row["checkBoxConcepto"].ToString().Equals("0"))
+                           else if (row["checkBoxConcepto"].ToString().Equals("0"))
                             {
                                 keyName = "false";
                             }

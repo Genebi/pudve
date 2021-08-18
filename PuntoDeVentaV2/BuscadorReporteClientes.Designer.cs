@@ -29,6 +29,13 @@
         private void InitializeComponent()
         {
             this.DGVReportesClientes = new System.Windows.Forms.DataGridView();
+            this.marcar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArticulosBuy = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ArticulosNotBuy = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DatosCliente = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,16 +56,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.marcar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ArticulosBuy = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ArticulosNotBuy = new System.Windows.Forms.DataGridViewImageColumn();
-            this.DatosCliente = new System.Windows.Forms.DataGridViewImageColumn();
-            this.btnComprados = new System.Windows.Forms.Button();
-            this.btnDatosCliente = new System.Windows.Forms.Button();
-            this.btnNoComprados = new System.Windows.Forms.Button();
+            this.btnComprados = new PuntoDeVentaV2.BotonRedondo();
+            this.btnDatosCLiente = new PuntoDeVentaV2.BotonRedondo();
+            this.btnNoComprados = new PuntoDeVentaV2.BotonRedondo();
             ((System.ComponentModel.ISupportInitialize)(this.DGVReportesClientes)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -87,6 +87,50 @@
             this.DGVReportesClientes.TabIndex = 0;
             this.DGVReportesClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVReportesClientes_CellClick);
             this.DGVReportesClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVReportesClientes_CellContentClick);
+            // 
+            // marcar
+            // 
+            this.marcar.HeaderText = "";
+            this.marcar.Name = "marcar";
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // RFC
+            // 
+            this.RFC.HeaderText = "RFC";
+            this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
+            // 
+            // ArticulosBuy
+            // 
+            this.ArticulosBuy.HeaderText = "Articulos comprados";
+            this.ArticulosBuy.Name = "ArticulosBuy";
+            this.ArticulosBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ArticulosBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // ArticulosNotBuy
+            // 
+            this.ArticulosNotBuy.HeaderText = "Articulos no comprados";
+            this.ArticulosNotBuy.Name = "ArticulosNotBuy";
+            this.ArticulosNotBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ArticulosNotBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // DatosCliente
+            // 
+            this.DatosCliente.HeaderText = "Datos del cliente";
+            this.DatosCliente.Name = "DatosCliente";
+            this.DatosCliente.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DatosCliente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // btnBuscar
             // 
@@ -348,91 +392,74 @@
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Visible = false;
             // 
-            // marcar
-            // 
-            this.marcar.HeaderText = "";
-            this.marcar.Name = "marcar";
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            // 
-            // Nombre
-            // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // RFC
-            // 
-            this.RFC.HeaderText = "RFC";
-            this.RFC.Name = "RFC";
-            this.RFC.ReadOnly = true;
-            // 
-            // ArticulosBuy
-            // 
-            this.ArticulosBuy.HeaderText = "Articulos comprados";
-            this.ArticulosBuy.Name = "ArticulosBuy";
-            this.ArticulosBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ArticulosBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // ArticulosNotBuy
-            // 
-            this.ArticulosNotBuy.HeaderText = "Articulos no comprados";
-            this.ArticulosNotBuy.Name = "ArticulosNotBuy";
-            this.ArticulosNotBuy.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ArticulosNotBuy.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // DatosCliente
-            // 
-            this.DatosCliente.HeaderText = "Datos del cliente";
-            this.DatosCliente.Name = "DatosCliente";
-            this.DatosCliente.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DatosCliente.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
             // btnComprados
             // 
             this.btnComprados.BackColor = System.Drawing.Color.Red;
+            this.btnComprados.BackGroundColor = System.Drawing.Color.Red;
+            this.btnComprados.BorderColor = System.Drawing.Color.Red;
+            this.btnComprados.BorderRadius = 40;
+            this.btnComprados.BorderSize = 0;
             this.btnComprados.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnComprados.FlatAppearance.BorderSize = 0;
+            this.btnComprados.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnComprados.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnComprados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnComprados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnComprados.ForeColor = System.Drawing.Color.White;
-            this.btnComprados.Location = new System.Drawing.Point(771, 408);
+            this.btnComprados.Location = new System.Drawing.Point(44, 447);
             this.btnComprados.Name = "btnComprados";
-            this.btnComprados.Size = new System.Drawing.Size(134, 23);
-            this.btnComprados.TabIndex = 41;
+            this.btnComprados.Size = new System.Drawing.Size(215, 42);
+            this.btnComprados.TabIndex = 44;
             this.btnComprados.Text = "Articulos Comprados";
+            this.btnComprados.TextColor = System.Drawing.Color.White;
             this.btnComprados.UseVisualStyleBackColor = false;
-            this.btnComprados.Click += new System.EventHandler(this.btnComprados_Click);
+            this.btnComprados.Click += new System.EventHandler(this.btnComprados_Click_1);
             // 
-            // btnDatosCliente
+            // btnDatosCLiente
             // 
-            this.btnDatosCliente.BackColor = System.Drawing.Color.Red;
-            this.btnDatosCliente.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDatosCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDatosCliente.ForeColor = System.Drawing.Color.White;
-            this.btnDatosCliente.Location = new System.Drawing.Point(771, 466);
-            this.btnDatosCliente.Name = "btnDatosCliente";
-            this.btnDatosCliente.Size = new System.Drawing.Size(134, 23);
-            this.btnDatosCliente.TabIndex = 42;
-            this.btnDatosCliente.Text = "Datos de clientes";
-            this.btnDatosCliente.UseVisualStyleBackColor = false;
-            this.btnDatosCliente.Click += new System.EventHandler(this.btnDatosCliente_Click);
+            this.btnDatosCLiente.BackColor = System.Drawing.Color.Red;
+            this.btnDatosCLiente.BackGroundColor = System.Drawing.Color.Red;
+            this.btnDatosCLiente.BorderColor = System.Drawing.Color.Red;
+            this.btnDatosCLiente.BorderRadius = 40;
+            this.btnDatosCLiente.BorderSize = 0;
+            this.btnDatosCLiente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDatosCLiente.FlatAppearance.BorderSize = 0;
+            this.btnDatosCLiente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnDatosCLiente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnDatosCLiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDatosCLiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDatosCLiente.ForeColor = System.Drawing.Color.White;
+            this.btnDatosCLiente.Location = new System.Drawing.Point(672, 448);
+            this.btnDatosCLiente.Name = "btnDatosCLiente";
+            this.btnDatosCLiente.Size = new System.Drawing.Size(215, 42);
+            this.btnDatosCLiente.TabIndex = 45;
+            this.btnDatosCLiente.Text = "Datos de clientes";
+            this.btnDatosCLiente.TextColor = System.Drawing.Color.White;
+            this.btnDatosCLiente.UseVisualStyleBackColor = false;
+            this.btnDatosCLiente.Click += new System.EventHandler(this.btnDatosCLiente_Click_1);
             // 
             // btnNoComprados
             // 
             this.btnNoComprados.BackColor = System.Drawing.Color.Red;
+            this.btnNoComprados.BackGroundColor = System.Drawing.Color.Red;
+            this.btnNoComprados.BorderColor = System.Drawing.Color.Red;
+            this.btnNoComprados.BorderRadius = 40;
+            this.btnNoComprados.BorderSize = 0;
             this.btnNoComprados.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNoComprados.FlatAppearance.BorderSize = 0;
+            this.btnNoComprados.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnNoComprados.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnNoComprados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNoComprados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNoComprados.ForeColor = System.Drawing.Color.White;
-            this.btnNoComprados.Location = new System.Drawing.Point(771, 437);
+            this.btnNoComprados.Location = new System.Drawing.Point(371, 448);
             this.btnNoComprados.Name = "btnNoComprados";
-            this.btnNoComprados.Size = new System.Drawing.Size(134, 23);
-            this.btnNoComprados.TabIndex = 43;
+            this.btnNoComprados.Size = new System.Drawing.Size(215, 42);
+            this.btnNoComprados.TabIndex = 46;
             this.btnNoComprados.Text = "Articulos no Comprados";
+            this.btnNoComprados.TextColor = System.Drawing.Color.White;
             this.btnNoComprados.UseVisualStyleBackColor = false;
-            this.btnNoComprados.Click += new System.EventHandler(this.btnNoComprados_Click);
+            this.btnNoComprados.Click += new System.EventHandler(this.btnNoComprados_Click_1);
             // 
             // BuscadorReporteClientes
             // 
@@ -440,7 +467,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(917, 502);
             this.Controls.Add(this.btnNoComprados);
-            this.Controls.Add(this.btnDatosCliente);
+            this.Controls.Add(this.btnDatosCLiente);
             this.Controls.Add(this.btnComprados);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.label1);
@@ -493,8 +520,8 @@
         private System.Windows.Forms.DataGridViewImageColumn ArticulosBuy;
         private System.Windows.Forms.DataGridViewImageColumn ArticulosNotBuy;
         private System.Windows.Forms.DataGridViewImageColumn DatosCliente;
-        private System.Windows.Forms.Button btnComprados;
-        private System.Windows.Forms.Button btnDatosCliente;
-        private System.Windows.Forms.Button btnNoComprados;
+        private BotonRedondo btnComprados;
+        private BotonRedondo btnDatosCLiente;
+        private BotonRedondo btnNoComprados;
     }
 }
