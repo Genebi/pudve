@@ -393,6 +393,8 @@ namespace PuntoDeVentaV2
                     {
                         MessageBox.Show("Dinero Insuficuente", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         noCash = true;
+                        cancel = 1;
+                        //realizado = false;
                     }
                     else
                     {
