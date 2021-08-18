@@ -644,7 +644,7 @@ namespace PuntoDeVentaV2
 
             filtroBusqueda.FormClosed += delegate
             {
-                CargarDatos();
+                CargarDatos(1, txtBusqueda.Text.Trim());
             };
 
             filtroBusqueda.ShowDialog();
@@ -4033,6 +4033,7 @@ namespace PuntoDeVentaV2
 
         private void LimpiarAplicandoConsultaFiltros()
         {
+            extra = string.Empty;
             extraProductos = string.Empty;
             extraProveedor = string.Empty;
             extraDetalles = string.Empty;
@@ -4132,7 +4133,7 @@ namespace PuntoDeVentaV2
         private string ManejandoCoincidenciasBusqueda(string busquedaEnProductos, List<string> listaCodigosExistentes)
         {
             // Se crea solo si el usuario escribio algo en el buscador y no hay filtros aplicados
-            if (!string.IsNullOrWhiteSpace(busquedaEnProductos) && filtros.Count() == 0)
+            if (!string.IsNullOrWhiteSpace(busquedaEnProductos))
             {
                 // retorna un diccionario con las coincidencias que hubo en la base de datos
                 var coincidencias = mb.BusquedaCoincidencias(busquedaEnProductos.Trim());
@@ -4315,11 +4316,8 @@ namespace PuntoDeVentaV2
             }
         }
 
-        /// <summary>
-        /// Metodo CargarDatos
-        /// </summary>
-        /// <param name="status">El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos</param>
-        /// <param name="busquedaEnProductos">Cadena de texto que introduce el Usuario para coincidencias</param>
+
+        //El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos
         public void CargarDatos(int status = 1, string busquedaEnProductos = "")
         {
             // CONSULTA GENERAL
@@ -4329,11 +4327,16 @@ namespace PuntoDeVentaV2
             // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
             AplicandoConsultaFiltros();
 
-            extra = string.Empty;
-
             var listasCodigos = DetectarCodigosBarra(busquedaEnProductos, status);
 
             extra = ManejandoCoincidenciasBusqueda(busquedaEnProductos, listasCodigos.ElementAt(0));
+
+            if (!string.IsNullOrWhiteSpace(extra) && !string.IsNullOrWhiteSpace(extraProductos))
+            {
+                var auxiliar = extra;
+                extra = extraProductos;
+                extraProductos = auxiliar;
+            }
 
             // Consulta final despues de aplicador filtros, condiciones, etc
             consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
