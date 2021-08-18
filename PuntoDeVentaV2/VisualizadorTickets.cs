@@ -70,7 +70,7 @@ namespace PuntoDeVentaV2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Favor de revisar:\nSi tiene una impresora instalada(Predeterminada)\nO Adobe instalado en su equipo", "Error al Imprimir", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Favor de revisar:\nSi tiene una impresora instalada(Predeterminada)\nO Adobe instalado en su equipo", "Error al Imprimir", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
