@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        CargarDatosCaja cdc = new CargarDatosCaja();
 
         //Variables Abonos
         string resultadoConsultaAbonos = string.Empty;
@@ -349,11 +350,18 @@ namespace PuntoDeVentaV2
                     var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
                     //var conceptoCredito = $"DEVOLUCION DINERO VENTA A CREDITO CANCELADA ID {idVenta}";
 
-                    var efectivoConvert = float.Parse(efectivo1);
-                    var chequeConvet = float.Parse(cheque1);
-                    var tarjetaConvert = float.Parse(tarjeta1);
-                    var valesConvert = float.Parse(vales1);
-                    var transConvert = float.Parse(transferencia1);
+                    var dato = cdc.CargarSaldo("Ventas Canceladas");
+                    //Estas variables debo cambiarles el saldo
+                    //var efectivoConvert = float.Parse(efectivo1);
+                    //var chequeConvet = float.Parse(cheque1);
+                    //var tarjetaConvert = float.Parse(tarjeta1);
+                    //var valesConvert = float.Parse(vales1);
+                    //var transConvert = float.Parse(transferencia1);
+                    var efectivoConvert = float.Parse(dato[51]);
+                    var chequeConvet = float.Parse(dato[52]);
+                    var tarjetaConvert = float.Parse(dato[53]);
+                    var valesConvert = float.Parse(dato[54]);
+                    var transConvert = float.Parse(dato[55]);
 
 
                     obtenerDatos(idVenta);
@@ -379,10 +387,9 @@ namespace PuntoDeVentaV2
                     ListadoVentas.validarTrans = transferenciaBuscar;
 
 
-
-                    if (tipo == 3 && cbFormaPago.SelectedIndex == 0 && efectivoConvert > (efectivoBuscar + MetodosBusquedas.efectivoInicial + ListadoVentas.validarEfectivo) || cbFormaPago.SelectedIndex == 1 && chequeConvet > (chequeBuscar + MetodosBusquedas.chequeInicial + ListadoVentas.validarCheque) ||
-                        cbFormaPago.SelectedIndex == 2 && transferenciaBuscar > (transConvert + MetodosBusquedas.transInicial + ListadoVentas.validarTrans) || cbFormaPago.SelectedIndex == 3 && tarjetaConvert > (tarjetaBuscar + MetodosBusquedas.tarjetaInicial + ListadoVentas.validarTarjeta) ||
-                        cbFormaPago.SelectedIndex == 4 && valesConvert > (valesBuscar + MetodosBusquedas.valesInicial + ListadoVentas.validarVales))
+                    if (tipo == 3 && cbFormaPago.SelectedIndex == 0 && importe > (efectivoConvert + MetodosBusquedas.efectivoInicial /*+ ListadoVentas.validarEfectivo*/) || cbFormaPago.SelectedIndex == 1 && importe > (chequeConvet + MetodosBusquedas.chequeInicial /*+ ListadoVentas.validarCheque*/) ||
+                        cbFormaPago.SelectedIndex == 2 && importe > (transConvert + MetodosBusquedas.transInicial /*+ ListadoVentas.validarTrans*/) || cbFormaPago.SelectedIndex == 3 && importe > (tarjetaConvert + MetodosBusquedas.tarjetaInicial /*+ ListadoVentas.validarTarjeta*/) ||
+                        cbFormaPago.SelectedIndex == 4 && importe > (valesConvert + MetodosBusquedas.valesInicial /*+ ListadoVentas.validarVales*/))
                     {
                         MessageBox.Show("Dinero Insuficuente", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         noCash = true;

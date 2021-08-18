@@ -1085,10 +1085,10 @@ namespace PuntoDeVentaV2
                                 int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
 
                                 if (resultado > 0)
-                                {
+{
                                     // Miri. Modificado.
                                     // Obtiene el id del combo cancelado
-                                    DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
+                                     DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
                                     //var productos = cn.ObtenerProductosVenta(idVenta);
 
                                     if (d_prod_venta.Rows.Count > 0)
