@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        OpenFileDialog f;
 
         public EditarTicket()
         {
@@ -156,12 +158,25 @@ namespace PuntoDeVentaV2
                 }
 
             }
-
+            pictureBox1.Image = Image.FromFile($@"C:\Archivos PUDVE\MisDatos\Usuarios\{FormPrincipal.datosUsuario[11].ToString()}");
+            mensajeTicket();
         }
-
+        private void mensajeTicket()
+        {
+            var mensaje = cn.CargarDatos($"SELECT MensajeTicket FROM `editarticket` WHERE IDUsuario = '{FormPrincipal.userID}'");
+            foreach (DataRow item in mensaje.Rows)
+            {
+                var mensaje2 = item;
+                lblMensajeTicket.Text = mensaje2[0].ToString();
+            }
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             editarMensajeTicket mensaje = new editarMensajeTicket();
+            mensaje.FormClosed += delegate
+            {
+                mensajeTicket();
+            };
             mensaje.Show();
         }
 
@@ -309,7 +324,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.telefonoCTicket(status));
             }
-
+            MessageBox.Show("Guardado Correctamente");
         }
 
         private void chkColoniaCl_CheckedChanged(object sender, EventArgs e)
@@ -491,6 +506,85 @@ namespace PuntoDeVentaV2
             {
                 lblTelefonoUs.Visible = true;
                 lblTelefonoUs.Height = 20;
+            }
+        }
+
+        private void chkLogoTicket_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkLogoTicket.Checked == false)
+            {
+                pnlLogo.Visible = false;
+                pnlLogo.Height = 0;
+            }
+            else if (chkLogoTicket.Checked == true)
+            {
+                pnlLogo.Visible = true;
+                pnlLogo.Height = 61;
+            }
+        }
+
+        private void chkMarcarTodosCl_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkMarcarTodosCl.Checked == true)
+            {
+                chkNombreCl.Checked = true;
+                chkDomicilioCl.Checked = true;
+                chkRfcCl.Checked = true;
+                chkCorreoCl.Checked = true;
+                chkTelefonoCl.Checked = true;
+                chkColoniaCl.Checked = true;
+                chkFormaPagoCl.Checked = true;
+                chkMostrarMensaje.Checked = true;
+            }
+            else
+            {
+                chkNombreCl.Checked = false;
+                chkDomicilioCl.Checked = false;
+                chkRfcCl.Checked = false;
+                chkCorreoCl.Checked = false;
+                chkTelefonoCl.Checked = false;
+                chkColoniaCl.Checked = false;
+                chkFormaPagoCl.Checked = false;
+                chkMostrarMensaje.Checked = false;
+            }
+        }
+
+        private void chkMarcarTodosUs_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkMarcarTodosUs.Checked == true)
+            {
+                chkNombreUs.Checked = true;
+                chkDireccionUs.Checked = true;
+                chkRfcUs.Checked = true;
+                chkCorreoUs.Checked = true;
+                chkTelefonoUs.Checked = true;
+                chkColUs.Checked = true;
+                chkLogoTicket.Checked = true;
+            }
+            else
+            {
+                chkNombreUs.Checked = false;
+                chkDireccionUs.Checked = false;
+                chkRfcUs.Checked = false;
+                chkCorreoUs.Checked = false;
+                chkTelefonoUs.Checked = false;
+                chkColUs.Checked = false;
+                chkLogoTicket.Checked = false;
+        }
+
+    }
+
+        private void chkMostrarMensaje_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkMostrarMensaje.Checked == false)
+            {
+                lblMensajeTicket.Visible = false;
+                lblMensajeTicket.Height = 0;
+            }
+            else if (chkMostrarMensaje.Checked == true)
+            {
+                lblMensajeTicket.Visible = true;
+                lblMensajeTicket.Height = 33;
             }
         }
     }

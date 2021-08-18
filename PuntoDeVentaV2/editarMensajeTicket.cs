@@ -48,6 +48,7 @@ namespace PuntoDeVentaV2
             {
                 cn.EjecutarConsulta(cs.insertarMensajeDeTicket(FormPrincipal.userID, txtMensajeTicket.Text));
             }
+            MessageBox.Show("Guardado Correctamente");
             this.Close();
         }
     }
