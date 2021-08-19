@@ -333,14 +333,14 @@ namespace PuntoDeVentaV2
                                                                   efectivoDineroAgregado, tarjetaDineroAgregado, valesDineroAgregado, chequeDineroAgregado, transferenciaDineroAgregado, totalDineroAgregado,   
                                                                   efectivoRetirado, tarjetaRetirado, valesRetirado, chequeRetirado, transferenciaRetirado, anticiposUtilizadosRetiro, totalRetirado,
                                                                   efectivoTotalCaja, tarjetaTotalCaja, valesTotalCaja, chequeTotalCaja, transferenciaTotalCaja, creditoTotalCaja, anticiposUtilizadosTotalCaja, saldoInicialTotalCaja, subtotalEnCajaTotalCaja, dineroRetiradoTotalCaja, totalEnCajaTotalCaja, 
-                                                                  fechaActualizacion, nickUsuario, idUsuario) 
+                                                                  fechaActualizacion, nickUsuario, idUsuario, totalDevoluciones) 
                                                          VALUES ('{datos[0]}', '{datos[1]}','{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[13]}', '{datos[6]}', '{datos[7]}',
                                                                  '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}',
                                                                  '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', 
                                                                  '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', 
                                                                  '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}','{datos[33]}', 
                                                                  '{datos[51]}', '{datos[52]}', '{datos[53]}', '{datos[54]}', '{datos[55]}', '{datos[39]}', '{datos[31]}', '{mb.SaldoInicialCaja(FormPrincipal.userID)}', '{datos[41]}', '{datos[33]}', '{datos[41]}',
-                                                                 '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{userNickName}', '{FormPrincipal.userID.ToString()}')";
+                                                                 '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{userNickName}', '{FormPrincipal.userID.ToString()}', '{datos[32]}')";
 
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
