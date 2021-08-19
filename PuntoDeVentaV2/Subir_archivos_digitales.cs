@@ -160,6 +160,11 @@ namespace PuntoDeVentaV2
 
                 var ruta_origen_pem = ruta_origen_sinzip + @"Pudve_gpem";
 
+                if (Directory.Exists(ruta_origen_pem + @"\"))
+                {
+                    Directory.Delete(ruta_origen_pem + @"\", true);
+                }
+
                 if (!Directory.Exists(ruta_origen_pem))
                 {
                     //ZipFile.ExtractToDirectory(ruta_origen, ruta_guardar_archivos);
