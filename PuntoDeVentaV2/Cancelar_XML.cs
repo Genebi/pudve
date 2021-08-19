@@ -22,7 +22,14 @@ namespace PuntoDeVentaV2
 
         public string[] cancelar(int idf, string tipof)
         {
-            string ruta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD\";
+            var usuarioCancelacion = string.Empty;
+
+            if (!FormPrincipal.userNickName.Equals(string.Empty))
+            {
+                usuarioCancelacion = FormPrincipal.userNickName;
+            }
+
+            string ruta_archivos = $@"C:\Archivos PUDVE\MisDatos\CSD_{usuarioCancelacion}\";
             string ruta_acuse = @"C:\Archivos PUDVE\Facturas\";
             var servidor = Properties.Settings.Default.Hosting;
 
@@ -54,7 +61,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                ruta_archivos = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD\";
+                ruta_archivos = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{usuarioCancelacion}\";
                 ruta_acuse = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".xml";
             }
             else
