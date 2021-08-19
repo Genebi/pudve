@@ -470,11 +470,11 @@ namespace PuntoDeVentaV2
 
             if (multiplesID)
             {
-                consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Name, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente NOT IN ({idMultiples})"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
+                consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Name, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente NOT IN ({idMultiples}) AND Prod.`Status` = 1;"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
             }
             else
             {
-                consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Name, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente != '{id}'"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
+                consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Name, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente != '{id}' AND Prod.`Status` = 1;"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
             }
 
             foreach (DataRow row in consulta.Rows)
@@ -909,11 +909,14 @@ namespace PuntoDeVentaV2
 
             if (multiplesId)
             {
-                consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.IDCliente IN ({idCliente}) GROUP BY Nombre ORDER BY Cantidad DESC");
+                //consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.IDCliente IN ({idCliente}) GROUP BY Nombre ORDER BY Cantidad DESC");
+
+                consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID INNER JOIN Productos AS Prod ON PV.IDProducto = Prod.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND Prod.`Status` = 1 AND V.IDCliente IN ({idCliente}) GROUP BY Nombre ORDER BY Cantidad DESC");
             }
             else
             {
-                consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND V.Cliente = '{nameCliente}' GROUP BY Nombre ORDER BY Cantidad DESC");
+                consulta = cn.CargarDatos($"SELECT PV.Nombre AS Nombre, SUM(PV.Cantidad) AS Cantidad, V.Cliente AS Cliente, V.FechaOperacion AS Fecha FROM ProductosVenta AS PV INNER JOIN Ventas AS V ON PV.IDVenta = V.ID INNER JOIN Productos AS Prod ON PV.IDProducto = Prod.ID WHERE V.IDUsuario = '{FormPrincipal.userID}' AND Prod.`Status` = 1 AND V.Cliente = '{nameCliente}' GROUP BY Nombre ORDER BY Cantidad DESC");
+
             }
 
             var nombre = string.Empty;
