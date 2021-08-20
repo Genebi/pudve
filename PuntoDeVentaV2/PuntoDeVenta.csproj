@@ -4387,6 +4387,9 @@
     <Content Include="PUDVE\icon\black\bookmark-o.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\box_open.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\braille.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4561,6 +4564,9 @@
     <Content Include="PUDVE\icon\black\chrome.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\cinema_ticket.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\circle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4574,6 +4580,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\clipboard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\clipboard_invoice.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\clock-o.png">
@@ -4616,6 +4625,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\cogs.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\coins_in_hand.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\columns.png">
@@ -4723,6 +4735,9 @@
     <Content Include="PUDVE\icon\black\discount.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\disk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\dollar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4763,6 +4778,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\ellipsis-v.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\email_send_receive.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\empire.png">
@@ -4927,6 +4945,9 @@
     <Content Include="PUDVE\icon\black\filter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\finance.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\fire.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -5018,6 +5039,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\gears.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\gear_in.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\genderless.png">
@@ -5491,6 +5515,9 @@
     <Content Include="PUDVE\icon\black\money.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\money_dollar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\moon-o.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -5543,6 +5570,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\pagelines.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\page_delete.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\paint-brush.png">
@@ -5783,6 +5813,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\save.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\saved_imports.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\scissors.png">
@@ -6065,6 +6098,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\tags.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\tag_yellow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\tasks.png">

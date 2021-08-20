@@ -112,6 +112,13 @@
             this.btn_cancelar_venta = new System.Windows.Forms.Button();
             this.btnBascula = new System.Windows.Forms.Button();
             this.lblPesoRecibido = new System.Windows.Forms.Label();
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo7 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo3 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo4 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo5 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo6 = new PuntoDeVentaV2.BotonRedondo();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -188,12 +195,13 @@
             this.btnUltimoTicket.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUltimoTicket.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUltimoTicket.ForeColor = System.Drawing.Color.White;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(830, 27);
+            this.btnUltimoTicket.Location = new System.Drawing.Point(844, 230);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
             this.btnUltimoTicket.Size = new System.Drawing.Size(37, 40);
             this.btnUltimoTicket.TabIndex = 18;
             this.tituloBoton.SetToolTip(this.btnUltimoTicket, "Imprimir último ticket");
             this.btnUltimoTicket.UseVisualStyleBackColor = false;
+            this.btnUltimoTicket.Visible = false;
             this.btnUltimoTicket.Click += new System.EventHandler(this.btnUltimoTicket_Click);
             // 
             // txtBuscadorProducto
@@ -421,12 +429,13 @@
             this.btnGuardarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarVenta.ForeColor = System.Drawing.Color.White;
             this.btnGuardarVenta.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGuardarVenta.Location = new System.Drawing.Point(381, 10);
+            this.btnGuardarVenta.Location = new System.Drawing.Point(414, 216);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
             this.btnGuardarVenta.Size = new System.Drawing.Size(155, 75);
             this.btnGuardarVenta.TabIndex = 14;
             this.btnGuardarVenta.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnGuardarVenta.UseVisualStyleBackColor = false;
+            this.btnGuardarVenta.Visible = false;
             this.btnGuardarVenta.Click += new System.EventHandler(this.btnGuardarVenta_Click);
             // 
             // btnAnticipos
@@ -439,12 +448,13 @@
             this.btnAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAnticipos.ForeColor = System.Drawing.Color.White;
             this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAnticipos.Location = new System.Drawing.Point(119, 10);
+            this.btnAnticipos.Location = new System.Drawing.Point(146, 216);
             this.btnAnticipos.Name = "btnAnticipos";
             this.btnAnticipos.Size = new System.Drawing.Size(110, 75);
             this.btnAnticipos.TabIndex = 15;
             this.btnAnticipos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAnticipos.UseVisualStyleBackColor = false;
+            this.btnAnticipos.Visible = false;
             this.btnAnticipos.Click += new System.EventHandler(this.btnAnticipos_Click);
             // 
             // btnAbrirCaja
@@ -457,12 +467,13 @@
             this.btnAbrirCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAbrirCaja.ForeColor = System.Drawing.Color.White;
             this.btnAbrirCaja.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAbrirCaja.Location = new System.Drawing.Point(3, 10);
+            this.btnAbrirCaja.Location = new System.Drawing.Point(16, 216);
             this.btnAbrirCaja.Name = "btnAbrirCaja";
             this.btnAbrirCaja.Size = new System.Drawing.Size(110, 75);
             this.btnAbrirCaja.TabIndex = 16;
             this.btnAbrirCaja.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAbrirCaja.UseVisualStyleBackColor = false;
+            this.btnAbrirCaja.Visible = false;
             this.btnAbrirCaja.Click += new System.EventHandler(this.btnAbrirCaja_Click);
             // 
             // btnVentasGuardadas
@@ -476,12 +487,13 @@
             this.btnVentasGuardadas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVentasGuardadas.ForeColor = System.Drawing.Color.White;
             this.btnVentasGuardadas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnVentasGuardadas.Location = new System.Drawing.Point(542, 10);
+            this.btnVentasGuardadas.Location = new System.Drawing.Point(575, 216);
             this.btnVentasGuardadas.Name = "btnVentasGuardadas";
             this.btnVentasGuardadas.Size = new System.Drawing.Size(140, 75);
             this.btnVentasGuardadas.TabIndex = 17;
             this.btnVentasGuardadas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnVentasGuardadas.UseVisualStyleBackColor = false;
+            this.btnVentasGuardadas.Visible = false;
             this.btnVentasGuardadas.Click += new System.EventHandler(this.btnVentasGuardadas_Click);
             // 
             // listaProductos
@@ -666,6 +678,13 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.panel1.Controls.Add(this.btnUltimoTicket);
+            this.panel1.Controls.Add(this.btn_cancelar_venta);
+            this.panel1.Controls.Add(this.btnGuardarVenta);
+            this.panel1.Controls.Add(this.btnVentasGuardadas);
+            this.panel1.Controls.Add(this.btnClientes);
+            this.panel1.Controls.Add(this.btnAnticipos);
+            this.panel1.Controls.Add(this.btnAbrirCaja);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.lbEliminarCliente);
@@ -975,12 +994,13 @@
             this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClientes.ForeColor = System.Drawing.Color.White;
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnClientes.Location = new System.Drawing.Point(235, 10);
+            this.btnClientes.Location = new System.Drawing.Point(268, 216);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(140, 75);
             this.btnClientes.TabIndex = 44;
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnClientes.UseVisualStyleBackColor = false;
+            this.btnClientes.Visible = false;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // label1
@@ -1055,13 +1075,13 @@
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
-            this.panel5.Controls.Add(this.btn_cancelar_venta);
-            this.panel5.Controls.Add(this.btnAbrirCaja);
-            this.panel5.Controls.Add(this.btnAnticipos);
-            this.panel5.Controls.Add(this.btnClientes);
-            this.panel5.Controls.Add(this.btnGuardarVenta);
-            this.panel5.Controls.Add(this.btnUltimoTicket);
-            this.panel5.Controls.Add(this.btnVentasGuardadas);
+            this.panel5.Controls.Add(this.botonRedondo1);
+            this.panel5.Controls.Add(this.botonRedondo2);
+            this.panel5.Controls.Add(this.botonRedondo7);
+            this.panel5.Controls.Add(this.botonRedondo3);
+            this.panel5.Controls.Add(this.botonRedondo4);
+            this.panel5.Controls.Add(this.botonRedondo5);
+            this.panel5.Controls.Add(this.botonRedondo6);
             this.panel5.Location = new System.Drawing.Point(12, 480);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(881, 95);
@@ -1076,11 +1096,12 @@
             this.btn_cancelar_venta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar_venta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar_venta.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar_venta.Location = new System.Drawing.Point(689, 10);
+            this.btn_cancelar_venta.Location = new System.Drawing.Point(721, 216);
             this.btn_cancelar_venta.Name = "btn_cancelar_venta";
             this.btn_cancelar_venta.Size = new System.Drawing.Size(120, 75);
             this.btn_cancelar_venta.TabIndex = 64;
             this.btn_cancelar_venta.UseVisualStyleBackColor = false;
+            this.btn_cancelar_venta.Visible = false;
             this.btn_cancelar_venta.Click += new System.EventHandler(this.btn_cancelar_venta_Click);
             // 
             // btnBascula
@@ -1105,6 +1126,156 @@
             this.lblPesoRecibido.TabIndex = 64;
             this.lblPesoRecibido.Text = "0";
             this.lblPesoRecibido.Visible = false;
+            // 
+            // botonRedondo1
+            // 
+            this.botonRedondo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(68)))), ((int)(((byte)(53)))));
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(68)))), ((int)(((byte)(53)))));
+            this.botonRedondo1.BorderColor = System.Drawing.Color.Transparent;
+            this.botonRedondo1.BorderRadius = 20;
+            this.botonRedondo1.BorderSize = 0;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.box_open;
+            this.botonRedondo1.Location = new System.Drawing.Point(10, 10);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(116, 73);
+            this.botonRedondo1.TabIndex = 65;
+            this.botonRedondo1.Text = "Abrir caja (F2)";
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
+            // 
+            // botonRedondo2
+            // 
+            this.botonRedondo2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(173)))), ((int)(((byte)(23)))));
+            this.botonRedondo2.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(173)))), ((int)(((byte)(23)))));
+            this.botonRedondo2.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo2.BorderRadius = 20;
+            this.botonRedondo2.BorderSize = 0;
+            this.botonRedondo2.FlatAppearance.BorderSize = 0;
+            this.botonRedondo2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo2.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo2.Image = global::PuntoDeVentaV2.Properties.Resources.coins_in_hand;
+            this.botonRedondo2.Location = new System.Drawing.Point(144, 10);
+            this.botonRedondo2.Name = "botonRedondo2";
+            this.botonRedondo2.Size = new System.Drawing.Size(102, 73);
+            this.botonRedondo2.TabIndex = 66;
+            this.botonRedondo2.Text = "Aplic. Anticipo (Ctrl + A)";
+            this.botonRedondo2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.botonRedondo2.TextColor = System.Drawing.Color.White;
+            this.botonRedondo2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo2.UseVisualStyleBackColor = false;
+            this.botonRedondo2.Click += new System.EventHandler(this.botonRedondo2_Click);
+            // 
+            // botonRedondo7
+            // 
+            this.botonRedondo7.BackColor = System.Drawing.Color.PaleGreen;
+            this.botonRedondo7.BackGroundColor = System.Drawing.Color.PaleGreen;
+            this.botonRedondo7.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo7.BorderRadius = 10;
+            this.botonRedondo7.BorderSize = 0;
+            this.botonRedondo7.FlatAppearance.BorderSize = 0;
+            this.botonRedondo7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo7.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo7.Image = global::PuntoDeVentaV2.Properties.Resources.ticket1;
+            this.botonRedondo7.Location = new System.Drawing.Point(814, 26);
+            this.botonRedondo7.Name = "botonRedondo7";
+            this.botonRedondo7.Size = new System.Drawing.Size(49, 41);
+            this.botonRedondo7.TabIndex = 71;
+            this.botonRedondo7.TextColor = System.Drawing.Color.White;
+            this.botonRedondo7.UseVisualStyleBackColor = false;
+            this.botonRedondo7.Click += new System.EventHandler(this.botonRedondo7_Click);
+            // 
+            // botonRedondo3
+            // 
+            this.botonRedondo3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(112)))), ((int)(((byte)(28)))));
+            this.botonRedondo3.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(112)))), ((int)(((byte)(28)))));
+            this.botonRedondo3.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo3.BorderRadius = 20;
+            this.botonRedondo3.BorderSize = 0;
+            this.botonRedondo3.FlatAppearance.BorderSize = 0;
+            this.botonRedondo3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo3.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo3.Image = global::PuntoDeVentaV2.Properties.Resources.tag_yellow;
+            this.botonRedondo3.Location = new System.Drawing.Point(268, 10);
+            this.botonRedondo3.Name = "botonRedondo3";
+            this.botonRedondo3.Size = new System.Drawing.Size(119, 73);
+            this.botonRedondo3.TabIndex = 67;
+            this.botonRedondo3.Text = "Descuento cliente (Ctrl + D)";
+            this.botonRedondo3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.botonRedondo3.TextColor = System.Drawing.Color.White;
+            this.botonRedondo3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo3.UseVisualStyleBackColor = false;
+            this.botonRedondo3.Click += new System.EventHandler(this.botonRedondo3_Click);
+            // 
+            // botonRedondo4
+            // 
+            this.botonRedondo4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(154)))), ((int)(((byte)(132)))));
+            this.botonRedondo4.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(154)))), ((int)(((byte)(132)))));
+            this.botonRedondo4.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo4.BorderRadius = 20;
+            this.botonRedondo4.BorderSize = 0;
+            this.botonRedondo4.FlatAppearance.BorderSize = 0;
+            this.botonRedondo4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo4.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo4.Image = global::PuntoDeVentaV2.Properties.Resources.disk;
+            this.botonRedondo4.Location = new System.Drawing.Point(408, 10);
+            this.botonRedondo4.Name = "botonRedondo4";
+            this.botonRedondo4.Size = new System.Drawing.Size(137, 73);
+            this.botonRedondo4.TabIndex = 68;
+            this.botonRedondo4.Text = "Guardar venta / ppto. (Ctrl + G)";
+            this.botonRedondo4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.botonRedondo4.TextColor = System.Drawing.Color.White;
+            this.botonRedondo4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo4.UseVisualStyleBackColor = false;
+            this.botonRedondo4.Click += new System.EventHandler(this.botonRedondo4_Click);
+            // 
+            // botonRedondo5
+            // 
+            this.botonRedondo5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(119)))), ((int)(((byte)(147)))));
+            this.botonRedondo5.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(119)))), ((int)(((byte)(147)))));
+            this.botonRedondo5.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo5.BorderRadius = 20;
+            this.botonRedondo5.BorderSize = 0;
+            this.botonRedondo5.FlatAppearance.BorderSize = 0;
+            this.botonRedondo5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo5.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo5.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard_invoice;
+            this.botonRedondo5.Location = new System.Drawing.Point(561, 10);
+            this.botonRedondo5.Name = "botonRedondo5";
+            this.botonRedondo5.Size = new System.Drawing.Size(121, 73);
+            this.botonRedondo5.TabIndex = 69;
+            this.botonRedondo5.Text = "Ventas guardadas (Ctrl + M)";
+            this.botonRedondo5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.botonRedondo5.TextColor = System.Drawing.Color.White;
+            this.botonRedondo5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo5.UseVisualStyleBackColor = false;
+            this.botonRedondo5.Click += new System.EventHandler(this.botonRedondo5_Click);
+            // 
+            // botonRedondo6
+            // 
+            this.botonRedondo6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(99)))), ((int)(((byte)(63)))));
+            this.botonRedondo6.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(99)))), ((int)(((byte)(63)))));
+            this.botonRedondo6.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo6.BorderRadius = 20;
+            this.botonRedondo6.BorderSize = 0;
+            this.botonRedondo6.FlatAppearance.BorderSize = 0;
+            this.botonRedondo6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo6.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo6.Image = global::PuntoDeVentaV2.Properties.Resources.page_delete;
+            this.botonRedondo6.Location = new System.Drawing.Point(697, 10);
+            this.botonRedondo6.Name = "botonRedondo6";
+            this.botonRedondo6.Size = new System.Drawing.Size(100, 73);
+            this.botonRedondo6.TabIndex = 70;
+            this.botonRedondo6.Text = "Cancelar ventas previas";
+            this.botonRedondo6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.botonRedondo6.TextColor = System.Drawing.Color.White;
+            this.botonRedondo6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo6.UseVisualStyleBackColor = false;
+            this.botonRedondo6.Click += new System.EventHandler(this.botonRedondo6_Click);
             // 
             // Ventas
             // 
@@ -1237,5 +1408,12 @@
         private System.Windows.Forms.Button btn_cancelar_venta;
         private System.Windows.Forms.Button btnBascula;
         private System.Windows.Forms.Label lblPesoRecibido;
+        private BotonRedondo botonRedondo7;
+        private BotonRedondo botonRedondo6;
+        private BotonRedondo botonRedondo5;
+        private BotonRedondo botonRedondo4;
+        private BotonRedondo botonRedondo3;
+        private BotonRedondo botonRedondo2;
+        private BotonRedondo botonRedondo1;
     }
 }
