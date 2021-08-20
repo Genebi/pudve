@@ -1284,6 +1284,19 @@ namespace PuntoDeVentaV2
 
         private void GenerarReporte(int idReporte, int tipo = 0)
         {
+            Dictionary<Tuple<string, string>, int> diccionarioConDatosStaticosDinamicos = new Dictionary<Tuple<string, string>, int>();
+
+            var columnasDinamicas = 0;
+
+            if (rbAumentarProducto.Checked)
+            {
+
+            }
+            else if (rbDisminuirProducto.Checked)
+            {
+
+            }
+
             var datos = FormPrincipal.datosUsuario;
 
             var colorFuenteNegrita = new BaseColor(Color.Black);
