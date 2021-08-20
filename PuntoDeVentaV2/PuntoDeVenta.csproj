@@ -504,6 +504,12 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionDataDictionary.cs" />
     <Compile Include="ConexionNet.cs" />
+    <Compile Include="ConfiguracionGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfiguracionGeneral.Designer.cs">
+      <DependentUpon>ConfiguracionGeneral.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfiguracionMariaDB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -596,6 +602,12 @@
     </Compile>
     <Compile Include="Enviar_correo.Designer.cs">
       <DependentUpon>Enviar_correo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnvioDeCorreo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnvioDeCorreo.Designer.cs">
+      <DependentUpon>EnvioDeCorreo.cs</DependentUpon>
     </Compile>
     <Compile Include="EscogerTipoRespaldo.cs">
       <SubType>Form</SubType>
@@ -793,6 +805,12 @@
     <Compile Include="photoShow.Designer.cs">
       <DependentUpon>photoShow.cs</DependentUpon>
     </Compile>
+    <Compile Include="PorcentageGanancia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PorcentageGanancia.Designer.cs">
+      <DependentUpon>PorcentageGanancia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Productos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -938,6 +956,12 @@
       <DependentUpon>TestModificacion.cs</DependentUpon>
     </Compile>
     <Compile Include="TimbreFiscalDigitalv11_tdCFDI.cs" />
+    <Compile Include="TipoDeMoneda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TipoDeMoneda.Designer.cs">
+      <DependentUpon>TipoDeMoneda.cs</DependentUpon>
+    </Compile>
     <Compile Include="TipoHistorial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1152,6 +1176,9 @@
     <EmbeddedResource Include="ConceptosInhabilitados.resx">
       <DependentUpon>ConceptosInhabilitados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfiguracionGeneral.resx">
+      <DependentUpon>ConfiguracionGeneral.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfiguracionMariaDB.resx">
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
     </EmbeddedResource>
@@ -1196,6 +1223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Enviar_correo.resx">
       <DependentUpon>Enviar_correo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EnvioDeCorreo.resx">
+      <DependentUpon>EnvioDeCorreo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EscogerTipoRespaldo.resx">
       <DependentUpon>EscogerTipoRespaldo.cs</DependentUpon>
@@ -1290,6 +1320,9 @@
     <EmbeddedResource Include="photoShow.resx">
       <DependentUpon>photoShow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PorcentageGanancia.resx">
+      <DependentUpon>PorcentageGanancia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Productos.resx">
       <DependentUpon>Productos.cs</DependentUpon>
     </EmbeddedResource>
@@ -1351,6 +1384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestModificacion.resx">
       <DependentUpon>TestModificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TipoDeMoneda.resx">
+      <DependentUpon>TipoDeMoneda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TipoHistorial.resx">
       <DependentUpon>TipoHistorial.cs</DependentUpon>

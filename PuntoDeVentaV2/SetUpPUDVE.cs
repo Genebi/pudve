@@ -10,7 +10,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
-        RespadoBaseDatos backUp = new RespadoBaseDatos();
+        RespadoBaseDatos backUp = new RespadoBaseDatos(); 
 
         private int numeroRevision = 0;
 
@@ -985,6 +985,107 @@ namespace PuntoDeVentaV2
         {
             EditarTicket editTicket = new EditarTicket();
             editTicket.Show();
+        }
+
+        private void btnEnvioCorreo_Click(object sender, EventArgs e)
+        {
+            EnvioDeCorreo boton = new EnvioDeCorreo();
+            boton.Show();
+        }
+
+        private void btnRespaldarInformacion_Click(object sender, EventArgs e)
+        {
+            if (opcion4 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            //guardarArchivo.FileName = $"{FormPrincipal.userNickName}";
+            //guardarArchivo.Filter = "SQL (*.sql)|*.sql";
+            //guardarArchivo.FilterIndex = 1;
+            //guardarArchivo.RestoreDirectory = true;
+
+            //if (guardarArchivo.ShowDialog() == DialogResult.OK)
+            //{
+            //    try
+            //    {
+            //        string conexion = string.Empty;
+
+            //        if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            //        {
+            //            conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+            //        }
+            //        else
+            //        {
+            //            conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+            //        }
+
+            //        // Important Additional Connection Options
+            //        conexion += "charset=utf8;convertzerodatetime=true;";
+
+            //        string archivo = guardarArchivo.FileName;
+
+            //        using (MySqlConnection con = new MySqlConnection(conexion))
+            //        {
+            //            using (MySqlCommand cmd = new MySqlCommand())
+            //            {
+            //                using (MySqlBackup backup = new MySqlBackup(cmd))
+            //                {
+            //                    cmd.Connection = con;
+            //                    con.Open();
+            //                    backup.ExportToFile(archivo);
+            //                    con.Close();
+
+
+            //                    //if (validarMandarRespaldoCorreo())
+            //                    //{
+            //                    //    Enviar la base de datos por correo
+            //                    //    Thread hilo = new Thread(() => Utilidades.sendEmail(archivo));
+            //                    //    hilo.Start();
+            //                    //}
+            //                }
+            //            }
+            //        }
+
+            //        MessageBox.Show("Información respaldada exitosamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            EscogerTipoRespaldo tipoRespaldo = new EscogerTipoRespaldo();
+            var tipo = 0;
+
+            tipoRespaldo.FormClosed += delegate
+            {
+                tipo = EscogerTipoRespaldo.typeBackUp;
+
+
+                MessageBox.Show("Este proceso tardara unos minutos.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                backUp.crearsaveFile(tipo);
+            };
+
+            tipoRespaldo.ShowDialog();
+        }
+
+        private void btnConfiguracionGeneral_Click(object sender, EventArgs e)
+        {
+            ConfiguracionGeneral confiGeneral = new ConfiguracionGeneral();
+            confiGeneral.Show();
+        }
+
+        private void botonRedondo4_Click(object sender, EventArgs e)
+        {
+            PorcentageGanancia ganacia = new PorcentageGanancia();
+            ganacia.Show();
+        }
+
+        private void botonRedondo5_Click(object sender, EventArgs e)
+        {
+            TipoDeMoneda moneda = new TipoDeMoneda();
+            moneda.Show();
         }
     }
 }
