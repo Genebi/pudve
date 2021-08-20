@@ -164,7 +164,6 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                pnlLogo.Height = 0;
             }
             //if (FormPrincipal.datosUsuario[11].ToString() != "")
             //{

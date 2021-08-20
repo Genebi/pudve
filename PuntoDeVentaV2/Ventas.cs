@@ -5977,6 +5977,246 @@ namespace PuntoDeVentaV2
             btnEliminarDescuentos.PerformClick();
         }
 
+        private void botonRedondo1_Click(object sender, EventArgs e)
+        {
+            if (opcion12 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (Utilidades.AdobeReaderInstalado())
+            {
+                GenerarTicketCaja();
+            }
+            else
+            {
+                Utilidades.MensajeAdobeReader();
+            }
+        }
+
+        private void botonRedondo2_Click(object sender, EventArgs e)
+        {
+            if (opcion11 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (Application.OpenForms.OfType<ListadoAnticipos>().Count() == 1)
+            {
+                Application.OpenForms.OfType<ListadoAnticipos>().First().BringToFront();
+            }
+            else
+            {
+                ListadoAnticipos anticipo = new ListadoAnticipos(DGVentas.Rows.Count);
+
+                anticipo.FormClosed += delegate
+                {
+                    if (importeAnticipo > 0)
+                    {
+                        CantidadesFinalesVenta();
+                        importeAnticipo = 0f;
+                        btnEliminarAnticipos.Visible = true;
+                    }
+                };
+
+                anticipo.Show();
+            }
+        }
+
+        private void botonRedondo3_Click(object sender, EventArgs e)
+        {
+            if (opcion16 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (DGVentas.RowCount == 0)
+            {
+                MessageBox.Show("No hay productos agregados a la lista\npara aplicar el descuento", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using (var clientes = new ListaClientes(tipo: 1))
+            {
+                var respuesta = clientes.ShowDialog();
+
+                if (respuesta == DialogResult.OK)
+                {
+                    var datos = clientes.datosCliente;
+                    var cliente = string.Empty;
+
+                    idCliente = datos[18];
+
+                    var auxPrimero = string.IsNullOrWhiteSpace(datos[0]);
+                    var auxSegundo = string.IsNullOrWhiteSpace(datos[1]);
+                    var auxTercero = string.IsNullOrWhiteSpace(datos[17]);
+
+                    if (!auxPrimero) { cliente += $"Cliente: {datos[0]}"; }
+                    if (!auxSegundo) { cliente += $" --- RFC: {datos[1]}"; }
+                    if (!auxTercero) { cliente += $" --- No. {datos[17]}"; }
+
+                    var idTipoCliente = Convert.ToInt32(datos[16]);
+
+                    idClienteDescuento = Convert.ToInt32(datos[18]);
+
+                    if (idTipoCliente > 0)
+                    {
+                        var datosDescuento = mb.ObtenerTipoCliente(idTipoCliente);
+
+                        if (datosDescuento.Length > 0)
+                        {
+                            descuentoCliente = float.Parse(datosDescuento[1]) / 100;
+                            // Se reinicia a los valores por defecto el descuento general
+                            porcentajeGeneral = 0;
+                            txtDescuentoGeneral.Text = "% descuento";
+
+                            CantidadesFinalesVenta();
+                        }
+                    }
+
+                    lbDatosCliente.Text = cliente;
+                    lbEliminarCliente.Visible = true;
+                }
+            }
+        }
+
+        private void botonRedondo4_Click(object sender, EventArgs e)
+        {
+            if (opcion10 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+
+            if (DGVentas.RowCount > 0)
+            {
+                if (!string.IsNullOrWhiteSpace(listaAnticipos))
+                {
+                    MessageBox.Show("No se puede guardar esta venta ya que\ntiene un anticipo aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                ListaClientes cliente = new ListaClientes();
+
+                cliente.FormClosed += delegate
+                {
+                    if (ventaGuardada)
+                    {
+                        DatosVenta();
+                        liststock2.Clear();
+                        idCliente = string.Empty;
+                        statusVenta = string.Empty;
+                        ventaGuardada = false;
+                        DetalleVenta.idCliente = 0;
+                        DetalleVenta.cliente = string.Empty;
+                        DetalleVenta.nameClienteNameVenta = string.Empty;
+
+                    }
+                };
+
+                cliente.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No hay productos agregados a la lista", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void botonRedondo5_Click(object sender, EventArgs e)
+        {
+            if (opcion13 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
+            {
+                Application.OpenForms.OfType<ListadoVentasGuardadas>().First().BringToFront();
+            }
+            else
+            {
+                ListadoVentasGuardadas venta = new ListadoVentasGuardadas();
+
+                venta.FormClosed += delegate
+                {
+                    if (mostrarVenta > 0)
+                    {
+                        // Verifica si los productos guardados tienen descuento
+                        var datos = mb.ProductosGuardados(mostrarVenta);
+
+                        if (datos.Count > 0)
+                        {
+                            if (!ComprobarDescuento(datos))
+                            {
+                                mostrarVenta = 0;
+                                return;
+                            }
+                        }
+
+                        CargarVentaGuardada();
+
+                        ventasGuardadas.Add(mostrarVenta);
+
+                        mostrarVenta = 0;
+                    }
+                };
+
+                venta.Show();
+            }
+        }
+
+        private void botonRedondo6_Click(object sender, EventArgs e)
+        {
+            Ventana_cancelar_venta vnt_cancelar = new Ventana_cancelar_venta();
+
+            vnt_cancelar.FormClosed += delegate
+            {
+                if (mostrarVenta > 0)
+                {
+                    //Cargar la venta cancelada 
+                    CargarVentaGuardada();
+
+                    mostrarVenta = 0;
+                    txtBuscadorProducto.Text = string.Empty;
+                }
+            };
+
+            vnt_cancelar.ShowDialog();
+        }
+
+        private void botonRedondo7_Click(object sender, EventArgs e)
+        {
+            if (opcion14 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            try
+            {
+                var idVenta = cn.EjecutarSelect($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY ID DESC LIMIT 1", 1).ToString();
+
+                if (Utilidades.AdobeReaderInstalado())
+                {
+                    ImprimirTicket(idVenta);
+                }
+                else
+                {
+                    Utilidades.MensajeAdobeReader();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Aun no se han creado Tickets", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private void label10_Click(object sender, EventArgs e)
         {
             btnAplicarDescuento.PerformClick();

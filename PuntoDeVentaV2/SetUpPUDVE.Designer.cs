@@ -872,46 +872,50 @@
             // 
             // btnConfiguracionGeneral
             // 
-            this.btnConfiguracionGeneral.BackColor = System.Drawing.Color.Maroon;
-            this.btnConfiguracionGeneral.BackGroundColor = System.Drawing.Color.Maroon;
+            this.btnConfiguracionGeneral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnConfiguracionGeneral.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
             this.btnConfiguracionGeneral.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnConfiguracionGeneral.BorderRadius = 40;
             this.btnConfiguracionGeneral.BorderSize = 0;
             this.btnConfiguracionGeneral.FlatAppearance.BorderSize = 0;
             this.btnConfiguracionGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfiguracionGeneral.ForeColor = System.Drawing.Color.White;
+            this.btnConfiguracionGeneral.Image = global::PuntoDeVentaV2.Properties.Resources.gear_in;
             this.btnConfiguracionGeneral.Location = new System.Drawing.Point(315, 6);
             this.btnConfiguracionGeneral.Name = "btnConfiguracionGeneral";
             this.btnConfiguracionGeneral.Size = new System.Drawing.Size(132, 87);
             this.btnConfiguracionGeneral.TabIndex = 135;
             this.btnConfiguracionGeneral.Text = "Configuracion general";
             this.btnConfiguracionGeneral.TextColor = System.Drawing.Color.White;
+            this.btnConfiguracionGeneral.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnConfiguracionGeneral.UseVisualStyleBackColor = false;
             this.btnConfiguracionGeneral.Click += new System.EventHandler(this.btnConfiguracionGeneral_Click);
             // 
             // botonRedondo4
             // 
-            this.botonRedondo4.BackColor = System.Drawing.Color.Maroon;
-            this.botonRedondo4.BackGroundColor = System.Drawing.Color.Maroon;
+            this.botonRedondo4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.botonRedondo4.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
             this.botonRedondo4.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonRedondo4.BorderRadius = 40;
             this.botonRedondo4.BorderSize = 0;
             this.botonRedondo4.FlatAppearance.BorderSize = 0;
             this.botonRedondo4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botonRedondo4.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo4.Image = global::PuntoDeVentaV2.Properties.Resources.finance;
             this.botonRedondo4.Location = new System.Drawing.Point(462, 6);
             this.botonRedondo4.Name = "botonRedondo4";
             this.botonRedondo4.Size = new System.Drawing.Size(132, 87);
             this.botonRedondo4.TabIndex = 136;
             this.botonRedondo4.Text = "Porcentaje % de ganancia";
             this.botonRedondo4.TextColor = System.Drawing.Color.White;
+            this.botonRedondo4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.botonRedondo4.UseVisualStyleBackColor = false;
             this.botonRedondo4.Click += new System.EventHandler(this.botonRedondo4_Click);
             // 
             // botonRedondo1
             // 
-            this.botonRedondo1.BackColor = System.Drawing.Color.Maroon;
-            this.botonRedondo1.BackGroundColor = System.Drawing.Color.Maroon;
+            this.botonRedondo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
             this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonRedondo1.BorderRadius = 40;
             this.botonRedondo1.BorderSize = 0;
@@ -921,7 +925,7 @@
             this.botonRedondo1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botonRedondo1.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.ticket1;
+            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.cinema_ticket;
             this.botonRedondo1.Location = new System.Drawing.Point(3, 7);
             this.botonRedondo1.Name = "botonRedondo1";
             this.botonRedondo1.Size = new System.Drawing.Size(134, 87);
@@ -929,63 +933,70 @@
             this.botonRedondo1.Text = "Editar \r\nTicket";
             this.botonRedondo1.TextColor = System.Drawing.Color.White;
             this.botonRedondo1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo1.UseMnemonic = false;
             this.botonRedondo1.UseVisualStyleBackColor = false;
             this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
             // 
             // btnRespaldarInformacion
             // 
-            this.btnRespaldarInformacion.BackColor = System.Drawing.Color.Maroon;
-            this.btnRespaldarInformacion.BackGroundColor = System.Drawing.Color.Maroon;
+            this.btnRespaldarInformacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnRespaldarInformacion.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
             this.btnRespaldarInformacion.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnRespaldarInformacion.BorderRadius = 40;
             this.btnRespaldarInformacion.BorderSize = 0;
             this.btnRespaldarInformacion.FlatAppearance.BorderSize = 0;
             this.btnRespaldarInformacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRespaldarInformacion.ForeColor = System.Drawing.Color.White;
+            this.btnRespaldarInformacion.Image = global::PuntoDeVentaV2.Properties.Resources.saved_imports;
             this.btnRespaldarInformacion.Location = new System.Drawing.Point(765, 6);
             this.btnRespaldarInformacion.Name = "btnRespaldarInformacion";
             this.btnRespaldarInformacion.Size = new System.Drawing.Size(134, 87);
             this.btnRespaldarInformacion.TabIndex = 128;
             this.btnRespaldarInformacion.Text = "Respaldar información";
             this.btnRespaldarInformacion.TextColor = System.Drawing.Color.White;
+            this.btnRespaldarInformacion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnRespaldarInformacion.UseVisualStyleBackColor = false;
             this.btnRespaldarInformacion.Click += new System.EventHandler(this.btnRespaldarInformacion_Click);
             // 
             // botonRedondo5
             // 
-            this.botonRedondo5.BackColor = System.Drawing.Color.Maroon;
-            this.botonRedondo5.BackGroundColor = System.Drawing.Color.Maroon;
+            this.botonRedondo5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.botonRedondo5.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
             this.botonRedondo5.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonRedondo5.BorderRadius = 40;
             this.botonRedondo5.BorderSize = 0;
             this.botonRedondo5.FlatAppearance.BorderSize = 0;
             this.botonRedondo5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botonRedondo5.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo5.Image = global::PuntoDeVentaV2.Properties.Resources.money_dollar;
             this.botonRedondo5.Location = new System.Drawing.Point(613, 7);
             this.botonRedondo5.Name = "botonRedondo5";
             this.botonRedondo5.Size = new System.Drawing.Size(134, 89);
             this.botonRedondo5.TabIndex = 127;
             this.botonRedondo5.Text = "Tipo de moneda ($)";
             this.botonRedondo5.TextColor = System.Drawing.Color.White;
+            this.botonRedondo5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.botonRedondo5.UseVisualStyleBackColor = false;
             this.botonRedondo5.Click += new System.EventHandler(this.botonRedondo5_Click);
             // 
             // btnEnvioCorreo
             // 
-            this.btnEnvioCorreo.BackColor = System.Drawing.Color.Maroon;
-            this.btnEnvioCorreo.BackGroundColor = System.Drawing.Color.Maroon;
+            this.btnEnvioCorreo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnEnvioCorreo.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
             this.btnEnvioCorreo.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnEnvioCorreo.BorderRadius = 40;
             this.btnEnvioCorreo.BorderSize = 0;
             this.btnEnvioCorreo.FlatAppearance.BorderSize = 0;
             this.btnEnvioCorreo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnvioCorreo.ForeColor = System.Drawing.Color.White;
+            this.btnEnvioCorreo.Image = global::PuntoDeVentaV2.Properties.Resources.email_send_receive;
             this.btnEnvioCorreo.Location = new System.Drawing.Point(159, 7);
             this.btnEnvioCorreo.Name = "btnEnvioCorreo";
             this.btnEnvioCorreo.Size = new System.Drawing.Size(132, 87);
             this.btnEnvioCorreo.TabIndex = 134;
             this.btnEnvioCorreo.Text = "Envio de Correo";
             this.btnEnvioCorreo.TextColor = System.Drawing.Color.White;
+            this.btnEnvioCorreo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnEnvioCorreo.UseVisualStyleBackColor = false;
             this.btnEnvioCorreo.Click += new System.EventHandler(this.btnEnvioCorreo_Click);
             // 
