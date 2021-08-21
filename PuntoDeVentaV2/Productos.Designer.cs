@@ -283,7 +283,6 @@
             this.DGVProductos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGVProductos_CellFormatting);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
             this.DGVProductos.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseLeave);
-            this.DGVProductos.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellValueChanged);
             this.DGVProductos.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DGVProductos_RowPostPaint);
             this.DGVProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVProductos_KeyDown);
             // 
@@ -1072,7 +1071,6 @@
             this.linkLblPaginaAnterior.TabIndex = 14;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
-            this.linkLblPaginaAnterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPaginaAnterior_LinkClicked);
             this.linkLblPaginaAnterior.Click += new System.EventHandler(this.linkLblPaginaAnterior_Click);
             // 
             // btnActualizarMaximoProductos

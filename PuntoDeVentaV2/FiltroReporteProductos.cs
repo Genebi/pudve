@@ -310,6 +310,65 @@ namespace PuntoDeVentaV2
 
                 if (origen == 2)
                 {
+                    // Actualizar tablas de filtros para las etiquetas
+                    string[] conceptosEstaticos = new string[] { "Stock", "StockMinimo", "StockNecesario", "Precio", "NumeroRevision", "CantidadPedir", "Imagen", "Tipo" };
+
+                    foreach (var filtro in filtros)
+                    {
+                        var consulta = string.Empty;
+
+                        if (conceptosEstaticos.Contains(filtro.Key))
+                        {
+                            var concepto = filtro.Key.Equals("NumeroRevision") ? "Revision" : filtro.Key;
+                            var operador = filtro.Value.Item1.Equals("==") ? "=" : filtro.Value.Item1;
+                            var nombreConcepto = $"{filtro.Key} {operador}";
+
+                            if (filtro.Key.Equals("Imagen"))
+                            {
+                                var auxiliar = string.Empty;
+
+                                if (filtro.Value.Item1.Equals("1"))
+                                {
+                                    auxiliar = "<>";
+                                }
+                                else
+                                {
+                                    auxiliar = "=";
+                                }
+
+                                nombreConcepto = $"ProdImage {auxiliar} \\'\\'";
+                            }
+
+                            if (filtro.Key.Equals("Tipo"))
+                            {
+                                nombreConcepto = $"{filtro.Key} = {filtro.Value.Item1}";
+                            }
+
+                            
+                            var nombreCheckbox = $"chkBox{concepto}";
+
+                            var existenConceptos = mb.ObtenerDatosFiltro(nombreCheckbox, FormPrincipal.userID);
+
+                            if (existenConceptos.Count() > 0)
+                            {
+                                consulta = $"UPDATE FiltroProducto SET textComboBoxConcepto = '{nombreConcepto}', textCantidad = '{filtro.Value.Item2}' WHERE concepto = '{nombreConcepto}' AND IDUsuario = {FormPrincipal.userID}";
+                                cn.EjecutarConsulta(consulta);
+                            }
+                            else
+                            {
+                                consulta = "INSERT INTO FiltroProducto (concepto, checkBoxConcepto, textComboBoxConcepto, textCantidad, IDUsuario) VALUES";
+                                consulta += $"('{nombreCheckbox}', 1, '{nombreConcepto}', '{filtro.Value.Item2}', '{FormPrincipal.userID}')";
+                                cn.EjecutarConsulta(consulta);
+                            }
+                        }
+                        else
+                        {
+
+                        }
+
+                        
+                    }
+
                     Productos.filtros = filtros;
                     Close();
                 }

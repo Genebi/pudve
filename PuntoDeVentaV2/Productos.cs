@@ -2690,31 +2690,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void DGVProductos_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            //int cantSelected = 0;
-
-            //foreach (DataGridViewRow row in DGVProductos.Rows)
-            //{
-            //    bool seleccionado = Convert.ToBoolean(row.Cells[0].Value);
-
-            //    if (seleccionado)
-            //    {
-            //        cantSelected++;
-            //    }
-
-            //    if (cantSelected > 0)
-            //    {
-            //        lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
-            //    }
-            //    else
-            //    {
-            //        lbCantidadSeleccionada.Text = string.Empty;
-            //        //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
-            //    }
-            //}
-        }
-
         public void cargarListaSetUpVaribale()
         {
             string queryFiltroProducto = string.Empty;
@@ -2768,11 +2743,6 @@ namespace PuntoDeVentaV2
                 }
             }
             crearEtiquetaSetUpVariable();
-        }
-
-        private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
         }
         
 
@@ -5608,56 +5578,50 @@ namespace PuntoDeVentaV2
             Button btnTag = (Button)sender;
             string name = string.Empty, newtext = string.Empty;
             name = btnTag.Name.Remove(0, 8);
-            //DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //if (result == DialogResult.Yes)
-            //{
-                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+ 
+            foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+            {
+                if (item is Panel)
                 {
-                    if (item is Panel)
+                    if (item.Name.Equals("pEtiqueta" + name))
                     {
-                        if (item.Name.Equals("pEtiqueta" + name))
-                        {
-                            fLPDynamicTags.Controls.Remove(item);
-                        }
+                        fLPDynamicTags.Controls.Remove(item);
                     }
                 }
+            }
 
-                for (int i = 0; i < auxWord.Count; i++)
+            for (int i = 0; i < auxWord.Count; i++)
+            {
+                if (auxWord[i].Equals(name))
                 {
-                    if (auxWord[i].Equals(name))
-                    {
-                        auxWord.RemoveAt(i);
-                    }
+                    auxWord.RemoveAt(i);
                 }
+            }
 
-                string newCadenaBusqueda = string.Empty;
+            string newCadenaBusqueda = string.Empty;
 
-                for (int i = 0; i < auxWord.Count; i++)
-                {
-                    newCadenaBusqueda += auxWord[i].ToString() + " ";
-                }
+            for (int i = 0; i < auxWord.Count; i++)
+            {
+                newCadenaBusqueda += auxWord[i].ToString() + " ";
+            }
 
-                txtBusqueda.Text = newCadenaBusqueda.Trim();
-                txtBusqueda.Select(txtBusqueda.Text.Length, 0);
+            txtBusqueda.Text = newCadenaBusqueda.Trim();
+            txtBusqueda.Select(txtBusqueda.Text.Length, 0);
 
-                if (txtBusqueda.Text.Equals(""))
-                {
-                    CargarDatos();
-                }
-                else if (!txtBusqueda.Text.Equals(""))
-                {
-                    quitarEspacioEnBlanco();
-                    busquedaDelUsuario();
-                }
+            if (txtBusqueda.Text.Equals(""))
+            {
+                CargarDatos();
+            }
+            else if (!txtBusqueda.Text.Equals(""))
+            {
+                quitarEspacioEnBlanco();
+                busquedaDelUsuario();
+            }
 
-                txtBusqueda.Focus();
+            txtBusqueda.Focus();
 
-                verificarBotonLimpiarTags();
-            //}
-            //else if (result == DialogResult.No)
-            //{
-            //    txtBusqueda.Focus();
-            //}
+            verificarBotonLimpiarTags();
+
         }
 
         private void picBoxTagTex_Paint(object sender, PaintEventArgs e)
