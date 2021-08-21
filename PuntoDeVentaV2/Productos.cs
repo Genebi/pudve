@@ -644,6 +644,7 @@ namespace PuntoDeVentaV2
 
             filtroBusqueda.FormClosed += delegate
             {
+                creacionEtiquetasDinamicas();
                 CargarDatos(1, txtBusqueda.Text.Trim());
             };
 
@@ -2708,21 +2709,35 @@ namespace PuntoDeVentaV2
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
-                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
+                            }
+                        }
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxStockMinimo"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
+                            }
+                        }
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxStockNecesario"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
                         if (drFiltroProducto["concepto"].ToString().Equals("chkBoxPrecio"))
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
-                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
                         if (drFiltroProducto["concepto"].ToString().Equals("chkBoxRevision"))
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
-                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
                         if (drFiltroProducto["concepto"].ToString().Equals("chkBoxImagen"))
@@ -2737,6 +2752,13 @@ namespace PuntoDeVentaV2
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
                                 setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString());
+                            }
+                        }
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxCantidadPedir"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
                     }
