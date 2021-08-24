@@ -2953,9 +2953,6 @@
   <data name="behance_square1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\icon\black\behance-square.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bell1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\PUDVE\icon\black\bell.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="bell_o1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\icon\black\bell-o.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -5230,10 +5227,10 @@
   <data name="tag_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\icon\black\tag_yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bell2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bell.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="inbox_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inbox_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bellColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black16\bellColor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

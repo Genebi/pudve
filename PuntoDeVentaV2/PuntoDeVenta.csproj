@@ -1918,6 +1918,9 @@
     <Content Include="PUDVE\icon\black16\bell-slash-o.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black16\bellColor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black16\bicycle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
