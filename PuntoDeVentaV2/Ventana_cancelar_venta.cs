@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
             var id = mb.buscarIDConFolio(numFolio);
             var ultimaFechaCorte = mb.ObtenerFechaUltimoCorte();
             var fechaVenta = mb.ObtenerFechaVenta(id);
+            var statusVenta = mb.buscarTipoStatusVenta(numFolio);
 
             if (!string.IsNullOrWhiteSpace(txt_folio_nota.Text) && !string.IsNullOrEmpty(fechaVenta))
             {
@@ -49,7 +50,7 @@ namespace PuntoDeVentaV2
 
                     if (!string.IsNullOrWhiteSpace(folio))
                     {
-                        var consulta = $"SELECT ID FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Folio = {folio} AND Status = 1";
+                        var consulta = $"SELECT ID FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Folio = {folio}"; //AND Status = 1
                         // Verificar y obtener ID de la venta utilizando el folio
                         var existe = (bool)cn.EjecutarSelect(consulta);
 
@@ -141,26 +142,32 @@ namespace PuntoDeVentaV2
                                         var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
                                         // Operacion para que la devolucion del dinero afecte al apartado Caja
-                                        if (formasPago.Length > 0)
+                                        if (statusVenta.Equals(1))
                                         {
-                                            var total = formasPago.Sum().ToString();
-                                            var efectivo = formasPago[0].ToString();
-                                            var tarjeta = formasPago[1].ToString();
-                                            var vales = formasPago[2].ToString();
-                                            var cheque = formasPago[3].ToString();
-                                            var transferencia = formasPago[4].ToString();
-                                            var credito = formasPago[5].ToString();
-                                            var anticipo = "0";
+                                            if (formasPago.Length > 0)
+                                            {
+                                                var total = formasPago.Sum().ToString();
+                                                var efectivo = formasPago[0].ToString();
+                                                var tarjeta = formasPago[1].ToString();
+                                                var vales = formasPago[2].ToString();
+                                                var cheque = formasPago[3].ToString();
+                                                var transferencia = formasPago[4].ToString();
+                                                var credito = formasPago[5].ToString();
+                                                var anticipo = "0";
 
-                                            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                            var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+                                                var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
 
-                                            string[] datos = new string[] {
+                                                string[] datos = new string[] {
                                                 "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                                                 efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
                                             };
 
-                                            cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                            }
+                                        }else if (statusVenta.Equals(4))
+                                        {
+
                                         }
                                     }
 

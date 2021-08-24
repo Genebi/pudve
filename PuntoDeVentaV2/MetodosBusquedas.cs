@@ -108,6 +108,20 @@ namespace PuntoDeVentaV2
             return idVenta;
         }
 
+        public int buscarTipoStatusVenta(string folio)
+        {
+            var result = 0;
+
+            var query = cn.CargarDatos($"SELECT `Status` AS estatus FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio = '{folio}'");
+            
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToInt16(query.Rows[0]["estatus"].ToString());
+            }
+
+            return result;
+        }
+
         public string ObtenerFechaVenta(int id)
         {
             string fechaVenta = string.Empty;

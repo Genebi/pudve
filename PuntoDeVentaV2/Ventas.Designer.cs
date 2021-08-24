@@ -80,6 +80,8 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_cancelar_venta = new System.Windows.Forms.Button();
+            this.btnClientes = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnAplicarDescuento = new System.Windows.Forms.Button();
@@ -102,16 +104,12 @@
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.checkCancelar = new System.Windows.Forms.CheckBox();
             this.btnConsultar = new System.Windows.Forms.Button();
-            this.btnClientes = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lFolio = new System.Windows.Forms.TextBox();
             this.timer_img_producto = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.btn_cancelar_venta = new System.Windows.Forms.Button();
-            this.btnBascula = new System.Windows.Forms.Button();
-            this.lblPesoRecibido = new System.Windows.Forms.Label();
             this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo7 = new PuntoDeVentaV2.BotonRedondo();
@@ -119,6 +117,8 @@
             this.botonRedondo4 = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo5 = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo6 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnBascula = new System.Windows.Forms.Button();
+            this.lblPesoRecibido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -702,6 +702,42 @@
             this.panel1.Size = new System.Drawing.Size(890, 389);
             this.panel1.TabIndex = 34;
             // 
+            // btn_cancelar_venta
+            // 
+            this.btn_cancelar_venta.BackColor = System.Drawing.Color.Transparent;
+            this.btn_cancelar_venta.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_cancelar_venta.BackgroundImage")));
+            this.btn_cancelar_venta.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_cancelar_venta.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_cancelar_venta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_cancelar_venta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancelar_venta.ForeColor = System.Drawing.Color.White;
+            this.btn_cancelar_venta.Location = new System.Drawing.Point(721, 216);
+            this.btn_cancelar_venta.Name = "btn_cancelar_venta";
+            this.btn_cancelar_venta.Size = new System.Drawing.Size(120, 75);
+            this.btn_cancelar_venta.TabIndex = 64;
+            this.btn_cancelar_venta.UseVisualStyleBackColor = false;
+            this.btn_cancelar_venta.Visible = false;
+            this.btn_cancelar_venta.Click += new System.EventHandler(this.btn_cancelar_venta_Click);
+            // 
+            // btnClientes
+            // 
+            this.btnClientes.BackColor = System.Drawing.Color.Transparent;
+            this.btnClientes.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClientes.BackgroundImage")));
+            this.btnClientes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClientes.ForeColor = System.Drawing.Color.White;
+            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnClientes.Location = new System.Drawing.Point(268, 216);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(140, 75);
+            this.btnClientes.TabIndex = 44;
+            this.btnClientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnClientes.UseVisualStyleBackColor = false;
+            this.btnClientes.Visible = false;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
+            // 
             // panel4
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -752,6 +788,7 @@
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDescuentoGeneral.Enter += new System.EventHandler(this.txtDescuentoGeneral_Enter);
+            this.txtDescuentoGeneral.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyDown);
             this.txtDescuentoGeneral.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyUp);
             // 
             // btnEliminarDescuentos
@@ -984,25 +1021,6 @@
             this.btnConsultar.UseVisualStyleBackColor = true;
             this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
-            // btnClientes
-            // 
-            this.btnClientes.BackColor = System.Drawing.Color.Transparent;
-            this.btnClientes.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClientes.BackgroundImage")));
-            this.btnClientes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClientes.ForeColor = System.Drawing.Color.White;
-            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnClientes.Location = new System.Drawing.Point(268, 216);
-            this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(140, 75);
-            this.btnClientes.TabIndex = 44;
-            this.btnClientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnClientes.UseVisualStyleBackColor = false;
-            this.btnClientes.Visible = false;
-            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -1086,46 +1104,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(881, 95);
             this.panel5.TabIndex = 63;
-            // 
-            // btn_cancelar_venta
-            // 
-            this.btn_cancelar_venta.BackColor = System.Drawing.Color.Transparent;
-            this.btn_cancelar_venta.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_cancelar_venta.BackgroundImage")));
-            this.btn_cancelar_venta.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_cancelar_venta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_cancelar_venta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_cancelar_venta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_cancelar_venta.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar_venta.Location = new System.Drawing.Point(721, 216);
-            this.btn_cancelar_venta.Name = "btn_cancelar_venta";
-            this.btn_cancelar_venta.Size = new System.Drawing.Size(120, 75);
-            this.btn_cancelar_venta.TabIndex = 64;
-            this.btn_cancelar_venta.UseVisualStyleBackColor = false;
-            this.btn_cancelar_venta.Visible = false;
-            this.btn_cancelar_venta.Click += new System.EventHandler(this.btn_cancelar_venta_Click);
-            // 
-            // btnBascula
-            // 
-            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
-            this.btnBascula.Location = new System.Drawing.Point(253, 20);
-            this.btnBascula.Name = "btnBascula";
-            this.btnBascula.Size = new System.Drawing.Size(105, 40);
-            this.btnBascula.TabIndex = 0;
-            this.btnBascula.Text = "Tomar Peso Ctrl + T";
-            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnBascula.UseVisualStyleBackColor = true;
-            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
-            // 
-            // lblPesoRecibido
-            // 
-            this.lblPesoRecibido.AutoSize = true;
-            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
-            this.lblPesoRecibido.Name = "lblPesoRecibido";
-            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
-            this.lblPesoRecibido.TabIndex = 64;
-            this.lblPesoRecibido.Text = "0";
-            this.lblPesoRecibido.Visible = false;
             // 
             // botonRedondo1
             // 
@@ -1276,6 +1254,29 @@
             this.botonRedondo6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.botonRedondo6.UseVisualStyleBackColor = false;
             this.botonRedondo6.Click += new System.EventHandler(this.botonRedondo6_Click);
+            // 
+            // btnBascula
+            // 
+            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
+            this.btnBascula.Location = new System.Drawing.Point(253, 20);
+            this.btnBascula.Name = "btnBascula";
+            this.btnBascula.Size = new System.Drawing.Size(105, 40);
+            this.btnBascula.TabIndex = 0;
+            this.btnBascula.Text = "Tomar Peso Ctrl + T";
+            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnBascula.UseVisualStyleBackColor = true;
+            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
+            // 
+            // lblPesoRecibido
+            // 
+            this.lblPesoRecibido.AutoSize = true;
+            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
+            this.lblPesoRecibido.Name = "lblPesoRecibido";
+            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
+            this.lblPesoRecibido.TabIndex = 64;
+            this.lblPesoRecibido.Text = "0";
+            this.lblPesoRecibido.Visible = false;
             // 
             // Ventas
             // 

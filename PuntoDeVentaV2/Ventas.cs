@@ -5556,6 +5556,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
+                //var dividirDato = txtDescuentoGeneral.Text.ToString().Split('\n');
                 string[] words = txtDescuentoGeneral.Text.ToString().Split('%');
 
                 if (words.Count() > 0)
@@ -6215,6 +6216,17 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Aun no se han creado Tickets", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void txtDescuentoGeneral_KeyDown(object sender, KeyEventArgs e)
+        {
+            var cantidadDescuento = txtDescuentoGeneral.Text;
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAplicarDescuento.PerformClick();
+            }
+
+            txtDescuentoGeneral.Text = cantidadDescuento.Replace("\r\n", "");
         }
 
         private void label10_Click(object sender, EventArgs e)
