@@ -369,7 +369,7 @@ namespace PuntoDeVentaV2
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
 
-            var numRow = 0;
+
 
             // Ruta donde se creara el archivo PDF
             var servidor = Properties.Settings.Default.Hosting;
@@ -394,6 +394,9 @@ namespace PuntoDeVentaV2
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
 
             Paragraph Usuario = new Paragraph("");
+
+            Paragraph nombreClienteHeader = new Paragraph("");
+
 
             //Paragraph numeroFolio = new Paragraph("");
 
@@ -430,58 +433,91 @@ namespace PuntoDeVentaV2
             // Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
 
-            //============================
-            //=== TABLA DE INVENTARIO  ===
-            //============================
-
             PdfPTable tablaClientes = new PdfPTable(4);
-            tablaClientes.WidthPercentage = 70;
-            tablaClientes.SetWidths(anchoColumnas);
 
-            PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
-            colNoConcepto.BorderWidth = 1;
-            colNoConcepto.BackgroundColor = new BaseColor(Color.SkyBlue);
-            colNoConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
+            //if (!consultaCliente.Rows.Count.Equals(0))
+            //{
+            var nombreTemporal = string.Empty;
 
-            PdfPCell colNombre = new PdfPCell(new Phrase("NOMBRE", fuenteTotales));
-            colNombre.BorderWidth = 1;
-            colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
-            colNombre.Padding = 3;
-            colNombre.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            PdfPCell colPrecio = new PdfPCell(new Phrase("PRECIO", fuenteTotales));
-            colPrecio.BorderWidth = 1;
-            colPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
-            colPrecio.Padding = 3;
-            colPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            PdfPCell colCodigoBarras = new PdfPCell(new Phrase("CODIGO DE BARRAS", fuenteTotales));
-            colCodigoBarras.BorderWidth = 1;
-            colCodigoBarras.HorizontalAlignment = Element.ALIGN_CENTER;
-            colCodigoBarras.Padding = 3;
-            colCodigoBarras.BackgroundColor = new BaseColor(Color.SkyBlue);
-
-            tablaClientes.AddCell(colNoConcepto);
-            tablaClientes.AddCell(colNombre);
-            tablaClientes.AddCell(colPrecio);
-            tablaClientes.AddCell(colCodigoBarras);
+            int incremento = 0;
+            //foreach (DataRow item in consultaCliente.Rows)
+            //{
+            var numRow = 0;
 
             DataTable consulta = new DataTable();
 
             if (multiplesID)
             {
-                consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Name, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente NOT IN ({idMultiples}) AND Prod.`Status` = 1;"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
+                consulta = cn.CargarDatos($"SELECT Prod.Nombre AS Nombre, Prod.Precio AS Price,	Prod.CodigoBarras AS Codigo, Vendidos.Cliente AS Cliente, IFNULL(Vendidos.Cliente, 'Sin Comprar') AS Situacion FROM	Productos AS Prod LEFT JOIN (SELECT	Prod.ID AS NoProducto,	Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo,	Vent.Cliente AS Cliente	FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ProdVent.IDProducto = Prod.ID LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Vent.IDCliente IN ({idMultiples}) AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}' ) AS Vendidos ON Prod.ID = Vendidos.NoProducto WHERE Vendidos.Cliente IS NULL AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}'");
+               /* consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo, Vent.Cliente AS Cliente FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente NOT IN ({idMultiples}) AND Prod.`Status` = 1;");*/ //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
             }
             else
             {
-                consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Name, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente != '{id}' AND Prod.`Status` = 1;"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
+                consulta = cn.CargarDatos($"SELECT Prod.Nombre AS Nombre, Prod.Precio AS Price,	Prod.CodigoBarras AS Codigo, Vendidos.Cliente AS Cliente, IFNULL(Vendidos.Cliente, 'Sin Comprar') AS Situacion FROM	Productos AS Prod LEFT JOIN (SELECT	Prod.ID AS NoProducto,	Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo,	Vent.Cliente AS Cliente	FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ProdVent.IDProducto = Prod.ID LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Vent.IDCliente = '{id}' AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}' ) AS Vendidos ON Prod.ID = Vendidos.NoProducto WHERE Vendidos.Cliente IS NULL AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}'");
+                /*consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo, Vent.Cliente AS Cliente FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente != '{id}' AND Prod.`Status` = 1;");*/ //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
             }
+
+            var nombre = string.Empty;
+            var precio = string.Empty;
+            var codigo = string.Empty;
+            var nombreCliente = string.Empty;
+
+            var validarHeader = string.Empty;
 
             foreach (DataRow row in consulta.Rows)
             {
-                var nombre = row["Name"].ToString();
-                var precio = row["Price"].ToString();
-                var codigo = row["Codigo"].ToString();
+                nombre = row["Nombre"].ToString();
+                precio = row["Price"].ToString();
+                codigo = row["Codigo"].ToString();
+                nombreCliente = row["Cliente"].ToString();
+
+                //Valida si es diferente nombre de cliente para agregar un nuevo header
+                if (!nombreCliente.Equals(validarHeader))
+                {
+                    PdfPCell colSeparador = new PdfPCell(new Phrase(Chunk.NEWLINE));
+                    colSeparador.Colspan = 10;
+                    colSeparador.BorderWidth = 0;
+
+                    tablaClientes.WidthPercentage = 70;
+                    tablaClientes.SetWidths(anchoColumnas);
+
+                    PdfPCell colNombreCliente = new PdfPCell(new Phrase(nombreCliente, fuenteNegrita));
+                    colNombreCliente.Colspan = 10;
+                    colNombreCliente.BorderWidth = 0;
+                    colNombreCliente.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
+                    colNoConcepto.BorderWidth = 1;
+                    colNoConcepto.BackgroundColor = new BaseColor(Color.SkyBlue);
+                    colNoConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colNombre = new PdfPCell(new Phrase("NOMBRE", fuenteTotales));
+                    colNombre.BorderWidth = 1;
+                    colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colNombre.Padding = 3;
+                    colNombre.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+                    PdfPCell colPrecio = new PdfPCell(new Phrase("PRECIO", fuenteTotales));
+                    colPrecio.BorderWidth = 1;
+                    colPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colPrecio.Padding = 3;
+                    colPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+                    PdfPCell colCodigoBarras = new PdfPCell(new Phrase("CODIGO DE BARRAS", fuenteTotales));
+                    colCodigoBarras.BorderWidth = 1;
+                    colCodigoBarras.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colCodigoBarras.Padding = 3;
+                    colCodigoBarras.BackgroundColor = new BaseColor(Color.SkyBlue);
+
+                    tablaClientes.AddCell(colSeparador);
+                    tablaClientes.AddCell(colNombreCliente);
+                    tablaClientes.AddCell(colNoConcepto);
+                    tablaClientes.AddCell(colNombre);
+                    tablaClientes.AddCell(colPrecio);
+                    tablaClientes.AddCell(colCodigoBarras);
+
+                    numRow = 0;
+                }
 
                 numRow++;
                 PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
@@ -492,7 +528,7 @@ namespace PuntoDeVentaV2
                 colNombreTmp.BorderWidth = 1;
                 colNombreTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$ "+precio.ToString(), fuenteNormal));
+                PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$ " + precio.ToString(), fuenteNormal));
                 colPrecioTmp.BorderWidth = 1;
                 colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
@@ -505,8 +541,8 @@ namespace PuntoDeVentaV2
                 tablaClientes.AddCell(colPrecioTmp);
                 tablaClientes.AddCell(colCodigoBarrasTmp);
 
+                validarHeader = nombre;
             }
-
             reporte.Add(titulo);
             reporte.Add(Usuario);
             //reporte.Add(numeroFolio);
@@ -514,7 +550,7 @@ namespace PuntoDeVentaV2
             reporte.Add(tablaClientes);
 
             //================================
-            //=== FIN TABLA DE INVENTARIO  ===
+            //=== FIN TABLA CLIENTES  =======
             //================================
 
             reporte.AddTitle("Reporte Inventario");
@@ -879,21 +915,6 @@ namespace PuntoDeVentaV2
             // Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
 
-            //============================
-            //=== TABLA DE INVENTARIO  ===
-            //============================
-            //DataTable consultaCliente = new DataTable();
-
-            //if (!multiplesId)
-            //{
-            //    consultaCliente = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RazonSocial = '{nameCliente}'");
-            //}
-            //else
-            //{
-            //    consultaCliente = cn.CargarDatos($"SELECT * FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({idCliente})");
-            //}
-
-
             PdfPTable tablaClientes = new PdfPTable(4);
 
             //if (!consultaCliente.Rows.Count.Equals(0))
@@ -1005,14 +1026,6 @@ namespace PuntoDeVentaV2
                     tablaClientes.AddCell(colCantidadTmp);
                     tablaClientes.AddCell(colFechaTmp);
 
-                    //reporte.Add(Chunk.NEWLINE);
-
-                    //reporte.Add(nombreClienteHeader);
-                    //}
-                    //       }
-                    //}
-                    //}
-
                 validarHeader = nombreCliente;
             }
                     reporte.Add(titulo);
@@ -1020,11 +1033,9 @@ namespace PuntoDeVentaV2
                     //reporte.Add(numeroFolio);
                     reporte.Add(subTitulo);
                     reporte.Add(tablaClientes);
-                
-
         
             //================================
-            //=== FIN TABLA DE INVENTARIO  ===
+            //=== FIN TABLA CLIENTES  =======
             //================================
 
             reporte.AddTitle("Reporte Inventario");
