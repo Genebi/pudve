@@ -6217,6 +6217,17 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtDescuentoGeneral_KeyDown(object sender, KeyEventArgs e)
+        {
+            var cantidadDescuento = txtDescuentoGeneral.Text;
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAplicarDescuento.PerformClick();
+            }
+
+            txtDescuentoGeneral.Text = cantidadDescuento.Replace("\r\n","");
+        }
+
         private void label10_Click(object sender, EventArgs e)
         {
             btnAplicarDescuento.PerformClick();
