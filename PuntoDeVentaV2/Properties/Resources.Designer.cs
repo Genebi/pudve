@@ -1850,6 +1850,16 @@ namespace PuntoDeVentaV2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bell2 {
+            get {
+                object obj = ResourceManager.GetObject("bell2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bicycle {
             get {
                 object obj = ResourceManager.GetObject("bicycle", resourceCulture);
@@ -8393,6 +8403,16 @@ namespace PuntoDeVentaV2.Properties {
         internal static System.Drawing.Bitmap inbox {
             get {
                 object obj = ResourceManager.GetObject("inbox", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap inbox_empty {
+            get {
+                object obj = ResourceManager.GetObject("inbox_empty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
