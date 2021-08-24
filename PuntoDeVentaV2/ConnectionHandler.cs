@@ -367,7 +367,7 @@ namespace PuntoDeVentaV2
                                                         FROM productos AS P 
                                                         WHERE Status = 1
                                                         AND IDUsuario = {FormPrincipal.userID.ToString()}
-                                                        ORDER BY P.Nombre ASC";
+                                                        ORDER BY P.Nombre DESC";
 
             ////Actualizar IdUsuario en tabla Usuarios en MySQL
             //using (MySqlConnection conexion = new MySqlConnection(connectionString))
