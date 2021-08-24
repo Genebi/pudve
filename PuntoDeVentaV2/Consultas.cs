@@ -1596,7 +1596,62 @@ namespace PuntoDeVentaV2
 
         public string SearchDGVAumentarInventario(int NoRev)
         {
-            var consulta = $"SELECT * FROM DGVAumentarInventario WHERE NoRevision = {NoRev} AND StatusActualizacion = 1 AND IDUsuario = {FormPrincipal.userID}";
+            //var consulta = $"SELECT * FROM DGVAumentarInventario WHERE NoRevision = {NoRev} AND StatusActualizacion = 1 AND IDUsuario = {FormPrincipal.userID}";
+
+            var consulta = string.Empty;
+            var queryAppSetting = $"SELECT * FROM appsettings WHERE IDUsuario = '{FormPrincipal.userID}' AND checkBoxConcepto = '1' AND Mostrar = '1' AND concepto <> 'Proveedor';";
+            var queryRepAumenInv = "SELECT * FROM ReporteAumentarInventario;";
+            var queryRepAumenInvExtended = "SELECT * FROM ReporteAumentarInventarioExtended";
+
+            List<string> columnasDinamicas = new List<string>();
+
+            consulta = $"CREATE OR REPLACE VIEW ReporteAumentarInventario AS SELECT PlusInv.*, GralDetail.ID AS IDConcepto, IFNULL( GralDetail.ChckName, \"N / A\" ) AS Concepto, IFNULL( GralDetail.Descripcion, \"N / A\" ) AS Descripcion FROM dgvaumentarinventario AS PlusInv LEFT JOIN detallesproductogenerales AS GralDetailProd ON GralDetailProd.IDProducto = PlusInv.IdProducto LEFT JOIN detallegeneral AS GralDetail ON GralDetail.ID = GralDetailProd.IDDetalleGral WHERE PlusInv.IdUsuario = '{FormPrincipal.userID}' AND PlusInv.StatusActualizacion = '1' AND PlusInv.NoRevision = '{NoRev}' ORDER BY PlusInv.IDProducto;";
+
+            cn.crearViewDinamica(consulta);
+
+            using (DataTable dtConceptosDinamicosVisiblesActivos = cn.CargarDatos(queryAppSetting))
+            {
+                if (!dtConceptosDinamicosVisiblesActivos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in dtConceptosDinamicosVisiblesActivos.Rows)
+                    {
+                        columnasDinamicas.Add(item["concepto"].ToString());
+                    }
+
+                    bool isEmpty = !columnasDinamicas.Any();
+
+                    int limite = 0;
+                    var count = 0;
+
+                    if (!isEmpty)
+                    {
+                        limite = columnasDinamicas.Count;
+                    }
+
+                    using (DataTable dtReporteAumentarInventario = cn.CargarDatos(queryRepAumenInv))
+                    {
+                        if (!dtReporteAumentarInventario.Rows.Count.Equals(0))
+                        {
+                            var queryCrearRemplazarView = string.Empty;
+
+                            queryCrearRemplazarView = "CREATE OR REPLACE VIEW ReporteAumentarInventarioExtended AS SELECT repAumInv.id, repAumInv.IdProducto AS No, repAumInv.NombreProducto AS Producto, repAumInv.NombreEmisor AS Proveedor, repAumInv.DiferenciaUnidades AS Unidades_Compradas, repAumInv.ValorUnitario AS Precio_Compra, repAumInv.Precio AS Precio_Venta, repAumInv.NuevoStock AS Stock_Anterior, repAumInv.StockActual AS Stock_Actual, repAumInv.Fecha AS Fecha_Compra, repAumInv.Comentarios AS Comentarios, /* repAumInv.Clave, repAumInv.Codigo, repAumInv.NoRevision, repAumInv.StatusActualizacion, repAumInv.IdUsuario, repAumInv.IDEmpleado, repAumInv.NameUsr,repAumInv.Folio, repAumInv.IDConcepto, */ ";
+
+                            foreach (var item in columnasDinamicas)
+                            {
+                                queryCrearRemplazarView += $" GROUP_CONCAT( DISTINCT IF ( repAumInv.Concepto = \"{item.ToString()}\", repAumInv.Descripcion, NULL ) ) AS {item.ToString()},";
+                            }
+
+                            queryCrearRemplazarView = queryCrearRemplazarView.Remove(queryCrearRemplazarView.Length - 1);
+
+                            queryCrearRemplazarView += " FROM reporteaumentarinventario AS repAumInv GROUP BY repAumInv.id ORDER BY repAumInv.NombreProducto, repAumInv.StockActual DESC;";
+
+                            cn.crearViewDinamica(queryCrearRemplazarView);
+
+                            consulta = queryRepAumenInvExtended;
+                        }
+                    }
+                }
+            }
 
             return consulta;
         }

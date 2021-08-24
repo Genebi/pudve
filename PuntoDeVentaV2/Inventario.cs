@@ -1284,40 +1284,112 @@ namespace PuntoDeVentaV2
 
         private void GenerarReporte(int idReporte, int tipo = 0)
         {
-            Dictionary<Tuple<string, string>, int> diccionarioConDatosStaticosDinamicos = new Dictionary<Tuple<string, string>, int>();
-
+            int anchoLogo = 110;
+            int altoLogo = 60;
+            float unitsBoughtDiminished = 0,
+                  boughtPrice = 0,
+                  salesPrice = 0,
+                  lastStock = 0,
+                  currentStock = 0;
+            var datos = FormPrincipal.datosUsuario;
+            var colorFuenteNegrita = new BaseColor(Color.Black);
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var servidor = Properties.Settings.Default.Hosting;
+            var rutaArchivo = string.Empty;
+            var numRow = 0;
+            var diccionarioConDatosStaticosDinamicos = new Dictionary<Tuple<string, string>, float>();
             var columnasDinamicas = 0;
+
+            string[] ValueConceptos = { };
+            float[] anchoColumnas;
+            var position = 0;
+
+            int i = 0;
 
             if (rbAumentarProducto.Checked)
             {
+                var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
 
+                using (DataTable dtAumentarInventario = cn.CargarDatos(cs.SearchDGVAumentarInventario(NoRev)))
+                {
+                    if (!dtAumentarInventario.Rows.Count.Equals(0))
+                    {
+                        var numeroColumnasDinamicas = dtAumentarInventario.Columns.Count;
+                        string[] columnasReporte = { };
+                        var incremento = 1;
+
+                        columnasDinamicas = numeroColumnasDinamicas;
+                        
+                        foreach (DataColumn item in dtAumentarInventario.Columns)
+                        {
+                            var concepto = item.ToString();
+
+                            if (concepto.Equals("No"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "30"), 30f);
+                            }
+                            else if (concepto.Equals("Producto"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "245"), 245f);
+                            }
+                            else if (concepto.Equals("Proveedor"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "200"), 200f);
+                            }
+                            else if (concepto.Equals("Unidades_Compradas"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "80"), 80f);
+                            }
+                            else if (concepto.Equals("Precio_Compra"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "70"), 70f);
+                            }
+                            else if (concepto.Equals("Precio_Venta"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "70"), 70f);
+                            }
+                            else if (concepto.Equals("Stock_Anterior"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "55"), 55f);
+                            }
+                            else if (concepto.Equals("Stock_Actual"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "55"), 55f);
+                            }
+                            else if (concepto.Equals("Fecha_Compra"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "80"), 80f);
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>("Fecha_Operacion", "80"), 80f);
+                            }
+                            else if (concepto.Equals("Comentarios"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "100"), 100f);
+                            }
+                            else if (!concepto.Equals("id") && 
+                                     !concepto.Equals("No") && 
+                                     !concepto.Equals("Producto") && 
+                                     !concepto.Equals("Proveedor") && 
+                                     !concepto.Equals("Unidades_Compradas") && 
+                                     !concepto.Equals("Precio_Compra") && 
+                                     !concepto.Equals("Precio_Venta") && 
+                                     !concepto.Equals("Stock_Anterior") && 
+                                     !concepto.Equals("Stock_Actual") && 
+                                     !concepto.Equals("Fecha_Compra") && 
+                                     !concepto.Equals("Comentarios"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "100"), 100f);
+                            }
+                        }
+                    }
+                }
             }
             else if (rbDisminuirProducto.Checked)
             {
 
             }
-
-            var datos = FormPrincipal.datosUsuario;
-
-            var colorFuenteNegrita = new BaseColor(Color.Black);
-
-            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
-            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
-            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-
-            int anchoLogo = 110;
-            int altoLogo = 60;
-
-            var servidor = Properties.Settings.Default.Hosting;
-            var rutaArchivo = string.Empty;
-
-            var numRow = 0;
-            float unitsBoughtDiminished = 0,
-                  boughtPrice = 0, 
-                  salesPrice = 0, 
-                  lastStock = 0, 
-                  currentStock = 0;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
@@ -1332,9 +1404,20 @@ namespace PuntoDeVentaV2
             // Producto = 245f,       Proveedor = 200f,     Unidades Compradas = 80f,     Precio compra = 70f,      Precio venta = 70f,
             // Stock anterior = 55f   Stock actual = 55f,   Fecha de compra = 80f,        Fecha de operación = 80f  Comentarios = 200f
             // float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
-            string[] ValueConceptos = new string[] {  "30", "245", "200", "80", "70", "70", "55", "55", "80", "80", "200" };
-            float[] anchoColumnas;
-            var position = 0;
+            //string[] ValueConceptos = new string[] {  "30", "245", "200", "80", "70", "70", "55", "55", "80", "80", "200" };
+
+            ValueConceptos = new string[columnasDinamicas];
+            anchoColumnas = new float[columnasDinamicas];
+
+            foreach (var item in diccionarioConDatosStaticosDinamicos)
+            {
+                var concepto = item.Key.Item2.ToString();
+                var ancho = item.Value.ToString();
+                var valueAncho = (float)Convert.ToDouble(ancho);
+                ValueConceptos[i] = concepto;
+                anchoColumnas[i] = valueAncho;
+                i++;
+            }
 
             if (tipo.Equals(0))
             {

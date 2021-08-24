@@ -792,5 +792,15 @@ namespace PuntoDeVentaV2
 
             return stringConnection;
         }
+
+        public void crearViewDinamica(string consulta)
+        {
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+            sql_con.Close();
+        }
     }
 }
