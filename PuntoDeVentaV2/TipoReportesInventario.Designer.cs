@@ -47,9 +47,9 @@
             // 
             // btnActualizarInventarioDisminuir
             // 
-            this.btnActualizarInventarioDisminuir.BackColor = System.Drawing.Color.DarkRed;
-            this.btnActualizarInventarioDisminuir.BackGroundColor = System.Drawing.Color.DarkRed;
-            this.btnActualizarInventarioDisminuir.BorderColor = System.Drawing.Color.DarkRed;
+            this.btnActualizarInventarioDisminuir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnActualizarInventarioDisminuir.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnActualizarInventarioDisminuir.BorderColor = System.Drawing.Color.Empty;
             this.btnActualizarInventarioDisminuir.BorderRadius = 40;
             this.btnActualizarInventarioDisminuir.BorderSize = 1;
             this.btnActualizarInventarioDisminuir.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -72,9 +72,9 @@
             // 
             // btnActualizarInventarioAumentar
             // 
-            this.btnActualizarInventarioAumentar.BackColor = System.Drawing.Color.DarkRed;
-            this.btnActualizarInventarioAumentar.BackGroundColor = System.Drawing.Color.DarkRed;
-            this.btnActualizarInventarioAumentar.BorderColor = System.Drawing.Color.DarkRed;
+            this.btnActualizarInventarioAumentar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnActualizarInventarioAumentar.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnActualizarInventarioAumentar.BorderColor = System.Drawing.Color.Empty;
             this.btnActualizarInventarioAumentar.BorderRadius = 40;
             this.btnActualizarInventarioAumentar.BorderSize = 1;
             this.btnActualizarInventarioAumentar.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -97,9 +97,9 @@
             // 
             // btnActualizarInventarioNew
             // 
-            this.btnActualizarInventarioNew.BackColor = System.Drawing.Color.MediumBlue;
-            this.btnActualizarInventarioNew.BackGroundColor = System.Drawing.Color.MediumBlue;
-            this.btnActualizarInventarioNew.BorderColor = System.Drawing.Color.MediumBlue;
+            this.btnActualizarInventarioNew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnActualizarInventarioNew.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnActualizarInventarioNew.BorderColor = System.Drawing.Color.Empty;
             this.btnActualizarInventarioNew.BorderRadius = 40;
             this.btnActualizarInventarioNew.BorderSize = 1;
             this.btnActualizarInventarioNew.Cursor = System.Windows.Forms.Cursors.Hand;

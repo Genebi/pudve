@@ -5233,4 +5233,19 @@
   <data name="bellColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\icon\black16\bellColor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cash_register" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\cash_register.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="report" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\report.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="report_2_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\report(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="report_user" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\report_user.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="research" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\research.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

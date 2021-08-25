@@ -4486,6 +4486,9 @@
     <Content Include="PUDVE\icon\black\cart-plus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\cash_register.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\cc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -5768,6 +5771,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\reply-all.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\report.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\report%282%29.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\report_user.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\research.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\resistance.png">

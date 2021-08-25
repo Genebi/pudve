@@ -2848,6 +2848,16 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cash_register {
+            get {
+                object obj = ResourceManager.GetObject("cash_register", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INSERT IGNORE INTO Catalogo_monedas 
         ///(clave_moneda, descripcion, cant_decimales)
         ///VALUES
@@ -12173,6 +12183,46 @@ namespace PuntoDeVentaV2.Properties {
         internal static System.Drawing.Bitmap reply1 {
             get {
                 object obj = ResourceManager.GetObject("reply1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap report {
+            get {
+                object obj = ResourceManager.GetObject("report", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap report_2_ {
+            get {
+                object obj = ResourceManager.GetObject("report_2_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap report_user {
+            get {
+                object obj = ResourceManager.GetObject("report_user", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap research {
+            get {
+                object obj = ResourceManager.GetObject("research", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
