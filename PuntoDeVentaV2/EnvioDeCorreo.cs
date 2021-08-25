@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         int opcion1 = 1;    // Servidor
         int opcion2 = 1;    // Numero revision
@@ -67,9 +68,56 @@ namespace PuntoDeVentaV2
         };
         public EnvioDeCorreo() 
         { 
-            InitializeComponent();
+            InitializeComponent(); 
         }
+        private void VerificarConfiguracion()
+        {
+            var existe = (bool)cn.EjecutarSelect($"SELECT * FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
 
+            if (existe)
+            {
+                var datosConfig = mb.ComprobarConfiguracion();
+
+                cbCorreoPrecioProducto.Checked = Convert.ToBoolean(datosConfig[0]);
+                check5 = cbCorreoPrecioProducto.Checked;
+
+                cbCorreoStockProducto.Checked = Convert.ToBoolean(datosConfig[1]);
+                check6 = cbCorreoStockProducto.Checked;
+
+                cbCorreoStockMinimo.Checked = Convert.ToBoolean(datosConfig[2]);
+                check7 = cbCorreoStockMinimo.Checked;
+
+                cbCorreoVenderProducto.Checked = Convert.ToBoolean(datosConfig[3]);
+                check8 = cbCorreoVenderProducto.Checked;
+
+                cbCorreoAgregarDineroCaja.Checked = Convert.ToBoolean(datosConfig[13]);
+                check16 = cbCorreoAgregarDineroCaja.Checked;
+
+                cbCorreoRetirarDineroCaja.Checked = Convert.ToBoolean(datosConfig[14]);
+                check17 = cbCorreoRetirarDineroCaja.Checked;
+
+                cbCorreoCerrarVentanaVentas.Checked = Convert.ToBoolean(datosConfig[15]);
+                check18 = cbCorreoCerrarVentanaVentas.Checked;
+
+                cbCorreoEliminarListaProductosVentas.Checked = Convert.ToBoolean(datosConfig[19]);
+                check22 = cbCorreoEliminarListaProductosVentas.Checked;
+
+                cbCorreoCorteCaja.Checked = Convert.ToBoolean(datosConfig[20]);
+                check23 = cbCorreoCorteCaja.Checked;
+
+                cbCorreoVenta.Checked = Convert.ToBoolean(datosConfig[21]);
+
+                cbCorreoIniciar.Checked = Convert.ToBoolean(datosConfig[22]);
+
+                cbCorreoDescuento.Checked = Convert.ToBoolean(datosConfig[23]);
+
+                chRespaldo.Checked = Convert.ToBoolean(datosConfig[24]);
+            }
+            else
+            {
+                cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{FormPrincipal.userID}')");
+            }
+        }
         private void cbCorreoAgregarDineroCaja_CheckedChanged(object sender, EventArgs e)
         {
             if (opcion16.Equals(0))
@@ -332,6 +380,12 @@ namespace PuntoDeVentaV2
                 //    };
                 //}
             }
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void EnvioDeCorreo_Load(object sender, EventArgs e)
+        {
+            VerificarConfiguracion();
         }
     }
 }

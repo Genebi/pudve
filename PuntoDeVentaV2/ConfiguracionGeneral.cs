@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         // Permiso de botones
         int opcion1 = 1;    // Servidor
@@ -59,9 +60,47 @@ namespace PuntoDeVentaV2
         bool check21 = false;
         bool check22 = false;
         bool check23 = false;
-        public ConfiguracionGeneral()
+        public ConfiguracionGeneral() 
         {
             InitializeComponent();
+        }
+
+        private void VerificarConfiguracion()
+        {
+            var existe = (bool)cn.EjecutarSelect($"SELECT * FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (existe)
+            {
+                var datosConfig = mb.ComprobarConfiguracion();
+
+                checkCBVenta.Checked = Convert.ToBoolean(datosConfig[4]);
+                check10 = checkCBVenta.Checked;
+
+
+                pagWeb.Checked = Convert.ToBoolean(datosConfig[5]);
+                check11 = pagWeb.Checked;
+
+                cbMostrarPrecio.Checked = Convert.ToBoolean(datosConfig[6]);
+                check12 = cbMostrarPrecio.Checked;
+
+                cbMostrarCB.Checked = Convert.ToBoolean(datosConfig[7]);
+                check13 = cbMostrarCB.Checked;
+
+                checkMayoreo.Checked = Convert.ToBoolean(datosConfig[9]);
+                check14 = checkMayoreo.Checked;
+                txtMinimoMayoreo.Text = datosConfig[10].ToString();
+
+                checkNoVendidos.Checked = Convert.ToBoolean(datosConfig[11]);
+                check15 = checkNoVendidos.Checked;
+                txtNoVendidos.Text = datosConfig[12].ToString();
+
+
+                chTicketVentas.Checked = Convert.ToBoolean(datosConfig[25]);
+            }
+            else
+            {
+                cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{FormPrincipal.userID}')");
+            }
         }
 
         private void checkCBVenta_CheckedChanged(object sender, EventArgs e)
@@ -267,5 +306,16 @@ namespace PuntoDeVentaV2
 
             //cn.EjecutarConsulta($"UPDATE Configuracion SET diasNoVendidos = {cantidad} WHERE IDUsuario = {FormPrincipal.userID}");
         }
+
+        private void ConfiguracionGeneral_Load(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.StockNegativo)
+            {
+                cbStockNegativo.Checked = true;
+            }
+            VerificarConfiguracion();
+        }
+
+
     }
 }

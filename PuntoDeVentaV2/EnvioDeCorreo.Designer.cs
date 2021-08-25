@@ -256,6 +256,7 @@
             this.Name = "EnvioDeCorreo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EnvioDeCorreo";
+            this.Load += new System.EventHandler(this.EnvioDeCorreo_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
