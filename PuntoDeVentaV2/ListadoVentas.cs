@@ -698,7 +698,7 @@ namespace PuntoDeVentaV2
 
                     if (validarFechaVenta > validarFechaCorte)
                     {
-                        var datoREsultado = string.Empty;
+                        var datoResultado = string.Empty;
 
                         if (opcion1 == 0)
                         {
@@ -1079,7 +1079,7 @@ namespace PuntoDeVentaV2
                                 var obtenerStatusVenta = $"SELECT Status FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'";
                                 var statusObtenido = cn.CargarDatos(obtenerStatusVenta);
 
-                                datoREsultado = statusObtenido.Rows[0]["Status"].ToString();
+                                datoResultado = statusObtenido.Rows[0]["Status"].ToString();
 
                                 // Cancelar la venta
                                 int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
