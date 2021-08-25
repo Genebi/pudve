@@ -15,7 +15,7 @@ namespace PuntoDeVentaV2
         private int numeroRevision = 0;
 
         public static bool recargarDatos = false;
-
+         
         // Permiso de botones
         int opcion1 = 1;    // Servidor
         int opcion2 = 1;    // Numero revision

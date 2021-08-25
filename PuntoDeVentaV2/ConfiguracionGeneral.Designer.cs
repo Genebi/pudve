@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkCerrarSesionCorte = new System.Windows.Forms.CheckBox();
             this.chTicketVentas = new System.Windows.Forms.CheckBox();
             this.checkCBVenta = new System.Windows.Forms.CheckBox();
             this.pagWeb = new System.Windows.Forms.CheckBox();
@@ -50,6 +51,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox2.Controls.Add(this.chkCerrarSesionCorte);
             this.groupBox2.Controls.Add(this.chTicketVentas);
             this.groupBox2.Controls.Add(this.checkCBVenta);
             this.groupBox2.Controls.Add(this.pagWeb);
@@ -66,9 +68,20 @@
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(8, 31);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(859, 130);
+            this.groupBox2.Size = new System.Drawing.Size(859, 161);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
+            // 
+            // chkCerrarSesionCorte
+            // 
+            this.chkCerrarSesionCorte.AutoSize = true;
+            this.chkCerrarSesionCorte.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkCerrarSesionCorte.Location = new System.Drawing.Point(11, 107);
+            this.chkCerrarSesionCorte.Name = "chkCerrarSesionCorte";
+            this.chkCerrarSesionCorte.Size = new System.Drawing.Size(258, 21);
+            this.chkCerrarSesionCorte.TabIndex = 129;
+            this.chkCerrarSesionCorte.Text = "Cerrar sesion al hacer corte de caja";
+            this.chkCerrarSesionCorte.UseVisualStyleBackColor = true;
             // 
             // chTicketVentas
             // 
@@ -239,11 +252,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(873, 188);
+            this.ClientSize = new System.Drawing.Size(873, 204);
             this.Controls.Add(this.groupBox2);
             this.Name = "ConfiguracionGeneral";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
+            this.Load += new System.EventHandler(this.ConfiguracionGeneral_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -266,5 +280,6 @@
         private System.Windows.Forms.CheckBox checkMayoreo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMinimoMayoreo;
+        private System.Windows.Forms.CheckBox chkCerrarSesionCorte;
     }
 }
