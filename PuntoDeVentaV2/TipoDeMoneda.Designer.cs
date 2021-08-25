@@ -239,6 +239,7 @@
             this.cboTipoMoneda.Name = "cboTipoMoneda";
             this.cboTipoMoneda.Size = new System.Drawing.Size(172, 21);
             this.cboTipoMoneda.TabIndex = 133;
+            this.cboTipoMoneda.SelectedIndexChanged += new System.EventHandler(this.cboTipoMoneda_SelectedIndexChanged);
             // 
             // TipoDeMoneda
             // 
@@ -250,6 +251,7 @@
             this.Name = "TipoDeMoneda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TipoDeMoneda";
+            this.Load += new System.EventHandler(this.TipoDeMoneda_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

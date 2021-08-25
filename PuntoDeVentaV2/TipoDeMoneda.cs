@@ -16,5 +16,25 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
         }
+
+        private void TipoDeMoneda_Load(object sender, EventArgs e)
+        {
+            if (cboTipoMoneda.Text.Equals(string.Empty))
+            {
+                cboTipoMoneda.SelectedIndex = 113;
+                FormPrincipal.Moneda = cboTipoMoneda.Text;
+            }
+        }
+
+        private void cboTipoMoneda_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FormPrincipal.Moneda = cboTipoMoneda.SelectedItem.ToString();
+            Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
+
+            if (producto != null)
+            {
+                producto.recargarDGV();
+            }
+        }
     }
 }

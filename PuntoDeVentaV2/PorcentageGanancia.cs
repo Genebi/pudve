@@ -14,9 +14,10 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         int opcion3 = 1;
-        public PorcentageGanancia()
+        public PorcentageGanancia() 
         {
             InitializeComponent();
         }
@@ -56,6 +57,26 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Por favor ingrese numeros", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPorcentajeProducto.Focus();
             }
+        }
+
+        private void VerificarConfiguracion()
+        {
+            var existe = (bool)cn.EjecutarSelect($"SELECT * FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (existe)
+            {
+                var datosConfig = mb.ComprobarConfiguracion();
+
+                txtPorcentajeProducto.Text = datosConfig[8].ToString();
+            }
+            else
+            {
+                cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{FormPrincipal.userID}')");
+            }
+        }
+        private void PorcentageGanancia_Load(object sender, EventArgs e)
+        {
+            VerificarConfiguracion();
         }
     }
 }
