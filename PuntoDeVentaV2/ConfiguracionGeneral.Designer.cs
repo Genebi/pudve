@@ -82,6 +82,7 @@
             this.chkCerrarSesionCorte.TabIndex = 129;
             this.chkCerrarSesionCorte.Text = "Cerrar sesion al hacer corte de caja";
             this.chkCerrarSesionCorte.UseVisualStyleBackColor = true;
+            this.chkCerrarSesionCorte.Visible = false;
             // 
             // chTicketVentas
             // 
