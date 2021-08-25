@@ -2549,5 +2549,11 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string verConceptosDinamicosActivos()
+        {
+            var consulta = $"SELECT * FROM appsettings WHERE IDUsuario = '{FormPrincipal.userID}' AND checkBoxConcepto = '1' AND Mostrar = '1' AND concepto <> 'Proveedor';";
+
+            return consulta; 
+        }
     }
 }  
