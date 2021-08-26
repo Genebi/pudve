@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
         int opcion21 = 1;   // Correo Eliminar Ultimo Producto agregado listado Ventas
         int opcion22 = 1;   // Correo Eliminar Lista Producto de Ventas
         int opcion23 = 1;   // Correo al hacer Corte de Caja
+        int opcion26 = 1;
 
         bool check5 = false;
         bool check6 = false;
@@ -60,6 +61,7 @@ namespace PuntoDeVentaV2
         bool check21 = false;
         bool check22 = false;
         bool check23 = false;
+        bool check26 = false;
         public ConfiguracionGeneral() 
         {
             InitializeComponent();
@@ -94,8 +96,9 @@ namespace PuntoDeVentaV2
                 check15 = checkNoVendidos.Checked;
                 txtNoVendidos.Text = datosConfig[12].ToString();
 
-
                 chTicketVentas.Checked = Convert.ToBoolean(datosConfig[25]);
+
+                chkCerrarSesionCorte.Checked = Convert.ToBoolean(datosConfig[26]);
             }
             else
             {
@@ -316,6 +319,17 @@ namespace PuntoDeVentaV2
             VerificarConfiguracion();
         }
 
+        private void chkCerrarSesionCorte_CheckedChanged(object sender, EventArgs e)
+        {
 
+            var habilitado = 0;
+
+            if (chkCerrarSesionCorte.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
     }
 }

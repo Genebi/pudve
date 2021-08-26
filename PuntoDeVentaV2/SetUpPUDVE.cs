@@ -984,13 +984,13 @@ namespace PuntoDeVentaV2
         private void botonRedondo1_Click(object sender, EventArgs e)
         {
             EditarTicket editTicket = new EditarTicket();
-            editTicket.Show();
+            editTicket.ShowDialog();
         }
 
         private void btnEnvioCorreo_Click(object sender, EventArgs e)
         {
             EnvioDeCorreo boton = new EnvioDeCorreo();
-            boton.Show();
+            boton.ShowDialog();
         }
 
         private void btnRespaldarInformacion_Click(object sender, EventArgs e)
@@ -1073,19 +1073,19 @@ namespace PuntoDeVentaV2
         private void btnConfiguracionGeneral_Click(object sender, EventArgs e)
         {
             ConfiguracionGeneral confiGeneral = new ConfiguracionGeneral();
-            confiGeneral.Show();
+            confiGeneral.ShowDialog();
         }
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
             PorcentageGanancia ganacia = new PorcentageGanancia();
-            ganacia.Show();
+            ganacia.ShowDialog();
         }
 
         private void botonRedondo5_Click(object sender, EventArgs e)
         {
             TipoDeMoneda moneda = new TipoDeMoneda();
-            moneda.Show();
+            moneda.ShowDialog();
         }
     }
 }
