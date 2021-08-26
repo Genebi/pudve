@@ -3618,8 +3618,8 @@ namespace PuntoDeVentaV2
         private void btnRightSetUpVariable_Click(object sender, EventArgs e)
         {
             Button btnTag = (Button)sender;
-            string name = string.Empty, newtext = string.Empty;
-            name = btnTag.Name.Remove(0, 8);
+            string name = btnTag.Name.Remove(0, 8); 
+            string newtext = string.Empty;
 
             // Cuando se remueve una etiqueta estatica se quita del diccionario filtros y se vuelve a hacer la consulta de busqueda solo con las etiquetas restantes
             var diccionarioAux = filtros;
@@ -3628,7 +3628,9 @@ namespace PuntoDeVentaV2
             {
                 foreach (var filtro in filtros.ToList())
                 {
-                    if (filtro.Key == name)
+                    var auxiliar = filtro.Key.Equals("Imagen") ? "ProdImage" : filtro.Key;
+
+                    if (auxiliar == name)
                     {
                         if (diccionarioAux.ContainsKey(filtro.Key))
                         {
@@ -3660,7 +3662,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            MessageBox.Show(name);
+            MessageBox.Show(filtros.Count().ToString());
 
             if (name.Equals("Precio"))
             {
