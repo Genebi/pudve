@@ -877,6 +877,7 @@
             this.btnConfiguracionGeneral.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnConfiguracionGeneral.BorderRadius = 40;
             this.btnConfiguracionGeneral.BorderSize = 0;
+            this.btnConfiguracionGeneral.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConfiguracionGeneral.FlatAppearance.BorderSize = 0;
             this.btnConfiguracionGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfiguracionGeneral.ForeColor = System.Drawing.Color.White;
@@ -898,6 +899,7 @@
             this.botonRedondo4.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonRedondo4.BorderRadius = 40;
             this.botonRedondo4.BorderSize = 0;
+            this.botonRedondo4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.botonRedondo4.FlatAppearance.BorderSize = 0;
             this.botonRedondo4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botonRedondo4.ForeColor = System.Drawing.Color.White;
@@ -944,6 +946,7 @@
             this.btnRespaldarInformacion.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnRespaldarInformacion.BorderRadius = 40;
             this.btnRespaldarInformacion.BorderSize = 0;
+            this.btnRespaldarInformacion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRespaldarInformacion.FlatAppearance.BorderSize = 0;
             this.btnRespaldarInformacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRespaldarInformacion.ForeColor = System.Drawing.Color.White;
@@ -965,6 +968,7 @@
             this.botonRedondo5.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonRedondo5.BorderRadius = 40;
             this.botonRedondo5.BorderSize = 0;
+            this.botonRedondo5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.botonRedondo5.FlatAppearance.BorderSize = 0;
             this.botonRedondo5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botonRedondo5.ForeColor = System.Drawing.Color.White;
@@ -986,6 +990,7 @@
             this.btnEnvioCorreo.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnEnvioCorreo.BorderRadius = 40;
             this.btnEnvioCorreo.BorderSize = 0;
+            this.btnEnvioCorreo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEnvioCorreo.FlatAppearance.BorderSize = 0;
             this.btnEnvioCorreo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnvioCorreo.ForeColor = System.Drawing.Color.White;
