@@ -36,7 +36,7 @@ namespace PuntoDeVentaV2
         public string mensajeExito = "";
         public bool ban = false;
 
-
+        public string RFCUsuario = string.Empty;
         
 
 
@@ -45,14 +45,19 @@ namespace PuntoDeVentaV2
             InitializeComponent();            
         }
 
-        private void cargar_datos(object sender, EventArgs e)
+        private void cargar_datos()
         {
-            // Si la variable es false entonces el nombre de la carpeta cambiará.
-            if(MisDatos.usuario_ini == false)
+            if (!string.IsNullOrWhiteSpace(RFCUsuario))
             {
-                ruta_guardar_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\"; 
+                txt_rfc.Text = RFCUsuario;
             }
-   
+
+            // Si la variable es false entonces el nombre de la carpeta cambiará.
+            if (MisDatos.usuario_ini == false)
+            {
+                ruta_guardar_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+            }
+
 
             if (Directory.Exists(ruta_guardar_archivos))
             {
@@ -90,7 +95,7 @@ namespace PuntoDeVentaV2
 
                     i++;*/
                 }
-                
+
 
                 if (txt_certificado.Text == "" & txt_llave.Text == "")
                 {
@@ -103,14 +108,13 @@ namespace PuntoDeVentaV2
 
 
                 // Obtiene rfc, fecha de caducidad y contraseña
-
                 result = cn.CargarDatos(cs.archivos_digitales(id_usuario, 2));
 
-                if(result.Rows.Count != 0)
+                if (result.Rows.Count != 0)
                 {
                     row = result.Rows[0];
 
-                    txt_rfc.Text = row["RFC"].ToString();
+                    //txt_rfc.Text = row["RFC"].ToString();
                     txt_password.Text = row["password_cer"].ToString();
 
                     string fecha = row["fecha_caducidad_cer"].ToString();
@@ -159,6 +163,11 @@ namespace PuntoDeVentaV2
                 // Descomprime el zip y lo mueve solo si es el archivo correcto
 
                 var ruta_origen_pem = ruta_origen_sinzip + @"Pudve_gpem";
+
+                if (Directory.Exists(ruta_origen_pem + @"\"))
+                {
+                    Directory.Delete(ruta_origen_pem + @"\", true);
+                }
 
                 if (!Directory.Exists(ruta_origen_pem))
                 {
@@ -437,7 +446,11 @@ namespace PuntoDeVentaV2
         {
             MisDatos md = new MisDatos();
             md.cargar_archivos();
+        }
 
+        private void Subir_archivos_digitales_Load(object sender, EventArgs e)
+        {
+            cargar_datos();
         }
 
         private void tipo_validacion(int opc, string ruta_destino)

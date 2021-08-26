@@ -442,7 +442,6 @@ namespace PuntoDeVentaV2
                     //    Utilidades.MensajeAdobeReader();
                     //}
                 }
-
                 Close();
             }
         }

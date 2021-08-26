@@ -699,7 +699,17 @@ namespace PuntoDeVentaV2
                         
                     };
 
-                    subir_arch.Show();
+                    if (!string.IsNullOrWhiteSpace(txtRFC.Text))
+                    {
+                        subir_arch.RFCUsuario = txtRFC.Text;
+                        subir_arch.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Es necesario tengá sú RFC; registrado en sus datos favor de registrarlo", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtRFC.SelectAll();
+                        txtRFC.Focus();
+                    }
                 } 
             }
         }

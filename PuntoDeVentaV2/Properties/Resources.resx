@@ -2953,9 +2953,6 @@
   <data name="behance_square1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\icon\black\behance-square.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bell1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\PUDVE\icon\black\bell.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="bell_o1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\icon\black\bell-o.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -5167,7 +5164,6 @@
   <data name="IconoRelacionProductoMessageBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\IconoRelacionProductoMessageBox.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-
   <data name="aumentarInventario" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\icon\botones\aumentarInventario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -5191,9 +5187,65 @@
   </data>
   <data name="statistics1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\icon\black16\statistics.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    </data>
+  </data>
   <data name="BotonEditarTicket" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\icon\botones\BotonEditarTicket.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-
+  </data>
+  <data name="box_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\box_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cinema_ticket" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\cinema_ticket.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="clipboard_invoice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\clipboard_invoice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="coins_in_hand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\coins_in_hand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\disk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="email_send_receive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\email_send_receive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="finance" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\finance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gear_in" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\gear_in.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="money_dollar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\money_dollar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="page_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\page_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="saved_imports" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\saved_imports.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tag_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\tag_yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="inbox_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inbox_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bellColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black16\bellColor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cash_register" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\cash_register.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="report" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\report.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="report_2_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\report(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="report_user" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\report_user.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="research" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\research.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

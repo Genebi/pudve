@@ -92,9 +92,8 @@
       <HintPath>..\packages\Control.Draggable.1.0.5049.269\lib\net35-Client\Control.Draggable.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="CustomControlPUDVE, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Downloads\CustomControlPUDVE.dll</HintPath>
+    <Reference Include="CustomControlPUDVE">
+      <HintPath>..\..\..\..\..\Downloads\CustomControlPUDVE.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -504,6 +503,12 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionDataDictionary.cs" />
     <Compile Include="ConexionNet.cs" />
+    <Compile Include="ConfiguracionGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfiguracionGeneral.Designer.cs">
+      <DependentUpon>ConfiguracionGeneral.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfiguracionMariaDB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -596,6 +601,12 @@
     </Compile>
     <Compile Include="Enviar_correo.Designer.cs">
       <DependentUpon>Enviar_correo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnvioDeCorreo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnvioDeCorreo.Designer.cs">
+      <DependentUpon>EnvioDeCorreo.cs</DependentUpon>
     </Compile>
     <Compile Include="EscogerTipoRespaldo.cs">
       <SubType>Form</SubType>
@@ -793,6 +804,12 @@
     <Compile Include="photoShow.Designer.cs">
       <DependentUpon>photoShow.cs</DependentUpon>
     </Compile>
+    <Compile Include="PorcentageGanancia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PorcentageGanancia.Designer.cs">
+      <DependentUpon>PorcentageGanancia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Productos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -938,6 +955,12 @@
       <DependentUpon>TestModificacion.cs</DependentUpon>
     </Compile>
     <Compile Include="TimbreFiscalDigitalv11_tdCFDI.cs" />
+    <Compile Include="TipoDeMoneda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TipoDeMoneda.Designer.cs">
+      <DependentUpon>TipoDeMoneda.cs</DependentUpon>
+    </Compile>
     <Compile Include="TipoHistorial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1152,6 +1175,9 @@
     <EmbeddedResource Include="ConceptosInhabilitados.resx">
       <DependentUpon>ConceptosInhabilitados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfiguracionGeneral.resx">
+      <DependentUpon>ConfiguracionGeneral.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfiguracionMariaDB.resx">
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
     </EmbeddedResource>
@@ -1196,6 +1222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Enviar_correo.resx">
       <DependentUpon>Enviar_correo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EnvioDeCorreo.resx">
+      <DependentUpon>EnvioDeCorreo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EscogerTipoRespaldo.resx">
       <DependentUpon>EscogerTipoRespaldo.cs</DependentUpon>
@@ -1290,6 +1319,9 @@
     <EmbeddedResource Include="photoShow.resx">
       <DependentUpon>photoShow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PorcentageGanancia.resx">
+      <DependentUpon>PorcentageGanancia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Productos.resx">
       <DependentUpon>Productos.cs</DependentUpon>
     </EmbeddedResource>
@@ -1351,6 +1383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestModificacion.resx">
       <DependentUpon>TestModificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TipoDeMoneda.resx">
+      <DependentUpon>TipoDeMoneda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TipoHistorial.resx">
       <DependentUpon>TipoHistorial.cs</DependentUpon>
@@ -1880,6 +1915,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black16\bell-slash-o.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black16\bellColor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black16\bicycle.png">
@@ -4351,6 +4389,9 @@
     <Content Include="PUDVE\icon\black\bookmark-o.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\box_open.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\braille.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4444,6 +4485,9 @@
     <Content Include="PUDVE\icon\black\cart-plus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\cash_register.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\cc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4525,6 +4569,9 @@
     <Content Include="PUDVE\icon\black\chrome.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\cinema_ticket.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\circle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4538,6 +4585,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\clipboard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\clipboard_invoice.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\clock-o.png">
@@ -4580,6 +4630,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\cogs.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\coins_in_hand.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\columns.png">
@@ -4687,6 +4740,9 @@
     <Content Include="PUDVE\icon\black\discount.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\disk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\dollar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4727,6 +4783,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\ellipsis-v.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\email_send_receive.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\empire.png">
@@ -4891,6 +4950,9 @@
     <Content Include="PUDVE\icon\black\filter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\finance.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\fire.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4982,6 +5044,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\gears.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\gear_in.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\genderless.png">
@@ -5455,6 +5520,9 @@
     <Content Include="PUDVE\icon\black\money.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\money_dollar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\moon-o.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -5507,6 +5575,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\pagelines.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\page_delete.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\paint-brush.png">
@@ -5701,6 +5772,18 @@
     <Content Include="PUDVE\icon\black\reply-all.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\report.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\report%282%29.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\report_user.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\research.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\resistance.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -5747,6 +5830,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\save.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\saved_imports.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\scissors.png">
@@ -6029,6 +6115,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\tags.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\tag_yellow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\tasks.png">
@@ -6644,6 +6733,8 @@
     <Content Include="PUDVE\xslt\ventavehiculos11.xslt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\bell.png" />
+    <None Include="Resources\inbox_empty.png" />
     <Content Include="setup.ico" />
   </ItemGroup>
   <ItemGroup>

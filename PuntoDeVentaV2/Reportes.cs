@@ -2160,5 +2160,95 @@ namespace PuntoDeVentaV2
 
             reporteClientes.ShowDialog();
         }
+
+        private void botonRedondo1_Click(object sender, EventArgs e)
+        {
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (Application.OpenForms.OfType<FechasReportes>().Count() == 1)
+            {
+                Application.OpenForms.OfType<FechasReportes>().First().BringToFront();
+            }
+            else
+            {
+                var fechas = new FechasReportes();
+
+                fechas.FormClosed += delegate
+                {
+                    if (botonAceptar)
+                    {
+                        botonAceptar = false;
+
+                        fechaInicial = fechas.fechaInicial;
+                        fechaFinal = fechas.fechaFinal;
+
+                        if (!string.IsNullOrWhiteSpace(fechaInicial))
+                        {
+                            if (!string.IsNullOrWhiteSpace(fechaFinal))
+                            {
+                                if (Utilidades.AdobeReaderInstalado())
+                                {
+                                    //if (cs.validarInformacio(FechasReportes.lugarProcedencia, FechasReportes.idEncontrado))
+                                    //{
+                                    //    GenerarReportePrecios(FechasReportes.lugarProcedencia, FechasReportes.idEncontrado);
+                                    //}
+                                    //else
+                                    //{
+                                    //    MessageBox.Show("No existe infomación para generar el reporte.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    //}
+                                    GenerarReportePrecios(FechasReportes.lugarProcedencia, FechasReportes.idEncontrado);
+                                }
+                                else
+                                {
+                                    Utilidades.MensajeAdobeReader();
+                                }
+                            }
+                        }
+                    }
+                };
+
+                fechas.Show();
+            }
+        }
+
+        private void botonRedondo2_Click(object sender, EventArgs e)
+        {
+            //if (FormPrincipal.userNickName.Equals("OXXOCLARA3") || FormPrincipal.userNickName.Equals("ALEXHIT"))
+            //{
+            BuscarReporteCajaPorFecha reporteCaja = new BuscarReporteCajaPorFecha();
+
+            reporteCaja.ShowDialog();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Estamos trabajando en este apartado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+        }
+
+        private void botonRedondo3_Click(object sender, EventArgs e)
+        {
+            TipoReportesInventario TRPInventario = new TipoReportesInventario();
+
+            TRPInventario.ShowDialog();
+
+            //BuscadorReporteInventario BRInventario = new BuscadorReporteInventario();
+            //BRInventario.ShowDialog();
+        }
+
+        private void botonRedondo4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Para generar reportes de ventas deberá ir \nal apartado Ventas y dar click en el botón \n\"Generar Reporte\".", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void botonRedondo5_Click(object sender, EventArgs e)
+        {
+            BuscadorReporteClientes reporteClientes = new BuscadorReporteClientes();
+
+            reporteClientes.ShowDialog();
+        }
     }
 }

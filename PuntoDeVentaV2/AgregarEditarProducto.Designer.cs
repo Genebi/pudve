@@ -42,10 +42,6 @@
             this.txtCategoriaProducto = new System.Windows.Forms.TextBox();
             this.txtCodigoBarras = new System.Windows.Forms.TextBox();
             this.panelContenedor = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnAgregarDescuento = new System.Windows.Forms.Button();
-            this.btnDetalleProducto = new System.Windows.Forms.Button();
-            this.btnDetalleFacturacion = new System.Windows.Forms.Button();
-            this.btnGuardarProducto = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
@@ -63,7 +59,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtPrecioMayoreo = new System.Windows.Forms.TextBox();
             this.btnGenerarCB = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.txtCantPaqServ = new System.Windows.Forms.TextBox();
             this.lblCantPaqServ = new System.Windows.Forms.Label();
             this.PImagen = new System.Windows.Forms.Panel();
@@ -89,7 +84,12 @@
             this.tLPCombo = new System.Windows.Forms.TableLayoutPanel();
             this.tLPProducto = new System.Windows.Forms.TableLayoutPanel();
             this.PAccion = new System.Windows.Forms.Panel();
+            this.button1 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
+            this.btnDetalleProducto = new PuntoDeVentaV2.BotonRedondo();
             this.btnProdUpdate = new System.Windows.Forms.Button();
+            this.btnDetalleFacturacion = new PuntoDeVentaV2.BotonRedondo();
+            this.btnGuardarProducto = new PuntoDeVentaV2.BotonRedondo();
             this.PType = new System.Windows.Forms.Panel();
             this.fLPType = new System.Windows.Forms.FlowLayoutPanel();
             this.fLPDetalleProducto = new System.Windows.Forms.FlowLayoutPanel();
@@ -263,87 +263,6 @@
             this.panelContenedor.TabIndex = 20;
             this.panelContenedor.Visible = false;
             this.panelContenedor.WrapContents = false;
-            // 
-            // btnAgregarDescuento
-            // 
-            this.btnAgregarDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAgregarDescuento.BackColor = System.Drawing.Color.Transparent;
-            this.btnAgregarDescuento.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAgregarDescuento.BackgroundImage")));
-            this.btnAgregarDescuento.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAgregarDescuento.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregarDescuento.FlatAppearance.BorderSize = 0;
-            this.btnAgregarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarDescuento.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarDescuento.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAgregarDescuento.Location = new System.Drawing.Point(197, 4);
-            this.btnAgregarDescuento.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAgregarDescuento.Name = "btnAgregarDescuento";
-            this.btnAgregarDescuento.Size = new System.Drawing.Size(145, 75);
-            this.btnAgregarDescuento.TabIndex = 11;
-            this.btnAgregarDescuento.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnAgregarDescuento.UseVisualStyleBackColor = false;
-            this.btnAgregarDescuento.Click += new System.EventHandler(this.btnAgregarDescuento_Click);
-            // 
-            // btnDetalleProducto
-            // 
-            this.btnDetalleProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDetalleProducto.BackColor = System.Drawing.Color.Transparent;
-            this.btnDetalleProducto.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDetalleProducto.BackgroundImage")));
-            this.btnDetalleProducto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnDetalleProducto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDetalleProducto.FlatAppearance.BorderSize = 0;
-            this.btnDetalleProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDetalleProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDetalleProducto.ForeColor = System.Drawing.Color.White;
-            this.btnDetalleProducto.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnDetalleProducto.Location = new System.Drawing.Point(351, 4);
-            this.btnDetalleProducto.Name = "btnDetalleProducto";
-            this.btnDetalleProducto.Size = new System.Drawing.Size(150, 75);
-            this.btnDetalleProducto.TabIndex = 12;
-            this.btnDetalleProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDetalleProducto.UseVisualStyleBackColor = false;
-            this.btnDetalleProducto.Click += new System.EventHandler(this.btnDetalleProducto_Click);
-            // 
-            // btnDetalleFacturacion
-            // 
-            this.btnDetalleFacturacion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDetalleFacturacion.BackColor = System.Drawing.Color.Transparent;
-            this.btnDetalleFacturacion.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDetalleFacturacion.BackgroundImage")));
-            this.btnDetalleFacturacion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnDetalleFacturacion.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDetalleFacturacion.FlatAppearance.BorderSize = 0;
-            this.btnDetalleFacturacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDetalleFacturacion.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDetalleFacturacion.ForeColor = System.Drawing.Color.White;
-            this.btnDetalleFacturacion.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnDetalleFacturacion.Location = new System.Drawing.Point(509, 4);
-            this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
-            this.btnDetalleFacturacion.Size = new System.Drawing.Size(150, 75);
-            this.btnDetalleFacturacion.TabIndex = 13;
-            this.btnDetalleFacturacion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDetalleFacturacion.UseVisualStyleBackColor = false;
-            this.btnDetalleFacturacion.Click += new System.EventHandler(this.btnDetalleFacturacion_Click);
-            // 
-            // btnGuardarProducto
-            // 
-            this.btnGuardarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnGuardarProducto.BackColor = System.Drawing.Color.Transparent;
-            this.btnGuardarProducto.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGuardarProducto.BackgroundImage")));
-            this.btnGuardarProducto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnGuardarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGuardarProducto.FlatAppearance.BorderSize = 0;
-            this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardarProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardarProducto.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnGuardarProducto.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(667, 4);
-            this.btnGuardarProducto.Name = "btnGuardarProducto";
-            this.btnGuardarProducto.Size = new System.Drawing.Size(145, 75);
-            this.btnGuardarProducto.TabIndex = 14;
-            this.btnGuardarProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnGuardarProducto.UseVisualStyleBackColor = false;
-            this.btnGuardarProducto.Click += new System.EventHandler(this.btnGuardarProducto_Click);
             // 
             // label7
             // 
@@ -566,26 +485,6 @@
             this.btnGenerarCB.UseVisualStyleBackColor = false;
             this.btnGenerarCB.Visible = false;
             this.btnGenerarCB.Click += new System.EventHandler(this.btnGenerarCB_Click);
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.Location = new System.Drawing.Point(38, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 75);
-            this.button1.TabIndex = 2;
-            this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // txtCantPaqServ
             // 
@@ -886,19 +785,83 @@
             // PAccion
             // 
             this.PAccion.BackColor = System.Drawing.SystemColors.Control;
-            this.PAccion.Controls.Add(this.btnDetalleFacturacion);
-            this.PAccion.Controls.Add(this.btnAgregarDescuento);
-            this.PAccion.Controls.Add(this.btnDetalleProducto);
-            this.PAccion.Controls.Add(this.PCategoria);
-            this.PAccion.Controls.Add(this.btnGuardarProducto);
             this.PAccion.Controls.Add(this.button1);
+            this.PAccion.Controls.Add(this.btnAgregarDescuento);
+            this.PAccion.Controls.Add(this.PCategoria);
+            this.PAccion.Controls.Add(this.btnDetalleProducto);
             this.PAccion.Controls.Add(this.btnProdUpdate);
+            this.PAccion.Controls.Add(this.btnDetalleFacturacion);
+            this.PAccion.Controls.Add(this.btnGuardarProducto);
             this.PAccion.ForeColor = System.Drawing.Color.White;
             this.PAccion.Location = new System.Drawing.Point(2, 2);
             this.PAccion.Margin = new System.Windows.Forms.Padding(2);
             this.PAccion.Name = "PAccion";
             this.PAccion.Size = new System.Drawing.Size(868, 82);
             this.PAccion.TabIndex = 32;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(109)))), ((int)(((byte)(126)))));
+            this.button1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(109)))), ((int)(((byte)(126)))));
+            this.button1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.button1.BorderRadius = 20;
+            this.button1.BorderSize = 0;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.inbox_empty;
+            this.button1.Location = new System.Drawing.Point(29, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(150, 75);
+            this.button1.TabIndex = 0;
+            this.button1.TextColor = System.Drawing.Color.White;
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.botonRedondo1_Click);
+            // 
+            // btnAgregarDescuento
+            // 
+            this.btnAgregarDescuento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(170)))), ((int)(((byte)(23)))));
+            this.btnAgregarDescuento.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(170)))), ((int)(((byte)(23)))));
+            this.btnAgregarDescuento.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnAgregarDescuento.BorderRadius = 20;
+            this.btnAgregarDescuento.BorderSize = 0;
+            this.btnAgregarDescuento.FlatAppearance.BorderSize = 0;
+            this.btnAgregarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarDescuento.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarDescuento.Image = global::PuntoDeVentaV2.Properties.Resources.tag_yellow;
+            this.btnAgregarDescuento.Location = new System.Drawing.Point(185, 3);
+            this.btnAgregarDescuento.Name = "btnAgregarDescuento";
+            this.btnAgregarDescuento.Size = new System.Drawing.Size(166, 75);
+            this.btnAgregarDescuento.TabIndex = 3;
+            this.btnAgregarDescuento.Text = "Agregar descuento";
+            this.btnAgregarDescuento.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAgregarDescuento.TextColor = System.Drawing.Color.White;
+            this.btnAgregarDescuento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnAgregarDescuento.UseVisualStyleBackColor = false;
+            this.btnAgregarDescuento.Click += new System.EventHandler(this.botonRedondo4_Click);
+            // 
+            // btnDetalleProducto
+            // 
+            this.btnDetalleProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(88)))), ((int)(((byte)(168)))));
+            this.btnDetalleProducto.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(88)))), ((int)(((byte)(168)))));
+            this.btnDetalleProducto.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDetalleProducto.BorderRadius = 20;
+            this.btnDetalleProducto.BorderSize = 0;
+            this.btnDetalleProducto.FlatAppearance.BorderSize = 0;
+            this.btnDetalleProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetalleProducto.ForeColor = System.Drawing.Color.White;
+            this.btnDetalleProducto.Image = global::PuntoDeVentaV2.Properties.Resources.product_hunt1;
+            this.btnDetalleProducto.Location = new System.Drawing.Point(357, 3);
+            this.btnDetalleProducto.Name = "btnDetalleProducto";
+            this.btnDetalleProducto.Size = new System.Drawing.Size(165, 75);
+            this.btnDetalleProducto.TabIndex = 1;
+            this.btnDetalleProducto.Text = "Detalle de producto";
+            this.btnDetalleProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDetalleProducto.TextColor = System.Drawing.Color.White;
+            this.btnDetalleProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDetalleProducto.UseVisualStyleBackColor = false;
+            this.btnDetalleProducto.Click += new System.EventHandler(this.botonRedondo2_Click);
             // 
             // btnProdUpdate
             // 
@@ -913,6 +876,50 @@
             this.btnProdUpdate.UseVisualStyleBackColor = false;
             this.btnProdUpdate.Visible = false;
             this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
+            // 
+            // btnDetalleFacturacion
+            // 
+            this.btnDetalleFacturacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(153)))), ((int)(((byte)(191)))));
+            this.btnDetalleFacturacion.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(153)))), ((int)(((byte)(191)))));
+            this.btnDetalleFacturacion.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDetalleFacturacion.BorderRadius = 20;
+            this.btnDetalleFacturacion.BorderSize = 0;
+            this.btnDetalleFacturacion.FlatAppearance.BorderSize = 0;
+            this.btnDetalleFacturacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetalleFacturacion.ForeColor = System.Drawing.Color.White;
+            this.btnDetalleFacturacion.Image = global::PuntoDeVentaV2.Properties.Resources.bellColor;
+            this.btnDetalleFacturacion.Location = new System.Drawing.Point(528, 3);
+            this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
+            this.btnDetalleFacturacion.Size = new System.Drawing.Size(150, 75);
+            this.btnDetalleFacturacion.TabIndex = 2;
+            this.btnDetalleFacturacion.Text = "Detalle facturación";
+            this.btnDetalleFacturacion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDetalleFacturacion.TextColor = System.Drawing.Color.White;
+            this.btnDetalleFacturacion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDetalleFacturacion.UseVisualStyleBackColor = false;
+            this.btnDetalleFacturacion.Click += new System.EventHandler(this.botonRedondo3_Click);
+            // 
+            // btnGuardarProducto
+            // 
+            this.btnGuardarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(132)))), ((int)(((byte)(49)))));
+            this.btnGuardarProducto.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(132)))), ((int)(((byte)(49)))));
+            this.btnGuardarProducto.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGuardarProducto.BorderRadius = 20;
+            this.btnGuardarProducto.BorderSize = 0;
+            this.btnGuardarProducto.FlatAppearance.BorderSize = 0;
+            this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardarProducto.ForeColor = System.Drawing.Color.White;
+            this.btnGuardarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.disk;
+            this.btnGuardarProducto.Location = new System.Drawing.Point(684, 3);
+            this.btnGuardarProducto.Name = "btnGuardarProducto";
+            this.btnGuardarProducto.Size = new System.Drawing.Size(150, 75);
+            this.btnGuardarProducto.TabIndex = 4;
+            this.btnGuardarProducto.Text = "Guardar producto";
+            this.btnGuardarProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnGuardarProducto.TextColor = System.Drawing.Color.White;
+            this.btnGuardarProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnGuardarProducto.UseVisualStyleBackColor = false;
+            this.btnGuardarProducto.Click += new System.EventHandler(this.botonRedondo5_Click);
             // 
             // PType
             // 
@@ -1085,10 +1092,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.FlowLayoutPanel panelContenedor;
         private System.Windows.Forms.Button btnGenerarCB;
-        private System.Windows.Forms.Button btnAgregarDescuento;
-        private System.Windows.Forms.Button btnDetalleProducto;
-        private System.Windows.Forms.Button btnDetalleFacturacion;
-        private System.Windows.Forms.Button btnGuardarProducto;
         public System.Windows.Forms.TextBox txtNombreProducto;
         public System.Windows.Forms.TextBox txtPrecioProducto;
         public System.Windows.Forms.TextBox txtStockProducto;
@@ -1111,7 +1114,6 @@
         public System.Windows.Forms.TextBox txtPrecioCompra;
         private System.Windows.Forms.Label lblCantPaqServ;
         private System.Windows.Forms.TextBox txtCantPaqServ;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel PTypeAndCantProd;
         private System.Windows.Forms.Panel PType;
         private System.Windows.Forms.FlowLayoutPanel fLPType;
@@ -1150,5 +1152,10 @@
         private System.Windows.Forms.Label lblMsgSinSelecDetalles;
         private System.Windows.Forms.Button btnAddCodBar;
         private System.Windows.Forms.Label lblCodBarExtra;
+        private BotonRedondo button1;
+        private BotonRedondo btnAgregarDescuento;
+        private BotonRedondo btnDetalleProducto;
+        private BotonRedondo btnDetalleFacturacion;
+        private BotonRedondo btnGuardarProducto;
     }
 }

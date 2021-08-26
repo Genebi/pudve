@@ -158,7 +158,17 @@ namespace PuntoDeVentaV2
                 }
 
             }
-            pictureBox1.Image = Image.FromFile($@"C:\Archivos PUDVE\MisDatos\Usuarios\{FormPrincipal.datosUsuario[11].ToString()}");
+            if (File.Exists($@"C:\Archivos PUDVE\MisDatos\Usuarios\{FormPrincipal.datosUsuario[11].ToString()}"))
+            {
+                pictureBox1.Image = Image.FromFile($@"C:\Archivos PUDVE\MisDatos\Usuarios\{FormPrincipal.datosUsuario[11].ToString()}");
+            }
+            else
+            {
+            }
+            //if (FormPrincipal.datosUsuario[11].ToString() != "")
+            //{
+            //    pictureBox1.Image = Image.FromFile($@"C:\Archivos PUDVE\MisDatos\Usuarios\{FormPrincipal.datosUsuario[11].ToString()}");
+            //}
             mensajeTicket();
         }
         private void mensajeTicket()
