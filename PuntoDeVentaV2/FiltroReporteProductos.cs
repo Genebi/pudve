@@ -321,7 +321,7 @@ namespace PuntoDeVentaV2
                         {
                             var concepto = filtro.Key.Equals("NumeroRevision") ? "Revision" : filtro.Key;
                             var operador = filtro.Value.Item1.Equals("==") ? "=" : filtro.Value.Item1;
-                            var nombreConcepto = $"{filtro.Key} {operador}";
+                            var nombreConcepto = $"{filtro.Key} {operador} ";
 
                             if (filtro.Key.Equals("Imagen"))
                             {
@@ -336,12 +336,12 @@ namespace PuntoDeVentaV2
                                     auxiliar = "=";
                                 }
 
-                                nombreConcepto = $"ProdImage {auxiliar} \\'\\'";
+                                nombreConcepto = $"ProdImage {auxiliar} \\'\\' ";
                             }
 
                             if (filtro.Key.Equals("Tipo"))
                             {
-                                nombreConcepto = $"{filtro.Key} = {filtro.Value.Item1}";
+                                nombreConcepto = $"{filtro.Key} = {filtro.Value.Item1} ";
                             }
 
                             
@@ -352,7 +352,6 @@ namespace PuntoDeVentaV2
                             if (existenConceptos.Count() > 0)
                             {
                                 consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = 1, textComboBoxConcepto = '{nombreConcepto}', textCantidad = '{filtro.Value.Item2}' WHERE concepto = '{nombreCheckbox}' AND IDUsuario = {FormPrincipal.userID}";
-                                Console.WriteLine(consulta);
                                 cn.EjecutarConsulta(consulta);
                             }
                             else

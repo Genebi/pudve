@@ -640,6 +640,9 @@ namespace PuntoDeVentaV2
                 Application.OpenForms.OfType<FiltroReporteProductos>().First().Close();
             }
 
+            filtros.Clear();
+            btnCleanFilter.PerformClick();
+
             FiltroReporteProductos filtroBusqueda = new FiltroReporteProductos(2);
 
             filtroBusqueda.FormClosed += delegate
@@ -649,8 +652,6 @@ namespace PuntoDeVentaV2
             };
 
             filtroBusqueda.ShowDialog();
-
-            filtros.Clear();
         }
 
         private void searchPhotoProdInactivo()
@@ -2709,35 +2710,35 @@ namespace PuntoDeVentaV2
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
-                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
                         if (drFiltroProducto["concepto"].ToString().Equals("chkBoxStockMinimo"))
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
-                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
                         if (drFiltroProducto["concepto"].ToString().Equals("chkBoxStockNecesario"))
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
-                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
                         if (drFiltroProducto["concepto"].ToString().Equals("chkBoxPrecio"))
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
-                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
                         if (drFiltroProducto["concepto"].ToString().Equals("chkBoxRevision"))
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
-                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
                         if (drFiltroProducto["concepto"].ToString().Equals("chkBoxImagen"))
@@ -2758,7 +2759,7 @@ namespace PuntoDeVentaV2
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
-                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + " " + drFiltroProducto["textCantidad"].ToString());
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
                     }
@@ -3620,70 +3621,84 @@ namespace PuntoDeVentaV2
             string name = string.Empty, newtext = string.Empty;
             name = btnTag.Name.Remove(0, 8);
 
-            //DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            // Cuando se remueve una etiqueta estatica se quita del diccionario filtros y se vuelve a hacer la consulta de busqueda solo con las etiquetas restantes
+            var diccionarioAux = filtros;
 
-            //if (result == DialogResult.Yes)
-            //{
-                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+            if (filtros.Count() > 0)
+            {
+                foreach (var filtro in filtros.ToList())
                 {
-                    if (item is Panel)
+                    if (filtro.Key == name)
                     {
-                        if (item.Name.Equals("pEtiqueta" + name))
+                        if (diccionarioAux.ContainsKey(filtro.Key))
                         {
-                            fLPDynamicTags.Controls.Remove(item);
-                        }
+                            diccionarioAux.Remove(filtro.Key);
+                        }       
                     }
                 }
+            }
 
-                for (int i = 0; i < auxWord.Count; i++)
+            filtros = diccionarioAux;
+
+
+            foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+            {
+                if (item is Panel)
                 {
-                    if (auxWord[i].Equals(name))
+                    if (item.Name.Equals("pEtiqueta" + name))
                     {
-                        auxWord.RemoveAt(i);
+                        fLPDynamicTags.Controls.Remove(item);
                     }
                 }
+            }
 
-                if (name.Equals("Precio"))
+            for (int i = 0; i < auxWord.Count; i++)
+            {
+                if (auxWord[i].Equals(name))
                 {
-                    reiniciarVariablesDeSistemaPrecio();
+                    auxWord.RemoveAt(i);
                 }
-                else if (name.Equals("Stock"))
-                {
-                    reiniciarVariablesDeSistemaStock();
-                }
-                else if (name.Equals("NumeroRevision"))
-                {
-                    reiniciarVariablesDeSistemaNoRevision();
-                }
-                else if (name.Equals("Tipo"))
-                {
-                    reiniciarVariablesDeSistemaTipo();
-                }
-                else if (name.Equals("ProdImage"))
-                {
-                    reiniciarVariablesImagen();
-                }
+            }
+
+            MessageBox.Show(name);
+
+            if (name.Equals("Precio"))
+            {
+                reiniciarVariablesDeSistemaPrecio();
+            }
+            else if (name.Equals("Stock") || name.Equals("StockMinimo") || name.Equals("StockNecesario") || name.Equals("CantidadPedir"))
+            {
+                reiniciarVariablesDeSistemaStock();
+            }
+            else if (name.Equals("NumeroRevision"))
+            {
+                reiniciarVariablesDeSistemaNoRevision();
+            }
+            else if (name.Equals("Tipo"))
+            {
+                reiniciarVariablesDeSistemaTipo();
+            }
+            else if (name.Equals("ProdImage"))
+            {
+                reiniciarVariablesImagen();
+            }
                 
-                if (txtBusqueda.Text.Equals(""))
-                {
-                    CargarDatos();
-                }
-                else if (!txtBusqueda.Text.Equals(""))
-                {
-                    quitarEspacioEnBlanco();
-                    busquedaDelUsuario();
-                }
+            if (txtBusqueda.Text.Equals(""))
+            {
+                CargarDatos();
+            }
+            else if (!txtBusqueda.Text.Equals(""))
+            {
+                quitarEspacioEnBlanco();
+                busquedaDelUsuario();
+            }
 
-                actualizarBtnFiltro();
+            actualizarBtnFiltro();
 
-                verificarBotonLimpiarTags();
+            verificarBotonLimpiarTags();
 
-                txtBusqueda.Focus();
-            //}
-            //else if (result == DialogResult.No)
-            //{
-            //    txtBusqueda.Focus();
-            //}
+            txtBusqueda.Focus();
+
         }
 
         private void filtroOrdenarPor()
