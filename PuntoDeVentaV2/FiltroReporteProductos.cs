@@ -351,7 +351,8 @@ namespace PuntoDeVentaV2
 
                             if (existenConceptos.Count() > 0)
                             {
-                                consulta = $"UPDATE FiltroProducto SET textComboBoxConcepto = '{nombreConcepto}', textCantidad = '{filtro.Value.Item2}' WHERE concepto = '{nombreConcepto}' AND IDUsuario = {FormPrincipal.userID}";
+                                consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = 1, textComboBoxConcepto = '{nombreConcepto}', textCantidad = '{filtro.Value.Item2}' WHERE concepto = '{nombreCheckbox}' AND IDUsuario = {FormPrincipal.userID}";
+                                Console.WriteLine(consulta);
                                 cn.EjecutarConsulta(consulta);
                             }
                             else

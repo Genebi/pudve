@@ -3886,6 +3886,16 @@ namespace PuntoDeVentaV2
             string FiltroProducto = "chkBoxStock";
 
             reiniciarFiltroDinamicoTresCampos(FiltroProducto);
+
+            // Se agregaron estos 3 porque no existian en el antiguo filtro de productos
+            FiltroProducto = "chkBoxStockMinimo";
+            reiniciarFiltroDinamicoTresCampos(FiltroProducto);
+
+            FiltroProducto = "chkBoxStockNecesario";
+            reiniciarFiltroDinamicoTresCampos(FiltroProducto);
+
+            FiltroProducto = "chkBoxCantidadPedir";
+            reiniciarFiltroDinamicoTresCampos(FiltroProducto);
         }
 
         private void reiniciarVariablesDeSistemaPrecio()
