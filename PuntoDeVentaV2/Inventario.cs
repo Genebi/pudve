@@ -1606,38 +1606,51 @@ namespace PuntoDeVentaV2
 
                         while (dr.Read())
                         {
-                            var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("No")));
-                            var producto = dr.GetValue(dr.GetOrdinal("Producto")).ToString();
-                            var proveedor = dr.GetValue(dr.GetOrdinal("Proveedor")).ToString();
+                            var posisionColumna = 1;
+
+                            var idProducto = Convert.ToInt32(dr[posisionColumna].ToString());
+                            posisionColumna++;
+                            var producto = dr[posisionColumna].ToString();
+                            posisionColumna++;
+                            var proveedor = dr[posisionColumna].ToString();
+                            posisionColumna++;
                             var unidades = string.Empty;
 
-                            if (dr.GetValue(dr.GetOrdinal("Unidades_Compradas")).ToString().Equals(string.Empty))
+                            if (dr[posisionColumna].ToString().Equals(string.Empty))
                             {
                                 unidades = "0.00";
+                                posisionColumna++;
                             }
-                            else if (!dr.GetValue(dr.GetOrdinal("Unidades_Compradas")).ToString().Equals(string.Empty))
+                            else if (!dr[posisionColumna].ToString().Equals(string.Empty))
                             {
-                                unidades = dr.GetValue(dr.GetOrdinal("Unidades_Compradas")).ToString();
+                                unidades = dr[posisionColumna].ToString();
+                                posisionColumna++;
                             }
 
-                            var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio_Compra"))).ToString("0.00");
-                            var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio_Venta"))).ToString("0.00");
+                            var compra = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
+                            var venta = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
 
                             var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                             //var stock = tmp[4];
-                            var stock = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Stock_Anterior"))).ToString("0.00");
+                            var stock = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
 
                             //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
                             //var stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
-                            var stockAnterior = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Stock_Actual"))).ToString("0.00");
+                            var stockAnterior = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
 
-                            DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha_Compra"));
+                            DateTime fecha = (DateTime)dr[posisionColumna];
                             var fechaCompra = fecha.ToString("yyyy-MM-dd");
 
-                            DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha_Compra"));
+                            DateTime fechaOp = (DateTime)dr[posisionColumna];
                             var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+                            posisionColumna++;
 
-                            var comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
+                            var comentarios = dr[posisionColumna].ToString();
+                            posisionColumna++;
 
                             numRow++;
 
@@ -1781,6 +1794,22 @@ namespace PuntoDeVentaV2
                             tabla.AddCell(colFechaCompraTmp);
                             tabla.AddCell(colFechaOperacionTmp);
                             tabla.AddCell(colComentariosTmp);
+
+                            for (int j = posisionColumna; j < columnasDinamicas; j++)
+                            {
+                                tabla.AddCell
+                                (
+                                    new PdfPCell
+                                    (
+                                        new Phrase(dr[j].ToString(), fuenteNormal)
+                                    )
+                                    {
+                                        BorderWidth = 1,
+                                        //BackgroundColor = new BaseColor(Color.SkyBlue),
+                                        HorizontalAlignment = Element.ALIGN_CENTER
+                                    }
+                                );
+                            }
                         }
                     }
 
