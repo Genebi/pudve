@@ -4143,7 +4143,9 @@ namespace PuntoDeVentaV2
                 {
                     foreach (var dinamico in dinamicos)
                     {
-                        extraProductos += $"DG.ChckName = '{dinamico.Key}' AND DG.Descripcion = '{dinamico.Value}' AND ";
+                        var valorAux = dinamico.Value.Replace(' ', '_');
+
+                        extraProductos += $"DG.ChckName = '{dinamico.Key}' AND DG.Descripcion = '{valorAux}' AND ";
                     }
                 }
                 else if (dinamicos.Count() > 1)
@@ -4154,8 +4156,10 @@ namespace PuntoDeVentaV2
 
                     foreach (var dinamico in dinamicos)
                     {
+                        var valorAux = dinamico.Value.Replace(' ', '_');
+
                         extraDetallesNombres += $"DG.ChckName = '{dinamico.Key}' OR ";
-                        extraDetallesValores += $"DG.Descripcion = '{dinamico.Value}' OR ";
+                        extraDetallesValores += $"DG.Descripcion = '{valorAux}' OR ";
                     }
 
                     extraDetallesNombres = extraDetallesNombres.Remove(extraDetallesNombres.Length - 4);
