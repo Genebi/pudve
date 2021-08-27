@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
     public partial class FormPrincipal : Form
     {
         Conexion cn = new Conexion();
-        MetodosGenerales mg = new MetodosGenerales();
+        MetodosGenerales mg = new MetodosGenerales(); 
         MetodosBusquedas mb = new MetodosBusquedas();
         Consultas cs = new Consultas();
         RespadoBaseDatos backUpDB = new RespadoBaseDatos();
@@ -345,7 +345,41 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void cerrarSesion()
+        public void cerrarSesionCorteCaja()
+        {
+            FormCollection formulariosApp = Application.OpenForms;
+            List<Form> formularioCerrar = new List<Form>();
+
+            foreach (Form f in formulariosApp)
+            {
+                if (f.Name != "Login")
+                {
+                    formularioCerrar.Add(f);
+                }
+            }
+
+            Form toClose = new Form();
+            string name = string.Empty;
+
+            formularioCerrar.Reverse();
+
+            for (int i = 0; i <= formularioCerrar.Count - 1; i++)
+            {
+                toClose = formularioCerrar[i];
+                name = toClose.Name;
+                toClose.Close();
+            }
+
+            formularioCerrar.Clear();
+
+            this.Hide();
+
+            Login VentanaLogin = new Login();
+            VentanaLogin.contadorMetodoTablas = 1;
+            VentanaLogin.ShowDialog();
+        }
+
+        public void cerrarSesion()
         {
             FormCollection formulariosApp = Application.OpenForms;
             List<Form> formularioCerrar = new List<Form>();

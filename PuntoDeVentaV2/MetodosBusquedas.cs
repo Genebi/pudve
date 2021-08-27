@@ -2080,7 +2080,7 @@ namespace PuntoDeVentaV2
                 config.Add(correoDescuento); // 23
                 config.Add(correoRespaldo); // 24
                 config.Add(correoTicketVentas); //25
-                config.Add(cerrarSesion);//29
+                config.Add(cerrarSesion);//26
             }
 
             dr.Close();

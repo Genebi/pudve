@@ -443,6 +443,13 @@ namespace PuntoDeVentaV2
                     //}
                 }
                 Close();
+              
+                CajaN cerrarCorte = Application.OpenForms.OfType<CajaN>().FirstOrDefault();
+                if (cerrarCorte != null)
+                {
+                    cerrarCorte.cerrarSesionCorte();
+                }
+
             }
         }
 
@@ -801,6 +808,39 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+        private void cerrarSesion()
+        {
+            FormCollection formulariosApp = Application.OpenForms;
+            List<Form> formularioCerrar = new List<Form>();
+
+            foreach (Form f in formulariosApp)
+            {
+                if (f.Name != "Login" && f.Name != "RespadoBaseDatos")
+                {
+                    formularioCerrar.Add(f);
+                }
+            }
+
+            Form toClose = new Form();
+            string name = string.Empty;
+
+            formularioCerrar.Reverse();
+
+            for (int i = 0; i <= formularioCerrar.Count - 1; i++)
+            {
+                toClose = formularioCerrar[i];
+                name = toClose.Name;
+                toClose.Close();
+            }
+
+            formularioCerrar.Clear();
+
+            this.Hide();
+
+            Login VentanaLogin = new Login();
+            VentanaLogin.contadorMetodoTablas = 1;
+            VentanaLogin.ShowDialog();
+        }
 
         private void btnAgregarConcepto_Click(object sender, EventArgs e)
         {
@@ -822,10 +862,8 @@ namespace PuntoDeVentaV2
                         }
                     }
                     cbConceptos.SelectedIndex = cbConceptos.FindString(x);
-
                 };
                 conceptos.ShowDialog();
-
             }
         }
 
@@ -1042,6 +1080,11 @@ namespace PuntoDeVentaV2
             {
                 btnAceptar.PerformClick();
             }
+        }
+
+        private void AgregarRetirarDinero_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
         }
     }
 }

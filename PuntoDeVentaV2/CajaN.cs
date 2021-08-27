@@ -89,6 +89,7 @@ namespace PuntoDeVentaV2
         int opcion10 = 1; // Mostrar panel dinero agregado
         int opcion11 = 1; // Mostrar panel total caja
 
+        int verificar = 0;
 
         public CajaN()
         {
@@ -243,8 +244,11 @@ namespace PuntoDeVentaV2
         //    return dato;
         //}
 
+
+
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
+            
             var f = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             date = f;
             if (opcion6 == 0)
@@ -296,7 +300,6 @@ namespace PuntoDeVentaV2
                             Thread mandarCorreo = new Thread(
                                 () => Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF)
                             );
-
                             mandarCorreo.Start();
                         }
                     }
@@ -307,6 +310,16 @@ namespace PuntoDeVentaV2
                 //GenerarTicket();
             }
             abonos = 0;
+           
+        }
+
+        public void cerrarSesionCorte()
+        {
+            FormPrincipal cerrarS = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
+            if (cerrarS != null)
+            {
+                cerrarS.cerrarSesionCorteCaja();
+            }
         }
 
         private string[] cargarDatosCorteCaja()
@@ -2608,6 +2621,11 @@ namespace PuntoDeVentaV2
                     mostrarAbonosCaja.BringToFront();
                 }
             }
+        }
+
+        private void CajaN_Shown(object sender, EventArgs e)
+        {
+
         }
     }
 }
