@@ -62,7 +62,9 @@ namespace PuntoDeVentaV2
 
         List<string> usuariosPermitidos = new List<string>()
         {
-            "HOUSEDEPOTAUTLAN",
+            "OXXITO",
+            "MUELAS0",
+            "HOUSEDEPOTAUTLAN", 
             "HOUSEDEPOTGRULLO",
             "HOUSEDEPOTREPARTO"
         };
