@@ -444,11 +444,11 @@ namespace PuntoDeVentaV2
                 }
                 Close();
               
-                CajaN cerrarCorte = Application.OpenForms.OfType<CajaN>().FirstOrDefault();
-                if (cerrarCorte != null)
-                {
-                    cerrarCorte.cerrarSesionCorte();
-                }
+                //CajaN cerrarCorte = Application.OpenForms.OfType<CajaN>().FirstOrDefault();
+                //if (cerrarCorte != null)
+                //{
+                //    cerrarCorte.cerrarSesionCorte();
+                //}
 
             }
         }
