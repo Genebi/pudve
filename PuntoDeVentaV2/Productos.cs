@@ -641,7 +641,7 @@ namespace PuntoDeVentaV2
             }
 
             filtros.Clear();
-            btnCleanFilter.PerformClick();
+            removeAllSystemTags(setUpVariable);
 
             FiltroReporteProductos filtroBusqueda = new FiltroReporteProductos(2);
 
@@ -3662,8 +3662,6 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            MessageBox.Show(filtros.Count().ToString());
-
             if (name.Equals("Precio"))
             {
                 reiniciarVariablesDeSistemaPrecio();
@@ -3948,11 +3946,39 @@ namespace PuntoDeVentaV2
             {
                 if (!dtFiltroProducto.Rows.Count.Equals(0))
                 {
-                    foreach (DataRow drFiltroProducto in dtFiltroProducto.Rows)
+                    string[] filtrosEstaticos = new string[] { "Stock", "StockMinimo", "StockNecesario", "Precio", "CantidadPedir", "NumeroRevision" };
+
+                    foreach (DataRow filtro in dtFiltroProducto.Rows)
                     {
-                        if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                        if (filtro["checkBoxConcepto"].ToString().Equals("1"))
                         {
-                            //btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
+                            var datos = filtro["textComboBoxConcepto"].ToString().Split(' ');
+
+                            if (filtrosEstaticos.Contains(datos[0]))
+                            {
+                                if (!filtros.ContainsKey(datos[0])) {
+
+                                    filtros.Add(datos[0], new Tuple<string, float>(datos[1], float.Parse(filtro["textCantidad"].ToString())));
+                                }
+                            }
+
+                            if (datos[0] == "Tipo")
+                            {
+                                if (!filtros.ContainsKey(datos[0]))
+                                {
+                                    filtros.Add(datos[0], new Tuple<string, float>(datos[2], 0));
+                                }
+                            }
+
+                            if (datos[0] == "ProdImage")
+                            {
+                                datos[1] = datos[1].Equals("<>") ? "1" : "0";
+
+                                if (!filtros.ContainsKey("Imagen"))
+                                {
+                                    filtros.Add("Imagen", new Tuple<string, float>(datos[1], 0));
+                                }
+                            }
                         }
                     }
                 }
