@@ -1,0 +1,2 @@
+15|chkBoxchkUbicacion|False|Selecciona Ubicacion|cbchkUbicacion
+16|chkBoxchkTalla|True|20|cbchkTalla

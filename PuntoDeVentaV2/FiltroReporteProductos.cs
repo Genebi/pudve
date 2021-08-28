@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     public partial class FiltroReporteProductos : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         Dictionary<string, string> opcionesDefault;
@@ -363,10 +364,17 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
+                            var existenConceptos = (bool)cn.EjecutarSelect(cs.BuscarDatoEnVentanaFiltros(filtro.Key, FormPrincipal.userID));
+                            
+                            if (existenConceptos)
+                            {
+                                cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros("1", filtro.Key, filtro.Value.Item1, FormPrincipal.userID));
+                            }
+                            else
+                            {
 
+                            }
                         }
-
-                        
                     }
 
                     Productos.filtros = filtros;
