@@ -2596,93 +2596,79 @@ namespace PuntoDeVentaV2
 
             name = btnTag.Name.Remove(0, 8);
 
-            //DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            MessageBox.Show("Test");
 
-            //if (result == DialogResult.Yes)
-            //{
-                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+            foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+            {
+                if (item is Panel)
                 {
-                    if (item is Panel)
+                    if (item.Name.Equals("pEtiqueta" + name))
                     {
-                        if (item.Name.Equals("pEtiqueta" + name))
+                        try
                         {
-                            try
-                            {
-                                fLPDynamicTags.Controls.Remove(item);
-                                var myKey = setUpDinamicos.FirstOrDefault(x => x.Value.Item1 == "chkBoxchk" + name).Key;
-                                listDictionary.Add(myKey + "|chkBoxchk" + name + "|False|Selecciona " + name + "|cbchk" + name);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error: " + ex.Message.ToString());
-                            }
+                            fLPDynamicTags.Controls.Remove(item);
+                            var myKey = setUpDinamicos.FirstOrDefault(x => x.Value.Item1 == "chkBoxchk" + name).Key;
+                            listDictionary.Add(myKey + "|chkBoxchk" + name + "|False|Selecciona " + name + "|cbchk" + name);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex.Message.ToString());
                         }
                     }
                 }
+            }
 
-                if (listDictionary.Count > 0)
+            if (listDictionary.Count > 0)
+            {
+                string queryUpdateDatoDinamico = string.Empty;
+                foreach (var itemDicc in listDictionary)
                 {
-                    string queryUpdateDatoDinamico = string.Empty;
-                    foreach (var itemDicc in listDictionary)
-                    {
-                        words = itemDicc.Split('|');
-                        setUpDinamicos[words[0]] = Tuple.Create(words[1], words[2], words[3], words[4]);
+                    words = itemDicc.Split('|');
+                    setUpDinamicos[words[0]] = Tuple.Create(words[1], words[2], words[3], words[4]);
 
-                        if (words[2].ToString().Equals("False"))
-                        {
-                            queryUpdateDatoDinamico = $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{0}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'";
-                        }
-                        else if (words[2].ToString().Equals("True"))
-                        {
-                            queryUpdateDatoDinamico = $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{1}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'";
-                        }
-                    }
-                    try
+                    if (words[2].ToString().Equals("False"))
                     {
-                        var UpdateDatoDinamico = cn.EjecutarConsulta(queryUpdateDatoDinamico);
+                        queryUpdateDatoDinamico = $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{0}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'";
                     }
-                    catch (Exception ex)
+                    else if (words[2].ToString().Equals("True"))
                     {
-                        MessageBox.Show("Error al Actualizar el Dato dinamico: " + ex.Message.ToString(), "Error de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    listDictionary.Clear();
-                    //rutaCompletaFile = path + fileNameDictionary;
-                    //using (StreamWriter file = new StreamWriter(rutaCompletaFile))
-                    //{
-                    //    foreach (var entry in setUpDinamicos)
-                    //    {
-                    //        file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
-                    //    }
-                    //    file.Close();
-                    //}
-                    setUpDinamicos.Clear();
-                }
-
-                for (int i = 0; i < auxWord.Count; i++)
-                {
-                    if (auxWord[i].Equals(name))
-                    {
-                        auxWord.RemoveAt(i);
+                        queryUpdateDatoDinamico = $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{1}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'";
                     }
                 }
-
-                if (txtBusqueda.Text.Equals(""))
+                try
                 {
-                    CargarDatos();
+                    var UpdateDatoDinamico = cn.EjecutarConsulta(queryUpdateDatoDinamico);
                 }
-                else if (!txtBusqueda.Text.Equals(""))
+                catch (Exception ex)
                 {
-                    quitarEspacioEnBlanco();
-                    busquedaDelUsuario();
+                    MessageBox.Show("Error al Actualizar el Dato dinamico: " + ex.Message.ToString(), "Error de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                actualizarBtnFiltro();
-                txtBusqueda.Focus();
-            //}
-            //else if (result == DialogResult.No)
-            //{
-            //    txtBusqueda.Focus();
-            //}
+                listDictionary.Clear();
+ 
+                setUpDinamicos.Clear();
+            }
+
+            for (int i = 0; i < auxWord.Count; i++)
+            {
+                if (auxWord[i].Equals(name))
+                {
+                    auxWord.RemoveAt(i);
+                }
+            }
+
+            if (txtBusqueda.Text.Equals(""))
+            {
+                CargarDatos();
+            }
+            else if (!txtBusqueda.Text.Equals(""))
+            {
+                quitarEspacioEnBlanco();
+                busquedaDelUsuario();
+            }
+
+            actualizarBtnFiltro();
+            txtBusqueda.Focus();
         }
 
         private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)

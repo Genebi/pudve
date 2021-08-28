@@ -364,15 +364,27 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
+                            var valorFiltro = filtro.Value.Item1;
+
+                            if (filtro.Key.Equals("Proveedor"))
+                            {
+                                var proveedorAux = mb.ObtenerDatosProveedor(Convert.ToInt32(valorFiltro), FormPrincipal.userID);
+                                
+                                if (proveedorAux.Count() > 0)
+                                {
+                                    valorFiltro = proveedorAux[0];
+                                }
+                            }
+
                             var existenConceptos = (bool)cn.EjecutarSelect(cs.BuscarDatoEnVentanaFiltros(filtro.Key, FormPrincipal.userID));
                             
                             if (existenConceptos)
                             {
-                                cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros("1", filtro.Key, filtro.Value.Item1, FormPrincipal.userID));
+                                cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros("1", filtro.Key, valorFiltro, FormPrincipal.userID));
                             }
                             else
                             {
-
+                                cn.EjecutarConsulta(cs.GuardarVentanaFiltros("1", filtro.Key, valorFiltro, FormPrincipal.userID));
                             }
                         }
                     }
