@@ -1286,6 +1286,8 @@ namespace PuntoDeVentaV2
         {
             int anchoLogo = 110;
             int altoLogo = 60;
+            int posicionDeColumnas = 1;
+            int posisionColumna = 1;
             float unitsBoughtDiminished = 0,
                   boughtPrice = 0,
                   salesPrice = 0,
@@ -1302,6 +1304,11 @@ namespace PuntoDeVentaV2
             var numRow = 0;
             var diccionarioConDatosStaticosDinamicos = new Dictionary<Tuple<string, string>, float>();
             var columnasDinamicas = 0;
+            string[] ValueConceptos = { };
+            float[] anchoColumnas;
+            var position = 0;
+
+            int i = 0;
 
             if (rbAumentarProducto.Checked)
             {
@@ -1318,6 +1325,83 @@ namespace PuntoDeVentaV2
                         columnasDinamicas = numeroColumnasDinamicas;
 
                         foreach (DataColumn item in dtAumentarInventario.Columns)
+                        {
+                            var concepto = item.ToString();
+
+                            if (concepto.Equals("No"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "30"), 30f);
+                            }
+                            else if (concepto.Equals("Producto"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "245"), 245f);
+                            }
+                            else if (concepto.Equals("Proveedor"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "200"), 200f);
+                            }
+                            else if (concepto.Equals("Unidades_Compradas"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "80"), 80f);
+                            }
+                            else if (concepto.Equals("Precio_Compra"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "70"), 70f);
+                            }
+                            else if (concepto.Equals("Precio_Venta"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "70"), 70f);
+                            }
+                            else if (concepto.Equals("Stock_Anterior"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "55"), 55f);
+                            }
+                            else if (concepto.Equals("Stock_Actual"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "55"), 55f);
+                            }
+                            else if (concepto.Equals("Fecha_Compra"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "80"), 80f);
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>("Fecha_Operacion", "80"), 80f);
+                            }
+                            else if (concepto.Equals("Comentarios"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "100"), 100f);
+                            }
+                            else if (!concepto.Equals("id") && 
+                                     !concepto.Equals("No") && 
+                                     !concepto.Equals("Producto") && 
+                                     !concepto.Equals("Proveedor") && 
+                                     !concepto.Equals("Unidades_Compradas") && 
+                                     !concepto.Equals("Precio_Compra") && 
+                                     !concepto.Equals("Precio_Venta") && 
+                                     !concepto.Equals("Stock_Anterior") && 
+                                     !concepto.Equals("Stock_Actual") && 
+                                     !concepto.Equals("Fecha_Compra") && 
+                                     !concepto.Equals("Comentarios"))
+                            {
+                                diccionarioConDatosStaticosDinamicos.Add(new Tuple<string, string>(concepto, "100"), 100f);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (rbDisminuirProducto.Checked)
+            {
+                var NoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+
+                using (DataTable dtDisminuirInventario = cn.CargarDatos(cs.SearchDGVDisminuirInventario(NoRev)))
+                {
+                    if (!dtDisminuirInventario.Rows.Count.Equals(0))
+                    {
+                        var numeroColumnasDinamicas = dtDisminuirInventario.Columns.Count;
+                        string[] columnasReporte = { };
+                        var incremento = 1;
+
+                        columnasDinamicas = numeroColumnasDinamicas;
+
+                        foreach (DataColumn item in dtDisminuirInventario.Columns)
                         {
                             var concepto = item.ToString();
 
@@ -1380,10 +1464,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            else if (rbDisminuirProducto.Checked)
-            {
-
-            }
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
@@ -1398,29 +1478,35 @@ namespace PuntoDeVentaV2
             // Producto = 245f,       Proveedor = 200f,     Unidades Compradas = 80f,     Precio compra = 70f,      Precio venta = 70f,
             // Stock anterior = 55f   Stock actual = 55f,   Fecha de compra = 80f,        Fecha de operación = 80f  Comentarios = 200f
             // float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
-            string[] ValueConceptos = new string[] { "30", "245", "200", "80", "70", "70", "55", "55", "80", "80", "200" };
-            float[] anchoColumnas;
-            var position = 0;
+            //string[] ValueConceptos = new string[] {  "30", "245", "200", "80", "70", "70", "55", "55", "80", "80", "200" };
+
+            ValueConceptos = new string[columnasDinamicas];
+            anchoColumnas = new float[columnasDinamicas];
+
+            foreach (var item in diccionarioConDatosStaticosDinamicos)
+            {
+                var concepto = item.Key.Item2.ToString();
+                var ancho = item.Value.ToString();
+                var valueAncho = (float)Convert.ToDouble(ancho);
+                ValueConceptos[i] = concepto;
+                anchoColumnas[i] = valueAncho;
+                i++;
+            }
 
             if (tipo.Equals(0))
             {
+                #region Conceptos completos y Datos Dinamicos
                 if (columnasConcepto >= 10)
                 {
-                    anchoColumnas = new float[] { 30f, 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f, 200f };
-
                     Document reporte = new Document(PageSize.A3.Rotate());
                     PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
-
                     string logotipo = datos[11];
-                    //string encabezado = $"\n{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
-
                     reporte.Open();
 
-                    //Validación para verificar si existe logotipo
+                    // Validación para verificar si existe logotipo
                     if (logotipo != "")
                     {
                         logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
-
                         if (File.Exists(logotipo))
                         {
                             iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logotipo);
@@ -1449,7 +1535,6 @@ namespace PuntoDeVentaV2
 
                     Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
 
-                    //Paragraph subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                     if (rbAumentarProducto.Checked)
                     {
                         subTitulo = new Paragraph("REPORTE DE ACTUALIZAR INVENTARIO\nSECCIÓN DE AUMENTAR\n\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
@@ -1458,18 +1543,12 @@ namespace PuntoDeVentaV2
                     {
                         subTitulo = new Paragraph("REPORTE DE ACTUALIZAR INVENTARIO\nSECCIÓN DE DISMINUIR\n\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
                     }
-                    //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
                     titulo.Alignment = Element.ALIGN_CENTER;
                     Usuario.Alignment = Element.ALIGN_CENTER;
                     subTitulo.Alignment = Element.ALIGN_CENTER;
-                    //domicilio.Alignment = Element.ALIGN_CENTER;
-                    //domicilio.SetLeading(10, 0);
 
-                    /***************************************
-                    ** Tabla con los productos ajustados **
-                    ***************************************/
-                    PdfPTable tabla = new PdfPTable(11);
+                    PdfPTable tabla = new PdfPTable(anchoColumnas.Count());
                     tabla.WidthPercentage = 100;
                     tabla.SetWidths(anchoColumnas);
 
@@ -1553,6 +1632,28 @@ namespace PuntoDeVentaV2
                     tabla.AddCell(colFechaOperacion);
                     tabla.AddCell(colComentarios);
 
+                    using (DataTable dtConceptosDinamicosActivos = cn.CargarDatos(cs.verConceptosDinamicosActivos()))
+                    {
+                        if (!dtConceptosDinamicosActivos.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtConceptosDinamicosActivos.Rows)
+                            {
+                                var columnaDinamica = item["concepto"].ToString().Replace("_", " ");
+                                tabla.AddCell
+                                (
+                                    new PdfPCell
+                                    (
+                                        new Phrase(columnaDinamica, fuenteNegrita)
+                                    )
+                                    {
+                                        BorderWidth = 1,
+                                        BackgroundColor = new BaseColor(Color.SkyBlue),
+                                        HorizontalAlignment = Element.ALIGN_CENTER
+                                    }
+                                );
+                            }
+                        }
+                    }
 
                     //Consulta para obtener los registros del Historial de compras
                     MySqlConnection sql_con;
@@ -1571,48 +1672,62 @@ namespace PuntoDeVentaV2
 
                     sql_con.Open();
                     //sql_cmd = new MySqlCommand($"SELECT * FROM HistorialCompras WHERE IDUsuario = {FormPrincipal.userID} AND IDReporte = {idReporte}", sql_con);
+
+                    #region Sección Aumentar Invetario
                     if (rbAumentarProducto.Checked)
                     {
                         var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-
                         sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(NoRev), sql_con);
-
                         dr = sql_cmd.ExecuteReader();
 
                         while (dr.Read())
                         {
-                            var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
-                            var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
-                            var proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
+                            posisionColumna = 1;
+
+                            var idProducto = Convert.ToInt32(dr[posisionColumna].ToString());
+                            posisionColumna++;
+                            var producto = dr[posisionColumna].ToString();
+                            posisionColumna++;
+                            var proveedor = dr[posisionColumna].ToString();
+                            posisionColumna++;
                             var unidades = string.Empty;
 
-                            if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                            if (dr[posisionColumna].ToString().Equals(string.Empty))
                             {
                                 unidades = "0.00";
+                                posisionColumna++;
                             }
-                            else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                            else if (!dr[posisionColumna].ToString().Equals(string.Empty))
                             {
-                                unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                                unidades = dr[posisionColumna].ToString();
+                                posisionColumna++;
                             }
 
-                            var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
-                            var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
+                            var compra = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
+                            var venta = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
 
                             var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                             //var stock = tmp[4];
-                            var stock = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("NuevoStock"))).ToString("0.00");
+                            var stock = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
 
                             //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
                             //var stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
-                            var stockAnterior = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("StockActual"))).ToString("0.00");
+                            var stockAnterior = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
 
-                            DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                            DateTime fecha = (DateTime)dr[posisionColumna];
                             var fechaCompra = fecha.ToString("yyyy-MM-dd");
 
-                            DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                            DateTime fechaOp = (DateTime)dr[posisionColumna];
                             var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+                            posisionColumna++;
 
-                            var comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
+                            var comentarios = dr[posisionColumna].ToString();
+                            posisionColumna++;
+                            posicionDeColumnas = posisionColumna;
 
                             numRow++;
 
@@ -1756,6 +1871,32 @@ namespace PuntoDeVentaV2
                             tabla.AddCell(colFechaCompraTmp);
                             tabla.AddCell(colFechaOperacionTmp);
                             tabla.AddCell(colComentariosTmp);
+
+                            for (int j = posisionColumna; j < columnasDinamicas; j++)
+                            {
+                                var datoDinamico = string.Empty;
+
+                                if (!dr[j].ToString().Equals(string.Empty))
+                                {
+                                    datoDinamico = dr[j].ToString();
+                                }
+                                else
+                                {
+                                    datoDinamico = "N/A";
+                                }
+
+                                tabla.AddCell
+                                (
+                                    new PdfPCell
+                                    (
+                                        new Phrase(datoDinamico.Replace("_", " "), fuenteNormal)
+                                    )
+                                    {
+                                        BorderWidth = 1,
+                                        HorizontalAlignment = Element.ALIGN_CENTER
+                                    }
+                                );
+                            }
                         }
 
                         if (unitsBoughtDiminished > 0 || boughtPrice > 0)
@@ -1835,8 +1976,26 @@ namespace PuntoDeVentaV2
                             tabla.AddCell(colFechaCompraTmpExtra);
                             tabla.AddCell(colFechaOperacionTmpExtra);
                             tabla.AddCell(colComentariosTmpExtra);
+
+                            for (int j = posicionDeColumnas; j < columnasDinamicas; j++)
+                            {
+                                tabla.AddCell
+                                (
+                                    new PdfPCell
+                                    (
+                                        new Phrase(string.Empty, fuenteNormal)
+                                    )
+                                    {
+                                        BorderWidth = 0,
+                                        HorizontalAlignment = Element.ALIGN_CENTER
+                                    }
+                                );
+                            }
                         }
+                        diccionarioConDatosStaticosDinamicos.Clear();
                     }
+                    #endregion
+                    #region Sección Disminuir Invetario
                     else if (rbDisminuirProducto.Checked)
                     {
                         var NoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
@@ -1847,46 +2006,52 @@ namespace PuntoDeVentaV2
 
                         while (dr.Read())
                         {
-                            var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
-                            var producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
-                            var proveedor = string.Empty;
+                            posisionColumna = 1;
 
-                            if (dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
-                            {
-                                proveedor = string.Empty;
-                            }
-                            else if (!dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
-                            {
-                                proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
-                            }
+                            var idProducto = Convert.ToInt32(dr[posisionColumna].ToString());
+                            posisionColumna++;
+                            var producto = dr[posisionColumna].ToString();
+                            posisionColumna++;
+                            var proveedor = dr[posisionColumna].ToString();
+                            posisionColumna++;
                             var unidades = string.Empty;
-                            if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+
+                            if (dr[posisionColumna].ToString().Equals(string.Empty))
                             {
                                 unidades = "0.00";
+                                posisionColumna++;
                             }
-                            else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                            else if (!dr[posisionColumna].ToString().Equals(string.Empty))
                             {
-                                unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                                unidades = dr[posisionColumna].ToString();
+                                posisionColumna++;
                             }
 
-                            var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
-                            var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
+                            var compra = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
+                            var venta = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
 
                             var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                             //var stock = tmp[4];
-                            var stock = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("NuevoStock"))).ToString("0.00");
+                            var stock = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
 
                             //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
                             //var stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
-                            var stockAnterior = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("StockActual"))).ToString("0.00");
+                            var stockAnterior = Convert.ToDouble(dr[posisionColumna].ToString()).ToString("0.00");
+                            posisionColumna++;
 
-                            DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                            DateTime fecha = (DateTime)dr[posisionColumna];
                             var fechaCompra = fecha.ToString("yyyy-MM-dd");
 
-                            DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                            DateTime fechaOp = (DateTime)dr[posisionColumna];
                             var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+                            posisionColumna++;
 
-                            var comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
+                            var comentarios = dr[posisionColumna].ToString();
+                            posisionColumna++;
+                            posicionDeColumnas = posisionColumna;
 
                             numRow++;
 
@@ -1939,7 +2104,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                colPrecioCompraTmp = new PdfPCell(new Phrase("$ -", fuenteNormal));
+                                colPrecioCompraTmp = new PdfPCell(new Phrase("$ ---", fuenteNormal));
                             }
                             colPrecioCompraTmp.BorderWidth = 1;
                             colPrecioCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -1952,13 +2117,13 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                colPrecioVentaTmp = new PdfPCell(new Phrase("$ -", fuenteNormal));
+                                colPrecioVentaTmp = new PdfPCell(new Phrase("$ ---", fuenteNormal));
                             }
                             colPrecioVentaTmp.BorderWidth = 1;
                             colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                             PdfPCell colStockTmpAnterior;
-                            if (!StockAnterior.Equals(string.Empty))
+                            if (!stockAnterior.Equals(string.Empty))
                             {
                                 colStockTmpAnterior = new PdfPCell(new Phrase(stockAnterior, fuenteNormal));
                                 lastStock += (float)Convert.ToDouble(stockAnterior);
@@ -2030,6 +2195,33 @@ namespace PuntoDeVentaV2
                             tabla.AddCell(colFechaCompraTmp);
                             tabla.AddCell(colFechaOperacionTmp);
                             tabla.AddCell(colComentariosTmp);
+
+                            for (int j = posisionColumna; j < columnasDinamicas; j++)
+                            {
+                                var datoDinamico = string.Empty;
+
+                                if (!dr[j].ToString().Equals(string.Empty))
+                                {
+                                    datoDinamico = dr[j].ToString();
+                                }
+                                else
+                                {
+                                    datoDinamico = "N/A";
+                                }
+
+                                tabla.AddCell
+                                (
+                                    new PdfPCell
+                                    (
+                                        new Phrase(datoDinamico.Replace("_", " "), fuenteNormal)
+                                    )
+                                    {
+                                        BorderWidth = 1,
+                                        HorizontalAlignment = Element.ALIGN_CENTER
+                                    }
+                                );
+                            }
+                            diccionarioConDatosStaticosDinamicos.Clear();
                         }
 
                         if (unitsBoughtDiminished > 0 || boughtPrice > 0)
@@ -2109,12 +2301,24 @@ namespace PuntoDeVentaV2
                             tabla.AddCell(colFechaCompraTmpExtra);
                             tabla.AddCell(colFechaOperacionTmpExtra);
                             tabla.AddCell(colComentariosTmpExtra);
+
+                            for (int j = posicionDeColumnas; j < columnasDinamicas; j++)
+                            {
+                                tabla.AddCell
+                                (
+                                    new PdfPCell
+                                    (
+                                        new Phrase(string.Empty, fuenteNormal)
+                                    )
+                                    {
+                                        BorderWidth = 0,
+                                        HorizontalAlignment = Element.ALIGN_CENTER
+                                    }
+                                );
+                            }
                         }
                     }
-
-                    /******************************************
-                    ** Fin de la tabla                      **
-                    ******************************************/
+                    #endregion
 
                     reporte.Add(titulo);
                     reporte.Add(Usuario);
@@ -2130,9 +2334,11 @@ namespace PuntoDeVentaV2
                     VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
                     vr.ShowDialog();
                 }
+                #endregion
+                #region Conceptos seleccionados y Datos Dinamicos
                 else if (columnasConcepto < 10)
                 {
-                    anchoColumnas = new float[columnasConcepto + 1];
+                    anchoColumnas = new float[(columnasConcepto + 1) + (columnasDinamicas - 11)];
 
                     anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[0].ToString());
                     position++;
@@ -2185,6 +2391,12 @@ namespace PuntoDeVentaV2
                     if (Comentario)
                     {
                         anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[10].ToString());
+                        position++;
+                    }
+
+                    for (int j = 11; j < columnasDinamicas; j++)
+                    {
+                        anchoColumnas[position] = (float)Convert.ToDouble(ValueConceptos[j].ToString());
                         position++;
                     }
 
@@ -2246,10 +2458,6 @@ namespace PuntoDeVentaV2
                     //domicilio.Alignment = Element.ALIGN_CENTER;
                     //domicilio.SetLeading(10, 0);
 
-                    /***************************************
-                     ** Tabla con los productos ajustados **
-                     ***************************************/
-                    //PdfPTable tabla = new PdfPTable(10);
                     PdfPTable tabla = new PdfPTable(anchoColumnas.Count());
                     tabla.WidthPercentage = 100;
                     tabla.SetWidths(anchoColumnas);
@@ -2363,6 +2571,29 @@ namespace PuntoDeVentaV2
                         tabla.AddCell(colComentarios);
                     }
 
+                    using (DataTable dtConceptosDinamicosActivos = cn.CargarDatos(cs.verConceptosDinamicosActivos()))
+                    {
+                        if (!dtConceptosDinamicosActivos.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtConceptosDinamicosActivos.Rows)
+                            {
+                                var columnaDinamica = item["concepto"].ToString().Replace("_", " ");
+                                tabla.AddCell
+                                (
+                                    new PdfPCell
+                                    (
+                                        new Phrase(columnaDinamica, fuenteNegrita)
+                                    )
+                                    {
+                                        BorderWidth = 1,
+                                        BackgroundColor = new BaseColor(Color.SkyBlue),
+                                        HorizontalAlignment = Element.ALIGN_CENTER
+                                    }
+                                );
+                            }
+                        }
+                    }
+
                     //Consulta para obtener los registros del Historial de compras
                     MySqlConnection sql_con;
                     MySqlCommand sql_cmd;
@@ -2381,12 +2612,11 @@ namespace PuntoDeVentaV2
                     sql_con.Open();
                     //sql_cmd = new MySqlCommand($"SELECT * FROM HistorialCompras WHERE IDUsuario = {FormPrincipal.userID} AND IDReporte = {idReporte}", sql_con);
 
+                    #region Sección Aumentar Invetario
                     if (rbAumentarProducto.Checked)
                     {
                         var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-
                         sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(NoRev), sql_con);
-
                         dr = sql_cmd.ExecuteReader();
 
                         while (dr.Read())
@@ -2394,29 +2624,29 @@ namespace PuntoDeVentaV2
                             int idProducto = 0;
                             string producto = string.Empty, proveedor = string.Empty, unidades = string.Empty, compra = string.Empty, venta = string.Empty, stockAnterior = string.Empty, fechaCompra = string.Empty, fechaOperacion = string.Empty, comentarios = string.Empty;
 
-                            idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
-                            producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
-                            proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
-                            if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                            idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("No")));
+                            producto = dr.GetValue(dr.GetOrdinal("Producto")).ToString();
+                            proveedor = dr.GetValue(dr.GetOrdinal("Proveedor")).ToString();
+                            if (dr.GetValue(dr.GetOrdinal("Unidades_Compradas")).ToString().Equals(string.Empty))
                             {
                                 unidades = "0.00";
                             }
-                            else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                            else if (!dr.GetValue(dr.GetOrdinal("Unidades_Compradas")).ToString().Equals(string.Empty))
                             {
-                                unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                                unidades = dr.GetValue(dr.GetOrdinal("Unidades_Compradas")).ToString();
                             }
-                            compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
-                            venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
+                            compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio_Compra"))).ToString("0.00");
+                            venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio_Venta"))).ToString("0.00");
 
                             var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                             var stock = tmp[4];
 
                             stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
 
-                            DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                            DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha_Compra"));
                             fechaCompra = fecha.ToString("yyyy-MM-dd");
 
-                            DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                            DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha_Compra"));
                             fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
 
                             comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
@@ -2437,7 +2667,6 @@ namespace PuntoDeVentaV2
                             PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
                             colNoConceptoTmp.BorderWidth = 1;
                             colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
                             tabla.AddCell(colNoConceptoTmp);
 
                             if (Producto)
@@ -2514,6 +2743,32 @@ namespace PuntoDeVentaV2
                                 colComentariosTmp.BorderWidth = 1;
                                 colComentariosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
                                 tabla.AddCell(colComentariosTmp);
+                            }
+
+                            for (int j = 11; j < columnasDinamicas; j++)
+                            {
+                                var datoDinamico = string.Empty;
+
+                                if (!dr[j].ToString().Equals(string.Empty))
+                                {
+                                    datoDinamico = dr[j].ToString();
+                                }
+                                else
+                                {
+                                    datoDinamico = "N/A";
+                                }
+
+                                tabla.AddCell
+                                (
+                                    new PdfPCell
+                                    (
+                                        new Phrase(datoDinamico.Replace("_", " "), fuenteNormal)
+                                    )
+                                    {
+                                        BorderWidth = 1,
+                                        HorizontalAlignment = Element.ALIGN_CENTER
+                                    }
+                                );
                             }
                         }
 
@@ -2612,13 +2867,28 @@ namespace PuntoDeVentaV2
                             colComentariosTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
                             tabla.AddCell(colComentariosTmpExtra);
                         }
+
+                        for (int j = 11; j < columnasDinamicas; j++)
+                        {
+                            tabla.AddCell
+                            (
+                                new PdfPCell
+                                (
+                                    new Phrase(string.Empty, fuenteNormal)
+                                )
+                                {
+                                    BorderWidth = 0,
+                                    HorizontalAlignment = Element.ALIGN_CENTER
+                                }
+                            );
+                        }
                     }
+                    #endregion
+                    #region Sección Disminuir Invetario
                     else if (rbDisminuirProducto.Checked)
                     {
                         var NoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
-
                         sql_cmd = new MySqlCommand(cs.SearchDGVDisminuirInventario(NoRev), sql_con);
-
                         dr = sql_cmd.ExecuteReader();
 
                         while (dr.Read())
@@ -2626,37 +2896,29 @@ namespace PuntoDeVentaV2
                             int idProducto = 0;
                             string producto = string.Empty, proveedor = string.Empty, unidades = string.Empty, compra = string.Empty, venta = string.Empty, stockAnterior = string.Empty, fechaCompra = string.Empty, fechaOperacion = string.Empty, comentarios = string.Empty;
 
-                            idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdProducto")));
-                            producto = dr.GetValue(dr.GetOrdinal("NombreProducto")).ToString();
-                            if (dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
-                            {
-                                proveedor = string.Empty;
-                            }
-                            else if (!dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString().Equals("Ajuste"))
-                            {
-                                proveedor = dr.GetValue(dr.GetOrdinal("NombreEmisor")).ToString();
-                            }
-                            if (dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                            idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("No")));
+                            producto = dr.GetValue(dr.GetOrdinal("Producto")).ToString();
+                            proveedor = dr.GetValue(dr.GetOrdinal("Proveedor")).ToString();
+                            if (dr.GetValue(dr.GetOrdinal("Unidades_Compradas")).ToString().Equals(string.Empty))
                             {
                                 unidades = "0.00";
                             }
-                            else if (!dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString().Equals(string.Empty))
+                            else if (!dr.GetValue(dr.GetOrdinal("Unidades_Compradas")).ToString().Equals(string.Empty))
                             {
-                                unidades = dr.GetValue(dr.GetOrdinal("DiferenciaUnidades")).ToString();
+                                unidades = dr.GetValue(dr.GetOrdinal("Unidades_Compradas")).ToString();
                             }
-                            compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
-                            venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
+                            compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio_Compra"))).ToString("0.00");
+                            venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio_Venta"))).ToString("0.00");
 
                             var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                             var stock = tmp[4];
 
-                            //var stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
-                            stockAnterior = (Convert.ToDouble(stock) + Convert.ToDouble(unidades)).ToString("0.00");
+                            stockAnterior = (Convert.ToDouble(stock) - Convert.ToDouble(unidades)).ToString("0.00");
 
-                            DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                            DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha_Compra"));
                             fechaCompra = fecha.ToString("yyyy-MM-dd");
 
-                            DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha"));
+                            DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("Fecha_Compra"));
                             fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
 
                             comentarios = dr.GetValue(dr.GetOrdinal("Comentarios")).ToString();
@@ -2677,7 +2939,6 @@ namespace PuntoDeVentaV2
                             PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
                             colNoConceptoTmp.BorderWidth = 1;
                             colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
                             tabla.AddCell(colNoConceptoTmp);
 
                             if (Producto)
@@ -2754,6 +3015,32 @@ namespace PuntoDeVentaV2
                                 colComentariosTmp.BorderWidth = 1;
                                 colComentariosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
                                 tabla.AddCell(colComentariosTmp);
+                            }
+
+                            for (int j = 11; j < columnasDinamicas; j++)
+                            {
+                                var datoDinamico = string.Empty;
+
+                                if (!dr[j].ToString().Equals(string.Empty))
+                                {
+                                    datoDinamico = dr[j].ToString();
+                                }
+                                else
+                                {
+                                    datoDinamico = "N/A";
+                                }
+
+                                tabla.AddCell
+                                (
+                                    new PdfPCell
+                                    (
+                                        new Phrase(datoDinamico.Replace("_", " "), fuenteNormal)
+                                    )
+                                    {
+                                        BorderWidth = 1,
+                                        HorizontalAlignment = Element.ALIGN_CENTER
+                                    }
+                                );
                             }
                         }
 
@@ -2852,11 +3139,23 @@ namespace PuntoDeVentaV2
                             colComentariosTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
                             tabla.AddCell(colComentariosTmpExtra);
                         }
-                    }
 
-                    /******************************************
-                     ** Fin de la tabla                      **
-                     ******************************************/
+                        for (int j = 11; j < columnasDinamicas; j++)
+                        {
+                            tabla.AddCell
+                            (
+                                new PdfPCell
+                                (
+                                    new Phrase(string.Empty, fuenteNormal)
+                                )
+                                {
+                                    BorderWidth = 0,
+                                    HorizontalAlignment = Element.ALIGN_CENTER
+                                }
+                            );
+                        }
+                    }
+                    #endregion
 
                     reporte.Add(titulo);
                     reporte.Add(Usuario);
@@ -2872,6 +3171,7 @@ namespace PuntoDeVentaV2
                     VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
                     vr.ShowDialog();
                 }
+                #endregion
             }
             if (tipo.Equals(1))
             {
