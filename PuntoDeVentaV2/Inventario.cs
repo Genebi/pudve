@@ -1493,6 +1493,7 @@ namespace PuntoDeVentaV2
                 i++;
             }
 
+            #region Sección Botón Actualizar Invetario
             if (tipo.Equals(0))
             {
                 #region Conceptos completos y Datos Dinamicos
@@ -3173,6 +3174,8 @@ namespace PuntoDeVentaV2
                 }
                 #endregion
             }
+            #endregion
+            #region Sección Botón Actualizar Invetario XML
             if (tipo.Equals(1))
             {
                 anchoColumnas = new float[] { 30f, 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f };
@@ -3559,6 +3562,7 @@ namespace PuntoDeVentaV2
                 VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
                 vr.ShowDialog();
             }
+            #endregion
         }
 
         private void btnRevisar_KeyDown(object sender, KeyEventArgs e)
