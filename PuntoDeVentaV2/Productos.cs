@@ -1495,7 +1495,6 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            filtros.Clear();
             removeAllSystemTags(setUpVariable);
             //modificarDiccionarioEtiquetas(fLPDynamicTags);
 
@@ -1635,6 +1634,8 @@ namespace PuntoDeVentaV2
                         {
                             fLPDynamicTags.Controls.Remove(panel);
                             panel.Dispose();
+
+                            cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros("0", etiqueta, $"Selecciona {etiqueta}", FormPrincipal.userID));
                         }
                     }
                 }
