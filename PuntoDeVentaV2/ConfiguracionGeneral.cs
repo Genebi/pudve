@@ -90,10 +90,12 @@ namespace PuntoDeVentaV2
 
                 checkMayoreo.Checked = Convert.ToBoolean(datosConfig[9]);
                 check14 = checkMayoreo.Checked;
+
                 txtMinimoMayoreo.Text = datosConfig[10].ToString();
 
                 checkNoVendidos.Checked = Convert.ToBoolean(datosConfig[11]);
                 check15 = checkNoVendidos.Checked;
+
                 txtNoVendidos.Text = datosConfig[12].ToString();
 
                 chTicketVentas.Checked = Convert.ToBoolean(datosConfig[25]);
@@ -221,35 +223,66 @@ namespace PuntoDeVentaV2
 
         private void checkMayoreo_CheckedChanged(object sender, EventArgs e)
         {
-            //if (opcion14 == 0)
-            //{
-            //    checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
-            //    checkMayoreo.Checked = check14;
-            //    Utilidades.MensajePermiso();
-            //    checkMayoreo.CheckedChanged += checkMayoreo_CheckedChanged;
-            //    return;
-            //}
+            if (FormPrincipal.userNickName == "MUELAS0" || FormPrincipal.userNickName == "OXXITO")
+            {
+                if (opcion14 == 0)
+                {
+                    checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
+                    checkMayoreo.Checked = check14;
+                    Utilidades.MensajePermiso();
+                    checkMayoreo.CheckedChanged += checkMayoreo_CheckedChanged;
+                    return;
+                }
 
-            //var habilitado = 0;
+                var habilitado = 0;
 
-            //if (checkMayoreo.Checked)
-            //{
-            //    habilitado = 1;
-            //    txtMinimoMayoreo.Enabled = true;
-            //    txtMinimoMayoreo.Focus();
-            //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-            //}
-            //else
-            //{
-            //    txtMinimoMayoreo.Enabled = false;
-            //    txtMinimoMayoreo.Text = string.Empty;
-            //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
-            //}
+                if (checkMayoreo.Checked)
+                {
+                    habilitado = 1;
+                    txtMinimoMayoreo.Enabled = true;
+                    txtMinimoMayoreo.Focus();
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else
+                {
+                    txtMinimoMayoreo.Enabled = false;
+                    txtMinimoMayoreo.Text = string.Empty;
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //if (opcion14 == 0)
+                //{
+                //    checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
+                //    checkMayoreo.Checked = check14;
+                //    Utilidades.MensajePermiso();
+                //    checkMayoreo.CheckedChanged += checkMayoreo_CheckedChanged;
+                //    return;
+                //}
+
+                //var habilitado = 0;
+
+                //if (checkMayoreo.Checked)
+                //{
+                //    habilitado = 1;
+                //    txtMinimoMayoreo.Enabled = true;
+                //    txtMinimoMayoreo.Focus();
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                //}
+                //else
+                //{
+                //    txtMinimoMayoreo.Enabled = false;
+                //    txtMinimoMayoreo.Text = string.Empty;
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                //}
+            }
         }
 
         private void checkMayoreo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void txtMinimoMayoreo_KeyUp(object sender, KeyEventArgs e)
@@ -266,34 +299,65 @@ namespace PuntoDeVentaV2
 
         private void checkNoVendidos_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion15 == 0)
+            if (FormPrincipal.userNickName == "MUELAS0" || FormPrincipal.userNickName == "OXXITO")
             {
-                checkNoVendidos.CheckedChanged -= checkNoVendidos_CheckedChanged;
-                checkNoVendidos.Checked = check15;
-                Utilidades.MensajePermiso();
-                checkNoVendidos.CheckedChanged += checkNoVendidos_CheckedChanged;
-                return;
-            }
+                if (opcion15 == 0)
+                {
+                    checkNoVendidos.CheckedChanged -= checkNoVendidos_CheckedChanged;
+                    checkNoVendidos.Checked = check15;
+                    Utilidades.MensajePermiso();
+                    checkNoVendidos.CheckedChanged += checkNoVendidos_CheckedChanged;
+                    return;
+                }
 
-            if (checkNoVendidos.Checked)
-            {
-                txtNoVendidos.Enabled = true;
-                txtNoVendidos.Focus();
-                cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
-                FormPrincipal.checkNoVendidos = 1;
+                if (checkNoVendidos.Checked)
+                {
+                    txtNoVendidos.Enabled = true;
+                    txtNoVendidos.Focus();
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
+                    FormPrincipal.checkNoVendidos = 1;
+                }
+                else
+                {
+                    txtNoVendidos.Enabled = false;
+                    txtNoVendidos.Text = string.Empty;
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                    FormPrincipal.checkNoVendidos = 0;
+                }
             }
             else
             {
-                txtNoVendidos.Enabled = false;
-                txtNoVendidos.Text = string.Empty;
-                cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
-                FormPrincipal.checkNoVendidos = 0;
+                MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //if (opcion15 == 0)
+                //{
+                //    checkNoVendidos.CheckedChanged -= checkNoVendidos_CheckedChanged;
+                //    checkNoVendidos.Checked = check15;
+                //    Utilidades.MensajePermiso();
+                //    checkNoVendidos.CheckedChanged += checkNoVendidos_CheckedChanged;
+                //    return;
+                //}
+
+                //if (checkNoVendidos.Checked)
+                //{
+                //    txtNoVendidos.Enabled = true;
+                //    txtNoVendidos.Focus();
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
+                //    FormPrincipal.checkNoVendidos = 1;
+                //}
+                //else
+                //{
+                //    txtNoVendidos.Enabled = false;
+                //    txtNoVendidos.Text = string.Empty;
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                //    FormPrincipal.checkNoVendidos = 0;
+                //}
             }
+            
         }
 
         private void checkNoVendidos_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void txtNoVendidos_KeyUp(object sender, KeyEventArgs e)
@@ -317,6 +381,7 @@ namespace PuntoDeVentaV2
                 cbStockNegativo.Checked = true;
             }
             VerificarConfiguracion();
+            
         }
 
         private void chkCerrarSesionCorte_CheckedChanged(object sender, EventArgs e)
@@ -329,7 +394,7 @@ namespace PuntoDeVentaV2
                 habilitado = 1;
             }
 
-            cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }

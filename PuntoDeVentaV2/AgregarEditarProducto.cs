@@ -1784,7 +1784,7 @@ namespace PuntoDeVentaV2
                     {
                         FormDetalleProducto.nameXMLProveedor = nameProveedorXML;
                     }
-                    FormDetalleProducto.Show();
+                    FormDetalleProducto.ShowDialog();
                     FormDetalleProducto.BringToFront();
                 }
                 else
@@ -1796,7 +1796,7 @@ namespace PuntoDeVentaV2
                     {
                         FormDetalleProducto.nameXMLProveedor = nameProveedorXML;
                     }
-                    FormDetalleProducto.Show();
+                    FormDetalleProducto.ShowDialog();
                     FormDetalleProducto.BringToFront();
                 }
             }
@@ -1808,14 +1808,14 @@ namespace PuntoDeVentaV2
                     FormDetalleProducto = new AgregarDetalleProducto();
                     FormDetalleProducto.origenProdServCombo = DatosSourceFinal;
                     FormDetalleProducto.getIdProducto = idProductoFinal;
-                    FormDetalleProducto.Show();
+                    FormDetalleProducto.ShowDialog();
                     FormDetalleProducto.BringToFront();
                 }
                 else
                 {
                     FormDetalleProducto.origenProdServCombo = DatosSourceFinal;
                     FormDetalleProducto.getIdProducto = idProductoFinal;
-                    FormDetalleProducto.Show();
+                    FormDetalleProducto.ShowDialog();
                     FormDetalleProducto.BringToFront();
                 }
             }

@@ -70,8 +70,8 @@ namespace PuntoDeVentaV2
         {
             //Consulta para obtener los registros del historial de ventas del producto
             MySqlConnection sql_con;
-            MySqlCommand sql_cmd;
-            MySqlDataReader dr;
+            //MySqlCommand sql_cmd;
+            //MySqlDataReader dr;
 
             var servidor = Properties.Settings.Default.Hosting;
 
@@ -84,13 +84,16 @@ namespace PuntoDeVentaV2
                 sql_con = new MySqlConnection($"datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
 
+            var validarProductosVendidosCombo = cn.CargarDatos($"SELECT * FROM ");
+
             var consulta = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = {idProducto}";
 
-            sql_con.Open();
-            sql_cmd = new MySqlCommand(consulta, sql_con);
-            dr = sql_cmd.ExecuteReader();
+            //sql_con.Open();
+            //sql_cmd = new MySqlCommand(consulta, sql_con
+            //dr = sql_cmd.ExecuteReader();
+            var realizarConsulta = cn.CargarDatos(consulta);
 
-            if (dr.HasRows)
+            if (/*dr.HasRows*/!realizarConsulta.Rows.Count.Equals(0))
             {
                 var datos = FormPrincipal.datosUsuario;
 
@@ -248,17 +251,27 @@ namespace PuntoDeVentaV2
                 float totalPrecio = 0;
                 float totalVenta = 0;
 
-                while (dr.Read())
-                {
-                    var nombre = dr.GetValue(dr.GetOrdinal("Nombre")).ToString();
-                    var cantidad = dr.GetValue(dr.GetOrdinal("Cantidad")).ToString();
-                    var precio = float.Parse(dr.GetValue(dr.GetOrdinal("Precio")).ToString());
-                    var folioSerie = dr.GetValue(dr.GetOrdinal("Folio")) + " " + dr.GetValue(dr.GetOrdinal("Serie"));
-                    var venta = float.Parse(dr.GetValue(dr.GetOrdinal("Total")).ToString());
-                    var fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
+                //while (dr.Read())
+                //{
+                foreach (DataRow dt in realizarConsulta.Rows) {
+                    //var nombre = dr.GetValue(dr.GetOrdinal("Nombre")).ToString();
+                    //var cantidad = dr.GetValue(dr.GetOrdinal("Cantidad")).ToString();
+                    //var precio = float.Parse(dr.GetValue(dr.GetOrdinal("Precio")).ToString());
+                    //var folioSerie = dr.GetValue(dr.GetOrdinal("Folio")) + " " + dr.GetValue(dr.GetOrdinal("Serie"));
+                    //var venta = float.Parse(dr.GetValue(dr.GetOrdinal("Total")).ToString());
+                    //var fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
+                    //var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+                    //var idEmpleadoABuscar = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDEmpleado")));
+                    //var idProductABuscar = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
+                    var nombre = dt["Nombre"].ToString();
+                    var cantidad = dt["Cantidad"].ToString();
+                    var precio = float.Parse(dt["Precio"].ToString());
+                    var folioSerie = dt["Folio"] + " " + dt["Serie"].ToString();
+                    var venta = float.Parse(dt["Total"].ToString());
+                    var fechaOp = (DateTime)dt["FechaOperacion"];
                     var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
-                    var idEmpleadoABuscar = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDEmpleado")));
-                    var idProductABuscar = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
+                    var idEmpleadoABuscar = Convert.ToInt32(dt["IDEmpleado"].ToString());
+                    var idProductABuscar = Convert.ToInt32(dt["IDProducto"].ToString());
 
 
                     var datosProducto = cn.BuscarProducto(Convert.ToInt32(idProductABuscar), FormPrincipal.userID);
@@ -313,7 +326,7 @@ namespace PuntoDeVentaV2
                     PdfPCell colCantidadTmp = new PdfPCell(new Phrase(cantidad, fuenteNormal));
                     colCantidadTmp.BorderWidth = 1;
                     colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-                   
+
                     PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + precio.ToString("N2"), fuenteNormal));
                     colPrecioTmp.BorderWidth = 1;
                     colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -340,6 +353,7 @@ namespace PuntoDeVentaV2
                     tabla.AddCell(colFolioSerieTmp);
                     tabla.AddCell(colTotalVentaTmp);
                     tabla.AddCell(colFechaOperacionTmp);
+                    //}
                 }
 
                 PdfPCell colAuxNumProd = new PdfPCell();

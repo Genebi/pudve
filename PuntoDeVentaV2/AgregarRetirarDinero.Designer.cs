@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+    private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -301,6 +301,7 @@
             this.MinimizeBox = false;
             this.Name = "AgregarRetirarDinero";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AgregarRetirarDinero_FormClosed);
             this.Load += new System.EventHandler(this.AgregarRetirarDinero_Load);
             this.gbContenedor.ResumeLayout(false);
             this.gbContenedor.PerformLayout();

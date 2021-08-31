@@ -450,8 +450,8 @@
         private System.Windows.Forms.Timer temporizador_respaldo;
         private System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer timerProductos;
-        private System.Windows.Forms.Button btnSesion;
         private System.Windows.Forms.Button btnImpresoras;
+        public System.Windows.Forms.Button btnSesion;
     }
 }
 
