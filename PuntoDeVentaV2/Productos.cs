@@ -2596,6 +2596,24 @@ namespace PuntoDeVentaV2
 
             name = btnTag.Name.Remove(0, 8);
 
+            // Cuando se remueve una etiqueta dinamica se quita del diccionario filtros y se vuelve a hacer la consulta de busqueda solo con las etiquetas restantes
+            var diccionarioAux = filtros;
+
+            if (filtros.Count() > 0)
+            {
+                foreach (var filtro in filtros.ToList())
+                {
+                    if (filtro.Key == name)
+                    {
+                        if (diccionarioAux.ContainsKey(filtro.Key))
+                        {
+                            diccionarioAux.Remove(filtro.Key);
+                        }
+                    }
+                }
+            }
+
+            filtros = diccionarioAux;
 
             foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
             {
@@ -2616,8 +2634,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
-            MessageBox.Show(listDictionary.Count.ToString());
 
             if (listDictionary.Count > 0)
             {
@@ -2641,8 +2657,6 @@ namespace PuntoDeVentaV2
                 try
                 {
                     var UpdateDatoDinamico = cn.EjecutarConsulta(queryUpdateDatoDinamico);
-
-                    MessageBox.Show(queryUpdateDatoDinamico);
                 }
                 catch (Exception ex)
                 {
@@ -2651,7 +2665,7 @@ namespace PuntoDeVentaV2
 
                 listDictionary.Clear();
  
-                setUpDinamicos.Clear();
+                //setUpDinamicos.Clear();
             }
 
             for (int i = 0; i < auxWord.Count; i++)
