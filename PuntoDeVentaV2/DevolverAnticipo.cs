@@ -102,6 +102,13 @@ namespace PuntoDeVentaV2
         private int tipo = 0;
         private int cancelarVenta = 0;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idAnticipo">primero va el ID del Anticipo o la Venta segun sea el caso</param>
+        /// <param name="importe">segundo va el importe</param>
+        /// <param name="tipo">tercero va el tipo de operacion que va realizar (1, 2 o 3 segun sea el caso)</param>
+        /// <param name="cancelarVenta">En cuarto va si es cancelar venta pagada(1) o a credito(2) </param>
         public DevolverAnticipo(int idAnticipo, float importe, int tipo = 1, int cancelarVenta = 0)
         {
             InitializeComponent();

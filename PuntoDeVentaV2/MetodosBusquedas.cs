@@ -126,6 +126,19 @@ namespace PuntoDeVentaV2
             return fechaVenta;
         }
 
+        public int ObtenerStatusVenta(string folio)
+        {
+            var result = 0;
+            var query = cn.CargarDatos($"SELECT `Status` AS estatus FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio = '{folio}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = Convert.ToInt32(query.Rows[0]["estatus"].ToString());
+            }
+
+            return result;
+        }
+
         public float ObtenerTotalAbonado(int idVenta, int idUsuario)
         {
             float cantidad = 0f;
