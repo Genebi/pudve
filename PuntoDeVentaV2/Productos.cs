@@ -1025,7 +1025,7 @@ namespace PuntoDeVentaV2
                         btnModificarEstado.PerformClick();
                     }
                 }
-                else if (e.ColumnIndex == 9)
+                else if (e.ColumnIndex == 9)//Historial
                 {
                     if (opcion17 == 0)
                     {
