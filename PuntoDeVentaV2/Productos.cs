@@ -2596,7 +2596,6 @@ namespace PuntoDeVentaV2
 
             name = btnTag.Name.Remove(0, 8);
 
-            MessageBox.Show("Test");
 
             foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
             {
@@ -2618,9 +2617,12 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            MessageBox.Show(listDictionary.Count.ToString());
+
             if (listDictionary.Count > 0)
             {
                 string queryUpdateDatoDinamico = string.Empty;
+
                 foreach (var itemDicc in listDictionary)
                 {
                     words = itemDicc.Split('|');
@@ -2635,9 +2637,12 @@ namespace PuntoDeVentaV2
                         queryUpdateDatoDinamico = $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{1}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'";
                     }
                 }
+
                 try
                 {
                     var UpdateDatoDinamico = cn.EjecutarConsulta(queryUpdateDatoDinamico);
+
+                    MessageBox.Show(queryUpdateDatoDinamico);
                 }
                 catch (Exception ex)
                 {
@@ -3975,11 +3980,14 @@ namespace PuntoDeVentaV2
             {
                 if (!dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
                 {
-                    foreach (DataRow drVerificarVentanaFiltros in dtFiltrosDinamicosVetanaFiltros.Rows)
+                    foreach (DataRow filtro in dtFiltrosDinamicosVetanaFiltros.Rows)
                     {
-                        if (drVerificarVentanaFiltros["checkBoxValue"].ToString().Equals("1"))
+                        if (filtro["checkBoxValue"].ToString().Equals("1"))
                         {
-                            //btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
+                            if (!filtros.ContainsKey(filtro["concepto"].ToString()))
+                            {
+                                filtros.Add(filtro["concepto"].ToString(), new Tuple<string, float>(filtro["strFiltro"].ToString(), 0));
+                            }
                         }
                     }
                 }
