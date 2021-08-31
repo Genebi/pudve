@@ -2871,15 +2871,15 @@ namespace PuntoDeVentaV2
                             textoPanel += " Menor Que ";
                         }
 
-                        if (words[2].Equals("'P'"))
+                        if (words[2].Equals("P"))
                         {
                             textoPanel += "Producto";
                         }
-                        else if (words[2].Equals("'PQ'"))
+                        else if (words[2].Equals("PQ"))
                         {
                             textoPanel += "Combo";
                         }
-                        else if (words[2].Equals("'S'"))
+                        else if (words[2].Equals("S"))
                         {
                             textoPanel += "Servicio";
                         }
