@@ -1612,6 +1612,7 @@ namespace PuntoDeVentaV2
             foreach (var control in VariablesSistema)
             {
                 words = control.Split(' ');
+                
                 foreach (Control panel in fLPDynamicTags.Controls)
                 {
                     if (panel.Name.Equals("pEtiqueta" + words[0]))
@@ -1622,9 +1623,27 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            if (setUpDinamicos.Count() > 0)
+            {
+                foreach (var dinamico in setUpDinamicos)
+                {
+                    var etiqueta = dinamico.Value.Item1.Remove(0, 9);
+
+                    foreach (Control panel in fLPDynamicTags.Controls)
+                    {
+                        if (panel.Name.Equals($"pEtiqueta{etiqueta}"))
+                        {
+                            fLPDynamicTags.Controls.Remove(panel);
+                            panel.Dispose();
+                        }
+                    }
+                }
+            }
+
             setUpVariable.Clear();
             auxWord.Clear();
             setUpDinamicos.Clear();
+            filtros.Clear();
 
             reiniciarVariablesDeSistemaPrecio();
             reiniciarVariablesDeSistemaStock();
@@ -1632,7 +1651,7 @@ namespace PuntoDeVentaV2
             reiniciarVariablesDeSistemaTipo();
             reiniciarVariablesImagen();
 
-            actualizarBtnFiltro();
+            //actualizarBtnFiltro();
 
             CargarDatos();
 
