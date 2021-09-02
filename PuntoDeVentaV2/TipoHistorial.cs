@@ -84,14 +84,29 @@ namespace PuntoDeVentaV2
                 sql_con = new MySqlConnection($"datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
 
-            var validarProductosVendidosCombo = cn.CargarDatos($"SELECT * FROM ");
+            //Validar si es combo
+            var verificarCombo = verificarSiTieneRelacionCombo(idProducto);
+
+            var consultaProductosRelacionados = string.Empty;
+
+            if (!string.IsNullOrEmpty(verificarCombo))
+            {
+                consultaProductosRelacionados = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto IN ({verificarCombo})";
+            }
+
 
             var consulta = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = {idProducto}";
+            //var consulta = $"";
 
             //sql_con.Open();
             //sql_cmd = new MySqlCommand(consulta, sql_con
             //dr = sql_cmd.ExecuteReader();
+
+            var consultaCombos = cn.CargarDatos(consultaProductosRelacionados);
             var realizarConsulta = cn.CargarDatos(consulta);
+
+            //Unir Resultados de las consultas
+            realizarConsulta.Merge(realizarConsulta);
 
             if (/*dr.HasRows*/!realizarConsulta.Rows.Count.Equals(0))
             {
@@ -432,6 +447,19 @@ namespace PuntoDeVentaV2
             }
 
             Close();
+        }
+
+        private string verificarSiTieneRelacionCombo(int idCombo)
+        {
+            var query = cn.CargarDatos($"SELECT IDServicio, NombreProducto FROM ProductosdeServicios WHERE IDProducto = '{idCombo}'");
+            var idComboFinal = string.Empty;
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                idComboFinal = query.Rows[0]["IDServicio"].ToString();
+            }
+
+            return idComboFinal;
         }
     }
 }
