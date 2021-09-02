@@ -733,7 +733,7 @@ namespace PuntoDeVentaV2
 
             comboBoxIndex = comboBox.SelectedIndex;
             namePanel = comboBox.Name.ToString().Remove(0, 2);
-            gralDetailGralSelected = Convert.ToString(comboBox.Text);
+            gralDetailGralSelected = Convert.ToString(comboBox.Text).Replace(" ", "_");
 
             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3) || DatosSourceFinal.Equals(2))
             {
