@@ -4213,18 +4213,38 @@ namespace PuntoDeVentaV2
             // Se crea solo si el usuario escribio algo en el buscador y no hay filtros aplicados
             if (!string.IsNullOrWhiteSpace(busquedaEnProductos))
             {
+                bool fueronAsignados = false;
+
                 // retorna un diccionario con las coincidencias que hubo en la base de datos
                 var coincidencias = mb.BusquedaCoincidencias(busquedaEnProductos.Trim());
 
-                // Si hay concidencias de la busqueda de la palabra
-                if (coincidencias.Count > 0)
+                if (coincidencias.Count == 0)
                 {
-                    // Aqui agregamos los ID de producto existentes obtenidos del método DetectarCodigosBarra
+                    coincidencias = new Dictionary<int, int>();
+
                     if (listaCodigosExistentes.Count > 0)
                     {
                         foreach (var codigo in listaCodigosExistentes)
                         {
                             coincidencias.Add(Convert.ToInt32(codigo), 1);
+                        }
+
+                        fueronAsignados = true;
+                    }
+                }
+
+                // Si hay concidencias de la busqueda de la palabra
+                if (coincidencias.Count > 0)
+                {
+                    // Aqui agregamos los ID de producto existentes obtenidos del método DetectarCodigosBarra
+                    if (!fueronAsignados)
+                    {
+                        if (listaCodigosExistentes.Count > 0)
+                        {
+                            foreach (var codigo in listaCodigosExistentes)
+                            {
+                                coincidencias.Add(Convert.ToInt32(codigo), 1);
+                            }
                         }
                     }
 
@@ -4267,6 +4287,7 @@ namespace PuntoDeVentaV2
             List<string> codigos = new List<string>();
             List<string> codigosNuevos = new List<string>();
             List<string> codigosExistentes = new List<string>();
+            List<string> codigosNoValidos = new List<string>();
 
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
@@ -4311,6 +4332,7 @@ namespace PuntoDeVentaV2
                                         if (!codigosExistentes.Contains(valorAux[1]))
                                         {
                                             codigosExistentes.Add(valorAux[1]);
+                                            codigosNoValidos.Add(codigo);
                                         }
                                     }
                                 }
@@ -4328,33 +4350,36 @@ namespace PuntoDeVentaV2
                         //==================== CODIGOS DE BARRA EXTRA ====================
 
                         // Verificamos si esos codigos no existen como codigos de barra extra
-                        var resultadoExtra = mb.BuscarCodigoBarrasExtraFormProductos(codigo.Trim());
-
-                        if (resultadoExtra.Count() > 0)
+                        if (!codigosNoValidos.Contains(codigo))
                         {
-                            foreach (var valor in resultadoExtra)
+                            var resultadoExtra = mb.BuscarCodigoBarrasExtraFormProductos(codigo.Trim());
+
+                            if (resultadoExtra.Count() > 0)
                             {
-                                var valorAux = valor.Split('|');
-
-                                if (valorAux[0] == "1")
+                                foreach (var valor in resultadoExtra)
                                 {
-                                    // Verificar que pertenezca al usuario
-                                    var perteneceAlUsuario = cn.BuscarProducto(Convert.ToInt32(valorAux[1]), FormPrincipal.userID);
+                                    var valorAux = valor.Split('|');
 
-                                    if (perteneceAlUsuario.Count() > 0)
+                                    if (valorAux[0] == "1")
                                     {
-                                        if (!codigosExistentes.Contains(valorAux[1]))
+                                        // Verificar que pertenezca al usuario
+                                        var perteneceAlUsuario = cn.BuscarProducto(Convert.ToInt32(valorAux[1]), FormPrincipal.userID);
+
+                                        if (perteneceAlUsuario.Count() > 0)
                                         {
-                                            codigosExistentes.Add(valorAux[1]);
+                                            if (!codigosExistentes.Contains(valorAux[1]))
+                                            {
+                                                codigosExistentes.Add(valorAux[1]);
+                                            }
                                         }
                                     }
-                                }
 
-                                if (valorAux[0] == "0")
-                                {
-                                    if (!codigosNuevos.Contains(valorAux[1]))
+                                    if (valorAux[0] == "0")
                                     {
-                                        codigosNuevos.Add(valorAux[1]);
+                                        if (!codigosNuevos.Contains(valorAux[1]))
+                                        {
+                                            codigosNuevos.Add(valorAux[1]);
+                                        }
                                     }
                                 }
                             }
