@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
     public partial class FormPrincipal : Form
     {
         Conexion cn = new Conexion();
-        MetodosGenerales mg = new MetodosGenerales(); 
+        MetodosGenerales mg = new MetodosGenerales();
         MetodosBusquedas mb = new MetodosBusquedas();
         Consultas cs = new Consultas();
         RespadoBaseDatos backUpDB = new RespadoBaseDatos();
@@ -35,6 +35,7 @@ namespace PuntoDeVentaV2
 
         public static string[] datosUsuario = new string[] { };
         private bool cerrarAplicacion = false;
+        public static int condicionarMensaje = 0;
 
         IEnumerable<Ventas> FormVenta = Application.OpenForms.OfType<Ventas>();//Revisar esta linea
 
@@ -347,12 +348,14 @@ namespace PuntoDeVentaV2
 
         public void cerrarSesionCorteCaja()
         {
+            MessageBox.Show("Se finalizara la sesion deacuerdo a sus ajustes en \"Configuracion\"");
+
             FormCollection formulariosApp = Application.OpenForms;
             List<Form> formularioCerrar = new List<Form>();
 
             foreach (Form f in formulariosApp)
             {
-                if (f.Name != "Login")
+                if (f.Name != "FormPrincipal" && f.Name != "Login" && f.Name != "RespadoBaseDatos")
                 {
                     formularioCerrar.Add(f);
                 }
@@ -564,7 +567,7 @@ namespace PuntoDeVentaV2
                 cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{userID}')");
             }
 
-            if (validarCierreDeSesion==1)
+            if (validarCierreDeSesion == 1)
             {
                 Application.Exit();
             }
@@ -742,7 +745,7 @@ namespace PuntoDeVentaV2
                 nameComputerServer = Properties.Settings.Default.Hosting;
             }
             return nameComputerServer;
-        } 
+        }
 
         private void btnProductos_Click(object sender, EventArgs e)
         {
@@ -786,7 +789,7 @@ namespace PuntoDeVentaV2
                     ListadoVentas.abrirNuevaVenta = true;
                     veces = 2;
                     //Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "ListadoVentas").SingleOrDefault<Form>();
-}
+                }
                 else
                 {
                     MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -991,7 +994,7 @@ namespace PuntoDeVentaV2
 
                 //if (inventario != null)
                 //{
-                
+
                 //    inventario.populateAumentarDGVInventario();
                 //}
             }
@@ -1108,25 +1111,27 @@ namespace PuntoDeVentaV2
 
         public void InitializarTimerAndroid()
         {
-            
-                actualizarCaja.Interval = 60000;
-                actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
-                actualizarCaja.Enabled = true;
+
+            actualizarCaja.Interval = 60000;
+            actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
+            actualizarCaja.Enabled = true;
         }
 
         private void actualizarCaja_Tick(object sender, EventArgs e)
         {
-            
+
             //var datoMEtodoMAfufo = verificarInternet();
-           
+
             //if (datoMEtodoMAfufo)
             //{
             if (pasar == 1)
             {
                 _conHandler.StartCheckConnectionState();
-            //}
+                //}
             }
         }
+
+
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1159,7 +1164,18 @@ namespace PuntoDeVentaV2
             }
             else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(true))
             {
-                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (condicionarMensaje == 1)
+                {
+                    //MessageBox.Show("Se finalizara la sesion deacuerdo a sus ajustes en \"Configuracion\"");
+
+                    e.Cancel = true;
+                    cerrarSesion();
+                    cerrarAplicacion = false;
+                }
+            
+                else
+                {
+                    var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                 if (respuesta == DialogResult.Yes)
                 {
@@ -1172,12 +1188,15 @@ namespace PuntoDeVentaV2
                     e.Cancel = true;
                     cerrarAplicacion = false;
                 }
+
+                else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(false))
+                {
+                    Application.Exit();
+                }
+                cerrarAplicacion = false;
             }
-            else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(false))
-            {
-                Application.Exit();
-            }
-            cerrarAplicacion = false;
+        }
+
         }
 
         private void timerProductos_Tick(object sender, EventArgs e)

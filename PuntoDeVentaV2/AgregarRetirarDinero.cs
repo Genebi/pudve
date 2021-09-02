@@ -198,6 +198,8 @@ namespace PuntoDeVentaV2
             var tipoOperacion = string.Empty;
             bool tipoCorte = true;
 
+            FormPrincipal.condicionarMensaje = 1;
+
             // Depositar
             if (operacion == 0)
             {
@@ -443,12 +445,23 @@ namespace PuntoDeVentaV2
                     //}
                 }
                 Close();
-              
-                //CajaN cerrarCorte = Application.OpenForms.OfType<CajaN>().FirstOrDefault();
-                //if (cerrarCorte != null)
-                //{
-                //    cerrarCorte.cerrarSesionCorte();
-                //}
+                var consultar = cn.CargarDatos($"SELECT CerrarSesionAuto FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}");
+                foreach (DataRow item in consultar.Rows)
+                {
+                    var verificar = item[0].ToString();
+                    if (verificar == "1")
+                    {
+                        CajaN cerrarCorte = Application.OpenForms.OfType<CajaN>().FirstOrDefault();
+                        if (cerrarCorte != null)
+                        {
+                            //MessageBox.Show("Se finalizara la sesion debido a su previa configuracion");
+                            cerrarCorte.cerrarSesionCorte();
+                            
+                        }
+                    }
+                }
+               
+               
 
             }
         }

@@ -386,14 +386,14 @@ namespace PuntoDeVentaV2
 
         private void chkCerrarSesionCorte_CheckedChanged(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Estamos trabajando en esta opcion");
             var habilitado = 0;
 
-            if (chkCerrarSesionCorte.Checked)
-            {
-                habilitado = 1;
-            }
-
+            //if (chkCerrarSesionCorte.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+            chkCerrarSesionCorte.Checked = false;
             cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }

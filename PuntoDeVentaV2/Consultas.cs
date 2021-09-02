@@ -2605,5 +2605,12 @@ namespace PuntoDeVentaV2
 
             return consulta; 
         }
+        public string CerrarSesionConCorte()
+        {
+            var consulta = $"SELECT CerrarSesionAuto FROM `configuracion` WHERE IDUsuario = '{FormPrincipal.userID}'";
+            return consulta;
+        }
+
+
     }
 }  

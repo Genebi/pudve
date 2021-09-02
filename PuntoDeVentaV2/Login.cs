@@ -106,7 +106,6 @@ namespace PuntoDeVentaV2
         public Login()
         {
             InitializeComponent();
-
             Select();
         }
 
@@ -180,6 +179,7 @@ namespace PuntoDeVentaV2
         private void btnEntrar_Click(object sender, EventArgs e)
         {
             var IDUsuario = 0;
+            FormPrincipal.condicionarMensaje = 0;
             var query = cn.CargarDatos(cs.obtenerIDUsuario(txtUsuario.Text, txtPassword.Text));
             if (!query.Rows.Count.Equals(0))
             {
