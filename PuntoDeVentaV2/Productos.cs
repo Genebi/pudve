@@ -1641,6 +1641,21 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            // Elimina las etiquetas que no concuerdan con ninguno de los filtros estaticos ni dinamicos
+            int longitud = fLPDynamicTags.Controls.Count;
+
+            if (longitud > 0)
+            {
+                for (int i = 0; i < longitud; i++)
+                {
+                    foreach (Control panelBasura in fLPDynamicTags.Controls)
+                    {
+                        fLPDynamicTags.Controls.Remove(panelBasura);
+                        panelBasura.Dispose();
+                    }
+                }
+            }
+
             setUpVariable.Clear();
             auxWord.Clear();
             setUpDinamicos.Clear();
@@ -5711,7 +5726,7 @@ namespace PuntoDeVentaV2
             Button btnTag = (Button)sender;
             string name = string.Empty, newtext = string.Empty;
             name = btnTag.Name.Remove(0, 8);
- 
+
             foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
             {
                 if (item is Panel)
