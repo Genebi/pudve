@@ -4353,13 +4353,13 @@ namespace PuntoDeVentaV2
                                     }
                                 }
 
-                                if (valorAux[0] == "0")
-                                {
-                                    if (!codigosNuevos.Contains(valorAux[1]))
-                                    {
-                                        codigosNuevos.Add(valorAux[1]);
-                                    }
-                                }
+                                //if (valorAux[0] == "0")
+                                //{
+                                //    if (!codigosNuevos.Contains(valorAux[1]))
+                                //    {
+                                //        codigosNuevos.Add(valorAux[1]);
+                                //    }
+                                //}
                             }
                         }
 
