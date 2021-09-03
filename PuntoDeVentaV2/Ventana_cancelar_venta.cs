@@ -97,6 +97,9 @@ namespace PuntoDeVentaV2
                                     {
                                         if (estatusVenta.Equals(1))
                                         {
+                                            //Revisar si la venta fue a credio
+                                            var fueACredito = ventaCredito(id);
+
                                             var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
                                             // Operacion para que la devolucion del dinero afecte al apartado Caja
@@ -114,12 +117,18 @@ namespace PuntoDeVentaV2
                                                 var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                 var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
 
-                                                string[] datos = new string[] {
-                                                "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
-                                                efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
-                                            };
+                                                //    string[] datos = new string[] {
+                                                //    "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString                     (),
+                                                //    efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
+                                                //};
+                                                string[] datos = new string[]
+                                                {
+                                                    id.ToString(), FormPrincipal.userID.ToString(), total, efectivo, tarjeta,                         vales, cheque, transferencia, concepto, fechaOperacion
+                                                };
 
-                                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
+
+                                                //cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                             }
 
                                             seCancelaLaVenta = true;
@@ -211,6 +220,21 @@ namespace PuntoDeVentaV2
             }
         }
 
+
+        private bool ventaCredito(int idVentaObtenido)
+        {
+            var result = false;
+
+            var query = cn.CargarDatos($"SELECT Credito FROM DetallesVenta WHERE IDVenta = '{idVentaObtenido}'");
+
+            if (!query.Rows.Count.Equals(0) && query.Rows[0]["Credito"].ToString() != "0.00")
+            {
+                result = true;
+            }
+
+            return result;
+        } 
+             
         private void solo_digitos(object sender, KeyPressEventArgs e)
         {
             if (!char.IsNumber(e.KeyChar) && (e.KeyChar != (char)Keys.Back))
@@ -276,7 +300,6 @@ namespace PuntoDeVentaV2
                     DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
                 }
 
-                //idVenta, total, 3, ventaCancelada
                 DevolverAnticipo da = new DevolverAnticipo(idVenta, float.Parse(obtenerTotalAbonado), 3, 2);
                 da.ShowDialog();
 

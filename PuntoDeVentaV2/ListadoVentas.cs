@@ -867,7 +867,7 @@ namespace PuntoDeVentaV2
                                                             chequeAbonadoADevolver, transAbonadoADevolver, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                                                         };
 
-                                                        cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
+                                                         cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
 
                                                         //    string[] datos2 = new string[] {
                                                         //"retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(),
