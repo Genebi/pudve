@@ -163,6 +163,7 @@ namespace PuntoDeVentaV2
         string[] palabras;
         List<string> auxWord, setUpVariable, noEcontradoCodBar = new List<string>();
         List<Control> listVariables;
+        List<string> recorrerCodigosNuevos = new List<string>();
 
         Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos = new Dictionary<string, Tuple<string, string, string, string>>();
         Dictionary<string, Tuple<string, string, string>> setUpFiltroDinamicos = new Dictionary<string, Tuple<string, string, string>>();
@@ -4413,22 +4414,29 @@ namespace PuntoDeVentaV2
                 // Mostramos el mensaje para saber si nos recomienda agregar un producto con un codigo nuevo o nos indica que no es válido
                 foreach (var codigo in codigosNuevos)
                 {
-                    if (codigo.Length >= 5)
+                    if (!recorrerCodigosNuevos.Contains(codigo))
                     {
-                        var respuesta = MessageBox.Show("El código escaneado: " + codigo + "\nno pertenece a un producto existente,\n\t¿Desea Registrarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-                        if (respuesta == DialogResult.Yes)
+                        if (codigo.Length >= 5)
                         {
-                            origenDeLosDatos = 5;
-                            seleccionadoDato = 2;
-                            nuevoCodigoBarrasDeProducto = codigo;
-                            btnAgregarProducto.PerformClick();
-                            clickBoton = 1;
+                            recorrerCodigosNuevos.Add(codigo);
+
+                            var respuesta = MessageBox.Show("El código escaneado: " + codigo + "\nno pertenece a un producto existente,\n\t¿Desea Registrarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                            if (respuesta == DialogResult.Yes)
+                            {
+                                origenDeLosDatos = 5;
+                                seleccionadoDato = 2;
+                                nuevoCodigoBarrasDeProducto = codigo;
+                                btnAgregarProducto.PerformClick();
+                                clickBoton = 1;
+                            }
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Código proporcionado:\n" + codigo + "No esta registrado ó no es valido su formato.", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                        {
+                            MessageBox.Show("Código proporcionado:\n" + codigo + "No esta registrado ó no es valido su formato.", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+
+                        
                     }
                 }
             }
@@ -4723,6 +4731,8 @@ namespace PuntoDeVentaV2
 
             // Aqui se ejecutan los mensajes para los códigos nuevos en la búsqueda tanto si son válidos o no
             MensajeCodigosNuevos(listasCodigos.ElementAt(1));
+
+            recorrerCodigosNuevos.Clear();
         }
 
         private string quitarDuplicadosPorBuscar(string Datos)
