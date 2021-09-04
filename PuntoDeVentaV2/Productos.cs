@@ -1693,12 +1693,6 @@ namespace PuntoDeVentaV2
 
             path = string.Empty;
 
-            //// Define the highlight style.
-            //HighlightStyle = new DataGridViewCellStyle();
-            //HighlightStyle.ForeColor = Color.Blue;
-            //HighlightStyle.BackColor = Color.Beige;
-            //HighlightStyle.Font = new System.Drawing.Font(DGVProductos.Font, FontStyle.Bold);
-
             productosSeleccionados = new Dictionary<int, string>();
             checkboxMarcados = new Dictionary<int, string>();
             filtros = new Dictionary<string, Tuple<string, float>>();
@@ -3766,128 +3760,6 @@ namespace PuntoDeVentaV2
             p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
         }
 
-        private void ChecarFiltroDinamicoDelSistema()
-        {
-            string queryFiltroProducto = string.Empty, querySearchResult = string.Empty;
-
-            queryFiltroProducto = cs.VerificarContenidoFiltroProducto(FormPrincipal.userID);
-            if (extra.Equals("") && extra2.Equals(""))
-            {
-                querySearchResult = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
-            }
-            else if (!extra.Equals("") && !extra2.Equals(""))
-            {
-                querySearchResult += filtroConSinFiltroAvanzado;
-            }
-
-            using (DataTable dtFiltroProducto = cn.CargarDatos(queryFiltroProducto))
-            {
-                if (!dtFiltroProducto.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow row in dtFiltroProducto.Rows)
-                    {
-                        if (row["checkBoxConcepto"].ToString().Equals("1"))
-                        {
-                            if (!row["textComboBoxConcepto"].ToString().Equals(""))
-                            {
-                                if (row["concepto"].ToString().Equals("chkBoxImagen"))
-                                {
-                                    querySearchResult += $" AND P.{row["textComboBoxConcepto"].ToString()}";
-                                }
-                                else if (row["concepto"].ToString().Equals("chkBoxTipo"))
-                                {
-                                    string[] words;
-                                    words = row["textComboBoxConcepto"].ToString().Split(' ');
-                                    if (!words[2].ToString().Equals(""))
-                                    {
-                                        querySearchResult += $" AND P.{words[0].ToString()} {words[1].ToString()} '{words[2].ToString()}'";
-                                    }
-                                }
-                                else if (!row["concepto"].ToString().Equals("chkBoxImagen") || !row["concepto"].ToString().Equals("chkBoxTipo"))
-                                {
-                                    querySearchResult += $" AND P.{row["textComboBoxConcepto"].ToString()}{row["textCantidad"].ToString()}";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            using (DataTable dtResultado = cn.CargarDatos(querySearchResult))
-            {
-                if (!dtResultado.Rows.Count.Equals(0))
-                {
-                    listaSearchFoundAux.Clear();
-                    foreach (DataRow drResultado in dtResultado.Rows)
-                    {
-                        var id = Convert.ToInt32(drResultado["ID"].ToString());
-                        if (listaSearchFoundAux.ContainsKey(id))
-                        {
-                            listaSearchFoundAux[id] += 1;
-                        }
-                        else
-                        {
-                            listaSearchFoundAux.Add(id, 1);
-                        }
-                    }
-                    // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
-                    // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
-                    extra = string.Empty;
-                    extra2 = string.Empty;
-                    int contadorTmp = 1;
-                    var listaCoincidencias = from entry in listaSearchFoundAux orderby entry.Value descending select entry;
-                    extra += "AND P.ID IN (";
-                    foreach (var producto in listaCoincidencias)
-                    {
-                        extra += $"{producto.Key},";
-                        extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
-                        contadorTmp++;
-                    }
-                    // Eliminamos el último caracter que es una coma (,)
-                    extra = extra.Remove(extra.Length - 1);
-                    extra += ") ORDER BY CASE P.ID ";
-                    extra2 += "END ";
-                    // Concatenamos las dos variables para formar por completo la sentencia sql
-                    extra += extra2;
-                }
-                else if (dtResultado.Rows.Count.Equals(0))
-                {
-                    using (DataTable dtFiltroProductoAgain = cn.CargarDatos(queryFiltroProducto))
-                    {
-                        if (!dtFiltroProductoAgain.Rows.Count.Equals(0))
-                        {
-                            foreach (DataRow row in dtFiltroProductoAgain.Rows)
-                            {
-                                if (row["checkBoxConcepto"].ToString().Equals("1"))
-                                {
-                                    if (!row["textComboBoxConcepto"].ToString().Equals(""))
-                                    {
-                                        if (row["concepto"].ToString().Equals("chkBoxImagen"))
-                                        {
-                                            filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}";
-                                        }
-                                        else if (row["concepto"].ToString().Equals("chkBoxTipo"))
-                                        {
-                                            string[] words;
-                                            words = row["textComboBoxConcepto"].ToString().Split(' ');
-                                            if (!words[2].ToString().Equals(""))
-                                            {
-                                                filtroConSinFiltroAvanzado += $" AND P.{words[0].ToString()} {words[1].ToString()} '{words[2].ToString()}'";
-                                            }
-                                        }
-                                        else if (!row["concepto"].ToString().Equals("chkBoxImagen") || !row["concepto"].ToString().Equals("chkBoxTipo"))
-                                        {
-                                            filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}{row["textCantidad"].ToString()}";
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         public void inicializarVariablesFiltro()
         {
             reiniciarVariablesDeSistemaPrecio();
@@ -4466,6 +4338,7 @@ namespace PuntoDeVentaV2
 
             // Consulta final despues de aplicador filtros, condiciones, etc
             consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
+            filtroConSinFiltroAvanzado = consultaFiltro;
 
             LimpiarAplicandoConsultaFiltros();
 
@@ -4725,8 +4598,6 @@ namespace PuntoDeVentaV2
                 MarcarCheckBoxes(filtroConSinFiltroAvanzado);
             }
 
-            //MarcarCheckBoxes(filtroConSinFiltroAvanzado);
-
             clickBoton = 0;
 
             // Aqui se ejecutan los mensajes para los códigos nuevos en la búsqueda tanto si son válidos o no
@@ -4787,8 +4658,6 @@ namespace PuntoDeVentaV2
                                 if (checkboxMarcados.ContainsKey(idProducto))
                                 {
                                     row.Cells["CheckProducto"].Value = true;
-                                    //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
-                                    //headerBox.Checked = true;
                                 }
                                 else
                                 {
@@ -4805,15 +4674,7 @@ namespace PuntoDeVentaV2
             }
 
             mostrarCantidadProductos();
-            //if (contador > 0)
-            //{
-            //    lbCantidadSeleccionada.Text = $"Productos seleccionados: {contador}";
-            //}
-            //else
-            //{
-            //    lbCantidadSeleccionada.Text = string.Empty;
-            //    //lbCantidadSeleccionada.Text = $"Productos seleccionados: {cantSelected}";
-            //}
+
         }
 
         // metodo que recibe un diccionario
@@ -5976,7 +5837,7 @@ namespace PuntoDeVentaV2
             {
                 productosSeleccionados = lista;
             }
-
+            
             if (productosSeleccionados.Count > 0)
             {
                 if (Application.OpenForms.OfType<AsignarMultipleProductos>().Count() == 1)
@@ -5990,18 +5851,8 @@ namespace PuntoDeVentaV2
                     am.FormClosed += delegate
                     {
                         CargarDatos(busquedaEnProductos: txtBusqueda.Text.Trim());
-                        //actualizarDatosDespuesDeAgregarProducto();
-                        //linkLblPaginaActual_Click_1(sender, e);
 
                         productosSeleccionados.Clear();
-
-                        //foreach (DataGridViewRow row in DGVProductos.Rows)
-                        //{
-                        //    if ((bool)row.Cells["CheckProducto"].Value == true)
-                        //    {
-                        //        row.Cells["CheckProducto"].Value = false;
-                        //    }
-                        //}
 
                         txtBusqueda.Focus();
                     };
