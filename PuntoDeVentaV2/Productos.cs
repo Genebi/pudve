@@ -649,6 +649,7 @@ namespace PuntoDeVentaV2
             filtroBusqueda.FormClosed += delegate
             {
                 creacionEtiquetasDinamicas();
+                MarcarCheckBoxes(filtroConSinFiltroAvanzado);
                 CargarDatos(1, txtBusqueda.Text.Trim());
             };
 
@@ -5855,6 +5856,8 @@ namespace PuntoDeVentaV2
                         productosSeleccionados.Clear();
 
                         txtBusqueda.Focus();
+
+                        cbTodos.Checked = false;
                     };
 
                     am.Show();
