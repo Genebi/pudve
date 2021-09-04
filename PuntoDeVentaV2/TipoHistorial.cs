@@ -91,7 +91,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrEmpty(verificarCombo))
             {
-                consultaProductosRelacionados = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto IN ({verificarCombo})";
+                consultaProductosRelacionados = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = '{verificarCombo}'";
             }
 
 
@@ -106,7 +106,9 @@ namespace PuntoDeVentaV2
             var realizarConsulta = cn.CargarDatos(consulta);
 
             //Unir Resultados de las consultas
-            realizarConsulta.Merge(realizarConsulta);
+            realizarConsulta.Merge(consultaCombos);
+            consultaCombos.Dispose();
+            consultaCombos = null;
 
             if (/*dr.HasRows*/!realizarConsulta.Rows.Count.Equals(0))
             {

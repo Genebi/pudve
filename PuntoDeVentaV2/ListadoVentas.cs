@@ -714,7 +714,11 @@ namespace PuntoDeVentaV2
                             var obtenerValorSiSeAbono = cn.CargarDatos($"SELECT * FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
                             var abonoObtenido = string.Empty;
 
-                            if (!obtenerValorSiSeAbono.Rows.Count.Equals(0))
+                            var cantidadesAbono = cantidadAbonada(idVenta);
+
+                            var credit = revisarSiFueVentaACredito(idVenta);
+
+                            if (!obtenerValorSiSeAbono.Rows.Count.Equals(0) && credit.Equals(false))
                             {
                                 foreach (DataRow result in obtenerValorSiSeAbono.Rows)
                                 {
@@ -743,17 +747,18 @@ namespace PuntoDeVentaV2
                                         ventaCancelada = 2;
                                     }
 
-                                    var obtenerMontoAbonado = cn.CargarDatos($"SELECT Total FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
-                                    var obtenerTotalAbonado = string.Empty;
+                                    //var obtenerMontoAbonado = cn.CargarDatos($"SELECT Total FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
+                                    //var obtenerTotalAbonado = string.Empty;
                                     var totalAbonado = 0f;
-                                    if (!obtenerMontoAbonado.Rows.Count.Equals(0))
-                                    {
-                                        foreach (DataRow datosConsulta in obtenerMontoAbonado.Rows)
-                                        {
-                                            obtenerTotalAbonado = datosConsulta["Total"].ToString();
-                                        }
-                                        totalAbonado = float.Parse(obtenerTotalAbonado);
-                                    }
+                                    //if (!obtenerMontoAbonado.Rows.Count.Equals(0))
+                                    //{
+                                    //    foreach (DataRow datosConsulta in obtenerMontoAbonado.Rows)
+                                    //    {
+                                    //        obtenerTotalAbonado = datosConsulta["Total"].ToString();
+                                    //    }
+                                    //    totalAbonado = float.Parse(obtenerTotalAbonado);
+                                    //}
+                                    totalAbonado = float.Parse(cantidadesAbono[0]);
 
                                     if (totalAbonado > 0)
                                     {
@@ -905,16 +910,16 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
-                            else if (obtenerValorSiSeAbono.Rows.Count.Equals(0))
+                            else if (obtenerValorSiSeAbono.Rows.Count.Equals(0) || credit.Equals(true))
                             {
                                 if (cbTipoVentas.SelectedIndex == 0)
                                 {
                                     saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
-                                    var sEfectivo = MetodosBusquedas.efectivoInicial;
-                                    var sTarjeta = MetodosBusquedas.tarjetaInicial;
-                                    var sVales = MetodosBusquedas.valesInicial;
-                                    var sCheque = MetodosBusquedas.chequeInicial;
-                                    var sTrans = MetodosBusquedas.transInicial;
+                                    var sEfectivo = (MetodosBusquedas.efectivoInicial + float.Parse(cantidadesAbono[1]));
+                                    var sTarjeta = (MetodosBusquedas.tarjetaInicial + float.Parse(cantidadesAbono[2]));
+                                    var sVales = (MetodosBusquedas.valesInicial + float.Parse(cantidadesAbono[3]));
+                                    var sCheque = (MetodosBusquedas.chequeInicial + float.Parse(cantidadesAbono[4]));
+                                    var sTrans = (MetodosBusquedas.transInicial + float.Parse(cantidadesAbono[5]));
 
                                     //Valida las cantidades para cuando sea una cuenta nueva
                                     var totalUno = string.Empty; var efectivoUno = string.Empty; var tarjetaUno = string.Empty; var valesUno = string.Empty; var chequeUno = string.Empty; var transUno = string.Empty;
@@ -932,11 +937,11 @@ namespace PuntoDeVentaV2
                                         transUno = cantidandesNuevaCuenta.Rows[0]["sum(Transferencia)"].ToString();
 
                                         //Agregamos las cantidades que se tienen en caja a estas variables (solo en cuentas nuevas)
-                                        sEfectivo = float.Parse(efectivoUno);
-                                        sTarjeta = float.Parse(tarjetaUno);
-                                        sVales = float.Parse(valesUno);
-                                        sCheque = float.Parse(chequeUno);
-                                        sTrans = float.Parse(transUno);
+                                        sEfectivo = (float.Parse(efectivoUno) + float.Parse(cantidadesAbono[1]));
+                                        sTarjeta = (float.Parse(tarjetaUno) + float.Parse(cantidadesAbono[2]));
+                                        sVales = (float.Parse(valesUno) + float.Parse(cantidadesAbono[3]));
+                                        sCheque = (float.Parse(chequeUno) + float.Parse(cantidadesAbono[4]));
+                                        sTrans = (float.Parse(transUno) + float.Parse(cantidadesAbono[5]));
 
                                     }
 
@@ -1032,12 +1037,12 @@ namespace PuntoDeVentaV2
                                                         chequeObtenido = getCash["sum(Cheque)"].ToString();
                                                         transObtenido = getCash["sum(Transferencia)"].ToString();
                                                     }
-                                                    tot = (float.Parse(cantidadT) - cantidadRetirada /*+ sEfectivo*/);
-                                                    efe = (float.Parse(efectivoObtenido) - efeRetirado /*+ sEfectivo*/);
-                                                    tar = (float.Parse(tarjetaObtenido) - tarRetirado /*+ sEfectivo*/);
-                                                    val = (float.Parse(valesObtenido) - valRetirado /*+ sEfectivo*/);
-                                                    che = (float.Parse(chequeObtenido) - valRetirado /*+ sEfectivo*/);
-                                                    trans = (float.Parse(transObtenido) - transRetirado /*+ sEfectivo*/);
+                                                    tot = ((float.Parse(cantidadT) - cantidadRetirada) /*+ sEfectivo*/ + float.Parse(cantidadesAbono[0]));
+                                                    efe = ((float.Parse(efectivoObtenido) - efeRetirado) /*+ sEfectivo*/ + float.Parse(cantidadesAbono[1]));
+                                                    tar = ((float.Parse(tarjetaObtenido) - tarRetirado) /*+ sEfectivo*/ + float.Parse(cantidadesAbono[2]));
+                                                    val = ((float.Parse(valesObtenido) - valRetirado) /*+ sEfectivo*/ + float.Parse(cantidadesAbono[3]));
+                                                    che = ((float.Parse(chequeObtenido) - valRetirado) /*+ sEfectivo*/ + float.Parse(cantidadesAbono[4]));
+                                                    trans = ((float.Parse(transObtenido) - transRetirado) /*+ sEfectivo*/ + float.Parse(cantidadesAbono[5]));
 
                                                 }
                                                 else if (string.IsNullOrWhiteSpace(obtenerDinero.ToString()))
@@ -1060,11 +1065,18 @@ namespace PuntoDeVentaV2
                                             }
                                             else
                                             {
-                                                string[] datos = new string[] {
-                                                        "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
-                                                    };
-                                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                //string[] datos = new string[] {
+                                                //        "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(),
+                                                //        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
+                                                //    };
+                                                //cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                string[] datos = new string[]
+                                                        {
+                                                            idVenta.ToString(), FormPrincipal.userID.ToString(), total1, efectivo1, tarjeta1, vales1,
+                                                            cheque1, transferencia1, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                                                        };
+
+                                                cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
                                                 stopCancelar = false;
                                             }
                                         }
@@ -2924,6 +2936,63 @@ namespace PuntoDeVentaV2
 
                 }
             }
+        }
+
+
+        private bool revisarSiFueVentaACredito(int idAsignado)
+        {
+            var result = false;
+            var sum = 0;
+
+            var query = cn.CargarDatos($"SELECT Credito FROM DetallesVenta WHERE IDVenta = '{idAsignado}'");
+            var queryDetalleVentas = cn.CargarDatos($"SELECT `Status` AS estatus FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idAsignado}'");
+
+            if (!query.Rows.Count.Equals(0) && query.Rows[0]["Credito"].ToString() != "0.00")
+            {
+                sum += 1;
+            }
+
+            if (!queryDetalleVentas.Rows.Count.Equals(0) && queryDetalleVentas.Rows[0]["estatus"].ToString().Equals("1"))
+            {
+                sum += 1;
+            }
+
+            if (sum.Equals(2))
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        private string[] cantidadAbonada(int idVenta)
+        {
+            List<string> lista = new List<string>();
+
+            var obtenerMontoAbonado = cn.CargarDatos($"SELECT Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
+            var obtenerTotalAbonado = string.Empty; var efectivo = string.Empty; var tarjeta = string.Empty; var vales = string.Empty; var cheque = string.Empty; var transferencia = string.Empty;
+
+            if (!obtenerMontoAbonado.Rows.Count.Equals(0))
+            {
+                foreach (DataRow datosConsulta in obtenerMontoAbonado.Rows)
+                {
+                    obtenerTotalAbonado = datosConsulta["Total"].ToString();
+                    efectivo = datosConsulta["Efectivo"].ToString();
+                    tarjeta = datosConsulta["Tarjeta"].ToString();
+                    vales = datosConsulta["Vales"].ToString();
+                    cheque = datosConsulta["Cheque"].ToString();
+                    transferencia = datosConsulta["Transferencia"].ToString();
+                }
+            }
+
+            lista.Add(obtenerTotalAbonado);
+            lista.Add(efectivo);
+            lista.Add(tarjeta);
+            lista.Add(vales);
+            lista.Add(cheque);
+            lista.Add(transferencia);
+
+            return lista.ToArray();
         }
     //}
     }
