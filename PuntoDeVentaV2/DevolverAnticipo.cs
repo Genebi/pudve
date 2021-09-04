@@ -415,6 +415,7 @@ namespace PuntoDeVentaV2
                                         };
 
                             cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                            realizado = true;
                             this.Dispose();
                         }
                         else if (cancelarVenta == 2)
@@ -477,7 +478,16 @@ namespace PuntoDeVentaV2
 
                     List<string> listaAbono = new List<string>();
                     var idVenta = idAnticipo;
-                    var conceptoCredito = $"DEVOLUCION DINERO VENTA A CREDITO CANCELADA ID {idVenta}";
+                    var conceptoCredito = string.Empty;
+
+                    //if (tipo.Equals(1))
+                    //{
+                    //    conceptoCredito = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+                    //}
+                    //else
+                    //{
+                        conceptoCredito = $"DEVOLUCION DINERO VENTA A CREDITO CANCELADA ID {idVenta}";
+                    //}
                     //var revisarSiTieneAbono = cn.CargarDatos($"SELECT sum(Total), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia), FechaOperacion FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
                     string ultimoDate = string.Empty;
                     //if (!revisarSiTieneAbono.Rows.Count.Equals(0))// valida si la consulta esta vacia 
