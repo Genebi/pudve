@@ -3937,7 +3937,7 @@ namespace PuntoDeVentaV2
         }
 
         private void checkBoxMaster_CheckedChanged(object sender, EventArgs e)
-        {      
+        {
             CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
 
             if (headerBox.Checked)
@@ -3986,7 +3986,7 @@ namespace PuntoDeVentaV2
             //Muestra la cantidad de productos seleccionados
             if (contador > 0)
             {
-                lbCantidadSeleccionada.Text = $"Productos seleccionados: {contador}";
+                lbCantidadSeleccionada.Text = $"Productos seleccionados: {p.countRow()}";
             }
             else
             {
@@ -4597,6 +4597,14 @@ namespace PuntoDeVentaV2
             if (!cbTodos.Checked)
             {
                 MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+                lbPaginasSeleccionadas.Visible = false;
+                lbPaginasSeleccionadas.Text = string.Empty;
+            }
+            else
+            {
+                lbPaginasSeleccionadas.Visible = true;
+                lbPaginasSeleccionadas.Text = $"Páginas seleccionadas: {p.countPag()}";
+                mostrarCantidadProductos();
             }
 
             clickBoton = 0;
