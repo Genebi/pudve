@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         OpenFileDialog f;
+        int valor;
 
         public EditarTicket()
         {
@@ -192,6 +193,18 @@ namespace PuntoDeVentaV2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var dato = cn.CargarDatos(cs.consultarMensajeTicket(FormPrincipal.userID));
+
+            foreach (DataRow item in dato.Rows)
+            {
+                valor = Convert.ToInt32(item[0].ToString());
+            }
+
+            if (valor == 0)
+            {
+                cn.EjecutarConsulta(cs.insertarMensajeDeTicket(FormPrincipal.userID, "Gracias por su compra!!"));
+            }
+
             if (chkNombreUs.Checked == true)
             {
                 var status = 1;

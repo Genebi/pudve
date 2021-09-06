@@ -445,24 +445,6 @@ namespace PuntoDeVentaV2
                     //}
                 }
                 Close();
-                var consultar = cn.CargarDatos($"SELECT CerrarSesionAuto FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}");
-                foreach (DataRow item in consultar.Rows)
-                {
-                    var verificar = item[0].ToString();
-                    if (verificar == "1")
-                    {
-                        CajaN cerrarCorte = Application.OpenForms.OfType<CajaN>().FirstOrDefault();
-                        if (cerrarCorte != null)
-                        {
-                            //MessageBox.Show("Se finalizara la sesion debido a su previa configuracion");
-                            cerrarCorte.cerrarSesionCorte();
-                            
-                        }
-                    }
-                }
-               
-               
-
             }
         }
 
