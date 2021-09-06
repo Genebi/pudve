@@ -282,27 +282,45 @@ namespace PuntoDeVentaV2
                         }
 
                         botones = false;
+
+                        var correo = mb.correoUsuario();
+                        var correoCantidades = cargarDatosCorteCaja();
+
+                        // Ejecutar hilo para enviar notificación
+                        var datosConfig = mb.ComprobarConfiguracion();
+
+                        if (datosConfig.Count > 0)
+                        {
+                            if (Convert.ToInt32(datosConfig[20]).Equals(1))
+                            {
+                                Thread mandarCorreo = new Thread(
+                                    () => Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF)
+                                );
+                                mandarCorreo.Start();
+                            }
+                        }
+
                     }
 
                     CargarSaldoInicial();
                     CargarSaldo();
 
-                    var correo = mb.correoUsuario();
-                    var correoCantidades = cargarDatosCorteCaja();
+                    //var correo = mb.correoUsuario();
+                    //var correoCantidades = cargarDatosCorteCaja();
 
-                    // Ejecutar hilo para enviar notificación
-                    var datosConfig = mb.ComprobarConfiguracion();
+                    //// Ejecutar hilo para enviar notificación
+                    //var datosConfig = mb.ComprobarConfiguracion();
 
-                    if (datosConfig.Count > 0)
-                    {
-                        if (Convert.ToInt32(datosConfig[20]).Equals(1))
-                        {
-                            Thread mandarCorreo = new Thread(
-                                () => Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF)
-                            );
-                            mandarCorreo.Start();
-                        }
-                    }
+                    //if (datosConfig.Count > 0)
+                    //{
+                    //    if (Convert.ToInt32(datosConfig[20]).Equals(1))
+                    //    {
+                    //        Thread mandarCorreo = new Thread(
+                    //            () => Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF)
+                    //        );
+                    //        mandarCorreo.Start();
+                    //    }
+                    //}
                 };
 
                 corte.Show();

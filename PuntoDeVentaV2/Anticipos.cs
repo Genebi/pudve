@@ -62,6 +62,9 @@ namespace PuntoDeVentaV2
                 opcion4 = permisos[3];
                 opcion5 = permisos[4];
             }
+
+            txtBuscarAnticipo.Focus();
+
         }
 
         private void CargarDatos(int estado = 1, int tipo = 0)
@@ -97,7 +100,18 @@ namespace PuntoDeVentaV2
                 var fechaInicio = dpFechaInicial.Text;
                 var fechaFinal = dpFechaFinal.Text;
 
-                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
+                if (string.IsNullOrEmpty(txtBuscarAnticipo.Text))//Busqueda sin Cliente/Empleado
+                {
+                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
+                }
+                else//Busqueda con Cliente/Empleado
+                {
+                    //var emp = consultaBuscarEmpledo(txtBuscarAnticipo.Text);
+                    //var client = consultaBuscarCliente(); 
+
+                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Cliente LIKE '%{txtBuscarAnticipo.Text}%' AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
+                }
+                
             }
 
             sql_cmd = new MySqlCommand(consulta, sql_con);
@@ -156,6 +170,27 @@ namespace PuntoDeVentaV2
 
             dr.Close();
             sql_con.Close();
+        }
+
+        //private string consultaBuscarCliente()
+        //{
+        //    string result = string.Empty;
+
+        //    return result;
+        //}
+
+        private string consultaBuscarEmpledo(string nombreEmpleado)
+        {
+            string result = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{nombreEmpleado}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["ID"].ToString();
+            }
+
+            return result;
         }
 
         private void btnNuevoAnticipo_Click(object sender, EventArgs e)
@@ -503,6 +538,14 @@ namespace PuntoDeVentaV2
             {
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
+            }
+        }
+
+        private void txtBuscarAnticipo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnBuscarAnticipos.PerformClick();
             }
         }
     }
