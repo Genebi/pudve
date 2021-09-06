@@ -320,11 +320,11 @@ namespace PuntoDeVentaV2
                     numRow++;
 
 
-                    if (tipoProducto.Equals("PQ"))
+                    if (datosProducto[5].Equals("PQ"))
                     {
                         var buscarProducto = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}'");
 
-                        if (buscarProducto.Rows.Count.Equals(0))
+                        if (!buscarProducto.Rows.Count.Equals(0))
                         {
                             nombre = buscarProducto.Rows[0]["Nombre"].ToString();
                             tipoProducto = buscarProducto.Rows[0]["Tipo"].ToString();
