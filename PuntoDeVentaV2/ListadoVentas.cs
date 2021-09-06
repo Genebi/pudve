@@ -2984,6 +2984,15 @@ namespace PuntoDeVentaV2
                     transferencia = datosConsulta["Transferencia"].ToString();
                 }
             }
+            else
+            {
+                obtenerTotalAbonado = "0.00";
+                efectivo = "0.00";
+                tarjeta = "0.00";
+                vales = "0.00";
+                cheque = "0.00";
+                transferencia = "0.00";
+            }
 
             lista.Add(obtenerTotalAbonado);
             lista.Add(efectivo);

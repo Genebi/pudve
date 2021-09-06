@@ -319,6 +319,20 @@ namespace PuntoDeVentaV2
 
                     numRow++;
 
+
+                    if (tipoProducto.Equals("PQ"))
+                    {
+                        var buscarProducto = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}'");
+
+                        if (buscarProducto.Rows.Count.Equals(0))
+                        {
+                            nombre = buscarProducto.Rows[0]["Nombre"].ToString();
+                            tipoProducto = buscarProducto.Rows[0]["Tipo"].ToString();
+                            codigosAsociados = string.Empty;
+                            precio = float.Parse(buscarProducto.Rows[0]["Precio"].ToString());
+                        }
+                    }
+
                     //=========================================================================================
                     PdfPCell colNumProductoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
                     colNumProductoTmp.BorderWidth = 1;
