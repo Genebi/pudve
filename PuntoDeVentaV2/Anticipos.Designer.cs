@@ -50,6 +50,7 @@
             this.IDVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FormaPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
+            this.txtBuscarAnticipo = new System.Windows.Forms.TextBox();
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.SuspendLayout();
@@ -70,14 +71,15 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.txtBuscarAnticipo);
             this.panelBotones.Controls.Add(this.dpFechaFinal);
             this.panelBotones.Controls.Add(this.dpFechaInicial);
             this.panelBotones.Controls.Add(this.btnNuevoAnticipo);
             this.panelBotones.Controls.Add(this.btnBuscarAnticipos);
             this.panelBotones.Controls.Add(this.cbAnticipos);
-            this.panelBotones.Location = new System.Drawing.Point(12, 77);
+            this.panelBotones.Location = new System.Drawing.Point(12, 58);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(845, 50);
+            this.panelBotones.Size = new System.Drawing.Size(845, 91);
             this.panelBotones.TabIndex = 7;
             // 
             // dpFechaFinal
@@ -85,9 +87,9 @@
             this.dpFechaFinal.CustomFormat = "yyyy-MM-dd";
             this.dpFechaFinal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaFinal.Location = new System.Drawing.Point(367, 16);
+            this.dpFechaFinal.Location = new System.Drawing.Point(627, 59);
             this.dpFechaFinal.Name = "dpFechaFinal";
-            this.dpFechaFinal.Size = new System.Drawing.Size(145, 23);
+            this.dpFechaFinal.Size = new System.Drawing.Size(120, 23);
             this.dpFechaFinal.TabIndex = 7;
             // 
             // dpFechaInicial
@@ -95,9 +97,9 @@
             this.dpFechaInicial.CustomFormat = "yyyy-MM-dd";
             this.dpFechaInicial.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaInicial.Location = new System.Drawing.Point(205, 16);
+            this.dpFechaInicial.Location = new System.Drawing.Point(485, 59);
             this.dpFechaInicial.Name = "dpFechaInicial";
-            this.dpFechaInicial.Size = new System.Drawing.Size(145, 23);
+            this.dpFechaInicial.Size = new System.Drawing.Size(120, 23);
             this.dpFechaInicial.TabIndex = 6;
             // 
             // btnNuevoAnticipo
@@ -130,7 +132,7 @@
             this.btnBuscarAnticipos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscarAnticipos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarAnticipos.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarAnticipos.Location = new System.Drawing.Point(530, 16);
+            this.btnBuscarAnticipos.Location = new System.Drawing.Point(766, 59);
             this.btnBuscarAnticipos.Name = "btnBuscarAnticipos";
             this.btnBuscarAnticipos.Size = new System.Drawing.Size(75, 24);
             this.btnBuscarAnticipos.TabIndex = 4;
@@ -176,7 +178,7 @@
             this.Info,
             this.IDVenta,
             this.FormaPago});
-            this.DGVAnticipos.Location = new System.Drawing.Point(12, 141);
+            this.DGVAnticipos.Location = new System.Drawing.Point(12, 155);
             this.DGVAnticipos.Name = "DGVAnticipos";
             this.DGVAnticipos.ReadOnly = true;
             this.DGVAnticipos.RowHeadersVisible = false;
@@ -277,6 +279,14 @@
             this.TTMensaje.OwnerDraw = true;
             this.TTMensaje.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTMensaje_Draw);
             // 
+            // txtBuscarAnticipo
+            // 
+            this.txtBuscarAnticipo.Location = new System.Drawing.Point(3, 59);
+            this.txtBuscarAnticipo.Name = "txtBuscarAnticipo";
+            this.txtBuscarAnticipo.Size = new System.Drawing.Size(466, 20);
+            this.txtBuscarAnticipo.TabIndex = 8;
+            this.txtBuscarAnticipo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscarAnticipo_KeyDown);
+            // 
             // Anticipos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,6 +302,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Anticipos_KeyDown);
             this.Resize += new System.EventHandler(this.Anticipos_Resize);
             this.panelBotones.ResumeLayout(false);
+            this.panelBotones.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -321,5 +332,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Info;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDVenta;
         private System.Windows.Forms.DataGridViewTextBoxColumn FormaPago;
+        private System.Windows.Forms.TextBox txtBuscarAnticipo;
     }
 }
