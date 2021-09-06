@@ -75,7 +75,6 @@
             // chkCerrarSesionCorte
             // 
             this.chkCerrarSesionCorte.AutoSize = true;
-            this.chkCerrarSesionCorte.Enabled = false;
             this.chkCerrarSesionCorte.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkCerrarSesionCorte.Location = new System.Drawing.Point(11, 107);
             this.chkCerrarSesionCorte.Name = "chkCerrarSesionCorte";

@@ -346,42 +346,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public void cerrarSesionCorteCaja()
-        {
-            MessageBox.Show("Se finalizara la sesion deacuerdo a sus ajustes en \"Configuracion\"");
-
-            FormCollection formulariosApp = Application.OpenForms;
-            List<Form> formularioCerrar = new List<Form>();
-
-            foreach (Form f in formulariosApp)
-            {
-                if (f.Name != "FormPrincipal" && f.Name != "Login" && f.Name != "RespadoBaseDatos")
-                {
-                    formularioCerrar.Add(f);
-                }
-            }
-
-            Form toClose = new Form();
-            string name = string.Empty;
-
-            formularioCerrar.Reverse();
-
-            for (int i = 0; i <= formularioCerrar.Count - 1; i++)
-            {
-                toClose = formularioCerrar[i];
-                name = toClose.Name;
-                toClose.Close();
-            }
-
-            formularioCerrar.Clear();
-
-            this.Hide();
-
-            Login VentanaLogin = new Login();
-            VentanaLogin.contadorMetodoTablas = 1;
-            VentanaLogin.ShowDialog();
-        }
-
         public void cerrarSesion()
         {
             FormCollection formulariosApp = Application.OpenForms;

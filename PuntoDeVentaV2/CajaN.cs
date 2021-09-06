@@ -313,14 +313,14 @@ namespace PuntoDeVentaV2
            
         }
 
-        public void cerrarSesionCorte()
-        {
-            FormPrincipal cerrarS = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
-            if (cerrarS != null)
-            {
-                cerrarS.cerrarSesionCorteCaja();
-            }
-        }
+        //public void cerrarSesionCorte()
+        //{
+        //    FormPrincipal cerrarS = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
+        //    if (cerrarS != null)
+        //    {
+        //        cerrarS.cerrarSesionCorteCaja();
+        //    }
+        //}
 
         private string[] cargarDatosCorteCaja()
         {
