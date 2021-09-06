@@ -30,11 +30,14 @@ namespace PuntoDeVentaV2
             string path = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
             using (StreamReader sr = File.OpenText(path))
             {
-                string s = "";
-                while ((s = sr.ReadLine()) != null)
+                if (new FileInfo(path).Length != 0)
                 {
-                    var usuarioGuardado = s.Split(',');
-                    dgvUsuariosGuardados.Rows.Add(usuarioGuardado[0].ToString().Replace("[", ""));
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        var usuarioGuardado = s.Split(',');
+                        dgvUsuariosGuardados.Rows.Add(usuarioGuardado[0].ToString().Replace("[", ""));
+                    }
                 }
             }
         }
@@ -47,14 +50,17 @@ namespace PuntoDeVentaV2
                 var contraseña = string.Empty;
                 using (StreamReader sr2 = File.OpenText(path))
                 {
-                    string s2 = "";
-                    while ((s2 = sr2.ReadLine()) != null)
+                    if (new FileInfo(path).Length != 0)
                     {
-                        var user = s2.Split(',');
-
-                        if (dgvUsuariosGuardados.Rows[e.RowIndex].Cells[0].Value.ToString()== user[0].ToString().Replace("[", ""))
+                        string s2 = "";
+                        while ((s2 = sr2.ReadLine()) != null)
                         {
-                            contraseña = user[1].ToString();
+                            var user = s2.Split(',');
+
+                            if (dgvUsuariosGuardados.Rows[e.RowIndex].Cells[0].Value.ToString() == user[0].ToString().Replace("[", ""))
+                            {
+                                contraseña = user[1].ToString();
+                            }
                         }
                     }
                 }

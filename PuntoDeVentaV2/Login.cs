@@ -401,31 +401,51 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            if (!txtUsuario.Text.Equals(string.Empty) && !txtPassword.Text.Equals(string.Empty))
+            {
+                if (File.Exists(path))
+                {
+                    if (new FileInfo(path).Length.Equals(0))
+                    {
+                        using (StreamWriter sw = File.AppendText(path))
+                        {
+                            var contraseñaEncriptada = Encriptar(password);
+                            sw.WriteLine("[" + usuario + "," + contraseñaEncriptada + "]");
+                        }
+                    }
+                }
+            }
+
             ///// SE GUARDAN LOS USUARIOS RECORDADOS Y EN SU DEFECTO LAS CONTRASEÑAS.
             using (StreamReader sr = File.OpenText(path))
             {
-     
-                string s = "";
-                while ((s = sr.ReadLine()) != null)
+                if (new FileInfo(path).Length != 0)
                 {
-                    user = s.Split(',');
-                    if (usuario == user[0].ToString().Replace("[",""))
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)
                     {
-                        guardarUsuario = 0;
+                        user = s.Split(',');
+                        if (usuario == user[0].ToString().Replace("[", ""))
+                        {
+                            guardarUsuario = 0;
+                        }
                     }
                 }
             }
 
             using (StreamReader sr2 = File.OpenText(path))
             {
-                string s2 = "";
-                while ((s2 = sr2.ReadLine()) != null)
+                if (new FileInfo(path).Length != 0)
                 {
-                    user = s2.Split(',');
-                    if ("o8VKT4mG4Gg="== user[1].ToString().Replace("]", ""))
+                    string s2 = "";
+                    while ((s2 = sr2.ReadLine()) != null)
                     {
-                        guardarUsuario = 1;
-                        eliminar = "1";
+                        user = s2.Split(',');
+                        if ("o8VKT4mG4Gg=" == user[1].ToString().Replace("]", ""))
+                        {
+                            guardarUsuario = 1;
+                            eliminar = "1";
+                        }
                     }
                 }
             }
@@ -733,21 +753,25 @@ namespace PuntoDeVentaV2
             {
                 if (!Properties.Settings.Default.Hosting.Equals(string.Empty))
                 {
-                    vs.printProductVersion();
+                    //vs.printProductVersion();
                 }
-                string path = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
-                using (StreamReader sr = File.OpenText(path))
+                //string path = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
+                using (StreamReader sr = File.OpenText(verificarArchivo))
                 {
-                    string s = "";
-                    while ((s = sr.ReadLine()) != null)
+                    if (new FileInfo(verificarArchivo).Length != 0)
                     {
-                        var user = s.Split(',');
-                        usuarioGuardado = user[0].ToString().Replace("[", "");
-                        lbUsuarios.Items.Add(usuarioGuardado);
+                        string s = "";
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            var user = s.Split(',');
+                            usuarioGuardado = user[0].ToString().Replace("[", "");
+                            lbUsuarios.Items.Add(usuarioGuardado);
+                        }
                     }
                 }
             }
         }
+
         /// <summary>
         /// Metodo para hacer el copiado de archivos 
         /// necesarios para el funcionamiento
@@ -816,31 +840,67 @@ namespace PuntoDeVentaV2
             {
                 if (!Properties.Settings.Default.Hosting.Equals(string.Empty))
                 {
-                    vs.printProductVersion();
+                    //vs.printProductVersion();
                 }
-                string path = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
-                using (StreamReader sr = File.OpenText(path))
+
+                using (StreamReader sr = File.OpenText(verificarArchivo)) 
                 {
-                    lbUsuarios.Items.Clear();
-                    string s = "";
-                    while ((s = sr.ReadLine()) != null)
+                    //MessageBox.Show("Proceso de lectura");
+                    if (new FileInfo(verificarArchivo).Length != 0)
                     {
-                        var user = s.Split(',');
-                        usuarioGuardado = user[0].ToString().Replace("[", "");
-                        if (usuarioGuardado.StartsWith(txtUsuario.Text))
+                        lbUsuarios.Items.Clear();
+                        string s = "";
+                        while ((s = sr.ReadLine()) != null)
                         {
+                            var user = s.Split(',');
+                            usuarioGuardado = user[0].ToString().Replace("[", "");
+                            if (usuarioGuardado.StartsWith(txtUsuario.Text))
+                            {
 
-                            lbUsuarios.Visible = true;
-                            lbUsuarios.Items.Add(usuarioGuardado);
+                                lbUsuarios.Visible = true;
+                                lbUsuarios.Items.Add(usuarioGuardado);
+                            }
+                            else if (lbUsuarios.Items.Count == 0 || string.IsNullOrEmpty(txtUsuario.Text))
+                            {
+
+                                lbUsuarios.Visible = false;
+                            }
+
                         }
-                        else if (lbUsuarios.Items.Count == 0 || string.IsNullOrEmpty(txtUsuario.Text))
-                        {
-
-                            lbUsuarios.Visible = false;
-                        }
-
                     }
                 }
+
+                //string path = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
+                //if (new FileInfo(verificarArchivo).Length != 0)
+                //{
+                //    //MessageBox.Show("Proceso de lectura");
+                //    using (StreamReader sr = File.OpenText(verificarArchivo))
+                //    {
+                //        lbUsuarios.Items.Clear();
+                //        string s = "";
+                //        while ((s = sr.ReadLine()) != null)
+                //        {
+                //            var user = s.Split(',');
+                //            usuarioGuardado = user[0].ToString().Replace("[", "");
+                //            if (usuarioGuardado.StartsWith(txtUsuario.Text))
+                //            {
+
+                //                lbUsuarios.Visible = true;
+                //                lbUsuarios.Items.Add(usuarioGuardado);
+                //            }
+                //            else if (lbUsuarios.Items.Count == 0 || string.IsNullOrEmpty(txtUsuario.Text))
+                //            {
+
+                //                lbUsuarios.Visible = false;
+                //            }
+
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    //MessageBox.Show("No hacer nada");
+                //}
             }
         }
 
@@ -876,7 +936,8 @@ namespace PuntoDeVentaV2
             // limpiamos los datos de las variables del sistema para poder olvidar los datos de inicio de login
             txtUsuario.Clear();
             txtPassword.Clear();
-            //BorrarDatosLogin();
+            BorrarDatosLogin();
+            limpiarUsuarioGuardado();
         }
 
         private void desvincularPCMenuItem_Click(object sender, EventArgs e)
