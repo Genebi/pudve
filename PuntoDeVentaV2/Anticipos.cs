@@ -30,6 +30,8 @@ namespace PuntoDeVentaV2
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
 
+        bool conBusqueda = false;
+
         // Permisos para botones
         int opcion1 = 1; // Generar ticket
         int opcion2 = 1; // Habilitar/deshabilitar
@@ -83,7 +85,7 @@ namespace PuntoDeVentaV2
             {
                 sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             }
-            
+
             sql_con.Open();
 
             var consulta = string.Empty;
@@ -103,6 +105,7 @@ namespace PuntoDeVentaV2
                 if (string.IsNullOrEmpty(txtBuscarAnticipo.Text))//Busqueda sin Cliente/Empleado
                 {
                     consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
+                    conBusqueda = false;
                 }
                 else//Busqueda con Cliente/Empleado
                 {
@@ -110,8 +113,10 @@ namespace PuntoDeVentaV2
                     //var client = consultaBuscarCliente(); 
 
                     consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Cliente LIKE '%{txtBuscarAnticipo.Text}%' AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
+
+                    conBusqueda = true;
                 }
-                
+
             }
 
             sql_cmd = new MySqlCommand(consulta, sql_con);
@@ -120,52 +125,63 @@ namespace PuntoDeVentaV2
 
             DGVAnticipos.Rows.Clear();
 
-            while (dr.Read())
+            if (dr.HasRows)
             {
-                Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
-                Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ban.png");
-                Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
-                Image devolver = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
-                Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
-                Bitmap sinImagen = new Bitmap(1, 1);
-                sinImagen.SetPixel(0, 0, Color.White);
-
-                int rowId = DGVAnticipos.Rows.Add();
-
-                DataGridViewRow row = DGVAnticipos.Rows[rowId];
-
-                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-                row.Cells["Concepto"].Value = dr.GetValue(dr.GetOrdinal("Concepto"));
-                row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Importe"));
-                row.Cells["Cliente"].Value = dr.GetValue(dr.GetOrdinal("Cliente"));
-                row.Cells["Empleado"].Value = "Administrador";
-                row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("Fecha"))).ToString("yyyy-MM-dd HH:mm:ss");
-                row.Cells["IDVenta"].Value = dr.GetValue(dr.GetOrdinal("IDVenta"));
-                row.Cells["FormaPago"].Value = dr.GetValue(dr.GetOrdinal("FormaPago"));
-                row.Cells["Ticket"].Value = ticket;
-
-                var status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
-
-                if (status == 1)
+                while (dr.Read())
                 {
-                    row.Cells["Status"].Value = deshabilitar;
-                    row.Cells["Devolver"].Value = devolver;
-                    row.Cells["Info"].Value = sinImagen;
-                }
-                else if (status == 2)
-                {
-                    row.Cells["Status"].Value = habilitar;
-                    row.Cells["Devolver"].Value = sinImagen;
-                    row.Cells["Info"].Value = sinImagen;
-                }
-                else
-                {
-                    row.Cells["Status"].Value = sinImagen;
-                    row.Cells["Devolver"].Value = sinImagen;
-                    row.Cells["Info"].Value = info;
+                    Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
+                    Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ban.png");
+                    Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
+                    Image devolver = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
+                    Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
+                    Bitmap sinImagen = new Bitmap(1, 1);
+                    sinImagen.SetPixel(0, 0, Color.White);
+
+                    int rowId = DGVAnticipos.Rows.Add();
+
+                    DataGridViewRow row = DGVAnticipos.Rows[rowId];
+
+                    row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
+                    row.Cells["Concepto"].Value = dr.GetValue(dr.GetOrdinal("Concepto"));
+                    row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Importe"));
+                    row.Cells["Cliente"].Value = dr.GetValue(dr.GetOrdinal("Cliente"));
+                    row.Cells["Empleado"].Value = "Administrador";
+                    row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("Fecha"))).ToString("yyyy-MM-dd HH:mm:ss");
+                    row.Cells["IDVenta"].Value = dr.GetValue(dr.GetOrdinal("IDVenta"));
+                    row.Cells["FormaPago"].Value = dr.GetValue(dr.GetOrdinal("FormaPago"));
+                    row.Cells["Ticket"].Value = ticket;
+
+                    var status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
+
+                    if (status == 1)
+                    {
+                        row.Cells["Status"].Value = deshabilitar;
+                        row.Cells["Devolver"].Value = devolver;
+                        row.Cells["Info"].Value = sinImagen;
+                    }
+                    else if (status == 2)
+                    {
+                        row.Cells["Status"].Value = habilitar;
+                        row.Cells["Devolver"].Value = sinImagen;
+                        row.Cells["Info"].Value = sinImagen;
+                    }
+                    else
+                    {
+                        row.Cells["Status"].Value = sinImagen;
+                        row.Cells["Devolver"].Value = sinImagen;
+                        row.Cells["Info"].Value = info;
+                    }
                 }
             }
-
+            else
+            {
+                if (conBusqueda)
+                {
+                    MessageBox.Show("No se encontraron resultados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtBuscarAnticipo.Text = string.Empty;
+                    txtBuscarAnticipo.Focus();
+                }
+            }
             DGVAnticipos.ClearSelection();
 
             dr.Close();
