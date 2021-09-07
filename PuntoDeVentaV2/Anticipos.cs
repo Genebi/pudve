@@ -64,7 +64,7 @@ namespace PuntoDeVentaV2
             }
 
             txtBuscarAnticipo.Focus();
-
+            dpFechaInicial.Value = DateTime.Today.AddDays(-1);
         }
 
         private void CargarDatos(int estado = 1, int tipo = 0)
@@ -547,6 +547,11 @@ namespace PuntoDeVentaV2
             {
                 btnBuscarAnticipos.PerformClick();
             }
+        }
+
+        private void txtBuscarAnticipo_TextChanged(object sender, EventArgs e)
+        {
+            txtBuscarAnticipo.CharacterCasing = CharacterCasing.Upper;
         }
     }
 }

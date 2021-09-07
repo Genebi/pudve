@@ -285,6 +285,7 @@
             this.txtBuscarAnticipo.Name = "txtBuscarAnticipo";
             this.txtBuscarAnticipo.Size = new System.Drawing.Size(466, 20);
             this.txtBuscarAnticipo.TabIndex = 8;
+            this.txtBuscarAnticipo.TextChanged += new System.EventHandler(this.txtBuscarAnticipo_TextChanged);
             this.txtBuscarAnticipo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscarAnticipo_KeyDown);
             // 
             // Anticipos
