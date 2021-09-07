@@ -88,6 +88,8 @@ namespace PuntoDeVentaV2
         public static int checkNoVendidos = 0;
         public static int diasNoVendidos = 0;
 
+        public bool desdeCorteDeCaja = false;
+
         //Validar el cierre de sesion
         int validarCierreDeSesion = 0;
 
@@ -353,9 +355,19 @@ namespace PuntoDeVentaV2
 
             foreach (Form f in formulariosApp)
             {
-                if (f.Name != "FormPrincipal" && f.Name != "Login" && f.Name != "RespadoBaseDatos")
+                if (desdeCorteDeCaja.Equals(true))
                 {
-                    formularioCerrar.Add(f);
+                    if (f.Name != "FormPrincipal" && f.Name != "Login" && f.Name != "RespadoBaseDatos" && f.Name != "CajaN")
+                    {
+                        formularioCerrar.Add(f);
+                    }
+                }
+                if (desdeCorteDeCaja.Equals(false))
+                {
+                    if (f.Name != "FormPrincipal" && f.Name != "Login" && f.Name != "RespadoBaseDatos")
+                    {
+                        formularioCerrar.Add(f);
+                    }
                 }
             }
 
@@ -374,6 +386,8 @@ namespace PuntoDeVentaV2
             formularioCerrar.Clear();
 
             this.Hide();
+
+            desdeCorteDeCaja = false;
 
             Login VentanaLogin = new Login();
             VentanaLogin.contadorMetodoTablas = 1;
@@ -1099,15 +1113,40 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+            var mensajeDelMessageBox = string.Empty;
+            var tituloDelMessageBox = "Mensaje del Sistema";
+
+            if (desdeCorteDeCaja.Equals(true))
+            {
+                mensajeDelMessageBox = "Se finalizará sesión de acuerdo con sus ajustes de la configuración";
+            }
+            else
+            {
+                mensajeDelMessageBox = "¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?";
+            }
+
             if (cerrarAplicacion.Equals(true) && this.Visible.Equals(true))
             {
-                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult respuesta;
 
-                if (respuesta == DialogResult.Yes)
+                if (desdeCorteDeCaja.Equals(true))
+                {
+                    respuesta = MessageBox.Show(mensajeDelMessageBox, tituloDelMessageBox, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    respuesta = MessageBox.Show(mensajeDelMessageBox, tituloDelMessageBox, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                }
+
+                if (respuesta == DialogResult.Yes || respuesta.Equals(DialogResult.OK))
                 {
                     if (backUpDB.validarMandarRespaldoCorreo())
                     {
-                        MessageBox.Show("Este proceso podria tardar unos minutos.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Este proceso podria tardar unos minutos.", 
+                                        "Mensaje de sistema", 
+                                        MessageBoxButtons.OK, 
+                                        MessageBoxIcon.Information);
+
                         if (Application.OpenForms.OfType<Cargando>().Count() == 1)
                         {
                             //e.Cancel = true;
@@ -1131,36 +1170,42 @@ namespace PuntoDeVentaV2
                 if (condicionarMensaje == 1)
                 {
                     //MessageBox.Show("Se finalizara la sesion deacuerdo a sus ajustes en \"Configuracion\"");
-
                     e.Cancel = true;
                     cerrarSesion();
                     cerrarAplicacion = false;
                 }
-            
                 else
                 {
-                    var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    DialogResult respuesta;
 
-                if (respuesta == DialogResult.Yes)
-                {
-                    e.Cancel = true;
-                    cerrarSesion();
+                    if (desdeCorteDeCaja.Equals(true))
+                    {
+                        respuesta = MessageBox.Show(mensajeDelMessageBox, tituloDelMessageBox, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        respuesta = MessageBox.Show(mensajeDelMessageBox, tituloDelMessageBox, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    }
+
+                    if (respuesta == DialogResult.Yes || respuesta.Equals(DialogResult.OK))
+                    {
+                        e.Cancel = true;
+                        cerrarSesion();
+                        cerrarAplicacion = false;
+                    }
+                    else if (respuesta == DialogResult.No)
+                    {
+                        e.Cancel = true;
+                        cerrarAplicacion = false;
+                    }
+
+                    else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(false))
+                    {
+                        Application.Exit();
+                    }
                     cerrarAplicacion = false;
                 }
-                else if (respuesta == DialogResult.No)
-                {
-                    e.Cancel = true;
-                    cerrarAplicacion = false;
-                }
-
-                else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(false))
-                {
-                    Application.Exit();
-                }
-                cerrarAplicacion = false;
             }
-        }
-
         }
 
         private void timerProductos_Tick(object sender, EventArgs e)

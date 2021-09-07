@@ -271,6 +271,8 @@ namespace PuntoDeVentaV2
                 {
                     if (botones == true)
                     {
+                        var tipoDeMovimiento = corte.operacion;
+
                         cn.EjecutarConsulta($"UPDATE Anticipos Set AnticipoAplicado = 0 WHERE IDUsuario = '{FormPrincipal.userID}'");
                         if (Utilidades.AdobeReaderInstalado())
                         {
@@ -299,7 +301,6 @@ namespace PuntoDeVentaV2
                                 mandarCorreo.Start();
                             }
                         }
-
                     }
 
                     CargarSaldoInicial();

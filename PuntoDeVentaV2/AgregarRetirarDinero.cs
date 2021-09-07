@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
         // 0 = Depositar
         // 1 = Retirar
         // 2 = Corte
-        int operacion = 0;
+        public int operacion = 0;
 
 
         private float totalEfectivo = 0f;
@@ -1079,7 +1079,16 @@ namespace PuntoDeVentaV2
 
         private void AgregarRetirarDinero_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+            if (operacion.Equals(2))
+            {
+                FormPrincipal frmPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
+
+                if (frmPrincipal != null)
+                {
+                    frmPrincipal.desdeCorteDeCaja = true;
+                    frmPrincipal.btnSesion.PerformClick();
+                }
+            }
         }
     }
 }
