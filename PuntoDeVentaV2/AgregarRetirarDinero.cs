@@ -1079,16 +1079,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarRetirarDinero_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (operacion.Equals(2))
-            {
-                FormPrincipal frmPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
-
-                if (frmPrincipal != null)
-                {
-                    frmPrincipal.desdeCorteDeCaja = true;
-                    frmPrincipal.btnSesion.PerformClick();
-                }
-            }
+            
         }
     }
 }

@@ -355,19 +355,9 @@ namespace PuntoDeVentaV2
 
             foreach (Form f in formulariosApp)
             {
-                if (desdeCorteDeCaja.Equals(true))
+                if (f.Name != "FormPrincipal" && f.Name != "Login" && f.Name != "RespadoBaseDatos")
                 {
-                    if (f.Name != "FormPrincipal" && f.Name != "Login" && f.Name != "RespadoBaseDatos" && f.Name != "CajaN")
-                    {
-                        formularioCerrar.Add(f);
-                    }
-                }
-                if (desdeCorteDeCaja.Equals(false))
-                {
-                    if (f.Name != "FormPrincipal" && f.Name != "Login" && f.Name != "RespadoBaseDatos")
-                    {
-                        formularioCerrar.Add(f);
-                    }
+                    formularioCerrar.Add(f);
                 }
             }
 
@@ -380,7 +370,9 @@ namespace PuntoDeVentaV2
             {
                 toClose = formularioCerrar[i];
                 name = toClose.Name;
+                panelContenedor.Controls.Remove(toClose);
                 toClose.Close();
+                toClose = null;
             }
 
             formularioCerrar.Clear();

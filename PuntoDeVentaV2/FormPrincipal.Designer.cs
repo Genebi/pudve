@@ -432,7 +432,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panelMaestro;
-        private System.Windows.Forms.Panel panelContenedor;
         private System.Windows.Forms.Panel menuVertical;
         private System.Windows.Forms.Button btnEmpleados;
         private System.Windows.Forms.Button btnVentas;
@@ -452,6 +451,7 @@
         private System.Windows.Forms.Timer timerProductos;
         private System.Windows.Forms.Button btnImpresoras;
         public System.Windows.Forms.Button btnSesion;
+        public System.Windows.Forms.Panel panelContenedor;
     }
 }
 

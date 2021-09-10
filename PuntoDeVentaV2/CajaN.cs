@@ -91,6 +91,8 @@ namespace PuntoDeVentaV2
 
         int verificar = 0;
 
+        int tipoDeMovimiento = 0;
+
         public CajaN()
         {
             InitializeComponent();
@@ -250,6 +252,7 @@ namespace PuntoDeVentaV2
         {
             
             var f = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            
             date = f;
             if (opcion6 == 0)
             {
@@ -271,12 +274,14 @@ namespace PuntoDeVentaV2
                 {
                     if (botones == true)
                     {
-                        var tipoDeMovimiento = corte.operacion;
+                        tipoDeMovimiento = corte.operacion;
 
                         cn.EjecutarConsulta($"UPDATE Anticipos Set AnticipoAplicado = 0 WHERE IDUsuario = '{FormPrincipal.userID}'");
+
                         if (Utilidades.AdobeReaderInstalado())
                         {
                             GenerarReporte();
+                            recargarDatos = true;
                         }
                         else
                         {
@@ -322,14 +327,35 @@ namespace PuntoDeVentaV2
                     //        mandarCorreo.Start();
                     //    }
                     //}
+
+                    this.Activate();
+                    this.Refresh();
+                    Application.DoEvents();
                 };
 
+                //this.Refresh();
+                //Application.DoEvents();
+                
                 corte.Show();
 
                 //GenerarTicket();
             }
             abonos = 0;
            
+        }
+
+        private void cerrarSesionEnCorteDeCaja()
+        {
+            if (tipoDeMovimiento.Equals(2))
+            {
+                FormPrincipal frmPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
+
+                if (frmPrincipal != null)
+                {
+                    frmPrincipal.desdeCorteDeCaja = true;
+                    frmPrincipal.btnSesion.PerformClick();
+                }
+            }
         }
 
         //public void cerrarSesionCorte()
@@ -939,6 +965,35 @@ namespace PuntoDeVentaV2
                 CargarSaldoInicial();
                 CargarSaldo();
                 recargarDatos = false;
+
+                FormPrincipal frmPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
+
+                if (frmPrincipal != null)
+                {
+                    if (frmPrincipal.Controls.Count > 0)
+                    {
+                        foreach (Control item in frmPrincipal.Controls)
+                        {
+                            if (item.Name.Equals("panelMaestro"))
+                            {
+                                foreach (Control itemSubControl in item.Controls)
+                                {
+                                    if (itemSubControl.Name.Equals("panelContenedor"))
+                                    {
+                                        foreach (Control itemSubControlHijo in itemSubControl.Controls)
+                                        {
+                                            var nombreDeForma = itemSubControlHijo.Name.ToString();
+                                            if (nombreDeForma.Equals("CajaN"))
+                                            {
+                                                cerrarSesionEnCorteDeCaja();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -1952,23 +2007,17 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colTotalFinalC);
             
             #endregion
-
-
-
             //===========================================
             //===    FIN  TABLAS DE CORTE DE CAJA     ===
             //===========================================
-
-
+            
             reporte.Add(tabla);
             reporte.Add(linea);
 
             //===============================
             //===    TABLA DE DEPOSITOS   ===
             //===============================
-
             var procedencia = "Caja";
-
             #region Tabla de Depositos
             anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f };
 
@@ -2105,8 +2154,7 @@ namespace PuntoDeVentaV2
             //===============================
             //=== FIN TABLA DE DEPOSITOS  ===
             //===============================
-
-
+            
             //=========================
             //=== TABLA DE RETIROS  ===
             //=========================
@@ -2645,6 +2693,27 @@ namespace PuntoDeVentaV2
         private void CajaN_Shown(object sender, EventArgs e)
         {
 
+        }
+
+        private void CajaN_Activated(object sender, EventArgs e)
+        {
+            FormPrincipal frmPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
+
+            if (frmPrincipal != null)
+            {
+                if (frmPrincipal.Controls.Count > 0)
+                {
+                    foreach (Control item in frmPrincipal.Controls)
+                    {
+                        if (item.Name.Equals("CajaN") && item.TopLevelControl.Equals(true))
+                        {
+                            cerrarSesionEnCorteDeCaja();
+                        }
+                    }
+                }
+            }
+            this.Refresh();
+            Application.DoEvents();
         }
     }
 }
