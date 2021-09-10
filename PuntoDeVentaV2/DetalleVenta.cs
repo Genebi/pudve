@@ -11,9 +11,10 @@ using System.Windows.Forms;
 namespace PuntoDeVentaV2
 {
     public partial class DetalleVenta : Form
-    {
+    { 
         MetodosBusquedas mb = new MetodosBusquedas();
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
 
         public static string cliente = string.Empty;
         public static string nameClienteNameVenta = string.Empty;
@@ -24,6 +25,10 @@ namespace PuntoDeVentaV2
         private float totalMetodos = 0;
 
         public static int validarNoDuplicarVentas = 0;
+
+        float Total;
+        float DineroRecibido ;
+        float CambioTotal ;
         public DetalleVenta(float total, string idCliente = "")
         {
             InitializeComponent();
@@ -128,6 +133,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+
             Ventas venta = new Ventas();
             float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito) * 100 / 100;
 
@@ -191,6 +197,15 @@ namespace PuntoDeVentaV2
                 {
                     checarVales = float.Parse(txtVales.Text);
                 }
+
+                Properties.Settings.Default.efectivoRecibido = (float)Convert.ToDouble(checarEfectivo.ToString());
+                Properties.Settings.Default.tarjetaRecibido = (float)Convert.ToDouble(checarTarjeta.ToString());
+                Properties.Settings.Default.transfRecibido = (float)Convert.ToDouble(checarTransferencia.ToString());
+                Properties.Settings.Default.chequeRecibido = (float)Convert.ToDouble(checarCheque.ToString());
+                Properties.Settings.Default.valesRecibido = (float)Convert.ToDouble(checarVales.ToString());
+
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
 
                 if (checarEfectivo.Equals((float)mayor))
                 {
@@ -262,7 +277,7 @@ namespace PuntoDeVentaV2
 
                 //idCliente = 0 ;
                 //nameClienteNameVenta = string.Empty;
-
+                
                 this.Hide();
                 this.Close();
             }
@@ -298,7 +313,39 @@ namespace PuntoDeVentaV2
             }
             //validarNoDuplicarVentas = 0;
 
+            var ticketTemporal = cn.CargarDatos("Select Total, DineroRecibido, CambioTotal FROM ventas WHERE ID ORDER BY ID DESC LIMIT 1");
 
+            foreach (DataRow item in ticketTemporal.Rows)
+            {
+                Total = (float)Convert.ToDouble(item[0]);
+                DineroRecibido = (float)Convert.ToDouble(item[1]);
+                CambioTotal = (float)Convert.ToDouble(item[2]);
+            }
+
+            InfoUltimaVenta ticketUltimaVenta = new InfoUltimaVenta();
+            ticketUltimaVenta.ShowDialog();
+            //if (resetCantidades.Equals(DialogResult.OK))
+            //{
+            //    Properties.Settings.Default.efectivoRecibido = 0;
+            //    Properties.Settings.Default.tarjetaRecibido = 0;
+            //    Properties.Settings.Default.transfRecibido = 0;
+            //    Properties.Settings.Default.chequeRecibido = 0;
+            //    Properties.Settings.Default.valesRecibido = 0;
+            //    Properties.Settings.Default.Save();
+            //    Properties.Settings.Default.Reload();
+            //}
+            //else
+            //{
+            //    Properties.Settings.Default.efectivoRecibido = 0;
+            //    Properties.Settings.Default.tarjetaRecibido = 0;
+            //    Properties.Settings.Default.transfRecibido = 0;
+            //    Properties.Settings.Default.chequeRecibido = 0;
+            //    Properties.Settings.Default.valesRecibido = 0;
+            //    Properties.Settings.Default.Save();
+            //    Properties.Settings.Default.Reload();
+            //}
+
+            
         }
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
