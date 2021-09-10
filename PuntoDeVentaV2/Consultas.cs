@@ -212,6 +212,8 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+
+
         public string BuscadorDeInventario(string datoBuscado, string primerFecha, string segundaFecha, string revisarInventrario)
         {
             var consulta = string.Empty;
@@ -2611,6 +2613,11 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string actualizarDatosVenta(float dineroRecibido, float CambioTotal, int IdVenta)
+        {
+            var consulta = $"UPDATE ventas SET DineroRecibido = '{dineroRecibido}', CambioTotal = '{CambioTotal}' WHERE ID = '{IdVenta}' AND IDUsuario = '{FormPrincipal.userID}'";
+            return consulta;
+        }
 
     }
 }  

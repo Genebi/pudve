@@ -454,5 +454,89 @@ namespace PuntoDeVentaV2.Properties {
                 this["licencia"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float efectivoRecibido {
+            get {
+                return ((float)(this["efectivoRecibido"]));
+            }
+            set {
+                this["efectivoRecibido"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float tarjetaRecibido {
+            get {
+                return ((float)(this["tarjetaRecibido"]));
+            }
+            set {
+                this["tarjetaRecibido"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float transfRecibido {
+            get {
+                return ((float)(this["transfRecibido"]));
+            }
+            set {
+                this["transfRecibido"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float chequeRecibido {
+            get {
+                return ((float)(this["chequeRecibido"]));
+            }
+            set {
+                this["chequeRecibido"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float valesRecibido {
+            get {
+                return ((float)(this["valesRecibido"]));
+            }
+            set {
+                this["valesRecibido"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float sumaTotal {
+            get {
+                return ((float)(this["sumaTotal"]));
+            }
+            set {
+                this["sumaTotal"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float cambioTotal {
+            get {
+                return ((float)(this["cambioTotal"]));
+            }
+            set {
+                this["cambioTotal"] = value;
+            }
+        }
     }
 }

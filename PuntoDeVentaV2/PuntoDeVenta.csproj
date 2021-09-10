@@ -671,6 +671,12 @@
     <Compile Include="InformacionVenta.Designer.cs">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoUltimaVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoUltimaVenta.Designer.cs">
+      <DependentUpon>InfoUltimaVenta.cs</DependentUpon>
+    </Compile>
     <Compile Include="InputBoxMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -766,6 +772,7 @@
     <Compile Include="MisDatos.Designer.cs">
       <DependentUpon>MisDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Moneda.cs" />
     <Compile Include="Moneda_conletra.cs" />
     <Compile Include="NvaEmpresa.cs">
       <SubType>Form</SubType>
@@ -1256,6 +1263,9 @@
     <EmbeddedResource Include="InformacionVenta.resx">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InfoUltimaVenta.resx">
+      <DependentUpon>InfoUltimaVenta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InputBoxMessageBox.resx">
       <DependentUpon>InputBoxMessageBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -1603,6 +1613,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\assets\bascula.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\assets\cash-back.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\assets\iconfinder_Import.ico">
@@ -4483,6 +4496,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\cart-plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\cash-back.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\cash_register.png">
