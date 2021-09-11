@@ -21,6 +21,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
         MetodosGenerales mg = new MetodosGenerales();
+        CargarDatosCaja cdc = new CargarDatosCaja();
 
         // 0 = Depositar
         // 1 = Retirar
@@ -104,6 +105,12 @@ namespace PuntoDeVentaV2
             totalCheque = CajaN.totalCheque;
             totalTransferencia = CajaN.totalTransferencia;
             totalCredito = CajaN.totalCredito;
+            //totalEfectivo = CajaN.efectivo;
+            //totalTarjeta = CajaN.tarjeta;
+            //totalVales = CajaN.vales;
+            //totalCheque = CajaN.cheque;
+            //totalTransferencia = CajaN.trans;
+            ////totalCredito = CajaN.cred;
 
             CargarConceptos();
 
@@ -285,8 +292,26 @@ namespace PuntoDeVentaV2
 
             if (operacion.Equals(2))
             {
-                
-                if (CajaN.totCorte != "0")
+
+                //if (CajaN.totCorte != "0") //Cuando hay devoluciones
+                //{
+                //    efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
+                //    tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
+                //    cheque = (totalCheque - cheque - convertCheque);// - CajaN.retiroCheque;
+                //    vales = (totalVales - vales - convertVales);// - CajaN.retiroVales;
+                //    trans = (totalTransferencia - trans - convertTrans);// - CajaN.retiroTrans;
+                //    credito = totalCredito - credito;
+                //}
+                //else//Cuando no hay devoluciones
+                //{
+                //    efectivo = (totalEfectivo - efectivo);// - CajaN.retiroEfectivo;
+                //    tarjeta = (totalTarjeta - tarjeta);// - CajaN.retiroTarjeta;
+                //    cheque = (totalCheque - cheque);// - CajaN.retiroCheque;
+                //    vales = (totalVales - vales);// - CajaN.retiroVales;
+                //    trans = (totalTransferencia - trans);// - CajaN.retiroTrans;
+                //    credito = totalCredito - credito;
+                //}
+                if (CajaN.totCorte != "0") //Cuando hay devoluciones
                 {
                     efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
                     tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
@@ -295,7 +320,7 @@ namespace PuntoDeVentaV2
                     trans = (totalTransferencia - trans - convertTrans);// - CajaN.retiroTrans;
                     credito = totalCredito - credito;
                 }
-                else
+                else//Cuando no hay devoluciones
                 {
                     efectivo = (totalEfectivo - efectivo);// - CajaN.retiroEfectivo;
                     tarjeta = (totalTarjeta - tarjeta);// - CajaN.retiroTarjeta;

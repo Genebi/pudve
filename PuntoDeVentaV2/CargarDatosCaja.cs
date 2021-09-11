@@ -497,6 +497,17 @@ namespace PuntoDeVentaV2
             totalTransferencia = trans - retiroTrans; listaCaja.Add(totalTransferencia.ToString());      //55
             totalCredito = credito - retiroCredito; listaCaja.Add(totalCredito.ToString());            //56
 
+
+
+
+            ///////////////////Variables con los datos de los abonos////////////////////////
+            listaCaja.Add(efectivoCorte);//57
+            listaCaja.Add(tarjetaCorte);//58
+            listaCaja.Add(valesCorte);//59
+            listaCaja.Add(chequeCorte);//60
+            listaCaja.Add(transCorte);//61
+            listaCaja.Add(totCorte);//62
+            ////////////////////////////////////////////////////////////////////////////////
             verificarCantidadAbonos();
 
             ///////////////////////////////////////////////// Lista para losreportes /////////////////////////////////////////

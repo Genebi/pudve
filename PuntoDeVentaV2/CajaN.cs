@@ -479,6 +479,8 @@ namespace PuntoDeVentaV2
             }
 
             fechaGeneral = fechaDefault;
+
+            var datos = cdc.CargarSaldo("Caja");
             //drUno.Close();
 
             //var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
@@ -684,6 +686,13 @@ namespace PuntoDeVentaV2
             //                chequeCorte = devolucionCheque.ToString();
             //                transCorte = devolucionTrans.ToString();
             //                totCorte = devoluciones.ToString();
+
+            efectivoCorte = datos[57].ToString(); 
+            tarjetaCorte = datos[58].ToString();
+            valesCorte = datos[59].ToString();
+            chequeCorte = datos[60].ToString();
+            transCorte = datos[61].ToString();
+            totCorte = datos[62].ToString();
             //            }
             //        }
 
@@ -773,8 +782,6 @@ namespace PuntoDeVentaV2
 
             var tipodeMoneda = FormPrincipal.Moneda.Split('-');
             var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
-
-            var datos = cdc.CargarSaldo("Caja");
 
             //// Apartado VENTAS
             ////lbTEfectivo.Text = moneda + vEfectivo.ToString("0.00");
@@ -892,6 +899,12 @@ namespace PuntoDeVentaV2
             lbTValesC.Text = moneda + float.Parse(datos[44]).ToString("0.00");
             lbTChequeC.Text = moneda + float.Parse(datos[45]).ToString("0.00");
             lbTTransC.Text = moneda + float.Parse(datos[46]).ToString("0.00");
+
+            //efectivo = float.Parse(datos[42]);
+            //tarjeta = float.Parse(datos[43]);
+            //vales = float.Parse(datos[44]);
+            //cheque = float.Parse(datos[45]);
+            //trans = float.Parse(datos[46]);
 
             ////lbTTotalCaja.Text = moneda + subtotal.ToString("0.00");
             ////lbTEfectivoC.Text = moneda + totalF.ToString("0.00");

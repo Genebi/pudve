@@ -2746,5 +2746,88 @@ namespace PuntoDeVentaV2
                 return AdjustedWords.TrimEnd();
             }))();
         }
-    }
+
+        public static DateTime UpdateDateTime(/*bool convertToLocalTime*/)
+        {
+            DateTime dateTime = DateTime.MinValue;
+            System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://www.microsoft.com");
+            request.Method = "GET";
+            request.Accept = "text/html, application/xhtml+xml, */*";
+            request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
+            System.Net.HttpWebResponse response = (System.Net.HttpWebResponse)request.GetResponse();
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string todaysDates = response.Headers["date"];
+
+                dateTime = DateTime.ParseExact(todaysDates, "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
+                    System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat, System.Globalization.DateTimeStyles.AssumeUniversal);
+            }
+
+            return dateTime;
+            //Random ran = new Random(DateTime.Now.Millisecond);
+            //DateTime date = DateTime.Today;
+            //string serverResponse = string.Empty;
+
+            //// Represents the list of NIST servers
+            ////string[] servers = new string[] {
+            ////             "64.90.182.55",
+            ////             "206.246.118.250",
+            ////             "207.200.81.113",
+            ////             "128.138.188.172",
+            ////             "64.113.32.5",
+            ////             "64.147.116.229",
+            ////             "64.125.78.85",
+            ////             "128.138.188.172"
+            ////              };
+            //string[] server = new string[] { "142.251.34.35" };
+
+            //// Try each server in random order to avoid blocked requests due to too frequent request
+            //for (int i = 0; i < server.Count(); i++)
+            //{
+            //    try
+            //    {
+            //        // Open a StreamReader to a random time server
+            //        StreamReader reader = new StreamReader(new System.Net.Sockets.TcpClient(server[ran.Next(0, server.Length)], 13).GetStream());
+            //        serverResponse = reader.ReadToEnd();
+            //        reader.Close();
+
+            //        // Check to see that the signiture is there
+            //        if (serverResponse.Length > 47 && serverResponse.Substring(38, 9).Equals("UTC(NIST)"))
+            //        {
+            //            // Parse the date
+            //            int jd = int.Parse(serverResponse.Substring(1, 5));
+            //            int yr = int.Parse(serverResponse.Substring(7, 2));
+            //            int mo = int.Parse(serverResponse.Substring(10, 2));
+            //            int dy = int.Parse(serverResponse.Substring(13, 2));
+            //            int hr = int.Parse(serverResponse.Substring(16, 2));
+            //            int mm = int.Parse(serverResponse.Substring(19, 2));
+            //            int sc = int.Parse(serverResponse.Substring(22, 2));
+
+            //            if (jd > 51544)
+            //                yr += 2000;
+            //            else
+            //                yr += 1999;
+
+            //            date = new DateTime(yr, mo, dy, hr, mm, sc);
+
+            //            // Convert it to the current timezone if desired
+            //            if (convertToLocalTime)
+            //                date = date.ToLocalTime();
+
+            //            // Exit the loop
+            //            break;
+            //        }
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        /* Do Nothing...try the next server */
+            //    }
+            //}
+
+            //return date;
+        }
+}
 }
