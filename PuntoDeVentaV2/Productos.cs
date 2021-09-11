@@ -4324,6 +4324,7 @@ namespace PuntoDeVentaV2
 
             if (clickBoton == 1)
             {
+                // Se hace este proceso para cuando se quieren usar el boton asignar pero cuando cambias de pagina y no es la primera
                 auxiliarConsulta = consultaFiltro;
             }
 
