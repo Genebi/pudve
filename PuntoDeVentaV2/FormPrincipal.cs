@@ -430,6 +430,7 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
+            
             //if (ApplicationDeployment.IsNetworkDeployed)
             //{
             //    try
@@ -568,6 +569,11 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta(cs.quitarCodigoBarraExtraVacios());
                 }
             }
+
+            //var fechaActual = Utilidades.UpdateDateTime();
+            //string dt = DateTime.Now.ToString();
+
+            //MessageBox.Show($"Fecha de la computadora: {dt}\nLa Fecha Actual es: {fechaActual.ToString()}", "Mensaje de Sistema");
         }
 
         public void agregarCamposDinamicosPermisos()
