@@ -175,6 +175,7 @@ namespace PuntoDeVentaV2
         System.Timers.Timer actualizarDGVProductos = new System.Timers.Timer();
 
         string nuevoCodigoBarrasDeProducto = string.Empty;
+        string consultaFiltro = string.Empty;
 
         //variables para los combobox al cambiar en mosaico
 
@@ -4319,8 +4320,15 @@ namespace PuntoDeVentaV2
         //El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos
         public void CargarDatos(int status = 1, string busquedaEnProductos = "")
         {
+            string auxiliarConsulta = string.Empty;
+
+            if (clickBoton == 1)
+            {
+                auxiliarConsulta = consultaFiltro;
+            }
+
             // CONSULTA GENERAL
-            string consultaFiltro = $"SELECT * FROM Productos AS P ";
+            consultaFiltro = $"SELECT * FROM Productos AS P ";
 
             // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
             // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
@@ -4339,7 +4347,7 @@ namespace PuntoDeVentaV2
 
             // Consulta final despues de aplicador filtros, condiciones, etc
             consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
-            filtroConSinFiltroAvanzado = consultaFiltro;
+            filtroConSinFiltroAvanzado = clickBoton == 1 ? auxiliarConsulta : consultaFiltro;
 
             LimpiarAplicandoConsultaFiltros();
 
