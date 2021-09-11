@@ -3910,6 +3910,17 @@ namespace PuntoDeVentaV2
                         {
                             if (!filtros.ContainsKey(filtro["concepto"].ToString()))
                             {
+                                if (filtro["concepto"].ToString().Equals("Proveedor"))
+                                {
+                                    var detalles = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, filtro["strFiltro"].ToString());
+
+                                    if (detalles.Count() > 0)
+                                    {
+                                        filtro["strFiltro"] = detalles[0];
+                                    }
+
+                                }
+
                                 filtros.Add(filtro["concepto"].ToString(), new Tuple<string, float>(filtro["strFiltro"].ToString(), 0));
                             }
                         }
