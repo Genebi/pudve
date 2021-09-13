@@ -878,6 +878,13 @@ namespace PuntoDeVentaV2
                     comprobante.Receptor.CorreoTelefonoReceptor = correo_tel_receptor;
                 }
 
+                // Obtiene el nombre comercial del emisor
+                if (r_factura["e_nombre_comercial"].ToString() != "" & r_factura["e_nombre_comercial"].ToString() != null)
+                {
+                    comprobante.Emisor.nombreComercialEmisorSpecified = true;
+                    comprobante.Emisor.NombreComercialEmisor = "Nombre comercial: " + r_factura["e_nombre_comercial"].ToString();
+                }
+
 
 
 

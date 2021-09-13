@@ -49,6 +49,7 @@ namespace PuntoDeVentaV2
         string codPostal; string email;
         string telefono; string regimen;
         string logoTipo;
+        string nombre_comercial;
 
         // Variable para poder saber que tipo de persona 
         // es el cliente que inicio sesion en el Pudve
@@ -130,6 +131,7 @@ namespace PuntoDeVentaV2
             regimen = dt.Rows[index]["Regimen"].ToString();
             tipoPersona = dt.Rows[index]["TipoPersona"].ToString();
             logoTipo = dt.Rows[index]["LogoTipo"].ToString();
+            nombre_comercial = dt.Rows[index]["nombre_comercial"].ToString();
 
             /****************************************
             *   ponemos los datos en los TxtBox     *
@@ -148,6 +150,7 @@ namespace PuntoDeVentaV2
             txtEmail.Text = email;
             txtTelefono.Text = telefono;
             LblRegimenActual.Text = regimen;
+            txt_nombre_comercial.Text = nombre_comercial;
 
 
             // si el campo de la base de datos es difrente a null
@@ -286,6 +289,7 @@ namespace PuntoDeVentaV2
             codPostal = txtCodPost.Text;
             email = txtEmail.Text;
             telefono = txtTelefono.Text;
+            nombre_comercial = txt_nombre_comercial.Text;
             // verificamos si el combobox esta en el primer registro
             if (cbRegimen.Text == "Selecciona un Regimen")
             {
@@ -503,7 +507,7 @@ namespace PuntoDeVentaV2
             
 
             // el string para hacer el UPDATE
-            actualizar = $"UPDATE Usuarios SET RFC = '{rfc}', Telefono = '{telefono}', Email = '{email}', NombreCompleto = '{nomComp}', RazonSocial = '{nomComp}', Calle = '{calle}', NoExterior = '{numExt}', NoInterior = '{numInt}', Colonia = '{colonia}', Municipio = '{mpio}', Estado = '{estado}', CodigoPostal = '{codPostal}', Regimen = '{regimen}', TipoPersona = '{tipoPersona}' WHERE ID = '{id}'";
+            actualizar = $"UPDATE Usuarios SET RFC = '{rfc}', Telefono = '{telefono}', Email = '{email}', NombreCompleto = '{nomComp}', RazonSocial = '{nomComp}', Calle = '{calle}', NoExterior = '{numExt}', NoInterior = '{numInt}', Colonia = '{colonia}', Municipio = '{mpio}', Estado = '{estado}', CodigoPostal = '{codPostal}', Regimen = '{regimen}', TipoPersona = '{tipoPersona}', nombre_comercial='{nombre_comercial}' WHERE ID = '{id}'";
 
             // realizamos la consulta desde el metodo
             // que esta en la clase Conexion

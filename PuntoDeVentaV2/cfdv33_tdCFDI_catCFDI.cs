@@ -579,7 +579,10 @@ public partial class ComprobanteEmisor {
     private string nombreField;
     
     private string regimenFiscalField;
-    
+
+    private string nombreComercialEmisorField; // nuevo, solo para PDF
+    private bool nombreComercialEmisorFieldSpecified;
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     public string Rfc {
@@ -612,6 +615,39 @@ public partial class ComprobanteEmisor {
             this.regimenFiscalField = value;
         }
     }
+
+    #region Código nuevo. Auxiliar para la generación del PDF
+    // No pertenece al archivo orginal.
+    // No será usado para el timbrado, pero si para la generación del PDF
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string NombreComercialEmisor
+    {
+        get
+        {
+            return this.nombreComercialEmisorField;
+        }
+        set
+        {
+            this.nombreComercialEmisorField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool nombreComercialEmisorSpecified
+    {
+        get
+        {
+            return this.nombreComercialEmisorFieldSpecified;
+        }
+        set
+        {
+            this.nombreComercialEmisorFieldSpecified = value;
+        }
+    }
+    #endregion
 }
 
 /// <remarks/>

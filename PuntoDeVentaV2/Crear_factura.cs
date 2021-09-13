@@ -1110,6 +1110,12 @@ namespace PuntoDeVentaV2
                                 partir_factura = true;
                             }
 
+                            if (excede_montomax_xproducto > 0)
+                            {
+                                MessageBox.Show("Alguno de los productos excede el monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
                             if (unproducto > monto_xfactura & mas_dimpuesto == false)
                             {
                                 MessageBox.Show("El total de la factura es mayor al monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1206,7 +1212,7 @@ namespace PuntoDeVentaV2
                          r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
                          r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
                          txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
-                         r_venta["Folio"].ToString(), r_venta["Serie"].ToString()
+                         r_venta["Folio"].ToString(), r_venta["Serie"].ToString(), r_emisor["nombre_comercial"].ToString()
                         };
 
                         cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
@@ -1604,7 +1610,7 @@ namespace PuntoDeVentaV2
                             r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
                             r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
                             txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
-                            r_venta["Folio"].ToString(), r_venta["Serie"].ToString()
+                            r_venta["Folio"].ToString(), r_venta["Serie"].ToString(), r_emisor["nombre_comercial"].ToString()
                             };
 
                             cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
