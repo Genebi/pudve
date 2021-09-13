@@ -14,7 +14,15 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         float abonos = 0f;
+
+        ///////////////////Devoluciones//////////////////////
         float devoluciones = 0f;
+        float devolucionesEfectivo = 0f;
+        float devolucionesTarjeta = 0f;
+        float devolucionesVales = 0f;
+        float devolucionesCheque = 0f;
+        float devolucionesTransferencia = 0f;
+        /// ////////////////////////////////////////////////
 
         public static DateTime fechaGeneral;
 
@@ -389,6 +397,8 @@ namespace PuntoDeVentaV2
             var credi = (vCredito - retiroCredito);
             if (credi < 0) { credi = 0; }
 
+            verificarCantidadAbonos();
+
             //// Apartado TOTAL EN CAJA
             //efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo; if (efectivo < 0) { efectivo = 0; }
             //tarjeta = (vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI) - rTarjeta; if (tarjeta < 0) { tarjeta = 0; }
@@ -449,15 +459,15 @@ namespace PuntoDeVentaV2
             listaCaja.Add((retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*anticiposAplicados +*/ devoluciones).ToString());//lbTRetirado.Text = moneda + " -" + (retiroEfectivo + retiroTarjeta + retiroVales + retiroCheque + retiroTrans + /*vAnticipos*/anticiposAplicados + devoluciones).ToString("0.00");                                     //33
 
             // Apartado TOTAL EN CAJA
-            efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - rEfectivo; if (efectivo < 0) { efectivo = 0; }
+            efectivo = (vEfectivo + aEfectivo + dEfectivo + abonoEfectivoI) - (rEfectivo + devolucionesEfectivo); if (efectivo < 0) { efectivo = 0; }
             listaCaja.Add(efectivo.ToString());        //34
-            tarjeta = (vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI) - rTarjeta; if (tarjeta < 0) { tarjeta = 0; }
+            tarjeta = (vTarjeta + aTarjeta + dTarjeta + abonoTarjetaI) - (rTarjeta + devolucionesTarjeta); if (tarjeta < 0) { tarjeta = 0; }
             listaCaja.Add(tarjeta.ToString());         //35
-            vales = (vVales + aVales + dVales + abonoValesI) - rVales; if (vales < 0) { vales = 0; }
+            vales = (vVales + aVales + dVales + abonoValesI) - (rVales + devolucionesVales); if (vales < 0) { vales = 0; }
             listaCaja.Add(vales.ToString());           //36
-            cheque = (vCheque + aCheque + dCheque + abonoChequeI) - rCheque; if (cheque < 0) { cheque = 0; }
+            cheque = (vCheque + aCheque + dCheque + abonoChequeI) - (rCheque + devolucionesCheque); if (cheque < 0) { cheque = 0; }
             listaCaja.Add(cheque.ToString());          //37
-            trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - rTransferencia; if (trans < 0) { trans = 0; }
+            trans = (vTrans + aTrans + dTrans + abonoTransferenciaI) - (rTransferencia + devolucionesTransferencia); if (trans < 0) { trans = 0; }
             listaCaja.Add(trans.ToString());           //38
             credito = credi;
             listaCaja.Add(credito.ToString());         //39
@@ -487,7 +497,7 @@ namespace PuntoDeVentaV2
             listaCaja.Add(ant.ToString());                                                                                   //49
             //lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             //lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
-            listaCaja.Add((subtotal - (dineroRetirado + devoluciones)).ToString()); //lbTTotalCaja.Text = moneda + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");                                                                //50
+            listaCaja.Add((subtotal - (dineroRetirado /*+ devoluciones*/)).ToString()); //lbTTotalCaja.Text = moneda + (subtotal - (dineroRetirado + devoluciones)).ToString("0.00");                                                                //50
 
             // Variables de clase
             totalEfectivo = efectivo - retiroEfectivo; listaCaja.Add(totalEfectivo.ToString());           //51
@@ -508,7 +518,7 @@ namespace PuntoDeVentaV2
             listaCaja.Add(transCorte);//61
             listaCaja.Add(totCorte);//62
             ////////////////////////////////////////////////////////////////////////////////
-            verificarCantidadAbonos();
+            
 
             ///////////////////////////////////////////////// Lista para losreportes /////////////////////////////////////////
 
@@ -619,8 +629,8 @@ namespace PuntoDeVentaV2
                     }
                     DateTime fechaFinAbonos = DateTime.Parse(ultimoDate);
 
-                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total)AS Total FROM devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
-                    var devolucion = "";
+                    var fechaMovimientos = cn.CargarDatos($"SELECT sum(Total) AS Total, sum(Efectivo) AS Efectivo, sum(Tarjeta) AS Tarjeta, sum(Vales) AS Vales,  sum(Cheque) AS Cheque,  sum(Transferencia) AS Transferencia FROM devoluciones WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaFinAbonos.ToString("yyyy-MM-dd HH:mm:ss")}'");
+                    var devolucion = ""; var devolucionEfectivo = ""; var devolucionTarjeta = ""; var devolucionVales = ""; var devolucionCheque = ""; var devolucionTrans = "";
 
                     if (!fechaMovimientos.Rows.Count.Equals(0) /*&& !string.IsNullOrWhiteSpace(fechaMovimientos.ToString())*/)
                     {
@@ -629,13 +639,28 @@ namespace PuntoDeVentaV2
                             if (string.IsNullOrWhiteSpace(cantidadAbono["Total"].ToString()))
                             {
                                 devolucion = "0";
+                                devolucionEfectivo = "0";
+                                devolucionTarjeta = "0";
+                                devolucionVales = "0";
+                                devolucionCheque = "0";
+                                devolucionTrans = "0";
                             }
                             else
                             {
                                 devolucion = cantidadAbono["Total"].ToString();
+                                devolucionEfectivo = cantidadAbono["Efectivo"].ToString();
+                                devolucionTarjeta = cantidadAbono["Tarjeta"].ToString();
+                                devolucionVales = cantidadAbono["Vales"].ToString();
+                                devolucionCheque = cantidadAbono["Cheque"].ToString();
+                                devolucionTrans = cantidadAbono["Transferencia"].ToString();
                             }
                         }
                         devoluciones = float.Parse(devolucion);
+                        devolucionesEfectivo = float.Parse(devolucionEfectivo);
+                        devolucionesTarjeta = float.Parse(devolucionTarjeta);
+                        devolucionesVales = float.Parse(devolucionVales);
+                        devolucionesCheque = float.Parse(devolucionCheque);
+                        devolucionesTransferencia = float.Parse(devolucionTrans);
                     }
                     else
                     {

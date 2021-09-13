@@ -330,6 +330,12 @@ namespace PuntoDeVentaV2
                     credito = totalCredito - credito;
                 }
 
+                if (efectivo < 1) { efectivo = 0; }
+                if (tarjeta < 1) { tarjeta = 0; }
+                if (cheque < 1) { cheque = 0; }
+                if (vales < 1) { vales = 0; }
+                if (trans < 1) { trans = 0; }
+
                 cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
 
                 fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -702,9 +708,9 @@ namespace PuntoDeVentaV2
                 {
                     float efectivo = float.Parse(txtEfectivo.Text);
 
-                    if (efectivo > (totalEfectivo - convertEfectivo) && operacion > 0)
+                    if (efectivo > (totalEfectivo/* - convertEfectivo*/) && operacion > 0)
                     {
-                        MensajeCantidad((totalEfectivo - convertEfectivo), sender);
+                        MensajeCantidad((totalEfectivo/* - convertEfectivo*/), sender);
                     }
                 }
             }
@@ -725,9 +731,9 @@ namespace PuntoDeVentaV2
                 else
                 {
                     float tarjeta = float.Parse(txtTarjeta.Text);
-                    if (tarjeta > (totalTarjeta - convertTarjeta) && operacion > 0)
+                    if (tarjeta > (totalTarjeta /*- convertTarjeta*/) && operacion > 0)
                     {
-                        MensajeCantidad((totalTarjeta - convertTarjeta), sender);
+                        MensajeCantidad((totalTarjeta /*- convertTarjeta*/), sender);
                     }
                 }
             }
@@ -749,9 +755,9 @@ namespace PuntoDeVentaV2
                 {
                     float vales = float.Parse(txtVales.Text);
 
-                    if (vales > (totalVales - convertVales) && operacion > 0)
+                    if (vales > (totalVales /*- convertVales*/) && operacion > 0)
                     {
-                        MensajeCantidad((totalVales - convertVales), sender);
+                        MensajeCantidad((totalVales /*- convertVales*/), sender);
                     }
                 }
             }
@@ -773,9 +779,9 @@ namespace PuntoDeVentaV2
                 {
                     float cheque = float.Parse(txtCheque.Text);
 
-                    if (cheque > (totalCheque - convertCheque) && operacion > 0)
+                    if (cheque > (totalCheque /*- convertCheque*/) && operacion > 0)
                     {
-                        MensajeCantidad((totalCheque - convertCheque), sender);
+                        MensajeCantidad((totalCheque /*- convertCheque*/), sender);
                     }
                 }
             }
@@ -797,9 +803,9 @@ namespace PuntoDeVentaV2
                 {
                     float trans = float.Parse(txtTrans.Text);
 
-                    if (trans > (totalTransferencia - convertTrans) && operacion > 0)
+                    if (trans > (totalTransferencia /*- convertTrans*/) && operacion > 0)
                     {
-                        MensajeCantidad((totalTransferencia - convertTrans), sender);
+                        MensajeCantidad((totalTransferencia /*- convertTrans*/), sender);
                     }
                 }
             }

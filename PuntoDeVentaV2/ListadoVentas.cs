@@ -716,9 +716,9 @@ namespace PuntoDeVentaV2
 
                             var cantidadesAbono = cantidadAbonada(idVenta);
 
-                            var credit = revisarSiFueVentaACredito(idVenta);
+                            //var credit = revisarSiFueVentaACredito(idVenta);
 
-                            if (!obtenerValorSiSeAbono.Rows.Count.Equals(0) && credit.Equals(false))
+                            if (!obtenerValorSiSeAbono.Rows.Count.Equals(0))
                             {
                                 foreach (DataRow result in obtenerValorSiSeAbono.Rows)
                                 {
@@ -799,12 +799,19 @@ namespace PuntoDeVentaV2
                                                 }
                                                 DateTime fechaAbonoRealizado = DateTime.Parse(fechaOperacionAbonadoADevolver);
 
-                                                string[] datos = new string[] {
-                                                    "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaDelCorteCaja.ToString(), FormPrincipal.userID.ToString(),
-                                                    efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, formasPago[5].ToString(), "0"
-                                                };
+                                                //string[] datos = new string[] {
+                                                //    "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaDelCorteCaja.ToString("yyyy-MM-dd HH:mm:ss"), FormPrincipal.userID.ToString(),
+                                                //    efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, formasPago[5].ToString(), "0"
+                                                //};
 
-                                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                string[] datos = new string[]
+                                                        {
+                                                            idVenta.ToString(), FormPrincipal.userID.ToString(), resultadoConsultaAbonos, efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver,
+                                                            chequeAbonadoADevolver, transAbonadoADevolver, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                                                        };
+
+                                                //cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
 
                                                 //if (fechaAbonoRealizado > fechaDelCorteCaja)//Escoger como devolver dinero
                                                 //{
@@ -818,7 +825,7 @@ namespace PuntoDeVentaV2
                                                 //    }
                                                 //    else
                                                 //    {
-                                                        stopCancelar = false;
+                                                stopCancelar = false;
                                                 //    }
                                                 //    //cbTipoVentas.SelectedIndex = 1;
                                                 //    //cbTipoVentas.SelectedIndex = 3;
@@ -917,7 +924,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
-                            else if (obtenerValorSiSeAbono.Rows.Count.Equals(0) || credit.Equals(true))
+                            else if (obtenerValorSiSeAbono.Rows.Count.Equals(0))
                             {
                                 if (cbTipoVentas.SelectedIndex == 0)
                                 {

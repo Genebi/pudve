@@ -570,10 +570,13 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            //var fechaActual = Utilidades.UpdateDateTime();
-            //string dt = DateTime.Now.ToString();
+            //if (ConnectionHandler.ConectadoInternet())
+            //{
+            //    var fechaActual = Utilidades.UpdateDateTime();
+            //    string dt = DateTime.Now.ToString();
 
-            //MessageBox.Show($"Fecha de la computadora: {dt}\nLa Fecha Actual es: {fechaActual.ToString()}", "Mensaje de Sistema");
+            //    MessageBox.Show($"Fecha de la computadora: {dt}\nLa Fecha Actual es: {fechaActual.ToString()}", "Mensaje de Sistema");
+            //}
         }
 
         public void agregarCamposDinamicosPermisos()
