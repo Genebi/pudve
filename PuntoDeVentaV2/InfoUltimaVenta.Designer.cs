@@ -40,6 +40,8 @@
             this.lbDineroRecibido2 = new System.Windows.Forms.Label();
             this.lbFechaVenta = new System.Windows.Forms.Label();
             this.lbCambioTexto = new System.Windows.Forms.Label();
+            this.btnCerrar = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +70,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(1, 180);
+            this.label2.Location = new System.Drawing.Point(1, 222);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(301, 13);
             this.label2.TabIndex = 2;
@@ -76,12 +78,11 @@
             // 
             // lbCambio
             // 
-            this.lbCambio.AutoSize = true;
-            this.lbCambio.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCambio.ForeColor = System.Drawing.Color.LightGreen;
-            this.lbCambio.Location = new System.Drawing.Point(116, 99);
+            this.lbCambio.Font = new System.Drawing.Font("Century", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCambio.ForeColor = System.Drawing.Color.Orange;
+            this.lbCambio.Location = new System.Drawing.Point(4, 102);
             this.lbCambio.Name = "lbCambio";
-            this.lbCambio.Size = new System.Drawing.Size(97, 23);
+            this.lbCambio.Size = new System.Drawing.Size(298, 88);
             this.lbCambio.TabIndex = 3;
             this.lbCambio.Text = "cambio $";
             this.lbCambio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -91,7 +92,7 @@
             this.lbTotalAPagar.AutoSize = true;
             this.lbTotalAPagar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalAPagar.ForeColor = System.Drawing.Color.White;
-            this.lbTotalAPagar.Location = new System.Drawing.Point(10, 206);
+            this.lbTotalAPagar.Location = new System.Drawing.Point(10, 242);
             this.lbTotalAPagar.Name = "lbTotalAPagar";
             this.lbTotalAPagar.Size = new System.Drawing.Size(130, 13);
             this.lbTotalAPagar.TabIndex = 4;
@@ -103,7 +104,7 @@
             this.lbDineroRecibido.AutoSize = true;
             this.lbDineroRecibido.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDineroRecibido.ForeColor = System.Drawing.Color.White;
-            this.lbDineroRecibido.Location = new System.Drawing.Point(10, 233);
+            this.lbDineroRecibido.Location = new System.Drawing.Point(10, 275);
             this.lbDineroRecibido.Name = "lbDineroRecibido";
             this.lbDineroRecibido.Size = new System.Drawing.Size(149, 13);
             this.lbDineroRecibido.TabIndex = 5;
@@ -115,7 +116,7 @@
             this.lbUltimaCompra.AutoSize = true;
             this.lbUltimaCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbUltimaCompra.ForeColor = System.Drawing.Color.White;
-            this.lbUltimaCompra.Location = new System.Drawing.Point(10, 259);
+            this.lbUltimaCompra.Location = new System.Drawing.Point(10, 305);
             this.lbUltimaCompra.Name = "lbUltimaCompra";
             this.lbUltimaCompra.Size = new System.Drawing.Size(137, 13);
             this.lbUltimaCompra.TabIndex = 6;
@@ -127,7 +128,7 @@
             this.lbTotalAPagar2.AutoSize = true;
             this.lbTotalAPagar2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalAPagar2.ForeColor = System.Drawing.Color.LightGreen;
-            this.lbTotalAPagar2.Location = new System.Drawing.Point(126, 206);
+            this.lbTotalAPagar2.Location = new System.Drawing.Point(126, 242);
             this.lbTotalAPagar2.Name = "lbTotalAPagar2";
             this.lbTotalAPagar2.Size = new System.Drawing.Size(41, 13);
             this.lbTotalAPagar2.TabIndex = 7;
@@ -139,7 +140,7 @@
             this.lbDineroRecibido2.AutoSize = true;
             this.lbDineroRecibido2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDineroRecibido2.ForeColor = System.Drawing.Color.LightGreen;
-            this.lbDineroRecibido2.Location = new System.Drawing.Point(146, 233);
+            this.lbDineroRecibido2.Location = new System.Drawing.Point(146, 275);
             this.lbDineroRecibido2.Name = "lbDineroRecibido2";
             this.lbDineroRecibido2.Size = new System.Drawing.Size(41, 13);
             this.lbDineroRecibido2.TabIndex = 8;
@@ -151,7 +152,7 @@
             this.lbFechaVenta.AutoSize = true;
             this.lbFechaVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbFechaVenta.ForeColor = System.Drawing.Color.LightGreen;
-            this.lbFechaVenta.Location = new System.Drawing.Point(144, 259);
+            this.lbFechaVenta.Location = new System.Drawing.Point(144, 305);
             this.lbFechaVenta.Name = "lbFechaVenta";
             this.lbFechaVenta.Size = new System.Drawing.Size(31, 13);
             this.lbFechaVenta.TabIndex = 9;
@@ -162,19 +163,63 @@
             // 
             this.lbCambioTexto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCambioTexto.ForeColor = System.Drawing.Color.White;
-            this.lbCambioTexto.Location = new System.Drawing.Point(4, 134);
+            this.lbCambioTexto.Location = new System.Drawing.Point(4, 183);
             this.lbCambioTexto.Name = "lbCambioTexto";
             this.lbCambioTexto.Size = new System.Drawing.Size(298, 46);
             this.lbCambioTexto.TabIndex = 10;
             this.lbCambioTexto.Text = "Cambio en Texto";
             this.lbCambioTexto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnCerrar
+            // 
+            this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(97)))), ((int)(((byte)(140)))));
+            this.btnCerrar.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(97)))), ((int)(((byte)(140)))));
+            this.btnCerrar.BorderColor = System.Drawing.Color.Gray;
+            this.btnCerrar.BorderRadius = 20;
+            this.btnCerrar.BorderSize = 2;
+            this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCerrar.FlatAppearance.BorderSize = 0;
+            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCerrar.ForeColor = System.Drawing.Color.White;
+            this.btnCerrar.Location = new System.Drawing.Point(101, 326);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(105, 36);
+            this.btnCerrar.TabIndex = 11;
+            this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.TextColor = System.Drawing.Color.White;
+            this.btnCerrar.UseVisualStyleBackColor = false;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
+            // 
+            // botonRedondo1
+            // 
+            this.botonRedondo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(97)))), ((int)(((byte)(140)))));
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(97)))), ((int)(((byte)(140)))));
+            this.botonRedondo1.BorderColor = System.Drawing.Color.Gray;
+            this.botonRedondo1.BorderRadius = 20;
+            this.botonRedondo1.BorderSize = 2;
+            this.botonRedondo1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Location = new System.Drawing.Point(74, 368);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(159, 36);
+            this.botonRedondo1.TabIndex = 12;
+            this.botonRedondo1.Text = "Reimprimir Ticket";
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
+            // 
             // InfoUltimaVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(97)))), ((int)(((byte)(140)))));
-            this.ClientSize = new System.Drawing.Size(306, 281);
+            this.ClientSize = new System.Drawing.Size(306, 412);
+            this.Controls.Add(this.botonRedondo1);
+            this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.lbCambioTexto);
             this.Controls.Add(this.lbFechaVenta);
             this.Controls.Add(this.lbDineroRecibido2);
@@ -189,12 +234,14 @@
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InfoUltimaVenta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "InfoUltimaVenta";
             this.Load += new System.EventHandler(this.InfoUltimaVenta_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InfoUltimaVenta_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -214,5 +261,7 @@
         private System.Windows.Forms.Label lbDineroRecibido2;
         private System.Windows.Forms.Label lbFechaVenta;
         private System.Windows.Forms.Label lbCambioTexto;
+        private BotonRedondo btnCerrar;
+        private BotonRedondo botonRedondo1;
     }
 }

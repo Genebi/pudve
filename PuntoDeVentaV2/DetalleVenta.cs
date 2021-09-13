@@ -324,6 +324,7 @@ namespace PuntoDeVentaV2
 
             InfoUltimaVenta ticketUltimaVenta = new InfoUltimaVenta();
             ticketUltimaVenta.ShowDialog();
+
             //if (resetCantidades.Equals(DialogResult.OK))
             //{
             //    Properties.Settings.Default.efectivoRecibido = 0;

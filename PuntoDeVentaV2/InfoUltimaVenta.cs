@@ -49,5 +49,35 @@ namespace PuntoDeVentaV2
             string resultado = oMoneda.Convertir(CambioTotal.ToString(), true, "PESOS");
             lbCambioTexto.Text = resultado;
         }
+
+        private void InfoUltimaVenta_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnCerrar.PerformClick();
+            }
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void botonRedondo1_Click(object sender, EventArgs e)
+        {
+            Ventas ventas = Application.OpenForms.OfType<Ventas>().FirstOrDefault();
+
+            if (ventas != null)
+            {
+                ventas.btnUltimoTicket.PerformClick();
+            }
+            //Ventas venta = new Ventas();
+            //venta.btnUltimoTicket.PerformClick();
+
+        }
     }
 }

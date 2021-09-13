@@ -315,6 +315,7 @@ namespace PuntoDeVentaV2
             }
 
             iniciarBasculaPredeterminada();
+            txtBuscadorProducto.Focus();
         }
 
 
@@ -6193,7 +6194,7 @@ namespace PuntoDeVentaV2
             vnt_cancelar.ShowDialog();
         }
 
-        private void botonRedondo7_Click(object sender, EventArgs e)
+        public void botonRedondo7_Click(object sender, EventArgs e)
         {
             if (opcion14 == 0)
             {
@@ -6230,6 +6231,11 @@ namespace PuntoDeVentaV2
             }
 
             txtDescuentoGeneral.Text = cantidadDescuento.Replace("\r\n","");
+        }
+
+        private void btnCancelarVenta_Enter(object sender, EventArgs e)
+        {
+            txtBuscadorProducto.Focus();
         }
 
         private void label10_Click(object sender, EventArgs e)
