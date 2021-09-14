@@ -1561,3 +1561,6 @@ IF
 	ALTER TABLE ventas ADD COLUMN IF NOT EXISTS DineroRecibido FLOAT DEFAULT (0);
 
 	ALTER TABLE ventas ADD COLUMN IF NOT EXISTS CambioTotal FLOAT DEFAULT (0);
+
+-- Agregar columna de nombre_comercial para tabla usuarios
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS nombre_comercial TEXT DEFAULT NULL;
