@@ -1564,3 +1564,6 @@ IF
 
 -- Agregar columna de nombre_comercial para tabla usuarios
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS nombre_comercial TEXT DEFAULT NULL;
+
+-- Agregar columna de e_nombre_comercial para tabla facturas
+ALTER TABLE facturas ADD COLUMN IF NOT EXISTS e_nombre_comercial VARCHAR(300) DEFAULT NULL;
