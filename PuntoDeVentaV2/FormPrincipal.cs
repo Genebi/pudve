@@ -106,6 +106,8 @@ namespace PuntoDeVentaV2
         string FechaFinal, saveDirectoryFile = string.Empty;
 
         int veces = 1;
+        public int validacionDesdeCajaN = 0;
+        public int validacionDesdeFormPrincipal = 0;
 
         #region Variables Globales	
 
@@ -350,6 +352,14 @@ namespace PuntoDeVentaV2
 
         public void cerrarSesion()
         {
+            //if (validacionDesdeFormPrincipal.Equals(1) && cerrarAplicacion.Equals(true))
+            //{
+            //    validacionDesdeFormPrincipal = 0;
+            //    cerrarAplicacion = false;
+            //    Application.Restart();
+            //    Environment.Exit(0);
+            //}
+
             FormCollection formulariosApp = Application.OpenForms;
             List<Form> formularioCerrar = new List<Form>();
 
@@ -380,6 +390,7 @@ namespace PuntoDeVentaV2
             this.Hide();
 
             desdeCorteDeCaja = false;
+            validacionDesdeCajaN = 0;
 
             Login VentanaLogin = new Login();
             VentanaLogin.contadorMetodoTablas = 1;
@@ -404,6 +415,9 @@ namespace PuntoDeVentaV2
                 temp = titulo.Split('|');
                 this.Text = $"{temp[0].ToString()} |  Usuario: {userNickName}";
             }
+
+            desdeCorteDeCaja = false;
+            validacionDesdeCajaN = 0;
         }
 
         readonly ConnectionHandler _conHandler = new ConnectionHandler();
@@ -430,12 +444,37 @@ namespace PuntoDeVentaV2
             this.WindowState = FormWindowState.Maximized;
             _conHandler.HookMainForm(this);
 
+            this.GotFocus += new EventHandler(FormPrincipal_GotFocus);
         }
 
         public static string Moneda { get; set; }
 
+        private void FormPrincipal_GotFocus(object sender, EventArgs e)
+        {
+            var mensaje = string.Empty;
+
+            if (desdeCorteDeCaja.Equals(true))
+            {
+                mensaje += $"Cerrar Sesion desde Corte de Caja\nEl valor de la variable: {validacionDesdeCajaN}";
+            }
+            else if (desdeCorteDeCaja.Equals(false))
+            {
+                mensaje += "No se cumple condición.";
+            }
+
+            //MessageBox.Show(mensaje, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (desdeCorteDeCaja.Equals(false))
+            {
+                validacionDesdeCajaN = 0;
+            }
+        }
+
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
+            desdeCorteDeCaja = false;
+            validacionDesdeCajaN = 0;
+
             //if (ApplicationDeployment.IsNetworkDeployed)
             //{
             //    try
@@ -633,6 +672,16 @@ namespace PuntoDeVentaV2
             }
 
             return result;
+        }
+
+        private void FormPrincipal_Activated(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void FormPrincipal_Shown(object sender, EventArgs e)
+        {
+            
         }
 
         private void obtenerDatoClaveInterna(int idUsuario)
@@ -1100,61 +1149,65 @@ namespace PuntoDeVentaV2
                 //}
             }
         }
-
-
-
+        
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
             var mensajeDelMessageBox = string.Empty;
             var tituloDelMessageBox = "Mensaje del Sistema";
 
-            if (desdeCorteDeCaja.Equals(true))
+            DialogResult respuesta;
+
+            if (desdeCorteDeCaja.Equals(true) && (validacionDesdeCajaN.Equals(0) && validacionDesdeFormPrincipal.Equals(0)))
             {
                 mensajeDelMessageBox = "Se finalizará sesión de acuerdo con sus ajustes de la configuración";
+                validacionDesdeCajaN = 1;
+                validacionDesdeFormPrincipal = 0;
             }
-            else
+            if (desdeCorteDeCaja.Equals(false) && (validacionDesdeCajaN.Equals(0) && validacionDesdeFormPrincipal.Equals(0)))
             {
                 mensajeDelMessageBox = "¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?";
+                validacionDesdeFormPrincipal = 1;
+                validacionDesdeCajaN = 0;
             }
 
             if (cerrarAplicacion.Equals(true) && this.Visible.Equals(true))
             {
-                DialogResult respuesta;
-
                 if (desdeCorteDeCaja.Equals(true))
                 {
-                    respuesta = MessageBox.Show(mensajeDelMessageBox, tituloDelMessageBox, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (validacionDesdeCajaN.Equals(1))
+                    {
+                        MessageBox.Show(mensajeDelMessageBox, tituloDelMessageBox, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        desdeCorteDeCaja = false;
+                        Application.Restart();
+                    }
                 }
-                else
+                else if (desdeCorteDeCaja.Equals(false) && validacionDesdeCajaN.Equals(0))
                 {
                     respuesta = MessageBox.Show(mensajeDelMessageBox, tituloDelMessageBox, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                }
 
-                if (respuesta == DialogResult.Yes || respuesta.Equals(DialogResult.OK))
-                {
-                    if (backUpDB.validarMandarRespaldoCorreo())
+                    if (respuesta == DialogResult.Yes)
                     {
-                        MessageBox.Show("Este proceso podria tardar unos minutos.", 
-                                        "Mensaje de sistema", 
-                                        MessageBoxButtons.OK, 
-                                        MessageBoxIcon.Information);
-
-                        if (Application.OpenForms.OfType<Cargando>().Count() == 1)
+                        if (backUpDB.validarMandarRespaldoCorreo())
                         {
-                            //e.Cancel = true;
-                            Application.OpenForms.OfType<Cargando>().First().BringToFront();
-                        }
-                        backUpDB.crearsaveFile();
-                    }
+                            MessageBox.Show("Este proceso podria tardar unos minutos.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    e.Cancel = true;
-                    cerrarSesion();
-                    cerrarAplicacion = false;
-                }
-                else if (respuesta == DialogResult.No)
-                {
-                    e.Cancel = true;
-                    cerrarAplicacion = false;
+                            if (Application.OpenForms.OfType<Cargando>().Count() == 1)
+                            {
+                                //e.Cancel = true;
+                                Application.OpenForms.OfType<Cargando>().First().BringToFront();
+                            }
+                            backUpDB.crearsaveFile();
+                        }
+
+                        e.Cancel = true;
+                        cerrarSesion();
+                        cerrarAplicacion = false;
+                    }
+                    else if (respuesta == DialogResult.No)
+                    {
+                        e.Cancel = true;
+                        cerrarAplicacion = false;
+                    }
                 }
             }
             else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(true))
@@ -1168,36 +1221,42 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    DialogResult respuesta;
-
                     if (desdeCorteDeCaja.Equals(true))
                     {
-                        respuesta = MessageBox.Show(mensajeDelMessageBox, tituloDelMessageBox, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (validacionDesdeCajaN.Equals(1))
+                        {
+                            MessageBox.Show(mensajeDelMessageBox, tituloDelMessageBox, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //desdeCorteDeCaja = false;
+                            Application.Restart();
+                        }
                     }
-                    else
+                    else if (desdeCorteDeCaja.Equals(false) && validacionDesdeCajaN.Equals(0))
                     {
                         respuesta = MessageBox.Show(mensajeDelMessageBox, tituloDelMessageBox, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    }
 
-                    if (respuesta == DialogResult.Yes || respuesta.Equals(DialogResult.OK))
-                    {
-                        e.Cancel = true;
-                        cerrarSesion();
+                        if (respuesta == DialogResult.Yes)
+                        {
+                            e.Cancel = true;
+                            cerrarSesion();
+                            cerrarAplicacion = false;
+                        }
+                        else if (respuesta == DialogResult.No)
+                        {
+                            e.Cancel = true;
+                            cerrarAplicacion = false;
+                        }
+
+                        else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(false))
+                        {
+                            Application.Exit();
+                        }
                         cerrarAplicacion = false;
                     }
-                    else if (respuesta == DialogResult.No)
-                    {
-                        e.Cancel = true;
-                        cerrarAplicacion = false;
-                    }
-
-                    else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(false))
-                    {
-                        Application.Exit();
-                    }
-                    cerrarAplicacion = false;
                 }
             }
+
+            desdeCorteDeCaja = false;
+            validacionDesdeCajaN = 0;
         }
 
         private void timerProductos_Tick(object sender, EventArgs e)

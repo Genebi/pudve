@@ -326,15 +326,11 @@ namespace PuntoDeVentaV2
                     //        );
                     //        mandarCorreo.Start();
                     //    }
-                    //}
+                    //} 
 
-                    this.Activate();
                     this.Refresh();
                     Application.DoEvents();
                 };
-
-                //this.Refresh();
-                //Application.DoEvents();
                 
                 corte.Show();
 
@@ -2697,23 +2693,8 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Activated(object sender, EventArgs e)
         {
-            FormPrincipal frmPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
-
-            if (frmPrincipal != null)
-            {
-                if (frmPrincipal.Controls.Count > 0)
-                {
-                    foreach (Control item in frmPrincipal.Controls)
-                    {
-                        if (item.Name.Equals("CajaN") && item.TopLevelControl.Equals(true))
-                        {
-                            cerrarSesionEnCorteDeCaja();
-                        }
-                    }
-                }
-            }
-            this.Refresh();
-            Application.DoEvents();
+            //this.Refresh();
+            //Application.DoEvents();
         }
     }
 }
