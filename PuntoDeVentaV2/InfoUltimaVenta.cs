@@ -75,9 +75,6 @@ namespace PuntoDeVentaV2
             {
                 ventas.btnUltimoTicket.PerformClick();
             }
-            //Ventas venta = new Ventas();
-            //venta.btnUltimoTicket.PerformClick();
-
         }
     }
 }
