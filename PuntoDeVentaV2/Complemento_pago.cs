@@ -154,212 +154,219 @@ namespace PuntoDeVentaV2
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
-            int t = 0, error = 0, error_monto_mayor = 0;
-            arr_totales = new decimal[tam_arr][];
+            // Si se tiene una conexión a internet procede a realizar el complemento.
+            if (Conexion.ConectadoInternet())
+            {
+                int t = 0, error = 0, error_monto_mayor = 0;
+                arr_totales = new decimal[tam_arr][];
 
 
-            // ...............................
-            // .   Validar y guardar datos   .
-            // ...............................
+                // ...............................
+                // .   Validar y guardar datos   .
+                // ...............................
 
-            foreach (Control panel in pnl_info.Controls)
-            {             
-                if (panel.Name.Contains("lb_total"))
+                foreach (Control panel in pnl_info.Controls)
                 {
-                    arr_totales[t] = new decimal[4];
-
-                    arr_totales[t][1] = Convert.ToDecimal(panel.Text);
-                }
-                if (panel.Name.Contains("txt_total"))
-                {
-                    arr_totales[t][2] = Convert.ToDecimal(panel.Text);
-
-                    if (panel.Text.Trim() == "" | Convert.ToDecimal(panel.Text) == 0)
+                    if (panel.Name.Contains("lb_total"))
                     {
-                        error++;
+                        arr_totales[t] = new decimal[4];
+
+                        arr_totales[t][1] = Convert.ToDecimal(panel.Text);
                     }
-
-                    // Valida que el abono no sea mayor a lo que debe
-
-                    decimal resta = arr_totales[t][1];
-                    decimal abono = arr_totales[t][2];
-                    
-                    if(abono > 0)
+                    if (panel.Name.Contains("txt_total"))
                     {
-                        if (resta >= abono)
+                        arr_totales[t][2] = Convert.ToDecimal(panel.Text);
+
+                        if (panel.Text.Trim() == "" | Convert.ToDecimal(panel.Text) == 0)
                         {
-                            arr_totales[t][0] = Facturas.arr_id_facturas[t];
+                            error++;
+                        }
+
+                        // Valida que el abono no sea mayor a lo que debe
+
+                        decimal resta = arr_totales[t][1];
+                        decimal abono = arr_totales[t][2];
+
+                        if (abono > 0)
+                        {
+                            if (resta >= abono)
+                            {
+                                arr_totales[t][0] = Facturas.arr_id_facturas[t];
+                            }
+                            else
+                            {
+                                error_monto_mayor++;
+                            }
                         }
                         else
                         {
                             error_monto_mayor++;
                         }
-                    }
-                    else
-                    {
-                        error_monto_mayor++;
-                    }
 
-                    t++;
+                        t++;
+                    }
                 }
-            }
 
-            if(error > 0)
-            {
-                MessageBox.Show("Algún campo abono esta vacío, o el valor es menor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (error_monto_mayor > 0)
-            {
-                MessageBox.Show("El abono en alguna factura es mayor al total restante.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                if (error > 0)
+                {
+                    MessageBox.Show("Algún campo abono esta vacío, o el valor es menor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (error_monto_mayor > 0)
+                {
+                    MessageBox.Show("El abono en alguna factura es mayor al total restante.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
 
-            MessageBox.Show("El complemento de pago tardará 10 segundos (aproximadamente) en ser creado y timbrado, un momento por favor.", "Mensaje del sistema", MessageBoxButtons.OK);
+                MessageBox.Show("El complemento de pago tardará 10 segundos (aproximadamente) en ser creado y timbrado, un momento por favor.", "Mensaje del sistema", MessageBoxButtons.OK);
 
-            btn_aceptar.Cursor = Cursors.No;
-            btn_cancelar.Cursor = Cursors.No;
-            btn_aceptar.Enabled = false;
-            btn_cancelar.Enabled = false;
-            
+                btn_aceptar.Cursor = Cursors.No;
+                btn_cancelar.Cursor = Cursors.No;
+                btn_aceptar.Enabled = false;
+                btn_cancelar.Enabled = false;
 
 
 
-            // .........................  
-            // .   Crear complemento   .
-            // .........................
+
+                // .........................  
+                // .   Crear complemento   .
+                // .........................
 
 
-            // Crea registro en tabla factura
+                // Crea registro en tabla factura
 
-            // ID de la factura donde se obtendran los datos del receptor
-            int id_f_receptor = Convert.ToInt32(arr_totales[0][0]);
-            // Fecha y hora en que se hizo el pago
-            string fecha_hora_pago = datetime_fecha_pago.Value.ToString("yyy-MM-dd") + " " + datetime_hora_pago.Value.ToString("hh:mm:ss");
+                // ID de la factura donde se obtendran los datos del receptor
+                int id_f_receptor = Convert.ToInt32(arr_totales[0][0]);
+                // Fecha y hora en que se hizo el pago
+                string fecha_hora_pago = datetime_fecha_pago.Value.ToString("yyy-MM-dd") + " " + datetime_hora_pago.Value.ToString("hh:mm:ss");
 
-            // Buscamos los datos del receptor
-            DataTable d_receptor = cn.CargarDatos(cs.obtener_datos_para_gcpago(1, id_f_receptor));
-            DataRow r_recetor = d_receptor.Rows[0];
+                // Buscamos los datos del receptor
+                DataTable d_receptor = cn.CargarDatos(cs.obtener_datos_para_gcpago(1, id_f_receptor));
+                DataRow r_recetor = d_receptor.Rows[0];
 
-            string folio = r_recetor["folio"].ToString();
-            string serie = r_recetor["serie"].ToString();
-            //string id_venta = r_recetor["id_venta"].ToString();
+                string folio = r_recetor["folio"].ToString();
+                string serie = r_recetor["serie"].ToString();
+                //string id_venta = r_recetor["id_venta"].ToString();
 
-            // Datos del emisor
-            DataTable d_emisor = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, id_usuario));
-            DataRow r_emisor = d_emisor.Rows[0];
+                // Datos del emisor
+                DataTable d_emisor = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, id_usuario));
+                DataRow r_emisor = d_emisor.Rows[0];
 
-            // Se obtiene la cantidad de complementos generados para continuar con el consecutivo
-            int cant_complementos = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) AS ID FROM Facturas_complemento_pago WHERE id_factura_principal='{id_f_receptor}'", 1));
-            cant_complementos = cant_complementos + 1;
-            serie = serie + "-" + cant_complementos;
+                // Se obtiene la cantidad de complementos generados para continuar con el consecutivo
+                int cant_complementos = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) AS ID FROM Facturas_complemento_pago WHERE id_factura_principal='{id_f_receptor}'", 1));
+                cant_complementos = cant_complementos + 1;
+                serie = serie + "-" + cant_complementos;
 
-            string[] datos_f = new string[]
-            {
+                string[] datos_f = new string[]
+                {
                 id_usuario.ToString(), id_empleado.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), folio, serie, fecha_hora_pago,
                 r_recetor["r_rfc"].ToString(), r_recetor["r_razon_social"].ToString(), r_recetor["r_nombre_comercial"].ToString(), r_recetor["r_correo"].ToString(), r_recetor["r_telefono"].ToString(), r_recetor["r_pais"].ToString(), r_recetor["r_estado"].ToString(),
                 r_recetor["r_municipio"].ToString(), r_recetor["r_localidad"].ToString(), r_recetor["r_cp"].ToString(), r_recetor["r_colonia"].ToString(), r_recetor["r_calle"].ToString(), r_recetor["r_num_ext"].ToString(), r_recetor["r_num_int"].ToString(),
                 r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
                 r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
                 txt_cuenta.Text
-            };
-
-            cn.EjecutarConsulta(cs.crear_complemento_pago(1, datos_f));
-
-
-            // Consulta id de la factura recien creada
-            int id_factura_pago = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas WHERE id_usuario='{id_usuario}' AND tipo_comprobante='P' ORDER BY ID DESC LIMIT 1", 1));
-
-
-            // Se agrega registro a tabla de Facturas_productos
-
-            string[] datos_fp = new string[] {  id_factura_pago.ToString()  };
-            cn.EjecutarConsulta(cs.crear_complemento_pago(2, datos_fp));
-
-
-            // Se agrega registro con los datos del complemento de pago
-
-            decimal monto_pago = 0;
-            decimal[][] arr_idf_principal_pago= new decimal[arr_totales.Length][];
-            int x = 0;
-
-            for (int r = 0; r < arr_totales.Length; r++)
-            {
-                // Obtiene el folio fiscal de la factura que se esta abonando/pagando
-                string uuid = Convert.ToString(cn.EjecutarSelect($"SELECT uuid FROM Facturas WHERE ID='{arr_totales[r][0]}'", 10));
-
-                // Obtiene el número de la parcialidad anterior
-                int n_parcialidad = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) AS ID FROM Facturas_complemento_pago WHERE id_factura_principal='{arr_totales[r][0]}'", 1));
-                n_parcialidad = n_parcialidad + 1;
-
-                decimal saldo_insoluto = 0;
-                saldo_insoluto = arr_totales[r][1] - arr_totales[r][2];
-
-                monto_pago += arr_totales[r][2];
-
-                string[] datos_cp = new string[]
-                {
-                    id_factura_pago.ToString(), arr_totales[r][0].ToString(), n_parcialidad.ToString(), arr_totales[r][1].ToString(), arr_totales[r][2].ToString(), saldo_insoluto.ToString(), uuid
                 };
 
-                cn.EjecutarConsulta(cs.crear_complemento_pago(3, datos_cp));
+                cn.EjecutarConsulta(cs.crear_complemento_pago(1, datos_f));
 
 
-                // Guarda el id de la factura principal de la que se esta haciendo el pago/abono.
-                // Si la factura se timbra, se indica que tiene complemento de pago
-                arr_idf_principal_pago[x] = new decimal[2];
-                arr_idf_principal_pago[x][0] = Convert.ToDecimal(arr_totales[r][0]);
-                arr_idf_principal_pago[x][1] = Convert.ToDecimal(saldo_insoluto);
-                x++;
-
-                // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
-
-                //string[] datos_v = new string[] { arr_totales[r][0].ToString() };
-
-                //cn.EjecutarConsulta(cs.crear_complemento_pago(4, datos_v));
-            }
+                // Consulta id de la factura recien creada
+                int id_factura_pago = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas WHERE id_usuario='{id_usuario}' AND tipo_comprobante='P' ORDER BY ID DESC LIMIT 1", 1));
 
 
-            // Agrega el monto pagado a la factura principal  
+                // Se agrega registro a tabla de Facturas_productos
 
-            string[] datos_fm = new string[]
-            {
-                id_factura_pago.ToString(), monto_pago.ToString()
-            };
-
-            cn.EjecutarConsulta(cs.crear_complemento_pago(6, datos_fm));
+                string[] datos_fp = new string[] { id_factura_pago.ToString() };
+                cn.EjecutarConsulta(cs.crear_complemento_pago(2, datos_fp));
 
 
+                // Se agrega registro con los datos del complemento de pago
 
+                decimal monto_pago = 0;
+                decimal[][] arr_idf_principal_pago = new decimal[arr_totales.Length][];
+                int x = 0;
 
-            // ...........................
-            // .   Timbrar complemento   .
-            // ...........................
-
-
-            Generar_XML xml_complemento = new Generar_XML();
-            string respuesta_xml = xml_complemento.obtener_datos_XML(id_factura_pago, 0, 1, arr_idf_principal_pago);
-
-            btn_aceptar.Enabled = true;
-            btn_aceptar.Cursor = Cursors.Hand;
-            btn_cancelar.Enabled = true;
-            btn_cancelar.Cursor = Cursors.Hand;
-
-            if (respuesta_xml == "")
-            {
-                var r = MessageBox.Show("El complemento de pago ha sido creado y timbrado con éxito.", "Éxito", MessageBoxButtons.OK);
-
-                if (r == DialogResult.OK)
+                for (int r = 0; r < arr_totales.Length; r++)
                 {
-                    this.Dispose();
+                    // Obtiene el folio fiscal de la factura que se esta abonando/pagando
+                    string uuid = Convert.ToString(cn.EjecutarSelect($"SELECT uuid FROM Facturas WHERE ID='{arr_totales[r][0]}'", 10));
+
+                    // Obtiene el número de la parcialidad anterior
+                    int n_parcialidad = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) AS ID FROM Facturas_complemento_pago WHERE id_factura_principal='{arr_totales[r][0]}'", 1));
+                    n_parcialidad = n_parcialidad + 1;
+
+                    decimal saldo_insoluto = 0;
+                    saldo_insoluto = arr_totales[r][1] - arr_totales[r][2];
+
+                    monto_pago += arr_totales[r][2];
+
+                    string[] datos_cp = new string[]
+                    {
+                    id_factura_pago.ToString(), arr_totales[r][0].ToString(), n_parcialidad.ToString(), arr_totales[r][1].ToString(), arr_totales[r][2].ToString(), saldo_insoluto.ToString(), uuid
+                    };
+
+                    cn.EjecutarConsulta(cs.crear_complemento_pago(3, datos_cp));
+
+
+                    // Guarda el id de la factura principal de la que se esta haciendo el pago/abono.
+                    // Si la factura se timbra, se indica que tiene complemento de pago
+                    arr_idf_principal_pago[x] = new decimal[2];
+                    arr_idf_principal_pago[x][0] = Convert.ToDecimal(arr_totales[r][0]);
+                    arr_idf_principal_pago[x][1] = Convert.ToDecimal(saldo_insoluto);
+                    x++;
+
+                    // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
+
+                    //string[] datos_v = new string[] { arr_totales[r][0].ToString() };
+
+                    //cn.EjecutarConsulta(cs.crear_complemento_pago(4, datos_v));
+                }
+
+
+                // Agrega el monto pagado a la factura principal  
+
+                string[] datos_fm = new string[]
+                {
+                id_factura_pago.ToString(), monto_pago.ToString()
+                };
+
+                cn.EjecutarConsulta(cs.crear_complemento_pago(6, datos_fm));
+
+
+
+
+                // ...........................
+                // .   Timbrar complemento   .
+                // ...........................
+
+
+                Generar_XML xml_complemento = new Generar_XML();
+                string respuesta_xml = xml_complemento.obtener_datos_XML(id_factura_pago, 0, 1, arr_idf_principal_pago);
+
+                btn_aceptar.Enabled = true;
+                btn_aceptar.Cursor = Cursors.Hand;
+                btn_cancelar.Enabled = true;
+                btn_cancelar.Cursor = Cursors.Hand;
+
+                if (respuesta_xml == "")
+                {
+                    var r = MessageBox.Show("El complemento de pago ha sido creado y timbrado con éxito.", "Éxito", MessageBoxButtons.OK);
+
+                    if (r == DialogResult.OK)
+                    {
+                        this.Dispose();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(respuesta_xml, "Error", MessageBoxButtons.OK);
                 }
             }
             else
             {
-                MessageBox.Show(respuesta_xml, "Error", MessageBoxButtons.OK);
+                MessageBox.Show("Sin conexión a internet. Esta accción requiere una conexión.", "", MessageBoxButtons.OK);
             }
-            
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
