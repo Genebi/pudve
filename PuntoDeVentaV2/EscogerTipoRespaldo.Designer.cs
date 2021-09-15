@@ -116,6 +116,7 @@
             this.Controls.Add(this.rbAmbos);
             this.Controls.Add(this.rbRespaldoCorreo);
             this.Controls.Add(this.rbRespaldoEquipo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EscogerTipoRespaldo";
