@@ -1203,6 +1203,7 @@ namespace PuntoDeVentaV2
             desdeCorteDeCaja = false;
 
             Application.Restart();
+            Environment.Exit(0);
         }
 
         private void cerrarSesionDesdeFormPricipal()
@@ -1211,6 +1212,7 @@ namespace PuntoDeVentaV2
             cerrarAplicacion = false;
 
             Application.Restart();
+            Environment.Exit(0);
         }
 
         private void validarRespaldoBaseDeDatos()

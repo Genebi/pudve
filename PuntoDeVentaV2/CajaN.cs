@@ -281,7 +281,19 @@ namespace PuntoDeVentaV2
                         if (Utilidades.AdobeReaderInstalado())
                         {
                             GenerarReporte();
-                            recargarDatos = true;
+                            using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
+                            {
+                                if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtCerrarSesionDesdeCorteCaja.Rows)
+                                    {
+                                        if (item["CerrarSesionAuto"].ToString().Equals("1"))
+                                        {
+                                            recargarDatos = true;
+                                        }
+                                    }
+                                }
+                            }
                         }
                         else
                         {
