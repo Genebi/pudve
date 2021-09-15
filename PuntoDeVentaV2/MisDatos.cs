@@ -407,40 +407,43 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (correo_anterior != txtEmail.Text)
+            if (ValidarDatos())
             {
-                bool se_actualizo = false;
-
-                Autoriza_conpassword autorizar = new Autoriza_conpassword();
-
-                autorizar.FormClosed += delegate
+                if (correo_anterior != txtEmail.Text)
                 {
-                    if (autorizacion_correcta == true)
+                    bool se_actualizo = false;
+
+                    Autoriza_conpassword autorizar = new Autoriza_conpassword();
+
+                    autorizar.FormClosed += delegate
                     {
-                        result = ActualizarDatos();
-                        respuesta = ActualizarPassword();
+                        if (autorizacion_correcta == true)
+                        {
+                            result = ActualizarDatos();
+                            respuesta = ActualizarPassword();
 
-                        se_actualizo = true;
-                    }                    
-                };
+                            se_actualizo = true;
+                        }
+                    };
 
-                autorizar.ShowDialog();
+                    autorizar.ShowDialog();
 
-                if(autorizar.IsDisposed == false)
-                {
-                    if (autorizacion_correcta == true & se_actualizo == false)
+                    if (autorizar.IsDisposed == false)
                     {
-                        result = ActualizarDatos();
-                        respuesta = ActualizarPassword();
+                        if (autorizacion_correcta == true & se_actualizo == false)
+                        {
+                            result = ActualizarDatos();
+                            respuesta = ActualizarPassword();
 
-                        se_actualizo = true;
-                    }                        
+                            se_actualizo = true;
+                        }
+                    }
                 }
-            }
-            else
-            {
-                result = ActualizarDatos();
-                respuesta = ActualizarPassword();
+                else
+                {
+                    result = ActualizarDatos();
+                    respuesta = ActualizarPassword();
+                }
             }
 
 
