@@ -335,6 +335,8 @@ public partial class ComprobanteEmisorVenta
     public string Correo { get; set; }
 
     public string Telefono { get; set; }
+
+    public string NombreComercialEmisor { get; set; } 
 }
 
 public partial class ComprobanteReceptorVenta
