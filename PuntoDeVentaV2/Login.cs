@@ -415,8 +415,17 @@ namespace PuntoDeVentaV2
                     {
                         using (StreamWriter sw = File.AppendText(path))
                         {
+                            if (chkRecordarContraseña.Checked == false)
+                            {
+                                var contraseñaEncriptada2 = Encriptar("");
+                                sw.WriteLine("[" + usuario + "," + contraseñaEncriptada2 + "]");
+                            }
+                            else
+                            {
                             var contraseñaEncriptada = Encriptar(password);
                             sw.WriteLine("[" + usuario + "," + contraseñaEncriptada + "]");
+                            }
+                            
                         }
                     }
                 }
