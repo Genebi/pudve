@@ -419,10 +419,7 @@
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SIFO - Punto de Venta";
-            this.Activated += new System.EventHandler(this.FormPrincipal_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
-            this.Shown += new System.EventHandler(this.FormPrincipal_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormPrincipal_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormPrincipal_KeyDown);
             this.panelMaestro.ResumeLayout(false);
@@ -452,8 +449,8 @@
         private System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer timerProductos;
         private System.Windows.Forms.Button btnImpresoras;
-        public System.Windows.Forms.Button btnSesion;
         public System.Windows.Forms.Panel panelContenedor;
+        private System.Windows.Forms.Button btnSesion;
     }
 }
 

@@ -349,7 +349,7 @@ namespace PuntoDeVentaV2
                 if (frmPrincipal != null)
                 {
                     frmPrincipal.desdeCorteDeCaja = true;
-                    frmPrincipal.btnSesion.PerformClick();
+                    frmPrincipal.desdeDondeCerrarSesion();
                 }
             }
         }
