@@ -1930,7 +1930,7 @@ namespace PuntoDeVentaV2
             // Obtiene el nombre comercial del emisor
             if (r_usuario["nombre_comercial"].ToString() != "" & r_usuario["nombre_comercial"].ToString() != null)
             {
-                emisor_v.NombreComercialEmisor = "Nombre comercial: " + r_usuario["nombre_comercial"].ToString();
+                emisor_v.NombreComercialEmisor = r_usuario["nombre_comercial"].ToString();
             }
 
             string domicilio_emisor = "";

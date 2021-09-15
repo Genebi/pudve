@@ -882,7 +882,7 @@ namespace PuntoDeVentaV2
                 if (r_factura["e_nombre_comercial"].ToString() != "" & r_factura["e_nombre_comercial"].ToString() != null)
                 {
                     comprobante.Emisor.nombreComercialEmisorSpecified = true;
-                    comprobante.Emisor.NombreComercialEmisor = "Nombre comercial: " + r_factura["e_nombre_comercial"].ToString();
+                    comprobante.Emisor.NombreComercialEmisor = r_factura["e_nombre_comercial"].ToString();
                 }
 
 
