@@ -36,6 +36,8 @@ namespace PuntoDeVentaV2
         decimal cantidd_productos = 0;
         int excede_montomax_xproducto = 0;
 
+        
+
         private void RemoveText(object sender, EventArgs e)
         {
             if (cmb_bx_clientes.Text.Equals(mensajeClientes) || cmb_bx_clientes.Text.Equals(mensajeSinClientes))
@@ -885,656 +887,633 @@ namespace PuntoDeVentaV2
 
         private void btn_facturar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_rfc.Text) && !string.IsNullOrEmpty(txt_razon_social.Text) && !string.IsNullOrEmpty(cmb_bx_uso_cfdi.Text))
+            // Si se tiene una conexión a internet procede a realizar la factura.
+            if (Conexion.ConectadoInternet())
             {
-                // MUESTRA DATOS DE FORMA DE PAGO Y PRODUCTOS
-
-                if (paso == 1)
+                if (!string.IsNullOrEmpty(txt_rfc.Text) && !string.IsNullOrEmpty(txt_razon_social.Text) && !string.IsNullOrEmpty(cmb_bx_uso_cfdi.Text))
                 {
-                    tabPage1.Text = "Forma de pago y productos";
+                    // MUESTRA DATOS DE FORMA DE PAGO Y PRODUCTOS
 
-                    btn_facturar.Text = "Facturar";
-                    btn_anterior.Enabled = true;
-
-                    pnl_datos_cliente.Visible = false;
-                    cmb_bx_clientes.Visible = false;
-                    btn_crear_cliente.Visible = false;
-
-                    groupb_monto_max.Visible = true;
-                    groupb_pago.Visible = true;
-
-                    lb_total.Visible = true;
-                    lb_total_n.Visible = true;
-
-                    if (ListadoVentas.faltantes_productos.Length > 0)
+                    if (paso == 1)
                     {
-                        if (p_incompletos == 0)
+                        tabPage1.Text = "Forma de pago y productos";
+
+                        btn_facturar.Text = "Facturar";
+                        btn_anterior.Enabled = true;
+
+                        pnl_datos_cliente.Visible = false;
+                        cmb_bx_clientes.Visible = false;
+                        btn_crear_cliente.Visible = false;
+
+                        groupb_monto_max.Visible = true;
+                        groupb_pago.Visible = true;
+
+                        lb_total.Visible = true;
+                        lb_total_n.Visible = true;
+
+                        if (ListadoVentas.faltantes_productos.Length > 0)
+                        {
+                            if (p_incompletos == 0)
+                            {
+                                groupb_productos.Visible = false;
+                            }
+                            else
+                            {
+                                groupb_productos.Visible = true;
+                            }
+                        }
+                        else
                         {
                             groupb_productos.Visible = false;
                         }
-                        else
-                        {
-                            groupb_productos.Visible = true;
-                        }
                     }
-                    else
+
+
+                    // CREAR LA FACTURA
+
+                    if (paso == 2)
                     {
-                        groupb_productos.Visible = false;
-                    }
-                }
+                        // .....................  
+                        // .   Validar datos   .
+                        // .....................
 
 
-                // CREAR LA FACTURA
+                        // Cliente
 
-                if (paso == 2)
-                {
-                    // .....................  
-                    // .   Validar datos   .
-                    // .....................
+                        int cant_clientes = cmb_bx_clientes.Items.Count;
+                        int cliente_valido = 0;
 
+                        if (txt_razon_social.Text.Trim() != "") { cliente_valido++; }
 
-                    // Cliente
-
-                    int cant_clientes = cmb_bx_clientes.Items.Count;
-                    int cliente_valido = 0;
-
-                    if (txt_razon_social.Text.Trim() != "") { cliente_valido++; }
-
-                    if (txt_rfc.Text.Trim() != "") { cliente_valido++; }
+                        if (txt_rfc.Text.Trim() != "") { cliente_valido++; }
 
 
-                    if (cant_clientes > 0 | cliente_valido == 2)
-                    {
-                        if (cmb_bx_clientes.SelectedValue.ToString() == "0" & cliente_valido == 0)
+                        if (cant_clientes > 0 | cliente_valido == 2)
                         {
-                            MessageBox.Show("Se debe elegir un cliente para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            botones_visibles(2);
-                            return;
-                        }
-                        else
-                        {
-                            if (txt_razon_social.Text == "")
+                            if (cmb_bx_clientes.SelectedValue.ToString() == "0" & cliente_valido == 0)
                             {
-                                MessageBox.Show("La razón social no debe estar vacía.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                botones_visibles(2);
-                                return;
-                            }
-
-                            if (txt_rfc.Text == "")
-                            {
-                                MessageBox.Show("El RCF no debe estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("Se debe elegir un cliente para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 botones_visibles(2);
                                 return;
                             }
                             else
                             {
-                                string formato_rfc = "^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$";
-
-                                Regex exp = new Regex(formato_rfc);
-
-                                if (exp.IsMatch(txt_rfc.Text))
+                                if (txt_razon_social.Text == "")
                                 {
+                                    MessageBox.Show("La razón social no debe estar vacía.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    botones_visibles(2);
+                                    return;
+                                }
+
+                                if (txt_rfc.Text == "")
+                                {
+                                    MessageBox.Show("El RCF no debe estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    botones_visibles(2);
+                                    return;
                                 }
                                 else
                                 {
-                                    MessageBox.Show("El formato del RFC no es valido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    string formato_rfc = "^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$";
 
-                                    return;
+                                    Regex exp = new Regex(formato_rfc);
+
+                                    if (exp.IsMatch(txt_rfc.Text))
+                                    {
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("El formato del RFC no es valido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                        return;
+                                    }
                                 }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No tiene ningún cliente registrado para facturarle. Primero vaya al apartado de clientes a registrar uno, posterior regresar a timbrar la factura y elegir el cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        botones_visibles(2);
-                        return;
-                    }
-
-                    // Monto máximo de cada factura
-
-                    /*if(txt_cantidad_max.Text.Trim() == "" | txt_cantidad_max.Text.Trim() == "0")
-                    {
-                        MessageBox.Show("La cantidad máxima en cada factura debe ser mayor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        botones_visibles(2);
-                        return;
-                    }*/
-
-                    // Tipo cambio
-
-                    string clave = cmb_bx_moneda.SelectedValue.ToString();
-
-                    if (clave != "MXN" & clave != "XXX")
-                    {
-                        if (txt_tipo_cambio.Text == "")
-                        {
-                            MessageBox.Show("El tipo de cambio es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            botones_visibles(2);
-                            return;
-                        }
-                    }
-
-                    // Productos
-
-                    string info_productos = "";
-                    int clave_vacia = 0;
-                    int clave_inc = 0;
-
-                    if (p_incompletos > 0)
-                    {
-                        if (n_filas > 0)
-                        {
-                            foreach (Control panel in pnl_productos.Controls)
-                            {
-                                if (panel.Name.Contains("txt_clave_u"))
-                                {
-                                    info_productos += "#" + panel.Text;
-
-                                    int r = valida_claves_producto_unidad(1, panel.Text);
-
-                                    if (r == 1) { clave_vacia++; }
-                                    if (r == 2) { clave_inc++; }
-                                }
-                                if (panel.Name.Contains("txt_clave_p"))
-                                {
-                                    info_productos += "-" + panel.Text;
-
-                                    int r = valida_claves_producto_unidad(2, panel.Text);
-
-                                    if (r == 1) { clave_vacia++; }
-                                    if (r == 2) { clave_inc++; }
-                                }
-                                if (panel.Name.Contains("txt_idprod"))
-                                {
-                                    info_productos += "-" + panel.Text;
-                                }
-                            }
-                        }
-                        if (clave_vacia > 0)
-                        {
-                            MessageBox.Show("Las claves de unidad y producto no deben estar vacías.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            botones_visibles(2);
-                            return;
-                        }
-                        if (clave_inc > 0)
-                        {
-                            MessageBox.Show("Alguna clave de unidad o producto es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            botones_visibles(2);
-                            return;
-                        }
-                    }
-
-
-
-
-                    // .....................
-                    // .   Crear factura   .
-                    // .....................
-
-
-                    bool partir_factura = false;
-                    decimal total_venta = 0;
-                    decimal monto_xfactura = 0;
-
-                    if (txt_cantidad_max.Text.Trim() != "")
-                    {
-                        monto_xfactura = Convert.ToDecimal(txt_cantidad_max.Text.Trim());
-                    }
-
-
-                    // Obtiene el total de la venta
-                    DataTable d_ventas = cn.CargarDatos(cs.consulta_dventa(1, id_venta));
-                    DataRow r_ventas = d_ventas.Rows[0];
-                    total_venta = Convert.ToDecimal(r_ventas["Total"].ToString());
-
-
-                    if (monto_xfactura > 0)
-                    {
-                        if ((n_filas - 1) == 1)
-                        {
-                            decimal resp_total_factura = 0;
-
-                            // Primera validación
-                            // Busca si hay más de un impuesto
-                            bool mas_dimpuesto = (bool)cn.EjecutarSelect($"SELECT * FROM DetallesFacturacionProductos WHERE IDProducto='{ListadoVentas.faltantes_productos[1][1]}'");
-
-
-                            // Segunda validación
-                            resp_total_factura = obtener_productos_a_facturar(monto_xfactura);
-
-                            decimal cantidad_productos = Convert.ToDecimal(ListadoVentas.faltantes_productos[1][5]);
-                            decimal unproducto = resp_total_factura / cantidad_productos;
-
-                            if (cantidad_productos > 1 & resp_total_factura > monto_xfactura & unproducto <= monto_xfactura)
-                            {
-                                partir_factura = true;
-                            }
-
-                            if (excede_montomax_xproducto > 0)
-                            {
-                                MessageBox.Show("Alguno de los productos excede el monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-
-                            if (unproducto > monto_xfactura & mas_dimpuesto == false)
-                            {
-                                MessageBox.Show("El total de la factura es mayor al monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
                             }
                         }
                         else
                         {
-                            decimal resp_total_factura = obtener_productos_a_facturar(monto_xfactura);
+                            MessageBox.Show("No tiene ningún cliente registrado para facturarle. Primero vaya al apartado de clientes a registrar uno, posterior regresar a timbrar la factura y elegir el cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            botones_visibles(2);
+                            return;
+                        }
 
-                            if (resp_total_factura > monto_xfactura)
+                        // Monto máximo de cada factura
+
+                        /*if(txt_cantidad_max.Text.Trim() == "" | txt_cantidad_max.Text.Trim() == "0")
+                        {
+                            MessageBox.Show("La cantidad máxima en cada factura debe ser mayor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            botones_visibles(2);
+                            return;
+                        }*/
+
+                        // Tipo cambio
+
+                        string clave = cmb_bx_moneda.SelectedValue.ToString();
+
+                        if (clave != "MXN" & clave != "XXX")
+                        {
+                            if (txt_tipo_cambio.Text == "")
                             {
-                                partir_factura = true;
+                                MessageBox.Show("El tipo de cambio es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                botones_visibles(2);
+                                return;
                             }
                         }
-                    }
-                    else
-                    {
-                        partir_factura = false;
-                    }
 
-                    if (excede_montomax_xproducto > 0)
-                    {
-                        MessageBox.Show("Alguno de los productos excede el monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
+                        // Productos
 
+                        string info_productos = "";
+                        int clave_vacia = 0;
+                        int clave_inc = 0;
 
-
-                    // Inicia creación de factura(s)
-
-
-                    string id_usuario = FormPrincipal.userID.ToString();
-                    string id_empleado = FormPrincipal.id_empleado.ToString();
-                    List<int> list_id_facturas = new List<int>();
-
-                    botones_visibles(1);
-
-
-                    // Actualiza datos del cliente en tabla clientes
-
-                    string id_cliente = cmb_bx_clientes.SelectedValue.ToString();
-                    string uso_cfdi = cmb_bx_uso_cfdi.SelectedValue.ToString();
-
-                    string[] datos_c = new string[]
-                    {
-                    id_cliente, txt_razon_social.Text, txt_rfc.Text, txt_telefono.Text, txt_correo.Text, txt_nombre_comercial.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text, uso_cfdi
-                    };
-
-                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(1, datos_c));
-
-
-                    //  Guarda clave de unidad y producto, en tabla Productos
-
-                    if (p_incompletos > 0)
-                    {
-                        string[] filas = info_productos.Split('#');
-                        string[] datos_p;
-
-                        for (int f = 1; f < filas.Length; f++)
+                        if (p_incompletos > 0)
                         {
-                            string[] celda = filas[f].Split('-');
-
-                            datos_p = new string[]
+                            if (n_filas > 0)
                             {
-                        celda[0], celda[1], celda[2]
-                            };
+                                foreach (Control panel in pnl_productos.Controls)
+                                {
+                                    if (panel.Name.Contains("txt_clave_u"))
+                                    {
+                                        info_productos += "#" + panel.Text;
 
-                            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(3, datos_p));
+                                        int r = valida_claves_producto_unidad(1, panel.Text);
+
+                                        if (r == 1) { clave_vacia++; }
+                                        if (r == 2) { clave_inc++; }
+                                    }
+                                    if (panel.Name.Contains("txt_clave_p"))
+                                    {
+                                        info_productos += "-" + panel.Text;
+
+                                        int r = valida_claves_producto_unidad(2, panel.Text);
+
+                                        if (r == 1) { clave_vacia++; }
+                                        if (r == 2) { clave_inc++; }
+                                    }
+                                    if (panel.Name.Contains("txt_idprod"))
+                                    {
+                                        info_productos += "-" + panel.Text;
+                                    }
+                                }
+                            }
+                            if (clave_vacia > 0)
+                            {
+                                MessageBox.Show("Las claves de unidad y producto no deben estar vacías.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                botones_visibles(2);
+                                return;
+                            }
+                            if (clave_inc > 0)
+                            {
+                                MessageBox.Show("Alguna clave de unidad o producto es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                botones_visibles(2);
+                                return;
+                            }
                         }
-                    }
-
-
-                    // Consulta datos del emisor
-                    DataTable d_emisor = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, Convert.ToInt32(id_usuario)));
-                    DataRow r_emisor = d_emisor.Rows[0];
 
 
 
-                    // Aplica para notas donde solo se hará una sola factura
 
-                    #region Se crea tabla Facturas, Facturas_productos, Facturas_impuestos
-                    if (partir_factura == false)
-                    {
-                        // Consulta serie y folio
-                        DataTable d_venta = cn.CargarDatos(cs.cargar_datos_venta_xml(9, id_venta, Convert.ToInt32(id_usuario)));
-                        DataRow r_venta = d_venta.Rows[0];
+                        // .....................
+                        // .   Crear factura   .
+                        // .....................
 
 
-                        string[] datos_f = new string[]
+                        bool partir_factura = false;
+                        decimal total_venta = 0;
+                        decimal monto_xfactura = 0;
+
+                        if (txt_cantidad_max.Text.Trim() != "")
                         {
+                            monto_xfactura = Convert.ToDecimal(txt_cantidad_max.Text.Trim());
+                        }
+
+
+                        // Obtiene el total de la venta
+                        DataTable d_ventas = cn.CargarDatos(cs.consulta_dventa(1, id_venta));
+                        DataRow r_ventas = d_ventas.Rows[0];
+                        total_venta = Convert.ToDecimal(r_ventas["Total"].ToString());
+
+
+                        if (monto_xfactura > 0)
+                        {
+                            if ((n_filas - 1) == 1)
+                            {
+                                decimal resp_total_factura = 0;
+
+                                // Primera validación
+                                // Busca si hay más de un impuesto
+                                bool mas_dimpuesto = (bool)cn.EjecutarSelect($"SELECT * FROM DetallesFacturacionProductos WHERE IDProducto='{ListadoVentas.faltantes_productos[1][1]}'");
+
+
+                                // Segunda validación
+                                resp_total_factura = obtener_productos_a_facturar(monto_xfactura);
+
+                                decimal cantidad_productos = Convert.ToDecimal(ListadoVentas.faltantes_productos[1][5]);
+                                decimal unproducto = resp_total_factura / cantidad_productos;
+
+                                if (cantidad_productos > 1 & resp_total_factura > monto_xfactura & unproducto <= monto_xfactura)
+                                {
+                                    partir_factura = true;
+                                }
+
+                                if (excede_montomax_xproducto > 0)
+                                {
+                                    MessageBox.Show("Alguno de los productos excede el monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                if (unproducto > monto_xfactura & mas_dimpuesto == false)
+                                {
+                                    MessageBox.Show("El total de la factura es mayor al monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                decimal resp_total_factura = obtener_productos_a_facturar(monto_xfactura);
+
+                                if (resp_total_factura > monto_xfactura)
+                                {
+                                    partir_factura = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            partir_factura = false;
+                        }
+
+                        if (excede_montomax_xproducto > 0)
+                        {
+                            MessageBox.Show("Alguno de los productos excede el monto máximo establecido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+
+
+                        // Inicia creación de factura(s)
+
+
+                        string id_usuario = FormPrincipal.userID.ToString();
+                        string id_empleado = FormPrincipal.id_empleado.ToString();
+                        List<int> list_id_facturas = new List<int>();
+
+                        botones_visibles(1);
+
+
+                        // Actualiza datos del cliente en tabla clientes
+
+                        string id_cliente = cmb_bx_clientes.SelectedValue.ToString();
+                        string uso_cfdi = cmb_bx_uso_cfdi.SelectedValue.ToString();
+
+                        string[] datos_c = new string[]
+                        {
+                    id_cliente, txt_razon_social.Text, txt_rfc.Text, txt_telefono.Text, txt_correo.Text, txt_nombre_comercial.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text, uso_cfdi
+                        };
+
+                        cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(1, datos_c));
+
+
+                        //  Guarda clave de unidad y producto, en tabla Productos
+
+                        if (p_incompletos > 0)
+                        {
+                            string[] filas = info_productos.Split('#');
+                            string[] datos_p;
+
+                            for (int f = 1; f < filas.Length; f++)
+                            {
+                                string[] celda = filas[f].Split('-');
+
+                                datos_p = new string[]
+                                {
+                        celda[0], celda[1], celda[2]
+                                };
+
+                                cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(3, datos_p));
+                            }
+                        }
+
+
+                        // Consulta datos del emisor
+                        DataTable d_emisor = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, Convert.ToInt32(id_usuario)));
+                        DataRow r_emisor = d_emisor.Rows[0];
+
+
+
+                        // Aplica para notas donde solo se hará una sola factura
+
+                        #region Se crea tabla Facturas, Facturas_productos, Facturas_impuestos
+                        if (partir_factura == false)
+                        {
+                            // Consulta serie y folio
+                            DataTable d_venta = cn.CargarDatos(cs.cargar_datos_venta_xml(9, id_venta, Convert.ToInt32(id_usuario)));
+                            DataRow r_venta = d_venta.Rows[0];
+
+
+                            string[] datos_f = new string[]
+                            {
                          id_usuario, id_venta.ToString(), id_empleado, cmb_bx_metodo_pago.SelectedValue.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), txt_cuenta.Text,
                          cmb_bx_moneda.SelectedValue.ToString(), txt_tipo_cambio.Text, uso_cfdi,
                          r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
                          r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
                          txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
                          r_venta["Folio"].ToString(), r_venta["Serie"].ToString(), r_emisor["nombre_comercial"].ToString()
-                        };
+                            };
 
-                        cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
+                            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
 
 
-                        // Guarda productos en nueva tabla "Facturas productos"
+                            // Guarda productos en nueva tabla "Facturas productos"
 
-                        // Consulta el ultimo id de tabla facturas
-                        int id_factura = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas WHERE id_venta='{id_venta}' ORDER BY ID DESC LIMIT 1", 1));
+                            // Consulta el ultimo id de tabla facturas
+                            int id_factura = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas WHERE id_venta='{id_venta}' ORDER BY ID DESC LIMIT 1", 1));
 
-                        // Busca los productos de la venta
-                        DataTable d_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(4, id_venta, 0));
+                            // Busca los productos de la venta
+                            DataTable d_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(4, id_venta, 0));
 
-                        if (d_productos.Rows.Count > 0)
-                        {
-                            foreach (DataRow r_productos in d_productos.Rows)
+                            if (d_productos.Rows.Count > 0)
                             {
-                                int id_p = Convert.ToInt32(r_productos["IDProducto"]);
-
-                                // Busca los datos restantes en tabla principal de productos
-                                DataTable d_tb_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(5, id_p, 0));
-                                DataRow r_tb_producto = d_tb_productos.Rows[0];
-
-
-                                // Obtiene descuento
-                                string descuento_xproducto = "";
-                                string descuento = r_productos["descuento"].ToString();
-
-
-                                if (descuento != "" & descuento != "0" & descuento != "0.00")
+                                foreach (DataRow r_productos in d_productos.Rows)
                                 {
-                                    var tip_desc = (descuento).IndexOf("-");
+                                    int id_p = Convert.ToInt32(r_productos["IDProducto"]);
 
-                                    if (tip_desc >= 0)
+                                    // Busca los datos restantes en tabla principal de productos
+                                    DataTable d_tb_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(5, id_p, 0));
+                                    DataRow r_tb_producto = d_tb_productos.Rows[0];
+
+
+                                    // Obtiene descuento
+                                    string descuento_xproducto = "";
+                                    string descuento = r_productos["descuento"].ToString();
+
+
+                                    if (descuento != "" & descuento != "0" & descuento != "0.00")
                                     {
-                                        descuento_xproducto = descuento.Substring(tip_desc + 1);
+                                        var tip_desc = (descuento).IndexOf("-");
+
+                                        if (tip_desc >= 0)
+                                        {
+                                            descuento_xproducto = descuento.Substring(tip_desc + 1);
+                                        }
+                                        else
+                                        {
+                                            descuento_xproducto = descuento;
+                                        }
+                                    }
+
+                                    // Realiza calculos para obtener base, precio unitario, IVA
+                                    string mbase = "";
+                                    string miva = "";
+                                    string timpuesto = "";
+
+                                    if (r_tb_producto["Base"].ToString() == "" | r_tb_producto["Impuesto"].ToString() == "")
+                                    {
+                                        decimal precio = Convert.ToDecimal(r_productos["Precio"].ToString());
+
+                                        decimal b = precio / 1.16m;
+                                        decimal bs = precio - b;
+
+                                        mbase = Convert.ToString(dos_seis_decimales(b, 6));
+                                        miva = Convert.ToString(dos_seis_decimales(bs, 6));
+                                        timpuesto = "16%";
                                     }
                                     else
                                     {
-                                        descuento_xproducto = descuento;
+                                        timpuesto = r_tb_producto["Impuesto"].ToString();
+
+                                        decimal precio = Convert.ToDecimal(r_productos["Precio"].ToString());
+                                        decimal tasacuota = 0;
+                                        decimal b = 0;
+                                        decimal bs = 0;
+
+                                        if (timpuesto == "16%" | timpuesto == "8%")
+                                        {
+                                            if (timpuesto == "16%") { tasacuota = 1.16m; }
+                                            if (timpuesto == "8%") { tasacuota = 1.08m; }
+
+                                            b = precio / tasacuota;
+                                            bs = precio - b;
+                                        }
+                                        else
+                                        {
+                                            b = precio;
+                                        }
+
+                                        mbase = Convert.ToString(dos_seis_decimales(b, 6));
+                                        miva = Convert.ToString(dos_seis_decimales(bs, 6));
                                     }
-                                }
 
-                                // Realiza calculos para obtener base, precio unitario, IVA
-                                string mbase = "";
-                                string miva = "";
-                                string timpuesto = "";
-
-                                if (r_tb_producto["Base"].ToString() == "" | r_tb_producto["Impuesto"].ToString() == "")
-                                {
-                                    decimal precio = Convert.ToDecimal(r_productos["Precio"].ToString());
-
-                                    decimal b = precio / 1.16m;
-                                    decimal bs = precio - b;
-
-                                    mbase = Convert.ToString(dos_seis_decimales(b, 6));
-                                    miva = Convert.ToString(dos_seis_decimales(bs, 6));
-                                    timpuesto = "16%";
-                                }
-                                else
-                                {
-                                    timpuesto = r_tb_producto["Impuesto"].ToString();
-
-                                    decimal precio = Convert.ToDecimal(r_productos["Precio"].ToString());
-                                    decimal tasacuota = 0;
-                                    decimal b = 0;
-                                    decimal bs = 0;
-
-                                    if (timpuesto == "16%" | timpuesto == "8%")
+                                    // Si el producto tiene descuento, se hará una modificación del valor del campo base
+                                    if (descuento_xproducto != "")
                                     {
-                                        if (timpuesto == "16%") { tasacuota = 1.16m; }
-                                        if (timpuesto == "8%") { tasacuota = 1.08m; }
+                                        var tip_desc = (descuento_xproducto).IndexOf("%");
+                                        decimal cantidad = Convert.ToDecimal(r_productos["Cantidad"].ToString());
+                                        decimal precio_unit = Convert.ToDecimal(r_productos["Precio"].ToString());
 
-                                        b = precio / tasacuota;
-                                        bs = precio - b;
+                                        if (tip_desc >= 0)
+                                        {
+                                            // Descuento en porcentaje
+
+                                            string porc_desc = descuento_xproducto.Substring(0, (descuento_xproducto.Length - 1));
+
+                                            decimal porcent_desc = Convert.ToDecimal(porc_desc);
+
+                                            if (porcent_desc > 1)
+                                            {
+                                                porcent_desc = porcent_desc / 100;
+                                            }
+
+                                            decimal desc_encant = precio_unit * porcent_desc;
+                                            decimal pu_desc = precio_unit - dos_seis_decimales(desc_encant, 6);
+                                            decimal nbase = pu_desc;
+
+                                            if (timpuesto == "16%")
+                                            {
+                                                nbase = pu_desc / 1.16m;
+                                            }
+                                            if (timpuesto == "8%")
+                                            {
+                                                nbase = pu_desc / 1.08m;
+                                            }
+
+                                            nbase = dos_seis_decimales(nbase, 6);
+
+                                            mbase = Convert.ToString(nbase);
+                                        }
+                                        else
+                                        {
+                                            // Descuento en cantidad $
+
+                                            decimal descuento_xcantidad = Convert.ToDecimal(descuento_xproducto) / cantidad;
+
+                                            decimal pu_desc = precio_unit - dos_seis_decimales(descuento_xcantidad, 6);
+                                            decimal nbase = pu_desc;
+
+                                            if (timpuesto == "16%")
+                                            {
+                                                nbase = pu_desc / 1.16m;
+                                            }
+                                            if (timpuesto == "8%")
+                                            {
+                                                nbase = pu_desc / 1.08m;
+                                            }
+
+                                            nbase = dos_seis_decimales(nbase, 6);
+
+                                            mbase = Convert.ToString(nbase);
+                                        }
                                     }
-                                    else
+
+
+                                    string[] datos_fp = new string[]
                                     {
-                                        b = precio;
-                                    }
-
-                                    mbase = Convert.ToString(dos_seis_decimales(b, 6));
-                                    miva = Convert.ToString(dos_seis_decimales(bs, 6));
-                                }
-
-                                // Si el producto tiene descuento, se hará una modificación del valor del campo base
-                                if (descuento_xproducto != "")
-                                {
-                                    var tip_desc = (descuento_xproducto).IndexOf("%");
-                                    decimal cantidad = Convert.ToDecimal(r_productos["Cantidad"].ToString());
-                                    decimal precio_unit = Convert.ToDecimal(r_productos["Precio"].ToString());
-
-                                    if (tip_desc >= 0)
-                                    {
-                                        // Descuento en porcentaje
-
-                                        string porc_desc = descuento_xproducto.Substring(0, (descuento_xproducto.Length - 1));
-
-                                        decimal porcent_desc = Convert.ToDecimal(porc_desc);
-
-                                        if (porcent_desc > 1)
-                                        {
-                                            porcent_desc = porcent_desc / 100;
-                                        }
-
-                                        decimal desc_encant = precio_unit * porcent_desc;
-                                        decimal pu_desc = precio_unit - dos_seis_decimales(desc_encant, 6);
-                                        decimal nbase = pu_desc;
-
-                                        if (timpuesto == "16%")
-                                        {
-                                            nbase = pu_desc / 1.16m;
-                                        }
-                                        if (timpuesto == "8%")
-                                        {
-                                            nbase = pu_desc / 1.08m;
-                                        }
-
-                                        nbase = dos_seis_decimales(nbase, 6);
-
-                                        mbase = Convert.ToString(nbase);
-                                    }
-                                    else
-                                    {
-                                        // Descuento en cantidad $
-
-                                        decimal descuento_xcantidad = Convert.ToDecimal(descuento_xproducto) / cantidad;
-
-                                        decimal pu_desc = precio_unit - dos_seis_decimales(descuento_xcantidad, 6);
-                                        decimal nbase = pu_desc;
-
-                                        if (timpuesto == "16%")
-                                        {
-                                            nbase = pu_desc / 1.16m;
-                                        }
-                                        if (timpuesto == "8%")
-                                        {
-                                            nbase = pu_desc / 1.08m;
-                                        }
-
-                                        nbase = dos_seis_decimales(nbase, 6);
-
-                                        mbase = Convert.ToString(nbase);
-                                    }
-                                }
-
-
-                                string[] datos_fp = new string[]
-                                {
                                  id_factura.ToString(), r_tb_producto["UnidadMedida"].ToString(), r_tb_producto["ClaveProducto"].ToString(), r_productos["Nombre"].ToString(), r_productos["Cantidad"].ToString(), r_productos["Precio"].ToString(), mbase, timpuesto, miva, descuento_xproducto.Trim()
-                                };
+                                    };
 
-                                cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(6, datos_fp));
+                                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(6, datos_fp));
 
-                                // Consulta si tiene más de un impuesto
-                                // Si existen, los guarda en nueva tabla Facturas_impuestos
-                                DataTable d_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, id_p, Convert.ToInt32(id_usuario)));
+                                    // Consulta si tiene más de un impuesto
+                                    // Si existen, los guarda en nueva tabla Facturas_impuestos
+                                    DataTable d_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, id_p, Convert.ToInt32(id_usuario)));
 
-                                if (d_impuestos.Rows.Count > 0)
-                                {
-                                    // Consulta el ID del producto en curso
-                                    int id_fp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_factura}' ORDER BY ID DESC LIMIT 1", 1));
-
-                                    foreach (DataRow r_impuestos in d_impuestos.Rows)
+                                    if (d_impuestos.Rows.Count > 0)
                                     {
-                                        string[] datos_i = new string[]
+                                        // Consulta el ID del producto en curso
+                                        int id_fp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_factura}' ORDER BY ID DESC LIMIT 1", 1));
+
+                                        foreach (DataRow r_impuestos in d_impuestos.Rows)
                                         {
+                                            string[] datos_i = new string[]
+                                            {
                                          id_fp.ToString(), r_impuestos["Tipo"].ToString(), r_impuestos["Impuesto"].ToString(), r_impuestos["TipoFactor"].ToString(), r_impuestos["TasaCuota"].ToString(), r_impuestos["Definir"].ToString(), r_impuestos["Importe"].ToString()
-                                        };
+                                            };
 
-                                        cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(7, datos_i));
+                                            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(7, datos_i));
+                                        }
                                     }
                                 }
                             }
+
+                            list_id_facturas.Add(id_factura);
                         }
-
-                        list_id_facturas.Add(id_factura);
-                    }
-                    #endregion
+                        #endregion
 
 
-                    // Aplica para la nota en donde será facturada en varios documentos
+                        // Aplica para la nota en donde será facturada en varios documentos
 
-                    #region Se crea tabla Facturas, Facturas_productos, Faccturas_imuestos
-                    if (partir_factura == true)
-                    {
-
-                        int num_fct = Convert.ToInt32(cantidd_productos);
-                        int num_factura = 1;
-
-                        decimal xftotal_suma = 0;
-                        decimal xftotal_resta = 0;
-                        decimal xftotal_produc = 0;
-                        decimal xftotal_total = 0;
-                        string[][] arr_productos_xguardar = new string[num_fct][];
-                        string[][] arr_productos_pendientes = new string[num_fct][];
-                        string[] arr_cantidad_productos = new string[n_filas];
-                        List<int> xflist_cantidad_productos = new List<int>();
-                        int g = 0;
-                        bool inc = false;
-
-                        // Primero se obtiene el número de productos por factura
-                        for (int s = 1; s < n_filas; s++)
+                        #region Se crea tabla Facturas, Facturas_productos, Faccturas_imuestos
+                        if (partir_factura == true)
                         {
-                            int cant_producto = Convert.ToInt32(Convert.ToDecimal(arr_dproductos[s][4]));
-                            int sum_cant_productos = 0;
-                            var indice = 0;
-                            var indice_sig = 0;
 
-                            xftotal_suma += Convert.ToDecimal(arr_dproductos[s][6]) + Convert.ToDecimal(arr_dproductos[s][8]);
-                            xftotal_suma += Convert.ToDecimal(arr_dproductos[s][10]) + Convert.ToDecimal(arr_dproductos[s][12]);
+                            int num_fct = Convert.ToInt32(cantidd_productos);
+                            int num_factura = 1;
 
-                            xftotal_resta += Convert.ToDecimal(arr_dproductos[s][9]) + Convert.ToDecimal(arr_dproductos[s][11]);
-                            xftotal_resta += Convert.ToDecimal(arr_dproductos[s][13]);
+                            decimal xftotal_suma = 0;
+                            decimal xftotal_resta = 0;
+                            decimal xftotal_produc = 0;
+                            decimal xftotal_total = 0;
+                            string[][] arr_productos_xguardar = new string[num_fct][];
+                            string[][] arr_productos_pendientes = new string[num_fct][];
+                            string[] arr_cantidad_productos = new string[n_filas];
+                            List<int> xflist_cantidad_productos = new List<int>();
+                            int g = 0;
+                            bool inc = false;
 
-                            xftotal_produc = xftotal_suma - xftotal_resta;
-
-
-                            for (int c = 0; c < cant_producto; c++)
+                            // Primero se obtiene el número de productos por factura
+                            for (int s = 1; s < n_filas; s++)
                             {
-                                xftotal_total += xftotal_produc;
+                                int cant_producto = Convert.ToInt32(Convert.ToDecimal(arr_dproductos[s][4]));
+                                int sum_cant_productos = 0;
+                                var indice = 0;
+                                var indice_sig = 0;
+
+                                xftotal_suma += Convert.ToDecimal(arr_dproductos[s][6]) + Convert.ToDecimal(arr_dproductos[s][8]);
+                                xftotal_suma += Convert.ToDecimal(arr_dproductos[s][10]) + Convert.ToDecimal(arr_dproductos[s][12]);
+
+                                xftotal_resta += Convert.ToDecimal(arr_dproductos[s][9]) + Convert.ToDecimal(arr_dproductos[s][11]);
+                                xftotal_resta += Convert.ToDecimal(arr_dproductos[s][13]);
+
+                                xftotal_produc = xftotal_suma - xftotal_resta;
 
 
-                                if (xftotal_total <= monto_xfactura)
+                                for (int c = 0; c < cant_producto; c++)
                                 {
-                                    sum_cant_productos++;
-                                }
-                                else
-                                {
-                                    xftotal_total = 0;
-
-                                    if (xflist_cantidad_productos.Count > 0)
-                                    {
-                                        indice_sig++;
-                                    }
-                                }
-
-                                if (xflist_cantidad_productos.Count > 0 & indice == indice_sig)
-                                {
-                                    xflist_cantidad_productos.RemoveAt(indice);
-                                    xflist_cantidad_productos.Insert(indice, sum_cant_productos);
-                                }
-
-                                if (xftotal_total == 0)
-                                {
-                                    bool no_agrega = false;
-                                    /*if((n_filas - 1) == 1)
-                                    {
-                                        sum_cant_productos = 1;
-                                    }*/
-                                    if (sum_cant_productos > 0)
-                                    {
-                                        no_agrega = true;
-                                    }
-                                    if (sum_cant_productos == 0)
-                                    {
-                                        sum_cant_productos = 1;
-                                        no_agrega = true;
-                                    }
-
-                                    xflist_cantidad_productos.Add(sum_cant_productos);
-
-                                    if (cant_producto > 1)
-                                    {
-                                        sum_cant_productos = 1;
-                                    }
-
-
                                     xftotal_total += xftotal_produc;
-                                    indice = indice_sig;
 
-                                    if (xflist_cantidad_productos.Count > 0 & (cant_producto - 1) == c & no_agrega == false)
+
+                                    if (xftotal_total <= monto_xfactura)
                                     {
+                                        sum_cant_productos++;
+                                    }
+                                    else
+                                    {
+                                        xftotal_total = 0;
+
+                                        if (xflist_cantidad_productos.Count > 0)
+                                        {
+                                            indice_sig++;
+                                        }
+                                    }
+
+                                    if (xflist_cantidad_productos.Count > 0 & indice == indice_sig)
+                                    {
+                                        xflist_cantidad_productos.RemoveAt(indice);
+                                        xflist_cantidad_productos.Insert(indice, sum_cant_productos);
+                                    }
+
+                                    if (xftotal_total == 0)
+                                    {
+                                        bool no_agrega = false;
+                                        /*if((n_filas - 1) == 1)
+                                        {
+                                            sum_cant_productos = 1;
+                                        }*/
+                                        if (sum_cant_productos > 0)
+                                        {
+                                            no_agrega = true;
+                                        }
+                                        if (sum_cant_productos == 0)
+                                        {
+                                            sum_cant_productos = 1;
+                                            no_agrega = true;
+                                        }
+
                                         xflist_cantidad_productos.Add(sum_cant_productos);
+
+                                        if (cant_producto > 1)
+                                        {
+                                            sum_cant_productos = 1;
+                                        }
+
+
+                                        xftotal_total += xftotal_produc;
+                                        indice = indice_sig;
+
+                                        if (xflist_cantidad_productos.Count > 0 & (cant_producto - 1) == c & no_agrega == false)
+                                        {
+                                            xflist_cantidad_productos.Add(sum_cant_productos);
+                                        }
                                     }
                                 }
-                            }
 
-                            // Si el tamaño del arreglo es igual a 1 signifca que se puede guardar el producto con toda la cantidad de 
-                            // productos que tiene agregados 
-                            if (xflist_cantidad_productos.Count == 0)
-                            {
-                                arr_productos_xguardar[g] = new string[11];
-
-                                if (inc == true)
-                                {
-                                    num_factura++;
-                                    inc = false;
-                                }
-
-                                arr_productos_xguardar[g][0] = "factura" + num_factura;
-                                arr_productos_xguardar[g][1] = arr_dproductos[s][0]; // id producto
-                                arr_productos_xguardar[g][2] = arr_dproductos[s][1]; // clave unidad
-                                arr_productos_xguardar[g][3] = arr_dproductos[s][2]; // clave producto
-                                arr_productos_xguardar[g][4] = arr_dproductos[s][3]; // nombre
-                                arr_productos_xguardar[g][5] = arr_dproductos[s][4]; // cantidad
-                                arr_productos_xguardar[g][6] = arr_dproductos[s][5]; // precio
-                                arr_productos_xguardar[g][7] = arr_dproductos[s][6]; // base
-                                arr_productos_xguardar[g][8] = arr_dproductos[s][7]; // tipo impuesto
-                                arr_productos_xguardar[g][9] = arr_dproductos[s][8]; // cant. IVA
-                                arr_productos_xguardar[g][10] = arr_dproductos[s][9]; // descuento
-
-                                g++;
-                            }
-
-                            // Si el arreglo tiene mas de uno, significa que el producto será repartido en varias facturas cuando la cantidad sobrepase el limite
-                            // de igual manera será para cuando se tenga que iniciar la nueva cuenta para una nueva factura
-                            if (xflist_cantidad_productos.Count > 0)
-                            {
-                                int cant_elementos = xflist_cantidad_productos.Sum();
-                                int xguardar = cant_producto - cant_elementos;
-
-                                if (xguardar > 0)
+                                // Si el tamaño del arreglo es igual a 1 signifca que se puede guardar el producto con toda la cantidad de 
+                                // productos que tiene agregados 
+                                if (xflist_cantidad_productos.Count == 0)
                                 {
                                     arr_productos_xguardar[g] = new string[11];
+
+                                    if (inc == true)
+                                    {
+                                        num_factura++;
+                                        inc = false;
+                                    }
 
                                     arr_productos_xguardar[g][0] = "factura" + num_factura;
                                     arr_productos_xguardar[g][1] = arr_dproductos[s][0]; // id producto
                                     arr_productos_xguardar[g][2] = arr_dproductos[s][1]; // clave unidad
                                     arr_productos_xguardar[g][3] = arr_dproductos[s][2]; // clave producto
                                     arr_productos_xguardar[g][4] = arr_dproductos[s][3]; // nombre
-                                    arr_productos_xguardar[g][5] = xguardar.ToString(); // cantidad
+                                    arr_productos_xguardar[g][5] = arr_dproductos[s][4]; // cantidad
                                     arr_productos_xguardar[g][6] = arr_dproductos[s][5]; // precio
                                     arr_productos_xguardar[g][7] = arr_dproductos[s][6]; // base
                                     arr_productos_xguardar[g][8] = arr_dproductos[s][7]; // tipo impuesto
@@ -1544,199 +1523,230 @@ namespace PuntoDeVentaV2
                                     g++;
                                 }
 
-                                foreach (var cant_p in xflist_cantidad_productos)
+                                // Si el arreglo tiene mas de uno, significa que el producto será repartido en varias facturas cuando la cantidad sobrepase el limite
+                                // de igual manera será para cuando se tenga que iniciar la nueva cuenta para una nueva factura
+                                if (xflist_cantidad_productos.Count > 0)
                                 {
-                                    if (arr_productos_xguardar[0] != null)
+                                    int cant_elementos = xflist_cantidad_productos.Sum();
+                                    int xguardar = cant_producto - cant_elementos;
+
+                                    if (xguardar > 0)
                                     {
-                                        num_factura++;
+                                        arr_productos_xguardar[g] = new string[11];
+
+                                        arr_productos_xguardar[g][0] = "factura" + num_factura;
+                                        arr_productos_xguardar[g][1] = arr_dproductos[s][0]; // id producto
+                                        arr_productos_xguardar[g][2] = arr_dproductos[s][1]; // clave unidad
+                                        arr_productos_xguardar[g][3] = arr_dproductos[s][2]; // clave producto
+                                        arr_productos_xguardar[g][4] = arr_dproductos[s][3]; // nombre
+                                        arr_productos_xguardar[g][5] = xguardar.ToString(); // cantidad
+                                        arr_productos_xguardar[g][6] = arr_dproductos[s][5]; // precio
+                                        arr_productos_xguardar[g][7] = arr_dproductos[s][6]; // base
+                                        arr_productos_xguardar[g][8] = arr_dproductos[s][7]; // tipo impuesto
+                                        arr_productos_xguardar[g][9] = arr_dproductos[s][8]; // cant. IVA
+                                        arr_productos_xguardar[g][10] = arr_dproductos[s][9]; // descuento
+
+                                        g++;
                                     }
 
-                                    arr_productos_xguardar[g] = new string[11];
+                                    foreach (var cant_p in xflist_cantidad_productos)
+                                    {
+                                        if (arr_productos_xguardar[0] != null)
+                                        {
+                                            num_factura++;
+                                        }
 
-                                    arr_productos_xguardar[g][0] = "factura" + num_factura;
-                                    arr_productos_xguardar[g][1] = arr_dproductos[s][0]; // id producto
-                                    arr_productos_xguardar[g][2] = arr_dproductos[s][1]; // clave producto
-                                    arr_productos_xguardar[g][3] = arr_dproductos[s][2]; // clave unidad
-                                    arr_productos_xguardar[g][4] = arr_dproductos[s][3]; // nombre
-                                    arr_productos_xguardar[g][5] = cant_p.ToString(); // cantidad
-                                    arr_productos_xguardar[g][6] = arr_dproductos[s][5]; // precio
-                                    arr_productos_xguardar[g][7] = arr_dproductos[s][6]; // base
-                                    arr_productos_xguardar[g][8] = arr_dproductos[s][7]; // tipo impuesto
-                                    arr_productos_xguardar[g][9] = arr_dproductos[s][8]; // cant. IVA
-                                    arr_productos_xguardar[g][10] = arr_dproductos[s][9]; // descuento
+                                        arr_productos_xguardar[g] = new string[11];
 
-                                    g++;
-                                    inc = true;
+                                        arr_productos_xguardar[g][0] = "factura" + num_factura;
+                                        arr_productos_xguardar[g][1] = arr_dproductos[s][0]; // id producto
+                                        arr_productos_xguardar[g][2] = arr_dproductos[s][1]; // clave producto
+                                        arr_productos_xguardar[g][3] = arr_dproductos[s][2]; // clave unidad
+                                        arr_productos_xguardar[g][4] = arr_dproductos[s][3]; // nombre
+                                        arr_productos_xguardar[g][5] = cant_p.ToString(); // cantidad
+                                        arr_productos_xguardar[g][6] = arr_dproductos[s][5]; // precio
+                                        arr_productos_xguardar[g][7] = arr_dproductos[s][6]; // base
+                                        arr_productos_xguardar[g][8] = arr_dproductos[s][7]; // tipo impuesto
+                                        arr_productos_xguardar[g][9] = arr_dproductos[s][8]; // cant. IVA
+                                        arr_productos_xguardar[g][10] = arr_dproductos[s][9]; // descuento
+
+                                        g++;
+                                        inc = true;
+                                    }
+
+                                    xflist_cantidad_productos.Clear();
+                                    indice = 0;
+                                    indice_sig = 0;
+                                    xftotal_total = 0;
                                 }
 
-                                xflist_cantidad_productos.Clear();
-                                indice = 0;
-                                indice_sig = 0;
-                                xftotal_total = 0;
+                                xftotal_suma = 0;
+                                xftotal_resta = 0;
+
+                                /*Console.WriteLine("----------------------------------------");
+                                Console.WriteLine("[nf]" + arr_productos_xguardar[g - 1][0]);
+                                Console.WriteLine("[n]" + arr_productos_xguardar[g - 1][4]);
+                                Console.WriteLine("[c]" + arr_productos_xguardar[g - 1][5]);
+                                Console.WriteLine("----------------------------------------");*/
                             }
 
-                            xftotal_suma = 0;
-                            xftotal_resta = 0;
 
-                            /*Console.WriteLine("----------------------------------------");
-                            Console.WriteLine("[nf]" + arr_productos_xguardar[g - 1][0]);
-                            Console.WriteLine("[n]" + arr_productos_xguardar[g - 1][4]);
-                            Console.WriteLine("[c]" + arr_productos_xguardar[g - 1][5]);
-                            Console.WriteLine("----------------------------------------");*/
-                        }
-
-
-                        // Inicia creación de facturas
-                        for (var nf = 1; nf <= num_factura; nf++)
-                        {
-                            string numero_factura = "factura" + nf;
-
-                            // Consulta serie y folio
-                            DataTable d_venta = cn.CargarDatos(cs.cargar_datos_venta_xml(9, id_venta, Convert.ToInt32(id_usuario)));
-                            DataRow r_venta = d_venta.Rows[0];
-
-
-                            string no_cuenta = txt_cuenta.Text;
-
-                            if (txt_cuenta.Text == "(Opcional) No. cuenta")
+                            // Inicia creación de facturas
+                            for (var nf = 1; nf <= num_factura; nf++)
                             {
-                                no_cuenta = "";
-                            }
+                                string numero_factura = "factura" + nf;
 
-                            string[] datos_f = new string[]
-                            {
+                                // Consulta serie y folio
+                                DataTable d_venta = cn.CargarDatos(cs.cargar_datos_venta_xml(9, id_venta, Convert.ToInt32(id_usuario)));
+                                DataRow r_venta = d_venta.Rows[0];
+
+
+                                string no_cuenta = txt_cuenta.Text;
+
+                                if (txt_cuenta.Text == "(Opcional) No. cuenta")
+                                {
+                                    no_cuenta = "";
+                                }
+
+                                string[] datos_f = new string[]
+                                {
                             id_usuario, id_venta.ToString(), id_empleado, cmb_bx_metodo_pago.SelectedValue.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), no_cuenta,
                             cmb_bx_moneda.SelectedValue.ToString(), txt_tipo_cambio.Text, uso_cfdi,
                             r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
                             r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
                             txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
                             r_venta["Folio"].ToString(), r_venta["Serie"].ToString(), r_emisor["nombre_comercial"].ToString()
-                            };
+                                };
 
-                            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
+                                cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
 
-                            // Consulta el ultimo id de tabla facturas
-                            int id_factura = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas WHERE id_venta='{id_venta}' ORDER BY ID DESC LIMIT 1", 1));
+                                // Consulta el ultimo id de tabla facturas
+                                int id_factura = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas WHERE id_venta='{id_venta}' ORDER BY ID DESC LIMIT 1", 1));
 
 
 
-                            // Guarda productos en nueva tabla "Facturas productos"
+                                // Guarda productos en nueva tabla "Facturas productos"
 
-                            for (int w = 0; w < arr_productos_xguardar.Length; w++)
-                            {
-                                if (arr_productos_xguardar[w] != null)
+                                for (int w = 0; w < arr_productos_xguardar.Length; w++)
                                 {
-                                    if (numero_factura == arr_productos_xguardar[w][0])
+                                    if (arr_productos_xguardar[w] != null)
                                     {
-                                        string[] datos_fp = new string[]
+                                        if (numero_factura == arr_productos_xguardar[w][0])
                                         {
+                                            string[] datos_fp = new string[]
+                                            {
                                     id_factura.ToString(), arr_productos_xguardar[w][3], arr_productos_xguardar[w][2], arr_productos_xguardar[w][4], arr_productos_xguardar[w][5],
                                     arr_productos_xguardar[w][6], arr_productos_xguardar[w][7], arr_productos_xguardar[w][8], arr_productos_xguardar[w][9], arr_productos_xguardar[w][10]
-                                        };
+                                            };
 
-                                        cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(6, datos_fp));
+                                            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(6, datos_fp));
 
 
-                                        // Consulta si tiene más de un impuesto
-                                        // Si existen, los guarda en nueva tabla Facturas_impuestos
-                                        DataTable d_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, Convert.ToInt32(arr_productos_xguardar[w][1]), Convert.ToInt32(id_usuario)));
+                                            // Consulta si tiene más de un impuesto
+                                            // Si existen, los guarda en nueva tabla Facturas_impuestos
+                                            DataTable d_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, Convert.ToInt32(arr_productos_xguardar[w][1]), Convert.ToInt32(id_usuario)));
 
-                                        if (d_impuestos.Rows.Count > 0)
-                                        {
-                                            // Consulta el ID del producto en curso
-                                            int id_fp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_factura}' ORDER BY ID DESC LIMIT 1", 1));
-
-                                            foreach (DataRow r_impuestos in d_impuestos.Rows)
+                                            if (d_impuestos.Rows.Count > 0)
                                             {
-                                                string[] datos_i = new string[]
-                                                {
-                                            id_fp.ToString(), r_impuestos["Tipo"].ToString(), r_impuestos["Impuesto"].ToString(), r_impuestos["TipoFactor"].ToString(), r_impuestos["TasaCuota"].ToString(), r_impuestos["Definir"].ToString(), r_impuestos["Importe"].ToString()
-                                                };
+                                                // Consulta el ID del producto en curso
+                                                int id_fp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_factura}' ORDER BY ID DESC LIMIT 1", 1));
 
-                                                cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(7, datos_i));
+                                                foreach (DataRow r_impuestos in d_impuestos.Rows)
+                                                {
+                                                    string[] datos_i = new string[]
+                                                    {
+                                            id_fp.ToString(), r_impuestos["Tipo"].ToString(), r_impuestos["Impuesto"].ToString(), r_impuestos["TipoFactor"].ToString(), r_impuestos["TasaCuota"].ToString(), r_impuestos["Definir"].ToString(), r_impuestos["Importe"].ToString()
+                                                    };
+
+                                                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(7, datos_i));
+                                                }
                                             }
                                         }
                                     }
+
                                 }
 
+
+                                list_id_facturas.Add(id_factura);
                             }
-
-
-                            list_id_facturas.Add(id_factura);
                         }
-                    }
-                    #endregion
+                        #endregion
 
 
 
 
 
 
-                    // ........................................ 
-                    // .   Llamar al timbrado de la factura   .
-                    // ........................................        
+                        // ........................................ 
+                        // .   Llamar al timbrado de la factura   .
+                        // ........................................        
 
-                    //Loading load = new Loading();
-                    //load.Show();
-                    decimal[][] vacio = new decimal[][] { };
-                    int exito = 0;
-                    int error = 0;
-                    string mnsjerror = "";
+                        //Loading load = new Loading();
+                        //load.Show();
+                        decimal[][] vacio = new decimal[][] { };
+                        int exito = 0;
+                        int error = 0;
+                        string mnsjerror = "";
 
 
-                    Generar_XML xml = new Generar_XML();
+                        Generar_XML xml = new Generar_XML();
 
-                    foreach (var id_facturaa in list_id_facturas)
-                    {
-                        string respuesta_xml = xml.obtener_datos_XML(id_facturaa, id_venta, 0, vacio);
-
-                        if (respuesta_xml == "")
+                        foreach (var id_facturaa in list_id_facturas)
                         {
-                            exito++;
+                            string respuesta_xml = xml.obtener_datos_XML(id_facturaa, id_venta, 0, vacio);
+
+                            if (respuesta_xml == "")
+                            {
+                                exito++;
+                            }
+                            else
+                            {
+                                error++;
+                                mnsjerror += respuesta_xml + "\n";
+                            }
                         }
-                        else
+
+
+                        if (exito > 0 & error == 0)
                         {
-                            error++;
-                            mnsjerror += respuesta_xml + "\n";
+                            lb_facturando.Visible = false;
+
+                            var r = MessageBox.Show("Su(s) factura(s) han sido creadas y timbradas con éxito.", "Éxito", MessageBoxButtons.OK);
+
+                            if (r == DialogResult.OK)
+                            {
+                                this.Dispose();
+                            }
                         }
-                    }
-
-
-                    if (exito > 0 & error == 0)
-                    {
-                        lb_facturando.Visible = false;
-
-                        var r = MessageBox.Show("Su(s) factura(s) han sido creadas y timbradas con éxito.", "Éxito", MessageBoxButtons.OK);
-
-                        if (r == DialogResult.OK)
+                        if (error > 0 & exito == 0)
                         {
-                            this.Dispose();
+                            botones_visibles(2);
+                            MessageBox.Show(mnsjerror, "Error", MessageBoxButtons.OK);
                         }
-                    }
-                    if (error > 0 & exito == 0)
-                    {
-                        botones_visibles(2);
-                        MessageBox.Show(mnsjerror, "Error", MessageBoxButtons.OK);
-                    }
-                    if (error > 0 & exito > 0)
-                    {
-                        lb_facturando.Visible = false;
-
-                        var r = MessageBox.Show("Factura(s) creadas con éxito. \n Algunas facturas fueron timbradas con éxito, pero hubo un error en alguna de ellas. \n Error: \n " + mnsjerror, "Advertencia", MessageBoxButtons.OK);
-
-                        if (r == DialogResult.OK)
+                        if (error > 0 & exito > 0)
                         {
-                            this.Dispose();
+                            lb_facturando.Visible = false;
+
+                            var r = MessageBox.Show("Factura(s) creadas con éxito. \n Algunas facturas fueron timbradas con éxito, pero hubo un error en alguna de ellas. \n Error: \n " + mnsjerror, "Advertencia", MessageBoxButtons.OK);
+
+                            if (r == DialogResult.OK)
+                            {
+                                this.Dispose();
+                            }
                         }
                     }
+
+
+                    if (paso == 1) { paso = 2; }
                 }
-
-
-                if (paso == 1) { paso = 2; }
+                else
+                {
+                    MessageBox.Show("Complete los campos obligatorios para continuar.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
             {
-                MessageBox.Show("Complete los campos obligatorios para continuar.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Sin conexión a internet. Esta accción requiere una conexión.", "", MessageBoxButtons.OK);
             }
         }
 
@@ -2211,6 +2221,7 @@ namespace PuntoDeVentaV2
                 cmb_bx_clientes.DroppedDown = false;
             }
         }
+        
 
         /*private void btn_facturar_Click(object sender, EventArgs e)
         {

@@ -473,65 +473,74 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
-                    
-                    if (opc_tipo_factura == 3)
-                    {
-                        MessageBox.Show("La factura ya fue cancelada con anterioridad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        // Obtiene cantidad de timbres disponibles
-                        int tiene_timbres = mb.obtener_cantidad_timbres();
 
-                        if (tiene_timbres > 0)
+                    // Si se tiene una conexión a internet procede a realizar la cancelación.
+                    if (Conexion.ConectadoInternet())
+                    {
+
+                        if (opc_tipo_factura == 3)
                         {
-                            // Comprueba que la factura no tenga complementos de pago
-
-                            var uuidf = cn.EjecutarSelect($"SELECT UUID FROM Facturas WHERE ID='{id_factura}'", 13);
-
-                            var existe_complemento = cn.EjecutarSelect($"SELECT * FROM Facturas_complemento_pago WHERE uuid='{uuidf}' AND timbrada=1 AND cancelada=0");
-
-
-                            if (Convert.ToBoolean(existe_complemento) == true)
-                            {
-                                MessageBox.Show("La factura no puede ser cancelada porque tiene complementos de pago timbrados. \n Primero debe cancelar los complementos de pago pertenecientes a esta factura y posterior cancelarla", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                var resp = MessageBox.Show("La cancelación tardará 5 segundos (aproximadamente) en ser cancelada, un momento por favor. \n\n ¿Esta seguro que desea cancelar la factura?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-
-                                if (resp == DialogResult.Yes)
-                                {
-                                    string[] respuesta = cancela.cancelar(id_factura, t_comprobante);
-
-                                    if (respuesta[1] == "201")
-                                    {
-                                        MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK);
-
-                                        // Cambiar a canceladas
-                                        cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1, id_emp_cancela='{id_empleado}' WHERE ID='{id_factura}'");
-
-                                        // Cargar consulta
-                                        int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
-                                        cargar_lista_facturas(tipo_factura);
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
-                                }
-                            }
+                            MessageBox.Show("La factura ya fue cancelada con anterioridad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {
-                            MessageBox.Show("No cuenta con timbres para cancelar el documento. Le sugerimos realizar una compra de timbres.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        
-                        //cancela.Sellar(ruta_key, clave);
-                    }
+                            // Obtiene cantidad de timbres disponibles
+                            int tiene_timbres = mb.obtener_cantidad_timbres();
 
-                    // Obtenemos la cantidad de timbres
-                    actualizar_timbres();
+                            if (tiene_timbres > 0)
+                            {
+                                // Comprueba que la factura no tenga complementos de pago
+
+                                var uuidf = cn.EjecutarSelect($"SELECT UUID FROM Facturas WHERE ID='{id_factura}'", 13);
+
+                                var existe_complemento = cn.EjecutarSelect($"SELECT * FROM Facturas_complemento_pago WHERE uuid='{uuidf}' AND timbrada=1 AND cancelada=0");
+
+
+                                if (Convert.ToBoolean(existe_complemento) == true)
+                                {
+                                    MessageBox.Show("La factura no puede ser cancelada porque tiene complementos de pago timbrados. \n Primero debe cancelar los complementos de pago pertenecientes a esta factura y posterior cancelarla", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                else
+                                {
+                                    var resp = MessageBox.Show("La cancelación tardará 5 segundos (aproximadamente) en ser cancelada, un momento por favor. \n\n ¿Esta seguro que desea cancelar la factura?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+                                    if (resp == DialogResult.Yes)
+                                    {
+                                        string[] respuesta = cancela.cancelar(id_factura, t_comprobante);
+
+                                        if (respuesta[1] == "201")
+                                        {
+                                            MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK);
+
+                                            // Cambiar a canceladas
+                                            cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1, id_emp_cancela='{id_empleado}' WHERE ID='{id_factura}'");
+
+                                            // Cargar consulta
+                                            int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
+                                            cargar_lista_facturas(tipo_factura);
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("No cuenta con timbres para cancelar el documento. Le sugerimos realizar una compra de timbres.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            //cancela.Sellar(ruta_key, clave);
+                        }
+
+                        // Obtenemos la cantidad de timbres
+                        actualizar_timbres();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sin conexión a internet. Esta accción requiere una conexión.", "", MessageBoxButtons.OK);
+                    }
                 }
 
                 // Información empleado
