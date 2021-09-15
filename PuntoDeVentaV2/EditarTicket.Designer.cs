@@ -30,6 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditarTicket));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkMostrarMensaje = new System.Windows.Forms.CheckBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.chkMarcarTodosCl = new System.Windows.Forms.CheckBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.chkMarcarTodosUs = new System.Windows.Forms.CheckBox();
             this.chkLogoTicket = new System.Windows.Forms.CheckBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -71,6 +76,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.fLPVistaPreTickect = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlLogo = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblNombreUs = new System.Windows.Forms.Label();
             this.lblDireccionUs = new System.Windows.Forms.Label();
             this.lblColyCPUs = new System.Windows.Forms.Label();
@@ -91,18 +98,11 @@
             this.label40 = new System.Windows.Forms.Label();
             this.lblMensajeTicket = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pnlLogo = new System.Windows.Forms.Panel();
-            this.chkMarcarTodosUs = new System.Windows.Forms.CheckBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.chkMarcarTodosCl = new System.Windows.Forms.CheckBox();
-            this.chkMostrarMensaje = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.fLPVistaPreTickect.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -154,6 +154,60 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(298, 568);
             this.panel1.TabIndex = 28;
+            // 
+            // chkMostrarMensaje
+            // 
+            this.chkMostrarMensaje.AutoSize = true;
+            this.chkMostrarMensaje.Checked = true;
+            this.chkMostrarMensaje.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMostrarMensaje.Location = new System.Drawing.Point(242, 479);
+            this.chkMostrarMensaje.Name = "chkMostrarMensaje";
+            this.chkMostrarMensaje.Size = new System.Drawing.Size(15, 14);
+            this.chkMostrarMensaje.TabIndex = 46;
+            this.chkMostrarMensaje.UseVisualStyleBackColor = true;
+            this.chkMostrarMensaje.CheckedChanged += new System.EventHandler(this.chkMostrarMensaje_CheckedChanged);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(24, 268);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(72, 13);
+            this.label25.TabIndex = 45;
+            this.label25.Text = "Marcar todos.";
+            // 
+            // chkMarcarTodosCl
+            // 
+            this.chkMarcarTodosCl.AutoSize = true;
+            this.chkMarcarTodosCl.Checked = true;
+            this.chkMarcarTodosCl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMarcarTodosCl.Location = new System.Drawing.Point(8, 269);
+            this.chkMarcarTodosCl.Name = "chkMarcarTodosCl";
+            this.chkMarcarTodosCl.Size = new System.Drawing.Size(15, 14);
+            this.chkMarcarTodosCl.TabIndex = 44;
+            this.chkMarcarTodosCl.UseVisualStyleBackColor = true;
+            this.chkMarcarTodosCl.CheckedChanged += new System.EventHandler(this.chkMarcarTodosCl_CheckedChanged);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(21, 38);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(72, 13);
+            this.label21.TabIndex = 43;
+            this.label21.Text = "Marcar todos.";
+            // 
+            // chkMarcarTodosUs
+            // 
+            this.chkMarcarTodosUs.AutoSize = true;
+            this.chkMarcarTodosUs.Checked = true;
+            this.chkMarcarTodosUs.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMarcarTodosUs.Location = new System.Drawing.Point(5, 39);
+            this.chkMarcarTodosUs.Name = "chkMarcarTodosUs";
+            this.chkMarcarTodosUs.Size = new System.Drawing.Size(15, 14);
+            this.chkMarcarTodosUs.TabIndex = 41;
+            this.chkMarcarTodosUs.UseVisualStyleBackColor = true;
+            this.chkMarcarTodosUs.CheckedChanged += new System.EventHandler(this.chkMarcarTodosUs_CheckedChanged);
             // 
             // chkLogoTicket
             // 
@@ -593,6 +647,23 @@
             this.fLPVistaPreTickect.Size = new System.Drawing.Size(558, 524);
             this.fLPVistaPreTickect.TabIndex = 0;
             // 
+            // pnlLogo
+            // 
+            this.pnlLogo.Controls.Add(this.pictureBox1);
+            this.pnlLogo.Location = new System.Drawing.Point(3, 3);
+            this.pnlLogo.Name = "pnlLogo";
+            this.pnlLogo.Size = new System.Drawing.Size(550, 61);
+            this.pnlLogo.TabIndex = 25;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(229, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 24;
+            this.pictureBox1.TabStop = false;
+            // 
             // lblNombreUs
             // 
             this.lblNombreUs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -793,77 +864,6 @@
             this.label22.Text = "Fehca Hora y Folio del Ticket";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(229, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 24;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pnlLogo
-            // 
-            this.pnlLogo.Controls.Add(this.pictureBox1);
-            this.pnlLogo.Location = new System.Drawing.Point(3, 3);
-            this.pnlLogo.Name = "pnlLogo";
-            this.pnlLogo.Size = new System.Drawing.Size(550, 61);
-            this.pnlLogo.TabIndex = 25;
-            // 
-            // chkMarcarTodosUs
-            // 
-            this.chkMarcarTodosUs.AutoSize = true;
-            this.chkMarcarTodosUs.Checked = true;
-            this.chkMarcarTodosUs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMarcarTodosUs.Location = new System.Drawing.Point(5, 39);
-            this.chkMarcarTodosUs.Name = "chkMarcarTodosUs";
-            this.chkMarcarTodosUs.Size = new System.Drawing.Size(15, 14);
-            this.chkMarcarTodosUs.TabIndex = 41;
-            this.chkMarcarTodosUs.UseVisualStyleBackColor = true;
-            this.chkMarcarTodosUs.CheckedChanged += new System.EventHandler(this.chkMarcarTodosUs_CheckedChanged);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(21, 38);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(72, 13);
-            this.label21.TabIndex = 43;
-            this.label21.Text = "Marcar todos.";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(24, 268);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(72, 13);
-            this.label25.TabIndex = 45;
-            this.label25.Text = "Marcar todos.";
-            // 
-            // chkMarcarTodosCl
-            // 
-            this.chkMarcarTodosCl.AutoSize = true;
-            this.chkMarcarTodosCl.Checked = true;
-            this.chkMarcarTodosCl.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMarcarTodosCl.Location = new System.Drawing.Point(8, 269);
-            this.chkMarcarTodosCl.Name = "chkMarcarTodosCl";
-            this.chkMarcarTodosCl.Size = new System.Drawing.Size(15, 14);
-            this.chkMarcarTodosCl.TabIndex = 44;
-            this.chkMarcarTodosCl.UseVisualStyleBackColor = true;
-            this.chkMarcarTodosCl.CheckedChanged += new System.EventHandler(this.chkMarcarTodosCl_CheckedChanged);
-            // 
-            // chkMostrarMensaje
-            // 
-            this.chkMostrarMensaje.AutoSize = true;
-            this.chkMostrarMensaje.Checked = true;
-            this.chkMostrarMensaje.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMostrarMensaje.Location = new System.Drawing.Point(242, 479);
-            this.chkMostrarMensaje.Name = "chkMostrarMensaje";
-            this.chkMostrarMensaje.Size = new System.Drawing.Size(15, 14);
-            this.chkMostrarMensaje.TabIndex = 46;
-            this.chkMostrarMensaje.UseVisualStyleBackColor = true;
-            this.chkMostrarMensaje.CheckedChanged += new System.EventHandler(this.chkMostrarMensaje_CheckedChanged);
-            // 
             // EditarTicket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -872,6 +872,9 @@
             this.ClientSize = new System.Drawing.Size(875, 583);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditarTicket";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EditarTicket";
@@ -881,8 +884,8 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.fLPVistaPreTickect.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlLogo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

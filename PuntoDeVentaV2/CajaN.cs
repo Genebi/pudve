@@ -25,6 +25,8 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
         CargarDatosCaja cdc = new CargarDatosCaja();
 
+        int clickBotonCorteDeCaja = 0;
+        
         public static bool recargarDatos = false;
         public static bool botones = false;
 
@@ -290,6 +292,7 @@ namespace PuntoDeVentaV2
                                         if (item["CerrarSesionAuto"].ToString().Equals("1"))
                                         {
                                             recargarDatos = true;
+                                            clickBotonCorteDeCaja = 1;
                                         }
                                     }
                                 }
@@ -974,26 +977,30 @@ namespace PuntoDeVentaV2
                 CargarSaldo();
                 recargarDatos = false;
 
-                FormPrincipal frmPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
-
-                if (frmPrincipal != null)
+                if (clickBotonCorteDeCaja.Equals(1))
                 {
-                    if (frmPrincipal.Controls.Count > 0)
+                    FormPrincipal frmPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
+
+                    if (frmPrincipal != null)
                     {
-                        foreach (Control item in frmPrincipal.Controls)
+                        if (frmPrincipal.Controls.Count > 0)
                         {
-                            if (item.Name.Equals("panelMaestro"))
+                            foreach (Control item in frmPrincipal.Controls)
                             {
-                                foreach (Control itemSubControl in item.Controls)
+                                if (item.Name.Equals("panelMaestro"))
                                 {
-                                    if (itemSubControl.Name.Equals("panelContenedor"))
+                                    foreach (Control itemSubControl in item.Controls)
                                     {
-                                        foreach (Control itemSubControlHijo in itemSubControl.Controls)
+                                        if (itemSubControl.Name.Equals("panelContenedor"))
                                         {
-                                            var nombreDeForma = itemSubControlHijo.Name.ToString();
-                                            if (nombreDeForma.Equals("CajaN"))
+                                            foreach (Control itemSubControlHijo in itemSubControl.Controls)
                                             {
-                                                cerrarSesionEnCorteDeCaja();
+                                                var nombreDeForma = itemSubControlHijo.Name.ToString();
+                                                if (nombreDeForma.Equals("CajaN"))
+                                                {
+                                                    clickBotonCorteDeCaja = 0;
+                                                    cerrarSesionEnCorteDeCaja();
+                                                }
                                             }
                                         }
                                     }
