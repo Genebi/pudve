@@ -78,6 +78,9 @@
             this.Controls.Add(this.btnGuardarPorcentaje);
             this.Controls.Add(this.txtPorcentajeProducto);
             this.Controls.Add(this.lbPorcentajeProducto);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PorcentageGanancia";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PorcentageGanancia";
