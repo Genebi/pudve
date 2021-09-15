@@ -93,6 +93,8 @@ namespace PuntoDeVentaV2
         int opcion5 = 1;
 
         public static bool usuario_ini = true;
+        public static bool autorizacion_correcta = false;
+        string correo_anterior = "";
              
 
         public MisDatos()
@@ -132,6 +134,7 @@ namespace PuntoDeVentaV2
             tipoPersona = dt.Rows[index]["TipoPersona"].ToString();
             logoTipo = dt.Rows[index]["LogoTipo"].ToString();
             nombre_comercial = dt.Rows[index]["nombre_comercial"].ToString();
+            correo_anterior= dt.Rows[index]["Email"].ToString();
 
             /****************************************
             *   ponemos los datos en los TxtBox     *
@@ -394,19 +397,63 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarDatos_Click(object sender, EventArgs e)
         {
+            bool result = false; 
+            bool respuesta = false;
+
+
             if (opcion1 == 0 || opcion4 == 0)
             {
                 Utilidades.MensajePermiso();
                 return;
             }
 
-            bool result = ActualizarDatos();
-            bool respuesta = ActualizarPassword();
+            if (correo_anterior != txtEmail.Text)
+            {
+                bool se_actualizo = false;
+
+                Autoriza_conpassword autorizar = new Autoriza_conpassword();
+
+                autorizar.FormClosed += delegate
+                {
+                    if (autorizacion_correcta == true)
+                    {
+                        result = ActualizarDatos();
+                        respuesta = ActualizarPassword();
+
+                        se_actualizo = true;
+                    }                    
+                };
+
+                autorizar.ShowDialog();
+
+                if(autorizar.IsDisposed == false)
+                {
+                    if (autorizacion_correcta == true & se_actualizo == false)
+                    {
+                        result = ActualizarDatos();
+                        respuesta = ActualizarPassword();
+
+                        se_actualizo = true;
+                    }                        
+                }
+            }
+            else
+            {
+                result = ActualizarDatos();
+                respuesta = ActualizarPassword();
+            }
+
 
             if (result == true && respuesta == true)
             {
                 FormPrincipal.datosUsuario = cn.DatosUsuario(IDUsuario: FormPrincipal.userID, tipo: 0);
-                MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Datos actualizados correctamente.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // Se vuelven a cargar los datos.
+                consulta();
+                MessageBox.Show("Los datos no han sido actualizados.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -710,7 +757,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        MessageBox.Show("Es necesario tengá sú RFC; registrado en sus datos favor de registrarlo", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Es necesario tenga su RFC registrado en sus datos, favor de registrarlo", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         txtRFC.SelectAll();
                         txtRFC.Focus();
                     }

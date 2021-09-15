@@ -20,6 +20,7 @@
 
         <div class="txt alineacion txt-tipo-letra" style="width: 43%; margin-left: 1em;">
             <b>@Model.Emisor.Nombre </b> <br />
+            <span>@Model.Emisor.NombreComercialEmisor</span> @if(@Model.Emisor.NombreComercialEmisor != null){ <br /> }
             <b>RFC:</b> @Model.Emisor.Rfc <br />
             <b>Régimen:</b> @Model.Emisor.RegimenFiscal <br />
 
