@@ -70,6 +70,13 @@ namespace PuntoDeVentaV2
         public static float retiroTrans = 0f;
         public static float retiroCredito = 0f;
 
+        // Variables Abonos
+        public static float totalEfectivoAbono = 0f;
+        public static float totalTarjetaAbono = 0f;
+        public static float totalValesAbono = 0f;
+        public static float totalChequeAbono = 0f;
+        public static float totalTransferenciaAbono = 0f;
+
         public static DateTime fechaGeneral;
         public static DateTime fechaUltimoCorte;// = Convert.ToDateTime("2019-10-10 12:00:35");
 
@@ -938,6 +945,12 @@ namespace PuntoDeVentaV2
                 totalCheque = float.Parse(datos[54]);
                 totalTransferencia = float.Parse(datos[55]);
                 totalCredito = float.Parse(datos[56]);
+
+                totalEfectivoAbono = float.Parse(datos[57]);
+                totalTarjetaAbono = float.Parse(datos[58]);
+                totalValesAbono = float.Parse(datos[59]);
+                totalChequeAbono = float.Parse(datos[60]);
+                totalTransferenciaAbono = float.Parse(datos[61]);
 
                 verificarCantidadAbonos();
             }
