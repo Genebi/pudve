@@ -252,7 +252,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //if (opcion14 == 0)
                 //{
                 //    checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
@@ -327,7 +327,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //if (opcion15 == 0)
                 //{
                 //    checkNoVendidos.CheckedChanged -= checkNoVendidos_CheckedChanged;

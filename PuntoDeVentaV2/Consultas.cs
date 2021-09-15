@@ -2619,5 +2619,11 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string validarCerrarSesionCorteCaja()
+        {
+            var consulta = $"SELECT IDUsuario, CerrarSesionAuto FROM configuracion WHERE IDUsuario = '{FormPrincipal.userID}';";
+
+            return consulta;
+        }
     }
 }  

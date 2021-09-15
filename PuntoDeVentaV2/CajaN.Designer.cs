@@ -1427,6 +1427,7 @@
             this.Controls.Add(this.btnRetirarDinero);
             this.Name = "CajaN";
             this.Text = "CajaN";
+            this.Activated += new System.EventHandler(this.CajaN_Activated);
             this.Load += new System.EventHandler(this.CajaN_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.CajaN_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CajaN_KeyDown);

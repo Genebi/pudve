@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
         // 0 = Depositar
         // 1 = Retirar
         // 2 = Corte
-        int operacion = 0;
+        public int operacion = 0;
 
 
         private float totalEfectivo = 0f;
