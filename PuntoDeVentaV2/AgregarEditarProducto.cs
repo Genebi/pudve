@@ -2059,24 +2059,44 @@ namespace PuntoDeVentaV2
                                 // para re-calcular: base, tipo de impuesto e importe del impuesto.
                                 if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.tipo_impuesto_delxml != "")
                                 {
-                                    impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
+                                    string tmp_tipo_impuesto_delxml = AgregarStockXML.tipo_impuesto_delxml + "%";
+
+                                    // Se verifica si el impuesto principal fue modificado, si no fue editado entonces,
+                                    // obtiene el impuesto por default del xml, caso contrario toma el impuesto del radio elegido.
+                                    // Si solo hay un impuesto y este es editado, los cambios no los tomaba en cuenta por eso se agrega esta condición, y se modifican algunas cosas que ya se tenian. 
+                                    if (impuestoProducto == tmp_tipo_impuesto_delxml)
+                                    {
+                                        impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
+                                    }
+                                    else
+                                    {
+                                        var impuestop = impuestoProducto.Split('%');
+                                        impuestoProducto = impuestop[0].Trim();
+                                    }
+
+                                    //impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
                                     baseProducto = precio;
                                     ivaProducto = "0.00";
 
-                                    if (AgregarStockXML.tipo_impuesto_delxml != "Exento")
+                                    /*if (AgregarStockXML.tipo_impuesto_delxml != "Exento")
                                     {
                                         impuestoProducto += "%";
-                                    }
+                                    }*/
 
-                                    if (AgregarStockXML.tipo_impuesto_delxml == "8")
+                                    if (impuestoProducto == "8")
                                     {
                                         baseProducto = (Convert.ToDouble(precio) / 1.08).ToString("0.00");
                                         ivaProducto = (Convert.ToDouble(baseProducto) * 0.08).ToString("0.00");
                                     }
-                                    if (AgregarStockXML.tipo_impuesto_delxml == "16")
+                                    if (impuestoProducto == "16")
                                     {
                                         baseProducto = (Convert.ToDouble(precio) / 1.16).ToString("0.00");
                                         ivaProducto = (Convert.ToDouble(baseProducto) * 0.16).ToString("0.00");
+                                    }
+
+                                    if (impuestoProducto != "Exento")
+                                    {
+                                        impuestoProducto += "%";
                                     }
                                 }
 
@@ -5068,6 +5088,7 @@ namespace PuntoDeVentaV2
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
             var tituloVentana = string.Empty;
+            Console.WriteLine("holaaaa");
 
             #region Inicio Sección de Cambio de Producto a Servicio/Combo ó Servicio/Combo a Producto
             // Condiciones para saber si se realiza el cambio de un producto a servicio y viceversa
