@@ -1879,7 +1879,7 @@ namespace PuntoDeVentaV2
 	        ****************************/
             filtroTipoSerPaq = Convert.ToString(cbTipo.SelectedItem);
             tipoServPaq = filtroTipoSerPaq;
-            nombre = txtNombreProducto.Text;
+            nombre = txtNombreProducto.Text.ToString().Replace("'", "\\'");
             if (this.Text.Trim() == "AGREGAR PRODUCTO" | this.Text.Trim() == "EDITAR PRODUCTO" | this.Text.Trim() == "COPIAR PRODUCTO")
             {
                 validarDecimales(txtStockProducto.Text.ToString());
