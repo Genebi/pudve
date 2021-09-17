@@ -4091,7 +4091,7 @@ namespace PuntoDeVentaV2
             idProductoFinal = idEditarProducto;
             impuestoProductoFinal = impuestoSeleccionado;
 
-            txtNombreProducto.Text = ProdNombreFinal;
+            txtNombreProducto.Text = ProdNombreFinal.ToString().Replace("\\'", "'");
             txtStockProducto.Text = ProdStockFinal;
 
             txtPrecioProducto.Text = ProdPrecioFinal;

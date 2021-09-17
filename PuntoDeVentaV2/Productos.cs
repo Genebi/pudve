@@ -1465,7 +1465,7 @@ namespace PuntoDeVentaV2
 
             if (datosProducto.Count() > 0)
             {
-                Nombre = datosProducto[1];// DGVProductos.Rows[fila].Cells["Column1"].Value.ToString();
+                Nombre = datosProducto[1].ToString().Replace("'", "\\'");// DGVProductos.Rows[fila].Cells["Column1"].Value.ToString();
                 Stock = datosProducto[4];// DGVProductos.Rows[fila].Cells["Column2"].Value.ToString();
                 Precio = datosProducto[2];// DGVProductos.Rows[fila].Cells["Column3"].Value.ToString();
                 ProductoCategoria = datosProducto[14];// DGVProductos.Rows[fila].Cells["Categoria"].Value.ToString();
