@@ -882,12 +882,12 @@ namespace PuntoDeVentaV2
 
         private void checkMayoreo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void checkNoVendidos_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Estamos trabajano en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void cbCorreoCorteCaja_Click(object sender, EventArgs e)

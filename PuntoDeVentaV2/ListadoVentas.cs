@@ -1927,6 +1927,11 @@ namespace PuntoDeVentaV2
             emisor_v.Correo = r_usuario["Email"].ToString();
             emisor_v.Telefono = r_usuario["Telefono"].ToString();
 
+            // Obtiene el nombre comercial del emisor
+            if (r_usuario["nombre_comercial"].ToString() != "" & r_usuario["nombre_comercial"].ToString() != null)
+            {
+                emisor_v.NombreComercialEmisor = r_usuario["nombre_comercial"].ToString();
+            }
 
             string domicilio_emisor = "";
 

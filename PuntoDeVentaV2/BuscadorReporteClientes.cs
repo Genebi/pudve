@@ -1178,16 +1178,16 @@ namespace PuntoDeVentaV2
 
         private void btnNoComprados_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show("Estamos trabajando en este apartado", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
-            //if (!IDClientes.Count.Equals(0))
-            //{
-            //    realizarReporteBotones("noComprados");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
+            //MessageBox.Show("Estamos trabajando en este apartado", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (!IDClientes.Count.Equals(0))
+            {
+                realizarReporteBotones("noComprados");
+            }
+            else
+            {
+                MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnDatosCLiente_Click_1(object sender, EventArgs e)

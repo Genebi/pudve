@@ -302,8 +302,11 @@ namespace PuntoDeVentaV2
                             cnx.actualizarConteo(usuario);//actualiza el conteo online
                             cn.EjecutarConsulta(cs.registroSesiones(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),correo));
                             cnx.registrarInicio(usuario, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
-
-                            guardarUsuarioyContraseñaEntxt();
+                            if (chkRecordarContraseña.Checked == true || checkBoxRecordarUsuarui.Checked == true)
+                            {
+                                guardarUsuarioyContraseñaEntxt();
+                            }
+                            
                         }
                         else // Empleado
                         {
@@ -319,7 +322,10 @@ namespace PuntoDeVentaV2
                             string [] newUsuario = usuario.Split('@');
                             cnx.actualizarConteo(newUsuario[0].ToString());
 
-                            guardarUsuarioyContraseñaEntxt();
+                            if (chkRecordarContraseña.Checked == true || checkBoxRecordarUsuarui.Checked == true)
+                            {
+                                guardarUsuarioyContraseñaEntxt();
+                            }
 
                         }
 
@@ -338,14 +344,14 @@ namespace PuntoDeVentaV2
                         FormPrincipal fp = new FormPrincipal();
 
                         // validacion para recordar los datos de Login
-                        if (checkBoxRecordarUsuarui.Checked == true)      // si es que el Check Box de Recordar los Datos esta marcado
-                        {
-                            GuardarDatosLoginUsuarios();
-                        }
-                        if (chkRecordarContraseña.Checked == true)
-                        {
-                            GuardarDatosLoginContraseñas();
-                        }
+                        //if (checkBoxRecordarUsuarui.Checked == true)      // si es que el Check Box de Recordar los Datos esta marcado
+                        //{
+                        //    GuardarDatosLoginUsuarios();
+                        //}
+                        //if (chkRecordarContraseña.Checked == true)
+                        //{
+                        //    GuardarDatosLoginContraseñas();
+                        //}
 
                         this.Hide();
 
@@ -409,8 +415,17 @@ namespace PuntoDeVentaV2
                     {
                         using (StreamWriter sw = File.AppendText(path))
                         {
+                            if (chkRecordarContraseña.Checked == false)
+                            {
+                                var contraseñaEncriptada2 = Encriptar("");
+                                sw.WriteLine("[" + usuario + "," + contraseñaEncriptada2 + "]");
+                            }
+                            else
+                            {
                             var contraseñaEncriptada = Encriptar(password);
                             sw.WriteLine("[" + usuario + "," + contraseñaEncriptada + "]");
+                            }
+                            
                         }
                     }
                 }

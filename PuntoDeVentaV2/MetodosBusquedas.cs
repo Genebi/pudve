@@ -2141,7 +2141,7 @@ namespace PuntoDeVentaV2
             {
                 while (dr.Read())
                 {
-                    var concepto = dr.GetValue(dr.GetOrdinal("concepto")).ToString();
+                    var concepto = dr.GetValue(dr.GetOrdinal("concepto")).ToString().Replace("_"," ");
 
                     lista.Add(concepto);
                 }
