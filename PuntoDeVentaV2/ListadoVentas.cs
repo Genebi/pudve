@@ -423,13 +423,10 @@ namespace PuntoDeVentaV2
                 }
 
                 DGVListadoVentas.FirstDisplayedScrollingRowIndex = DGVListadoVentas.RowCount - 1;
-                //for (var i = 0; i < DGVListadoVentas.Columns.Count; i++)
-                //{
-                //    DGVListadoVentas.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-                //}
-                //DGVListadoVentas.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
                 DGVListadoVentas.FirstDisplayedScrollingColumnIndex = DGVListadoVentas.ColumnCount - 1;
             }
+
             tipo_venta = estado;
 
             llenarGDV();
@@ -2847,14 +2844,19 @@ namespace PuntoDeVentaV2
         }
 
         private void llenarGDV ()
-        {//Los try son para las finas que son para totales que no se marquen
+        {
+            //Los try son para las finas que son para totales que no se marquen
 
             var incremento = -1;
+            
             foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
             {
                 try
                 {
+                    if (dgv.Cells["ID"].Value == null) continue;
+
                     incremento += 1;
+
                     var idRevision = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
 
                     if (idVentas.ContainsKey(idRevision))
@@ -2868,42 +2870,9 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception ex)
                 {
-
+                    Console.WriteLine("ERROR AQUI: " + ex.Message);
                 }
             }
-
-                //if (chTodos.Checked)
-                //{
-                //    //var numeroFilas = DGVListadoVentas.Rows.Count.ToString();
-
-                //    foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
-                //    {
-                //        try
-                //        {
-                //            //var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
-                //            dgv.Cells["col_checkbox"].Value = true;
-                //        }
-                //        catch (Exception ex)
-                //        {
-
-                //        }
-                //    }
-                //}
-                //else if (!chTodos.Checked)
-                //{
-                //    foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
-                //    {
-                //        try
-                //        {
-                //            //var idVenta = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
-                //            dgv.Cells["col_checkbox"].Value = false;
-                //        }
-                //        catch (Exception ex)
-                //        {
-
-                //        }
-                //    }
-                //}
         }
 
         private void MostrarCheckBox()
