@@ -366,6 +366,7 @@ namespace PuntoDeVentaV2
                 cb1.Margin = new Padding(120, 5, 0, 0);
                 cb1.TextAlign = ContentAlignment.MiddleLeft;
                 cb1.CheckedChanged += seleccionCheckBoxes;
+                cb1.Checked = true;
                 cb1.Width = 400;
                 cb1.Tag = 1;
 
@@ -725,6 +726,7 @@ namespace PuntoDeVentaV2
                         cb1.Margin = new Padding(120, 5, 0, 0);
                         cb1.TextAlign = ContentAlignment.MiddleLeft;
                         cb1.CheckedChanged += seleccionCheckBoxes;
+                        cb1.Checked = true;
                         cb1.Width = 400;
                         cb1.Tag = idGenerado;
                         cb1.Checked = Convert.ToBoolean(Convert.ToInt32(renglon[4].ToString()));
@@ -834,6 +836,7 @@ namespace PuntoDeVentaV2
                     cb1.Margin = new Padding(120, 5, 0, 0);
                     cb1.TextAlign = ContentAlignment.MiddleLeft;
                     cb1.CheckedChanged += seleccionCheckBoxes;
+                    cb1.Checked = true;
                     cb1.Width = 400;
                     cb1.Tag = 1;
 
@@ -1075,6 +1078,7 @@ namespace PuntoDeVentaV2
             cb1.Margin = new Padding(120, 5, 0, 0);
             cb1.TextAlign = ContentAlignment.MiddleLeft;
             cb1.CheckedChanged += seleccionCheckBoxes;
+            cb1.Checked = true;
             cb1.Width = 400;
             cb1.Tag = idGenerado;
 
