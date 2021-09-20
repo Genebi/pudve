@@ -1067,9 +1067,9 @@ CREATE UNIQUE INDEX
 IF 
 	NOT EXISTS ID_Unico_ConceptosDinamicos ON ConceptosDinamicos (ID);
 
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Index para reportes de clientes con productos
-CREATE UNIQUE INDEX IF NOT EXISTS BUSQUEDA_REPORTE_CLIENTES_PRODUCTOS_NO_COMPRADOS ON Productos (Nombre, Precio, Precio); 
+--CREATE UNIQUE INDEX IF NOT EXISTS BUSQUEDA_REPORTE_CLIENTES_PRODUCTOS_NO_COMPRADOS ON Productos (Nombre, Precio, Precio); 
 
 -- Index de Caja
 CREATE INDEX 
