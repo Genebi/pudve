@@ -123,7 +123,10 @@ namespace PuntoDeVentaV2
 
             dr = sql_cmd.ExecuteReader();
 
-            DGVAnticipos.Rows.Clear();
+            if (dr.HasRows)
+            {
+                DGVAnticipos.Rows.Clear();
+            }
 
             if (dr.HasRows)
             {
