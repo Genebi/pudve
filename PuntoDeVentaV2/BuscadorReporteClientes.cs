@@ -448,13 +448,14 @@ namespace PuntoDeVentaV2
 
             if (multiplesID)
             {
-                consulta = cn.CargarDatos($"SELECT Prod.Nombre AS Nombre, Prod.Precio AS Price,	Prod.CodigoBarras AS Codigo, Vendidos.Cliente AS Cliente, IFNULL(Vendidos.Cliente, 'Sin Comprar') AS Situacion FROM	Productos AS Prod LEFT JOIN (SELECT	Prod.ID AS NoProducto,	Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo,	Vent.Cliente AS Cliente	FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ProdVent.IDProducto = Prod.ID LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Vent.IDCliente IN ({idMultiples}) AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}' ) AS Vendidos ON Prod.ID = Vendidos.NoProducto WHERE Vendidos.Cliente IS NULL AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}'");
-               /* consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo, Vent.Cliente AS Cliente FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente NOT IN ({idMultiples}) AND Prod.`Status` = 1;");*/ //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
+                //consulta = cn.CargarDatos($"SELECT Prod.Nombre AS Nombre, Prod.Precio AS Price,	Prod.CodigoBarras AS Codigo, Vendidos.Cliente AS Cliente, IFNULL(Vendidos.Cliente, 'Sin Comprar') AS Situacion FROM	Productos AS Prod LEFT JOIN (SELECT	Prod.ID AS NoProducto,	Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo,	Vent.Cliente AS Cliente	FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ProdVent.IDProducto = Prod.ID LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Vent.IDCliente IN ({idMultiples}) AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}' ) AS Vendidos ON Prod.ID = Vendidos.NoProducto WHERE Vendidos.Cliente IS NULL AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}'");
+
+                 consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo, Vent.Cliente AS Cliente FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente NOT IN ({idMultiples}) AND Prod.`Status` = 1;"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
             }
             else
             {
-                consulta = cn.CargarDatos($"SELECT Prod.Nombre AS Nombre, Prod.Precio AS Price,	Prod.CodigoBarras AS Codigo, Vendidos.Cliente AS Cliente, IFNULL(Vendidos.Cliente, 'Sin Comprar') AS Situacion FROM	Productos AS Prod LEFT JOIN (SELECT	Prod.ID AS NoProducto,	Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo,	Vent.Cliente AS Cliente	FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ProdVent.IDProducto = Prod.ID LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Vent.IDCliente = '{id}' AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}' ) AS Vendidos ON Prod.ID = Vendidos.NoProducto WHERE Vendidos.Cliente IS NULL AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}'");
-                /*consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo, Vent.Cliente AS Cliente FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente != '{id}' AND Prod.`Status` = 1;");*/ //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
+                //consulta = cn.CargarDatos($"SELECT Prod.Nombre AS Nombre, Prod.Precio AS Price,	Prod.CodigoBarras AS Codigo, Vendidos.Cliente AS Cliente, IFNULL(Vendidos.Cliente, 'Sin Comprar') AS Situacion FROM	Productos AS Prod LEFT JOIN (SELECT	Prod.ID AS NoProducto,	Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo,	Vent.Cliente AS Cliente	FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ProdVent.IDProducto = Prod.ID LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Vent.IDCliente = '{id}' AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}' ) AS Vendidos ON Prod.ID = Vendidos.NoProducto WHERE Vendidos.Cliente IS NULL AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}'");
+                consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo, Vent.Cliente AS Cliente FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente != '{id}' AND Prod.`Status` = 1;"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
             }
 
             var nombre = string.Empty;
@@ -1178,16 +1179,16 @@ namespace PuntoDeVentaV2
 
         private void btnNoComprados_Click_1(object sender, EventArgs e)
         {
-            //MessageBox.Show("Estamos trabajando en este apartado", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Estamos trabajando en este apartado", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            if (!IDClientes.Count.Equals(0))
-            {
-                realizarReporteBotones("noComprados");
-            }
-            else
-            {
-                MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            //if (!IDClientes.Count.Equals(0))
+            //{
+            //    realizarReporteBotones("noComprados");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
         }
 
         private void btnDatosCLiente_Click_1(object sender, EventArgs e)
