@@ -62,6 +62,9 @@ namespace PuntoDeVentaV2
         bool check22 = false;
         bool check23 = false;
         bool check26 = false;
+
+        bool valorCambioCheckBox = false;
+
         public ConfiguracionGeneral() 
         {
             InitializeComponent();
@@ -128,27 +131,66 @@ namespace PuntoDeVentaV2
 
             //cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
 
-            var valorCambioCheckBox = checkCBVenta.Checked;
+            if (opcion10.Equals(0))
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
 
-            cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {valorCambioCheckBox} WHERE IDUsuario = {FormPrincipal.userID}");
+            var ticketVenta = 0;
+
+            valorCambioCheckBox = checkCBVenta.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
+            {
+                ticketVenta = 1;
+            }
+            else
+            {
+                ticketVenta = 0;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void pagWeb_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion11 == 0)
+            //if (opcion11 == 0)
+            //{
+            //    pagWeb.CheckedChanged -= pagWeb_CheckedChanged;
+            //    pagWeb.Checked = check11;
+            //    Utilidades.MensajePermiso();
+            //    pagWeb.CheckedChanged += pagWeb_CheckedChanged;
+            //    return;
+            //}
+
+            //var habilitado = 0;
+
+            //if (pagWeb.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            //FormPrincipal.pasar = habilitado;
+
+            if (opcion11.Equals(0))
             {
-                pagWeb.CheckedChanged -= pagWeb_CheckedChanged;
-                pagWeb.Checked = check11;
                 Utilidades.MensajePermiso();
-                pagWeb.CheckedChanged += pagWeb_CheckedChanged;
                 return;
             }
 
             var habilitado = 0;
 
-            if (pagWeb.Checked)
+            valorCambioCheckBox = checkCBVenta.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = 1;
+            }
+            else
+            {
+                habilitado = 0;
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
@@ -385,7 +427,7 @@ namespace PuntoDeVentaV2
                 cbStockNegativo.Checked = true;
             }
 
-            VerificarConfiguracion();
+            //VerificarConfiguracion();
 
             using (DataTable dtConfiguracion = cn.CargarDatos(cs.cargarDatosDeConfiguracion()))
             {
@@ -394,6 +436,8 @@ namespace PuntoDeVentaV2
                     var valorBooleanoDelCheckBox = false;
                     foreach (DataRow item in dtConfiguracion.Rows)
                     {
+                        // secciones por Cada uno de los 
+                        // CheckBox de Configuración General
                         #region Código de Barras en Ticket
                         if (item["TicketVenta"].Equals(1))
                         {
@@ -404,6 +448,17 @@ namespace PuntoDeVentaV2
                             valorBooleanoDelCheckBox = false;
                         }
                         checkCBVenta.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Envió de información a la WEB
+                        if (item["IniciarProceso"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["IniciarProceso"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        pagWeb.Checked = valorBooleanoDelCheckBox;
                         #endregion
                     }
                 }
