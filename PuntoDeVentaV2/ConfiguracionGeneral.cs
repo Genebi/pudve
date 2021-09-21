@@ -110,23 +110,27 @@ namespace PuntoDeVentaV2
 
         private void checkCBVenta_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion10 == 0)
-            {
-                checkCBVenta.CheckedChanged -= checkCBVenta_CheckedChanged;
-                checkCBVenta.Checked = check10;
-                Utilidades.MensajePermiso();
-                checkCBVenta.CheckedChanged += checkCBVenta_CheckedChanged;
-                return;
-            }
+            //if (opcion10 == 0)
+            //{
+            //    checkCBVenta.CheckedChanged -= checkCBVenta_CheckedChanged;
+            //    checkCBVenta.Checked = check10;
+            //    Utilidades.MensajePermiso();
+            //    checkCBVenta.CheckedChanged += checkCBVenta_CheckedChanged;
+            //    return;
+            //}
 
-            var ticketVenta = 0;
+            //var ticketVenta = 0;
 
-            if (checkCBVenta.Checked)
-            {
-                ticketVenta = 1;
-            }
+            //if (checkCBVenta.Checked)
+            //{
+            //    ticketVenta = 1;
+            //}
 
-            cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
+
+            var valorCambioCheckBox = checkCBVenta.Checked;
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {valorCambioCheckBox} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void pagWeb_CheckedChanged(object sender, EventArgs e)
@@ -387,7 +391,21 @@ namespace PuntoDeVentaV2
             {
                 if (!dtConfiguracion.Rows.Count.Equals(0))
                 {
-
+                    var valorBooleanoDelCheckBox = false;
+                    foreach (DataRow item in dtConfiguracion.Rows)
+                    {
+                        #region Código de Barras en Ticket
+                        if (item["TicketVenta"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["TicketVenta"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        checkCBVenta.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                    }
                 }
             }
         }
