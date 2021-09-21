@@ -633,7 +633,7 @@ namespace PuntoDeVentaV2
             }
             if (IdUsuarios.ContainsKey(FormPrincipal.userID))
             {
-                MessageBox.Show("puto kevin");
+                //MessageBox.Show("puto kevin");
             }
             else
             {
