@@ -199,20 +199,41 @@ namespace PuntoDeVentaV2
 
         private void cbMostrarCB_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion13 == 0)
+            //if (opcion13 == 0)
+            //{
+            //    cbMostrarCB.CheckedChanged -= cbMostrarCB_CheckedChanged;
+            //    cbMostrarCB.Checked = check13;
+            //    Utilidades.MensajePermiso();
+            //    cbMostrarCB.CheckedChanged += cbMostrarCB_CheckedChanged;
+            //    return;
+            //}
+
+            //var habilitado = 0;
+
+            //if (cbMostrarCB.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (opcion13.Equals(0))
             {
-                cbMostrarCB.CheckedChanged -= cbMostrarCB_CheckedChanged;
-                cbMostrarCB.Checked = check13;
                 Utilidades.MensajePermiso();
-                cbMostrarCB.CheckedChanged += cbMostrarCB_CheckedChanged;
                 return;
             }
 
             var habilitado = 0;
 
-            if (cbMostrarCB.Checked)
+            valorCambioCheckBox = cbMostrarCB.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = 1;
+            }
+            else
+            {
+                habilitado = 0;
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
@@ -459,6 +480,17 @@ namespace PuntoDeVentaV2
                             valorBooleanoDelCheckBox = false;
                         }
                         pagWeb.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Mostrar código de productos en ventas
+                        if (item["MostrarCodigoProducto"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["MostrarCodigoProducto"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        cbMostrarCB.Checked = valorBooleanoDelCheckBox;
                         #endregion
                     }
                 }
