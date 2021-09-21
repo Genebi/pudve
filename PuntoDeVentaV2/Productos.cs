@@ -271,6 +271,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     var id = Convert.ToInt32(DGVProductos.SelectedRows[e.ColumnIndex].Cells["_IDProducto"].Value);
+                    var tipo = DGVProductos.SelectedRows[e.ColumnIndex].Cells["TipoProducto"].Value.ToString();
 
                     if (productosSeleccionados.ContainsKey(id))
                     {
@@ -287,7 +288,13 @@ namespace PuntoDeVentaV2
                         productosSeleccionadosParaHistorialPrecios.Remove(id);
                     }
 
+                    if (!quitarProductosDeseleccionados.ContainsKey(id))
+                    {
+                        quitarProductosDeseleccionados.Add(id, tipo);
+                    }
+
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
+
                     //Contar los productos seleccionados 1 por 1
                     //if (contarProductosSeleccionados.ContainsKey(id))
                     //{
