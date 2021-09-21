@@ -412,7 +412,14 @@ namespace PuntoDeVentaV2
 
         private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = (e.KeyChar == (char)Keys.Space);
+            //e.Handled = (e.KeyChar == (char)Keys.Space);
+
+            if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back && !char.IsDigit(e.KeyChar))
+            {
+                MessageBox.Show("Solo se permiten letras y numeros!", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
         }
     }
 }

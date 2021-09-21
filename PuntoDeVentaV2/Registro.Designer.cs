@@ -297,7 +297,7 @@
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(166, 17);
             this.label14.TabIndex = 21;
-            this.label14.Text = "[Ejemplo: ABARROTES2020]";
+            this.label14.Text = "[Ejemplo: ABARROTES2021]";
             this.label14.Visible = false;
             // 
             // Registro
