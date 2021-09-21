@@ -2625,5 +2625,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string cargarDatosDeConfiguracion()
+        {
+            var consulta = $"SELECT * FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
     }
 }  

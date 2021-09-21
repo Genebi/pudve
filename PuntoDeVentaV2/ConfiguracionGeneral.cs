@@ -380,8 +380,16 @@ namespace PuntoDeVentaV2
             {
                 cbStockNegativo.Checked = true;
             }
+
             VerificarConfiguracion();
-            
+
+            using (DataTable dtConfiguracion = cn.CargarDatos(cs.cargarDatosDeConfiguracion()))
+            {
+                if (!dtConfiguracion.Rows.Count.Equals(0))
+                {
+
+                }
+            }
         }
 
         private void chkCerrarSesionCorte_CheckedChanged(object sender, EventArgs e)
