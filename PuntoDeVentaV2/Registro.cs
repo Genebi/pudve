@@ -118,6 +118,15 @@ namespace PuntoDeVentaV2
 
                         int respuesta = cn.EjecutarConsulta(consulta, regresarID: true);
 
+                        
+
+                        //var consultaIdUsuario = cn.CargarDatos($"SELECT * FROM usuarios ORDER BY ID DESC LIMIT 1");
+
+                        //foreach (DataRow IdUser in consultaIdUsuario.Rows)
+                        //{
+                        //    cn.EjecutarConsulta($"UPDATE editarticket SET MensajeTicket = '1', Usuario = '1', Direccion = '1', ColyCP = '1', RFC = '1', Correo = '1', Telefono = '1', NombreC = '1', DomicilioC = '1', RFCC = '1', CorreoC = '1', TelefonoC = '1', ColyCPC = '1', FormaPagoC = '1', logo = '1' WHERE ID = '{IdUser[0].ToString()}'");
+                        //}
+
                         //Consulta de MySQL
                         registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, idLocal, licencia) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{respuesta}', '{licencia}')";
                         int resultado = registrar.ExecuteNonQuery();

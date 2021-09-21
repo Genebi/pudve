@@ -105,6 +105,8 @@ namespace PuntoDeVentaV2
 
         int veces = 1;
 
+        Dictionary<int, string> IdUsuarios = new Dictionary<int, string>();
+
         #region Variables Globales	
 
         List<string> infoDetalle, infoDetailProdGral;
@@ -577,6 +579,22 @@ namespace PuntoDeVentaV2
 
             //    MessageBox.Show($"Fecha de la computadora: {dt}\nLa Fecha Actual es: {fechaActual.ToString()}", "Mensaje de Sistema");
             //}
+
+
+            var consultaUsuarios = cn.CargarDatos($"SELECT IDUsuario FROM editarticket");
+
+            foreach (DataRow usuarios in consultaUsuarios.Rows)
+            {
+                IdUsuarios.Add(Convert.ToInt32(usuarios[0]), "");
+            }
+            if (IdUsuarios.ContainsKey(FormPrincipal.userID))
+            {
+                MessageBox.Show("puto kevin");
+            }
+            else
+            {
+                cn.EjecutarConsulta($"INSERT INTO editarticket (IDUsuario,MensajeTicket,Usuario,Direccion,ColyCP,RFC,Correo,Telefono,NombreC,DomicilioC,RFCC,CorreoC,TelefonoC,ColyCPC,FormaPagoC,logo) VALUES ('{FormPrincipal.userID}','Hola Mundo','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
+            }
         }
 
         public void agregarCamposDinamicosPermisos()

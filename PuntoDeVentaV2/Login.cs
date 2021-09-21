@@ -74,6 +74,7 @@ namespace PuntoDeVentaV2
         DBTables dbTables = new DBTables();
         string[] user;
 
+       
         public static string[] datosUsuario = new string[] { };
 
         //public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -757,6 +758,7 @@ namespace PuntoDeVentaV2
             cargarUsuariosGuardados();
             lbUsuarios.Visible = false;
             txtUsuario.Select();
+
         }
 
 
