@@ -90,21 +90,23 @@ namespace PuntoDeVentaV2
 
             var consulta = string.Empty;
 
+            if (estado.Equals(4)) { estado = 5; }
+
             //Normal
-            if (tipo == 0)
-            {
-                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Status != 4";
-            }
+            //if (tipo == 0)
+            //{
+            //    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado}"; //AND Status != 4
+            //}
 
             //Con fechas de busqueda
-            if (tipo == 1)
-            {
+            //if (tipo == 1)
+            //{
                 var fechaInicio = dpFechaInicial.Text;
                 var fechaFinal = dpFechaFinal.Text;
 
                 if (string.IsNullOrEmpty(txtBuscarAnticipo.Text))//Busqueda sin Cliente/Empleado
                 {
-                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
+                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
                     conBusqueda = false;
                 }
                 else//Busqueda con Cliente/Empleado
@@ -112,12 +114,12 @@ namespace PuntoDeVentaV2
                     //var emp = consultaBuscarEmpledo(txtBuscarAnticipo.Text);
                     //var client = consultaBuscarCliente(); 
 
-                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Cliente LIKE '%{txtBuscarAnticipo.Text}%' AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
+                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Cliente LIKE '%{txtBuscarAnticipo.Text}%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
 
                     conBusqueda = true;
                 }
 
-            }
+            //}
 
             sql_cmd = new MySqlCommand(consulta, sql_con);
 
