@@ -320,11 +320,26 @@ namespace PuntoDeVentaV2
 
         private void chTicketVentas_CheckedChanged(object sender, EventArgs e)
         {
+            //var habilitado = 0;
+
+            //if (chTicketVentas.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
             var habilitado = 0;
 
-            if (chTicketVentas.Checked)
+            valorCambioCheckBox = chTicketVentas.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = 1;
+            }
+            else
+            {
+                habilitado = 0;
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
@@ -566,6 +581,17 @@ namespace PuntoDeVentaV2
                             valorBooleanoDelCheckBox = false;
                         }
                         cbStockNegativo.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Generar Ticket al Realizar Ventas
+                        if (item["HabilitarTicketVentas"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["HabilitarTicketVentas"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        chTicketVentas.Checked = valorBooleanoDelCheckBox;
                         #endregion
                     }
                 }
