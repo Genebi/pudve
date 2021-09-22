@@ -450,16 +450,39 @@ namespace PuntoDeVentaV2
         {
             if (FormPrincipal.userNickName == "MUELAS0" || FormPrincipal.userNickName == "OXXITO")
             {
+                //if (opcion15 == 0)
+                //{
+                //    checkNoVendidos.CheckedChanged -= checkNoVendidos_CheckedChanged;
+                //    checkNoVendidos.Checked = check15;
+                //    Utilidades.MensajePermiso();
+                //    checkNoVendidos.CheckedChanged += checkNoVendidos_CheckedChanged;
+                //    return;
+                //}
+
+                //if (checkNoVendidos.Checked)
+                //{
+                //    txtNoVendidos.Enabled = true;
+                //    txtNoVendidos.Focus();
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
+                //    FormPrincipal.checkNoVendidos = 1;
+                //}
+                //else
+                //{
+                //    txtNoVendidos.Enabled = false;
+                //    txtNoVendidos.Text = string.Empty;
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                //    FormPrincipal.checkNoVendidos = 0;
+                //}
+
                 if (opcion15 == 0)
                 {
-                    checkNoVendidos.CheckedChanged -= checkNoVendidos_CheckedChanged;
-                    checkNoVendidos.Checked = check15;
                     Utilidades.MensajePermiso();
-                    checkNoVendidos.CheckedChanged += checkNoVendidos_CheckedChanged;
                     return;
                 }
 
-                if (checkNoVendidos.Checked)
+                valorCambioCheckBox = checkNoVendidos.Checked;
+
+                if (valorCambioCheckBox.Equals(true))
                 {
                     txtNoVendidos.Enabled = true;
                     txtNoVendidos.Focus();
@@ -630,6 +653,21 @@ namespace PuntoDeVentaV2
                             txtMinimoMayoreo.Enabled = false;
                         }
                         checkMayoreo.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Avisar de Productos no Vendidos
+                        if (item["checkNoVendidos"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                            txtNoVendidos.Enabled = true;
+                            txtNoVendidos.Focus();
+                        }
+                        else if (item["checkNoVendidos"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                            txtNoVendidos.Enabled = false;
+                            txtNoVendidos.Text = string.Empty;
+                        }
+                        checkNoVendidos.Checked = valorBooleanoDelCheckBox;
                         #endregion
                     }
                 }
