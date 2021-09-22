@@ -62,6 +62,9 @@ namespace PuntoDeVentaV2
         bool check22 = false;
         bool check23 = false;
         bool check26 = false;
+
+        bool valorCambioCheckBox = false;
+
         public ConfiguracionGeneral() 
         {
             InitializeComponent();
@@ -110,20 +113,41 @@ namespace PuntoDeVentaV2
 
         private void checkCBVenta_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion10 == 0)
+            //if (opcion10 == 0)
+            //{
+            //    checkCBVenta.CheckedChanged -= checkCBVenta_CheckedChanged;
+            //    checkCBVenta.Checked = check10;
+            //    Utilidades.MensajePermiso();
+            //    checkCBVenta.CheckedChanged += checkCBVenta_CheckedChanged;
+            //    return;
+            //}
+
+            //var ticketVenta = 0;
+
+            //if (checkCBVenta.Checked)
+            //{
+            //    ticketVenta = 1;
+            //}
+
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (opcion10.Equals(0))
             {
-                checkCBVenta.CheckedChanged -= checkCBVenta_CheckedChanged;
-                checkCBVenta.Checked = check10;
                 Utilidades.MensajePermiso();
-                checkCBVenta.CheckedChanged += checkCBVenta_CheckedChanged;
                 return;
             }
 
             var ticketVenta = 0;
 
-            if (checkCBVenta.Checked)
+            valorCambioCheckBox = checkCBVenta.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 ticketVenta = 1;
+            }
+            else
+            {
+                ticketVenta = 0;
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
@@ -131,20 +155,42 @@ namespace PuntoDeVentaV2
 
         private void pagWeb_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion11 == 0)
+            //if (opcion11 == 0)
+            //{
+            //    pagWeb.CheckedChanged -= pagWeb_CheckedChanged;
+            //    pagWeb.Checked = check11;
+            //    Utilidades.MensajePermiso();
+            //    pagWeb.CheckedChanged += pagWeb_CheckedChanged;
+            //    return;
+            //}
+
+            //var habilitado = 0;
+
+            //if (pagWeb.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            //FormPrincipal.pasar = habilitado;
+
+            if (opcion11.Equals(0))
             {
-                pagWeb.CheckedChanged -= pagWeb_CheckedChanged;
-                pagWeb.Checked = check11;
                 Utilidades.MensajePermiso();
-                pagWeb.CheckedChanged += pagWeb_CheckedChanged;
                 return;
             }
 
             var habilitado = 0;
 
-            if (pagWeb.Checked)
+            valorCambioCheckBox = checkCBVenta.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = 1;
+            }
+            else
+            {
+                habilitado = 0;
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
@@ -153,20 +199,41 @@ namespace PuntoDeVentaV2
 
         private void cbMostrarCB_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion13 == 0)
+            //if (opcion13 == 0)
+            //{
+            //    cbMostrarCB.CheckedChanged -= cbMostrarCB_CheckedChanged;
+            //    cbMostrarCB.Checked = check13;
+            //    Utilidades.MensajePermiso();
+            //    cbMostrarCB.CheckedChanged += cbMostrarCB_CheckedChanged;
+            //    return;
+            //}
+
+            //var habilitado = 0;
+
+            //if (cbMostrarCB.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (opcion13.Equals(0))
             {
-                cbMostrarCB.CheckedChanged -= cbMostrarCB_CheckedChanged;
-                cbMostrarCB.Checked = check13;
                 Utilidades.MensajePermiso();
-                cbMostrarCB.CheckedChanged += cbMostrarCB_CheckedChanged;
                 return;
             }
 
             var habilitado = 0;
 
-            if (cbMostrarCB.Checked)
+            valorCambioCheckBox = cbMostrarCB.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = 1;
+            }
+            else
+            {
+                habilitado = 0;
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
@@ -174,48 +241,105 @@ namespace PuntoDeVentaV2
 
         private void cbMostrarPrecio_CheckedChanged(object sender, EventArgs e)
         {
+            //if (opcion12 == 0)
+            //{
+            //    cbMostrarPrecio.CheckedChanged -= cbMostrarPrecio_CheckedChanged;
+            //    cbMostrarPrecio.Checked = check12;
+            //    Utilidades.MensajePermiso();
+            //    cbMostrarPrecio.CheckedChanged += cbMostrarPrecio_CheckedChanged;
+            //    return;
+            //}
+
+            //var habilitado = 0;
+
+            //if (cbMostrarPrecio.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
             if (opcion12 == 0)
             {
-                cbMostrarPrecio.CheckedChanged -= cbMostrarPrecio_CheckedChanged;
-                cbMostrarPrecio.Checked = check12;
                 Utilidades.MensajePermiso();
-                cbMostrarPrecio.CheckedChanged += cbMostrarPrecio_CheckedChanged;
                 return;
             }
 
             var habilitado = 0;
 
-            if (cbMostrarPrecio.Checked)
+            valorCambioCheckBox = cbMostrarPrecio.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = 1;
             }
-
+            else
+            {
+                habilitado = 0;
+            }
+            
             cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
         {
+            //if (opcion9 == 0)
+            //{
+            //    cbStockNegativo.CheckedChanged -= cbStockNegativo_CheckedChanged;
+            //    cbStockNegativo.Checked = Properties.Settings.Default.StockNegativo;
+            //    Utilidades.MensajePermiso();
+            //    cbStockNegativo.CheckedChanged += cbStockNegativo_CheckedChanged;
+            //    return;
+            //}
+
+            //Properties.Settings.Default.StockNegativo = cbStockNegativo.Checked;
+            //Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Reload();
+
             if (opcion9 == 0)
             {
-                cbStockNegativo.CheckedChanged -= cbStockNegativo_CheckedChanged;
-                cbStockNegativo.Checked = Properties.Settings.Default.StockNegativo;
                 Utilidades.MensajePermiso();
-                cbStockNegativo.CheckedChanged += cbStockNegativo_CheckedChanged;
                 return;
             }
 
-            Properties.Settings.Default.StockNegativo = cbStockNegativo.Checked;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            var habilitado = 0;
+
+            valorCambioCheckBox = cbStockNegativo.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
+            {
+                habilitado = 1;
+            }
+            else
+            {
+                habilitado = 0;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void chTicketVentas_CheckedChanged(object sender, EventArgs e)
         {
+            //var habilitado = 0;
+
+            //if (chTicketVentas.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
             var habilitado = 0;
 
-            if (chTicketVentas.Checked)
+            valorCambioCheckBox = chTicketVentas.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = 1;
+            }
+            else
+            {
+                habilitado = 0;
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
@@ -225,30 +349,55 @@ namespace PuntoDeVentaV2
         {
             if (FormPrincipal.userNickName == "MUELAS0" || FormPrincipal.userNickName == "OXXITO")
             {
+                //if (opcion14 == 0)
+                //{
+                //    checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
+                //    checkMayoreo.Checked = check14;
+                //    Utilidades.MensajePermiso();
+                //    checkMayoreo.CheckedChanged += checkMayoreo_CheckedChanged;
+                //    return;
+                //}
+
+                //var habilitado = 0;
+
+                //if (checkMayoreo.Checked)
+                //{
+                //    habilitado = 1;
+                //    txtMinimoMayoreo.Enabled = true;
+                //    txtMinimoMayoreo.Focus();
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                //}
+                //else
+                //{
+                //    txtMinimoMayoreo.Enabled = false;
+                //    txtMinimoMayoreo.Text = string.Empty;
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                //}
+
                 if (opcion14 == 0)
                 {
-                    checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
-                    checkMayoreo.Checked = check14;
                     Utilidades.MensajePermiso();
-                    checkMayoreo.CheckedChanged += checkMayoreo_CheckedChanged;
                     return;
                 }
 
                 var habilitado = 0;
 
-                if (checkMayoreo.Checked)
+                valorCambioCheckBox = checkMayoreo.Checked;
+
+                if (valorCambioCheckBox.Equals(true))
                 {
                     habilitado = 1;
                     txtMinimoMayoreo.Enabled = true;
                     txtMinimoMayoreo.Focus();
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
                 }
                 else
                 {
+                    habilitado = 0;
                     txtMinimoMayoreo.Enabled = false;
                     txtMinimoMayoreo.Text = string.Empty;
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
                 }
+
+                cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
             }
             else
             {
@@ -301,16 +450,39 @@ namespace PuntoDeVentaV2
         {
             if (FormPrincipal.userNickName == "MUELAS0" || FormPrincipal.userNickName == "OXXITO")
             {
+                //if (opcion15 == 0)
+                //{
+                //    checkNoVendidos.CheckedChanged -= checkNoVendidos_CheckedChanged;
+                //    checkNoVendidos.Checked = check15;
+                //    Utilidades.MensajePermiso();
+                //    checkNoVendidos.CheckedChanged += checkNoVendidos_CheckedChanged;
+                //    return;
+                //}
+
+                //if (checkNoVendidos.Checked)
+                //{
+                //    txtNoVendidos.Enabled = true;
+                //    txtNoVendidos.Focus();
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
+                //    FormPrincipal.checkNoVendidos = 1;
+                //}
+                //else
+                //{
+                //    txtNoVendidos.Enabled = false;
+                //    txtNoVendidos.Text = string.Empty;
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                //    FormPrincipal.checkNoVendidos = 0;
+                //}
+
                 if (opcion15 == 0)
                 {
-                    checkNoVendidos.CheckedChanged -= checkNoVendidos_CheckedChanged;
-                    checkNoVendidos.Checked = check15;
                     Utilidades.MensajePermiso();
-                    checkNoVendidos.CheckedChanged += checkNoVendidos_CheckedChanged;
                     return;
                 }
 
-                if (checkNoVendidos.Checked)
+                valorCambioCheckBox = checkNoVendidos.Checked;
+
+                if (valorCambioCheckBox.Equals(true))
                 {
                     txtNoVendidos.Enabled = true;
                     txtNoVendidos.Focus();
@@ -380,19 +552,152 @@ namespace PuntoDeVentaV2
             {
                 cbStockNegativo.Checked = true;
             }
-            VerificarConfiguracion();
-            
+
+            //VerificarConfiguracion();
+
+            using (DataTable dtConfiguracion = cn.CargarDatos(cs.cargarDatosDeConfiguracion()))
+            {
+                if (!dtConfiguracion.Rows.Count.Equals(0))
+                {
+                    var valorBooleanoDelCheckBox = false;
+                    foreach (DataRow item in dtConfiguracion.Rows)
+                    {
+                        // secciones por Cada uno de los 
+                        // CheckBox de Configuración General
+                        #region Código de Barras en Ticket
+                        if (item["TicketVenta"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["TicketVenta"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        checkCBVenta.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Envió de información a la WEB
+                        if (item["IniciarProceso"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["IniciarProceso"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        pagWeb.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Mostrar código de productos en ventas
+                        if (item["MostrarCodigoProducto"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["MostrarCodigoProducto"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        cbMostrarCB.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Cerrar Sesion al Hacer Corte de Caja
+                        if (item["CerrarSesionAuto"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["CerrarSesionAuto"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        chkCerrarSesionCorte.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Mostrar Precio de Productos en Ventas
+                        if (item["MostrarPrecioProducto"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["MostrarPrecioProducto"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        cbMostrarPrecio.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Permitir Stock Negativo
+                        if (item["StockNegativo"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["StockNegativo"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        cbStockNegativo.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Generar Ticket al Realizar Ventas
+                        if (item["HabilitarTicketVentas"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["HabilitarTicketVentas"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        chTicketVentas.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Activar Precio por Mayoreo en Ventas
+                        if (item["PrecioMayoreo"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                            txtMinimoMayoreo.Enabled = true;
+                        }
+                        else if (item["PrecioMayoreo"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                            txtMinimoMayoreo.Enabled = false;
+                        }
+                        checkMayoreo.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Avisar de Productos no Vendidos
+                        if (item["checkNoVendidos"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                            txtNoVendidos.Enabled = true;
+                            txtNoVendidos.Focus();
+                        }
+                        else if (item["checkNoVendidos"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                            txtNoVendidos.Enabled = false;
+                            txtNoVendidos.Text = string.Empty;
+                        }
+                        checkNoVendidos.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                    }
+                }
+            }
         }
 
         private void chkCerrarSesionCorte_CheckedChanged(object sender, EventArgs e)
         {
+            //var habilitado = 0;
+
+            //if (chkCerrarSesionCorte.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+            
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
             var habilitado = 0;
 
-            if (chkCerrarSesionCorte.Checked)
+            valorCambioCheckBox = chkCerrarSesionCorte.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = 1;
             }
-            
+            else
+            {
+                habilitado = 0;
+            }
+
             cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
