@@ -492,6 +492,17 @@ namespace PuntoDeVentaV2
                         }
                         cbMostrarCB.Checked = valorBooleanoDelCheckBox;
                         #endregion
+                        #region Cerrar Sesion al Hacer Corte de Caja
+                        if (item["CerrarSesionAuto"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["CerrarSesionAuto"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        chkCerrarSesionCorte.Checked = valorBooleanoDelCheckBox;
+                        #endregion
                     }
                 }
             }
@@ -499,13 +510,28 @@ namespace PuntoDeVentaV2
 
         private void chkCerrarSesionCorte_CheckedChanged(object sender, EventArgs e)
         {
+            //var habilitado = 0;
+
+            //if (chkCerrarSesionCorte.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+            
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
             var habilitado = 0;
 
-            if (chkCerrarSesionCorte.Checked)
+            valorCambioCheckBox = chkCerrarSesionCorte.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = 1;
             }
-            
+            else
+            {
+                habilitado = 0;
+            }
+
             cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
