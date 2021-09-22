@@ -241,22 +241,43 @@ namespace PuntoDeVentaV2
 
         private void cbMostrarPrecio_CheckedChanged(object sender, EventArgs e)
         {
+            //if (opcion12 == 0)
+            //{
+            //    cbMostrarPrecio.CheckedChanged -= cbMostrarPrecio_CheckedChanged;
+            //    cbMostrarPrecio.Checked = check12;
+            //    Utilidades.MensajePermiso();
+            //    cbMostrarPrecio.CheckedChanged += cbMostrarPrecio_CheckedChanged;
+            //    return;
+            //}
+
+            //var habilitado = 0;
+
+            //if (cbMostrarPrecio.Checked)
+            //{
+            //    habilitado = 1;
+            //}
+
+            //cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
             if (opcion12 == 0)
             {
-                cbMostrarPrecio.CheckedChanged -= cbMostrarPrecio_CheckedChanged;
-                cbMostrarPrecio.Checked = check12;
                 Utilidades.MensajePermiso();
-                cbMostrarPrecio.CheckedChanged += cbMostrarPrecio_CheckedChanged;
                 return;
             }
 
             var habilitado = 0;
 
-            if (cbMostrarPrecio.Checked)
+            valorCambioCheckBox = cbMostrarPrecio.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = 1;
             }
-
+            else
+            {
+                habilitado = 0;
+            }
+            
             cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
@@ -502,6 +523,17 @@ namespace PuntoDeVentaV2
                             valorBooleanoDelCheckBox = false;
                         }
                         chkCerrarSesionCorte.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Mostrar Precio de Productos en Ventas
+                        if (item["MostrarPrecioProducto"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["MostrarPrecioProducto"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        cbMostrarPrecio.Checked = valorBooleanoDelCheckBox;
                         #endregion
                     }
                 }
