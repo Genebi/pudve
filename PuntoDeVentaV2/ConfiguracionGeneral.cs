@@ -283,18 +283,39 @@ namespace PuntoDeVentaV2
 
         private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
         {
+            //if (opcion9 == 0)
+            //{
+            //    cbStockNegativo.CheckedChanged -= cbStockNegativo_CheckedChanged;
+            //    cbStockNegativo.Checked = Properties.Settings.Default.StockNegativo;
+            //    Utilidades.MensajePermiso();
+            //    cbStockNegativo.CheckedChanged += cbStockNegativo_CheckedChanged;
+            //    return;
+            //}
+
+            //Properties.Settings.Default.StockNegativo = cbStockNegativo.Checked;
+            //Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Reload();
+
             if (opcion9 == 0)
             {
-                cbStockNegativo.CheckedChanged -= cbStockNegativo_CheckedChanged;
-                cbStockNegativo.Checked = Properties.Settings.Default.StockNegativo;
                 Utilidades.MensajePermiso();
-                cbStockNegativo.CheckedChanged += cbStockNegativo_CheckedChanged;
                 return;
             }
 
-            Properties.Settings.Default.StockNegativo = cbStockNegativo.Checked;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            var habilitado = 0;
+
+            valorCambioCheckBox = cbStockNegativo.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
+            {
+                habilitado = 1;
+            }
+            else
+            {
+                habilitado = 0;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void chTicketVentas_CheckedChanged(object sender, EventArgs e)
@@ -534,6 +555,17 @@ namespace PuntoDeVentaV2
                             valorBooleanoDelCheckBox = false;
                         }
                         cbMostrarPrecio.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Permitir Stock Negativo
+                        if (item["StockNegativo"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                        }
+                        else if (item["StockNegativo"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                        }
+                        cbStockNegativo.Checked = valorBooleanoDelCheckBox;
                         #endregion
                     }
                 }
