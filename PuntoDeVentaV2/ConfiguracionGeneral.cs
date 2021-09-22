@@ -349,30 +349,55 @@ namespace PuntoDeVentaV2
         {
             if (FormPrincipal.userNickName == "MUELAS0" || FormPrincipal.userNickName == "OXXITO")
             {
+                //if (opcion14 == 0)
+                //{
+                //    checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
+                //    checkMayoreo.Checked = check14;
+                //    Utilidades.MensajePermiso();
+                //    checkMayoreo.CheckedChanged += checkMayoreo_CheckedChanged;
+                //    return;
+                //}
+
+                //var habilitado = 0;
+
+                //if (checkMayoreo.Checked)
+                //{
+                //    habilitado = 1;
+                //    txtMinimoMayoreo.Enabled = true;
+                //    txtMinimoMayoreo.Focus();
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                //}
+                //else
+                //{
+                //    txtMinimoMayoreo.Enabled = false;
+                //    txtMinimoMayoreo.Text = string.Empty;
+                //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                //}
+
                 if (opcion14 == 0)
                 {
-                    checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
-                    checkMayoreo.Checked = check14;
                     Utilidades.MensajePermiso();
-                    checkMayoreo.CheckedChanged += checkMayoreo_CheckedChanged;
                     return;
                 }
 
                 var habilitado = 0;
 
-                if (checkMayoreo.Checked)
+                valorCambioCheckBox = checkMayoreo.Checked;
+
+                if (valorCambioCheckBox.Equals(true))
                 {
                     habilitado = 1;
                     txtMinimoMayoreo.Enabled = true;
                     txtMinimoMayoreo.Focus();
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
                 }
                 else
                 {
+                    habilitado = 0;
                     txtMinimoMayoreo.Enabled = false;
                     txtMinimoMayoreo.Text = string.Empty;
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
                 }
+
+                cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
             }
             else
             {
@@ -592,6 +617,19 @@ namespace PuntoDeVentaV2
                             valorBooleanoDelCheckBox = false;
                         }
                         chTicketVentas.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Activar Precio por Mayoreo en Ventas
+                        if (item["PrecioMayoreo"].Equals(1))
+                        {
+                            valorBooleanoDelCheckBox = true;
+                            txtMinimoMayoreo.Enabled = true;
+                        }
+                        else if (item["PrecioMayoreo"].Equals(0))
+                        {
+                            valorBooleanoDelCheckBox = false;
+                            txtMinimoMayoreo.Enabled = false;
+                        }
+                        checkMayoreo.Checked = valorBooleanoDelCheckBox;
                         #endregion
                     }
                 }
