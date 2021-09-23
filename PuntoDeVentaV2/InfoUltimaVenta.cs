@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
 
         Moneda oMoneda = new Moneda();
 
+        int botonCerrar = 0, botonImprimir = 0;
 
         float Total;
         float DineroRecibido;
@@ -25,6 +26,8 @@ namespace PuntoDeVentaV2
         public InfoUltimaVenta()
         {
             InitializeComponent();
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(InfoUltimaVenta_KeyDown);
         }
 
         private void InfoUltimaVenta_Load(object sender, EventArgs e)
@@ -48,18 +51,33 @@ namespace PuntoDeVentaV2
 
             string resultado = oMoneda.Convertir(CambioTotal.ToString(), true, "PESOS");
             lbCambioTexto.Text = resultado;
+
+            
+            
         }
 
         private void InfoUltimaVenta_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            if (e.KeyCode.Equals(27))
             {
                 this.Close();
             }
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode.Equals(37))
             {
-                btnCerrar.PerformClick();
+                SendKeys.Send("{TAB}");
+                botonImprimir = 1;
+                botonCerrar = 0;
+                //btnCerrar.BorderColor = Color.FromArgb(33, 97, 140);
             }
+            if (e.KeyCode.Equals(39))
+            {
+                SendKeys.Send("{TAB}");
+                botonCerrar = 1;
+                botonImprimir = 0;
+                //botonRedondo1.BorderColor = Color.FromArgb(33, 97, 140);
+            }
+
+
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -74,6 +92,27 @@ namespace PuntoDeVentaV2
             if (ventas != null)
             {
                 ventas.btnUltimoTicket.PerformClick();
+            }
+        }
+
+        private void botonRedondo1_Enter(object sender, EventArgs e)
+        {
+            if (botonImprimir == 1)
+            {
+                btnCerrar.BackColor = Color.Red;
+            }
+        }
+
+        private void InfoUltimaVenta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+           
+        }
+
+        private void btnCerrar_Enter(object sender, EventArgs e)
+        {
+            if (botonCerrar == 1)
+            {
+                btnCerrar.BackColor = Color.Red;
             }
         }
     }

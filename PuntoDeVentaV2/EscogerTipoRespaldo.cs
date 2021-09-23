@@ -12,6 +12,7 @@ namespace PuntoDeVentaV2
 {
     public partial class EscogerTipoRespaldo : Form
     {
+        public static bool estadoBoton; 
 
         public static int typeBackUp { get; set; }
 
@@ -44,6 +45,8 @@ namespace PuntoDeVentaV2
             }
 
             typeBackUp = tipoRespaldo;
+
+            estadoBoton = true;
 
             this.Close();
         }
