@@ -2447,8 +2447,8 @@ namespace PuntoDeVentaV2
                     {
                         var concepto = drConcepto["concepto"].ToString();
 
-                        //var normalizacionCadena = Regex.Replace(concepto, @"[^a-zA-Z0-9]+", "");
-                        var normalizacionCadena = mg.quitarTildesYÑ(concepto);
+                        var normalizacionCadena = Regex.Replace(concepto, @"[^a-zA-Z0-9]+", "");
+                        //var normalizacionCadena = mg.quitarTildesYÑ(concepto);
 
                         lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(normalizacionCadena))));
                     }

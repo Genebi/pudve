@@ -1060,11 +1060,13 @@ namespace PuntoDeVentaV2
 
             tipoRespaldo.FormClosed += delegate
             {
-                tipo = EscogerTipoRespaldo.typeBackUp;
+                if (EscogerTipoRespaldo.estadoBoton == true)
+                {
+                    tipo = EscogerTipoRespaldo.typeBackUp;
 
-
-                MessageBox.Show("Este proceso tardara unos minutos.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                backUp.crearsaveFile(tipo);
+                    MessageBox.Show("Este proceso tardara unos minutos.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    backUp.crearsaveFile(tipo);
+                }
             };
 
             tipoRespaldo.ShowDialog();
