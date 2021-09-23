@@ -448,6 +448,8 @@ namespace PuntoDeVentaV2
 
             MessageBox.Show("Este proceso tardará unos segundos", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            var nombreClienteEncabezado = string.Empty;
+
             if (multiplesID)
             {
                 //consulta = cn.CargarDatos($"SELECT Prod.Nombre AS Nombre, Prod.Precio AS Price,	Prod.CodigoBarras AS Codigo, Vendidos.Cliente AS Cliente, IFNULL(Vendidos.Cliente, 'Sin Comprar') AS Situacion FROM	Productos AS Prod LEFT JOIN (SELECT	Prod.ID AS NoProducto,	Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo,	Vent.Cliente AS Cliente	FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ProdVent.IDProducto = Prod.ID LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Vent.IDCliente IN ({idMultiples}) AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}' ) AS Vendidos ON Prod.ID = Vendidos.NoProducto WHERE Vendidos.Cliente IS NULL AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}'");
@@ -456,6 +458,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
+
                 //consulta = cn.CargarDatos($"SELECT Prod.Nombre AS Nombre, Prod.Precio AS Price,	Prod.CodigoBarras AS Codigo, Vendidos.Cliente AS Cliente, IFNULL(Vendidos.Cliente, 'Sin Comprar') AS Situacion FROM	Productos AS Prod LEFT JOIN (SELECT	Prod.ID AS NoProducto,	Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo,	Vent.Cliente AS Cliente	FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ProdVent.IDProducto = Prod.ID LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Vent.IDCliente = '{id}' AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}' ) AS Vendidos ON Prod.ID = Vendidos.NoProducto WHERE Vendidos.Cliente IS NULL AND Prod.`Status` = '1' AND Prod.IDUsuario = '{FormPrincipal.userID}'");
                 consulta = cn.CargarDatos($"SELECT DISTINCT Prod.Nombre AS Nombre, Prod.Precio AS Price, Prod.CodigoBarras AS Codigo, Vent.Cliente AS Cliente FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON Prod.ID = ProdVent.IDProducto LEFT JOIN Ventas AS Vent ON Vent.ID = ProdVent.IDVenta WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Vent.IDCliente != '{id}' AND Prod.`Status` = 1;"); //AND Prod.`Status` = 1; En caso de solo requerir los que esten en satatus 1
             }
@@ -467,12 +470,14 @@ namespace PuntoDeVentaV2
 
             var validarHeader = string.Empty;
 
-          
+            nombreClienteEncabezado = obtenerNombreEmpleados(id.ToString());
+            if (id != 0) { nombreCliente = nombreClienteEncabezado; }
 
-               // if (string.IsNullOrEmpty(nombreCliente)) { continue; }
-                //Valida si es diferente nombre de cliente para agregar un nuevo header
-                //if (!nombreCliente.Equals(validarHeader))
-                //{
+
+            // if (string.IsNullOrEmpty(nombreCliente)) { continue; }
+            //Valida si es diferente nombre de cliente para agregar un nuevo header
+            //if (!nombreCliente.Equals(validarHeader))
+            //{
                     PdfPCell colSeparador = new PdfPCell(new Phrase(Chunk.NEWLINE));
                     colSeparador.Colspan = 10;
                     colSeparador.BorderWidth = 0;
@@ -483,7 +488,7 @@ namespace PuntoDeVentaV2
                     PdfPCell colNombreCliente = new PdfPCell(new Phrase(nombreCliente, fuenteNegrita));
                     colNombreCliente.Colspan = 10;
                     colNombreCliente.BorderWidth = 0;
-                    colNombreCliente.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colNombreCliente.HorizontalAlignment = Element.ALIGN_LEFT;
 
                     PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
                     colNoConcepto.BorderWidth = 1;
@@ -971,7 +976,7 @@ namespace PuntoDeVentaV2
                     PdfPCell colNombreCliente = new PdfPCell(new Phrase(nombreCliente, fuenteNegrita));
                     colNombreCliente.Colspan = 10;
                     colNombreCliente.BorderWidth = 0;
-                    colNombreCliente.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colNombreCliente.HorizontalAlignment = Element.ALIGN_LEFT;
 
                     tablaClientes.WidthPercentage = 70;
                     tablaClientes.SetWidths(anchoColumnas);
@@ -1205,6 +1210,20 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private string obtenerNombreEmpleados(string idCliente)
+        {
+            string result = string.Empty;
+            
+                var query = cn.CargarDatos($"SELECT RazonSocial FROM Clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idCliente}'");
+
+                if (!query.Rows.Count.Equals(0))
+                {
+                    result = query.Rows[0]["RazonSocial"].ToString();
+                }
+
+            return result;
         }
     }
 }
