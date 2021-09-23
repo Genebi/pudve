@@ -329,17 +329,17 @@ namespace PuntoDeVentaV2
 
             //cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
 
-            var habilitado = 0;
+            var habilitado = false;
 
             valorCambioCheckBox = chTicketVentas.Checked;
 
             if (valorCambioCheckBox.Equals(true))
             {
-                habilitado = 1;
+                habilitado = true;
             }
             else
             {
-                habilitado = 0;
+                habilitado = false;
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
