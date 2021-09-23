@@ -66,7 +66,7 @@ namespace PuntoDeVentaV2
             }
 
             txtBuscarAnticipo.Focus();
-            dpFechaInicial.Value = DateTime.Today.AddDays(-1);
+            dpFechaInicial.Value = DateTime.Today.AddDays(-7);
         }
 
         private void CargarDatos(int estado = 1, int tipo = 0)
