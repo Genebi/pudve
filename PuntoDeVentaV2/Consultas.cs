@@ -2628,7 +2628,7 @@ namespace PuntoDeVentaV2
 
         public string cargarDatosDeConfiguracion()
         {
-            var consulta = $"SELECT * FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT IDUsuario, TicketVenta, IniciarProceso, MostrarCodigoProducto, CerrarSesionAuto, MostrarPrecioProducto, StockNegativo, HabilitarTicketVentas, PrecioMayoreo, checkNoVendidos FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
 
             return consulta;
         }
