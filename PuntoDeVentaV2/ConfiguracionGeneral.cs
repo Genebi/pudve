@@ -182,7 +182,7 @@ namespace PuntoDeVentaV2
 
             var habilitado = 0;
 
-            valorCambioCheckBox = checkCBVenta.Checked;
+            valorCambioCheckBox = pagWeb.Checked;
 
             if (valorCambioCheckBox.Equals(true))
             {
@@ -523,8 +523,7 @@ namespace PuntoDeVentaV2
                 //    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
                 //    FormPrincipal.checkNoVendidos = 0;
                 //}
-            }
-            
+            } 
         }
 
         private void checkNoVendidos_Click(object sender, EventArgs e)
@@ -631,11 +630,11 @@ namespace PuntoDeVentaV2
                         cbStockNegativo.Checked = valorBooleanoDelCheckBox;
                         #endregion
                         #region Generar Ticket al Realizar Ventas
-                        if (item["HabilitarTicketVentas"].Equals(1))
+                        if (item["HabilitarTicketVentas"].Equals(true))
                         {
                             valorBooleanoDelCheckBox = true;
                         }
-                        else if (item["HabilitarTicketVentas"].Equals(0))
+                        else if (item["HabilitarTicketVentas"].Equals(false))
                         {
                             valorBooleanoDelCheckBox = false;
                         }
