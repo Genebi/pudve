@@ -68,16 +68,6 @@
             this.lb_facturando = new System.Windows.Forms.Label();
             this.tab_control = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupb_pago = new System.Windows.Forms.GroupBox();
-            this.txt_cuenta = new System.Windows.Forms.TextBox();
-            this.txt_tipo_cambio = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cmb_bx_moneda = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmb_bx_forma_pago = new System.Windows.Forms.ComboBox();
-            this.cmb_bx_metodo_pago = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.lb_total_n = new System.Windows.Forms.Label();
             this.lb_total = new System.Windows.Forms.Label();
             this.groupb_productos = new System.Windows.Forms.GroupBox();
@@ -90,13 +80,23 @@
             this.groupb_monto_max = new System.Windows.Forms.GroupBox();
             this.txt_cantidad_max = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
+            this.groupb_pago = new System.Windows.Forms.GroupBox();
+            this.txt_cuenta = new System.Windows.Forms.TextBox();
+            this.txt_tipo_cambio = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmb_bx_moneda = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmb_bx_forma_pago = new System.Windows.Forms.ComboBox();
+            this.cmb_bx_metodo_pago = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.btn_anterior = new System.Windows.Forms.Button();
             this.pnl_datos_cliente.SuspendLayout();
             this.tab_control.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupb_pago.SuspendLayout();
             this.groupb_productos.SuspendLayout();
             this.groupb_monto_max.SuspendLayout();
+            this.groupb_pago.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnl_datos_cliente
@@ -507,132 +507,6 @@
             this.tabPage1.Text = "Cliente";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // groupb_pago
-            // 
-            this.groupb_pago.Controls.Add(this.txt_cuenta);
-            this.groupb_pago.Controls.Add(this.txt_tipo_cambio);
-            this.groupb_pago.Controls.Add(this.label5);
-            this.groupb_pago.Controls.Add(this.cmb_bx_moneda);
-            this.groupb_pago.Controls.Add(this.label2);
-            this.groupb_pago.Controls.Add(this.cmb_bx_forma_pago);
-            this.groupb_pago.Controls.Add(this.cmb_bx_metodo_pago);
-            this.groupb_pago.Controls.Add(this.label4);
-            this.groupb_pago.Controls.Add(this.label3);
-            this.groupb_pago.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupb_pago.ForeColor = System.Drawing.Color.Navy;
-            this.groupb_pago.Location = new System.Drawing.Point(8, 85);
-            this.groupb_pago.Name = "groupb_pago";
-            this.groupb_pago.Size = new System.Drawing.Size(833, 121);
-            this.groupb_pago.TabIndex = 10;
-            this.groupb_pago.TabStop = false;
-            this.groupb_pago.Text = "Forma de pago";
-            this.groupb_pago.Visible = false;
-            // 
-            // txt_cuenta
-            // 
-            this.txt_cuenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_cuenta.Location = new System.Drawing.Point(682, 34);
-            this.txt_cuenta.MaxLength = 50;
-            this.txt_cuenta.Name = "txt_cuenta";
-            this.txt_cuenta.ReadOnly = true;
-            this.txt_cuenta.Size = new System.Drawing.Size(142, 22);
-            this.txt_cuenta.TabIndex = 16;
-            this.txt_cuenta.Text = "(Opcional) No. cuenta";
-            // 
-            // txt_tipo_cambio
-            // 
-            this.txt_tipo_cambio.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_tipo_cambio.ForeColor = System.Drawing.Color.Black;
-            this.txt_tipo_cambio.Location = new System.Drawing.Point(706, 71);
-            this.txt_tipo_cambio.MaxLength = 200;
-            this.txt_tipo_cambio.Name = "txt_tipo_cambio";
-            this.txt_tipo_cambio.ReadOnly = true;
-            this.txt_tipo_cambio.Size = new System.Drawing.Size(118, 22);
-            this.txt_tipo_cambio.TabIndex = 15;
-            this.txt_tipo_cambio.Text = "1.000000";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(619, 74);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 17);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "Tipo cambio";
-            // 
-            // cmb_bx_moneda
-            // 
-            this.cmb_bx_moneda.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmb_bx_moneda.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_bx_moneda.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_bx_moneda.ForeColor = System.Drawing.Color.Black;
-            this.cmb_bx_moneda.FormattingEnabled = true;
-            this.cmb_bx_moneda.Location = new System.Drawing.Point(106, 71);
-            this.cmb_bx_moneda.Name = "cmb_bx_moneda";
-            this.cmb_bx_moneda.Size = new System.Drawing.Size(507, 25);
-            this.cmb_bx_moneda.TabIndex = 13;
-            this.cmb_bx_moneda.SelectionChangeCommitted += new System.EventHandler(this.sel_moneda);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(42, 74);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 17);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Moneda";
-            // 
-            // cmb_bx_forma_pago
-            // 
-            this.cmb_bx_forma_pago.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmb_bx_forma_pago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_bx_forma_pago.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_bx_forma_pago.ForeColor = System.Drawing.Color.Black;
-            this.cmb_bx_forma_pago.FormattingEnabled = true;
-            this.cmb_bx_forma_pago.Location = new System.Drawing.Point(416, 31);
-            this.cmb_bx_forma_pago.Name = "cmb_bx_forma_pago";
-            this.cmb_bx_forma_pago.Size = new System.Drawing.Size(260, 25);
-            this.cmb_bx_forma_pago.TabIndex = 11;
-            this.cmb_bx_forma_pago.SelectionChangeCommitted += new System.EventHandler(this.sel_forma_pago);
-            // 
-            // cmb_bx_metodo_pago
-            // 
-            this.cmb_bx_metodo_pago.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmb_bx_metodo_pago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_bx_metodo_pago.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_bx_metodo_pago.ForeColor = System.Drawing.Color.Black;
-            this.cmb_bx_metodo_pago.FormattingEnabled = true;
-            this.cmb_bx_metodo_pago.Location = new System.Drawing.Point(106, 31);
-            this.cmb_bx_metodo_pago.Name = "cmb_bx_metodo_pago";
-            this.cmb_bx_metodo_pago.Size = new System.Drawing.Size(215, 25);
-            this.cmb_bx_metodo_pago.TabIndex = 10;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(327, 34);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 17);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Forma  pago";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(6, 34);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(94, 17);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Método  pago";
-            // 
             // lb_total_n
             // 
             this.lb_total_n.AutoSize = true;
@@ -772,6 +646,132 @@
             this.label27.TabIndex = 0;
             this.label27.Text = "Cantidad máxima por factura";
             // 
+            // groupb_pago
+            // 
+            this.groupb_pago.Controls.Add(this.txt_cuenta);
+            this.groupb_pago.Controls.Add(this.txt_tipo_cambio);
+            this.groupb_pago.Controls.Add(this.label5);
+            this.groupb_pago.Controls.Add(this.cmb_bx_moneda);
+            this.groupb_pago.Controls.Add(this.label2);
+            this.groupb_pago.Controls.Add(this.cmb_bx_forma_pago);
+            this.groupb_pago.Controls.Add(this.cmb_bx_metodo_pago);
+            this.groupb_pago.Controls.Add(this.label4);
+            this.groupb_pago.Controls.Add(this.label3);
+            this.groupb_pago.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupb_pago.ForeColor = System.Drawing.Color.Navy;
+            this.groupb_pago.Location = new System.Drawing.Point(8, 85);
+            this.groupb_pago.Name = "groupb_pago";
+            this.groupb_pago.Size = new System.Drawing.Size(833, 121);
+            this.groupb_pago.TabIndex = 10;
+            this.groupb_pago.TabStop = false;
+            this.groupb_pago.Text = "Forma de pago";
+            this.groupb_pago.Visible = false;
+            // 
+            // txt_cuenta
+            // 
+            this.txt_cuenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_cuenta.Location = new System.Drawing.Point(682, 34);
+            this.txt_cuenta.MaxLength = 50;
+            this.txt_cuenta.Name = "txt_cuenta";
+            this.txt_cuenta.ReadOnly = true;
+            this.txt_cuenta.Size = new System.Drawing.Size(142, 22);
+            this.txt_cuenta.TabIndex = 16;
+            this.txt_cuenta.Text = "(Opcional) No. cuenta";
+            // 
+            // txt_tipo_cambio
+            // 
+            this.txt_tipo_cambio.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_tipo_cambio.ForeColor = System.Drawing.Color.Black;
+            this.txt_tipo_cambio.Location = new System.Drawing.Point(706, 71);
+            this.txt_tipo_cambio.MaxLength = 200;
+            this.txt_tipo_cambio.Name = "txt_tipo_cambio";
+            this.txt_tipo_cambio.ReadOnly = true;
+            this.txt_tipo_cambio.Size = new System.Drawing.Size(118, 22);
+            this.txt_tipo_cambio.TabIndex = 15;
+            this.txt_tipo_cambio.Text = "1.000000";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(619, 74);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 17);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Tipo cambio";
+            // 
+            // cmb_bx_moneda
+            // 
+            this.cmb_bx_moneda.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmb_bx_moneda.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_bx_moneda.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_bx_moneda.ForeColor = System.Drawing.Color.Black;
+            this.cmb_bx_moneda.FormattingEnabled = true;
+            this.cmb_bx_moneda.Location = new System.Drawing.Point(106, 71);
+            this.cmb_bx_moneda.Name = "cmb_bx_moneda";
+            this.cmb_bx_moneda.Size = new System.Drawing.Size(507, 25);
+            this.cmb_bx_moneda.TabIndex = 13;
+            this.cmb_bx_moneda.SelectionChangeCommitted += new System.EventHandler(this.sel_moneda);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(42, 74);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 17);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Moneda";
+            // 
+            // cmb_bx_forma_pago
+            // 
+            this.cmb_bx_forma_pago.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmb_bx_forma_pago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_bx_forma_pago.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_bx_forma_pago.ForeColor = System.Drawing.Color.Black;
+            this.cmb_bx_forma_pago.FormattingEnabled = true;
+            this.cmb_bx_forma_pago.Location = new System.Drawing.Point(416, 31);
+            this.cmb_bx_forma_pago.Name = "cmb_bx_forma_pago";
+            this.cmb_bx_forma_pago.Size = new System.Drawing.Size(260, 25);
+            this.cmb_bx_forma_pago.TabIndex = 11;
+            this.cmb_bx_forma_pago.SelectionChangeCommitted += new System.EventHandler(this.sel_forma_pago);
+            // 
+            // cmb_bx_metodo_pago
+            // 
+            this.cmb_bx_metodo_pago.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmb_bx_metodo_pago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_bx_metodo_pago.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_bx_metodo_pago.ForeColor = System.Drawing.Color.Black;
+            this.cmb_bx_metodo_pago.FormattingEnabled = true;
+            this.cmb_bx_metodo_pago.Location = new System.Drawing.Point(106, 31);
+            this.cmb_bx_metodo_pago.Name = "cmb_bx_metodo_pago";
+            this.cmb_bx_metodo_pago.Size = new System.Drawing.Size(215, 25);
+            this.cmb_bx_metodo_pago.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(327, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(83, 17);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Forma  pago";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(6, 34);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 17);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Método  pago";
+            // 
             // btn_anterior
             // 
             this.btn_anterior.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -811,12 +811,12 @@
             this.tab_control.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupb_pago.ResumeLayout(false);
-            this.groupb_pago.PerformLayout();
             this.groupb_productos.ResumeLayout(false);
             this.groupb_productos.PerformLayout();
             this.groupb_monto_max.ResumeLayout(false);
             this.groupb_monto_max.PerformLayout();
+            this.groupb_pago.ResumeLayout(false);
+            this.groupb_pago.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
