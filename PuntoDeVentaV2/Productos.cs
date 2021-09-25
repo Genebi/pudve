@@ -4205,13 +4205,30 @@ namespace PuntoDeVentaV2
                 {
                     foreach (var palabra in palabrasBuscadas)
                     {
+                        string palabraAux = string.Empty;
+
                         long codigoEncontrado;
+
+                        if (palabra.StartsWith("0"))
+                        {
+                            palabraAux = palabra;
+                        }
 
                         if (long.TryParse(palabra, out codigoEncontrado))
                         {
-                            if (!codigos.Contains(codigoEncontrado.ToString().Trim()))
+                            if (!string.IsNullOrWhiteSpace(palabraAux))
                             {
-                                codigos.Add(codigoEncontrado.ToString().Trim());
+                                if (!codigos.Contains(palabraAux.Trim()))
+                                {
+                                    codigos.Add(palabraAux.Trim());
+                                }
+                            }
+                            else
+                            {
+                                if (!codigos.Contains(codigoEncontrado.ToString().Trim()))
+                                {
+                                    codigos.Add(codigoEncontrado.ToString().Trim());
+                                }
                             }
                         }
                     }
