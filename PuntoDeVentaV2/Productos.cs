@@ -4205,6 +4205,21 @@ namespace PuntoDeVentaV2
                 {
                     foreach (var palabra in palabrasBuscadas)
                     {
+                        // Detectamos si esta registrado como codigo de barras, clave o codigo de barras extra
+                        var esCodigoOClave = mb.BusquedaCodigosBarrasClaveInterna(palabra.Trim(), status, true);
+
+                        if (esCodigoOClave.Count() == 0)
+                        {
+                            continue;
+                        }
+
+                        var esCodigoExtra = mb.BuscarCodigoBarrasExtraFormProductos(palabra.Trim(), true);
+
+                        if (esCodigoExtra.Count() == 0 && esCodigoOClave.Count() == 0)
+                        {
+                            continue;
+                        }
+
                         string palabraAux = string.Empty;
 
                         long codigoEncontrado;
@@ -4229,6 +4244,13 @@ namespace PuntoDeVentaV2
                                 {
                                     codigos.Add(codigoEncontrado.ToString().Trim());
                                 }
+                            }
+                        }
+                        else
+                        {
+                            if (!codigos.Contains(palabra.Trim()))
+                            {
+                                codigos.Add(palabra.Trim());
                             }
                         }
                     }

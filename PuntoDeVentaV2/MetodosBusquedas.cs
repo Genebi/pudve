@@ -1082,7 +1082,7 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public string[] BuscarCodigoBarrasExtraFormProductos(string codigo)
+        public string[] BuscarCodigoBarrasExtraFormProductos(string codigo, bool especial = false)
         {
             List<string> lista = new List<string>();
             string[] codigosABuscar;
@@ -1110,7 +1110,10 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        lista.Add("0|" + searchCodBar);
+                        if (!especial)
+                        {
+                            lista.Add("0|" + searchCodBar);
+                        }
                     }
 
                     dr.Close();
@@ -1287,7 +1290,7 @@ namespace PuntoDeVentaV2
             return coincidencias;
         }
 
-        public string[] BusquedaCodigosBarrasClaveInterna(string codigo, int opcionBusqueda = 1)
+        public string[] BusquedaCodigosBarrasClaveInterna(string codigo, int opcionBusqueda = 1, bool especial = false)
         {
             List<string> lista = new List<string>();
 
@@ -1324,7 +1327,10 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        lista.Add("0|" + palabra);
+                        if (!especial)
+                        {
+                            lista.Add("0|" + palabra);
+                        }
                     }
 
                     dr.Close();
