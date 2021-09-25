@@ -5852,16 +5852,16 @@ namespace PuntoDeVentaV2
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
             // Obtener ID de los productos seleccionados
-            foreach (DataGridViewRow row in DGVProductos.Rows)
-            {
-                // Verificamos que el checkbox este marcado
-                if ((bool)row.Cells["CheckProducto"].Value == true)
-                {
-                    var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
-                    var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
-                    lista.Add(idProducto, tipoProducto);
-                }
-            }
+            //foreach (DataGridViewRow row in DGVProductos.Rows)
+            //{
+            //    // Verificamos que el checkbox este marcado
+            //    if ((bool)row.Cells["CheckProducto"].Value == true)
+            //    {
+            //        var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+            //        var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
+            //        lista.Add(idProducto, tipoProducto);
+            //    }
+            //}
 
             if (cbTodos.Checked)
             {
@@ -5869,10 +5869,10 @@ namespace PuntoDeVentaV2
 
                 productosSeleccionados = checkboxMarcados;
             }
-            else
-            {
-                productosSeleccionados = lista;
-            }
+            //else
+            //{
+            //    productosSeleccionados = lista;
+            //}
             
             if (productosSeleccionados.Count > 0)
             {
