@@ -35,11 +35,13 @@ namespace PuntoDeVentaV2
             }
             catch (MySqlException mysqlex)
             {
-                System.Windows.Forms.MessageBox.Show("Excepción de MySQL al crear la base de datos: " + mysqlex.Message.ToString());
+                //System.Windows.Forms.MessageBox.Show("Excepción de MySQL al crear la base de datos: " + mysqlex.Message.ToString());
+                System.Windows.Forms.MessageBox.Show("Ha ocurrido un error en la creación de la base de datos\nrelacionado a problemas de Internet, póngase en contacto\ncon servicio técnico en https://sifo.com.mx/ - Código [1001].", "Mensaje del sistema", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Excepción general: " + ex.Message.ToString());
+                //System.Windows.Forms.MessageBox.Show("Excepción general: " + ex.Message.ToString());
+                System.Windows.Forms.MessageBox.Show("Ha ocurrido un error en la creación de la base de datos\nrelacionado a problemas de Internet, póngase en contacto\ncon servicio técnico en https://sifo.com.mx/ - Código [1002].", "Mensaje del sistema", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             }
         }
     }

@@ -193,7 +193,8 @@ namespace PuntoDeVentaV2
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ha ocurrido un error en la creación de la base de datos\nrelacionado a problemas de Internet, póngase en contacto\ncon servicio técnico en https://sifo.com.mx/ - Código [1000].", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
