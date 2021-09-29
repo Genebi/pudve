@@ -1939,10 +1939,33 @@ namespace PuntoDeVentaV2
                 //Validar que el precio no sea menor al precio original del producto/servicio
                 if (Convert.ToDouble(precio) < Convert.ToDouble(txtPrecioCompra.Text))
                 {
-                    MessageBox.Show("El precio no puede ser mayor al precio original", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El precio no puede ser mayor al precio original", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtPrecioProducto.Focus();
                     return;
                 }
+
+                if (ProductosDeServicios.Count() > 0)
+                {
+                    string tipoAux = string.Empty;
+
+                    if (this.Text.Trim() == "AGREGAR SERVICIOS" || this.Text.Trim() == "EDITAR SERVICIOS" || this.Text.Trim() == "COPIAR SERVICIOS")
+                    {
+                        tipoAux = "servicio";
+                    }
+
+                    if (this.Text.Trim() == "AGREGAR COMBOS" || this.Text.Trim() == "EDITAR COMBOS" || this.Text.Trim() == "COPIAR COMBOS")
+                    {
+                        tipoAux = "combo";
+                    }
+
+                    if (Convert.ToDecimal(txtCantPaqServ.Text) <= 0)
+                    {
+                        MessageBox.Show($"Ingrese una cantidad para el campo \"Cantidad por {tipoAux}\"", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCantPaqServ.Focus();
+                        return;
+                    }
+                }
+
                 #endregion Final Sección que el precio no sea menor al precio original del producto servicio/combo
 
                 #region Inicio Sección busqueda que no se repita la ClaveInterna
