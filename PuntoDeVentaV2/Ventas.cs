@@ -3492,23 +3492,27 @@ namespace PuntoDeVentaV2
                                         {
                                             var datosProducto = producto.Split('|');
                                             var idProducto = Convert.ToInt32(datosProducto[0]);
-                                            var stockRequerido = (int)Convert.ToDouble(datosProducto[1]) * cantidad;
 
-                                            datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
-                                            datosProducto = datosProducto[0].Split('|');
-
-                                            var nombreProducto = datosProducto[0];
-                                            var stockActual = (int)Convert.ToDouble(datosProducto[1]);
-
-                                            if (stockActual < stockRequerido)
+                                            if (idProducto > 0)
                                             {
-                                                var mensaje = $"El stock de {nombreProducto} es insuficiente\n{categoria}: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+                                                var stockRequerido = (int)Convert.ToDouble(datosProducto[1]) * cantidad;
 
-                                                MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
+                                                datosProducto = datosProducto[0].Split('|');
 
-                                                respuesta = false;
+                                                var nombreProducto = datosProducto[0];
+                                                var stockActual = (int)Convert.ToDouble(datosProducto[1]);
 
-                                                break;
+                                                if (stockActual < stockRequerido)
+                                                {
+                                                    var mensaje = $"El stock de {nombreProducto} es insuficiente\n{categoria}: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+
+                                                    MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                                    respuesta = false;
+
+                                                    break;
+                                                }
                                             }
                                         }
                                     }

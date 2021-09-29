@@ -2850,11 +2850,15 @@ namespace PuntoDeVentaV2
         {//Los try son para las finas que son para totales que no se marquen
 
             var incremento = -1;
+
             foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
             {
                 try
                 {
+                    if (dgv.Cells["ID"].Value == null) continue;
+
                     incremento += 1;
+
                     var idRevision = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
 
                     if (idVentas.ContainsKey(idRevision))
@@ -2868,7 +2872,7 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception ex)
                 {
-
+                    Console.WriteLine("ERROR AQUI: " + ex.Message);
                 }
             }
 
