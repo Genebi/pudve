@@ -2100,6 +2100,7 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT * FROM productosdeservicios AS servProd WHERE servProd.IDServicio = '{idProdComSer}' AND servProd.IDProducto = '{idSeleccionado}'; ";
             return consulta;
         }
+
         public string agregarDetalleProductoPermisosDinamicos(string detalle)
         {
             var consulta = $"ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS {detalle.ToString()} int DEFAULT 1";

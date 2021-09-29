@@ -2486,7 +2486,7 @@ namespace PuntoDeVentaV2
             {
                 if (!inputMessageBox.retornoNombreConcepto.Equals(string.Empty))
                 {
-                    conceptoProductoAgregar = inputMessageBox.retornoNombreConcepto;
+                    conceptoProductoAgregar = inputMessageBox.retornoNombreConcepto.Trim();
 
                     conceptoProductoAgregar = conceptoProductoAgregar.Replace(" ", "_");
 

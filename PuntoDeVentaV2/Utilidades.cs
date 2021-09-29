@@ -2829,5 +2829,14 @@ namespace PuntoDeVentaV2
 
             //return date;
         }
-}
+
+        public static string ExpresionRegularParaQuitarLetrasNoPermitidas(string concepto)
+        {
+            var expresionAplicada = string.Empty;
+
+
+
+            return expresionAplicada;
+        }
+    }
 }

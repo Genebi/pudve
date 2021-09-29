@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
         string  promptMsg = string.Empty, 
                 titleWindow = string.Empty, 
                 strDefaultResponse = string.Empty;
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
