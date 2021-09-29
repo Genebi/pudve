@@ -1947,22 +1947,28 @@ namespace PuntoDeVentaV2
                 if (ProductosDeServicios.Count() > 0)
                 {
                     string tipoAux = string.Empty;
+                    bool tipoValido = false;
 
                     if (this.Text.Trim() == "AGREGAR SERVICIOS" || this.Text.Trim() == "EDITAR SERVICIOS" || this.Text.Trim() == "COPIAR SERVICIOS")
                     {
                         tipoAux = "servicio";
+                        tipoValido = true;
                     }
 
                     if (this.Text.Trim() == "AGREGAR COMBOS" || this.Text.Trim() == "EDITAR COMBOS" || this.Text.Trim() == "COPIAR COMBOS")
                     {
                         tipoAux = "combo";
+                        tipoValido = true;
                     }
 
-                    if (Convert.ToDecimal(txtCantPaqServ.Text) <= 0)
+                    if (tipoValido)
                     {
-                        MessageBox.Show($"Ingrese una cantidad para el campo \"Cantidad por {tipoAux}\"", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtCantPaqServ.Focus();
-                        return;
+                        if (Convert.ToDecimal(txtCantPaqServ.Text) <= 0)
+                        {
+                            MessageBox.Show($"Ingrese una cantidad para el campo \"Cantidad por {tipoAux}\"", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtCantPaqServ.Focus();
+                            return;
+                        }
                     }
                 }
 
