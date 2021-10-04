@@ -57,7 +57,7 @@ namespace PuntoDeVentaV2
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
-
+            
             string anticipo = Convert.ToString(Convert.ToInt32(cbox_anticipos.Checked));
             string caja = Convert.ToString(Convert.ToInt32(cbox_caja.Checked));
             string client = Convert.ToString(Convert.ToInt32(cbox_clientes.Checked));

@@ -1571,3 +1571,49 @@ ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS nombre_comercial TEXT DEFAULT NULL
 
 -- Agregar columna de e_nombre_comercial para tabla facturas
 ALTER TABLE facturas ADD COLUMN IF NOT EXISTS e_nombre_comercial VARCHAR(300) DEFAULT NULL;
+
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS editarTicket INT DEFAULT (1);
+
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS EnvioCorreo INT DEFAULT (1);
+
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS confiGeneral INT DEFAULT (1);
+
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS porcentajeGanancia INT DEFAULT (1);
+
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS tipoMoneda INT DEFAULT (1);
+
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS RespaldarInfo INT DEFAULT (1);
+
+CREATE TABLE 
+IF 
+	NOT EXISTS permisosConfiguracion (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		IDEmpleado INTEGER NOT NULL,
+		IDUsuario INTEGER NOT NULL,
+		EditarTicket INTEGER DEFAULT (1),
+		AgregarDineroCaja INTEGER DEFAULT (1),
+		RetirarDineroCaja INTEGER DEFAULT (1),
+		HacerCorteCaja INTEGER DEFAULT (1),
+		LlegarStockMinimo INTEGER DEFAULT (1),
+		ModificarPrecio INTEGER DEFAULT (1),
+		ModificarStock INTEGER DEFAULT (1),
+		VenderseProducto INTEGER DEFAULT (1),
+		HacerVenta INTEGER DEFAULT (1),
+		CerrarVentanaVentasCuandoSeTienenProductos INTEGER DEFAULT (1),
+		EliminarProductosVentas INTEGER DEFAULT (1),
+		IniciarSesion INTEGER DEFAULT (1),
+		HacerVentaDescuento INTEGER DEFAULT (1),
+		EviarRespaldoCerrarSesion INTEGER DEFAULT (1),
+		CodigoBarrasTicketVenta INTEGER DEFAULT (1),
+		HabilitarInfoPaginaWeb INTEGER DEFAULT (1),
+		MostrarCodigoProductoVentas INTEGER DEFAULT (1),
+		CerrarSesionCorteCaja INTEGER DEFAULT (1),
+		MostrarPrecioProductoVentas INTEGER DEFAULT (1),
+		PermitirStockNegativo INTEGER DEFAULT (1),
+		GenerarTicketAlRealizarVenta INTEGER DEFAULT (1),
+		AvisarProductosNoVendidos INTEGER DEFAULT (1),
+		PorcentajeGanancia INTEGER DEFAULT (1),
+		ActivarPrecioMayoreoVentas INTEGER DEFAULT (1),
+		TipoDeMoneda INTEGER DEFAULT (1),
+		RespaldarInformacion INTEGER DEFAULT (1)
+	);

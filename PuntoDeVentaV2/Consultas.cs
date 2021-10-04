@@ -2632,5 +2632,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string PermisosConfiguracionEmpleados(int idEmpleado)
+        {
+            var consulta = $"SELECT IDEmpleado from permisosconfiguracion WHERE IDEmpleado = {idEmpleado}";
+            return consulta;
+        }
+
+        public string permisosEmpleado(string datosPermisos, int id_empleado)
+        {
+            var consulta = $"SELECT {datosPermisos} FROM permisosconfiguracion WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID}";
+            return consulta;
+        }
+
+
     }
 }  

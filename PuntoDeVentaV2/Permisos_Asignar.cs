@@ -111,8 +111,6 @@ namespace PuntoDeVentaV2
 
             VerificarSecciones();
 
-
-
             if (seccion.Equals("Permisos"))
                 GenerarPermisos();
 

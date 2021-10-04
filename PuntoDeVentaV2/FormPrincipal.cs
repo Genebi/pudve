@@ -36,6 +36,7 @@ namespace PuntoDeVentaV2
         public static string[] datosUsuario = new string[] { };
         private bool cerrarAplicacion = false;
         public static int condicionarMensaje = 0;
+        public static int idUsuarioPermisosParaConfiguracion = 0;
 
         IEnumerable<Ventas> FormVenta = Application.OpenForms.OfType<Ventas>();//Revisar esta linea
 
@@ -637,6 +638,17 @@ namespace PuntoDeVentaV2
             else
             {
                 cn.EjecutarConsulta($"INSERT INTO editarticket (IDUsuario,MensajeTicket,Usuario,Direccion,ColyCP,RFC,Correo,Telefono,NombreC,DomicilioC,RFCC,CorreoC,TelefonoC,ColyCPC,FormaPagoC,logo) VALUES ('{FormPrincipal.userID}','Hola Mundo','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
+            }
+
+            using (var datoEmpleado = cn.CargarDatos(cs.PermisosConfiguracionEmpleados(FormPrincipal.id_empleado)))
+            {
+                if (!datoEmpleado.Rows.Count.Equals(0))
+                {//Si ya hay registro del empleado no se hace nada
+                }
+                else
+                {//Si no se encuentra registrado se hace un INSERT
+                    cn.EjecutarConsulta($"INSERT INTO permisosconfiguracion (IDEmpleado, IDUsuario) VALUES ({FormPrincipal.id_empleado},{FormPrincipal.userID})");
+                }
             }
         }
 
