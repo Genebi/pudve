@@ -13,6 +13,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -2830,11 +2831,82 @@ namespace PuntoDeVentaV2
             //return date;
         }
 
+        /// <summary>
+        /// Función para poder quitar caracteres no permitidos como titulo de columna
+        /// en la base de datos de Maria DB
+        /// </summary>
+        /// <param name="concepto">Concepto a agrear a la tabla EmpleadosPermisos</param>
+        /// <returns>Regresa el concepto ya aplicado las expresiones regulares</returns>
         public static string ExpresionRegularParaQuitarLetrasNoPermitidas(string concepto)
         {
             var expresionAplicada = string.Empty;
+            var guionesMediosGuionesBajos = "[ _ | - ]";
+            var espaciosEnBlancoPonerGuionesBajos = "( )";
+            
+            // Letras minusculas con Acentos
+            var letraMinusculaAConAcento = "[ á ]";
+            var letraMinusculaEConAcento = "[ é ]";
+            var letraMinusculaIConAcento = "[ í ]";
+            var letraMinusculaOConAcento = "[ ó ]";
+            var letraMinusculaUConAcento = "[ ú ]";
+            
+            // Letras mayusculas con Acentos
+            var letraMayusculaAConAcento = "[ Á ]";
+            var letraMayusculaEConAcento = "[ É ]";
+            var letraMayusculaIConAcento = "[ Í ]";
+            var letraMayusculaOConAcento = "[ Ó ]";
+            var letraMayusculaUConAcento = "[ Ú ]";
+            
+            // Letras mayusculas con Diéresis
+            var letraMinusculaAConDieresis = "[ ä ]";
+            var letraMinusculaEConDieresis = "[ ë ]";
+            var letraMinusculaIConDieresis = "[ ï ]";
+            var letraMinusculaOConDieresis = "[ ö ]";
+            var letraMinusculaUConDieresis = "[ ü ]";
+            
+            // Letras mayusculas con Diéresis
+            var letraMayusculaAConDieresis = "[ Ä ]";
+            var letraMayusculaEConDieresis = "[ Ë ]";
+            var letraMayusculaIConDieresis = "[ Ï ]";
+            var letraMayusculaOConDieresis = "[ Ö ]";
+            var letraMayusculaUConDieresis = "[ Ü ]";
 
+            // Letras con tilde
+            var letraMinusculaNConTilde = "[ ñ ]";
+            var letraMayusculaNConTilde = "[ Ñ ]";
 
+            var nuevaExpresionAplicada = Regex.Replace(concepto, guionesMediosGuionesBajos, " ").Trim();
+
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, espaciosEnBlancoPonerGuionesBajos, "_");
+
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaAConAcento, "a");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaEConAcento, "e");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaIConAcento, "i");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaOConAcento, "o");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaUConAcento, "u");
+
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaAConAcento, "A");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaEConAcento, "E");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaIConAcento, "I");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaOConAcento, "O");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaUConAcento, "U");
+
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaAConDieresis, "a");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaEConDieresis, "e");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaIConDieresis, "i");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaOConDieresis, "o");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaUConDieresis, "u");
+
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaAConDieresis, "A");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaEConDieresis, "E");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaIConDieresis, "I");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaOConDieresis, "O");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaUConDieresis, "U");
+
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMinusculaNConTilde, "n");
+            nuevaExpresionAplicada = Regex.Replace(nuevaExpresionAplicada, letraMayusculaNConTilde, "N");
+
+            expresionAplicada = nuevaExpresionAplicada;
 
             return expresionAplicada;
         }

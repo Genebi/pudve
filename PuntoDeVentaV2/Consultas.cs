@@ -2633,5 +2633,33 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string siContieneLaColumnaEmpleadosPermisos(string conceptoColumna)
+        {
+            var consulta = $"SHOW COLUMNS FROM empleadospermisos LIKE '{conceptoColumna}';";
+
+            return consulta;
+        }
+
+        public string actualizarNombreColumnaConceptoEmpleadosPermisos(string conceptoAntiguo, string conceptoNuevo, string tipoDeDato)
+        {
+            var consulta = $"ALTER TABLE empleadospermisos CHANGE IF EXISTS {conceptoAntiguo} {conceptoNuevo} {tipoDeDato};";
+
+            return consulta;
+        }
+
+        public string quitarGuionesMediosBajosConcepto()
+        {
+            var consulta = $"UPDATE appsettings SET concepto = TRIM( REGEXP_REPLACE ( concepto, '[ _ | - ]', ' ' ) ) WHERE Mostrar = 1 AND IDUsuario = {FormPrincipal.userID};";
+
+            return consulta;
+        }
+
+        public string ponerGuionBajoEnEspaciosBlancoDeColumna()
+        {
+            var consulta = $"UPDATE appsettings SET concepto = REGEXP_REPLACE ( concepto, '( )', '_' ) WHERE Mostrar = 1 AND IDUsuario = {FormPrincipal.userID};";
+
+            return consulta;
+        }
     }
 }  

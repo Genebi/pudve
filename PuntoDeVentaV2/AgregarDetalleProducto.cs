@@ -2556,7 +2556,8 @@ namespace PuntoDeVentaV2
                             try
                             {
                                 var concepto = drConcepto["concepto"].ToString();
-                                cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
+                                var nuevoConcepto = Utilidades.ExpresionRegularParaQuitarLetrasNoPermitidas(concepto);
+                                cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(nuevoConcepto));
                             }
                             catch (Exception ex)
                             {

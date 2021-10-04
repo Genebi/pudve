@@ -2451,7 +2451,8 @@ namespace PuntoDeVentaV2
                         //var normalizacionCadena = mg.quitarTildesYÑ(concepto);
 
                         //lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(normalizacionCadena))));
-                        lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(concepto))));
+                        var nuevoConcepto= Utilidades.ExpresionRegularParaQuitarLetrasNoPermitidas(concepto);
+                        lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(nuevoConcepto))));
                     }
                 }
             }

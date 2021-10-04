@@ -651,7 +651,58 @@ namespace PuntoDeVentaV2
                         try
                         {
                             var concepto = drConcepto["concepto"].ToString();
-                            cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
+
+                            using (DataTable dtContieneColumna = cn.CargarDatos(cs.siContieneLaColumnaEmpleadosPermisos(concepto)))
+                            {
+                                if (!dtContieneColumna.Rows.Count.Equals(0))
+                                {
+                                    var tipoDeDato = string.Empty;
+
+                                    foreach (DataRow item in dtContieneColumna.Rows)
+                                    {
+                                        var campo = item["Field"].ToString();
+                                        var nuevoConcepto = Utilidades.ExpresionRegularParaQuitarLetrasNoPermitidas(concepto);
+
+                                        tipoDeDato = $"{item["Type"].ToString()} ";
+
+                                        if (item["Null"].ToString().Equals("YES"))
+                                        {
+                                            tipoDeDato += "NULL ";
+                                        }
+                                        else
+                                        {
+                                            tipoDeDato += "NOT NULL ";
+                                        }
+
+                                        if (!item["Default"].ToString().Equals(null))
+                                        {
+                                            tipoDeDato += $"DEFAULT '{item["Default"].ToString()}'";
+                                        }
+                                        else
+                                        {
+                                            tipoDeDato += " ";
+                                        }
+
+                                        // hacer una actualización del nombre de la columna
+                                        cn.EjecutarConsulta(cs.actualizarNombreColumnaConceptoEmpleadosPermisos(concepto, nuevoConcepto, tipoDeDato));
+                                    }
+                                }
+                                else
+                                {
+                                    var nuevoConcepto = Utilidades.ExpresionRegularParaQuitarLetrasNoPermitidas(concepto);
+                                    using (DataTable dtConceptoDinamico = cn.CargarDatos(cs.siContieneLaColumnaEmpleadosPermisos(nuevoConcepto)))
+                                    {
+                                        if (dtConceptoDinamico.Rows.Count.Equals(0))
+                                        {
+                                            // agregar una nueva columna
+                                            cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
+                                        }
+                                    }
+                                }
+                            }
+
+                            cn.EjecutarConsulta(cs.quitarGuionesMediosBajosConcepto());
+                            cn.EjecutarConsulta(cs.ponerGuionBajoEnEspaciosBlancoDeColumna());
                         }
                         catch (Exception ex)
                         {
