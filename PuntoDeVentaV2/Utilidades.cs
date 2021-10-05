@@ -2910,5 +2910,86 @@ namespace PuntoDeVentaV2
 
             return expresionAplicada;
         }
+
+        /// <summary>
+        ///  Metodo para checar los conceptos dinamicos y 
+        ///  hacer que en la tabla Empleados Permisos se 
+        ///  agregen sin caracteres especiales a nombre de columna
+        /// </summary>
+        /// <param name="userID">ID del Usuario, que inicio el sistema</param>
+        public static void agregarActualizarCamposDinamicosPermisos(int userID)
+        {
+            Conexion cn = new Conexion();
+            Consultas cs = new Consultas();
+
+            using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(userID)))
+            {
+                if (!dtPermisosDinamicos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
+                    {
+                        try
+                        {
+                            var concepto = drConcepto["concepto"].ToString();
+
+                            using (DataTable dtContieneColumna = cn.CargarDatos(cs.siContieneLaColumnaEmpleadosPermisos(concepto)))
+                            {
+                                if (!dtContieneColumna.Rows.Count.Equals(0))
+                                {
+                                    var tipoDeDato = string.Empty;
+
+                                    foreach (DataRow item in dtContieneColumna.Rows)
+                                    {
+                                        var campo = item["Field"].ToString();
+                                        var nuevoConcepto = ExpresionRegularParaQuitarLetrasNoPermitidas(concepto);
+
+                                        tipoDeDato = $"{item["Type"].ToString()} ";
+
+                                        if (item["Null"].ToString().Equals("YES"))
+                                        {
+                                            tipoDeDato += "NULL ";
+                                        }
+                                        else
+                                        {
+                                            tipoDeDato += "NOT NULL ";
+                                        }
+
+                                        if (!item["Default"].ToString().Equals(null))
+                                        {
+                                            tipoDeDato += $"DEFAULT '{item["Default"].ToString()}'";
+                                        }
+                                        else
+                                        {
+                                            tipoDeDato += " ";
+                                        }
+
+                                        // hacer una actualización del nombre de la columna
+                                        cn.EjecutarConsulta(cs.actualizarNombreColumnaConceptoEmpleadosPermisos(concepto, nuevoConcepto, tipoDeDato));
+                                    }
+                                }
+                                else
+                                {
+                                    var nuevoConcepto = ExpresionRegularParaQuitarLetrasNoPermitidas(concepto);
+                                    using (DataTable dtConceptoDinamico = cn.CargarDatos(cs.siContieneLaColumnaEmpleadosPermisos(nuevoConcepto)))
+                                    {
+                                        if (dtConceptoDinamico.Rows.Count.Equals(0))
+                                        {
+                                            // agregar una nueva columna
+                                            cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
+                                        }
+                                    }
+                                }
+                            }
+                            cn.EjecutarConsulta(cs.quitarGuionesMediosBajosConcepto());
+                            cn.EjecutarConsulta(cs.ponerGuionBajoEnEspaciosBlancoDeColumna());
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

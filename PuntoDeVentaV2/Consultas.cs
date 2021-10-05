@@ -2070,8 +2070,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
-
-
+        
         public string checarProductoEstaActivo(string idProd)
         {
             var consulta = $"SELECT ID, Nombre, Precio, `Status` FROM Productos WHERE ID = '{idProd}' AND `Status` = '1' AND IDUsuario = '{FormPrincipal.userID}';";
@@ -2091,8 +2090,6 @@ namespace PuntoDeVentaV2
             }
 
             return result;
-
-
         }
 
         public string checarSiExisteRelacionComboServ(int idProdComSer, int idSeleccionado)
@@ -2201,8 +2198,7 @@ namespace PuntoDeVentaV2
             {
                 result = false;
             }
-
-
+            
             return result;
         }
 
@@ -2650,14 +2646,14 @@ namespace PuntoDeVentaV2
 
         public string quitarGuionesMediosBajosConcepto()
         {
-            var consulta = $"UPDATE appsettings SET concepto = TRIM( REGEXP_REPLACE ( concepto, '[ _ | - ]', ' ' ) ) WHERE Mostrar = 1 AND IDUsuario = {FormPrincipal.userID};";
+            var consulta = $"UPDATE appsettings SET concepto = TRIM( REGEXP_REPLACE ( concepto, '[ _ | - ]', ' ' ) ), textComboBoxConcepto = TRIM(REGEXP_REPLACE(textComboBoxConcepto, '[ _ | - ]', ' '))  WHERE Mostrar = 1 AND IDUsuario = {FormPrincipal.userID};";
 
             return consulta;
         }
 
         public string ponerGuionBajoEnEspaciosBlancoDeColumna()
         {
-            var consulta = $"UPDATE appsettings SET concepto = REGEXP_REPLACE ( concepto, '( )', '_' ) WHERE Mostrar = 1 AND IDUsuario = {FormPrincipal.userID};";
+            var consulta = $"UPDATE appsettings SET concepto = REGEXP_REPLACE ( concepto, '( )', '_' ), textComboBoxConcepto = REGEXP_REPLACE ( textComboBoxConcepto, '( )', '_' ) WHERE Mostrar = 1 AND IDUsuario = {FormPrincipal.userID};";
 
             return consulta;
         }

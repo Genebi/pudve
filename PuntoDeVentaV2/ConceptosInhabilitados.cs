@@ -100,6 +100,7 @@ namespace PuntoDeVentaV2
                                         if (dtFindConcepto.Rows.Count.Equals(0))
                                         {
                                             cn.EjecutarConsulta(cs.habilitarConceptoDinamico(idReg));
+                                            Utilidades.agregarActualizarCamposDinamicosPermisos(FormPrincipal.userID);
                                         }
                                         else if (!dtFindConcepto.Rows.Equals(0))
                                         {
@@ -107,6 +108,7 @@ namespace PuntoDeVentaV2
                                             if (dialogResult.Equals(DialogResult.Yes))
                                             {
                                                 cn.EjecutarConsulta(cs.habilitarConceptoDinamico(idReg));
+                                                Utilidades.agregarActualizarCamposDinamicosPermisos(FormPrincipal.userID);
                                                 break;
                                             }
                                             else if (dialogResult.Equals(DialogResult.No))

@@ -631,93 +631,24 @@ namespace PuntoDeVentaV2
             {
                 IdUsuarios.Add(Convert.ToInt32(usuarios[0]), "");
             }
-            if (IdUsuarios.ContainsKey(FormPrincipal.userID))
+            if (IdUsuarios.ContainsKey(userID))
             {
             }
             else
             {
-                cn.EjecutarConsulta($"INSERT INTO editarticket (IDUsuario,MensajeTicket,Usuario,Direccion,ColyCP,RFC,Correo,Telefono,NombreC,DomicilioC,RFCC,CorreoC,TelefonoC,ColyCPC,FormaPagoC,logo) VALUES ('{FormPrincipal.userID}','Hola Mundo','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
+                cn.EjecutarConsulta($"INSERT INTO editarticket (IDUsuario,MensajeTicket,Usuario,Direccion,ColyCP,RFC,Correo,Telefono,NombreC,DomicilioC,RFCC,CorreoC,TelefonoC,ColyCPC,FormaPagoC,logo) VALUES ('{userID}','Hola Mundo','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
             }
         }
 
         public void agregarCamposDinamicosPermisos()
         {
-            using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(userID)))
-            {
-                if (!dtPermisosDinamicos.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
-                    {
-                        try
-                        {
-                            var concepto = drConcepto["concepto"].ToString();
-
-                            using (DataTable dtContieneColumna = cn.CargarDatos(cs.siContieneLaColumnaEmpleadosPermisos(concepto)))
-                            {
-                                if (!dtContieneColumna.Rows.Count.Equals(0))
-                                {
-                                    var tipoDeDato = string.Empty;
-
-                                    foreach (DataRow item in dtContieneColumna.Rows)
-                                    {
-                                        var campo = item["Field"].ToString();
-                                        var nuevoConcepto = Utilidades.ExpresionRegularParaQuitarLetrasNoPermitidas(concepto);
-
-                                        tipoDeDato = $"{item["Type"].ToString()} ";
-
-                                        if (item["Null"].ToString().Equals("YES"))
-                                        {
-                                            tipoDeDato += "NULL ";
-                                        }
-                                        else
-                                        {
-                                            tipoDeDato += "NOT NULL ";
-                                        }
-
-                                        if (!item["Default"].ToString().Equals(null))
-                                        {
-                                            tipoDeDato += $"DEFAULT '{item["Default"].ToString()}'";
-                                        }
-                                        else
-                                        {
-                                            tipoDeDato += " ";
-                                        }
-
-                                        // hacer una actualización del nombre de la columna
-                                        cn.EjecutarConsulta(cs.actualizarNombreColumnaConceptoEmpleadosPermisos(concepto, nuevoConcepto, tipoDeDato));
-                                    }
-                                }
-                                else
-                                {
-                                    var nuevoConcepto = Utilidades.ExpresionRegularParaQuitarLetrasNoPermitidas(concepto);
-                                    using (DataTable dtConceptoDinamico = cn.CargarDatos(cs.siContieneLaColumnaEmpleadosPermisos(nuevoConcepto)))
-                                    {
-                                        if (dtConceptoDinamico.Rows.Count.Equals(0))
-                                        {
-                                            // agregar una nueva columna
-                                            cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
-                                        }
-                                    }
-                                }
-                            }
-
-                            cn.EjecutarConsulta(cs.quitarGuionesMediosBajosConcepto());
-                            cn.EjecutarConsulta(cs.ponerGuionBajoEnEspaciosBlancoDeColumna());
-                        }
-                        catch (Exception ex)
-                        {
-
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
-                }
-            }
+            Utilidades.agregarActualizarCamposDinamicosPermisos(userID);
         }
 
         private void actualizarNameReportesEmpleados()
         {
             var nombre = string.Empty;
-            var query = cn.CargarDatos($"SELECT NameUsr FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}'");
+            var query = cn.CargarDatos($"SELECT NameUsr FROM RevisarInventarioReportes WHERE IDUsuario = '{userID}'");
 
             if (!query.Rows.Count.Equals(0))
             {
@@ -730,7 +661,7 @@ namespace PuntoDeVentaV2
                         var cambioNombre = cs.validarEmpleado(nombre);
                         var idEmp = buscarEmpleado(cambioNombre);
 
-                        var cambiarNames = cn.CargarDatos($"UPDATE RevisarInventarioReportes SET NameUsr = '{cambioNombre}', IDEmpleado = '{idEmp}' WHERE IDUsuario = '{FormPrincipal.userID}' AND NameUsr = '{nombre}'");
+                        var cambiarNames = cn.CargarDatos($"UPDATE RevisarInventarioReportes SET NameUsr = '{cambioNombre}', IDEmpleado = '{idEmp}' WHERE IDUsuario = '{userID}' AND NameUsr = '{nombre}'");
                     }
                 }
             }
@@ -740,7 +671,7 @@ namespace PuntoDeVentaV2
         {
             int result = 0;
 
-            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{name}'");
+            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE IDUsuario = '{userID}' AND Nombre = '{name}'");
 
             if (!query.Rows.Count.Equals(0))
             {
