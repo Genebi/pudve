@@ -4210,11 +4210,6 @@ namespace PuntoDeVentaV2
                         // Detectamos si esta registrado como codigo de barras, clave o codigo de barras extra
                         var esCodigoOClave = mb.BusquedaCodigosBarrasClaveInterna(palabra.Trim(), status, true);
 
-                        if (esCodigoOClave.Count() == 0)
-                        {
-                            continue;
-                        }
-
                         var esCodigoExtra = mb.BuscarCodigoBarrasExtraFormProductos(palabra.Trim(), true);
 
                         if (esCodigoExtra.Count() == 0 && esCodigoOClave.Count() == 0)
