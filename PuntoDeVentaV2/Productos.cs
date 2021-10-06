@@ -3079,7 +3079,7 @@ namespace PuntoDeVentaV2
         {
             txtIrPagina.Text = string.Empty;
         }
-        
+
         private void DGVProductos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // for the Name cell paint, paint the background as highligth and text as white in case of slection

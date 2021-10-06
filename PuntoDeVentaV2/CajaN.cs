@@ -355,11 +355,9 @@ namespace PuntoDeVentaV2
                 };
                 
                 corte.Show();
-
                 //GenerarTicket();
             }
             abonos = 0;
-           
         }
 
         private void cerrarSesionEnCorteDeCaja()
