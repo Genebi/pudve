@@ -640,16 +640,7 @@ namespace PuntoDeVentaV2
                 cn.EjecutarConsulta($"INSERT INTO editarticket (IDUsuario,MensajeTicket,Usuario,Direccion,ColyCP,RFC,Correo,Telefono,NombreC,DomicilioC,RFCC,CorreoC,TelefonoC,ColyCPC,FormaPagoC,logo) VALUES ('{FormPrincipal.userID}','Hola Mundo','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
             }
 
-            using (var datoEmpleado = cn.CargarDatos(cs.PermisosConfiguracionEmpleados(FormPrincipal.id_empleado)))
-            {
-                if (!datoEmpleado.Rows.Count.Equals(0))
-                {//Si ya hay registro del empleado no se hace nada
-                }
-                else
-                {//Si no se encuentra registrado se hace un INSERT
-                    cn.EjecutarConsulta($"INSERT INTO permisosconfiguracion (IDEmpleado, IDUsuario) VALUES ({FormPrincipal.id_empleado},{FormPrincipal.userID})");
-                }
-            }
+            Utilidades.registrarNuevoEmpleadoPermisosConfiguracion(id_empleado);
         }
 
         public void agregarCamposDinamicosPermisos()
@@ -1437,8 +1428,8 @@ namespace PuntoDeVentaV2
             {
                 var datosEmpleado = mb.obtener_permisos_empleado(id_empleado, userID);
 
-                string nombreEmpleado = datosEmpleado[14];
-                string usuarioEmpleado = datosEmpleado[15];
+                string nombreEmpleado = datosEmpleado[15];//se aumento la posicion en +1(por si da error)
+                string usuarioEmpleado = datosEmpleado[16];//se aumento la posicion en +1(por si da error)
 
                 var infoEmpleado = usuarioEmpleado.Split('@');
 

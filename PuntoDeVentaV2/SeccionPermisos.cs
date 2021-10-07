@@ -514,49 +514,46 @@ namespace PuntoDeVentaV2
             var nombreBoton = btnSeleccionado.Name.ToString();
 
 
-            if (nombreBoton == "editarTicket")
-            {
-                //condicion permisos
-                cn.EjecutarConsulta($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.idUsuarioPermisosParaConfiguracion} AND Seccion = '{nombreBoton}'");
-                if (true)
-                {
+            //if (nombreBoton == "editarTicket")
+            //{
+            //    //condicion permisos
+            //   var dato = cn.CargarDatos($"SELECT editarTicket FROM EmpleadosPermisos WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.idUsuarioPermisosParaConfiguracion} AND Seccion = '{nombreBoton}'");
+            //    if (true)
+            //    {
 
-                }
-                permisos.tipoPermisos = nombreBoton;
-                permisos.ShowDialog();
-            }
+            //    }
+            //    permisos.tipoPermisos = nombreBoton;
+            //    permisos.ShowDialog();
+            //}
             if (nombreBoton == "envioCorreo")
             {
-                //condicion permisos
+                
                 permisos.tipoPermisos = nombreBoton;
                 permisos.ShowDialog();
             }
             if (nombreBoton == "configuracionGeneral")
             {
-                string datosPermisos = "CodigoBarrasTicketVenta,HabilitarInfoPaginaWeb,MostrarCodigoProductoVentas,CerrarSesionCorteCaja,MostrarPrecioProductoVentas,PermitirStockNegativo,GenerarTicketAlRealizarVenta,AvisarProductosNoVendidos,ActivarPrecioMayoreoVentas";
-                //condicion permisos
-                var datos = cn.CargarDatos(cs.permisosEmpleado(datosPermisos, FormPrincipal.id_empleado));
                 permisos.tipoPermisos = nombreBoton;
                 permisos.ShowDialog();
             }
-            if (nombreBoton == "porcentageGanancia")
-            {
-                //condicion permisos
-                permisos.tipoPermisos = nombreBoton;
-                permisos.ShowDialog();
-            }
-            if (nombreBoton == "tipoMoneda")
-            {
-                //condicion permisos
-                permisos.tipoPermisos = nombreBoton;
-                permisos.ShowDialog();
-            }
-            if (nombreBoton == "respaldarInformacion")
-            {
-                //condicion permisos
-                permisos.tipoPermisos = nombreBoton;
-                permisos.ShowDialog();
-            }
+            //if (nombreBoton == "porcentageGanancia")
+            //{
+            //    //condicion permisos
+            //    permisos.tipoPermisos = nombreBoton;
+            //    permisos.ShowDialog();
+            //}
+            //if (nombreBoton == "tipoMoneda")
+            //{
+            //    //condicion permisos
+            //    permisos.tipoPermisos = nombreBoton;
+            //    permisos.ShowDialog();
+            //}
+            //if (nombreBoton == "respaldarInformacion")
+            //{
+            //    //condicion permisos
+            //    permisos.tipoPermisos = nombreBoton;
+            //    permisos.ShowDialog();
+            //}
         }
     }
 }

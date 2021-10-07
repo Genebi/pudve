@@ -2829,5 +2829,26 @@ namespace PuntoDeVentaV2
 
             //return date;
         }
-}
+
+        public static void registrarNuevoEmpleadoPermisosConfiguracion(int id_empleado)
+        {
+            Conexion cn = new Conexion();
+            Consultas cs = new Consultas();
+
+            using (var datoEmpleado = cn.CargarDatos(cs.PermisosConfiguracionEmpleados(id_empleado)))
+            {
+                if (!datoEmpleado.Rows.Count.Equals(0))
+                {//Si ya hay registro del empleado no se hace nada
+                }
+                else
+                {//Si no se encuentra registrado se hace un INSERT
+                    if (id_empleado != 0)
+                    {
+                        cn.EjecutarConsulta($"INSERT INTO permisosconfiguracion (IDEmpleado, IDUsuario) VALUES ({id_empleado},{FormPrincipal.userID})");
+                    }
+
+                }
+            }
+        }
+    }
 }

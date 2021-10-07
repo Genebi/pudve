@@ -65,6 +65,8 @@ namespace PuntoDeVentaV2
 
         bool valorCambioCheckBox = false;
 
+        int contador = 0;
+
         public ConfiguracionGeneral() 
         {
             InitializeComponent();
@@ -113,6 +115,52 @@ namespace PuntoDeVentaV2
 
         private void checkCBVenta_CheckedChanged(object sender, EventArgs e)
         {
+            contador++;
+            if (contador > 0)
+            {
+                //using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("CodigoBarrasTicketVenta", FormPrincipal.id_empleado)))
+                //{
+                //    if (!permisoEmpleado.Rows.Count.Equals(0))
+                //    {
+                //        foreach (DataRow item in permisoEmpleado.Rows)
+                //        {
+                //            if (item[0].ToString().Equals("1"))
+                //            {
+                //                if (opcion10.Equals(0))
+                //                {
+                //                    Utilidades.MensajePermiso();
+                //                    return;
+                //                }
+
+                //                var ticketVenta = 0;
+
+                //                valorCambioCheckBox = checkCBVenta.Checked;
+
+                //                if (valorCambioCheckBox.Equals(true))
+                //                {
+                //                    ticketVenta = 1;
+                //                }
+                //                else
+                //                {
+                //                    ticketVenta = 0;
+                //                }
+
+                //                cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
+                //            }
+                //            else
+                //            {
+                //                MessageBox.Show("No tienes permisos para modificar esta opcion");
+                //            }
+                //        }
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show("No tienes permisos para modificar esta opcion");
+                //        return;
+                //    }
+                //}
+            }
+           
             //if (opcion10 == 0)
             //{
             //    checkCBVenta.CheckedChanged -= checkCBVenta_CheckedChanged;
@@ -131,26 +179,7 @@ namespace PuntoDeVentaV2
 
             //cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
 
-            if (opcion10.Equals(0))
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
-
-            var ticketVenta = 0;
-
-            valorCambioCheckBox = checkCBVenta.Checked;
-
-            if (valorCambioCheckBox.Equals(true))
-            {
-                ticketVenta = 1;
-            }
-            else
-            {
-                ticketVenta = 0;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
+          
         }
 
         private void pagWeb_CheckedChanged(object sender, EventArgs e)
@@ -173,28 +202,6 @@ namespace PuntoDeVentaV2
 
             //cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
             //FormPrincipal.pasar = habilitado;
-
-            if (opcion11.Equals(0))
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
-
-            var habilitado = 0;
-
-            valorCambioCheckBox = pagWeb.Checked;
-
-            if (valorCambioCheckBox.Equals(true))
-            {
-                habilitado = 1;
-            }
-            else
-            {
-                habilitado = 0;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-            FormPrincipal.pasar = habilitado;
         }
 
         private void cbMostrarCB_CheckedChanged(object sender, EventArgs e)
@@ -216,27 +223,7 @@ namespace PuntoDeVentaV2
             //}
 
             //cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-
-            if (opcion13.Equals(0))
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
-
-            var habilitado = 0;
-
-            valorCambioCheckBox = cbMostrarCB.Checked;
-
-            if (valorCambioCheckBox.Equals(true))
-            {
-                habilitado = 1;
-            }
-            else
-            {
-                habilitado = 0;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+              
         }
 
         private void cbMostrarPrecio_CheckedChanged(object sender, EventArgs e)
@@ -259,26 +246,8 @@ namespace PuntoDeVentaV2
 
             //cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
 
-            if (opcion12 == 0)
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
-
-            var habilitado = 0;
-
-            valorCambioCheckBox = cbMostrarPrecio.Checked;
-
-            if (valorCambioCheckBox.Equals(true))
-            {
-                habilitado = 1;
-            }
-            else
-            {
-                habilitado = 0;
-            }
+           
             
-            cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
@@ -296,26 +265,8 @@ namespace PuntoDeVentaV2
             //Properties.Settings.Default.Save();
             //Properties.Settings.Default.Reload();
 
-            if (opcion9 == 0)
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
-
-            var habilitado = 0;
-
-            valorCambioCheckBox = cbStockNegativo.Checked;
-
-            if (valorCambioCheckBox.Equals(true))
-            {
-                habilitado = 1;
-            }
-            else
-            {
-                habilitado = 0;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            
+           
         }
 
         private void chTicketVentas_CheckedChanged(object sender, EventArgs e)
@@ -329,20 +280,8 @@ namespace PuntoDeVentaV2
 
             //cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
 
-            var habilitado = false;
-
-            valorCambioCheckBox = chTicketVentas.Checked;
-
-            if (valorCambioCheckBox.Equals(true))
-            {
-                habilitado = true;
-            }
-            else
-            {
-                habilitado = false;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+           
+            
         }
 
         private void checkMayoreo_CheckedChanged(object sender, EventArgs e)
@@ -374,30 +313,7 @@ namespace PuntoDeVentaV2
                 //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
                 //}
 
-                if (opcion14 == 0)
-                {
-                    Utilidades.MensajePermiso();
-                    return;
-                }
-
-                var habilitado = 0;
-
-                valorCambioCheckBox = checkMayoreo.Checked;
-
-                if (valorCambioCheckBox.Equals(true))
-                {
-                    habilitado = 1;
-                    txtMinimoMayoreo.Enabled = true;
-                    txtMinimoMayoreo.Focus();
-                }
-                else
-                {
-                    habilitado = 0;
-                    txtMinimoMayoreo.Enabled = false;
-                    txtMinimoMayoreo.Text = string.Empty;
-                }
-
-                cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                
             }
             else
             {
@@ -474,28 +390,7 @@ namespace PuntoDeVentaV2
                 //    FormPrincipal.checkNoVendidos = 0;
                 //}
 
-                if (opcion15 == 0)
-                {
-                    Utilidades.MensajePermiso();
-                    return;
-                }
-
-                valorCambioCheckBox = checkNoVendidos.Checked;
-
-                if (valorCambioCheckBox.Equals(true))
-                {
-                    txtNoVendidos.Enabled = true;
-                    txtNoVendidos.Focus();
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
-                    FormPrincipal.checkNoVendidos = 1;
-                }
-                else
-                {
-                    txtNoVendidos.Enabled = false;
-                    txtNoVendidos.Text = string.Empty;
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
-                    FormPrincipal.checkNoVendidos = 0;
-                }
+                
             }
             else
             {
@@ -675,29 +570,724 @@ namespace PuntoDeVentaV2
 
         private void chkCerrarSesionCorte_CheckedChanged(object sender, EventArgs e)
         {
+
+            
             //var habilitado = 0;
 
             //if (chkCerrarSesionCorte.Checked)
             //{
             //    habilitado = 1;
             //}
-            
+
             //cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
 
-            var habilitado = 0;
-
-            valorCambioCheckBox = chkCerrarSesionCorte.Checked;
-
-            if (valorCambioCheckBox.Equals(true))
+        private void checkCBVenta_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("CodigoBarrasTicketVenta", FormPrincipal.id_empleado)))
             {
-                habilitado = 1;
-            }
-            else
-            {
-                habilitado = 0;
-            }
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion10.Equals(0))
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
 
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    var ticketVenta = 0;
+
+                    valorCambioCheckBox = checkCBVenta.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        ticketVenta = 1;
+                    }
+                    else
+                    {
+                        ticketVenta = 0;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+                            if (opcion10.Equals(0))
+                            {
+                                Utilidades.MensajePermiso();
+                                return;
+                            }
+
+                            var ticketVenta = 0;
+
+                            valorCambioCheckBox = checkCBVenta.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                ticketVenta = 1;
+                            }
+                            else
+                            {
+                                ticketVenta = 0;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (checkCBVenta.Checked == true)
+                            {
+                                checkCBVenta.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                checkCBVenta.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void chkCerrarSesionCorte_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("CerrarSesionCorteCaja", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    valorCambioCheckBox = chkCerrarSesionCorte.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = 1;
+                    }
+                    else
+                    {
+                        habilitado = 0;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            valorCambioCheckBox = chkCerrarSesionCorte.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = 1;
+                            }
+                            else
+                            {
+                                habilitado = 0;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (chkCerrarSesionCorte.Checked == true)
+                            {
+                                chkCerrarSesionCorte.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                chkCerrarSesionCorte.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbMostrarCB_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("MostrarCodigoProductoVentas", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion13.Equals(0))
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    valorCambioCheckBox = cbMostrarCB.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = 1;
+                    }
+                    else
+                    {
+                        habilitado = 0;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion13.Equals(0))
+                            {
+                                Utilidades.MensajePermiso();
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            valorCambioCheckBox = cbMostrarCB.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = 1;
+                            }
+                            else
+                            {
+                                habilitado = 0;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbMostrarCB.Checked == true)
+                            {
+                                cbMostrarCB.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbMostrarCB.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbMostrarPrecio_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("MostrarPrecioProductoVentas", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion12 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    valorCambioCheckBox = cbMostrarPrecio.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = 1;
+                    }
+                    else
+                    {
+                        habilitado = 0;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion12 == 0)
+                            {
+                                Utilidades.MensajePermiso();
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            valorCambioCheckBox = cbMostrarPrecio.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = 1;
+                            }
+                            else
+                            {
+                                habilitado = 0;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbMostrarPrecio.Checked == true)
+                            {
+                                cbMostrarPrecio.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbMostrarPrecio.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbStockNegativo_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermitirStockNegativo", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion9 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    valorCambioCheckBox = cbStockNegativo.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = 1;
+                    }
+                    else
+                    {
+                        habilitado = 0;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion9 == 0)
+                            {
+                                Utilidades.MensajePermiso();
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            valorCambioCheckBox = cbStockNegativo.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = 1;
+                            }
+                            else
+                            {
+                                habilitado = 0;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbStockNegativo.Checked == true)
+                            {
+                                cbStockNegativo.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbStockNegativo.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void chTicketVentas_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("GenerarTicketAlRealizarVenta", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = false;
+
+                    valorCambioCheckBox = chTicketVentas.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = true;
+                    }
+                    else
+                    {
+                        habilitado = false;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = false;
+
+                            valorCambioCheckBox = chTicketVentas.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = true;
+                            }
+                            else
+                            {
+                                habilitado = false;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (chTicketVentas.Checked == true)
+                            {
+                                chTicketVentas.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                chTicketVentas.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void checkMayoreo_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("ActivarPrecioMayoreoVentas", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion14 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    valorCambioCheckBox = checkMayoreo.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = 1;
+                        txtMinimoMayoreo.Enabled = true;
+                        txtMinimoMayoreo.Focus();
+                    }
+                    else
+                    {
+                        habilitado = 0;
+                        txtMinimoMayoreo.Enabled = false;
+                        txtMinimoMayoreo.Text = string.Empty;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion14 == 0)
+                            {
+                                Utilidades.MensajePermiso();
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            valorCambioCheckBox = checkMayoreo.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = 1;
+                                txtMinimoMayoreo.Enabled = true;
+                                txtMinimoMayoreo.Focus();
+                            }
+                            else
+                            {
+                                habilitado = 0;
+                                txtMinimoMayoreo.Enabled = false;
+                                txtMinimoMayoreo.Text = string.Empty;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (checkMayoreo.Checked == true)
+                            {
+                                checkMayoreo.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                checkMayoreo.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void checkNoVendidos_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("AvisarProductosNoVendidos", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion15 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
+                    valorCambioCheckBox = checkNoVendidos.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        txtNoVendidos.Enabled = true;
+                        txtNoVendidos.Focus();
+                        cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
+                        FormPrincipal.checkNoVendidos = 1;
+                    }
+                    else
+                    {
+                        txtNoVendidos.Enabled = false;
+                        txtNoVendidos.Text = string.Empty;
+                        cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                        FormPrincipal.checkNoVendidos = 0;
+                    }
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion15 == 0)
+                            {
+                                Utilidades.MensajePermiso();
+                                return;
+                            }
+
+                            valorCambioCheckBox = checkNoVendidos.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                txtNoVendidos.Enabled = true;
+                                txtNoVendidos.Focus();
+                                cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
+                                FormPrincipal.checkNoVendidos = 1;
+                            }
+                            else
+                            {
+                                txtNoVendidos.Enabled = false;
+                                txtNoVendidos.Text = string.Empty;
+                                cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                                FormPrincipal.checkNoVendidos = 0;
+                            }
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (checkNoVendidos.Checked == true)
+                            {
+                                checkNoVendidos.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                checkNoVendidos.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void pagWeb_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("HabilitarInfoPaginaWeb", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion11.Equals(0))
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    valorCambioCheckBox = pagWeb.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = 1;
+                    }
+                    else
+                    {
+                        habilitado = 0;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    FormPrincipal.pasar = habilitado;
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion11.Equals(0))
+                            {
+                                Utilidades.MensajePermiso();
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            valorCambioCheckBox = pagWeb.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = 1;
+                            }
+                            else
+                            {
+                                habilitado = 0;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                            FormPrincipal.pasar = habilitado;
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (pagWeb.Checked == true)
+                            {
+                                pagWeb.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                pagWeb.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
         }
     }
 }
