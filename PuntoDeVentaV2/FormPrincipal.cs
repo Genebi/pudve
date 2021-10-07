@@ -641,6 +641,7 @@ namespace PuntoDeVentaV2
             }
 
             Utilidades.registrarNuevoEmpleadoPermisosConfiguracion(id_empleado);
+            Utilidades.registrarEmpleadosAntiguosPermisosConfiguracion();
         }
 
         public void agregarCamposDinamicosPermisos()

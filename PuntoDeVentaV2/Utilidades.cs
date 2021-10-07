@@ -2850,5 +2850,26 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        public static void registrarEmpleadosAntiguosPermisosConfiguracion()
+        {
+            Conexion cn = new Conexion();
+            Consultas cs = new Consultas();
+            var datos = cn.CargarDatos($"SELECT ID FROM Empleados WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID");
+
+            foreach (DataRow item in datos.Rows)
+            {
+                try
+                {
+                    cn.EjecutarConsulta($"INSERT INTO permisosconfiguracion (IDEmpleado, IDUsuario) VALUES ({item["ID"].ToString()},{FormPrincipal.userID})");
+                }
+                catch (Exception e)
+                {
+
+                    MessageBox.Show(e.Message.ToString());
+                }
+            }
+
+        }
     }
 }

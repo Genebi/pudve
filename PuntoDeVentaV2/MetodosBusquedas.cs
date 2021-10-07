@@ -2471,7 +2471,7 @@ namespace PuntoDeVentaV2
 
             return lista.ToArray();
         }
-
+         
         public int[] PermisosEmpleadoConfiguracion(string concepto, int idEmpleado)
         {
             var lista = new List<int>();
