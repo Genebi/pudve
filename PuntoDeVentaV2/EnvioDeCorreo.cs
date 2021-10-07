@@ -122,68 +122,17 @@ namespace PuntoDeVentaV2
         }
         private void cbCorreoAgregarDineroCaja_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion16.Equals(0))
-            {
-                cbCorreoAgregarDineroCaja.CheckedChanged -= cbCorreoAgregarDineroCaja_CheckedChanged;
-                cbCorreoAgregarDineroCaja.Checked = check16;
-                Utilidades.MensajePermiso();
-                cbCorreoAgregarDineroCaja.CheckedChanged += cbCorreoAgregarDineroCaja_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoAgregarDineroCaja.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoAgregarDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+           
         }
 
         private void cbCorreoRetirarDineroCaja_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion17.Equals(0))
-            {
-                cbCorreoRetirarDineroCaja.CheckedChanged -= cbCorreoRetirarDineroCaja_CheckedChanged;
-                cbCorreoRetirarDineroCaja.Checked = check17;
-                Utilidades.MensajePermiso();
-                cbCorreoRetirarDineroCaja.CheckedChanged += cbCorreoRetirarDineroCaja_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoRetirarDineroCaja.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRetiroDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+           
         }
 
         private void cbCorreoCorteCaja_CheckedChanged(object sender, EventArgs e)
         {
-            if (usuariosPermitidos.Contains(FormPrincipal.userNickName))
-            {
-                if (opcion23.Equals(0))
-                {
-                    cbCorreoCorteCaja.CheckedChanged -= cbCorreoCorteCaja_CheckedChanged;
-                    cbCorreoCorteCaja.Checked = check23;
-                    Utilidades.MensajePermiso();
-                    cbCorreoCorteCaja.CheckedChanged += cbCorreoCorteCaja_CheckedChanged;
-                    return;
-                }
-
-                var habilitado = 0;
-
-                if (cbCorreoCorteCaja.Checked)
-                {
-                    habilitado = 1;
-                }
-
-                cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCorteDeCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-            }
+            
         }
 
         private void cbCorreoCorteCaja_Click(object sender, EventArgs e)
@@ -196,198 +145,988 @@ namespace PuntoDeVentaV2
 
         private void cbCorreoStockMinimo_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion7 == 0)
-            {
-                cbCorreoStockMinimo.CheckedChanged -= cbCorreoStockMinimo_CheckedChanged;
-                cbCorreoStockMinimo.Checked = check7;
-                Utilidades.MensajePermiso();
-                cbCorreoStockMinimo.CheckedChanged += cbCorreoStockMinimo_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoStockMinimo.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoStockMinimo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            
         }
 
         private void cbCorreoStockProducto_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion6 == 0)
-            {
-                cbCorreoStockProducto.CheckedChanged -= cbCorreoStockProducto_CheckedChanged;
-                cbCorreoStockProducto.Checked = check6;
-                Utilidades.MensajePermiso();
-                cbCorreoStockProducto.CheckedChanged += cbCorreoStockProducto_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoStockProducto.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoStockProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            
         }
 
         private void cbCorreoPrecioProducto_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion5 == 0)
-            {
-                cbCorreoPrecioProducto.CheckedChanged -= cbCorreoPrecioProducto_CheckedChanged;
-                cbCorreoPrecioProducto.Checked = check5;
-                Utilidades.MensajePermiso();
-                cbCorreoPrecioProducto.CheckedChanged += cbCorreoPrecioProducto_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoPrecioProducto.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+           
         }
 
         private void cbCorreoVenderProducto_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion8 == 0)
-            {
-                cbCorreoVenderProducto.CheckedChanged -= cbCorreoVenderProducto_CheckedChanged;
-                cbCorreoVenderProducto.Checked = check8;
-                Utilidades.MensajePermiso();
-                cbCorreoVenderProducto.CheckedChanged += cbCorreoVenderProducto_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoVenderProducto.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVentaProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            
         }
 
         private void cbCorreoCerrarVentanaVentas_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion18.Equals(0))
-            {
-                cbCorreoCerrarVentanaVentas.CheckedChanged -= cbCorreoCerrarVentanaVentas_CheckedChanged;
-                cbCorreoCerrarVentanaVentas.Checked = check18;
-                Utilidades.MensajePermiso();
-                cbCorreoCerrarVentanaVentas.CheckedChanged += cbCorreoCerrarVentanaVentas_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoCerrarVentanaVentas.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCerrarVentanaVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+           
         }
 
         private void cbCorreoEliminarListaProductosVentas_CheckedChanged(object sender, EventArgs e)
         {
-            if (opcion22.Equals(0))
-            {
-                cbCorreoEliminarListaProductosVentas.CheckedChanged -= cbCorreoEliminarListaProductosVentas_CheckedChanged;
-                cbCorreoEliminarListaProductosVentas.Checked = check22;
-                Utilidades.MensajePermiso();
-                cbCorreoEliminarListaProductosVentas.CheckedChanged += cbCorreoEliminarListaProductosVentas_CheckedChanged;
-                return;
-            }
-
-            var habilitado = 0;
-
-            if (cbCorreoEliminarListaProductosVentas.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarListaProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarUltimoProductoAgregadoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRestarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+           
         }
 
         private void cbCorreoVenta_CheckedChanged(object sender, EventArgs e)
         {
-            var habilitado = 0;
-
-            if (cbCorreoVenta.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            
         }
 
         private void cbCorreoIniciar_CheckedChanged(object sender, EventArgs e)
         {
-            var habilitado = 0;
-
-            if (cbCorreoIniciar.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoIniciarSesion = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            
         }
 
         private void cbCorreoDescuento_CheckedChanged(object sender, EventArgs e)
         {
-            var habilitado = 0;
-
-            if (cbCorreoDescuento.Checked)
-            {
-                habilitado = 1;
-            }
-
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVentaDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            
         }
 
         private void chRespaldo_CheckedChanged(object sender, EventArgs e)
         {
-            //contadorValidarCambioCheckBoxRespaldo += 1;
-            var habilitado = 0;
 
-            if (chRespaldo.Checked)
-            {
-                habilitado = 1;
-                //if (contadorValidarCambioCheckBoxRespaldo > 0 && chRespaldo.Checked)
-                //{
-                //    EscogerTipoRespaldo tipoRespaldo = new EscogerTipoRespaldo();
-
-                //    tipoRespaldo.ShowDialog();
-
-                //    tipoRespaldo.FormClosed += delegate
-                //    {
-                //        habilitado = EscogerTipoRespaldo.typeBackUp;
-                //    };
-                //}
-            }
-            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void EnvioDeCorreo_Load(object sender, EventArgs e)
         {
             VerificarConfiguracion();
+        }
+
+        private void cbCorreoAgregarDineroCaja_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("AgregarDineroCaja", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+
+                    if (opcion16.Equals(0))
+                    {
+                        cbCorreoAgregarDineroCaja.CheckedChanged -= cbCorreoAgregarDineroCaja_CheckedChanged;
+                        cbCorreoAgregarDineroCaja.Checked = check16;
+                        Utilidades.MensajePermiso();
+                        cbCorreoAgregarDineroCaja.CheckedChanged += cbCorreoAgregarDineroCaja_CheckedChanged;
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    if (cbCorreoAgregarDineroCaja.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoAgregarDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion16.Equals(0))
+                            {
+                                cbCorreoAgregarDineroCaja.CheckedChanged -= cbCorreoAgregarDineroCaja_CheckedChanged;
+                                cbCorreoAgregarDineroCaja.Checked = check16;
+                                Utilidades.MensajePermiso();
+                                cbCorreoAgregarDineroCaja.CheckedChanged += cbCorreoAgregarDineroCaja_CheckedChanged;
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            if (cbCorreoAgregarDineroCaja.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoAgregarDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoAgregarDineroCaja.Checked == true)
+                            {
+                                cbCorreoAgregarDineroCaja.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoAgregarDineroCaja.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbCorreoRetirarDineroCaja_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("RetirarDineroCaja", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion17.Equals(0))
+                    {
+                        cbCorreoRetirarDineroCaja.CheckedChanged -= cbCorreoRetirarDineroCaja_CheckedChanged;
+                        cbCorreoRetirarDineroCaja.Checked = check17;
+                        Utilidades.MensajePermiso();
+                        cbCorreoRetirarDineroCaja.CheckedChanged += cbCorreoRetirarDineroCaja_CheckedChanged;
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    if (cbCorreoRetirarDineroCaja.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRetiroDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion17.Equals(0))
+                            {
+                                cbCorreoRetirarDineroCaja.CheckedChanged -= cbCorreoRetirarDineroCaja_CheckedChanged;
+                                cbCorreoRetirarDineroCaja.Checked = check17;
+                                Utilidades.MensajePermiso();
+                                cbCorreoRetirarDineroCaja.CheckedChanged += cbCorreoRetirarDineroCaja_CheckedChanged;
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            if (cbCorreoRetirarDineroCaja.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRetiroDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoRetirarDineroCaja.Checked == true)
+                            {
+                                cbCorreoRetirarDineroCaja.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoRetirarDineroCaja.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbCorreoCorteCaja_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("HacerCorteCaja", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (usuariosPermitidos.Contains(FormPrincipal.userNickName))
+                    {
+                        if (opcion23.Equals(0))
+                        {
+                            cbCorreoCorteCaja.CheckedChanged -= cbCorreoCorteCaja_CheckedChanged;
+                            cbCorreoCorteCaja.Checked = check23;
+                            Utilidades.MensajePermiso();
+                            cbCorreoCorteCaja.CheckedChanged += cbCorreoCorteCaja_CheckedChanged;
+                            return;
+                        }
+
+                        var habilitado = 0;
+
+                        if (cbCorreoCorteCaja.Checked)
+                        {
+                            habilitado = 1;
+                        }
+
+                        cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCorteDeCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    }
+                    else if (!permisoEmpleado.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow item in permisoEmpleado.Rows)
+                        {
+                            if (item[0].ToString().Equals("1"))
+                            {
+
+                                if (usuariosPermitidos.Contains(FormPrincipal.userNickName))
+                                {
+                                    if (opcion23.Equals(0))
+                                    {
+                                        cbCorreoCorteCaja.CheckedChanged -= cbCorreoCorteCaja_CheckedChanged;
+                                        cbCorreoCorteCaja.Checked = check23;
+                                        Utilidades.MensajePermiso();
+                                        cbCorreoCorteCaja.CheckedChanged += cbCorreoCorteCaja_CheckedChanged;
+                                        return;
+                                    }
+
+                                    var habilitado = 0;
+
+                                    if (cbCorreoCorteCaja.Checked)
+                                    {
+                                        habilitado = 1;
+                                    }
+
+                                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCorteDeCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                                }
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("No tienes permisos para modificar esta opcion");
+                                if (cbCorreoCorteCaja.Checked == true)
+                                {
+                                    cbCorreoCorteCaja.Checked = false;
+                                    return;
+                                }
+                                else
+                                {
+                                    cbCorreoCorteCaja.Checked = true;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No tienes permisos para modificar esta opcion");
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void cbCorreoStockMinimo_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("LlegarStockMinimo", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion7 == 0)
+                    {
+                        cbCorreoStockMinimo.CheckedChanged -= cbCorreoStockMinimo_CheckedChanged;
+                        cbCorreoStockMinimo.Checked = check7;
+                        Utilidades.MensajePermiso();
+                        cbCorreoStockMinimo.CheckedChanged += cbCorreoStockMinimo_CheckedChanged;
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    if (cbCorreoStockMinimo.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoStockMinimo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion7 == 0)
+                            {
+                                cbCorreoStockMinimo.CheckedChanged -= cbCorreoStockMinimo_CheckedChanged;
+                                cbCorreoStockMinimo.Checked = check7;
+                                Utilidades.MensajePermiso();
+                                cbCorreoStockMinimo.CheckedChanged += cbCorreoStockMinimo_CheckedChanged;
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            if (cbCorreoStockMinimo.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoStockMinimo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoStockMinimo.Checked == true)
+                            {
+                                cbCorreoStockMinimo.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoStockMinimo.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbCorreoPrecioProducto_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("ModificarPrecio", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion5 == 0)
+                    {
+                        cbCorreoPrecioProducto.CheckedChanged -= cbCorreoPrecioProducto_CheckedChanged;
+                        cbCorreoPrecioProducto.Checked = check5;
+                        Utilidades.MensajePermiso();
+                        cbCorreoPrecioProducto.CheckedChanged += cbCorreoPrecioProducto_CheckedChanged;
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    if (cbCorreoPrecioProducto.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion5 == 0)
+                            {
+                                cbCorreoPrecioProducto.CheckedChanged -= cbCorreoPrecioProducto_CheckedChanged;
+                                cbCorreoPrecioProducto.Checked = check5;
+                                Utilidades.MensajePermiso();
+                                cbCorreoPrecioProducto.CheckedChanged += cbCorreoPrecioProducto_CheckedChanged;
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            if (cbCorreoPrecioProducto.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoPrecioProducto.Checked == true)
+                            {
+                                cbCorreoPrecioProducto.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoPrecioProducto.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbCorreoStockProducto_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("ModificarStock", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion6 == 0)
+                    {
+                        cbCorreoStockProducto.CheckedChanged -= cbCorreoStockProducto_CheckedChanged;
+                        cbCorreoStockProducto.Checked = check6;
+                        Utilidades.MensajePermiso();
+                        cbCorreoStockProducto.CheckedChanged += cbCorreoStockProducto_CheckedChanged;
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    if (cbCorreoStockProducto.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoStockProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion6 == 0)
+                            {
+                                cbCorreoStockProducto.CheckedChanged -= cbCorreoStockProducto_CheckedChanged;
+                                cbCorreoStockProducto.Checked = check6;
+                                Utilidades.MensajePermiso();
+                                cbCorreoStockProducto.CheckedChanged += cbCorreoStockProducto_CheckedChanged;
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            if (cbCorreoStockProducto.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoStockProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoStockProducto.Checked == true)
+                            {
+                                cbCorreoStockProducto.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoStockProducto.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbCorreoVenderProducto_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("VenderseProducto", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion8 == 0)
+                    {
+                        cbCorreoVenderProducto.CheckedChanged -= cbCorreoVenderProducto_CheckedChanged;
+                        cbCorreoVenderProducto.Checked = check8;
+                        Utilidades.MensajePermiso();
+                        cbCorreoVenderProducto.CheckedChanged += cbCorreoVenderProducto_CheckedChanged;
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    if (cbCorreoVenderProducto.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVentaProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion8 == 0)
+                            {
+                                cbCorreoVenderProducto.CheckedChanged -= cbCorreoVenderProducto_CheckedChanged;
+                                cbCorreoVenderProducto.Checked = check8;
+                                Utilidades.MensajePermiso();
+                                cbCorreoVenderProducto.CheckedChanged += cbCorreoVenderProducto_CheckedChanged;
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            if (cbCorreoVenderProducto.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVentaProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoVenderProducto.Checked == true)
+                            {
+                                cbCorreoVenderProducto.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoVenderProducto.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbCorreoCerrarVentanaVentas_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("CerrarVentanaVentasCuandoSeTienenProductos", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion18.Equals(0))
+                    {
+                        cbCorreoCerrarVentanaVentas.CheckedChanged -= cbCorreoCerrarVentanaVentas_CheckedChanged;
+                        cbCorreoCerrarVentanaVentas.Checked = check18;
+                        Utilidades.MensajePermiso();
+                        cbCorreoCerrarVentanaVentas.CheckedChanged += cbCorreoCerrarVentanaVentas_CheckedChanged;
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    if (cbCorreoCerrarVentanaVentas.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCerrarVentanaVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion18.Equals(0))
+                            {
+                                cbCorreoCerrarVentanaVentas.CheckedChanged -= cbCorreoCerrarVentanaVentas_CheckedChanged;
+                                cbCorreoCerrarVentanaVentas.Checked = check18;
+                                Utilidades.MensajePermiso();
+                                cbCorreoCerrarVentanaVentas.CheckedChanged += cbCorreoCerrarVentanaVentas_CheckedChanged;
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            if (cbCorreoCerrarVentanaVentas.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoCerrarVentanaVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoCerrarVentanaVentas.Checked == true)
+                            {
+                                cbCorreoCerrarVentanaVentas.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoCerrarVentanaVentas.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbCorreoEliminarListaProductosVentas_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("EliminarProductosVentas", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    if (opcion22.Equals(0))
+                    {
+                        cbCorreoEliminarListaProductosVentas.CheckedChanged -= cbCorreoEliminarListaProductosVentas_CheckedChanged;
+                        cbCorreoEliminarListaProductosVentas.Checked = check22;
+                        Utilidades.MensajePermiso();
+                        cbCorreoEliminarListaProductosVentas.CheckedChanged += cbCorreoEliminarListaProductosVentas_CheckedChanged;
+                        return;
+                    }
+
+                    var habilitado = 0;
+
+                    if (cbCorreoEliminarListaProductosVentas.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarListaProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarUltimoProductoAgregadoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRestarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            if (opcion22.Equals(0))
+                            {
+                                cbCorreoEliminarListaProductosVentas.CheckedChanged -= cbCorreoEliminarListaProductosVentas_CheckedChanged;
+                                cbCorreoEliminarListaProductosVentas.Checked = check22;
+                                Utilidades.MensajePermiso();
+                                cbCorreoEliminarListaProductosVentas.CheckedChanged += cbCorreoEliminarListaProductosVentas_CheckedChanged;
+                                return;
+                            }
+
+                            var habilitado = 0;
+
+                            if (cbCorreoEliminarListaProductosVentas.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarListaProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoEliminarUltimoProductoAgregadoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRestarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoEliminarListaProductosVentas.Checked == true)
+                            {
+                                cbCorreoEliminarListaProductosVentas.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoEliminarListaProductosVentas.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbCorreoVenta_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("HacerVenta", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    if (cbCorreoVenta.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            if (cbCorreoVenta.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoVenta.Checked == true)
+                            {
+                                cbCorreoVenta.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoVenta.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbCorreoIniciar_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("IniciarSesion", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    if (cbCorreoIniciar.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoIniciarSesion = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            if (cbCorreoIniciar.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoIniciarSesion = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoIniciar.Checked == true)
+                            {
+                                cbCorreoIniciar.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoIniciar.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void cbCorreoDescuento_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("HacerVentaDescuento", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    if (cbCorreoDescuento.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVentaDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            if (cbCorreoDescuento.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVentaDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbCorreoDescuento.Checked == true)
+                            {
+                                cbCorreoDescuento.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbCorreoDescuento.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void chRespaldo_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("EviarRespaldoCerrarSesion", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    //contadorValidarCambioCheckBoxRespaldo += 1;
+                    var habilitado = 0;
+
+                    if (chRespaldo.Checked)
+                    {
+                        habilitado = 1;
+                        //if (contadorValidarCambioCheckBoxRespaldo > 0 && chRespaldo.Checked)
+                        //{
+                        //    EscogerTipoRespaldo tipoRespaldo = new EscogerTipoRespaldo();
+
+                        //    tipoRespaldo.ShowDialog();
+
+                        //    tipoRespaldo.FormClosed += delegate
+                        //    {
+                        //        habilitado = EscogerTipoRespaldo.typeBackUp;
+                        //    };
+                        //}
+                    }
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            //contadorValidarCambioCheckBoxRespaldo += 1;
+                            var habilitado = 0;
+
+                            if (chRespaldo.Checked)
+                            {
+                                habilitado = 1;
+                                //if (contadorValidarCambioCheckBoxRespaldo > 0 && chRespaldo.Checked)
+                                //{
+                                //    EscogerTipoRespaldo tipoRespaldo = new EscogerTipoRespaldo();
+
+                                //    tipoRespaldo.ShowDialog();
+
+                                //    tipoRespaldo.FormClosed += delegate
+                                //    {
+                                //        habilitado = EscogerTipoRespaldo.typeBackUp;
+                                //    };
+                                //}
+                            }
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (chRespaldo.Checked == true)
+                            {
+                                chRespaldo.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                chRespaldo.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
         }
     }
 }

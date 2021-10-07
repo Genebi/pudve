@@ -83,6 +83,7 @@
             this.chkCerrarSesionCorte.Text = "Cerrar sesion al hacer corte de caja";
             this.chkCerrarSesionCorte.UseVisualStyleBackColor = true;
             this.chkCerrarSesionCorte.CheckedChanged += new System.EventHandler(this.chkCerrarSesionCorte_CheckedChanged);
+            this.chkCerrarSesionCorte.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkCerrarSesionCorte_MouseClick);
             // 
             // chTicketVentas
             // 
@@ -96,6 +97,7 @@
             this.chTicketVentas.Text = "Generar ticket al realizar ventas";
             this.chTicketVentas.UseVisualStyleBackColor = true;
             this.chTicketVentas.CheckedChanged += new System.EventHandler(this.chTicketVentas_CheckedChanged);
+            this.chTicketVentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chTicketVentas_MouseClick);
             // 
             // checkCBVenta
             // 
@@ -108,6 +110,7 @@
             this.checkCBVenta.Text = "Código de barras ticket de venta";
             this.checkCBVenta.UseVisualStyleBackColor = true;
             this.checkCBVenta.CheckedChanged += new System.EventHandler(this.checkCBVenta_CheckedChanged);
+            this.checkCBVenta.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkCBVenta_MouseClick);
             // 
             // pagWeb
             // 
@@ -120,6 +123,7 @@
             this.pagWeb.Text = "Habilitar información en página web";
             this.pagWeb.UseVisualStyleBackColor = true;
             this.pagWeb.CheckedChanged += new System.EventHandler(this.pagWeb_CheckedChanged);
+            this.pagWeb.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pagWeb_MouseClick);
             // 
             // label3
             // 
@@ -144,6 +148,7 @@
             this.cbMostrarCB.Text = "Mostrar código de productos en ventas";
             this.cbMostrarCB.UseVisualStyleBackColor = true;
             this.cbMostrarCB.CheckedChanged += new System.EventHandler(this.cbMostrarCB_CheckedChanged);
+            this.cbMostrarCB.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbMostrarCB_MouseClick);
             // 
             // label2
             // 
@@ -169,6 +174,7 @@
             this.cbMostrarPrecio.Text = "Mostrar precio de productos en ventas";
             this.cbMostrarPrecio.UseVisualStyleBackColor = true;
             this.cbMostrarPrecio.CheckedChanged += new System.EventHandler(this.cbMostrarPrecio_CheckedChanged);
+            this.cbMostrarPrecio.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbMostrarPrecio_MouseClick);
             // 
             // txtNoVendidos
             // 
@@ -194,6 +200,7 @@
             this.cbStockNegativo.Text = "Permitir Stock negativo";
             this.cbStockNegativo.UseVisualStyleBackColor = true;
             this.cbStockNegativo.CheckedChanged += new System.EventHandler(this.cbStockNegativo_CheckedChanged);
+            this.cbStockNegativo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbStockNegativo_MouseClick);
             // 
             // checkNoVendidos
             // 
@@ -209,6 +216,7 @@
             this.checkNoVendidos.UseVisualStyleBackColor = true;
             this.checkNoVendidos.CheckedChanged += new System.EventHandler(this.checkNoVendidos_CheckedChanged);
             this.checkNoVendidos.Click += new System.EventHandler(this.checkNoVendidos_Click);
+            this.checkNoVendidos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkNoVendidos_MouseClick);
             // 
             // checkMayoreo
             // 
@@ -224,6 +232,7 @@
             this.checkMayoreo.UseVisualStyleBackColor = true;
             this.checkMayoreo.CheckedChanged += new System.EventHandler(this.checkMayoreo_CheckedChanged);
             this.checkMayoreo.Click += new System.EventHandler(this.checkMayoreo_Click);
+            this.checkMayoreo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkMayoreo_MouseClick);
             // 
             // label1
             // 

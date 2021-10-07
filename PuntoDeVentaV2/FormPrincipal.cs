@@ -36,6 +36,7 @@ namespace PuntoDeVentaV2
         public static string[] datosUsuario = new string[] { };
         private bool cerrarAplicacion = false;
         public static int condicionarMensaje = 0;
+        public static int idUsuarioPermisosParaConfiguracion = 0;
 
         IEnumerable<Ventas> FormVenta = Application.OpenForms.OfType<Ventas>();//Revisar esta linea
 
@@ -638,6 +639,8 @@ namespace PuntoDeVentaV2
             {
                 cn.EjecutarConsulta($"INSERT INTO editarticket (IDUsuario,MensajeTicket,Usuario,Direccion,ColyCP,RFC,Correo,Telefono,NombreC,DomicilioC,RFCC,CorreoC,TelefonoC,ColyCPC,FormaPagoC,logo) VALUES ('{FormPrincipal.userID}','Hola Mundo','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
             }
+
+            Utilidades.registrarNuevoEmpleadoPermisosConfiguracion(id_empleado);
         }
 
         public void agregarCamposDinamicosPermisos()
@@ -1425,8 +1428,8 @@ namespace PuntoDeVentaV2
             {
                 var datosEmpleado = mb.obtener_permisos_empleado(id_empleado, userID);
 
-                string nombreEmpleado = datosEmpleado[14];
-                string usuarioEmpleado = datosEmpleado[15];
+                string nombreEmpleado = datosEmpleado[15];//se aumento la posicion en +1(por si da error)
+                string usuarioEmpleado = datosEmpleado[16];//se aumento la posicion en +1(por si da error)
 
                 var infoEmpleado = usuarioEmpleado.Split('@');
 

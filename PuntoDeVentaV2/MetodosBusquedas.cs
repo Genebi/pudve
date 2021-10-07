@@ -2446,6 +2446,12 @@ namespace PuntoDeVentaV2
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("claveProducto"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("claveUnidad"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("correos"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("editarTicket"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("EnvioCorreo"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("confiGeneral"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("porcentajeGanancia"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("tipoMoneda"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("RespaldarInfo"))));
                 using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                 {
 
@@ -2466,6 +2472,28 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public int[] PermisosEmpleadoConfiguracion(string concepto, int idEmpleado)
+        {
+            var lista = new List<int>();
+
+            DatosConexion($"SELECT {concepto} FROM permisosconfiguracion WHERE IDEmpleado = {idEmpleado} AND IDUsuario = {FormPrincipal.userID}");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var datosLista = concepto.Split(',');
+                foreach (var item in datosLista)
+                {
+                    lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(item.Trim()))));
+                }
+                //lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CodigoBarrasTicketVenta"))));
+            }
+            dr.Close();
+            CerrarConexion();
+
+            return lista.ToArray();
+        }
         public int obtener_id_empleado(int id_venta)
         {
             int id_empleado = 0;

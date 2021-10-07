@@ -12,12 +12,15 @@ namespace PuntoDeVentaV2
 {
     public partial class SeccionPermisos : Form
     {
-        Conexion cn = new Conexion(); 
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private string seccion = string.Empty;
         private int id_empleado = 0;
         private string[] secciones;
+        private string[] datosUpdate;
+        int contador = 0;
 
         public SeccionPermisos(string seccion, int id_empleado)
         {
@@ -101,7 +104,7 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(50, 200, 150, "Mostrar en Lista", datos[3]);
             //=============================================================
             GenerarCheckbox(70, 35, 150, "Botón Asignar", datos[4]);
-            Generarbutton(70, 10, 20, 20);
+            Generarbutton(70, 10, 20, 20,"");
             GenerarCheckbox(70, 200, 150, "Mostrar en Mosaico", datos[5]);
             //=============================================================
             GenerarCheckbox(90, 35, 150, "Botón Etiqueta", datos[6]);
@@ -186,28 +189,45 @@ namespace PuntoDeVentaV2
 
             GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
 
-            GenerarCheckbox(30, 20, 150, "Guardar Servidor", datos[0]);
-            GenerarCheckbox(30, 180, 150, "Número de Revisión", datos[1]);
+            ////GenerarCheckbox(30, 20, 150, "Guardar Servidor", datos[0]);
+            ////GenerarCheckbox(30, 180, 150, "Número de Revisión", datos[1]);
+            //////=============================================================
+            ////GenerarCheckbox(50, 20, 150, "Porcentaje Ganancia", datos[2]);
+            ////GenerarCheckbox(50, 180, 150, "Respaldar Información", datos[3]);
+            //////=============================================================
+            ////GenerarCheckbox(80, 20, 150, "Correo Modificar Precio", datos[4]);
+            ////GenerarCheckbox(80, 180, 150, "Correo Modificar Stock", datos[5]);
+            //////=============================================================
+            ////GenerarCheckbox(110, 20, 150, "Correo Stock Mínimo", datos[6]);
+            ////GenerarCheckbox(110, 180, 150, "Correo Vender Producto", datos[7]);
+            //////=============================================================
+            ////GenerarCheckbox(140, 20, 150, "Permitir Stock Negativo", datos[8]);
+            ////GenerarCheckbox(140, 180, 150, "Código Barras Ticket", datos[9]);
+            //////=============================================================
+            ////GenerarCheckbox(170, 20, 150, "Información Página Web", datos[10]);
+            ////GenerarCheckbox(170, 180, 150, "Precio Productos Ventas", datos[11]);
+            //////=============================================================
+            ////GenerarCheckbox(200, 20, 150, "Código Producto Venta", datos[12]);
+            ////GenerarCheckbox(200, 180, 150, "Precio Mayoreo Ventas", datos[13]);
+            //////=============================================================
+            ////GenerarCheckbox(230, 20, 150, "Producto No Vendido", datos[14]);
+
+            GenerarCheckbox(70, 35, 150, "Editar Ticket", datos[35]);
             //=============================================================
-            GenerarCheckbox(50, 20, 150, "Porcentaje Ganancia", datos[2]);
-            GenerarCheckbox(50, 180, 150, "Respaldar Información", datos[3]);
+            Generarbutton(40, 185, 20, 20,"envioCorreo");
+            GenerarCheckbox(40, 210, 150, "Envio de Correo", datos[36]);
             //=============================================================
-            GenerarCheckbox(80, 20, 150, "Correo Modificar Precio", datos[4]);
-            GenerarCheckbox(80, 180, 150, "Correo Modificar Stock", datos[5]);
+            Generarbutton(40, 10, 20, 20,"configuracionGeneral");
+            GenerarCheckbox(40, 35, 150, "Configuracion General", datos[37]);
             //=============================================================
-            GenerarCheckbox(110, 20, 150, "Correo Stock Mínimo", datos[6]);
-            GenerarCheckbox(110, 180, 150, "Correo Vender Producto", datos[7]);
+            GenerarCheckbox(70, 210, 150, "Porcentaje de Ganancia", datos[38]);
             //=============================================================
-            GenerarCheckbox(140, 20, 150, "Permitir Stock Negativo", datos[8]);
-            GenerarCheckbox(140, 180, 150, "Código Barras Ticket", datos[9]);
+            GenerarCheckbox(100, 35, 150, "Tipo de Moneda", datos[39]);
             //=============================================================
-            GenerarCheckbox(170, 20, 150, "Información Página Web", datos[10]);
-            GenerarCheckbox(170, 180, 150, "Precio Productos Ventas", datos[11]);
-            //=============================================================
-            GenerarCheckbox(200, 20, 150, "Código Producto Venta", datos[12]);
-            GenerarCheckbox(200, 180, 150, "Precio Mayoreo Ventas", datos[13]);
-            //=============================================================
-            GenerarCheckbox(230, 20, 150, "Producto No Vendido", datos[14]);
+            GenerarCheckbox(100, 210, 150, "Respaldar Informacion", datos[40]);
+
+            seccion = "Configuracion";
+            datosUpdate = new string[] { "editarTicket","EnvioCorreo","confiGeneral","porcentajeGanancia","tipoMoneda", "RespaldarInfo" };
         }
 
         private void GenerarCaja()
@@ -367,13 +387,14 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void Generarbutton(int top, int left, int alto,int ancho)
+        private void Generarbutton(int top, int left, int alto,int ancho,string nombreButton)
         {
             var button = new Button();
             button.Top = top;
             button.Left = left;
             button.Height = alto;
             button.Width = ancho;
+            button.Name = nombreButton;
             button.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
             button.Click += new EventHandler(btClick);
             panelContenedor.Controls.Add(button);
@@ -403,7 +424,19 @@ namespace PuntoDeVentaV2
         {
             foreach (var apartado in secciones)
             {
-                if (seccion.Equals(apartado))
+                if (seccion.Equals("Configuracion"))
+                {
+                    var datos = PermisosElegidos();
+
+                    foreach (var opcion in datos)
+                    {
+                        string dato = datosUpdate[contador].ToString();
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET {dato} = {opcion} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} ");
+                        contador++;
+                    }
+                    contador = 0;
+                }
+                if (seccion.Equals(apartado) && !seccion.Equals("Configuracion"))
                 {
                     var datos = PermisosElegidos();
                     var numero = 1;
@@ -448,7 +481,6 @@ namespace PuntoDeVentaV2
              }
             return opciones.ToArray();
         }
-
         //private void GenerarPermisos()
         //{
         //    Text = "PUDVE - Permisos Asignar";
@@ -474,8 +506,54 @@ namespace PuntoDeVentaV2
 
         private void btClick(object sender, EventArgs e)
         {
-            Permisos_Asignar asig = new Permisos_Asignar("Permisos", id_empleado);
-            asig.Show();
+            PermisosDinamicosConfiguracion permisos = new PermisosDinamicosConfiguracion();
+            Text = "PUDVE - Permisos Asignar Ticket";
+            //Permisos_Asignar asig = new Permisos_Asignar("Permisos", id_empleado);
+            //asig.Show();
+            Button btnSeleccionado = (Button)sender;
+            var nombreBoton = btnSeleccionado.Name.ToString();
+
+
+            //if (nombreBoton == "editarTicket")
+            //{
+            //    //condicion permisos
+            //   var dato = cn.CargarDatos($"SELECT editarTicket FROM EmpleadosPermisos WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.idUsuarioPermisosParaConfiguracion} AND Seccion = '{nombreBoton}'");
+            //    if (true)
+            //    {
+
+            //    }
+            //    permisos.tipoPermisos = nombreBoton;
+            //    permisos.ShowDialog();
+            //}
+            if (nombreBoton == "envioCorreo")
+            {
+                
+                permisos.tipoPermisos = nombreBoton;
+                permisos.ShowDialog();
+            }
+            if (nombreBoton == "configuracionGeneral")
+            {
+                permisos.tipoPermisos = nombreBoton;
+                permisos.ShowDialog();
+            }
+            //if (nombreBoton == "porcentageGanancia")
+            //{
+            //    //condicion permisos
+            //    permisos.tipoPermisos = nombreBoton;
+            //    permisos.ShowDialog();
+            //}
+            //if (nombreBoton == "tipoMoneda")
+            //{
+            //    //condicion permisos
+            //    permisos.tipoPermisos = nombreBoton;
+            //    permisos.ShowDialog();
+            //}
+            //if (nombreBoton == "respaldarInformacion")
+            //{
+            //    //condicion permisos
+            //    permisos.tipoPermisos = nombreBoton;
+            //    permisos.ShowDialog();
+            //}
         }
     }
 }

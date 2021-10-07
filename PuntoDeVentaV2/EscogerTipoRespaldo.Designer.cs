@@ -122,7 +122,6 @@
             this.Name = "EscogerTipoRespaldo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EscogerTipoRespaldo";
-            this.Load += new System.EventHandler(this.EscogerTipoRespaldo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

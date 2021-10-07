@@ -820,6 +820,8 @@ namespace PuntoDeVentaV2
             {
                 cons = "INSERT INTO Empleados (IDUsuario, nombre, usuario, contrasena)";
                 cons += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}')";
+
+
             }
 
             // Ajustar permisos
@@ -2632,5 +2634,25 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string PermisosConfiguracionEmpleados(int idEmpleado)
+        {
+            var consulta = $"SELECT IDEmpleado from permisosconfiguracion WHERE IDEmpleado = {idEmpleado}";
+            return consulta;
+        }
+
+        public string permisosEmpleado(string datosPermisos, int id_empleado)
+        {
+            var consulta = $"SELECT {datosPermisos} FROM permisosconfiguracion WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID}";
+            return consulta;
+        }
+
+        public string PermisosEmpleadosSetupPudve(int idEmpleado, string dato)
+        {
+            var consulta = $"SELECT {dato} from empleadospermisos WHERE IDEmpleado = {idEmpleado} AND Seccion = 'Configuracion'";
+            return consulta;
+        }
+
+
     }
 }  

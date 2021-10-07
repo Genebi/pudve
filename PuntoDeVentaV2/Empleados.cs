@@ -190,6 +190,7 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    FormPrincipal.id_empleado = Convert.ToInt32(dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString());
                     Agregar_empleado_permisos permisos = new Agregar_empleado_permisos(id_empleado);
 
                     permisos.ShowDialog();

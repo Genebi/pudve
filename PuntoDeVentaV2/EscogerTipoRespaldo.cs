@@ -22,11 +22,6 @@ namespace PuntoDeVentaV2
             this.Text = "Escoger tipo de respaldo";
         }
 
-        private void EscogerTipoRespaldo_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnGuadar_Click(object sender, EventArgs e)
         {
             var tipoRespaldo = 0;
