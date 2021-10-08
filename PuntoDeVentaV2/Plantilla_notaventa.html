@@ -25,17 +25,17 @@
             <b>Régimen:</b> @Model.Emisor.RegimenFiscal <br />
 
             @if(Model.Emisor.DomicilioEmisor != ""){
-                <span class="saltos"><b>Domicilio:</b> @Model.Emisor.DomicilioEmisor</span><br />
+            <span class="saltos"><b>Domicilio:</b> @Model.Emisor.DomicilioEmisor</span><br />
             }
 
             @if(Model.Emisor.Correo != "" | Model.Emisor.Telefono != ""){
 
-                if(Model.Emisor.Correo != ""){
-                    <span>Correo:</span> @Model.Emisor.Correo <span>&nbsp;</span>
-                }
-                if(Model.Emisor.Telefono != ""){
-                    <span>Tel.:</span> @Model.Emisor.Telefono
-                }
+            if(Model.Emisor.Correo != ""){
+            <span>Correo:</span> @Model.Emisor.Correo <span>&nbsp;</span>
+            }
+            if(Model.Emisor.Telefono != ""){
+            <span>Tel.:</span> @Model.Emisor.Telefono
+            }
             }
         </div>
 
@@ -57,10 +57,10 @@
                 </tr>
                 <tr>
                     @if(Model.LugarExpedicion != ""){
-                        <td>@Model.LugarExpedicion</td>
+                    <td>@Model.LugarExpedicion</td>
                     }
                     else{
-                        <td style="text-align: center;">--</td>
+                    <td style="text-align: center;">--</td>
                     }
                 </tr>
             </table>
@@ -73,48 +73,47 @@
 
 
     <!-- RECEPTOR -->
-
     @if(Model.Receptor != null){
-        
-        <div class="txt-tipo-letra" style="width: 100%; margin-top: 1em; line-height: 1.4; font-size: .94em;">
-            @Model.Receptor.Nombre<br />
 
-            @if(Model.Receptor.Rfc != ""){
-                <b>RFC:</b> @Model.Receptor.Rfc<br />
-            }
-            
-            @if(Model.Receptor.DomicilioReceptor != ""){
-                <span>Domicilio:</span>
-                <span class="saltos">@Model.Receptor.DomicilioReceptor</span><br />
-            }
+    <div class="txt-tipo-letra" style="width: 100%; margin-top: 1em; line-height: 1.4; font-size: .94em;">
+        @Model.Receptor.Nombre<br />
 
-            @if(Model.Receptor.Correo != "" | Model.Receptor.Telefono != ""){
+        @if(Model.Receptor.Rfc != ""){
+        <b>RFC:</b> @Model.Receptor.Rfc<br />
+        }
 
-                if(Model.Receptor.Correo != ""){
-                    <span>Correo:</span> @Model.Receptor.Correo <span>&nbsp; &nbsp;</span>
-                }
-                if(Model.Receptor.Telefono != ""){
-                    <span>Teléfono:</span> @Model.Receptor.Telefono
-                }
-                
-                if(@Model.FormaPago != ""){
-                    <span>&nbsp; &nbsp;</span> <b>Forma pago:</b> @Model.FormaPago
-                }
-            }
-        </div>
+        @if(Model.Receptor.DomicilioReceptor != ""){
+        <span>Domicilio:</span>
+        <span class="saltos">@Model.Receptor.DomicilioReceptor</span><br />
+        }
 
-        <div style="clear: both;"></div>
+        @if(Model.Receptor.Correo != "" | Model.Receptor.Telefono != ""){
+
+        if(Model.Receptor.Correo != ""){
+        <span>Correo:</span> @Model.Receptor.Correo <span>&nbsp; &nbsp;</span>
+        }
+        if(Model.Receptor.Telefono != ""){
+        <span>Teléfono:</span> @Model.Receptor.Telefono
+        }
+
+        if(@Model.FormaPago != ""){
+        <span>&nbsp; &nbsp;</span> <b>Forma pago:</b> @Model.FormaPago
+        }
+        }
+    </div>
+
+    <div style="clear: both;"></div>
     }
 
     <!-- Forma de Pago -->
-
-    @if(Model.FormaPago != "" && Model.Receptor == null){
-        <span class="negritas">Forma de pago:</span>
-        <span class="saltos">@Model.FormaPago</span>
+    <!-- && Model.Receptor == null -->
+    @if(Model.FormaPago != ""){
+    <span class="negritas">Forma de pago:</span>
+    <span class="saltos">@Model.FormaPago</span>
     }
     else if(Model.Anticipo != 0M){
-        <span class="negritas">Forma de pago:</span>
-        <span class="saltos">Anticipo</span>
+    <span class="negritas">Forma de pago:</span>
+    <span class="saltos">Anticipo</span>
     }
     <br />
     <br />
@@ -131,60 +130,59 @@
     <div>
         <table width="850" class="tab_conceptos txt-tipo-letra" align="center">
             @if(Model.Descuento == 0M){
-                <tr>
-                    <th width="55">Cantidad</th>
-                    <th width="375">Descripción</th>
-                    <th width="80">P/U</th>
-                    <th width="90">Importe</th>
-                </tr>
+            <tr>
+                <th width="55">Cantidad</th>
+                <th width="375">Descripción</th>
+                <th width="80">P/U</th>
+                <th width="90">Importe</th>
+            </tr>
             }
             else{
-                <tr>
-                    <th width="55">Cantidad</th>
-                    <th width="345">Descripción</th>
-                    <th width="75">P/U</th>
-                    <th width="85">Importe</th>
-                    <th width="40">Descuento</th>
-                </tr>
+            <tr>
+                <th width="55">Cantidad</th>
+                <th width="345">Descripción</th>
+                <th width="75">P/U</th>
+                <th width="85">Importe</th>
+                <th width="40">Descuento</th>
+            </tr>
             }
 
             @foreach(var concepto in Model.Conceptos){
 
-                <tr>
-                    <td>@concepto.Cantidad</td>
-                    <td>@concepto.Descripcion</td>
-                    <td>@dos_decimales(@concepto.ValorUnitario)</td>
-                    <td>@dos_decimales(@concepto.Importe)</td>
+            <tr>
+                <td>@concepto.Cantidad</td>
+                <td>@concepto.Descripcion</td>
+                <td>@dos_decimales(@concepto.ValorUnitario)</td>
+                <td>@dos_decimales(@concepto.Importe)</td>
 
-                    @if(Model.Descuento != 0M){
-                        <td>
-                            @dos_decimales(@concepto.Descuento)
+                @if(Model.Descuento != 0M){
+                <td>
+                    @dos_decimales(@concepto.Descuento)
 
-                            @if(concepto.PorcentajeDescuento != "" & concepto.PorcentajeDescuento != null){
-                                <span> - </span> @concepto.PorcentajeDescuento 
-                            }
-                        </td>
+                    @if(concepto.PorcentajeDescuento != "" & concepto.PorcentajeDescuento != null){
+                    <span> - </span> @concepto.PorcentajeDescuento
                     }
-                </tr>
-                
-                <!-- Obtención de los impuestos -->
-
-                if(concepto.Impuestos != null){
-                    if(concepto.Impuestos.Traslados != null){
-                        foreach(var i_traslado in concepto.Impuestos.Traslados){
-
-                            guarda_traslados(@i_traslado.Impuesto, @i_traslado.TipoFactor, @i_traslado.TasaOCuota, @i_traslado.Importe);
-                        }
-                    }
+                </td>
                 }
+            </tr>
+
+            <!-- Obtención de los impuestos -->
+            if(concepto.Impuestos != null){
+            if(concepto.Impuestos.Traslados != null){
+            foreach(var i_traslado in concepto.Impuestos.Traslados){
+
+            guarda_traslados(@i_traslado.Impuesto, @i_traslado.TipoFactor, @i_traslado.TasaOCuota, @i_traslado.Importe);
+            }
+            }
+            }
             }
 
-            
+
             @if(Model.Descuento != 0M){
-                <tr><td colspan="5" class="blanco">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</td></tr>
+            <tr><td colspan="5" class="blanco">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</td></tr>
             }
             else{
-                <tr><td colspan="4" class="blanco">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</td></tr>
+            <tr><td colspan="4" class="blanco">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</td></tr>
             }
 
             <tr>
@@ -200,7 +198,7 @@
                 <td></td>
                 <td></td>
                 @if(Model.Descuento != 0M){
-                    <td></td>
+                <td></td>
                 }
             </tr>
             <tr>
@@ -209,17 +207,17 @@
                 <td>@dos_decimales(@Model.SubTotal)</td>
 
                 @if(Model.Descuento != 0M){
-                    <td></td>
+                <td></td>
                 }
             </tr>
 
             @if(Model.Descuento != 0M){
-                <tr>
-                    <td colspan="2"></td>
-                    <td class="negritas">Descuento</td>
-                    <td></td>
-                    <td>@dos_decimales(@Model.Descuento)</td>
-                </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td class="negritas">Descuento</td>
+                <td></td>
+                <td>@dos_decimales(@Model.Descuento)</td>
+            </tr>
             }
             @if(Model.Anticipo != 0M){
             <tr>
@@ -228,26 +226,26 @@
                 <td>@dos_decimales(@Model.Anticipo)</td>
 
                 @if(Model.Descuento != 0M){
-                    <td></td>
+                <td></td>
                 }
             </tr>
             }
-            
+
             @if(cant_list > 0){
-                while(l < cant_list){
+            while(l < cant_list){
 
-                    <tr>
-                        <td colspan="2" align="right">@im_traslados(l, 1)</td>
-                        <td>@im_traslados(l, 2)</td>
-                        <td>@im_traslados(l + 1, 3)</td>
+            <tr>
+                <td colspan="2" align="right">@im_traslados(l, 1)</td>
+                <td>@im_traslados(l, 2)</td>
+                <td>@im_traslados(l + 1, 3)</td>
 
-                        @if(Model.Descuento != 0M){
-                            <td></td>
-                        }
-                    </tr>
-
-                    l += 2;
+                @if(Model.Descuento != 0M){
+                <td></td>
                 }
+            </tr>
+
+            l += 2;
+            }
             }
 
             <tr>
@@ -255,10 +253,10 @@
                 <td class="negritas">TOTAL</td>
 
                 @if(Model.Descuento != 0M){
-                    <td colspan="2" align="right">@dos_decimales(@Model.Total)</td>
+                <td colspan="2" align="right">@dos_decimales(@Model.Total)</td>
                 }
                 else{
-                    <td>@dos_decimales(@Model.Total)</td>
+                <td>@dos_decimales(@Model.Total)</td>
                 }
             </tr>
 
