@@ -89,16 +89,16 @@
 
         @if(Model.Receptor.Correo != "" | Model.Receptor.Telefono != ""){
 
-        if(Model.Receptor.Correo != ""){
-        <span>Correo:</span> @Model.Receptor.Correo <span>&nbsp; &nbsp;</span>
-        }
-        if(Model.Receptor.Telefono != ""){
-        <span>Teléfono:</span> @Model.Receptor.Telefono
+            if(Model.Receptor.Correo != ""){
+            <span>Correo:</span> @Model.Receptor.Correo <span>&nbsp; &nbsp;</span>
+            }
+            if(Model.Receptor.Telefono != ""){
+            <span>Teléfono:</span> @Model.Receptor.Telefono
+            }
         }
 
-        if(@Model.FormaPago != ""){
-        <span>&nbsp; &nbsp;</span> <b>Forma pago:</b> @Model.FormaPago
-        }
+        @if(@Model.FormaPago != ""){
+        <br><b>Forma pago:</b> @Model.FormaPago
         }
     </div>
 
@@ -106,8 +106,7 @@
     }
 
     <!-- Forma de Pago -->
-    <!-- && Model.Receptor == null -->
-    @if(Model.FormaPago != ""){
+    @if(Model.FormaPago != "" && Model.Receptor == null){
     <span class="negritas">Forma de pago:</span>
     <span class="saltos">@Model.FormaPago</span>
     }
