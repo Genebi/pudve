@@ -68,7 +68,7 @@ namespace PuntoDeVentaV2
                 string password = txtPassword.Text;
                 string password2 = txtPassword2.Text;
                 string razonSocial = txtRazonSocial.Text;
-                string email = txtEmail.Text;
+                string email = txtEmail.Text.Trim().Replace(" ","");
                 string telefono = txtTelefono.Text;
                 string fechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -416,7 +416,7 @@ namespace PuntoDeVentaV2
 
             if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back && !char.IsDigit(e.KeyChar))
             {
-                MessageBox.Show("Solo se permiten letras y numeros!", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Solo se permiten letras y numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 e.Handled = true;
                 return;
             }

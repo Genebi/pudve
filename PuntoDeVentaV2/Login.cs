@@ -581,7 +581,7 @@ namespace PuntoDeVentaV2
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
             Registro ventanaRegistro = new Registro();
-
+        
             this.Hide();
 
             ventanaRegistro.ShowDialog();
