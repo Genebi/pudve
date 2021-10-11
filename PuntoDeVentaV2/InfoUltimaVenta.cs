@@ -53,6 +53,7 @@ namespace PuntoDeVentaV2
             lbCambioTexto.Text = resultado;
 
             SendKeys.Send("{TAB}");
+            SendKeys.Send("{TAB}");
 
         }
 

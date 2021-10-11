@@ -102,8 +102,6 @@ namespace PuntoDeVentaV2
                 var permisosConfiguracion = String.Join(", ",datos);
                 var permisos = mb.PermisosEmpleadoConfiguracion(permisosConfiguracion,FormPrincipal.id_empleado);
 
-
-
                 GenerarCheckbox(10, 10, 200, "Codigo de barras ticet\nventa", permisos[0]);
                 GenerarCheckbox(10, 220, 200, "Habilitar informacion en\npagina web", permisos[1]);
 
@@ -155,7 +153,8 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(10, 10, 200, "Respaldar Informacion", permisos[0]);
             }
 
-            secciones = new string[] {
+            secciones = new string[] 
+            {
                 "Editar Tickt", "Envio de Correo", "Configuracion General", "Porcentaje de Ganancia",
                 "Tipo de Moneda", "Respaldo de Informacion"
             };

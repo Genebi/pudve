@@ -2865,7 +2865,6 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception e)
                 {
-
                     MessageBox.Show(e.Message.ToString());
                 }
             }

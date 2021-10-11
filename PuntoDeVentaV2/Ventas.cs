@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Drawing;
 using System.Windows.Forms;
 using iTextSharp.text;
@@ -14,7 +13,6 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.Threading;
 using static System.Windows.Forms.DataGridView;
-using System.Drawing.Drawing2D;
 using System.IO.Ports;
 
 namespace PuntoDeVentaV2
@@ -317,8 +315,6 @@ namespace PuntoDeVentaV2
             iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
         }
-
-
 
         private void BuscarTieneFoco(object sender, EventArgs e)
         {
@@ -1044,6 +1040,7 @@ namespace PuntoDeVentaV2
                         if (descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
                         {
                             quitarDescuento = true;
+                            txtBuscadorProducto.Focus();
                         }
 
                         var resultado = formDescuento.ShowDialog();
@@ -1052,6 +1049,7 @@ namespace PuntoDeVentaV2
                         {
                             DGVentas.Rows[celda].Cells["Descuento"].Value = formDescuento.TotalDescuento;
                             DGVentas.Rows[celda].Cells["TipoDescuento"].Value = formDescuento.TipoDescuento;
+                            txtBuscadorProducto.Select();
                         }
                         else
                         {
@@ -1068,7 +1066,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
             // Agregar multiple
             if (columna.Equals(10))
             {
@@ -5197,6 +5194,11 @@ namespace PuntoDeVentaV2
                 Close();
             }
 
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtBuscadorProducto.Focus();
+            }
+
 
             if (e.KeyCode == Keys.B && (e.Control))// Boton Consultar
             {
@@ -5905,6 +5907,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            txtBuscadorProducto.Focus();
         }
 
 
@@ -6324,6 +6327,32 @@ namespace PuntoDeVentaV2
             txtDescuentoGeneral.Text = cantidadDescuento.Replace("\r\n","");
         }
 
+        private void DGVentas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+                txtBuscadorProducto.Focus();
+        }
+
+        private void DGVentas_Enter(object sender, EventArgs e)
+        {
+
+            var celda = DGVentas.Rows[0].Cells["Descuento"].Value.ToString();
+            if (!celda.Equals("0.00"))
+            {
+                txtBuscadorProducto.Focus();
+            }
+        }
+
+        private void DGVentas_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+            txtBuscadorProducto.Focus();
+            txtBuscadorProducto.Select();
+        }
+
+        private void DGVentas_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         private void btnCancelarVenta_Enter(object sender, EventArgs e)
         {
             txtBuscadorProducto.Focus();
@@ -6709,11 +6738,13 @@ namespace PuntoDeVentaV2
                 if (isDecimal)
                 {
                     DGVentas.Rows[celda].Cells[9].Value = (cantidad * Convert.ToDecimal(DGVentas.Rows[celda].Cells[6].Value));
+                    txtBuscadorProducto.Focus();
                 }
                 else
                 {
                     DGVentas.Rows[celda].Cells[5].Value = cantidadAnterior;
                     MessageBox.Show("El formato que introdujo no es el correcto; los siguientes son los permitidos:\n0.5(cualquier número despues del punto decimal)\n.5(cualquier número despues del punto decimal)");
+                    txtBuscadorProducto.Focus();
                     return;
                 }
 
@@ -6728,8 +6759,7 @@ namespace PuntoDeVentaV2
                 }
 
                 CalculoMayoreo();
-                CantidadesFinalesVenta();
-
+                //CantidadesFinalesVenta();
                 CantidadesFinalesVenta();
             }
         }
@@ -6962,11 +6992,6 @@ namespace PuntoDeVentaV2
             timer_img_producto.Stop();
         }
 
-        private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void DGVentas_SelectionChanged(object sender, EventArgs e)
         {
             //if (!DGVentas.Rows.Count.Equals(0))
@@ -7000,6 +7025,7 @@ namespace PuntoDeVentaV2
             return result;
         }
 
+        
         /*private void DrawEllipseInt(PaintEventArgs e)
         {
             // Create pen.

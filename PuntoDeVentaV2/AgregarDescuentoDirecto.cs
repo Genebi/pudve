@@ -91,7 +91,7 @@ namespace PuntoDeVentaV2
             // el descuento de uno de los productos de la lista
             if (Ventas.descuentosDirectos.ContainsKey(idProducto))
             {
-                Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida);
+                Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida); 
             }
             else
             {
