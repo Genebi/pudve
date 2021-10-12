@@ -83,7 +83,7 @@
             this.DGVProductos.RowHeadersVisible = false;
             this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVProductos.Size = new System.Drawing.Size(1208, 377);
-            this.DGVProductos.TabIndex = 0;
+            this.DGVProductos.TabIndex = 1;
             this.DGVProductos.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DGVProductos_CellMouseDoubleClick);
             this.DGVProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVProductos_KeyDown);
             // 
@@ -151,7 +151,7 @@
             this.txtBuscar.Location = new System.Drawing.Point(289, 55);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(609, 21);
-            this.txtBuscar.TabIndex = 1;
+            this.txtBuscar.TabIndex = 0;
             this.txtBuscar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyDown);
             // 
