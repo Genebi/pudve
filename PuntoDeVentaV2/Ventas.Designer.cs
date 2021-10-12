@@ -187,7 +187,7 @@
             this.txtBuscadorProducto.Location = new System.Drawing.Point(94, 29);
             this.txtBuscadorProducto.Name = "txtBuscadorProducto";
             this.txtBuscadorProducto.Size = new System.Drawing.Size(790, 23);
-            this.txtBuscadorProducto.TabIndex = 5;
+            this.txtBuscadorProducto.TabIndex = 1;
             this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
             this.txtBuscadorProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyUp);
@@ -875,7 +875,7 @@
             this.btnConsultar.Location = new System.Drawing.Point(12, 20);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(100, 40);
-            this.btnConsultar.TabIndex = 43;
+            this.btnConsultar.TabIndex = 0;
             this.btnConsultar.Text = "Consultar";
             this.btnConsultar.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnConsultar.UseVisualStyleBackColor = true;

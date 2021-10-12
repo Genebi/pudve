@@ -1023,6 +1023,7 @@ namespace PuntoDeVentaV2
             // Descuento
             if (columna.Equals(8))
             {
+                txtBuscadorProducto.Focus();
                 if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     var idProducto = DGVentas.Rows[celda].Cells["IDProducto"].Value.ToString();
@@ -1049,7 +1050,6 @@ namespace PuntoDeVentaV2
                         {
                             DGVentas.Rows[celda].Cells["Descuento"].Value = formDescuento.TotalDescuento;
                             DGVentas.Rows[celda].Cells["TipoDescuento"].Value = formDescuento.TipoDescuento;
-                            txtBuscadorProducto.Select();
                         }
                         else
                         {
@@ -1064,6 +1064,8 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+                    SendKeys.Send("{ENTER}");
+                    SendKeys.Send("{ENTER}");
                 }
             }
             // Agregar multiple
@@ -5521,8 +5523,8 @@ namespace PuntoDeVentaV2
                 //listProductos.Add(datosProducto[0] + "|" + cantidad.ToString());
                 consulta.ShowDialog();
             }
-
-            
+            SendKeys.Send("{TAB}");
+            SendKeys.Send("{ENTER}");
         }
 
         private void listaProductosVenta()
@@ -5552,8 +5554,15 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            nudCantidadPS.Value = Convert.ToDecimal(cantidadaPedir);
-                            AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                            if (string.IsNullOrWhiteSpace(cantidadaPedir.ToString()))//Se valida si la cantidad es igual a 0 o si viene vacio.
+                            {
+                            }
+                            else
+                            {
+                                nudCantidadPS.Value = Convert.ToDecimal(cantidadaPedir);
+                                AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                            }
+                            
                         }
                     }
                     else
@@ -5565,8 +5574,6 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-
-                        
                             if (cantidadaPedir.Equals(string.Empty) || cantidadaPedir.Equals(0))
                             {
                                 nudCantidadPS.Value = Convert.ToInt32(1);
@@ -5579,8 +5586,6 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    
-                    
                 }
             }
             ConsultarProductoVentas.datosDeProducto.Clear();
