@@ -3972,6 +3972,11 @@ namespace PuntoDeVentaV2
                     {
                         productosSeleccionados.Add(id, tipo);
                     }
+
+                    if (!checkboxMarcados.ContainsKey(id))
+                    {
+                        checkboxMarcados.Add(id, tipo);
+                    }
                 }
             }
             else
@@ -3985,6 +3990,11 @@ namespace PuntoDeVentaV2
                     if (productosSeleccionados.ContainsKey(id))
                     {
                         productosSeleccionados.Remove(id);
+                    }
+
+                    if (checkboxMarcados.ContainsKey(id))
+                    {
+                        checkboxMarcados.Remove(id);
                     }
                 }
             }
@@ -4702,7 +4712,6 @@ namespace PuntoDeVentaV2
                 {
                     using (var datos = cn.CargarDatos(consulta))
                     {
-
                         if (datos.Rows.Count > 0)
                         {
                             contador = datos.Rows.Count;
