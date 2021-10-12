@@ -2646,9 +2646,21 @@ namespace PuntoDeVentaV2
                                                 datos[1] = idProducto.ToString();
                                                 datos[2] = "0";
                                                 datos[3] = string.Empty;
-                                                datos[4] = txtCantPaqServ.Text;
+                                                decimal numeroCantidadProducto = 0;
+                                                numeroCantidadProducto = Convert.ToDecimal(txtCantPaqServ.Text);
+                                                if (numeroCantidadProducto.Equals(0))
+                                                {
+                                                    txtCantPaqServ.Text = "1";
+                                                    numeroCantidadProducto = Convert.ToDecimal(txtCantPaqServ.Text);
+                                                }
+                                                else if (numeroCantidadProducto > 0)
+                                                {
+                                                    numeroCantidadProducto = Convert.ToDecimal(txtCantPaqServ.Text);
+                                                }
+                                                datos[4] = Convert.ToString(numeroCantidadProducto);
                                                 cn.EjecutarConsulta(cs.GuardarProductosServPaq(datos));
                                             }
+
                                             // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
                                             //if (ProductosDeServicios.Count > 0 || ProductosDeServicios.Count == 0)
                                             //{
@@ -3832,6 +3844,31 @@ namespace PuntoDeVentaV2
 
             listaProductoToCombo = new List<string>();
             ProductosDeServicios = new List<string>();
+        }
+
+        private void txtCantPaqServ_Validating(object sender, CancelEventArgs e)
+        {
+            ValidarCantidadDePaqueteServicio();
+        }
+
+        private bool ValidarCantidadDePaqueteServicio()
+        {
+            bool bStatus = true;
+
+            if (txtCantPaqServ.Text.Equals("0") || 
+                txtCantPaqServ.Text.Equals("0.00") || 
+                Convert.ToDouble(txtCantPaqServ.Text).Equals(0))
+            {
+                txtCantPaqServ.Select(0, txtCantPaqServ.Text.Length);
+                errorProvAgregarEditarProducto.SetError(txtCantPaqServ, "Debe tener una Cantidad Mayor a 0\npara poder continuar el proceso.");
+                bStatus = false;
+            }
+            else
+            {
+                errorProvAgregarEditarProducto.SetError(txtCantPaqServ, "");
+            }
+
+            return bStatus;
         }
 
         public void cargarCodBarExt()
