@@ -44,7 +44,7 @@ namespace PuntoDeVentaV2
 
         private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+                if (e.KeyCode == Keys.Enter)
             {
                 
                 btnAceptar.PerformClick();
