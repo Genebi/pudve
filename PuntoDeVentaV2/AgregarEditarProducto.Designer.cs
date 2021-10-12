@@ -497,6 +497,7 @@
             this.txtCantPaqServ.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantPaqServ.Visible = false;
             this.txtCantPaqServ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantPaqServ_KeyPress);
+            this.txtCantPaqServ.Validating += new System.ComponentModel.CancelEventHandler(this.txtCantPaqServ_Validating);
             // 
             // lblCantPaqServ
             // 
