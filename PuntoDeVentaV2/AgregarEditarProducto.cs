@@ -10058,28 +10058,28 @@ namespace PuntoDeVentaV2
                     lbClaveInterna.Visible = true;
                     lbClaveInterna.Anchor = AnchorStyles.Left;
 
+                    // TextBox para Cantidad por Combo
+                    txtCantPaqServ.Visible = true;
+                    txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                    txtCantPaqServ.TabIndex = 4;
+                    txtCantPaqServ.TabStop = true;
+
                     // TextBox para Código de Barras
                     txtCodigoBarras.Visible = true;
                     txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    txtCodigoBarras.TabIndex = 4;
+                    txtCodigoBarras.TabIndex = 5;
                     txtCodigoBarras.TabStop = true;
 
                     // Button para Generar Código de Barras
                     btnGenerarCB.Visible = true;
                     btnGenerarCB.Anchor = AnchorStyles.Left;
-                    btnGenerarCB.TabIndex = 5;
+                    btnGenerarCB.TabIndex = 6;
                     btnGenerarCB.TabStop = true;
 
                     btnAddCodBar.Visible = true;
                     btnAddCodBar.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
-                    btnAddCodBar.TabIndex = 6;
+                    btnAddCodBar.TabIndex = 7;
                     btnAddCodBar.TabStop = true;
-
-                    // TextBox para Cantidad por Combo
-                    txtCantPaqServ.Visible = true;
-                    txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    txtCantPaqServ.TabIndex = 7;
-                    txtCantPaqServ.TabStop = true;
 
                     if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                     {
@@ -10679,28 +10679,28 @@ namespace PuntoDeVentaV2
                     lbClaveInterna.Visible = true;
                     lbClaveInterna.Anchor = AnchorStyles.Left;
 
+                    // TextBox para Cantidad por Servicio
+                    txtCantPaqServ.Visible = true;
+                    txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                    txtCantPaqServ.TabIndex = 4;
+                    txtCantPaqServ.TabStop = true;
+
                     // TextBox para Código de Barras
                     txtCodigoBarras.Visible = true;
                     txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    txtCodigoBarras.TabIndex = 4;
+                    txtCodigoBarras.TabIndex = 5;
                     txtCodigoBarras.TabStop = true;
                     // Button para Gnerar Código de Barras
                     btnGenerarCB.Visible = true;
                     btnGenerarCB.Anchor = AnchorStyles.Left;
-                    btnGenerarCB.TabIndex = 5;
+                    btnGenerarCB.TabIndex = 6;
                     btnGenerarCB.TabStop = true;
 
                     // Button Agregar Codigo Barras extra
                     btnAddCodBar.Visible = true;
                     btnAddCodBar.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
-                    btnAddCodBar.TabIndex = 6;
+                    btnAddCodBar.TabIndex = 7;
                     btnAddCodBar.TabStop = true;
-
-                    // TextBox para Cantidad por Servicio
-                    txtCantPaqServ.Visible = true;
-                    txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    txtCantPaqServ.TabIndex = 7;
-                    txtCantPaqServ.TabStop = true;
 
                     // Label signo de ayuda
                     lblCantCombServ.Visible = true;
