@@ -3854,18 +3854,28 @@ namespace PuntoDeVentaV2
         private bool ValidarCantidadDePaqueteServicio()
         {
             bool bStatus = true;
+            decimal cantidadProductoCombosServicios = 0;
 
-            if (txtCantPaqServ.Text.Equals("0") || 
-                txtCantPaqServ.Text.Equals("0.00") || 
-                Convert.ToDouble(txtCantPaqServ.Text).Equals(0))
+            if (Decimal.TryParse(txtCantPaqServ.Text, out cantidadProductoCombosServicios))
             {
-                txtCantPaqServ.Select(0, txtCantPaqServ.Text.Length);
-                errorProvAgregarEditarProducto.SetError(txtCantPaqServ, "Debe tener una Cantidad Mayor a 0\npara poder continuar el proceso.");
-                bStatus = false;
+                if (cantidadProductoCombosServicios.Equals(0))
+                {
+                    errorProvAgregarEditarProducto.SetError(txtCantPaqServ, "Debe tener una Cantidad Mayor a 0\npara poder continuar el proceso.");
+                    txtCantPaqServ.Focus();
+                    txtCantPaqServ.Select(0, txtCantPaqServ.Text.Length);
+                    MessageBox.Show("Debe tener una Cantidad Mayor a 0\npara poder continuar el proceso.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bStatus = false;
+                }
+                else if (cantidadProductoCombosServicios > 0)
+                {
+                    errorProvAgregarEditarProducto.SetError(txtCantPaqServ, "");
+                }
             }
             else
             {
-                errorProvAgregarEditarProducto.SetError(txtCantPaqServ, "");
+                txtCantPaqServ.Focus();
+                txtCantPaqServ.Select(0, txtCantPaqServ.Text.Length);
+                MessageBox.Show("Debe tener una Cantidad numérica y no este vacio\npara poder continuar el proceso.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             return bStatus;
