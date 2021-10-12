@@ -88,6 +88,7 @@
             this.Name = "Ventana_cancelar_venta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cancelar venta";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ventana_cancelar_venta_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

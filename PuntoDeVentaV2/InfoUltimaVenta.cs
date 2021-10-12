@@ -77,7 +77,10 @@ namespace PuntoDeVentaV2
                 botonImprimir = 0;
                 //botonRedondo1.BorderColor = Color.FromArgb(33, 97, 140);
             }
-
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
 
         }
 

@@ -285,6 +285,10 @@ namespace PuntoDeVentaV2
                 //Evitar el salto de linea en el GDV
                 e.Handled = true;
             }
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
         }
     }
 }
