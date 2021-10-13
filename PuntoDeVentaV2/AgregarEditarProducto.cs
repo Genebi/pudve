@@ -2629,6 +2629,7 @@ namespace PuntoDeVentaV2
                                                 string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", $"{txtCantPaqServ.Text}" };
                                                 cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
                                             }*/
+
                                             if (!ProductosDeServicios.Count.Equals(0))
                                             {
                                                 foreach (var item in ProductosDeServicios)
@@ -3409,6 +3410,17 @@ namespace PuntoDeVentaV2
                             #region Inicio de Seccion Combos y Servicios
                             else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS")
                             {
+                                using (DataTable dtComboServicio = cn.CargarDatos(cs.ObtenerProductosServPaq(idProductoBuscado)))
+                                {
+                                    if (!dtComboServicio.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow item in dtComboServicio.Rows)
+                                        {
+                                            cn.EjecutarConsulta(cs.actualizarCantidadRelacionProdComboServicio(Convert.ToInt32(item["IDServicio"].ToString()), (float)Convert.ToDecimal(txtCantPaqServ.Text)));
+                                        }
+                                    }
+                                }
+
                                 if (ProductosDeServicios.Count() > 0)
                                 {
                                     string tipoAux = string.Empty;
