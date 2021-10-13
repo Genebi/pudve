@@ -6340,11 +6340,11 @@ namespace PuntoDeVentaV2
         private void DGVentas_Enter(object sender, EventArgs e)
         {
 
-            var celda = DGVentas.Rows[0].Cells["Descuento"].Value.ToString();
-            if (!celda.Equals("0.00"))
-            {
-                txtBuscadorProducto.Focus();
-            }
+            //var celda = DGVentas.Rows[0].Cells["Descuento"].Value.ToString();
+            //if (!celda.Equals("0.00"))
+            //{
+            //    txtBuscadorProducto.Focus();
+            //}
         }
 
         private void DGVentas_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
@@ -6356,6 +6356,17 @@ namespace PuntoDeVentaV2
         private void DGVentas_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void nudCantidadPS_Click(object sender, EventArgs e)
+        {
+            var canitdad = Convert.ToDecimal(nudCantidadPS.Value);
+            nudCantidadPS.Select(0, canitdad.ToString().Length + 3);
+        }
+
+        private void btnConsultar_Enter(object sender, EventArgs e)
+        {
+            txtBuscadorProducto.Focus();
         }
 
         private void btnCancelarVenta_Enter(object sender, EventArgs e)
