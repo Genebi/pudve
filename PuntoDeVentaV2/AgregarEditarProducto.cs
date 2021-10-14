@@ -7346,7 +7346,7 @@ namespace PuntoDeVentaV2
         private void productoRegistradoClaveInterna(string claveIn)
         {
             datosProductosBtnGuardar = new List<string>();
-            string query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.ClaveInterna = {claveIn}";
+            string query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.ClaveInterna = '{claveIn}'";
             using (DataTable dtProductoRegistrado = cn.CargarDatos(query))
             {
                 if (dtProductoRegistrado.Rows.Count > 0)
@@ -7382,7 +7382,7 @@ namespace PuntoDeVentaV2
                 {
                     query = string.Empty;
 
-                    query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {FormPrincipal.userID} AND CB.CodigoBarraExtra = {claveIn}";
+                    query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {FormPrincipal.userID} AND CB.CodigoBarraExtra = '{claveIn}'";
 
                     // Cargar procuto registrado con esa Código de Barras Extra
                     productoRegistradoCodigoBarrasExtra(FormPrincipal.userID, claveIn);
@@ -7395,7 +7395,7 @@ namespace PuntoDeVentaV2
             datosProductosBtnGuardar = new List<string>();
             datosProductoRelacionado = new List<string>();
 
-            string query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {userID} AND CB.CodigoBarraExtra = {claveBuscar}";
+            string query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {userID} AND CB.CodigoBarraExtra = '{claveBuscar}'";
 
             using (DataTable dtCodigosBarraExtraProductos = cn.CargarDatos(query))
             {
