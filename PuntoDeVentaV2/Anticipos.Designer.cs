@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.txtBuscarAnticipo = new System.Windows.Forms.TextBox();
             this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
             this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
             this.btnNuevoAnticipo = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.IDVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FormaPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
-            this.txtBuscarAnticipo = new System.Windows.Forms.TextBox();
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.SuspendLayout();
@@ -81,6 +81,15 @@
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(845, 91);
             this.panelBotones.TabIndex = 7;
+            // 
+            // txtBuscarAnticipo
+            // 
+            this.txtBuscarAnticipo.Location = new System.Drawing.Point(3, 59);
+            this.txtBuscarAnticipo.Name = "txtBuscarAnticipo";
+            this.txtBuscarAnticipo.Size = new System.Drawing.Size(466, 20);
+            this.txtBuscarAnticipo.TabIndex = 8;
+            this.txtBuscarAnticipo.TextChanged += new System.EventHandler(this.txtBuscarAnticipo_TextChanged);
+            this.txtBuscarAnticipo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscarAnticipo_KeyDown);
             // 
             // dpFechaFinal
             // 
@@ -150,7 +159,7 @@
             "Inhabilitados",
             "Usados",
             "Parciales"});
-            this.cbAnticipos.Location = new System.Drawing.Point(3, 16);
+            this.cbAnticipos.Location = new System.Drawing.Point(12, 18);
             this.cbAnticipos.Name = "cbAnticipos";
             this.cbAnticipos.Size = new System.Drawing.Size(185, 24);
             this.cbAnticipos.TabIndex = 0;
@@ -278,15 +287,6 @@
             this.TTMensaje.ForeColor = System.Drawing.Color.White;
             this.TTMensaje.OwnerDraw = true;
             this.TTMensaje.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTMensaje_Draw);
-            // 
-            // txtBuscarAnticipo
-            // 
-            this.txtBuscarAnticipo.Location = new System.Drawing.Point(3, 59);
-            this.txtBuscarAnticipo.Name = "txtBuscarAnticipo";
-            this.txtBuscarAnticipo.Size = new System.Drawing.Size(466, 20);
-            this.txtBuscarAnticipo.TabIndex = 8;
-            this.txtBuscarAnticipo.TextChanged += new System.EventHandler(this.txtBuscarAnticipo_TextChanged);
-            this.txtBuscarAnticipo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscarAnticipo_KeyDown);
             // 
             // Anticipos
             // 
