@@ -1606,6 +1606,7 @@ namespace PuntoDeVentaV2
             var queryAppSetting = $"SELECT * FROM appsettings WHERE IDUsuario = '{FormPrincipal.userID}' AND checkBoxConcepto = '1' AND Mostrar = '1' AND concepto <> 'Proveedor';";
             var queryRepAumenInv = "SELECT * FROM ReporteAumentarInventario;";
             var queryRepAumenInvExtended = "SELECT * FROM ReporteAumentarInventarioExtended";
+            var queryCrearRemplazarView = string.Empty;
 
             List<string> columnasDinamicas = new List<string>();
 
@@ -1636,8 +1637,6 @@ namespace PuntoDeVentaV2
                     {
                         if (!dtReporteAumentarInventario.Rows.Count.Equals(0))
                         {
-                            var queryCrearRemplazarView = string.Empty;
-
                             queryCrearRemplazarView = "CREATE OR REPLACE VIEW ReporteAumentarInventarioExtended AS SELECT repAumInv.id, repAumInv.IdProducto AS No, repAumInv.NombreProducto AS Producto, repAumInv.NombreEmisor AS Proveedor, repAumInv.DiferenciaUnidades AS Unidades_Compradas, repAumInv.ValorUnitario AS Precio_Compra, repAumInv.Precio AS Precio_Venta, repAumInv.NuevoStock AS Stock_Anterior, repAumInv.StockActual AS Stock_Actual, repAumInv.Fecha AS Fecha_Compra, repAumInv.Comentarios AS Comentarios, /* repAumInv.Clave, repAumInv.Codigo, repAumInv.NoRevision, repAumInv.StatusActualizacion, repAumInv.IdUsuario, repAumInv.IDEmpleado, repAumInv.NameUsr,repAumInv.Folio, repAumInv.IDConcepto, */ ";
 
                             foreach (var item in columnasDinamicas)
@@ -1648,13 +1647,32 @@ namespace PuntoDeVentaV2
                             queryCrearRemplazarView = queryCrearRemplazarView.Remove(queryCrearRemplazarView.Length - 1);
 
                             queryCrearRemplazarView += " FROM reporteaumentarinventario AS repAumInv GROUP BY repAumInv.id ORDER BY repAumInv.NombreProducto, repAumInv.StockActual DESC;";
-
-                            cn.crearViewDinamica(queryCrearRemplazarView);
-
-                            consulta = queryRepAumenInvExtended;
                         }
                     }
                 }
+                else
+                {
+                    using (DataTable dtReporteAumentarInventario = cn.CargarDatos(queryRepAumenInv))
+                    {
+                        if (!dtReporteAumentarInventario.Rows.Count.Equals(0))
+                        {
+                            queryCrearRemplazarView = "CREATE OR REPLACE VIEW ReporteAumentarInventarioExtended AS SELECT repAumInv.id, repAumInv.IdProducto AS No, repAumInv.NombreProducto AS Producto, repAumInv.NombreEmisor AS Proveedor, repAumInv.DiferenciaUnidades AS Unidades_Compradas, repAumInv.ValorUnitario AS Precio_Compra, repAumInv.Precio AS Precio_Venta, repAumInv.NuevoStock AS Stock_Anterior, repAumInv.StockActual AS Stock_Actual, repAumInv.Fecha AS Fecha_Compra, repAumInv.Comentarios AS Comentarios ";
+
+                            foreach (var item in columnasDinamicas)
+                            {
+                                queryCrearRemplazarView += $" GROUP_CONCAT( DISTINCT IF ( repAumInv.Concepto = \"{item.ToString()}\", repAumInv.Descripcion, NULL ) ) AS {item.ToString()},";
+                            }
+
+                            queryCrearRemplazarView = queryCrearRemplazarView.Remove(queryCrearRemplazarView.Length - 1);
+
+                            queryCrearRemplazarView += " FROM reporteaumentarinventario AS repAumInv GROUP BY repAumInv.id ORDER BY repAumInv.NombreProducto, repAumInv.StockActual DESC;";
+                        }
+                    }
+                }
+
+                cn.crearViewDinamica(queryCrearRemplazarView);
+
+                consulta = queryRepAumenInvExtended;
             }
 
             return consulta;
@@ -1674,6 +1692,7 @@ namespace PuntoDeVentaV2
             var queryAppSetting = $"SELECT * FROM appsettings WHERE IDUsuario = '{FormPrincipal.userID}' AND checkBoxConcepto = '1' AND Mostrar = '1' AND concepto <> 'Proveedor';";
             var queryRepDisminInv = "SELECT * FROM ReporteDisminuirInventario;";
             var queryRepDisminInvExtended = "SELECT * FROM ReporteDisminuirInventarioExtended";
+            var queryCrearRemplazarView = string.Empty;
 
             List<string> columnasDinamicas = new List<string>();
 
@@ -1701,8 +1720,6 @@ namespace PuntoDeVentaV2
 
                     using (DataTable dtReporteDisminuirInvetario = cn.CargarDatos(queryRepDisminInv))
                     {
-                        var queryCrearRemplazarView = string.Empty;
-
                         queryCrearRemplazarView = "CREATE OR REPLACE VIEW ReporteDisminuirInventarioExtended AS SELECT repDisInv.id, repDisInv.IdProducto AS No, repDisInv.NombreProducto AS Producto, repDisInv.NombreEmisor AS Proveedor, repDisInv.DiferenciaUnidades AS Unidades_Compradas, repDisInv.ValorUnitario AS Precio_Compra, repDisInv.Precio AS Precio_Venta, repDisInv.NuevoStock AS Stock_Anterior, repDisInv.StockActual AS Stock_Actual, repDisInv.Fecha AS Fecha_Compra, repDisInv.Comentarios AS Comentarios, /* repDisInv.Clave, repDisInv.Codigo, repDisInv.NoRevision, repDisInv.StatusActualizacion, repDisInv.IdUsuario, repDisInv.IDEmpleado, repDisInv.NameUsr,repDisInv.Folio, repDisInv.IDConcepto, */ ";
 
                         foreach (var item in columnasDinamicas)
@@ -1713,12 +1730,28 @@ namespace PuntoDeVentaV2
                         queryCrearRemplazarView = queryCrearRemplazarView.Remove(queryCrearRemplazarView.Length - 1);
 
                         queryCrearRemplazarView += " FROM ReporteDisminuirInventario AS repDisInv GROUP BY repDisInv.id ORDER BY repDisInv.NombreProducto, repDisInv.StockActual DESC;";
-
-                        cn.crearViewDinamica(queryCrearRemplazarView);
-
-                        consulta = queryRepDisminInvExtended;
                     }
                 }
+                else
+                {
+                    using (DataTable dtReporteDisminuirInvetario = cn.CargarDatos(queryRepDisminInv))
+                    {
+                        queryCrearRemplazarView = "CREATE OR REPLACE VIEW ReporteDisminuirInventarioExtended AS SELECT repDisInv.id, repDisInv.IdProducto AS No, repDisInv.NombreProducto AS Producto, repDisInv.NombreEmisor AS Proveedor, repDisInv.DiferenciaUnidades AS Unidades_Compradas, repDisInv.ValorUnitario AS Precio_Compra, repDisInv.Precio AS Precio_Venta, repDisInv.NuevoStock AS Stock_Anterior, repDisInv.StockActual AS Stock_Actual, repDisInv.Fecha AS Fecha_Compra, repDisInv.Comentarios AS Comentarios ";
+
+                        foreach (var item in columnasDinamicas)
+                        {
+                            queryCrearRemplazarView += $" GROUP_CONCAT( DISTINCT IF ( repDisInv.Concepto = \"{item.ToString()}\", repDisInv.Descripcion, NULL ) ) AS {item.ToString()},";
+                        }
+
+                        queryCrearRemplazarView = queryCrearRemplazarView.Remove(queryCrearRemplazarView.Length - 1);
+
+                        queryCrearRemplazarView += " FROM ReporteDisminuirInventario AS repDisInv GROUP BY repDisInv.id ORDER BY repDisInv.NombreProducto, repDisInv.StockActual DESC;";
+                    }
+                }
+
+                cn.crearViewDinamica(queryCrearRemplazarView);
+
+                consulta = queryRepDisminInvExtended;
             }
 
             return consulta;

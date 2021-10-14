@@ -1467,11 +1467,21 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                rutaArchivo += $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\reporte_actualizar_inventario_" + idReporte + ".pdf";
+                rutaArchivo += $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\{FormPrincipal.userNickName}\";
             }
             else
             {
-                rutaArchivo = @"C:\Archivos PUDVE\Reportes\Historial\reporte_actualizar_inventario_" + idReporte + ".pdf";
+                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\{FormPrincipal.userNickName}\";
+            }
+
+            if (!Directory.Exists(rutaArchivo))
+            {
+                Directory.CreateDirectory(rutaArchivo);
+                rutaArchivo += $"reporte_actualizar_inventario_{idReporte}.pdf";
+            }
+            else
+            {
+                rutaArchivo += $"reporte_actualizar_inventario_{idReporte}.pdf";
             }
 
             // se agrego una columna nueva al reporte la de stock anterior ahora son 9 Columnas
