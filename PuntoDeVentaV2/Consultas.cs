@@ -1732,7 +1732,22 @@ namespace PuntoDeVentaV2
                         queryCrearRemplazarView += " FROM ReporteDisminuirInventario AS repDisInv GROUP BY repDisInv.id ORDER BY repDisInv.NombreProducto, repDisInv.StockActual DESC;";
                     }
                 }
-                
+                else
+                {
+                    using (DataTable dtReporteDisminuirInvetario = cn.CargarDatos(queryRepDisminInv))
+                    {
+                        queryCrearRemplazarView = "CREATE OR REPLACE VIEW ReporteDisminuirInventarioExtended AS SELECT repDisInv.id, repDisInv.IdProducto AS No, repDisInv.NombreProducto AS Producto, repDisInv.NombreEmisor AS Proveedor, repDisInv.DiferenciaUnidades AS Unidades_Compradas, repDisInv.ValorUnitario AS Precio_Compra, repDisInv.Precio AS Precio_Venta, repDisInv.NuevoStock AS Stock_Anterior, repDisInv.StockActual AS Stock_Actual, repDisInv.Fecha AS Fecha_Compra, repDisInv.Comentarios AS Comentarios ";
+
+                        foreach (var item in columnasDinamicas)
+                        {
+                            queryCrearRemplazarView += $" GROUP_CONCAT( DISTINCT IF ( repDisInv.Concepto = \"{item.ToString()}\", repDisInv.Descripcion, NULL ) ) AS {item.ToString()},";
+                        }
+
+                        queryCrearRemplazarView = queryCrearRemplazarView.Remove(queryCrearRemplazarView.Length - 1);
+
+                        queryCrearRemplazarView += " FROM ReporteDisminuirInventario AS repDisInv GROUP BY repDisInv.id ORDER BY repDisInv.NombreProducto, repDisInv.StockActual DESC;";
+                    }
+                }
 
                 cn.crearViewDinamica(queryCrearRemplazarView);
 
