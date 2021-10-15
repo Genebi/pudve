@@ -2462,7 +2462,14 @@ namespace PuntoDeVentaV2
                         var normalizacionCadena = Regex.Replace(concepto, @"[^a-zA-Z0-9]+", "");
                         //var normalizacionCadena = mg.quitarTildesYÑ(concepto);
 
-                        lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(normalizacionCadena))));
+                        if (ExisteColumna(normalizacionCadena))
+                        {
+                            lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(normalizacionCadena))));
+                        }
+                        else if (ExisteColumna(concepto))
+                        {
+                            lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(concepto))));
+                        }
                     }
                 }
             }
@@ -2470,6 +2477,22 @@ namespace PuntoDeVentaV2
             CerrarConexion();
 
             return lista.ToArray();
+        }
+
+        public bool ExisteColumna(string columna)
+        {
+            bool respuesta = false;
+
+            DatosConexion($"SHOW COLUMNS FROM EmpleadosPermisos LIKE '{columna}'");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                respuesta = true;
+            }
+
+            return respuesta;
         }
          
         public int[] PermisosEmpleadoConfiguracion(string concepto, int idEmpleado)
