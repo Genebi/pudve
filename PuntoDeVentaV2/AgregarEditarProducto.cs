@@ -8469,25 +8469,25 @@ namespace PuntoDeVentaV2
             //        e.Handled = true;
             //    }
             //}
-            if (e.KeyChar == 8)     // tecla BackSpace
-            {
-                e.Handled = false;
-                return;
-            }
+            //if (e.KeyChar == 8)     // tecla BackSpace
+            //{
+            //    e.Handled = false;
+            //    return;
+            //}
             bool IsDec = false;
             int nroDec = 0;
-            for (int i = 0; i < txtCantPaqServ.Text.Length; i++)       // recorrer la caja de texto
-            {
-                if (txtCantPaqServ.Text[i] == '.')      // ver si es un punto decimal
-                {
-                    IsDec = true;
-                }
-                if (IsDec && nroDec++ >= 2)     // incrementar la variable nroDec
-                {
-                    e.Handled = true;
-                    return;
-                }
-            }
+            //for (int i = 0; i < txtCantPaqServ.Text.Length; i++)       // recorrer la caja de texto
+            //{
+            //    if (txtCantPaqServ.Text[i] == '.')      // ver si es un punto decimal
+            //    {
+            //        IsDec = true;
+            //    }
+            //    if (IsDec && nroDec++ >= 2)     // incrementar la variable nroDec
+            //    {
+            //        e.Handled = true;
+            //        return;
+            //    }
+            //}
             if (e.KeyChar >= 48 && e.KeyChar <= 57)     // teclas del 0 hasta el 9
             {
                 e.Handled = false;
@@ -8495,6 +8495,11 @@ namespace PuntoDeVentaV2
             else if (e.KeyChar == 46)   // tecla punto decimal " . "
             {
                 e.Handled = (IsDec) ? true : false;
+            }
+            else if (e.KeyChar == 8)
+            {
+                e.Handled = false;
+                return;
             }
             else
             {
