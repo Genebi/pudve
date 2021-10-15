@@ -205,24 +205,25 @@ namespace PuntoDeVentaV2
                         DataGridViewRow row = DGVProdServCombo.Rows[numberOfRows];
 
                         Fecha = words[0].ToString();
-                        IDServicio = words[2].ToString();
-                        IDProducto = words[1].ToString();
-                        NombreProducto = words[3].ToString();
-                        if (!words[4].ToString().Equals("0"))
+                        IDServicio = words[1].ToString();
+                        CombServ = words[2].ToString();
+                        IDProducto = words[3].ToString();
+                        NombreProducto = words[4].ToString();
+                        if (!words[5].ToString().Equals("0"))
                         {
-                            Cantidad = words[4].ToString();
+                            Cantidad = words[5].ToString();
                         }
                         var ImageDelete = global::PuntoDeVentaV2.Properties.Resources.window_close;
 
                         row.Cells["Fecha"].Value = Fecha;                       // Columna Fecha
                         row.Cells["IDServicio"].Value = IDServicio;             // Columna IDServicio
+                        row.Cells["ServicioCombo"].Value = CombServ;
                         using (DataTable dtServComb = cn.CargarDatos(cs.nombreTipoDelProducto(Convert.ToInt32(IDServicio))))
                         {
                             if (!dtServComb.Rows.Count.Equals(0))
                             {
                                 foreach (DataRow drServComb in dtServComb.Rows)
                                 {
-                                    row.Cells["ServicioCombo"].Value = drServComb["Nombre"].ToString();
                                     row.Cells["Type"].Value = drServComb["Tipo"].ToString();
                                 }
                             }
