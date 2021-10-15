@@ -8734,10 +8734,32 @@ namespace PuntoDeVentaV2
                         {
                             DataRow row = dtComboServicio.Rows[0];
                             prodSerPaq += fech + "|";
-                            prodSerPaq += idEditarProducto + "|";
+                            //prodSerPaq += idEditarProducto + "|";
+                            //prodSerPaq += row["ID"].ToString() + "|";
+                            //prodSerPaq += row["Nombre"].ToString() + "|";
                             prodSerPaq += row["ID"].ToString() + "|";
                             prodSerPaq += row["Nombre"].ToString() + "|";
-                            prodSerPaq += txtCantPaqServ.Text;
+                            using (DataTable dtIdEditarProducto = cn.CargarDatos(cs.obtenerNombreDelProducto(idEditarProducto)))
+                            {
+                                if (!dtIdEditarProducto.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtIdEditarProducto.Rows)
+                                    {
+                                        prodSerPaq += item["ID"].ToString() + "|";
+                                        prodSerPaq += item["Nombre"].ToString() + "|";
+                                    }
+                                }
+                            }
+                            using (DataTable dtProductosDeServicio = cn.CargarDatos(cs.obtenerCantidadProductosDeServicios(row["ID"].ToString())))
+                            {
+                                if (!dtProductosDeServicio.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtProductosDeServicio.Rows)
+                                    {
+                                        prodSerPaq += item["Cantidad"].ToString();
+                                    }
+                                }
+                            }
 
                             listaProductoToCombo.Add(prodSerPaq);
                             prodSerPaq = null;
