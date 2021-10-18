@@ -2099,8 +2099,11 @@ namespace PuntoDeVentaV2
                                     }
                                     else
                                     {
-                                        var impuestop = impuestoProducto.Split('%');
-                                        impuestoProducto = impuestop[0].Trim();
+                                        if (!string.IsNullOrWhiteSpace(impuestoProducto))
+                                        {
+                                            var impuestop = impuestoProducto.Split('%');
+                                            impuestoProducto = impuestop[0].Trim();
+                                        }
                                     }
 
                                     //impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
