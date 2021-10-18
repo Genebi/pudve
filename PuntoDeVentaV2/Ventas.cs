@@ -6125,7 +6125,7 @@ namespace PuntoDeVentaV2
                     }
                 };
 
-                anticipo.Show();
+                anticipo.ShowDialog();
             }
         }
 

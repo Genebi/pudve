@@ -128,12 +128,14 @@
             this.Controls.Add(this.txt_correo);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Enviar_correo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enviar correo";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Enviar_correo_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

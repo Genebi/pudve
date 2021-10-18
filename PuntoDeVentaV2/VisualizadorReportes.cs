@@ -25,6 +25,7 @@ namespace PuntoDeVentaV2
         {
             axAcroPDF.src = ruta;
             axAcroPDF.setZoom(75);
+            SendKeys.Send("%{Tab}");
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
@@ -56,5 +57,18 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Error al Imprimir No: " + ex, "Error al Imprimir", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void VisualizadorReportes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue.Equals(Keys.Escape))
+            {
+                SendKeys.Send("(%{F4})");
+            }
+            else
+            {
+                SendKeys.Send("(%{TAB})");
+            }
+        }
+
     }
 }

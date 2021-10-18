@@ -3893,6 +3893,14 @@ namespace PuntoDeVentaV2
             return bStatus;
         }
 
+        private void AgregarEditarProducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
         public void cargarCodBarExt()
         {
             id = 0;

@@ -2058,6 +2058,14 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(queryRecordHistorialProd);
         }
 
+        private void AgregarStockXML_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

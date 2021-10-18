@@ -82,10 +82,12 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.panelContenedor);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "PermisosDinamicosConfiguracion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PermisosDinamicosConfiguracion";
             this.Load += new System.EventHandler(this.PermisosDinamicosConfiguracion_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PermisosDinamicosConfiguracion_KeyDown);
             this.ResumeLayout(false);
 
         }

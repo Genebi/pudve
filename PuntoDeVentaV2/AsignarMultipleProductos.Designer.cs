@@ -46,6 +46,7 @@
             this.ClientSize = new System.Drawing.Size(400, 361);
             this.Controls.Add(this.panelContenedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AsignarMultipleProductos";
@@ -53,6 +54,7 @@
             this.Text = "Asignación multiple";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AsignarMultipleProductos_FormClosing);
             this.Load += new System.EventHandler(this.AsignarMultipleProductos_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AsignarMultipleProductos_KeyDown);
             this.ResumeLayout(false);
 
         }

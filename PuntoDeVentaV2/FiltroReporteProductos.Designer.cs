@@ -420,12 +420,14 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FiltroReporteProductos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Filtro del Reporte";
             this.Load += new System.EventHandler(this.FiltroReporteProductos_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FiltroReporteProductos_KeyDown);
             this.panelContenedor.ResumeLayout(false);
             this.panelContenedor.PerformLayout();
             this.ResumeLayout(false);

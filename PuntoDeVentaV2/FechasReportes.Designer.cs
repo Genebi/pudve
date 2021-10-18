@@ -162,12 +162,14 @@
             this.Controls.Add(this.segundoDatePicker);
             this.Controls.Add(this.primerDatePicker);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FechasReportes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Fechas de Reporte";
             this.Load += new System.EventHandler(this.FechasReportes_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FechasReportes_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -129,10 +129,12 @@
             this.Controls.Add(this.btnActualizarInventarioAumentar);
             this.Controls.Add(this.btnActualizarInventarioNew);
             this.Controls.Add(this.label1);
+            this.KeyPreview = true;
             this.Name = "TipoReportesInventario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TipoReportesInventario";
             this.Load += new System.EventHandler(this.TipoReportesInventario_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TipoReportesInventario_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

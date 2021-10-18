@@ -1289,5 +1289,13 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void ConfiguracionGeneral_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

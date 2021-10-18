@@ -79,12 +79,14 @@
             this.Controls.Add(this.txtPorcentajeProducto);
             this.Controls.Add(this.lbPorcentajeProducto);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PorcentageGanancia";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PorcentageGanancia";
             this.Load += new System.EventHandler(this.PorcentageGanancia_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PorcentageGanancia_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

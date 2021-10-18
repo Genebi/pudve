@@ -684,7 +684,7 @@ namespace PuntoDeVentaV2
             var rows = DGVProductos.SelectedRows;
                 for (int i = 0; i < rows.Count; i++)
                 {
-                    var codigoProd = DGVProductos.SelectedRows[i].Cells[4].Value.ToString();
+                    var codigoProd = DGVProductos.SelectedRows[i].Cells[4].Value.ToString();//SE NECESITA UN DATO PARA VALIDAR QUE CADA PRODUCTO SEA DIFRENTE
 
                     var datosProducto = cn.CargarDatos($"SELECT ID, Nombre, Precio, TipoDescuento, Stock, Tipo, ClaveInterna, CodigoBarras, StockNecesario, ProdImage, StockMinimo, PrecioCompra, PrecioMayoreo, Impuesto, Categoria, ProdImage, ClaveProducto, UnidadMedida  FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigoProd}' AND Status = '1'");
 

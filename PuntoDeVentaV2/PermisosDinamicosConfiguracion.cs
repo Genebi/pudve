@@ -260,5 +260,13 @@ namespace PuntoDeVentaV2
             }
             return opciones.ToArray();
         }
+
+        private void PermisosDinamicosConfiguracion_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

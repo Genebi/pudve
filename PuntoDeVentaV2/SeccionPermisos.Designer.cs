@@ -81,12 +81,14 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.panelContenedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SeccionPermisos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SeccionPermisos";
             this.Load += new System.EventHandler(this.SeccionPermisos_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SeccionPermisos_KeyDown);
             this.ResumeLayout(false);
 
         }

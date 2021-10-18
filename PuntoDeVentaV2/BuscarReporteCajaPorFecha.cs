@@ -1829,5 +1829,13 @@ namespace PuntoDeVentaV2
                 actualizar();
             }
         }
+
+        private void BuscarReporteCajaPorFecha_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

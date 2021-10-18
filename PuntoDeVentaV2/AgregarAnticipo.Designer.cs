@@ -256,6 +256,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nuevo Anticipo";
             this.Load += new System.EventHandler(this.AgregarAnticipo_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarAnticipo_KeyDown);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AgregarAnticipo_PreviewKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

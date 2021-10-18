@@ -1128,5 +1128,13 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void EnvioDeCorreo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

@@ -302,5 +302,13 @@ namespace PuntoDeVentaV2
                 permisos.Show();
             }
         }
+
+        private void Agregar_empleado_permisos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

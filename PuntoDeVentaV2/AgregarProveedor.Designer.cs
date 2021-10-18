@@ -369,11 +369,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tituloSeccion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AgregarProveedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.AgregarProveedor_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarProveedor_KeyDown);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AgregarProveedor_PreviewKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

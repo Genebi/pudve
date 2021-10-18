@@ -1060,6 +1060,7 @@
             this.Load += new System.EventHandler(this.AgregarEditarProducto_Load);
             this.Shown += new System.EventHandler(this.AgregarEditarProducto_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.AgregarEditarProducto_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarEditarProducto_KeyDown);
             this.PDetalleProdcuto.ResumeLayout(false);
             this.PDetalleProdcuto.PerformLayout();
             this.PImagen.ResumeLayout(false);

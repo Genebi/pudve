@@ -507,6 +507,14 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void FiltroReporteProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
         //private void cbCustom_SelectionChangeCommitted(object sender, EventArgs e)
         //{
         //    var comboBoxCutom = (ComboBox)sender;
