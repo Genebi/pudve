@@ -451,6 +451,7 @@
             this.Controls.Add(this.cbox_anticipos);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -458,6 +459,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Asignar/ajustar permisos";
             this.Load += new System.EventHandler(this.cargar_datos);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Agregar_empleado_permisos_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

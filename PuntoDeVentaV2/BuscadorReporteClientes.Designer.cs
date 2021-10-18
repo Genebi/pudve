@@ -474,10 +474,12 @@
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.DGVReportesClientes);
+            this.KeyPreview = true;
             this.Name = "BuscadorReporteClientes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BuscadorReporteClientes";
             this.Load += new System.EventHandler(this.BuscadorReporteClientes_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BuscadorReporteClientes_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVReportesClientes)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();

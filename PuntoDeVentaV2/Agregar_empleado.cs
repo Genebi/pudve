@@ -405,5 +405,13 @@ namespace PuntoDeVentaV2
                 btn_aceptar.PerformClick();
             }
         }
+
+        private void Agregar_empleado_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

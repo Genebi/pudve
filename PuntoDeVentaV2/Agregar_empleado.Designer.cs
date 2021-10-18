@@ -239,6 +239,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Empleado";
             this.Load += new System.EventHandler(this.Agregar_empleado_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Agregar_empleado_KeyDown);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Agregar_empleado_PreviewKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.picturebx_editar)).EndInit();
             this.ResumeLayout(false);

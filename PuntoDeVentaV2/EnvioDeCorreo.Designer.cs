@@ -267,12 +267,14 @@
             this.ClientSize = new System.Drawing.Size(949, 261);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EnvioDeCorreo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EnvioDeCorreo";
             this.Load += new System.EventHandler(this.EnvioDeCorreo_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnvioDeCorreo_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

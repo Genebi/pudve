@@ -407,5 +407,13 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void Complemento_pago_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

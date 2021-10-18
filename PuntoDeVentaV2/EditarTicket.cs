@@ -610,5 +610,21 @@ namespace PuntoDeVentaV2
                 lblMensajeTicket.Height = 33;
             }
         }
+
+        private void EditarTicket_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
+
+        private void button1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+        }
     }
 }

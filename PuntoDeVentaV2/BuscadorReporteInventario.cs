@@ -1810,5 +1810,13 @@ namespace PuntoDeVentaV2
                 actualizar();
             }
         }
+
+        private void BuscadorReporteInventario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

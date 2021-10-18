@@ -555,5 +555,13 @@ namespace PuntoDeVentaV2
             //    permisos.ShowDialog();
             //}
         }
+
+        private void SeccionPermisos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

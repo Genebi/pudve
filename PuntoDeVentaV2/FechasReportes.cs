@@ -170,5 +170,13 @@ namespace PuntoDeVentaV2
             Reportes.botonAceptar = true;
             Close();
         }
+
+        private void FechasReportes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

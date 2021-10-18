@@ -88,5 +88,13 @@ namespace PuntoDeVentaV2
                 btnCancelar.PerformClick();
             }
         }
+
+        private void EscogerTipoRespaldo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }

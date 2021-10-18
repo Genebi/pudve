@@ -1225,5 +1225,13 @@ namespace PuntoDeVentaV2
 
             return result;
         }
+
+        private void BuscadorReporteClientes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

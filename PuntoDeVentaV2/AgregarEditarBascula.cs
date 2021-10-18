@@ -704,6 +704,14 @@ namespace PuntoDeVentaV2
             PuertoSerieBascula.Close();
         }
 
+        private void AgregarEditarBascula_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
         private void btnAddBascula_Click(object sender, EventArgs e)
         {
             btnSaveEdit.Enabled = true;

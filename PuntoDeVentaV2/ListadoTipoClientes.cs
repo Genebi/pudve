@@ -128,5 +128,13 @@ namespace PuntoDeVentaV2
                 DGVClientes.Cursor = Cursors.Default;
             }
         }
+
+        private void ListadoTipoClientes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

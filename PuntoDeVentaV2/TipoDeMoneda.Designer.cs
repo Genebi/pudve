@@ -248,10 +248,12 @@
             this.ClientSize = new System.Drawing.Size(324, 126);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cboTipoMoneda);
+            this.KeyPreview = true;
             this.Name = "TipoDeMoneda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TipoDeMoneda";
             this.Load += new System.EventHandler(this.TipoDeMoneda_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TipoDeMoneda_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -158,6 +158,14 @@ namespace PuntoDeVentaV2
 
                 Application.OpenForms.OfType<Cargando>().First().BringToFront();
             }
-        } 
+        }
+
+        private void AsignarMultipleProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }
