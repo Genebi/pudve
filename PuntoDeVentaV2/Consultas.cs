@@ -2692,5 +2692,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string obtenerNombreDelProducto(string idProducto)
+        {
+            var consulta = $"SELECT ID, Nombre FROM productos WHERE ID = '{idProducto}';";
+
+            return consulta;
+        }
+
+        public string obtenerCantidadProductosDeServicios(string idComboServ)
+        {
+            var consulta = $"SELECT ID, Cantidad FROM ProductosDeServicios WHERE IDServicio = '{idComboServ}'";
+
+            return consulta;
+        }
     }
 }  

@@ -3339,7 +3339,8 @@ namespace PuntoDeVentaV2
                                                 datos = item.Split('|');
                                                 string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                 datos[0] = fech.Trim();
-                                                cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
+                                                string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], datos[5] };
+                                                cn.EjecutarConsulta(cs.insertarProductosServicios(nuevosDatos));
                                             }
                                             using (DataTable dtProductosDeServicios = cn.CargarDatos(cs.ObtenerProductosServPaq(datos[1].ToString())))
                                             {
@@ -6626,7 +6627,8 @@ namespace PuntoDeVentaV2
                                                 datos = item.Split('|');
                                                 string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                 datos[0] = fech.Trim();
-                                                cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
+                                                string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], datos[5] };
+                                                cn.EjecutarConsulta(cs.insertarProductosServicios(nuevosDatos));
                                             }
                                             using (DataTable dtProductosDeServicios = cn.CargarDatos(cs.ObtenerProductosServPaq(datos[1].ToString())))
                                             {
@@ -8742,10 +8744,32 @@ namespace PuntoDeVentaV2
                         {
                             DataRow row = dtComboServicio.Rows[0];
                             prodSerPaq += fech + "|";
-                            prodSerPaq += idEditarProducto + "|";
+                            //prodSerPaq += idEditarProducto + "|";
+                            //prodSerPaq += row["ID"].ToString() + "|";
+                            //prodSerPaq += row["Nombre"].ToString() + "|";
                             prodSerPaq += row["ID"].ToString() + "|";
                             prodSerPaq += row["Nombre"].ToString() + "|";
-                            prodSerPaq += txtCantPaqServ.Text;
+                            using (DataTable dtIdEditarProducto = cn.CargarDatos(cs.obtenerNombreDelProducto(idEditarProducto)))
+                            {
+                                if (!dtIdEditarProducto.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtIdEditarProducto.Rows)
+                                    {
+                                        prodSerPaq += item["ID"].ToString() + "|";
+                                        prodSerPaq += item["Nombre"].ToString() + "|";
+                                    }
+                                }
+                            }
+                            using (DataTable dtProductosDeServicio = cn.CargarDatos(cs.obtenerCantidadProductosDeServicios(row["ID"].ToString())))
+                            {
+                                if (!dtProductosDeServicio.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtProductosDeServicio.Rows)
+                                    {
+                                        prodSerPaq += item["Cantidad"].ToString();
+                                    }
+                                }
+                            }
 
                             listaProductoToCombo.Add(prodSerPaq);
                             prodSerPaq = null;
