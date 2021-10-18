@@ -6619,7 +6619,8 @@ namespace PuntoDeVentaV2
                                                 datos = item.Split('|');
                                                 string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                 datos[0] = fech.Trim();
-                                                cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
+                                                string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], datos[5] };
+                                                cn.EjecutarConsulta(cs.insertarProductosServicios(nuevosDatos));
                                             }
                                             using (DataTable dtProductosDeServicios = cn.CargarDatos(cs.ObtenerProductosServPaq(datos[1].ToString())))
                                             {
