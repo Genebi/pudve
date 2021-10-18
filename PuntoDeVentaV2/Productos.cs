@@ -4710,7 +4710,7 @@ namespace PuntoDeVentaV2
             return lista.Trim();
         }
 
-        private void MarcarCheckBoxes(string consulta)
+        private void MarcarCheckBoxes(string consulta, bool aplicar = false)
         {
             if (cbTodos.Checked)
             {
@@ -4744,6 +4744,11 @@ namespace PuntoDeVentaV2
 
                                 if (checkboxMarcados.ContainsKey(idProducto))
                                 {
+                                    if (aplicar == true && Convert.ToBoolean(row.Cells["CheckProducto"].Value) == false)
+                                    {
+                                        continue;
+                                    }
+
                                     row.Cells["CheckProducto"].Value = true;
                                 }
                                 else
@@ -5916,7 +5921,7 @@ namespace PuntoDeVentaV2
 
             if (cbTodos.Checked)
             {
-                MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+                MarcarCheckBoxes(filtroConSinFiltroAvanzado, true);
 
                 productosSeleccionados = checkboxMarcados;
             }
