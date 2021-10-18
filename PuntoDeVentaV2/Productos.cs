@@ -4146,7 +4146,10 @@ namespace PuntoDeVentaV2
                     {
                         foreach (var codigo in listaCodigosExistentes)
                         {
-                            coincidencias.Add(Convert.ToInt32(codigo), 1);
+                            if (!coincidencias.ContainsKey(Convert.ToInt32(codigo)))
+                            {
+                                coincidencias.Add(Convert.ToInt32(codigo), 1);
+                            }
                         }
 
                         fueronAsignados = true;
@@ -4163,7 +4166,10 @@ namespace PuntoDeVentaV2
                         {
                             foreach (var codigo in listaCodigosExistentes)
                             {
-                                coincidencias.Add(Convert.ToInt32(codigo), 1);
+                                if (!coincidencias.ContainsKey(Convert.ToInt32(codigo)))
+                                {
+                                    coincidencias.Add(Convert.ToInt32(codigo), 1);
+                                }
                             }
                         }
                     }
