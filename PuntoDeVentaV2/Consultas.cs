@@ -2706,5 +2706,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string obtenerStcokNegativoConfiguracion()
+        {
+            var consulta = $"SELECT IDUsuario, StockNegativo FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}";
+
+            return consulta;
+        }
     }
 }  

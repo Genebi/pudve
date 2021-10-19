@@ -435,6 +435,10 @@ namespace PuntoDeVentaV2
             //Ajustar producto
             if (rbAjustar.Checked)
             {
+                using (resource)
+                {
+
+                }
                 float auxiliar = 0f;
                 var aumentar = txtAumentar.Text;
                 var disminuir = txtDisminuir.Text;
