@@ -43,5 +43,13 @@ namespace PuntoDeVentaV2
             MessageBox.Show("La computadora ha sido vinculada correctamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
+
+        private void txtNombre_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Enter))
+            {
+                btnAceptar.PerformClick();
+            }
+        }
     }
 }
