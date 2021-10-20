@@ -753,7 +753,7 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Por su configuración la opción\nde disminuir inventario no es posible\nverifica el apartado de configuación.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show("De acuerdo a su configuración no es posible tener stock\nnegativo, si desea modificarlo, puede hacerlo desde\nel apartado \"Configuración general\"", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     txtDisminuir.Focus();
                                     return;
                                 }
