@@ -104,7 +104,7 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(50, 200, 150, "Mostrar en Lista", datos[3]);
             //=============================================================
             GenerarCheckbox(70, 35, 150, "Botón Asignar", datos[4]);
-            Generarbutton(70, 10, 20, 20,"");
+            Generarbutton(70, 10, 20, 20,"permisosProductos");
             GenerarCheckbox(70, 200, 150, "Mostrar en Mosaico", datos[5]);
             //=============================================================
             GenerarCheckbox(90, 35, 150, "Botón Etiqueta", datos[6]);
@@ -508,8 +508,7 @@ namespace PuntoDeVentaV2
         {
             PermisosDinamicosConfiguracion permisos = new PermisosDinamicosConfiguracion();
             Text = "PUDVE - Permisos Asignar Ticket";
-            //Permisos_Asignar asig = new Permisos_Asignar("Permisos", id_empleado);
-            //asig.Show();
+            
             Button btnSeleccionado = (Button)sender;
             var nombreBoton = btnSeleccionado.Name.ToString();
 
@@ -535,6 +534,11 @@ namespace PuntoDeVentaV2
             {
                 permisos.tipoPermisos = nombreBoton;
                 permisos.ShowDialog();
+            }
+            if (nombreBoton == "permisosProductos")
+            {
+                Permisos_Asignar asig = new Permisos_Asignar("Permisos", id_empleado);
+                asig.Show();
             }
             //if (nombreBoton == "porcentageGanancia")
             //{

@@ -2063,17 +2063,17 @@ namespace PuntoDeVentaV2
         public string permisosAsignar(List<int> opciones,string empleado)
         { 
             var consulta = $@"UPDATE empleadospermisos 
-            SET mensajeVentas = '{opciones[0]}',
-            mensajeInventario = '{opciones[1]}',
-            stock = '{opciones[2]}',
-            stockMinimo = '{opciones[3]}',
-            stockMaximo = '{opciones[4]}',
-            precio = '{opciones[5]}',
-            numeroRevision = '{opciones[6]}',
-            tipoIVA = '{opciones[7]}',
-            claveProducto = '{opciones[8]}',
-            claveUnidad = '{opciones[9]}',
-            correos = '{opciones[10]}' 
+            SET mensajeVentas = '{opciones[1]}',
+            mensajeInventario = '{opciones[2]}',
+            stock = '{opciones[3]}',
+            stockMinimo = '{opciones[4]}',
+            stockMaximo = '{opciones[5]}',
+            precio = '{opciones[6]}',
+            numeroRevision = '{opciones[7]}',
+            tipoIVA = '{opciones[8]}',
+            claveProducto = '{opciones[9]}',
+            claveUnidad = '{opciones[10]}',
+            correos = '{opciones[11]}' 
             WHERE
 	        IDUsuario = '{FormPrincipal.userID}' 
 	        AND IDEmpleado = '{empleado}'";
