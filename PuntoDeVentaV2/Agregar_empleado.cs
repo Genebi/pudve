@@ -43,11 +43,12 @@ namespace PuntoDeVentaV2
             {
                 Text = "Agregar empleado";
                 //lbTitulo.Text = "NUEVO EMPLEADO";
-                lb_permisos_contraseña.Text = "Asignar permisos";
+                lbContraseñaParaConfirmar.Text = "Asignar permisos";
                 txt_autorizar.Visible = false;
                 cmb_bx_permisos.Visible = true;
 
                 cmb_bx_permisos.SelectedIndex = 0;
+                picturebx_editar.Visible = false;
             }
 
             if (tipo == 2)
@@ -55,10 +56,10 @@ namespace PuntoDeVentaV2
                 Text = "Editar empleado";
                 ///lbTitulo.Text = "EDITAR EMPLEADO";
 
-                lb_permisos_contraseña.Visible = false;
+                lbContraseñaParaConfirmar.Visible = false;
                 cmb_bx_permisos.Visible = false;
                 picturebx_editar.Visible = true;
-                txt_conttraseña.Enabled = false;
+                txtPassword.Enabled = false;
 
                 var datos = mb.obtener_permisos_empleado(empleado, FormPrincipal.userID);
 
@@ -72,12 +73,12 @@ namespace PuntoDeVentaV2
 
                     txt_nombre.Text = nombre;
                     txt_usuario.Text = usuario;
-                    txt_conttraseña.Text = password;
+                    txtPassword.Text = password;
 
-                    lb_usuario.Visible = true;
+                    //lb_usuario.Visible = true;
 
-                    lb_usuario_completo.Text = FormPrincipal.userNickName + "@" + usuario;
-                    lb_usuario_completo.Visible = true;
+                    //lb_usuario_completo.Text = FormPrincipal.userNickName;/* +"@" + usuario*/
+                    //lb_usuario_completo.Visible = true;
 
                     txt_usuario.Enabled = false;
                     cmb_bx_permisos.Visible = false;
@@ -144,7 +145,7 @@ namespace PuntoDeVentaV2
                     
                     string[] datos = new string[]
                     {
-                        FormPrincipal.userID.ToString(), txt_nombre.Text, lb_usuario_completo.Text, txt_conttraseña.Text, permisos
+                        FormPrincipal.userID.ToString(), txt_nombre.Text, lb_usuario_completo.Text, txtPassword.Text, permisos
                     };
 
                     int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 1));
@@ -240,7 +241,7 @@ namespace PuntoDeVentaV2
                     int resultado = 0;
 
                     string[] datos = new string[] {
-                        empleado.ToString(), txt_nombre.Text.Trim(), txt_conttraseña.Text.Trim()
+                        empleado.ToString(), txt_nombre.Text.Trim(), txtPassword.Text.Trim()
                     };
 
                     if (actualizar_contraseña == 1)
@@ -274,11 +275,12 @@ namespace PuntoDeVentaV2
         {
             string mnsj = "";
             int error = 0;
+            var usuario = FormPrincipal.userNickName.ToString();
 
 
             if(tipo == 1 | actualizar_contraseña == 1)
             {
-                if (txt_conttraseña.Text.Trim() == "")
+                if (txtPassword.Text.Trim() == "")
                 {
                     error = 1;
                     mnsj = "La contraseña es obligatoria.";
@@ -314,21 +316,38 @@ namespace PuntoDeVentaV2
             // Aplica para editar
             if(tipo == 2 & actualizar_contraseña == 1)
             {
-                if(txt_autorizar.Text.Trim() == "")
+                if(txt_autorizar.Text.Trim() == "" )
                 {
                     error = 1;
                     mnsj = "La contraseña que autoriza el cambio de contraseña del empleado no puede estar vacía.";
                 }
-                else
+                else if (txtPassword.Text.Trim() != txtConfirmeSuPassword.Text.Trim())
                 {
-                    // Validar que la contraseña del usuario sea valida
+                    error = 1;
+                    mnsj = "Verificar que las contraseñas nuevas coincidan.";
+                }
+                else if(usuario.Contains("@"))
+                {
+                    // Validar que la contraseña del empleado sea valida
 
-                    bool valida_contraseña = (bool)cn.EjecutarSelect($"SELECT * FROM Empleados WHERE ID='{empleado}' AND contrasena='{txt_autorizar.Text}'");
+                    bool valida_contraseña = (bool)cn.EjecutarSelect($"SELECT * FROM Empleados WHERE ID='{FormPrincipal.id_empleado}' AND contrasena='{txt_autorizar.Text}'");
 
                     if(valida_contraseña == false)
                     {
                         error = 1;
-                        mnsj = "La contraseña del usuario es incorrecta.";
+                        mnsj = "La contraseña del usuario" + usuario + " para confirmar es incorrecta.";
+                    }
+                }
+                else if (!usuario.Contains("@"))
+                {
+                    // Validar que la contraseña del Usuario sea valida
+
+                    bool valida_contraseña = (bool)cn.EjecutarSelect($"SELECT * FROM Usuarios WHERE ID='{FormPrincipal.userID}' AND Password ='{txt_autorizar.Text}'");
+
+                    if (valida_contraseña == false)
+                    {
+                        error = 1;
+                        mnsj = "La contraseña del usuario" +usuario +" (ADMIN) "+ "para confirmar es incorrecta.";
                     }
                 }
             }
@@ -374,12 +393,32 @@ namespace PuntoDeVentaV2
 
         private void click_editar_contraseña(object sender, EventArgs e)
         {
-            lb_permisos_contraseña.Text = "Autorizar con \n contraseña del \n usuario";
-            txt_conttraseña.Enabled = true;
-            lb_permisos_contraseña.Visible = true;
+            lbContraseñaNueva.Text = "Ingrese La Nueva Contraseña";
+            txtPassword.Enabled = true;
+            lbContraseñaParaConfirmar.Visible = true;
             txt_autorizar.Visible = true;
-
+            txtConfirmeSuPassword.Visible = true;
+            lbConfrimarContraseña.Visible = true;
             actualizar_contraseña = 1;
+
+            Size = new Size(341, 395);
+            lbContraseñaNueva.Location = new Point(65, 119);
+
+            picturebx_editar.Visible = false;
+            txtPassword.Text = "";
+            txtPassword.Focus();
+
+            string usuario = FormPrincipal.userNickName.ToString();
+
+            if (usuario.Contains("@") == true)
+            {
+                lbContraseñaParaConfirmar.Text = "Ingresa la contraseña del Usuario: \n" + FormPrincipal.userNickName + " para confirmar.";
+            }
+            else
+            {
+                lbContraseñaParaConfirmar.Text = "Ingresa la contraseña del Usuario: \n" + FormPrincipal.userNickName + " (Admin) " +"para confirmar.";
+            }
+
         }
 
         private void txt_autorizar_KeyDown(object sender, KeyEventArgs e)
