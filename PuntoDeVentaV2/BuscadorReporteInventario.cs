@@ -127,14 +127,25 @@ namespace PuntoDeVentaV2
             var servidor = Properties.Settings.Default.Hosting;
 
             var rutaArchivo = string.Empty;
+            var usuario = string.Empty;
 
-            if (!string.IsNullOrWhiteSpace(servidor))
+            if (FormPrincipal.userNickName.Contains("@"))
             {
-                rutaArchivo += $@"\\{servidor}\Archivos PUDVE\Reportes\RevisarInventario\{FormPrincipal.userNickName}\reporte_inventario_{num}.pdf";
+                var palabras = FormPrincipal.userNickName.Split('@');
+                usuario = palabras[0].ToString();
             }
             else
             {
-                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\RevisarInventario\{FormPrincipal.userNickName}\reporte_inventario_{num}.pdf";
+                usuario = FormPrincipal.userNickName;
+            }
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo += $@"\\{servidor}\Archivos PUDVE\Reportes\RevisarInventario\{usuario}\reporte_inventario_{num}.pdf";
+            }
+            else
+            {
+                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\RevisarInventario\{usuario}\reporte_inventario_{num}.pdf";
             }
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
@@ -1833,6 +1844,18 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void DGVInventario_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 3)
+            {
+                DGVInventario.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                DGVInventario.Cursor = Cursors.Default;
             }
         }
     }
