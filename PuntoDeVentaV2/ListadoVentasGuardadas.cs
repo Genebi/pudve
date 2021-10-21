@@ -90,7 +90,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Total"));
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
 
-                Image imgMostrar  = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\eye.png");
+                Image imgMostrar  = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
                 Image imgEliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
 
                 row.Cells["Mostrar"].Value = imgMostrar;
