@@ -984,6 +984,7 @@
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel12);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -993,6 +994,7 @@
             this.Text = "Cargar XML";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarStockXML_FormClosing);
             this.Load += new System.EventHandler(this.AgregarStockXML_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarStockXML_KeyDown);
             this.panel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.panel12.ResumeLayout(false);

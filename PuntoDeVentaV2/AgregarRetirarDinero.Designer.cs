@@ -297,12 +297,14 @@
             this.ClientSize = new System.Drawing.Size(434, 331);
             this.Controls.Add(this.gbContenedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AgregarRetirarDinero";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AgregarRetirarDinero_FormClosed);
             this.Load += new System.EventHandler(this.AgregarRetirarDinero_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarRetirarDinero_KeyDown);
             this.gbContenedor.ResumeLayout(false);
             this.gbContenedor.PerformLayout();
             this.ResumeLayout(false);

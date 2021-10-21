@@ -343,6 +343,7 @@
             this.Controls.Add(this.txtNameBascula);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AgregarEditarBascula";
@@ -351,6 +352,7 @@
             this.Text = "Agregar o editar basculas en el sistema";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarEditarBascula_FormClosing);
             this.Load += new System.EventHandler(this.AgregarEditarBascula_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarEditarBascula_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaBasculas)).EndInit();

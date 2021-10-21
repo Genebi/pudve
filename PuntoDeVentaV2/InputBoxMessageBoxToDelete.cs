@@ -35,6 +35,10 @@ namespace PuntoDeVentaV2
                         row.Cells["Inhabilitar"].Value = inhabilitar;
                     }
                 }
+                else if (dtConceptoHabilitado.Rows.Count.Equals(0))
+                {
+                    DGVConceptosHabilitados.Rows.Clear();
+                }
             }
 
             notSortableDataGridView();

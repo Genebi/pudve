@@ -820,6 +820,8 @@ namespace PuntoDeVentaV2
             {
                 cons = "INSERT INTO Empleados (IDUsuario, nombre, usuario, contrasena)";
                 cons += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}')";
+
+
             }
 
             // Ajustar permisos
@@ -1604,6 +1606,7 @@ namespace PuntoDeVentaV2
             var queryAppSetting = $"SELECT * FROM appsettings WHERE IDUsuario = '{FormPrincipal.userID}' AND checkBoxConcepto = '1' AND Mostrar = '1' AND concepto <> 'Proveedor';";
             var queryRepAumenInv = "SELECT * FROM ReporteAumentarInventario;";
             var queryRepAumenInvExtended = "SELECT * FROM ReporteAumentarInventarioExtended";
+            var queryCrearRemplazarView = string.Empty;
 
             List<string> columnasDinamicas = new List<string>();
 
@@ -1634,8 +1637,6 @@ namespace PuntoDeVentaV2
                     {
                         if (!dtReporteAumentarInventario.Rows.Count.Equals(0))
                         {
-                            var queryCrearRemplazarView = string.Empty;
-
                             queryCrearRemplazarView = "CREATE OR REPLACE VIEW ReporteAumentarInventarioExtended AS SELECT repAumInv.id, repAumInv.IdProducto AS No, repAumInv.NombreProducto AS Producto, repAumInv.NombreEmisor AS Proveedor, repAumInv.DiferenciaUnidades AS Unidades_Compradas, repAumInv.ValorUnitario AS Precio_Compra, repAumInv.Precio AS Precio_Venta, repAumInv.NuevoStock AS Stock_Anterior, repAumInv.StockActual AS Stock_Actual, repAumInv.Fecha AS Fecha_Compra, repAumInv.Comentarios AS Comentarios, /* repAumInv.Clave, repAumInv.Codigo, repAumInv.NoRevision, repAumInv.StatusActualizacion, repAumInv.IdUsuario, repAumInv.IDEmpleado, repAumInv.NameUsr,repAumInv.Folio, repAumInv.IDConcepto, */ ";
 
                             foreach (var item in columnasDinamicas)
@@ -1646,13 +1647,32 @@ namespace PuntoDeVentaV2
                             queryCrearRemplazarView = queryCrearRemplazarView.Remove(queryCrearRemplazarView.Length - 1);
 
                             queryCrearRemplazarView += " FROM reporteaumentarinventario AS repAumInv GROUP BY repAumInv.id ORDER BY repAumInv.NombreProducto, repAumInv.StockActual DESC;";
-
-                            cn.crearViewDinamica(queryCrearRemplazarView);
-
-                            consulta = queryRepAumenInvExtended;
                         }
                     }
                 }
+                else
+                {
+                    using (DataTable dtReporteAumentarInventario = cn.CargarDatos(queryRepAumenInv))
+                    {
+                        if (!dtReporteAumentarInventario.Rows.Count.Equals(0))
+                        {
+                            queryCrearRemplazarView = "CREATE OR REPLACE VIEW ReporteAumentarInventarioExtended AS SELECT repAumInv.id, repAumInv.IdProducto AS No, repAumInv.NombreProducto AS Producto, repAumInv.NombreEmisor AS Proveedor, repAumInv.DiferenciaUnidades AS Unidades_Compradas, repAumInv.ValorUnitario AS Precio_Compra, repAumInv.Precio AS Precio_Venta, repAumInv.NuevoStock AS Stock_Anterior, repAumInv.StockActual AS Stock_Actual, repAumInv.Fecha AS Fecha_Compra, repAumInv.Comentarios AS Comentarios ";
+
+                            foreach (var item in columnasDinamicas)
+                            {
+                                queryCrearRemplazarView += $" GROUP_CONCAT( DISTINCT IF ( repAumInv.Concepto = \"{item.ToString()}\", repAumInv.Descripcion, NULL ) ) AS {item.ToString()},";
+                            }
+
+                            queryCrearRemplazarView = queryCrearRemplazarView.Remove(queryCrearRemplazarView.Length - 1);
+
+                            queryCrearRemplazarView += " FROM reporteaumentarinventario AS repAumInv GROUP BY repAumInv.id ORDER BY repAumInv.NombreProducto, repAumInv.StockActual DESC;";
+                        }
+                    }
+                }
+
+                cn.crearViewDinamica(queryCrearRemplazarView);
+
+                consulta = queryRepAumenInvExtended;
             }
 
             return consulta;
@@ -1672,6 +1692,7 @@ namespace PuntoDeVentaV2
             var queryAppSetting = $"SELECT * FROM appsettings WHERE IDUsuario = '{FormPrincipal.userID}' AND checkBoxConcepto = '1' AND Mostrar = '1' AND concepto <> 'Proveedor';";
             var queryRepDisminInv = "SELECT * FROM ReporteDisminuirInventario;";
             var queryRepDisminInvExtended = "SELECT * FROM ReporteDisminuirInventarioExtended";
+            var queryCrearRemplazarView = string.Empty;
 
             List<string> columnasDinamicas = new List<string>();
 
@@ -1699,8 +1720,6 @@ namespace PuntoDeVentaV2
 
                     using (DataTable dtReporteDisminuirInvetario = cn.CargarDatos(queryRepDisminInv))
                     {
-                        var queryCrearRemplazarView = string.Empty;
-
                         queryCrearRemplazarView = "CREATE OR REPLACE VIEW ReporteDisminuirInventarioExtended AS SELECT repDisInv.id, repDisInv.IdProducto AS No, repDisInv.NombreProducto AS Producto, repDisInv.NombreEmisor AS Proveedor, repDisInv.DiferenciaUnidades AS Unidades_Compradas, repDisInv.ValorUnitario AS Precio_Compra, repDisInv.Precio AS Precio_Venta, repDisInv.NuevoStock AS Stock_Anterior, repDisInv.StockActual AS Stock_Actual, repDisInv.Fecha AS Fecha_Compra, repDisInv.Comentarios AS Comentarios, /* repDisInv.Clave, repDisInv.Codigo, repDisInv.NoRevision, repDisInv.StatusActualizacion, repDisInv.IdUsuario, repDisInv.IDEmpleado, repDisInv.NameUsr,repDisInv.Folio, repDisInv.IDConcepto, */ ";
 
                         foreach (var item in columnasDinamicas)
@@ -1711,12 +1730,28 @@ namespace PuntoDeVentaV2
                         queryCrearRemplazarView = queryCrearRemplazarView.Remove(queryCrearRemplazarView.Length - 1);
 
                         queryCrearRemplazarView += " FROM ReporteDisminuirInventario AS repDisInv GROUP BY repDisInv.id ORDER BY repDisInv.NombreProducto, repDisInv.StockActual DESC;";
-
-                        cn.crearViewDinamica(queryCrearRemplazarView);
-
-                        consulta = queryRepDisminInvExtended;
                     }
                 }
+                else
+                {
+                    using (DataTable dtReporteDisminuirInvetario = cn.CargarDatos(queryRepDisminInv))
+                    {
+                        queryCrearRemplazarView = "CREATE OR REPLACE VIEW ReporteDisminuirInventarioExtended AS SELECT repDisInv.id, repDisInv.IdProducto AS No, repDisInv.NombreProducto AS Producto, repDisInv.NombreEmisor AS Proveedor, repDisInv.DiferenciaUnidades AS Unidades_Compradas, repDisInv.ValorUnitario AS Precio_Compra, repDisInv.Precio AS Precio_Venta, repDisInv.NuevoStock AS Stock_Anterior, repDisInv.StockActual AS Stock_Actual, repDisInv.Fecha AS Fecha_Compra, repDisInv.Comentarios AS Comentarios ";
+
+                        foreach (var item in columnasDinamicas)
+                        {
+                            queryCrearRemplazarView += $" GROUP_CONCAT( DISTINCT IF ( repDisInv.Concepto = \"{item.ToString()}\", repDisInv.Descripcion, NULL ) ) AS {item.ToString()},";
+                        }
+
+                        queryCrearRemplazarView = queryCrearRemplazarView.Remove(queryCrearRemplazarView.Length - 1);
+
+                        queryCrearRemplazarView += " FROM ReporteDisminuirInventario AS repDisInv GROUP BY repDisInv.id ORDER BY repDisInv.NombreProducto, repDisInv.StockActual DESC;";
+                    }
+                }
+
+                cn.crearViewDinamica(queryCrearRemplazarView);
+
+                consulta = queryRepDisminInvExtended;
             }
 
             return consulta;
@@ -2028,17 +2063,17 @@ namespace PuntoDeVentaV2
         public string permisosAsignar(List<int> opciones,string empleado)
         { 
             var consulta = $@"UPDATE empleadospermisos 
-            SET mensajeVentas = '{opciones[0]}',
-            mensajeInventario = '{opciones[1]}',
-            stock = '{opciones[2]}',
-            stockMinimo = '{opciones[3]}',
-            stockMaximo = '{opciones[4]}',
-            precio = '{opciones[5]}',
-            numeroRevision = '{opciones[6]}',
-            tipoIVA = '{opciones[7]}',
-            claveProducto = '{opciones[8]}',
-            claveUnidad = '{opciones[9]}',
-            correos = '{opciones[10]}' 
+            SET mensajeVentas = '{opciones[1]}',
+            mensajeInventario = '{opciones[2]}',
+            stock = '{opciones[3]}',
+            stockMinimo = '{opciones[4]}',
+            stockMaximo = '{opciones[5]}',
+            precio = '{opciones[6]}',
+            numeroRevision = '{opciones[7]}',
+            tipoIVA = '{opciones[8]}',
+            claveProducto = '{opciones[9]}',
+            claveUnidad = '{opciones[10]}',
+            correos = '{opciones[11]}' 
             WHERE
 	        IDUsuario = '{FormPrincipal.userID}' 
 	        AND IDEmpleado = '{empleado}'";
@@ -2622,6 +2657,59 @@ namespace PuntoDeVentaV2
         public string validarCerrarSesionCorteCaja()
         {
             var consulta = $"SELECT IDUsuario, CerrarSesionAuto FROM configuracion WHERE IDUsuario = '{FormPrincipal.userID}';";
+
+            return consulta;
+        }
+
+        public string cargarDatosDeConfiguracion()
+        {
+            var consulta = $"SELECT IDUsuario, TicketVenta, IniciarProceso, MostrarCodigoProducto, CerrarSesionAuto, MostrarPrecioProducto, StockNegativo, HabilitarTicketVentas, PrecioMayoreo, checkNoVendidos FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
+
+        public string PermisosConfiguracionEmpleados(int idEmpleado)
+        {
+            var consulta = $"SELECT IDEmpleado from permisosconfiguracion WHERE IDEmpleado = {idEmpleado}";
+            return consulta;
+        }
+
+        public string permisosEmpleado(string datosPermisos, int id_empleado)
+        {
+            var consulta = $"SELECT {datosPermisos} FROM permisosconfiguracion WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID}";
+            return consulta;
+        }
+
+        public string PermisosEmpleadosSetupPudve(int idEmpleado, string dato)
+        {
+            var consulta = $"SELECT {dato} from empleadospermisos WHERE IDEmpleado = {idEmpleado} AND Seccion = 'Configuracion'";
+            return consulta;
+        }
+
+        public string actualizarCantidadRelacionProdComboServicio(int idRelacion, float cantidadRelacion)
+        {
+            var consulta = $"UPDATE ProductosDeServicios SET Cantidad = '{cantidadRelacion}' WHERE IDServicio = '{idRelacion}';";
+
+            return consulta;
+        }
+
+        public string obtenerNombreDelProducto(string idProducto)
+        {
+            var consulta = $"SELECT ID, Nombre FROM productos WHERE ID = '{idProducto}';";
+
+            return consulta;
+        }
+
+        public string obtenerCantidadProductosDeServicios(string idComboServ)
+        {
+            var consulta = $"SELECT ID, Cantidad FROM ProductosDeServicios WHERE IDServicio = '{idComboServ}'";
+
+            return consulta;
+        }
+
+        public string obtenerStcokNegativoConfiguracion()
+        {
+            var consulta = $"SELECT IDUsuario, StockNegativo FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}";
 
             return consulta;
         }

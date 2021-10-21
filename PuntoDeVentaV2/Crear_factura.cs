@@ -1688,22 +1688,35 @@ namespace PuntoDeVentaV2
                         int error = 0;
                         string mnsjerror = "";
 
-
+                       
                         Generar_XML xml = new Generar_XML();
-
+                        
                         foreach (var id_facturaa in list_id_facturas)
                         {
-                            string respuesta_xml = xml.obtener_datos_XML(id_facturaa, id_venta, 0, vacio);
+                            try
+                            {
+                                string respuesta_xml = xml.obtener_datos_XML(id_facturaa, id_venta, 0, vacio);
 
-                            if (respuesta_xml == "")
-                            {
-                                exito++;
+                                if (respuesta_xml == "")
+                                {
+                                    exito++;
+                                }
+                                else
+                                {
+                                    error++;
+                                    mnsjerror += respuesta_xml + "\n";
+                                }
                             }
-                            else
+                            catch(Exception ex)
                             {
-                                error++;
-                                mnsjerror += respuesta_xml + "\n";
+                                var r= MessageBox.Show("Ocurrio un error al momento de timbrar y/o generar su(s) factura(s). \n Le invitamos a tomar en cuenta los siguientes puntos: \n - Contar con conexión a internet durante el proceso de timbrado. \n - Sus archivos digitales no deben estar caducos.  \n - Sus archivos CSD deben haberse subido correctamente. \n - Sus CSD deben encontrarse en la lista LCO. \n\n " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                if (r == DialogResult.OK)
+                                {
+                                    this.Dispose();
+                                }                                
                             }
+                            
                         }
 
 
@@ -2213,7 +2226,7 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
         }
-
+        
         private void cmb_bx_clientes_TextChanged(object sender, EventArgs e)
         {
             if (cmb_bx_clientes.Text.Equals("") || !cmb_bx_clientes.Text.Equals(""))
@@ -2222,6 +2235,7 @@ namespace PuntoDeVentaV2
             }
         }
         
+
 
         /*private void btn_facturar_Click(object sender, EventArgs e)
         {

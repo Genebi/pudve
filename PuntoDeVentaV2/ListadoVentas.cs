@@ -2848,7 +2848,7 @@ namespace PuntoDeVentaV2
             //Los try son para las finas que son para totales que no se marquen
 
             var incremento = -1;
-            
+
             foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
             {
                 try

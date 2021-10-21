@@ -66,7 +66,7 @@ namespace PuntoDeVentaV2
             }
 
             txtBuscarAnticipo.Focus();
-            dpFechaInicial.Value = DateTime.Today.AddDays(-1);
+            dpFechaInicial.Value = DateTime.Today.AddDays(-7);
         }
 
         private void CargarDatos(int estado = 1, int tipo = 0)
@@ -90,21 +90,26 @@ namespace PuntoDeVentaV2
 
             var consulta = string.Empty;
 
-            //Normal
-            if (tipo == 0)
+            if (estado.Equals(4))
             {
-                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Status != 4";
+                estado = 5;
             }
 
+            //Normal
+            //if (tipo == 0)
+            //{
+            //    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado}"; //AND Status != 4
+            //}
+
             //Con fechas de busqueda
-            if (tipo == 1)
-            {
+            //if (tipo == 1)
+            //{
                 var fechaInicio = dpFechaInicial.Text;
                 var fechaFinal = dpFechaFinal.Text;
 
                 if (string.IsNullOrEmpty(txtBuscarAnticipo.Text))//Busqueda sin Cliente/Empleado
                 {
-                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
+                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
                     conBusqueda = false;
                 }
                 else//Busqueda con Cliente/Empleado
@@ -112,18 +117,22 @@ namespace PuntoDeVentaV2
                     //var emp = consultaBuscarEmpledo(txtBuscarAnticipo.Text);
                     //var client = consultaBuscarCliente(); 
 
-                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Cliente LIKE '%{txtBuscarAnticipo.Text}%' AND Status != 4 AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
+                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Cliente LIKE '%{txtBuscarAnticipo.Text}%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
 
                     conBusqueda = true;
                 }
 
-            }
+            //}
 
             sql_cmd = new MySqlCommand(consulta, sql_con);
 
             dr = sql_cmd.ExecuteReader();
 
-            if (dr.HasRows)
+            if (dr.HasRows )
+            {
+                DGVAnticipos.Rows.Clear();
+            }
+            else
             {
                 DGVAnticipos.Rows.Clear();
             }

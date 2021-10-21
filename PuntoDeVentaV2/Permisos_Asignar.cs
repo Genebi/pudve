@@ -111,8 +111,6 @@ namespace PuntoDeVentaV2
 
             VerificarSecciones();
 
-
-
             if (seccion.Equals("Permisos"))
                 GenerarPermisos();
 
@@ -158,7 +156,7 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(130, 45, 150, "Correos", datos2[34]);
 
             int contador = 0;
-            int dato2 = 35;
+            int dato2 = 41;
             int top = 130, left = 200, ancho = 150;
             using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.verificarPermisosDinamicos(FormPrincipal.userID)))
             {

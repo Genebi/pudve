@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Drawing;
 using System.Windows.Forms;
 using iTextSharp.text;
@@ -14,7 +13,6 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.Threading;
 using static System.Windows.Forms.DataGridView;
-using System.Drawing.Drawing2D;
 using System.IO.Ports;
 
 namespace PuntoDeVentaV2
@@ -317,8 +315,6 @@ namespace PuntoDeVentaV2
             iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
         }
-
-
 
         private void BuscarTieneFoco(object sender, EventArgs e)
         {
@@ -1027,6 +1023,7 @@ namespace PuntoDeVentaV2
             // Descuento
             if (columna.Equals(8))
             {
+                txtBuscadorProducto.Focus();
                 if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     var idProducto = DGVentas.Rows[celda].Cells["IDProducto"].Value.ToString();
@@ -1044,6 +1041,7 @@ namespace PuntoDeVentaV2
                         if (descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
                         {
                             quitarDescuento = true;
+                            txtBuscadorProducto.Focus();
                         }
 
                         var resultado = formDescuento.ShowDialog();
@@ -1066,9 +1064,10 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+                    SendKeys.Send("{ENTER}");
+                    SendKeys.Send("{ENTER}");
                 }
             }
-
             // Agregar multiple
             if (columna.Equals(10))
             {
@@ -3442,86 +3441,177 @@ namespace PuntoDeVentaV2
             // Comprobamos que la opcion stock negativo sea false para que se pueda realizar la venta
             // verificando si el stock es suficiente para realizar la venta, de lo contrario se
             // permitira hacer la venta incluso si el stock es insuficiente
-            if (Properties.Settings.Default.StockNegativo == false)
+            using (DataTable dtStockNegativo = cn.CargarDatos(cs.cargarDatosDeConfiguracion()))
             {
-                if (DGVentas.Rows.Count > 0)
+                if (!dtStockNegativo.Rows.Count.Equals(0))
                 {
-                    foreach (DataGridViewRow fila in DGVentas.Rows)
+                    // if (Properties.Settings.Default.StockNegativo == false)
+                    if (dtStockNegativo.Rows[0]["StockNegativo"].Equals(0))
                     {
-                        var stock = float.Parse(fila.Cells["Stock"].Value.ToString());
-                        var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
-                        var tipoPS = fila.Cells["TipoPS"].Value.ToString();
-
-                        // Es producto
-                        if (tipoPS == "P")
+                        if (DGVentas.Rows.Count > 0)
                         {
-                            if (stock < cantidad && statusVenta != "2")
+                            foreach (DataGridViewRow fila in DGVentas.Rows)
                             {
-                                var producto = fila.Cells["Descripcion"].Value;
+                                var stock = float.Parse(fila.Cells["Stock"].Value.ToString());
+                                var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+                                var tipoPS = fila.Cells["TipoPS"].Value.ToString();
 
-                                MessageBox.Show($"El stock de {producto} es insuficiente\nStock actual: {stock}\nRequerido: {cantidad}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                                respuesta = false;
-
-                                break;
-                            }
-                        }
-
-                        // Es servicio o paquete
-                        if (tipoPS == "S" || tipoPS == "PQ")
-                        {
-                            var servicio = fila.Cells["Descripcion"].Value;
-                            var idServicio = Convert.ToInt32(fila.Cells["IDProducto"].Value);
-                            var categoria = string.Empty;
-
-                            if (tipoPS == "S") { categoria = "Servicio"; }
-                            if (tipoPS == "PQ") { categoria = "Paquete"; }
-
-                            // Obtener los productos relacionados (ID, Cantidad)
-                            var datosServicio = cn.ObtenerProductosServicio(idServicio);
-
-                            if (datosServicio.Length > 0)
-                            {
-                                // Verificar la cantidad de cada producto con el stock actual de ese producto individual
-                                foreach (string producto in datosServicio)
+                                // Es producto
+                                if (tipoPS == "P")
                                 {
-                                    var datosProducto = producto.Split('|');
-                                    var idProducto = Convert.ToInt32(datosProducto[0]);
-                                    var stockRequerido = (int)Convert.ToDouble(datosProducto[1]) * cantidad;
-
-                                    datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
-                                    datosProducto = datosProducto[0].Split('|');
-
-                                    var nombreProducto = datosProducto[0];
-                                    var stockActual = (int)Convert.ToDouble(datosProducto[1]);
-
-                                    if (stockActual < stockRequerido)
+                                    if (stock < cantidad && statusVenta != "2")
                                     {
-                                        var mensaje = $"El stock de {nombreProducto} es insuficiente\n{categoria}: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+                                        var producto = fila.Cells["Descripcion"].Value;
 
-                                        MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        MessageBox.Show($"El stock de {producto} es insuficiente\nStock actual: {stock}\nRequerido: {cantidad}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                                         respuesta = false;
 
                                         break;
                                     }
                                 }
+
+                                // Es servicio o paquete
+                                if (tipoPS == "S" || tipoPS == "PQ")
+                                {
+                                    var servicio = fila.Cells["Descripcion"].Value;
+                                    var idServicio = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+                                    var categoria = string.Empty;
+
+                                    if (tipoPS == "S") { categoria = "Servicio"; }
+                                    if (tipoPS == "PQ") { categoria = "Paquete"; }
+
+                                    // Obtener los productos relacionados (ID, Cantidad)
+                                    var datosServicio = cn.ObtenerProductosServicio(idServicio);
+
+                                    if (datosServicio.Length > 0)
+                                    {
+                                        // Verificar la cantidad de cada producto con el stock actual de ese producto individual
+                                        foreach (string producto in datosServicio)
+                                        {
+                                            var datosProducto = producto.Split('|');
+                                            var idProducto = Convert.ToInt32(datosProducto[0]);
+
+                                            if (idProducto > 0)
+                                            {
+                                                var stockRequerido = (int)Convert.ToDouble(datosProducto[1]) * cantidad;
+
+                                                datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
+                                                datosProducto = datosProducto[0].Split('|');
+
+                                                var nombreProducto = datosProducto[0];
+                                                var stockActual = (int)Convert.ToDouble(datosProducto[1]);
+
+                                                if (stockActual < stockRequerido)
+                                                {
+                                                    var mensaje = $"El stock de {nombreProducto} es insuficiente\n{categoria}: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+
+                                                    MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                                    respuesta = false;
+
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
+                        }
+                        else
+                        {
+                            respuesta = false;
+                        }
+                    }
+                    else
+                    {
+                        if (DGVentas.Rows.Count == 0)
+                        {
+                            respuesta = false;
                         }
                     }
                 }
-                else
-                {
-                    respuesta = false;
-                }
             }
-            else
-            {
-                if (DGVentas.Rows.Count == 0)
-                {
-                    respuesta = false;
-                }
-            }
+            //if (Properties.Settings.Default.StockNegativo == false)
+            //{
+            //    if (DGVentas.Rows.Count > 0)
+            //    {
+            //        foreach (DataGridViewRow fila in DGVentas.Rows)
+            //        {
+            //            var stock = float.Parse(fila.Cells["Stock"].Value.ToString());
+            //            var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+            //            var tipoPS = fila.Cells["TipoPS"].Value.ToString();
+
+            //            // Es producto
+            //            if (tipoPS == "P")
+            //            {
+            //                if (stock < cantidad && statusVenta != "2")
+            //                {
+            //                    var producto = fila.Cells["Descripcion"].Value;
+
+            //                    MessageBox.Show($"El stock de {producto} es insuficiente\nStock actual: {stock}\nRequerido: {cantidad}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //                    respuesta = false;
+
+            //                    break;
+            //                }
+            //            }
+
+            //            // Es servicio o paquete
+            //            if (tipoPS == "S" || tipoPS == "PQ")
+            //            {
+            //                var servicio = fila.Cells["Descripcion"].Value;
+            //                var idServicio = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+            //                var categoria = string.Empty;
+
+            //                if (tipoPS == "S") { categoria = "Servicio"; }
+            //                if (tipoPS == "PQ") { categoria = "Paquete"; }
+
+            //                // Obtener los productos relacionados (ID, Cantidad)
+            //                var datosServicio = cn.ObtenerProductosServicio(idServicio);
+
+            //                if (datosServicio.Length > 0)
+            //                {
+            //                    // Verificar la cantidad de cada producto con el stock actual de ese producto individual
+            //                    foreach (string producto in datosServicio)
+            //                    {
+            //                        var datosProducto = producto.Split('|');
+            //                        var idProducto = Convert.ToInt32(datosProducto[0]);
+            //                        var stockRequerido = (int)Convert.ToDouble(datosProducto[1]) * cantidad;
+
+            //                        datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
+            //                        datosProducto = datosProducto[0].Split('|');
+
+            //                        var nombreProducto = datosProducto[0];
+            //                        var stockActual = (int)Convert.ToDouble(datosProducto[1]);
+
+            //                        if (stockActual < stockRequerido)
+            //                        {
+            //                            var mensaje = $"El stock de {nombreProducto} es insuficiente\n{categoria}: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+
+            //                            MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //                            respuesta = false;
+
+            //                            break;
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        respuesta = false;
+            //    }
+            //}
+            //else
+            //{
+            //    if (DGVentas.Rows.Count == 0)
+            //    {
+            //        respuesta = false;
+            //    }
+            //}
 
             return respuesta;
         }
@@ -5106,6 +5196,11 @@ namespace PuntoDeVentaV2
                 Close();
             }
 
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtBuscadorProducto.Focus();
+            }
+
 
             if (e.KeyCode == Keys.B && (e.Control))// Boton Consultar
             {
@@ -5428,8 +5523,8 @@ namespace PuntoDeVentaV2
                 //listProductos.Add(datosProducto[0] + "|" + cantidad.ToString());
                 consulta.ShowDialog();
             }
-
-            
+            SendKeys.Send("{TAB}");
+            SendKeys.Send("{ENTER}");
         }
 
         private void listaProductosVenta()
@@ -5459,8 +5554,15 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            nudCantidadPS.Value = Convert.ToDecimal(cantidadaPedir);
-                            AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                            if (string.IsNullOrWhiteSpace(cantidadaPedir.ToString()))//Se valida si la cantidad es igual a 0 o si viene vacio.
+                            {
+                            }
+                            else
+                            {
+                                nudCantidadPS.Value = Convert.ToDecimal(cantidadaPedir);
+                                AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
+                            }
+                            
                         }
                     }
                     else
@@ -5472,8 +5574,6 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-
-                        
                             if (cantidadaPedir.Equals(string.Empty) || cantidadaPedir.Equals(0))
                             {
                                 nudCantidadPS.Value = Convert.ToInt32(1);
@@ -5486,8 +5586,6 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    
-                    
                 }
             }
             ConsultarProductoVentas.datosDeProducto.Clear();
@@ -5814,6 +5912,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            txtBuscadorProducto.Focus();
         }
 
 
@@ -6026,7 +6125,7 @@ namespace PuntoDeVentaV2
                     }
                 };
 
-                anticipo.Show();
+                anticipo.ShowDialog();
             }
         }
 
@@ -6233,6 +6332,43 @@ namespace PuntoDeVentaV2
             txtDescuentoGeneral.Text = cantidadDescuento.Replace("\r\n","");
         }
 
+        private void DGVentas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+                txtBuscadorProducto.Focus();
+        }
+
+        private void DGVentas_Enter(object sender, EventArgs e)
+        {
+
+            //var celda = DGVentas.Rows[0].Cells["Descuento"].Value.ToString();
+            //if (!celda.Equals("0.00"))
+            //{
+            //    txtBuscadorProducto.Focus();
+            //}
+        }
+
+        private void DGVentas_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+            txtBuscadorProducto.Focus();
+            txtBuscadorProducto.Select();
+        }
+
+        private void DGVentas_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void nudCantidadPS_Click(object sender, EventArgs e)
+        {
+            var canitdad = Convert.ToDecimal(nudCantidadPS.Value);
+            nudCantidadPS.Select(0, canitdad.ToString().Length + 3);
+        }
+
+        private void btnConsultar_Enter(object sender, EventArgs e)
+        {
+            txtBuscadorProducto.Focus();
+        }
+
         private void btnCancelarVenta_Enter(object sender, EventArgs e)
         {
             txtBuscadorProducto.Focus();
@@ -6290,8 +6426,8 @@ namespace PuntoDeVentaV2
                     {
                         var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
 
-                        string nombreEmpleado = datosEmpleado[14];
-                        string usuarioEmpleado = datosEmpleado[15];
+                        string nombreEmpleado = datosEmpleado[15];
+                        string usuarioEmpleado = datosEmpleado[16];
 
                         var infoEmpleado = usuarioEmpleado.Split('@');
 
@@ -6618,11 +6754,13 @@ namespace PuntoDeVentaV2
                 if (isDecimal)
                 {
                     DGVentas.Rows[celda].Cells[9].Value = (cantidad * Convert.ToDecimal(DGVentas.Rows[celda].Cells[6].Value));
+                    txtBuscadorProducto.Focus();
                 }
                 else
                 {
                     DGVentas.Rows[celda].Cells[5].Value = cantidadAnterior;
                     MessageBox.Show("El formato que introdujo no es el correcto; los siguientes son los permitidos:\n0.5(cualquier número despues del punto decimal)\n.5(cualquier número despues del punto decimal)");
+                    txtBuscadorProducto.Focus();
                     return;
                 }
 
@@ -6637,8 +6775,7 @@ namespace PuntoDeVentaV2
                 }
 
                 CalculoMayoreo();
-                CantidadesFinalesVenta();
-
+                //CantidadesFinalesVenta();
                 CantidadesFinalesVenta();
             }
         }
@@ -6871,11 +7008,6 @@ namespace PuntoDeVentaV2
             timer_img_producto.Stop();
         }
 
-        private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void DGVentas_SelectionChanged(object sender, EventArgs e)
         {
             //if (!DGVentas.Rows.Count.Equals(0))
@@ -6909,6 +7041,7 @@ namespace PuntoDeVentaV2
             return result;
         }
 
+        
         /*private void DrawEllipseInt(PaintEventArgs e)
         {
             // Create pen.

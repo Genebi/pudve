@@ -102,13 +102,17 @@ namespace PuntoDeVentaV2
             //sql_cmd = new MySqlCommand(consulta, sql_con
             //dr = sql_cmd.ExecuteReader();
 
-            var consultaCombos = cn.CargarDatos(consultaProductosRelacionados);
             var realizarConsulta = cn.CargarDatos(consulta);
 
-            //Unir Resultados de las consultas
-            realizarConsulta.Merge(consultaCombos);
-            consultaCombos.Dispose();
-            consultaCombos = null;
+            if (!string.IsNullOrWhiteSpace(consultaProductosRelacionados))
+            {
+                var consultaCombos = cn.CargarDatos(consultaProductosRelacionados);
+                //Unir Resultados de las consultas
+                realizarConsulta.Merge(consultaCombos);
+                consultaCombos.Dispose();
+                consultaCombos = null;
+            }
+            
 
             if (/*dr.HasRows*/!realizarConsulta.Rows.Count.Equals(0))
             {

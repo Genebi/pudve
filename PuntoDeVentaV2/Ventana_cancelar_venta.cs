@@ -249,6 +249,10 @@ namespace PuntoDeVentaV2
             {
                 btn_aceptar.PerformClick();
             }
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
         }
 
         private bool validarDatos(int idVenta)
@@ -409,6 +413,14 @@ namespace PuntoDeVentaV2
                 }
             }
             return result;
+        }
+
+        private void Ventana_cancelar_venta_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
         }
     }
 }

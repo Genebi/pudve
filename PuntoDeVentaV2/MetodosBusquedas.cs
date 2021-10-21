@@ -1082,7 +1082,7 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public string[] BuscarCodigoBarrasExtraFormProductos(string codigo)
+        public string[] BuscarCodigoBarrasExtraFormProductos(string codigo, bool especial = false)
         {
             List<string> lista = new List<string>();
             string[] codigosABuscar;
@@ -1110,7 +1110,10 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        lista.Add("0|" + searchCodBar);
+                        if (!especial)
+                        {
+                            lista.Add("0|" + searchCodBar);
+                        }
                     }
 
                     dr.Close();
@@ -1287,7 +1290,7 @@ namespace PuntoDeVentaV2
             return coincidencias;
         }
 
-        public string[] BusquedaCodigosBarrasClaveInterna(string codigo, int opcionBusqueda = 1)
+        public string[] BusquedaCodigosBarrasClaveInterna(string codigo, int opcionBusqueda = 1, bool especial = false)
         {
             List<string> lista = new List<string>();
 
@@ -1324,7 +1327,10 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        lista.Add("0|" + palabra);
+                        if (!especial)
+                        {
+                            lista.Add("0|" + palabra);
+                        }
                     }
 
                     dr.Close();
@@ -2440,6 +2446,12 @@ namespace PuntoDeVentaV2
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("claveProducto"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("claveUnidad"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("correos"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("editarTicket"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("EnvioCorreo"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("confiGeneral"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("porcentajeGanancia"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("tipoMoneda"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("RespaldarInfo"))));
                 using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                 {
 
@@ -2447,10 +2459,17 @@ namespace PuntoDeVentaV2
                     {
                         var concepto = drConcepto["concepto"].ToString();
 
-                        //var normalizacionCadena = Regex.Replace(concepto, @"[^a-zA-Z0-9]+", "");
-                        var normalizacionCadena = mg.quitarTildesYÑ(concepto);
+                        var normalizacionCadena = Regex.Replace(concepto, @"[^a-zA-Z0-9]+", "");
+                        //var normalizacionCadena = mg.quitarTildesYÑ(concepto);
 
-                        lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(normalizacionCadena))));
+                        if (ExisteColumna(normalizacionCadena))
+                        {
+                            lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(normalizacionCadena))));
+                        }
+                        else if (ExisteColumna(concepto))
+                        {
+                            lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(concepto))));
+                        }
                     }
                 }
             }
@@ -2460,6 +2479,44 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public bool ExisteColumna(string columna)
+        {
+            bool respuesta = false;
+
+            DatosConexion($"SHOW COLUMNS FROM EmpleadosPermisos LIKE '{columna}'");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                respuesta = true;
+            }
+
+            return respuesta;
+        }
+         
+        public int[] PermisosEmpleadoConfiguracion(string concepto, int idEmpleado)
+        {
+            var lista = new List<int>();
+
+            DatosConexion($"SELECT {concepto} FROM permisosconfiguracion WHERE IDEmpleado = {idEmpleado} AND IDUsuario = {FormPrincipal.userID}");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var datosLista = concepto.Split(',');
+                foreach (var item in datosLista)
+                {
+                    lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal(item.Trim()))));
+                }
+                //lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CodigoBarrasTicketVenta"))));
+            }
+            dr.Close();
+            CerrarConexion();
+
+            return lista.ToArray();
+        }
         public int obtener_id_empleado(int id_venta)
         {
             int id_empleado = 0;

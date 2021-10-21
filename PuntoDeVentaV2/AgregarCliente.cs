@@ -472,6 +472,7 @@ namespace PuntoDeVentaV2
 
         private void txtRFC_KeyDown(object sender, KeyEventArgs e)
         {
+
             if (e.KeyCode == Keys.End)
             {
                 btnAceptar.PerformClick();
@@ -579,6 +580,16 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.End)
             {
                 btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtRFC_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back && !char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Enter)
+            {
+                MessageBox.Show("Solo se permiten letras y numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                e.Handled = true;
+                return;
             }
         }
     }

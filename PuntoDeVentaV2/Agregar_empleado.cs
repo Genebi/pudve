@@ -150,7 +150,10 @@ namespace PuntoDeVentaV2
                     int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 1));
 
                     // Obtiene id del empleado
-                    id_empleado = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Empleados WHERE IDUsuario='{FormPrincipal.userID}' ORDER BY ID DESC LIMIT 1", 5));
+                     id_empleado = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Empleados WHERE IDUsuario='{FormPrincipal.userID}' ORDER BY ID DESC LIMIT 1", 5));
+
+                    Utilidades.registrarNuevoEmpleadoPermisosConfiguracion(id_empleado);//Se registra el nuevo empleado en la tabla permisosConfiguracion
+
                     // Crea registro en tabla EmpleadosPermisos
                     crear_registro_empleados_permisos(id_empleado);
 
@@ -264,6 +267,8 @@ namespace PuntoDeVentaV2
             }
 
         }
+
+        
 
         public string valida_campos()
         {
@@ -398,6 +403,14 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Enter)
             {
                 btn_aceptar.PerformClick();
+            }
+        }
+
+        private void Agregar_empleado_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
     }

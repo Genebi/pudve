@@ -271,6 +271,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     var id = Convert.ToInt32(DGVProductos.SelectedRows[e.ColumnIndex].Cells["_IDProducto"].Value);
+                    var tipo = DGVProductos.SelectedRows[e.ColumnIndex].Cells["TipoProducto"].Value.ToString();
 
                     if (productosSeleccionados.ContainsKey(id))
                     {
@@ -287,7 +288,13 @@ namespace PuntoDeVentaV2
                         productosSeleccionadosParaHistorialPrecios.Remove(id);
                     }
 
+                    if (!quitarProductosDeseleccionados.ContainsKey(id))
+                    {
+                        quitarProductosDeseleccionados.Add(id, tipo);
+                    }
+
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
+
                     //Contar los productos seleccionados 1 por 1
                     //if (contarProductosSeleccionados.ContainsKey(id))
                     //{
@@ -3965,6 +3972,11 @@ namespace PuntoDeVentaV2
                     {
                         productosSeleccionados.Add(id, tipo);
                     }
+
+                    if (!checkboxMarcados.ContainsKey(id))
+                    {
+                        checkboxMarcados.Add(id, tipo);
+                    }
                 }
             }
             else
@@ -3978,6 +3990,11 @@ namespace PuntoDeVentaV2
                     if (productosSeleccionados.ContainsKey(id))
                     {
                         productosSeleccionados.Remove(id);
+                    }
+
+                    if (checkboxMarcados.ContainsKey(id))
+                    {
+                        checkboxMarcados.Remove(id);
                     }
                 }
             }
@@ -4073,9 +4090,10 @@ namespace PuntoDeVentaV2
                 {
                     foreach (var dinamico in dinamicos)
                     {
+                        var valorKey = dinamico.Key.Replace(' ', '_');
                         var valorAux = dinamico.Value.Replace(' ', '_');
 
-                        extraProductos += $"DG.ChckName = '{dinamico.Key}' AND DG.Descripcion = '{valorAux}' AND ";
+                        extraProductos += $"DG.ChckName = '{valorKey}' AND DG.Descripcion = '{valorAux}' AND ";
                     }
                 }
                 else if (dinamicos.Count() > 1)
@@ -4086,9 +4104,10 @@ namespace PuntoDeVentaV2
 
                     foreach (var dinamico in dinamicos)
                     {
+                        var valorKey = dinamico.Key.Replace(' ', '_');
                         var valorAux = dinamico.Value.Replace(' ', '_');
 
-                        extraDetallesNombres += $"DG.ChckName = '{dinamico.Key}' OR ";
+                        extraDetallesNombres += $"DG.ChckName = '{valorKey}' OR ";
                         extraDetallesValores += $"DG.Descripcion = '{valorAux}' OR ";
                     }
 
@@ -4127,7 +4146,10 @@ namespace PuntoDeVentaV2
                     {
                         foreach (var codigo in listaCodigosExistentes)
                         {
-                            coincidencias.Add(Convert.ToInt32(codigo), 1);
+                            if (!coincidencias.ContainsKey(Convert.ToInt32(codigo)))
+                            {
+                                coincidencias.Add(Convert.ToInt32(codigo), 1);
+                            }
                         }
 
                         fueronAsignados = true;
@@ -4144,7 +4166,10 @@ namespace PuntoDeVentaV2
                         {
                             foreach (var codigo in listaCodigosExistentes)
                             {
-                                coincidencias.Add(Convert.ToInt32(codigo), 1);
+                                if (!coincidencias.ContainsKey(Convert.ToInt32(codigo)))
+                                {
+                                    coincidencias.Add(Convert.ToInt32(codigo), 1);
+                                }
                             }
                         }
                     }
@@ -4198,13 +4223,47 @@ namespace PuntoDeVentaV2
                 {
                     foreach (var palabra in palabrasBuscadas)
                     {
+                        // Detectamos si esta registrado como codigo de barras, clave o codigo de barras extra
+                        var esCodigoOClave = mb.BusquedaCodigosBarrasClaveInterna(palabra.Trim(), status, true);
+
+                        var esCodigoExtra = mb.BuscarCodigoBarrasExtraFormProductos(palabra.Trim(), true);
+
+                        if (esCodigoExtra.Count() == 0 && esCodigoOClave.Count() == 0)
+                        {
+                            continue;
+                        }
+
+                        string palabraAux = string.Empty;
+
                         long codigoEncontrado;
+
+                        if (palabra.StartsWith("0"))
+                        {
+                            palabraAux = palabra;
+                        }
 
                         if (long.TryParse(palabra, out codigoEncontrado))
                         {
-                            if (!codigos.Contains(codigoEncontrado.ToString().Trim()))
+                            if (!string.IsNullOrWhiteSpace(palabraAux))
                             {
-                                codigos.Add(codigoEncontrado.ToString().Trim());
+                                if (!codigos.Contains(palabraAux.Trim()))
+                                {
+                                    codigos.Add(palabraAux.Trim());
+                                }
+                            }
+                            else
+                            {
+                                if (!codigos.Contains(codigoEncontrado.ToString().Trim()))
+                                {
+                                    codigos.Add(codigoEncontrado.ToString().Trim());
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (!codigos.Contains(palabra.Trim()))
+                            {
+                                codigos.Add(palabra.Trim());
                             }
                         }
                     }
@@ -4651,7 +4710,7 @@ namespace PuntoDeVentaV2
             return lista.Trim();
         }
 
-        private void MarcarCheckBoxes(string consulta)
+        private void MarcarCheckBoxes(string consulta, bool aplicar = false)
         {
             if (cbTodos.Checked)
             {
@@ -4659,7 +4718,6 @@ namespace PuntoDeVentaV2
                 {
                     using (var datos = cn.CargarDatos(consulta))
                     {
-
                         if (datos.Rows.Count > 0)
                         {
                             contador = datos.Rows.Count;
@@ -4686,6 +4744,11 @@ namespace PuntoDeVentaV2
 
                                 if (checkboxMarcados.ContainsKey(idProducto))
                                 {
+                                    if (aplicar == true && Convert.ToBoolean(row.Cells["CheckProducto"].Value) == false)
+                                    {
+                                        continue;
+                                    }
+
                                     row.Cells["CheckProducto"].Value = true;
                                 }
                                 else
@@ -5845,27 +5908,27 @@ namespace PuntoDeVentaV2
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
             // Obtener ID de los productos seleccionados
-            foreach (DataGridViewRow row in DGVProductos.Rows)
-            {
-                // Verificamos que el checkbox este marcado
-                if ((bool)row.Cells["CheckProducto"].Value == true)
-                {
-                    var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
-                    var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
-                    lista.Add(idProducto, tipoProducto);
-                }
-            }
+            //foreach (DataGridViewRow row in DGVProductos.Rows)
+            //{
+            //    // Verificamos que el checkbox este marcado
+            //    if ((bool)row.Cells["CheckProducto"].Value == true)
+            //    {
+            //        var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+            //        var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
+            //        lista.Add(idProducto, tipoProducto);
+            //    }
+            //}
 
             if (cbTodos.Checked)
             {
-                MarcarCheckBoxes(filtroConSinFiltroAvanzado);
+                MarcarCheckBoxes(filtroConSinFiltroAvanzado, true);
 
                 productosSeleccionados = checkboxMarcados;
             }
-            else
-            {
-                productosSeleccionados = lista;
-            }
+            //else
+            //{
+            //    productosSeleccionados = lista;
+            //}
             
             if (productosSeleccionados.Count > 0)
             {

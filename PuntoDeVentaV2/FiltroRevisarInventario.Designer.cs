@@ -140,12 +140,14 @@
             this.Controls.Add(this.cbFiltroDinamico);
             this.Controls.Add(this.txtCantidad);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FiltroRevisarInventario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Filtro de Inventario";
             this.Load += new System.EventHandler(this.FiltroRevisarInventario_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FiltroRevisarInventario_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

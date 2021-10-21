@@ -43,5 +43,13 @@ namespace PuntoDeVentaV2
         {
             llamarVentana("AIDisminuir");
         }
+
+        private void TipoReportesInventario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

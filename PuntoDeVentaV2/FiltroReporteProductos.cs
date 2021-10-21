@@ -194,8 +194,10 @@ namespace PuntoDeVentaV2
                     checkCustom.CheckAlign = ContentAlignment.MiddleLeft;
                     checkCustom.CheckedChanged += checkCustom_CheckedChanged;
 
+                    var valorAux = opcion.Key.Replace(' ', '_');
+
                     // Consultar los datos para cada detalle de producto agregado
-                    var datosPropiedad = mb.ObtenerOpcionesPropiedad(FormPrincipal.userID, opcion.Key);
+                    var datosPropiedad = mb.ObtenerOpcionesPropiedad(FormPrincipal.userID, valorAux);
                     var sourceCBCustom = new Dictionary<string, string>();
 
                     if (datosPropiedad.Count > 0)
@@ -204,12 +206,15 @@ namespace PuntoDeVentaV2
 
                         foreach (var valor in datosPropiedad)
                         {
-                            sourceCBCustom.Add(valor.Value, valor.Value);
+                            if (!sourceCBCustom.ContainsKey(valor.Value))
+                            {
+                                sourceCBCustom.Add(valor.Value, valor.Value);
+                            }
                         }
                     }
                     else
                     {
-                        sourceCBCustom.Add("NA", $"No existe {opcion.Key.ToLower()} registrado");
+                        sourceCBCustom.Add("NA", $"No existe {valorAux.ToLower()} registrado");
                     }
 
                     ComboBox cbCustom = new ComboBox();
@@ -499,6 +504,14 @@ namespace PuntoDeVentaV2
                 {
                     e.Handled = true;
                 }
+            }
+        }
+
+        private void FiltroReporteProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
 

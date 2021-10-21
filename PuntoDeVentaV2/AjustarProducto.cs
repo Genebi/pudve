@@ -435,153 +435,331 @@ namespace PuntoDeVentaV2
             //Ajustar producto
             if (rbAjustar.Checked)
             {
-                float auxiliar = 0f;
-                var aumentar = txtAumentar.Text;
-                var disminuir = txtDisminuir.Text;
-
-                var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
-
-                if (concepto.Equals("Seleccionar concepto..."))
+                using (DataTable dtVerificarPermitirStockNegativo = cn.CargarDatos(cs.obtenerStcokNegativoConfiguracion()))
                 {
-                    concepto = string.Empty;
-                }
-
-                var stockOriginal = stockProducto;
-                var stockAgregado = 0f;
-                var stockActual = 0f;
-                var operacion = string.Empty;
-
-                if (aumentar != "")
-                {
-                    auxiliar = float.Parse(aumentar);
-                    stockAgregado = auxiliar;
-                    stockProducto += auxiliar;
-                    operacion = "agregó";
-                }
-
-                if (disminuir != "")
-                {
-                    auxiliar = float.Parse(disminuir);
-                    stockAgregado = auxiliar;
-                    stockProducto -= auxiliar;
-                    operacion = "resto";
-
-                    if (stockProducto < 0)
+                    if (!dtVerificarPermitirStockNegativo.Rows.Count.Equals(0))
                     {
-                        stockProducto = 0;
-                    }
-
-                    auxiliar *= -1;
-                }
-
-                stockActual = stockProducto;
-
-                if (string.IsNullOrWhiteSpace(aumentar) && string.IsNullOrWhiteSpace(disminuir))
-                {
-                    MessageBox.Show("Ingrese una cantidad para aumentar y/o disminuir", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                //Datos para la tabla historial de compras
-                string[] datos = new string[] 
-                {
-                    producto, auxiliar.ToString(), precioProducto.ToString(),
-                    comentario, "2", fechaOperacion, IDProducto.ToString(),
-                    FormPrincipal.userID.ToString(), "Ajuste", "Ajuste",
-                    "Ajuste", fechaOperacion, concepto
-                };
-
-                int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
-
-                if (resultado > 0)
-                {
-                    //Productos
-                    if (apartado == 1)
-                    {
-                        Productos.botonAceptar = true;
-                    }
-
-                    //Inventario
-                    if (apartado == 2)
-                    {
-                        Inventario.botonAceptar = true;
-                    }
-
-                    //Datos del producto que se actualizará
-                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
-
-                    cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
-
-                    // Envio de correo al agregar cantidad de producto
-                    var datosConfig = mb.ComprobarConfiguracion();
-
-                    if (datosConfig.Count > 0)
-                    {
-                        if (Convert.ToInt16(datosConfig[1]) == 1)
+                        foreach (DataRow item in dtVerificarPermitirStockNegativo.Rows)
                         {
-                            var configProducto = mb.ComprobarCorreoProducto(IDProducto);
-
-                            if (configProducto.Count > 0)
+                            if (item["StockNegativo"].Equals(1))
                             {
-                                if (configProducto[1] == 1)
+                                float auxiliar = 0f;
+                                var aumentar = txtAumentar.Text;
+                                var disminuir = txtDisminuir.Text;
+
+                                var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
+
+                                if (concepto.Equals("Seleccionar concepto..."))
                                 {
-                                    var info = new string[] {
+                                    concepto = string.Empty;
+                                }
+
+                                var stockOriginal = stockProducto;
+                                var stockAgregado = 0f;
+                                var stockActual = 0f;
+                                var operacion = string.Empty;
+
+                                if (aumentar != "")
+                                {
+                                    auxiliar = float.Parse(aumentar);
+                                    stockAgregado = auxiliar;
+                                    stockProducto += auxiliar;
+                                    operacion = "agregó";
+                                }
+
+                                if (disminuir != "")
+                                {
+                                    auxiliar = float.Parse(disminuir);
+                                    stockAgregado = auxiliar;
+                                    stockProducto -= auxiliar;
+                                    operacion = "resto";
+
+                                    if (stockProducto < 0)
+                                    {
+                                        stockProducto = 0;
+                                    }
+
+                                    auxiliar *= -1;
+                                }
+
+                                stockActual = stockProducto;
+
+                                if (string.IsNullOrWhiteSpace(aumentar) && string.IsNullOrWhiteSpace(disminuir))
+                                {
+                                    MessageBox.Show("Ingrese una cantidad para aumentar y/o disminuir", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                //Datos para la tabla historial de compras
+                                string[] datos = new string[]
+                                {
+                                    producto, auxiliar.ToString(), precioProducto.ToString(),
+                                    comentario, "2", fechaOperacion, IDProducto.ToString(),
+                                    FormPrincipal.userID.ToString(), "Ajuste", "Ajuste",
+                                    "Ajuste", fechaOperacion, concepto
+                                };
+
+                                int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
+
+                                if (resultado > 0)
+                                {
+                                    //Productos
+                                    if (apartado == 1)
+                                    {
+                                        Productos.botonAceptar = true;
+                                    }
+
+                                    //Inventario
+                                    if (apartado == 2)
+                                    {
+                                        Inventario.botonAceptar = true;
+                                    }
+
+                                    //Datos del producto que se actualizará
+                                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                                    cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                                    // Envio de correo al agregar cantidad de producto
+                                    var datosConfig = mb.ComprobarConfiguracion();
+
+                                    if (datosConfig.Count > 0)
+                                    {
+                                        if (Convert.ToInt16(datosConfig[1]) == 1)
+                                        {
+                                            var configProducto = mb.ComprobarCorreoProducto(IDProducto);
+
+                                            if (configProducto.Count > 0)
+                                            {
+                                                if (configProducto[1] == 1)
+                                                {
+                                                    var info = new string[] {
                                         lbProducto.Text, stockOriginal.ToString(), stockAgregado.ToString(),
                                         stockActual.ToString(), "ajustar producto", operacion
                                     };
 
-                                    Thread notificacion = new Thread(
-                                        () => Utilidades.CambioStockProductoEmail(info)
-                                    );
+                                                    Thread notificacion = new Thread(
+                                                        () => Utilidades.CambioStockProductoEmail(info)
+                                                    );
 
-                                    notificacion.Start();
-                                }
-                            }
-                        }
-
-                        // Correo de stock minimo
-                        if (Convert.ToInt16(datosConfig[2]) == 1)
-                        {
-                            var datosProductoTmp = cn.BuscarProducto(Convert.ToInt32(IDProducto), FormPrincipal.userID);
-
-                            var configProducto = mb.ComprobarCorreoProducto(IDProducto);
-
-                            if (configProducto.Count > 0)
-                            {
-                                if (configProducto[2] == 1)
-                                {
-                                    // Obtener el stock minimo del producto
-                                    var stockMinimo = Convert.ToInt32(datosProductoTmp[10]);
-                                    var stockTmp = Convert.ToDecimal(datosProductoTmp[4]);
-
-                                    if (stockTmp <= stockMinimo)
-                                    {
-                                        if (!enviarStockMinimo.ContainsKey(Convert.ToInt32(IDProducto)))
-                                        {
-                                            var terminacion = datosProductoTmp[4].Split('.');
-
-                                            if (terminacion.Count() > 0)
-                                            {
-                                                if (terminacion[1] == "00")
-                                                {
-                                                    datosProductoTmp[4] = terminacion[0];
+                                                    notificacion.Start();
                                                 }
                                             }
+                                        }
 
-                                            var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK MINIMO: {datosProductoTmp[10]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
-                                            enviarStockMinimo.Add(Convert.ToInt32(IDProducto), nombre);
+                                        // Correo de stock minimo
+                                        if (Convert.ToInt16(datosConfig[2]) == 1)
+                                        {
+                                            var datosProductoTmp = cn.BuscarProducto(Convert.ToInt32(IDProducto), FormPrincipal.userID);
+
+                                            var configProducto = mb.ComprobarCorreoProducto(IDProducto);
+
+                                            if (configProducto.Count > 0)
+                                            {
+                                                if (configProducto[2] == 1)
+                                                {
+                                                    // Obtener el stock minimo del producto
+                                                    var stockMinimo = Convert.ToInt32(datosProductoTmp[10]);
+                                                    var stockTmp = Convert.ToDecimal(datosProductoTmp[4]);
+
+                                                    if (stockTmp <= stockMinimo)
+                                                    {
+                                                        if (!enviarStockMinimo.ContainsKey(Convert.ToInt32(IDProducto)))
+                                                        {
+                                                            var terminacion = datosProductoTmp[4].Split('.');
+
+                                                            if (terminacion.Count() > 0)
+                                                            {
+                                                                if (terminacion[1] == "00")
+                                                                {
+                                                                    datosProductoTmp[4] = terminacion[0];
+                                                                }
+                                                            }
+
+                                                            var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK MINIMO: {datosProductoTmp[10]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
+                                                            enviarStockMinimo.Add(Convert.ToInt32(IDProducto), nombre);
+                                                        }
+                                                    }
+
+                                                    // Hilo para envio de correos en segundo plano
+                                                    Thread envio = new Thread(() => CorreoStockMinimo());
+                                                    envio.Start();
+                                                }
+                                            }
                                         }
                                     }
 
-                                    // Hilo para envio de correos en segundo plano
-                                    Thread envio = new Thread(() => CorreoStockMinimo());
-                                    envio.Start();
+                                    this.Close();
+                                }
+                            }
+                            else if (item["StockNegativo"].Equals(0))
+                            {
+                                bool esNumeroStock = false, esNumeroCantidadDisminuir = false;
+                                decimal numeroStock = 0, cantidadDisminuir = 0;
+
+                                esNumeroStock = Decimal.TryParse(txt_en_stock.Text, out numeroStock);
+                                esNumeroCantidadDisminuir = Decimal.TryParse(txtDisminuir.Text, out cantidadDisminuir);
+
+                                if (cantidadDisminuir <= numeroStock)
+                                {
+                                    float auxiliar = 0f;
+                                    var aumentar = txtAumentar.Text;
+                                    var disminuir = txtDisminuir.Text;
+
+                                    var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
+
+                                    if (concepto.Equals("Seleccionar concepto..."))
+                                    {
+                                        concepto = string.Empty;
+                                    }
+
+                                    var stockOriginal = stockProducto;
+                                    var stockAgregado = 0f;
+                                    var stockActual = 0f;
+                                    var operacion = string.Empty;
+
+                                    if (aumentar != "")
+                                    {
+                                        auxiliar = float.Parse(aumentar);
+                                        stockAgregado = auxiliar;
+                                        stockProducto += auxiliar;
+                                        operacion = "agregó";
+                                    }
+
+                                    if (disminuir != "")
+                                    {
+                                        auxiliar = float.Parse(disminuir);
+                                        stockAgregado = auxiliar;
+                                        stockProducto -= auxiliar;
+                                        operacion = "resto";
+
+                                        if (stockProducto < 0)
+                                        {
+                                            stockProducto = 0;
+                                        }
+
+                                        auxiliar *= -1;
+                                    }
+
+                                    stockActual = stockProducto;
+
+                                    if (string.IsNullOrWhiteSpace(aumentar) && string.IsNullOrWhiteSpace(disminuir))
+                                    {
+                                        MessageBox.Show("Ingrese una cantidad para aumentar y/o disminuir", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        return;
+                                    }
+
+                                    //Datos para la tabla historial de compras
+                                    string[] datos = new string[]
+                                    {
+                                    producto, auxiliar.ToString(), precioProducto.ToString(),
+                                    comentario, "2", fechaOperacion, IDProducto.ToString(),
+                                    FormPrincipal.userID.ToString(), "Ajuste", "Ajuste",
+                                    "Ajuste", fechaOperacion, concepto
+                                    };
+
+                                    int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
+
+                                    if (resultado > 0)
+                                    {
+                                        //Productos
+                                        if (apartado == 1)
+                                        {
+                                            Productos.botonAceptar = true;
+                                        }
+
+                                        //Inventario
+                                        if (apartado == 2)
+                                        {
+                                            Inventario.botonAceptar = true;
+                                        }
+
+                                        //Datos del producto que se actualizará
+                                        datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                                        cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                                        // Envio de correo al agregar cantidad de producto
+                                        var datosConfig = mb.ComprobarConfiguracion();
+
+                                        if (datosConfig.Count > 0)
+                                        {
+                                            if (Convert.ToInt16(datosConfig[1]) == 1)
+                                            {
+                                                var configProducto = mb.ComprobarCorreoProducto(IDProducto);
+
+                                                if (configProducto.Count > 0)
+                                                {
+                                                    if (configProducto[1] == 1)
+                                                    {
+                                                        var info = new string[] {
+                                                        lbProducto.Text, stockOriginal.ToString(), stockAgregado.ToString(),
+                                                        stockActual.ToString(), "ajustar producto", operacion
+                                                    };
+
+                                                        Thread notificacion = new Thread(
+                                                            () => Utilidades.CambioStockProductoEmail(info)
+                                                        );
+
+                                                        notificacion.Start();
+                                                    }
+                                                }
+                                            }
+
+                                            // Correo de stock minimo
+                                            if (Convert.ToInt16(datosConfig[2]) == 1)
+                                            {
+                                                var datosProductoTmp = cn.BuscarProducto(Convert.ToInt32(IDProducto), FormPrincipal.userID);
+
+                                                var configProducto = mb.ComprobarCorreoProducto(IDProducto);
+
+                                                if (configProducto.Count > 0)
+                                                {
+                                                    if (configProducto[2] == 1)
+                                                    {
+                                                        // Obtener el stock minimo del producto
+                                                        var stockMinimo = Convert.ToInt32(datosProductoTmp[10]);
+                                                        var stockTmp = Convert.ToDecimal(datosProductoTmp[4]);
+
+                                                        if (stockTmp <= stockMinimo)
+                                                        {
+                                                            if (!enviarStockMinimo.ContainsKey(Convert.ToInt32(IDProducto)))
+                                                            {
+                                                                var terminacion = datosProductoTmp[4].Split('.');
+
+                                                                if (terminacion.Count() > 0)
+                                                                {
+                                                                    if (terminacion[1] == "00")
+                                                                    {
+                                                                        datosProductoTmp[4] = terminacion[0];
+                                                                    }
+                                                                }
+
+                                                                var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK MINIMO: {datosProductoTmp[10]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
+                                                                enviarStockMinimo.Add(Convert.ToInt32(IDProducto), nombre);
+                                                            }
+                                                        }
+
+                                                        // Hilo para envio de correos en segundo plano
+                                                        Thread envio = new Thread(() => CorreoStockMinimo());
+                                                        envio.Start();
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        this.Close();
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("De acuerdo a su configuración no es posible tener stock\nnegativo, si desea modificarlo, puede hacerlo desde\nel apartado \"Configuración general\"", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    txtDisminuir.Focus();
+                                    return;
                                 }
                             }
                         }
                     }
-
-                    this.Close();
                 }
             }
 

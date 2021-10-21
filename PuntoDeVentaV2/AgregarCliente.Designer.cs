@@ -105,6 +105,7 @@
             this.txtRFC.TabIndex = 3;
             this.txtRFC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtRFC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRFC_KeyDown);
+            this.txtRFC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRFC_KeyPress);
             this.txtRFC.Leave += new System.EventHandler(this.valida_longitud);
             // 
             // txtPais

@@ -74,6 +74,7 @@ namespace PuntoDeVentaV2
         DBTables dbTables = new DBTables();
         string[] user;
 
+       
         public static string[] datosUsuario = new string[] { };
 
         //public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -256,7 +257,7 @@ namespace PuntoDeVentaV2
                 string password_empleado = "";
 
                 //"^[A-Z&Ñ]+@[A-Z&Ñ0-9]+$";
-                string formato_usuario = "^[A-Z&Ñ&0-9]+@[A-Z&Ñ0-9]+$";
+                string formato_usuario = "^[A-Z&Ñ&0-9_]+@[A-Z&Ñ0-9_]+$";
 
                 Regex exp = new Regex(formato_usuario);
 
@@ -580,7 +581,7 @@ namespace PuntoDeVentaV2
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
             Registro ventanaRegistro = new Registro();
-
+        
             this.Hide();
 
             ventanaRegistro.ShowDialog();
@@ -757,6 +758,7 @@ namespace PuntoDeVentaV2
             cargarUsuariosGuardados();
             lbUsuarios.Visible = false;
             txtUsuario.Select();
+
         }
 
 

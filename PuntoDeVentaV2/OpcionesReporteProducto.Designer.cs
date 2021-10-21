@@ -174,6 +174,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.panelContenedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OpcionesReporteProducto";
@@ -181,6 +182,7 @@
             this.Text = "PUDVE - Opciones Reporte";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OpcionesReporteProducto_FormClosing);
             this.Load += new System.EventHandler(this.OpcionesReporteProducto_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OpcionesReporteProducto_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

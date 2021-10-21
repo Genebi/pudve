@@ -1193,7 +1193,7 @@ namespace PuntoDeVentaV2
 
                 // Cambia a timbrada la nota de venta
 
-                if(con_complemento_pg == 0)
+                if (con_complemento_pg == 0)
                 {
                     string[] datos = new string[] { id_venta.ToString() };
 
@@ -1208,16 +1208,16 @@ namespace PuntoDeVentaV2
 
                 // Cambia a timbrado cada documento relacionado del complemento de pago
 
-                if(con_complemento_pg == 1)
+                if (con_complemento_pg == 1)
                 {
                     string[] dat_cp = new string[] { id_factura.ToString() };
                     cn.EjecutarConsulta(cs.crear_complemento_pago(5, dat_cp));
 
                     // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
 
-                    for(int x=0; x<arr_idf_principal_pago.Length; x++)
+                    for (int x = 0; x < arr_idf_principal_pago.Length; x++)
                     {
-                        string[] datos_v = new string[] 
+                        string[] datos_v = new string[]
                         {
                             arr_idf_principal_pago[x][0].ToString(), arr_idf_principal_pago[x][1].ToString()
                         };
@@ -1235,11 +1235,11 @@ namespace PuntoDeVentaV2
                 // Total
                 XmlAttributeCollection c_total = xdoc.DocumentElement.Attributes;
                 string obt_total = ((XmlAttribute)c_total.GetNamedItem("Total")).Value;
-                
+
                 // Datos del nodo timbre fiscal
 
-                string uuid = "",       fecha_cer = "";
-                string sello_cfd = "",  rfc_pac = "";
+                string uuid = "", fecha_cer = "";
+                string sello_cfd = "", rfc_pac = "";
                 string sello_sat = "";
 
                 XmlNodeList nod_list = xdoc.GetElementsByTagName("tfd:TimbreFiscalDigital");
@@ -1265,9 +1265,9 @@ namespace PuntoDeVentaV2
             }
             catch (FaultException fex)
             {
-                var codigo = fex.Code.ToString();
-
-                mensaje = "CODIGO ERROR= " + codigo + " --- " + fex.Message;
+                //var codigo = fex.Code.ToString();
+                
+                mensaje = fex.Message;
 
                 // Elimina la factura que fue creada
                 //error_eliminar_factura(id_factura, con_complemento_pg);

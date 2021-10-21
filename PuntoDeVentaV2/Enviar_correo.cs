@@ -584,5 +584,13 @@ namespace PuntoDeVentaV2
 
             return arr_datos_correo;
         }
+
+        private void Enviar_correo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

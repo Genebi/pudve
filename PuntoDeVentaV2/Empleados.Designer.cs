@@ -31,12 +31,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_agregar_empleado = new System.Windows.Forms.Button();
             this.dgv_empleados = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.editar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.permisos = new System.Windows.Forms.DataGridViewImageColumn();
-            this.deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.cboMostrados = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -57,6 +51,12 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.editar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.permisos = new System.Windows.Forms.DataGridViewImageColumn();
+            this.deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -108,7 +108,7 @@
             this.editar,
             this.permisos,
             this.deshabilitar});
-            this.dgv_empleados.Location = new System.Drawing.Point(14, 110);
+            this.dgv_empleados.Location = new System.Drawing.Point(14, 118);
             this.dgv_empleados.Name = "dgv_empleados";
             this.dgv_empleados.ReadOnly = true;
             this.dgv_empleados.RowHeadersVisible = false;
@@ -118,47 +118,6 @@
             this.dgv_empleados.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_en_icono);
             this.dgv_empleados.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_no_icono);
             this.dgv_empleados.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_empleados_KeyDown);
-            // 
-            // id
-            // 
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // nombre
-            // 
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            // 
-            // usuario
-            // 
-            this.usuario.HeaderText = "Usuario";
-            this.usuario.Name = "usuario";
-            this.usuario.ReadOnly = true;
-            // 
-            // editar
-            // 
-            this.editar.HeaderText = "Editar";
-            this.editar.Name = "editar";
-            this.editar.ReadOnly = true;
-            this.editar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.editar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // permisos
-            // 
-            this.permisos.HeaderText = "Permisos";
-            this.permisos.Name = "permisos";
-            this.permisos.ReadOnly = true;
-            this.permisos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.permisos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // deshabilitar
-            // 
-            this.deshabilitar.HeaderText = "Deshabilitar";
-            this.deshabilitar.Name = "deshabilitar";
-            this.deshabilitar.ReadOnly = true;
             // 
             // txtBuscar
             // 
@@ -422,6 +381,46 @@
             this.label2.TabIndex = 40;
             this.label2.Text = "Buscar:";
             // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // nombre
+            // 
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
+            // usuario
+            // 
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.ReadOnly = true;
+            // 
+            // editar
+            // 
+            this.editar.HeaderText = "Editar";
+            this.editar.Name = "editar";
+            this.editar.ReadOnly = true;
+            this.editar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.editar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // permisos
+            // 
+            this.permisos.HeaderText = "Permisos";
+            this.permisos.Name = "permisos";
+            this.permisos.ReadOnly = true;
+            this.permisos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.permisos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // deshabilitar
+            // 
+            this.deshabilitar.HeaderText = "Deshabilitar";
+            this.deshabilitar.Name = "deshabilitar";
+            this.deshabilitar.ReadOnly = true;
+            // 
             // Empleados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -458,12 +457,6 @@
         private System.Windows.Forms.Button btn_agregar_empleado;
         private System.Windows.Forms.DataGridView dgv_empleados;
         private System.Windows.Forms.TextBox txtBuscar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
-        private System.Windows.Forms.DataGridViewImageColumn editar;
-        private System.Windows.Forms.DataGridViewImageColumn permisos;
-        private System.Windows.Forms.DataGridViewImageColumn deshabilitar;
         private System.Windows.Forms.ComboBox cboMostrados;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel4;
@@ -483,5 +476,11 @@
         private System.Windows.Forms.Label lblCantidadRegistros;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.DataGridViewImageColumn editar;
+        private System.Windows.Forms.DataGridViewImageColumn permisos;
+        private System.Windows.Forms.DataGridViewImageColumn deshabilitar;
     }
 }

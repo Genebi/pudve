@@ -140,6 +140,7 @@
             this.Text = "PUDVE - Registrar tipo Cliente";
             this.Load += new System.EventHandler(this.AgregarTipoCliente_Load);
             this.Shown += new System.EventHandler(this.AgregarTipoCliente_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarTipoCliente_KeyDown);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AgregarTipoCliente_PreviewKeyDown);
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();

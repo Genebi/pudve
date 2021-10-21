@@ -117,12 +117,13 @@
             this.Controls.Add(this.rbRespaldoCorreo);
             this.Controls.Add(this.rbRespaldoEquipo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EscogerTipoRespaldo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EscogerTipoRespaldo";
-            this.Load += new System.EventHandler(this.EscogerTipoRespaldo_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EscogerTipoRespaldo_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -187,9 +187,8 @@
             this.txtBuscadorProducto.Location = new System.Drawing.Point(94, 29);
             this.txtBuscadorProducto.Name = "txtBuscadorProducto";
             this.txtBuscadorProducto.Size = new System.Drawing.Size(790, 23);
-            this.txtBuscadorProducto.TabIndex = 5;
+            this.txtBuscadorProducto.TabIndex = 1;
             this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
-            this.txtBuscadorProducto.TextChanged += new System.EventHandler(this.txtBuscadorProducto_TextChanged);
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
             this.txtBuscadorProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyUp);
             // 
@@ -229,8 +228,12 @@
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
             this.DGVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellContentClick);
             this.DGVentas.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEndEdit);
+            this.DGVentas.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEnter);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
+            this.DGVentas.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.DGVentas_CellStateChanged);
+            this.DGVentas.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellValueChanged);
             this.DGVentas.SelectionChanged += new System.EventHandler(this.DGVentas_SelectionChanged);
+            this.DGVentas.Enter += new System.EventHandler(this.DGVentas_Enter);
             this.DGVentas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DGVentas_MouseUp);
             // 
             // IDProducto
@@ -736,6 +739,7 @@
             0,
             0,
             0});
+            this.nudCantidadPS.Click += new System.EventHandler(this.nudCantidadPS_Click);
             // 
             // lbCantidad
             // 
@@ -872,11 +876,12 @@
             this.btnConsultar.Location = new System.Drawing.Point(12, 20);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(100, 40);
-            this.btnConsultar.TabIndex = 43;
+            this.btnConsultar.TabIndex = 0;
             this.btnConsultar.Text = "Consultar";
             this.btnConsultar.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnConsultar.UseVisualStyleBackColor = true;
             this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
+            this.btnConsultar.Enter += new System.EventHandler(this.btnConsultar_Enter);
             // 
             // label1
             // 

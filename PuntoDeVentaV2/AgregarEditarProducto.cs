@@ -1939,10 +1939,39 @@ namespace PuntoDeVentaV2
                 //Validar que el precio no sea menor al precio original del producto/servicio
                 if (Convert.ToDouble(precio) < Convert.ToDouble(txtPrecioCompra.Text))
                 {
-                    MessageBox.Show("El precio no puede ser mayor al precio original", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El precio no puede ser mayor al precio original", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtPrecioProducto.Focus();
                     return;
                 }
+
+                if (ProductosDeServicios.Count() > 0)
+                {
+                    string tipoAux = string.Empty;
+                    bool tipoValido = false;
+
+                    if (this.Text.Trim() == "AGREGAR SERVICIOS" || this.Text.Trim() == "EDITAR SERVICIOS" || this.Text.Trim() == "COPIAR SERVICIOS")
+                    {
+                        tipoAux = "servicio";
+                        tipoValido = true;
+                    }
+
+                    if (this.Text.Trim() == "AGREGAR COMBOS" || this.Text.Trim() == "EDITAR COMBOS" || this.Text.Trim() == "COPIAR COMBOS")
+                    {
+                        tipoAux = "combo";
+                        tipoValido = true;
+                    }
+
+                    if (tipoValido)
+                    {
+                        if (Convert.ToDecimal(txtCantPaqServ.Text) <= 0)
+                        {
+                            MessageBox.Show($"Ingrese una cantidad para el campo \"Cantidad por {tipoAux}\"", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtCantPaqServ.Focus();
+                            return;
+                        }
+                    }
+                }
+
                 #endregion Final Sección que el precio no sea menor al precio original del producto servicio/combo
 
                 #region Inicio Sección busqueda que no se repita la ClaveInterna
@@ -2070,8 +2099,11 @@ namespace PuntoDeVentaV2
                                     }
                                     else
                                     {
-                                        var impuestop = impuestoProducto.Split('%');
-                                        impuestoProducto = impuestop[0].Trim();
+                                        if (!string.IsNullOrWhiteSpace(impuestoProducto))
+                                        {
+                                            var impuestop = impuestoProducto.Split('%');
+                                            impuestoProducto = impuestop[0].Trim();
+                                        }
                                     }
 
                                     //impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
@@ -2600,6 +2632,7 @@ namespace PuntoDeVentaV2
                                                 string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", $"{txtCantPaqServ.Text}" };
                                                 cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
                                             }*/
+
                                             if (!ProductosDeServicios.Count.Equals(0))
                                             {
                                                 foreach (var item in ProductosDeServicios)
@@ -2617,9 +2650,21 @@ namespace PuntoDeVentaV2
                                                 datos[1] = idProducto.ToString();
                                                 datos[2] = "0";
                                                 datos[3] = string.Empty;
-                                                datos[4] = txtCantPaqServ.Text;
+                                                decimal numeroCantidadProducto = 0;
+                                                numeroCantidadProducto = Convert.ToDecimal(txtCantPaqServ.Text);
+                                                if (numeroCantidadProducto.Equals(0))
+                                                {
+                                                    txtCantPaqServ.Text = "1";
+                                                    numeroCantidadProducto = Convert.ToDecimal(txtCantPaqServ.Text);
+                                                }
+                                                else if (numeroCantidadProducto > 0)
+                                                {
+                                                    numeroCantidadProducto = Convert.ToDecimal(txtCantPaqServ.Text);
+                                                }
+                                                datos[4] = Convert.ToString(numeroCantidadProducto);
                                                 cn.EjecutarConsulta(cs.GuardarProductosServPaq(datos));
                                             }
+
                                             // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
                                             //if (ProductosDeServicios.Count > 0 || ProductosDeServicios.Count == 0)
                                             //{
@@ -3297,7 +3342,8 @@ namespace PuntoDeVentaV2
                                                 datos = item.Split('|');
                                                 string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                 datos[0] = fech.Trim();
-                                                cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
+                                                string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], datos[5] };
+                                                cn.EjecutarConsulta(cs.insertarProductosServicios(nuevosDatos));
                                             }
                                             using (DataTable dtProductosDeServicios = cn.CargarDatos(cs.ObtenerProductosServPaq(datos[1].ToString())))
                                             {
@@ -3368,6 +3414,45 @@ namespace PuntoDeVentaV2
                             #region Inicio de Seccion Combos y Servicios
                             else if (this.Text.Trim() == "AGREGAR COMBOS" | this.Text.Trim() == "EDITAR COMBOS" | this.Text.Trim() == "COPIAR COMBOS" || this.Text.Trim() == "AGREGAR SERVICIOS" | this.Text.Trim() == "EDITAR SERVICIOS" | this.Text.Trim() == "COPIAR SERVICIOS")
                             {
+                                using (DataTable dtComboServicio = cn.CargarDatos(cs.ObtenerProductosServPaq(idProductoBuscado)))
+                                {
+                                    if (!dtComboServicio.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow item in dtComboServicio.Rows)
+                                        {
+                                            cn.EjecutarConsulta(cs.actualizarCantidadRelacionProdComboServicio(Convert.ToInt32(item["IDServicio"].ToString()), (float)Convert.ToDecimal(txtCantPaqServ.Text)));
+                                        }
+                                    }
+                                }
+
+                                if (ProductosDeServicios.Count() > 0)
+                                {
+                                    string tipoAux = string.Empty;
+                                    bool tipoValido = false;
+
+                                    if (this.Text.Trim() == "AGREGAR SERVICIOS" || this.Text.Trim() == "EDITAR SERVICIOS" || this.Text.Trim() == "COPIAR SERVICIOS")
+                                    {
+                                        tipoAux = "servicio";
+                                        tipoValido = true;
+                                    }
+
+                                    if (this.Text.Trim() == "AGREGAR COMBOS" || this.Text.Trim() == "EDITAR COMBOS" || this.Text.Trim() == "COPIAR COMBOS")
+                                    {
+                                        tipoAux = "combo";
+                                        tipoValido = true;
+                                    }
+
+                                    if (tipoValido)
+                                    {
+                                        if (Convert.ToDecimal(txtCantPaqServ.Text) <= 0)
+                                        {
+                                            MessageBox.Show($"Ingrese una cantidad para el campo \"Cantidad por {tipoAux}\"", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            txtCantPaqServ.Focus();
+                                            return;
+                                        }
+                                    }
+                                }
+
                                 // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
                                 if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
                                 {
@@ -3775,6 +3860,49 @@ namespace PuntoDeVentaV2
 
             listaProductoToCombo = new List<string>();
             ProductosDeServicios = new List<string>();
+        }
+
+        private void txtCantPaqServ_Validating(object sender, CancelEventArgs e)
+        {
+            ValidarCantidadDePaqueteServicio();
+        }
+
+        private bool ValidarCantidadDePaqueteServicio()
+        {
+            bool bStatus = true;
+            decimal cantidadProductoCombosServicios = 0;
+
+            if (Decimal.TryParse(txtCantPaqServ.Text, out cantidadProductoCombosServicios))
+            {
+                if (cantidadProductoCombosServicios.Equals(0))
+                {
+                    errorProvAgregarEditarProducto.SetError(txtCantPaqServ, "Debe tener una Cantidad Mayor a 0\npara poder continuar el proceso.");
+                    txtCantPaqServ.Focus();
+                    txtCantPaqServ.Select(0, txtCantPaqServ.Text.Length);
+                    MessageBox.Show("Debe tener una Cantidad Mayor a 0\npara poder continuar el proceso.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bStatus = false;
+                }
+                else if (cantidadProductoCombosServicios > 0)
+                {
+                    errorProvAgregarEditarProducto.SetError(txtCantPaqServ, "");
+                }
+            }
+            else
+            {
+                txtCantPaqServ.Focus();
+                txtCantPaqServ.Select(0, txtCantPaqServ.Text.Length);
+                MessageBox.Show("Debe tener una Cantidad numérica y no este vacio\npara poder continuar el proceso.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            return bStatus;
+        }
+
+        private void AgregarEditarProducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
 
         public void cargarCodBarExt()
@@ -6502,7 +6630,8 @@ namespace PuntoDeVentaV2
                                                 datos = item.Split('|');
                                                 string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                 datos[0] = fech.Trim();
-                                                cn.EjecutarConsulta(cs.insertarProductosServicios(datos));
+                                                string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], datos[5] };
+                                                cn.EjecutarConsulta(cs.insertarProductosServicios(nuevosDatos));
                                             }
                                             using (DataTable dtProductosDeServicios = cn.CargarDatos(cs.ObtenerProductosServPaq(datos[1].ToString())))
                                             {
@@ -7230,7 +7359,7 @@ namespace PuntoDeVentaV2
         private void productoRegistradoClaveInterna(string claveIn)
         {
             datosProductosBtnGuardar = new List<string>();
-            string query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.ClaveInterna = {claveIn}";
+            string query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.ClaveInterna = '{claveIn}'";
             using (DataTable dtProductoRegistrado = cn.CargarDatos(query))
             {
                 if (dtProductoRegistrado.Rows.Count > 0)
@@ -7266,7 +7395,7 @@ namespace PuntoDeVentaV2
                 {
                     query = string.Empty;
 
-                    query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {FormPrincipal.userID} AND CB.CodigoBarraExtra = {claveIn}";
+                    query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {FormPrincipal.userID} AND CB.CodigoBarraExtra = '{claveIn}'";
 
                     // Cargar procuto registrado con esa Código de Barras Extra
                     productoRegistradoCodigoBarrasExtra(FormPrincipal.userID, claveIn);
@@ -7279,7 +7408,7 @@ namespace PuntoDeVentaV2
             datosProductosBtnGuardar = new List<string>();
             datosProductoRelacionado = new List<string>();
 
-            string query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {userID} AND CB.CodigoBarraExtra = {claveBuscar}";
+            string query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {userID} AND CB.CodigoBarraExtra = '{claveBuscar}'";
 
             using (DataTable dtCodigosBarraExtraProductos = cn.CargarDatos(query))
             {
@@ -8353,25 +8482,25 @@ namespace PuntoDeVentaV2
             //        e.Handled = true;
             //    }
             //}
-            if (e.KeyChar == 8)     // tecla BackSpace
-            {
-                e.Handled = false;
-                return;
-            }
+            //if (e.KeyChar == 8)     // tecla BackSpace
+            //{
+            //    e.Handled = false;
+            //    return;
+            //}
             bool IsDec = false;
             int nroDec = 0;
-            for (int i = 0; i < txtCantPaqServ.Text.Length; i++)       // recorrer la caja de texto
-            {
-                if (txtCantPaqServ.Text[i] == '.')      // ver si es un punto decimal
-                {
-                    IsDec = true;
-                }
-                if (IsDec && nroDec++ >= 2)     // incrementar la variable nroDec
-                {
-                    e.Handled = true;
-                    return;
-                }
-            }
+            //for (int i = 0; i < txtCantPaqServ.Text.Length; i++)       // recorrer la caja de texto
+            //{
+            //    if (txtCantPaqServ.Text[i] == '.')      // ver si es un punto decimal
+            //    {
+            //        IsDec = true;
+            //    }
+            //    if (IsDec && nroDec++ >= 2)     // incrementar la variable nroDec
+            //    {
+            //        e.Handled = true;
+            //        return;
+            //    }
+            //}
             if (e.KeyChar >= 48 && e.KeyChar <= 57)     // teclas del 0 hasta el 9
             {
                 e.Handled = false;
@@ -8379,6 +8508,11 @@ namespace PuntoDeVentaV2
             else if (e.KeyChar == 46)   // tecla punto decimal " . "
             {
                 e.Handled = (IsDec) ? true : false;
+            }
+            else if (e.KeyChar == 8)
+            {
+                e.Handled = false;
+                return;
             }
             else
             {
@@ -8613,10 +8747,32 @@ namespace PuntoDeVentaV2
                         {
                             DataRow row = dtComboServicio.Rows[0];
                             prodSerPaq += fech + "|";
-                            prodSerPaq += idEditarProducto + "|";
+                            //prodSerPaq += idEditarProducto + "|";
+                            //prodSerPaq += row["ID"].ToString() + "|";
+                            //prodSerPaq += row["Nombre"].ToString() + "|";
                             prodSerPaq += row["ID"].ToString() + "|";
                             prodSerPaq += row["Nombre"].ToString() + "|";
-                            prodSerPaq += txtCantPaqServ.Text;
+                            using (DataTable dtIdEditarProducto = cn.CargarDatos(cs.obtenerNombreDelProducto(idEditarProducto)))
+                            {
+                                if (!dtIdEditarProducto.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtIdEditarProducto.Rows)
+                                    {
+                                        prodSerPaq += item["ID"].ToString() + "|";
+                                        prodSerPaq += item["Nombre"].ToString() + "|";
+                                    }
+                                }
+                            }
+                            using (DataTable dtProductosDeServicio = cn.CargarDatos(cs.obtenerCantidadProductosDeServicios(row["ID"].ToString())))
+                            {
+                                if (!dtProductosDeServicio.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtProductosDeServicio.Rows)
+                                    {
+                                        prodSerPaq += item["Cantidad"].ToString();
+                                    }
+                                }
+                            }
 
                             listaProductoToCombo.Add(prodSerPaq);
                             prodSerPaq = null;
@@ -9954,28 +10110,28 @@ namespace PuntoDeVentaV2
                     lbClaveInterna.Visible = true;
                     lbClaveInterna.Anchor = AnchorStyles.Left;
 
+                    // TextBox para Cantidad por Combo
+                    txtCantPaqServ.Visible = true;
+                    txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                    txtCantPaqServ.TabIndex = 4;
+                    txtCantPaqServ.TabStop = true;
+
                     // TextBox para Código de Barras
                     txtCodigoBarras.Visible = true;
                     txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    txtCodigoBarras.TabIndex = 4;
+                    txtCodigoBarras.TabIndex = 5;
                     txtCodigoBarras.TabStop = true;
 
                     // Button para Generar Código de Barras
                     btnGenerarCB.Visible = true;
                     btnGenerarCB.Anchor = AnchorStyles.Left;
-                    btnGenerarCB.TabIndex = 5;
+                    btnGenerarCB.TabIndex = 6;
                     btnGenerarCB.TabStop = true;
 
                     btnAddCodBar.Visible = true;
                     btnAddCodBar.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
-                    btnAddCodBar.TabIndex = 6;
+                    btnAddCodBar.TabIndex = 7;
                     btnAddCodBar.TabStop = true;
-
-                    // TextBox para Cantidad por Combo
-                    txtCantPaqServ.Visible = true;
-                    txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    txtCantPaqServ.TabIndex = 7;
-                    txtCantPaqServ.TabStop = true;
 
                     if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                     {
@@ -10575,28 +10731,28 @@ namespace PuntoDeVentaV2
                     lbClaveInterna.Visible = true;
                     lbClaveInterna.Anchor = AnchorStyles.Left;
 
+                    // TextBox para Cantidad por Servicio
+                    txtCantPaqServ.Visible = true;
+                    txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                    txtCantPaqServ.TabIndex = 4;
+                    txtCantPaqServ.TabStop = true;
+
                     // TextBox para Código de Barras
                     txtCodigoBarras.Visible = true;
                     txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    txtCodigoBarras.TabIndex = 4;
+                    txtCodigoBarras.TabIndex = 5;
                     txtCodigoBarras.TabStop = true;
                     // Button para Gnerar Código de Barras
                     btnGenerarCB.Visible = true;
                     btnGenerarCB.Anchor = AnchorStyles.Left;
-                    btnGenerarCB.TabIndex = 5;
+                    btnGenerarCB.TabIndex = 6;
                     btnGenerarCB.TabStop = true;
 
                     // Button Agregar Codigo Barras extra
                     btnAddCodBar.Visible = true;
                     btnAddCodBar.Anchor = AnchorStyles.Left; // | AnchorStyles.Right
-                    btnAddCodBar.TabIndex = 6;
+                    btnAddCodBar.TabIndex = 7;
                     btnAddCodBar.TabStop = true;
-
-                    // TextBox para Cantidad por Servicio
-                    txtCantPaqServ.Visible = true;
-                    txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    txtCantPaqServ.TabIndex = 7;
-                    txtCantPaqServ.TabStop = true;
 
                     // Label signo de ayuda
                     lblCantCombServ.Visible = true;

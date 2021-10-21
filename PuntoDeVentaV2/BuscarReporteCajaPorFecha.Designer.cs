@@ -431,11 +431,13 @@
             this.Controls.Add(this.segundoDatePicker);
             this.Controls.Add(this.primerDatePicker);
             this.Controls.Add(this.DGVReporteCaja);
+            this.KeyPreview = true;
             this.Name = "BuscarReporteCajaPorFecha";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reporte de Caja";
             this.Load += new System.EventHandler(this.BuscarReporteCajaPorFecha_Load);
             this.Shown += new System.EventHandler(this.BuscarReporteCajaPorFecha_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BuscarReporteCajaPorFecha_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVReporteCaja)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();

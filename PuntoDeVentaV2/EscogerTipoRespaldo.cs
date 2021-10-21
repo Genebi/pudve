@@ -12,6 +12,7 @@ namespace PuntoDeVentaV2
 {
     public partial class EscogerTipoRespaldo : Form
     {
+        public static bool estadoBoton; 
 
         public static int typeBackUp { get; set; }
 
@@ -19,11 +20,6 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
             this.Text = "Escoger tipo de respaldo";
-        }
-
-        private void EscogerTipoRespaldo_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void btnGuadar_Click(object sender, EventArgs e)
@@ -44,6 +40,8 @@ namespace PuntoDeVentaV2
             }
 
             typeBackUp = tipoRespaldo;
+
+            estadoBoton = true;
 
             this.Close();
         }
@@ -88,6 +86,14 @@ namespace PuntoDeVentaV2
             else if (e.KeyCode == Keys.Escape)
             {
                 btnCancelar.PerformClick();
+            }
+        }
+
+        private void EscogerTipoRespaldo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue.Equals(Keys.Escape))
+            {
+                this.Close();
             }
         }
     }
