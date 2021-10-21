@@ -120,6 +120,7 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
         #region Generar los reportes sin la clave interna.
         private void GenerarReporteSinCLaveInterna(int num)
         {

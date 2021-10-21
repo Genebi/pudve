@@ -340,7 +340,7 @@ namespace PuntoDeVentaV2
             var numRow = 0;
 
             // Ruta donde se creara el archivo PDF
-            //var servidor = Properties.Settings.Default.Hosting;
+            var servidor = Properties.Settings.Default.Hosting;
             //var rutaArchivo = string.Empty;
             /*if (!string.IsNullOrWhiteSpace(servidor))
             {
@@ -352,7 +352,27 @@ namespace PuntoDeVentaV2
             }*/
 
             var fechaHoy = DateTime.Now;
-            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\reporte_inventario.pdf";
+            //var rutaArchivo = @"C:\Archivos PUDVE\Reportes\reporte_inventario.pdf";
+            var rutaArchivo = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo += $@"\\{servidor}\Archivos PUDVE\Reportes\RevisarInventario\{FormPrincipal.userNickName}\";
+            }
+            else
+            {
+                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\RevisarInventario\{FormPrincipal.userNickName}\";
+            }
+
+            if (!Directory.Exists(rutaArchivo))
+            {
+                Directory.CreateDirectory(rutaArchivo);
+                rutaArchivo += $"reporte_inventario_{FilterNumActiveRecord}.pdf";
+            }
+            else
+            {
+                rutaArchivo += $"reporte_inventario_{FilterNumActiveRecord}.pdf";
+            }
 
             Document reporte = new Document(PageSize.A3.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -733,7 +753,30 @@ namespace PuntoDeVentaV2
             }*/
 
             var fechaHoy = DateTime.Now;
-            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\reporte_inventario.pdf";
+            //var rutaArchivo = @"C:\Archivos PUDVE\Reportes\reporte_inventario.pdf";
+
+            var servidor = Properties.Settings.Default.Hosting;
+
+            var rutaArchivo = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo += $@"\\{servidor}\Archivos PUDVE\Reportes\RevisarInventario\{FormPrincipal.userNickName}\";
+            }
+            else
+            {
+                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\RevisarInventario\{FormPrincipal.userNickName}\";
+            }
+
+            if (!Directory.Exists(rutaArchivo))
+            {
+                Directory.CreateDirectory(rutaArchivo);
+                rutaArchivo += $"reporte_inventario_{FilterNumActiveRecord}.pdf";
+            }
+            else
+            {
+                rutaArchivo += $"reporte_inventario_{FilterNumActiveRecord}.pdf";
+            }
 
             Document reporte = new Document(PageSize.A3.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
