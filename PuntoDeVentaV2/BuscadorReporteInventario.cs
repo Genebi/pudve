@@ -63,12 +63,12 @@ namespace PuntoDeVentaV2
                 label3.Text = "Reportes Actualizar Inventario (Disminuir)";
             }
 
-            cargarDatos();
+            cargarDatosDGV();
             primerDatePicker.Value = DateTime.Today.AddDays(-7);
             segundoDatePicker.Value = DateTime.Now;
         }
 
-        private void cargarDatos()
+        private void cargarDatosDGV()
         {
             DGVInventario.Rows.Clear();
 
@@ -79,15 +79,15 @@ namespace PuntoDeVentaV2
 
             if (tipoDatoReporte.Equals("RInventario"))//Revisar inventario
             {
-                query = $"SELECT NumFolio, NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY NoRevision ORDER BY Fecha DESC";
+                query = cs.consultaReporteGeneralRevisarInventario();
             }
             else if (tipoDatoReporte.Equals("AIAumentar"))//Actualizar Inventario (Aumentar)
             {
-                query = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
+                query = cs.consultaReporteGeneralAumentarInventario();
             }
             else if (tipoDatoReporte.Equals("AIDisminuir"))//Actualizar Inventario (Disminuir)
             {
-                query = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvdisminuirinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
+                query = cs.consultaReporteGeneralDisminuirInventario();
             }
 
             filtroConSinFiltroAvanzado = query;
@@ -98,7 +98,7 @@ namespace PuntoDeVentaV2
 
         private void DGVInventario_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 3)
+            if (e.ColumnIndex == 4)
             {
                 var mostrarClave = FormPrincipal.clave;
                 int numRev = Convert.ToInt32(DGVInventario.Rows[e.RowIndex].Cells[0].Value.ToString());
@@ -146,6 +146,11 @@ namespace PuntoDeVentaV2
             else
             {
                 rutaArchivo = $@"C:\Archivos PUDVE\Reportes\RevisarInventario\{usuario}\reporte_inventario_{num}.pdf";
+            }
+
+            if (!File.Exists(rutaArchivo))
+            {
+
             }
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
@@ -1543,6 +1548,7 @@ namespace PuntoDeVentaV2
                 if (!dtDatos.Rows.Count.Equals(0))
                 {
                     var rev = string.Empty;
+                    var folio = string.Empty;
                     var name = string.Empty;
                     var fecha = string.Empty;
                     var usr = string.Empty;
@@ -1553,8 +1559,8 @@ namespace PuntoDeVentaV2
                     {
                         if (tipoDatoReporte.Equals("RInventario"))
                         {
-                            //rev = filaDatos["NoRevision"].ToString();
-                            rev = filaDatos["NumFolio"].ToString();
+                            rev = filaDatos["NoRevision"].ToString();
+                            folio = filaDatos["NumFolio"].ToString();
                             name = filaDatos["NameUsr"].ToString();
                             fecha = filaDatos["Fecha"].ToString();
                             usr = cs.validarEmpleadoPorID();
@@ -1566,8 +1572,8 @@ namespace PuntoDeVentaV2
                         }
                         else 
                         {
-                            //rev = filaDatos["NoRevision"].ToString();
-                            rev = filaDatos["Folio"].ToString();
+                            rev = filaDatos["NoRevision"].ToString();
+                            folio = filaDatos["Folio"].ToString();
                             idObtenido = Convert.ToInt32(filaDatos["IDEmpleado"].ToString());
                             fecha = filaDatos["Fecha"].ToString();
                             nameUsuario = filaDatos["NameUsr"].ToString();
@@ -1589,7 +1595,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                         
-                        DGVInventario.Rows.Add(rev, name, fecha, icono);
+                        DGVInventario.Rows.Add(folio, rev, name, fecha, icono);
                     }
                 }
                 else
@@ -1604,6 +1610,7 @@ namespace PuntoDeVentaV2
                 if (!dtDatos.Rows.Count.Equals(0))
                 {
                     var rev = string.Empty;
+                    var folio = string.Empty;
                     var name = string.Empty;
                     var fecha = string.Empty;
                     var usr = string.Empty;
@@ -1622,8 +1629,8 @@ namespace PuntoDeVentaV2
                         //}
                         if (tipoDatoReporte.Equals("RInventario"))
                         {
-                            //rev = filaDatos["NoRevision"].ToString();
-                            rev = filaDatos["NumFolio"].ToString();
+                            rev = filaDatos["NoRevision"].ToString();
+                            folio = filaDatos["NumFolio"].ToString();
                             name = filaDatos["NameUsr"].ToString();
                             fecha = filaDatos["Fecha"].ToString();
                             usr = cs.validarEmpleadoPorID();
@@ -1635,8 +1642,8 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            //rev = filaDatos["NoRevision"].ToString();
-                            rev = filaDatos["Folio"].ToString();
+                            rev = filaDatos["NoRevision"].ToString();
+                            folio = filaDatos["Folio"].ToString();
                             name = filaDatos["IDEmpleado"].ToString();
                             fecha = filaDatos["Fecha"].ToString();
 
@@ -1653,7 +1660,7 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        DGVInventario.Rows.Add(rev, name, fecha, icono);
+                        DGVInventario.Rows.Add(folio, rev, name, fecha, icono);
                     }
                 }
             }
@@ -1849,7 +1856,7 @@ namespace PuntoDeVentaV2
 
         private void DGVInventario_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 3)
+            if (e.ColumnIndex == 4)
             {
                 DGVInventario.Cursor = Cursors.Hand;
             }

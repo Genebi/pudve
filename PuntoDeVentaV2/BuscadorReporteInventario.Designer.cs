@@ -52,6 +52,7 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.numRevision = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numFolio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mostrar = new System.Windows.Forms.DataGridViewImageColumn();
@@ -65,14 +66,17 @@
             // 
             this.DGVInventario.AllowUserToAddRows = false;
             this.DGVInventario.AllowUserToDeleteRows = false;
+            this.DGVInventario.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVInventario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVInventario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.numRevision,
+            this.numFolio,
             this.usuario,
             this.fecha,
             this.mostrar});
             this.DGVInventario.Location = new System.Drawing.Point(12, 119);
             this.DGVInventario.Name = "DGVInventario";
+            this.DGVInventario.ReadOnly = true;
             this.DGVInventario.RowHeadersVisible = false;
             this.DGVInventario.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DGVInventario.Size = new System.Drawing.Size(1018, 262);
@@ -363,40 +367,40 @@
             // 
             // numRevision
             // 
-            this.numRevision.FillWeight = 27.5862F;
-            this.numRevision.HeaderText = "No. Folio";
+            this.numRevision.FillWeight = 140.223F;
+            this.numRevision.HeaderText = "No. Revision";
             this.numRevision.Name = "numRevision";
             this.numRevision.ReadOnly = true;
-            this.numRevision.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.numRevision.Width = 80;
+            this.numRevision.Visible = false;
+            // 
+            // numFolio
+            // 
+            this.numFolio.FillWeight = 71.77605F;
+            this.numFolio.HeaderText = "No. Folio";
+            this.numFolio.Name = "numFolio";
+            this.numFolio.ReadOnly = true;
             // 
             // usuario
             // 
-            this.usuario.FillWeight = 306.6767F;
+            this.usuario.FillWeight = 139.9375F;
             this.usuario.HeaderText = "Usuario";
             this.usuario.Name = "usuario";
             this.usuario.ReadOnly = true;
-            this.usuario.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.usuario.Width = 738;
             // 
             // fecha
             // 
-            this.fecha.FillWeight = 42.35772F;
+            this.fecha.FillWeight = 129.8006F;
             this.fecha.HeaderText = "Fecha";
             this.fecha.Name = "fecha";
             this.fecha.ReadOnly = true;
-            this.fecha.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.fecha.Width = 138;
             // 
             // mostrar
             // 
-            this.mostrar.FillWeight = 23.37937F;
+            this.mostrar.FillWeight = 18.26279F;
             this.mostrar.HeaderText = "Mostrar";
             this.mostrar.Name = "mostrar";
             this.mostrar.ReadOnly = true;
-            this.mostrar.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.mostrar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.mostrar.Width = 59;
             // 
             // BuscadorReporteInventario
             // 
@@ -454,6 +458,7 @@
         private System.Windows.Forms.Label lblCantidadRegistros;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridViewTextBoxColumn numRevision;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numFolio;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.DataGridViewImageColumn mostrar;
