@@ -14,6 +14,7 @@ using NAudio.Wave.SampleProviders;
 using System.Threading;
 using static System.Windows.Forms.DataGridView;
 using System.IO.Ports;
+using System.Media;
 
 namespace PuntoDeVentaV2
 {
@@ -176,6 +177,9 @@ namespace PuntoDeVentaV2
         public delegate void MostrarRecepcion(string Texto);    // Delegado para asignar el valor recibido
 
         int nombreus, direccionus, colycpus, rfcus, correous, telefonous, nombrec, domicilioc, rfcc, correoc, telefonoc, colycpc, formapagoc;
+
+        public static bool sonido = true;
+        int contador = 0;
 
         // al recibir de la bascula los bytesToRead indicara
         // un valor superior a 0, indicando el numero de caracteres
@@ -355,6 +359,7 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_KeyDown(object sender, KeyEventArgs e)
         {
+            sonido = true;
             // Tecla borrar y suprimir
             if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
             {
@@ -367,6 +372,8 @@ namespace PuntoDeVentaV2
             // Enter
             if (e.KeyData == Keys.Enter)
             {
+                sonido = true;
+                contador = 0;
                 // Verificar si se selecciono el check para cancelar venta
                 //if (checkCancelar.Checked)
                 //{
@@ -604,6 +611,30 @@ namespace PuntoDeVentaV2
                 //MessageBox.Show($"El produto(código o clave) escaneado:\n\n{txtBuscadorProducto.Text}\n\nNo se encuentra registrado en el Sistema", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        private void reproducirProductoAgregado()
+        {
+            if (sonido == true)
+            {
+                try
+                {
+                    var rutaSonido = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Sounds\sonidoProductoAgregado.wav";
+
+                    var archivo = new AudioFileReader(rutaSonido);
+                    var trimmed = new OffsetSampleProvider(archivo);
+                    trimmed.SkipOver = TimeSpan.FromSeconds(0);
+                    trimmed.Take = TimeSpan.FromSeconds(2);
+
+                    var player = new WaveOutEvent();
+                    player.Init(trimmed);
+                    player.Play();
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show($"El produto(código o clave) escaneado:\n\n{txtBuscadorProducto.Text}\n\nNo se encuentra registrado en el Sistema", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            
+        }
 
         private void AgregarProducto(string[] datosProducto, decimal cnt = 1)
         {
@@ -743,6 +774,7 @@ namespace PuntoDeVentaV2
                     AgregarProductoLista(datosProducto, cnt, ignorar);
                     validarStockDGV();
                 }
+                
             }
             else
             {
@@ -756,7 +788,6 @@ namespace PuntoDeVentaV2
                 AgregarProductoLista(datosProducto, cnt, ignorar);
                 validarStockDGV();
             }
-
             CalculoMayoreo();
             CantidadesFinalesVenta();
             //validarStockDGV();
@@ -5457,6 +5488,8 @@ namespace PuntoDeVentaV2
         private void listaProductos_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ProductoSeleccionado();
+            sonido = true;
+            contador = 0;
         }
 
         private void listaProductos_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -5505,6 +5538,7 @@ namespace PuntoDeVentaV2
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
+            sonido = false;
             listaProductosVenta();
             cantidadAPedir = nudCantidadPS.Value.ToString();
             if (Application.OpenForms.OfType<ConsultarProductoVentas>().Count() == 1)
@@ -5518,6 +5552,7 @@ namespace PuntoDeVentaV2
                 consulta.FormClosing += delegate
                 {
                     mostrarDatosTraidosBuscador();
+                    reproducirProductoAgregado();
                 };
                 
                 //listProductos.Add(datosProducto[0] + "|" + cantidad.ToString());
@@ -5554,7 +5589,8 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            if (string.IsNullOrWhiteSpace(cantidadaPedir.ToString()))//Se valida si la cantidad es igual a 0 o si viene vacio.
+                            var cantidadCero = Convert.ToDecimal(cantidadaPedir.ToString());
+                            if (string.IsNullOrWhiteSpace(cantidadaPedir.ToString()) || cantidadCero.Equals(0))//Se valida si la cantidad es igual a 0 o si viene vacio.
                             {
                             }
                             else
@@ -5562,7 +5598,6 @@ namespace PuntoDeVentaV2
                                 nudCantidadPS.Value = Convert.ToDecimal(cantidadaPedir);
                                 AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
                             }
-                            
                         }
                     }
                     else
@@ -6367,6 +6402,15 @@ namespace PuntoDeVentaV2
         private void btnConsultar_Enter(object sender, EventArgs e)
         {
             txtBuscadorProducto.Focus();
+        }
+
+        private void DGVentas_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if (sonido == true && contador == 0)
+            {
+                reproducirProductoAgregado();
+                contador++;
+            }
         }
 
         private void btnCancelarVenta_Enter(object sender, EventArgs e)

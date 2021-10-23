@@ -287,6 +287,8 @@ namespace PuntoDeVentaV2
                     obtenerFechaOperacionAbonado = datosConsulta["FechaOperacion"].ToString();
 
                 }
+
+                obtenerTotalAbonado = string.IsNullOrWhiteSpace(obtenerTotalAbonado) ? "0" : obtenerTotalAbonado;
                 totalAbonado = float.Parse(obtenerTotalAbonado);
             }
 

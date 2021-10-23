@@ -102,8 +102,6 @@
             this.timer_img_producto = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.btnBascula = new System.Windows.Forms.Button();
-            this.lblPesoRecibido = new System.Windows.Forms.Label();
             this.btnAbrirCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnAnticipos = new PuntoDeVentaV2.BotonRedondo();
             this.btnUltimoTicket = new PuntoDeVentaV2.BotonRedondo();
@@ -111,6 +109,8 @@
             this.btnGuardarVenta = new PuntoDeVentaV2.BotonRedondo();
             this.btnVentasGuardadas = new PuntoDeVentaV2.BotonRedondo();
             this.btn_cancelar_venta = new PuntoDeVentaV2.BotonRedondo();
+            this.btnBascula = new System.Windows.Forms.Button();
+            this.lblPesoRecibido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -232,6 +232,7 @@
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
             this.DGVentas.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.DGVentas_CellStateChanged);
             this.DGVentas.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellValueChanged);
+            this.DGVentas.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DGVentas_RowsAdded);
             this.DGVentas.SelectionChanged += new System.EventHandler(this.DGVentas_SelectionChanged);
             this.DGVentas.Enter += new System.EventHandler(this.DGVentas_Enter);
             this.DGVentas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DGVentas_MouseUp);
@@ -967,29 +968,6 @@
             this.panel5.Size = new System.Drawing.Size(881, 95);
             this.panel5.TabIndex = 63;
             // 
-            // btnBascula
-            // 
-            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
-            this.btnBascula.Location = new System.Drawing.Point(253, 20);
-            this.btnBascula.Name = "btnBascula";
-            this.btnBascula.Size = new System.Drawing.Size(105, 40);
-            this.btnBascula.TabIndex = 0;
-            this.btnBascula.Text = "Tomar Peso Ctrl + T";
-            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnBascula.UseVisualStyleBackColor = true;
-            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
-            // 
-            // lblPesoRecibido
-            // 
-            this.lblPesoRecibido.AutoSize = true;
-            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
-            this.lblPesoRecibido.Name = "lblPesoRecibido";
-            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
-            this.lblPesoRecibido.TabIndex = 64;
-            this.lblPesoRecibido.Text = "0";
-            this.lblPesoRecibido.Visible = false;
-            // 
             // btnAbrirCaja
             // 
             this.btnAbrirCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(68)))), ((int)(((byte)(53)))));
@@ -1139,6 +1117,29 @@
             this.btn_cancelar_venta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btn_cancelar_venta.UseVisualStyleBackColor = false;
             this.btn_cancelar_venta.Click += new System.EventHandler(this.botonRedondo6_Click);
+            // 
+            // btnBascula
+            // 
+            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
+            this.btnBascula.Location = new System.Drawing.Point(253, 20);
+            this.btnBascula.Name = "btnBascula";
+            this.btnBascula.Size = new System.Drawing.Size(105, 40);
+            this.btnBascula.TabIndex = 0;
+            this.btnBascula.Text = "Tomar Peso Ctrl + T";
+            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnBascula.UseVisualStyleBackColor = true;
+            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
+            // 
+            // lblPesoRecibido
+            // 
+            this.lblPesoRecibido.AutoSize = true;
+            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
+            this.lblPesoRecibido.Name = "lblPesoRecibido";
+            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
+            this.lblPesoRecibido.TabIndex = 64;
+            this.lblPesoRecibido.Text = "0";
+            this.lblPesoRecibido.Visible = false;
             // 
             // Ventas
             // 

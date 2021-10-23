@@ -13555,6 +13555,15 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream sonidoProductoAgregado {
+            get {
+                return ResourceManager.GetStream("sonidoProductoAgregado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap sort {
