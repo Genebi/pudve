@@ -24,6 +24,8 @@ namespace PuntoDeVentaV2
 
         int vecesMostradas = 0;
 
+        private bool refrescarForm = true;
+
         public AgregarDescuentoProducto()
         {
             InitializeComponent();
@@ -150,12 +152,26 @@ namespace PuntoDeVentaV2
                     foreach (Control item in panel.Controls)
                     {
                         if (item is TextBox)
-                        {
+                        {   
                             var tb = item.Text;
-                            if (tb == "")
+
+                            // Validar precios para el descuento por rangos
+                            string[] datosAux = item.Name.Split('_');
+
+                            if (datosAux[1] == "3")
                             {
-                                tb = "N";
+                                if (string.IsNullOrWhiteSpace(tb))
+                                {
+                                    refrescarForm = false;
+                                    item.Focus();
+                                    MessageBox.Show("Es necesario agregar todos los precios.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
                             }
+
+
+                            tb = tb == "" ? "N" : tb;
+     
                             descuentoMayoreo += tb + "-";
                         }
 
@@ -192,6 +208,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            refrescarForm = true;
             this.Hide();
         }
 
@@ -1307,7 +1324,10 @@ namespace PuntoDeVentaV2
 
         private void AgregarDescuentoProducto_Activated(object sender, EventArgs e)
         {
-            obtenerTipoDescuento();
+            if (refrescarForm)
+            {
+                obtenerTipoDescuento();
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
