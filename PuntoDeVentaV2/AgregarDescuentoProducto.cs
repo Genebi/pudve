@@ -162,13 +162,14 @@ namespace PuntoDeVentaV2
                         if (item is CheckBox)
                         {
                             CheckBox cb = (CheckBox)item;
+
                             if (cb.Checked)
                             {
-                                descuentoMayoreo += "1";
+                                descuentoMayoreo += "0";
                             }
                             else
                             {
-                                descuentoMayoreo += "0";
+                                descuentoMayoreo += "1";
                             }
                         }
                     }
