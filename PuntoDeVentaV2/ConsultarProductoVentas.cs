@@ -739,7 +739,6 @@ namespace PuntoDeVentaV2
                                 MessageBox.Show("Uno de los productos a disminuir es menor a la                 cantidad indicada", "Aviso del sistema", MessageBoxButtons.OK,          MessageBoxIcon.Information);
                                 cancelarResta = "return";
                                 return;
-                                
                             }
                         }
                     }

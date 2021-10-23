@@ -32,12 +32,14 @@ namespace PuntoDeVentaV2
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            Ventas.sonido = false;
             cantidad = "Cancelar";
             this.Close();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+             Ventas.sonido = true;
              cantidad = txtCantidad.Text;
              this.Close();
         }
