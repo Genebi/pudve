@@ -780,6 +780,12 @@
     </Compile>
     <Compile Include="Moneda.cs" />
     <Compile Include="Moneda_conletra.cs" />
+    <Compile Include="NuevoOrdenDeProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NuevoOrdenDeProducto.Designer.cs">
+      <DependentUpon>NuevoOrdenDeProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="NvaEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -871,6 +877,12 @@
     </Compile>
     <Compile Include="RegistroIniciosDeSesiones.Designer.cs">
       <DependentUpon>RegistroIniciosDeSesiones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroOrdenProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistroOrdenProductos.Designer.cs">
+      <DependentUpon>RegistroOrdenProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="RenombrarDetalle.cs">
       <SubType>Form</SubType>
@@ -1326,6 +1338,9 @@
     <EmbeddedResource Include="MisDatos.resx">
       <DependentUpon>MisDatos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NuevoOrdenDeProducto.resx">
+      <DependentUpon>NuevoOrdenDeProducto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NvaEmpresa.resx">
       <DependentUpon>NvaEmpresa.cs</DependentUpon>
     </EmbeddedResource>
@@ -1372,6 +1387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RegistroIniciosDeSesiones.resx">
       <DependentUpon>RegistroIniciosDeSesiones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistroOrdenProductos.resx">
+      <DependentUpon>RegistroOrdenProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RenombrarDetalle.resx">
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>

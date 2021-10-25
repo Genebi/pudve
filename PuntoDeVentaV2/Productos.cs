@@ -21,6 +21,7 @@ namespace PuntoDeVentaV2
         private DataGridViewCellStyle HighlightStyle;
 
         public static bool noMostrarClave { get; set; }
+       
 
         string strTag = string.Empty,
                 path = string.Empty,
