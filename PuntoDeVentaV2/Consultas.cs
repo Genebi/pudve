@@ -2713,5 +2713,40 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string consultaReporteGeneralRevisarInventario()
+        {
+            var consulta = $"SELECT NumFolio, NoRevision, NameUsr, Fecha FROM RevisarInventarioReportes WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY NoRevision ORDER BY Fecha DESC";
+
+            return consulta;
+        }
+
+        public string consultaReporteGeneralAumentarInventario()
+        {
+            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
+
+            return consulta;
+        }
+
+        public string consultaReporteGeneralDisminuirInventario()
+        {
+            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvdisminuirinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
+
+            return consulta;
+        }
+
+        public string regenerarReporteGeneralRevisarInventario(int numeroRevision, int idUsuario, int numeroFolio)
+        {
+            var consulta = $"SELECT * FROM revisarinventarioreportes WHERE IDUsuario = '{idUsuario}' AND NoRevision = '{numeroRevision}' AND NumFolio = '{numeroFolio}' ORDER BY Fecha DESC;";
+
+            return consulta;
+        }
+
+        public string sacarFechaReporte(int numeroRevision, int numeroFolio)
+        {
+            var consulta = $"SELECT RevInvReport.Fecha, RevInvReport.TipoRevision FROM revisarinventarioreportes AS RevInvReport WHERE RevInvReport.IDUsuario = '{FormPrincipal.userID}' AND RevInvReport.NoRevision = '{numeroRevision}' AND RevInvReport.NumFolio = '{numeroFolio}' ORDER BY Fecha DESC LIMIT 1";
+
+            return consulta;
+        }
     }
 }  

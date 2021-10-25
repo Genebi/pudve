@@ -1617,3 +1617,6 @@ IF
 		TipoDeMoneda INTEGER DEFAULT (1),
 		RespaldarInformacion INTEGER DEFAULT (1)
 	);
+
+-- Agregar columna de tipo de revision de inventario para tabla RevisarInventarioReportes
+ALTER TABLE RevisarInventarioReportes ADD COLUMN IF NOT EXISTS TipoRevision VARCHAR(100) DEFAULT NULL;
