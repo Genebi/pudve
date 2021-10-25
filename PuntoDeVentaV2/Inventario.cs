@@ -279,10 +279,10 @@ namespace PuntoDeVentaV2
                                     reporte.GetFilterNumActiveRecord = NumRevActivo;
                                     reporte.limpiarTabla = limpiarTabla;
                                     limpiarTabla = false;
-                                    reporte.Show();
+                                    reporte.ShowDialog();
                                 };
 
-                                revisar.Show();
+                                revisar.ShowDialog();
                             }
                         }
                         else
@@ -306,16 +306,16 @@ namespace PuntoDeVentaV2
                                     reporte.GetFilterNumActiveRecord = NumRevActivo;
                                     reporte.limpiarTabla = limpiarTabla;
                                     limpiarTabla = false;
-                                    reporte.Show();
+                                    reporte.ShowDialog();
                                 };
 
-                                revisar.Show();
+                                revisar.ShowDialog();
                             }
                         }
                     }
                 };
 
-                filtro.Show();
+                filtro.ShowDialog();
             }
         }
 
@@ -3588,7 +3588,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.F2)
             {
                 Ventas mostrarVentas = new Ventas();
-                mostrarVentas.Show();
+                mostrarVentas.ShowDialog();
             }
         }
 
@@ -3597,7 +3597,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.F2)
             {
                 Ventas mostrarVentas = new Ventas();
-                mostrarVentas.Show();
+                mostrarVentas.ShowDialog();
             }
         }
 
@@ -3606,7 +3606,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.F2)
             {
                 Ventas mostrarVentas = new Ventas();
-                mostrarVentas.Show();
+                mostrarVentas.ShowDialog();
             }
         }
 
@@ -3615,7 +3615,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.F2)
             {
                 Ventas mostrarVentas = new Ventas();
-                mostrarVentas.Show();
+                mostrarVentas.ShowDialog();
             }
         }
 
@@ -3624,7 +3624,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.F2)
             {
                 Ventas mostrarVentas = new Ventas();
-                mostrarVentas.Show();
+                mostrarVentas.ShowDialog();
             }
         }
 

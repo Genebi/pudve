@@ -25,7 +25,6 @@ namespace PuntoDeVentaV2
         {
             axAcroPDF.src = ruta;
             axAcroPDF.setZoom(75);
-            SendKeys.Send("%{Tab}");
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
