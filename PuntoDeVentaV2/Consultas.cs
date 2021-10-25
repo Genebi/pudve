@@ -2734,5 +2734,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string regenerarReporteGeneralRevisarInventario(int numeroRevision, int idUsuario, int numeroFolio)
+        {
+            var consulta = $"SELECT * FROM revisarinventarioreportes WHERE IDUsuario = '{idUsuario}' AND NoRevision = '{numeroRevision}' AND NumFolio = '{numeroFolio}' ORDER BY Fecha DESC;";
+
+            return consulta;
+        }
+
+        public string sacarFechaReporte(int numeroRevision, int numeroFolio)
+        {
+            var consulta = $"SELECT RevInvReport.Fecha, RevInvReport.TipoRevision FROM revisarinventarioreportes AS RevInvReport WHERE RevInvReport.IDUsuario = '{FormPrincipal.userID}' AND RevInvReport.NoRevision = '{numeroRevision}' AND RevInvReport.NumFolio = '{numeroFolio}' ORDER BY Fecha DESC LIMIT 1";
+
+            return consulta;
+        }
     }
 }  
