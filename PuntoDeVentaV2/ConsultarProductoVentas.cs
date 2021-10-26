@@ -434,6 +434,7 @@ namespace PuntoDeVentaV2
                             var number_of_rows = DGVProductos.Rows.Add();
                             DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
+                            row.Cells["_id"].Value = idProducto;
                             row.Cells["Nombre"].Value = Nombre;         // Columna Nombre
                             row.Cells["Stock"].Value = Stock;           // Columna Stock
                             row.Cells["Precio"].Value = Precio;         // Columna Precio
@@ -667,8 +668,12 @@ namespace PuntoDeVentaV2
             for (int i = 0; i < rows.Count; i++)
             {
                 //var renglon = rows[0]; 
-                var codigoProd = DGVProductos.SelectedRows[i].Cells[4].Value.ToString();
-                var datosProducto = cn.CargarDatos($"SELECT ID, Nombre, Precio, TipoDescuento, Stock, Tipo, ClaveInterna, CodigoBarras, StockNecesario, ProdImage, StockMinimo, PrecioCompra, PrecioMayoreo, Impuesto, Categoria, ProdImage, ClaveProducto, UnidadMedida  FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigoProd}'");
+                //var codigoProd = DGVProductos.SelectedRows[i].Cells[4].Value.ToString();
+                //var datosProducto = cn.CargarDatos($"SELECT ID, Nombre, Precio, TipoDescuento, Stock, Tipo, ClaveInterna, CodigoBarras, StockNecesario, ProdImage, StockMinimo, PrecioCompra, PrecioMayoreo, Impuesto, Categoria, ProdImage, ClaveProducto, UnidadMedida  FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{codigoProd}'");
+
+                var idProductoComboServicio = DGVProductos.SelectedRows[i].Cells[7].Value.ToString();
+
+                var datosProducto = cn.CargarDatos($"SELECT ID, Nombre, Precio, TipoDescuento, Stock, Tipo, ClaveInterna, CodigoBarras, StockNecesario, ProdImage, StockMinimo, PrecioCompra, PrecioMayoreo, Impuesto, Categoria, ProdImage, ClaveProducto, UnidadMedida  FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProductoComboServicio}'");
 
                 string idProducto = datosProducto.Rows[0]["ID"].ToString();
                 productos.Add(idProducto);
