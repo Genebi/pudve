@@ -333,7 +333,7 @@
             // chkMensajeInventario
             // 
             this.chkMensajeInventario.AutoSize = true;
-            this.chkMensajeInventario.Location = new System.Drawing.Point(297, 548);
+            this.chkMensajeInventario.Location = new System.Drawing.Point(437, 574);
             this.chkMensajeInventario.Name = "chkMensajeInventario";
             this.chkMensajeInventario.Size = new System.Drawing.Size(199, 17);
             this.chkMensajeInventario.TabIndex = 35;
@@ -344,7 +344,7 @@
             // chkBoxProductMessage
             // 
             this.chkBoxProductMessage.AutoSize = true;
-            this.chkBoxProductMessage.Location = new System.Drawing.Point(119, 548);
+            this.chkBoxProductMessage.Location = new System.Drawing.Point(437, 597);
             this.chkBoxProductMessage.Name = "chkBoxProductMessage";
             this.chkBoxProductMessage.Size = new System.Drawing.Size(173, 17);
             this.chkBoxProductMessage.TabIndex = 34;

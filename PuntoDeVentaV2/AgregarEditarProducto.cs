@@ -3905,6 +3905,12 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnMensajeVenta_Click(object sender, EventArgs e)
+        {
+            MensajeVentasYMensajeInventario mensajes = new MensajeVentasYMensajeInventario();
+            mensajes.ShowDialog();
+        }
+
         public void cargarCodBarExt()
         {
             id = 0;
