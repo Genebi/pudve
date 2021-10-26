@@ -423,7 +423,7 @@ namespace PuntoDeVentaV2
 
             if (propiedad == "MensajeVentas")
             {
-                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensaje", true)[0];
+                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeVentas", true)[0];
 
                 var mensaje = txtMensaje.Text;
                 var consulta = "INSERT IGNORE INTO ProductMessage (ID, IDProducto, ProductOfMessage) VALUES";
