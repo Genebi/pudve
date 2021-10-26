@@ -56,7 +56,17 @@ namespace PuntoDeVentaV2
             }
             else if(cliclButton.Text == "Mensaje Inventario")
             {
-                MessageBox.Show("Inventario");
+                enviarDato = "mensajeInventario";
+                EditarMensajesParaEnviar mensaje = new EditarMensajesParaEnviar();
+                mensaje.ShowDialog();
+            }
+        }
+
+        private void MensajeVentasYMensajeInventario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
     }

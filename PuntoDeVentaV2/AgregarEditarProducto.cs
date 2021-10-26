@@ -278,6 +278,8 @@ namespace PuntoDeVentaV2
         public static string tmp_clave_interna = "";   // Almacenará la clave que se guarde en el producto. El valor será usado en AgregarStockXML una vez la ventana sea cerrada. Miri.  
         public static string tmp_codigo_barras = "";   // Almacenará el código que se guarde en el producto. El valor será usado en AgregarStockXML una vez la ventana sea cerrada. Miri. 
 
+        public static string nombreProductoEditar;
+
         #region Iniciar Varaibles Globales
         List<string> datosProductosBtnGuardar,
                      datosProductoRelacionado;
@@ -3908,6 +3910,7 @@ namespace PuntoDeVentaV2
         private void btnMensajeVenta_Click(object sender, EventArgs e)
         {
             MensajeVentasYMensajeInventario mensajes = new MensajeVentasYMensajeInventario();
+            nombreProductoEditar = txtNombreProducto.Text;
             mensajes.ShowDialog();
         }
 

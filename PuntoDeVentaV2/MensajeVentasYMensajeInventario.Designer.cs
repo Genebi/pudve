@@ -35,10 +35,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(507, 417);
+            this.KeyPreview = true;
             this.Name = "MensajeVentasYMensajeInventario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MensajeVentasYMensajeInventario";
             this.Load += new System.EventHandler(this.MensajeVentasYMensajeInventario_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MensajeVentasYMensajeInventario_KeyDown);
             this.ResumeLayout(false);
 
         }

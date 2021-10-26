@@ -34,10 +34,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(390, 291);
+            this.ClientSize = new System.Drawing.Size(320, 242);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "EditarMensajesParaEnviar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EditarMensajesParaEnviar";
+            this.Load += new System.EventHandler(this.EditarMensajesParaEnviar_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditarMensajesParaEnviar_KeyDown);
             this.ResumeLayout(false);
 
         }
