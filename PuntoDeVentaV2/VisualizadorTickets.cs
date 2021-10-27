@@ -39,7 +39,8 @@ namespace PuntoDeVentaV2
                 var servidor = Properties.Settings.Default.Hosting;
                 var ruta = string.Empty;
 
-                string[] words = ticketGenerado.Split('\\');
+                //string[] words = ticketGenerado.Split('\\');
+                string[] words = rutaTicketGenerado.Split('\\');
 
                 if (!string.IsNullOrWhiteSpace(servidor))
                 {
