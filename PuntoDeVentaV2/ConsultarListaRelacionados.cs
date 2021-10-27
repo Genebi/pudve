@@ -234,6 +234,10 @@ namespace PuntoDeVentaV2
                         row.Cells["Eliminar"].Value = ImageDelete;
                     }
                 }
+                else if (listaServCombo.Count().Equals(0))
+                {
+                    DGVProdServCombo.Rows.Clear();
+                }
             }
 
             DGVProdServCombo.Columns[0].Visible = false;
@@ -455,27 +459,30 @@ namespace PuntoDeVentaV2
                                 {
                                     for (int z = 0; z < listaServCombo.Count(); z++)
                                     {
-                                        if (listaServCombo[z].Contains(DGVProdServCombo.Rows[i].Cells[1].Value.ToString()) &&
-                                            listaServCombo[z].Contains(DGVProdServCombo.Rows[i].Cells[2].Value.ToString()) &&
-                                            listaServCombo[z].Contains(DGVProdServCombo.Rows[i].Cells[4].Value.ToString()) &&
-                                            listaServCombo[z].Contains(DGVProdServCombo.Rows[i].Cells[5].Value.ToString()) &&
-                                            listaServCombo[z].Contains(DGVProdServCombo.Rows[i].Cells[6].Value.ToString()))
+                                        var fechaDGV = DGVProdServCombo.Rows[i].Cells[1].Value.ToString();
+                                        var idServicioDGV = DGVProdServCombo.Rows[i].Cells[2].Value.ToString();
+                                        var conceptoServicioDGV = DGVProdServCombo.Rows[i].Cells[3].Value.ToString(); 
+                                        var idProductoDGV = DGVProdServCombo.Rows[i].Cells[4].Value.ToString();
+                                        var conceptoProductoDGV = DGVProdServCombo.Rows[i].Cells[5].Value.ToString();
+                                        var cantidadDGV = DGVProdServCombo.Rows[i].Cells[6].Value.ToString();
+                                        var tipoDGV = DGVProdServCombo.Rows[i].Cells[7].Value.ToString();
+
+                                        var existeFecha = listaServCombo[z].Contains(fechaDGV);
+                                        var existeIdServicio = listaServCombo[z].Contains(idServicioDGV);
+                                        var existeIdProducto = listaServCombo[z].Contains(idProductoDGV);
+                                        var existeConceptoProducto = listaServCombo[z].Contains(conceptoProductoDGV);
+                                        var existeCantidad = listaServCombo[z].Contains(cantidadDGV);
+
+                                        if (existeFecha.Equals(true) && 
+                                            existeIdServicio.Equals(true) && 
+                                            existeIdProducto.Equals(true) && 
+                                            existeConceptoProducto.Equals(true) && 
+                                            existeCantidad.Equals(true))
                                         {
                                             listaServCombo.RemoveAll(x => x == listaServCombo[z]);
                                         }
                                     }
                                 }
-                                //for (int i = 0; i < listaServCombo.Count(); i++)
-                                //{
-                                //    if (listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[1].Value.ToString()) &&
-                                //        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[2].Value.ToString()) &&
-                                //        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[4].Value.ToString()) &&
-                                //        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[5].Value.ToString()) &&
-                                //        listaServCombo[i].Contains(DGVProdServCombo.Rows[row].Cells[6].Value.ToString()))
-                                //    {
-                                //        listaServCombo.RemoveAll(x => x == listaServCombo[i]);
-                                //    }
-                                //}
                             }
                             if (!listaProd.Count().Equals(0))
                             {
@@ -493,17 +500,6 @@ namespace PuntoDeVentaV2
                                             }
                                     }
                                 }
-                                //for (int i = 0; i < listaProd.Count(); i++)
-                                //{
-                                //    if (listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[1].Value.ToString()) &&
-                                //        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[2].Value.ToString()) &&
-                                //        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[4].Value.ToString()) &&
-                                //        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[5].Value.ToString()) &&
-                                //        listaProd[i].Contains(DGVProdServCombo.Rows[row].Cells[6].Value.ToString()))
-                                //    {
-                                //        listaProd.RemoveAll(x => x == listaProd[i]);
-                                //    }
-                                //}
                             }
                         }
                         else if (!contenido.Equals(string.Empty))
