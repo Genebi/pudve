@@ -1617,3 +1617,5 @@ IF
 		TipoDeMoneda INTEGER DEFAULT (1),
 		RespaldarInformacion INTEGER DEFAULT (1)
 	);
+
+	ALTER TABLE productmessage ADD COLUMN IF NOT EXISTS CantidadMinimaDeCompra INT DEFAULT (null);

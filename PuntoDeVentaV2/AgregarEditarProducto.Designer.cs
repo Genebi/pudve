@@ -813,7 +813,7 @@
             this.btnMensajeVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMensajeVenta.ForeColor = System.Drawing.Color.White;
             this.btnMensajeVenta.Image = global::PuntoDeVentaV2.Properties.Resources.commenting_o1;
-            this.btnMensajeVenta.Location = new System.Drawing.Point(840, 3);
+            this.btnMensajeVenta.Location = new System.Drawing.Point(685, 5);
             this.btnMensajeVenta.Name = "btnMensajeVenta";
             this.btnMensajeVenta.Size = new System.Drawing.Size(150, 75);
             this.btnMensajeVenta.TabIndex = 21;
@@ -935,7 +935,7 @@
             this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.White;
             this.btnGuardarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.disk;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(684, 3);
+            this.btnGuardarProducto.Location = new System.Drawing.Point(841, 3);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
             this.btnGuardarProducto.Size = new System.Drawing.Size(150, 75);
             this.btnGuardarProducto.TabIndex = 4;

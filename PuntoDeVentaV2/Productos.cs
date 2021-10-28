@@ -217,6 +217,8 @@ namespace PuntoDeVentaV2
 
         public int retornoAgregarEditarProductoDatosSourceFinal;
 
+        public static int codProductoEditarInventario;
+        public static int codProductoEditarVenta;
 
         // Variables para el metodo AplicandoConsultaFiltros()
         private string extraProductos = string.Empty;
@@ -1002,6 +1004,10 @@ namespace PuntoDeVentaV2
                         origenDeLosDatos = 2;
                     }
 
+                    codProductoEditarInventario = Convert.ToInt32(idProductoEditar);// se trae el ID de la tabla DGVProductos de la base PRODUCTOS 'para mensaje inventario'
+
+                    codProductoEditarVenta = codProductoEditarInventario;
+
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProductoEditar), Convert.ToInt32(id));
                     typeProduct = producto[5];
 
@@ -1017,6 +1023,7 @@ namespace PuntoDeVentaV2
                     {
                         btnAgregarProducto.PerformClick();
                     }
+
                 }
                 else if (e.ColumnIndex == 8)
                 {
