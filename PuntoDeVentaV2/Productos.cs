@@ -4055,7 +4055,15 @@ namespace PuntoDeVentaV2
 
                     if (columnasComunes.Contains(filtro.Key))
                     {
-                        extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
+                        if (filtro.Key == "CantidadPedir")
+                        {
+                            extraProductos += $"P.StockMinimo > P.Stock AND (P.StockNecesario - P.Stock) {operador} {filtro.Value.Item2} AND ";
+                        }
+                        else
+                        {
+                            extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
+                        }
+                        
                     }
                     else if (filtro.Key == "Proveedor")
                     {
