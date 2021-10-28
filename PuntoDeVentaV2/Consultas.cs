@@ -226,7 +226,7 @@ namespace PuntoDeVentaV2
                 var tablaBusqueda = string.Empty;
                 if (revisarInventrario.Equals("AIAumentar"))
                 {
-                    tablaBusqueda = "dgvaumentarinventario"; 
+                    tablaBusqueda = "dgvaumentarinventario";
                 }
                 else
                 {
@@ -235,7 +235,7 @@ namespace PuntoDeVentaV2
 
                 consulta = $"SELECT NoRevision, NombreProducto, NameUsr, IDEmpleado, Fecha, Folio FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}'AND Folio != 0 AND NameUsr LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
             }
-            
+
 
             return consulta;
         }
@@ -1095,7 +1095,7 @@ namespace PuntoDeVentaV2
         public string ActualizarDatoValueDinamico(string claveBuscar, int valueDato, int idUsuario)
         {
             var consulta = $"UPDATE appSettings SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
-            
+
             return consulta;
         }
 
@@ -1987,7 +1987,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string busquedaEmpleado(string busqueda,int status)
+        public string busquedaEmpleado(string busqueda, int status)
         {
             var consulta = $"SELECT ID, nombre, usuario FROM `empleados` WHERE usuario LIKE '%{busqueda}%' AND estatus = '{status}' AND IDUsuario = '{FormPrincipal.userID}'";
             return consulta;
@@ -2060,8 +2060,8 @@ namespace PuntoDeVentaV2
 
         }
 
-        public string permisosAsignar(List<int> opciones,string empleado)
-        { 
+        public string permisosAsignar(List<int> opciones, string empleado)
+        {
             var consulta = $@"UPDATE empleadospermisos 
             SET mensajeVentas = '{opciones[1]}',
             mensajeInventario = '{opciones[2]}',
@@ -2093,7 +2093,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string validarUsuario (string usuario)
+        public string validarUsuario(string usuario)
         {
             var consulta = $"SELECT usuario FROM usuarios WHERE usuario = '{usuario}'";
             return consulta;
@@ -2146,7 +2146,7 @@ namespace PuntoDeVentaV2
             var consulta = $"UPDATE empleadospermisos SET {concepto} = '{value}' WHERE IDEmpleado = '{idEmpleado}' AND IDUsuario = '{FormPrincipal.userID}'";
             return consulta;
         }
-         
+
         public string verificarPermisosDinamicos(int idUsuario)
         {
             var consulta = $"SELECT * FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1 ";
@@ -2169,7 +2169,7 @@ namespace PuntoDeVentaV2
 
         public string busquedaIniciosDeSesion(string busqueda)
         {
-            var consulta = $"SELECT * FROM iniciosdesesion WHERE usuario LIKE '%{busqueda}%' AND IDUsuario = '{FormPrincipal.userID}'"; 
+            var consulta = $"SELECT * FROM iniciosdesesion WHERE usuario LIKE '%{busqueda}%' AND IDUsuario = '{FormPrincipal.userID}'";
             return consulta;
         }
 
@@ -2189,12 +2189,12 @@ namespace PuntoDeVentaV2
 
         public string obtenerProdRelacionados(string idProd)
         {
-            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDProducto = '{idProd}'"; 
+            var consulta = $"SELECT * FROM ProductosDeServicios WHERE IDProducto = '{idProd}'";
 
             return consulta;
         }
 
-        public string obtenerIDUsuario(string usuario,string contraseña)
+        public string obtenerIDUsuario(string usuario, string contraseña)
         {
             var consulta = $"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{contraseña}'";
             return consulta;
@@ -2522,7 +2522,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string insertarMensajeDeTicket(int idUsuario,string mensaje)
+        public string insertarMensajeDeTicket(int idUsuario, string mensaje)
         {
             string consulta = "INSERT INTO editarticket (IDUsuario, mensajeTicket)";
             consulta += $"VALUES ('{idUsuario}', '{mensaje}')";
@@ -2630,7 +2630,7 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT * FROM `editarticket` WHERE IDUsuario = '{FormPrincipal.userID}'";
             return consulta;
         }
-        public string consultarEstadoTicket(string apartado,int user)
+        public string consultarEstadoTicket(string apartado, int user)
         {
             var consulta = $"SELECT '{apartado}' FROM `editarticket` WHERE IDUsuario = '{FormPrincipal.userID}';";
             return consulta;
@@ -2640,7 +2640,7 @@ namespace PuntoDeVentaV2
         {
             var consulta = $"SELECT * FROM appsettings WHERE IDUsuario = '{FormPrincipal.userID}' AND checkBoxConcepto = '1' AND Mostrar = '1' AND concepto <> 'Proveedor';";
 
-            return consulta; 
+            return consulta;
         }
         public string CerrarSesionConCorte()
         {
@@ -2720,10 +2720,22 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+        public string mensajeInventario(int idProductoSeleccionado)
+        {
+            var consulta = $"SELECT Mensaje FROM `mensajesinventario` WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {idProductoSeleccionado}";
+
+            return consulta;
+        }
 
         public string consultaReporteGeneralAumentarInventario()
         {
-            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
+            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0";
+            return consulta;
+
+        }
+        public string mensajeVentas(int idProductoSeleccionado)
+        {
+            var consulta = $"SELECT ProductOfMessage FROM productmessage WHERE IDProducto = {idProductoSeleccionado}";
 
             return consulta;
         }
@@ -2734,6 +2746,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+        public string actualizarMensajeInventario(int idProductoSeleccionado, string mensaje)
+        {
+            var consulta = $"UPDATE mensajesInventario SET Mensaje = '{mensaje}' WHERE IDProducto = {idProductoSeleccionado}";
+
+            return consulta;
+        }
 
         public string regenerarReporteGeneralRevisarInventario(int numeroRevision, int idUsuario, int numeroFolio)
         {
@@ -2741,10 +2759,29 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+        public string actualizarMensajeVentas(int idProductoSeleccionado, string mensaje)
+        {
+            var consulta = $"UPDATE productmessage SET ProductOfMessage = '{mensaje}' WHERE IDProducto = {idProductoSeleccionado}";
+
+            return consulta;
+        }
 
         public string sacarFechaReporte(int numeroRevision, int numeroFolio)
         {
             var consulta = $"SELECT RevInvReport.Fecha, RevInvReport.TipoRevision FROM revisarinventarioreportes AS RevInvReport WHERE RevInvReport.IDUsuario = '{FormPrincipal.userID}' AND RevInvReport.NoRevision = '{numeroRevision}' AND RevInvReport.NumFolio = '{numeroFolio}' ORDER BY Fecha DESC LIMIT 1";
+
+            return consulta;
+        }
+        public string permisosMensajeVentasInventario()
+        {
+            var consulta = $"SELECT ProductMessageActivated FROM productmessage";
+
+            return consulta;
+        }
+
+        public string permisoRealizarInventario()
+        {
+            var consulta = $"SELECT Activo FROM mensajesinventario";
 
             return consulta;
         }

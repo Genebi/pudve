@@ -22,8 +22,8 @@ namespace PuntoDeVentaV2
 
         private void MensajeVentasYMensajeInventario_Load(object sender, EventArgs e)
         {
-            generarButton(12,12,"Mensaje Ventas","MensajeVentas");
-            generarButton(12, 51, "Mensaje Inventario","MensajeInventario");
+            generarButton(this.ClientSize.Width / 2 - 75, 10, "Mensaje Ventas", "MensajeVentas");
+            generarButton(this.ClientSize.Width / 2 - 75, 60, "Mensaje Inventario", "MensajeInventario");
         }
 
         public void generarButton(int x, int y, string nombreTexto,string nombreButton)
@@ -40,7 +40,7 @@ namespace PuntoDeVentaV2
             btn.FlatAppearance.BorderSize = 0;
             btn.Font = new Font("Century", 8F, FontStyle.Bold);
             btn.ForeColor = Color.White;
-            btn.BackColor = Color.Maroon;
+            btn.BackColor = Color.FromArgb(0, 104, 144);
             btn.UseVisualStyleBackColor = false;
             this.Controls.Add(btn);
         }

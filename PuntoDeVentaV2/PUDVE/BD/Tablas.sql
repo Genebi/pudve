@@ -1620,3 +1620,5 @@ IF
 
 -- Agregar columna de tipo de revision de inventario para tabla RevisarInventarioReportes
 ALTER TABLE RevisarInventarioReportes ADD COLUMN IF NOT EXISTS TipoRevision VARCHAR(100) DEFAULT NULL;
+
+	ALTER TABLE productmessage ADD COLUMN IF NOT EXISTS CantidadMinimaDeCompra INT DEFAULT (null);

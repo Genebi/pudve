@@ -447,6 +447,35 @@ namespace PuntoDeVentaV2
                 cbStockNegativo.Checked = true;
             }
 
+            using (var permisosMensajes = cn.CargarDatos(cs.permisosMensajeVentasInventario()))
+            {
+                int estadoMensajes = Convert.ToInt32(permisosMensajes.Rows[0].ItemArray[0]);
+                if (estadoMensajes == 1)
+                {
+                    chkMensajeVenderProducto.Checked = true;
+                }
+                else
+                {
+                    chkMensajeVenderProducto.Checked = false;
+                }
+            }
+
+            using (var permisosInventario = cn.CargarDatos(cs.permisoRealizarInventario()))
+            {
+                int estadoMensaje = Convert.ToInt32(permisosInventario.Rows[0].ItemArray[0]);
+                if (estadoMensaje == 1)
+                {
+                    chkMensajeRealizarInventario.Checked = true;
+                }
+                else
+                {
+                    chkMensajeRealizarInventario.Checked = false;
+                }
+            }
+
+
+
+
             //VerificarConfiguracion();
 
             using (DataTable dtConfiguracion = cn.CargarDatos(cs.cargarDatosDeConfiguracion()))
@@ -1295,6 +1324,30 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void chkMensajeVenderProducto_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chkMensajeVenderProducto.Checked == true)
+            { 
+                cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 1");
+            }
+            else
+            {
+                cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 0");
+            }
+        }
+
+        private void chkMensajeRealizarInventario_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chkMensajeRealizarInventario.Checked == true)
+            {
+                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1");
+            }
+            else
+            {
+                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0");
             }
         }
     }

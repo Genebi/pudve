@@ -12,6 +12,9 @@ namespace PuntoDeVentaV2
 {
     public partial class EditarMensajesParaEnviar : Form
     {
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+        string mensaje;
         public EditarMensajesParaEnviar()
         {
             InitializeComponent();
@@ -27,13 +30,28 @@ namespace PuntoDeVentaV2
             var dato = MensajeVentasYMensajeInventario.enviarDato;
             if (dato == "mensajeVentas")
             {
+
+                using (var datos = cn.CargarDatos(cs.mensajeVentas(Productos.codProductoEditarVenta)))
+                {
+                    if (!datos.Rows.Count.Equals(0))
+                    {
+                        mensaje = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                    }
+                    else
+                    {
+                        mensaje = "";
+                    }
+                }
+
                 this.Height = 281;
 
                 FlowLayoutPanel flpDatos = new FlowLayoutPanel();
-                flpDatos.Dock = DockStyle.Top;
+                flpDatos.Name = "flpDatos";
+                flpDatos.Dock = DockStyle.Top; 
                 flpDatos.Height = 69;
                 
                 Panel panelDatos = new Panel();
+                panelDatos.Name = "panelDatos";
                 panelDatos.Width = 320;
                 panelDatos.Height = 59;
                 panelDatos.Dock = DockStyle.Top;
@@ -64,10 +82,12 @@ namespace PuntoDeVentaV2
                 //Panel para modificar el mensaje------------------------------------------------------
 
                 FlowLayoutPanel flpMensaje = new FlowLayoutPanel();
+                flpMensaje.Name = "flpMensaje";
                 flpMensaje.Dock = DockStyle.Top;
                 flpMensaje.Height = 118;
 
                 Panel panelMensaje = new Panel();
+                panelMensaje.Name = "panelMensaje";
                 panelMensaje.Width = 320;
                 panelMensaje.Height = 108;
                 panelMensaje.Dock = DockStyle.Top;
@@ -78,7 +98,8 @@ namespace PuntoDeVentaV2
                 lbMensajeActual.Location = new Point(7, 6);
 
                 TextBox txtNuevoMensaje = new TextBox();
-                txtNuevoMensaje.Name = "txtCantidadCompra";
+                txtNuevoMensaje.Name = "txtMensaje";
+                txtNuevoMensaje.Text = mensaje;
                 txtNuevoMensaje.Multiline = true;
                 txtNuevoMensaje.Width = 299;
                 txtNuevoMensaje.Height = 79;
@@ -95,6 +116,7 @@ namespace PuntoDeVentaV2
                 flBotones.Height = 53;
 
                 Panel panelBotones = new Panel();
+                panelBotones.Name = "panelBotones";
                 panelBotones.Width = 320;
                 panelBotones.Height = 108;
                 panelBotones.Dock = DockStyle.Top;
@@ -130,9 +152,18 @@ namespace PuntoDeVentaV2
             {
                 //Panel para el nombre del producto a modificar
 
+                using (var datos = cn.CargarDatos(cs.mensajeInventario(Productos.codProductoEditarInventario)))
+                {
+                    if (!datos.Rows.Count.Equals(0))
+                    {
+                        mensaje = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                    }
+                }
+                
                 this.Height = 251;
 
                 FlowLayoutPanel flpDatos = new FlowLayoutPanel();
+                flpDatos.Name = "panelDatos";
                 flpDatos.Dock = DockStyle.Top;
                 flpDatos.Height = 33;
 
@@ -154,6 +185,7 @@ namespace PuntoDeVentaV2
                 //Panel para modificar el mensaje------------------------------------------------------
 
                 FlowLayoutPanel flpMensaje = new FlowLayoutPanel();
+                flpMensaje.Name = "panelMensaje";
                 flpMensaje.Dock = DockStyle.Top;
                 flpMensaje.Height = 118;
 
@@ -168,7 +200,8 @@ namespace PuntoDeVentaV2
                 lbMensajeActual.Location = new Point(7, 6);
 
                 TextBox txtNuevoMensaje = new TextBox();
-                txtNuevoMensaje.Name = "txtCantidadCompra";
+                txtNuevoMensaje.Name = "txtMensaje";
+                txtNuevoMensaje.Text = mensaje;
                 txtNuevoMensaje.Multiline = true;
                 txtNuevoMensaje.Width = 299;
                 txtNuevoMensaje.Height = 79;
@@ -180,9 +213,10 @@ namespace PuntoDeVentaV2
 
                 //Panel para botones------------------------------------------------------------------
 
-                FlowLayoutPanel flBotones = new FlowLayoutPanel();
-                flBotones.Dock = DockStyle.Top;
-                flBotones.Height = 53;
+                FlowLayoutPanel flpBotones = new FlowLayoutPanel();
+                flpBotones.Name = "panelBotones";
+                flpBotones.Dock = DockStyle.Top;
+                flpBotones.Height = 53;
 
                 Panel panelBotones = new Panel();
                 panelBotones.Width = 320;
@@ -209,10 +243,10 @@ namespace PuntoDeVentaV2
 
                 panelBotones.Controls.Add(botonConfirmar);
                 panelBotones.Controls.Add(botonCancelar);
-                flBotones.Controls.Add(panelBotones);
+                flpBotones.Controls.Add(panelBotones);
 
 
-                this.Controls.Add(flBotones);
+                this.Controls.Add(flpBotones);
                 this.Controls.Add(flpMensaje);
                 this.Controls.Add(flpDatos);
             }
@@ -220,12 +254,73 @@ namespace PuntoDeVentaV2
 
         private void botonCancelar_click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            this.Close();
         }
 
         private void botonConfirmar_click(object sender, EventArgs e)
         {
-            //boton confirmar click
+            var dato = MensajeVentasYMensajeInventario.enviarDato;
+
+            if (dato == "mensajeVentas")
+            {
+                foreach (Control item in this.Controls)
+                {
+                    if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
+                    {
+                       
+                            foreach (Control itemMensaje in item.Controls)
+                            {
+                                if (itemMensaje is Panel && itemMensaje.Name.Equals("panelMensaje"))
+                                {
+                                    foreach (Control textoMensaje in itemMensaje.Controls)
+                                    {
+                                        if (textoMensaje is TextBox)
+                                        {
+                                            if (textoMensaje.Name.Equals("txtMensaje"))
+                                            {
+                                                var NuevoMensaje = textoMensaje.Text;
+                                                cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje));
+                                                MessageBox.Show("Actualizado Correctamente.");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                }
+                this.Close();
+            }
+            else if (dato == "mensajeInventario")
+            {
+                foreach (Control item in this.Controls)
+                {
+                    if (item is FlowLayoutPanel)
+                    {
+                        if (item.Name.Equals("panelMensaje"))
+                        {
+                            foreach (Control itemMensaje in item.Controls)
+                            {
+                                if (itemMensaje is Panel)
+                                {
+                                    foreach (Control textoMensaje in itemMensaje.Controls)
+                                    {
+                                        if (textoMensaje is TextBox)
+                                        {
+                                            if (textoMensaje.Name.Equals("txtMensaje"))
+                                            {
+                                                var NuevoMensaje = textoMensaje.Text;
+                                                cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje));
+                                                MessageBox.Show("Actualizado Correctamente.");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            this.Close(); 
         }
 
         private void EditarMensajesParaEnviar_KeyDown(object sender, KeyEventArgs e)
