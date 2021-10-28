@@ -740,6 +740,11 @@ namespace PuntoDeVentaV2
                             perdida = "---";
                             recuperada = Convert.ToString(Math.Abs(resultadoRecuperadas * precio));
                         }
+                        else if (fisico.Equals(almacen) || (fisico.Equals(string.Empty) && almacen.Equals(string.Empty)))
+                        {
+                            recuperada = "---";
+                            perdida = "---";
+                        }
 
                         numRow++;
                         PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
