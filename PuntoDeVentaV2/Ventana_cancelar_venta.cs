@@ -91,54 +91,61 @@ namespace PuntoDeVentaV2
                                     // Agregamos marca de agua al PDF del ticket de la venta cancelada
                                     Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
 
-                                    var mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    bool tieneAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
 
-                                    if (mensaje == DialogResult.Yes)
+                                    if (tieneAbonos)
                                     {
-                                        if (estatusVenta.Equals(1))
+                                        var mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                        if (mensaje == DialogResult.Yes)
                                         {
-                                            //Revisar si la venta fue a credio
-                                            var fueACredito = ventaCredito(id);
-
-                                            var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
-
-                                            // Operacion para que la devolucion del dinero afecte al apartado Caja
-                                            if (formasPago.Length > 0)
+                                            if (estatusVenta.Equals(1))
                                             {
-                                                var total = formasPago.Sum().ToString();
-                                                var efectivo = formasPago[0].ToString();
-                                                var tarjeta = formasPago[1].ToString();
-                                                var vales = formasPago[2].ToString();
-                                                var cheque = formasPago[3].ToString();
-                                                var transferencia = formasPago[4].ToString();
-                                                var credito = formasPago[5].ToString();
-                                                var anticipo = "0";
+                                                //Revisar si la venta fue a credio
+                                                var fueACredito = ventaCredito(id);
 
-                                                var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+                                                var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
-                                                //    string[] datos = new string[] {
-                                                //    "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString                     (),
-                                                //    efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
-                                                //};
-                                                string[] datos = new string[]
+                                                // Operacion para que la devolucion del dinero afecte al apartado Caja
+                                                if (formasPago.Length > 0)
                                                 {
-                                                    id.ToString(), FormPrincipal.userID.ToString(), total, efectivo, tarjeta,                         vales, cheque, transferencia, concepto, fechaOperacion
-                                                };
+                                                    var total = formasPago.Sum().ToString();
+                                                    var efectivo = formasPago[0].ToString();
+                                                    var tarjeta = formasPago[1].ToString();
+                                                    var vales = formasPago[2].ToString();
+                                                    var cheque = formasPago[3].ToString();
+                                                    var transferencia = formasPago[4].ToString();
+                                                    var credito = formasPago[5].ToString();
+                                                    var anticipo = "0";
 
-                                                cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
+                                                    var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                    var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
 
-                                                //cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                    //    string[] datos = new string[] {
+                                                    //    "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString                     (),
+                                                    //    efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
+                                                    //};
+                                                    string[] datos = new string[]
+                                                    {
+                                                    id.ToString(), FormPrincipal.userID.ToString(), total, efectivo, tarjeta,
+                                                    vales, cheque, transferencia, concepto, fechaOperacion
+                                                    };
+
+                                                    cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
+
+                                                    //cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                }
+
+                                                seCancelaLaVenta = true;
                                             }
-
-                                            seCancelaLaVenta = true;
-                                        }
-                                        else if (estatusVenta.Equals(4))
-                                        {
-                                            validarDatos(idVenta);
+                                            else if (estatusVenta.Equals(4))
+                                            {
+                                                validarDatos(idVenta);
+                                            }
                                         }
                                     }
 
+                                    
                                     venta_cancelada = 1;
 
                                     if (seCancelaLaVenta)
