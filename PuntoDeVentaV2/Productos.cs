@@ -21,6 +21,7 @@ namespace PuntoDeVentaV2
         private DataGridViewCellStyle HighlightStyle;
 
         public static bool noMostrarClave { get; set; }
+       
 
         string strTag = string.Empty,
                 path = string.Empty,
@@ -216,6 +217,8 @@ namespace PuntoDeVentaV2
 
         public int retornoAgregarEditarProductoDatosSourceFinal;
 
+        public static int codProductoEditarInventario;
+        public static int codProductoEditarVenta;
 
         // Variables para el metodo AplicandoConsultaFiltros()
         private string extraProductos = string.Empty;
@@ -1001,6 +1004,10 @@ namespace PuntoDeVentaV2
                         origenDeLosDatos = 2;
                     }
 
+                    codProductoEditarInventario = Convert.ToInt32(idProductoEditar);// se trae el ID de la tabla DGVProductos de la base PRODUCTOS 'para mensaje inventario'
+
+                    codProductoEditarVenta = codProductoEditarInventario;
+
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProductoEditar), Convert.ToInt32(id));
                     typeProduct = producto[5];
 
@@ -1016,6 +1023,7 @@ namespace PuntoDeVentaV2
                     {
                         btnAgregarProducto.PerformClick();
                     }
+
                 }
                 else if (e.ColumnIndex == 8)
                 {
@@ -4054,7 +4062,15 @@ namespace PuntoDeVentaV2
 
                     if (columnasComunes.Contains(filtro.Key))
                     {
-                        extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
+                        if (filtro.Key == "CantidadPedir")
+                        {
+                            extraProductos += $"P.StockMinimo > P.Stock AND (P.StockNecesario - P.Stock) {operador} {filtro.Value.Item2} AND ";
+                        }
+                        else
+                        {
+                            extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
+                        }
+                        
                     }
                     else if (filtro.Key == "Proveedor")
                     {

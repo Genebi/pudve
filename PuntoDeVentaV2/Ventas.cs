@@ -6592,8 +6592,8 @@ namespace PuntoDeVentaV2
                     {
                         var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
 
-                        string nombreEmpleado = datosEmpleado[14];
-                        string usuarioEmpleado = datosEmpleado[15];
+                        string nombreEmpleado = datosEmpleado[15];
+                        string usuarioEmpleado = datosEmpleado[16];
 
                         var infoEmpleado = usuarioEmpleado.Split('@');
 

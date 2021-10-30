@@ -1255,9 +1255,9 @@ namespace PuntoDeVentaV2
 
                                     var datos = new string[]
                                     {
-                            idProducto.ToString(), info[1], info[6], info[7], info[4], stockFisico, numeroRevision,
-                            fecha, "0", diferencia.ToString(), FormPrincipal.userID.ToString(), info[5], "0", "1", info[2],
-                            nombrePC
+                                        idProducto.ToString(), info[1], info[6], info[7], info[4], stockFisico, numeroRevision,
+                                        fecha, "0", diferencia.ToString(), FormPrincipal.userID.ToString(), info[5], "0", "1", info[2],
+                                        nombrePC
                                     };
 
                                     // Guardamos la informacion en la tabla de RevisarInventario
@@ -1972,7 +1972,7 @@ namespace PuntoDeVentaV2
                         {
                             var idEmp = buscarEmpleado(FormPrincipal.userNickName);
                             var usr = cs.validarEmpleado(FormPrincipal.userNickName);
-                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado, NumFolio) VALUES ('{id}', '{usr}', '{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}', '{ultimoFolio}')");
+                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado, NumFolio, TipoRevision) VALUES ('{id}', '{usr}', '{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}', '{ultimoFolio}', '{tipoFiltro}')");
                         }
                     }
                 }

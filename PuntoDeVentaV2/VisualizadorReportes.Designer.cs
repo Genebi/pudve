@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VisualizadorReportes));
             this.btnImprimir = new System.Windows.Forms.Button();
-            this.btnCerrar = new System.Windows.Forms.Button();
             this.axAcroPDF = new AxAcroPDFLib.AxAcroPDF();
             ((System.ComponentModel.ISupportInitialize)(this.axAcroPDF)).BeginInit();
             this.SuspendLayout();
@@ -50,15 +49,6 @@
             this.btnImprimir.UseVisualStyleBackColor = true;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
-            // btnCerrar
-            // 
-            this.btnCerrar.Location = new System.Drawing.Point(38, 566);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(75, 23);
-            this.btnCerrar.TabIndex = 18;
-            this.btnCerrar.Text = "button1";
-            this.btnCerrar.UseVisualStyleBackColor = true;
-            // 
             // axAcroPDF
             // 
             this.axAcroPDF.Enabled = true;
@@ -73,7 +63,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 611);
-            this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.axAcroPDF);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -93,6 +82,5 @@
 
         private AxAcroPDFLib.AxAcroPDF axAcroPDF;
         private System.Windows.Forms.Button btnImprimir;
-        private System.Windows.Forms.Button btnCerrar;
     }
 }

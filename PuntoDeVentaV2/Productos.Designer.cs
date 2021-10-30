@@ -89,6 +89,7 @@
             this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.lbCantidadSeleccionada = new System.Windows.Forms.Label();
             this.lbCapital = new System.Windows.Forms.Label();
             this.lbPaginasSeleccionadas = new System.Windows.Forms.Label();
@@ -111,7 +112,6 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -873,6 +873,16 @@
             this.panel2.Size = new System.Drawing.Size(1025, 65);
             this.panel2.TabIndex = 17;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(945, 14);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 28);
+            this.button1.TabIndex = 28;
+            this.button1.Text = "Numero de Orden";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            // 
             // lbCantidadSeleccionada
             // 
             this.lbCantidadSeleccionada.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -1140,15 +1150,6 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(945, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 28);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "Numero de Orden";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // Productos
             // 

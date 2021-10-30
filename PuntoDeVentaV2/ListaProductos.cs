@@ -106,7 +106,7 @@ namespace PuntoDeVentaV2
         [DllImport("kernel32.dll")]
         public static extern IntPtr LoadLibraryEx(string fileName, IntPtr hFile, long dwFlags);
 
-        string mensajeMessageBox = "El producto que Usted desae vincular ya se encuentra relacionado\n\nPodras vizualizar tus productos relacionados en el siguiente\nbotón que se encuentra en la ventana principal de Agregar o\nEditar Productos (Igual al que se muestra en esté mensaje\n\"Botón del ojito con la flecha\" del lado Izquierdo)";
+        string mensajeMessageBox = "El producto que usted desea vincular ya se encuentra relacionado\n\nPodras vizualizar tus productos relacionados en el siguiente\nbotón que se encuentra en la ventana principal de Agregar o\nEditar Productos (Igual al que se muestra en esté mensaje\n\"Botón del ojito con la flecha\" del lado Izquierdo)";
         string tituloMessageBox = "Aviso del sistema";
 
         // metodo para poder cargar los datos al inicio

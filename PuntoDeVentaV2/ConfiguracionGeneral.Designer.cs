@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkMensajeRealizarInventario = new System.Windows.Forms.CheckBox();
+            this.chkMensajeVenderProducto = new System.Windows.Forms.CheckBox();
             this.chkCerrarSesionCorte = new System.Windows.Forms.CheckBox();
             this.chTicketVentas = new System.Windows.Forms.CheckBox();
             this.checkCBVenta = new System.Windows.Forms.CheckBox();
@@ -51,6 +53,8 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox2.Controls.Add(this.chkMensajeRealizarInventario);
+            this.groupBox2.Controls.Add(this.chkMensajeVenderProducto);
             this.groupBox2.Controls.Add(this.chkCerrarSesionCorte);
             this.groupBox2.Controls.Add(this.chTicketVentas);
             this.groupBox2.Controls.Add(this.checkCBVenta);
@@ -71,6 +75,28 @@
             this.groupBox2.Size = new System.Drawing.Size(859, 161);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
+            // 
+            // chkMensajeRealizarInventario
+            // 
+            this.chkMensajeRealizarInventario.AutoSize = true;
+            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(296, 134);
+            this.chkMensajeRealizarInventario.Name = "chkMensajeRealizarInventario";
+            this.chkMensajeRealizarInventario.Size = new System.Drawing.Size(267, 21);
+            this.chkMensajeRealizarInventario.TabIndex = 131;
+            this.chkMensajeRealizarInventario.Text = "Mostrar mensaje al realizar inventario";
+            this.chkMensajeRealizarInventario.UseVisualStyleBackColor = true;
+            this.chkMensajeRealizarInventario.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkMensajeRealizarInventario_MouseClick);
+            // 
+            // chkMensajeVenderProducto
+            // 
+            this.chkMensajeVenderProducto.AutoSize = true;
+            this.chkMensajeVenderProducto.Location = new System.Drawing.Point(296, 107);
+            this.chkMensajeVenderProducto.Name = "chkMensajeVenderProducto";
+            this.chkMensajeVenderProducto.Size = new System.Drawing.Size(262, 21);
+            this.chkMensajeVenderProducto.TabIndex = 130;
+            this.chkMensajeVenderProducto.Text = "Mostrar mensaje al vender producto";
+            this.chkMensajeVenderProducto.UseVisualStyleBackColor = true;
+            this.chkMensajeVenderProducto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkMensajeVenderProducto_MouseClick);
             // 
             // chkCerrarSesionCorte
             // 
@@ -251,7 +277,7 @@
             this.txtMinimoMayoreo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMinimoMayoreo.Enabled = false;
             this.txtMinimoMayoreo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMinimoMayoreo.Location = new System.Drawing.Point(732, 52);
+            this.txtMinimoMayoreo.Location = new System.Drawing.Point(732, 50);
             this.txtMinimoMayoreo.Name = "txtMinimoMayoreo";
             this.txtMinimoMayoreo.Size = new System.Drawing.Size(69, 21);
             this.txtMinimoMayoreo.TabIndex = 122;
@@ -296,5 +322,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMinimoMayoreo;
         private System.Windows.Forms.CheckBox chkCerrarSesionCorte;
+        private System.Windows.Forms.CheckBox chkMensajeRealizarInventario;
+        private System.Windows.Forms.CheckBox chkMensajeVenderProducto;
     }
 }
