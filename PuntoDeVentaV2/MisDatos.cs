@@ -455,7 +455,7 @@ namespace PuntoDeVentaV2
             else
             {
                 // Se vuelven a cargar los datos.
-                consulta();
+                //consulta();
                 MessageBox.Show("Los datos no han sido actualizados.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
