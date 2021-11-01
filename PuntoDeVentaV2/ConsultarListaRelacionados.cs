@@ -170,14 +170,7 @@ namespace PuntoDeVentaV2
                             ID = drProdServ["ID"].ToString();
                             Fecha = drProdServ["Fecha"].ToString();
                             IDServicio = drProdServ["NoServicio"].ToString();
-                            if (!idProdEdit.ToString().Equals(drProdServ["NoServicio"].ToString()))
-                            {
-                                CombServ = drProdServ["ServicioCombo"].ToString();
-                            }
-                            else
-                            {
-                                CombServ = drProdServ["Producto"].ToString();
-                            }
+                            CombServ = drProdServ["ServicioCombo"].ToString();
                             IDProducto = drProdServ["NoProducto"].ToString();
                             NombreProducto = drProdServ["Producto"].ToString();
                             Cantidad = drProdServ["Cantidad"].ToString();
@@ -234,7 +227,7 @@ namespace PuntoDeVentaV2
                         row.Cells["Eliminar"].Value = ImageDelete;
                     }
                 }
-                else if (listaServCombo.Count().Equals(0))
+                else if (listaServCombo.Count().Equals(0) && DGVProdServCombo.Rows.Count.Equals(0))
                 {
                     DGVProdServCombo.Rows.Clear();
                 }
