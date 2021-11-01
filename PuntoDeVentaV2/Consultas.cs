@@ -2729,7 +2729,7 @@ namespace PuntoDeVentaV2
 
         public string consultaReporteGeneralAumentarInventario()
         {
-            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0";
+            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 ORDER BY Fecha DESC";
             return consulta;
 
         }
