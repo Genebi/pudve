@@ -450,6 +450,13 @@ namespace PuntoDeVentaV2
                     if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                     {
                         var contenido = DGVProdServCombo.Rows[row].Cells[0].FormattedValue.ToString();
+                        var fechaDGV = DGVProdServCombo.Rows[row].Cells[1].FormattedValue.ToString();
+                        var idServicioDGV = DGVProdServCombo.Rows[row].Cells[2].FormattedValue.ToString();
+                        var conceptoServicioDGV = DGVProdServCombo.Rows[row].Cells[3].FormattedValue.ToString();
+                        var idProductoDGV = DGVProdServCombo.Rows[row].Cells[4].FormattedValue.ToString();
+                        var conceptoProductoDGV = DGVProdServCombo.Rows[row].Cells[5].FormattedValue.ToString();
+                        var cantidadDGV = DGVProdServCombo.Rows[row].Cells[6].FormattedValue.ToString();
+                        var tipoDGV = DGVProdServCombo.Rows[row].Cells[7].FormattedValue.ToString();
 
                         if (contenido.Equals(string.Empty))
                         {
@@ -459,14 +466,6 @@ namespace PuntoDeVentaV2
                                 {
                                     for (int z = 0; z < listaServCombo.Count(); z++)
                                     {
-                                        var fechaDGV = DGVProdServCombo.Rows[i].Cells[1].Value.ToString();
-                                        var idServicioDGV = DGVProdServCombo.Rows[i].Cells[2].Value.ToString();
-                                        var conceptoServicioDGV = DGVProdServCombo.Rows[i].Cells[3].Value.ToString(); 
-                                        var idProductoDGV = DGVProdServCombo.Rows[i].Cells[4].Value.ToString();
-                                        var conceptoProductoDGV = DGVProdServCombo.Rows[i].Cells[5].Value.ToString();
-                                        var cantidadDGV = DGVProdServCombo.Rows[i].Cells[6].Value.ToString();
-                                        var tipoDGV = DGVProdServCombo.Rows[i].Cells[7].Value.ToString();
-
                                         var existeFecha = listaServCombo[z].Contains(fechaDGV);
                                         var existeIdServicio = listaServCombo[z].Contains(idServicioDGV);
                                         var existeIdProducto = listaServCombo[z].Contains(idProductoDGV);
@@ -490,11 +489,17 @@ namespace PuntoDeVentaV2
                                 {
                                     for (int z = 0; z < listaProd.Count(); z++)
                                     {
-                                        if (listaProd[z].Contains(DGVProdServCombo.Rows[i].Cells[1].Value.ToString()) &&
-                                            listaProd[z].Contains(DGVProdServCombo.Rows[i].Cells[2].Value.ToString()) &&
-                                            listaProd[z].Contains(DGVProdServCombo.Rows[i].Cells[4].Value.ToString()) &&
-                                            listaProd[z].Contains(DGVProdServCombo.Rows[i].Cells[5].Value.ToString()) &&
-                                            listaProd[z].Contains(DGVProdServCombo.Rows[i].Cells[6].Value.ToString()))
+                                        var existeFecha = listaProd[z].Contains(fechaDGV);
+                                        var existeIdServicio = listaProd[z].Contains(idServicioDGV);
+                                        var existeIdProducto = listaProd[z].Contains(idProductoDGV);
+                                        var existeConceptoProducto = listaProd[z].Contains(conceptoProductoDGV);
+                                        var existeCantidad = listaProd[z].Contains(cantidadDGV);
+
+                                        if (existeFecha.Equals(true) &&
+                                            existeIdServicio.Equals(true) &&
+                                            existeIdProducto.Equals(true) &&
+                                            existeConceptoProducto.Equals(true) &&
+                                            existeCantidad.Equals(true))
                                             {
                                                 listaProd.RemoveAll(x => x == listaProd[z]);
                                             }
