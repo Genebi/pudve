@@ -4974,6 +4974,7 @@ namespace PuntoDeVentaV2
                 txtBusqueda.Focus();
                 //CargarDatos();
                 //btnUltimaPagina.PerformClick();
+                Utilidades.remplazarComillasSimplesEnLaTablaProductos();
             };
 
             if (!FormAgregar.Visible)

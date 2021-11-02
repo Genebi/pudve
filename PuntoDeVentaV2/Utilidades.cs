@@ -2870,5 +2870,19 @@ namespace PuntoDeVentaV2
             }
 
         }
+
+        public static void remplazarComillasSimplesEnLaTablaProductos()
+        {
+            try
+            {
+                Conexion cn = new Conexion();
+                Consultas cs = new Consultas();
+                cn.EjecutarConsulta(cs.quitarComillasSimplesDeProductos());
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("error " + ex.Message.ToString(), "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
     }
 }
