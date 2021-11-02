@@ -5151,6 +5151,7 @@ namespace PuntoDeVentaV2
                 //actualizarDatosDespuesDeAgregarProducto();
                 linkLblPaginaActual_Click_1(sender, e);
                 txtBusqueda.Focus();
+                Utilidades.remplazarComillasSimplesEnLaTablaProductos();
             };
 
             if (!FormAgregar.Visible)
