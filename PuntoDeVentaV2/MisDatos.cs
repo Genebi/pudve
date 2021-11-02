@@ -143,17 +143,17 @@ namespace PuntoDeVentaV2
             ****************************************/
             txtNombre.Text = nomComp;
             txtRFC.Text = rfc;
-            txtCalle.Text = calle;
-            txtNoExt.Text = numExt;
-            txtNoInt.Text = numInt;
-            txtColonia.Text = colonia;
-            txtMpio.Text = mpio;
-            txtEstado.Text = estado;
+            txtCalle.Text = string.IsNullOrWhiteSpace(calle) ? txtCalle.Text : calle;
+            txtNoExt.Text = string.IsNullOrWhiteSpace(numExt) ? txtNoExt.Text : numExt;
+            txtNoInt.Text = string.IsNullOrWhiteSpace(numInt) ?  txtNoInt.Text : numInt;
+            txtColonia.Text = string.IsNullOrWhiteSpace(colonia) ? txtColonia.Text : colonia;
+            txtMpio.Text = string.IsNullOrWhiteSpace(mpio) ? txtMpio.Text : mpio;
+            txtEstado.Text = string.IsNullOrWhiteSpace(estado) ? txtEstado.Text : estado;
             txtCodPost.Text = codPostal;
             txtEmail.Text = email;
-            txtTelefono.Text = telefono;
+            txtTelefono.Text = string.IsNullOrWhiteSpace(telefono) ? txtTelefono.Text : telefono;
             LblRegimenActual.Text = regimen;
-            txt_nombre_comercial.Text = nombre_comercial;
+            txt_nombre_comercial.Text = string.IsNullOrWhiteSpace(nombre_comercial) ? txt_nombre_comercial.Text : nombre_comercial;
 
 
             // si el campo de la base de datos es difrente a null
@@ -455,7 +455,7 @@ namespace PuntoDeVentaV2
             else
             {
                 // Se vuelven a cargar los datos.
-                //consulta();
+                consulta();
                 MessageBox.Show("Los datos no han sido actualizados.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

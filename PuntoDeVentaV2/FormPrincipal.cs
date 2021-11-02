@@ -617,6 +617,8 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            Utilidades.remplazarComillasSimplesEnLaTablaProductos();
+
             //if (ConnectionHandler.ConectadoInternet())
             //{
             //    var fechaActual = Utilidades.UpdateDateTime();

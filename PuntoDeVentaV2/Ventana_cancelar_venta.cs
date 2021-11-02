@@ -91,14 +91,26 @@ namespace PuntoDeVentaV2
                                     // Agregamos marca de agua al PDF del ticket de la venta cancelada
                                     Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
 
-                                    var mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    DialogResult mensaje = DialogResult.No;
+                                    //Revisar si la venta fue a credio
+                                    bool fueACredito = ventaCredito(id);
+
+                                    bool tieneAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
+
+                                    if (fueACredito && tieneAbonos)
+                                    {
+                                        mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    }
+
+                                    if (!fueACredito)
+                                    {
+                                        mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    }
 
                                     if (mensaje == DialogResult.Yes)
                                     {
                                         if (estatusVenta.Equals(1))
                                         {
-                                            //Revisar si la venta fue a credio
-                                            var fueACredito = ventaCredito(id);
 
                                             var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
@@ -123,7 +135,8 @@ namespace PuntoDeVentaV2
                                                 //};
                                                 string[] datos = new string[]
                                                 {
-                                                    id.ToString(), FormPrincipal.userID.ToString(), total, efectivo, tarjeta,                         vales, cheque, transferencia, concepto, fechaOperacion
+                                                    id.ToString(), FormPrincipal.userID.ToString(), total, efectivo, tarjeta,
+                                                    vales, cheque, transferencia, concepto, fechaOperacion
                                                 };
 
                                                 cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));

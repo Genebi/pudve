@@ -2729,7 +2729,7 @@ namespace PuntoDeVentaV2
 
         public string consultaReporteGeneralAumentarInventario()
         {
-            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0";
+            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 ORDER BY Fecha DESC";
             return consulta;
 
         }
@@ -2782,6 +2782,13 @@ namespace PuntoDeVentaV2
         public string permisoRealizarInventario()
         {
             var consulta = $"SELECT Activo FROM mensajesinventario";
+
+            return consulta;
+        }
+
+        public string quitarComillasSimplesDeProductos()
+        {
+            var consulta = $@"UPDATE productos SET Nombre = REGEXP_REPLACE ( Nombre, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}'; UPDATE productos SET NombreAlterno1 = REGEXP_REPLACE ( NombreAlterno1, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}'; UPDATE productos SET NombreAlterno2 = REGEXP_REPLACE ( NombreAlterno2, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}';";
 
             return consulta;
         }

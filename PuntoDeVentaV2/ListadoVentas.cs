@@ -1215,8 +1215,18 @@ namespace PuntoDeVentaV2
                     }
 
                     // Verifica si el PDF ya esta creado
+                    var servidor = Properties.Settings.Default.Hosting;
 
-                    string ruta_archivo = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idVenta + ".pdf";
+                    string ruta_archivo = string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\VENTA_" + idVenta + ".pdf";
+                    }
+                    else
+                    {
+                        ruta_archivo = $@"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idVenta + ".pdf";
+                    }
 
                     Thread hilo;
                     //pictureBox1.Visible = true;
@@ -1257,16 +1267,19 @@ namespace PuntoDeVentaV2
 
                     // Visualiza PDF
 
-                    string nombre = "VENTA_" + idVenta;
+                    VisualizadorReportes vr = new VisualizadorReportes(ruta_archivo);
+                    vr.ShowDialog();
 
-                    Visualizar_notaventa ver_nota = new Visualizar_notaventa(nombre);
+                    //string nombre = "VENTA_" + idVenta;
 
-                    ver_nota.FormClosed += delegate
-                    {
-                        ver_nota.Dispose();
-                    };
+                    //Visualizar_notaventa ver_nota = new Visualizar_notaventa(nombre);
 
-                    ver_nota.ShowDialog();
+                    //ver_nota.FormClosed += delegate
+                    //{
+                    //    ver_nota.Dispose();
+                    //};
+
+                    //ver_nota.ShowDialog();
                 }
  
                 //Ver ticket
@@ -2153,19 +2166,29 @@ namespace PuntoDeVentaV2
             // .....................................................................
 
 
+            var servidor = Properties.Settings.Default.Hosting;
+            string carpeta_venta = string.Empty;
             // Nombre que tendrá el pdf de la venta
             string nombre_venta = "VENTA_" + id_venta;
             // Verifica si tiene creado el directorio
-            string carpeta_venta = @"C:\Archivos PUDVE\Ventas\PDF\";
+            //string carpeta_venta = @"C:\Archivos PUDVE\Ventas\PDF\";
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                carpeta_venta = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\";
+            }
+            else
+            {
+                carpeta_venta = $@"C:\Archivos PUDVE\Ventas\PDF\";
+            }
 
             if (!Directory.Exists(carpeta_venta))
             {
                 Directory.CreateDirectory(carpeta_venta);
             }
 
-
             string origen_pdf_temp = nombre_venta + ".pdf";
-            string destino_pdf = @"C:\Archivos PUDVE\Ventas\PDF\" + nombre_venta + ".pdf";
+            string destino_pdf = carpeta_venta + nombre_venta + ".pdf";
 
             string ruta = AppDomain.CurrentDomain.BaseDirectory + "/";
             // Creación de un arhivo html temporal
