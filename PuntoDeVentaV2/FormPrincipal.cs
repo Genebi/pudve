@@ -617,6 +617,15 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            try
+            {
+                cn.EjecutarConsulta(cs.quitarComillasSimplesDeProductos());
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("error " + ex.Message.ToString(), "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
             //if (ConnectionHandler.ConectadoInternet())
             //{
             //    var fechaActual = Utilidades.UpdateDateTime();

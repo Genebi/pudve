@@ -2785,5 +2785,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string quitarComillasSimplesDeProductos()
+        {
+            var consulta = $@"UPDATE productos SET Nombre = REGEXP_REPLACE ( Nombre, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}'; UPDATE productos SET NombreAlterno1 = REGEXP_REPLACE ( NombreAlterno1, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}'; UPDATE productos SET NombreAlterno2 = REGEXP_REPLACE ( NombreAlterno2, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}';";
+
+            return consulta;
+        }
     }
 }  
