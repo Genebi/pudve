@@ -255,7 +255,7 @@ namespace PuntoDeVentaV2
 
             if (usuario.Equals("empleado"))
             {
-                query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE IDUsuario = {FormPrincipal.userID}");
+                query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE IDUsuario = {FormPrincipal.userID} AND ID = {id}");
                 parametros = "Nombre";
             }
             else if (usuario.Equals("admin"))
