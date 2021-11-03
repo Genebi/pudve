@@ -140,71 +140,83 @@ namespace PuntoDeVentaV2
             //Mayoreo
             if (tipoDescuento == 2)
             {
-                AgregarEditarProducto.descuentos.Clear();
-                AgregarEditarProducto.descuentos.Add(tipoDescuento.ToString());
+                int numeroDescuentosMayoreo = panelContenedor.Controls.Count;
 
-                foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                // Si tiene 2 descuentos por mayoreo en adelante
+                if (numeroDescuentosMayoreo > 2)
                 {
-                    string descuentoMayoreo = string.Empty;
+                    AgregarEditarProducto.descuentos.Clear();
+                    AgregarEditarProducto.descuentos.Add(tipoDescuento.ToString());
 
-                    if (panel.Name == "panelMayoreoTitulos") { continue; }
-
-                    foreach (Control item in panel.Controls)
+                    foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                     {
-                        if (item is TextBox)
-                        {   
-                            var tb = item.Text;
+                        string descuentoMayoreo = string.Empty;
 
-                            // Validar precios para el descuento por rangos
-                            string[] datosAux = item.Name.Split('_');
+                        if (panel.Name == "panelMayoreoTitulos") { continue; }
 
-                            if (datosAux[1] == "3")
+                        foreach (Control item in panel.Controls)
+                        {
+                            if (item is TextBox)
                             {
-                                if (string.IsNullOrWhiteSpace(tb))
+                                var tb = item.Text;
+
+                                // Validar precios para el descuento por rangos
+                                string[] datosAux = item.Name.Split('_');
+
+                                if (datosAux[1] == "3")
                                 {
-                                    refrescarForm = false;
-                                    item.Focus();
-                                    MessageBox.Show("Es necesario agregar todos los precios.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    return;
+                                    if (string.IsNullOrWhiteSpace(tb))
+                                    {
+                                        refrescarForm = false;
+                                        item.Focus();
+                                        MessageBox.Show("Es necesario agregar todos los precios.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        return;
+                                    }
+                                }
+
+
+                                tb = tb == "" ? "N" : tb;
+
+                                descuentoMayoreo += tb + "-";
+                            }
+
+                            if (item is CheckBox)
+                            {
+                                CheckBox cb = (CheckBox)item;
+
+                                if (cb.Checked)
+                                {
+                                    descuentoMayoreo += "0";
+                                }
+                                else
+                                {
+                                    descuentoMayoreo += "1";
                                 }
                             }
-
-
-                            tb = tb == "" ? "N" : tb;
-     
-                            descuentoMayoreo += tb + "-";
                         }
 
-                        if (item is CheckBox)
+                        string cadenaDescuentoMayoreo = descuentoMayoreo;
+                        string cadenaParaBuscar = "N";
+                        bool cadenaEncontrada = cadenaDescuentoMayoreo.Contains(cadenaParaBuscar);
+
+                        if (cadenaEncontrada)
                         {
-                            CheckBox cb = (CheckBox)item;
-
-                            if (cb.Checked)
-                            {
-                                descuentoMayoreo += "0";
-                            }
-                            else
-                            {
-                                descuentoMayoreo += "1";
-                            }
+                            AgregarEditarProducto.descuentos.Add(descuentoMayoreo);
+                            btnCancelarDesc.PerformClick();
                         }
-                    }
+                        else if (!cadenaEncontrada)
+                        {
+                            AgregarEditarProducto.descuentos.Add(descuentoMayoreo);
+                        }
 
-                    string cadenaDescuentoMayoreo = descuentoMayoreo;
-                    string cadenaParaBuscar = "N";
-                    bool cadenaEncontrada = cadenaDescuentoMayoreo.Contains(cadenaParaBuscar);
-
-                    if (cadenaEncontrada)
-                    {
-                        AgregarEditarProducto.descuentos.Add(descuentoMayoreo);
-                        btnCancelarDesc.PerformClick();
+                        descuentoMayoreo = string.Empty;
                     }
-                    else if (!cadenaEncontrada)
-                    {
-                        AgregarEditarProducto.descuentos.Add(descuentoMayoreo);
-                    }
-                    
-                    descuentoMayoreo = string.Empty;
+                }
+                else
+                {
+                    refrescarForm = false;
+                    MessageBox.Show("Es necesario agregar minímo 2 descuentos a mayoreo.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
             }
 
