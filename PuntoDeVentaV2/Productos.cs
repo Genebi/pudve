@@ -69,6 +69,8 @@ namespace PuntoDeVentaV2
         public static bool botonAceptar = false;
         public static bool recargarDatos = false;
         public static bool primeraVez = true;
+
+        private bool checkBoxMasterUtilizado = false;
         // Este array es para guardar los productos seleccionados que seran tomados
 
         //Obtiene los datos de productos para el historialPrecio
@@ -4005,6 +4007,8 @@ namespace PuntoDeVentaV2
                         checkboxMarcados.Remove(id);
                     }
                 }
+
+                checkBoxMasterUtilizado = true;
             }
 
             mostrarCantidadProductos();
@@ -5940,9 +5944,14 @@ namespace PuntoDeVentaV2
 
             if (cbTodos.Checked)
             {
-                MarcarCheckBoxes(filtroConSinFiltroAvanzado, true);
+                if (!checkBoxMasterUtilizado)
+                {
+                    MarcarCheckBoxes(filtroConSinFiltroAvanzado, true);
+                }
 
                 productosSeleccionados = checkboxMarcados;
+
+                checkBoxMasterUtilizado = false;
             }
             //else
             //{
