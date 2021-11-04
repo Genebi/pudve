@@ -248,7 +248,18 @@ namespace PuntoDeVentaV2
             //fechaReporte = fechaReporte.Replace(":", "");
             //fechaReporte = fechaReporte.Replace(" ", "");
 
-            rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_{fechaReporte}.pdf";
+            //rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_{fechaReporte}.pdf";
+
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Caja\reporte_corte_{fechaReporte}.pdf";
+            }
+            else
+            {
+                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_{fechaReporte}.pdf";
+            }
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
             vr.ShowDialog();
