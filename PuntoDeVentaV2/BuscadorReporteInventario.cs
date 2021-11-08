@@ -104,21 +104,100 @@ namespace PuntoDeVentaV2
                 int numFolio = Convert.ToInt32(DGVInventario.Rows[e.RowIndex].Cells[0].Value.ToString());
                 int numRev = Convert.ToInt32(DGVInventario.Rows[e.RowIndex].Cells[1].Value.ToString());
 
+                var servidor = Properties.Settings.Default.Hosting;
+
+                var rutaArchivo = string.Empty;
+                var usuario = string.Empty;
+
+                if (FormPrincipal.userNickName.Contains("@"))
+                {
+                    var palabras = FormPrincipal.userNickName.Split('@');
+                    usuario = palabras[0].ToString();
+                }
+                else
+                {
+                    usuario = FormPrincipal.userNickName;
+                }
+
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\{usuario}\";
+                }
+                else
+                {
+                    rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\{usuario}\";
+                }
+
                 if (tipoDatoReporte.Equals("RInventario"))
                 {
-                    if (mostrarClave == 0)
+                    rutaArchivo += @"ActualizarInvetario\";
+                }
+                else if (tipoDatoReporte.Equals("AIAumentar"))
+                {
+                    rutaArchivo += @"AumentarInventario\";
+                }
+                else if (tipoDatoReporte.Equals("AIDisminuir"))
+                {
+                    rutaArchivo += @"DisminuirInventario\";
+                }
+
+                if (!Directory.Exists(rutaArchivo))
+                {
+                    Directory.CreateDirectory(rutaArchivo);
+                }
+
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    if (tipoDatoReporte.Equals("RInventario"))
                     {
-                        GenerarReporteSinCLaveInterna(numRev, numFolio);
+                        rutaArchivo += $"reporte_inventario_NoRevision{numRev}_NoFolio{numFolio}.pdf";
                     }
-                    else if (mostrarClave == 1)
+                    else
                     {
-                        GenerarReporte(numRev);
+                        rutaArchivo += $"reporte_actualizar_inventarioNoRevision{numRev}_NoFolio{numFolio}.pdf";
                     }
                 }
                 else
                 {
-                    GenerarReporteActualizarInventario(numRev);
+                    if (tipoDatoReporte.Equals("RInventario"))
+                    {
+                        rutaArchivo += $"reporte_inventario_NoRevision{numRev}_NoFolio{numFolio}.pdf";
+                    }
+                    else
+                    {
+                        rutaArchivo += $"reporte_actualizar_inventario_NoRevision{numRev}_NoFolio{numFolio}.pdf";
+                    }
                 }
+
+                if (tipoDatoReporte.Equals("RInventario"))
+                {
+                    if (mostrarClave == 0)
+                    {
+                        if (!File.Exists(rutaArchivo))
+                        {
+                            GenerarReporteSinCLaveInterna(numRev, numFolio);
+                        }
+                    }
+                    else if (mostrarClave == 1)
+                    {
+                        if (!File.Exists(rutaArchivo))
+                        {
+                            GenerarReporte(numRev);
+                        }
+                    }
+                }
+                else
+                {
+                    //GenerarReporteActualizarInventario(numRev);
+                    if (!File.Exists(rutaArchivo))
+                    {
+                        //reconstruirReporteSinLaClaveInterna(numRev, FormPrincipal.userID, numFolio, rutaArchivo);
+                        GenerarReporteActualizarInventario(numRev, numFolio, rutaArchivo);
+                    }
+                }
+
+                VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+                vr.ShowDialog();
             }
         }
 
@@ -142,11 +221,11 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\RevisarInventario\{usuario}\";
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\{usuario}\ActualizarInvetario\";
             }
             else
             {
-                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\RevisarInventario\{usuario}\";
+                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\{usuario}\ActualizarInvetario\";
             }
 
             if (!Directory.Exists(rutaArchivo))
@@ -156,11 +235,11 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                rutaArchivo += $"reporte_inventario_{numRevision}.pdf";
+                rutaArchivo += $"reporte_inventario_NoRevision{numRevision}_NoFolio{numFolio}.pdf";
             }
             else
             {
-                rutaArchivo += $"reporte_inventario_{numRevision}.pdf";
+                rutaArchivo += $"reporte_inventario_NoRevision{numRevision}_NoFolio{numFolio}.pdf";
             }
 
             if (!File.Exists(rutaArchivo))
@@ -168,8 +247,8 @@ namespace PuntoDeVentaV2
                 reconstruirReporteSinLaClaveInterna(numRevision, FormPrincipal.userID, numFolio, rutaArchivo);
             }
 
-            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-            vr.ShowDialog();
+            //VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            //vr.ShowDialog();
 
             //var mostrarClave = FormPrincipal.clave;
 
@@ -1311,13 +1390,13 @@ namespace PuntoDeVentaV2
             reporte.Close();
             writer.Close();
 
-            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-            vr.ShowDialog();
+            //VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            //vr.ShowDialog();
         }
         #endregion
 
         #region Generar Reporte de actualizar Inventario. 
-        private void GenerarReporteActualizarInventario(int num)
+        private void GenerarReporteActualizarInventario(int num, int numRev, string rutaArchivo)
         {
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
@@ -1334,6 +1413,7 @@ namespace PuntoDeVentaV2
             }
 
             var tablaBuscar = string.Empty;
+
             if (tipoDatoReporte.Equals("AIAumentar"))
             {
                 tablaBuscar = "dgvaumentarinventario";
@@ -1356,8 +1436,19 @@ namespace PuntoDeVentaV2
             var numRow = 0;
 
             var fechaHoy = DateTime.Now;
-            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\reporte_actualizar_inventario.pdf";
-
+            string UsuarioActivo = string.Empty;
+            
+            using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
+            {
+                if (!dtDataUsr.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drDataUsr in dtDataUsr.Rows)
+                    {
+                        UsuarioActivo = drDataUsr["Usuario"].ToString();
+                    }
+                }
+            }
+            
             Document reporte = new Document(PageSize.A3.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
 
@@ -1369,7 +1460,7 @@ namespace PuntoDeVentaV2
 
             Paragraph numeroFolio = new Paragraph("");
 
-            string UsuarioActivo = string.Empty;
+            
 
             string tipoReporte = string.Empty,
             encabezadoTipoReporte = string.Empty;
@@ -1380,17 +1471,6 @@ namespace PuntoDeVentaV2
                     Precio = 0,
                     CantidadPerdida = 0,
                     CantidadRecuperada = 0;
-
-            using (DataTable dtDataUsr = cn.CargarDatos(cs.UsuarioRazonSocialNombreCompleto(Convert.ToString(FormPrincipal.userID))))
-            {
-                if (!dtDataUsr.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow drDataUsr in dtDataUsr.Rows)
-                    {
-                        UsuarioActivo = drDataUsr["Usuario"].ToString();
-                    }
-                }
-            }
             //var numerodeFolio = string.Empty;
             //var obtenerFolio = cn.CargarDatos($"SELECT Folio FROM {tablaBuscar} WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{num}'");
 
@@ -1500,7 +1580,7 @@ namespace PuntoDeVentaV2
             //tablaInventario.AddCell(colPerdida);
             //tablaInventario.AddCell(colRecuperada);
 
-            var consulta = cn.CargarDatos($"SELECT * FROM {tablaBuscar} WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio = '{num}'");
+            var consulta = cn.CargarDatos($"SELECT * FROM {tablaBuscar} WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio = '{num}' AND NoRevision = '{numRev}'");
 
             foreach (DataRow row in consulta.Rows)
             {
@@ -1704,8 +1784,8 @@ namespace PuntoDeVentaV2
             reporte.Close();
             writer.Close();
 
-            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-            vr.ShowDialog();
+            //VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            //vr.ShowDialog();
         }
         #endregion
 
@@ -1935,8 +2015,8 @@ namespace PuntoDeVentaV2
                         }
                         else 
                         {
-                            rev = filaDatos["NoRevision"].ToString();
-                            folio = filaDatos["Folio"].ToString();
+                            folio = filaDatos["NoRevision"].ToString();
+                            rev = filaDatos["Folio"].ToString();
                             idObtenido = Convert.ToInt32(filaDatos["IDEmpleado"].ToString());
                             fecha = filaDatos["Fecha"].ToString();
                             nameUsuario = filaDatos["NameUsr"].ToString();
@@ -2005,8 +2085,8 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            rev = filaDatos["NoRevision"].ToString();
-                            folio = filaDatos["Folio"].ToString();
+                            folio = filaDatos["NoRevision"].ToString();
+                            rev = filaDatos["Folio"].ToString();
                             name = filaDatos["IDEmpleado"].ToString();
                             fecha = filaDatos["Fecha"].ToString();
 

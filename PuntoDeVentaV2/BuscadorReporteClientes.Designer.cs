@@ -475,6 +475,8 @@
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.DGVReportesClientes);
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "BuscadorReporteClientes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BuscadorReporteClientes";
