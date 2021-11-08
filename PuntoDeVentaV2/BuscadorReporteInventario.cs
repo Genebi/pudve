@@ -100,104 +100,107 @@ namespace PuntoDeVentaV2
         {
             if (e.ColumnIndex == 4)
             {
-                var mostrarClave = FormPrincipal.clave;
-                int numFolio = Convert.ToInt32(DGVInventario.Rows[e.RowIndex].Cells[0].Value.ToString());
-                int numRev = Convert.ToInt32(DGVInventario.Rows[e.RowIndex].Cells[1].Value.ToString());
+                if (e.RowIndex >= 0)
+                {
+                    var mostrarClave = FormPrincipal.clave;
+                    int numFolio = Convert.ToInt32(DGVInventario.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    int numRev = Convert.ToInt32(DGVInventario.Rows[e.RowIndex].Cells[1].Value.ToString());
 
-                var servidor = Properties.Settings.Default.Hosting;
+                    var servidor = Properties.Settings.Default.Hosting;
 
-                var rutaArchivo = string.Empty;
-                var usuario = string.Empty;
+                    var rutaArchivo = string.Empty;
+                    var usuario = string.Empty;
 
-                if (FormPrincipal.userNickName.Contains("@"))
-                {
-                    var palabras = FormPrincipal.userNickName.Split('@');
-                    usuario = palabras[0].ToString();
-                }
-                else
-                {
-                    usuario = FormPrincipal.userNickName;
-                }
-
-                if (!string.IsNullOrWhiteSpace(servidor))
-                {
-                    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\{usuario}\";
-                }
-                else
-                {
-                    rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\{usuario}\";
-                }
-
-                if (tipoDatoReporte.Equals("RInventario"))
-                {
-                    rutaArchivo += @"ActualizarInvetario\";
-                }
-                else if (tipoDatoReporte.Equals("AIAumentar"))
-                {
-                    rutaArchivo += @"AumentarInventario\";
-                }
-                else if (tipoDatoReporte.Equals("AIDisminuir"))
-                {
-                    rutaArchivo += @"DisminuirInventario\";
-                }
-
-                if (!Directory.Exists(rutaArchivo))
-                {
-                    Directory.CreateDirectory(rutaArchivo);
-                }
-
-                if (!string.IsNullOrWhiteSpace(servidor))
-                {
-                    if (tipoDatoReporte.Equals("RInventario"))
+                    if (FormPrincipal.userNickName.Contains("@"))
                     {
-                        rutaArchivo += $"reporte_inventario_NoRevision{numRev}_NoFolio{numFolio}.pdf";
+                        var palabras = FormPrincipal.userNickName.Split('@');
+                        usuario = palabras[0].ToString();
                     }
                     else
                     {
-                        rutaArchivo += $"reporte_actualizar_inventarioNoRevision{numRev}_NoFolio{numFolio}.pdf";
+                        usuario = FormPrincipal.userNickName;
                     }
-                }
-                else
-                {
-                    if (tipoDatoReporte.Equals("RInventario"))
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
                     {
-                        rutaArchivo += $"reporte_inventario_NoRevision{numRev}_NoFolio{numFolio}.pdf";
+                        rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\{usuario}\";
                     }
                     else
                     {
-                        rutaArchivo += $"reporte_actualizar_inventario_NoRevision{numRev}_NoFolio{numFolio}.pdf";
+                        rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\{usuario}\";
                     }
-                }
 
-                if (tipoDatoReporte.Equals("RInventario"))
-                {
-                    if (mostrarClave == 0)
+                    if (tipoDatoReporte.Equals("RInventario"))
                     {
-                        if (!File.Exists(rutaArchivo))
+                        rutaArchivo += @"ActualizarInvetario\";
+                    }
+                    else if (tipoDatoReporte.Equals("AIAumentar"))
+                    {
+                        rutaArchivo += @"AumentarInventario\";
+                    }
+                    else if (tipoDatoReporte.Equals("AIDisminuir"))
+                    {
+                        rutaArchivo += @"DisminuirInventario\";
+                    }
+
+                    if (!Directory.Exists(rutaArchivo))
+                    {
+                        Directory.CreateDirectory(rutaArchivo);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        if (tipoDatoReporte.Equals("RInventario"))
                         {
-                            GenerarReporteSinCLaveInterna(numRev, numFolio);
+                            rutaArchivo += $"reporte_inventario_NoRevision{numRev}_NoFolio{numFolio}.pdf";
+                        }
+                        else
+                        {
+                            rutaArchivo += $"reporte_actualizar_inventarioNoRevision{numRev}_NoFolio{numFolio}.pdf";
                         }
                     }
-                    else if (mostrarClave == 1)
+                    else
                     {
-                        if (!File.Exists(rutaArchivo))
+                        if (tipoDatoReporte.Equals("RInventario"))
                         {
-                            GenerarReporte(numRev);
+                            rutaArchivo += $"reporte_inventario_NoRevision{numRev}_NoFolio{numFolio}.pdf";
+                        }
+                        else
+                        {
+                            rutaArchivo += $"reporte_actualizar_inventario_NoRevision{numRev}_NoFolio{numFolio}.pdf";
                         }
                     }
-                }
-                else
-                {
-                    //GenerarReporteActualizarInventario(numRev);
-                    if (!File.Exists(rutaArchivo))
-                    {
-                        //reconstruirReporteSinLaClaveInterna(numRev, FormPrincipal.userID, numFolio, rutaArchivo);
-                        GenerarReporteActualizarInventario(numRev, numFolio, rutaArchivo);
-                    }
-                }
 
-                VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-                vr.ShowDialog();
+                    if (tipoDatoReporte.Equals("RInventario"))
+                    {
+                        if (mostrarClave == 0)
+                        {
+                            if (!File.Exists(rutaArchivo))
+                            {
+                                GenerarReporteSinCLaveInterna(numRev, numFolio);
+                            }
+                        }
+                        else if (mostrarClave == 1)
+                        {
+                            if (!File.Exists(rutaArchivo))
+                            {
+                                GenerarReporte(numRev);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //GenerarReporteActualizarInventario(numRev);
+                        if (!File.Exists(rutaArchivo))
+                        {
+                            //reconstruirReporteSinLaClaveInterna(numRev, FormPrincipal.userID, numFolio, rutaArchivo);
+                            GenerarReporteActualizarInventario(numRev, numFolio, rutaArchivo);
+                        }
+                    }
+
+                    VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+                    vr.ShowDialog();
+                }
             }
         }
 
