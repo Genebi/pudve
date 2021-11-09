@@ -1322,14 +1322,30 @@ namespace PuntoDeVentaV2
                 rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\{FormPrincipal.userNickName}\";
             }
 
-            if (!Directory.Exists(rutaArchivo))
+            if (rbAumentarProducto.Checked)
             {
-                Directory.CreateDirectory(rutaArchivo);
-                rutaArchivo += $"reporte_actualizar_inventario_{idReporte}.pdf";
+                rutaArchivo += $@"AumentarInventario\";
+            }
+            else if (rbDisminuirProducto.Checked)
+            {
+                rutaArchivo += $@"DisminuirInventario\";
             }
             else
             {
-                rutaArchivo += $"reporte_actualizar_inventario_{idReporte}.pdf";
+                rutaArchivo += $@"ActualizarInvetario\";
+            }
+
+            var checarNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+            var numeroDeFolio = cn.ObtenerUltimoIdReporte(FormPrincipal.userID);
+
+            if (!Directory.Exists(rutaArchivo))
+            {
+                Directory.CreateDirectory(rutaArchivo);
+                rutaArchivo += $"reporte_actualizar_inventario_NoRevision{checarNoRev}_NoFolio{numeroDeFolio}.pdf";
+            }
+            else
+            {
+                rutaArchivo += $"reporte_actualizar_inventario_NoRevision{checarNoRev}_NoFolio{numeroDeFolio}.pdf";
             }
 
             #region aumentarDisminurInventario
@@ -3196,6 +3212,43 @@ namespace PuntoDeVentaV2
             #region Sección Botón Actualizar Invetario XML
             if (tipo.Equals(1))
             {
+                servidor = Properties.Settings.Default.Hosting;
+
+                var usuario = string.Empty;
+
+                if (FormPrincipal.userNickName.Contains("@"))
+                {
+                    var palabras = FormPrincipal.userNickName.Split('@');
+                    usuario = palabras[0].ToString();
+                }
+                else
+                {
+                    usuario = FormPrincipal.userNickName;
+                }
+
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\{usuario}\ActualizarInvetarioXML\";
+                }
+                else
+                {
+                    rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\{usuario}\ActualizarInvetarioXML\";
+                }
+
+                if (!Directory.Exists(rutaArchivo))
+                {
+                    Directory.CreateDirectory(rutaArchivo);
+                }
+
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    rutaArchivo += $"reporte_actualizar_inventario_{idReporte}.pdf";
+                }
+                else
+                {
+                    rutaArchivo += $"reporte_actualizar_inventario_{idReporte}.pdf";
+                }
+
                 anchoColumnas = new float[] { 30f, 245f, 200f, 80f, 70f, 70f, 55f, 55f, 80f, 95f };
 
                 Document reporte = new Document(PageSize.A3.Rotate());

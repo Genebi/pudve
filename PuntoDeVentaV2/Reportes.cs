@@ -168,7 +168,16 @@ namespace PuntoDeVentaV2
 
             var fechaActual = DateTime.Now;
             var servidor = Properties.Settings.Default.Hosting;
-            var rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\reporte_historial_precios_{fechaActual.ToString("yyyyMMddHHmmss")}.pdf";
+            var rutaArchivo = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\reporte_historial_precios_{fechaActual.ToString("yyyyMMddHHmmss")}.pdf";
+            }
+            else
+            {
+                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\reporte_historial_precios_{fechaActual.ToString("yyyyMMddHHmmss")}.pdf";
+            }
 
             Document reporte = new Document(PageSize.A3);
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -186,7 +195,16 @@ namespace PuntoDeVentaV2
             //Validación para verificar si existe logotipo
             if (logotipo != "")
             {
-                logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+                //logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+
+                if (string.IsNullOrWhiteSpace(servidor))
+                {
+                    logotipo = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+                }
+                else
+                {
+                    logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+                }
 
                 if (File.Exists(logotipo))
                 {

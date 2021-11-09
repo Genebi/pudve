@@ -130,6 +130,8 @@
             this.Controls.Add(this.btnActualizarInventarioNew);
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "TipoReportesInventario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TipoReportesInventario";

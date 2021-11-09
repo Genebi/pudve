@@ -761,21 +761,34 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                rutaArchivo += $@"\\{servidor}\Archivos PUDVE\Reportes\RevisarInventario\{FormPrincipal.userNickName}\";
+                rutaArchivo += $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\{FormPrincipal.userNickName}\ActualizarInvetario\";
             }
             else
             {
-                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\RevisarInventario\{FormPrincipal.userNickName}\";
+                rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\{FormPrincipal.userNickName}\ActualizarInvetario\";
+            }
+
+            var numeroDeRevision = 0;
+
+            var datosInventario = mb.DatosRevisionInventario();
+
+            if (datosInventario.Length > 0)
+            {
+                numeroDeRevision = Convert.ToInt32(datosInventario[1].ToString()) - 1;
+            }
+            else
+            {
+                numeroDeRevision = 0;
             }
 
             if (!Directory.Exists(rutaArchivo))
             {
                 Directory.CreateDirectory(rutaArchivo);
-                rutaArchivo += $"reporte_inventario_{FilterNumActiveRecord}.pdf";
+                rutaArchivo += $"reporte_inventario_NoRevision{numeroDeRevision}_NoFolio{FilterNumActiveRecord}.pdf";
             }
             else
             {
-                rutaArchivo += $"reporte_inventario_{FilterNumActiveRecord}.pdf";
+                rutaArchivo += $"reporte_inventario_NoRevision{numeroDeRevision}_NoFolio{FilterNumActiveRecord}.pdf";
             }
 
             Document reporte = new Document(PageSize.A3.Rotate());

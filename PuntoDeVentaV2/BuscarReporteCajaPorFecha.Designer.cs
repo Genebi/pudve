@@ -432,6 +432,8 @@
             this.Controls.Add(this.primerDatePicker);
             this.Controls.Add(this.DGVReporteCaja);
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "BuscarReporteCajaPorFecha";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reporte de Caja";
