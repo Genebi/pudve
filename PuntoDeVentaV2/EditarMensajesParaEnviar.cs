@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         string mensaje;
+        string cantidadDeCompra;
         public EditarMensajesParaEnviar()
         {
             InitializeComponent();
@@ -30,7 +31,6 @@ namespace PuntoDeVentaV2
             var dato = MensajeVentasYMensajeInventario.enviarDato;
             if (dato == "mensajeVentas")
             {
-
                 using (var datos = cn.CargarDatos(cs.mensajeVentas(Productos.codProductoEditarVenta)))
                 {
                     if (!datos.Rows.Count.Equals(0))
@@ -40,6 +40,18 @@ namespace PuntoDeVentaV2
                     else
                     {
                         mensaje = "";
+                    }
+                }
+
+                using (var datos = cn.CargarDatos(cs.cantidadCompraMinima(Productos.codProductoEditarVenta)))
+                {
+                    if (!datos.Rows.Count.Equals(0))
+                    {
+                        cantidadDeCompra = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                    }
+                    else
+                    {
+                        cantidadDeCompra = "";
                     }
                 }
 
@@ -70,6 +82,7 @@ namespace PuntoDeVentaV2
 
                 TextBox txtCantidadCompra = new TextBox();
                 txtCantidadCompra.Name = "txtCantidadCompra";
+                txtCantidadCompra.Text = cantidadDeCompra;
                 txtCantidadCompra.Width = 35;
                 txtCantidadCompra.Height = 20;
                 txtCantidadCompra.Location = new Point(270,33);
@@ -148,7 +161,7 @@ namespace PuntoDeVentaV2
                 this.Controls.Add(flpMensaje);
                 this.Controls.Add(flpDatos);
             }
-            else if (dato == "mensajeInventario") //EN caso de dar en el boton mensaje inventario
+            else if (dato == "mensajeInventario") //EN caso de dar en el boton mensaje inventario---------------------------------------------------------------
             {
                 //Panel para el nombre del producto a modificar
 
@@ -265,9 +278,43 @@ namespace PuntoDeVentaV2
             {
                 foreach (Control item in this.Controls)
                 {
-                    if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
+                    if (item is FlowLayoutPanel && item.Name.Equals("flpDatos"))
                     {
-                       
+                        foreach (Control itemMensaje in item.Controls)
+                        {
+                            if (itemMensaje is Panel && itemMensaje.Name.Equals("panelDatos"))
+                            {
+                                foreach (Control textoMensaje in itemMensaje.Controls)
+                                {
+                                    if (textoMensaje is TextBox)
+                                    {
+                                        if (textoMensaje.Name.Equals("txtCantidadCompra"))
+                                        {
+                                            var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
+                                            if (updateOinsert.Rows.Count.Equals(0))
+                                            {
+                                                var cantidadMinimaCompra = textoMensaje.Text;
+                                                if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
+                                                {
+                                                    cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.codProductoEditarVenta, Convert.ToInt32(cantidadMinimaCompra)));
+                                                }
+                                            }
+                                            else
+                                            {
+                                                var cantidadMinimaCompra = textoMensaje.Text;
+                                                if (!string.IsNullOrWhiteSpace(cantidadMinimaCompra))
+                                                {
+                                                    cn.EjecutarConsulta(cs.actualizarCompraMinima(Productos.codProductoEditarVenta, cantidadMinimaCompra));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                        if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
+                    {
                             foreach (Control itemMensaje in item.Controls)
                             {
                                 if (itemMensaje is Panel && itemMensaje.Name.Equals("panelMensaje"))
@@ -278,9 +325,26 @@ namespace PuntoDeVentaV2
                                         {
                                             if (textoMensaje.Name.Equals("txtMensaje"))
                                             {
+                                            var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
+                                            if (updateOinsert.Rows.Count.Equals(0))
+                                            {
                                                 var NuevoMensaje = textoMensaje.Text;
-                                                cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje));
-                                                MessageBox.Show("Actualizado Correctamente.");
+                                                if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                {
+                                                    cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, NuevoMensaje));
+                                                    MessageBox.Show("Actualizado Correctamente.");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                var NuevoMensaje = textoMensaje.Text;
+                                                if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                {
+                                                    cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje));
+                                                    MessageBox.Show("Actualizado Correctamente.");
+                                                }
+                                            }
+                                                
                                             }
                                         }
                                     }
@@ -289,7 +353,7 @@ namespace PuntoDeVentaV2
                     }
                 }
                 this.Close();
-            }
+            }// Esta seccion es para modificar o insertar el mensaje a la hora de actualizar inventario----------------------------------------------------------
             else if (dato == "mensajeInventario")
             {
                 foreach (Control item in this.Controls)
@@ -308,9 +372,26 @@ namespace PuntoDeVentaV2
                                         {
                                             if (textoMensaje.Name.Equals("txtMensaje"))
                                             {
-                                                var NuevoMensaje = textoMensaje.Text;
-                                                cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje));
-                                                MessageBox.Show("Actualizado Correctamente.");
+                                                var updateOinsert = cn.CargarDatos(cs.viewMensajeInventario(Productos.codProductoEditarVenta));
+                                                if (updateOinsert.Rows.Count.Equals(0))
+                                                {
+                                                    var NuevoMensaje = textoMensaje.Text;
+                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                    {
+                                                        cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje));
+                                                        MessageBox.Show("Actualizado Correctamente.");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    var NuevoMensaje = textoMensaje.Text;
+                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                    {
+                                                        cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje));
+                                                        MessageBox.Show("Actualizado Correctamente.");
+                                                    }
+                                                }
+                                                    
                                             }
                                         }
                                     }

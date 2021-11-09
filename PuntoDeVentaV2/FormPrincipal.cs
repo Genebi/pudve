@@ -1240,8 +1240,8 @@ namespace PuntoDeVentaV2
             validarRespaldoBaseDeDatos();
             cerrarAplicacion = false;
 
-            Application.Restart();
-            Environment.Exit(0);
+            //Application.Restart();
+            //Environment.Exit(0);
         }
 
         private void validarRespaldoBaseDeDatos()
