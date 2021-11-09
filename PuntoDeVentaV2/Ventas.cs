@@ -169,6 +169,11 @@ namespace PuntoDeVentaV2
                 stopBits = string.Empty, 
                 sendData = string.Empty;
 
+        int contadorMensaje = 0;
+        int contadorChangeValue = 0;
+
+        Dictionary<int, string> listaMensajesEnviados = new Dictionary<int, string>();
+
         private string FolioVentaCorreo = string.Empty;
 
         #region Proceso de Bascula
@@ -372,6 +377,7 @@ namespace PuntoDeVentaV2
             // Enter
             if (e.KeyData == Keys.Enter)
             {
+                contadorMensaje = 0;
                 sonido = true;
                 contador = 0;
                 // Verificar si se selecciono el check para cancelar venta
@@ -1032,7 +1038,7 @@ namespace PuntoDeVentaV2
         }
 
         private void DGVentas_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
+        { //consultarListaRelacionados 356 (por si no jala)
             var celda = DGVentas.CurrentCell.RowIndex;
             var columna = DGVentas.CurrentCell.ColumnIndex;
 
@@ -1102,6 +1108,7 @@ namespace PuntoDeVentaV2
             // Agregar multiple
             if (columna.Equals(10))
             {
+                contadorChangeValue = 0;
                 if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     indiceFila = e.RowIndex;
@@ -1121,6 +1128,7 @@ namespace PuntoDeVentaV2
             // Agregar individual
             if (columna.Equals(11))
             {
+                contadorChangeValue = 0;
                 if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
@@ -1162,7 +1170,8 @@ namespace PuntoDeVentaV2
             // Restar individual
             if (columna.Equals(12))
             {
-                if(!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
+                contadorChangeValue = 0;
+                if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     float cantidad = float.Parse(DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString());
                     cantidad -= 1;
@@ -1311,6 +1320,8 @@ namespace PuntoDeVentaV2
                 if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                 {
                     var idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
+
+                    listaMensajesEnviados.Remove(idProducto);
 
                     fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
@@ -2508,6 +2519,7 @@ namespace PuntoDeVentaV2
 
                 CalculoMayoreo();
                 CantidadesFinalesVenta();
+                listaMensajesEnviados.Remove(id);
                 listaProductosVenta();
 
             }
@@ -2564,6 +2576,7 @@ namespace PuntoDeVentaV2
             }
             listProductos.Clear();
             liststock2.Clear();
+            listaMensajesEnviados.Clear();
         }
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)
@@ -4900,7 +4913,7 @@ namespace PuntoDeVentaV2
                                 if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
                                 {
                                     //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
-                                    var cantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["Cantidad"].Value);
+                                    var cantidad = float.Parse(DGVentas.Rows[0].Cells["Cantidad"].Value.ToString());
 
                                     cantidad += cantidadExtra;
 
@@ -4917,7 +4930,7 @@ namespace PuntoDeVentaV2
                                     if (tipoDescuento > 0)
                                     {
                                         string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                                        CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
+                                        CalcularDescuento(datosDescuento, tipoDescuento, Int32.Parse(cantidad.ToString()), 0);
                                     }
 
                                     CalculoMayoreo();
@@ -4967,6 +4980,7 @@ namespace PuntoDeVentaV2
 
                                     float cantResult = cantidad + cantidadExtraDecimal;
 
+                                    
                                     // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
                                     float importe = cantResult * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
 
@@ -5033,6 +5047,16 @@ namespace PuntoDeVentaV2
                                     var cantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["Cantidad"].Value);
 
                                     cantidad += cantidadExtra;
+
+                                    int idproductoCantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
+                                    var MinimaCompra = cn.CargarDatos(cs.cantidadCompraMinima(Convert.ToInt32(idproductoCantidad)));
+                                    var cantidadMinima = Convert.ToInt32(MinimaCompra.Rows[0].ItemArray[0]);
+
+
+                                    if (cantidad < cantidadMinima && listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
+                                    {
+                                        listaMensajesEnviados.Remove(Convert.ToInt32(idproductoCantidad));
+                                    }
 
                                     // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
                                     float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
@@ -5490,6 +5514,7 @@ namespace PuntoDeVentaV2
             ProductoSeleccionado();
             sonido = true;
             contador = 0;
+            contadorMensaje = 0;
         }
 
         private void listaProductos_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -5553,6 +5578,7 @@ namespace PuntoDeVentaV2
                 {
                     mostrarDatosTraidosBuscador();
                     reproducirProductoAgregado();
+                    contadorMensaje = 0;
                 };
                 
                 //listProductos.Add(datosProducto[0] + "|" + cantidad.ToString());
@@ -5576,7 +5602,8 @@ namespace PuntoDeVentaV2
             var datoObtenidoBuscador = ConsultarProductoVentas.datosDeProducto;
             foreach (var producto in datoObtenidoBuscador)
             {
-                var datosProducto = producto.Split('|');
+                datosProducto = producto.Split('|');
+
                 if (!datoObtenidoBuscador.Count.Equals(0))
                 {
                     if (datoObtenidoBuscador.Count.Equals(1))
@@ -5622,6 +5649,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+               
             }
             ConsultarProductoVentas.datosDeProducto.Clear();
         }
@@ -5814,17 +5842,21 @@ namespace PuntoDeVentaV2
 
             datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
 
-            using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idProducto))))
-            {
-                if (dtProdMessg.Rows.Count > 0)
-                {
-                    drProdMessg = dtProdMessg.Rows[0];
+            //using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idProducto))))
+            //{
+            //    //Condicionar con compra minima de productos para mostrar el mensaje
+            //    //var estadoMensaje = cn.CargarDatos(cs.EstadomensajeVentas(Productos.codProductoEditarVenta));
+            //    //string status = estadoMensaje.Rows[0].ItemArray[0].ToString();
 
-                    var mensaje = drProdMessg["ProductOfMessage"].ToString().ToUpper();
+            //    if (dtProdMessg.Rows.Count > 0)
+            //    {
+            //        drProdMessg = dtProdMessg.Rows[0];
 
-                    MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
+            //        var mensaje = drProdMessg["ProductOfMessage"].ToString().ToUpper();
+
+            //        MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
 
             //borrar producto a buscar
             txtBuscadorProducto.Text = "";
@@ -5855,6 +5887,7 @@ namespace PuntoDeVentaV2
             //}
 
             AgregarProducto(datosProducto, Convert.ToDecimal(nudCantidadPS.Value));
+
         }
 
         private void CalculoMayoreo()
@@ -6369,7 +6402,51 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-                txtBuscadorProducto.Focus();
+            /* Agregar la condicion para la cantidad minima de compra para mostrarmensaje*/
+            if (contadorChangeValue.Equals(0))
+            {
+                if (!DGVentas.Rows.Count.Equals(0))
+                {
+                    var celda = e.RowIndex;
+
+                    decimal cantidad = 0;
+
+                    bool isDecimal = Decimal.TryParse(DGVentas.Rows[celda].Cells[5].FormattedValue.ToString(), out cantidad);
+
+                    var idproductoCantidad = DGVentas.Rows[celda].Cells[0].Value;
+
+                    var MinimaCompra = cn.CargarDatos(cs.cantidadCompraMinima(Convert.ToInt32(idproductoCantidad)));
+
+                    if (!MinimaCompra.Rows.Count.Equals(0))
+                    {
+                        var cantidadMinima = Convert.ToInt32(MinimaCompra.Rows[0].ItemArray[0]);
+
+                         if (cantidad >= cantidadMinima)
+                        {
+                            using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idproductoCantidad))))
+                            {
+                                if (dtProdMessg.Rows.Count > 0)
+                                {
+                                    drProdMessg = dtProdMessg.Rows[0];
+
+                                    if (!listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
+                                    {
+                                        listaMensajesEnviados.Add(Convert.ToInt32(idproductoCantidad), "Mensaje");
+                                        var mensaje = drProdMessg["ProductOfMessage"].ToString().ToUpper();
+                                        MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }            
+                            }
+                        }
+                        else if(cantidad < cantidadMinima && listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
+                        {
+                            listaMensajesEnviados.Remove(Convert.ToInt32(idproductoCantidad));
+                        }
+                    }
+                }
+                contadorChangeValue++;
+            }
+            txtBuscadorProducto.Focus();
         }
 
         private void DGVentas_Enter(object sender, EventArgs e)
@@ -6406,11 +6483,59 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
+
+            /* Agregar la condicion para la cantidad minima de compra para mostrarmensaje*/
+            contadorMensaje = 0;
+
             if (sonido == true && contador == 0)
             {
                 reproducirProductoAgregado();
                 contador++;
             }
+        }
+
+        private void DGVentas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+                var celda = e.RowIndex;
+
+                decimal cantidad = 0;
+
+                bool isDecimal = Decimal.TryParse(DGVentas.Rows[celda].Cells[5].FormattedValue.ToString(), out cantidad);//Se obtiene y guarda la cantidad en cantidad"
+                var idproductoCantidad = DGVentas.Rows[celda].Cells[0].Value;
+
+                var MinimaCompra = cn.CargarDatos(cs.cantidadCompraMinima(Convert.ToInt32(idproductoCantidad)));
+
+                if (!MinimaCompra.Rows.Count.Equals(0))
+                {
+                    var cantidadMinima = Convert.ToInt32(MinimaCompra.Rows[0].ItemArray[0]);
+
+                    if (cantidad >= cantidadMinima)
+                    {
+                        using (DataTable dtMensajesVentas = cn.CargarDatos(cs.verificarMensajesProductosVentas(Convert.ToInt32(idproductoCantidad))))
+                        {
+                            if (!dtMensajesVentas.Rows.Count.Equals(0))
+                            {
+                                if (!listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
+                                {
+                                    listaMensajesEnviados.Add(Convert.ToInt32(idproductoCantidad), "Mensaje");
+                                    foreach (DataRow item in dtMensajesVentas.Rows)
+                                    {
+                                        MessageBox.Show(item["ProductOfMessage"].ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                else if (cantidad < cantidadMinima && listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
+                {
+                    listaMensajesEnviados.Remove(Convert.ToInt32(idproductoCantidad));
+                }
+            }
+        }
+
+        private void DGVentas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void btnCancelarVenta_Enter(object sender, EventArgs e)
@@ -6786,14 +6911,45 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            var celda = e.RowIndex;
+            /* Agregar la condicion para la cantidad minima de compra para mostrarmensaje*/
 
-            // Cantidad
+            var celda = e.RowIndex;
             if (e.ColumnIndex == 5)
             {
                 decimal cantidad = 0;
 
-                bool isDecimal = Decimal.TryParse(DGVentas.Rows[celda].Cells[5].Value.ToString(), out cantidad);
+                bool isDecimal = Decimal.TryParse(DGVentas.Rows[celda].Cells[5].Value.ToString(), out cantidad);//Se obtiene y guarda la cantidad en cantidad"
+                var idproductoCantidad = DGVentas.Rows[celda].Cells[0].Value;
+
+                var MinimaCompra = cn.CargarDatos(cs.cantidadCompraMinima(Convert.ToInt32(idproductoCantidad)));
+
+                if (!MinimaCompra.Rows.Count.Equals(0))
+                {
+                    var cantidadMinima = Convert.ToInt32(MinimaCompra.Rows[0].ItemArray[0]);
+
+                    if (cantidad >= cantidadMinima)
+                    {
+                        using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idproductoCantidad))))
+                        {
+                            if (dtProdMessg.Rows.Count > 0)
+                            {
+                                drProdMessg = dtProdMessg.Rows[0];
+
+                                var mensaje = drProdMessg["ProductOfMessage"].ToString().ToUpper();
+
+                                //if (!listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
+                                //{
+                                //    MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //    listaMensajesEnviados.Add(Convert.ToInt32(idproductoCantidad), "Mensaje");
+                                //}
+                            }
+                        }
+                    }
+                    else if (cantidad < cantidadMinima && listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
+                    {
+                        listaMensajesEnviados.Remove(Convert.ToInt32(idproductoCantidad));
+                    }
+                }
 
                 if (isDecimal)
                 {

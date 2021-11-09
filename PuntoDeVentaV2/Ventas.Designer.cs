@@ -226,12 +226,13 @@
             this.DGVentas.Size = new System.Drawing.Size(877, 222);
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
-            this.DGVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellContentClick);
+            this.DGVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellContentClick_1);
             this.DGVentas.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEndEdit);
             this.DGVentas.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEnter);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
             this.DGVentas.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.DGVentas_CellStateChanged);
             this.DGVentas.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellValueChanged);
+            this.DGVentas.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DGVentas_RowPostPaint);
             this.DGVentas.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DGVentas_RowsAdded);
             this.DGVentas.SelectionChanged += new System.EventHandler(this.DGVentas_SelectionChanged);
             this.DGVentas.Enter += new System.EventHandler(this.DGVentas_Enter);

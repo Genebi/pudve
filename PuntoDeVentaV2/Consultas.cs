@@ -44,6 +44,8 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+
+
         public string ActualizarStatusProducto(int status, int idProducto, int idUsuario)
         {
             return $"UPDATE Productos SET Status = {status} WHERE ID = {idProducto} AND IDUsuario = {idUsuario}";
@@ -2752,6 +2754,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+        public string insertarMensajeInventario(int idProductoSeleccionado, string mensaje)
+        {
+            var consulta = $"INSERT INTO mensajesinventario (IDUsuario, IDProducto,mensaje) VALUES ('{FormPrincipal.userID}', '{idProductoSeleccionado}', '{mensaje}');";
+
+            return consulta;
+        }
 
         public string regenerarReporteGeneralRevisarInventario(int numeroRevision, int idUsuario, int numeroFolio)
         {
@@ -2762,6 +2770,13 @@ namespace PuntoDeVentaV2
         public string actualizarMensajeVentas(int idProductoSeleccionado, string mensaje)
         {
             var consulta = $"UPDATE productmessage SET ProductOfMessage = '{mensaje}' WHERE IDProducto = {idProductoSeleccionado}";
+
+            return consulta;
+        }
+
+        public string insertarMensajeVenta(int idProducto, string mensaje)
+        {
+            var consulta = $"INSERT INTO productmessage (ProductOfMessage, IDProducto) VALUES ('{mensaje}', '{idProducto}')";
 
             return consulta;
         }
@@ -2786,9 +2801,57 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+<<<<<<< HEAD
         public string quitarComillasSimplesDeProductos()
         {
             var consulta = $@"UPDATE productos SET Nombre = REGEXP_REPLACE ( Nombre, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}'; UPDATE productos SET NombreAlterno1 = REGEXP_REPLACE ( NombreAlterno1, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}'; UPDATE productos SET NombreAlterno2 = REGEXP_REPLACE ( NombreAlterno2, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}';";
+=======
+        public string viewMensajeVentas(int codProducto)
+        {
+            var consulta = $"SELECT ProductOfMessage FROM productmessage WHERE IDProducto = {codProducto}";
+
+            return consulta;
+        }
+
+        public string viewMensajeInventario(int codProducto)
+        {
+            var consulta = $"SELECT Mensaje FROM mensajesInventario WHERE IDProducto = {codProducto}";
+
+            return consulta;
+        }
+
+        public string insertarCompraMinima(int idProducto,int cantidad)
+        {
+            var consulta = $"INSERT INTO productmessage (CantidadMinimaDeCompra, IDProducto) VALUES ('{cantidad}', '{idProducto}')";
+
+            return consulta;
+        }
+
+        public string actualizarCompraMinima(int idProductoSeleccionado, string mensaje)
+        {
+            var consulta = $"UPDATE productmessage SET CantidadMinimaDeCompra = {mensaje} WHERE IDProducto = {idProductoSeleccionado}";
+
+            return consulta;
+        }
+
+        public string cantidadCompraMinima(int idProductoSeleccionado)
+        {
+            var consulta = $"SELECT CantidadMinimaDeCompra FROM productmessage WHERE IDProducto = {idProductoSeleccionado}";
+
+            return consulta;
+        }
+
+        public string consultarMensajeInventario(string idProducto)
+        {
+            var consulta = $"SELECT Mensaje FROM mensajesinventario WHERE IDProducto = {idProducto}";
+
+            return consulta;
+        }
+
+        public string verificarMensajesProductosVentas(int idProducto)
+        {
+            var consulta = $"SELECT * FROM  productmessage WHERE IDProducto = '{idProducto}'";
+>>>>>>> permisosMensajeVentasEInventario
 
             return consulta;
         }
