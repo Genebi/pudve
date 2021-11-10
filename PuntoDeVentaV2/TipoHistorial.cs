@@ -205,7 +205,7 @@ namespace PuntoDeVentaV2
                 Paragraph Empleado = new Paragraph($"Empleado: {datoEmpleado}", fuenteNormal);
                 Usuario = new Paragraph($"USUARIO: ADMIN({ nameAdmin })", fuenteNegrita);
 
-                subTitulo = new Paragraph("REPORTE HISTORIAL VENTA PRODUCTO\nSECCION DE PRODUCTOS\n\nFecha: " + fechaActual.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                subTitulo = new Paragraph($"REPORTE HISTORIAL VENTA PRODUCTO\nRANGO DE FECHAS\nDEL: {fechaInicial} HASTA: {fechaFinal}\nSECCION DE PRODUCTOS\n\nFecha: {fechaActual.ToString("yyyy-MM-dd HH:mm:ss")}\n\n\n", fuenteNormal);
                 //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
                 titulo.Alignment = Element.ALIGN_CENTER;
@@ -218,9 +218,9 @@ namespace PuntoDeVentaV2
                 /***************************************
 		         ** Tabla con los productos ajustados **
 		         ***************************************/
-                float[] anchoColumnas = new float[] { 30f, 300f, 80f, 100f, 100f, 80f, 80f, 80f, 80f, 130f };
+                float[] anchoColumnas = new float[] { 30f, 300f, 80f, 100f, 100f, 80f, 80f, 80f, 80f, 130f, 100f };
 
-                PdfPTable tabla = new PdfPTable(10);
+                PdfPTable tabla = new PdfPTable(11);
                 tabla.WidthPercentage = 100;
                 tabla.SetWidths(anchoColumnas);
 
@@ -274,6 +274,11 @@ namespace PuntoDeVentaV2
                 colFechaOperacion.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                PdfPCell colVendido = new PdfPCell(new Phrase("Vendido", fuenteNegrita));
+                colVendido.BorderWidth = 1;
+                colVendido.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colVendido.HorizontalAlignment = Element.ALIGN_CENTER;
+
                 tabla.AddCell(colNumProducto);
                 tabla.AddCell(colProducto);
                 tabla.AddCell(colTipo);
@@ -284,7 +289,7 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colFolioSerie);
                 tabla.AddCell(colTotalVenta);
                 tabla.AddCell(colFechaOperacion);
-
+                tabla.AddCell(colVendido);
 
                 float totalCantidad = 0;
                 float totalPrecio = 0;
@@ -311,7 +316,7 @@ namespace PuntoDeVentaV2
                     var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
                     var idEmpleadoABuscar = Convert.ToInt32(dt["IDEmpleado"].ToString());
                     var idProductABuscar = Convert.ToInt32(dt["IDProducto"].ToString());
-
+                    var tipoDeVenta = dt["Vendido"].ToString();
 
                     var datosProducto = cn.BuscarProducto(Convert.ToInt32(idProductABuscar), FormPrincipal.userID);
                     var nombreProducto = datosProducto[1];
@@ -376,9 +381,9 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    totalCantidad += float.Parse(cantidad);
-                    totalPrecio += precio;
-                    totalVenta += venta;
+                    //totalCantidad += float.Parse(cantidad);
+                    //totalPrecio += precio;
+                    //totalVenta += venta;
 
                     numRow++;
                     
@@ -429,10 +434,12 @@ namespace PuntoDeVentaV2
 
                     PdfPCell colCantidadTmp = new PdfPCell(new Phrase(cantidad, fuenteNormal));
                     colCantidadTmp.BorderWidth = 1;
+                    totalCantidad += float.Parse(cantidad);
                     colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + precio.ToString("N2"), fuenteNormal));
                     colPrecioTmp.BorderWidth = 1;
+                    totalPrecio += precio;
                     colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     PdfPCell colFolioSerieTmp = new PdfPCell(new Phrase(folioSerie, fuenteNormal));
@@ -441,11 +448,16 @@ namespace PuntoDeVentaV2
 
                     PdfPCell colTotalVentaTmp = new PdfPCell(new Phrase("$" + venta.ToString("N2"), fuenteNormal));
                     colTotalVentaTmp.BorderWidth = 1;
+                    totalVenta += venta;
                     colTotalVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
                     colFechaOperacionTmp.BorderWidth = 1;
                     colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colTipoDeVentaTmp = new PdfPCell(new Phrase(tipoDeVenta, fuenteNormal));
+                    colTipoDeVentaTmp.BorderWidth = 1;
+                    colTipoDeVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     tabla.AddCell(colNumProductoTmp);
                     tabla.AddCell(colProductoTmp);
@@ -457,6 +469,7 @@ namespace PuntoDeVentaV2
                     tabla.AddCell(colFolioSerieTmp);
                     tabla.AddCell(colTotalVentaTmp);
                     tabla.AddCell(colFechaOperacionTmp);
+                    tabla.AddCell(colTipoDeVentaTmp);
                     //}
                 }
 
@@ -503,6 +516,10 @@ namespace PuntoDeVentaV2
                 colAuxFechaOperacion.BorderWidth = 0;
                 colAuxFechaOperacion.Padding = 3;
 
+                PdfPCell colAuxTipoVenta = new PdfPCell();
+                colAuxTipoVenta.BorderWidth = 0;
+                colAuxTipoVenta.Padding = 3;
+
                 tabla.AddCell(colAuxNumProd);
                 tabla.AddCell(colAuxProd);
                 tabla.AddCell(colTotalCantidad);
@@ -510,6 +527,7 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colAuxFolioSerie);
                 tabla.AddCell(colAuxTotalVenta);
                 tabla.AddCell(colAuxFechaOperacion);
+                tabla.AddCell(colAuxTipoVenta);
 
                 /******************************************
                  ** Fin de la tabla                      **
