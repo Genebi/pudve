@@ -2801,11 +2801,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-<<<<<<< HEAD
         public string quitarComillasSimplesDeProductos()
         {
             var consulta = $@"UPDATE productos SET Nombre = REGEXP_REPLACE ( Nombre, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}'; UPDATE productos SET NombreAlterno1 = REGEXP_REPLACE ( NombreAlterno1, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}'; UPDATE productos SET NombreAlterno2 = REGEXP_REPLACE ( NombreAlterno2, '\'', '´' ) WHERE IDUsuario = '{FormPrincipal.userID}';";
-=======
+
+            return consulta;
+        }
+
         public string viewMensajeVentas(int codProducto)
         {
             var consulta = $"SELECT ProductOfMessage FROM productmessage WHERE IDProducto = {codProducto}";
@@ -2851,7 +2853,6 @@ namespace PuntoDeVentaV2
         public string verificarMensajesProductosVentas(int idProducto)
         {
             var consulta = $"SELECT * FROM  productmessage WHERE IDProducto = '{idProducto}'";
->>>>>>> permisosMensajeVentasEInventario
 
             return consulta;
         }
