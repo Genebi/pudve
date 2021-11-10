@@ -3066,6 +3066,27 @@ namespace PuntoDeVentaV2
             {
                 if (SearchProdResult.Rows.Count != 0)
                 {
+                    // Comprobar precio del producto para saber si se edito
+                    var precioTmp = cn.BuscarProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+                    var precioNuevo = float.Parse(precio);
+                    var precioAnterior = float.Parse(precioTmp[2]);
+
+                    if (precioNuevo != precioAnterior)
+                    {
+                        var respuesta = MessageBox.Show("El precio esta siendo modificado, los descuentos vinculados a este producto/servicio/combo serán eliminados por lo que\nserá necesario agregarlos nuevamente.", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        
+                        if (respuesta == DialogResult.Yes)
+                        {
+                            cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {idProductoBuscado}");
+                            cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {idProductoBuscado}");
+                        }
+
+                        if (respuesta == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+
                     bool bValidNombreProducto = ValidateNombreProducto();
                     bool bValidPrecioProducto = ValidatePrecioProducto();
 
@@ -3152,11 +3173,6 @@ namespace PuntoDeVentaV2
                             #endregion Final Codigo de barras extras
 
                             var empleado = "0";
-
-                            // Comprobar precio del producto para saber si se edito
-                            var precioTmp = cn.BuscarProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
-                            var precioNuevo = float.Parse(precio);
-                            var precioAnterior = float.Parse(precioTmp[2]);
 
                             #region Incio Seccion Cambio de Precio
                             if (precioNuevo != precioAnterior)

@@ -132,18 +132,27 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "Precio")
             {
-                TextBox tbPrecio = new TextBox();
-                tbPrecio.Name = "tb" + propiedad;
-                tbPrecio.Width = 200;
-                tbPrecio.Height = 20;
-                tbPrecio.TextAlign = HorizontalAlignment.Center;
-                tbPrecio.Font = fuente;
-                tbPrecio.KeyPress += new KeyPressEventHandler(SoloDecimales);
-                tbPrecio.Location = new Point(65, 70);
+                DialogResult respuesta = MessageBox.Show("Al modificar el precio de los productos/servicios/combos todos aquellos que tengan descuentos agregados estos mismos descuentos serán eliminados y será necesario agregarlos nuevamente, ¿Está de acuerdo con esta operación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                
+                if (respuesta == DialogResult.Yes)
+                {
+                    TextBox tbPrecio = new TextBox();
+                    tbPrecio.Name = "tb" + propiedad;
+                    tbPrecio.Width = 200;
+                    tbPrecio.Height = 20;
+                    tbPrecio.TextAlign = HorizontalAlignment.Center;
+                    tbPrecio.Font = fuente;
+                    tbPrecio.KeyPress += new KeyPressEventHandler(SoloDecimales);
+                    tbPrecio.Location = new Point(65, 70);
 
-                panelContenedor.Controls.Add(tbPrecio);
-                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarPrecio"));
-                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarPrecio"));
+                    panelContenedor.Controls.Add(tbPrecio);
+                    panelContenedor.Controls.Add(GenerarBoton(0, "cancelarPrecio"));
+                    panelContenedor.Controls.Add(GenerarBoton(1, "aceptarPrecio"));
+                }
+                else
+                {
+                    Dispose();
+                }
             }
             else if (propiedad == "NumeroRevision")
             {
@@ -721,6 +730,9 @@ namespace PuntoDeVentaV2
 
                         valores += $"({producto.Key}, {precio}),";
 
+                        // Eliminamos los descuentos del producto
+                        cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {producto.Key}");
+                        cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {producto.Key}");
                         //cn.EjecutarConsulta(cs.SetUpPrecioProductos(producto.Key, precio, FormPrincipal.userID));
                     }
 
