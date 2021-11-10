@@ -406,8 +406,12 @@ namespace PuntoDeVentaV2
                             {
                                 tipoProducto = "Servicio";
                             }
-                            codigosAsociados = string.Empty;
+                            //codigosAsociados = string.Empty;
                             precio = float.Parse(buscarProducto.Rows[0]["Precio"].ToString());
+                        }
+                        else
+                        {
+                            codigosAsociados = "N/A";
                         }
                     }
 
@@ -423,6 +427,11 @@ namespace PuntoDeVentaV2
                     PdfPCell colTipoTmp = new PdfPCell(new Phrase(tipoProducto, fuenteNormal));
                     colTipoTmp.BorderWidth = 1;
                     colTipoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    if (string.IsNullOrWhiteSpace(codigosAsociados))
+                    {
+                        codigosAsociados = "N/A";
+                    }
 
                     PdfPCell colCodigosAsociadosTmp = new PdfPCell(new Phrase(codigosAsociados, fuenteNormal));
                     colCodigosAsociadosTmp.BorderWidth = 1;
