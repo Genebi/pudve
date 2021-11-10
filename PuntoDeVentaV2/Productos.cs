@@ -655,6 +655,7 @@ namespace PuntoDeVentaV2
             }
 
             filtros.Clear();
+            productosSeleccionados.Clear();
             removeAllSystemTags(setUpVariable);
 
             FiltroReporteProductos filtroBusqueda = new FiltroReporteProductos(2);
