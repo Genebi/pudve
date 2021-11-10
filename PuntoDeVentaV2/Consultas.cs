@@ -2722,6 +2722,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
         public string mensajeInventario(int idProductoSeleccionado)
         {
             var consulta = $"SELECT Mensaje FROM `mensajesinventario` WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {idProductoSeleccionado}";
@@ -2735,6 +2736,7 @@ namespace PuntoDeVentaV2
             return consulta;
 
         }
+
         public string mensajeVentas(int idProductoSeleccionado)
         {
             var consulta = $"SELECT ProductOfMessage FROM productmessage WHERE IDProducto = {idProductoSeleccionado}";
@@ -2748,12 +2750,14 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
         public string actualizarMensajeInventario(int idProductoSeleccionado, string mensaje)
         {
             var consulta = $"UPDATE mensajesInventario SET Mensaje = '{mensaje}' WHERE IDProducto = {idProductoSeleccionado}";
 
             return consulta;
         }
+
         public string insertarMensajeInventario(int idProductoSeleccionado, string mensaje)
         {
             var consulta = $"INSERT INTO mensajesinventario (IDUsuario, IDProducto,mensaje) VALUES ('{FormPrincipal.userID}', '{idProductoSeleccionado}', '{mensaje}');";
@@ -2787,6 +2791,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
         public string permisosMensajeVentasInventario()
         {
             var consulta = $"SELECT ProductMessageActivated FROM productmessage";
@@ -2853,6 +2858,13 @@ namespace PuntoDeVentaV2
         public string verificarMensajesProductosVentas(int idProducto)
         {
             var consulta = $"SELECT * FROM  productmessage WHERE IDProducto = '{idProducto}'";
+
+            return consulta;
+        }
+
+        public string CargarHistorialDeVentas(string fechaInicial, string fechaFinal, int idProducto)
+        {
+            var consulta = $"SELECT * FROM ( SELECT Vent.Folio, Vent.Serie, Vent.Total, Vent.FechaOperacion, ProdVent.IDVenta, ProdVent.Nombre, ProdVent.Cantidad, ProdVent.Precio, IF ( Prod.Tipo = 'P', 'Individual', 'Combo / Servicio' ) AS Vendido, Vent.IDEmpleado, ProdVent.IDProducto FROM productos AS Prod INNER JOIN productosventa AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) INNER JOIN ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE Prod.ID = '{idProducto}' AND Prod.IDUsuario = '{FormPrincipal.userID}' AND DATE( Vent.FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' UNION SELECT Vent.Folio, Vent.Serie, Vent.Total, Vent.FechaOperacion, ProdVent.IDVenta, ProdServ.NombreProducto, ProdVent.Cantidad, ProdVent.Precio, IF ( Prod.Tipo = 'P', 'Individual', 'Combo / Servicio' ) AS Vendido, Vent.IDEmpleado, ProdVent.IDProducto FROM productosdeservicios AS ProdServ INNER JOIN productos AS Prod ON ( Prod.ID = ProdServ.IDServicio ) INNER JOIN productosventa AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) INNER JOIN ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE ProdServ.IDProducto = '{idProducto}' AND Prod.IDUsuario = '{FormPrincipal.userID}' AND DATE( Vent.FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ) AS resultado ORDER BY resultado.Folio,resultado.Serie ASC ";
 
             return consulta;
         }

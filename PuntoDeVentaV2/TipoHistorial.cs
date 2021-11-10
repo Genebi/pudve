@@ -85,34 +85,35 @@ namespace PuntoDeVentaV2
             }
 
             //Validar si es combo
-            var verificarCombo = verificarSiTieneRelacionCombo(idProducto);
+            //var verificarCombo = verificarSiTieneRelacionCombo(idProducto);
 
-            var consultaProductosRelacionados = string.Empty;
+            //var consultaProductosRelacionados = string.Empty;
 
-            if (!string.IsNullOrEmpty(verificarCombo))
-            {
-                consultaProductosRelacionados = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = '{verificarCombo}'";
-            }
+            //if (!string.IsNullOrEmpty(verificarCombo))
+            //{
+            //    consultaProductosRelacionados = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = '{verificarCombo}'";
+            //}
 
 
-            var consulta = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = {idProducto}";
+            //var consulta = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = {idProducto}";
             //var consulta = $"";
 
             //sql_con.Open();
             //sql_cmd = new MySqlCommand(consulta, sql_con
             //dr = sql_cmd.ExecuteReader();
 
-            var realizarConsulta = cn.CargarDatos(consulta);
+            //var realizarConsulta = cn.CargarDatos(consulta);
 
-            if (!string.IsNullOrWhiteSpace(consultaProductosRelacionados))
-            {
-                var consultaCombos = cn.CargarDatos(consultaProductosRelacionados);
-                //Unir Resultados de las consultas
-                realizarConsulta.Merge(consultaCombos);
-                consultaCombos.Dispose();
-                consultaCombos = null;
-            }
-            
+            //if (!string.IsNullOrWhiteSpace(consultaProductosRelacionados))
+            //{
+            //    var consultaCombos = cn.CargarDatos(consultaProductosRelacionados);
+            //    //Unir Resultados de las consultas
+            //    realizarConsulta.Merge(consultaCombos);
+            //    consultaCombos.Dispose();
+            //    consultaCombos = null;
+            //}
+
+            var realizarConsulta = cn.CargarDatos(cs.CargarHistorialDeVentas(fechaInicial, fechaFinal, idProducto));
 
             if (/*dr.HasRows*/!realizarConsulta.Rows.Count.Equals(0))
             {
@@ -131,10 +132,18 @@ namespace PuntoDeVentaV2
                 int altoLogo = 60;
 
                 var numRow = 0;
-
+                var rutaArchivo = string.Empty;
                 var fechaActual = DateTime.Now;
-                var rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\reporte_historial_venta_producto.pdf";
 
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\reporte_historial_venta_producto.pdf";
+                }
+                else
+                {
+                    rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\reporte_historial_venta_producto.pdf";
+                }
+                
                 Document reporte = new Document(PageSize.A3);
                 PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
 
@@ -146,7 +155,16 @@ namespace PuntoDeVentaV2
                 //Validación para verificar si existe logotipo
                 if (logotipo != "")
                 {
-                    logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+                    //logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        logotipo = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+                    }
+                    else
+                    {
+                        logotipo = $@"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+                    }
 
                     if (File.Exists(logotipo))
                     {
@@ -187,7 +205,7 @@ namespace PuntoDeVentaV2
                 Paragraph Empleado = new Paragraph($"Empleado: {datoEmpleado}", fuenteNormal);
                 Usuario = new Paragraph($"USUARIO: ADMIN({ nameAdmin })", fuenteNegrita);
 
-                subTitulo = new Paragraph("REPORTE HISTORIAL VENTA PRODUCTO\nSECCION DE PRODUCTOS\n\nFecha: " + fechaActual.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+                subTitulo = new Paragraph($"REPORTE HISTORIAL VENTA PRODUCTO\nRANGO DE FECHAS\nDEL: {fechaInicial} HASTA: {fechaFinal}\nSECCION DE PRODUCTOS\n\nFecha: {fechaActual.ToString("yyyy-MM-dd HH:mm:ss")}\n\n\n", fuenteNormal);
                 //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
                 titulo.Alignment = Element.ALIGN_CENTER;
@@ -200,9 +218,9 @@ namespace PuntoDeVentaV2
                 /***************************************
 		         ** Tabla con los productos ajustados **
 		         ***************************************/
-                float[] anchoColumnas = new float[] { 30f, 300f, 80f, 100f, 100f, 80f, 80f, 80f, 80f, 130f };
+                float[] anchoColumnas = new float[] { 30f, 300f, 80f, 100f, 100f, 80f, 80f, 80f, 80f, 130f, 100f };
 
-                PdfPTable tabla = new PdfPTable(10);
+                PdfPTable tabla = new PdfPTable(11);
                 tabla.WidthPercentage = 100;
                 tabla.SetWidths(anchoColumnas);
 
@@ -256,6 +274,11 @@ namespace PuntoDeVentaV2
                 colFechaOperacion.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                PdfPCell colVendido = new PdfPCell(new Phrase("Vendido", fuenteNegrita));
+                colVendido.BorderWidth = 1;
+                colVendido.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colVendido.HorizontalAlignment = Element.ALIGN_CENTER;
+
                 tabla.AddCell(colNumProducto);
                 tabla.AddCell(colProducto);
                 tabla.AddCell(colTipo);
@@ -266,7 +289,7 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colFolioSerie);
                 tabla.AddCell(colTotalVenta);
                 tabla.AddCell(colFechaOperacion);
-
+                tabla.AddCell(colVendido);
 
                 float totalCantidad = 0;
                 float totalPrecio = 0;
@@ -293,7 +316,7 @@ namespace PuntoDeVentaV2
                     var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
                     var idEmpleadoABuscar = Convert.ToInt32(dt["IDEmpleado"].ToString());
                     var idProductABuscar = Convert.ToInt32(dt["IDProducto"].ToString());
-
+                    var tipoDeVenta = dt["Vendido"].ToString();
 
                     var datosProducto = cn.BuscarProducto(Convert.ToInt32(idProductABuscar), FormPrincipal.userID);
                     var nombreProducto = datosProducto[1];
@@ -310,20 +333,60 @@ namespace PuntoDeVentaV2
                     }
 
                     var nameEmpleado = cs.consultarUsuarioEmpleado(idEmpleadoABuscar, emp);
-                    if (emp.Equals("admin")) { nameEmpleado = $"ADMIN ({nameEmpleado})"; }
+
+                    if (emp.Equals("admin"))
+                    {
+                        nameEmpleado = $"ADMIN ({nameEmpleado})";
+                    }
 
                     var codigosAsociados = string.Empty;
-                    if (tipoProducto.Equals("PQ")) { codigosAsociados = cs.ObtenerCodigosAsociados(idProducto); } else { codigosAsociados = "N/A"; }
 
-                    if (tipoProducto.Equals("PQ")) { tipoProducto = "Combo"; } else if (tipoProducto.Equals("P")) { tipoProducto = "Producto"; } else if (tipoProducto.Equals("S")) { tipoProducto = "Servicio"; }
+                    //if (tipoProducto.Equals("PQ"))
+                    //{
+                    //    codigosAsociados = cs.ObtenerCodigosAsociados(idProducto);
+                    //}
+                    //else
+                    //{
+                    //    codigosAsociados = "N/A";
+                    //}
 
-                    totalCantidad += float.Parse(cantidad);
-                    totalPrecio += precio;
-                    totalVenta += venta;
+                    //if (tipoProducto.Equals("PQ"))
+                    //{
+                    //    tipoProducto = "Combo";
+                    //}
+                    //else if (tipoProducto.Equals("P"))
+                    //{
+                    //    tipoProducto = "Producto";
+                    //}
+                    //else if (tipoProducto.Equals("S"))
+                    //{
+                    //    tipoProducto = "Servicio";
+                    //}
+
+                    if (tipoProducto.Equals("PQ"))
+                    {
+                        codigosAsociados = cs.ObtenerCodigosAsociados(idProducto);
+                        tipoProducto = "Combo";
+                    }
+                    else
+                    {
+                        codigosAsociados = "N/A";
+                        if (tipoProducto.Equals("P"))
+                        {
+                            tipoProducto = "Producto";
+                        }
+                        else if (tipoProducto.Equals("S"))
+                        {
+                            tipoProducto = "Servicio";
+                        }
+                    }
+
+                    //totalCantidad += float.Parse(cantidad);
+                    //totalPrecio += precio;
+                    //totalVenta += venta;
 
                     numRow++;
-
-
+                    
                     if (datosProducto[5].Equals("PQ"))
                     {
                         var buscarProducto = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}'");
@@ -331,9 +394,24 @@ namespace PuntoDeVentaV2
                         if (!buscarProducto.Rows.Count.Equals(0))
                         {
                             nombre = buscarProducto.Rows[0]["Nombre"].ToString();
-                            tipoProducto = buscarProducto.Rows[0]["Tipo"].ToString();
-                            codigosAsociados = string.Empty;
+                            if (buscarProducto.Rows[0]["Tipo"].ToString().Equals("P"))
+                            {
+                                tipoProducto = "Producto";
+                            }
+                            else if (buscarProducto.Rows[0]["Tipo"].ToString().Equals("PQ"))
+                            {
+                                tipoProducto = "Combo";
+                            }
+                            else if (buscarProducto.Rows[0]["Tipo"].ToString().Equals("S"))
+                            {
+                                tipoProducto = "Servicio";
+                            }
+                            //codigosAsociados = string.Empty;
                             precio = float.Parse(buscarProducto.Rows[0]["Precio"].ToString());
+                        }
+                        else
+                        {
+                            codigosAsociados = "N/A";
                         }
                     }
 
@@ -350,6 +428,11 @@ namespace PuntoDeVentaV2
                     colTipoTmp.BorderWidth = 1;
                     colTipoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                    if (string.IsNullOrWhiteSpace(codigosAsociados))
+                    {
+                        codigosAsociados = "N/A";
+                    }
+
                     PdfPCell colCodigosAsociadosTmp = new PdfPCell(new Phrase(codigosAsociados, fuenteNormal));
                     colCodigosAsociadosTmp.BorderWidth = 1;
                     colCodigosAsociadosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -360,10 +443,12 @@ namespace PuntoDeVentaV2
 
                     PdfPCell colCantidadTmp = new PdfPCell(new Phrase(cantidad, fuenteNormal));
                     colCantidadTmp.BorderWidth = 1;
+                    totalCantidad += float.Parse(cantidad);
                     colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + precio.ToString("N2"), fuenteNormal));
                     colPrecioTmp.BorderWidth = 1;
+                    totalPrecio += precio;
                     colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     PdfPCell colFolioSerieTmp = new PdfPCell(new Phrase(folioSerie, fuenteNormal));
@@ -372,11 +457,16 @@ namespace PuntoDeVentaV2
 
                     PdfPCell colTotalVentaTmp = new PdfPCell(new Phrase("$" + venta.ToString("N2"), fuenteNormal));
                     colTotalVentaTmp.BorderWidth = 1;
+                    totalVenta += venta;
                     colTotalVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
                     colFechaOperacionTmp.BorderWidth = 1;
                     colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colTipoDeVentaTmp = new PdfPCell(new Phrase(tipoDeVenta, fuenteNormal));
+                    colTipoDeVentaTmp.BorderWidth = 1;
+                    colTipoDeVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                     tabla.AddCell(colNumProductoTmp);
                     tabla.AddCell(colProductoTmp);
@@ -388,59 +478,82 @@ namespace PuntoDeVentaV2
                     tabla.AddCell(colFolioSerieTmp);
                     tabla.AddCell(colTotalVentaTmp);
                     tabla.AddCell(colFechaOperacionTmp);
-                    //}
+                    tabla.AddCell(colTipoDeVentaTmp);
                 }
 
-                PdfPCell colAuxNumProd = new PdfPCell();
-                colAuxNumProd.BorderWidth = 0;
-                colAuxNumProd.Padding = 3;
+                if (totalCantidad > 0 || totalPrecio > 0 || totalVenta > 0)
+                {
+                    PdfPCell colAuxNumProd = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxNumProd.BorderWidth = 0;
+                    colAuxNumProd.Padding = 3;
+                    
+                    PdfPCell colAuxProd = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxProd.BorderWidth = 0;
+                    colAuxProd.Padding = 3;
 
-                PdfPCell colAuxProd = new PdfPCell();
-                colAuxProd.BorderWidth = 0;
-                colAuxProd.Padding = 3;
+                    PdfPCell colAuxTipo = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxTipo.BorderWidth = 0;
+                    colAuxTipo.Padding = 3;
 
-                PdfPCell colTotalCantidad = new PdfPCell(new Phrase(totalCantidad.ToString(), fuenteTotales));
-                colTotalCantidad.BorderWidthLeft = 0;
-                colTotalCantidad.BorderWidthTop = 0;
-                colTotalCantidad.BorderWidthRight = 0;
-                colTotalCantidad.BorderWidthBottom = 1;
-                colTotalCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
-                colTotalCantidad.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colTotalCantidad.Padding = 3;
+                    PdfPCell colAuxcodigoAsociado = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxcodigoAsociado.BorderWidth = 0;
+                    colAuxcodigoAsociado.Padding = 3;
 
-                PdfPCell colTotalPrecio = new PdfPCell(new Phrase("$" + totalPrecio.ToString("N2"), fuenteTotales));
-                colTotalPrecio.BorderWidthLeft = 0;
-                colTotalPrecio.BorderWidthTop = 0;
-                colTotalPrecio.BorderWidthRight = 0;
-                colTotalPrecio.BorderWidthBottom = 1;
-                colTotalPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
-                colTotalPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colTotalPrecio.Padding = 3;
+                    PdfPCell colAuxEmpleado = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxEmpleado.BorderWidth = 0;
+                    colAuxEmpleado.Padding = 3;
 
-                PdfPCell colAuxFolioSerie = new PdfPCell();
-                colAuxFolioSerie.BorderWidth = 0;
-                colAuxFolioSerie.Padding = 3;
-
-                PdfPCell colAuxTotalVenta = new PdfPCell(new Phrase("$" + totalVenta.ToString("N2"), fuenteTotales));
-                colAuxTotalVenta.BorderWidthLeft = 0;
-                colAuxTotalVenta.BorderWidthTop = 0;
-                colAuxTotalVenta.BorderWidthRight = 0;
-                colAuxTotalVenta.BorderWidthBottom = 1;
-                colAuxTotalVenta.HorizontalAlignment = Element.ALIGN_CENTER;
-                colAuxTotalVenta.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colAuxTotalVenta.Padding = 3;
-
-                PdfPCell colAuxFechaOperacion = new PdfPCell();
-                colAuxFechaOperacion.BorderWidth = 0;
-                colAuxFechaOperacion.Padding = 3;
-
-                tabla.AddCell(colAuxNumProd);
-                tabla.AddCell(colAuxProd);
-                tabla.AddCell(colTotalCantidad);
-                tabla.AddCell(colTotalPrecio);
-                tabla.AddCell(colAuxFolioSerie);
-                tabla.AddCell(colAuxTotalVenta);
-                tabla.AddCell(colAuxFechaOperacion);
+                    PdfPCell colTotalCantidad = new PdfPCell(new Phrase(totalCantidad.ToString("N2"), fuenteTotales));
+                    colTotalCantidad.BorderWidthLeft = 0;
+                    colTotalCantidad.BorderWidthTop = 0;
+                    colTotalCantidad.BorderWidthRight = 0;
+                    colTotalCantidad.BorderWidthBottom = 1;
+                    colTotalCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colTotalCantidad.BackgroundColor = new BaseColor(Color.SkyBlue);
+                    colTotalCantidad.Padding = 3;
+                    
+                    PdfPCell colTotalPrecio = new PdfPCell(new Phrase("$" + totalPrecio.ToString("N2"), fuenteTotales));
+                    colTotalPrecio.BorderWidthLeft = 0;
+                    colTotalPrecio.BorderWidthTop = 0;
+                    colTotalPrecio.BorderWidthRight = 0;
+                    colTotalPrecio.BorderWidthBottom = 1;
+                    colTotalPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colTotalPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
+                    colTotalPrecio.Padding = 3;
+                    
+                    PdfPCell colAuxFolioSerie = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxFolioSerie.BorderWidth = 0;
+                    colAuxFolioSerie.Padding = 3;
+                    
+                    PdfPCell colAuxTotalVenta = new PdfPCell(new Phrase("$" + totalVenta.ToString("N2"), fuenteTotales));
+                    colAuxTotalVenta.BorderWidthLeft = 0;
+                    colAuxTotalVenta.BorderWidthTop = 0;
+                    colAuxTotalVenta.BorderWidthRight = 0;
+                    colAuxTotalVenta.BorderWidthBottom = 1;
+                    colAuxTotalVenta.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colAuxTotalVenta.BackgroundColor = new BaseColor(Color.SkyBlue);
+                    colAuxTotalVenta.Padding = 3;
+                    
+                    PdfPCell colAuxFechaOperacion = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxFechaOperacion.BorderWidth = 0;
+                    colAuxFechaOperacion.Padding = 3;
+                    
+                    PdfPCell colAuxTipoVenta = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxTipoVenta.BorderWidth = 0;
+                    colAuxTipoVenta.Padding = 3;
+                    
+                    tabla.AddCell(colAuxNumProd);
+                    tabla.AddCell(colAuxProd);
+                    tabla.AddCell(colAuxTipo);
+                    tabla.AddCell(colAuxcodigoAsociado);
+                    tabla.AddCell(colAuxEmpleado);
+                    tabla.AddCell(colTotalCantidad);
+                    tabla.AddCell(colTotalPrecio);
+                    tabla.AddCell(colAuxFolioSerie);
+                    tabla.AddCell(colAuxTotalVenta);
+                    tabla.AddCell(colAuxFechaOperacion);
+                    tabla.AddCell(colAuxTipoVenta);
+                }
 
                 /******************************************
                  ** Fin de la tabla                      **
@@ -448,9 +561,11 @@ namespace PuntoDeVentaV2
 
                 reporte.Add(titulo);
                 reporte.Add(Usuario);
-                if (FormPrincipal.userNickName.Contains('@')) { reporte.Add(Empleado); }
+                if (FormPrincipal.userNickName.Contains('@'))
+                {
+                    reporte.Add(Empleado);
+                }
                 reporte.Add(subTitulo);
-                //reporte.Add(domicilio);
                 reporte.Add(tabla);
 
                 reporte.AddTitle("Reporte Historial Ventas Producto");
