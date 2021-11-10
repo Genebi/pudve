@@ -479,64 +479,81 @@ namespace PuntoDeVentaV2
                     tabla.AddCell(colTotalVentaTmp);
                     tabla.AddCell(colFechaOperacionTmp);
                     tabla.AddCell(colTipoDeVentaTmp);
-                    //}
                 }
 
-                PdfPCell colAuxNumProd = new PdfPCell();
-                colAuxNumProd.BorderWidth = 0;
-                colAuxNumProd.Padding = 3;
+                if (totalCantidad > 0 || totalPrecio > 0 || totalVenta > 0)
+                {
+                    PdfPCell colAuxNumProd = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxNumProd.BorderWidth = 0;
+                    colAuxNumProd.Padding = 3;
+                    
+                    PdfPCell colAuxProd = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxProd.BorderWidth = 0;
+                    colAuxProd.Padding = 3;
 
-                PdfPCell colAuxProd = new PdfPCell();
-                colAuxProd.BorderWidth = 0;
-                colAuxProd.Padding = 3;
+                    PdfPCell colAuxTipo = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxTipo.BorderWidth = 0;
+                    colAuxTipo.Padding = 3;
 
-                PdfPCell colTotalCantidad = new PdfPCell(new Phrase(totalCantidad.ToString(), fuenteTotales));
-                colTotalCantidad.BorderWidthLeft = 0;
-                colTotalCantidad.BorderWidthTop = 0;
-                colTotalCantidad.BorderWidthRight = 0;
-                colTotalCantidad.BorderWidthBottom = 1;
-                colTotalCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
-                colTotalCantidad.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colTotalCantidad.Padding = 3;
+                    PdfPCell colAuxcodigoAsociado = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxcodigoAsociado.BorderWidth = 0;
+                    colAuxcodigoAsociado.Padding = 3;
 
-                PdfPCell colTotalPrecio = new PdfPCell(new Phrase("$" + totalPrecio.ToString("N2"), fuenteTotales));
-                colTotalPrecio.BorderWidthLeft = 0;
-                colTotalPrecio.BorderWidthTop = 0;
-                colTotalPrecio.BorderWidthRight = 0;
-                colTotalPrecio.BorderWidthBottom = 1;
-                colTotalPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
-                colTotalPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colTotalPrecio.Padding = 3;
+                    PdfPCell colAuxEmpleado = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxEmpleado.BorderWidth = 0;
+                    colAuxEmpleado.Padding = 3;
 
-                PdfPCell colAuxFolioSerie = new PdfPCell();
-                colAuxFolioSerie.BorderWidth = 0;
-                colAuxFolioSerie.Padding = 3;
-
-                PdfPCell colAuxTotalVenta = new PdfPCell(new Phrase("$" + totalVenta.ToString("N2"), fuenteTotales));
-                colAuxTotalVenta.BorderWidthLeft = 0;
-                colAuxTotalVenta.BorderWidthTop = 0;
-                colAuxTotalVenta.BorderWidthRight = 0;
-                colAuxTotalVenta.BorderWidthBottom = 1;
-                colAuxTotalVenta.HorizontalAlignment = Element.ALIGN_CENTER;
-                colAuxTotalVenta.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colAuxTotalVenta.Padding = 3;
-
-                PdfPCell colAuxFechaOperacion = new PdfPCell();
-                colAuxFechaOperacion.BorderWidth = 0;
-                colAuxFechaOperacion.Padding = 3;
-
-                PdfPCell colAuxTipoVenta = new PdfPCell();
-                colAuxTipoVenta.BorderWidth = 0;
-                colAuxTipoVenta.Padding = 3;
-
-                tabla.AddCell(colAuxNumProd);
-                tabla.AddCell(colAuxProd);
-                tabla.AddCell(colTotalCantidad);
-                tabla.AddCell(colTotalPrecio);
-                tabla.AddCell(colAuxFolioSerie);
-                tabla.AddCell(colAuxTotalVenta);
-                tabla.AddCell(colAuxFechaOperacion);
-                tabla.AddCell(colAuxTipoVenta);
+                    PdfPCell colTotalCantidad = new PdfPCell(new Phrase(totalCantidad.ToString("N2"), fuenteTotales));
+                    colTotalCantidad.BorderWidthLeft = 0;
+                    colTotalCantidad.BorderWidthTop = 0;
+                    colTotalCantidad.BorderWidthRight = 0;
+                    colTotalCantidad.BorderWidthBottom = 1;
+                    colTotalCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colTotalCantidad.BackgroundColor = new BaseColor(Color.SkyBlue);
+                    colTotalCantidad.Padding = 3;
+                    
+                    PdfPCell colTotalPrecio = new PdfPCell(new Phrase("$" + totalPrecio.ToString("N2"), fuenteTotales));
+                    colTotalPrecio.BorderWidthLeft = 0;
+                    colTotalPrecio.BorderWidthTop = 0;
+                    colTotalPrecio.BorderWidthRight = 0;
+                    colTotalPrecio.BorderWidthBottom = 1;
+                    colTotalPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colTotalPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
+                    colTotalPrecio.Padding = 3;
+                    
+                    PdfPCell colAuxFolioSerie = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxFolioSerie.BorderWidth = 0;
+                    colAuxFolioSerie.Padding = 3;
+                    
+                    PdfPCell colAuxTotalVenta = new PdfPCell(new Phrase("$" + totalVenta.ToString("N2"), fuenteTotales));
+                    colAuxTotalVenta.BorderWidthLeft = 0;
+                    colAuxTotalVenta.BorderWidthTop = 0;
+                    colAuxTotalVenta.BorderWidthRight = 0;
+                    colAuxTotalVenta.BorderWidthBottom = 1;
+                    colAuxTotalVenta.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colAuxTotalVenta.BackgroundColor = new BaseColor(Color.SkyBlue);
+                    colAuxTotalVenta.Padding = 3;
+                    
+                    PdfPCell colAuxFechaOperacion = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxFechaOperacion.BorderWidth = 0;
+                    colAuxFechaOperacion.Padding = 3;
+                    
+                    PdfPCell colAuxTipoVenta = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                    colAuxTipoVenta.BorderWidth = 0;
+                    colAuxTipoVenta.Padding = 3;
+                    
+                    tabla.AddCell(colAuxNumProd);
+                    tabla.AddCell(colAuxProd);
+                    tabla.AddCell(colAuxTipo);
+                    tabla.AddCell(colAuxcodigoAsociado);
+                    tabla.AddCell(colAuxEmpleado);
+                    tabla.AddCell(colTotalCantidad);
+                    tabla.AddCell(colTotalPrecio);
+                    tabla.AddCell(colAuxFolioSerie);
+                    tabla.AddCell(colAuxTotalVenta);
+                    tabla.AddCell(colAuxFechaOperacion);
+                    tabla.AddCell(colAuxTipoVenta);
+                }
 
                 /******************************************
                  ** Fin de la tabla                      **
@@ -544,9 +561,11 @@ namespace PuntoDeVentaV2
 
                 reporte.Add(titulo);
                 reporte.Add(Usuario);
-                if (FormPrincipal.userNickName.Contains('@')) { reporte.Add(Empleado); }
+                if (FormPrincipal.userNickName.Contains('@'))
+                {
+                    reporte.Add(Empleado);
+                }
                 reporte.Add(subTitulo);
-                //reporte.Add(domicilio);
                 reporte.Add(tabla);
 
                 reporte.AddTitle("Reporte Historial Ventas Producto");
