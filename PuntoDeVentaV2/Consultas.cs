@@ -2792,5 +2792,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string CargarHistorialDeVentas(string fechaInicial, string fechaFinal, int idProducto)
+        {
+            var consulta = $"SELECT * FROM ( SELECT Vent.Folio, Vent.Serie, Vent.Total, Vent.FechaOperacion, ProdVent.IDVenta, ProdVent.Nombre, ProdVent.Cantidad, ProdVent.Precio, IF ( Prod.Tipo = 'P', 'Individual', 'Combo / Servicio' ) AS Vendido, Vent.IDEmpleado, ProdVent.IDProducto FROM productos AS Prod INNER JOIN productosventa AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) INNER JOIN ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE Prod.ID = '{idProducto}' AND Prod.IDUsuario = '{FormPrincipal.userID}' AND DATE( Vent.FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' UNION SELECT Vent.Folio, Vent.Serie, Vent.Total, Vent.FechaOperacion, ProdVent.IDVenta, ProdServ.NombreProducto, ProdVent.Cantidad, ProdVent.Precio, IF ( Prod.Tipo = 'P', 'Individual', 'Combo / Servicio' ) AS Vendido, Vent.IDEmpleado, ProdVent.IDProducto FROM productosdeservicios AS ProdServ INNER JOIN productos AS Prod ON ( Prod.ID = ProdServ.IDServicio ) INNER JOIN productosventa AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) INNER JOIN ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE ProdServ.IDProducto = '{idProducto}' AND Prod.IDUsuario = '{FormPrincipal.userID}' AND DATE( Vent.FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ) AS resultado ORDER BY resultado.Folio,resultado.Serie ASC ";
+
+            return consulta;
+        }
     }
 }  

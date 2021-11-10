@@ -85,34 +85,35 @@ namespace PuntoDeVentaV2
             }
 
             //Validar si es combo
-            var verificarCombo = verificarSiTieneRelacionCombo(idProducto);
+            //var verificarCombo = verificarSiTieneRelacionCombo(idProducto);
 
-            var consultaProductosRelacionados = string.Empty;
+            //var consultaProductosRelacionados = string.Empty;
 
-            if (!string.IsNullOrEmpty(verificarCombo))
-            {
-                consultaProductosRelacionados = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = '{verificarCombo}'";
-            }
+            //if (!string.IsNullOrEmpty(verificarCombo))
+            //{
+            //    consultaProductosRelacionados = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = '{verificarCombo}'";
+            //}
 
 
-            var consulta = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = {idProducto}";
+            //var consulta = $@"SELECT V.Folio, V.Serie, V.Total, V.FechaOperacion, P.IDVenta, P.Nombre, P.Cantidad, P.Precio, V.IDEmpleado, P.IDProducto FROM Ventas V INNER JOIN ProductosVenta P ON V.ID = P.IDVenta WHERE V.IDUsuario = {FormPrincipal.userID} AND V.Status = 1 AND DATE(V.FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND P.IDProducto = {idProducto}";
             //var consulta = $"";
 
             //sql_con.Open();
             //sql_cmd = new MySqlCommand(consulta, sql_con
             //dr = sql_cmd.ExecuteReader();
 
-            var realizarConsulta = cn.CargarDatos(consulta);
+            //var realizarConsulta = cn.CargarDatos(consulta);
 
-            if (!string.IsNullOrWhiteSpace(consultaProductosRelacionados))
-            {
-                var consultaCombos = cn.CargarDatos(consultaProductosRelacionados);
-                //Unir Resultados de las consultas
-                realizarConsulta.Merge(consultaCombos);
-                consultaCombos.Dispose();
-                consultaCombos = null;
-            }
-            
+            //if (!string.IsNullOrWhiteSpace(consultaProductosRelacionados))
+            //{
+            //    var consultaCombos = cn.CargarDatos(consultaProductosRelacionados);
+            //    //Unir Resultados de las consultas
+            //    realizarConsulta.Merge(consultaCombos);
+            //    consultaCombos.Dispose();
+            //    consultaCombos = null;
+            //}
+
+            var realizarConsulta = cn.CargarDatos(cs.CargarHistorialDeVentas(fechaInicial, fechaFinal, idProducto));
 
             if (/*dr.HasRows*/!realizarConsulta.Rows.Count.Equals(0))
             {
@@ -131,10 +132,18 @@ namespace PuntoDeVentaV2
                 int altoLogo = 60;
 
                 var numRow = 0;
-
+                var rutaArchivo = string.Empty;
                 var fechaActual = DateTime.Now;
-                var rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\reporte_historial_venta_producto.pdf";
 
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\reporte_historial_venta_producto.pdf";
+                }
+                else
+                {
+                    rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\reporte_historial_venta_producto.pdf";
+                }
+                
                 Document reporte = new Document(PageSize.A3);
                 PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
 
@@ -146,7 +155,16 @@ namespace PuntoDeVentaV2
                 //Validación para verificar si existe logotipo
                 if (logotipo != "")
                 {
-                    logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+                    //logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        logotipo = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+                    }
+                    else
+                    {
+                        logotipo = $@"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
+                    }
 
                     if (File.Exists(logotipo))
                     {
@@ -371,7 +389,18 @@ namespace PuntoDeVentaV2
                         if (!buscarProducto.Rows.Count.Equals(0))
                         {
                             nombre = buscarProducto.Rows[0]["Nombre"].ToString();
-                            tipoProducto = buscarProducto.Rows[0]["Tipo"].ToString();
+                            if (buscarProducto.Rows[0]["Tipo"].ToString().Equals("P"))
+                            {
+                                tipoProducto = "Producto";
+                            }
+                            else if (buscarProducto.Rows[0]["Tipo"].ToString().Equals("PQ"))
+                            {
+                                tipoProducto = "Combo";
+                            }
+                            else if (buscarProducto.Rows[0]["Tipo"].ToString().Equals("S"))
+                            {
+                                tipoProducto = "Servicio";
+                            }
                             codigosAsociados = string.Empty;
                             precio = float.Parse(buscarProducto.Rows[0]["Precio"].ToString());
                         }
