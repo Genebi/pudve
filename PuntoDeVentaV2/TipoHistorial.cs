@@ -310,20 +310,60 @@ namespace PuntoDeVentaV2
                     }
 
                     var nameEmpleado = cs.consultarUsuarioEmpleado(idEmpleadoABuscar, emp);
-                    if (emp.Equals("admin")) { nameEmpleado = $"ADMIN ({nameEmpleado})"; }
+
+                    if (emp.Equals("admin"))
+                    {
+                        nameEmpleado = $"ADMIN ({nameEmpleado})";
+                    }
 
                     var codigosAsociados = string.Empty;
-                    if (tipoProducto.Equals("PQ")) { codigosAsociados = cs.ObtenerCodigosAsociados(idProducto); } else { codigosAsociados = "N/A"; }
 
-                    if (tipoProducto.Equals("PQ")) { tipoProducto = "Combo"; } else if (tipoProducto.Equals("P")) { tipoProducto = "Producto"; } else if (tipoProducto.Equals("S")) { tipoProducto = "Servicio"; }
+                    //if (tipoProducto.Equals("PQ"))
+                    //{
+                    //    codigosAsociados = cs.ObtenerCodigosAsociados(idProducto);
+                    //}
+                    //else
+                    //{
+                    //    codigosAsociados = "N/A";
+                    //}
+
+                    //if (tipoProducto.Equals("PQ"))
+                    //{
+                    //    tipoProducto = "Combo";
+                    //}
+                    //else if (tipoProducto.Equals("P"))
+                    //{
+                    //    tipoProducto = "Producto";
+                    //}
+                    //else if (tipoProducto.Equals("S"))
+                    //{
+                    //    tipoProducto = "Servicio";
+                    //}
+
+                    if (tipoProducto.Equals("PQ"))
+                    {
+                        codigosAsociados = cs.ObtenerCodigosAsociados(idProducto);
+                        tipoProducto = "Combo";
+                    }
+                    else
+                    {
+                        codigosAsociados = "N/A";
+                        if (tipoProducto.Equals("P"))
+                        {
+                            tipoProducto = "Producto";
+                        }
+                        else if (tipoProducto.Equals("S"))
+                        {
+                            tipoProducto = "Servicio";
+                        }
+                    }
 
                     totalCantidad += float.Parse(cantidad);
                     totalPrecio += precio;
                     totalVenta += venta;
 
                     numRow++;
-
-
+                    
                     if (datosProducto[5].Equals("PQ"))
                     {
                         var buscarProducto = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}'");
