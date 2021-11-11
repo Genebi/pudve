@@ -555,6 +555,11 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        internal void EjecutarConsulta(object actualizarCompraMinimaMultiple)
+        {
+            throw new NotImplementedException();
+        }
+
         public string[] ObtenerProveedor(int idProveedor, int IDUsuario)
         {
             List<string> lista = new List<string>();
