@@ -24,6 +24,7 @@ namespace PuntoDeVentaV2
         private void EditarMensajesParaEnviar_Load(object sender, EventArgs e)
         {
             cargarForm(AgregarEditarProducto.nombreProductoEditar.ToString());
+            cargarEstadoCheckboxMensaje();
         }
 
         private void cargarForm(string _lbNombreProducto)
@@ -76,7 +77,7 @@ namespace PuntoDeVentaV2
                 lbNombreProducto.Location = new Point(7, 6);
 
                 Label lbCantidadCompra = new Label();
-                lbCantidadCompra.Text = "Cantidad Minima En La Venta Para Mostrar Mensaje:";
+                lbCantidadCompra.Text = "Cantidad minima en la venta para mostrar mensaje:";
                 lbCantidadCompra.AutoSize = true;
                 lbCantidadCompra.Location = new Point(7, 36);
 
@@ -110,6 +111,12 @@ namespace PuntoDeVentaV2
                 lbMensajeActual.AutoSize = true;
                 lbMensajeActual.Location = new Point(7, 6);
 
+                CheckBox chkMostrarMensaje = new CheckBox();
+                chkMostrarMensaje.Text = "Mostrar Mensaje";
+                chkMostrarMensaje.Name = "chkMostrarMensajeVenta";
+                chkMostrarMensaje.Location = new Point(190, 3);
+                chkMostrarMensaje.CheckedChanged += new EventHandler(cbxN_CheckedChanged);
+
                 TextBox txtNuevoMensaje = new TextBox();
                 txtNuevoMensaje.Name = "txtMensaje";
                 txtNuevoMensaje.Text = mensaje;
@@ -120,6 +127,7 @@ namespace PuntoDeVentaV2
 
                 panelMensaje.Controls.Add(lbMensajeActual);
                 panelMensaje.Controls.Add(txtNuevoMensaje);
+                panelMensaje.Controls.Add(chkMostrarMensaje);
                 flpMensaje.Controls.Add(panelMensaje);
 
                 //Panel para botones------------------------------------------------------------------
@@ -265,9 +273,57 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void cbxN_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            if (checkbox.Name.Equals("chkMostrarMensajeVenta"))
+            {
+                if (checkbox.Checked.Equals(true))
+                {
+                    cn.EjecutarConsulta(cs.cambiarEstadoMensaje(Productos.codProductoEditarVenta,1));
+                }
+                else
+                {
+                    cn.EjecutarConsulta(cs.cambiarEstadoMensaje(Productos.codProductoEditarVenta, 0));
+                }
+            }
+        }
+
         private void botonCancelar_click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cargarEstadoCheckboxMensaje()
+        {
+            using (DataTable dtPermiso = cn.CargarDatos(cs.verificarEstadoCheckbox(Productos.codProductoEditarVenta)))
+            {
+                if (!dtPermiso.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow dtDataRow in dtPermiso.Rows)
+                    {
+                        foreach (Control item in this.Controls)
+                        {
+                            if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
+                            {
+                                foreach (Control itemMensaje in item.Controls)
+                                {
+                                    if (itemMensaje is Panel && itemMensaje.Name.Equals("panelMensaje"))
+                                    {
+                                        foreach (CheckBox chkMostrarMensaje in itemMensaje.Controls.OfType<CheckBox>())
+                                        {
+                                            if (chkMostrarMensaje is CheckBox && chkMostrarMensaje.Name.Equals("chkMostrarMensajeVenta"))
+                                            {
+                                                chkMostrarMensaje.Checked = (Boolean)dtDataRow["ProductMessageActivated"];
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void botonConfirmar_click(object sender, EventArgs e)

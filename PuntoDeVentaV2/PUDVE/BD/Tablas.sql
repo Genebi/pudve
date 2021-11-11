@@ -1622,3 +1622,5 @@ IF
 ALTER TABLE RevisarInventarioReportes ADD COLUMN IF NOT EXISTS TipoRevision VARCHAR(100) DEFAULT NULL;
 
 	ALTER TABLE productmessage ADD COLUMN IF NOT EXISTS CantidadMinimaDeCompra INT DEFAULT (null);
+
+	ALTER TABLE productmessage MODIFY COLUMN CantidadMinimaDeCompra int(11) DEFAULT 0;

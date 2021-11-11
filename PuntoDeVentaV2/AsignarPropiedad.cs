@@ -23,7 +23,7 @@ namespace PuntoDeVentaV2
         Dictionary<int, string> productos;
         Dictionary<string, string> clavesUnidades;
         Dictionary<int, float> datosHistPrecio;
-
+         
         public static Dictionary<int, string> modificarPrecio = new Dictionary<int, string>();
         //public static Dictionary<int, string> disminuirPrecio = new Dictionary<int, string>();
 
@@ -65,7 +65,20 @@ namespace PuntoDeVentaV2
                 tbMensaje.ScrollBars = ScrollBars.Vertical;
                 tbMensaje.Location = new Point(65, 70);
 
+                Label lbCantidadCompra = new Label();
+                lbCantidadCompra.Text = "Cantidad minima en la venta para mostrar mensaje:";
+                lbCantidadCompra.AutoSize = true;
+                lbCantidadCompra.Location = new Point(7, 38);
+                
+                TextBox txtCantidadCompra = new TextBox();
+                txtCantidadCompra.Name = "txtCantidadCompra";
+                txtCantidadCompra.Width = 35;
+                txtCantidadCompra.Height = 20;
+                txtCantidadCompra.Location = new Point(260, 35);
+
                 panelContenedor.Controls.Add(tbMensaje);
+                panelContenedor.Controls.Add(lbCantidadCompra);
+                panelContenedor.Controls.Add(txtCantidadCompra);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
             }
@@ -429,6 +442,8 @@ namespace PuntoDeVentaV2
                 var consulta = "INSERT IGNORE INTO ProductMessage (ID, IDProducto, ProductOfMessage) VALUES";
                 var valores = string.Empty;
 
+
+
                 if (string.IsNullOrWhiteSpace(mensaje))
                 {
                     MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -439,6 +454,10 @@ namespace PuntoDeVentaV2
                 {
                     // Comprobar si existe ya un mensaje para este producto
                     var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM ProductMessage WHERE IDProducto = {producto.Key}", 1));
+
+                    TextBox txtCantidadMinima = (TextBox)this.Controls.Find("txtCantidadCompra", true)[0];
+                    var cantMinima = txtCantidadMinima.Text;
+                    cn.EjecutarConsulta(cs.actualizarCompraMinimaMultiple(id,Convert.ToInt32(cantMinima)));
 
                     if (id > 0)
                     {
