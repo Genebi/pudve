@@ -2868,5 +2868,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string DatosVentaParaLaNota(int idVenta)
+        {
+            var consulta = $"SELECT Vent.ID, Vent.Folio, Vent.Serie, Usr.Usuario FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) WHERE Vent.ID = '{idVenta}'";
+
+            return consulta;
+        }
     }
 }  
