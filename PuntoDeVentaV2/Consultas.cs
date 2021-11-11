@@ -2869,6 +2869,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
         public string cambiarEstadoMensaje(int idProducto, int status)
         {
             var consulta = $"UPDATE productmessage SET ProductMessageActivated = '{status}' WHERE IDProducto = '{idProducto}'";
@@ -2886,6 +2887,13 @@ namespace PuntoDeVentaV2
         public string actualizarCompraMinimaMultiple(int idProducto, int cantidad)
         {
             var consulta = $"UPDATE productmessage SET CantidadMinimaDeCompra = '{cantidad}' WHERE IDProducto = '{idProducto}'";
+
+            return consulta;
+        }
+
+        public string DatosVentaParaLaNota(int idVenta)
+        {
+            var consulta = $"SELECT Vent.ID, Vent.Folio, Vent.Serie, Usr.Usuario FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) WHERE Vent.ID = '{idVenta}'";
 
             return consulta;
         }
