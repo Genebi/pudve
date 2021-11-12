@@ -513,7 +513,8 @@ namespace PuntoDeVentaV2
                     Button bt = new Button();
                     bt.Name = "bt" + chkDetalleProductoTxt.Replace("_", " ");
                     bt.Cursor = Cursors.Hand;
-                    bt.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+                    //bt.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+                    bt.Image = global::PuntoDeVentaV2.Properties.Resources.edit;
                     bt.Height = 23;
                     bt.Width = 23;
                     bt.BackColor = ColorTranslator.FromHtml("#5DADE2");
@@ -522,7 +523,7 @@ namespace PuntoDeVentaV2
                     bt.Anchor = AnchorStyles.Top;
                     bt.Click += new EventHandler(bt_Click);
                     bt.Location = new Point(162, 0);
-                    this.toolTip1.SetToolTip(bt, "Agregar especificaciones");
+                    this.toolTip1.SetToolTip(bt, "Agregar o editar especificaciones");
                     panelContenedor.Controls.Add(bt);
                     panelHijo.Controls.Add(panelContenedor);
 

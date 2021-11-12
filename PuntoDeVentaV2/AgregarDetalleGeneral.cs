@@ -60,6 +60,16 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnAgregarDetalle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnQuitarDetalle_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void cargarDatos()
         {
             IdUsr = getIdUsr;

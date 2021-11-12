@@ -437,6 +437,16 @@ namespace PuntoDeVentaV2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap anadir {
+            get {
+                object obj = ResourceManager.GetObject("anadir", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap anchor {
             get {
                 object obj = ResourceManager.GetObject("anchor", resourceCulture);
@@ -3643,6 +3653,16 @@ namespace PuntoDeVentaV2.Properties {
         internal static System.Drawing.Bitmap clipboard1 {
             get {
                 object obj = ResourceManager.GetObject("clipboard1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap clipboard2 {
+            get {
+                object obj = ResourceManager.GetObject("clipboard2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -10436,6 +10456,16 @@ namespace PuntoDeVentaV2.Properties {
         internal static string notariospublicos {
             get {
                 return ResourceManager.GetString("notariospublicos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap notebook {
+            get {
+                object obj = ResourceManager.GetObject("notebook", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

@@ -32,13 +32,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnQuitarDetalle = new PuntoDeVentaV2.BotonRedondo();
+            this.btnAgregarDetalle = new PuntoDeVentaV2.BotonRedondo();
             this.SuspendLayout();
             // 
             // txtNombre
             // 
             this.txtNombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNombre.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(45, 88);
+            this.txtNombre.Location = new System.Drawing.Point(27, 177);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(294, 22);
             this.txtNombre.TabIndex = 64;
@@ -48,9 +50,9 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 36);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(360, 21);
+            this.label1.Size = new System.Drawing.Size(400, 48);
             this.label1.TabIndex = 65;
             this.label1.Text = "Nombre de: ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -64,7 +66,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(209, 146);
+            this.btnAceptar.Location = new System.Drawing.Point(191, 213);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(130, 28);
             this.btnAceptar.TabIndex = 62;
@@ -81,7 +83,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(45, 146);
+            this.btnCancelar.Location = new System.Drawing.Point(27, 213);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(130, 28);
             this.btnCancelar.TabIndex = 63;
@@ -89,15 +91,67 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // btnQuitarDetalle
+            // 
+            this.btnQuitarDetalle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnQuitarDetalle.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnQuitarDetalle.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnQuitarDetalle.BorderRadius = 20;
+            this.btnQuitarDetalle.BorderSize = 0;
+            this.btnQuitarDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnQuitarDetalle.FlatAppearance.BorderSize = 0;
+            this.btnQuitarDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQuitarDetalle.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold);
+            this.btnQuitarDetalle.ForeColor = System.Drawing.Color.White;
+            this.btnQuitarDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.notebook;
+            this.btnQuitarDetalle.Location = new System.Drawing.Point(243, 68);
+            this.btnQuitarDetalle.Name = "btnQuitarDetalle";
+            this.btnQuitarDetalle.Size = new System.Drawing.Size(150, 85);
+            this.btnQuitarDetalle.TabIndex = 67;
+            this.btnQuitarDetalle.Text = "Quitar especificación";
+            this.btnQuitarDetalle.TextColor = System.Drawing.Color.White;
+            this.btnQuitarDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnQuitarDetalle.UseVisualStyleBackColor = false;
+            this.btnQuitarDetalle.Click += new System.EventHandler(this.btnQuitarDetalle_Click);
+            // 
+            // btnAgregarDetalle
+            // 
+            this.btnAgregarDetalle.BackColor = System.Drawing.Color.Green;
+            this.btnAgregarDetalle.BackGroundColor = System.Drawing.Color.Green;
+            this.btnAgregarDetalle.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnAgregarDetalle.BorderRadius = 20;
+            this.btnAgregarDetalle.BorderSize = 0;
+            this.btnAgregarDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarDetalle.FlatAppearance.BorderSize = 0;
+            this.btnAgregarDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarDetalle.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarDetalle.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.anadir;
+            this.btnAgregarDetalle.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAgregarDetalle.Location = new System.Drawing.Point(27, 68);
+            this.btnAgregarDetalle.Name = "btnAgregarDetalle";
+            this.btnAgregarDetalle.Size = new System.Drawing.Size(154, 85);
+            this.btnAgregarDetalle.TabIndex = 66;
+            this.btnAgregarDetalle.Text = "Agregar especificación";
+            this.btnAgregarDetalle.TextColor = System.Drawing.Color.White;
+            this.btnAgregarDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnAgregarDetalle.UseVisualStyleBackColor = false;
+            this.btnAgregarDetalle.Click += new System.EventHandler(this.btnAgregarDetalle_Click);
+            // 
             // AgregarDetalleGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 211);
+            this.ClientSize = new System.Drawing.Size(424, 253);
+            this.Controls.Add(this.btnQuitarDetalle);
+            this.Controls.Add(this.btnAgregarDetalle);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AgregarDetalleGeneral";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Nuevo Detalle";
@@ -113,5 +167,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
+        private BotonRedondo btnAgregarDetalle;
+        private BotonRedondo btnQuitarDetalle;
     }
 }
