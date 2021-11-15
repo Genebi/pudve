@@ -153,6 +153,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AgregarDetalleGeneral";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Nuevo Detalle";
             this.Load += new System.EventHandler(this.AgregarDetalleGeneral_Load);

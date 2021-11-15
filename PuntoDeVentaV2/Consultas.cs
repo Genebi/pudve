@@ -2897,5 +2897,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string obtenerEspecificacionesActivasDetalleDinamico(string chkName)
+        {
+            var consulta = $"SELECT REPLACE(Descripcion, '_', ' ') AS Concepto FROM DetalleGeneral WHERE IDUsuario = '{FormPrincipal.userID}' AND ChckName = '{chkName}' ORDER BY Descripcion ASC";
+
+            return consulta;
+        }
+
+        public string agregarEspecificacionAlDetalleDinamico(string detalleDeProducto, string especificacionDetalle)
+        {
+            var consulta = $"INSERT INTO DetalleGeneral (IDUsuario, ChckName, Descripcion) VALUES ('{FormPrincipal.userID}', '{detalleDeProducto}', '{especificacionDetalle}')";
+
+            return consulta;
+        }
     }
 }  

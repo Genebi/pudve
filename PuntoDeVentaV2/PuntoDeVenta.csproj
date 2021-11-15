@@ -293,6 +293,12 @@
     <Compile Include="AgregarEditarProducto.Designer.cs">
       <DependentUpon>AgregarEditarProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="AgregarEspecificacionDeConceptoDinamico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarEspecificacionDeConceptoDinamico.Designer.cs">
+      <DependentUpon>AgregarEspecificacionDeConceptoDinamico.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarMensajeInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1125,6 +1131,9 @@
     <EmbeddedResource Include="AgregarEditarProducto.resx">
       <DependentUpon>AgregarEditarProducto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AgregarEspecificacionDeConceptoDinamico.resx">
+      <DependentUpon>AgregarEspecificacionDeConceptoDinamico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarMensajeInventario.resx">
       <DependentUpon>AgregarMensajeInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -1666,6 +1675,9 @@
     <Content Include="Plantilla_notaventa.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\assets\add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\assets\anadir.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1676,6 +1688,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\assets\clipboard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\assets\delete-file.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\assets\iconfinder_Import.ico">

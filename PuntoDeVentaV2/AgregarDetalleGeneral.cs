@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
 
         public string getIdUsr { get; set; }
         public string getChkName { get; set; }
+        public string getRealChkName { get; set; }
 
         string IdUsr = string.Empty, ChkName = string.Empty;
 
@@ -62,7 +63,15 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarDetalle_Click(object sender, EventArgs e)
         {
+            AgregarEspecificacionDeConceptoDinamico registrarEspcificacion = new AgregarEspecificacionDeConceptoDinamico();
 
+            registrarEspcificacion.FormClosed += delegate
+            {
+                this.Close();
+            };
+
+            registrarEspcificacion.getChkName = getRealChkName;
+            registrarEspcificacion.ShowDialog();
         }
 
         private void btnQuitarDetalle_Click(object sender, EventArgs e)

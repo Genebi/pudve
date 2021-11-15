@@ -512,6 +512,7 @@ namespace PuntoDeVentaV2
                     // Agregamos el Botón de agregar item Más
                     Button bt = new Button();
                     bt.Name = "bt" + chkDetalleProductoTxt.Replace("_", " ");
+                    bt.Tag = chkDetalleProductoTxt;
                     bt.Cursor = Cursors.Hand;
                     //bt.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
                     bt.Image = global::PuntoDeVentaV2.Properties.Resources.edit;
@@ -1027,8 +1028,11 @@ namespace PuntoDeVentaV2
         private void bt_Click(object sender, EventArgs e)
         {
             Button botonPrecionado = sender as Button;
-            string nameBt = string.Empty, textoBuscado = string.Empty;
+            string  nameBt = string.Empty, 
+                    textoBuscado = string.Empty, 
+                    nombreConceptoReal = string.Empty;
             nameBt = botonPrecionado.Name;
+            nombreConceptoReal = botonPrecionado.Tag.ToString();
             textoBuscado = nameBt.Remove(0, 2);
             if (textoBuscado.Equals("Proveedor"))
             {
@@ -1054,6 +1058,7 @@ namespace PuntoDeVentaV2
                 };
                 addDetailGral.getChkName = textoBuscado;
                 addDetailGral.getIdUsr = FormPrincipal.userID.ToString();
+                addDetailGral.getRealChkName = nombreConceptoReal;
                 addDetailGral.ShowDialog();
             }
         }
