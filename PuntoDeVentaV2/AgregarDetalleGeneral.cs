@@ -27,25 +27,12 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            var DetalleGral = txtNombre.Text.Replace(" ", "_");
-
-            if (string.IsNullOrWhiteSpace(DetalleGral))
-            {
-                MessageBox.Show("Introduzca un nombre para la ubicación", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            int resultado = cn.EjecutarConsulta($"INSERT INTO DetalleGeneral (IDUsuario, ChckName, Descripcion) VALUES ('{IdUsr}', '{ChkName.Replace(" ", "_")}', '{DetalleGral}')");
-
-            if (resultado > 0)
-            {
-                this.Close();
-            }
+            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            
         }
 
         private void AgregarDetalleGeneral_Load(object sender, EventArgs e)
@@ -55,10 +42,7 @@ namespace PuntoDeVentaV2
 
         private void txtNombre_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnAceptar.PerformClick();
-            }
+            
         }
 
         private void btnAgregarDetalle_Click(object sender, EventArgs e)
@@ -76,7 +60,15 @@ namespace PuntoDeVentaV2
 
         private void btnQuitarDetalle_Click(object sender, EventArgs e)
         {
+            QuitarEspecificacionDeConceptoDinamico quitarEspecificacion = new QuitarEspecificacionDeConceptoDinamico();
 
+            quitarEspecificacion.FormClosed += delegate
+            {
+                this.Close();
+            };
+
+            quitarEspecificacion.getChkName = getRealChkName;
+            quitarEspecificacion.ShowDialog();
         }
 
         private void cargarDatos()

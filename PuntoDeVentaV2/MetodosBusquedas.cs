@@ -945,7 +945,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND ChckName = '{detalle}' ORDER BY Descripcion ASC");
+            DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND ChckName = '{detalle}' AND Mostrar = '1' ORDER BY Descripcion ASC");
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 

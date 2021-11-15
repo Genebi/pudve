@@ -25,22 +25,30 @@ namespace PuntoDeVentaV2
 
         private void AgregarEspecificacionDeConceptoDinamico_Load(object sender, EventArgs e)
         {
+            lblConceptoDinamico.Text += $"{getChkName}".Replace("_", " ").Trim();
             cargarEspecificacionesDelDatoDinamico();
         }
 
         private void cargarEspecificacionesDelDatoDinamico()
         {
-            lblConceptoDinamico.Text += $"{getChkName}".Replace("_", " ").Trim();
-
             using (DataTable dtEspecificaciones = cn.CargarDatos(cs.obtenerEspecificacionesActivasDetalleDinamico(getChkName)))
             {
                 if (!dtEspecificaciones.Rows.Count.Equals(0))
                 {
-                    DGVEspecificacionesActivas.Rows.Clear();
-                    DGVEspecificacionesActivas.DataSource = dtEspecificaciones;
+                    try
+                    {
+                        DGVEspecificacionesActivas.DataSource = null;
+                        DGVEspecificacionesActivas.Rows.Clear();
+                        DGVEspecificacionesActivas.DataSource = dtEspecificaciones;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Excepción:\n" + ex.Message.ToString());
+                    }
                 }
                 else
                 {
+                    DGVEspecificacionesActivas.DataSource = null;
                     DGVEspecificacionesActivas.Rows.Clear();
                 }
             }
@@ -70,12 +78,12 @@ namespace PuntoDeVentaV2
 
                 if (resultado > 0)
                 {
-                    this.Close();
+                    cargarEspecificacionesDelDatoDinamico();
                 }
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("Ocurrio una irregularidad al intentar\nInhabilitar la Especificación del Detalle Producto...\nExcepción:\n" + ex.Message.ToString());
             }
         }
     }

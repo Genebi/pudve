@@ -2900,7 +2900,7 @@ namespace PuntoDeVentaV2
 
         public string obtenerEspecificacionesActivasDetalleDinamico(string chkName)
         {
-            var consulta = $"SELECT REPLACE(Descripcion, '_', ' ') AS Concepto FROM DetalleGeneral WHERE IDUsuario = '{FormPrincipal.userID}' AND ChckName = '{chkName}' ORDER BY Descripcion ASC";
+            var consulta = $"SELECT REPLACE(Descripcion, '_', ' ') AS Concepto FROM DetalleGeneral WHERE IDUsuario = '{FormPrincipal.userID}' AND ChckName = '{chkName}' AND Mostrar = '1' ORDER BY Descripcion ASC";
 
             return consulta;
         }
@@ -2908,6 +2908,20 @@ namespace PuntoDeVentaV2
         public string agregarEspecificacionAlDetalleDinamico(string detalleDeProducto, string especificacionDetalle)
         {
             var consulta = $"INSERT INTO DetalleGeneral (IDUsuario, ChckName, Descripcion) VALUES ('{FormPrincipal.userID}', '{detalleDeProducto}', '{especificacionDetalle}')";
+
+            return consulta;
+        }
+
+        public string especificacionesDetalleDinamicoParaQuitar(string conceptoDinamico)
+        {
+            var consulta = $"SELECT ID, Descripcion AS Concepto, IDUsuario AS Usuario FROM DetalleGeneral WHERE IDUsuario = '{FormPrincipal.userID}' AND ChckName = '{conceptoDinamico}' AND Mostrar = '1' ORDER BY Concepto ASC";
+
+            return consulta;
+        }
+
+        public string inhabilitarEspecificacionConceptoDinamico(int idRegistro)
+        {
+            var consulta = $"UPDATE DetalleGeneral SET Mostrar = 0 WHERE ID = '{idRegistro}'";
 
             return consulta;
         }
