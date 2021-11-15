@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.DGVInventario = new System.Windows.Forms.DataGridView();
+            this.numRevision = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numFolio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtBuscador = new System.Windows.Forms.TextBox();
@@ -51,11 +56,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.numRevision = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numFolio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -83,6 +83,43 @@
             this.DGVInventario.TabIndex = 1;
             this.DGVInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellClick);
             this.DGVInventario.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellMouseEnter);
+            // 
+            // numRevision
+            // 
+            this.numRevision.FillWeight = 140.223F;
+            this.numRevision.HeaderText = "No. Revision";
+            this.numRevision.Name = "numRevision";
+            this.numRevision.ReadOnly = true;
+            this.numRevision.Visible = false;
+            // 
+            // numFolio
+            // 
+            this.numFolio.FillWeight = 71.77605F;
+            this.numFolio.HeaderText = "No. Folio";
+            this.numFolio.Name = "numFolio";
+            this.numFolio.ReadOnly = true;
+            // 
+            // usuario
+            // 
+            this.usuario.FillWeight = 139.9375F;
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.ReadOnly = true;
+            // 
+            // fecha
+            // 
+            this.fecha.FillWeight = 129.8006F;
+            this.fecha.HeaderText = "Fecha";
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
+            // 
+            // mostrar
+            // 
+            this.mostrar.FillWeight = 18.26279F;
+            this.mostrar.HeaderText = "Mostrar";
+            this.mostrar.Name = "mostrar";
+            this.mostrar.ReadOnly = true;
+            this.mostrar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // label3
             // 
@@ -365,43 +402,6 @@
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Visible = false;
             // 
-            // numRevision
-            // 
-            this.numRevision.FillWeight = 140.223F;
-            this.numRevision.HeaderText = "No. Revision";
-            this.numRevision.Name = "numRevision";
-            this.numRevision.ReadOnly = true;
-            this.numRevision.Visible = false;
-            // 
-            // numFolio
-            // 
-            this.numFolio.FillWeight = 71.77605F;
-            this.numFolio.HeaderText = "No. Folio";
-            this.numFolio.Name = "numFolio";
-            this.numFolio.ReadOnly = true;
-            // 
-            // usuario
-            // 
-            this.usuario.FillWeight = 139.9375F;
-            this.usuario.HeaderText = "Usuario";
-            this.usuario.Name = "usuario";
-            this.usuario.ReadOnly = true;
-            // 
-            // fecha
-            // 
-            this.fecha.FillWeight = 129.8006F;
-            this.fecha.HeaderText = "Fecha";
-            this.fecha.Name = "fecha";
-            this.fecha.ReadOnly = true;
-            // 
-            // mostrar
-            // 
-            this.mostrar.FillWeight = 18.26279F;
-            this.mostrar.HeaderText = "Mostrar";
-            this.mostrar.Name = "mostrar";
-            this.mostrar.ReadOnly = true;
-            this.mostrar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
             // BuscadorReporteInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -414,8 +414,12 @@
             this.Controls.Add(this.primerDatePicker);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.DGVInventario);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "BuscadorReporteInventario";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reportes de Inventario";
             this.Load += new System.EventHandler(this.BuscadorReporteInventario_Load);
