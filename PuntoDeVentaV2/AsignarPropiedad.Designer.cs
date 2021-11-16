@@ -38,7 +38,7 @@
             this.panelContenedor.Controls.Add(this.lbNombrePropiedad);
             this.panelContenedor.Location = new System.Drawing.Point(2, 1);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(331, 207);
+            this.panelContenedor.Size = new System.Drawing.Size(331, 198);
             this.panelContenedor.TabIndex = 0;
             // 
             // lbNombrePropiedad
@@ -54,7 +54,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 211);
+            this.ClientSize = new System.Drawing.Size(334, 204);
             this.Controls.Add(this.panelContenedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;

@@ -63,20 +63,34 @@ namespace PuntoDeVentaV2
                 tbMensaje.Font = fuente;
                 tbMensaje.Multiline = true;
                 tbMensaje.ScrollBars = ScrollBars.Vertical;
-                tbMensaje.Location = new Point(65, 70);
+                tbMensaje.Location = new Point(65, 95);
 
                 Label lbCantidadCompra = new Label();
                 lbCantidadCompra.Text = "Cantidad minima en la venta para mostrar mensaje:";
                 lbCantidadCompra.AutoSize = true;
-                lbCantidadCompra.Location = new Point(7, 38);
-                
+                lbCantidadCompra.Location = new Point(15, 42);
+
+                Label lbMostrarMensaje = new Label();
+                lbMostrarMensaje.Text = "Mostrar mensaje:";
+                lbMostrarMensaje.AutoSize = true;
+                lbMostrarMensaje.Location = new Point(15, 70);
+
                 TextBox txtCantidadCompra = new TextBox();
                 txtCantidadCompra.Name = "txtCantidadCompra";
                 txtCantidadCompra.Width = 35;
                 txtCantidadCompra.Height = 20;
-                txtCantidadCompra.Location = new Point(260, 35);
+                txtCantidadCompra.Location = new Point(265, 40);
+
+                CheckBox chkMostrarOcultarMensaje = new CheckBox();
+                chkMostrarOcultarMensaje.Name = "chkMostrarMensaje";
+                chkMostrarOcultarMensaje.CheckedChanged += new EventHandler(chkMostrarOcultarMensaje_CheckedChanged);
+                chkMostrarOcultarMensaje.Height = 15;
+                chkMostrarOcultarMensaje.Width = 15;
+                chkMostrarOcultarMensaje.Location = new Point(100,72);
 
                 panelContenedor.Controls.Add(tbMensaje);
+                panelContenedor.Controls.Add(chkMostrarOcultarMensaje);
+                panelContenedor.Controls.Add(lbMostrarMensaje);
                 panelContenedor.Controls.Add(lbCantidadCompra);
                 panelContenedor.Controls.Add(txtCantidadCompra);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
@@ -94,6 +108,20 @@ namespace PuntoDeVentaV2
                 tbMensaje.ScrollBars = ScrollBars.Vertical;
                 tbMensaje.Location = new Point(65, 70);
 
+                Label lbMostrarMensaje = new Label();
+                lbMostrarMensaje.Text = "Mostrar mensaje:";
+                lbMostrarMensaje.AutoSize = true;
+                lbMostrarMensaje.Location = new Point(15, 50);
+
+                CheckBox chkMostrarOcultarMensaje = new CheckBox();
+                chkMostrarOcultarMensaje.Name = "chkMostrarMensajeInventario";
+                chkMostrarOcultarMensaje.CheckedChanged += new EventHandler(chkMostrarOcultarMensajeInventario_CheckedChanged);
+                chkMostrarOcultarMensaje.Height = 15;
+                chkMostrarOcultarMensaje.Width = 15;
+                chkMostrarOcultarMensaje.Location = new Point(100, 52);
+
+                panelContenedor.Controls.Add(chkMostrarOcultarMensaje);
+                panelContenedor.Controls.Add(lbMostrarMensaje);
                 panelContenedor.Controls.Add(tbMensaje);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
@@ -379,7 +407,45 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private Button GenerarBoton(int tipo, string nombre, int ejeY = 125)
+        private void chkMostrarOcultarMensajeInventario_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            if (checkbox.Name.Equals("chkMostrarMensajeInventario") && checkbox.Checked == true)
+            {
+                foreach (var producto in productos)
+                {
+                    cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1 WHERE IDProducto = '{producto.Key}'");
+                }
+            }
+            if (checkbox.Name.Equals("chkMostrarMensajeInventario") && checkbox.Checked == false)
+            {
+                foreach (var producto in productos)
+                {
+                    cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0 WHERE IDProducto = '{producto.Key}'");
+                }
+            }
+        }
+
+        private void chkMostrarOcultarMensaje_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            if (checkbox.Name.Equals("chkMostrarMensaje") && checkbox.Checked == true)
+            {
+                foreach (var producto in productos)
+                {
+                    cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 1 WHERE IDProducto = '{producto.Key}'");
+                }  
+            }
+            if (checkbox.Name.Equals("chkMostrarMensaje") && checkbox.Checked == false)
+            {
+                foreach (var producto in productos)
+                {
+                    cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 0 WHERE IDProducto = '{producto.Key}'");
+                }
+            }
+        }
+
+        private Button GenerarBoton(int tipo, string nombre, int ejeY = 155)
         {
             Button boton = new Button();
             Font fuenteBoton = new Font("Century Gothic", 9.5f);
@@ -464,9 +530,10 @@ namespace PuntoDeVentaV2
                     // Comprobar si existe ya un mensaje para este producto
                     var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM ProductMessage WHERE IDProducto = {producto.Key}", 1));
 
+                    
                     TextBox txtCantidadMinima = (TextBox)this.Controls.Find("txtCantidadCompra", true)[0];
                     var cantMinima = txtCantidadMinima.Text;
-                    cn.EjecutarConsulta(cs.actualizarCompraMinimaMultiple(id,Convert.ToInt32(cantMinima)));
+                    cn.EjecutarConsulta(cs.actualizarCompraMinimaMultiple(producto.Key,Convert.ToInt32(cantMinima)));
 
                     if (id > 0)
                     {

@@ -225,9 +225,16 @@ namespace PuntoDeVentaV2
                 txtNuevoMensaje.Text = mensaje;
                 txtNuevoMensaje.Multiline = true;
                 txtNuevoMensaje.Width = 299;
-                txtNuevoMensaje.Height = 79;
-                txtNuevoMensaje.Location = new Point(7, 25);
+                txtNuevoMensaje.Height = 70;
+                txtNuevoMensaje.Location = new Point(7, 30);
 
+                CheckBox chkMostrarMensaje = new CheckBox();
+                chkMostrarMensaje.Text = "Mostrar Mensaje";
+                chkMostrarMensaje.Name = "chkMostrarMensajeInventario";
+                chkMostrarMensaje.Location = new Point(190, 3);
+                chkMostrarMensaje.CheckedChanged += new EventHandler(chkEstado_CheckedChanged);
+
+                panelMensaje.Controls.Add(chkMostrarMensaje);
                 panelMensaje.Controls.Add(lbMensajeActual);
                 panelMensaje.Controls.Add(txtNuevoMensaje);
                 flpMensaje.Controls.Add(panelMensaje);
@@ -270,6 +277,22 @@ namespace PuntoDeVentaV2
                 this.Controls.Add(flpBotones);
                 this.Controls.Add(flpMensaje);
                 this.Controls.Add(flpDatos);
+            }
+        }
+
+        private void chkEstado_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            if (checkbox.Name.Equals("chkMostrarMensajeInventario"))
+            {
+                if (checkbox.Checked.Equals(true))
+                {
+                    cn.EjecutarConsulta(cs.cambiarEstadoMensajeInventario(Productos.codProductoEditarVenta, 1));
+                }
+                else
+                {
+                    cn.EjecutarConsulta(cs.cambiarEstadoMensajeInventario(Productos.codProductoEditarVenta, 0));
+                }
             }
         }
 
