@@ -52,8 +52,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EditarMensajesParaEnviar";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "EditarMensajesParaEnviar";
+            this.Text = "Mensaje";
             this.Load += new System.EventHandler(this.EditarMensajesParaEnviar_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditarMensajesParaEnviar_KeyDown);
             this.ResumeLayout(false);

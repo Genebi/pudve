@@ -6410,7 +6410,6 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            /* Agregar la condicion para la cantidad minima de compra para mostrarmensaje*/
             if (contadorChangeValue.Equals(0))
             {
                 if (!DGVentas.Rows.Count.Equals(0))
@@ -6491,8 +6490,6 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-
-            /* Agregar la condicion para la cantidad minima de compra para mostrarmensaje*/
             contadorMensaje = 0;
 
             if (sonido == true && contador == 0)
@@ -6521,7 +6518,11 @@ namespace PuntoDeVentaV2
                     {
                         using (DataTable dtMensajesVentas = cn.CargarDatos(cs.verificarMensajesProductosVentas(Convert.ToInt32(idproductoCantidad))))
                         {
-                            if (!dtMensajesVentas.Rows.Count.Equals(0))
+                        var estado = dtMensajesVentas.Rows[0];
+
+                        if (!dtMensajesVentas.Rows.Count.Equals(0))
+                        {
+                            if (estado["ProductMessageActivated"].Equals(true))
                             {
                                 if (!listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
                                 {
@@ -6532,6 +6533,8 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
+                        }
+                            
                         }
                     }
                 else if (cantidad < cantidadMinima && listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))

@@ -2876,6 +2876,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string cambiarEstadoMensajeInventario(int idProducto, int status)
+        {
+            var consulta = $"UPDATE mensajesinventario SET Activo = '{status}' WHERE IDProducto = '{idProducto}'";
+
+            return consulta;
+        }
+
         public string verificarEstadoCheckbox(int idProducto)
         {
             var consulta = $"SELECT ProductMessageActivated FROM productmessage WHERE IDProducto = '{idProducto}'";

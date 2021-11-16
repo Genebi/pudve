@@ -33,14 +33,15 @@
             // MensajeVentasYMensajeInventario
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(296, 213);
+            this.ClientSize = new System.Drawing.Size(278, 107);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MensajeVentasYMensajeInventario";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MensajeVentasYMensajeInventario";
+            this.Text = "Opciones de mensajes";
             this.Load += new System.EventHandler(this.MensajeVentasYMensajeInventario_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MensajeVentasYMensajeInventario_KeyDown);
             this.ResumeLayout(false);
