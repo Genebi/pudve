@@ -28,20 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.btnQuitarDetalle = new PuntoDeVentaV2.BotonRedondo();
             this.btnAgregarDetalle = new PuntoDeVentaV2.BotonRedondo();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(400, 48);
-            this.label1.TabIndex = 65;
-            this.label1.Text = "Nombre de: ";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnQuitarDetalle
             // 
@@ -53,10 +42,10 @@
             this.btnQuitarDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnQuitarDetalle.FlatAppearance.BorderSize = 0;
             this.btnQuitarDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQuitarDetalle.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold);
+            this.btnQuitarDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.btnQuitarDetalle.ForeColor = System.Drawing.Color.White;
             this.btnQuitarDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.notebook;
-            this.btnQuitarDetalle.Location = new System.Drawing.Point(243, 68);
+            this.btnQuitarDetalle.Location = new System.Drawing.Point(244, 23);
             this.btnQuitarDetalle.Name = "btnQuitarDetalle";
             this.btnQuitarDetalle.Size = new System.Drawing.Size(150, 85);
             this.btnQuitarDetalle.TabIndex = 67;
@@ -76,11 +65,11 @@
             this.btnAgregarDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarDetalle.FlatAppearance.BorderSize = 0;
             this.btnAgregarDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarDetalle.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.btnAgregarDetalle.ForeColor = System.Drawing.Color.White;
             this.btnAgregarDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.anadir;
             this.btnAgregarDetalle.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAgregarDetalle.Location = new System.Drawing.Point(27, 68);
+            this.btnAgregarDetalle.Location = new System.Drawing.Point(28, 23);
             this.btnAgregarDetalle.Name = "btnAgregarDetalle";
             this.btnAgregarDetalle.Size = new System.Drawing.Size(154, 85);
             this.btnAgregarDetalle.TabIndex = 66;
@@ -94,10 +83,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 182);
+            this.ClientSize = new System.Drawing.Size(424, 134);
             this.Controls.Add(this.btnQuitarDetalle);
             this.Controls.Add(this.btnAgregarDetalle);
-            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -111,7 +99,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
         private BotonRedondo btnAgregarDetalle;
         private BotonRedondo btnQuitarDetalle;
     }

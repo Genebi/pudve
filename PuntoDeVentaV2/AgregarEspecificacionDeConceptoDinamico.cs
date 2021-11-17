@@ -25,33 +25,33 @@ namespace PuntoDeVentaV2
 
         private void AgregarEspecificacionDeConceptoDinamico_Load(object sender, EventArgs e)
         {
-            lblConceptoDinamico.Text += $"{getChkName}".Replace("_", " ").Trim();
-            cargarEspecificacionesDelDatoDinamico();
+            //lblConceptoDinamico.Text += $"{getChkName}".Replace("_", " ").Trim();
+            //cargarEspecificacionesDelDatoDinamico();
         }
 
         private void cargarEspecificacionesDelDatoDinamico()
         {
-            using (DataTable dtEspecificaciones = cn.CargarDatos(cs.obtenerEspecificacionesActivasDetalleDinamico(getChkName)))
-            {
-                if (!dtEspecificaciones.Rows.Count.Equals(0))
-                {
-                    try
-                    {
-                        DGVEspecificacionesActivas.DataSource = null;
-                        DGVEspecificacionesActivas.Rows.Clear();
-                        DGVEspecificacionesActivas.DataSource = dtEspecificaciones;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Excepción:\n" + ex.Message.ToString());
-                    }
-                }
-                else
-                {
-                    DGVEspecificacionesActivas.DataSource = null;
-                    DGVEspecificacionesActivas.Rows.Clear();
-                }
-            }
+            //using (DataTable dtEspecificaciones = cn.CargarDatos(cs.obtenerEspecificacionesActivasDetalleDinamico(getChkName)))
+            //{
+            //    if (!dtEspecificaciones.Rows.Count.Equals(0))
+            //    {
+            //        try
+            //        {
+            //            DGVEspecificacionesActivas.DataSource = null;
+            //            DGVEspecificacionesActivas.Rows.Clear();
+            //            DGVEspecificacionesActivas.DataSource = dtEspecificaciones;
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            MessageBox.Show("Excepción:\n" + ex.Message.ToString());
+            //        }
+            //    }
+            //    else
+            //    {
+            //        DGVEspecificacionesActivas.DataSource = null;
+            //        DGVEspecificacionesActivas.Rows.Clear();
+            //    }
+            //}
         }
 
         private void txtEspecificacion_KeyDown(object sender, KeyEventArgs e)
@@ -78,7 +78,8 @@ namespace PuntoDeVentaV2
 
                 if (resultado > 0)
                 {
-                    cargarEspecificacionesDelDatoDinamico();
+                    //cargarEspecificacionesDelDatoDinamico();
+                    this.Close();
                 }
             }
             catch (Exception ex)
