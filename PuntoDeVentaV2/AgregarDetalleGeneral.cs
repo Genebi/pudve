@@ -51,7 +51,7 @@ namespace PuntoDeVentaV2
 
             registrarEspcificacion.FormClosed += delegate
             {
-                this.Close();
+                //this.Close();
             };
 
             registrarEspcificacion.getChkName = getRealChkName;
@@ -64,7 +64,7 @@ namespace PuntoDeVentaV2
 
             quitarEspecificacion.FormClosed += delegate
             {
-                this.Close();
+                //this.Close();
             };
 
             quitarEspecificacion.getChkName = getRealChkName;
@@ -75,7 +75,7 @@ namespace PuntoDeVentaV2
         {
             IdUsr = getIdUsr;
             ChkName = getChkName;
-            label1.Text = "Concepto de: " + ChkName;
+            //label1.Text = "Concepto de: " + ChkName;
         }
     }
 }

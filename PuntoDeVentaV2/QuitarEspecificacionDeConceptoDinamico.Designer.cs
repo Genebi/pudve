@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.DGVEspecificacionesActivas = new System.Windows.Forms.DataGridView();
-            this.lblConceptoDinamico = new System.Windows.Forms.Label();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Inhabilitar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.lblConceptoDinamico = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVEspecificacionesActivas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,16 +56,6 @@
             this.DGVEspecificacionesActivas.TabIndex = 3;
             this.DGVEspecificacionesActivas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVEspecificacionesActivas_CellClick);
             this.DGVEspecificacionesActivas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVEspecificacionesActivas_CellMouseEnter);
-            // 
-            // lblConceptoDinamico
-            // 
-            this.lblConceptoDinamico.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblConceptoDinamico.Location = new System.Drawing.Point(11, 14);
-            this.lblConceptoDinamico.Name = "lblConceptoDinamico";
-            this.lblConceptoDinamico.Size = new System.Drawing.Size(568, 27);
-            this.lblConceptoDinamico.TabIndex = 2;
-            this.lblConceptoDinamico.Text = "Especificaciones existentes del concepto ";
-            this.lblConceptoDinamico.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ID
             // 
@@ -94,6 +84,16 @@
             this.Inhabilitar.HeaderText = "Inhabilitar";
             this.Inhabilitar.Name = "Inhabilitar";
             this.Inhabilitar.ReadOnly = true;
+            // 
+            // lblConceptoDinamico
+            // 
+            this.lblConceptoDinamico.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.lblConceptoDinamico.Location = new System.Drawing.Point(11, 14);
+            this.lblConceptoDinamico.Name = "lblConceptoDinamico";
+            this.lblConceptoDinamico.Size = new System.Drawing.Size(568, 27);
+            this.lblConceptoDinamico.TabIndex = 2;
+            this.lblConceptoDinamico.Text = "Especificaciones existentes del concepto ";
+            this.lblConceptoDinamico.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // QuitarEspecificacionDeConceptoDinamico
             // 
