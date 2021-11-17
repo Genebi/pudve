@@ -2932,5 +2932,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string especificacionesDetalleDinamicoParaActivar(string conceptoDinamico)
+        {
+            var consulta = $"SELECT ID, Descripcion AS Concepto, IDUsuario AS Usuario FROM DetalleGeneral WHERE IDUsuario = '{FormPrincipal.userID}' AND ChckName = '{conceptoDinamico}' AND Mostrar = '0' ORDER BY Concepto ASC";
+
+            return consulta;
+        }
+
+        public string habilitarEspecificacionConceptoDinamico(int idRegistro)
+        {
+            var consulta = $"UPDATE DetalleGeneral SET Mostrar = 1 WHERE ID = '{idRegistro}'";
+
+            return consulta;
+        }
     }
 }  
