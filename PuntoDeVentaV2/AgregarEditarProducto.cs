@@ -873,6 +873,7 @@ namespace PuntoDeVentaV2
                 else if (comboBoxIndex <= 0)
                 {
                     idProveedor = 0;
+                    limpiarDatosProveedor(namePanel);
                 }
 
                 if (idProveedor > 0)
@@ -881,6 +882,68 @@ namespace PuntoDeVentaV2
                     llenarDatosProveedor(namePanel);
                 }
                 llenarListaDatosDinamicos();
+            }
+        }
+
+        private void limpiarDatosProveedor(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+            string nvoNombreProveedorDetalleProducto = string.Empty;
+
+            //var idProveedor = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in flowLayoutPanel3.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "cb" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[0];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[0];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                else if (contLblHijo.Name == "lblRFC" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[1];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                else if (contLblHijo.Name == "lblTel" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[10];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                //if (DatosSourceFinal == 2)
+                                //{
+                                //    nvoNombreProveedorDetalleProducto = datosProveedor[0];
+                                //    var dataProvaider = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, nvoNombreProveedorDetalleProducto);
+                                //    string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), dataProvaider[2].ToString(), dataProvaider[0].ToString() };
+                                //    var resultadoBusquedaDetallesProducto = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+                                //    if (!resultadoBusquedaDetallesProducto.Count().Equals(0))
+                                //    {
+                                //        int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
+                                //    }
+                                //    else if (resultadoBusquedaDetallesProducto.Count().Equals(0))
+                                //    {
+                                //        int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave));
+                                //    }
+                                //}
+                            }
+                        }
+                    }
+                }
             }
         }
 
