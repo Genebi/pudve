@@ -27,6 +27,11 @@ namespace PuntoDeVentaV2
         public static Dictionary<int, string> modificarPrecio = new Dictionary<int, string>();
         //public static Dictionary<int, string> disminuirPrecio = new Dictionary<int, string>();
 
+        bool stateChkMostrarMensaje = false;
+
+        string cantidadCompra = string.Empty;
+
+        string mensajeCompra = string.Empty;
 
         public AsignarPropiedad(object propiedad)
         {
@@ -79,10 +84,13 @@ namespace PuntoDeVentaV2
                 txtCantidadCompra.Name = "txtCantidadCompra";
                 txtCantidadCompra.Width = 35;
                 txtCantidadCompra.Height = 20;
+                txtCantidadCompra.Leave += new EventHandler(txtCantidadCompra_Leave);
                 txtCantidadCompra.Location = new Point(265, 40);
 
                 CheckBox chkMostrarOcultarMensaje = new CheckBox();
                 chkMostrarOcultarMensaje.Name = "chkMostrarMensaje";
+                chkMostrarOcultarMensaje.Checked = true;
+                stateChkMostrarMensaje = chkMostrarOcultarMensaje.Checked;
                 chkMostrarOcultarMensaje.CheckedChanged += new EventHandler(chkMostrarOcultarMensaje_CheckedChanged);
                 chkMostrarOcultarMensaje.Height = 15;
                 chkMostrarOcultarMensaje.Width = 15;
@@ -102,6 +110,7 @@ namespace PuntoDeVentaV2
                 tbMensaje.Name = "tb" + propiedad;
                 tbMensaje.Width = 200;
                 tbMensaje.Height = 40;
+                tbMensaje.Leave += new EventHandler(tbMensaje_Leave);
                 tbMensaje.CharacterCasing = CharacterCasing.Upper;
                 tbMensaje.Font = fuente;
                 tbMensaje.Multiline = true;
@@ -115,6 +124,8 @@ namespace PuntoDeVentaV2
 
                 CheckBox chkMostrarOcultarMensaje = new CheckBox();
                 chkMostrarOcultarMensaje.Name = "chkMostrarMensajeInventario";
+                chkMostrarOcultarMensaje.Checked = false;
+                stateChkMostrarMensaje = chkMostrarOcultarMensaje.Checked;
                 chkMostrarOcultarMensaje.CheckedChanged += new EventHandler(chkMostrarOcultarMensajeInventario_CheckedChanged);
                 chkMostrarOcultarMensaje.Height = 15;
                 chkMostrarOcultarMensaje.Width = 15;
@@ -407,22 +418,28 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void tbMensaje_Leave(object sender, EventArgs e)
+        {
+            TextBox mensajeMostrarCompra = (TextBox)sender;
+            mensajeCompra = mensajeMostrarCompra.Text;
+        }
+
+        private void txtCantidadCompra_Leave(object sender, EventArgs e)
+        {
+            TextBox textoCompra = (TextBox)sender;
+            cantidadCompra = Convert.ToDecimal(textoCompra.Text).ToString();
+        }
+
         private void chkMostrarOcultarMensajeInventario_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkbox = (CheckBox)sender;
             if (checkbox.Name.Equals("chkMostrarMensajeInventario") && checkbox.Checked == true)
             {
-                foreach (var producto in productos)
-                {
-                    cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1 WHERE IDProducto = '{producto.Key}'");
-                }
+                stateChkMostrarMensaje = true;
             }
-            if (checkbox.Name.Equals("chkMostrarMensajeInventario") && checkbox.Checked == false)
+            else
             {
-                foreach (var producto in productos)
-                {
-                    cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0 WHERE IDProducto = '{producto.Key}'");
-                }
+                stateChkMostrarMensaje = false;
             }
         }
 
@@ -431,17 +448,11 @@ namespace PuntoDeVentaV2
             CheckBox checkbox = (CheckBox)sender;
             if (checkbox.Name.Equals("chkMostrarMensaje") && checkbox.Checked == true)
             {
-                foreach (var producto in productos)
-                {
-                    cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 1 WHERE IDProducto = '{producto.Key}'");
-                }  
+                stateChkMostrarMensaje = true;
             }
-            if (checkbox.Name.Equals("chkMostrarMensaje") && checkbox.Checked == false)
+            else
             {
-                foreach (var producto in productos)
-                {
-                    cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 0 WHERE IDProducto = '{producto.Key}'");
-                }
+                stateChkMostrarMensaje = false;
             }
         }
 
@@ -491,6 +502,120 @@ namespace PuntoDeVentaV2
 
         private async void botonAceptar_Click(object sender, EventArgs e)
         {
+            if (propiedad == "MensajeVentas")
+            {
+                if (stateChkMostrarMensaje.Equals(true))
+                {
+                    foreach (var producto in productos)
+                    {
+                        using (DataTable datos = cn.CargarDatos($"SELECT * FROM productmessage WHERE IDProducto = '{producto.Key}'"))
+                        {
+                            if (!datos.Rows.Count.Equals(0))
+                            {
+                                cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 1 WHERE IDProducto = '{producto.Key}'");
+                            }
+                            else
+                            {
+                                var status = 0;
+                                if (stateChkMostrarMensaje)
+                                {
+                                    status = 1;
+                                }
+                                else
+                                {
+                                    status = 0;
+                                }
+                                cn.EjecutarConsulta($"INSERT INTO productmessage (IDProducto,ProductOfMessage,ProductMessageActivated,CantidadMinimaDeCompra) VALUES ('{producto.Key}','{mensajeCompra}','{status}','{cantidadCompra}')");
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    foreach (var producto in productos)
+                    {
+                        using (DataTable datos = cn.CargarDatos($"SELECT * FROM productmessage WHERE IDProducto = '{producto.Key}'"))
+                        {
+                            if (!datos.Rows.Count.Equals(0))
+                            {
+                                cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 0 WHERE IDProducto = '{producto.Key}'");
+                            }
+                            else
+                            {
+                                var status = 0;
+                                if (stateChkMostrarMensaje)
+                                {
+                                    status = 1;
+                                }
+                                else
+                                {
+                                    status = 0;
+                                }
+                                cn.EjecutarConsulta($"INSERT INTO productmessage (IDProducto,ProductOfMessage,ProductMessageActivated,CantidadMinimaDeCompra) VALUES ('{producto.Key}','{mensajeCompra}','{status}','{cantidadCompra}')");
+                            }
+                        }
+                    }
+                }
+            }
+            else if(propiedad == "MensajeInventario")
+            {
+                if (stateChkMostrarMensaje.Equals(true))
+                {
+                    foreach (var producto in productos)
+                    {
+                        using (DataTable datos = cn.CargarDatos($"SELECT * FROM mensajesinventario WHERE IDProducto = '{producto.Key}'"))
+                        {
+                            if (!datos.Rows.Count.Equals(0))
+                            {
+                                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1 WHERE IDProducto = '{producto.Key}'");
+                            }
+                            else
+                            {
+                                var status = 0;
+                                if (stateChkMostrarMensaje)
+                                {
+                                    status = 1;
+                                }
+                                else
+                                {
+                                    status = 0;
+                                }
+                                cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDUsuario,IDProducto,Mensaje,Activo) VALUES ({FormPrincipal.userID},'{producto.Key}','{mensajeCompra}','{status}')");
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    foreach (var producto in productos)
+                    {
+                        using (DataTable datos = cn.CargarDatos($"SELECT * FROM mensajesinventario WHERE IDProducto = '{producto.Key}'"))
+                        {
+                            if (!datos.Rows.Count.Equals(0))
+                            {
+                                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0 WHERE IDProducto = '{producto.Key}'");
+                            }
+                            else
+                            {
+                                var status = 0;
+                                if (stateChkMostrarMensaje)
+                                {
+                                    status = 1;
+                                }
+                                else
+                                {
+                                    status = 0;
+                                }
+                                cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDUsuario,IDProducto,Mensaje,Activo) VALUES ({FormPrincipal.userID},{producto.Key},'{mensajeCompra}','{status}')");
+                            }
+                        }
+                    }
+                }
+            }
+
+
             cargando.Show();
 
             await Task.Run(() =>
