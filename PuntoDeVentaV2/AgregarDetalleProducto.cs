@@ -1088,12 +1088,43 @@ namespace PuntoDeVentaV2
                 else if (comboBoxIndex <= 0)
                 {
                     idDetalleGral = 0;
+                    limpiarDatosDetalleGral(namePanel);
                 }
 
                 if (idDetalleGral > 0)
                 {
                     //cargarDatosProveedor(Convert.ToInt32(idCategoria));
                     llenarDatosDetalleGral(namePanel);
+                }
+            }
+        }
+
+        private void limpiarDatosDetalleGral(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = separadas[1].ToString().Replace("_", " ");
+                                    //contLblHijo.Text = "En Construcción está sección...";
+                                    contLblHijo.Text = string.Empty;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1462,12 +1493,57 @@ namespace PuntoDeVentaV2
                 else if (comboBoxIndex <= 0)
                 {
                     idProveedor = 0;
+                    limpiarDatosProveedor(namePanel);
                 }
 
                 if (idProveedor > 0)
                 {
                     cargarDatosProveedor(Convert.ToInt32(idProveedor));
                     llenarDatosProveedor(namePanel);
+                }
+            }
+        }
+
+        private void limpiarDatosProveedor(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "cb" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[0];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[0];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                else if (contLblHijo.Name == "lblRFC" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[1];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                else if (contLblHijo.Name == "lblTel" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[10];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
