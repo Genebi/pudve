@@ -577,6 +577,7 @@ namespace PuntoDeVentaV2
                 } // aqui se continua con los demas else if
                 else if (!name.Equals("chkProveedor") && value.Equals("true"))// cualquier otro 
                 {
+                    var nameTag = name.ToString().Remove(0, 3);
                     nombrePanelContenedor = "panelContenedor" + name.ToString().Remove(0, 3);
                     nombrePanelContenido = "panelContenido" + name.ToString().Remove(0, 3);
 
@@ -618,6 +619,7 @@ namespace PuntoDeVentaV2
                         CargarDetallesGral(name.ToString().Remove(0, 3));
 
                         ComboBox cbDetalleGral = new ComboBox();
+                        cbDetalleGral.Tag = nameTag;
                         cbDetalleGral.Name = "cb" + name.Replace("_", " ");
                         cbDetalleGral.Width = 815;
                         cbDetalleGral.Height = 30;
@@ -734,12 +736,14 @@ namespace PuntoDeVentaV2
             int comboBoxIndex = 0;
 
             comboBoxIndex = comboBox.SelectedIndex;
-            namePanel = comboBox.Name.ToString().Remove(0, 2);
+            //namePanel = comboBox.Name.ToString().Remove(0, 2);
+            namePanel = comboBox.Tag.ToString();
             gralDetailGralSelected = Convert.ToString(comboBox.Text).Replace(" ", "_");
 
             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3) || DatosSourceFinal.Equals(2))
             {
-                listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel.Remove(0, 3));
+                //listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel.Remove(0, 3));
+                listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel);
             }
 
             if (listaDetalleGral.Length > 0)
@@ -755,6 +759,7 @@ namespace PuntoDeVentaV2
                 else if (comboBoxIndex <= 0)
                 {
                     idProductoDetalleGral = 0;
+                    limpiarDatosGral(namePanel);
                 }
 
                 if (idProductoDetalleGral > 0)
@@ -767,11 +772,17 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void limpiarDatosGral(string namePanel)
+        {
+            
+        }
+
         private void llenarDatosGral(string textoBuscado)
         {
             string namePanel = string.Empty;
 
-            namePanel = "panelContenedor" + textoBuscado.Remove(0, 3);
+            //namePanel = "panelContenedor" + textoBuscado.Remove(0, 3);
+            namePanel = "panelContenedor" + textoBuscado;
 
             string nvoConceptoDetalleProducto = string.Empty;
 
@@ -783,12 +794,16 @@ namespace PuntoDeVentaV2
                 {
                     foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
                     {
-                        namePanel = "panelContenido" + textoBuscado.Remove(0, 3);
+                        //namePanel = "panelContenido" + textoBuscado.Remove(0, 3);
+                        namePanel = "panelContenido" + textoBuscado;
                         if (contSubHijo.Name == namePanel)
                         {
                             foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
                             {
-                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                var nuevoTextoBuscado = textoBuscado.TrimEnd("[_]".ToCharArray());
+                                nuevoTextoBuscado = nuevoTextoBuscado.Replace("_", " ");
+
+                                if (contLblHijo.Name.Trim() == "lblNombrechk" + nuevoTextoBuscado)
                                 {
                                     contLblHijo.Text = datosDetalleGral[3];
                                     if (DatosSourceFinal == 2)
@@ -890,7 +905,7 @@ namespace PuntoDeVentaV2
             string namePanel = string.Empty;
             string nvoNombreProveedorDetalleProducto = string.Empty;
 
-            //var idProveedor = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+            var idProveedor = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
 
             namePanel = "panelContenedor" + textoBuscado;
 
@@ -925,21 +940,23 @@ namespace PuntoDeVentaV2
                                     //contLblHijo.Text = datosProveedor[10];
                                     contLblHijo.Text = string.Empty;
                                 }
-                                //if (DatosSourceFinal == 2)
-                                //{
-                                //    nvoNombreProveedorDetalleProducto = datosProveedor[0];
-                                //    var dataProvaider = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, nvoNombreProveedorDetalleProducto);
-                                //    string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), dataProvaider[2].ToString(), dataProvaider[0].ToString() };
-                                //    var resultadoBusquedaDetallesProducto = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
-                                //    if (!resultadoBusquedaDetallesProducto.Count().Equals(0))
-                                //    {
-                                //        int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
-                                //    }
-                                //    else if (resultadoBusquedaDetallesProducto.Count().Equals(0))
-                                //    {
-                                //        int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave));
-                                //    }
-                                //}
+                                if (DatosSourceFinal == 2)
+                                {
+                                    string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), null, "0" };
+                                    int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
+                                    //nvoNombreProveedorDetalleProducto = datosProveedor[0];
+                                    //var dataProvaider = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, nvoNombreProveedorDetalleProducto);
+                                    //string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), dataProvaider[2].ToString(), dataProvaider[0].ToString() };
+                                    //var resultadoBusquedaDetallesProducto = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+                                    //if (!resultadoBusquedaDetallesProducto.Count().Equals(0))
+                                    //{
+                                    //    int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
+                                    //}
+                                    //else if (resultadoBusquedaDetallesProducto.Count().Equals(0))
+                                    //{
+                                    //    int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave));
+                                    //}
+                                }
                             }
                         }
                     }
