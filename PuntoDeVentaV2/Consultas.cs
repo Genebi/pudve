@@ -2828,6 +2828,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string mostrarMensajeInventario(int codProducto)
+        {
+            var consulta = $"SELECT Mensaje FROM mensajesInventario WHERE IDProducto = {codProducto} AND Activo = 1";
+
+            return consulta;
+        }
+
         public string insertarCompraMinima(int idProducto,int cantidad)
         {
             var consulta = $"INSERT INTO productmessage (CantidadMinimaDeCompra, IDProducto) VALUES ('{cantidad}', '{idProducto}')";
@@ -2845,13 +2852,6 @@ namespace PuntoDeVentaV2
         public string cantidadCompraMinima(int idProductoSeleccionado)
         {
             var consulta = $"SELECT CantidadMinimaDeCompra FROM productmessage WHERE IDProducto = {idProductoSeleccionado}";
-
-            return consulta;
-        }
-
-        public string consultarMensajeInventario(string idProducto)
-        {
-            var consulta = $"SELECT Mensaje FROM mensajesinventario WHERE IDProducto = {idProducto}";
 
             return consulta;
         }
@@ -2887,6 +2887,13 @@ namespace PuntoDeVentaV2
         public string verificarEstadoCheckbox(int idProducto)
         {
             var consulta = $"SELECT ProductMessageActivated FROM productmessage WHERE IDProducto = '{idProducto}'";
+
+            return consulta;
+        }
+
+        public string verificarEstadoCheckboxInventario(int idProducto)
+        {
+            var consulta = $"SELECT Activo FROM mensajesinventario WHERE IDProducto = '{idProducto}'";
 
             return consulta;
         }

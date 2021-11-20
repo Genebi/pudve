@@ -421,6 +421,14 @@ namespace PuntoDeVentaV2
 
                     if (resul > 0)
                     {
+                        var mensaje = cn.CargarDatos(cs.mostrarMensajeInventario(IDProducto));
+                        if (mensaje.Rows.Count > 0)
+                        {
+                            string mensajeInventario = mensaje.Rows[0]["Mensaje"].ToString();
+                            MessageBox.Show(mensajeInventario);
+                        }
+                       
+                        
                         //MessageBox.Show("Precio de producto Actualizado del producto: " + IDProducto + " por el precio: " + precioCompra, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else

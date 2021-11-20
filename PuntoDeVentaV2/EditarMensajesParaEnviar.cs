@@ -208,11 +208,12 @@ namespace PuntoDeVentaV2
                 //Panel para modificar el mensaje------------------------------------------------------
 
                 FlowLayoutPanel flpMensaje = new FlowLayoutPanel();
-                flpMensaje.Name = "panelMensaje";
+                flpMensaje.Name = "flplMensaje";
                 flpMensaje.Dock = DockStyle.Top;
                 flpMensaje.Height = 118;
 
                 Panel panelMensaje = new Panel();
+                panelMensaje.Name = "panelDatos";
                 panelMensaje.Width = 320;
                 panelMensaje.Height = 108;
                 panelMensaje.Dock = DockStyle.Top;
@@ -351,6 +352,46 @@ namespace PuntoDeVentaV2
                                             if (chkMostrarMensaje is CheckBox && chkMostrarMensaje.Name.Equals("chkMostrarMensajeVenta"))
                                             {
                                                 chkMostrarMensaje.Checked = (Boolean)dtDataRow["ProductMessageActivated"];
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            ///////////////////////////////-----------------------Inventario------------------------/////////////////////////////////////////
+
+            using (DataTable dtPermiso = cn.CargarDatos(cs.verificarEstadoCheckboxInventario(Productos.codProductoEditarVenta)))
+            {
+                if (!dtPermiso.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow dtDataRow in dtPermiso.Rows)
+                    {
+                        foreach (Control item in this.Controls)
+                        {
+                            if (item is FlowLayoutPanel && item.Name.Equals("flplMensaje"))
+                            {
+                                foreach (Control itemMensaje in item.Controls)
+                                {
+                                    if (itemMensaje is Panel && itemMensaje.Name.Equals("panelDatos"))
+                                    {
+                                        foreach (CheckBox chkMostrarMensaje in itemMensaje.Controls.OfType<CheckBox>())
+                                        {
+                                            if (chkMostrarMensaje is CheckBox && chkMostrarMensaje.Name.Equals("chkMostrarMensajeInventario"))
+                                            {
+                                                string estado = dtPermiso.Rows[0]["Activo"].ToString();
+                                                if (estado == "1")
+                                                {
+                                                    chkMostrarMensaje.Checked = true;
+                                                }
+                                                else
+                                                {
+                                                    chkMostrarMensaje.Checked = false;
+                                                }
+                                               
                                             }
                                         }
                                     }
