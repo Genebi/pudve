@@ -61,25 +61,27 @@ namespace PuntoDeVentaV2
                 var permisosConfiguracion = String.Join(", ", datos);
                 var permisos = mb.PermisosEmpleadoConfiguracion(permisosConfiguracion, FormPrincipal.id_empleado);
 
-                GenerarCheckbox(10, 10, 200, "Al agregar dinero en caja", permisos[0]);
-                GenerarCheckbox(10, 220, 200, "Al retirar dinero en caja", permisos[1]);
+                GenerarCheckbox(10,10,200,"Marcar Todos",0);
 
-                GenerarCheckbox(40, 10, 200, "Al hacer corte de caja", permisos[2]);
-                GenerarCheckbox(40, 220, 200, "Al llegar al stock minimo", permisos[3]);
+                GenerarCheckbox(40, 10, 200, "Al agregar dinero en caja", permisos[0]);
+                GenerarCheckbox(40, 220, 200, "Al retirar dinero en caja", permisos[1]);
 
-                GenerarCheckbox(70, 10, 200, "Al modificar el precio", permisos[4]);
-                GenerarCheckbox(70, 220, 200, "Al modificar el stock", permisos[5]);
+                GenerarCheckbox(70, 10, 200, "Al hacer corte de caja", permisos[2]);
+                GenerarCheckbox(70, 220, 200, "Al llegar al stock minimo", permisos[3]);
 
-                GenerarCheckbox(100, 10, 200, "Al venderse producto", permisos[6]);
-                GenerarCheckbox(100, 220, 200, "Al cerrar la ventana de ventas\ncuando tienes productos", permisos[7]);
+                GenerarCheckbox(100, 10, 200, "Al modificar el precio", permisos[4]);
+                GenerarCheckbox(100, 220, 200, "Al modificar el stock", permisos[5]);
 
-                GenerarCheckbox(130, 10, 200, "Al eliminar producto de ventas", permisos[8]);
-                GenerarCheckbox(130, 220, 200, "Al hacer una venta", permisos[9]);
+                GenerarCheckbox(130, 10, 200, "Al venderse producto", permisos[6]);
+                GenerarCheckbox(130, 220, 200, "Al cerrar la ventana de ventas\ncuando tienes productos", permisos[7]);
 
-                GenerarCheckbox(160, 10, 200, "Al iniciar sesion", permisos[10]);
-                GenerarCheckbox(160, 220, 200, "Al hacer una venta con\ndescuento", permisos[11]);
+                GenerarCheckbox(160, 10, 200, "Al eliminar producto de ventas", permisos[8]);
+                GenerarCheckbox(160, 220, 200, "Al hacer una venta", permisos[9]);
 
-                GenerarCheckbox(190, 10, 200, "Enviar respaldo al cerrar sesion", permisos[12]);
+                GenerarCheckbox(190, 10, 200, "Al iniciar sesion", permisos[10]);
+                GenerarCheckbox(190, 220, 200, "Al hacer una venta con\ndescuento", permisos[11]);
+
+                GenerarCheckbox(220, 10, 200, "Enviar respaldo al cerrar sesion", permisos[12]);
             }
             if (tipoPermisos == "configuracionGeneral")
             {
@@ -102,19 +104,21 @@ namespace PuntoDeVentaV2
                 var permisosConfiguracion = String.Join(", ",datos);
                 var permisos = mb.PermisosEmpleadoConfiguracion(permisosConfiguracion,FormPrincipal.id_empleado);
 
-                GenerarCheckbox(10, 10, 200, "Codigo de barras ticet\nventa", permisos[0]);
-                GenerarCheckbox(10, 220, 200, "Habilitar informacion en\npagina web", permisos[1]);
+                GenerarCheckbox(10, 10, 200, "Marcar Todos", 0);
 
-                GenerarCheckbox(40, 10, 200, "Mostrar codigo productos\nen ventas", permisos[2]);
-                GenerarCheckbox(40, 220, 200, "Cerrar sesion al hacer corte\nde caja", permisos[3]);
+                GenerarCheckbox(40, 10, 200, "Codigo de barras ticet\nventa", permisos[0]);
+                GenerarCheckbox(40, 220, 200, "Habilitar informacion en\npagina web", permisos[1]);
 
-                GenerarCheckbox(70, 10, 200, "Mostrar precio de producto\nen ventas", permisos[4]);
-                GenerarCheckbox(70, 220, 200, "Permitir stock negativo", permisos[5]);
+                GenerarCheckbox(70, 10, 200, "Mostrar codigo productos\nen ventas", permisos[2]);
+                GenerarCheckbox(70, 220, 200, "Cerrar sesion al hacer corte\nde caja", permisos[3]);
 
-                GenerarCheckbox(100, 10, 200, "Generar ticket al realizar venta", permisos[6]);
-                GenerarCheckbox(100, 220, 200, "Avisar de productos no vendidos", permisos[7]);
+                GenerarCheckbox(100, 10, 200, "Mostrar precio de producto\nen ventas", permisos[4]);
+                GenerarCheckbox(100, 220, 200, "Permitir stock negativo", permisos[5]);
 
-                GenerarCheckbox(130, 10, 200, "Activar precio por mayoreo en ventas", permisos[8]);
+                GenerarCheckbox(130, 10, 200, "Generar ticket al realizar venta", permisos[6]);
+                GenerarCheckbox(130, 220, 200, "Avisar de productos no vendidos", permisos[7]);
+
+                GenerarCheckbox(160, 10, 200, "Activar precio por mayoreo en ventas", permisos[8]);
             }
             if (tipoPermisos == "porcentageGanancia")
             {
@@ -177,6 +181,7 @@ namespace PuntoDeVentaV2
         private void checkbox_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkbox = (CheckBox)sender;
+
             foreach (Control objetos in panelContenedor.Controls)
             {
                 if (objetos is CheckBox)
