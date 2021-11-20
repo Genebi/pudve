@@ -48,6 +48,16 @@ namespace PuntoDeVentaV2
             cbox_reportes.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[11]));
             cbox_ventas.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[13]));
             cboBascula.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[14]));
+            var permisoPrecio = cn.CargarDatos($"SELECT COUNT(Precio) AS Estado FROM empleadospermisos WHERE IDEmpleado = '{id_empleado}' AND IDUsuario = '{FormPrincipal.userID}' AND Precio = 1");
+            var DRPermisoPrecio = permisoPrecio.Rows[0]["Estado"].ToString();
+            if (!DRPermisoPrecio.Equals("0"))
+            {
+                chkPrecio.Checked = true;
+            }
+            else
+            {
+                chkPrecio.Checked = false;
+            }
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
@@ -57,7 +67,7 @@ namespace PuntoDeVentaV2
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
-            
+            string chkPermisoPrecio = Convert.ToString(Convert.ToInt32(chkPrecio.Checked));
             string anticipo = Convert.ToString(Convert.ToInt32(cbox_anticipos.Checked));
             string caja = Convert.ToString(Convert.ToInt32(cbox_caja.Checked));
             string client = Convert.ToString(Convert.ToInt32(cbox_clientes.Checked));
@@ -78,6 +88,8 @@ namespace PuntoDeVentaV2
                 FormPrincipal.userID.ToString(), id_empleado.ToString(), anticipo, caja, client, config, empleado,
                 empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta, bascula
             };
+
+            cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{chkPermisoPrecio}' WHERE IDEmpleado = '{datos[1]}' AND IDUsuario = '{datos[0]}'");
 
             int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 2));
 

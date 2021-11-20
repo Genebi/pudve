@@ -77,7 +77,7 @@
             // lbProducto
             // 
             this.lbProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbProducto.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbProducto.Location = new System.Drawing.Point(13, 19);
             this.lbProducto.Name = "lbProducto";
             this.lbProducto.Size = new System.Drawing.Size(609, 20);
@@ -88,10 +88,10 @@
             // 
             this.rbProducto.AutoSize = true;
             this.rbProducto.Checked = true;
-            this.rbProducto.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbProducto.Location = new System.Drawing.Point(116, 6);
             this.rbProducto.Name = "rbProducto";
-            this.rbProducto.Size = new System.Drawing.Size(147, 21);
+            this.rbProducto.Size = new System.Drawing.Size(133, 19);
             this.rbProducto.TabIndex = 1;
             this.rbProducto.TabStop = true;
             this.rbProducto.Text = "Producto comprado";
@@ -101,10 +101,10 @@
             // rbAjustar
             // 
             this.rbAjustar.AutoSize = true;
-            this.rbAjustar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbAjustar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbAjustar.Location = new System.Drawing.Point(341, 6);
             this.rbAjustar.Name = "rbAjustar";
-            this.rbAjustar.Size = new System.Drawing.Size(95, 21);
+            this.rbAjustar.Size = new System.Drawing.Size(90, 19);
             this.rbAjustar.TabIndex = 2;
             this.rbAjustar.Text = "Solo ajustar";
             this.rbAjustar.UseVisualStyleBackColor = true;
@@ -131,7 +131,7 @@
             // 
             this.cantidadStockActual.BackColor = System.Drawing.Color.White;
             this.cantidadStockActual.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cantidadStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cantidadStockActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cantidadStockActual.ForeColor = System.Drawing.Color.Red;
             this.cantidadStockActual.Location = new System.Drawing.Point(21, 87);
             this.cantidadStockActual.Name = "cantidadStockActual";
@@ -142,94 +142,95 @@
             // lbCantidadCompra
             // 
             this.lbCantidadCompra.AutoSize = true;
-            this.lbCantidadCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCantidadCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCantidadCompra.Location = new System.Drawing.Point(474, 64);
             this.lbCantidadCompra.Name = "lbCantidadCompra";
-            this.lbCantidadCompra.Size = new System.Drawing.Size(114, 17);
+            this.lbCantidadCompra.Size = new System.Drawing.Size(101, 15);
             this.lbCantidadCompra.TabIndex = 9;
             this.lbCantidadCompra.Text = "Cantidad compra";
             // 
             // lbPrecioCompra
             // 
             this.lbPrecioCompra.AutoSize = true;
-            this.lbPrecioCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPrecioCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPrecioCompra.Location = new System.Drawing.Point(321, 64);
             this.lbPrecioCompra.Name = "lbPrecioCompra";
-            this.lbPrecioCompra.Size = new System.Drawing.Size(115, 17);
+            this.lbPrecioCompra.Size = new System.Drawing.Size(104, 15);
             this.lbPrecioCompra.TabIndex = 8;
             this.lbPrecioCompra.Text = "Precio de compra";
             // 
             // lbStockActual
             // 
             this.lbStockActual.AutoSize = true;
-            this.lbStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStockActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbStockActual.Location = new System.Drawing.Point(0, 0);
             this.lbStockActual.Name = "lbStockActual";
-            this.lbStockActual.Size = new System.Drawing.Size(84, 17);
+            this.lbStockActual.Size = new System.Drawing.Size(73, 15);
             this.lbStockActual.TabIndex = 10;
             this.lbStockActual.Text = "Stock actual";
             // 
             // lbFechaCompra
             // 
             this.lbFechaCompra.AutoSize = true;
-            this.lbFechaCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFechaCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbFechaCompra.Location = new System.Drawing.Point(166, 64);
             this.lbFechaCompra.Name = "lbFechaCompra";
-            this.lbFechaCompra.Size = new System.Drawing.Size(114, 17);
+            this.lbFechaCompra.Size = new System.Drawing.Size(103, 15);
             this.lbFechaCompra.TabIndex = 7;
             this.lbFechaCompra.Text = "Fecha de compra";
             // 
             // lbProveedor
             // 
             this.lbProveedor.AutoSize = true;
-            this.lbProveedor.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbProveedor.Location = new System.Drawing.Point(4, 12);
             this.lbProveedor.Name = "lbProveedor";
-            this.lbProveedor.Size = new System.Drawing.Size(71, 17);
+            this.lbProveedor.Size = new System.Drawing.Size(63, 15);
             this.lbProveedor.TabIndex = 6;
             this.lbProveedor.Text = "Proveedor";
             // 
             // cbProveedores
             // 
             this.cbProveedores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbProveedores.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbProveedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbProveedores.FormattingEnabled = true;
             this.cbProveedores.Items.AddRange(new object[] {
             "Seleccione un proveedor..."});
             this.cbProveedores.Location = new System.Drawing.Point(7, 32);
             this.cbProveedores.Name = "cbProveedores";
-            this.cbProveedores.Size = new System.Drawing.Size(595, 24);
+            this.cbProveedores.Size = new System.Drawing.Size(595, 21);
             this.cbProveedores.TabIndex = 5;
             // 
             // dpFechaCompra
             // 
-            this.dpFechaCompra.CalendarFont = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpFechaCompra.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaCompra.CustomFormat = "yyyy-MM-dd";
-            this.dpFechaCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpFechaCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaCompra.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dpFechaCompra.Location = new System.Drawing.Point(169, 87);
             this.dpFechaCompra.Name = "dpFechaCompra";
-            this.dpFechaCompra.Size = new System.Drawing.Size(110, 22);
+            this.dpFechaCompra.Size = new System.Drawing.Size(110, 21);
             this.dpFechaCompra.TabIndex = 4;
             // 
             // txtCantidadCompra
             // 
-            this.txtCantidadCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCantidadCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCantidadCompra.Location = new System.Drawing.Point(477, 87);
             this.txtCantidadCompra.Name = "txtCantidadCompra";
-            this.txtCantidadCompra.Size = new System.Drawing.Size(110, 22);
+            this.txtCantidadCompra.Size = new System.Drawing.Size(110, 21);
             this.txtCantidadCompra.TabIndex = 3;
             this.txtCantidadCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidadCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidadCompra_KeyDown);
             // 
             // txtPrecioCompra
             // 
-            this.txtPrecioCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrecioCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrecioCompra.Location = new System.Drawing.Point(324, 87);
             this.txtPrecioCompra.Name = "txtPrecioCompra";
-            this.txtPrecioCompra.Size = new System.Drawing.Size(110, 22);
+            this.txtPrecioCompra.Size = new System.Drawing.Size(110, 21);
             this.txtPrecioCompra.TabIndex = 2;
             this.txtPrecioCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPrecioCompra.Enter += new System.EventHandler(this.txtPrecioCompra_Enter);
             this.txtPrecioCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecioCompra_KeyDown);
             // 
             // panelAjustar
@@ -256,10 +257,10 @@
             // lbConcepto
             // 
             this.lbConcepto.AutoSize = true;
-            this.lbConcepto.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbConcepto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbConcepto.Location = new System.Drawing.Point(4, 105);
             this.lbConcepto.Name = "lbConcepto";
-            this.lbConcepto.Size = new System.Drawing.Size(69, 17);
+            this.lbConcepto.Size = new System.Drawing.Size(59, 15);
             this.lbConcepto.TabIndex = 224;
             this.lbConcepto.Text = "Concepto";
             // 
@@ -269,7 +270,7 @@
             this.btnAgregarConcepto.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarConcepto.FlatAppearance.BorderSize = 0;
             this.btnAgregarConcepto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarConcepto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarConcepto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
             this.btnAgregarConcepto.Location = new System.Drawing.Point(574, 125);
@@ -282,21 +283,21 @@
             // cbConceptos
             // 
             this.cbConceptos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbConceptos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbConceptos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbConceptos.FormattingEnabled = true;
             this.cbConceptos.Location = new System.Drawing.Point(7, 125);
             this.cbConceptos.Name = "cbConceptos";
-            this.cbConceptos.Size = new System.Drawing.Size(563, 25);
+            this.cbConceptos.Size = new System.Drawing.Size(563, 23);
             this.cbConceptos.TabIndex = 222;
             // 
             // txt_en_stock
             // 
             this.txt_en_stock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_en_stock.Enabled = false;
-            this.txt_en_stock.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_en_stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_en_stock.Location = new System.Drawing.Point(75, 58);
             this.txt_en_stock.Name = "txt_en_stock";
-            this.txt_en_stock.Size = new System.Drawing.Size(50, 22);
+            this.txt_en_stock.Size = new System.Drawing.Size(50, 21);
             this.txt_en_stock.TabIndex = 10;
             this.txt_en_stock.Text = "12";
             this.txt_en_stock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -304,21 +305,21 @@
             // lb_en_stock
             // 
             this.lb_en_stock.AutoSize = true;
-            this.lb_en_stock.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_en_stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_en_stock.Location = new System.Drawing.Point(72, 34);
             this.lb_en_stock.Name = "lb_en_stock";
-            this.lb_en_stock.Size = new System.Drawing.Size(56, 17);
+            this.lb_en_stock.Size = new System.Drawing.Size(53, 15);
             this.lb_en_stock.TabIndex = 8;
             this.lb_en_stock.Text = "En stock";
             // 
             // lb_disminuir_stock_total
             // 
             this.lb_disminuir_stock_total.AutoSize = true;
-            this.lb_disminuir_stock_total.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_disminuir_stock_total.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_disminuir_stock_total.ForeColor = System.Drawing.Color.Red;
             this.lb_disminuir_stock_total.Location = new System.Drawing.Point(485, 86);
             this.lb_disminuir_stock_total.Name = "lb_disminuir_stock_total";
-            this.lb_disminuir_stock_total.Size = new System.Drawing.Size(15, 16);
+            this.lb_disminuir_stock_total.Size = new System.Drawing.Size(15, 15);
             this.lb_disminuir_stock_total.TabIndex = 7;
             this.lb_disminuir_stock_total.Text = "0";
             this.lb_disminuir_stock_total.Visible = false;
@@ -326,11 +327,11 @@
             // lb_disminuir_stock
             // 
             this.lb_disminuir_stock.AutoSize = true;
-            this.lb_disminuir_stock.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_disminuir_stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_disminuir_stock.ForeColor = System.Drawing.Color.Red;
             this.lb_disminuir_stock.Location = new System.Drawing.Point(407, 86);
             this.lb_disminuir_stock.Name = "lb_disminuir_stock";
-            this.lb_disminuir_stock.Size = new System.Drawing.Size(72, 17);
+            this.lb_disminuir_stock.Size = new System.Drawing.Size(65, 15);
             this.lb_disminuir_stock.TabIndex = 6;
             this.lb_disminuir_stock.Text = "Total stock";
             this.lb_disminuir_stock.Visible = false;
@@ -338,11 +339,11 @@
             // lb_aumentar_stock_total
             // 
             this.lb_aumentar_stock_total.AutoSize = true;
-            this.lb_aumentar_stock_total.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_aumentar_stock_total.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_aumentar_stock_total.ForeColor = System.Drawing.Color.Red;
             this.lb_aumentar_stock_total.Location = new System.Drawing.Point(269, 85);
             this.lb_aumentar_stock_total.Name = "lb_aumentar_stock_total";
-            this.lb_aumentar_stock_total.Size = new System.Drawing.Size(15, 16);
+            this.lb_aumentar_stock_total.Size = new System.Drawing.Size(15, 15);
             this.lb_aumentar_stock_total.TabIndex = 5;
             this.lb_aumentar_stock_total.Text = "0";
             this.lb_aumentar_stock_total.Visible = false;
@@ -350,11 +351,11 @@
             // lb_aumentar_stock
             // 
             this.lb_aumentar_stock.AutoSize = true;
-            this.lb_aumentar_stock.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_aumentar_stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_aumentar_stock.ForeColor = System.Drawing.Color.Red;
             this.lb_aumentar_stock.Location = new System.Drawing.Point(191, 85);
             this.lb_aumentar_stock.Name = "lb_aumentar_stock";
-            this.lb_aumentar_stock.Size = new System.Drawing.Size(72, 17);
+            this.lb_aumentar_stock.Size = new System.Drawing.Size(65, 15);
             this.lb_aumentar_stock.TabIndex = 4;
             this.lb_aumentar_stock.Text = "Total stock";
             this.lb_aumentar_stock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -363,29 +364,29 @@
             // lbDisminuir
             // 
             this.lbDisminuir.AutoSize = true;
-            this.lbDisminuir.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDisminuir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDisminuir.Location = new System.Drawing.Point(397, 34);
             this.lbDisminuir.Name = "lbDisminuir";
-            this.lbDisminuir.Size = new System.Drawing.Size(118, 17);
+            this.lbDisminuir.Size = new System.Drawing.Size(110, 15);
             this.lbDisminuir.TabIndex = 3;
             this.lbDisminuir.Text = "Disminuir cantidad";
             // 
             // lbAumentar
             // 
             this.lbAumentar.AutoSize = true;
-            this.lbAumentar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAumentar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAumentar.Location = new System.Drawing.Point(181, 34);
             this.lbAumentar.Name = "lbAumentar";
-            this.lbAumentar.Size = new System.Drawing.Size(125, 17);
+            this.lbAumentar.Size = new System.Drawing.Size(110, 15);
             this.lbAumentar.TabIndex = 2;
             this.lbAumentar.Text = "Aumentar cantidad";
             // 
             // txtDisminuir
             // 
-            this.txtDisminuir.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDisminuir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDisminuir.Location = new System.Drawing.Point(400, 58);
             this.txtDisminuir.Name = "txtDisminuir";
-            this.txtDisminuir.Size = new System.Drawing.Size(125, 22);
+            this.txtDisminuir.Size = new System.Drawing.Size(125, 21);
             this.txtDisminuir.TabIndex = 1;
             this.txtDisminuir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDisminuir.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDisminuir_KeyDown);
@@ -394,10 +395,10 @@
             // 
             // txtAumentar
             // 
-            this.txtAumentar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAumentar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAumentar.Location = new System.Drawing.Point(184, 58);
             this.txtAumentar.Name = "txtAumentar";
-            this.txtAumentar.Size = new System.Drawing.Size(125, 22);
+            this.txtAumentar.Size = new System.Drawing.Size(125, 21);
             this.txtAumentar.TabIndex = 0;
             this.txtAumentar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtAumentar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAumentar_KeyDown);
@@ -406,19 +407,19 @@
             // 
             // txtComentarios
             // 
-            this.txtComentarios.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtComentarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComentarios.Location = new System.Drawing.Point(20, 328);
             this.txtComentarios.Name = "txtComentarios";
-            this.txtComentarios.Size = new System.Drawing.Size(595, 22);
+            this.txtComentarios.Size = new System.Drawing.Size(595, 21);
             this.txtComentarios.TabIndex = 5;
             // 
             // lbComentarios
             // 
             this.lbComentarios.AutoSize = true;
-            this.lbComentarios.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbComentarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbComentarios.Location = new System.Drawing.Point(17, 308);
             this.lbComentarios.Name = "lbComentarios";
-            this.lbComentarios.Size = new System.Drawing.Size(149, 17);
+            this.lbComentarios.Size = new System.Drawing.Size(135, 15);
             this.lbComentarios.TabIndex = 6;
             this.lbComentarios.Text = "Comentarios (opcional)";
             // 
@@ -445,7 +446,7 @@
             this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAceptar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
             this.btnAceptar.Location = new System.Drawing.Point(471, 369);
             this.btnAceptar.Name = "btnAceptar";
@@ -462,7 +463,7 @@
             this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
             this.btnCancelar.Location = new System.Drawing.Point(323, 369);
             this.btnCancelar.Name = "btnCancelar";
@@ -475,7 +476,7 @@
             // lbEditarPrecio
             // 
             this.lbEditarPrecio.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbEditarPrecio.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbEditarPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEditarPrecio.Image = global::PuntoDeVentaV2.Properties.Resources.pencil1;
             this.lbEditarPrecio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lbEditarPrecio.Location = new System.Drawing.Point(363, 47);
@@ -487,11 +488,11 @@
             // txtPrecio
             // 
             this.txtPrecio.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPrecio.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrecio.Location = new System.Drawing.Point(257, 47);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.ReadOnly = true;
-            this.txtPrecio.Size = new System.Drawing.Size(100, 20);
+            this.txtPrecio.Size = new System.Drawing.Size(100, 19);
             this.txtPrecio.TabIndex = 32;
             this.txtPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecio_KeyDown);
@@ -504,7 +505,7 @@
             this.btnActualiza.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualiza.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
             this.btnActualiza.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualiza.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualiza.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualiza.ForeColor = System.Drawing.Color.White;
             this.btnActualiza.Location = new System.Drawing.Point(393, 43);
             this.btnActualiza.Name = "btnActualiza";
@@ -533,7 +534,7 @@
             // 
             // lblOperacionInventario
             // 
-            this.lblOperacionInventario.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOperacionInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOperacionInventario.Location = new System.Drawing.Point(4, 5);
             this.lblOperacionInventario.Name = "lblOperacionInventario";
             this.lblOperacionInventario.Size = new System.Drawing.Size(603, 23);

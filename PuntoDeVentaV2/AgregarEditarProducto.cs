@@ -3930,6 +3930,44 @@ namespace PuntoDeVentaV2
             mensajes.ShowDialog();
         }
 
+        private void txtPrecioProducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Aqui se condicionara para ver si el "Empleado" tiene permisos
+
+            //int comprobar = 0;
+            //string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+
+            //using (DataTable dtUsuarios = cn.CargarDatos(cs.validarUsuario(FormPrincipal.userNickName)))
+            //{
+            //    if (!dtUsuarios.Rows.Count.Equals(0))
+            //    {
+
+            //    }
+            //    else
+            //    {
+            //        using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar("Precio", idempleado)))
+            //        {
+            //            if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
+            //            {
+            //                foreach (DataRow item in dtEmpleadosPermisos.Rows)
+            //                {
+            //                    comprobar = Convert.ToInt32(item["total"]);
+            //                }
+            //            }
+            //        }
+            //        if (comprobar > 0)
+            //        {
+
+            //        }
+            //        else
+            //        {
+            //            txtPrecioProducto.Enabled = false;
+            //            MessageBox.Show("No cuentas con los permisos para modificar este dato", "Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        }
+            //    }
+            //}
+        }
+
         public void cargarCodBarExt()
         {
             id = 0;
@@ -9007,6 +9045,39 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioProducto_Enter(object sender, EventArgs e)
         {
+
+            int comprobar = 0;
+            string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+
+            using (DataTable dtUsuarios = cn.CargarDatos(cs.validarUsuario(FormPrincipal.userNickName)))
+            {
+                if (!dtUsuarios.Rows.Count.Equals(0))
+                {
+
+                }
+                else
+                {
+                    using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar("Precio", idempleado)))
+                    {
+                        if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtEmpleadosPermisos.Rows)
+                            {
+                                comprobar = Convert.ToInt32(item["total"]);
+                            }
+                        }
+                    }
+                    if (comprobar > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        txtPrecioProducto.Enabled = false;
+                        MessageBox.Show("No cuentas con los permisos para modificar este dato", "Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
             txtPrecioProducto.SelectAll();
             _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
