@@ -60,6 +60,7 @@
             this.chkMarcarDesmarcar = new System.Windows.Forms.CheckBox();
             this.btnBascula = new System.Windows.Forms.Button();
             this.cboBascula = new System.Windows.Forms.CheckBox();
+            this.chkPrecio = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbox_anticipos
@@ -67,7 +68,7 @@
             this.cbox_anticipos.AutoSize = true;
             this.cbox_anticipos.Location = new System.Drawing.Point(34, 41);
             this.cbox_anticipos.Name = "cbox_anticipos";
-            this.cbox_anticipos.Size = new System.Drawing.Size(83, 21);
+            this.cbox_anticipos.Size = new System.Drawing.Size(75, 19);
             this.cbox_anticipos.TabIndex = 1;
             this.cbox_anticipos.Text = "Anticipos";
             this.cbox_anticipos.UseVisualStyleBackColor = true;
@@ -77,7 +78,7 @@
             this.cbox_caja.AutoSize = true;
             this.cbox_caja.Location = new System.Drawing.Point(176, 41);
             this.cbox_caja.Name = "cbox_caja";
-            this.cbox_caja.Size = new System.Drawing.Size(55, 21);
+            this.cbox_caja.Size = new System.Drawing.Size(51, 19);
             this.cbox_caja.TabIndex = 2;
             this.cbox_caja.Text = "Caja";
             this.cbox_caja.UseVisualStyleBackColor = true;
@@ -87,7 +88,7 @@
             this.cbox_clientes.AutoSize = true;
             this.cbox_clientes.Location = new System.Drawing.Point(308, 41);
             this.cbox_clientes.Name = "cbox_clientes";
-            this.cbox_clientes.Size = new System.Drawing.Size(75, 21);
+            this.cbox_clientes.Size = new System.Drawing.Size(70, 19);
             this.cbox_clientes.TabIndex = 3;
             this.cbox_clientes.Text = "Clientes";
             this.cbox_clientes.UseVisualStyleBackColor = true;
@@ -97,7 +98,7 @@
             this.cbox_configuracion.AutoSize = true;
             this.cbox_configuracion.Location = new System.Drawing.Point(34, 84);
             this.cbox_configuracion.Name = "cbox_configuracion";
-            this.cbox_configuracion.Size = new System.Drawing.Size(111, 21);
+            this.cbox_configuracion.Size = new System.Drawing.Size(102, 19);
             this.cbox_configuracion.TabIndex = 4;
             this.cbox_configuracion.Text = "Configuración";
             this.cbox_configuracion.UseVisualStyleBackColor = true;
@@ -107,7 +108,7 @@
             this.cbox_empleados.AutoSize = true;
             this.cbox_empleados.Location = new System.Drawing.Point(176, 84);
             this.cbox_empleados.Name = "cbox_empleados";
-            this.cbox_empleados.Size = new System.Drawing.Size(92, 21);
+            this.cbox_empleados.Size = new System.Drawing.Size(89, 19);
             this.cbox_empleados.TabIndex = 5;
             this.cbox_empleados.Text = "Empleados";
             this.cbox_empleados.UseVisualStyleBackColor = true;
@@ -117,7 +118,7 @@
             this.cbox_empresas.AutoSize = true;
             this.cbox_empresas.Location = new System.Drawing.Point(176, 213);
             this.cbox_empresas.Name = "cbox_empresas";
-            this.cbox_empresas.Size = new System.Drawing.Size(82, 21);
+            this.cbox_empresas.Size = new System.Drawing.Size(82, 19);
             this.cbox_empresas.TabIndex = 6;
             this.cbox_empresas.Text = "Empresas";
             this.cbox_empresas.UseVisualStyleBackColor = true;
@@ -128,7 +129,7 @@
             this.cbox_facturas.AutoSize = true;
             this.cbox_facturas.Location = new System.Drawing.Point(34, 128);
             this.cbox_facturas.Name = "cbox_facturas";
-            this.cbox_facturas.Size = new System.Drawing.Size(78, 21);
+            this.cbox_facturas.Size = new System.Drawing.Size(73, 19);
             this.cbox_facturas.TabIndex = 7;
             this.cbox_facturas.Text = "Facturas";
             this.cbox_facturas.UseVisualStyleBackColor = true;
@@ -138,7 +139,7 @@
             this.cbox_inventario.AutoSize = true;
             this.cbox_inventario.Location = new System.Drawing.Point(176, 128);
             this.cbox_inventario.Name = "cbox_inventario";
-            this.cbox_inventario.Size = new System.Drawing.Size(88, 21);
+            this.cbox_inventario.Size = new System.Drawing.Size(79, 19);
             this.cbox_inventario.TabIndex = 8;
             this.cbox_inventario.Text = "Inventario";
             this.cbox_inventario.UseVisualStyleBackColor = true;
@@ -148,7 +149,7 @@
             this.cbox_misdatos.AutoSize = true;
             this.cbox_misdatos.Location = new System.Drawing.Point(308, 128);
             this.cbox_misdatos.Name = "cbox_misdatos";
-            this.cbox_misdatos.Size = new System.Drawing.Size(83, 21);
+            this.cbox_misdatos.Size = new System.Drawing.Size(79, 19);
             this.cbox_misdatos.TabIndex = 9;
             this.cbox_misdatos.Text = "Mis datos";
             this.cbox_misdatos.UseVisualStyleBackColor = true;
@@ -158,7 +159,7 @@
             this.cbox_productos.AutoSize = true;
             this.cbox_productos.Location = new System.Drawing.Point(34, 173);
             this.cbox_productos.Name = "cbox_productos";
-            this.cbox_productos.Size = new System.Drawing.Size(87, 21);
+            this.cbox_productos.Size = new System.Drawing.Size(81, 19);
             this.cbox_productos.TabIndex = 10;
             this.cbox_productos.Text = "Productos";
             this.cbox_productos.UseVisualStyleBackColor = true;
@@ -168,7 +169,7 @@
             this.cbox_proveedores.AutoSize = true;
             this.cbox_proveedores.Location = new System.Drawing.Point(176, 173);
             this.cbox_proveedores.Name = "cbox_proveedores";
-            this.cbox_proveedores.Size = new System.Drawing.Size(103, 21);
+            this.cbox_proveedores.Size = new System.Drawing.Size(95, 19);
             this.cbox_proveedores.TabIndex = 11;
             this.cbox_proveedores.Text = "Proveedores";
             this.cbox_proveedores.UseVisualStyleBackColor = true;
@@ -178,7 +179,7 @@
             this.cbox_reportes.AutoSize = true;
             this.cbox_reportes.Location = new System.Drawing.Point(308, 173);
             this.cbox_reportes.Name = "cbox_reportes";
-            this.cbox_reportes.Size = new System.Drawing.Size(80, 21);
+            this.cbox_reportes.Size = new System.Drawing.Size(76, 19);
             this.cbox_reportes.TabIndex = 12;
             this.cbox_reportes.Text = "Reportes";
             this.cbox_reportes.UseVisualStyleBackColor = true;
@@ -188,7 +189,7 @@
             this.cbox_ventas.AutoSize = true;
             this.cbox_ventas.Location = new System.Drawing.Point(34, 215);
             this.cbox_ventas.Name = "cbox_ventas";
-            this.cbox_ventas.Size = new System.Drawing.Size(69, 21);
+            this.cbox_ventas.Size = new System.Drawing.Size(63, 19);
             this.cbox_ventas.TabIndex = 14;
             this.cbox_ventas.Text = "Ventas";
             this.cbox_ventas.UseVisualStyleBackColor = true;
@@ -199,7 +200,7 @@
             this.btn_aceptar.BackColor = System.Drawing.Color.Green;
             this.btn_aceptar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_aceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
             this.btn_aceptar.Location = new System.Drawing.Point(217, 267);
             this.btn_aceptar.Name = "btn_aceptar";
@@ -215,7 +216,7 @@
             this.btn_cancelar.BackColor = System.Drawing.Color.Red;
             this.btn_cancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
             this.btn_cancelar.Location = new System.Drawing.Point(51, 267);
             this.btn_cancelar.Name = "btn_cancelar";
@@ -385,7 +386,7 @@
             this.chkMarcarDesmarcar.AutoSize = true;
             this.chkMarcarDesmarcar.Location = new System.Drawing.Point(8, 12);
             this.chkMarcarDesmarcar.Name = "chkMarcarDesmarcar";
-            this.chkMarcarDesmarcar.Size = new System.Drawing.Size(107, 21);
+            this.chkMarcarDesmarcar.Size = new System.Drawing.Size(98, 19);
             this.chkMarcarDesmarcar.TabIndex = 116;
             this.chkMarcarDesmarcar.Text = "Marcar todos";
             this.chkMarcarDesmarcar.UseVisualStyleBackColor = true;
@@ -407,16 +408,27 @@
             this.cboBascula.AutoSize = true;
             this.cboBascula.Location = new System.Drawing.Point(308, 84);
             this.cboBascula.Name = "cboBascula";
-            this.cboBascula.Size = new System.Drawing.Size(73, 21);
+            this.cboBascula.Size = new System.Drawing.Size(70, 19);
             this.cboBascula.TabIndex = 117;
             this.cboBascula.Text = "Bascula";
             this.cboBascula.UseVisualStyleBackColor = true;
             // 
+            // chkPrecio
+            // 
+            this.chkPrecio.AutoSize = true;
+            this.chkPrecio.Location = new System.Drawing.Point(176, 214);
+            this.chkPrecio.Name = "chkPrecio";
+            this.chkPrecio.Size = new System.Drawing.Size(61, 19);
+            this.chkPrecio.TabIndex = 119;
+            this.chkPrecio.Text = "Precio";
+            this.chkPrecio.UseVisualStyleBackColor = true;
+            // 
             // Agregar_empleado_permisos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 311);
+            this.Controls.Add(this.chkPrecio);
             this.Controls.Add(this.btnBascula);
             this.Controls.Add(this.cboBascula);
             this.Controls.Add(this.chkMarcarDesmarcar);
@@ -449,7 +461,7 @@
             this.Controls.Add(this.cbox_clientes);
             this.Controls.Add(this.cbox_caja);
             this.Controls.Add(this.cbox_anticipos);
-            this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -498,5 +510,6 @@
         private System.Windows.Forms.CheckBox chkMarcarDesmarcar;
         private System.Windows.Forms.Button btnBascula;
         private System.Windows.Forms.CheckBox cboBascula;
+        private System.Windows.Forms.CheckBox chkPrecio;
     }
 }

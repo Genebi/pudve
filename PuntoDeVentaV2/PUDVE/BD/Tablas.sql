@@ -1622,3 +1622,8 @@ IF
 ALTER TABLE RevisarInventarioReportes ADD COLUMN IF NOT EXISTS TipoRevision VARCHAR(100) DEFAULT NULL;
 
 	ALTER TABLE productmessage ADD COLUMN IF NOT EXISTS CantidadMinimaDeCompra INT DEFAULT (null);
+
+	ALTER TABLE productmessage MODIFY COLUMN CantidadMinimaDeCompra int(11) DEFAULT 0;
+
+-- Agregamos columna para mostrar o no en el listado de opciones, a la tabla de DetalleGeneral es donde se carga los datos al ComboBox en Detalles Productos
+ALTER TABLE DetalleGeneral ADD COLUMN IF NOT EXISTS Mostrar INT DEFAULT 1;

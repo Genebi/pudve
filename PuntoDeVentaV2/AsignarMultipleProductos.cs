@@ -36,7 +36,6 @@ namespace PuntoDeVentaV2
             int comprobar = 0;
             string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
 
-
             using (DataTable dtUsuarios = cn.CargarDatos(cs.validarUsuario(FormPrincipal.userNickName)))
             {
                  if (!dtUsuarios.Rows.Count.Equals(0))
@@ -128,6 +127,7 @@ namespace PuntoDeVentaV2
             AgregarOpcion("ClaveUnidad", "Clave de Unidad", 325);
             // PANEL CORREOS PRODUCTO
             AgregarOpcion("Correos", "Correos", 360);
+
 
             int alturaEjeY = 395;
 

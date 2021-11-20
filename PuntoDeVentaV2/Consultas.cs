@@ -276,6 +276,7 @@ namespace PuntoDeVentaV2
         }
 
 
+
         public string buscarNombreCliente(string name)
         {
             string result = string.Empty;
@@ -2722,6 +2723,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
         public string mensajeInventario(int idProductoSeleccionado)
         {
             var consulta = $"SELECT Mensaje FROM `mensajesinventario` WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {idProductoSeleccionado}";
@@ -2735,6 +2737,7 @@ namespace PuntoDeVentaV2
             return consulta;
 
         }
+
         public string mensajeVentas(int idProductoSeleccionado)
         {
             var consulta = $"SELECT ProductOfMessage FROM productmessage WHERE IDProducto = {idProductoSeleccionado}";
@@ -2748,12 +2751,14 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
         public string actualizarMensajeInventario(int idProductoSeleccionado, string mensaje)
         {
             var consulta = $"UPDATE mensajesInventario SET Mensaje = '{mensaje}' WHERE IDProducto = {idProductoSeleccionado}";
 
             return consulta;
         }
+
         public string insertarMensajeInventario(int idProductoSeleccionado, string mensaje)
         {
             var consulta = $"INSERT INTO mensajesinventario (IDUsuario, IDProducto,mensaje) VALUES ('{FormPrincipal.userID}', '{idProductoSeleccionado}', '{mensaje}');";
@@ -2787,6 +2792,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
         public string permisosMensajeVentasInventario()
         {
             var consulta = $"SELECT ProductMessageActivated FROM productmessage";
@@ -2822,6 +2828,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string mostrarMensajeInventario(int codProducto)
+        {
+            var consulta = $"SELECT Mensaje FROM mensajesInventario WHERE IDProducto = {codProducto} AND Activo = 1";
+
+            return consulta;
+        }
+
         public string insertarCompraMinima(int idProducto,int cantidad)
         {
             var consulta = $"INSERT INTO productmessage (CantidadMinimaDeCompra, IDProducto) VALUES ('{cantidad}', '{idProducto}')";
@@ -2843,16 +2856,100 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string consultarMensajeInventario(string idProducto)
+        public string verificarMensajesProductosVentas(int idProducto)
         {
-            var consulta = $"SELECT Mensaje FROM mensajesinventario WHERE IDProducto = {idProducto}";
+            var consulta = $"SELECT * FROM  productmessage WHERE IDProducto = '{idProducto}'";
 
             return consulta;
         }
 
-        public string verificarMensajesProductosVentas(int idProducto)
+        public string CargarHistorialDeVentas(string fechaInicial, string fechaFinal, int idProducto)
         {
-            var consulta = $"SELECT * FROM  productmessage WHERE IDProducto = '{idProducto}'";
+            var consulta = $"SELECT * FROM ( SELECT Vent.Folio, Vent.Serie, Vent.Total, Vent.FechaOperacion, ProdVent.IDVenta, ProdVent.Nombre, ProdVent.Cantidad, ProdVent.Precio, IF ( Prod.Tipo = 'P', 'Individual', 'Combo / Servicio' ) AS Vendido, Vent.IDEmpleado, ProdVent.IDProducto FROM productos AS Prod INNER JOIN productosventa AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) INNER JOIN ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE Prod.ID = '{idProducto}' AND Prod.IDUsuario = '{FormPrincipal.userID}' AND DATE( Vent.FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' UNION SELECT Vent.Folio, Vent.Serie, Vent.Total, Vent.FechaOperacion, ProdVent.IDVenta, ProdServ.NombreProducto, ProdVent.Cantidad, ProdVent.Precio, IF ( Prod.Tipo = 'P', 'Individual', 'Combo / Servicio' ) AS Vendido, Vent.IDEmpleado, ProdVent.IDProducto FROM productosdeservicios AS ProdServ INNER JOIN productos AS Prod ON ( Prod.ID = ProdServ.IDServicio ) INNER JOIN productosventa AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) INNER JOIN ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE ProdServ.IDProducto = '{idProducto}' AND Prod.IDUsuario = '{FormPrincipal.userID}' AND DATE( Vent.FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ) AS resultado ORDER BY resultado.Folio,resultado.Serie ASC ";
+
+            return consulta;
+        }
+
+        public string cambiarEstadoMensaje(int idProducto, int status)
+        {
+            var consulta = $"UPDATE productmessage SET ProductMessageActivated = '{status}' WHERE IDProducto = '{idProducto}'";
+
+            return consulta;
+        }
+
+        public string cambiarEstadoMensajeInventario(int idProducto, int status)
+        {
+            var consulta = $"UPDATE mensajesinventario SET Activo = '{status}' WHERE IDProducto = '{idProducto}'";
+
+            return consulta;
+        }
+
+        public string verificarEstadoCheckbox(int idProducto)
+        {
+            var consulta = $"SELECT ProductMessageActivated FROM productmessage WHERE IDProducto = '{idProducto}'";
+
+            return consulta;
+        }
+
+        public string verificarEstadoCheckboxInventario(int idProducto)
+        {
+            var consulta = $"SELECT Activo FROM mensajesinventario WHERE IDProducto = '{idProducto}'";
+
+            return consulta;
+        }
+
+        public string actualizarCompraMinimaMultiple(int idProducto, int cantidad)
+        {
+            var consulta = $"UPDATE productmessage SET CantidadMinimaDeCompra = '{cantidad}' WHERE IDProducto = '{idProducto}'";
+
+            return consulta;
+        }
+
+        public string DatosVentaParaLaNota(int idVenta)
+        {
+            var consulta = $"SELECT Vent.ID, Vent.Folio, Vent.Serie, Usr.Usuario FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) WHERE Vent.ID = '{idVenta}'";
+
+            return consulta;
+        }
+
+        public string obtenerEspecificacionesActivasDetalleDinamico(string chkName)
+        {
+            var consulta = $"SELECT REPLACE(Descripcion, '_', ' ') AS Concepto FROM DetalleGeneral WHERE IDUsuario = '{FormPrincipal.userID}' AND ChckName = '{chkName}' AND Mostrar = '1' ORDER BY Descripcion ASC";
+
+            return consulta;
+        }
+
+        public string agregarEspecificacionAlDetalleDinamico(string detalleDeProducto, string especificacionDetalle)
+        {
+            var consulta = $"INSERT INTO DetalleGeneral (IDUsuario, ChckName, Descripcion) VALUES ('{FormPrincipal.userID}', '{detalleDeProducto}', '{especificacionDetalle}')";
+
+            return consulta;
+        }
+
+        public string especificacionesDetalleDinamicoParaQuitar(string conceptoDinamico)
+        {
+            var consulta = $"SELECT ID, Descripcion AS Concepto, IDUsuario AS Usuario FROM DetalleGeneral WHERE IDUsuario = '{FormPrincipal.userID}' AND ChckName = '{conceptoDinamico}' AND Mostrar = '1' ORDER BY Concepto ASC";
+
+            return consulta;
+        }
+
+        public string inhabilitarEspecificacionConceptoDinamico(int idRegistro)
+        {
+            var consulta = $"UPDATE DetalleGeneral SET Mostrar = 0 WHERE ID = '{idRegistro}'";
+
+            return consulta;
+        }
+
+        public string especificacionesDetalleDinamicoParaActivar(string conceptoDinamico)
+        {
+            var consulta = $"SELECT ID, Descripcion AS Concepto, IDUsuario AS Usuario FROM DetalleGeneral WHERE IDUsuario = '{FormPrincipal.userID}' AND ChckName = '{conceptoDinamico}' AND Mostrar = '0' ORDER BY Concepto ASC";
+
+            return consulta;
+        }
+
+        public string habilitarEspecificacionConceptoDinamico(int idRegistro)
+        {
+            var consulta = $"UPDATE DetalleGeneral SET Mostrar = 1 WHERE ID = '{idRegistro}'";
 
             return consulta;
         }

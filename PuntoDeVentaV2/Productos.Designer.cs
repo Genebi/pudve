@@ -220,7 +220,6 @@
             this.cbMostrar.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbMostrar.Size = new System.Drawing.Size(132, 24);
             this.cbMostrar.TabIndex = 7;
-            this.cbMostrar.SelectedIndexChanged += new System.EventHandler(this.cbMostrar_SelectedIndexChanged);
             this.cbMostrar.SelectionChangeCommitted += new System.EventHandler(this.cbMostrar_SelectionChangeCommitted);
             // 
             // panelShowDGVProductosView
@@ -1083,6 +1082,7 @@
             this.linkLblPaginaAnterior.TabIndex = 14;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
+            this.linkLblPaginaAnterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPaginaAnterior_LinkClicked);
             this.linkLblPaginaAnterior.Click += new System.EventHandler(this.linkLblPaginaAnterior_Click);
             // 
             // btnActualizarMaximoProductos
@@ -1164,7 +1164,6 @@
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);
             this.Shown += new System.EventHandler(this.Productos_Shown);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Productos_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Productos_KeyDown);
             this.Resize += new System.EventHandler(this.Productos_Resize);
             this.panelShowDGVProductosView.ResumeLayout(false);
@@ -1237,6 +1236,12 @@
         private System.Windows.Forms.Timer timer1;
         public System.Windows.Forms.TextBox txtBusqueda;
         public System.Windows.Forms.DataGridView DGVProductos;
+        private System.Windows.Forms.CheckBox cbTodos;
+        private System.Windows.Forms.Label lbPaginasSeleccionadas;
+        private System.Windows.Forms.Label lbCapital;
+        private System.Windows.Forms.Label lbCantidadSeleccionada;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CheckProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -1263,11 +1268,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn StockMinimo;
         private System.Windows.Forms.DataGridViewTextBoxColumn StockMaximo;
-        private System.Windows.Forms.CheckBox cbTodos;
-        private System.Windows.Forms.Label lbPaginasSeleccionadas;
-        private System.Windows.Forms.Label lbCapital;
-        private System.Windows.Forms.Label lbCantidadSeleccionada;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button1;
     }
 }

@@ -1216,16 +1216,45 @@ namespace PuntoDeVentaV2
 
                     // Verifica si el PDF ya esta creado
                     var servidor = Properties.Settings.Default.Hosting;
+                    var Usuario = FormPrincipal.userNickName;
+                    var Folio = string.Empty;
+                    var Serie = string.Empty;
 
                     string ruta_archivo = string.Empty;
 
+                    using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
+                    {
+                        if (!dtDatosVentas.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtDatosVentas.Rows)
+                            {
+                                Folio = item["Folio"].ToString();
+                                Serie = item["Serie"].ToString();
+                            }
+                        }
+                    }
+
                     if (!string.IsNullOrWhiteSpace(servidor))
                     {
-                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\VENTA_" + idVenta + ".pdf";
+                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\";
                     }
                     else
                     {
-                        ruta_archivo = $@"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idVenta + ".pdf";
+                        ruta_archivo = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\";
+                    }
+
+                    if (!Directory.Exists(ruta_archivo))
+                    {
+                        Directory.CreateDirectory(ruta_archivo);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}.pdf";
+                    }
+                    else
+                    {
+                        ruta_archivo = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}.pdf";
                     }
 
                     Thread hilo;
@@ -2169,23 +2198,40 @@ namespace PuntoDeVentaV2
             var servidor = Properties.Settings.Default.Hosting;
             string carpeta_venta = string.Empty;
             // Nombre que tendrá el pdf de la venta
-            string nombre_venta = "VENTA_" + id_venta;
+            string nombre_venta = string.Empty;
+            var Usuario = FormPrincipal.userNickName;
             // Verifica si tiene creado el directorio
             //string carpeta_venta = @"C:\Archivos PUDVE\Ventas\PDF\";
+            var Folio = string.Empty;
+            var Serie = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                carpeta_venta = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\";
+                carpeta_venta = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\";
             }
             else
             {
-                carpeta_venta = $@"C:\Archivos PUDVE\Ventas\PDF\";
+                carpeta_venta = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\";
             }
 
             if (!Directory.Exists(carpeta_venta))
             {
                 Directory.CreateDirectory(carpeta_venta);
             }
+
+            using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(id_venta)))
+            {
+                if (!dtDatosVentas.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in dtDatosVentas.Rows)
+                    {
+                        Folio = item["Folio"].ToString();
+                        Serie = item["Serie"].ToString();
+                    }
+                }
+            }
+
+            nombre_venta += $"VENTA_NoVenta{id_venta}_Folio{Folio}{Serie}";
 
             string origen_pdf_temp = nombre_venta + ".pdf";
             string destino_pdf = carpeta_venta + nombre_venta + ".pdf";

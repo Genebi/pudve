@@ -512,8 +512,10 @@ namespace PuntoDeVentaV2
                     // Agregamos el Botón de agregar item Más
                     Button bt = new Button();
                     bt.Name = "bt" + chkDetalleProductoTxt.Replace("_", " ");
+                    bt.Tag = chkDetalleProductoTxt;
                     bt.Cursor = Cursors.Hand;
-                    bt.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+                    //bt.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+                    bt.Image = global::PuntoDeVentaV2.Properties.Resources.edit;
                     bt.Height = 23;
                     bt.Width = 23;
                     bt.BackColor = ColorTranslator.FromHtml("#5DADE2");
@@ -522,7 +524,7 @@ namespace PuntoDeVentaV2
                     bt.Anchor = AnchorStyles.Top;
                     bt.Click += new EventHandler(bt_Click);
                     bt.Location = new Point(162, 0);
-                    this.toolTip1.SetToolTip(bt, "Agregar especificaciones");
+                    this.toolTip1.SetToolTip(bt, "Agregar o editar especificaciones");
                     panelContenedor.Controls.Add(bt);
                     panelHijo.Controls.Add(panelContenedor);
 
@@ -1026,8 +1028,11 @@ namespace PuntoDeVentaV2
         private void bt_Click(object sender, EventArgs e)
         {
             Button botonPrecionado = sender as Button;
-            string nameBt = string.Empty, textoBuscado = string.Empty;
+            string  nameBt = string.Empty, 
+                    textoBuscado = string.Empty, 
+                    nombreConceptoReal = string.Empty;
             nameBt = botonPrecionado.Name;
+            nombreConceptoReal = botonPrecionado.Tag.ToString();
             textoBuscado = nameBt.Remove(0, 2);
             if (textoBuscado.Equals("Proveedor"))
             {
@@ -1053,6 +1058,7 @@ namespace PuntoDeVentaV2
                 };
                 addDetailGral.getChkName = textoBuscado;
                 addDetailGral.getIdUsr = FormPrincipal.userID.ToString();
+                addDetailGral.getRealChkName = nombreConceptoReal;
                 addDetailGral.ShowDialog();
             }
         }
@@ -1082,12 +1088,43 @@ namespace PuntoDeVentaV2
                 else if (comboBoxIndex <= 0)
                 {
                     idDetalleGral = 0;
+                    limpiarDatosDetalleGral(namePanel);
                 }
 
                 if (idDetalleGral > 0)
                 {
                     //cargarDatosProveedor(Convert.ToInt32(idCategoria));
                     llenarDatosDetalleGral(namePanel);
+                }
+            }
+        }
+
+        private void limpiarDatosDetalleGral(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = separadas[1].ToString().Replace("_", " ");
+                                    //contLblHijo.Text = "En Construcción está sección...";
+                                    contLblHijo.Text = string.Empty;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1456,12 +1493,57 @@ namespace PuntoDeVentaV2
                 else if (comboBoxIndex <= 0)
                 {
                     idProveedor = 0;
+                    limpiarDatosProveedor(namePanel);
                 }
 
                 if (idProveedor > 0)
                 {
                     cargarDatosProveedor(Convert.ToInt32(idProveedor));
                     llenarDatosProveedor(namePanel);
+                }
+            }
+        }
+
+        private void limpiarDatosProveedor(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "cb" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[0];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[0];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                else if (contLblHijo.Name == "lblRFC" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[1];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                else if (contLblHijo.Name == "lblTel" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[10];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

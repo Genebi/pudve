@@ -500,15 +500,34 @@ namespace PuntoDeVentaV2
 
         public static void CrearMarcaDeAguaNotaVenta(int idVenta, string texto)
         {
+            Conexion cn = new Conexion();
+            Consultas cs = new Consultas();
+
             var servidor = Properties.Settings.Default.Hosting;
             var archivoCopia = string.Empty;
             var archivoPDF = string.Empty;
             var nuevoPDF = string.Empty;
 
+            var Usuario = FormPrincipal.userNickName;
+            var Folio = string.Empty;
+            var Serie = string.Empty;
+
+            using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
+            {
+                if (!dtDatosVentas.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in dtDatosVentas.Rows)
+                    {
+                        Folio = item["Folio"].ToString();
+                        Serie = item["Serie"].ToString();
+                    }
+                }
+            }
+
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                archivoCopia = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\VENTA_{idVenta}_tmp.pdf";
-                archivoPDF = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\VENTA_{idVenta}.pdf";
+                archivoCopia = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}_tmp.pdf";
+                archivoPDF = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}.pdf";
 
                 nuevoPDF = archivoPDF;
 
@@ -517,8 +536,8 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                archivoCopia = $@"C:\Archivos PUDVE\Ventas\PDF\VENTA_{idVenta}_tmp.pdf";
-                archivoPDF = $@"C:\Archivos PUDVE\Ventas\PDF\VENTA_{idVenta}.pdf";
+                archivoCopia = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}_tmp.pdf";
+                archivoPDF = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}.pdf";
 
                 nuevoPDF = archivoPDF;
 
