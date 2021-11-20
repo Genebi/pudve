@@ -973,7 +973,12 @@ namespace PuntoDeVentaV2
 
             if (apartado.Equals("Deshabilitados"))
             {
-                return;
+                // Se habilito la opcion de historial para los productos deshabilitados, si no es esta opcion
+                // no deja que ninguna otro opcion funcione para los deshabilitados unicamente
+                if (e.RowIndex >= 0 && e.ColumnIndex != 9)
+                {
+                    return;
+                }
             }
 
 
@@ -4538,7 +4543,7 @@ namespace PuntoDeVentaV2
 
             DGVProductos.Columns["Column7"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column8"].Visible = mostrarColumnas;
-            DGVProductos.Columns["Column9"].Visible = mostrarColumnas;
+            //DGVProductos.Columns["Column9"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column10"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column11"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column12"].Visible = mostrarColumnas;
