@@ -363,7 +363,7 @@ namespace PuntoDeVentaV2
         {
             p.adelante();
             clickBoton = 1;
-            CargarDatos();
+            CargarDatos(EstadoProductosListados());
             actualizar();
             CambiarCheckBoxMaster();
             //updateCheckBoxes();
@@ -973,7 +973,12 @@ namespace PuntoDeVentaV2
 
             if (apartado.Equals("Deshabilitados"))
             {
-                return;
+                // Se habilito la opcion de historial para los productos deshabilitados, si no es esta opcion
+                // no deja que ninguna otro opcion funcione para los deshabilitados unicamente
+                if (e.RowIndex >= 0 && e.ColumnIndex != 9)
+                {
+                    return;
+                }
             }
 
 
@@ -1498,9 +1503,24 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
+        private int EstadoProductosListados()
         {
-            
+            int estado = 0;
+
+            if (cbMostrar.Text == "Habilitados")
+            {
+                estado = 1;
+            }
+            else if (cbMostrar.Text == "Deshabilitados")
+            {
+                estado = 0;
+            }
+            else if (cbMostrar.Text == "Todos")
+            {
+                estado = 2;
+            }
+
+            return estado;
         }
 
         private void btnCleanFilter_Click(object sender, EventArgs e)
@@ -2356,7 +2376,7 @@ namespace PuntoDeVentaV2
         {
             p.atras();
             clickBoton = 1;
-            CargarDatos();
+            CargarDatos(EstadoProductosListados());
             actualizar();
             CambiarCheckBoxMaster();
             //updateCheckBoxes();
@@ -3085,6 +3105,11 @@ namespace PuntoDeVentaV2
             }
             CargarDatos();
             actualizar();
+        }
+
+        private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
         }
 
         private void txtIrPagina_Leave(object sender, EventArgs e)
@@ -4443,7 +4468,7 @@ namespace PuntoDeVentaV2
             filtroConSinFiltroAvanzado = clickBoton == 1 ? auxiliarConsulta : consultaFiltro;
 
             LimpiarAplicandoConsultaFiltros();
-
+            
             Console.WriteLine(consultaFiltro);
 
             //================================================================================================================================================
@@ -4477,11 +4502,24 @@ namespace PuntoDeVentaV2
             // Status 0 es poner el listado en todos los productos Desactivados
             if (status == 0)
             {
-                if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
+                //if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
+                //{
+                //    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
+                //}
+                //else if (DGVProductos.RowCount >= 0)
+                //{
+                //    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
+                //}
+
+                if (DGVProductos.RowCount <= 0)
                 {
                     p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
-                else if (DGVProductos.RowCount >= 0)
+                else if (DGVProductos.RowCount >= 1 && clickBoton == 0)
+                {
+                    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (DGVProductos.RowCount >= 0 && clickBoton == 0)
                 {
                     p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
@@ -4505,7 +4543,7 @@ namespace PuntoDeVentaV2
 
             DGVProductos.Columns["Column7"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column8"].Visible = mostrarColumnas;
-            DGVProductos.Columns["Column9"].Visible = mostrarColumnas;
+            //DGVProductos.Columns["Column9"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column10"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column11"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column12"].Visible = mostrarColumnas;
@@ -4884,7 +4922,7 @@ namespace PuntoDeVentaV2
         {
             p.primerPagina();
             clickBoton = 1;
-            CargarDatos();
+            CargarDatos(EstadoProductosListados());
             //actualizarDatosDespuesDeAgregarProducto();
             actualizar();
             CambiarCheckBoxMaster();
@@ -4895,7 +4933,7 @@ namespace PuntoDeVentaV2
         {
             p.atras();
             clickBoton = 1;
-            CargarDatos();
+            CargarDatos(EstadoProductosListados());
             //actualizarDatosDespuesDeAgregarProducto();
             actualizar();
             CambiarCheckBoxMaster();
@@ -4906,7 +4944,7 @@ namespace PuntoDeVentaV2
         {
             p.adelante();
             clickBoton = 1;
-            CargarDatos();
+            CargarDatos(EstadoProductosListados());
             actualizar();
             CambiarCheckBoxMaster();
             //updateCheckBoxes();
@@ -4916,7 +4954,7 @@ namespace PuntoDeVentaV2
         {
             p.ultimaPagina();
             clickBoton = 1;
-            CargarDatos();
+            CargarDatos(EstadoProductosListados());
             actualizar();
             CambiarCheckBoxMaster();
             //updateCheckBoxes();
@@ -5809,110 +5847,6 @@ namespace PuntoDeVentaV2
             //txtBusqueda.Text = txtBusqueda.Text.TrimEnd();
             txtBusqueda.Text = txtBusqueda.Text.Trim();
             txtBusqueda.Select(txtBusqueda.Text.Length, 0);
-        }
-
-        private void Productos_Paint(object sender, PaintEventArgs e)
-        {
-            //if (!primeraVez)
-            //{
-            //    if (primeraVez.Equals(true))
-            //    {
-            //        MessageBox.Show("Primera Vez True\n\nif (!primeraVez) de primeraVez...");
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Primera Vez False\n\nif (!primeraVez) de primeraVez...");
-            //    }
-
-            //    if (recargarDatos)
-            //    {
-            //        if (recargarDatos.Equals(true))
-            //        {
-            //            MessageBox.Show("Recargar Datos true\nif (recargarDatos) de recargarDatos...");
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("Recargar Datos false\nif (recargarDatos) de recargarDatos...");
-            //        }
-
-            //        validarConexionServidor();
-
-            //        //txtBusqueda.Text = string.Empty;
-
-            //        if (txtBusqueda.Text.Equals(""))
-            //        {
-            //            CargarDatos();
-            //            recargarDatos = false;
-            //            MessageBox.Show("txtBusquedatxtBusqueda.Text.Equals(\"\")\nrecargarDatos = false");
-            //        }
-            //        else
-            //        {
-            //            int opc = 0;
-
-            //            if (cbMostrar.Text.Equals("Habilitados"))
-            //            {
-            //                opc = 1;
-            //            }
-            //            else if (cbMostrar.Text.Equals("Deshabilitados"))
-            //            {
-            //                opc = 0;
-            //            }
-            //            else if (cbMostrar.Text.Equals("Todos"))
-            //            {
-            //                opc = 2;
-            //            }
-
-            //            CargarDatos(opc, txtBusqueda.Text.ToString());
-
-            //            recargarDatos = false;
-
-            //            MessageBox.Show("txtBusquedatxtBusqueda.Text.Equals(conTexto)\nrecargarDatos = false opc=" + opc.ToString());
-            //        }
-
-            //        //txtBusqueda.Text = string.Empty;
-
-            //        borrarAuxWordTags();
-
-            //        creacionEtiquetasDinamicas();
-
-            //        //cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
-            //        //cbOrden_SelectionChangeCommitted(sender, EventArgs.Empty);
-
-            //        //if (cbMostrar.Text.Equals("Deshabilitados") || cbMostrar.Text.Equals("Todos"))
-            //        //{
-            //        //    cbMostrar.Text = "Habilitados";
-            //        //}
-
-            //        ////cbMostrar_SelectedIndexChanged(sender, EventArgs.Empty);
-            //        //cbMostrar_SelectionChangeCommitted(sender, EventArgs.Empty);
-            //    }
-            //    else if (!recargarDatos)
-            //    {
-            //        if (recargarDatos.Equals(true))
-            //        {
-            //            MessageBox.Show("Recargar Datos true\nelse if (!recargarDatos) de recargarDatos...");
-            //        }
-            //        else
-            //        {
-            //            MessageBox.Show("Recargar Datos false\nelse if (!recargarDatos) de recargarDatos...");
-            //        }
-
-            //        recargarDatos = true;
-            //    }
-            //}
-            //else
-            //{
-            //    if (primeraVez.Equals(true))
-            //    {
-            //        MessageBox.Show("Primera Vez True\nElse de primeraVez...");
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Primera Vez False\nElse de primeraVez...");
-            //    }
-
-            //    primeraVez = false;
-            //}
         }
 
         private void btnAsignarMultiple_Click(object sender, EventArgs e)
