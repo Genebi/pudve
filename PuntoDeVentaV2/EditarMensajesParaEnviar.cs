@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         string mensaje;
         string cantidadDeCompra;
+        private const char SignoDecimal = '.';
         public EditarMensajesParaEnviar()
         {
             InitializeComponent();
@@ -84,6 +85,7 @@ namespace PuntoDeVentaV2
                 TextBox txtCantidadCompra = new TextBox();
                 txtCantidadCompra.Name = "txtCantidadCompra";
                 txtCantidadCompra.Text = cantidadDeCompra;
+                txtCantidadCompra.KeyPress += new KeyPressEventHandler(txtCantidadCompra_KeyPress);
                 txtCantidadCompra.Width = 35;
                 txtCantidadCompra.Height = 20;
                 txtCantidadCompra.Location = new Point(270,33);
@@ -278,6 +280,17 @@ namespace PuntoDeVentaV2
                 this.Controls.Add(flpMensaje);
                 this.Controls.Add(flpDatos);
             }
+        }
+
+        private void txtCantidadCompra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            // Si el carácter pulsado no es un carácter válido se anula
+            e.Handled = !char.IsDigit(e.KeyChar) // No es dígito
+                        && !char.IsControl(e.KeyChar) // No es carácter de control (backspace)
+                        && (e.KeyChar != SignoDecimal // No es signo decimal o es la 1ª posición o ya hay un signo decimal
+                            || textBox.SelectionStart == 0
+                            || textBox.Text.Contains(SignoDecimal));
         }
 
         private void chkEstado_CheckedChanged(object sender, EventArgs e)

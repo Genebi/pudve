@@ -955,12 +955,43 @@ namespace PuntoDeVentaV2
 
         private void lbEditarPrecio_Click(object sender, EventArgs e)
         {
-            var precio = txtPrecio.Text.Replace("$", "");
-            txtPrecio.Text = precio;
+            int comprobar = 0;
+            string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
 
-            txtPrecio.ReadOnly = false;
-            txtPrecio.Focus();
-            txtPrecio.Select(txtPrecio.Text.Length, 0);
+            using (DataTable dtUsuarios = cn.CargarDatos(cs.validarUsuario(FormPrincipal.userNickName)))
+            {
+                if (!dtUsuarios.Rows.Count.Equals(0))
+                {
+
+                }
+                else
+                {
+                    using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar("Precio", idempleado)))
+                    {
+                        if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtEmpleadosPermisos.Rows)
+                            {
+                                comprobar = Convert.ToInt32(item["total"]);
+                            }
+                        }
+                    }
+                    if (comprobar > 0)
+                    {
+                        var precio = txtPrecio.Text.Replace("$", "");
+                        txtPrecio.Text = precio;
+
+                        txtPrecio.ReadOnly = false;
+                        txtPrecio.Focus();
+                        txtPrecio.Select(txtPrecio.Text.Length, 0);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No cuentas con los permisos para modificar este dato", "Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+           
         }
 
         private void txtPrecio_KeyDown(object sender, KeyEventArgs e)
@@ -1274,6 +1305,41 @@ namespace PuntoDeVentaV2
                 if (!string.IsNullOrWhiteSpace(html))
                 {
                     Utilidades.EnviarEmail(html, asunto, correo);
+                }
+            }
+        }
+
+        private void txtPrecioCompra_Enter(object sender, EventArgs e)
+        {
+            int comprobar = 0;
+            string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+
+            using (DataTable dtUsuarios = cn.CargarDatos(cs.validarUsuario(FormPrincipal.userNickName)))
+            {
+                if (!dtUsuarios.Rows.Count.Equals(0))
+                {
+
+                }
+                else
+                {
+                    using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar("Precio", idempleado)))
+                    {
+                        if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtEmpleadosPermisos.Rows)
+                            {
+                                comprobar = Convert.ToInt32(item["total"]);
+                            }
+                        }
+                    }
+                    if (comprobar > 0)
+                    {
+                    }
+                    else
+                    {
+                        txtPrecioCompra.Enabled = false;
+                        MessageBox.Show("No cuentas con los permisos para modificar este dato", "Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
         }
