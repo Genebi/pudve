@@ -772,9 +772,45 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void limpiarDatosGral(string namePanel)
+        private void limpiarDatosGral(string textoBuscado)
         {
-            
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in flowLayoutPanel3.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                var nuevoTextoBuscado = textoBuscado.TrimEnd("[_]".ToCharArray());
+                                if (contLblHijo.Name.Trim() == "lblNombrechk" + nuevoTextoBuscado)
+                                {
+                                    //contLblHijo.Text = separadas[1].ToString().Replace("_", " ");
+                                    //contLblHijo.Text = "En Construcción está sección...";
+                                    contLblHijo.Text = string.Empty;
+                                    using (DataTable dtResultado = cn.CargarDatos(cs.limpiarEspecificacionDetalleProducto(idEditarProducto, namePanel, gralDetailGralSelected)))
+                                    {
+                                        if (!dtResultado.Rows.Count.Equals(0))
+                                        {
+                                            foreach (DataRow item in dtResultado.Rows)
+                                            {
+                                                var resultadoDeBorrado = cn.EjecutarConsulta(cs.borrarEspecificacionDetalleProducto(item["ID"].ToString()));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void llenarDatosGral(string textoBuscado)

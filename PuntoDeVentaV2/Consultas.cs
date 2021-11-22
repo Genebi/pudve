@@ -2946,5 +2946,20 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string limpiarEspecificacionDetalleProducto(string idProducto, string panelConetnido, string especificacionSelecionada)
+        {
+            var consulta = $"SELECT * FROM detallesproductogenerales WHERE IDProducto = '{idProducto}' AND panelContenido = '{panelConetnido}' AND IDUsuario = '{FormPrincipal.userID}'";
+            //var consulta = $"SELECT DetProdGral.* FROM detallesproductogenerales AS DetProdGral INNER JOIN detallegeneral AS DetGral ON ( DetGral.ID = DetProdGral.IDDetalleGral ) WHERE DetProdGral.IDProducto = '{idProducto}' AND DetProdGral.panelContenido = '{panelConetnido}' AND DetProdGral.IDUsuario = '{FormPrincipal.userID}' AND DetGral.Descripcion = '{especificacionSelecionada}';";
+
+            return consulta;
+        }
+
+        public string borrarEspecificacionDetalleProducto(string idDetProdGral)
+        {
+            var consulta = $"DELETE FROM detallesproductogenerales WHERE ID = '{idDetProdGral}'";
+
+            return consulta;
+        }
     }
 }  
