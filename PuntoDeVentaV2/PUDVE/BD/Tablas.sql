@@ -1627,3 +1627,7 @@ ALTER TABLE RevisarInventarioReportes ADD COLUMN IF NOT EXISTS TipoRevision VARC
 
 -- Agregamos columna para mostrar o no en el listado de opciones, a la tabla de DetalleGeneral es donde se carga los datos al ComboBox en Detalles Productos
 ALTER TABLE DetalleGeneral ADD COLUMN IF NOT EXISTS Mostrar INT DEFAULT 1;
+
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS MensajeVentas INT DEFAULT (1);
+
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS MensajeInventario INT DEFAULT (1);
