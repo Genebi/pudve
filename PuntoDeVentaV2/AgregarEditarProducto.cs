@@ -11619,65 +11619,127 @@ namespace PuntoDeVentaV2
 
         private void loadFromConfigDB()
         {
-            var servidor = Properties.Settings.Default.Hosting;
+            llenarDetalleProductoEspecificaciones();
 
-            if (string.IsNullOrWhiteSpace(servidor))
+            //var servidor = Properties.Settings.Default.Hosting;
+
+            //if (string.IsNullOrWhiteSpace(servidor))
+            //{
+                
+            //    chkDatabase.Items.Clear();
+            //    settingDatabases.Items.Clear();
+
+            //    lvi = new ListViewItem();
+
+            //    try
+            //    {
+            //        chkDatabase.Clear();
+            //        settingDatabases.Clear();
+
+            //        using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+            //        {
+            //            if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
+            //            {
+            //                foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+            //                {
+            //                    connStr = row["textComboBoxConcepto"].ToString();
+            //                    if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
+            //                    {
+            //                        keyName = "true";
+            //                    }
+            //                    else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
+            //                    {
+            //                        keyName = "false";
+            //                    }
+            //                    lvi = new ListViewItem(keyName);
+            //                    lvi.SubItems.Add(connStr);
+            //                    chkDatabase.Items.Add(lvi);
+            //                }
+            //                foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+            //                {
+            //                    connStr = row["concepto"].ToString();
+            //                    if (row["checkBoxConcepto"].ToString().Equals("1"))
+            //                    {
+            //                        keyName = "true";
+            //                    }
+            //                    else if (row["checkBoxConcepto"].ToString().Equals("0"))
+            //                    {
+            //                        keyName = "false";
+            //                    }
+            //                    lvi = new ListViewItem(keyName);
+            //                    lvi.SubItems.Add(connStr);
+            //                    settingDatabases.Items.Add(lvi);
+            //                }
+            //            }
+            //            else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+            //            {
+            //                //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //            }
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Error de lectura de los Datos Dinamicos: " + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+        }
+
+        private void llenarDetalleProductoEspecificaciones()
+        {
+            chkDatabase.Items.Clear();
+            settingDatabases.Items.Clear();
+
+            lvi = new ListViewItem();
+
+            try
             {
-                chkDatabase.Items.Clear();
-                settingDatabases.Items.Clear();
+                chkDatabase.Clear();
+                settingDatabases.Clear();
 
-                lvi = new ListViewItem();
-
-                try
+                using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                 {
-                    chkDatabase.Clear();
-                    settingDatabases.Clear();
-
-                    using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+                    if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
                     {
-                        if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
+                        foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
                         {
-                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            connStr = row["textComboBoxConcepto"].ToString();
+                            if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
                             {
-                                connStr = row["textComboBoxConcepto"].ToString();
-                                if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
-                                {
-                                    keyName = "true";
-                                }
-                                else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
-                                {
-                                    keyName = "false";
-                                }
-                                lvi = new ListViewItem(keyName);
-                                lvi.SubItems.Add(connStr);
-                                chkDatabase.Items.Add(lvi);
+                                keyName = "true";
                             }
-                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
                             {
-                                connStr = row["concepto"].ToString();
-                                if (row["checkBoxConcepto"].ToString().Equals("1"))
-                                {
-                                    keyName = "true";
-                                }
-                                else if (row["checkBoxConcepto"].ToString().Equals("0"))
-                                {
-                                    keyName = "false";
-                                }
-                                lvi = new ListViewItem(keyName);
-                                lvi.SubItems.Add(connStr);
-                                settingDatabases.Items.Add(lvi);
+                                keyName = "false";
                             }
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            chkDatabase.Items.Add(lvi);
                         }
-                        else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+                        foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
                         {
-                            //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            connStr = row["concepto"].ToString();
+                            if (row["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                keyName = "true";
+                            }
+                            else if (row["checkBoxConcepto"].ToString().Equals("0"))
+                            {
+                                keyName = "false";
+                            }
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            settingDatabases.Items.Add(lvi);
                         }
                     }
+                    else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+                    {
+                        //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error de lectura de los Datos Dinamicos: " + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de lectura de los Datos Dinamicos: " + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
