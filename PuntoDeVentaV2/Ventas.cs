@@ -6468,6 +6468,8 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
+            //Aqui reproducir sonido de producto al carrito
+            ReproducirSonido();
             txtBuscadorProducto.Focus();
             txtBuscadorProducto.Select();
         }
@@ -6922,8 +6924,6 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            /* Agregar la condicion para la cantidad minima de compra para mostrarmensaje*/
-
             var celda = e.RowIndex;
             if (e.ColumnIndex == 5)
             {
@@ -6947,12 +6947,6 @@ namespace PuntoDeVentaV2
                                 drProdMessg = dtProdMessg.Rows[0];
 
                                 var mensaje = drProdMessg["ProductOfMessage"].ToString().ToUpper();
-
-                                //if (!listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
-                                //{
-                                //    MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                //    listaMensajesEnviados.Add(Convert.ToInt32(idproductoCantidad), "Mensaje");
-                                //}
                             }
                         }
                     }
