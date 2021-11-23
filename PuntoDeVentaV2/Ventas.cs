@@ -6409,6 +6409,7 @@ namespace PuntoDeVentaV2
         }
 
         private void DGVentas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+
         {
             if (contadorChangeValue.Equals(0))
             {
@@ -6453,6 +6454,7 @@ namespace PuntoDeVentaV2
                 }
                 contadorChangeValue++;
             }
+            //reproducirProductoAgregado();
             txtBuscadorProducto.Focus();
         }
 
@@ -6536,7 +6538,6 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-                            
                         }
                     }
                 else if (cantidad < cantidadMinima && listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
