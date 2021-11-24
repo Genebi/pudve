@@ -4822,6 +4822,9 @@
     <Content Include="PUDVE\icon\black\deafness.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\decrease.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\dedent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
