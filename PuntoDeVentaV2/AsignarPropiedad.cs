@@ -520,24 +520,44 @@ namespace PuntoDeVentaV2
 
         private async void botonAceptar_Click(object sender, EventArgs e)
         {
-            TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeVentas", true)[0];
-            var mensaje = txtMensaje.Text;
-
-
-            TextBox txtCantidadCompra = (TextBox)this.Controls.Find("txtCantidadCompra", true)[0];
-            var cantidad = txtCantidadCompra.Text;
             
-            if (!string.IsNullOrWhiteSpace(mensaje) && !string.IsNullOrWhiteSpace(cantidad))
-            {
+                cargando.Show();
+
+                await Task.Run(() =>
+                {
+                    Thread.Sleep(2000);
+                });
+
+                OperacionBoton();
+
+                cargando.Close();
+
+                Dispose();
+        }
+
+        private void OperacionBoton()
+        {
+            string[] datos;
+           
                 if (propiedad == "MensajeVentas")
                 {
+
+                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeVentas", true)[0];
+                var mensaje = txtMensaje.Text;
+
+                TextBox txtCantidadCompra = (TextBox)this.Controls.Find("txtCantidadCompra", true)[0];
+                var cantidad = txtCantidadCompra.Text;
+
+                if (!string.IsNullOrWhiteSpace(mensaje) && !string.IsNullOrWhiteSpace(cantidad))
+                {
+
                     if (stateChkMostrarMensaje.Equals(true))
                     {
                         foreach (var producto in productos)
                         {
-                            using (DataTable datos = cn.CargarDatos($"SELECT * FROM productmessage WHERE IDProducto = '{producto.Key}'"))
+                            using (DataTable datosV = cn.CargarDatos($"SELECT * FROM productmessage WHERE IDProducto = '{producto.Key}'"))
                             {
-                                if (!datos.Rows.Count.Equals(0))
+                                if (!datosV.Rows.Count.Equals(0))
                                 {
                                     cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 1 WHERE IDProducto = '{producto.Key}'");
                                 }
@@ -562,9 +582,9 @@ namespace PuntoDeVentaV2
                     {
                         foreach (var producto in productos)
                         {
-                            using (DataTable datos = cn.CargarDatos($"SELECT * FROM productmessage WHERE IDProducto = '{producto.Key}'"))
+                            using (DataTable datosV = cn.CargarDatos($"SELECT * FROM productmessage WHERE IDProducto = '{producto.Key}'"))
                             {
-                                if (!datos.Rows.Count.Equals(0))
+                                if (!datosV.Rows.Count.Equals(0))
                                 {
                                     cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 0 WHERE IDProducto = '{producto.Key}'");
                                 }
@@ -585,169 +605,145 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                else if (propiedad == "MensajeInventario")
+                else
                 {
-                    if (stateChkMostrarMensaje.Equals(true))
-                    {
-                        foreach (var producto in productos)
-                        {
-                            using (DataTable datos = cn.CargarDatos($"SELECT * FROM mensajesinventario WHERE IDProducto = '{producto.Key}'"))
-                            {
-                                if (!datos.Rows.Count.Equals(0))
-                                {
-                                    cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1 WHERE IDProducto = '{producto.Key}'");
-                                }
-                                else
-                                {
-                                    var status = 0;
-                                    if (stateChkMostrarMensaje)
-                                    {
-                                        status = 1;
-                                    }
-                                    else
-                                    {
-                                        status = 0;
-                                    }
-                                    cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDUsuario,IDProducto,Mensaje,Activo) VALUES ({FormPrincipal.userID},'{producto.Key}','{mensajeCompra}','{status}')");
-                                }
-                            }
-
-                        }
-                    }
-                    else
-                    {
-                        foreach (var producto in productos)
-                        {
-                            using (DataTable datos = cn.CargarDatos($"SELECT * FROM mensajesinventario WHERE IDProducto = '{producto.Key}'"))
-                            {
-                                if (!datos.Rows.Count.Equals(0))
-                                {
-                                    cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0 WHERE IDProducto = '{producto.Key}'");
-                                }
-                                else
-                                {
-                                    var status = 0;
-                                    if (stateChkMostrarMensaje)
-                                    {
-                                        status = 1;
-                                    }
-                                    else
-                                    {
-                                        status = 0;
-                                    }
-                                    cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDUsuario,IDProducto,Mensaje,Activo) VALUES ({FormPrincipal.userID},{producto.Key},'{mensajeCompra}','{status}')");
-                                }
-                            }
-                        }
-                    }
+                    MessageBox.Show("Test Mensaje incompleto");
                 }
+                //TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeVentas", true)[0];
 
-
-                cargando.Show();
-
-                await Task.Run(() =>
-                {
-                    Thread.Sleep(2000);
-                });
-
-                OperacionBoton();
-
-                cargando.Close();
-
-                Dispose();
-            }
-            else
-            {
-                MessageBox.Show("Favor de rellenar los 2 campos contengan informacion.");
-            }
-        }
-
-        private void OperacionBoton()
-        {
-            string[] datos;
-
-            if (propiedad == "MensajeVentas")
-            {
-                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeVentas", true)[0];
-
-                var mensaje = txtMensaje.Text;
-                var consulta = "INSERT IGNORE INTO ProductMessage (ID, IDProducto, ProductOfMessage) VALUES";
-                var valores = string.Empty;
+                //var mensaje = txtMensaje.Text;
+                //var consulta = "INSERT IGNORE INTO ProductMessage (ID, IDProducto, ProductOfMessage) VALUES";
+                //var valores = string.Empty;
 
 
 
-                if (string.IsNullOrWhiteSpace(mensaje))
-                {
-                    MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
+                //if (string.IsNullOrWhiteSpace(mensaje))
+                //{
+                //    MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    return;
+                //}
 
-                foreach (var producto in productos)
-                {
-                    // Comprobar si existe ya un mensaje para este producto
-                    var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM ProductMessage WHERE IDProducto = {producto.Key}", 1));
+                //foreach (var producto in productos)
+                //{
+                //    // Comprobar si existe ya un mensaje para este producto
+                //    var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM ProductMessage WHERE IDProducto = {producto.Key}", 1));
 
-                    
-                    TextBox txtCantidadMinima = (TextBox)this.Controls.Find("txtCantidadCompra", true)[0];
-                    var cantMinima = txtCantidadMinima.Text;
-                    cn.EjecutarConsulta(cs.actualizarCompraMinimaMultiple(producto.Key,Convert.ToInt32(cantMinima)));
 
-                    if (id > 0)
-                    {
-                        valores += $"({id}, {producto.Key}, '{mensaje}'),";
-                    }
-                    else
-                    {
-                        valores += $"(null, {producto.Key}, '{mensaje}'),";
-                    }
-                }
+                //    TextBox txtCantidadMinima = (TextBox)this.Controls.Find("txtCantidadCompra", true)[0];
+                //    var cantMinima = txtCantidadMinima.Text;
+                //    cn.EjecutarConsulta(cs.actualizarCompraMinimaMultiple(producto.Key,Convert.ToInt32(cantMinima)));
 
-                if (!string.IsNullOrWhiteSpace(valores))
-                {
-                    valores = valores.TrimEnd(',');
+                //    if (id > 0)
+                //    {
+                //        valores += $"({id}, {producto.Key}, '{mensaje}'),";
+                //    }
+                //    else
+                //    {
+                //        valores += $"(null, {producto.Key}, '{mensaje}'),";
+                //    }
+                //}
 
-                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDProducto = VALUES(IDProducto), ProductOfMessage = VALUES(ProductOfMessage);";
+                //if (!string.IsNullOrWhiteSpace(valores))
+                //{
+                //    valores = valores.TrimEnd(',');
 
-                    cn.EjecutarConsulta(consulta);
-                }
+                //    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDProducto = VALUES(IDProducto), ProductOfMessage = VALUES(ProductOfMessage);";
+
+                //    cn.EjecutarConsulta(consulta);
+                //}
             }
             else if (propiedad == "MensajeInventario")
             {
-                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
 
-                var mensaje = txtMensaje.Text;
-                var consulta = "INSERT IGNORE INTO MensajesInventario (ID, IDUsuario, IDProducto, Mensaje) VALUES";
-                var valores = string.Empty;
-
-                if (string.IsNullOrWhiteSpace(mensaje))
+                if (stateChkMostrarMensaje.Equals(true))
                 {
-                    MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                foreach (var producto in productos)
-                {
-                    // Comprobar si existe ya un mensaje para este producto en inventario
-                    var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}", 1));
-
-                    if (id > 0)
+                    foreach (var producto in productos)
                     {
-                        valores += $"({id}, {FormPrincipal.userID}, {producto.Key}, '{mensaje}'),";
-                    }
-                    else
-                    {
-                        valores += $"(null, {FormPrincipal.userID}, {producto.Key}, '{mensaje}'),";
+                        using (DataTable datosI = cn.CargarDatos($"SELECT * FROM mensajesinventario WHERE IDProducto = '{producto.Key}'"))
+                        {
+                            if (!datosI.Rows.Count.Equals(0))
+                            {
+                                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1 WHERE IDProducto = '{producto.Key}'");
+                            }
+                            else
+                            {
+                                var status = 0;
+                                if (stateChkMostrarMensaje)
+                                {
+                                    status = 1;
+                                }
+                                else
+                                {
+                                    status = 0;
+                                }
+                                cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDUsuario,IDProducto,Mensaje,Activo) VALUES ({FormPrincipal.userID},'{producto.Key}','{mensajeCompra}','{status}')");
+                            }
+                        }
+
                     }
                 }
-
-                if (!string.IsNullOrWhiteSpace(valores))
+                else
                 {
-                    valores = valores.TrimEnd(',');
-
-                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), Mensaje = VALUES(Mensaje);";
-
-                    cn.EjecutarConsulta(consulta);
+                    foreach (var producto in productos)
+                    {
+                        using (DataTable datosI = cn.CargarDatos($"SELECT * FROM mensajesinventario WHERE IDProducto = '{producto.Key}'"))
+                        {
+                            if (!datosI.Rows.Count.Equals(0))
+                            {
+                                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0 WHERE IDProducto = '{producto.Key}'");
+                            }
+                            else
+                            {
+                                var status = 0;
+                                if (stateChkMostrarMensaje)
+                                {
+                                    status = 1;
+                                }
+                                else
+                                {
+                                    status = 0;
+                                }
+                                cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDUsuario,IDProducto,Mensaje,Activo) VALUES ({FormPrincipal.userID},{producto.Key},'{mensajeCompra}','{status}')");
+                            }
+                        }
+                    }
                 }
+
+                //TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
+
+                //var mensaje = txtMensaje.Text;
+                //var consulta = "INSERT IGNORE INTO MensajesInventario (ID, IDUsuario, IDProducto, Mensaje) VALUES";
+                //var valores = string.Empty;
+
+                //if (string.IsNullOrWhiteSpace(mensaje))
+                //{
+                //    MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    return;
+                //}
+
+                //foreach (var producto in productos)
+                //{
+                //    // Comprobar si existe ya un mensaje para este producto en inventario
+                //    var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}", 1));
+
+                //    if (id > 0)
+                //    {
+                //        valores += $"({id}, {FormPrincipal.userID}, {producto.Key}, '{mensaje}'),";
+                //    }
+                //    else
+                //    {
+                //        valores += $"(null, {FormPrincipal.userID}, {producto.Key}, '{mensaje}'),";
+                //    }
+                //}
+
+                //if (!string.IsNullOrWhiteSpace(valores))
+                //{
+                //    valores = valores.TrimEnd(',');
+
+                //    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), Mensaje = VALUES(Mensaje);";
+
+                //    cn.EjecutarConsulta(consulta);
+                //}
             }
             else if (propiedad == "Stock")
             {

@@ -191,6 +191,8 @@ namespace PuntoDeVentaV2
         public static bool sonido = true;
         int contador = 0;
 
+        float CantidadAnteriorEdit, NuevaCantidadEdit;
+
         // al recibir de la bascula los bytesToRead indicara
         // un valor superior a 0, indicando el numero de caracteres
         private void Recibir(object sender, SerialDataReceivedEventArgs e)
@@ -1141,7 +1143,9 @@ namespace PuntoDeVentaV2
                         int idProducto = Convert.ToInt32(DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value);
                         int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celdaCellClick].Cells["DescuentoTipo"].Value);
                         var precio = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString());
+                        CantidadAnteriorEdit = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
                         float cantidad = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString()) + 1;
+                        NuevaCantidadEdit = cantidad;
 
                         float importe = cantidad * precio;
 
@@ -1171,6 +1175,7 @@ namespace PuntoDeVentaV2
                             string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                             CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, celdaCellClick);
                         }
+                        reproducirProductoAgregado();
                     }
                 }
 
@@ -1319,6 +1324,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+                    reproducirProductoAgregado();
                 }
 
                 // Eliminar individual
@@ -5491,6 +5497,7 @@ namespace PuntoDeVentaV2
 
                 if (caracter.Equals("+") || caracter.Equals("-"))
                 {
+                    reproducirProductoAgregado();
                     return;
                 }
             }
@@ -6454,7 +6461,6 @@ namespace PuntoDeVentaV2
                 }
                 contadorChangeValue++;
             }
-            //reproducirProductoAgregado();
             txtBuscadorProducto.Focus();
         }
 
@@ -6926,6 +6932,7 @@ namespace PuntoDeVentaV2
         private void DGVentas_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var celda = e.RowIndex;
+
             if (e.ColumnIndex == 5)
             {
                 decimal cantidad = 0;
@@ -6983,6 +6990,11 @@ namespace PuntoDeVentaV2
                 CalculoMayoreo();
                 //CantidadesFinalesVenta();
                 CantidadesFinalesVenta();
+                if (CantidadAnteriorEdit != NuevaCantidadEdit)
+                {
+                    reproducirProductoAgregado();
+                }
+                
             }
         }
 
