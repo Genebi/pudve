@@ -1977,7 +1977,7 @@ namespace PuntoDeVentaV2
 
         public static void GenerarReporteVentas(string opcionVentas, DataTable tablaResult)
         {
-            Consultas cs = new Consultas();
+            Consultas cs = new Consultas(); 
 
             // Ventas pagadas
             if (opcionVentas == "VP") { opcionVentas = "Ventas pagadas"; }

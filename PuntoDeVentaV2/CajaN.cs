@@ -2485,6 +2485,10 @@ namespace PuntoDeVentaV2
             }
 
             Utilidades.GenerarTicketCaja();
+
+            var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var datos = new string[] { "anticipo", "0", "0", "", FechaOperacion, FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0" };
+            cn.EjecutarConsulta(cs.OperacionCaja(datos));
         }
 
         private void btnCambioAbonos_Click(object sender, EventArgs e)
