@@ -186,7 +186,7 @@ namespace PuntoDeVentaV2
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
         public delegate void MostrarRecepcion(string Texto);    // Delegado para asignar el valor recibido
 
-        int nombreus, direccionus, colycpus, rfcus, correous, telefonous, nombrec, domicilioc, rfcc, correoc, telefonoc, colycpc, formapagoc;
+        int nombreus,nombComercial, direccionus, colycpus, rfcus, correous, telefonous, nombrec, domicilioc, rfcc, correoc, telefonoc, colycpc, formapagoc;
 
         public static bool sonido = true;
         int contador = 0;
@@ -4110,16 +4110,20 @@ namespace PuntoDeVentaV2
                     ticket.Add(logo);
                 }
             }
+            var nomComercial = cn.CargarDatos($"SELECT  nombre_comercial FROM usuarios WHERE ID = '{FormPrincipal.userID}' ");
+            string nombreComercial = nomComercial.Rows[0]["nombre_comercial"].ToString();
 
             Paragraph titulo = new Paragraph(datos[0] + "\n", fuenteGrande);
+            Paragraph NombreComercial = new Paragraph("Nombre Comercial: " + nombreComercial + "\n", fuenteNormal);
             Paragraph direccion = new Paragraph("Direccion: "+datos[1]+", "+datos[2]+", " +datos[4] + ", " +datos[5] + "\n", fuenteNormal);
             Paragraph colYCP = new Paragraph("Colonia: "+datos[6]+", "+"C.P.: "+datos[7] + "\n", fuenteNormal);
             Paragraph RFC = new Paragraph("RFC: "+datos[8] + "\n", fuenteNormal);
             Paragraph correo = new Paragraph("Correo: "+datos[9] + "\n", fuenteNormal);
             Paragraph telefono = new Paragraph("Telefono: "+datos[10] + "\n" + "\n", fuenteNormal );
             //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
-
+             
             titulo.Alignment = Element.ALIGN_CENTER;
+            NombreComercial.Alignment = Element.ALIGN_CENTER;
             direccion.Alignment = Element.ALIGN_CENTER;
             colYCP.Alignment = Element.ALIGN_CENTER;
             RFC.Alignment = Element.ALIGN_CENTER;
@@ -4363,6 +4367,7 @@ namespace PuntoDeVentaV2
             {
                 var datos2 = item;
                 nombreus = Convert.ToInt32(datos2[3]);
+                nombComercial = Convert.ToInt32(datos2[17]);
                 direccionus = Convert.ToInt32(datos2[4]);
                 colycpus = Convert.ToInt32(datos2[5]);
                 rfcus = Convert.ToInt32(datos2[6]);
@@ -4399,6 +4404,10 @@ namespace PuntoDeVentaV2
             if (nombreus == 1)
             {
                 ticket.Add(titulo);
+            }
+            if (nombComercial == 1)
+            {
+                ticket.Add(NombreComercial);
             }
             if (direccionus == 1)
             {

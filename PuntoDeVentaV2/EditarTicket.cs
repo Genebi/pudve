@@ -32,6 +32,9 @@ namespace PuntoDeVentaV2
             lblRFCUs.Text = ("RFC: " + datos[8].ToString());
             lblCorreoUs.Text = ("Correo: " + datos[9].ToString());
             lblTelefonoUs.Text = ("Telefono: " + datos[10].ToString());
+            var nomComercial = cn.CargarDatos($"SELECT  nombre_comercial FROM usuarios WHERE ID = '{FormPrincipal.userID}' ");
+            string nombreComercial = nomComercial.Rows[0]["nombre_comercial"].ToString();
+            lblNombreComercial.Text = nombreComercial;
 
             var checkboxTicket = cn.CargarDatos($"SELECT * FROM `editarticket` WHERE IDUsuario = '{FormPrincipal.userID}'");
 
@@ -44,7 +47,7 @@ namespace PuntoDeVentaV2
                 int rfc = Convert.ToInt32(datos2[6]);
                 int correo = Convert.ToInt32(datos2[7]);
                 int telefono = Convert.ToInt32(datos2[8]);
-
+                 
                 int nombrec = Convert.ToInt32(datos2[9]);
                 int domicilioc = Convert.ToInt32(datos2[10]);
                 int rfcc = Convert.ToInt32(datos2[11]);
@@ -52,7 +55,16 @@ namespace PuntoDeVentaV2
                 int telefonoc = Convert.ToInt32(datos2[13]);
                 int colycpc = Convert.ToInt32(datos2[14]);
                 int formapagoc = Convert.ToInt32(datos2[15]);
+                int nComercial = Convert.ToInt32(datos2[17]);
 
+                if (nComercial == 1)
+                {
+                    chkNombreComercial.Checked = true;
+                }
+                else
+                {
+                    chkNombreComercial.Checked = false;
+                }
                 if (nombre == 1)
                 {
                     chkNombreUs.Checked = true;
@@ -347,6 +359,17 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.telefonoCTicket(status));
             }
+            /////
+            if (chkNombreComercial.Checked == true)
+            {
+                var status = 1;
+                cn.EjecutarConsulta(cs.nombreComercial(status));
+            }
+            else
+            {
+                var status = 0;
+                cn.EjecutarConsulta(cs.nombreComercial(status));
+            }
             MessageBox.Show("Guardado Correctamente");
         }
 
@@ -624,6 +647,20 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 Close();
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkNombreComercial.Checked == false)
+            {
+                lblNombreComercial.Visible = false;
+                lblNombreComercial.Height = 0;
+            }
+            else if (chkNombreComercial.Checked == true)
+            {
+                lblNombreComercial.Visible = true;
+                lblNombreComercial.Height = 25;
             }
         }
     }

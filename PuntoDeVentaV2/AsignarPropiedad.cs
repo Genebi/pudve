@@ -607,7 +607,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show("Test Mensaje incompleto");
+                    MessageBox.Show("Favor de rellenar los 2 campos contengan informacion.");
                 }
                 //TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeVentas", true)[0];
 

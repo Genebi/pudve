@@ -2616,6 +2616,12 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string nombreComercial(int nomComercial)
+        {
+            var consulta = $"UPDATE editarticket SET NombreComercial = {nomComercial} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
         public string formapagoCTicket(int formapago)
         {
             var consulta = $"UPDATE editarticket SET FormaPagoC = {formapago} WHERE IDUsuario = '{FormPrincipal.userID}';";

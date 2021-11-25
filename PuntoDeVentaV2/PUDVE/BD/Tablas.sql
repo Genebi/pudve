@@ -1631,3 +1631,5 @@ ALTER TABLE DetalleGeneral ADD COLUMN IF NOT EXISTS Mostrar INT DEFAULT 1;
 ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS MensajeVentas INT DEFAULT (1);
 
 ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS MensajeInventario INT DEFAULT (1);
+
+ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS NombreComercial INT DEFAULT (1);
