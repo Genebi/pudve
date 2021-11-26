@@ -353,6 +353,24 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+        public string GuardarAperturaDeCaja(string[] datos, int operacion = 0)
+        {
+            string consulta = null;
+
+            if (operacion.Equals(0))
+            {
+                //Insertar nueva venta
+                consulta = "INSERT INTO Ventas (IDUsuario, IDCliente, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, RFC, Status, FechaOperacion, Cliente, IDEmpleado, FormaPago)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}')";
+            }
+            else
+            {
+                //Actualizar venta guardada
+                consulta = $"UPDATE Ventas SET IDCliente = '{datos[1]}', Subtotal = '{datos[3]}', IVA16 = '{datos[4]}', Total = '{datos[5]}', Descuento = '{datos[6]}', DescuentoGeneral = '{datos[7]}', Status = '{datos[11]}', FechaOperacion = '{datos[12]}', IDClienteDescuento = '{datos[13]}' WHERE ID = '{operacion}'";
+            }
+
+            return consulta;
+        }
 
         public string GuardarProductosVenta(string[] datos, int opcion = 0)
         {

@@ -1980,19 +1980,31 @@ namespace PuntoDeVentaV2
             Consultas cs = new Consultas(); 
 
             // Ventas pagadas
-            if (opcionVentas == "VP") { opcionVentas = "Ventas pagadas"; }
+            if (opcionVentas == "VP")
+            {
+                opcionVentas = "Ventas pagadas";
+            }
             // Ventas guardadas
-            if (opcionVentas == "VG") { opcionVentas = "Ventas guardadas"; }
+            if (opcionVentas == "VG")
+            {
+                opcionVentas = "Ventas guardadas";
+            }
             // Ventas canceladas
-            if (opcionVentas == "VC") { opcionVentas = "Ventas canceladas"; }
+            if (opcionVentas == "VC")
+            {
+                opcionVentas = "Ventas canceladas";
+            }
             // Ventas a credito
-            if (opcionVentas == "VCC") { opcionVentas = "Ventas a credito"; }
+            if (opcionVentas == "VCC")
+            {
+                opcionVentas = "Ventas a credito";
+            }
 
             var mostrarClave = FormPrincipal.clave;
 
             //Datos del usuario
             var datos = FormPrincipal.datosUsuario;
-
+            
             //Fuentes y Colores
             var colorFuenteNegrita = new BaseColor(Color.Black);
             var colorFuenteBlanca = new BaseColor(Color.White);
@@ -2004,6 +2016,7 @@ namespace PuntoDeVentaV2
             var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
 
             var numRow = 0;
+            string numAperturaCaja = string.Empty;
 
             //Ruta donde se creara el archivo PDF
             var servidor = Properties.Settings.Default.Hosting;
@@ -2036,7 +2049,7 @@ namespace PuntoDeVentaV2
             //string UsuarioActivo = string.Empty;
 
             string tipoReporte = string.Empty,
-                    encabezadoTipoReporte = string.Empty;
+            encabezadoTipoReporte = string.Empty;
 
             //Encabezado del reporte
             encabezadoTipoReporte = opcionVentas;
@@ -2061,7 +2074,10 @@ namespace PuntoDeVentaV2
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
-            if (!string.IsNullOrEmpty(UsuarioActivo)) { Empleado.Alignment = Element.ALIGN_CENTER; }
+            if (!string.IsNullOrEmpty(UsuarioActivo))
+            {
+                Empleado.Alignment = Element.ALIGN_CENTER;
+            }
             NumeroFolio.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
@@ -2144,19 +2160,41 @@ namespace PuntoDeVentaV2
             var cliente = string.Empty;
             foreach (DataRow iterador in tablaResult.Rows)
             {
+                
                 numRow += 1;
+                numAperturaCaja = "--";
+
                 var nombreEmpleado = cs.BuscarEmpleadoCaja(Convert.ToInt32(iterador["IDEmpleado"].ToString()));
-                if (string.IsNullOrEmpty(nombreEmpleado)) { nombreEmpleado = FormPrincipal.userNickName; }
+                if (string.IsNullOrEmpty(nombreEmpleado))
+                {
+                    nombreEmpleado = FormPrincipal.userNickName;
+                }
 
                 sumarTotales += (float)Convert.ToDecimal(iterador["Total"].ToString());
 
-                PdfPCell colNumFilatemp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
-                colNumFilatemp.BorderWidth = 1;
-                //colClienteTemp.BorderWidthLeft = 0;
-                //colClienteTemp.BorderWidthTop = 0;
-                //colClienteTemp.BorderWidthBottom = 0;
-                //colClienteTemp.BorderWidthRight = 0;
-                colNumFilatemp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colNumFilatemp = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                if (iterador[0].ToString() == "Apertura de Caja")
+                {
+                    colNumFilatemp = new PdfPCell(new Phrase(numAperturaCaja.ToString(), fuenteNormal));
+                    colNumFilatemp.BorderWidth = 1;
+                    //colClienteTemp.BorderWidthLeft = 0;
+                    //colClienteTemp.BorderWidthTop = 0;
+                    //colClienteTemp.BorderWidthBottom = 0;
+                    //colClienteTemp.BorderWidthRight = 0;
+                    colNumFilatemp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    numRow --;
+                }
+                else
+                {
+                    colNumFilatemp = new PdfPCell(new Phrase(numRow.ToString(), fuenteNormal));
+                    colNumFilatemp.BorderWidth = 1;
+                    //colClienteTemp.BorderWidthLeft = 0;
+                    //colClienteTemp.BorderWidthTop = 0;
+                    //colClienteTemp.BorderWidthBottom = 0;
+                    //colClienteTemp.BorderWidthRight = 0;
+                    colNumFilatemp.HorizontalAlignment = Element.ALIGN_CENTER;
+                }
+
 
                 PdfPCell colClienteTemp = new PdfPCell(new Phrase(iterador["Cliente"].ToString(), fuenteNormal));
                 colClienteTemp.BorderWidth = 1;
@@ -2303,7 +2341,10 @@ namespace PuntoDeVentaV2
 
             reporte.Add(titulo);
             reporte.Add(Usuario);
-            if (!string.IsNullOrEmpty(UsuarioActivo)) { reporte.Add(Empleado); }
+            if (!string.IsNullOrEmpty(UsuarioActivo))
+            {
+                reporte.Add(Empleado);
+            }
             reporte.Add(NumeroFolio);
             reporte.Add(subTitulo);
             reporte.Add(tablaInventario);
