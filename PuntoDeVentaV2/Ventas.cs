@@ -6177,12 +6177,18 @@ namespace PuntoDeVentaV2
         {
             if (opcion12 == 0)
             {
+                
+
                 Utilidades.MensajePermiso();
                 return;
             }
 
             if (Utilidades.AdobeReaderInstalado())
             {
+                var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion, "Apertura de Caja", FormPrincipal.id_empleado.ToString(), "0" };
+                cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
+
                 GenerarTicketCaja();
             }
             else
