@@ -3008,13 +3008,33 @@ namespace PuntoDeVentaV2
                                     if (idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
                                     {
                                         mostrarVenta = 0;
-                                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+
+                                        var existeVenta = mb.ExisteVentaDatosRepetidos(guardar);
+
+                                        if (!existeVenta)
+                                        {
+                                            respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                        }
+                                        else
+                                        {
+                                            respuesta = 1;
+                                        }
                                     }
                                     else if (!idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
                                     {
                                         guardar[1] = idClienteTmp;
                                         mostrarVenta = 0;
-                                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+
+                                        var existeVenta = mb.ExisteVentaDatosRepetidos(guardar);
+
+                                        if (!existeVenta)
+                                        {
+                                            respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                        }
+                                        else
+                                        {
+                                            respuesta = 1;
+                                        }
                                     }
                                 }
                             }

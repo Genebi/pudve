@@ -2647,7 +2647,31 @@ namespace PuntoDeVentaV2
                 datosFecha.Add(dr.GetValue(dr.GetOrdinal("Licencia")).ToString());
             }
 
+            dr.Close();
+            CerrarConexion();
+
             return datosFecha.ToArray();
+        }
+
+        public bool ExisteVentaDatosRepetidos(string[] datos)
+        {
+            bool existe = false;
+
+            string consulta = $"SELECT * FROM Ventas WHERE IDUsuario = {datos[0]} AND Folio = '{datos[9]}' AND Total = '{datos[5]}' AND FechaOperacion = '{datos[12]}'";
+
+            DatosConexion(consulta);
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                existe = true;
+            }
+
+            dr.Close();
+            CerrarConexion();
+
+            return existe;
         }
 
         private void DatosConexion(string consulta, bool ignorar = false)
