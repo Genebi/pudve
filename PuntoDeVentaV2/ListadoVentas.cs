@@ -236,8 +236,15 @@ namespace PuntoDeVentaV2
 
                     if (string.IsNullOrWhiteSpace(buscador))
                     {
-                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
-                    }
+                        if (FormPrincipal.userNickName.Contains("@"))
+                        {
+                            consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
+                        }
+                        else
+                        {
+                            consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
+                        }
+                        }
                     else
                     {
                         int n;
@@ -251,24 +258,44 @@ namespace PuntoDeVentaV2
                         else
                         {
                             var idEmpleado = cs.NombreEmpleado(buscador);
-                            if (!string.IsNullOrEmpty(idEmpleado))
-                            {
-                                extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%' OR IDEmpleado = '{idEmpleado}')";
-                            }
-                            else
-                            {
-                                extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
-                            }
-                        }
 
-                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
+                            if (idEmpleado == FormPrincipal.id_empleado.ToString() || !FormPrincipal.userNickName.Contains("@"))
+                            {
+                                if (!string.IsNullOrEmpty(idEmpleado))
+                                {
+                                    extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%' OR IDEmpleado = '{idEmpleado}')";
+                                }
+                                else
+                                {
+                                    extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
+                                }
+                            }
+                           
+                        }
+                        if (FormPrincipal.userNickName.Contains("@"))
+                        {
+                            consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
+                        }
+                        else
+                        {
+                            consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
+                        }
+                            
 
                         txtBuscador.Text = string.Empty;
                     }
                 }
                 else
                 {
-                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
+                    if (FormPrincipal.userNickName.Contains("@"))
+                    {
+                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
+                    }
+                    else
+                    {
+                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
+                    }
+                    
                 }
 
                 FiltroAvanzado = consulta;
