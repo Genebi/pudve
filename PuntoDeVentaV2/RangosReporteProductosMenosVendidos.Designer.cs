@@ -35,8 +35,8 @@
             this.dtpInicio = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtCantidadMostar = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
             this.groupBox1.SuspendLayout();
@@ -104,11 +104,19 @@
             // 
             this.groupBox2.Controls.Add(this.txtCantidadMostar);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(12, 120);
+            this.groupBox2.Location = new System.Drawing.Point(12, 122);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(486, 54);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
+            // 
+            // txtCantidadMostar
+            // 
+            this.txtCantidadMostar.Location = new System.Drawing.Point(255, 18);
+            this.txtCantidadMostar.Name = "txtCantidadMostar";
+            this.txtCantidadMostar.Size = new System.Drawing.Size(110, 20);
+            this.txtCantidadMostar.TabIndex = 1;
+            this.txtCantidadMostar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadMostar_KeyPress);
             // 
             // label4
             // 
@@ -119,14 +127,6 @@
             this.label4.Size = new System.Drawing.Size(155, 17);
             this.label4.TabIndex = 0;
             this.label4.Text = "Cantidad de productos:";
-            // 
-            // txtCantidadMostar
-            // 
-            this.txtCantidadMostar.Location = new System.Drawing.Point(255, 18);
-            this.txtCantidadMostar.Name = "txtCantidadMostar";
-            this.txtCantidadMostar.Size = new System.Drawing.Size(110, 20);
-            this.txtCantidadMostar.TabIndex = 1;
-            this.txtCantidadMostar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadMostar_KeyPress);
             // 
             // botonRedondo1
             // 
@@ -141,7 +141,7 @@
             this.botonRedondo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonRedondo1.ForeColor = System.Drawing.Color.White;
             this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.close3;
-            this.botonRedondo1.Location = new System.Drawing.Point(79, 190);
+            this.botonRedondo1.Location = new System.Drawing.Point(79, 191);
             this.botonRedondo1.Name = "botonRedondo1";
             this.botonRedondo1.Size = new System.Drawing.Size(150, 50);
             this.botonRedondo1.TabIndex = 3;
@@ -164,7 +164,7 @@
             this.botonRedondo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonRedondo2.ForeColor = System.Drawing.Color.White;
             this.botonRedondo2.Image = global::PuntoDeVentaV2.Properties.Resources.check_square1;
-            this.botonRedondo2.Location = new System.Drawing.Point(268, 190);
+            this.botonRedondo2.Location = new System.Drawing.Point(268, 191);
             this.botonRedondo2.Name = "botonRedondo2";
             this.botonRedondo2.Size = new System.Drawing.Size(150, 50);
             this.botonRedondo2.TabIndex = 4;
@@ -172,12 +172,13 @@
             this.botonRedondo2.TextColor = System.Drawing.Color.White;
             this.botonRedondo2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.botonRedondo2.UseVisualStyleBackColor = false;
+            this.botonRedondo2.Click += new System.EventHandler(this.botonRedondo2_Click);
             // 
             // RangosReporteProductosMenosVendidos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 259);
+            this.ClientSize = new System.Drawing.Size(513, 257);
             this.Controls.Add(this.botonRedondo2);
             this.Controls.Add(this.botonRedondo1);
             this.Controls.Add(this.groupBox2);

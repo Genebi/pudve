@@ -12,6 +12,13 @@ namespace PuntoDeVentaV2
 {
     public partial class RangosReporteProductosMenosVendidos : Form
     {
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+
+        string fechaHoraInicio = string.Empty;
+        string fechaHoraFinal = string.Empty;
+        int cantidadLimite = 0;
+
         public RangosReporteProductosMenosVendidos()
         {
             InitializeComponent();
@@ -49,6 +56,33 @@ namespace PuntoDeVentaV2
         private void botonRedondo1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void botonRedondo2_Click(object sender, EventArgs e)
+        {
+            if (dtpFin.Value >= dtpInicio.Value)
+            {
+                fechaHoraInicio = dtpInicio.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                fechaHoraFinal = dtpFin.Value.ToString("yyyy-MM-dd HH:mm:ss");
+
+                if (!string.IsNullOrWhiteSpace(txtCantidadMostar.Text))
+                {
+                    cantidadLimite = Convert.ToInt32(txtCantidadMostar.Text);
+                }
+
+                using (DataTable dtProductosMenosVendidos = cn.CargarDatos(cs.productosMenosVendidos(fechaHoraInicio, fechaHoraFinal)))
+                {
+                    if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
+                    {
+                        generarReporteMenosVendidos(dtProductosMenosVendidos);
+                    }
+                }
+            }
+        }
+
+        private void generarReporteMenosVendidos(DataTable dtProductosMenosVendidos)
+        {
+            
         }
     }
 }

@@ -2968,5 +2968,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string productosMenosVendidos(string fechaInicio, string fechaFinal)
+        {
+            var consulta = $"SELECT Prod.ID, Prod.Nombre AS 'ARTICULO', SUM( DISTINCT IF ( ProdVent.Cantidad IS NULL, 0, ProdVent.Cantidad ) ) AS 'VENDIDOS', IF ( Prod.Tipo = 'P', 'PRODUCTO', 'SERVICIO' ) AS 'CATEGORIA', IF ( Vent.FechaOperacion IS NULL, 'N/A sin venta registrada', Vent.FechaOperacion ) AS 'ULTIMA VENTA', Prod.Stock AS 'STOCK', Prod.Precio AS 'PRECIO' FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) LEFT JOIN Ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{fechaInicio}.999999' AND '{fechaFinal}.999999' AND ( Prod.Tipo = 'P' || Prod.Tipo = 'S' ) OR ProdVent.Cantidad IS NULL GROUP BY Prod.ID ORDER BY VENDIDOS ASC";
+
+            return consulta;
+        }
     }
 }  
