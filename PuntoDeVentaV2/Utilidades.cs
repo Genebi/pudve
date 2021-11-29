@@ -2757,7 +2757,6 @@ namespace PuntoDeVentaV2
 
             return result.TrimEnd(new[] { '\r', '\n' });
         }
-
         /// <summary>
         /// 
         /// </summary>
