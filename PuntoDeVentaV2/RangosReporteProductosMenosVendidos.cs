@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -188,7 +189,21 @@ namespace PuntoDeVentaV2
 
             Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
 
-            Paragraph subTitulo = new Paragraph("REPORTE PRODUCTO MENOS VENDIDO\n\nFechas consultadas\ndesde: " + fechaHoraInicio + "\nhasta: " + fechaHoraFinal + " \nCantidad de productos mostrados: " + cantidadLimite.ToString("N0") + "\n\n\n", fuenteNormal);
+            var nuevaFechaHoraInicio = new DateTime();
+            var nuevaFechaHoraFinal = new DateTime();
+
+            try
+            {
+                nuevaFechaHoraInicio = DateTime.Parse(fechaHoraInicio, new CultureInfo("en-CA"));
+                nuevaFechaHoraFinal = DateTime.Parse(fechaHoraFinal, new CultureInfo("en-CA"));
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show($"{fechaHoraInicio} este no es no es un formato correcto.\n\n{ex.Message.ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
+            Paragraph subTitulo = new Paragraph("REPORTE PRODUCTO MENOS VENDIDO\n\nFechas consultadas\ndesde: " + nuevaFechaHoraInicio + "\nhasta: " + nuevaFechaHoraFinal + " \nCantidad de productos mostrados: " + cantidadLimite.ToString("N0") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
