@@ -95,12 +95,34 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                using (DataTable dtProductosMenosVendidos = cn.CargarDatos(cs.productosMenosVendidos(fechaHoraInicio, fechaHoraFinal)))
+                if (chkIncluirVentasEnCero.Checked.Equals(true))
                 {
-                    if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
+                    using (DataTable dtProductosMenosVendidos = cn.CargarDatos(cs.productosMenosVendidosIncluidoVentasEnCero(fechaHoraInicio, fechaHoraFinal)))
                     {
-                        MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        generarReporteMenosVendidos(dtProductosMenosVendidos);
+                        if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
+                        {
+                            MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            generarReporteMenosVendidos(dtProductosMenosVendidos);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Usted no ha realizado ventas el dia de ahora {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                else
+                {
+                    using (DataTable dtProductosMenosVendidos = cn.CargarDatos(cs.productosMenosVendidosSinIncluidoVentasEnCero(fechaHoraInicio, fechaHoraFinal)))
+                    {
+                        if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
+                        {
+                            MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            generarReporteMenosVendidos(dtProductosMenosVendidos);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Usted no ha realizado ventas el dia de ahora {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
                 }
             }
@@ -119,6 +141,17 @@ namespace PuntoDeVentaV2
 
             var nuevaFechaHoraInicio = new DateTime();
             var nuevaFechaHoraFinal = new DateTime();
+
+            var recorridoFinalProductos = 0;
+
+            if (dtProductosMenosVendidos.Rows.Count < cantidadLimite)
+            {
+                recorridoFinalProductos = dtProductosMenosVendidos.Rows.Count;
+            }
+            else
+            {
+                recorridoFinalProductos = cantidadLimite;
+            }
 
             if (FormPrincipal.userNickName.Contains("@"))
             {
@@ -199,11 +232,11 @@ namespace PuntoDeVentaV2
             }
             catch (FormatException ex)
             {
-                MessageBox.Show($"{fechaHoraInicio} este no es no es un formato correcto.\n\n{ex.Message.ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                //MessageBox.Show($"{fechaHoraInicio} este no es no es un formato correcto.\n\n{ex.Message.ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //return;
             }
             
-            Paragraph subTitulo = new Paragraph("REPORTE PRODUCTO MENOS VENDIDO\n\nFechas consultadas\ndesde: " + nuevaFechaHoraInicio + "\nhasta: " + nuevaFechaHoraFinal + " \nCantidad de productos mostrados: " + cantidadLimite.ToString("N0") + "\n\n\n", fuenteNormal);
+            Paragraph subTitulo = new Paragraph("REPORTE PRODUCTO MENOS VENDIDO\n\nFechas consultadas\ndesde: " + nuevaFechaHoraInicio + "\nhasta: " + nuevaFechaHoraFinal + " \nCantidad de productos mostrados: " + recorridoFinalProductos.ToString("N0") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
@@ -271,7 +304,7 @@ namespace PuntoDeVentaV2
             tablaInventario.AddCell(colStock);
             tablaInventario.AddCell(colPrecio);
 
-            for (int i = 0; i < cantidadLimite; i++)
+            for (int i = 0; i < recorridoFinalProductos; i++)
             {
                 var articulo = dtProductosMenosVendidos.Rows[i]["ARTICULO"].ToString();
                 var vendidos = dtProductosMenosVendidos.Rows[i]["VENDIDOS"].ToString();
@@ -300,8 +333,8 @@ namespace PuntoDeVentaV2
                     }
                     catch (FormatException ex)
                     {
-                        MessageBox.Show($"{fechaHoraInicio} este no es no es un formato correcto.\n\n{ex.Message.ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        //MessageBox.Show($"{fechaHoraInicio} este no es no es un formato correcto.\n\n{ex.Message.ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //return;
                     }
                 }
                 var stock = dtProductosMenosVendidos.Rows[i]["STOCK"].ToString();
