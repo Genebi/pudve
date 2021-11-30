@@ -878,6 +878,12 @@
     <Compile Include="QuitarEspecificacionDeConceptoDinamico.Designer.cs">
       <DependentUpon>QuitarEspecificacionDeConceptoDinamico.cs</DependentUpon>
     </Compile>
+    <Compile Include="RangosReporteProductosMenosVendidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RangosReporteProductosMenosVendidos.Designer.cs">
+      <DependentUpon>RangosReporteProductosMenosVendidos.cs</DependentUpon>
+    </Compile>
     <Compile Include="RecordViewProduct.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1411,6 +1417,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="QuitarEspecificacionDeConceptoDinamico.resx">
       <DependentUpon>QuitarEspecificacionDeConceptoDinamico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RangosReporteProductosMenosVendidos.resx">
+      <DependentUpon>RangosReporteProductosMenosVendidos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RecordViewProduct.resx">
       <DependentUpon>RecordViewProduct.cs</DependentUpon>
@@ -4820,6 +4829,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\deafness.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\decrease.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\dedent.png">
