@@ -116,6 +116,8 @@
             this.txtCantidadMostar.Name = "txtCantidadMostar";
             this.txtCantidadMostar.Size = new System.Drawing.Size(110, 20);
             this.txtCantidadMostar.TabIndex = 1;
+            this.txtCantidadMostar.Text = "0";
+            this.txtCantidadMostar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidadMostar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadMostar_KeyPress);
             // 
             // label4

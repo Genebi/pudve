@@ -68,9 +68,27 @@ namespace PuntoDeVentaV2
                 fechaHoraInicio = dtpInicio.Value.ToString("yyyy-MM-dd HH:mm:ss");
                 fechaHoraFinal = dtpFin.Value.ToString("yyyy-MM-dd HH:mm:ss");
 
-                if (!string.IsNullOrWhiteSpace(txtCantidadMostar.Text))
+                bool esNumero = false;
+                int cantidad = 0;
+                esNumero = Int32.TryParse(txtCantidadMostar.Text, out cantidad);
+
+                if (esNumero)
                 {
-                    cantidadLimite = Convert.ToInt32(txtCantidadMostar.Text);
+                    if (cantidad > 0)
+                    {
+                        cantidadLimite = cantidad;
+                    }
+                    else
+                    {
+                        MessageBox.Show("La cantidad de productos tiene\nque ser mayor a cero productos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtCantidadMostar.Focus();
+                        txtCantidadMostar.SelectAll();
+                        return;
+                    }
+                }
+                else
+                {
+                    
                 }
 
                 using (DataTable dtProductosMenosVendidos = cn.CargarDatos(cs.productosMenosVendidos(fechaHoraInicio, fechaHoraFinal)))
@@ -80,6 +98,10 @@ namespace PuntoDeVentaV2
                         generarReporteMenosVendidos(dtProductosMenosVendidos);
                     }
                 }
+            }
+            else
+            {
+                MessageBox.Show($"La fecha inicial:\n\t({dtpInicio.Value.ToString("yyyy-MM-dd HH:mm:ss")})\ntiene que ser menor a la fecha final:\n\t({dtpFin.Value.ToString("yyyy-MM-dd HH:mm:ss")})", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -175,48 +197,48 @@ namespace PuntoDeVentaV2
             tablaInventario.SetWidths(anchoColumnas);
 
             PdfPCell colNoConcepto = new PdfPCell(new Phrase("No:", fuenteNegrita));
-            colNoConcepto.BorderWidth = 0;
+            colNoConcepto.BorderWidth = 1;
             colNoConcepto.BackgroundColor = new BaseColor(Color.SkyBlue);
             colNoConcepto.HorizontalAlignment = Element.ALIGN_LEFT;
 
             PdfPCell colNombre = new PdfPCell(new Phrase("ARTICULO", fuenteTotales));
-            colNombre.BorderWidth = 0;
+            colNombre.BorderWidth = 1;
             colNombre.HorizontalAlignment = Element.ALIGN_LEFT;
             colNombre.Padding = 3;
             colNombre.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colVendidos = new PdfPCell(new Phrase("VENDIDOS", fuenteTotales));
-            colVendidos.BorderWidth = 0;
+            colVendidos.BorderWidth = 1;
             colVendidos.HorizontalAlignment = Element.ALIGN_CENTER;
             colVendidos.Padding = 3;
             colVendidos.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colCodigoBarra = new PdfPCell(new Phrase("CODIGO DE BARRAS", fuenteTotales));
-            colCodigoBarra.BorderWidth = 0;
+            colCodigoBarra.BorderWidth = 1;
             colCodigoBarra.HorizontalAlignment = Element.ALIGN_CENTER;
             colCodigoBarra.Padding = 3;
             colCodigoBarra.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colCategoria = new PdfPCell(new Phrase("CATEGORIA", fuenteTotales));
-            colCategoria.BorderWidth = 0;
+            colCategoria.BorderWidth = 1;
             colCategoria.HorizontalAlignment = Element.ALIGN_CENTER;
             colCategoria.Padding = 3;
             colCategoria.BackgroundColor = new BaseColor(Color.SkyBlue);
 
-            PdfPCell colUltimaVenta = new PdfPCell(new Phrase("ULTIMA VENTA", fuenteTotales));
-            colUltimaVenta.BorderWidth = 0;
+            PdfPCell colUltimaVenta = new PdfPCell(new Phrase("ULTIMA VENTA (fecha de la venta)", fuenteTotales));
+            colUltimaVenta.BorderWidth = 1;
             colUltimaVenta.HorizontalAlignment = Element.ALIGN_CENTER;
             colUltimaVenta.Padding = 3;
             colUltimaVenta.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colStock = new PdfPCell(new Phrase("STOCK", fuenteTotales));
-            colStock.BorderWidth = 0;
+            colStock.BorderWidth = 1;
             colStock.HorizontalAlignment = Element.ALIGN_CENTER;
             colStock.Padding = 3;
             colStock.BackgroundColor = new BaseColor(Color.SkyBlue);
 
             PdfPCell colPrecio = new PdfPCell(new Phrase("PRECIO", fuenteTotales));
-            colPrecio.BorderWidth = 0;
+            colPrecio.BorderWidth = 1;
             colPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
             colPrecio.Padding = 3;
             colPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
@@ -234,7 +256,15 @@ namespace PuntoDeVentaV2
             {
                 var articulo = dtProductosMenosVendidos.Rows[i]["ARTICULO"].ToString();
                 var vendidos = dtProductosMenosVendidos.Rows[i]["VENDIDOS"].ToString();
-                var codigoBarra = dtProductosMenosVendidos.Rows[i]["CODIGO DE BARRAS"].ToString();
+                var codigoBarra = string.Empty;
+                if (string.IsNullOrWhiteSpace(dtProductosMenosVendidos.Rows[i]["CODIGO DE BARRAS"].ToString()))
+                {
+                    codigoBarra = "N/A";
+                }
+                else
+                {
+                    codigoBarra = dtProductosMenosVendidos.Rows[i]["CODIGO DE BARRAS"].ToString();
+                }
                 var categoria = dtProductosMenosVendidos.Rows[i]["CATEGORIA"].ToString();
                 var ultimaVenta = dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString();
                 var stock = dtProductosMenosVendidos.Rows[i]["STOCK"].ToString();
