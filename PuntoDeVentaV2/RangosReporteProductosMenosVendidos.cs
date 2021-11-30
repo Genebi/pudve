@@ -88,13 +88,17 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    
+                    MessageBox.Show("La cantidad de productos tiene\nque tener un número y ser mayor a cero", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCantidadMostar.Focus();
+                    txtCantidadMostar.SelectAll();
+                    return;
                 }
 
                 using (DataTable dtProductosMenosVendidos = cn.CargarDatos(cs.productosMenosVendidos(fechaHoraInicio, fechaHoraFinal)))
                 {
                     if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
                     {
+                        MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         generarReporteMenosVendidos(dtProductosMenosVendidos);
                     }
                 }
