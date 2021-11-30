@@ -117,6 +117,9 @@ namespace PuntoDeVentaV2
             var rutaArchivo = string.Empty;
             var usuario = string.Empty;
 
+            var nuevaFechaHoraInicio = new DateTime();
+            var nuevaFechaHoraFinal = new DateTime();
+
             if (FormPrincipal.userNickName.Contains("@"))
             {
                 var palabras = FormPrincipal.userNickName.Split('@');
@@ -188,9 +191,6 @@ namespace PuntoDeVentaV2
             }
 
             Usuario = new Paragraph("USUARIO: " + UsuarioActivo, fuenteNegrita);
-
-            var nuevaFechaHoraInicio = new DateTime();
-            var nuevaFechaHoraFinal = new DateTime();
 
             try
             {
@@ -285,7 +285,25 @@ namespace PuntoDeVentaV2
                     codigoBarra = dtProductosMenosVendidos.Rows[i]["CODIGO DE BARRAS"].ToString();
                 }
                 var categoria = dtProductosMenosVendidos.Rows[i]["CATEGORIA"].ToString();
-                var ultimaVenta = dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString();
+                var ultimaVenta = string.Empty;
+                if (dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString().Contains("N/A"))
+                {
+                    ultimaVenta = dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString();
+                }
+                else
+                {
+                    var FechaHoraUltimaVenta = new DateTime();
+                    try
+                    {
+                        FechaHoraUltimaVenta = DateTime.Parse(dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString(), new CultureInfo("en-CA"));
+                        ultimaVenta = FechaHoraUltimaVenta.ToString();
+                    }
+                    catch (FormatException ex)
+                    {
+                        MessageBox.Show($"{fechaHoraInicio} este no es no es un formato correcto.\n\n{ex.Message.ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
                 var stock = dtProductosMenosVendidos.Rows[i]["STOCK"].ToString();
                 var precio = dtProductosMenosVendidos.Rows[i]["PRECIO"].ToString();
 
