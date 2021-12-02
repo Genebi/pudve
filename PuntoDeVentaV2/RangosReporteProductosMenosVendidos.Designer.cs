@@ -35,11 +35,13 @@
             this.dtpInicio = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkIncluirVentasEnCero = new System.Windows.Forms.CheckBox();
             this.txtCantidadMostar = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.rbMasVendidos = new System.Windows.Forms.RadioButton();
+            this.rbMenosVendidos = new System.Windows.Forms.RadioButton();
             this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
-            this.chkIncluirVentasEnCero = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -48,7 +50,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(161, 17);
+            this.label1.Location = new System.Drawing.Point(161, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(204, 20);
             this.label1.TabIndex = 0;
@@ -60,7 +62,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.dtpInicio);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 54);
+            this.groupBox1.Location = new System.Drawing.Point(12, 82);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(503, 68);
             this.groupBox1.TabIndex = 1;
@@ -106,11 +108,20 @@
             this.groupBox2.Controls.Add(this.chkIncluirVentasEnCero);
             this.groupBox2.Controls.Add(this.txtCantidadMostar);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(12, 122);
+            this.groupBox2.Location = new System.Drawing.Point(12, 150);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(503, 81);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
+            // 
+            // chkIncluirVentasEnCero
+            // 
+            this.chkIncluirVentasEnCero.Location = new System.Drawing.Point(168, 46);
+            this.chkIncluirVentasEnCero.Name = "chkIncluirVentasEnCero";
+            this.chkIncluirVentasEnCero.Size = new System.Drawing.Size(199, 24);
+            this.chkIncluirVentasEnCero.TabIndex = 2;
+            this.chkIncluirVentasEnCero.Text = "Incluir ventas de productos en cero";
+            this.chkIncluirVentasEnCero.UseVisualStyleBackColor = true;
             // 
             // txtCantidadMostar
             // 
@@ -132,6 +143,31 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Cantidad de productos:";
             // 
+            // rbMasVendidos
+            // 
+            this.rbMasVendidos.AutoSize = true;
+            this.rbMasVendidos.Location = new System.Drawing.Point(113, 45);
+            this.rbMasVendidos.Name = "rbMasVendidos";
+            this.rbMasVendidos.Size = new System.Drawing.Size(91, 17);
+            this.rbMasVendidos.TabIndex = 5;
+            this.rbMasVendidos.Text = "Más vendidos";
+            this.rbMasVendidos.UseVisualStyleBackColor = true;
+            this.rbMasVendidos.CheckedChanged += new System.EventHandler(this.rbMasVendidos_CheckedChanged);
+            // 
+            // rbMenosVendidos
+            // 
+            this.rbMenosVendidos.AutoSize = true;
+            this.rbMenosVendidos.Checked = true;
+            this.rbMenosVendidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbMenosVendidos.Location = new System.Drawing.Point(317, 45);
+            this.rbMenosVendidos.Name = "rbMenosVendidos";
+            this.rbMenosVendidos.Size = new System.Drawing.Size(117, 17);
+            this.rbMenosVendidos.TabIndex = 6;
+            this.rbMenosVendidos.TabStop = true;
+            this.rbMenosVendidos.Text = "Menos vendidos";
+            this.rbMenosVendidos.UseVisualStyleBackColor = true;
+            this.rbMenosVendidos.CheckedChanged += new System.EventHandler(this.rbMenosVendidos_CheckedChanged);
+            // 
             // botonRedondo2
             // 
             this.botonRedondo2.BackColor = System.Drawing.Color.Blue;
@@ -145,7 +181,7 @@
             this.botonRedondo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonRedondo2.ForeColor = System.Drawing.Color.White;
             this.botonRedondo2.Image = global::PuntoDeVentaV2.Properties.Resources.check_square1;
-            this.botonRedondo2.Location = new System.Drawing.Point(284, 226);
+            this.botonRedondo2.Location = new System.Drawing.Point(284, 241);
             this.botonRedondo2.Name = "botonRedondo2";
             this.botonRedondo2.Size = new System.Drawing.Size(150, 50);
             this.botonRedondo2.TabIndex = 4;
@@ -168,7 +204,7 @@
             this.botonRedondo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonRedondo1.ForeColor = System.Drawing.Color.White;
             this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.close3;
-            this.botonRedondo1.Location = new System.Drawing.Point(95, 226);
+            this.botonRedondo1.Location = new System.Drawing.Point(95, 241);
             this.botonRedondo1.Name = "botonRedondo1";
             this.botonRedondo1.Size = new System.Drawing.Size(150, 50);
             this.botonRedondo1.TabIndex = 3;
@@ -178,20 +214,13 @@
             this.botonRedondo1.UseVisualStyleBackColor = false;
             this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
             // 
-            // chkIncluirVentasEnCero
-            // 
-            this.chkIncluirVentasEnCero.Location = new System.Drawing.Point(168, 46);
-            this.chkIncluirVentasEnCero.Name = "chkIncluirVentasEnCero";
-            this.chkIncluirVentasEnCero.Size = new System.Drawing.Size(199, 24);
-            this.chkIncluirVentasEnCero.TabIndex = 2;
-            this.chkIncluirVentasEnCero.Text = "Incluir ventas de productos en cero";
-            this.chkIncluirVentasEnCero.UseVisualStyleBackColor = true;
-            // 
             // RangosReporteProductosMenosVendidos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(532, 304);
+            this.Controls.Add(this.rbMenosVendidos);
+            this.Controls.Add(this.rbMasVendidos);
             this.Controls.Add(this.botonRedondo2);
             this.Controls.Add(this.botonRedondo1);
             this.Controls.Add(this.groupBox2);
@@ -228,5 +257,7 @@
         private BotonRedondo botonRedondo1;
         private BotonRedondo botonRedondo2;
         private System.Windows.Forms.CheckBox chkIncluirVentasEnCero;
+        private System.Windows.Forms.RadioButton rbMasVendidos;
+        private System.Windows.Forms.RadioButton rbMenosVendidos;
     }
 }

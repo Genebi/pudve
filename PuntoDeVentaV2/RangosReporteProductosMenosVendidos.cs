@@ -23,6 +23,8 @@ namespace PuntoDeVentaV2
         string fechaHoraFinal = string.Empty;
         int cantidadLimite = 0;
 
+        string personalizada = "dd / MM / yyyy h:mm:ss tt";
+
         public RangosReporteProductosMenosVendidos()
         {
             InitializeComponent();
@@ -35,8 +37,6 @@ namespace PuntoDeVentaV2
 
         private void configurarDateTimePicker()
         {
-            var personalizada = "dd / MM / yyyy h:mm:ss tt";
-
             dtpInicio.Format = DateTimePickerFormat.Custom;
             dtpInicio.CustomFormat = personalizada;
             dtpInicio.Text = DateTime.Parse(dtpInicio.Text).AddMonths(-1).ToString();
@@ -95,33 +95,47 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                if (chkIncluirVentasEnCero.Checked.Equals(true))
+                if (rbMasVendidos.Checked)
                 {
-                    using (DataTable dtProductosMenosVendidos = cn.CargarDatos(cs.productosMenosVendidosIncluidoVentasEnCero(fechaHoraInicio, fechaHoraFinal)))
+                    using (DataTable dtProductosMasVendidos = cn.CargarDatos(cs.productosMasVendidosSinIncluirVentasEnCero(fechaHoraInicio, fechaHoraFinal)))
                     {
-                        if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
+                        if (!dtProductosMasVendidos.Rows.Count.Equals(0))
                         {
                             MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            generarReporteMenosVendidos(dtProductosMenosVendidos);
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Usted no ha realizado ventas el dia de ahora {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            generarReporteMenosVendidos(dtProductosMasVendidos);
                         }
                     }
                 }
-                else
+                else if (rbMenosVendidos.Checked)
                 {
-                    using (DataTable dtProductosMenosVendidos = cn.CargarDatos(cs.productosMenosVendidosSinIncluidoVentasEnCero(fechaHoraInicio, fechaHoraFinal)))
+                    if (chkIncluirVentasEnCero.Checked.Equals(true))
                     {
-                        if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
+                        using (DataTable dtProductosMenosVendidos = cn.CargarDatos(cs.productosMenosVendidosIncluidoVentasEnCero(fechaHoraInicio, fechaHoraFinal)))
                         {
-                            MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            generarReporteMenosVendidos(dtProductosMenosVendidos);
+                            if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
+                            {
+                                MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                generarReporteMenosVendidos(dtProductosMenosVendidos);
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Usted no ha realizado ventas el dia de ahora {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        using (DataTable dtProductosMenosVendidos = cn.CargarDatos(cs.productosMenosVendidosSinIncluidoVentasEnCero(fechaHoraInicio, fechaHoraFinal)))
                         {
-                            MessageBox.Show($"Usted no ha realizado ventas el dia de ahora {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
+                            {
+                                MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                generarReporteMenosVendidos(dtProductosMenosVendidos);
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Usted no ha realizado ventas el dia de ahora {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                     }
                 }
@@ -235,8 +249,19 @@ namespace PuntoDeVentaV2
                 //MessageBox.Show($"{fechaHoraInicio} este no es no es un formato correcto.\n\n{ex.Message.ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //return;
             }
+
+            var tipoConcepto = string.Empty;
+
+            if (rbMasVendidos.Checked)
+            {
+                tipoConcepto = "más";
+            }
+            else if (rbMenosVendidos.Checked)
+            {
+                tipoConcepto = "menos";
+            }
             
-            Paragraph subTitulo = new Paragraph("REPORTE PRODUCTO MENOS VENDIDO\n\nFechas consultadas\ndesde: " + nuevaFechaHoraInicio + "\nhasta: " + nuevaFechaHoraFinal + " \nCantidad de productos mostrados: " + recorridoFinalProductos.ToString("N0") + "\n\n\n", fuenteNormal);
+            Paragraph subTitulo = new Paragraph($"REPORTE PRODUCTO {tipoConcepto.ToUpper()} VENDIDO\n\nFechas consultadas\ndesde: {nuevaFechaHoraInicio} \nhasta: {nuevaFechaHoraFinal}\nCantidad de productos mostrados: {recorridoFinalProductos.ToString("N0")}\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
@@ -350,7 +375,7 @@ namespace PuntoDeVentaV2
                 colNombreTmp.BorderWidth = 1;
                 colNombreTmp.HorizontalAlignment = Element.ALIGN_LEFT;
 
-                PdfPCell colVendidosTmp = new PdfPCell(new Phrase(vendidos, fuenteNormal));
+                PdfPCell colVendidosTmp = new PdfPCell(new Phrase(Convert.ToDecimal(vendidos).ToString("N"), fuenteNormal));
                 colVendidosTmp.BorderWidth = 1;
                 colVendidosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
@@ -366,7 +391,7 @@ namespace PuntoDeVentaV2
                 colUltimaVentaTmp.BorderWidth = 1;
                 colUltimaVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
+                PdfPCell colStockTmp = new PdfPCell(new Phrase(Convert.ToDecimal(stock).ToString("N"), fuenteNormal));
                 colStockTmp.BorderWidth = 1;
                 colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
@@ -398,7 +423,50 @@ namespace PuntoDeVentaV2
             dtProductosMenosVendidos = null;
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+
+            //vr.FormClosed += delegate
+            //{
+            //    this.Close();
+            //};
+
             vr.ShowDialog();
+        }
+
+        private void rbMenosVendidos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbMenosVendidos.Checked)
+            {
+                rbMenosVendidos.Font = new System.Drawing.Font(rbMenosVendidos.Font, FontStyle.Bold);
+                chkIncluirVentasEnCero.Enabled = true;
+                reiniciarValoresDateTimeTextBox();
+            }
+            else
+            {
+                rbMenosVendidos.Font = new System.Drawing.Font(rbMenosVendidos.Font, FontStyle.Regular);
+            }
+        }
+
+        private void rbMasVendidos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbMasVendidos.Checked)
+            {
+                rbMasVendidos.Font = new System.Drawing.Font(rbMasVendidos.Font, FontStyle.Bold);
+                chkIncluirVentasEnCero.Checked = false;
+                chkIncluirVentasEnCero.Enabled = false;
+                reiniciarValoresDateTimeTextBox();
+            }
+            else
+            {
+                rbMasVendidos.Font = new System.Drawing.Font(rbMasVendidos.Font, FontStyle.Regular);
+            }
+        }
+
+        private void reiniciarValoresDateTimeTextBox()
+        {
+            dtpInicio.Text = DateTime.Parse(DateTime.Now.ToString(personalizada)).AddMonths(-1).ToString();
+            dtpFin.Text = DateTime.Now.ToString(personalizada);
+            txtCantidadMostar.Clear();
+            txtCantidadMostar.Text = "0";
         }
     }
 }

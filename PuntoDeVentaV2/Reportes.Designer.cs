@@ -164,7 +164,7 @@
             this.btnMenosVendidos.Name = "btnMenosVendidos";
             this.btnMenosVendidos.Size = new System.Drawing.Size(150, 68);
             this.btnMenosVendidos.TabIndex = 115;
-            this.btnMenosVendidos.Text = "Reporte Menos Vendidos";
+            this.btnMenosVendidos.Text = "Reporte Más/Menos Vendidos";
             this.btnMenosVendidos.TextColor = System.Drawing.Color.White;
             this.btnMenosVendidos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMenosVendidos.UseVisualStyleBackColor = false;
