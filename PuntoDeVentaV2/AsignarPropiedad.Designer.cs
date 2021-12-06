@@ -62,6 +62,7 @@
             this.Name = "AsignarPropiedad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AsignarPropiedad_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AsignarPropiedad_FormClosed);
             this.Load += new System.EventHandler(this.AsignarPropiedad_Load);
             this.panelContenedor.ResumeLayout(false);
             this.ResumeLayout(false);

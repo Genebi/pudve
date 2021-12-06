@@ -780,6 +780,12 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="MensajePorFavorEspere.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MensajePorFavorEspere.Designer.cs">
+      <DependentUpon>MensajePorFavorEspere.cs</DependentUpon>
+    </Compile>
     <Compile Include="MensajeVentasYMensajeInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1370,6 +1376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MensajePorFavorEspere.resx">
+      <DependentUpon>MensajePorFavorEspere.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MensajeVentasYMensajeInventario.resx">
       <DependentUpon>MensajeVentasYMensajeInventario.cs</DependentUpon>

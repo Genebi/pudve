@@ -518,29 +518,46 @@ namespace PuntoDeVentaV2
             return boton;
         }
 
-        private async void botonAceptar_Click(object sender, EventArgs e)
+        private /*async*/ void botonAceptar_Click(object sender, EventArgs e)
         {
-            
-                cargando.Show();
 
-                await Task.Run(() =>
-                {
-                    Thread.Sleep(2000);
-                });
+            //cargando.Show();
 
-                OperacionBoton();
+            //await Task.Run(() =>
+            //{
+            //    Thread.Sleep(2000);
+            //});
 
-                cargando.Close();
+            //OperacionBoton();
 
-                Dispose();
+            //cargando.Close();
+
+            //Dispose();
+
+            MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
+
+            // Mostrar formulario sin modo
+            porFavorEspere.tiempoDeEspera = 5000;
+            porFavorEspere.propiedadCambiar = propiedad;
+            porFavorEspere.Show();
+
+            Thread.Sleep(5000); //will sleep for 5 sec
+
+            OperacionBoton();
+
+            // Permita que el hilo principal de la interfaz de usuario se muestre correctamente, espere el formulario.
+            Application.DoEvents();
+
+            porFavorEspere.Dispose();
+            this.Close();
         }
 
         private void OperacionBoton()
         {
             string[] datos;
            
-                if (propiedad == "MensajeVentas")
-                {
+            if (propiedad == "MensajeVentas")
+            {
 
                 TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeVentas", true)[0];
                 var mensaje = txtMensaje.Text;
@@ -928,9 +945,9 @@ namespace PuntoDeVentaV2
 
 
                         var info = new string[] {
-                        FormPrincipal.userID.ToString(), empleado, idProd.ToString(),
-                        precioActual.ToString(), txtPrecio.Text,
-                        "ASIGNAR PRODUCTO", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                            FormPrincipal.userID.ToString(), empleado, idProd.ToString(),
+                            precioActual.ToString(), txtPrecio.Text,
+                            "ASIGNAR PRODUCTO", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                         };
 
                         cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
@@ -1503,5 +1520,9 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        private void AsignarPropiedad_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
     }
 }
