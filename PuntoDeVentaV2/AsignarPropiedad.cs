@@ -537,11 +537,11 @@ namespace PuntoDeVentaV2
             MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
 
             // Mostrar formulario sin modo
-            porFavorEspere.tiempoDeEspera = 5000;
+            porFavorEspere.tiempoDeEspera = 100;
             porFavorEspere.propiedadCambiar = propiedad;
-            porFavorEspere.Show();
+            porFavorEspere.ShowDialog();
 
-            Thread.Sleep(5000); //will sleep for 5 sec
+            Thread.Sleep(900);
 
             OperacionBoton();
 
