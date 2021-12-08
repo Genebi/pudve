@@ -47,11 +47,13 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.txtCheque = new System.Windows.Forms.TextBox();
             this.lbTitulo = new System.Windows.Forms.Label();
+            this.cbConceptoConBusqueda = new CustomControlPUDVE.ComboBoxPUDVE();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbContenedor
             // 
+            this.gbContenedor.Controls.Add(this.cbConceptoConBusqueda);
             this.gbContenedor.Controls.Add(this.btnAgregarConcepto);
             this.gbContenedor.Controls.Add(this.cbConceptos);
             this.gbContenedor.Controls.Add(this.lbCredito);
@@ -85,7 +87,7 @@
             this.btnAgregarConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarConcepto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarConcepto.Location = new System.Drawing.Point(355, 218);
+            this.btnAgregarConcepto.Location = new System.Drawing.Point(355, 220);
             this.btnAgregarConcepto.Name = "btnAgregarConcepto";
             this.btnAgregarConcepto.Size = new System.Drawing.Size(28, 25);
             this.btnAgregarConcepto.TabIndex = 218;
@@ -97,10 +99,11 @@
             this.cbConceptos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbConceptos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbConceptos.FormattingEnabled = true;
-            this.cbConceptos.Location = new System.Drawing.Point(56, 218);
+            this.cbConceptos.Location = new System.Drawing.Point(71, 154);
             this.cbConceptos.Name = "cbConceptos";
             this.cbConceptos.Size = new System.Drawing.Size(293, 25);
             this.cbConceptos.TabIndex = 217;
+            this.cbConceptos.Visible = false;
             // 
             // lbCredito
             // 
@@ -229,7 +232,7 @@
             // 
             this.lbSubtitulo.AutoSize = true;
             this.lbSubtitulo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubtitulo.Location = new System.Drawing.Point(135, 180);
+            this.lbSubtitulo.Location = new System.Drawing.Point(135, 185);
             this.lbSubtitulo.Name = "lbSubtitulo";
             this.lbSubtitulo.Size = new System.Drawing.Size(160, 17);
             this.lbSubtitulo.TabIndex = 210;
@@ -290,6 +293,15 @@
             this.lbTitulo.Text = "Cantidad a depositar";
             this.lbTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // cbConceptoConBusqueda
+            // 
+            this.cbConceptoConBusqueda.FormattingEnabled = true;
+            this.cbConceptoConBusqueda.Location = new System.Drawing.Point(56, 222);
+            this.cbConceptoConBusqueda.MaxDropDownItems = 12;
+            this.cbConceptoConBusqueda.Name = "cbConceptoConBusqueda";
+            this.cbConceptoConBusqueda.Size = new System.Drawing.Size(293, 21);
+            this.cbConceptoConBusqueda.TabIndex = 219;
+            // 
             // AgregarRetirarDinero
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -332,5 +344,6 @@
         private System.Windows.Forms.Label lbTitulo;
         private System.Windows.Forms.Button btnAgregarConcepto;
         private System.Windows.Forms.ComboBox cbConceptos;
+        private CustomControlPUDVE.ComboBoxPUDVE cbConceptoConBusqueda;
     }
 }
