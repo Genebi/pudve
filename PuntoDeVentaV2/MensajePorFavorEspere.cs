@@ -93,6 +93,10 @@ namespace PuntoDeVentaV2
                 {
                     titulo = "correos";
                 }
+                else
+                {
+                    titulo = propiedadCambiar;
+                }
             }
 
             return titulo;
