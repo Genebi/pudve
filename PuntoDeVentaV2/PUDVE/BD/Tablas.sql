@@ -1627,3 +1627,58 @@ ALTER TABLE RevisarInventarioReportes ADD COLUMN IF NOT EXISTS TipoRevision VARC
 
 -- Agregamos columna para mostrar o no en el listado de opciones, a la tabla de DetalleGeneral es donde se carga los datos al ComboBox en Detalles Productos
 ALTER TABLE DetalleGeneral ADD COLUMN IF NOT EXISTS Mostrar INT DEFAULT 1;
+
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS MensajeVentas INT DEFAULT (1);
+
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS MensajeInventario INT DEFAULT (1);
+
+ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS NombreComercial INT DEFAULT (1);
+
+-- -------------------------------------------------------------------
+-- Creación de FOREIGN KEY Constraint para la consulta del reporte de Menos vendidos.
+-- -------------------------------------------------------------------
+
+-- Creación de FOREIGN KEY Constraint para la tabla de usuarios.
+-- -------------------------------------------------------------------
+ALTER TABLE ventas ADD CONSTRAINT FK_Ventas_IDUsuario FOREIGN KEY
+IF
+	NOT EXISTS ( IDUsuario ) REFERENCES Usuarios ( ID ) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- Creación de FOREIGN KEY Constraint para la tabla de productos.
+-- -------------------------------------------------------------------
+ALTER TABLE productosventa ADD CONSTRAINT FK_ProductosVenta_IDProducto FOREIGN KEY
+IF
+	NOT EXISTS ( IDProducto ) REFERENCES Productos ( ID ) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- -------------------------------------------------------------------
+-- Creación de index para la consulta del reporte de Menos vendidos.
+-- -------------------------------------------------------------------
+
+-- Creación de index para la tabla de Ventas.
+-- -------------------------------------------------------------------
+
+-- Index Fecha Operación en Tabla de ventas
+CREATE INDEX
+IF
+	NOT EXISTS `ReporteMenosVendidos_index_Usuario_FechaOperacion` ON `ventas` ( `IDUsuario`, `FechaOperacion` );
+	
+-- Creación de index para la tabla de Prodctos.
+-- -------------------------------------------------------------------
+
+-- Index Fecha Operación en Tabla de productos
+CREATE INDEX
+IF
+	NOT EXISTS `ReporteMenosVendidos_index_Tipo` ON `productos` ( `tipo` );
+	
+-- Index Fecha Operación en Tabla de productos
+CREATE INDEX
+IF
+	NOT EXISTS `ReporteMenosVendidos_index_Stock_Precio` ON `productos` ( `Stock`, `Precio` );
+	
+-- Creación de index para la tabla de ProductosVenta.
+-- -------------------------------------------------------------------
+
+-- Index Fecha Operación en Tabla de productosventa
+CREATE INDEX
+IF
+	NOT EXISTS `ReporteMenosVendidos_index_IDVenta_IDProducto_Cantidad` ON `productosventa` ( `IDVenta`, `IDProducto`, `Cantidad` );

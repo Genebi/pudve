@@ -98,7 +98,10 @@ namespace PuntoDeVentaV2
                     "PermitirStockNegativo",
                     "GenerarTicketAlRealizarVenta",
                     "AvisarProductosNoVendidos",
-                    "ActivarPrecioMayoreoVentas"
+                    "ActivarPrecioMayoreoVentas",
+                    "MensajeVentas",
+                    "MensajeInventario"
+
                 };
 
                 var permisosConfiguracion = String.Join(", ",datos);
@@ -119,6 +122,9 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(130, 220, 200, "Avisar de productos no vendidos", permisos[7]);
 
                 GenerarCheckbox(160, 10, 200, "Activar precio por mayoreo en ventas", permisos[8]);
+                GenerarCheckbox(160, 220, 200, "Mensaje Ventas", permisos[9]);
+
+                GenerarCheckbox(190, 10, 200, "Mensaje Inventario", permisos[10]);
             }
             if (tipoPermisos == "porcentageGanancia")
             {
@@ -187,28 +193,28 @@ namespace PuntoDeVentaV2
                 if (objetos is CheckBox)
                 {
                     CheckBox chkObjetos = (CheckBox)objetos;
-                    if ("Marcar todos" != chkObjetos.Text)
+                    if ("Marcar Todos" != chkObjetos.Text)
                     {
                         bool estado = chkObjetos.Checked;
 
-                        if (checkbox.Checked == false && checkbox.Text == "Desmarcar todos")
+                        if (checkbox.Checked == false && checkbox.Text == "Desmarcar Todos")
                         {
                             chkObjetos.Checked = false;
                         }
-                        else if (checkbox.Checked == true && checkbox.Text == "Marcar todos")
+                        else if (checkbox.Checked == true && checkbox.Text == "Marcar Todos")
                         {
                             chkObjetos.Checked = true;
                         }
                     }
                 }
             }
-            if (checkbox.Checked == true && checkbox.Text == "Marcar todos")
+            if (checkbox.Checked == true && checkbox.Text == "Marcar Todos")
             {
-                checkbox.Text = "Desmarcar todos";
+                checkbox.Text = "Desmarcar Todos";
             }
-            else if (checkbox.Checked == false && checkbox.Text == "Desmarcar todos")
+            else if (checkbox.Checked == false && checkbox.Text == "Desmarcar Todos")
             {
-                checkbox.Text = "Marcar todos";
+                checkbox.Text = "Marcar Todos";
             }
         }
 
@@ -243,9 +249,9 @@ namespace PuntoDeVentaV2
              
             foreach (Control item in panelContenedor.Controls)
             {
-                if (item is CheckBox && !item.Text.Equals("Marcar todos"))
+                if (item is CheckBox && !item.Text.Equals("Marcar Todos"))
                 {
-                    if (item is CheckBox && !item.Text.Equals("Desmarcar todos"))
+                    if (item is CheckBox && !item.Text.Equals("Desmarcar Todos"))
                     {
                         var cb = (CheckBox)item;
 

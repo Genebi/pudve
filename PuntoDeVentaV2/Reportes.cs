@@ -2268,5 +2268,12 @@ namespace PuntoDeVentaV2
 
             reporteClientes.ShowDialog();
         }
+
+        private void btnMenosVendidos_Click(object sender, EventArgs e)
+        {
+            RangosReporteProductosMenosVendidos rangoReporte = new RangosReporteProductosMenosVendidos();
+
+            rangoReporte.ShowDialog();
+        }
     }
 }

@@ -780,6 +780,12 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="MensajePorFavorEspere.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MensajePorFavorEspere.Designer.cs">
+      <DependentUpon>MensajePorFavorEspere.cs</DependentUpon>
+    </Compile>
     <Compile Include="MensajeVentasYMensajeInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -877,6 +883,12 @@
     </Compile>
     <Compile Include="QuitarEspecificacionDeConceptoDinamico.Designer.cs">
       <DependentUpon>QuitarEspecificacionDeConceptoDinamico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RangosReporteProductosMenosVendidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RangosReporteProductosMenosVendidos.Designer.cs">
+      <DependentUpon>RangosReporteProductosMenosVendidos.cs</DependentUpon>
     </Compile>
     <Compile Include="RecordViewProduct.cs">
       <SubType>Form</SubType>
@@ -1365,6 +1377,9 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MensajePorFavorEspere.resx">
+      <DependentUpon>MensajePorFavorEspere.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MensajeVentasYMensajeInventario.resx">
       <DependentUpon>MensajeVentasYMensajeInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -1411,6 +1426,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="QuitarEspecificacionDeConceptoDinamico.resx">
       <DependentUpon>QuitarEspecificacionDeConceptoDinamico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RangosReporteProductosMenosVendidos.resx">
+      <DependentUpon>RangosReporteProductosMenosVendidos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RecordViewProduct.resx">
       <DependentUpon>RecordViewProduct.cs</DependentUpon>
@@ -4820,6 +4838,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\deafness.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\decrease.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\dedent.png">

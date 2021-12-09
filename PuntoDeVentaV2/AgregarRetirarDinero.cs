@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CustomControlPUDVE;
 
 namespace PuntoDeVentaV2
 {
@@ -113,8 +114,6 @@ namespace PuntoDeVentaV2
             ////totalCredito = CajaN.cred;
 
             CargarConceptos();
-
-
         }
 
 
@@ -122,9 +121,16 @@ namespace PuntoDeVentaV2
         {
             var conceptos = mb.ObtenerConceptosDinamicos(origen: "CAJA");
 
-            cbConceptos.DataSource = conceptos.ToArray();
-            cbConceptos.DisplayMember = "Value";
-            cbConceptos.ValueMember = "Key";
+            //cbConceptos.DataSource = conceptos.ToArray();
+            //cbConceptos.DisplayMember = "Value";
+            //cbConceptos.ValueMember = "Key";
+
+            cbConceptoConBusqueda.DataSource = conceptos.ToArray();
+            cbConceptoConBusqueda.DisplayMember = "Value";
+            cbConceptoConBusqueda.ValueMember = "Key";
+            cbConceptoConBusqueda.SelectedIndex = 0;
+
+            cbConceptoConBusqueda.MatchingMethod = StringMatchingMethod.NoWildcards;
         }
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
@@ -227,7 +233,8 @@ namespace PuntoDeVentaV2
 
             var numFolio = obtenerNumFolio(tipoOperacion);
 
-            var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
+            //var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
+            var concepto = cbConceptoConBusqueda.GetItemText(cbConceptoConBusqueda.SelectedItem);
 
             if (concepto.Equals("Seleccionar concepto..."))
             {
@@ -890,7 +897,8 @@ namespace PuntoDeVentaV2
                             x = concepto["Concepto"].ToString();
                         }
                     }
-                    cbConceptos.SelectedIndex = cbConceptos.FindString(x);
+                    //cbConceptos.SelectedIndex = cbConceptos.FindString(x);
+                    cbConceptoConBusqueda.SelectedIndex = cbConceptos.FindString(x);
                 };
                 conceptos.ShowDialog();
             }

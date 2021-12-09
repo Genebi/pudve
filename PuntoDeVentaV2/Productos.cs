@@ -5866,18 +5866,6 @@ namespace PuntoDeVentaV2
 
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
-            // Obtener ID de los productos seleccionados
-            //foreach (DataGridViewRow row in DGVProductos.Rows)
-            //{
-            //    // Verificamos que el checkbox este marcado
-            //    if ((bool)row.Cells["CheckProducto"].Value == true)
-            //    {
-            //        var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
-            //        var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
-            //        lista.Add(idProducto, tipoProducto);
-            //    }
-            //}
-
             if (cbTodos.Checked)
             {
                 if (!checkBoxMasterUtilizado)
@@ -5889,11 +5877,7 @@ namespace PuntoDeVentaV2
 
                 checkBoxMasterUtilizado = false;
             }
-            //else
-            //{
-            //    productosSeleccionados = lista;
-            //}
-            
+
             if (productosSeleccionados.Count > 0)
             {
                 if (Application.OpenForms.OfType<AsignarMultipleProductos>().Count() == 1)
@@ -5915,7 +5899,7 @@ namespace PuntoDeVentaV2
                         cbTodos.Checked = false;
                     };
 
-                    am.Show();
+                    am.ShowDialog();
                 }
             }
             else
@@ -5925,6 +5909,66 @@ namespace PuntoDeVentaV2
                 MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtBusqueda.Focus();
             }
+
+            // Obtener ID de los productos seleccionados
+            //foreach (DataGridViewRow row in DGVProductos.Rows)
+            //{
+            //    // Verificamos que el checkbox este marcado
+            //    if ((bool)row.Cells["CheckProducto"].Value == true)
+            //    {
+            //        var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+            //        var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
+            //        lista.Add(idProducto, tipoProducto);
+            //    }
+            //}
+
+            //if (cbTodos.Checked)
+            //{
+            //    if (!checkBoxMasterUtilizado)
+            //    {
+            //        MarcarCheckBoxes(filtroConSinFiltroAvanzado, true);
+            //    }
+
+            //    productosSeleccionados = checkboxMarcados;
+
+            //    checkBoxMasterUtilizado = false;
+            //}
+            //else
+            //{
+            //    productosSeleccionados = lista;
+            //}
+
+            //if (productosSeleccionados.Count > 0)
+            //{
+            //    if (Application.OpenForms.OfType<AsignarMultipleProductos>().Count() == 1)
+            //    {
+            //        Application.OpenForms.OfType<AsignarMultipleProductos>().First().BringToFront();
+            //    }
+            //    else
+            //    {
+            //        AsignarMultipleProductos am = new AsignarMultipleProductos();
+
+            //        am.FormClosed += delegate
+            //        {
+            //            CargarDatos(busquedaEnProductos: txtBusqueda.Text.Trim());
+
+            //            productosSeleccionados.Clear();
+
+            //            txtBusqueda.Focus();
+
+            //            cbTodos.Checked = false;
+            //        };
+
+            //        am.ShowDialog();
+            //    }
+            //}
+            //else
+            //{
+            //    var mensaje = "Seleccione al menos un producto para habilitar esta opción";
+
+            //    MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    txtBusqueda.Focus();
+            //}
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)

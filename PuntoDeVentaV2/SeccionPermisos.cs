@@ -226,8 +226,9 @@ namespace PuntoDeVentaV2
             //=============================================================
             GenerarCheckbox(100, 210, 150, "Respaldar Informacion", datos[40]);
 
+
             seccion = "Configuracion";
-            datosUpdate = new string[] { "editarTicket","EnvioCorreo","confiGeneral","porcentajeGanancia","tipoMoneda", "RespaldarInfo" };
+            datosUpdate = new string[] { "editarTicket","EnvioCorreo","confiGeneral","porcentajeGanancia","tipoMoneda", "RespaldarInfo","MensajeVentas","MensajeInventario" };
         }
 
         private void GenerarCaja()

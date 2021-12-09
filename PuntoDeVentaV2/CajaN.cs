@@ -526,6 +526,14 @@ namespace PuntoDeVentaV2
             fechaGeneral = fechaDefault;
 
             var datos = cdc.CargarSaldo("Caja");
+
+            datos[57] = datos[57] == null ? "0" : datos[57];
+            datos[58] = datos[58] == null ? "0" : datos[58];
+            datos[59] = datos[59] == null ? "0" : datos[59];
+            datos[60] = datos[60] == null ? "0" : datos[60];
+            datos[61] = datos[61] == null ? "0" : datos[61];
+            datos[62] = datos[62] == null ? "0" : datos[62];
+
             //drUno.Close();
 
             //var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
@@ -2485,6 +2493,11 @@ namespace PuntoDeVentaV2
             }
 
             Utilidades.GenerarTicketCaja();
+
+            var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion,"Apertura de Caja",FormPrincipal.id_empleado.ToString(), "N/A" };
+            cn.EjecutarConsulta(cs.OperacionCaja(datos));
+            cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
         }
 
         private void btnCambioAbonos_Click(object sender, EventArgs e)

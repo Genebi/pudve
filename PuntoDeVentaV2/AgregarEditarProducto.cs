@@ -577,6 +577,7 @@ namespace PuntoDeVentaV2
                 } // aqui se continua con los demas else if
                 else if (!name.Equals("chkProveedor") && value.Equals("true"))// cualquier otro 
                 {
+                    var nameTag = name.ToString().Remove(0, 3);
                     nombrePanelContenedor = "panelContenedor" + name.ToString().Remove(0, 3);
                     nombrePanelContenido = "panelContenido" + name.ToString().Remove(0, 3);
 
@@ -618,6 +619,7 @@ namespace PuntoDeVentaV2
                         CargarDetallesGral(name.ToString().Remove(0, 3));
 
                         ComboBox cbDetalleGral = new ComboBox();
+                        cbDetalleGral.Tag = nameTag;
                         cbDetalleGral.Name = "cb" + name.Replace("_", " ");
                         cbDetalleGral.Width = 815;
                         cbDetalleGral.Height = 30;
@@ -734,12 +736,14 @@ namespace PuntoDeVentaV2
             int comboBoxIndex = 0;
 
             comboBoxIndex = comboBox.SelectedIndex;
-            namePanel = comboBox.Name.ToString().Remove(0, 2);
+            //namePanel = comboBox.Name.ToString().Remove(0, 2);
+            namePanel = comboBox.Tag.ToString();
             gralDetailGralSelected = Convert.ToString(comboBox.Text).Replace(" ", "_");
 
             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3) || DatosSourceFinal.Equals(2))
             {
-                listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel.Remove(0, 3));
+                //listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel.Remove(0, 3));
+                listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel);
             }
 
             if (listaDetalleGral.Length > 0)
@@ -755,6 +759,7 @@ namespace PuntoDeVentaV2
                 else if (comboBoxIndex <= 0)
                 {
                     idProductoDetalleGral = 0;
+                    limpiarDatosGral(namePanel);
                 }
 
                 if (idProductoDetalleGral > 0)
@@ -767,11 +772,53 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void limpiarDatosGral(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in flowLayoutPanel3.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                var nuevoTextoBuscado = textoBuscado.TrimEnd("[_]".ToCharArray());
+                                if (contLblHijo.Name.Trim() == "lblNombrechk" + nuevoTextoBuscado)
+                                {
+                                    //contLblHijo.Text = separadas[1].ToString().Replace("_", " ");
+                                    //contLblHijo.Text = "En Construcción está sección...";
+                                    contLblHijo.Text = string.Empty;
+                                    using (DataTable dtResultado = cn.CargarDatos(cs.limpiarEspecificacionDetalleProducto(idEditarProducto, namePanel, gralDetailGralSelected)))
+                                    {
+                                        if (!dtResultado.Rows.Count.Equals(0))
+                                        {
+                                            foreach (DataRow item in dtResultado.Rows)
+                                            {
+                                                var resultadoDeBorrado = cn.EjecutarConsulta(cs.borrarEspecificacionDetalleProducto(item["ID"].ToString()));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void llenarDatosGral(string textoBuscado)
         {
             string namePanel = string.Empty;
 
-            namePanel = "panelContenedor" + textoBuscado.Remove(0, 3);
+            //namePanel = "panelContenedor" + textoBuscado.Remove(0, 3);
+            namePanel = "panelContenedor" + textoBuscado;
 
             string nvoConceptoDetalleProducto = string.Empty;
 
@@ -783,12 +830,16 @@ namespace PuntoDeVentaV2
                 {
                     foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
                     {
-                        namePanel = "panelContenido" + textoBuscado.Remove(0, 3);
+                        //namePanel = "panelContenido" + textoBuscado.Remove(0, 3);
+                        namePanel = "panelContenido" + textoBuscado;
                         if (contSubHijo.Name == namePanel)
                         {
                             foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
                             {
-                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                var nuevoTextoBuscado = textoBuscado.TrimEnd("[_]".ToCharArray());
+                                nuevoTextoBuscado = nuevoTextoBuscado.Replace("_", " ");
+
+                                if (contLblHijo.Name.Trim() == "lblNombrechk" + nuevoTextoBuscado)
                                 {
                                     contLblHijo.Text = datosDetalleGral[3];
                                     if (DatosSourceFinal == 2)
@@ -873,6 +924,7 @@ namespace PuntoDeVentaV2
                 else if (comboBoxIndex <= 0)
                 {
                     idProveedor = 0;
+                    limpiarDatosProveedor(namePanel);
                 }
 
                 if (idProveedor > 0)
@@ -881,6 +933,70 @@ namespace PuntoDeVentaV2
                     llenarDatosProveedor(namePanel);
                 }
                 llenarListaDatosDinamicos();
+            }
+        }
+
+        private void limpiarDatosProveedor(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+            string nvoNombreProveedorDetalleProducto = string.Empty;
+
+            var idProveedor = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in flowLayoutPanel3.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "cb" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[0];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[0];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                else if (contLblHijo.Name == "lblRFC" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[1];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                else if (contLblHijo.Name == "lblTel" + textoBuscado)
+                                {
+                                    //contLblHijo.Text = datosProveedor[10];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                if (DatosSourceFinal == 2)
+                                {
+                                    string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), null, "0" };
+                                    int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
+                                    //nvoNombreProveedorDetalleProducto = datosProveedor[0];
+                                    //var dataProvaider = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, nvoNombreProveedorDetalleProducto);
+                                    //string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), dataProvaider[2].ToString(), dataProvaider[0].ToString() };
+                                    //var resultadoBusquedaDetallesProducto = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+                                    //if (!resultadoBusquedaDetallesProducto.Count().Equals(0))
+                                    //{
+                                    //    int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
+                                    //}
+                                    //else if (resultadoBusquedaDetallesProducto.Count().Equals(0))
+                                    //{
+                                    //    int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave));
+                                    //}
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -11503,65 +11619,127 @@ namespace PuntoDeVentaV2
 
         private void loadFromConfigDB()
         {
-            var servidor = Properties.Settings.Default.Hosting;
+            llenarDetalleProductoEspecificaciones();
 
-            if (string.IsNullOrWhiteSpace(servidor))
+            //var servidor = Properties.Settings.Default.Hosting;
+
+            //if (string.IsNullOrWhiteSpace(servidor))
+            //{
+                
+            //    chkDatabase.Items.Clear();
+            //    settingDatabases.Items.Clear();
+
+            //    lvi = new ListViewItem();
+
+            //    try
+            //    {
+            //        chkDatabase.Clear();
+            //        settingDatabases.Clear();
+
+            //        using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+            //        {
+            //            if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
+            //            {
+            //                foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+            //                {
+            //                    connStr = row["textComboBoxConcepto"].ToString();
+            //                    if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
+            //                    {
+            //                        keyName = "true";
+            //                    }
+            //                    else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
+            //                    {
+            //                        keyName = "false";
+            //                    }
+            //                    lvi = new ListViewItem(keyName);
+            //                    lvi.SubItems.Add(connStr);
+            //                    chkDatabase.Items.Add(lvi);
+            //                }
+            //                foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+            //                {
+            //                    connStr = row["concepto"].ToString();
+            //                    if (row["checkBoxConcepto"].ToString().Equals("1"))
+            //                    {
+            //                        keyName = "true";
+            //                    }
+            //                    else if (row["checkBoxConcepto"].ToString().Equals("0"))
+            //                    {
+            //                        keyName = "false";
+            //                    }
+            //                    lvi = new ListViewItem(keyName);
+            //                    lvi.SubItems.Add(connStr);
+            //                    settingDatabases.Items.Add(lvi);
+            //                }
+            //            }
+            //            else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+            //            {
+            //                //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //            }
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Error de lectura de los Datos Dinamicos: " + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+        }
+
+        private void llenarDetalleProductoEspecificaciones()
+        {
+            chkDatabase.Items.Clear();
+            settingDatabases.Items.Clear();
+
+            lvi = new ListViewItem();
+
+            try
             {
-                chkDatabase.Items.Clear();
-                settingDatabases.Items.Clear();
+                chkDatabase.Clear();
+                settingDatabases.Clear();
 
-                lvi = new ListViewItem();
-
-                try
+                using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                 {
-                    chkDatabase.Clear();
-                    settingDatabases.Clear();
-
-                    using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+                    if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
                     {
-                        if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
+                        foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
                         {
-                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            connStr = row["textComboBoxConcepto"].ToString();
+                            if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
                             {
-                                connStr = row["textComboBoxConcepto"].ToString();
-                                if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
-                                {
-                                    keyName = "true";
-                                }
-                                else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
-                                {
-                                    keyName = "false";
-                                }
-                                lvi = new ListViewItem(keyName);
-                                lvi.SubItems.Add(connStr);
-                                chkDatabase.Items.Add(lvi);
+                                keyName = "true";
                             }
-                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
                             {
-                                connStr = row["concepto"].ToString();
-                                if (row["checkBoxConcepto"].ToString().Equals("1"))
-                                {
-                                    keyName = "true";
-                                }
-                                else if (row["checkBoxConcepto"].ToString().Equals("0"))
-                                {
-                                    keyName = "false";
-                                }
-                                lvi = new ListViewItem(keyName);
-                                lvi.SubItems.Add(connStr);
-                                settingDatabases.Items.Add(lvi);
+                                keyName = "false";
                             }
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            chkDatabase.Items.Add(lvi);
                         }
-                        else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+                        foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
                         {
-                            //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            connStr = row["concepto"].ToString();
+                            if (row["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                keyName = "true";
+                            }
+                            else if (row["checkBoxConcepto"].ToString().Equals("0"))
+                            {
+                                keyName = "false";
+                            }
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            settingDatabases.Items.Add(lvi);
                         }
                     }
+                    else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+                    {
+                        //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error de lectura de los Datos Dinamicos: " + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de lectura de los Datos Dinamicos: " + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -35,41 +35,91 @@ namespace PuntoDeVentaV2
             var propiedad = btn.Tag;
             int comprobar = 0;
             string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+            DataTable dtUsuarios;
 
-            using (DataTable dtUsuarios = cn.CargarDatos(cs.validarUsuario(FormPrincipal.userNickName)))
+            dtUsuarios = cn.CargarDatos(cs.validarUsuario(FormPrincipal.userNickName));
+
+            if (!dtUsuarios.Rows.Count.Equals(0))
             {
-                 if (!dtUsuarios.Rows.Count.Equals(0))
-                {
-                    using (var ap = new AsignarPropiedad(propiedad))
-                    {
-                        ap.ShowDialog();
-                    }
-                }
-                else
-                {
-                    using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar(propiedad.ToString().Replace(" ","_"), idempleado)))
-                    {
-                        if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
-                        {
-                            foreach (DataRow item in dtEmpleadosPermisos.Rows)
-                            {
-                                comprobar = Convert.ToInt32(item["total"]);
-                            }
-                        }
-                    }
-                    if (comprobar > 0)
-                    {
-                        using (var ap = new AsignarPropiedad(propiedad))
-                        {
-                            ap.ShowDialog();
-                        }
-                    }
-                    else
-                    {
-                       MessageBox.Show("No cuentas con los privilegios requeridos en esta sección", "Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
+                var ap = new AsignarPropiedad(propiedad);
+                
+                ap.ShowDialog();
             }
+            else
+            {
+
+            }
+
+            dtUsuarios.Dispose();
+            dtUsuarios = null;
+            
+            //using (DataTable dtUsuarios = cn.CargarDatos(cs.validarUsuario(FormPrincipal.userNickName)))
+            //{
+            //    if (!dtUsuarios.Rows.Count.Equals(0))
+            //    {
+            //        using (var ap = new AsignarPropiedad(propiedad))
+            //        {
+            //            ap.FormClosed += delegate
+            //            {
+            //                using (var form = Application.OpenForms.OfType<AsignarMultipleProductos>().FirstOrDefault())
+            //                {
+            //                    if (!form.Equals(null))
+            //                    {
+            //                        try
+            //                        {
+            //                            form.Visible = false;
+            //                            form.Visible = true;
+            //                            form.BringToFront();
+            //                            MessageBox.Show("Primer Mensaje");
+            //                        }
+            //                        catch (Exception ex)
+            //                        {
+            //                            MessageBox.Show($"Error Primer Mensaje:\n{ex.Message}", "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //                        }
+            //                    }
+            //                }
+            //            };
+
+            //            ap.ShowDialog();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar(propiedad.ToString().Replace(" ","_"), idempleado)))
+            //        {
+            //            if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
+            //            {
+            //                foreach (DataRow item in dtEmpleadosPermisos.Rows)
+            //                {
+            //                    comprobar = Convert.ToInt32(item["total"]);
+            //                }
+            //            }
+            //        }
+            //        if (comprobar > 0)
+            //        {
+            //            using (var ap = new AsignarPropiedad(propiedad))
+            //            {
+            //                ap.FormClosed += delegate
+            //                {
+            //                    using (var form = Application.OpenForms.OfType<AsignarMultipleProductos>().FirstOrDefault())
+            //                    {
+            //                        if (!form.Equals(null))
+            //                        {
+            //                            form.BringToFront();
+            //                            MessageBox.Show("Segundo Mensaje");
+            //                        }
+            //                    }
+            //                };
+
+            //                ap.ShowDialog();
+            //            }
+            //        }
+            //        else
+            //        {
+            //           MessageBox.Show("No cuentas con los privilegios requeridos en esta sección", "Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        }
+            //    }
+            //}
         }
 
         private void AgregarOpcion(string nombre, string texto, int altura)

@@ -171,10 +171,8 @@ namespace PuntoDeVentaV2
                 this.Controls.Add(flpMensaje);
                 this.Controls.Add(flpDatos);
             }
-            else if (dato == "mensajeInventario") //EN caso de dar en el boton mensaje inventario---------------------------------------------------------------
+            else if (dato == "mensajeInventario") //EN caso de dar en el boton mensaje inventario--------------------//Panel para el nombre del producto a modificar
             {
-                //Panel para el nombre del producto a modificar
-
                 using (var datos = cn.CargarDatos(cs.mensajeInventario(Productos.codProductoEditarInventario)))
                 {
                     if (!datos.Rows.Count.Equals(0))
@@ -486,14 +484,15 @@ namespace PuntoDeVentaV2
                     }
                 }
                 this.Close();
-            }// Esta seccion es para modificar o insertar el mensaje a la hora de actualizar inventario----------------------------------------------------------
+            }
+            // Esta seccion es para modificar o insertar el mensaje a la hora de actualizar inventario----------------------------------------------------------
             else if (dato == "mensajeInventario")
             {
                 foreach (Control item in this.Controls)
                 {
                     if (item is FlowLayoutPanel)
                     {
-                        if (item.Name.Equals("panelMensaje"))
+                        if (item.Name.Equals("flplMensaje"))
                         {
                             foreach (Control itemMensaje in item.Controls)
                             {
@@ -524,7 +523,6 @@ namespace PuntoDeVentaV2
                                                         MessageBox.Show("Actualizado Correctamente.");
                                                     }
                                                 }
-                                                    
                                             }
                                         }
                                     }

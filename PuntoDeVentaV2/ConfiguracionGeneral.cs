@@ -1329,25 +1329,153 @@ namespace PuntoDeVentaV2
 
         private void chkMensajeVenderProducto_MouseClick(object sender, MouseEventArgs e)
         {
-            if (chkMensajeVenderProducto.Checked == true)
-            { 
-                cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 1");
-            }
-            else
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("MensajeVentas", FormPrincipal.id_empleado)))
             {
-                cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 0");
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = false;
+
+                    valorCambioCheckBox = chkMensajeVenderProducto.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = true;
+                    }
+                    else
+                    {
+                        habilitado = false;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = false;
+
+                            valorCambioCheckBox = chkMensajeVenderProducto.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = true;
+                            }
+                            else
+                            {
+                                habilitado = false;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                            if (chkMensajeVenderProducto.Checked == true)
+                            {
+                                cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 1");
+                            }
+                            else
+                            {
+                                cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 0");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (chkMensajeVenderProducto.Checked == true)
+                            {
+                                chkMensajeVenderProducto.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                chkMensajeVenderProducto.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
             }
         }
 
         private void chkMensajeRealizarInventario_MouseClick(object sender, MouseEventArgs e)
         {
-            if (chkMensajeRealizarInventario.Checked == true)
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("MensajeInventario", FormPrincipal.id_empleado)))
             {
-                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1");
-            }
-            else
-            {
-                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0");
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = false;
+
+                    valorCambioCheckBox = chkMensajeRealizarInventario.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = true;
+                    }
+                    else
+                    {
+                        habilitado = false;
+                    }
+
+                    cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = false;
+
+                            valorCambioCheckBox = chkMensajeRealizarInventario.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = true;
+                            }
+                            else
+                            {
+                                habilitado = false;
+                            }
+
+                            cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+
+                            if (chkMensajeRealizarInventario.Checked == true)
+                            {
+                                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1");
+                            }
+                            else
+                            {
+                                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (chkMensajeRealizarInventario.Checked == true)
+                            {
+                                chkMensajeRealizarInventario.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                chkMensajeRealizarInventario.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
             }
         }
     }

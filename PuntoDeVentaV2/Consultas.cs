@@ -353,6 +353,24 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+        public string GuardarAperturaDeCaja(string[] datos, int operacion = 0)
+        {
+            string consulta = null;
+
+            if (operacion.Equals(0))
+            {
+                //Insertar nueva venta
+                consulta = "INSERT INTO Ventas (IDUsuario, IDCliente, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, RFC, Status, FechaOperacion, Cliente, IDEmpleado, FormaPago)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}')";
+            }
+            else
+            {
+                //Actualizar venta guardada
+                consulta = $"UPDATE Ventas SET IDCliente = '{datos[1]}', Subtotal = '{datos[3]}', IVA16 = '{datos[4]}', Total = '{datos[5]}', Descuento = '{datos[6]}', DescuentoGeneral = '{datos[7]}', Status = '{datos[11]}', FechaOperacion = '{datos[12]}', IDClienteDescuento = '{datos[13]}' WHERE ID = '{operacion}'";
+            }
+
+            return consulta;
+        }
 
         public string GuardarProductosVenta(string[] datos, int opcion = 0)
         {
@@ -2616,6 +2634,12 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string nombreComercial(int nomComercial)
+        {
+            var consulta = $"UPDATE editarticket SET NombreComercial = {nomComercial} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
         public string formapagoCTicket(int formapago)
         {
             var consulta = $"UPDATE editarticket SET FormaPagoC = {formapago} WHERE IDUsuario = '{FormPrincipal.userID}';";
@@ -2950,6 +2974,42 @@ namespace PuntoDeVentaV2
         public string habilitarEspecificacionConceptoDinamico(int idRegistro)
         {
             var consulta = $"UPDATE DetalleGeneral SET Mostrar = 1 WHERE ID = '{idRegistro}'";
+
+            return consulta;
+        }
+
+        public string limpiarEspecificacionDetalleProducto(string idProducto, string panelConetnido, string especificacionSelecionada)
+        {
+            var consulta = $"SELECT * FROM detallesproductogenerales WHERE IDProducto = '{idProducto}' AND panelContenido = '{panelConetnido}' AND IDUsuario = '{FormPrincipal.userID}'";
+            //var consulta = $"SELECT DetProdGral.* FROM detallesproductogenerales AS DetProdGral INNER JOIN detallegeneral AS DetGral ON ( DetGral.ID = DetProdGral.IDDetalleGral ) WHERE DetProdGral.IDProducto = '{idProducto}' AND DetProdGral.panelContenido = '{panelConetnido}' AND DetProdGral.IDUsuario = '{FormPrincipal.userID}' AND DetGral.Descripcion = '{especificacionSelecionada}';";
+
+            return consulta;
+        }
+
+        public string borrarEspecificacionDetalleProducto(string idDetProdGral)
+        {
+            var consulta = $"DELETE FROM detallesproductogenerales WHERE ID = '{idDetProdGral}'";
+
+            return consulta;
+        }
+
+        public string productosMenosVendidosIncluidoVentasEnCero(string fechaInicio, string fechaFinal)
+        {
+            var consulta = $"SELECT Prod.ID, Prod.Nombre AS 'ARTICULO', SUM( IF ( ProdVent.Cantidad IS NULL, 0, ProdVent.Cantidad ) ) AS 'VENDIDOS', Prod.CodigoBarras AS 'CODIGO DE BARRAS', ( CASE WHEN Prod.Tipo = 'P' THEN 'PRODUCTO' WHEN Prod.Tipo = 'PQ' THEN 'COMBO' WHEN Prod.Tipo = 'S' THEN 'SERVICIO' END ) AS 'CATEGORIA', IF ( Vent.FechaOperacion IS NULL, 'N/A sin venta registrada', Vent.FechaOperacion ) AS 'ULTIMA VENTA', Prod.Stock AS 'STOCK', Prod.Precio AS 'PRECIO' FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) LEFT JOIN Ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{fechaInicio}.999999' AND '{fechaFinal}.999999' AND ( Prod.Tipo = 'P' || Prod.Tipo = 'S' || Prod.Tipo = 'PQ' ) OR ProdVent.Cantidad IS NULL GROUP BY Prod.ID ORDER BY VENDIDOS ASC";
+
+            return consulta;
+        }
+
+        public string productosMenosVendidosSinIncluidoVentasEnCero(string fechaInicio, string fechaFinal)
+        {
+            var consulta = $"SELECT Prod.ID, Prod.Nombre AS 'ARTICULO', SUM( IF ( ProdVent.Cantidad IS NULL, 0, ProdVent.Cantidad ) ) AS 'VENDIDOS', Prod.CodigoBarras AS 'CODIGO DE BARRAS', ( CASE WHEN Prod.Tipo = 'P' THEN 'PRODUCTO' WHEN Prod.Tipo = 'PQ' THEN 'COMBO' WHEN Prod.Tipo = 'S' THEN 'SERVICIO' END ) AS 'CATEGORIA', IF ( Vent.FechaOperacion IS NULL, 'N/A sin venta registrada', Vent.FechaOperacion ) AS 'ULTIMA VENTA', Prod.Stock AS 'STOCK', Prod.Precio AS 'PRECIO' FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) LEFT JOIN Ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{fechaInicio}.999999' AND '{fechaFinal}.999999' AND ( Prod.Tipo = 'P' || Prod.Tipo = 'S' || Prod.Tipo = 'PQ' ) GROUP BY Prod.ID ORDER BY VENDIDOS ASC";
+
+            return consulta;
+        }
+
+        public string productosMasVendidosSinIncluirVentasEnCero(string fechaInicio, string fechaFinal)
+        {
+            var consulta = $"SELECT Prod.ID, Prod.Nombre AS 'ARTICULO', SUM( IF ( ProdVent.Cantidad IS NULL, 0, ProdVent.Cantidad ) ) AS 'VENDIDOS', Prod.CodigoBarras AS 'CODIGO DE BARRAS', ( CASE WHEN Prod.Tipo = 'P' THEN 'PRODUCTO' WHEN Prod.Tipo = 'PQ' THEN 'COMBO' WHEN Prod.Tipo = 'S' THEN 'SERVICIO' END ) AS 'CATEGORIA', IF ( Vent.FechaOperacion IS NULL, 'N/A sin venta registrada', Vent.FechaOperacion ) AS 'ULTIMA VENTA', Prod.Stock AS 'STOCK', Prod.Precio AS 'PRECIO' FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) LEFT JOIN Ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{fechaInicio}.999999' AND '{fechaFinal}.999999' AND ( Prod.Tipo = 'P' || Prod.Tipo = 'S' || Prod.Tipo = 'PQ' ) GROUP BY Prod.ID ORDER BY VENDIDOS DESC";
 
             return consulta;
         }

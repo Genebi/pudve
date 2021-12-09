@@ -186,10 +186,12 @@ namespace PuntoDeVentaV2
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
         public delegate void MostrarRecepcion(string Texto);    // Delegado para asignar el valor recibido
 
-        int nombreus, direccionus, colycpus, rfcus, correous, telefonous, nombrec, domicilioc, rfcc, correoc, telefonoc, colycpc, formapagoc;
+        int nombreus,nombComercial, direccionus, colycpus, rfcus, correous, telefonous, nombrec, domicilioc, rfcc, correoc, telefonoc, colycpc, formapagoc;
 
         public static bool sonido = true;
         int contador = 0;
+
+        float CantidadAnteriorEdit, NuevaCantidadEdit;
 
         // al recibir de la bascula los bytesToRead indicara
         // un valor superior a 0, indicando el numero de caracteres
@@ -1141,7 +1143,9 @@ namespace PuntoDeVentaV2
                         int idProducto = Convert.ToInt32(DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value);
                         int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celdaCellClick].Cells["DescuentoTipo"].Value);
                         var precio = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString());
+                        CantidadAnteriorEdit = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
                         float cantidad = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString()) + 1;
+                        NuevaCantidadEdit = cantidad;
 
                         float importe = cantidad * precio;
 
@@ -1171,6 +1175,7 @@ namespace PuntoDeVentaV2
                             string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                             CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, celdaCellClick);
                         }
+                        reproducirProductoAgregado();
                     }
                 }
 
@@ -1319,6 +1324,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+                    reproducirProductoAgregado();
                 }
 
                 // Eliminar individual
@@ -3002,13 +3008,33 @@ namespace PuntoDeVentaV2
                                     if (idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
                                     {
                                         mostrarVenta = 0;
-                                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+
+                                        var existeVenta = mb.ExisteVentaDatosRepetidos(guardar);
+
+                                        if (!existeVenta)
+                                        {
+                                            respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                        }
+                                        else
+                                        {
+                                            respuesta = 1;
+                                        }
                                     }
                                     else if (!idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
                                     {
                                         guardar[1] = idClienteTmp;
                                         mostrarVenta = 0;
-                                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+
+                                        var existeVenta = mb.ExisteVentaDatosRepetidos(guardar);
+
+                                        if (!existeVenta)
+                                        {
+                                            respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                        }
+                                        else
+                                        {
+                                            respuesta = 1;
+                                        }
                                     }
                                 }
                             }
@@ -4104,16 +4130,20 @@ namespace PuntoDeVentaV2
                     ticket.Add(logo);
                 }
             }
+            var nomComercial = cn.CargarDatos($"SELECT  nombre_comercial FROM usuarios WHERE ID = '{FormPrincipal.userID}' ");
+            string nombreComercial = nomComercial.Rows[0]["nombre_comercial"].ToString();
 
             Paragraph titulo = new Paragraph(datos[0] + "\n", fuenteGrande);
+            Paragraph NombreComercial = new Paragraph("Nombre Comercial: " + nombreComercial + "\n", fuenteNormal);
             Paragraph direccion = new Paragraph("Direccion: "+datos[1]+", "+datos[2]+", " +datos[4] + ", " +datos[5] + "\n", fuenteNormal);
             Paragraph colYCP = new Paragraph("Colonia: "+datos[6]+", "+"C.P.: "+datos[7] + "\n", fuenteNormal);
             Paragraph RFC = new Paragraph("RFC: "+datos[8] + "\n", fuenteNormal);
             Paragraph correo = new Paragraph("Correo: "+datos[9] + "\n", fuenteNormal);
             Paragraph telefono = new Paragraph("Telefono: "+datos[10] + "\n" + "\n", fuenteNormal );
             //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
-
+             
             titulo.Alignment = Element.ALIGN_CENTER;
+            NombreComercial.Alignment = Element.ALIGN_CENTER;
             direccion.Alignment = Element.ALIGN_CENTER;
             colYCP.Alignment = Element.ALIGN_CENTER;
             RFC.Alignment = Element.ALIGN_CENTER;
@@ -4357,6 +4387,7 @@ namespace PuntoDeVentaV2
             {
                 var datos2 = item;
                 nombreus = Convert.ToInt32(datos2[3]);
+                nombComercial = Convert.ToInt32(datos2[17]);
                 direccionus = Convert.ToInt32(datos2[4]);
                 colycpus = Convert.ToInt32(datos2[5]);
                 rfcus = Convert.ToInt32(datos2[6]);
@@ -4393,6 +4424,10 @@ namespace PuntoDeVentaV2
             if (nombreus == 1)
             {
                 ticket.Add(titulo);
+            }
+            if (nombComercial == 1)
+            {
+                ticket.Add(NombreComercial);
             }
             if (direccionus == 1)
             {
@@ -5491,6 +5526,7 @@ namespace PuntoDeVentaV2
 
                 if (caracter.Equals("+") || caracter.Equals("-"))
                 {
+                    reproducirProductoAgregado();
                     return;
                 }
             }
@@ -6161,12 +6197,18 @@ namespace PuntoDeVentaV2
         {
             if (opcion12 == 0)
             {
+                
+
                 Utilidades.MensajePermiso();
                 return;
             }
 
             if (Utilidades.AdobeReaderInstalado())
             {
+                var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion, "Apertura de Caja", FormPrincipal.id_empleado.ToString(), "0" };
+                cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
+
                 GenerarTicketCaja();
             }
             else
@@ -6409,6 +6451,7 @@ namespace PuntoDeVentaV2
         }
 
         private void DGVentas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+
         {
             if (contadorChangeValue.Equals(0))
             {
@@ -6468,6 +6511,8 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
+            //Aqui reproducir sonido de producto al carrito
+            ReproducirSonido();
             txtBuscadorProducto.Focus();
             txtBuscadorProducto.Select();
         }
@@ -6534,7 +6579,6 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-                            
                         }
                     }
                 else if (cantidad < cantidadMinima && listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
@@ -6922,9 +6966,8 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            /* Agregar la condicion para la cantidad minima de compra para mostrarmensaje*/
-
             var celda = e.RowIndex;
+
             if (e.ColumnIndex == 5)
             {
                 decimal cantidad = 0;
@@ -6947,12 +6990,6 @@ namespace PuntoDeVentaV2
                                 drProdMessg = dtProdMessg.Rows[0];
 
                                 var mensaje = drProdMessg["ProductOfMessage"].ToString().ToUpper();
-
-                                //if (!listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
-                                //{
-                                //    MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                //    listaMensajesEnviados.Add(Convert.ToInt32(idproductoCantidad), "Mensaje");
-                                //}
                             }
                         }
                     }
@@ -6988,6 +7025,11 @@ namespace PuntoDeVentaV2
                 CalculoMayoreo();
                 //CantidadesFinalesVenta();
                 CantidadesFinalesVenta();
+                if (CantidadAnteriorEdit != NuevaCantidadEdit)
+                {
+                    reproducirProductoAgregado();
+                }
+                
             }
         }
 
