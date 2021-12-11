@@ -3013,5 +3013,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string productoInactivo(string idProducto)
+        {
+            var consulta = $"SELECT ID, Nombre, `Status` FROM productos WHERE ID = '{idProducto}' AND `Status` = 0 ";
+
+            return consulta;
+        }
     }
 }  

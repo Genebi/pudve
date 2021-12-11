@@ -43,6 +43,7 @@ namespace PuntoDeVentaV2
         public static List<string> liststock = new List<string>();
         public static List<string> liststock2 = new List<string>();
         List<string> stockCantidad = new List<string>();
+        List<string> productoDeshabilitado = new List<string>();
         string cargarmensaje;
 
         public static bool ventaGuardada = false; //Para saber si la venta se guardo o no
@@ -2608,168 +2609,206 @@ namespace PuntoDeVentaV2
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(lbDatosCliente.Text))
+            foreach (DataGridViewRow fila in DGVentas.Rows)
             {
-                etiqeutaCliente = "vacio";
+                var idProdutoInactivo = fila.Cells["IDProducto"].Value.ToString();
+
+                using (DataTable dtProductoInactivo = cn.CargarDatos(cs.productoInactivo(idProdutoInactivo)))
+                {
+                    if (!dtProductoInactivo.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow item in dtProductoInactivo.Rows)
+                        {
+                            productoDeshabilitado.Add($"{item["ID"].ToString()}|{item["Nombre"].ToString()}");
+                        }
+                    }
+                }
+            }
+
+            if (!productoDeshabilitado.Count.Equals(0))
+            {
+                // Code to search the  alphanumneric Part Number (in Column1 header called "PART NUMBER") and highlihgt the row
+                foreach (var item in productoDeshabilitado)
+                {
+                    var palabraParaBuscar = item.Split('|');
+
+                    foreach (DataGridViewRow row in DGVentas.Rows)
+                    {
+                        var contenidoDeCelda = row.Cells["Descripcion"].Value.ToString();
+                        if (!string.IsNullOrWhiteSpace(contenidoDeCelda) && contenidoDeCelda.Equals(palabraParaBuscar[1].ToString()))
+                        {
+                            DGVentas.Rows[row.Index].DefaultCellStyle.BackColor = Color.DarkSlateGray;
+                        }
+                    }
+                }
+                productoDeshabilitado.Clear();
+                MessageBox.Show("Su venta contiene productos, combos o servicios\nque no estan activos en el sistema\nfavor de revisar el listado", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                etiqeutaCliente = "lleno";
-            }
-
-            if (opcion20 == 0)
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
-
-            if (VerificarStockProducto())
-            {
-                if (Application.OpenForms.OfType<DetalleVenta>().Count() == 1)
+                if (string.IsNullOrEmpty(lbDatosCliente.Text))
                 {
-                    Application.OpenForms.OfType<DetalleVenta>().First().BringToFront();
+                    etiqeutaCliente = "vacio";
                 }
                 else
                 {
-                    if (primerClickRestarIndividual)
+                    etiqeutaCliente = "lleno";
+                }
+
+                if (opcion20 == 0)
+                {
+                    Utilidades.MensajePermiso();
+                    return;
+                }
+
+                if (VerificarStockProducto())
+                {
+                    if (Application.OpenForms.OfType<DetalleVenta>().Count() == 1)
                     {
-                        if (productoRestado.Any())
-                        {
-                            // Ejecutamos hilo para envió notificación
-                            var datosConfig = mb.ComprobarConfiguracion();
-
-                            if (datosConfig.Count > 0)
-                            {
-                                if (Convert.ToInt32(datosConfig[16]).Equals(1))
-                                {
-                                    Thread ProductLessSale = new Thread(
-                                        () => Utilidades.ventaProductLessEmail(productoRestado, fechaSistema, FormPrincipal.datosUsuario)
-                                    );
-
-                                    ProductLessSale.Start();
-                                }
-                            }
-                        }
-
-                        primerClickRestarIndividual = false;
+                        Application.OpenForms.OfType<DetalleVenta>().First().BringToFront();
                     }
-
-                    if (primerClickEliminarIndividual)
+                    else
                     {
-                        if (productoEliminado.Any())
+                        if (primerClickRestarIndividual)
                         {
-                            // Ejecutamos hilo para envió notificación
-                            var datosConfig = mb.ComprobarConfiguracion();
-
-                            if (datosConfig.Count > 0)
+                            if (productoRestado.Any())
                             {
-                                if (Convert.ToInt32(datosConfig[17]).Equals(1))
+                                // Ejecutamos hilo para envió notificación
+                                var datosConfig = mb.ComprobarConfiguracion();
+
+                                if (datosConfig.Count > 0)
                                 {
-                                    Thread ProductDeleteSale = new Thread(
-                                        () => Utilidades.ventaProductDeleteEmail(productoEliminado, fechaSistema, FormPrincipal.datosUsuario)
-                                    );
-
-                                    ProductDeleteSale.Start();
-                                }
-                            } 
-                        }
-
-                        primerClickEliminarIndividual = false;
-                    }
-
-                    if (primerClickBtnUltimoEliminado)
-                    {
-                        if (productoUltimoAgregadoEliminado.Any())
-                        {
-                            // Ejecutamos hilo para envió notificación
-                            var datosConfig = mb.ComprobarConfiguracion();
-
-                            if (datosConfig.Count > 0)
-                            {
-                                if (Convert.ToInt32(datosConfig[18]).Equals(1))
-                                {
-                                    Thread ProductDeleteLast = new Thread(
-                                        () => Utilidades.ventaBtnUltimoEliminadoEmail(productoUltimoAgregadoEliminado, fechaSistema, FormPrincipal.datosUsuario)
-                                    );
-
-                                    ProductDeleteLast.Start();
-                                }
-                            }
-                        }
-
-                        primerClickBtnUltimoEliminado = false;
-                    }
-
-                    //ventaFinalizada = true;
-
-                    var totalVenta = float.Parse(cTotal.Text);
-
-                    DetalleVenta detalle = new DetalleVenta(totalVenta, idCliente);
-
-                    detalle.FormClosed += delegate
-                    {
-                        if (botonAceptar)
-                        {
-                            if (!DetalleVenta.nameClienteNameVenta.Equals(string.Empty) && !DetalleVenta.nameClienteNameVenta.Equals("PUBLICO GENERAL"))//aqui para cuando se asigna un cliente en detalle ventas
-                            {
-                                idCliente = buscarIdCliente(DetalleVenta.nameClienteNameVenta);
-                                DetalleVenta.nameClienteNameVenta = string.Empty;
-                            }
-                            else//Aqui es para cuando el cliente tiene un descuento o para cuando se trae un cliente de ventas guardadas
-                            {
-                                if (!string.IsNullOrEmpty(lbDatosCliente.Text))
-                                {
-                                    if (DetalleVenta.nameClienteNameVenta.Equals(string.Empty) && lbDatosCliente.Text.Equals(string.Empty))
+                                    if (Convert.ToInt32(datosConfig[16]).Equals(1))
                                     {
-                                        idCliente = buscarIdCliente("PUBLICO GENERAL");
+                                        Thread ProductLessSale = new Thread(
+                                            () => Utilidades.ventaProductLessEmail(productoRestado, fechaSistema, FormPrincipal.datosUsuario)
+                                        );
+
+                                        ProductLessSale.Start();
                                     }
-                                    else
+                                }
+                            }
+
+                            primerClickRestarIndividual = false;
+                        }
+
+                        if (primerClickEliminarIndividual)
+                        {
+                            if (productoEliminado.Any())
+                            {
+                                // Ejecutamos hilo para envió notificación
+                                var datosConfig = mb.ComprobarConfiguracion();
+
+                                if (datosConfig.Count > 0)
+                                {
+                                    if (Convert.ToInt32(datosConfig[17]).Equals(1))
                                     {
-                                        if (lbDatosCliente.Text.Contains("---"))
+                                        Thread ProductDeleteSale = new Thread(
+                                            () => Utilidades.ventaProductDeleteEmail(productoEliminado, fechaSistema, FormPrincipal.datosUsuario)
+                                        );
+
+                                        ProductDeleteSale.Start();
+                                    }
+                                }
+                            }
+
+                            primerClickEliminarIndividual = false;
+                        }
+
+                        if (primerClickBtnUltimoEliminado)
+                        {
+                            if (productoUltimoAgregadoEliminado.Any())
+                            {
+                                // Ejecutamos hilo para envió notificación
+                                var datosConfig = mb.ComprobarConfiguracion();
+
+                                if (datosConfig.Count > 0)
+                                {
+                                    if (Convert.ToInt32(datosConfig[18]).Equals(1))
+                                    {
+                                        Thread ProductDeleteLast = new Thread(
+                                            () => Utilidades.ventaBtnUltimoEliminadoEmail(productoUltimoAgregadoEliminado, fechaSistema, FormPrincipal.datosUsuario)
+                                        );
+
+                                        ProductDeleteLast.Start();
+                                    }
+                                }
+                            }
+
+                            primerClickBtnUltimoEliminado = false;
+                        }
+
+                        //ventaFinalizada = true;
+
+                        var totalVenta = float.Parse(cTotal.Text);
+
+                        DetalleVenta detalle = new DetalleVenta(totalVenta, idCliente);
+
+                        detalle.FormClosed += delegate
+                        {
+                            if (botonAceptar)
+                            {
+                                if (!DetalleVenta.nameClienteNameVenta.Equals(string.Empty) && !DetalleVenta.nameClienteNameVenta.Equals("PUBLICO GENERAL"))//aqui para cuando se asigna un cliente en detalle ventas
+                                {
+                                    idCliente = buscarIdCliente(DetalleVenta.nameClienteNameVenta);
+                                    DetalleVenta.nameClienteNameVenta = string.Empty;
+                                }
+                                else//Aqui es para cuando el cliente tiene un descuento o para cuando se trae un cliente de ventas guardadas
+                                {
+                                    if (!string.IsNullOrEmpty(lbDatosCliente.Text))
+                                    {
+                                        if (DetalleVenta.nameClienteNameVenta.Equals(string.Empty) && lbDatosCliente.Text.Equals(string.Empty))
                                         {
-                                            String datos = lbDatosCliente.Text;
-                                            datos = datos.Replace("---", "|");
-                                            string[] words = datos.Split('|');
-                                            idCliente = buscarIdCliente(words[0].Replace("Cliente:", string.Empty).Trim());
-                                        }
-                                        else if (!idCliente.Equals("0"))
-                                        {
-                                            idCliente = buscarIdCliente(lbDatosCliente.Text);
+                                            idCliente = buscarIdCliente("PUBLICO GENERAL");
                                         }
                                         else
                                         {
-                                            idCliente = idClienteDescuento.ToString();
+                                            if (lbDatosCliente.Text.Contains("---"))
+                                            {
+                                                String datos = lbDatosCliente.Text;
+                                                datos = datos.Replace("---", "|");
+                                                string[] words = datos.Split('|');
+                                                idCliente = buscarIdCliente(words[0].Replace("Cliente:", string.Empty).Trim());
+                                            }
+                                            else if (!idCliente.Equals("0"))
+                                            {
+                                                idCliente = buscarIdCliente(lbDatosCliente.Text);
+                                            }
+                                            else
+                                            {
+                                                idCliente = idClienteDescuento.ToString();
+                                            }
                                         }
                                     }
+                                    else
+                                    {
+                                        idCliente = idClienteDescuento.ToString();
+                                    }
                                 }
-                                else
-                                {
-                                    idCliente = idClienteDescuento.ToString();
-                                }
+
+                                ventaFinalizada = true;
+                                DatosVenta();
+                                botonAceptar = false;
+                                idCliente = string.Empty;
+                                DetalleVenta.idCliente = 0;
+                                DetalleVenta.cliente = string.Empty;
+                                AsignarCreditoVenta.idCliente = 0;
+                                AsignarCreditoVenta.cliente = string.Empty;
                             }
+                            else
+                            {
+                                idCliente = string.Empty;
+                                DetalleVenta.idCliente = 0;
+                                DetalleVenta.cliente = string.Empty;
+                                AsignarCreditoVenta.idCliente = 0;
+                                AsignarCreditoVenta.cliente = string.Empty;
+                            }
+                            noDuplicadoVentas = 0;
+                        };
 
-                            ventaFinalizada = true;
-                            DatosVenta();
-                            botonAceptar = false;
-                            idCliente = string.Empty;
-                            DetalleVenta.idCliente = 0;
-                            DetalleVenta.cliente = string.Empty;
-                            AsignarCreditoVenta.idCliente = 0;
-                            AsignarCreditoVenta.cliente = string.Empty;
-                        }
-                        else
-                        {
-                            idCliente = string.Empty;
-                            DetalleVenta.idCliente = 0;
-                            DetalleVenta.cliente = string.Empty;
-                            AsignarCreditoVenta.idCliente = 0;
-                            AsignarCreditoVenta.cliente = string.Empty;
-                        }
-                        noDuplicadoVentas = 0;
-                    };
-
-                    detalle.Show();
-                    noDuplicadoVentas = 1;
+                        detalle.Show();
+                        noDuplicadoVentas = 1;
+                    }
                 }
             }
         }
