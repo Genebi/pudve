@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -16,24 +17,47 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using TuesPechkin;
+
 namespace PuntoDeVentaV2
 {
     public static class Utilidades
     {
         public static void CrearMarcaDeAgua(int idVenta, string texto)
         {
+            Conexion cn = new Conexion();
+            Consultas cs = new Consultas();
+            MetodosBusquedas mb = new MetodosBusquedas();
+
             var servidor = Properties.Settings.Default.Hosting;
             var archivoCopia = string.Empty;
             var archivoPDF = string.Empty;
             var nuevoPDF = string.Empty;
-            Conexion cn = new Conexion();
-            Consultas cs = new Consultas();
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
                 archivoCopia = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}_tmp.pdf";
                 archivoPDF = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}.pdf";
+
+                if (!File.Exists(archivoPDF))
+                {
+                    var dtImpVenta = cn.CargarDatos(cs.ReimprimirTicket(idVenta));
+                    var datosConfig = mb.DatosConfiguracion();
+                    bool imprimirCodigo = false;
+
+                    if (Convert.ToInt16(datosConfig[0]) == 1)
+                    {
+                        imprimirCodigo = true;
+                    }
+
+                    if (!dtImpVenta.Rows.Count.Equals(0))
+                    {
+                        GenerarTicket(dtImpVenta, imprimirCodigo);
+                    }
+                }
+
                 nuevoPDF = archivoPDF;
+
                 // Renombramos el archivo PDF
                 File.Move(archivoPDF, archivoCopia);
             }
@@ -41,7 +65,26 @@ namespace PuntoDeVentaV2
             {
                 archivoCopia = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}_tmp.pdf";
                 archivoPDF = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}.pdf";
+
+                if (!File.Exists(archivoPDF))
+                {
+                    var dtImpVenta = cn.CargarDatos(cs.ReimprimirTicket(idVenta));
+                    var datosConfig = mb.DatosConfiguracion();
+                    bool imprimirCodigo = false;
+
+                    if (Convert.ToInt16(datosConfig[0]) == 1)
+                    {
+                        imprimirCodigo = true;
+                    }
+
+                    if (!dtImpVenta.Rows.Count.Equals(0))
+                    {
+                        GenerarTicket(dtImpVenta, imprimirCodigo);
+                    }
+                }
+
                 nuevoPDF = archivoPDF;
+
                 // Renombramos el archivo PDF
                 File.Move(archivoPDF, archivoCopia);
             }
@@ -329,7 +372,7 @@ namespace PuntoDeVentaV2
             return respuesta;
         }
 
-        public static bool EnviarEmailConArchivoPDF(string html, string asunto, string email, string rutaPDF )
+        public static bool EnviarEmailConArchivoPDF(string html, string asunto, string email, string rutaPDF)
         {
             //Con este metodo se pueden mandar correos con archivos pdf
             var respuesta = false;
@@ -627,7 +670,7 @@ namespace PuntoDeVentaV2
                 {
                     idVenta = item["idVenta"].ToString();
                     IDProducto = item["IDProducto"].ToString();
-                     Nombre = item["Nombre"].ToString();
+                    Nombre = item["Nombre"].ToString();
                     Cantidad = item["Cantidad"].ToString();
                     Precio = item["Precio"].ToString();
                     DescuentoGeneral = item["DescuentoGeneral"].ToString();
@@ -1071,11 +1114,11 @@ namespace PuntoDeVentaV2
         public static void ventaNotSuccessfulFinalizadaEmail(List<string> productosNoVendidos, string fechaSistema, string cantidadTotal, string[] datosUsuario)
         {
             string[] words;
-            string  productos = string.Empty, 
-                    encabezadoHTML = string.Empty, 
-                    pieHTML = string.Empty, 
-                    correoHTML = string.Empty, 
-                    asunto = string.Empty, 
+            string productos = string.Empty,
+                    encabezadoHTML = string.Empty,
+                    pieHTML = string.Empty,
+                    correoHTML = string.Empty,
+                    asunto = string.Empty,
                     correo = string.Empty,
                     correo1 = string.Empty;
 
@@ -1496,35 +1539,35 @@ namespace PuntoDeVentaV2
             string[] datosUsuario = FormPrincipal.datosUsuario;
             string[] datosEnvioCorreo = datosOperacion;
 
-            string OperacionRealizada = datosEnvioCorreo[0].ToString(), 
-                    CantidadDeOperacion = datosEnvioCorreo[1].ToString(), 
-                    SaldoDeOperacion = datosEnvioCorreo[2].ToString(), 
-                    ConceptoDeOperacion = datosEnvioCorreo[3].ToString(), 
-                    FechaDeOperacion = datosEnvioCorreo[4].ToString(), 
-                    IDUsuarioDeOperacion = datosEnvioCorreo[5].ToString(), 
-                    MontoEfectivoDeOperacion = datosEnvioCorreo[6].ToString(), 
-                    MontoTarjetaDeOperacion = datosEnvioCorreo[7].ToString(), 
-                    MontoValesDeOperacion = datosEnvioCorreo[8].ToString(), 
-                    MontoChequesDeOperacion = datosEnvioCorreo[9].ToString(), 
-                    MontoTransferenciaDeOperacion = datosEnvioCorreo[10].ToString(), 
-                    MontoCreditoDeOperacion = datosEnvioCorreo[11].ToString(), 
+            string OperacionRealizada = datosEnvioCorreo[0].ToString(),
+                    CantidadDeOperacion = datosEnvioCorreo[1].ToString(),
+                    SaldoDeOperacion = datosEnvioCorreo[2].ToString(),
+                    ConceptoDeOperacion = datosEnvioCorreo[3].ToString(),
+                    FechaDeOperacion = datosEnvioCorreo[4].ToString(),
+                    IDUsuarioDeOperacion = datosEnvioCorreo[5].ToString(),
+                    MontoEfectivoDeOperacion = datosEnvioCorreo[6].ToString(),
+                    MontoTarjetaDeOperacion = datosEnvioCorreo[7].ToString(),
+                    MontoValesDeOperacion = datosEnvioCorreo[8].ToString(),
+                    MontoChequesDeOperacion = datosEnvioCorreo[9].ToString(),
+                    MontoTransferenciaDeOperacion = datosEnvioCorreo[10].ToString(),
+                    MontoCreditoDeOperacion = datosEnvioCorreo[11].ToString(),
                     MontoAnticipoDeOperacion = datosEnvioCorreo[12].ToString();
 
-            string NombreUsuario = datosUsuario[0].ToString(), 
-                    CalleUsuario = datosUsuario[1].ToString(), 
-                    NoExteriorUsuario = datosUsuario[2].ToString(), 
-                    NoInteriorUsuario = datosUsuario[3].ToString(), 
-                    MunicipioUsuario = datosUsuario[4].ToString(), 
-                    EstadoUsuario = datosUsuario[5].ToString(), 
-                    ColoniaUsuario = datosUsuario[6].ToString(), 
-                    CodigoPostal = datosUsuario[7].ToString(), 
-                    RFCUsuario = datosUsuario[8].ToString(), 
-                    EmailUsuario = datosUsuario[9].ToString(), 
-                    TelefonoUsuario = datosUsuario[10].ToString(), 
-                    LogoUsuario = datosUsuario[11].ToString(), 
-                    VerificadoUsuario = datosUsuario[12].ToString(), 
-                    IDUsuario = datosUsuario[13].ToString(), 
-                    PasswordUsuario = datosUsuario[14].ToString(), 
+            string NombreUsuario = datosUsuario[0].ToString(),
+                    CalleUsuario = datosUsuario[1].ToString(),
+                    NoExteriorUsuario = datosUsuario[2].ToString(),
+                    NoInteriorUsuario = datosUsuario[3].ToString(),
+                    MunicipioUsuario = datosUsuario[4].ToString(),
+                    EstadoUsuario = datosUsuario[5].ToString(),
+                    ColoniaUsuario = datosUsuario[6].ToString(),
+                    CodigoPostal = datosUsuario[7].ToString(),
+                    RFCUsuario = datosUsuario[8].ToString(),
+                    EmailUsuario = datosUsuario[9].ToString(),
+                    TelefonoUsuario = datosUsuario[10].ToString(),
+                    LogoUsuario = datosUsuario[11].ToString(),
+                    VerificadoUsuario = datosUsuario[12].ToString(),
+                    IDUsuario = datosUsuario[13].ToString(),
+                    PasswordUsuario = datosUsuario[14].ToString(),
                     FechaHoyUsuario = datosUsuario[15].ToString();
 
             string cuerpoHTML = string.Empty,
@@ -1557,7 +1600,7 @@ namespace PuntoDeVentaV2
                 asunto = "Retiro Dinero \"Apartado Caja\"";
             }
 
-                  cuerpoHTML += $@"     <tr>
+            cuerpoHTML += $@"     <tr>
                                             <th style = 'text-align: left;'>
                                                 Efectivo:
                                             </th>
@@ -1613,7 +1656,7 @@ namespace PuntoDeVentaV2
                                     </table>
                                 </div>";
 
-            if ( Convert.ToInt32(datosEnvioCorreo[13]) != 0/*!string.IsNullOrWhiteSpace(datosEnvioCorreo[13])*/)//Valida cuando es empleado
+            if (Convert.ToInt32(datosEnvioCorreo[13]) != 0/*!string.IsNullOrWhiteSpace(datosEnvioCorreo[13])*/)//Valida cuando es empleado
             {
                 var datosEmpleado = datosEnvioCorreo[14].Split('@');
 
@@ -1627,7 +1670,7 @@ namespace PuntoDeVentaV2
             //pieHTML = $@"<p>Está operación fue realizada por con <span style='color:red;'>fecha de {FechaDeOperacion}</span> por el <span style='color: red'>usuario = {NombreUsuario}</span></p>";
 
             correoHTML = encabezadoHTML + cuerpoHTML + pieHTML;
-            
+
             correo = EmailUsuario;
 
             if (!correo.Equals(""))
@@ -1890,7 +1933,7 @@ namespace PuntoDeVentaV2
             bool textoBuscarUnoEncontrado = false;
             bool textoBuscarDosEncontrado = false;
 
-            if (TextoABuscar1 == string.Empty || 
+            if (TextoABuscar1 == string.Empty ||
                 TextoABuscar2 == string.Empty)
             {
                 return false;
@@ -1942,7 +1985,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                if (textoBuscarUnoEncontrado.Equals(true) && 
+                if (textoBuscarUnoEncontrado.Equals(true) &&
                     textoBuscarDosEncontrado.Equals(true))
                 {
                     return true;
@@ -1977,7 +2020,7 @@ namespace PuntoDeVentaV2
 
         public static void GenerarReporteVentas(string opcionVentas, DataTable tablaResult)
         {
-            Consultas cs = new Consultas(); 
+            Consultas cs = new Consultas();
 
             // Ventas pagadas
             if (opcionVentas == "VP")
@@ -2004,7 +2047,7 @@ namespace PuntoDeVentaV2
 
             //Datos del usuario
             var datos = FormPrincipal.datosUsuario;
-            
+
             //Fuentes y Colores
             var colorFuenteNegrita = new BaseColor(Color.Black);
             var colorFuenteBlanca = new BaseColor(Color.White);
@@ -2082,7 +2125,7 @@ namespace PuntoDeVentaV2
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
 
-            float[] anchoColumnas = new float[] { 20f, 60f, 40f, 60f, 40f, 60f, 40f, 60f};
+            float[] anchoColumnas = new float[] { 20f, 60f, 40f, 60f, 40f, 60f, 40f, 60f };
 
             //Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -2160,7 +2203,7 @@ namespace PuntoDeVentaV2
             var cliente = string.Empty;
             foreach (DataRow iterador in tablaResult.Rows)
             {
-                
+
                 numRow += 1;
                 numAperturaCaja = "--";
 
@@ -2182,7 +2225,7 @@ namespace PuntoDeVentaV2
                     //colClienteTemp.BorderWidthBottom = 0;
                     //colClienteTemp.BorderWidthRight = 0;
                     colNumFilatemp.HorizontalAlignment = Element.ALIGN_CENTER;
-                    numRow --;
+                    numRow--;
                 }
                 else
                 {
@@ -2211,15 +2254,15 @@ namespace PuntoDeVentaV2
                 //colRFCTemp.BorderWidthBottom = 0;
                 //colRFCTemp.BorderWidthLeft = 0;
                 colRFCTemp.HorizontalAlignment = Element.ALIGN_CENTER;
-                
-                PdfPCell colTotalTemp = new PdfPCell(new Phrase("$"+iterador["Total"].ToString(), fuenteNormal));
+
+                PdfPCell colTotalTemp = new PdfPCell(new Phrase("$" + iterador["Total"].ToString(), fuenteNormal));
                 colTotalTemp.BorderWidth = 1;
                 //colTotalTemp.BorderWidthRight = 0;
                 //colTotalTemp.BorderWidthTop = 0;
                 //colTotalTemp.BorderWidthBottom = 0;
                 //colTotalTemp.BorderWidthLeft = 0;
                 colTotalTemp.HorizontalAlignment = Element.ALIGN_CENTER;
-                
+
                 PdfPCell colFolioTemp = new PdfPCell(new Phrase(iterador["Folio"].ToString(), fuenteNormal));
                 colFolioTemp.BorderWidth = 1;
                 //colFolioTemp.BorderWidthLeft = 0;
@@ -2260,7 +2303,7 @@ namespace PuntoDeVentaV2
                 tablaInventario.AddCell(colSerieTemp);
                 tablaInventario.AddCell(colFechaTemp);
                 tablaInventario.AddCell(colEmpleadoTemp);
-                
+
             }
 
             //Columna para total de dinero
@@ -2783,7 +2826,8 @@ namespace PuntoDeVentaV2
             float AdjustSpace = (width - (WordsWidth + (AverageSpace * NumberOfWords * SpaceCharWidth)));
 
             //Add spaces to all words
-            return ((Func<string>)(() => {
+            return ((Func<string>)(() =>
+            {
                 string Spaces = "";
                 string AdjustedWords = "";
 
@@ -2942,6 +2986,559 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("error " + ex.Message.ToString(), "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        public static void CrearMarcaDeAguaNota(int idVenta, string texto)
+        {
+            Conexion cn = new Conexion();
+            Consultas cs = new Consultas();
+
+            var servidor = Properties.Settings.Default.Hosting;
+            var Usuario = FormPrincipal.userNickName;
+            var archivoCopia = string.Empty;
+            var archivoPDF = string.Empty;
+            var nuevoPDF = string.Empty;
+            var numFolio = string.Empty;
+            var numSerie = string.Empty;
+
+            using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
+            {
+                if (!dtDatosVentas.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in dtDatosVentas.Rows)
+                    {
+                        numFolio = item["Folio"].ToString();
+                        numSerie = item["Serie"].ToString();
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                archivoCopia = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{numFolio}{numSerie}_tmp.pdf";
+                archivoPDF = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{numFolio}{numSerie}.pdf";
+            }
+            else
+            {
+                archivoCopia = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{numFolio}{numSerie}_tmp.pdf";
+                archivoPDF = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{numFolio}{numSerie}.pdf";
+            }
+
+            if (!File.Exists(archivoPDF))
+            {
+                verFactura(idVenta);
+            }
+
+            nuevoPDF = archivoPDF;
+
+            // Renombramos el archivo PDF
+            File.Move(archivoPDF, archivoCopia);
+
+            using (PdfReader reader = new PdfReader(archivoCopia))
+            {
+                FileStream fs = new FileStream(nuevoPDF, FileMode.Create, FileAccess.Write, FileShare.None);
+
+                using (PdfStamper stamper = new PdfStamper(reader, fs))
+                {
+                    int numeroPaginas = reader.NumberOfPages;
+
+                    PdfLayer layer = new PdfLayer("WatermarkLayer", stamper.Writer);
+
+                    for (int i = 1; i <= numeroPaginas; i++)
+                    {
+                        iTextSharp.text.Rectangle rec = reader.GetPageSize(i);
+                        PdfContentByte cb = stamper.GetUnderContent(i);
+
+                        cb.BeginLayer(layer);
+                        cb.SetFontAndSize(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 80);
+
+                        PdfGState gstate = new PdfGState();
+                        gstate.FillOpacity = 0.25f;
+                        cb.SetGState(gstate);
+
+                        cb.SetColorFill(iTextSharp.text.BaseColor.RED);
+                        cb.BeginText();
+                        cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, texto, rec.Width / 2, rec.Height / 2, 45f);
+                        cb.EndText();
+                        cb.EndLayer();
+                    }
+                }
+            }
+        }
+
+        public static void verFactura(int idVenta)
+        {
+            Conexion cn = new Conexion();
+            Consultas cs = new Consultas();
+
+            decimal sumaImporteConcepto = 0;
+            decimal sumaDescuento = 0;
+
+            List<string> listPorProductoImpuestoTrasladados = new List<string>();
+
+            // Consulta Tabla Venta
+            DataTable dVenta = cn.CargarDatos(cs.consulta_dventa(1, idVenta));
+            DataRow rVenta = dVenta.Rows[0];
+
+            int idUsuario = Convert.ToInt32(rVenta["IDUsuario"]);
+            string folio = rVenta["Folio"].ToString();
+            string serie = rVenta["Serie"].ToString();
+            DateTime fecha = Convert.ToDateTime(rVenta["FechaOperacion"]);
+            decimal anticipo = Convert.ToDecimal(rVenta["Anticipo"]);
+
+            // Consulta Tabla DetallesVenta
+            DataTable dDetallesVenta = cn.CargarDatos(cs.consulta_dventa(2, idVenta));
+
+            int idCliente = 0;
+            string formaPago = "";
+
+            if (rVenta["Status"].ToString().Equals("2"))
+            {
+                formaPago += "Presupuesto";
+            }
+
+            if (!dDetallesVenta.Rows.Count.Equals(0))
+            {
+                DataRow rDetallesVenta = dDetallesVenta.Rows[0];
+
+                idCliente = Convert.ToInt32(rDetallesVenta["IDCliente"]);
+
+                if (Convert.ToDecimal(rDetallesVenta["Efectivo"]) > 0)
+                {
+                    formaPago += "Efectivo";
+                }
+                if (Convert.ToDecimal(rDetallesVenta["Tarjeta"]) > 0)
+                {
+                    if (!string.IsNullOrWhiteSpace(formaPago))
+                    {
+                        formaPago += "/";
+                    }
+                    formaPago += "Tarjeta";
+                }
+                if (Convert.ToDecimal(rDetallesVenta["Vales"]) > 0)
+                {
+                    if (!string.IsNullOrWhiteSpace(formaPago))
+                    {
+                        formaPago += "/";
+                    }
+                    formaPago += "Vales";
+                }
+                if (Convert.ToDecimal(rDetallesVenta["Cheque"]) > 0)
+                {
+                    if (!string.IsNullOrWhiteSpace(formaPago))
+                    {
+                        formaPago += "/";
+                    }
+                    formaPago += "Cheque";
+                }
+                if (Convert.ToDecimal(rDetallesVenta["Transferencia"]) > 0)
+                {
+                    if (!string.IsNullOrWhiteSpace(formaPago))
+                    {
+                        formaPago += "/";
+                    }
+                    formaPago += "Transferencia";
+                }
+                if (Convert.ToDecimal(rDetallesVenta["Credito"]) > 0)
+                {
+                    if (!string.IsNullOrWhiteSpace(formaPago))
+                    {
+                        formaPago += "/";
+                    }
+                    formaPago += "Crédito";
+                }
+            }
+            else
+            {
+                idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDCliente FROM Ventas WHERE ID='{idVenta}'", 6));
+            }
+
+            ComprobanteVenta comprobanteVenta = new ComprobanteVenta();
+
+            // Datos del usuario
+            DataTable dUsuario = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, idUsuario));
+            DataRow rUsuario = dUsuario.Rows[0];
+
+            string lugarExpedicion = rUsuario["Estado"].ToString();
+
+            ComprobanteEmisorVenta emisorV = new ComprobanteEmisorVenta();
+
+            emisorV.Nombre = rUsuario["RazonSocial"].ToString();
+            emisorV.Rfc = rUsuario["RFC"].ToString();
+            emisorV.RegimenFiscal = rUsuario["Regimen"].ToString();
+            emisorV.Correo = rUsuario["Email"].ToString();
+            emisorV.Telefono = rUsuario["Telefono"].ToString();
+
+            // Obtiene el nombre comercial del emisor
+            if (!string.IsNullOrWhiteSpace(rUsuario["nombre_comercial"].ToString()) & !string.IsNullOrWhiteSpace(rUsuario["nombre_comercial"].ToString()))
+            {
+                emisorV.NombreComercialEmisor = rUsuario["nombre_comercial"].ToString();
+            }
+
+            string domicilioEmisor = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(rUsuario["Calle"].ToString()))
+            {
+                domicilioEmisor = rUsuario["Calle"].ToString();
+            }
+            if (!string.IsNullOrWhiteSpace(rUsuario["NoExterior"].ToString()))
+            {
+                if (!string.IsNullOrWhiteSpace(domicilioEmisor))
+                {
+                    domicilioEmisor += ", ";
+                }
+                domicilioEmisor += rUsuario["NoExterior"].ToString();
+            }
+            if (!string.IsNullOrWhiteSpace(rUsuario["NoInterior"].ToString()))
+            {
+                if (!string.IsNullOrWhiteSpace(domicilioEmisor))
+                {
+                    domicilioEmisor += ", ";
+                }
+                domicilioEmisor += rUsuario["NoInterior"].ToString();
+            }
+            if (!string.IsNullOrWhiteSpace(rUsuario["Colonia"].ToString()))
+            {
+                if (!string.IsNullOrWhiteSpace(domicilioEmisor))
+                {
+                    domicilioEmisor += ", ";
+                }
+                domicilioEmisor += rUsuario["Colonia"].ToString();
+            }
+            if (!string.IsNullOrWhiteSpace(rUsuario["CodigoPostal"].ToString()))
+            {
+                if (!string.IsNullOrWhiteSpace(domicilioEmisor))
+                {
+                    domicilioEmisor += ", ";
+                }
+                domicilioEmisor += rUsuario["CodigoPostal"].ToString();
+            }
+            if (!string.IsNullOrWhiteSpace(rUsuario["Municipio"].ToString()))
+            {
+                if (!string.IsNullOrWhiteSpace(domicilioEmisor))
+                {
+                    domicilioEmisor += ", ";
+                }
+                domicilioEmisor += rUsuario["Municipio"].ToString();
+            }
+            if (!string.IsNullOrWhiteSpace(rUsuario["Estado"].ToString()))
+            {
+                if (!string.IsNullOrWhiteSpace(domicilioEmisor))
+                {
+                    domicilioEmisor += ", ";
+                }
+                domicilioEmisor += rUsuario["Estado"].ToString();
+            }
+
+            if (!string.IsNullOrWhiteSpace(domicilioEmisor))
+            {
+                emisorV.DomicilioEmisor = domicilioEmisor;
+            }
+
+            comprobanteVenta.Emisor = emisorV;
+
+            // Datos del Cliente
+            DataTable dCliente = cn.CargarDatos(cs.cargar_datos_venta_xml(3, idCliente, 0));
+
+            if (!dCliente.Rows.Count.Equals(0))
+            {
+                DataRow rCliente = dCliente.Rows[0];
+
+                ComprobanteReceptorVenta receptorV = new ComprobanteReceptorVenta();
+
+                receptorV.Nombre = rCliente["RazonSocial"].ToString();
+                receptorV.Rfc = rCliente["RFC"].ToString();
+                receptorV.Correo = rCliente["Email"].ToString();
+                receptorV.Telefono = rCliente["Telefono"].ToString();
+
+                string domicilioReceptor = string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(rCliente["Calle"].ToString()))
+                {
+                    domicilioReceptor = rCliente["Calle"].ToString();
+                }
+                if (!string.IsNullOrWhiteSpace(rCliente["NoExterior"].ToString()))
+                {
+                    if (!string.IsNullOrWhiteSpace(domicilioReceptor))
+                    {
+                        domicilioReceptor += ", ";
+                    }
+                    domicilioReceptor += rCliente["NoExterior"].ToString();
+                }
+                if (!string.IsNullOrWhiteSpace(rCliente["NoInterior"].ToString()))
+                {
+                    if (!string.IsNullOrWhiteSpace(domicilioReceptor))
+                    {
+                        domicilioReceptor += ", ";
+                    }
+                    domicilioReceptor += rCliente["NoInterior"].ToString();
+                }
+                if (!string.IsNullOrWhiteSpace(rCliente["Colonia"].ToString()))
+                {
+                    if (!string.IsNullOrWhiteSpace(domicilioReceptor))
+                    {
+                        domicilioReceptor += ", ";
+                    }
+                    domicilioReceptor += rCliente["Colonia"].ToString();
+                }
+                if (!string.IsNullOrWhiteSpace(rCliente["CodigoPostal"].ToString()))
+                {
+                    if (!string.IsNullOrWhiteSpace(domicilioReceptor))
+                    {
+                        domicilioReceptor += ", ";
+                    }
+                    domicilioReceptor += rCliente["CodigoPostal"].ToString();
+                }
+                if (!string.IsNullOrWhiteSpace(rCliente["Localidad"].ToString()))
+                {
+                    if (!string.IsNullOrWhiteSpace(domicilioReceptor))
+                    {
+                        domicilioReceptor += ", ";
+                    }
+                    domicilioReceptor += rCliente["Localidad"].ToString();
+                }
+                if (!string.IsNullOrWhiteSpace(rCliente["Municipio"].ToString()))
+                {
+                    if (!string.IsNullOrWhiteSpace(domicilioReceptor))
+                    {
+                        domicilioReceptor += ", ";
+                    }
+                    domicilioReceptor += rCliente["Municipio"].ToString();
+                }
+                if (!string.IsNullOrWhiteSpace(rCliente["Estado"].ToString()))
+                {
+                    if (!string.IsNullOrWhiteSpace(domicilioReceptor))
+                    {
+                        domicilioReceptor += ", ";
+                    }
+                    domicilioReceptor += rCliente["Estado"].ToString();
+                }
+                if (!string.IsNullOrWhiteSpace(rCliente["Pais"].ToString()))
+                {
+                    if (!string.IsNullOrWhiteSpace(domicilioReceptor))
+                    {
+                        domicilioReceptor += ", ";
+                    }
+                    domicilioReceptor += rCliente["Pais"].ToString();
+                }
+
+                if (!string.IsNullOrWhiteSpace(domicilioReceptor))
+                {
+                    receptorV.DomicilioReceptor = domicilioReceptor;
+                }
+
+                comprobanteVenta.Receptor = receptorV;
+            }
+
+            List<ComprobanteConceptoVenta> listaConceptoV = new List<ComprobanteConceptoVenta>();
+
+            DataTable dProdVenta = cn.CargarDatos(cs.cargar_datos_venta_xml(4, idVenta, 0));
+
+            if (!dProdVenta.Rows.Count.Equals(0))
+            {
+                foreach (DataRow rProdVenta in dProdVenta.Rows)
+                {
+                    ComprobanteConceptoVenta conceptoV = new ComprobanteConceptoVenta();
+
+                    rProdVenta["Cantidad"] = RemoverCeroStock(rProdVenta["Cantidad"].ToString());
+
+                    conceptoV.Cantidad = Convert.ToDecimal(rProdVenta["Cantidad"]);
+                    conceptoV.Descripcion = rProdVenta["Nombre"].ToString();
+                    conceptoV.ValorUnitario = Convert.ToDecimal(rProdVenta["Precio"]);
+
+                    decimal importeV = Convert.ToDecimal(rProdVenta["Cantidad"]) * Convert.ToDecimal(rProdVenta["Precio"]);
+
+                    conceptoV.Importe = importeV;
+
+                    sumaImporteConcepto += importeV;
+
+                    // Descuento
+                    if (!string.IsNullOrWhiteSpace(rProdVenta["descuento"].ToString()))
+                    {
+                        var tDesc = (rProdVenta["descuento"].ToString()).IndexOf("-");
+
+                        if (tDesc > -1)
+                        {
+                            string d = rProdVenta["descuento"].ToString();
+                            int tam = rProdVenta["descuento"].ToString().Length;
+
+                            string cDesc = d.Substring(0, tDesc);
+                            string procDesc = d.Substring((tDesc + 2), (tam - (tDesc + 2)));
+
+                            conceptoV.Descuento = Convert.ToDecimal(cDesc);
+                            conceptoV.PorcentajeDescuento = procDesc;
+                            sumaDescuento += Convert.ToDecimal(cDesc);
+                        }
+                        else
+                        {
+                            conceptoV.Descuento = Convert.ToDecimal(rProdVenta["descuento"]);
+                            sumaDescuento += Convert.ToDecimal(rProdVenta["descuento"]);
+                        }
+                    }
+                    listaConceptoV.Add(conceptoV);
+                }
+                comprobanteVenta.Conceptos = listaConceptoV.ToArray();
+            }
+
+            // Datos generales de la venta
+            decimal totalGeneral = sumaImporteConcepto - sumaDescuento;
+
+            if (totalGeneral >= anticipo)
+            {
+                totalGeneral = totalGeneral - anticipo;
+            }
+            else
+            {
+                if (totalGeneral < anticipo)
+                {
+                    anticipo = totalGeneral;
+                    totalGeneral = totalGeneral - anticipo;
+                }
+            }
+
+            comprobanteVenta.Serie = serie;
+            comprobanteVenta.Folio = folio;
+            comprobanteVenta.Fecha = fecha.ToString("yyyy-MM-dd HH:mm:ss");
+            comprobanteVenta.FormaPago = formaPago;
+            comprobanteVenta.SubTotal = sumaImporteConcepto;
+            comprobanteVenta.Descuento = sumaDescuento;
+            comprobanteVenta.Total = totalGeneral;
+            comprobanteVenta.LugarExpedicion = lugarExpedicion;
+            comprobanteVenta.Anticipo = anticipo;
+
+            // ....................................................
+            // Inicia con la generación de la plantilla 
+            // y conversión a PDF    
+            // ....................................................
+            var servidor = Properties.Settings.Default.Hosting;
+            string carpetaVenta = string.Empty;
+            // Nombre que tendrá el pdf de la venta
+            string nombreVenta = string.Empty;
+            var Usuario = FormPrincipal.userNickName;
+            var Folio = string.Empty;
+            var Serie = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                carpetaVenta = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\";
+            }
+            else
+            {
+                carpetaVenta = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\";
+            }
+
+            // Verifica si tiene creado el directorio
+            if (!Directory.Exists(carpetaVenta))
+            {
+                Directory.CreateDirectory(carpetaVenta);
+            }
+
+            using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
+            {
+                if (!dtDatosVentas.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in dtDatosVentas.Rows)
+                    {
+                        Folio = item["Folio"].ToString();
+                        Serie = item["Serie"].ToString();
+                    }
+                }
+            }
+
+            nombreVenta += $"VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}";
+
+            string origenPDFTemp = nombreVenta + ".pdf";
+            string destinoPDF = carpetaVenta + nombreVenta + ".pdf";
+
+            string ruta = AppDomain.CurrentDomain.BaseDirectory + "/";
+            // Creación de un archivo html temporal
+            string rutaHTMLTemp = ruta + "ventahtml.html";
+            // Plantilla que contiene el acomodo del PDF
+            string rutaPlantillaHTML = ruta + "Plantilla_notaventa.html";
+            string sHTML = GetStringOfFile(rutaPlantillaHTML);
+            string resultHTML = "";
+
+            resultHTML = RazorEngine.Razor.Parse(sHTML, comprobanteVenta);
+
+            // Configuración de footer y header
+            var footerSettings = new FooterSettings
+            {
+                ContentSpacing = 10,
+                FontSize = 10,
+                RightText = "[page] / [topage]"
+            };
+            var headerSettings = new HeaderSettings
+            {
+                ContentSpacing = 8,
+                FontSize = 9,
+                FontName = "Lucida Sans",
+                LeftText = "Folio " + comprobanteVenta.Folio + " Serie " + comprobanteVenta.Serie
+            };
+
+            var document = new HtmlToPdfDocument
+            {
+                GlobalSettings =
+                {
+                    ProduceOutline = true,
+                    PaperSize = PaperKind.Letter,
+                    Margins =
+                    {
+                        Top = 2.3,
+                        Right = 1.5,
+                        Bottom = 2.3,
+                        Left = 1.5,
+                        Unit = Unit.Centimeters,
+                    }
+                },
+                Objects =
+                {
+                    new ObjectSettings
+                    {
+                        HtmlText = resultHTML,
+                        HeaderSettings = headerSettings,
+                        FooterSettings = footerSettings
+                    }
+                }
+            };
+
+            // Convertir el documento
+            byte[] result = converter.Convert(document);
+
+            ByteArrayToFile(result, destinoPDF);
+        }
+
+        public static IConverter converter = new ThreadSafeConverter(
+            new RemotingToolset<PdfToolset>(
+                new Win32EmbeddedDeployment(
+                    new TempFolderDeployment()
+                )
+            )
+        );
+
+        public static bool ByteArrayToFile(byte[] _byteArray, string _fileName)
+        {
+            try
+            {
+                // Abre el archivo
+                FileStream fileStream = new FileStream(_fileName, FileMode.Create, FileAccess.Write);
+                // Escribe un bloque de bytes para este stream usando datos de una matriz de bytes
+                fileStream.Write(_byteArray, 0, _byteArray.Length);
+                fileStream.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in process: {0}", ex.ToString());
+            }
+
+            return false;
+        }
+
+        public static string GetStringOfFile(string rutaArchivo)
+        {
+            string contenido = File.ReadAllText(rutaArchivo);
+
+            return contenido;
         }
     }
 }

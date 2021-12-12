@@ -1458,7 +1458,7 @@ namespace PuntoDeVentaV2
         public string ReimprimirTicket(int idVenta)
         {
             var consulta = $@"SELECT DISTINCT SaleDetail.IDVenta AS idVenta, SaleDetail.Referencia AS Referencia, SaleDetail.Cliente AS Cliente, SaleProd.IDProducto AS IDProducto, Prod.Nombre AS Nombre, SaleProd.Cantidad AS Cantidad, SaleProd.Precio AS Precio, Sale.DescuentoGeneral AS DescuentoGeneral, Sale.Descuento AS DescuentoIndividual, Prod.Precio AS ImporteIndividual, SaleProd.descuento AS Descuento, Sale.Folio AS Folio, Sale.Anticipo AS AnticipoUtilizado, Prod.TipoDescuento AS TipoDescuento, Sale.FormaPago AS formaDePagoDeVenta, Sale.FechaOperacion AS FechaOperacion FROM detallesventa AS SaleDetail INNER JOIN ventas AS Sale ON Sale.ID = SaleDetail.IDVenta INNER JOIN usuarios AS Usr ON Usr.ID = Sale.IDUsuario INNER JOIN productosventa AS SaleProd ON SaleProd.IDVenta = Sale.ID INNER JOIN productos AS Prod ON Prod.ID = SaleProd.IDProducto WHERE SaleDetail.IDVenta = {idVenta} GROUP BY Prod.ID";
-
+            
             return consulta;
         }
 
@@ -3010,6 +3010,13 @@ namespace PuntoDeVentaV2
         public string productosMasVendidosSinIncluirVentasEnCero(string fechaInicio, string fechaFinal)
         {
             var consulta = $"SELECT Prod.ID, Prod.Nombre AS 'ARTICULO', SUM( IF ( ProdVent.Cantidad IS NULL, 0, ProdVent.Cantidad ) ) AS 'VENDIDOS', Prod.CodigoBarras AS 'CODIGO DE BARRAS', ( CASE WHEN Prod.Tipo = 'P' THEN 'PRODUCTO' WHEN Prod.Tipo = 'PQ' THEN 'COMBO' WHEN Prod.Tipo = 'S' THEN 'SERVICIO' END ) AS 'CATEGORIA', IF ( Vent.FechaOperacion IS NULL, 'N/A sin venta registrada', Vent.FechaOperacion ) AS 'ULTIMA VENTA', Prod.Stock AS 'STOCK', Prod.Precio AS 'PRECIO' FROM Productos AS Prod LEFT JOIN ProductosVenta AS ProdVent ON ( ProdVent.IDProducto = Prod.ID ) LEFT JOIN Ventas AS Vent ON ( Vent.ID = ProdVent.IDVenta ) WHERE Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{fechaInicio}.999999' AND '{fechaFinal}.999999' AND ( Prod.Tipo = 'P' || Prod.Tipo = 'S' || Prod.Tipo = 'PQ' ) GROUP BY Prod.ID ORDER BY VENDIDOS DESC";
+
+            return consulta;
+        }
+
+        public string productoInactivo(string idProducto)
+        {
+            var consulta = $"SELECT ID, Nombre, `Status` FROM productos WHERE ID = '{idProducto}' AND `Status` = 0 ";
 
             return consulta;
         }

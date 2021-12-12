@@ -1135,7 +1135,7 @@ namespace PuntoDeVentaV2
                                 int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
 
                                 if (resultado > 0)
-{
+                                {
                                     // Miri. Modificado.
                                     // Obtiene el id del combo cancelado
                                      DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
@@ -1213,6 +1213,8 @@ namespace PuntoDeVentaV2
                                     // Agregamos marca de agua al PDF del ticket de la venta cancelada
                                     Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
 
+                                    // Agregamos marca de agua al PDF de la nota de venta cancelada
+                                    Utilidades.CrearMarcaDeAguaNota(idVenta, "CANCELADA");
 
                                     CargarDatos();
                                 }
