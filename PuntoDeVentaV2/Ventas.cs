@@ -1833,6 +1833,7 @@ namespace PuntoDeVentaV2
                 }
 
                 var longitud = datosDescuento.Length;
+                var continuarProceso = true;
 
                 for (int i = 0; i < longitud; i++)
                 {
@@ -1844,7 +1845,7 @@ namespace PuntoDeVentaV2
 
                     if (rangoFinal != "N")
                     {
-                        if (cantidad >= rangoInicial && cantidad <= Convert.ToInt32(rangoFinal))
+                        if (cantidad >= rangoInicial && cantidad <= Convert.ToInt32(rangoFinal) && continuarProceso == true)
                         {
                             cantidad = restantes;
 
@@ -1855,6 +1856,93 @@ namespace PuntoDeVentaV2
                             if (cantidad > Convert.ToInt32(rangoFinal))
                             {
                                 // Aqui no se hace porque no fue necesario
+                                int contadorDesc = 0;
+
+                                foreach (var descuento in datosDescuento)
+                                {
+                                    var descLinea = descuento.Split('-');
+
+                                    //int rangoInicialX = Convert.ToInt32(descLinea[0]);
+                                    int rangoFinalX = Convert.ToInt32(descLinea[1]);
+                                    //float precioLinea = float.Parse(descLinea[2]);
+
+                                    if (cantidad <= rangoFinalX)
+                                    {
+                                        break;
+                                    }
+
+                                    contadorDesc++;
+                                }
+
+                                var longitudX = datosDescuento.Count() - 1;
+
+                                if (contadorDesc > longitudX)
+                                {
+                                    contadorDesc = longitudX;
+                                }
+
+                                for (int ix = 0; ix <= contadorDesc; ix++)
+                                {
+                                    var descLineaAnterior = new string[] { };
+
+                                    if (datosDescuento.ElementAtOrDefault(ix - 1) != null)
+                                    {
+                                        descLineaAnterior = datosDescuento[ix - 1].Split('-');
+                                    }
+
+                                    var descLinea = datosDescuento[ix].Split('-');
+
+
+                                    if (descLineaAnterior.Count() > 0)
+                                    {
+                                        var auxiliar = cantidad;
+                                        var restantesX = Convert.ToInt32(descLinea[1]) - Convert.ToInt32(descLineaAnterior[1]);
+
+                                        cantidad = restantesX;
+
+                                        if (ix == contadorDesc)
+                                        {
+                                            cantidad = auxiliar;
+                                        }
+
+                                        if (cantidad > Convert.ToInt32(descLinea[1]))
+                                        {
+                                            totalImporte += Convert.ToInt32(descLinea[1]) * float.Parse(descLinea[2]);
+
+                                            cantidad = restantesX;
+                                        }
+                                        else
+                                        {
+                                            totalImporte += cantidad * float.Parse(descLinea[2]);
+
+                                            cantidad = auxiliar - restantesX;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var restantesX = cantidad - Convert.ToInt32(descLinea[1]);
+
+                                        if (cantidad > Convert.ToInt32(descLinea[1]))
+                                        {
+                                            totalImporte += Convert.ToInt32(descLinea[1]) * float.Parse(descLinea[2]);
+
+                                            cantidad = restantesX;
+                                        }
+                                        else
+                                        {
+                                            var aux = cantidad;
+
+                                            cantidad = Math.Abs(Convert.ToInt32(descLinea[1]) - Convert.ToInt32(descLinea[0]));
+
+                                            totalImporte += cantidad * float.Parse(descLinea[2]);
+
+                                            cantidad = aux - cantidad;
+                                        }
+                                    }
+                                }
+
+                                //Console.WriteLine("IMPORTE: " + totalImporte);
+                                continuarProceso = false;
                             }
                         }
                     }
