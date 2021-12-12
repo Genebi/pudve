@@ -1864,7 +1864,7 @@ namespace PuntoDeVentaV2
                                     var descLinea = descuento.Split('-');
 
                                     //int rangoInicialX = Convert.ToInt32(descLinea[0]);
-                                    int rangoFinalX = Convert.ToInt32(descLinea[1]);
+                                    int rangoFinalX = descLinea[1] == "N" ? Convert.ToInt32(cantidad + 1) : Convert.ToInt32(descLinea[1]);
                                     //float precioLinea = float.Parse(descLinea[2]);
 
                                     if (cantidad <= rangoFinalX)
@@ -1897,6 +1897,9 @@ namespace PuntoDeVentaV2
                                     if (descLineaAnterior.Count() > 0)
                                     {
                                         var auxiliar = cantidad;
+
+                                        descLinea[1] = descLinea[1] == "N" ? (cantidad + 1).ToString() : descLinea[1];
+
                                         var restantesX = Convert.ToInt32(descLinea[1]) - Convert.ToInt32(descLineaAnterior[1]);
 
                                         cantidad = restantesX;
