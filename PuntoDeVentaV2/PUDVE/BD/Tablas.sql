@@ -1682,3 +1682,19 @@ IF
 CREATE INDEX
 IF
 	NOT EXISTS `ReporteMenosVendidos_index_IDVenta_IDProducto_Cantidad` ON `productosventa` ( `IDVenta`, `IDProducto`, `Cantidad` );
+
+CREATE TABLE 
+IF 
+	NOT EXISTS HistorialStock(
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		IDProducto INTEGER,
+		TipoDeMovimiento TEXT,
+		StockAnterior TEXT,
+		StockNuevo TEXT,
+		Fecha DATETIME,
+		IDUsuario INTEGER
+	);
+
+	ALTER TABLE historialstock CHANGE COLUMN IF EXISTS IDUsuario NombreUsuario VARCHAR(100);
+
+	ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS Cantidad DECIMAL (9,2) DEFAULT (0)  AFTER StockAnterior;

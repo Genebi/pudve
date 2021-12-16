@@ -596,5 +596,11 @@ namespace PuntoDeVentaV2
 
             return idComboFinal;
         }
+
+        private void botonRedondo1_Click(object sender, EventArgs e)
+        {
+            HistorialStockProductos historial = new HistorialStockProductos();
+            historial.Show();
+        }
     }
 }

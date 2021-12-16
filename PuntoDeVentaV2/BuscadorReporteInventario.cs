@@ -2086,7 +2086,7 @@ namespace PuntoDeVentaV2
                                 name = $"ADMIN ({name})";
                             }
                         }
-                        else
+                        else //Aumentar-Disminuir Inventario.
                         {
                             folio = filaDatos["NoRevision"].ToString();
                             rev = filaDatos["Folio"].ToString();

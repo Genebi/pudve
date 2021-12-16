@@ -71,7 +71,7 @@
             // 
             this.groupBox1.Controls.Add(this.btnBusqueda);
             this.groupBox1.Controls.Add(this.txtBoxBuscarCodigoBarras);
-            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 56);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(420, 74);
@@ -94,11 +94,11 @@
             // txtBoxBuscarCodigoBarras
             // 
             this.txtBoxBuscarCodigoBarras.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtBoxBuscarCodigoBarras.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxBuscarCodigoBarras.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxBuscarCodigoBarras.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.txtBoxBuscarCodigoBarras.Location = new System.Drawing.Point(40, 22);
             this.txtBoxBuscarCodigoBarras.Name = "txtBoxBuscarCodigoBarras";
-            this.txtBoxBuscarCodigoBarras.Size = new System.Drawing.Size(344, 33);
+            this.txtBoxBuscarCodigoBarras.Size = new System.Drawing.Size(344, 31);
             this.txtBoxBuscarCodigoBarras.TabIndex = 0;
             this.txtBoxBuscarCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBoxBuscarCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxBuscarCodigoBarras_KeyDown);
@@ -149,12 +149,12 @@
             // 
             this.txtCodigoBarras.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.txtCodigoBarras.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCodigoBarras.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCodigoBarras.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCodigoBarras.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.txtCodigoBarras.Location = new System.Drawing.Point(18, 137);
             this.txtCodigoBarras.Name = "txtCodigoBarras";
             this.txtCodigoBarras.ReadOnly = true;
-            this.txtCodigoBarras.Size = new System.Drawing.Size(176, 20);
+            this.txtCodigoBarras.Size = new System.Drawing.Size(176, 19);
             this.txtCodigoBarras.TabIndex = 18;
             this.txtCodigoBarras.TabStop = false;
             this.txtCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -163,7 +163,7 @@
             // 
             this.txtNombreProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(167)))), ((int)(((byte)(167)))), ((int)(((byte)(169)))));
             this.txtNombreProducto.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtNombreProducto.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombreProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreProducto.ForeColor = System.Drawing.Color.White;
             this.txtNombreProducto.Location = new System.Drawing.Point(18, 44);
             this.txtNombreProducto.Multiline = true;
@@ -177,7 +177,7 @@
             // lblStockMaximo
             // 
             this.lblStockMaximo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblStockMaximo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStockMaximo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStockMaximo.Location = new System.Drawing.Point(262, 201);
             this.lblStockMaximo.Name = "lblStockMaximo";
             this.lblStockMaximo.Size = new System.Drawing.Size(134, 32);
@@ -187,7 +187,7 @@
             // lblStockMinimo
             // 
             this.lblStockMinimo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblStockMinimo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStockMinimo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStockMinimo.Location = new System.Drawing.Point(18, 201);
             this.lblStockMinimo.Name = "lblStockMinimo";
             this.lblStockMinimo.Size = new System.Drawing.Size(176, 32);
@@ -197,10 +197,10 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(263, 180);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(87, 16);
+            this.label8.Size = new System.Drawing.Size(77, 13);
             this.label8.TabIndex = 14;
             this.label8.Text = "Stock Maximo:";
             // 
@@ -218,7 +218,7 @@
             // 
             // btnOmitir
             // 
-            this.btnOmitir.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOmitir.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOmitir.Location = new System.Drawing.Point(23, 83);
             this.btnOmitir.Name = "btnOmitir";
             this.btnOmitir.Size = new System.Drawing.Size(171, 48);
@@ -229,7 +229,7 @@
             // 
             // btnTerminar
             // 
-            this.btnTerminar.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTerminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTerminar.ForeColor = System.Drawing.Color.Red;
             this.btnTerminar.Location = new System.Drawing.Point(225, 83);
             this.btnTerminar.Name = "btnTerminar";
@@ -241,7 +241,7 @@
             // 
             // btnAnterior
             // 
-            this.btnAnterior.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAnterior.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnAnterior.Location = new System.Drawing.Point(23, 19);
             this.btnAnterior.Name = "btnAnterior";
@@ -253,7 +253,7 @@
             // 
             // btnSiguiente
             // 
-            this.btnSiguiente.Font = new System.Drawing.Font("Century Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSiguiente.Location = new System.Drawing.Point(225, 19);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(171, 48);
@@ -265,27 +265,27 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(15, 180);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(82, 16);
+            this.label7.Size = new System.Drawing.Size(74, 13);
             this.label7.TabIndex = 13;
             this.label7.Text = "Stock Minimo:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(240, 137);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(18, 19);
+            this.label4.Size = new System.Drawing.Size(19, 20);
             this.label4.TabIndex = 12;
             this.label4.Text = "$";
             // 
             // lblPrecioProducto
             // 
             this.lblPrecioProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblPrecioProducto.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrecioProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPrecioProducto.ForeColor = System.Drawing.Color.DarkRed;
             this.lblPrecioProducto.Location = new System.Drawing.Point(262, 130);
             this.lblPrecioProducto.Name = "lblPrecioProducto";
@@ -296,10 +296,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(263, 111);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 16);
+            this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 10;
             this.label3.Text = "Precio:";
             // 
@@ -314,11 +314,11 @@
             // 
             // txtCantidadStock
             // 
-            this.txtCantidadStock.Font = new System.Drawing.Font("Century Gothic", 45.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCantidadStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 45.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCantidadStock.ForeColor = System.Drawing.Color.Blue;
             this.txtCantidadStock.Location = new System.Drawing.Point(99, 268);
             this.txtCantidadStock.Name = "txtCantidadStock";
-            this.txtCantidadStock.Size = new System.Drawing.Size(225, 82);
+            this.txtCantidadStock.Size = new System.Drawing.Size(225, 77);
             this.txtCantidadStock.TabIndex = 1;
             this.txtCantidadStock.Text = "0";
             this.txtCantidadStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -328,20 +328,20 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(15, 246);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(90, 16);
+            this.label6.Size = new System.Drawing.Size(84, 13);
             this.label6.TabIndex = 7;
             this.label6.Text = "Stock Existente:";
             // 
             // lCodigoClave
             // 
             this.lCodigoClave.AutoSize = true;
-            this.lCodigoClave.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lCodigoClave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lCodigoClave.Location = new System.Drawing.Point(15, 111);
             this.lCodigoClave.Name = "lCodigoClave";
-            this.lCodigoClave.Size = new System.Drawing.Size(193, 16);
+            this.lCodigoClave.Size = new System.Drawing.Size(166, 13);
             this.lCodigoClave.TabIndex = 6;
             this.lCodigoClave.Text = "Código de Barras o Clave Interna:";
             // 
@@ -369,10 +369,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(15, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 16);
+            this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre : ";
             // 
@@ -387,17 +387,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(164, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 16);
+            this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Número de Revisión";
             // 
             // lblNoRevision
             // 
             this.lblNoRevision.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblNoRevision.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoRevision.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNoRevision.ForeColor = System.Drawing.Color.Blue;
             this.lblNoRevision.Location = new System.Drawing.Point(190, 30);
             this.lblNoRevision.Name = "lblNoRevision";
@@ -408,7 +408,7 @@
             // 
             // lbCantidadFiltro
             // 
-            this.lbCantidadFiltro.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCantidadFiltro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCantidadFiltro.ForeColor = System.Drawing.Color.Red;
             this.lbCantidadFiltro.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lbCantidadFiltro.Location = new System.Drawing.Point(305, 28);
