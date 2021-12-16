@@ -816,7 +816,6 @@ namespace PuntoDeVentaV2
                     else if (obtenerStock >= obtenerStockMinimo)
                     {
                         cn.EjecutarConsulta($"UPDATE Productos SET CantidadPedir = '0.00' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}'");
-                        //MessageBox.Show("Ya valio madre");
                     }
                 }
 
@@ -1223,8 +1222,15 @@ namespace PuntoDeVentaV2
                             }
 
                             // Actualizar stock del producto
+                            var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {idProducto}");
+                            var StockAnterior = stock.Rows[0]["Stock"];
 
-                            cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                            if (Convert.ToDecimal(StockAnterior) != Convert.ToDecimal(stockFisico))
+                            {
+                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProducto}','Asignacion por Revision  ','{StockAnterior}','{stockFisico}','{fecha}','{FormPrincipal.userNickName}','0.0')");
+                            }
+                           
+                            cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}"); 
 
                             LimpiarCampos();
                             //txtBoxBuscarCodigoBarras.Focus();
@@ -1294,6 +1300,15 @@ namespace PuntoDeVentaV2
                                                 }
                                             }
                                         }
+                                    }
+
+
+                                    var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {idProducto}");
+                                    var StockAnterior = stock.Rows[0]["Stock"];
+
+                                    if (Convert.ToDecimal(StockAnterior) != Convert.ToDecimal(stockFisico))
+                                    {
+                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProducto}','Asignacion por Revision  ','{StockAnterior}','{stockFisico}','{fecha}','{FormPrincipal.userNickName}','0.0')");
                                     }
 
                                     // Actualizar stock del producto
@@ -1493,7 +1508,6 @@ namespace PuntoDeVentaV2
 
                     listaProductos.Clear();
                 }
-
                 this.Hide();
                 this.Close();
             }

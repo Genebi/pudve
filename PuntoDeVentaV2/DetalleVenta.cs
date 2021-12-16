@@ -133,7 +133,6 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
             Ventas venta = new Ventas();
             float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito) * 100 / 100;
 
@@ -282,7 +281,7 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
             else
-            {
+            {               
                 MessageBox.Show("La cantidades no coinciden con el total a pagar", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -321,6 +320,7 @@ namespace PuntoDeVentaV2
                 DineroRecibido = (float)Convert.ToDouble(item[1]);
                 CambioTotal = (float)Convert.ToDouble(item[2]);
             }
+
 
             InfoUltimaVenta ticketUltimaVenta = new InfoUltimaVenta();
             ticketUltimaVenta.ShowDialog();

@@ -520,7 +520,6 @@ namespace PuntoDeVentaV2
 
         private async void botonAceptar_Click(object sender, EventArgs e)
         {
-            
                 cargando.Show();
 
                 await Task.Run(() =>
@@ -794,6 +793,12 @@ namespace PuntoDeVentaV2
                             //datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
 
                             //cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+                            var datoStock = cn.CargarDatos($"SELECT Stock FROM Productos WHERE ID = {producto.Key}");
+                            var stockActual = datoStock.Rows[0]["Stock"].ToString();
+                            decimal stockNuevo = Convert.ToDecimal(stock);
+                            var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{producto.Key}','Asignacion de Stock ','{stockActual}','{stockNuevo}','{fecha}','{FormPrincipal.userNickName}', '0')");
                         }
                     }
 
@@ -820,6 +825,8 @@ namespace PuntoDeVentaV2
 
                         notificacion.Start();
                     }
+
+                    
                 }
                 else
                 {

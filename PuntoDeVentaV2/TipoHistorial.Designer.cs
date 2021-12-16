@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TipoHistorial));
             this.btnHistorialCompras = new System.Windows.Forms.Button();
             this.btnHistorialVentas = new System.Windows.Forms.Button();
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.SuspendLayout();
             // 
             // btnHistorialCompras
@@ -43,7 +44,7 @@
             this.btnHistorialCompras.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnHistorialCompras.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnHistorialCompras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHistorialCompras.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistorialCompras.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHistorialCompras.ForeColor = System.Drawing.Color.White;
             this.btnHistorialCompras.Location = new System.Drawing.Point(28, 31);
             this.btnHistorialCompras.Name = "btnHistorialCompras";
@@ -62,7 +63,7 @@
             this.btnHistorialVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnHistorialVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnHistorialVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHistorialVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistorialVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHistorialVentas.ForeColor = System.Drawing.Color.White;
             this.btnHistorialVentas.Location = new System.Drawing.Point(193, 31);
             this.btnHistorialVentas.Name = "btnHistorialVentas";
@@ -71,11 +72,35 @@
             this.btnHistorialVentas.UseVisualStyleBackColor = false;
             this.btnHistorialVentas.Click += new System.EventHandler(this.btnHistorialVentas_Click);
             // 
+            // botonRedondo1
+            // 
+            this.botonRedondo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo1.BorderRadius = 40;
+            this.botonRedondo1.BorderSize = 0;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard_invoice;
+            this.botonRedondo1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.botonRedondo1.Location = new System.Drawing.Point(361, 31);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(133, 90);
+            this.botonRedondo1.TabIndex = 105;
+            this.botonRedondo1.Text = "Historial de Stock";
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
+            // 
             // TipoHistorial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(365, 152);
+            this.ClientSize = new System.Drawing.Size(529, 152);
+            this.Controls.Add(this.botonRedondo1);
             this.Controls.Add(this.btnHistorialVentas);
             this.Controls.Add(this.btnHistorialCompras);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -91,5 +116,6 @@
 
         private System.Windows.Forms.Button btnHistorialCompras;
         private System.Windows.Forms.Button btnHistorialVentas;
+        private BotonRedondo botonRedondo1;
     }
 }

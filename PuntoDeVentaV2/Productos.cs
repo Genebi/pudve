@@ -15,6 +15,8 @@ namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
     {
+
+        internal static int idProductoHistorialStock;
         // The currently highlighted cell.
         private int HighlightedRowIndex = -1;
         // The style to use when the mouse is over a row.
@@ -1061,7 +1063,7 @@ namespace PuntoDeVentaV2
                         Utilidades.MensajePermiso();
                         return;
                     }
-
+                    idProductoHistorialStock = idProducto;
                     using (var historial = new TipoHistorial(idProducto))
                     {
                         var respuesta = historial.ShowDialog();

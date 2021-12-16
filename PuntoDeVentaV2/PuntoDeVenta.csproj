@@ -677,6 +677,12 @@
     <Compile Include="HistorialPrecioBuscador.Designer.cs">
       <DependentUpon>HistorialPrecioBuscador.cs</DependentUpon>
     </Compile>
+    <Compile Include="HistorialStockProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HistorialStockProductos.Designer.cs">
+      <DependentUpon>HistorialStockProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImprimirEtiqueta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1313,6 +1319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="HistorialPrecioBuscador.resx">
       <DependentUpon>HistorialPrecioBuscador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HistorialStockProductos.resx">
+      <DependentUpon>HistorialStockProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImprimirEtiqueta.resx">
       <DependentUpon>ImprimirEtiqueta.cs</DependentUpon>

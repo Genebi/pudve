@@ -1633,3 +1633,19 @@ ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS MensajeVentas INT DEF
 ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS MensajeInventario INT DEFAULT (1);
 
 ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS NombreComercial INT DEFAULT (1);
+
+CREATE TABLE 
+IF 
+	NOT EXISTS HistorialStock(
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		IDProducto INTEGER,
+		TipoDeMovimiento TEXT,
+		StockAnterior TEXT,
+		StockNuevo TEXT,
+		Fecha DATETIME,
+		IDUsuario INTEGER
+	);
+
+	ALTER TABLE historialstock CHANGE COLUMN IF EXISTS IDUsuario NombreUsuario VARCHAR(100);
+
+	ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS Cantidad DECIMAL (9,2) DEFAULT (0)  AFTER StockAnterior;
