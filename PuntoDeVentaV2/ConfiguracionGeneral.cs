@@ -449,27 +449,35 @@ namespace PuntoDeVentaV2
 
             using (var permisosMensajes = cn.CargarDatos(cs.permisosMensajeVentasInventario()))
             {
-                int estadoMensajes = Convert.ToInt32(permisosMensajes.Rows[0].ItemArray[0]);
-                if (estadoMensajes == 1)
+                if (permisosMensajes.Rows.Count > 0)
                 {
-                    chkMensajeVenderProducto.Checked = true;
+                    int estadoMensajes = Convert.ToInt32(permisosMensajes.Rows[0].ItemArray[0]);
+
+                    if (estadoMensajes == 1)
+                    {
+                        chkMensajeVenderProducto.Checked = true;
+                    }
+                    else
+                    {
+                        chkMensajeVenderProducto.Checked = false;
+                    }
                 }
-                else
-                {
-                    chkMensajeVenderProducto.Checked = false;
-                }
+                
             }
 
             using (var permisosInventario = cn.CargarDatos(cs.permisoRealizarInventario()))
             {
-                int estadoMensaje = Convert.ToInt32(permisosInventario.Rows[0].ItemArray[0]);
-                if (estadoMensaje == 1)
+                if (permisosInventario.Rows.Count > 0)
                 {
-                    chkMensajeRealizarInventario.Checked = true;
-                }
-                else
-                {
-                    chkMensajeRealizarInventario.Checked = false;
+                    int estadoMensaje = Convert.ToInt32(permisosInventario.Rows[0].ItemArray[0]);
+                    if (estadoMensaje == 1)
+                    {
+                        chkMensajeRealizarInventario.Checked = true;
+                    }
+                    else
+                    {
+                        chkMensajeRealizarInventario.Checked = false;
+                    }
                 }
             }
 
