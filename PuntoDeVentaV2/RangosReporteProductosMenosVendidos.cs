@@ -148,6 +148,10 @@ namespace PuntoDeVentaV2
 
         private void generarReporteMenosVendidos(DataTable dtProductosMenosVendidos)
         {
+            long totalVendidos = 0;
+            long totalStock = 0;
+            long totalPrecio = 0;
+
             var servidor = Properties.Settings.Default.Hosting;
 
             var rutaArchivo = string.Empty;
@@ -376,6 +380,7 @@ namespace PuntoDeVentaV2
                 colNombreTmp.HorizontalAlignment = Element.ALIGN_LEFT;
 
                 PdfPCell colVendidosTmp = new PdfPCell(new Phrase(Convert.ToDecimal(vendidos).ToString("N"), fuenteNormal));
+                totalVendidos += (long)Convert.ToDouble(Convert.ToDecimal(vendidos).ToString("N"));
                 colVendidosTmp.BorderWidth = 1;
                 colVendidosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
@@ -392,10 +397,12 @@ namespace PuntoDeVentaV2
                 colUltimaVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colStockTmp = new PdfPCell(new Phrase(Convert.ToDecimal(stock).ToString("N"), fuenteNormal));
+                totalStock += (long)Convert.ToDouble(Convert.ToDecimal(stock).ToString("N"));
                 colStockTmp.BorderWidth = 1;
                 colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colPrecioTmp = new PdfPCell(new Phrase(precio, fuenteNormal));
+                totalPrecio += (long)Convert.ToDouble(precio);
                 colPrecioTmp.BorderWidth = 1;
                 colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
@@ -407,6 +414,62 @@ namespace PuntoDeVentaV2
                 tablaInventario.AddCell(colUltimaVentaTmp);
                 tablaInventario.AddCell(colStockTmp);
                 tablaInventario.AddCell(colPrecioTmp);
+            }
+
+            if (totalVendidos > 0 || totalStock > 0)
+            {
+                PdfPCell colNoConceptoTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colNoConceptoTmpExtra.BorderWidth = 0;
+                colNoConceptoTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colNombreTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colNombreTmpExtra.BorderWidth = 0;
+                colNombreTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colVendidosTmpExtra = new PdfPCell(new Phrase(Convert.ToDouble(totalVendidos).ToString("N"), fuenteNormal));
+                colVendidosTmpExtra.BorderWidthTop = 0;
+                colVendidosTmpExtra.BorderWidthLeft = 0;
+                colVendidosTmpExtra.BorderWidthRight = 0;
+                colVendidosTmpExtra.BorderWidthBottom = 1;
+                colVendidosTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colVendidosTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colCodigoBarraTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colCodigoBarraTmpExtra.BorderWidth = 0;
+                colCodigoBarraTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colCategoriaTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colCategoriaTmpExtra.BorderWidth = 0;
+                colCategoriaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colUltimaVentaTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colUltimaVentaTmpExtra.BorderWidth = 0;
+                colUltimaVentaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colStockTmpExtra = new PdfPCell(new Phrase(Convert.ToDouble(totalStock).ToString("N"), fuenteNormal));
+                colStockTmpExtra.BorderWidthTop = 0;
+                colStockTmpExtra.BorderWidthLeft = 0;
+                colStockTmpExtra.BorderWidthRight = 0;
+                colStockTmpExtra.BorderWidthBottom = 1;
+                colStockTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colStockTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colPrecioTmpExtra = new PdfPCell(new Phrase(Convert.ToDouble(totalPrecio).ToString("N"), fuenteNormal));
+                colPrecioTmpExtra.BorderWidthTop = 0;
+                colPrecioTmpExtra.BorderWidthLeft = 0;
+                colPrecioTmpExtra.BorderWidthRight = 0;
+                colPrecioTmpExtra.BorderWidthBottom = 1;
+                colPrecioTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                colPrecioTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                tablaInventario.AddCell(colNoConceptoTmpExtra);
+                tablaInventario.AddCell(colNombreTmpExtra);
+                tablaInventario.AddCell(colVendidosTmpExtra);
+                tablaInventario.AddCell(colCodigoBarraTmpExtra);
+                tablaInventario.AddCell(colCategoriaTmpExtra);
+                tablaInventario.AddCell(colUltimaVentaTmpExtra);
+                tablaInventario.AddCell(colStockTmpExtra);
+                tablaInventario.AddCell(colPrecioTmpExtra);
             }
 
             reporte.Add(titulo);
