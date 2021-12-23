@@ -2014,15 +2014,15 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string deshabilitarEmpleado(string usuario)
+        public string deshabilitarEmpleado(string usuario, string idEmpleado)
         {
-            var consulta = $"UPDATE `empleados` SET estatus = 0 WHERE usuario = '{usuario}' AND IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"UPDATE `empleados` SET estatus = 0 WHERE usuario = '{usuario}' AND IDUsuario = '{FormPrincipal.userID}' AND ID = '{idEmpleado}'";
             return consulta;
         }
 
-        public string habilitarEmpleado(string usuario)
+        public string habilitarEmpleado(string usuario,string idEmpleado)
         {
-            var consulta = $"UPDATE `empleados` SET estatus = 1 WHERE usuario = '{usuario}' AND IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"UPDATE `empleados` SET estatus = 1 WHERE usuario = '{usuario}' AND IDUsuario = '{FormPrincipal.userID}' AND ID = '{idEmpleado}'";
             return consulta;
         }
 
@@ -3017,6 +3017,24 @@ namespace PuntoDeVentaV2
         public string productoInactivo(string idProducto)
         {
             var consulta = $"SELECT ID, Nombre, `Status` FROM productos WHERE ID = '{idProducto}' AND `Status` = 0 ";
+
+            return consulta;
+        }
+
+        public string OperacionCajaEmpleado(string[] datos, bool corte = false)
+        {
+            var consulta = string.Empty;
+            if (corte.Equals(true))
+            {
+                consulta = "INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado, NumFolio, CantidadRetiradaCorte,IdEmpleado)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}')";
+            }
+            else
+            {
+                consulta = "INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo,IdEmpleado)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}')";
+            }
+
 
             return consulta;
         }

@@ -297,7 +297,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    bool existe = (bool)cn.EjecutarSelect($"SELECT * FROM Empleados WHERE usuario='{lb_usuario_completo.Text}' AND IDUsuario='{FormPrincipal.userID}'");
+                    bool existe = (bool)cn.EjecutarSelect($"SELECT * FROM Empleados WHERE usuario='{lb_usuario_completo.Text}' AND IDUsuario='{FormPrincipal.userID}' AND estatus = {1}");
 
                     if (existe == true)
                     {
@@ -358,7 +358,7 @@ namespace PuntoDeVentaV2
 
         private void verifica_usuario_empleado(object sender, EventArgs e)
         {
-            bool existe = (bool)cn.EjecutarSelect($"SELECT * FROM Empleados WHERE usuario='{lb_usuario_completo.Text}' AND IDUsuario='{FormPrincipal.userID}'");
+            bool existe = (bool)cn.EjecutarSelect($"SELECT * FROM Empleados WHERE usuario='{lb_usuario_completo.Text}' AND IDUsuario='{FormPrincipal.userID}' AND estatus = 1");
 
             if (existe == true)
             {

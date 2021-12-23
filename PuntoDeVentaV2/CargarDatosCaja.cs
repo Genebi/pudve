@@ -107,7 +107,17 @@ namespace PuntoDeVentaV2
             fechaGeneral = fechaDefault;
             drUno.Close();
 
-            var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
+            string consulta;
+
+            if (FormPrincipal.userNickName.Contains("@"))
+            {
+                consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IdEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
+            }
+            else
+            {
+                consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
+            }
+
             consultaDos = new MySqlCommand(consulta, sql_con);
             drDos = consultaDos.ExecuteReader();
 
@@ -329,7 +339,8 @@ namespace PuntoDeVentaV2
 
                 if (operacion == "venta" && fechaOperacion > fechaDefault)
                 {
-                    if (saltar == 0 && !fechaDefault.ToString("yyyy-MM-dd HH:mm:ss").Equals("0001-01-01 00:00:00"))
+
+                    if (saltar == 0 && !fechaDefault.ToString("yyyy-MM-dd HH:mm:ss").Equals("0001-01-01 00:00:00") && !CajaN.corteCaja.Equals(0) || !FormPrincipal.userNickName.Contains("@") && saltar == 0)
                     {
                         saltar++;
                         continue;

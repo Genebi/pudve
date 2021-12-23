@@ -2688,7 +2688,6 @@ namespace PuntoDeVentaV2
             sql_con.Close();
         }
 
-
         public string correoUsuario()
         {
             var dato = string.Empty;
