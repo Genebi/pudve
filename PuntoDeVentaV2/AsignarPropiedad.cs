@@ -16,7 +16,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
-        Cargando cargando = new Cargando();
+        //Cargando cargando = new Cargando();
 
         string propiedad = string.Empty;
 
@@ -520,7 +520,9 @@ namespace PuntoDeVentaV2
 
         private /*async*/ void botonAceptar_Click(object sender, EventArgs e)
         {
-                cargando.Show();
+            Button btn = (Button)sender;
+            btn.Enabled = false;
+            //cargando.Show();
 
             //await Task.Run(() =>
             //{
@@ -536,11 +538,11 @@ namespace PuntoDeVentaV2
             MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
 
             // Mostrar formulario sin modo
-            porFavorEspere.tiempoDeEspera = 100;
+            porFavorEspere.tiempoDeEspera = 150;
             porFavorEspere.propiedadCambiar = propiedad;
             porFavorEspere.ShowDialog();
 
-            Thread.Sleep(900);
+            //Thread.Sleep(500);
 
             OperacionBoton();
 
@@ -1333,12 +1335,12 @@ namespace PuntoDeVentaV2
 
         private void AsignarPropiedad_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Application.OpenForms.OfType<Cargando>().Count() == 1)
-            {
-                e.Cancel = true;
+            //if (Application.OpenForms.OfType<Cargando>().Count() == 1)
+            //{
+            //    e.Cancel = true;
 
-                Application.OpenForms.OfType<Cargando>().First().BringToFront();
-            }
+            //    Application.OpenForms.OfType<Cargando>().First().BringToFront();
+            //}
         }
 
         private void asignarActualizarInventario(Dictionary<int, float> recorrerDiccionario, int nuevoPrecio)
