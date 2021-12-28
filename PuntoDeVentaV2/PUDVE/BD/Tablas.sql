@@ -1698,3 +1698,5 @@ IF
 	ALTER TABLE historialstock CHANGE COLUMN IF EXISTS IDUsuario NombreUsuario VARCHAR(100);
 
 	ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS Cantidad DECIMAL (9,2) DEFAULT (0)  AFTER StockAnterior;
+	
+	ALTER TABLE historialstock MODIFY Cantidad VARCHAR(100);

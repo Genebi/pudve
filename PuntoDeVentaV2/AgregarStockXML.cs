@@ -1607,6 +1607,14 @@ namespace PuntoDeVentaV2
                 if (dtProductos.Rows[0]["Tipo"].ToString() == "P")
                 {
                     CompararPrecios(idProducto, PrecioProd, NombreProd);
+
+                    var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {idProducto}");
+                    var StockAnterior = stock.Rows[0]["Stock"];
+                    var stockNuevo = Convert.ToDecimal(StockAnterior) + Convert.ToDecimal(lblCantXML.Text);
+                    var fechaHora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProducto}','Asignacion por XML Aumento ','{StockAnterior}','{stockNuevo}','{fechaHora}','{FormPrincipal.userNickName}','+{lblCantXML.Text}')");
+
                     // Hacemos el query para la actualizacion del Stock
                     query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";       //Actualiza el Stock de Productos cuando ya esta relacionado el producto -------------------------------------------------------------------
                     // Aqui vemos el resultado de la consulta
@@ -1682,6 +1690,13 @@ namespace PuntoDeVentaV2
                         {
                             // Actualizar el stock del producto en la tabla de Productos
                             var info = datosPaquete[i].Split('|');
+
+                            var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {info[0]}");
+                            var StockAnterior = stock.Rows[0]["Stock"];
+                            var stockNuevo = Convert.ToDecimal(StockAnterior) + Convert.ToDecimal(lblCantXML.Text);
+                            var fechaHora = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{info[0]}','Asignacion por XML Aumento ','{StockAnterior}','{stockNuevo}','{fechaHora}','{FormPrincipal.userNickName}','+{lblCantXML.Text}')");
 
                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {info[1]} WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}");
                         }
@@ -2844,16 +2859,11 @@ namespace PuntoDeVentaV2
                     edi_precio_producto = ", Precio='" + txtBoxPrecioProd.Text + "'";
                 }
 
-
-                var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {Row["ID"]}");
-                var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
-
                 var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {Row["ID"]}");
                 var StockAnterior = stock.Rows[0]["Stock"];
-
                 var stockNuevo = Convert.ToDecimal(StockAnterior) + Convert.ToDecimal(lblCantXML.Text);
 
-                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{Row["ID"]}','Asignacion por XML Aumento ','{StockAnterior}','{stockNuevo}','{fecha}','{FormPrincipal.userNickName}',{lblCantXML.Text})");
+                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{Row["ID"]}','Asignacion por XML Aumento ','{StockAnterior}','{stockNuevo}','{fecha}','{FormPrincipal.userNickName}','+{lblCantXML.Text}')");
                 //Edita el producto
                edit = $"UPDATE Productos SET Stock= Stock + '{lblCantXML.Text}'" + edi_precio_producto + edi_nombre_producto + add_codigobar_dexml + $" WHERE IDUsuario= '{FormPrincipal.userID}' AND ID='{Row["ID"]}'";
                 res_edit = cn.EjecutarConsulta(edit);

@@ -3324,7 +3324,7 @@ namespace PuntoDeVentaV2
                                 decimal stockActual = Convert.ToDecimal( dato.Rows[0]["Stock"]);
                                 decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
                                
-                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[0]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}',{Convert.ToDecimal(guardar[3])})");
+                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[0]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}')");
                             }
                         }
 
