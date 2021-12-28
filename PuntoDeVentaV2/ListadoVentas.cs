@@ -1141,6 +1141,27 @@ namespace PuntoDeVentaV2
                                      DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
                                     //var productos = cn.ObtenerProductosVenta(idVenta);
 
+                                    if (!d_prod_venta.Rows.Equals(0))
+                                    {
+                                        foreach (DataRow item in d_prod_venta.Rows)
+                                        {
+                                            var idprod = item["IDProducto"].ToString();
+                                            var cantidad = item["Cantidad"].ToString();
+                                            var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
+                                            var stockOriginal = stock.Rows[0]["Stock"].ToString();
+                                            var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
+                                            var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
+                                            var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
+                                            decimal stockAnterior = Convert.ToDecimal(stockOriginal);
+                                            decimal stockNuevo = Convert.ToInt32(stockActual);
+                                            
+                                            var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
+                                        }
+                                    }
+                                   
+
                                     if (d_prod_venta.Rows.Count > 0)
                                     {
                                         DataRow r_prod_venta = d_prod_venta.Rows[0];
@@ -1219,6 +1240,8 @@ namespace PuntoDeVentaV2
                                     CargarDatos();
                                 }
                             }
+
+
                         }
                     }
                     else

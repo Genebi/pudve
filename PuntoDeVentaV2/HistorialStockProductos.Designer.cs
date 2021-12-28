@@ -49,7 +49,7 @@
             this.DGVHistorialStock.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.DGVHistorialStock.RowHeadersVisible = false;
             this.DGVHistorialStock.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.DGVHistorialStock.Size = new System.Drawing.Size(1069, 217);
+            this.DGVHistorialStock.Size = new System.Drawing.Size(1069, 302);
             this.DGVHistorialStock.TabIndex = 0;
             // 
             // txtNombreProducto
@@ -83,7 +83,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1071, 404);
+            this.ClientSize = new System.Drawing.Size(1071, 390);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtNombreProducto);
