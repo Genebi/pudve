@@ -5268,13 +5268,18 @@ namespace PuntoDeVentaV2
 
                                     int idproductoCantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
                                     var MinimaCompra = cn.CargarDatos(cs.cantidadCompraMinima(Convert.ToInt32(idproductoCantidad)));
-                                    var cantidadMinima = Convert.ToInt32(MinimaCompra.Rows[0].ItemArray[0]);
-
-
-                                    if (cantidad < cantidadMinima && listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
+                                    if (!MinimaCompra.Rows.Count.Equals(0))
                                     {
+                                        var cantidadMinima = Convert.ToInt32(MinimaCompra.Rows[0].ItemArray[0]);
+                                        if (cantidad < cantidadMinima && listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
+                                        {
                                         listaMensajesEnviados.Remove(Convert.ToInt32(idproductoCantidad));
+                                         }
                                     }
+                                    
+
+
+                                   
 
                                     // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
                                     float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
