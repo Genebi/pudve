@@ -119,7 +119,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                MessageBox.Show($"Usted no ha realizado ventas el dia de ahora {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show($"No se han realizado ventas el día de hoy {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
@@ -134,7 +134,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                MessageBox.Show($"Usted no ha realizado ventas el dia de ahora {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show($"No se han realizado ventas el día de hoy {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
