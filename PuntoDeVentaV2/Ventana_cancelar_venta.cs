@@ -130,7 +130,7 @@ namespace PuntoDeVentaV2
                                                 var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
 
                                                 //    string[] datos = new string[] {
-                                                //    "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString                     (),
+                                                //    "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                                                 //    efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
                                                 //};
                                                 string[] datos = new string[]
@@ -176,15 +176,6 @@ namespace PuntoDeVentaV2
                                                     decimal cantidad_prod_rel = Convert.ToDecimal(drprod_relacionados["Cantidad"]);
                                                     decimal cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
 
-                                                    //var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                    //var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
-                                                    //var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
-
-                                                    //decimal stockActual = Convert.ToDecimal(drprod_relacionados["Stock"]);
-                                                    //decimal stockNuevo = stockActual + Convert.ToDecimal(drprod_relacionados["Cantidad"]);
-
-                                                    //cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{drprod_relacionados["ID"].ToString()}','Venta Cancelada folio: {FolioDeCancelacion} ','{stockActual}','{stockNuevo}','{fecha}','{FormPrincipal.userNickName}',{drprod_relacionados["Cantidad"].ToString()})");
-
                                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
                                                 }
                                             }
@@ -200,7 +191,6 @@ namespace PuntoDeVentaV2
                                                             var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                             var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
                                                             var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
-
                                                             decimal stockActual = Convert.ToDecimal(drProdVenta["Stock"].ToString());
                                                             decimal stockNuevo = stockActual + Convert.ToDecimal(drProdVenta["Cantidad"]);
 

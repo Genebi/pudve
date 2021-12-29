@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         public void CargarHistorialStock()
         {
             int idprod = Productos.idProductoHistorialStock;
-            var datos = cn.CargarDatos($"SELECT ID, IDProducto AS 'ID de Producto', TipoDeMovimiento AS 'Tipo de Movimiento', StockAnterior AS 'Stock Anterior', Cantidad, StockNuevo 'Nuevo Stock', Fecha, NombreUsuario AS 'Nombre de Usuario' FROM historialstock WHERE IDProducto = {idprod}");
+            var datos = cn.CargarDatos($"SELECT ID, TipoDeMovimiento AS 'Tipo de Movimiento', StockAnterior AS 'Stock Anterior', Cantidad, StockNuevo 'Nuevo Stock', Fecha, NombreUsuario AS 'Nombre de Usuario' FROM historialstock WHERE IDProducto = {idprod}");
 
             var nombreproducto = cn.CargarDatos($"SELECT Nombre FROM PRODUCTOS WHERE ID = {idprod}");
             txtNombreProducto.Text = nombreproducto.Rows[0]["Nombre"].ToString();
