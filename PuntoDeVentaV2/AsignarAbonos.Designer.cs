@@ -61,8 +61,8 @@
             this.cbAdelanto = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblmirror = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblFechaAnterior = new System.Windows.Forms.Label();
+            this.lblmirror2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -435,31 +435,32 @@
             this.lblmirror.Text = "$0.00";
             this.lblmirror.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // lblFechaAnterior
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(149, 115);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 16);
-            this.label2.TabIndex = 132;
-            this.label2.Text = "(desde xx/xx/xx)";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label2.Visible = false;
+            this.lblFechaAnterior.AutoSize = true;
+            this.lblFechaAnterior.Font = new System.Drawing.Font("Century Gothic", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFechaAnterior.ForeColor = System.Drawing.Color.Red;
+            this.lblFechaAnterior.Location = new System.Drawing.Point(154, 115);
+            this.lblFechaAnterior.Name = "lblFechaAnterior";
+            this.lblFechaAnterior.Size = new System.Drawing.Size(89, 13);
+            this.lblFechaAnterior.TabIndex = 132;
+            this.lblFechaAnterior.Text = "(desde xx/xx/xx)";
+            this.lblFechaAnterior.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFechaAnterior.Visible = false;
+            this.lblFechaAnterior.TextChanged += new System.EventHandler(this.lblFechaAnterior_TextChanged);
             // 
-            // label4
+            // lblmirror2
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(149, 30);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 16);
-            this.label4.TabIndex = 132;
-            this.label4.Text = "(desde xx/xx/xx)";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label4.Visible = false;
+            this.lblmirror2.AutoSize = true;
+            this.lblmirror2.Font = new System.Drawing.Font("Century Gothic", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblmirror2.ForeColor = System.Drawing.Color.Red;
+            this.lblmirror2.Location = new System.Drawing.Point(156, 29);
+            this.lblmirror2.Name = "lblmirror2";
+            this.lblmirror2.Size = new System.Drawing.Size(85, 26);
+            this.lblmirror2.TabIndex = 132;
+            this.lblmirror2.Text = "(desde xx/xx/xx\r\nx dias)";
+            this.lblmirror2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblmirror2.Visible = false;
             // 
             // AsignarAbonos
             // 
@@ -488,8 +489,8 @@
             this.Controls.Add(this.lbCheque);
             this.Controls.Add(this.lbVales);
             this.Controls.Add(this.lbTarjeta);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblmirror2);
+            this.Controls.Add(this.lblFechaAnterior);
             this.Controls.Add(this.lblfechainteres);
             this.Controls.Add(this.lbEfectivo);
             this.Controls.Add(this.txtTransferencia);
@@ -548,7 +549,7 @@
         private System.Windows.Forms.CheckBox cbAdelanto;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblmirror;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblFechaAnterior;
+        private System.Windows.Forms.Label lblmirror2;
     }
 }
