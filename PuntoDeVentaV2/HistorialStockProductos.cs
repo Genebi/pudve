@@ -28,17 +28,97 @@ namespace PuntoDeVentaV2
             CargarHistorialStock();
         }
 
-        public void CargarHistorialStock()
+        public void dgvHistorialStockDatos(DataTable datos, string stockInicialProductos,string StockInicialH)
         {
-            int idprod = Productos.idProductoHistorialStock;
-            var datos = cn.CargarDatos($"SELECT ID, TipoDeMovimiento AS 'Tipo de Movimiento', StockAnterior AS 'Stock Anterior', Cantidad, StockNuevo 'Nuevo Stock', Fecha, NombreUsuario AS 'Nombre de Usuario' FROM historialstock WHERE IDProducto = {idprod}");
+            DataTable dtHistorialStock = new DataTable();
+            dtHistorialStock.Clear();
+            dtHistorialStock.Columns.Add("ID");
+            dtHistorialStock.Columns.Add("Tipo de Movimiento");
+            dtHistorialStock.Columns.Add("Stock Anterior");
+            dtHistorialStock.Columns.Add("Cantidad");
+            dtHistorialStock.Columns.Add("Nuevo Stock");
+            dtHistorialStock.Columns.Add("Nombre de Usuario");
+            //dtHistorialStock.Columns.Add("StockInicial");
+            dtHistorialStock.Columns.Add("Fecha");
 
-            var nombreproducto = cn.CargarDatos($"SELECT Nombre FROM PRODUCTOS WHERE ID = {idprod}");
-            txtNombreProducto.Text = nombreproducto.Rows[0]["Nombre"].ToString();
+            if (!datos.Rows.Count.Equals(0))
+            {
+                DataRow drow = dtHistorialStock.NewRow();
+                drow["ID"] = string.Empty;
+                drow["Tipo de Movimiento"] = "Stock al Registrarse el Producto";
+                drow["Stock Anterior"] = StockInicialH;
+                drow["Cantidad"] = StockInicialH;
+                drow["Nuevo Stock"] = StockInicialH;
+                drow["Nombre de Usuario"] = FormPrincipal.userNickName;
+                //drow["StockInicial"] = string.Empty;
+                drow["Fecha"] = DateTime.Now.ToString("dd/MM/yyyy");
+                dtHistorialStock.Rows.Add(drow);
 
-            DGVHistorialStock.DataSource = datos;
+                foreach (DataRow item in datos.Rows)
+                {
+                    drow = dtHistorialStock.NewRow();
+                    drow["ID"] = item["ID"].ToString();
+                    drow["Tipo de Movimiento"] = item["Tipo de Movimiento"].ToString();
+                    drow["Stock Anterior"] = item["Stock Anterior"].ToString();
+                    drow["Cantidad"] = item["Cantidad"].ToString();
+                    drow["Nuevo Stock"] = item["Nuevo Stock"].ToString();
+                    drow["Nombre de Usuario"] = item["Nombre de Usuario"].ToString();
+                    //drow["StockInicial"] = item["StockInicial"].ToString();
+                    drow["Fecha"] = item["Fecha"].ToString();
+                    dtHistorialStock.Rows.Add(drow);
+                }
+            }
+            else
+            {
+                DataRow drow = dtHistorialStock.NewRow();
+                drow["ID"] = string.Empty;
+                drow["Tipo de Movimiento"] = "Stock al Registrarse el Producto";
+                drow["Stock Anterior"] = stockInicialProductos;
+                drow["Cantidad"] = stockInicialProductos;
+                drow["Nuevo Stock"] = stockInicialProductos;
+                drow["Nombre de Usuario"] = FormPrincipal.userNickName;
+                //drow["StockInicial"] = string.Empty;
+                drow["Fecha"] = DateTime.Now.ToString("dd/MM/yyyy");
+                dtHistorialStock.Rows.Add(drow);
+            }
+            DGVHistorialStock.DataSource = dtHistorialStock;
             DGVHistorialStock.Columns["ID"].Visible = false;
             DGVHistorialStock.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
+
+        public void CargarHistorialStock()
+        {
+            string StockInicial = "";
+            string StockInicialH = "";
+            var stockInicialProductos = string.Empty;
+            int idprod = Productos.idProductoHistorialStock;
+            var datos = cn.CargarDatos($"SELECT ID, TipoDeMovimiento AS 'Tipo de Movimiento', StockAnterior AS 'Stock Anterior', Cantidad, StockNuevo 'Nuevo Stock', Fecha, NombreUsuario AS 'Nombre de Usuario', StockInicial FROM historialstock WHERE IDProducto = {idprod}");
+
+            var datoStock = cn.CargarDatos($"SELECT StockInicial FROM `historialstock` WHERE IDProducto = {idprod} ORDER BY Fecha ASC LIMIT 1");
+            if (!datoStock.Rows.Count.Equals(0))
+            {
+              StockInicial = datos.Rows[0]["StockInicial"].ToString();
+            }
+           
+            if(datos.Rows.Count.Equals(0))
+            {
+                //Agregar stock inicial desde productos.
+                var stockProductos = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {idprod}");
+                stockInicialProductos = stockProductos.Rows[0]["Stock"].ToString();
+                cn.EjecutarConsulta($"UPDATE historialstock SET StockInicial ='{stockInicialProductos}' WHERE IdProducto = {idprod}");
+            }
+            else if (!datos.Rows.Count.Equals(0) && !string.IsNullOrEmpty(StockInicial))
+            {
+                //Agregar el stock desde Historial stock tomando el primer stock de la 1° venta.
+                var stockHistorial = cn.CargarDatos($"SELECT StockAnterior FROM `historialstock` WHERE IDProducto = {idprod} ORDER BY Fecha ASC LIMIT 1");
+                StockInicialH = stockHistorial.Rows[0]["StockAnterior"].ToString();
+                cn.EjecutarConsulta($"UPDATE historialstock SET StockInicial ='{StockInicialH}' WHERE IdProducto = {idprod}");
+            }
+
+            var nombreproducto = cn.CargarDatos($"SELECT Nombre FROM PRODUCTOS WHERE ID = '{idprod}'");
+            txtNombreProducto.Text = nombreproducto.Rows[0]["Nombre"].ToString();
+
+            dgvHistorialStockDatos(datos, stockInicialProductos, StockInicialH);
         }
     }
 }
