@@ -4107,8 +4107,17 @@ namespace PuntoDeVentaV2
                     }
                     else if (filtro.Key == "Proveedor")
                     {
-                        extraProductos += $"D.IDProveedor = {filtro.Value.Item1} AND ";
-                        extraProveedor += "INNER JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) ";
+                        // Cuando se selecciono la opcion proveedor pero se quiere que busque a los que no tienen proveedor
+                        if (filtro.Value.Item1.Equals("-1"))
+                        {
+                            extraProductos += $"D.IDProducto IS NULL AND ";
+                            extraProveedor += "LEFT JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) ";
+                        }
+                        else
+                        {
+                            extraProductos += $"D.IDProveedor = {filtro.Value.Item1} AND ";
+                            extraProveedor += "INNER JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) ";
+                        }
                     }
                     else if (filtro.Key == "Tipo")
                     {
