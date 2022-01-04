@@ -2333,7 +2333,21 @@ namespace PuntoDeVentaV2
 
                         string textoPanel = string.Empty;
 
-                        textoPanel = nameTag + ": " + item.Value.Item3;
+                        if (nameTag.Equals("Proveedor"))
+                        {
+                            if (item.Value.Item3.Equals("-1"))
+                            {
+                                textoPanel = nameTag + ": SIN PROVEEDOR";
+                            }
+                            else
+                            {
+                                textoPanel = nameTag + ": " + item.Value.Item3;
+                            }
+                        }
+                        else
+                        {
+                            textoPanel = nameTag + ": " + item.Value.Item3;
+                        }
 
                         label2.Text = textoPanel;
                         var infoText = TextRenderer.MeasureText(label2.Text, new System.Drawing.Font(label2.Font.FontFamily, label2.Font.Size));
@@ -4107,8 +4121,17 @@ namespace PuntoDeVentaV2
                     }
                     else if (filtro.Key == "Proveedor")
                     {
-                        extraProductos += $"D.IDProveedor = {filtro.Value.Item1} AND ";
-                        extraProveedor += "INNER JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) ";
+                        // Cuando se selecciono la opcion proveedor pero se quiere que busque a los que no tienen proveedor
+                        if (filtro.Value.Item1.Equals("-1"))
+                        {
+                            extraProductos += $"D.IDProducto IS NULL AND ";
+                            extraProveedor += "LEFT JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) ";
+                        }
+                        else
+                        {
+                            extraProductos += $"D.IDProveedor = {filtro.Value.Item1} AND ";
+                            extraProveedor += "INNER JOIN DetallesProducto AS D ON (P.ID = D.IDProducto AND P.IDUsuario = D.IDUsuario) ";
+                        }
                     }
                     else if (filtro.Key == "Tipo")
                     {

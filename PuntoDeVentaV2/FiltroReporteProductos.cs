@@ -104,6 +104,8 @@ namespace PuntoDeVentaV2
 
                 if (proveedores.Length > 0)
                 {
+                    var ultimoAux = string.Empty;
+
                     Dictionary<int, string> dicProveedores = new Dictionary<int, string>();
 
                     dicProveedores.Add(0, "Seleccionar proveedor...");
@@ -113,7 +115,11 @@ namespace PuntoDeVentaV2
                         var info = proveedor.Split('-');
 
                         dicProveedores.Add(Convert.ToInt32(info[0].Trim()), info[1].Trim());
+
+                        ultimoAux = info[0].Trim();
                     }
+
+                    dicProveedores.Add(-1, "SIN PROVEEDOR");
 
                     cbProveedor.DataSource = dicProveedores.ToArray();
                     cbProveedor.ValueMember = "Key";
@@ -311,6 +317,7 @@ namespace PuntoDeVentaV2
                 if (origen == 1)
                 {
                     OpcionesReporteProducto.filtros = filtros;
+
                     Hide();
                 }
 

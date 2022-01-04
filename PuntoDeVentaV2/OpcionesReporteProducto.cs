@@ -557,10 +557,16 @@ namespace PuntoDeVentaV2
                                 // Compara el ID del proveedor (los dos valores son string)
                                 respuesta = filtro.Value.Item1.Equals(datosProveedor[1]);
                             }
+                            else if (datosProveedor.Length == 0 && Convert.ToInt32(filtro.Value.Item1) == -1)
+                            {
+                                // Esto es cuando el filtro de proveedor es para obtener los que no tienen proveedor
+                                respuesta = true;
+                            }
                             else
                             {
                                 respuesta = false;
                             }
+
                         }
                         else if (filtro.Key == "Tipo")
                         {
