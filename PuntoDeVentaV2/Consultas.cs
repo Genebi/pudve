@@ -229,13 +229,15 @@ namespace PuntoDeVentaV2
                 if (revisarInventrario.Equals("AIAumentar"))
                 {
                     tablaBusqueda = "dgvaumentarinventario";
+                    consulta = $"SELECT NoRevision, NombreProducto, NameUsr, IDEmpleado, Fecha, Folio FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}'AND Folio != 0 AND NameUsr LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
                 }
                 else
                 {
                     tablaBusqueda = "dgvdisminuirinventario";
+                    consulta = $"SELECT NoRevision, NombreProducto, NameUse, IDEmpleado, Fecha, Folio FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}'AND Folio != 0 AND NameUse LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
                 }
 
-                consulta = $"SELECT NoRevision, NombreProducto, NameUsr, IDEmpleado, Fecha, Folio FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}'AND Folio != 0 AND NameUsr LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
+                //consulta = $"SELECT NoRevision, NombreProducto, NameUse, IDEmpleado, Fecha, Folio FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}'AND Folio != 0 AND NameUse LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
             }
 
 

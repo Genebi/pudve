@@ -178,7 +178,15 @@ namespace PuntoDeVentaV2
 
             DGVRevisionStock.Columns["IDAlmacen"].Width = 65;
             DGVRevisionStock.Columns["Nombre"].Width = 190;
-            if (mostrarClave == 0) { } else if (mostrarClave == 1) { DGVRevisionStock.Columns["ClaveInterna"].Width = 65; } 
+
+            if (mostrarClave == 0)
+            {
+            }
+            else if (mostrarClave == 1)
+            {
+                DGVRevisionStock.Columns["ClaveInterna"].Width = 65;
+            }
+             
             DGVRevisionStock.Columns["CodigoBarras"].Width = 65;
             DGVRevisionStock.Columns["StockAlmacen"].Width = 65;
             DGVRevisionStock.Columns["StockFisico"].Width = 65;
@@ -247,10 +255,18 @@ namespace PuntoDeVentaV2
             DGVRevisionStock.Columns["StatusInventariado"].Visible = false;
             DGVRevisionStock.Columns["Vendido"].Visible = false;
             DGVRevisionStock.Columns["IDComputadora"].Visible = false;
-            if (mostrarClave == 0) { DGVRevisionStock.Columns["ClaveInterna"].Visible = false; } else if (mostrarClave == 1) { DGVRevisionStock.Columns["ClaveInterna"].Visible = true; }
 
-                // Cambiamos el texto de la columbas para mejor visualizacion
-                DGVRevisionStock.Columns["IDAlmacen"].HeaderText = "ID";
+            if (mostrarClave == 0)
+            {
+                DGVRevisionStock.Columns["ClaveInterna"].Visible = false;
+            }
+            else if (mostrarClave == 1)
+            {
+                DGVRevisionStock.Columns["ClaveInterna"].Visible = true;
+            }
+
+            // Cambiamos el texto de la columbas para mejor visualizacion
+            DGVRevisionStock.Columns["IDAlmacen"].HeaderText = "ID";
             if (mostrarClave == 0) { } else if (mostrarClave == 1) { DGVRevisionStock.Columns["ClaveInterna"].HeaderText = "Clave"; }
             DGVRevisionStock.Columns["CodigoBarras"].HeaderText = "Código";
             DGVRevisionStock.Columns["StockAlmacen"].HeaderText = "Punto de Venta";
@@ -802,15 +818,9 @@ namespace PuntoDeVentaV2
 
             string UsuarioActivo = string.Empty;
 
-            string tipoReporte = string.Empty,
-                    encabezadoTipoReporte = string.Empty;
+            string tipoReporte = string.Empty, encabezadoTipoReporte = string.Empty;
 
-            float PuntoDeVenta = 0,
-                    StockFisico = 0,
-                    Diferencia = 0,
-                    Precio = 0,
-                    CantidadPerdida = 0,
-                    CantidadRecuperada = 0;
+            float PuntoDeVenta = 0, StockFisico = 0, Diferencia = 0, Precio = 0, CantidadPerdida = 0, CantidadRecuperada = 0;
 
             tipoReporte = Inventario.filtradoParaRealizar;
 
