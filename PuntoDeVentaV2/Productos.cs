@@ -2333,7 +2333,21 @@ namespace PuntoDeVentaV2
 
                         string textoPanel = string.Empty;
 
-                        textoPanel = nameTag + ": " + item.Value.Item3;
+                        if (nameTag.Equals("Proveedor"))
+                        {
+                            if (item.Value.Item3.Equals("-1"))
+                            {
+                                textoPanel = nameTag + ": SIN PROVEEDOR";
+                            }
+                            else
+                            {
+                                textoPanel = nameTag + ": " + item.Value.Item3;
+                            }
+                        }
+                        else
+                        {
+                            textoPanel = nameTag + ": " + item.Value.Item3;
+                        }
 
                         label2.Text = textoPanel;
                         var infoText = TextRenderer.MeasureText(label2.Text, new System.Drawing.Font(label2.Font.FontFamily, label2.Font.Size));
