@@ -1250,7 +1250,7 @@ namespace PuntoDeVentaV2
         {
             if (backUpDB.validarMandarRespaldoCorreo())
             {
-                MessageBox.Show("Este proceso podria tardar unos minutos.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Este proceso tardara unos segundos por favor espere.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (Application.OpenForms.OfType<Cargando>().Count() == 1)
                 {

@@ -35,52 +35,73 @@ namespace PuntoDeVentaV2
                 saveFile.RestoreDirectory = true;
 
 
-                if (tipoRespaldo.Equals(2)) //Respaldar bd al correo
-                {
-                    try
-                    {
-                        var archivo = $@"C:\Archivos PUDVE\Respaldos\Terminados\{FormPrincipal.userNickName}_{fechaCreacion.ToString("yyyyMMddHHmmss")}.sql";
+                //if (tipoRespaldo.Equals(2)) //Respaldar bd al correo
+                //{
+                //    try
+                //    {
+                //        var archivo = $@"C:\Archivos PUDVE\Respaldos\Terminados\{FormPrincipal.userNickName}_{fechaCreacion.ToString("yyyyMMddHHmmss")}.sql";
 
-                        var datoConexion = conexionRuta();
+                //        var datoConexion = conexionRuta();
 
-                        using (MySqlConnection con = new MySqlConnection(datoConexion))
-                        {
-                            using (MySqlCommand cmd = new MySqlCommand())
-                            {
-                                using (MySqlBackup backup = new MySqlBackup(cmd))
-                                {
-                                    cmd.Connection = con;
-                                    con.Open();
-                                    backup.ExportToFile(archivo);
-                                    con.Close();
+                //        using (MySqlConnection con = new MySqlConnection(datoConexion))
+                //        {
+                //            using (MySqlCommand cmd = new MySqlCommand())
+                //            {
+                //                using (MySqlBackup backup = new MySqlBackup(cmd))
+                //                {
+                //                    cmd.Connection = con;
+                //                    con.Open();
+                //                    backup.ExportToFile(archivo);
+                //                    con.Close();
 
-                                    Thread hilo = new Thread(() => sendEmail(archivo, 2));
-                                    hilo.Start();
-                                    //steam.Close();   
-                                }
-                            }
-                        }
-
-                        MessageBox.Show("Información enviada al correo exitosamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else 
-                {
-                    if (saveFile.ShowDialog() == DialogResult.OK)
-                    {
+                //                     Thread hilo = new Thread(() => sendEmail(archivo, 2));
+                //                    hilo.Start();
+                //                    //steam.Close();   
+                //                }
+                //            }
+                //        }
+                //        //Thread.Sleep(50000);
+                //        MessageBox.Show("Información enviada al correo exitosamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    }
+                //}
+                //else 
+                //{
+                    //if (saveFile.ShowDialog() == DialogResult.OK)
+                    //{
                         //if ((steam = saveFile.OpenFile()) != null)
                         //{
                             try
                             {
-                                var archivo = saveFile.FileName;
+                    //var archivo = saveFile.FileName;
+                    var directorio = $@"C:\Archivos PUDVE\Respaldos\RespaldoCerrarSesion\";
+                    var archivos = Directory.GetFiles(directorio,"*.sql");
 
-                            var datoConexion = conexionRuta();
+                    if (!archivos.Count().Equals(0))
+                    {
+                        if (archivos.Count() > 100)
+                        {
+                            var listaArchivos = archivos.ToList();
+                            listaArchivos.Sort();
+                            //listaArchivos.Reverse(); //Ordenar del mas nuevo al mas antiguo 
+                            //for (int i = 0; i < listaArchivos.Count-1; i++)
+                            //{
+                            //    File.Delete(listaArchivos[i]);
+                            //}
+                            File.Delete(listaArchivos[0]);
+                        }
+                    }
 
-                            using (MySqlConnection con = new MySqlConnection(datoConexion))
+
+                    var fechaResp = DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss");
+                    var archivo = $@"{directorio}{FormPrincipal.userNickName}_{fechaResp}.sql";
+
+                        var datoConexion = conexionRuta();
+
+                            using (MySqlConnection con = new MySqlConnection(datoConexion)) 
                             {
                                 using (MySqlCommand cmd = new MySqlCommand())
                                 {
@@ -95,12 +116,13 @@ namespace PuntoDeVentaV2
                                         {
                                             Thread hilo = new Thread(() => sendEmail(archivo, 1));
                                             hilo.Start();
+                                            
                                         }
-                                        //steam.Close();   
+                                        //steam.Close();  
                                     }
                                 }
                             }
-
+                            //Thread.Sleep(50000);
                             MessageBox.Show("Información respaldada exitosamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                         catch (Exception ex)
@@ -108,8 +130,8 @@ namespace PuntoDeVentaV2
                         MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     //}
-                }
-                }
+                //}
+                //}
             }
         }
 
@@ -134,6 +156,12 @@ namespace PuntoDeVentaV2
             if (!Directory.Exists(directorioZip))
             {
                 Directory.CreateDirectory(directorioZip);
+            }
+
+            string directorioRespaldoDBSql = $@"C:\Archivos PUDVE\Respaldos\RespaldoCerrarSesion\";
+            if (!Directory.Exists(directorioRespaldoDBSql))
+            {
+                Directory.CreateDirectory(directorioRespaldoDBSql);
             }
 
             //File.Delete(directorioZip);
