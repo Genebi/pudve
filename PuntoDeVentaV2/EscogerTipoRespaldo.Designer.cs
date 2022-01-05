@@ -28,94 +28,90 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rbRespaldoEquipo = new System.Windows.Forms.RadioButton();
-            this.rbRespaldoCorreo = new System.Windows.Forms.RadioButton();
-            this.rbAmbos = new System.Windows.Forms.RadioButton();
+            this.rbRespaldarCerrarSesion = new System.Windows.Forms.RadioButton();
+            this.rbNoRespaldar = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnGuadar = new System.Windows.Forms.Button();
+            this.btnRespaldar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // rbRespaldoEquipo
+            // rbRespaldarCerrarSesion
             // 
-            this.rbRespaldoEquipo.AutoSize = true;
-            this.rbRespaldoEquipo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbRespaldoEquipo.Location = new System.Drawing.Point(24, 59);
-            this.rbRespaldoEquipo.Name = "rbRespaldoEquipo";
-            this.rbRespaldoEquipo.Size = new System.Drawing.Size(146, 17);
-            this.rbRespaldoEquipo.TabIndex = 3;
-            this.rbRespaldoEquipo.TabStop = true;
-            this.rbRespaldoEquipo.Text = "Respaldar en este equipo";
-            this.rbRespaldoEquipo.UseVisualStyleBackColor = true;
-            this.rbRespaldoEquipo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rbRespaldoEquipo_KeyDown);
+            this.rbRespaldarCerrarSesion.AutoSize = true;
+            this.rbRespaldarCerrarSesion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rbRespaldarCerrarSesion.Location = new System.Drawing.Point(24, 44);
+            this.rbRespaldarCerrarSesion.Name = "rbRespaldarCerrarSesion";
+            this.rbRespaldarCerrarSesion.Size = new System.Drawing.Size(147, 17);
+            this.rbRespaldarCerrarSesion.TabIndex = 3;
+            this.rbRespaldarCerrarSesion.TabStop = true;
+            this.rbRespaldarCerrarSesion.Text = "Respaldar al cerrar sesion";
+            this.rbRespaldarCerrarSesion.UseVisualStyleBackColor = true;
             // 
-            // rbRespaldoCorreo
+            // rbNoRespaldar
             // 
-            this.rbRespaldoCorreo.AutoSize = true;
-            this.rbRespaldoCorreo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbRespaldoCorreo.Location = new System.Drawing.Point(24, 94);
-            this.rbRespaldoCorreo.Name = "rbRespaldoCorreo";
-            this.rbRespaldoCorreo.Size = new System.Drawing.Size(148, 17);
-            this.rbRespaldoCorreo.TabIndex = 4;
-            this.rbRespaldoCorreo.TabStop = true;
-            this.rbRespaldoCorreo.Text = "Mandar respaldo al correo";
-            this.rbRespaldoCorreo.UseVisualStyleBackColor = true;
-            this.rbRespaldoCorreo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rbRespaldoCorreo_KeyDown);
-            // 
-            // rbAmbos
-            // 
-            this.rbAmbos.AutoSize = true;
-            this.rbAmbos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbAmbos.Location = new System.Drawing.Point(24, 131);
-            this.rbAmbos.Name = "rbAmbos";
-            this.rbAmbos.Size = new System.Drawing.Size(236, 17);
-            this.rbAmbos.TabIndex = 5;
-            this.rbAmbos.TabStop = true;
-            this.rbAmbos.Text = "Respaldar en este equipo y mandar al correo";
-            this.rbAmbos.UseVisualStyleBackColor = true;
-            this.rbAmbos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rbAmbos_KeyDown);
+            this.rbNoRespaldar.AutoSize = true;
+            this.rbNoRespaldar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rbNoRespaldar.Location = new System.Drawing.Point(24, 77);
+            this.rbNoRespaldar.Name = "rbNoRespaldar";
+            this.rbNoRespaldar.Size = new System.Drawing.Size(85, 17);
+            this.rbNoRespaldar.TabIndex = 4;
+            this.rbNoRespaldar.TabStop = true;
+            this.rbNoRespaldar.Text = "No respaldar";
+            this.rbNoRespaldar.UseVisualStyleBackColor = true;
+            this.rbNoRespaldar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rbRespaldoCorreo_KeyDown);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(65, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(271, 20);
+            this.label1.Size = new System.Drawing.Size(183, 20);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Seleccione la forma de respaldo ";
+            this.label1.Text = "Opciones de respaldo";
             // 
-            // btnGuadar
+            // btnRespaldar
             // 
-            this.btnGuadar.Location = new System.Drawing.Point(185, 173);
-            this.btnGuadar.Name = "btnGuadar";
-            this.btnGuadar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuadar.TabIndex = 7;
-            this.btnGuadar.Text = "Respaldar";
-            this.btnGuadar.UseVisualStyleBackColor = true;
-            this.btnGuadar.Click += new System.EventHandler(this.btnGuadar_Click);
+            this.btnRespaldar.Location = new System.Drawing.Point(100, 109);
+            this.btnRespaldar.Name = "btnRespaldar";
+            this.btnRespaldar.Size = new System.Drawing.Size(104, 32);
+            this.btnRespaldar.TabIndex = 7;
+            this.btnRespaldar.Text = "Respaldar ahora";
+            this.btnRespaldar.UseVisualStyleBackColor = true;
+            this.btnRespaldar.Click += new System.EventHandler(this.btnGuadar_Click);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(24, 173);
+            this.btnCancelar.Location = new System.Drawing.Point(198, 152);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(79, 33);
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Location = new System.Drawing.Point(24, 152);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(85, 33);
+            this.btnAceptar.TabIndex = 9;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            // 
             // EscogerTipoRespaldo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 208);
+            this.ClientSize = new System.Drawing.Size(299, 197);
+            this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnGuadar);
+            this.Controls.Add(this.btnRespaldar);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.rbAmbos);
-            this.Controls.Add(this.rbRespaldoCorreo);
-            this.Controls.Add(this.rbRespaldoEquipo);
+            this.Controls.Add(this.rbNoRespaldar);
+            this.Controls.Add(this.rbRespaldarCerrarSesion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -123,6 +119,7 @@
             this.Name = "EscogerTipoRespaldo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EscogerTipoRespaldo";
+            this.Load += new System.EventHandler(this.EscogerTipoRespaldo_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EscogerTipoRespaldo_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -131,11 +128,11 @@
 
         #endregion
 
-        private System.Windows.Forms.RadioButton rbRespaldoEquipo;
-        private System.Windows.Forms.RadioButton rbRespaldoCorreo;
-        private System.Windows.Forms.RadioButton rbAmbos;
+        private System.Windows.Forms.RadioButton rbRespaldarCerrarSesion;
+        private System.Windows.Forms.RadioButton rbNoRespaldar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnGuadar;
+        private System.Windows.Forms.Button btnRespaldar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnAceptar;
     }
 }

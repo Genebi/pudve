@@ -28,7 +28,7 @@ namespace PuntoDeVentaV2
                 DateTime fechaCreacion = DateTime.Now;
 
                 //Stream steam;
-
+                 
                 saveFile.FileName = $"{FormPrincipal.userNickName}";
                 saveFile.Filter = "SQL (*.sql)|*.sql";
                 saveFile.FilterIndex = 1;
@@ -203,7 +203,7 @@ namespace PuntoDeVentaV2
 
 
         public bool validarMandarRespaldoCorreo()
-        {
+        { 
             var result = false;
 
             var query = cn.CargarDatos($"SELECT CorreoRespaldo FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
@@ -211,6 +211,23 @@ namespace PuntoDeVentaV2
             if (!query.Rows.Count.Equals(0))
             {
                 result = Convert.ToBoolean(query.Rows[0]["CorreoRespaldo"].ToString());
+            }
+
+            return result;
+        }
+
+        public bool RespaldarDBAlCerrarSesion()
+        {
+            var result = false;
+
+            var query = cn.CargarDatos($"SELECT RespaldoAlCerrarSesion FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                if (query.Rows[0]["RespaldoAlCerrarSesion"].Equals(1))
+                {
+                    result = true;
+                }
             }
 
             return result;

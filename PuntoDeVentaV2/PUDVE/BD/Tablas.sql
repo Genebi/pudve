@@ -1702,3 +1702,5 @@ IF
 	ALTER TABLE historialstock MODIFY Cantidad VARCHAR(100);
 	
 	ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS StockInicial VARCHAR(100);
+
+	ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RespaldoAlCerrarSesion INT DEFAULT 1;

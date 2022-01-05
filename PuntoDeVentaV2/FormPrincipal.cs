@@ -1248,7 +1248,7 @@ namespace PuntoDeVentaV2
 
         private void validarRespaldoBaseDeDatos()
         {
-            if (backUpDB.validarMandarRespaldoCorreo())
+            if (backUpDB.RespaldarDBAlCerrarSesion())
             {
                 MessageBox.Show("Este proceso tardara unos segundos por favor espere.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -1259,6 +1259,17 @@ namespace PuntoDeVentaV2
                 }
                 backUpDB.crearsaveFile();
             }
+            //if (backUpDB.validarMandarRespaldoCorreo())
+            //{
+            //    MessageBox.Show("Este proceso tardara unos segundos por favor espere.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //    if (Application.OpenForms.OfType<Cargando>().Count() == 1)
+            //    {
+            //        //e.Cancel = true;
+            //        Application.OpenForms.OfType<Cargando>().First().BringToFront();
+            //    }
+            //    backUpDB.crearsaveFile();
+            //}
         }
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
