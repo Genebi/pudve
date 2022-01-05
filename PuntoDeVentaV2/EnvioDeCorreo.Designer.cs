@@ -65,7 +65,7 @@
             this.groupBox1.Controls.Add(this.cbCorreoStockProducto);
             this.groupBox1.Controls.Add(this.cbCorreoStockMinimo);
             this.groupBox1.Controls.Add(this.cbCorreoVenderProducto);
-            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(40, 37);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(869, 186);
@@ -76,20 +76,21 @@
             // chRespaldo
             // 
             this.chRespaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chRespaldo.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.chRespaldo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.chRespaldo.Location = new System.Drawing.Point(468, 159);
             this.chRespaldo.Name = "chRespaldo";
             this.chRespaldo.Size = new System.Drawing.Size(381, 21);
             this.chRespaldo.TabIndex = 126;
             this.chRespaldo.Text = "Enviar respaldo al cerrar sesion";
             this.chRespaldo.UseVisualStyleBackColor = true;
+            this.chRespaldo.Visible = false;
             this.chRespaldo.CheckedChanged += new System.EventHandler(this.chRespaldo_CheckedChanged);
             this.chRespaldo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chRespaldo_MouseClick);
             // 
             // cbCorreoDescuento
             // 
             this.cbCorreoDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoDescuento.Location = new System.Drawing.Point(468, 136);
             this.cbCorreoDescuento.Name = "cbCorreoDescuento";
             this.cbCorreoDescuento.Size = new System.Drawing.Size(381, 21);
@@ -102,7 +103,7 @@
             // cbCorreoIniciar
             // 
             this.cbCorreoIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoIniciar.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoIniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoIniciar.Location = new System.Drawing.Point(468, 113);
             this.cbCorreoIniciar.Name = "cbCorreoIniciar";
             this.cbCorreoIniciar.Size = new System.Drawing.Size(381, 21);
@@ -115,7 +116,7 @@
             // cbCorreoVenta
             // 
             this.cbCorreoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoVenta.Location = new System.Drawing.Point(468, 88);
             this.cbCorreoVenta.Name = "cbCorreoVenta";
             this.cbCorreoVenta.Size = new System.Drawing.Size(381, 21);
@@ -129,22 +130,22 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label4.Location = new System.Drawing.Point(231, 136);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(220, 16);
+            this.label4.Size = new System.Drawing.Size(185, 13);
             this.label4.TabIndex = 122;
             this.label4.Text = " (producto previamente seleccionado)";
             // 
             // cbCorreoCorteCaja
             // 
             this.cbCorreoCorteCaja.AutoSize = true;
-            this.cbCorreoCorteCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoCorteCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoCorteCaja.ForeColor = System.Drawing.SystemColors.Highlight;
             this.cbCorreoCorteCaja.Location = new System.Drawing.Point(11, 88);
             this.cbCorreoCorteCaja.Name = "cbCorreoCorteCaja";
-            this.cbCorreoCorteCaja.Size = new System.Drawing.Size(172, 21);
+            this.cbCorreoCorteCaja.Size = new System.Drawing.Size(157, 20);
             this.cbCorreoCorteCaja.TabIndex = 121;
             this.cbCorreoCorteCaja.Text = "Al hacer corte de caja";
             this.cbCorreoCorteCaja.UseVisualStyleBackColor = true;
@@ -155,7 +156,7 @@
             // cbCorreoEliminarListaProductosVentas
             // 
             this.cbCorreoEliminarListaProductosVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoEliminarListaProductosVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoEliminarListaProductosVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoEliminarListaProductosVentas.Location = new System.Drawing.Point(468, 61);
             this.cbCorreoEliminarListaProductosVentas.Name = "cbCorreoEliminarListaProductosVentas";
             this.cbCorreoEliminarListaProductosVentas.Size = new System.Drawing.Size(381, 21);
@@ -168,7 +169,7 @@
             // cbCorreoCerrarVentanaVentas
             // 
             this.cbCorreoCerrarVentanaVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoCerrarVentanaVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoCerrarVentanaVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoCerrarVentanaVentas.Location = new System.Drawing.Point(468, 34);
             this.cbCorreoCerrarVentanaVentas.Name = "cbCorreoCerrarVentanaVentas";
             this.cbCorreoCerrarVentanaVentas.Size = new System.Drawing.Size(395, 21);
@@ -181,10 +182,10 @@
             // cbCorreoRetirarDineroCaja
             // 
             this.cbCorreoRetirarDineroCaja.AutoSize = true;
-            this.cbCorreoRetirarDineroCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoRetirarDineroCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoRetirarDineroCaja.Location = new System.Drawing.Point(11, 61);
             this.cbCorreoRetirarDineroCaja.Name = "cbCorreoRetirarDineroCaja";
-            this.cbCorreoRetirarDineroCaja.Size = new System.Drawing.Size(178, 21);
+            this.cbCorreoRetirarDineroCaja.Size = new System.Drawing.Size(164, 20);
             this.cbCorreoRetirarDineroCaja.TabIndex = 115;
             this.cbCorreoRetirarDineroCaja.Text = "Al retirar dinero en caja";
             this.cbCorreoRetirarDineroCaja.UseVisualStyleBackColor = true;
@@ -194,10 +195,10 @@
             // cbCorreoAgregarDineroCaja
             // 
             this.cbCorreoAgregarDineroCaja.AutoSize = true;
-            this.cbCorreoAgregarDineroCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.cbCorreoAgregarDineroCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoAgregarDineroCaja.Location = new System.Drawing.Point(11, 34);
             this.cbCorreoAgregarDineroCaja.Name = "cbCorreoAgregarDineroCaja";
-            this.cbCorreoAgregarDineroCaja.Size = new System.Drawing.Size(193, 21);
+            this.cbCorreoAgregarDineroCaja.Size = new System.Drawing.Size(178, 20);
             this.cbCorreoAgregarDineroCaja.TabIndex = 0;
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
@@ -208,10 +209,10 @@
             // 
             this.cbCorreoPrecioProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoPrecioProducto.AutoSize = true;
-            this.cbCorreoPrecioProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCorreoPrecioProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(239, 61);
             this.cbCorreoPrecioProducto.Name = "cbCorreoPrecioProducto";
-            this.cbCorreoPrecioProducto.Size = new System.Drawing.Size(150, 21);
+            this.cbCorreoPrecioProducto.Size = new System.Drawing.Size(138, 20);
             this.cbCorreoPrecioProducto.TabIndex = 111;
             this.cbCorreoPrecioProducto.Text = "Al modificar precio";
             this.cbCorreoPrecioProducto.UseVisualStyleBackColor = true;
@@ -222,10 +223,10 @@
             // 
             this.cbCorreoStockProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoStockProducto.AutoSize = true;
-            this.cbCorreoStockProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCorreoStockProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbCorreoStockProducto.Location = new System.Drawing.Point(239, 88);
             this.cbCorreoStockProducto.Name = "cbCorreoStockProducto";
-            this.cbCorreoStockProducto.Size = new System.Drawing.Size(143, 21);
+            this.cbCorreoStockProducto.Size = new System.Drawing.Size(132, 20);
             this.cbCorreoStockProducto.TabIndex = 112;
             this.cbCorreoStockProducto.Text = "Al modificar stock";
             this.cbCorreoStockProducto.UseVisualStyleBackColor = true;
@@ -236,10 +237,10 @@
             // 
             this.cbCorreoStockMinimo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoStockMinimo.AutoSize = true;
-            this.cbCorreoStockMinimo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCorreoStockMinimo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbCorreoStockMinimo.Location = new System.Drawing.Point(239, 34);
             this.cbCorreoStockMinimo.Name = "cbCorreoStockMinimo";
-            this.cbCorreoStockMinimo.Size = new System.Drawing.Size(170, 21);
+            this.cbCorreoStockMinimo.Size = new System.Drawing.Size(157, 20);
             this.cbCorreoStockMinimo.TabIndex = 113;
             this.cbCorreoStockMinimo.Text = "Al llegar stock mínimo";
             this.cbCorreoStockMinimo.UseVisualStyleBackColor = true;
@@ -250,10 +251,10 @@
             // 
             this.cbCorreoVenderProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoVenderProducto.AutoSize = true;
-            this.cbCorreoVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCorreoVenderProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbCorreoVenderProducto.Location = new System.Drawing.Point(239, 113);
             this.cbCorreoVenderProducto.Name = "cbCorreoVenderProducto";
-            this.cbCorreoVenderProducto.Size = new System.Drawing.Size(166, 21);
+            this.cbCorreoVenderProducto.Size = new System.Drawing.Size(155, 20);
             this.cbCorreoVenderProducto.TabIndex = 114;
             this.cbCorreoVenderProducto.Text = "Al venderse producto";
             this.cbCorreoVenderProducto.UseVisualStyleBackColor = true;

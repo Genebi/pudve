@@ -67,7 +67,7 @@ namespace PuntoDeVentaV2
             "HOUSEDEPOTAUTLAN", 
             "HOUSEDEPOTGRULLO",
             "HOUSEDEPOTREPARTO"
-        };
+        }; 
         public EnvioDeCorreo() 
         { 
             InitializeComponent(); 
@@ -1053,80 +1053,80 @@ namespace PuntoDeVentaV2
 
         private void chRespaldo_MouseClick(object sender, MouseEventArgs e)
         {
-            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("EviarRespaldoCerrarSesion", FormPrincipal.id_empleado)))
-            {
-                if (FormPrincipal.id_empleado.Equals(0))
-                {
-                    //contadorValidarCambioCheckBoxRespaldo += 1;
-                    var habilitado = 0;
+            //using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("EviarRespaldoCerrarSesion", FormPrincipal.id_empleado)))
+            //{
+            //    if (FormPrincipal.id_empleado.Equals(0))
+            //    {
+            //        //contadorValidarCambioCheckBoxRespaldo += 1;
+            //        var habilitado = 0;
 
-                    if (chRespaldo.Checked)
-                    {
-                        habilitado = 1;
-                        //if (contadorValidarCambioCheckBoxRespaldo > 0 && chRespaldo.Checked)
-                        //{
-                        //    EscogerTipoRespaldo tipoRespaldo = new EscogerTipoRespaldo();
+            //        if (chRespaldo.Checked)
+            //        {
+            //            habilitado = 1;
+            //            //if (contadorValidarCambioCheckBoxRespaldo > 0 && chRespaldo.Checked)
+            //            //{
+            //            //    EscogerTipoRespaldo tipoRespaldo = new EscogerTipoRespaldo();
 
-                        //    tipoRespaldo.ShowDialog();
+            //            //    tipoRespaldo.ShowDialog();
 
-                        //    tipoRespaldo.FormClosed += delegate
-                        //    {
-                        //        habilitado = EscogerTipoRespaldo.typeBackUp;
-                        //    };
-                        //}
-                    }
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-                }
-                else if (!permisoEmpleado.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow item in permisoEmpleado.Rows)
-                    {
-                        if (item[0].ToString().Equals("1"))
-                        {
+            //            //    tipoRespaldo.FormClosed += delegate
+            //            //    {
+            //            //        habilitado = EscogerTipoRespaldo.typeBackUp;
+            //            //    };
+            //            //}
+            //        }
+            //        cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            //    }
+            //    else if (!permisoEmpleado.Rows.Count.Equals(0))
+            //    {
+            //        foreach (DataRow item in permisoEmpleado.Rows)
+            //        {
+            //            if (item[0].ToString().Equals("1"))
+            //            {
 
-                            //contadorValidarCambioCheckBoxRespaldo += 1;
-                            var habilitado = 0;
+            //                //contadorValidarCambioCheckBoxRespaldo += 1;
+            //                var habilitado = 0;
 
-                            if (chRespaldo.Checked)
-                            {
-                                habilitado = 1;
-                                //if (contadorValidarCambioCheckBoxRespaldo > 0 && chRespaldo.Checked)
-                                //{
-                                //    EscogerTipoRespaldo tipoRespaldo = new EscogerTipoRespaldo();
+            //                if (chRespaldo.Checked)
+            //                {
+            //                    habilitado = 1;
+            //                    //if (contadorValidarCambioCheckBoxRespaldo > 0 && chRespaldo.Checked)
+            //                    //{
+            //                    //    EscogerTipoRespaldo tipoRespaldo = new EscogerTipoRespaldo();
 
-                                //    tipoRespaldo.ShowDialog();
+            //                    //    tipoRespaldo.ShowDialog();
 
-                                //    tipoRespaldo.FormClosed += delegate
-                                //    {
-                                //        habilitado = EscogerTipoRespaldo.typeBackUp;
-                                //    };
-                                //}
-                            }
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+            //                    //    tipoRespaldo.FormClosed += delegate
+            //                    //    {
+            //                    //        habilitado = EscogerTipoRespaldo.typeBackUp;
+            //                    //    };
+            //                    //}
+            //                }
+            //                cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoRespaldo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
 
-                        }
-                        else
-                        {
-                            MessageBox.Show("No tienes permisos para modificar esta opcion");
-                            if (chRespaldo.Checked == true)
-                            {
-                                chRespaldo.Checked = false;
-                                return;
-                            }
-                            else
-                            {
-                                chRespaldo.Checked = true;
-                                return;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No tienes permisos para modificar esta opcion");
-                    return;
-                }
-            }
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("No tienes permisos para modificar esta opcion");
+            //                if (chRespaldo.Checked == true)
+            //                {
+            //                    chRespaldo.Checked = false;
+            //                    return;
+            //                }
+            //                else
+            //                {
+            //                    chRespaldo.Checked = true;
+            //                    return;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("No tienes permisos para modificar esta opcion");
+            //        return;
+            //    }
+            //}
         }
 
         private void EnvioDeCorreo_KeyDown(object sender, KeyEventArgs e)
