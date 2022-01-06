@@ -68,14 +68,14 @@ namespace PuntoDeVentaV2
 
             CargarFormularios(tipoDescuento);
 
-            if (FormPrincipal.userNickName.Equals("HOUSEDEPOTAUTLAN") || FormPrincipal.userNickName.Equals("HOUSEDEPOTREPARTO") || FormPrincipal.userNickName.Equals("OXXITO") || FormPrincipal.userNickName.Equals("CLARAZV1"))
-            {
-                rbMayoreo.Visible = true;
-            }
-            else
-            {
-                rbMayoreo.Visible = false;
-            }
+            //if (FormPrincipal.userNickName.Equals("HOUSEDEPOTAUTLAN") || FormPrincipal.userNickName.Equals("HOUSEDEPOTREPARTO") || FormPrincipal.userNickName.Equals("OXXITO") || FormPrincipal.userNickName.Equals("CLARAZV1"))
+            //{
+            //    rbMayoreo.Visible = true;
+            //}
+            //else
+            //{
+            //    rbMayoreo.Visible = false;
+            //}
         }
 
         private void obtenerTipoDescuento()
