@@ -218,6 +218,7 @@ namespace PuntoDeVentaV2
             var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteNegrita);
 
             var numRow = 0;
+            var numValidacion = 0;
 
             Document reporte = new Document(PageSize.A3.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -333,31 +334,31 @@ namespace PuntoDeVentaV2
             tablaInventario.AddCell(colStock);
             tablaInventario.AddCell(colPrecio);
 
-            for (int i = 0; i < recorridoFinalProductos; i++)
+            foreach (DataRow item in dtProductosMenosVendidos.Rows)
             {
-                var articulo = dtProductosMenosVendidos.Rows[i]["ARTICULO"].ToString();
-                var vendidos = dtProductosMenosVendidos.Rows[i]["VENDIDOS"].ToString();
+                var articulo = item["ARTICULO"].ToString();
+                var vendidos = item["VENDIDOS"].ToString();
                 var codigoBarra = string.Empty;
-                if (string.IsNullOrWhiteSpace(dtProductosMenosVendidos.Rows[i]["CODIGO DE BARRAS"].ToString()))
+                if (string.IsNullOrWhiteSpace(item["CODIGO DE BARRAS"].ToString()))
                 {
                     codigoBarra = "N/A";
                 }
                 else
                 {
-                    codigoBarra = dtProductosMenosVendidos.Rows[i]["CODIGO DE BARRAS"].ToString();
+                    codigoBarra = item["CODIGO DE BARRAS"].ToString();
                 }
-                var categoria = dtProductosMenosVendidos.Rows[i]["CATEGORIA"].ToString();
+                var categoria = item["CATEGORIA"].ToString();
                 var ultimaVenta = string.Empty;
-                if (dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString().Contains("N/A"))
+                if (item["ULTIMA VENTA"].ToString().Contains("N/A"))
                 {
-                    ultimaVenta = dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString();
+                    ultimaVenta = item["ULTIMA VENTA"].ToString();
                 }
                 else
                 {
                     var FechaHoraUltimaVenta = new DateTime();
                     try
                     {
-                        FechaHoraUltimaVenta = DateTime.Parse(dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString(), new CultureInfo("en-CA"));
+                        FechaHoraUltimaVenta = DateTime.Parse(item["ULTIMA VENTA"].ToString(), new CultureInfo("en-CA"));
                         ultimaVenta = FechaHoraUltimaVenta.ToString();
                     }
                     catch (FormatException ex)
@@ -366,54 +367,115 @@ namespace PuntoDeVentaV2
                         //return;
                     }
                 }
-                var stock = dtProductosMenosVendidos.Rows[i]["STOCK"].ToString();
-                var precio = dtProductosMenosVendidos.Rows[i]["PRECIO"].ToString();
+                var stock = item["STOCK"].ToString();
+                var precio = item["PRECIO"].ToString();
+
+                bool siEsNumero = false;
+                double cantidadVendidos = 0;
+
+                siEsNumero = double.TryParse(vendidos, out cantidadVendidos);
 
                 numRow++;
 
-                PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString("N0"), fuenteNormal));
-                colNoConceptoTmp.BorderWidth = 1;
-                colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_LEFT;
+                if (cantidadVendidos > 0)
+                {
+                    PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString("N0"), fuenteNormal));
+                    colNoConceptoTmp.BorderWidth = 1;
+                    colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_LEFT;
 
-                PdfPCell colNombreTmp = new PdfPCell(new Phrase(articulo, fuenteNormal));
-                colNombreTmp.BorderWidth = 1;
-                colNombreTmp.HorizontalAlignment = Element.ALIGN_LEFT;
+                    PdfPCell colNombreTmp = new PdfPCell(new Phrase(articulo, fuenteNormal));
+                    colNombreTmp.BorderWidth = 1;
+                    colNombreTmp.HorizontalAlignment = Element.ALIGN_LEFT;
 
-                PdfPCell colVendidosTmp = new PdfPCell(new Phrase(Convert.ToDecimal(vendidos).ToString("N"), fuenteNormal));
-                totalVendidos += (long)Convert.ToDouble(Convert.ToDecimal(vendidos).ToString("N"));
-                colVendidosTmp.BorderWidth = 1;
-                colVendidosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colVendidosTmp = new PdfPCell(new Phrase(Convert.ToDecimal(vendidos).ToString("N"), fuenteNormal));
+                    totalVendidos += (long)Convert.ToDouble(Convert.ToDecimal(vendidos).ToString("N"));
+                    colVendidosTmp.BorderWidth = 1;
+                    colVendidosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colCodigoBarraTmp = new PdfPCell(new Phrase(codigoBarra, fuenteNormal));
-                colCodigoBarraTmp.BorderWidth = 1;
-                colCodigoBarraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colCodigoBarraTmp = new PdfPCell(new Phrase(codigoBarra, fuenteNormal));
+                    colCodigoBarraTmp.BorderWidth = 1;
+                    colCodigoBarraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colCategoriaTmp = new PdfPCell(new Phrase(categoria, fuenteNormal));
-                colCategoriaTmp.BorderWidth = 1;
-                colCategoriaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colCategoriaTmp = new PdfPCell(new Phrase(categoria, fuenteNormal));
+                    colCategoriaTmp.BorderWidth = 1;
+                    colCategoriaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colUltimaVentaTmp = new PdfPCell(new Phrase(ultimaVenta, fuenteNormal));
-                colUltimaVentaTmp.BorderWidth = 1;
-                colUltimaVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colUltimaVentaTmp = new PdfPCell(new Phrase(ultimaVenta, fuenteNormal));
+                    colUltimaVentaTmp.BorderWidth = 1;
+                    colUltimaVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colStockTmp = new PdfPCell(new Phrase(Convert.ToDecimal(stock).ToString("N"), fuenteNormal));
-                totalStock += (long)Convert.ToDouble(Convert.ToDecimal(stock).ToString("N"));
-                colStockTmp.BorderWidth = 1;
-                colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colStockTmp = new PdfPCell(new Phrase(Convert.ToDecimal(stock).ToString("N"), fuenteNormal));
+                    totalStock += (long)Convert.ToDouble(Convert.ToDecimal(stock).ToString("N"));
+                    colStockTmp.BorderWidth = 1;
+                    colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colPrecioTmp = new PdfPCell(new Phrase(precio, fuenteNormal));
-                totalPrecio += (long)Convert.ToDouble(precio);
-                colPrecioTmp.BorderWidth = 1;
-                colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colPrecioTmp = new PdfPCell(new Phrase(precio, fuenteNormal));
+                    totalPrecio += (long)Convert.ToDouble(precio);
+                    colPrecioTmp.BorderWidth = 1;
+                    colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                tablaInventario.AddCell(colNoConceptoTmp);
-                tablaInventario.AddCell(colNombreTmp);
-                tablaInventario.AddCell(colVendidosTmp);
-                tablaInventario.AddCell(colCodigoBarraTmp);
-                tablaInventario.AddCell(colCategoriaTmp);
-                tablaInventario.AddCell(colUltimaVentaTmp);
-                tablaInventario.AddCell(colStockTmp);
-                tablaInventario.AddCell(colPrecioTmp);
+                    tablaInventario.AddCell(colNoConceptoTmp);
+                    tablaInventario.AddCell(colNombreTmp);
+                    tablaInventario.AddCell(colVendidosTmp);
+                    tablaInventario.AddCell(colCodigoBarraTmp);
+                    tablaInventario.AddCell(colCategoriaTmp);
+                    tablaInventario.AddCell(colUltimaVentaTmp);
+                    tablaInventario.AddCell(colStockTmp);
+                    tablaInventario.AddCell(colPrecioTmp);
+
+                    numValidacion++;
+
+                    if (numValidacion.Equals(recorridoFinalProductos))
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    PdfPCell colNoConceptoTmp = new PdfPCell(new Phrase(numRow.ToString("N0"), fuenteNormal));
+                    colNoConceptoTmp.BorderWidth = 1;
+                    colNoConceptoTmp.HorizontalAlignment = Element.ALIGN_LEFT;
+
+                    PdfPCell colNombreTmp = new PdfPCell(new Phrase(articulo, fuenteNormal));
+                    colNombreTmp.BorderWidth = 1;
+                    colNombreTmp.HorizontalAlignment = Element.ALIGN_LEFT;
+
+                    PdfPCell colVendidosTmp = new PdfPCell(new Phrase(Convert.ToDecimal(vendidos).ToString("N"), fuenteNormal));
+                    totalVendidos += (long)Convert.ToDouble(Convert.ToDecimal(vendidos).ToString("N"));
+                    colVendidosTmp.BorderWidth = 1;
+                    colVendidosTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colCodigoBarraTmp = new PdfPCell(new Phrase(codigoBarra, fuenteNormal));
+                    colCodigoBarraTmp.BorderWidth = 1;
+                    colCodigoBarraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colCategoriaTmp = new PdfPCell(new Phrase(categoria, fuenteNormal));
+                    colCategoriaTmp.BorderWidth = 1;
+                    colCategoriaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colUltimaVentaTmp = new PdfPCell(new Phrase(ultimaVenta, fuenteNormal));
+                    colUltimaVentaTmp.BorderWidth = 1;
+                    colUltimaVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colStockTmp = new PdfPCell(new Phrase(Convert.ToDecimal(stock).ToString("N"), fuenteNormal));
+                    totalStock += (long)Convert.ToDouble(Convert.ToDecimal(stock).ToString("N"));
+                    colStockTmp.BorderWidth = 1;
+                    colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colPrecioTmp = new PdfPCell(new Phrase(precio, fuenteNormal));
+                    totalPrecio += (long)Convert.ToDouble(precio);
+                    colPrecioTmp.BorderWidth = 1;
+                    colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    tablaInventario.AddCell(colNoConceptoTmp);
+                    tablaInventario.AddCell(colNombreTmp);
+                    tablaInventario.AddCell(colVendidosTmp);
+                    tablaInventario.AddCell(colCodigoBarraTmp);
+                    tablaInventario.AddCell(colCategoriaTmp);
+                    tablaInventario.AddCell(colUltimaVentaTmp);
+                    tablaInventario.AddCell(colStockTmp);
+                    tablaInventario.AddCell(colPrecioTmp);
+                }
             }
 
             if (totalVendidos > 0 || totalStock > 0)
@@ -493,6 +555,46 @@ namespace PuntoDeVentaV2
             //};
 
             vr.ShowDialog();
+
+            //for (int i = 0; i < recorridoFinalProductos; i++)
+            //{
+            //    var articulo = dtProductosMenosVendidos.Rows[i]["ARTICULO"].ToString();
+            //    var vendidos = dtProductosMenosVendidos.Rows[i]["VENDIDOS"].ToString();
+            //    var codigoBarra = string.Empty;
+            //    if (string.IsNullOrWhiteSpace(dtProductosMenosVendidos.Rows[i]["CODIGO DE BARRAS"].ToString()))
+            //    {
+            //        codigoBarra = "N/A";
+            //    }
+            //    else
+            //    {
+            //        codigoBarra = dtProductosMenosVendidos.Rows[i]["CODIGO DE BARRAS"].ToString();
+            //    }
+            //    var categoria = dtProductosMenosVendidos.Rows[i]["CATEGORIA"].ToString();
+            //    var ultimaVenta = string.Empty;
+            //    if (dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString().Contains("N/A"))
+            //    {
+            //        ultimaVenta = dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString();
+            //    }
+            //    else
+            //    {
+            //        var FechaHoraUltimaVenta = new DateTime();
+            //        try
+            //        {
+            //            FechaHoraUltimaVenta = DateTime.Parse(dtProductosMenosVendidos.Rows[i]["ULTIMA VENTA"].ToString(), new CultureInfo("en-CA"));
+            //            ultimaVenta = FechaHoraUltimaVenta.ToString();
+            //        }
+            //        catch (FormatException ex)
+            //        {
+            //            //MessageBox.Show($"{fechaHoraInicio} este no es no es un formato correcto.\n\n{ex.Message.ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            //return;
+            //        }
+            //    }
+            //    var stock = dtProductosMenosVendidos.Rows[i]["STOCK"].ToString();
+            //    var precio = dtProductosMenosVendidos.Rows[i]["PRECIO"].ToString();
+
+            //    numRow++;
+            
+            //}
         }
 
         private void rbMenosVendidos_CheckedChanged(object sender, EventArgs e)
