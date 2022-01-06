@@ -422,9 +422,9 @@ namespace PuntoDeVentaV2
                 colNoConceptoTmpExtra.BorderWidth = 0;
                 colNoConceptoTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colNombreTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                PdfPCell colNombreTmpExtra = new PdfPCell(new Phrase("TOTAL:", fuenteNormal));
                 colNombreTmpExtra.BorderWidth = 0;
-                colNombreTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                colNombreTmpExtra.HorizontalAlignment = Element.ALIGN_RIGHT;
 
                 PdfPCell colVendidosTmpExtra = new PdfPCell(new Phrase(Convert.ToDouble(totalVendidos).ToString("N"), fuenteNormal));
                 colVendidosTmpExtra.BorderWidthTop = 0;
