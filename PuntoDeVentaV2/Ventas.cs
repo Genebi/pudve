@@ -3230,13 +3230,23 @@ namespace PuntoDeVentaV2
                     if (string.IsNullOrWhiteSpace(credito)) { credito = "0"; }
                     if (string.IsNullOrWhiteSpace(Anticipo)) { Anticipo = "0"; }
 
-                    string[] datos = new string[] {
+
+                    if (FormPrincipal.userNickName.Contains("@"))
+                    {
+                        string[] datos = new string[] {
+                            "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                             efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
+                        };
+                        cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos));
+                    }
+                    else
+                    {
+                        string[] datos = new string[] {
                         "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
                         efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo
                     };
-
-                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
-
+                        cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                    }
 
                     // Obtener ID de la venta
                     string idVenta = cn.EjecutarSelect("SELECT ID FROM Ventas ORDER BY ID DESC LIMIT 1", 1).ToString();

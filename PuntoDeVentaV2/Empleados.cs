@@ -205,7 +205,8 @@ namespace PuntoDeVentaV2
                 if (cboMostrados.Text == "Habilitados")
                 {
                     string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
-                    cn.EjecutarConsulta(cs.deshabilitarEmpleado(nombre));
+                    string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    cn.EjecutarConsulta(cs.deshabilitarEmpleado(nombre,idemp));
                     string tipo = string.Empty;
                     if (cboMostrados.Text == "Habilitados")
                     {
@@ -220,7 +221,8 @@ namespace PuntoDeVentaV2
                 else if (cboMostrados.Text == "Deshabilitados")
                 {
                     string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
-                    cn.EjecutarConsulta(cs.habilitarEmpleado(nombre));
+                    string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    cn.EjecutarConsulta(cs.habilitarEmpleado(nombre,idemp));
                     string tipo = string.Empty;
                     if (cboMostrados.Text == "Habilitados")
                     {

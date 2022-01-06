@@ -102,6 +102,8 @@ namespace PuntoDeVentaV2
 
         int tipoDeMovimiento = 0;
 
+        public static int corteCaja = 0;
+
         public CajaN()
         {
             InitializeComponent();
@@ -259,7 +261,8 @@ namespace PuntoDeVentaV2
 
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
-            
+            corteCaja = 1;
+
             var f = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             
             date = f;
