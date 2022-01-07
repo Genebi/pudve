@@ -521,7 +521,8 @@ namespace PuntoDeVentaV2
                         cbProveedor.Height = 30;
                         cbProveedor.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                         cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
-                        cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
+                        cbProveedor.SelectedIndexChanged += new EventHandler(comboBoxProveedor_SelectValueChanged);
+                        cbProveedor.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
 
                         if (listaProveedores.Length > 0)
                         {
@@ -626,6 +627,7 @@ namespace PuntoDeVentaV2
                         cbDetalleGral.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
                         cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
                         cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
+                        cbDetalleGral.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
                         cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
                         //cbDetalleGral.BackColor = Color.CadetBlue;
 
@@ -726,6 +728,12 @@ namespace PuntoDeVentaV2
                 lblMsgSinSelecDetalles.Height = 250;
                 lblMsgSinSelecDetalles.Text = Utilidades.JustifyParagraph(lblMsgSinSelecDetalles.Text, lblMsgSinSelecDetalles.Font, lblMsgSinSelecDetalles.ClientSize.Width);
             }
+        }
+
+        private void ComboBox_Quitar_MouseWheel(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs ee = (HandledMouseEventArgs)e;
+            ee.Handled = true;
         }
 
         private void ComboBoxDetalleGral_SelectValueChanged(object sender, EventArgs e)
