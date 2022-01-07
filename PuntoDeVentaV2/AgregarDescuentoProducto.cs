@@ -1037,12 +1037,6 @@ namespace PuntoDeVentaV2
         
         private void generarLineaMayoreo()
         {
-            if (string.IsNullOrWhiteSpace(rangoInicial))
-            {
-                MessageBox.Show("Es necesario ingresar una cantidad para el rango.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
             panelHijo.Name = $"panelMayoreo{idGenerado}";
             panelHijo.Width = 725;
@@ -1213,6 +1207,13 @@ namespace PuntoDeVentaV2
             TextBox tb2 = (TextBox)this.Controls.Find("tbMayoreo" + id + "_3", true).FirstOrDefault();
             //Se cambia el mensaje del CheckBox
             CheckBox cb = (CheckBox)this.Controls.Find("checkMayoreo" + id, true).FirstOrDefault();
+
+            if (string.IsNullOrWhiteSpace(tb1.Text))
+            {
+                refrescarForm = false;
+                MessageBox.Show("Es necesario ingresar una cantidad para el rango.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             if (id == "1")
             {
