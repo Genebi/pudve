@@ -64,6 +64,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo2_Click(object sender, EventArgs e)
         {
+            var mensajeMessageBox = "No se han realizado ventas en el rango de fechas seleccionados";
             if (dtpFin.Value >= dtpInicio.Value)
             {
                 fechaHoraInicio = dtpInicio.Value.ToString("yyyy-MM-dd HH:mm:ss");
@@ -104,6 +105,10 @@ namespace PuntoDeVentaV2
                             MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             generarReporteMenosVendidos(dtProductosMasVendidos);
                         }
+                        else
+                        {
+                            MessageBox.Show(mensajeMessageBox, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
                 }
                 else if (rbMenosVendidos.Checked)
@@ -119,7 +124,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                MessageBox.Show($"No se han realizado ventas el día de hoy {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(mensajeMessageBox, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
@@ -134,7 +139,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                MessageBox.Show($"No se han realizado ventas el día de hoy {fechaHoraFinal}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(mensajeMessageBox, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
