@@ -1011,6 +1011,8 @@ namespace PuntoDeVentaV2
 
             if (e.KeyCode == Keys.Enter)
             {
+                if (string.IsNullOrWhiteSpace(tb1.Text)) return;
+
                 tb1.Enabled = false;
                 tb2.Enabled = false;
                 tb1.BackColor = Color.White;
@@ -1029,8 +1031,7 @@ namespace PuntoDeVentaV2
                 }
 
                 rangoInicial = tb1.Text;
-                
-                
+
                 generarLineaMayoreo();
             }
         }
