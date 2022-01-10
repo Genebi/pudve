@@ -700,7 +700,12 @@ namespace PuntoDeVentaV2
                         tb3.Margin = new Padding(95, 5, 0, 0);
                         tb3.TextAlign = HorizontalAlignment.Center;
                         tb3.Text = precioProducto.ToString("0.00");
-                        tb3.ReadOnly = true;
+
+                        if (cantidadRangos != idGenerado)
+                        {
+                            tb3.ReadOnly = true;
+                        }
+                        
                         tb3.BackColor = Color.White;
                         tb3.Text = renglon[3].ToString();
                         tb3.Enabled = habilitado;
