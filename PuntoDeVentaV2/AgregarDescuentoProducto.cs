@@ -1191,6 +1191,7 @@ namespace PuntoDeVentaV2
                         btTmp.Enabled  = true;
                         tbTmp1.Enabled = true;
                         tbTmp2.Enabled = true;
+                        tbTmp2.ReadOnly = false;
                     }
                     else
                     {
