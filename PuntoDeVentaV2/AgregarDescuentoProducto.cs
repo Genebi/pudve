@@ -693,6 +693,12 @@ namespace PuntoDeVentaV2
                         tb2.Text = renglon[2].ToString() != "N" ? renglon[2].ToString() : "";
                         tb2.Enabled = habilitado;
 
+                        Label lb = new Label();
+                        lb.Text = "";
+                        lb.Name = $"fraseMas{idGenerado}";
+                        lb.Width = 40;
+                        lb.TextAlign = ContentAlignment.MiddleLeft;
+
                         TextBox tb3 = new TextBox();
                         tb3.Name = $"tbMayoreo{idGenerado}_3";
                         tb3.Width = 100;
@@ -705,7 +711,11 @@ namespace PuntoDeVentaV2
                         {
                             tb3.ReadOnly = true;
                         }
-                        
+                        else
+                        {
+                            lb.Text = "o más";
+                        }
+
                         tb3.BackColor = Color.White;
                         tb3.Text = renglon[3].ToString();
                         tb3.Enabled = habilitado;
@@ -768,6 +778,7 @@ namespace PuntoDeVentaV2
 
                         panelHijo2.Controls.Add(tb1);
                         panelHijo2.Controls.Add(tb2);
+                        panelHijo2.Controls.Add(lb);
                         panelHijo2.Controls.Add(tb3);
 
                         // Condiciones para cuando carga el descuento por rango al editar
