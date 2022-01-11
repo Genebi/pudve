@@ -1043,6 +1043,9 @@ namespace PuntoDeVentaV2
                 {
                     Button bt = (Button)this.Controls.Find("btnEliminarD" + tmp[0], true).FirstOrDefault();
                     bt.Enabled = false;
+
+                    Label lbFrase = (Label)this.Controls.Find("fraseMas" + (idGenerado - 1), true).FirstOrDefault();
+                    lbFrase.Text = "";
                 }
 
                 if (idGenerado > 1)
@@ -1084,6 +1087,7 @@ namespace PuntoDeVentaV2
 
             Label lb = new Label();
             lb.Text = "o más";
+            lb.Name = $"fraseMas{idGenerado}";
             lb.Width = 40;
             lb.TextAlign = ContentAlignment.MiddleLeft;
 
@@ -1208,6 +1212,9 @@ namespace PuntoDeVentaV2
                         tbTmp1.Enabled = true;
                         tbTmp2.Enabled = true;
                         tbTmp2.ReadOnly = false;
+
+                        Label lbFrase = (Label)this.Controls.Find("fraseMas" + idTmp, true).FirstOrDefault();
+                        lbFrase.Text = "o más";
                     }
                     else
                     {
@@ -1269,6 +1276,9 @@ namespace PuntoDeVentaV2
             {
                 Button bt = (Button)this.Controls.Find("btnEliminarD" + id, true).FirstOrDefault();
                 bt.Enabled = false;
+
+                Label lbFrase = (Label)this.Controls.Find("fraseMas" + (idGenerado - 1), true).FirstOrDefault();
+                lbFrase.Text = "";
             }
 
             if (idGenerado > 1)
