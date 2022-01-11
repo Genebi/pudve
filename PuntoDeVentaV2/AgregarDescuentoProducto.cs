@@ -1018,6 +1018,22 @@ namespace PuntoDeVentaV2
             {
                 if (string.IsNullOrWhiteSpace(tb1.Text)) return;
 
+                if (tmp[0] != "1")
+                {
+                    int idTemp = Convert.ToInt32(tmp[0]);
+
+                    TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
+
+                    // Comparando precio nuevo con la linea anterior
+                    if (float.Parse(tb2.Text.Trim()) >= float.Parse(tbPrecioAnterior.Text.Trim()))
+                    {
+                        refrescarForm = false;
+                        MessageBox.Show("El precio nuevo no puede ser mayor o igual al precio anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+                
+
                 tb1.Enabled = false;
                 tb2.Enabled = false;
                 tb1.BackColor = Color.White;
@@ -1215,6 +1231,7 @@ namespace PuntoDeVentaV2
             //Se cambia el mensaje del CheckBox
             CheckBox cb = (CheckBox)this.Controls.Find("checkMayoreo" + id, true).FirstOrDefault();
 
+
             if (string.IsNullOrWhiteSpace(tb1.Text))
             {
                 refrescarForm = false;
@@ -1228,6 +1245,18 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                int idTemp = Convert.ToInt32(id);
+
+                TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
+
+                // Comparando precio nuevo con la linea anterior
+                if (float.Parse(tb2.Text.Trim()) >= float.Parse(tbPrecioAnterior.Text.Trim()))
+                {
+                    refrescarForm = false;
+                    MessageBox.Show("El precio nuevo no puede ser mayor o igual al precio anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 cb.Text = $"De entre {(Convert.ToInt32(rangoInicial) + 1)} a {tb1.Text} siempre costarán {tb2.Text}";
             }
 
