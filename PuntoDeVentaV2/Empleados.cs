@@ -29,6 +29,8 @@ namespace PuntoDeVentaV2
         int opcion2 = 1; // Editar empleado
         int opcion3 = 1; // Permisos empleado
 
+        string mensajeParaMostrar = string.Empty;
+
         public Empleados()
         {
             InitializeComponent();
@@ -497,7 +499,8 @@ namespace PuntoDeVentaV2
                     
                     if (cantidadAMostrar <= 0)
                     {
-                        MessageBox.Show("Catidad a mostrar debe ser mayor a 0", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                        Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
                         txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
                         return;
                     }
@@ -540,7 +543,8 @@ namespace PuntoDeVentaV2
 
                 if (cantidadAMostrar <= 0)
                 {
-                    MessageBox.Show("Catidad a mostrar debe ser mayor a 0", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                    Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
                     txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
                     return;
                 }

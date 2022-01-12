@@ -3540,5 +3540,10 @@ namespace PuntoDeVentaV2
 
             return contenido;
         }
+
+        public static void MensajeCuandoSeaCeroEnElListado(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
