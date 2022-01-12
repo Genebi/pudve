@@ -5926,6 +5926,8 @@ namespace PuntoDeVentaV2
 
                     am.ShowDialog();
                 }
+
+                desmarcarCheckBoxSeleccionados();
             }
             else
             {
@@ -5994,6 +5996,34 @@ namespace PuntoDeVentaV2
             //    MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //    txtBusqueda.Focus();
             //}
+        }
+
+        private void desmarcarCheckBoxSeleccionados()
+        {
+            CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+
+            if (headerBox.Checked)
+            {
+                quitarChecadosDelDataGridViewProductos();
+                headerBox.Checked = false;
+            }
+            else
+            {
+                quitarChecadosDelDataGridViewProductos();
+            }
+        }
+
+        private void quitarChecadosDelDataGridViewProductos()
+        {
+            foreach (DataGridViewRow row in DGVProductos.Rows)
+            {
+                bool estaChecado = Convert.ToBoolean(row.Cells["checkProducto"].Value);
+
+                if (estaChecado)
+                {
+                    row.Cells["checkProducto"].Value = false;
+                }
+            }
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
