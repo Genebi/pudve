@@ -1280,7 +1280,8 @@ namespace PuntoDeVentaV2
 
         private void botonCancelar_Click(object sender, EventArgs e)
         {
-            Dispose();
+            //Dispose();
+            this.Close();
         }
 
 
