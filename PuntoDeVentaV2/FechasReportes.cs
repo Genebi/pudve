@@ -131,7 +131,7 @@ namespace PuntoDeVentaV2
         {
             if (!origen.Equals("Productos"))
             {
-                cbEmpleados.Items.Add("Seleccionar Empleado/Producto");
+                cbEmpleados.Items.Add("Seleccionar una opción");
             }
             else
             {
@@ -176,6 +176,25 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void cbEmpleados_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index.Equals(0))
+            {
+                ComboBox combo = ((ComboBox)sender);
+                using (SolidBrush brush = new SolidBrush(e.ForeColor))
+                {
+                    Font font = e.Font;
+                    if (combo.Text.Equals("Seleccionar una opción"))
+                    {
+                        font = new Font(font, FontStyle.Bold);
+                    }
+                    e.DrawBackground();
+                    e.Graphics.DrawString(combo.Items[e.Index].ToString(), font, brush, e.Bounds);
+                    e.DrawFocusRectangle();
+                }
             }
         }
     }

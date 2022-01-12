@@ -146,6 +146,7 @@
             this.cbEmpleados.Name = "cbEmpleados";
             this.cbEmpleados.Size = new System.Drawing.Size(250, 21);
             this.cbEmpleados.TabIndex = 116;
+            this.cbEmpleados.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbEmpleados_DrawItem);
             // 
             // FechasReportes
             // 
