@@ -493,7 +493,16 @@ namespace PuntoDeVentaV2
             {
                 if (!txtMaximoPorPagina.Text.Equals(String.Empty))
                 {
-                    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                    var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+                    
+                    if (cantidadAMostrar <= 0)
+                    {
+                        MessageBox.Show("Catidad a mostrar debe ser mayor a 0", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                        return;
+                    }
+
+                    maximo_x_pagina = cantidadAMostrar;
                     p.actualizarTope(maximo_x_pagina);
                     string tipo = string.Empty;
                     if (cboMostrados.Text == "Habilitados")
@@ -527,7 +536,16 @@ namespace PuntoDeVentaV2
         {
             if (!txtMaximoPorPagina.Text.Equals(string.Empty))
             {
-                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+
+                if (cantidadAMostrar <= 0)
+                {
+                    MessageBox.Show("Catidad a mostrar debe ser mayor a 0", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                    return;
+                }
+
+                maximo_x_pagina = cantidadAMostrar;
                 p.actualizarTope(maximo_x_pagina);
                 string tipo = string.Empty;
                 if (cboMostrados.Text == "Habilitados")
