@@ -2936,7 +2936,7 @@ namespace PuntoDeVentaV2
                             noDuplicadoVentas = 0;
                         };
 
-                        detalle.Show();
+                        detalle.ShowDialog();
                         noDuplicadoVentas = 1;
                     }
                 }
