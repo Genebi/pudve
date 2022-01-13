@@ -2924,6 +2924,7 @@ namespace PuntoDeVentaV2
                                 DetalleVenta.cliente = string.Empty;
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
+                                ultimaVentaInformacion();
                             }
                             else
                             {
@@ -2941,6 +2942,22 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void ultimaVentaInformacion()
+        {
+            //var ticketTemporal = cn.CargarDatos("Select Total, DineroRecibido, CambioTotal FROM ventas WHERE ID ORDER BY ID DESC LIMIT 1");
+
+            //foreach (DataRow item in ticketTemporal.Rows)
+            //{
+            //    Total = (float)Convert.ToDouble(item[0]);
+            //    DineroRecibido = (float)Convert.ToDouble(item[1]);
+            //    CambioTotal = (float)Convert.ToDouble(item[2]);
+            //}
+
+
+            InfoUltimaVenta ticketUltimaVenta = new InfoUltimaVenta();
+            ticketUltimaVenta.ShowDialog();
         }
 
         private string buscarIdCliente(string nameCliente)

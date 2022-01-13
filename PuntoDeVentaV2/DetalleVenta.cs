@@ -312,18 +312,18 @@ namespace PuntoDeVentaV2
             }
             //validarNoDuplicarVentas = 0;
 
-            var ticketTemporal = cn.CargarDatos("Select Total, DineroRecibido, CambioTotal FROM ventas WHERE ID ORDER BY ID DESC LIMIT 1");
+            //var ticketTemporal = cn.CargarDatos("Select Total, DineroRecibido, CambioTotal FROM ventas WHERE ID ORDER BY ID DESC LIMIT 1");
 
-            foreach (DataRow item in ticketTemporal.Rows)
-            {
-                Total = (float)Convert.ToDouble(item[0]);
-                DineroRecibido = (float)Convert.ToDouble(item[1]);
-                CambioTotal = (float)Convert.ToDouble(item[2]);
-            }
+            //foreach (DataRow item in ticketTemporal.Rows)
+            //{
+            //    Total = (float)Convert.ToDouble(item[0]);
+            //    DineroRecibido = (float)Convert.ToDouble(item[1]);
+            //    CambioTotal = (float)Convert.ToDouble(item[2]);
+            //}
 
 
-            InfoUltimaVenta ticketUltimaVenta = new InfoUltimaVenta();
-            ticketUltimaVenta.ShowDialog();
+            //InfoUltimaVenta ticketUltimaVenta = new InfoUltimaVenta();
+            //ticketUltimaVenta.ShowDialog();
 
             //if (resetCantidades.Equals(DialogResult.OK))
             //{
@@ -346,7 +346,7 @@ namespace PuntoDeVentaV2
             //    Properties.Settings.Default.Reload();
             //}
 
-            
+
         }
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
