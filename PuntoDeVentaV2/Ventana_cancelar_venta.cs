@@ -215,7 +215,8 @@ namespace PuntoDeVentaV2
                                 }
 
 
-                                this.Dispose();
+                                //this.Dispose();
+                                this.Close();
                             }                            
                         }
                         else
