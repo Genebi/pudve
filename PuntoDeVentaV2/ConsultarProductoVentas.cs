@@ -51,6 +51,8 @@ namespace PuntoDeVentaV2
 
         int columnasAgregadas = 0;
 
+        string mensajeParaMostrar = string.Empty;
+
         #region Sección de operaciones de paginador
         public void filtroLoadProductos()
         {
@@ -128,17 +130,32 @@ namespace PuntoDeVentaV2
         {
             if (!txtMaximoPorPagina.Text.Equals(string.Empty))
             {
-                if (txtMaximoPorPagina.Text.Equals("0"))
+                var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+
+                if (cantidadAMostrar <= 0)
                 {
+                    mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                    Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
                     txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                    return;
                 }
-                else
-                {
-                    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
-                    p.actualizarTope(maximo_x_pagina);
-                    CargarDatos();
-                    actualizar();
-                }
+
+                maximo_x_pagina = cantidadAMostrar;
+                p.actualizarTope(maximo_x_pagina);
+                CargarDatos();
+                actualizar();
+
+                //if (txtMaximoPorPagina.Text.Equals("0"))
+                //{
+                //    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                //}
+                //else
+                //{
+                //    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                //    p.actualizarTope(maximo_x_pagina);
+                //    CargarDatos();
+                //    actualizar();
+                //}
             }
             else if (txtMaximoPorPagina.Text.Equals(string.Empty))
             {
@@ -235,7 +252,17 @@ namespace PuntoDeVentaV2
             {
                 if (!txtMaximoPorPagina.Text.Equals(string.Empty))
                 {
-                    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                    var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+
+                    if (cantidadAMostrar <= 0)
+                    {
+                        mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                        Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
+                        txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                        return;
+                    }
+
+                    maximo_x_pagina = cantidadAMostrar;
                     p.actualizarTope(maximo_x_pagina);
                     CargarDatos();
                     actualizar();
