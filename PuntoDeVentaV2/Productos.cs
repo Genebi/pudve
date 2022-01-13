@@ -1994,6 +1994,8 @@ namespace PuntoDeVentaV2
                     txtBusqueda.Focus();
 
                     //productosSeleccionados.Clear();
+
+                    desmarcarCheckBoxSeleccionados();
                 };
             }
         }
