@@ -458,6 +458,7 @@ namespace PuntoDeVentaV2
             };
 
             //this.Dispose();
+            ir_clientes.llamadoDesdeListadoVentasParaFacturar = 1;
             ir_clientes.ShowDialog();
         }
 

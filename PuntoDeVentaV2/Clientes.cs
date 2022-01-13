@@ -36,6 +36,8 @@ namespace PuntoDeVentaV2
 
         IEnumerable<AgregarCliente> FormCliente = Application.OpenForms.OfType<AgregarCliente>();
 
+        public int llamadoDesdeListadoVentasParaFacturar { get; set; }
+
         public Clientes()
         {
             InitializeComponent();
@@ -533,15 +535,20 @@ namespace PuntoDeVentaV2
 
         private void DGVClientes_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var idCliente = DGVClientes.CurrentRow.Cells[0].Value.ToString();
+            var validacioDeLLamado = llamadoDesdeListadoVentasParaFacturar;
 
-            //Validamos este apartado para cuando entre a clientes cuando sea de facturas del listado de ventas
-            if (Crear_factura.procedencia.Equals("timbrado Factura"))
+            if (validacioDeLLamado.Equals(1))
             {
-                idClienteParaFacturas = Convert.ToInt32(idCliente);
+                var idCliente = DGVClientes.CurrentRow.Cells[0].Value.ToString();
 
-                Crear_factura.procedencia = string.Empty;//Limpia la variable para evitar errores
-                this.Close();
+                //Validamos este apartado para cuando entre a clientes cuando sea de facturas del listado de ventas
+                if (Crear_factura.procedencia.Equals("timbrado Factura"))
+                {
+                    idClienteParaFacturas = Convert.ToInt32(idCliente);
+
+                    Crear_factura.procedencia = string.Empty;//Limpia la variable para evitar errores
+                    this.Close();
+                }
             }
         }
     }
