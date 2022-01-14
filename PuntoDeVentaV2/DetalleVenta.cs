@@ -625,23 +625,41 @@ namespace PuntoDeVentaV2
                 if (e.KeyData.Equals(Keys.Right))
                 {
                     //MessageBox.Show("Flecha de Dirección Derecha");
-                    if (nameOfControl.Equals("textBox3"))
+                    if (nameOfControl.Equals("txtEfectivo"))
                     {
-                        contenido = textBox3.Text;
-                        textBox2.Text = contenido;
-                        textBox3.Clear();
-                        anterior = GetNextControl(textBox3, false);
-                        anterior.Focus();
-                        textBox2.SelectAll();
+                        contenido = txtEfectivo.Text;
+                        txtTarjeta.Text = contenido;
+                        txtEfectivo.Clear();
+                        anteriorSiguiente = GetNextControl(txtEfectivo, false);
+                        anteriorSiguiente.Focus();
+                        txtTarjeta.SelectAll();
                     }
-                    else if (nameOfControl.Equals("textBox2"))
+                    else if (nameOfControl.Equals("txtTarjeta"))
                     {
-                        contenido = textBox2.Text;
-                        textBox1.Text = contenido;
-                        textBox2.Clear();
-                        anterior = GetNextControl(textBox2, false);
-                        anterior.Focus();
-                        textBox1.SelectAll();
+                        contenido = txtTarjeta.Text;
+                        txtTransferencia.Text = contenido;
+                        txtTarjeta.Clear();
+                        anteriorSiguiente = GetNextControl(txtTarjeta, false);
+                        anteriorSiguiente.Focus();
+                        txtTransferencia.SelectAll();
+                    }
+                    else if (nameOfControl.Equals("txtTransferencia"))
+                    {
+                        contenido = txtTransferencia.Text;
+                        txtCheque.Text = contenido;
+                        txtTransferencia.Clear();
+                        anteriorSiguiente = GetNextControl(txtTransferencia, false);
+                        anteriorSiguiente.Focus();
+                        txtCheque.SelectAll();
+                    }
+                    else if (nameOfControl.Equals("txtCheque"))
+                    {
+                        contenido = txtTransferencia.Text;
+                        txtVales.Text = contenido;
+                        txtCheque.Clear();
+                        anteriorSiguiente = GetNextControl(txtCheque, false);
+                        anteriorSiguiente.Focus();
+                        txtVales.SelectAll();
                     }
                 }
                 else if (e.KeyData.Equals(Keys.Left))
