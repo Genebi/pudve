@@ -953,54 +953,32 @@ namespace PuntoDeVentaV2
 
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
         {
-            //if (rbCliente.Checked.Equals(true))
-            //{
-            //    validarRBProducto();
-            //}
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+            {
+                if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                {
+                    return;
+                }
+            }
 
             txtTituloDescuento.Text = "Descuento por Producto";
             tipoDescuento = 1;
             CargarFormularios(tipoDescuento);
-
-            if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
-            {
-                vecesMostradas = 0;
-                lblMensaje.Text = string.Empty;
-                if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
-                {
-                    lblMensaje.Visible = true;
-                    if (vecesMostradas < 5)
-                    {
-                        lblMensaje.Text = "Este producto ya tiene asignado descuento por Mayoreo desea cambiarlo";
-                    }
-                }
-            }
         }
 
         private void rbMayoreo_CheckedChanged(object sender, EventArgs e)
         {
-            //if (rbMayoreo.Checked.Equals(true))
-            //{
-            //    validarRBMayoreo();
-            //}
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+            {
+                if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                {
+                    return;
+                }
+            }
 
             txtTituloDescuento.Text = "Descuento por Mayoreo";
             tipoDescuento = idGenerado = 2;
             CargarFormularios(tipoDescuento);
-
-            if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
-            {
-                vecesMostradas = 0;
-                lblMensaje.Text = string.Empty;
-                if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
-                {
-                    lblMensaje.Visible = true;
-                    if (vecesMostradas < 5)
-                    {
-                        lblMensaje.Text = "Este producto ya tiene asignado descuento por Producto desea cambiarlo";
-                    }
-                }
-            }
         }
         
         private void rangoProductosTB(object sender, KeyEventArgs e)
@@ -1412,6 +1390,30 @@ namespace PuntoDeVentaV2
                 lblMensaje.ForeColor = System.Drawing.Color.FromArgb(A, B, C);
                 
                 vecesMostradas++;
+            }
+        }
+
+        private void rbMayoreo_Click(object sender, EventArgs e)
+        {
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+            {
+                if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                {
+                    //lblMensaje.Text = "Este producto ya tiene asignado descuento por Producto desea cambiarlo";
+                    MessageBox.Show("Este producto ya tiene asignado Descuento por Producto, si desea cambiarlo es necesario eliminar el descuento actual.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void rbCliente_Click(object sender, EventArgs e)
+        {
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
+            {
+                if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                {
+                    //lblMensaje.Text = "Este producto ya tiene asignado descuento por Mayoreo desea cambiarlo";
+                    MessageBox.Show("Este producto ya tiene asignado Descuento por Mayoreo, si desea cambiarlo es necesario eliminar el descuento actual.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);   
+                }
             }
         }
     }

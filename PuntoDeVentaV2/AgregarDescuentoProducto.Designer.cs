@@ -131,6 +131,7 @@
             this.rbCliente.Text = "Descuento por Producto";
             this.rbCliente.UseVisualStyleBackColor = true;
             this.rbCliente.CheckedChanged += new System.EventHandler(this.rbCliente_CheckedChanged);
+            this.rbCliente.Click += new System.EventHandler(this.rbCliente_Click);
             // 
             // rbMayoreo
             // 
@@ -144,6 +145,7 @@
             this.rbMayoreo.Text = "Descuento por Mayoreo";
             this.rbMayoreo.UseVisualStyleBackColor = true;
             this.rbMayoreo.CheckedChanged += new System.EventHandler(this.rbMayoreo_CheckedChanged);
+            this.rbMayoreo.Click += new System.EventHandler(this.rbMayoreo_Click);
             // 
             // btnEliminarDescuentos
             // 
