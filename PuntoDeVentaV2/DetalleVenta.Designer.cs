@@ -269,6 +269,8 @@
             this.txtTransferencia.Size = new System.Drawing.Size(80, 22);
             this.txtTransferencia.TabIndex = 98;
             this.txtTransferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTransferencia.Click += new System.EventHandler(this.txtTransferencia_Click);
+            this.txtTransferencia.Enter += new System.EventHandler(this.txtTransferencia_Enter);
             this.txtTransferencia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTransferencia_KeyUp);
             // 
             // txtCheque
@@ -279,6 +281,8 @@
             this.txtCheque.Size = new System.Drawing.Size(80, 22);
             this.txtCheque.TabIndex = 99;
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCheque.Click += new System.EventHandler(this.txtCheque_Click);
+            this.txtCheque.Enter += new System.EventHandler(this.txtCheque_Enter);
             this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
             // 
             // txtVales
@@ -289,6 +293,8 @@
             this.txtVales.Size = new System.Drawing.Size(80, 22);
             this.txtVales.TabIndex = 100;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVales.Click += new System.EventHandler(this.txtVales_Click);
+            this.txtVales.Enter += new System.EventHandler(this.txtVales_Enter);
             this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
             // 
             // txtTarjeta
@@ -299,6 +305,8 @@
             this.txtTarjeta.Size = new System.Drawing.Size(80, 22);
             this.txtTarjeta.TabIndex = 97;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTarjeta.Click += new System.EventHandler(this.txtTarjeta_Click);
+            this.txtTarjeta.Enter += new System.EventHandler(this.txtTarjeta_Enter);
             this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
             // 
             // txtEfectivo
@@ -309,6 +317,8 @@
             this.txtEfectivo.Size = new System.Drawing.Size(80, 22);
             this.txtEfectivo.TabIndex = 96;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEfectivo.Click += new System.EventHandler(this.txtEfectivo_Click);
+            this.txtEfectivo.Enter += new System.EventHandler(this.txtEfectivo_Enter);
             this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 
             // txtTotalVenta

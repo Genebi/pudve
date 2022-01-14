@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace PuntoDeVentaV2
 {
     public partial class DetalleVenta : Form
-    { 
+    {
         MetodosBusquedas mb = new MetodosBusquedas();
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -27,10 +27,11 @@ namespace PuntoDeVentaV2
         public static int validarNoDuplicarVentas = 0;
 
         float Total;
-        float DineroRecibido ;
-        float CambioTotal ;
+        float DineroRecibido;
+        float CambioTotal;
 
         string nameOfControl = string.Empty;
+        string contenidoCantidad = string.Empty;
 
         public DetalleVenta(float total, string idCliente = "")
         {
@@ -265,7 +266,7 @@ namespace PuntoDeVentaV2
                     Ventas.idCliente = idCliente.ToString();
                 }
 
-                
+
                 Ventas.credito = credito.ToString();
                 Ventas.botonAceptar = true;
 
@@ -279,12 +280,12 @@ namespace PuntoDeVentaV2
 
                 //idCliente = 0 ;
                 //nameClienteNameVenta = string.Empty;
-                
+
                 this.Hide();
                 this.Close();
             }
             else
-            {               
+            {
                 MessageBox.Show("La cantidades no coinciden con el total a pagar", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -545,7 +546,7 @@ namespace PuntoDeVentaV2
             //{
             //    //El total del campo efecto + la suma de los otros metodos de pago - total de venta
             //    cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos + credito) - total);
-                
+
             //    if (cambio < 0)
             //    {
             //        cambio = 0;
@@ -624,13 +625,12 @@ namespace PuntoDeVentaV2
 
                 if (e.KeyData.Equals(Keys.Right))
                 {
-                    //MessageBox.Show("Flecha de Dirección Derecha");
                     if (nameOfControl.Equals("txtEfectivo"))
                     {
                         contenido = txtEfectivo.Text;
                         txtTarjeta.Text = contenido;
                         txtEfectivo.Clear();
-                        anteriorSiguiente = GetNextControl(txtEfectivo, false);
+                        anteriorSiguiente = GetNextControl(txtEfectivo, true);
                         anteriorSiguiente.Focus();
                         txtTarjeta.SelectAll();
                     }
@@ -639,7 +639,7 @@ namespace PuntoDeVentaV2
                         contenido = txtTarjeta.Text;
                         txtTransferencia.Text = contenido;
                         txtTarjeta.Clear();
-                        anteriorSiguiente = GetNextControl(txtTarjeta, false);
+                        anteriorSiguiente = GetNextControl(txtTarjeta, true);
                         anteriorSiguiente.Focus();
                         txtTransferencia.SelectAll();
                     }
@@ -648,23 +648,22 @@ namespace PuntoDeVentaV2
                         contenido = txtTransferencia.Text;
                         txtCheque.Text = contenido;
                         txtTransferencia.Clear();
-                        anteriorSiguiente = GetNextControl(txtTransferencia, false);
+                        anteriorSiguiente = GetNextControl(txtTransferencia, true);
                         anteriorSiguiente.Focus();
                         txtCheque.SelectAll();
                     }
                     else if (nameOfControl.Equals("txtCheque"))
                     {
-                        contenido = txtTransferencia.Text;
+                        contenido = txtCheque.Text;
                         txtVales.Text = contenido;
                         txtCheque.Clear();
-                        anteriorSiguiente = GetNextControl(txtCheque, false);
+                        anteriorSiguiente = GetNextControl(txtCheque, true);
                         anteriorSiguiente.Focus();
                         txtVales.SelectAll();
                     }
                 }
                 else if (e.KeyData.Equals(Keys.Left))
                 {
-                    //MessageBox.Show("Flecha de Dirección Izquierda");
                     if (nameOfControl.Equals("txtVales"))
                     {
                         contenido = txtVales.Text;
@@ -769,6 +768,124 @@ namespace PuntoDeVentaV2
                 txtVales.Text = "0.";
                 txtVales.Select(txtVales.Text.Length, 0);
             }
+        }
+
+        private void txtEfectivo_Enter(object sender, EventArgs e)
+        {
+            nameOfControl = txtEfectivo.Name.ToString();
+            obtenerCantidad(txtEfectivo.Text, nameOfControl);
+            txtEfectivo.SelectionStart = 0;
+            txtEfectivo.SelectionLength = txtEfectivo.Text.Length;
+        }
+
+        private void txtTarjeta_Enter(object sender, EventArgs e)
+        {
+            nameOfControl = txtTarjeta.Name.ToString();
+            obtenerCantidad(txtTarjeta.Text, nameOfControl);
+        }
+
+        private void txtTransferencia_Enter(object sender, EventArgs e)
+        {
+            nameOfControl = txtTransferencia.Name.ToString();
+            obtenerCantidad(txtTransferencia.Text, nameOfControl);
+        }
+
+        private void txtCheque_Enter(object sender, EventArgs e)
+        {
+            nameOfControl = txtCheque.Name.ToString();
+            obtenerCantidad(txtCheque.Text, nameOfControl);
+        }
+
+        private void txtVales_Enter(object sender, EventArgs e)
+        {
+            nameOfControl = txtVales.Name.ToString();
+            obtenerCantidad(txtVales.Text, nameOfControl);
+        }
+
+        private void obtenerCantidad(string cotenidoTextBox, string nombreControl)
+        {
+            if (!string.IsNullOrWhiteSpace(txtEfectivo.Text.ToString()))
+            {
+                contenidoCantidad = txtEfectivo.Text;
+            }
+            else if (!string.IsNullOrWhiteSpace(txtTarjeta.Text.ToString()))
+            {
+                contenidoCantidad = txtTarjeta.Text;
+            }
+            else if (!string.IsNullOrWhiteSpace(txtTransferencia.Text.ToString()))
+            {
+                contenidoCantidad = txtTransferencia.Text;
+            }
+            else if (!string.IsNullOrWhiteSpace(txtCheque.Text.ToString()))
+            {
+                contenidoCantidad = txtCheque.Text;
+            }
+            else if (!string.IsNullOrWhiteSpace(txtVales.Text.ToString()))
+            {
+                contenidoCantidad = txtVales.Text;
+            }
+
+            limpiarTextBoxMetodoDePago();
+
+            if (txtEfectivo.Name.Equals(nombreControl))
+            {
+                txtEfectivo.Text = contenidoCantidad;
+            }
+            else if (txtTarjeta.Name.Equals(nombreControl))
+            {
+                txtTarjeta.Text = contenidoCantidad;
+            }
+            else if (txtTransferencia.Name.Equals(nombreControl))
+            {
+                txtTransferencia.Text = contenidoCantidad;
+            }
+            else if (txtCheque.Name.Equals(nombreControl))
+            {
+                txtCheque.Text = contenidoCantidad;
+            }
+            else if (txtVales.Name.Equals(nombreControl))
+            {
+                txtVales.Text = contenidoCantidad;
+            }
+        }
+
+        private void limpiarTextBoxMetodoDePago()
+        {
+            txtEfectivo.Clear();
+            txtTarjeta.Clear();
+            txtTransferencia.Clear();
+            txtCheque.Clear();
+            txtVales.Clear();
+        }
+
+        private void txtVales_Click(object sender, EventArgs e)
+        {
+            txtVales.SelectAll();
+            txtVales.Focus();
+        }
+
+        private void txtCheque_Click(object sender, EventArgs e)
+        {
+            txtCheque.SelectAll();
+            txtCheque.Focus();
+        }
+
+        private void txtTransferencia_Click(object sender, EventArgs e)
+        {
+            txtTransferencia.SelectAll();
+            txtTransferencia.Focus();
+        }
+
+        private void txtTarjeta_Click(object sender, EventArgs e)
+        {
+            txtTarjeta.SelectAll();
+            txtTarjeta.Focus();
+        }
+
+        private void txtEfectivo_Click(object sender, EventArgs e)
+        {
+            txtEfectivo.SelectAll();
+            txtEfectivo.Focus();
         }
     }
 }
