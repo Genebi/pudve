@@ -3354,7 +3354,11 @@ namespace PuntoDeVentaV2
                             #region Inicio Seccion Descuentos
                             if (descuentos.Any())
                             {
-                                FormAgregar.Close();
+                                if (FormAgregar != null)
+                                {
+                                    FormAgregar.Close();
+                                }
+                                
                                 tipoDescuento = descuentos[0];
                             }
 
