@@ -29,6 +29,9 @@ namespace PuntoDeVentaV2
         float Total;
         float DineroRecibido ;
         float CambioTotal ;
+
+        string nameOfControl = string.Empty;
+
         public DetalleVenta(float total, string idCliente = "")
         {
             InitializeComponent();
@@ -74,11 +77,11 @@ namespace PuntoDeVentaV2
             txtCheque.KeyDown += new KeyEventHandler(TerminarVenta);
             txtTransferencia.KeyDown += new KeyEventHandler(TerminarVenta);
 
-            txtEfectivo.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
-            txtTarjeta.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
-            txtVales.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
-            txtCheque.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
-            txtTransferencia.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            //txtEfectivo.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            //txtTarjeta.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            //txtVales.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            //txtCheque.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            //txtTransferencia.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
 
             txtTarjeta.KeyUp += new KeyEventHandler(SumaMetodosPago);
             txtVales.KeyUp += new KeyEventHandler(SumaMetodosPago);
@@ -604,6 +607,83 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Escape)
             {
                 Close();
+            }
+
+            var campos = new string[] {
+                "txtEfectivo",
+                "txtTarjeta",
+                "txtTransferencia",
+                "txtCheque",
+                "txtVales"
+            };
+
+            if (campos.Contains(nameOfControl))
+            {
+                var contenido = string.Empty;
+                Control anteriorSiguiente;
+
+                if (e.KeyData.Equals(Keys.Right))
+                {
+                    //MessageBox.Show("Flecha de Dirección Derecha");
+                    if (nameOfControl.Equals("textBox3"))
+                    {
+                        contenido = textBox3.Text;
+                        textBox2.Text = contenido;
+                        textBox3.Clear();
+                        anterior = GetNextControl(textBox3, false);
+                        anterior.Focus();
+                        textBox2.SelectAll();
+                    }
+                    else if (nameOfControl.Equals("textBox2"))
+                    {
+                        contenido = textBox2.Text;
+                        textBox1.Text = contenido;
+                        textBox2.Clear();
+                        anterior = GetNextControl(textBox2, false);
+                        anterior.Focus();
+                        textBox1.SelectAll();
+                    }
+                }
+                else if (e.KeyData.Equals(Keys.Left))
+                {
+                    //MessageBox.Show("Flecha de Dirección Izquierda");
+                    if (nameOfControl.Equals("txtVales"))
+                    {
+                        contenido = txtVales.Text;
+                        txtCheque.Text = contenido;
+                        txtVales.Clear();
+                        anteriorSiguiente = GetNextControl(txtVales, false);
+                        anteriorSiguiente.Focus();
+                        txtCheque.SelectAll();
+                    }
+                    else if (nameOfControl.Equals("txtCheque"))
+                    {
+                        contenido = txtCheque.Text;
+                        txtTransferencia.Text = contenido;
+                        txtCheque.Clear();
+                        anteriorSiguiente = GetNextControl(txtCheque, false);
+                        anteriorSiguiente.Focus();
+                        txtTransferencia.SelectAll();
+                    }
+                    else if (nameOfControl.Equals("txtTransferencia"))
+                    {
+                        contenido = txtTransferencia.Text;
+                        txtTarjeta.Text = contenido;
+                        txtTransferencia.Clear();
+                        anteriorSiguiente = GetNextControl(txtTransferencia, false);
+                        anteriorSiguiente.Focus();
+                        txtTarjeta.SelectAll();
+                    }
+                    else if (nameOfControl.Equals("txtTarjeta"))
+                    {
+                        contenido = txtTarjeta.Text;
+                        txtEfectivo.Text = contenido;
+                        txtTarjeta.Clear();
+                        anteriorSiguiente = GetNextControl(txtTarjeta, false);
+                        anteriorSiguiente.Focus();
+                        txtTarjeta.SelectAll();
+                    }
+                }
             }
         }
 
