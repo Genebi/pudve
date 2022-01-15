@@ -220,7 +220,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            refrescarForm = true;
+            refrescarForm = false;
             this.Hide();
         }
 
