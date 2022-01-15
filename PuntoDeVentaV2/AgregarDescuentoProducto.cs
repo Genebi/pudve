@@ -1363,6 +1363,7 @@ namespace PuntoDeVentaV2
                     AgregarEditarProducto.SearchDesMayoreo.Clear();
 
                     panelContenedor.Controls.Clear();
+                    AgregarEditarProducto.descuentos.Clear();
                     cargarNvoDescuentos();
 
                     this.Hide();
