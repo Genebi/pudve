@@ -3203,6 +3203,7 @@ namespace PuntoDeVentaV2
                         {
                             cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {idProductoBuscado}");
                             cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {idProductoBuscado}");
+                            descuentos.Clear();
                         }
 
                         if (respuesta == DialogResult.No)
