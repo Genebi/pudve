@@ -82,7 +82,7 @@
             // 
             this.lb_usuario.AutoSize = true;
             this.lb_usuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_usuario.Location = new System.Drawing.Point(59, 106);
+            this.lb_usuario.Location = new System.Drawing.Point(14, 106);
             this.lb_usuario.Name = "lb_usuario";
             this.lb_usuario.Size = new System.Drawing.Size(51, 17);
             this.lb_usuario.TabIndex = 6;
@@ -105,7 +105,7 @@
             // 
             this.lb_usuario_completo.AutoSize = true;
             this.lb_usuario_completo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_usuario_completo.Location = new System.Drawing.Point(110, 107);
+            this.lb_usuario_completo.Location = new System.Drawing.Point(65, 107);
             this.lb_usuario_completo.Name = "lb_usuario_completo";
             this.lb_usuario_completo.Size = new System.Drawing.Size(18, 17);
             this.lb_usuario_completo.TabIndex = 8;
@@ -227,7 +227,7 @@
             // 
             this.txt_usuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_usuario.Location = new System.Drawing.Point(68, 81);
-            this.txt_usuario.MaxLength = 30;
+            this.txt_usuario.MaxLength = 15;
             this.txt_usuario.Name = "txt_usuario";
             this.txt_usuario.Size = new System.Drawing.Size(190, 22);
             this.txt_usuario.TabIndex = 5;
