@@ -25,6 +25,7 @@ namespace PuntoDeVentaV2
         int vecesMostradas = 0;
 
         private bool refrescarForm = true;
+        private bool eliminarDescuento = false;
 
         public AgregarDescuentoProducto()
         {
@@ -1349,8 +1350,18 @@ namespace PuntoDeVentaV2
 
         private void btnEliminarDescuentos_Click(object sender, EventArgs e)
         {
-            var respuesta = MessageBox.Show("¿Estás seguro de eliminar los descuentos?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult respuesta;
 
+            if (eliminarDescuento)
+            {
+                respuesta = DialogResult.Yes;
+                eliminarDescuento = false;
+            }
+            else
+            {
+                respuesta = MessageBox.Show("¿Estás seguro de eliminar los descuentos?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+            
             if (respuesta == DialogResult.Yes)
             {
                 var idProducto = AgregarEditarProducto.idProductoFinal;
@@ -1401,7 +1412,14 @@ namespace PuntoDeVentaV2
                 if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
                 {
                     //lblMensaje.Text = "Este producto ya tiene asignado descuento por Producto desea cambiarlo";
-                    MessageBox.Show("Este producto ya tiene asignado Descuento por Producto, si desea cambiarlo es necesario eliminar el descuento actual.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var respuesta = MessageBox.Show("Este producto ya tiene asignado Descuento por Producto, si desea cambiar el tipo de descuento es necesario eliminar el descuento actual.\n\n¿Desea eliminarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        eliminarDescuento = true;
+
+                        btnEliminarDescuentos.PerformClick();
+                    }
                 }
             }
         }
@@ -1413,7 +1431,14 @@ namespace PuntoDeVentaV2
                 if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
                 {
                     //lblMensaje.Text = "Este producto ya tiene asignado descuento por Mayoreo desea cambiarlo";
-                    MessageBox.Show("Este producto ya tiene asignado Descuento por Mayoreo, si desea cambiarlo es necesario eliminar el descuento actual.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);   
+                    var respuesta = MessageBox.Show("Este producto ya tiene asignado Descuento por Mayoreo, si desea cambiar el tipo de descuento es necesario eliminar el descuento actual.\n\n¿Desea eliminarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);   
+                    
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        eliminarDescuento = true;
+
+                        btnEliminarDescuentos.PerformClick();
+                    }
                 }
             }
         }
