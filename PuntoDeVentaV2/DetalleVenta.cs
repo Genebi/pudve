@@ -33,6 +33,8 @@ namespace PuntoDeVentaV2
         string nameOfControl = string.Empty;
         string contenidoCantidad = string.Empty;
 
+        bool dioClickEnTextBox = false;
+
         public DetalleVenta(float total, string idCliente = "")
         {
             InitializeComponent();
@@ -773,33 +775,56 @@ namespace PuntoDeVentaV2
         private void txtEfectivo_Enter(object sender, EventArgs e)
         {
             nameOfControl = txtEfectivo.Name.ToString();
-            obtenerCantidad(txtEfectivo.Text, nameOfControl);
-            txtEfectivo.SelectionStart = 0;
-            txtEfectivo.SelectionLength = txtEfectivo.Text.Length;
+
+            if (dioClickEnTextBox)
+            {
+                obtenerCantidad(txtEfectivo.Text, nameOfControl);
+                dioClickEnTextBox = false;
+            }
         }
 
         private void txtTarjeta_Enter(object sender, EventArgs e)
         {
             nameOfControl = txtTarjeta.Name.ToString();
-            obtenerCantidad(txtTarjeta.Text, nameOfControl);
+            
+            if (dioClickEnTextBox)
+            {
+                obtenerCantidad(txtTarjeta.Text, nameOfControl);
+                dioClickEnTextBox = false;
+            }
         }
 
         private void txtTransferencia_Enter(object sender, EventArgs e)
         {
             nameOfControl = txtTransferencia.Name.ToString();
-            obtenerCantidad(txtTransferencia.Text, nameOfControl);
+            
+            if (dioClickEnTextBox)
+            {
+                obtenerCantidad(txtTransferencia.Text, nameOfControl);
+                dioClickEnTextBox = false;
+            }
         }
 
         private void txtCheque_Enter(object sender, EventArgs e)
         {
             nameOfControl = txtCheque.Name.ToString();
-            obtenerCantidad(txtCheque.Text, nameOfControl);
+            
+            if (dioClickEnTextBox)
+            {
+                obtenerCantidad(txtCheque.Text, nameOfControl);
+                dioClickEnTextBox = false;
+            }
         }
 
         private void txtVales_Enter(object sender, EventArgs e)
         {
             nameOfControl = txtVales.Name.ToString();
-            obtenerCantidad(txtVales.Text, nameOfControl);
+            
+            if (dioClickEnTextBox)
+            {
+                obtenerCantidad(txtVales.Text, nameOfControl);
+                dioClickEnTextBox = false;
+            }
         }
 
         private void obtenerCantidad(string cotenidoTextBox, string nombreControl)
@@ -860,30 +885,35 @@ namespace PuntoDeVentaV2
 
         private void txtVales_Click(object sender, EventArgs e)
         {
+            dioClickEnTextBox = true;
             txtVales.SelectAll();
             txtVales.Focus();
         }
 
         private void txtCheque_Click(object sender, EventArgs e)
         {
+            dioClickEnTextBox = true;
             txtCheque.SelectAll();
             txtCheque.Focus();
         }
 
         private void txtTransferencia_Click(object sender, EventArgs e)
         {
+            dioClickEnTextBox = true;
             txtTransferencia.SelectAll();
             txtTransferencia.Focus();
         }
 
         private void txtTarjeta_Click(object sender, EventArgs e)
         {
+            dioClickEnTextBox = true;
             txtTarjeta.SelectAll();
             txtTarjeta.Focus();
         }
 
         private void txtEfectivo_Click(object sender, EventArgs e)
         {
+            dioClickEnTextBox = true;
             txtEfectivo.SelectAll();
             txtEfectivo.Focus();
         }
