@@ -70,6 +70,7 @@
             this.lbEliminarCliente.Text = "X";
             this.lbEliminarCliente.Visible = false;
             this.lbEliminarCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbEliminarCliente_LinkClicked);
+            this.lbEliminarCliente.Enter += new System.EventHandler(this.lbEliminarCliente_Enter);
             // 
             // lbTotalCambio
             // 
@@ -138,6 +139,7 @@
             this.btnCredito.Text = "Asignar Crédito";
             this.btnCredito.UseVisualStyleBackColor = false;
             this.btnCredito.Click += new System.EventHandler(this.btnCredito_Click);
+            this.btnCredito.Enter += new System.EventHandler(this.btnCredito_Enter);
             // 
             // lbCliente
             // 
@@ -150,6 +152,7 @@
             this.lbCliente.TabStop = true;
             this.lbCliente.Text = "Asignar cliente";
             this.lbCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbCliente_LinkClicked);
+            this.lbCliente.Enter += new System.EventHandler(this.lbCliente_Enter);
             // 
             // btnAceptar
             // 
@@ -167,6 +170,7 @@
             this.btnAceptar.Text = "Terminar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            this.btnAceptar.Enter += new System.EventHandler(this.btnAceptar_Enter);
             // 
             // lbSeparadorDetalle2
             // 
@@ -200,6 +204,7 @@
             this.txtReferencia.Name = "txtReferencia";
             this.txtReferencia.Size = new System.Drawing.Size(364, 22);
             this.txtReferencia.TabIndex = 101;
+            this.txtReferencia.Enter += new System.EventHandler(this.txtReferencia_Enter);
             // 
             // lbReferencia
             // 

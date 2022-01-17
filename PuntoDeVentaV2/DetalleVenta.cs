@@ -917,5 +917,30 @@ namespace PuntoDeVentaV2
             txtEfectivo.SelectAll();
             txtEfectivo.Focus();
         }
+
+        private void txtReferencia_Enter(object sender, EventArgs e)
+        {
+            nameOfControl = txtReferencia.Name.ToString();
+        }
+
+        private void lbEliminarCliente_Enter(object sender, EventArgs e)
+        {
+            nameOfControl = lbEliminarCliente.Name.ToString();
+        }
+
+        private void lbCliente_Enter(object sender, EventArgs e)
+        {
+            nameOfControl = lbCliente.Name.ToString();
+        }
+
+        private void btnCredito_Enter(object sender, EventArgs e)
+        {
+            nameOfControl = btnCredito.Name.ToString();
+        }
+
+        private void btnAceptar_Enter(object sender, EventArgs e)
+        {
+            nameOfControl = btnAceptar.Name.ToString();
+        }
     }
 }
