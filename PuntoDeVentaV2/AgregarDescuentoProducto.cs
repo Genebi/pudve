@@ -227,6 +227,16 @@ namespace PuntoDeVentaV2
 
         public void cargarNvoDescuentos()
         {
+            if (eliminarDescuento)
+            {
+                bool estadoRadioCliente = rbCliente.Checked;
+                bool estadoRadioMayoreo = rbMayoreo.Checked;
+
+                rbCliente.Checked = !estadoRadioCliente;
+                rbMayoreo.Checked = !estadoRadioMayoreo;
+            }
+            
+
             if (rbCliente.Checked == true)
             {
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
@@ -962,9 +972,12 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            txtTituloDescuento.Text = "Descuento por Producto";
-            tipoDescuento = 1;
-            CargarFormularios(tipoDescuento);
+            if (!eliminarDescuento)
+            {
+                txtTituloDescuento.Text = "Descuento por Producto";
+                tipoDescuento = 1;
+                CargarFormularios(tipoDescuento);
+            }
         }
 
         private void rbMayoreo_CheckedChanged(object sender, EventArgs e)
@@ -977,9 +990,12 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            txtTituloDescuento.Text = "Descuento por Mayoreo";
-            tipoDescuento = idGenerado = 2;
-            CargarFormularios(tipoDescuento);
+            if (!eliminarDescuento)
+            {
+                txtTituloDescuento.Text = "Descuento por Mayoreo";
+                tipoDescuento = idGenerado = 2;
+                CargarFormularios(tipoDescuento);
+            } 
         }
         
         private void rangoProductosTB(object sender, KeyEventArgs e)
@@ -1355,7 +1371,8 @@ namespace PuntoDeVentaV2
             if (eliminarDescuento)
             {
                 respuesta = DialogResult.Yes;
-                eliminarDescuento = false;
+
+                tipoDescuento = tipoDescuento == 1 ? tipoDescuento + 1 : tipoDescuento - 1;
             }
             else
             {
@@ -1377,9 +1394,14 @@ namespace PuntoDeVentaV2
                     AgregarEditarProducto.descuentos.Clear();
                     cargarNvoDescuentos();
 
-                    this.Hide();
+                    if (!eliminarDescuento)
+                    {
+                        this.Hide();
+                    }
                 }
             }
+
+            eliminarDescuento = false;
         }
 
         private void AgregarDescuentoProducto_Activated(object sender, EventArgs e)
