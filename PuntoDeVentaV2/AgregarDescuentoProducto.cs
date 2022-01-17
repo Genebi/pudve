@@ -1028,13 +1028,26 @@ namespace PuntoDeVentaV2
                 {
                     int idTemp = Convert.ToInt32(tmp[0]);
 
+                    TextBox tbCantidadFinalAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_2", true).FirstOrDefault();
                     TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
+
+                    // Comparando cantidad final nueva con la linea anterior
+                    if (Convert.ToInt32(tbCantidadFinalAnterior.Text.Trim()) >= Convert.ToInt32(tb1.Text.Trim()))
+                    {
+                        refrescarForm = false;
+                        MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        tb1.Text = string.Empty;
+                        tb1.Focus();
+                        return;
+                    }
 
                     // Comparando precio nuevo con la linea anterior
                     if (float.Parse(tb2.Text.Trim()) >= float.Parse(tbPrecioAnterior.Text.Trim()))
                     {
                         refrescarForm = false;
                         MessageBox.Show("El precio nuevo no puede ser mayor o igual al precio anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        tb2.Text = string.Empty;
+                        tb2.Focus();
                         return;
                     }
                 }
@@ -1260,13 +1273,26 @@ namespace PuntoDeVentaV2
             {
                 int idTemp = Convert.ToInt32(id);
 
+                TextBox tbCantidadFinalAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_2", true).FirstOrDefault();
                 TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
+
+                // Comparando cantidad final nueva con la linea anterior
+                if (Convert.ToInt32(tbCantidadFinalAnterior.Text.Trim()) >= Convert.ToInt32(tb1.Text.Trim()))
+                {
+                    refrescarForm = false;
+                    MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tb1.Text = string.Empty;
+                    tb1.Focus();
+                    return;
+                }
 
                 // Comparando precio nuevo con la linea anterior
                 if (float.Parse(tb2.Text.Trim()) >= float.Parse(tbPrecioAnterior.Text.Trim()))
                 {
                     refrescarForm = false;
                     MessageBox.Show("El precio nuevo no puede ser mayor o igual al precio anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tb2.Text = string.Empty;
+                    tb2.Focus();
                     return;
                 }
 
