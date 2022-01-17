@@ -178,6 +178,7 @@
             this.btnPublicoG.TabIndex = 113;
             this.btnPublicoG.Text = "Público general";
             this.btnPublicoG.UseVisualStyleBackColor = false;
+            this.btnPublicoG.Visible = false;
             this.btnPublicoG.Click += new System.EventHandler(this.btnPublicoG_Click);
             // 
             // btnBucarCliente
