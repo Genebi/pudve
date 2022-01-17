@@ -774,7 +774,14 @@ namespace PuntoDeVentaV2
 
         private void txtEfectivo_Enter(object sender, EventArgs e)
         {
+            var contenidoTexto = txtEfectivo.Text;
+
             nameOfControl = txtEfectivo.Name.ToString();
+
+            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
+            {
+                obtenerCantidad(txtEfectivo.Text, nameOfControl);
+            }
 
             if (dioClickEnTextBox)
             {
@@ -785,8 +792,15 @@ namespace PuntoDeVentaV2
 
         private void txtTarjeta_Enter(object sender, EventArgs e)
         {
+            var contenidoTexto = txtEfectivo.Text;
+
             nameOfControl = txtTarjeta.Name.ToString();
-            
+
+            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
+            {
+                obtenerCantidad(txtTarjeta.Text, nameOfControl);
+            }
+
             if (dioClickEnTextBox)
             {
                 obtenerCantidad(txtTarjeta.Text, nameOfControl);
@@ -796,8 +810,15 @@ namespace PuntoDeVentaV2
 
         private void txtTransferencia_Enter(object sender, EventArgs e)
         {
+            var contenidoTexto = txtEfectivo.Text;
+
             nameOfControl = txtTransferencia.Name.ToString();
-            
+
+            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
+            {
+                obtenerCantidad(txtTransferencia.Text, nameOfControl);
+            }
+
             if (dioClickEnTextBox)
             {
                 obtenerCantidad(txtTransferencia.Text, nameOfControl);
@@ -807,8 +828,15 @@ namespace PuntoDeVentaV2
 
         private void txtCheque_Enter(object sender, EventArgs e)
         {
+            var contenidoTexto = txtEfectivo.Text;
+
             nameOfControl = txtCheque.Name.ToString();
-            
+
+            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
+            {
+                obtenerCantidad(txtCheque.Text, nameOfControl);
+            }
+
             if (dioClickEnTextBox)
             {
                 obtenerCantidad(txtCheque.Text, nameOfControl);
@@ -818,8 +846,15 @@ namespace PuntoDeVentaV2
 
         private void txtVales_Enter(object sender, EventArgs e)
         {
+            var contenidoTexto = txtEfectivo.Text;
+
             nameOfControl = txtVales.Name.ToString();
-            
+
+            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
+            {
+                obtenerCantidad(txtVales.Text, nameOfControl);
+            }
+
             if (dioClickEnTextBox)
             {
                 obtenerCantidad(txtVales.Text, nameOfControl);
@@ -914,6 +949,7 @@ namespace PuntoDeVentaV2
         private void txtEfectivo_Click(object sender, EventArgs e)
         {
             dioClickEnTextBox = true;
+            txtEfectivo_Enter(sender, e);
             txtEfectivo.SelectAll();
             txtEfectivo.Focus();
         }
