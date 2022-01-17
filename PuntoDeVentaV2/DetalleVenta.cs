@@ -796,11 +796,6 @@ namespace PuntoDeVentaV2
 
             nameOfControl = txtTarjeta.Name.ToString();
 
-            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
-            {
-                obtenerCantidad(txtTarjeta.Text, nameOfControl);
-            }
-
             if (dioClickEnTextBox)
             {
                 obtenerCantidad(txtTarjeta.Text, nameOfControl);
@@ -813,11 +808,6 @@ namespace PuntoDeVentaV2
             var contenidoTexto = txtEfectivo.Text;
 
             nameOfControl = txtTransferencia.Name.ToString();
-
-            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
-            {
-                obtenerCantidad(txtTransferencia.Text, nameOfControl);
-            }
 
             if (dioClickEnTextBox)
             {
@@ -832,11 +822,6 @@ namespace PuntoDeVentaV2
 
             nameOfControl = txtCheque.Name.ToString();
 
-            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
-            {
-                obtenerCantidad(txtCheque.Text, nameOfControl);
-            }
-
             if (dioClickEnTextBox)
             {
                 obtenerCantidad(txtCheque.Text, nameOfControl);
@@ -849,11 +834,6 @@ namespace PuntoDeVentaV2
             var contenidoTexto = txtEfectivo.Text;
 
             nameOfControl = txtVales.Name.ToString();
-
-            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
-            {
-                obtenerCantidad(txtVales.Text, nameOfControl);
-            }
 
             if (dioClickEnTextBox)
             {
