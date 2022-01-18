@@ -2926,7 +2926,7 @@ namespace PuntoDeVentaV2
 
         public string actualizarCompraMinimaMultiple(int idProducto, int cantidad)
         {
-            var consulta = $"UPDATE productmessage SET CantidadMinimaDeCompra = '{cantidad}' WHERE IDProducto = '{idProducto}'";
+            var consulta = $"UPDATE productmessage SET CantidadMinimaDeCompra = '{cantidad}' WHERE IDProducto = {idProducto}";
 
             return consulta;
         }
