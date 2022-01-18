@@ -782,10 +782,9 @@ namespace PuntoDeVentaV2
                         cb1.Margin = new Padding(120, 5, 0, 0);
                         cb1.TextAlign = ContentAlignment.MiddleLeft;
                         cb1.CheckedChanged += seleccionCheckBoxes;
-                        cb1.Checked = true;
                         cb1.Width = 400;
                         cb1.Tag = idGenerado;
-                        cb1.Checked = renglon[4].ToString() == "0" ? true : false;
+                        cb1.Checked = Convert.ToInt16(renglon[4].ToString()) == 0 ? true : false;
 
                         panelHijo2.Controls.Add(tb1);
                         panelHijo2.Controls.Add(tb2);
