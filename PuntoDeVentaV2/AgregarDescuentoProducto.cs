@@ -963,6 +963,11 @@ namespace PuntoDeVentaV2
 
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
         {
+            if (AgregarEditarProducto.descuentos.Any())
+            {
+                return;
+            }
+
             if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
             {
                 if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
@@ -981,6 +986,11 @@ namespace PuntoDeVentaV2
 
         private void rbMayoreo_CheckedChanged(object sender, EventArgs e)
         {
+            if (AgregarEditarProducto.descuentos.Any())
+            {
+                return;
+            }
+
             if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
             {
                 if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
@@ -1035,7 +1045,6 @@ namespace PuntoDeVentaV2
                     {
                         refrescarForm = false;
                         MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        tb1.Text = string.Empty;
                         tb1.Focus();
                         return;
                     }
@@ -1045,7 +1054,6 @@ namespace PuntoDeVentaV2
                     {
                         refrescarForm = false;
                         MessageBox.Show("El precio nuevo no puede ser mayor o igual al precio anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        tb2.Text = string.Empty;
                         tb2.Focus();
                         return;
                     }
@@ -1280,7 +1288,6 @@ namespace PuntoDeVentaV2
                 {
                     refrescarForm = false;
                     MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    tb1.Text = string.Empty;
                     tb1.Focus();
                     return;
                 }
@@ -1290,7 +1297,6 @@ namespace PuntoDeVentaV2
                 {
                     refrescarForm = false;
                     MessageBox.Show("El precio nuevo no puede ser mayor o igual al precio anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    tb2.Text = string.Empty;
                     tb2.Focus();
                     return;
                 }
@@ -1454,6 +1460,23 @@ namespace PuntoDeVentaV2
 
         private void rbMayoreo_Click(object sender, EventArgs e)
         {
+            if (AgregarEditarProducto.descuentos.Any())
+            {
+                rbCliente.Checked = true;
+
+                var respuesta = MessageBox.Show("Este producto ya tiene asignado Descuento por Producto, si desea cambiar el tipo de descuento es necesario eliminar el descuento actual.\n\n¿Desea eliminarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                
+                if (respuesta == DialogResult.Yes)
+                {
+                    AgregarEditarProducto.descuentos.Clear();
+                    rbCliente.Checked = false;
+                    rbMayoreo.Checked = true;
+                    tipoDescuento = 2;
+                    CargarFormularios(tipoDescuento);
+                }
+                
+            }
+
             if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
             {
                 if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
@@ -1473,6 +1496,22 @@ namespace PuntoDeVentaV2
 
         private void rbCliente_Click(object sender, EventArgs e)
         {
+            if (AgregarEditarProducto.descuentos.Any())
+            {
+                rbMayoreo.Checked = true;
+
+                var respuesta = MessageBox.Show("Este producto ya tiene asignado Descuento por Mayoreo, si desea cambiar el tipo de descuento es necesario eliminar el descuento actual.\n\n¿Desea eliminarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                
+                if (respuesta == DialogResult.Yes)
+                {
+                    AgregarEditarProducto.descuentos.Clear();
+                    rbMayoreo.Checked = false;
+                    rbCliente.Checked = true;
+                    tipoDescuento = 1;
+                    CargarFormularios(tipoDescuento);
+                } 
+            }
+
             if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
             {
                 if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
