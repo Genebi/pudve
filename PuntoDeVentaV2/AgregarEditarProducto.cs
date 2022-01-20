@@ -5144,7 +5144,7 @@ namespace PuntoDeVentaV2
                 if (logoTipo.Equals("") || logoTipo.Equals(null))
                 {
                     //btnImagenes.Text = "Seleccionar imagen";
-                    btnImagenes.Text = "Borrar imagen";
+                    //btnImagenes.Text = "Borrar imagen";
                     using (f = new OpenFileDialog())
                     {
                         // le aplicamos un filtro para solo ver 
@@ -5169,6 +5169,7 @@ namespace PuntoDeVentaV2
                         }
                         else 
                         {
+                            btnImagenes.Text = "Seleccionar imagen";
                             return;
                         }
                     }
@@ -5227,6 +5228,7 @@ namespace PuntoDeVentaV2
                                     // Obtenemos el nuevo Path
                                     logoTipo = NvoFileName;
                                 }
+                                btnImagenes.Text = "Borrar imagen";
                             }
 
                             // si el valor de la variable es Null o esta ""
@@ -5244,6 +5246,7 @@ namespace PuntoDeVentaV2
                                     // carrgamos la imagen en el PictureBox
                                     pictureBoxProducto.Image = Image.FromStream(File);
                                 }
+                                btnImagenes.Text = "Borrar imagen";
                             }
                         }
                         catch (Exception ex)
