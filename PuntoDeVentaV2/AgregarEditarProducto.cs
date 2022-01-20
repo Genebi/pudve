@@ -1648,7 +1648,7 @@ namespace PuntoDeVentaV2
                 if (this.Text.Equals("AGREGAR PRODUCTO"))
                 {
                     btnAdd.Visible = true;
-                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar a cual\nCombo ó Servicio esta relcionado.");
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar a cual\nCombo ó Servicio esta relacionado.");
                 }
                 if (this.Text.Equals("AGREGAR COMBOS"))
                 {
@@ -1666,12 +1666,12 @@ namespace PuntoDeVentaV2
                 if (this.Text.Equals("EDITAR PRODUCTO"))
                 {
                     btnAdd.Visible = true;
-                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar a cual\nCombo ó Servicio esta relcionado.");
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar a cual\nCombo ó Servicio esta relacionado.");
                 }
                 else if (this.Text.Equals("COPIAR PRODUCTO"))
                 {
                     btnAdd.Visible = true;
-                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar a cual\nCombo ó Servicio esta relcionado.");
+                    toolTip1.SetToolTip(btnAdd, "En este apartado podrá visualizar a cual\nCombo ó Servicio esta relacionado.");
                 }
 
                 if (this.Text.Equals("EDITAR COMBOS"))
