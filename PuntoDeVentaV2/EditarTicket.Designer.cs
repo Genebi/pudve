@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditarTicket));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkNombreComercial = new System.Windows.Forms.CheckBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.chkMostrarMensaje = new System.Windows.Forms.CheckBox();
             this.label25 = new System.Windows.Forms.Label();
             this.chkMarcarTodosCl = new System.Windows.Forms.CheckBox();
@@ -79,6 +81,7 @@
             this.pnlLogo = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblNombreUs = new System.Windows.Forms.Label();
+            this.lblNombreComercial = new System.Windows.Forms.Label();
             this.lblDireccionUs = new System.Windows.Forms.Label();
             this.lblColyCPUs = new System.Windows.Forms.Label();
             this.lblRFCUs = new System.Windows.Forms.Label();
@@ -98,9 +101,6 @@
             this.label40 = new System.Windows.Forms.Label();
             this.lblMensajeTicket = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.lblNombreComercial = new System.Windows.Forms.Label();
-            this.chkNombreComercial = new System.Windows.Forms.CheckBox();
-            this.label27 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.fLPVistaPreTickect.SuspendLayout();
@@ -159,6 +159,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(298, 568);
             this.panel1.TabIndex = 28;
+            // 
+            // chkNombreComercial
+            // 
+            this.chkNombreComercial.AutoSize = true;
+            this.chkNombreComercial.Checked = true;
+            this.chkNombreComercial.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkNombreComercial.Location = new System.Drawing.Point(242, 116);
+            this.chkNombreComercial.Name = "chkNombreComercial";
+            this.chkNombreComercial.Size = new System.Drawing.Size(15, 14);
+            this.chkNombreComercial.TabIndex = 48;
+            this.chkNombreComercial.UseVisualStyleBackColor = true;
+            this.chkNombreComercial.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(9, 115);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(96, 13);
+            this.label27.TabIndex = 47;
+            this.label27.Text = "Nombre Comercial.";
             // 
             // chkMostrarMensaje
             // 
@@ -546,7 +567,7 @@
             // 
             // btnEditarMensaje
             // 
-            this.btnEditarMensaje.Location = new System.Drawing.Point(120, 492);
+            this.btnEditarMensaje.Location = new System.Drawing.Point(120, 490);
             this.btnEditarMensaje.Name = "btnEditarMensaje";
             this.btnEditarMensaje.Size = new System.Drawing.Size(108, 23);
             this.btnEditarMensaje.TabIndex = 6;
@@ -559,9 +580,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(9, 495);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 13);
+            this.label4.Size = new System.Drawing.Size(105, 13);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Editar mesaje ticket";
+            this.label4.Text = "Editar mensaje ticket";
             // 
             // button1
             // 
@@ -680,6 +701,16 @@
             this.lblNombreUs.TabIndex = 0;
             this.lblNombreUs.Text = "Nombre";
             this.lblNombreUs.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblNombreComercial
+            // 
+            this.lblNombreComercial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNombreComercial.Location = new System.Drawing.Point(3, 87);
+            this.lblNombreComercial.Name = "lblNombreComercial";
+            this.lblNombreComercial.Size = new System.Drawing.Size(543, 23);
+            this.lblNombreComercial.TabIndex = 26;
+            this.lblNombreComercial.Text = "Nombre Comercial";
+            this.lblNombreComercial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDireccionUs
             // 
@@ -870,37 +901,6 @@
             this.label22.TabIndex = 23;
             this.label22.Text = "Fehca Hora y Folio del Ticket";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblNombreComercial
-            // 
-            this.lblNombreComercial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblNombreComercial.Location = new System.Drawing.Point(3, 87);
-            this.lblNombreComercial.Name = "lblNombreComercial";
-            this.lblNombreComercial.Size = new System.Drawing.Size(543, 23);
-            this.lblNombreComercial.TabIndex = 26;
-            this.lblNombreComercial.Text = "Nombre Comercial";
-            this.lblNombreComercial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // chkNombreComercial
-            // 
-            this.chkNombreComercial.AutoSize = true;
-            this.chkNombreComercial.Checked = true;
-            this.chkNombreComercial.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkNombreComercial.Location = new System.Drawing.Point(242, 116);
-            this.chkNombreComercial.Name = "chkNombreComercial";
-            this.chkNombreComercial.Size = new System.Drawing.Size(15, 14);
-            this.chkNombreComercial.TabIndex = 48;
-            this.chkNombreComercial.UseVisualStyleBackColor = true;
-            this.chkNombreComercial.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(9, 115);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(96, 13);
-            this.label27.TabIndex = 47;
-            this.label27.Text = "Nombre Comercial.";
             // 
             // EditarTicket
             // 
