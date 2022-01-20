@@ -19,6 +19,8 @@ namespace PuntoDeVentaV2
 
         private int id_empleado = 0;
 
+        public string[] datos;
+
         public Agregar_empleado_permisos(int id_emp)
         {
             InitializeComponent();
@@ -28,8 +30,34 @@ namespace PuntoDeVentaV2
 
         private void cargar_datos(object sender, EventArgs e)
         {
-            var datos_e= mb.obtener_permisos_empleado(id_empleado, FormPrincipal.userID);
-            cargar_checkbox_permisos(datos_e);
+            if (id_empleado > 0)
+            {
+                var datos_e = mb.obtener_permisos_empleado(id_empleado, FormPrincipal.userID);
+                cargar_checkbox_permisos(datos_e);
+            }
+            else
+            {
+                cargarCheckboxNvoEmpleado();
+            }
+        }
+
+        private void cargarCheckboxNvoEmpleado()
+        {
+            cbox_anticipos.Checked = false;
+            cbox_caja.Checked = false;
+            cbox_clientes.Checked = false;
+            cbox_configuracion.Checked = false;
+            cbox_empleados.Checked = false;
+            cbox_empresas.Checked = false;
+            cbox_facturas.Checked = false;
+            cbox_inventario.Checked = false;
+            cbox_misdatos.Checked = false;
+            cbox_productos.Checked = false;
+            cbox_proveedores.Checked = false;
+            cbox_reportes.Checked = false;
+            cbox_ventas.Checked = false;
+            cboBascula.Checked = false;
+            chkPrecio.Checked = false;
         }
 
         private void cargar_checkbox_permisos(string[] datos_e)
@@ -83,17 +111,24 @@ namespace PuntoDeVentaV2
             string venta = Convert.ToString(Convert.ToInt32(cbox_ventas.Checked));
             string bascula = Convert.ToString(Convert.ToInt32(cboBascula.Checked));
 
-            string[] datos = new string[]
+            datos = new string[]
             {
                 FormPrincipal.userID.ToString(), id_empleado.ToString(), anticipo, caja, client, config, empleado,
                 empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta, bascula
             };
 
-            cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{chkPermisoPrecio}' WHERE IDEmpleado = '{datos[1]}' AND IDUsuario = '{datos[0]}'");
+            if (id_empleado > 0)
+            {
+                cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{chkPermisoPrecio}' WHERE IDEmpleado = '{datos[1]}' AND IDUsuario = '{datos[0]}'");
 
-            int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 2));
+                int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 2));
 
-            if(r > 0)
+                if (r > 0)
+                {
+                    this.Close();
+                }
+            }
+            else
             {
                 this.Close();
             }

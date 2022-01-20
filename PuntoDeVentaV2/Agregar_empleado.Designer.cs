@@ -166,6 +166,7 @@
             this.cmb_bx_permisos.Name = "cmb_bx_permisos";
             this.cmb_bx_permisos.Size = new System.Drawing.Size(190, 25);
             this.cmb_bx_permisos.TabIndex = 13;
+            this.cmb_bx_permisos.SelectedIndexChanged += new System.EventHandler(this.cmb_bx_permisos_SelectedIndexChanged);
             // 
             // txt_autorizar
             // 

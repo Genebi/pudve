@@ -25,6 +25,8 @@ namespace PuntoDeVentaV2
         private string password;
         int actualizar_contraseña = 0;
 
+        string[] datosPermisosSeleccionados;
+
         public Agregar_empleado(int tipo = 1, int empleado = 0)
         {
             InitializeComponent();
@@ -221,18 +223,27 @@ namespace PuntoDeVentaV2
                          *    opcion15 --> Avisar productos no vendidos */
                     }
 
+                    if (cmb_bx_permisos.SelectedIndex == 2)
+                    {
+                        if (datosPermisosSeleccionados.Count() > 0)
+                        {
+                            datosPermisosSeleccionados[1] = id_empleado.ToString();
 
+                            cn.EjecutarConsulta(cs.guardar_editar_empleado(datosPermisosSeleccionados, 2));
+                        }
+                    }
+                    
                     btn_aceptar.Enabled = true;
                     btn_cancelar.Enabled = true;
 
                     this.Close();
 
-                    // Elegidos
-                    if (cmb_bx_permisos.SelectedIndex == 2)
-                    {
-                        Agregar_empleado_permisos elegir_permisos = new Agregar_empleado_permisos(id_empleado);
-                        elegir_permisos.ShowDialog();
-                    }
+                    //// Elegidos
+                    //if (cmb_bx_permisos.SelectedIndex == 2)
+                    //{
+                    //    Agregar_empleado_permisos elegir_permisos = new Agregar_empleado_permisos(id_empleado);
+                    //    elegir_permisos.ShowDialog();
+                    //}
                 }
 
                 if (tipo == 2)
@@ -268,9 +279,7 @@ namespace PuntoDeVentaV2
             }
 
         }
-
         
-
         public string valida_campos()
         {
             string mnsj = "";
@@ -450,6 +459,21 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void cmb_bx_permisos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmb_bx_permisos.SelectedIndex == 2)
+            {
+                Agregar_empleado_permisos AsignarPermisos = new Agregar_empleado_permisos(0);
+
+                AsignarPermisos.FormClosed += delegate
+                {
+                    datosPermisosSeleccionados = AsignarPermisos.datos;
+                };
+
+                AsignarPermisos.ShowDialog();
             }
         }
     }
