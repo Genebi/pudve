@@ -5167,6 +5167,10 @@ namespace PuntoDeVentaV2
                                 File.Dispose();                                         // Liberamos el objeto File
                             }
                         }
+                        else 
+                        {
+                            return;
+                        }
                     }
 
                     // verificamos que si no existe el directorio
