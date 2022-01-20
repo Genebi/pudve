@@ -13,7 +13,7 @@ namespace PuntoDeVentaV2
     public partial class AgregarDescuentoProducto : Form
     {
         Conexion cn = new Conexion();
-        double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
+        double precioProducto = 0;
         //1 = por cliente
         //2 = por mayoreo
         int tipoDescuento = 1;
@@ -44,6 +44,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarDescuentoProducto_Load(object sender, EventArgs e)
         {
+            precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
+
             this.ControlBox = false;
 
             obtenerTipoDescuento();

@@ -1827,7 +1827,7 @@ namespace PuntoDeVentaV2
                 {
                     try
                     {
-                        FormAgregar.Show();
+                        FormAgregar.ShowDialog();
                         FormAgregar.BringToFront();
                     }
                     catch (Exception ex)
@@ -1838,7 +1838,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     FormAgregar = new AgregarDescuentoProducto();
-                    FormAgregar.Show();
+                    FormAgregar.ShowDialog();
                 }
             }
 
