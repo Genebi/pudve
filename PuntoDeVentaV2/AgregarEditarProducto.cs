@@ -8622,7 +8622,20 @@ namespace PuntoDeVentaV2
                 }
                 precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
                 PrecioRecomendado = precioOriginalConIVA * porcentajeGanancia;
-                txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+
+                decimal cantidadPrecioProducto = 0;
+                bool siEsNumero = false;
+
+                siEsNumero = Decimal.TryParse(txtPrecioProducto.Text, out cantidadPrecioProducto);
+
+                if (siEsNumero.Equals(true))
+                {
+                    if (cantidadPrecioProducto.Equals(0))
+                    {
+                        txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+                    }
+                }
+                
                 txtPrecioProducto.Focus();
                 txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
             }
@@ -8654,7 +8667,20 @@ namespace PuntoDeVentaV2
             }
             precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
             PrecioRecomendado = precioOriginalConIVA * porcentajeGanancia;
-            txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+
+            decimal cantidadPrecioProducto = 0;
+            bool siEsNumero = false;
+
+            siEsNumero = Decimal.TryParse(txtPrecioProducto.Text, out cantidadPrecioProducto);
+
+            if (siEsNumero.Equals(true))
+            {
+                if (cantidadPrecioProducto.Equals(0))
+                {
+                    txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+                }
+            }
+            
             txtPrecioProducto.Focus();
             txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
         }
