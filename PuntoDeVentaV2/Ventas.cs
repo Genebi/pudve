@@ -1747,258 +1747,61 @@ namespace PuntoDeVentaV2
             //Mayoreo
             if (tipo == 2)
             {
-                var restantes = 0;
                 var totalImporte = 0f;
                 // Esta variable almace el ultimo checkbox al que se le marco casilla en el descuento
                 var ultimoCheckbox = string.Empty;
 
-                List<string> listaDescuentos = new List<string>();
+                List<string> tomarDescuentos = new List<string>();
+                string ultimoCheck = string.Empty;
+                var precioUltimoDescuento = string.Empty;
 
-                //foreach (var descuento in datosDescuento)
-                //{
-                //    var info = descuento.Split('-');
-
-                //    if (Convert.ToInt32(info[3]) == 1)
-                //    {
-                //        ultimoCheckbox = descuento;
-                //        break;
-                //    }
-                //}
-
-                // Invertimos los valores del array de los descuentos
-                listaDescuentos = datosDescuento.ToList();
-                listaDescuentos.Reverse();
-                datosDescuento = listaDescuentos.ToArray();
-
-
-                if (!string.IsNullOrWhiteSpace(ultimoCheckbox))
+                foreach (var descuento in datosDescuento.Reverse())
                 {
-                    var info = ultimoCheckbox.Split('-');
-                    var rangoInicialCheck = Convert.ToInt32(info[0]);
-                    var rangoFinalCheck = info[1];
-                    var precioFinalCheck = float.Parse(info[2]);
+                    var descIndividual = descuento.Split('-');
 
-                    // Se agregó esto en el ultimo cambio para que si el ultimo checkbox no tiene cantidad especificada
-                    // tome la que el cliente esta agregando de producto
-                    rangoFinalCheck = rangoFinalCheck == "N" ? cantidad.ToString() : rangoFinalCheck;
-
-                    // Aqui tenia rangoFinalCheck != "N"
-                    if (rangoFinalCheck != "")
+                    if (cantidad >= Convert.ToInt32(descIndividual[0]))
                     {
-                        // Aqui se puso directamente el 1 en lugar de la variable rangoInicialCheck
-                        // para el caso cuando el checkbox marcado no es el primero sino el segundo por ejemplo
-                        // y asi logre entrar a la condicion
-                        if (cantidad >= 1 && cantidad <= Convert.ToInt32(rangoFinalCheck))
+                        tomarDescuentos.Add(descuento);
+
+                        precioUltimoDescuento = descIndividual[2];
+
+                        if (descIndividual[3] == "1")
                         {
-                            totalImporte += cantidad * precioFinalCheck;
-
-                            DGVentas.Rows[fila].Cells["AplicarDescuento"].Value = 0;
-                        }
-                        else
-                        {
-                            if (cantidad > Convert.ToInt32(rangoFinalCheck))
-                            {
-                                restantes = Math.Abs(cantidad - Convert.ToInt32(rangoFinalCheck));
-
-                                totalImporte += Convert.ToInt32(rangoFinalCheck) * precioFinalCheck;
-
-                                DGVentas.Rows[fila].Cells["AplicarDescuento"].Value = 1;
-                            }
-                        }
-
-                        // Creamos una lista auxiliar con los valores del array para eliminar el descuento
-                        // que se tomo en cuenta con el checkbox y los que esten anteriores a el
-                        var auxiliar = datosDescuento.ToList();
-
-                        foreach (var descuento in datosDescuento)
-                        {
-                            if (descuento.Equals(ultimoCheckbox))
-                            {
-                                auxiliar.Remove(descuento);
-                                break;
-                            }
-
-                            auxiliar.Remove(descuento);
-                        }
-
-                        datosDescuento = auxiliar.ToArray();
-                    }
-                    //else
-                    //{
-                    //    // Aqui no se hace porque no fue necesario
-                    //}
-                }
-                else
-                {
-                    restantes = cantidad;
-                }
-
-                var longitud = datosDescuento.Length;
-                var continuarProceso = true;
-
-                for (int i = 0; i < longitud; i++)
-                {
-                    var info = datosDescuento[i].Split('-');
-                    var rangoInicial = Convert.ToInt32(info[0]);
-                    var rangoFinal = info[1];
-                    var precioFinal = float.Parse(info[2]);
-                    var checkFinal = Convert.ToInt32(info[3]);
-
-                    if (rangoFinal != "N")
-                    {
-                        if (cantidad >= rangoInicial && cantidad <= Convert.ToInt32(rangoFinal) && continuarProceso == true)
-                        {
-                            cantidad = restantes;
-
-                            totalImporte += cantidad * precioFinal;
-                        }
-                        else
-                        {
-                            if (!continuarProceso) break;
-
-                            if (cantidad > Convert.ToInt32(rangoFinal))
-                            {
-                                // Aqui no se hace porque no fue necesario
-                                int contadorDesc = 0;
-
-                                foreach (var descuento in datosDescuento)
-                                {
-                                    var descLinea = descuento.Split('-');
-
-                                    //int rangoInicialX = Convert.ToInt32(descLinea[0]);
-                                    int rangoFinalX = descLinea[1] == "N" ? Convert.ToInt32(cantidad + 1) : Convert.ToInt32(descLinea[1]);
-                                    //float precioLinea = float.Parse(descLinea[2]);
-
-                                    if (cantidad <= rangoFinalX)
-                                    {
-                                        break;
-                                    }
-
-                                    contadorDesc++;
-                                }
-
-                                var longitudX = datosDescuento.Count() - 1;
-
-                                if (contadorDesc > longitudX)
-                                {
-                                    contadorDesc = longitudX;
-                                }
-
-                                for (int ix = 0; ix <= contadorDesc; ix++)
-                                {
-                                    var descLineaAnterior = new string[] { };
-
-                                    if (datosDescuento.ElementAtOrDefault(ix - 1) != null)
-                                    {
-                                        descLineaAnterior = datosDescuento[ix - 1].Split('-');
-                                    }
-
-                                    var descLinea = datosDescuento[ix].Split('-');
-
-
-                                    if (descLineaAnterior.Count() > 0)
-                                    {
-                                        var auxiliar = cantidad;
-
-                                        descLinea[1] = descLinea[1] == "N" ? (cantidad + 1).ToString() : descLinea[1];
-
-                                        var restantesX = Convert.ToInt32(descLinea[1]) - Convert.ToInt32(descLineaAnterior[1]);
-
-                                        // Con CheckBox
-                                        if (descLinea[3] == "0")
-                                        {
-                                            cantidad = restantesX;
-                                        }
-
-                                        if (ix == contadorDesc)
-                                        {
-                                            cantidad = auxiliar;
-                                        }
-
-                                        if (cantidad > Convert.ToInt32(descLinea[1]) && descLinea[3] == "0")
-                                        {
-                                            // Con CheckBox
-                                            totalImporte += Convert.ToInt32(descLinea[1]) * float.Parse(descLinea[2]);
-
-                                            cantidad = restantesX;
-                                        }
-                                        else if (cantidad > Convert.ToInt32(descLinea[1]) && descLinea[3] == "1") 
-                                        {
-                                            // Sin CheckBox
-                                            totalImporte = Convert.ToInt32(descLinea[1]) * float.Parse(descLinea[2]);
-                                        }
-                                        else
-                                        {
-                                            // Con CheckBox
-                                            if (descLinea[3] == "0")
-                                            {
-                                                totalImporte += cantidad * float.Parse(descLinea[2]);
-
-                                                cantidad = auxiliar - restantesX;
-                                            }
-
-                                            // Sin CheckBox
-                                            if (descLinea[3] == "1")
-                                            {
-                                                totalImporte = cantidad * float.Parse(descLinea[2]);
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        // Con CheckBox
-                                        if (descLinea[3] == "0")
-                                        {
-                                            var restantesX = cantidad - Convert.ToInt32(descLinea[1]);
-
-                                            if (cantidad > Convert.ToInt32(descLinea[1]))
-                                            {
-                                                totalImporte += Convert.ToInt32(descLinea[1]) * float.Parse(descLinea[2]);
-
-                                                cantidad = restantesX;
-                                            }
-                                            else
-                                            {
-                                                var aux = cantidad;
-
-                                                cantidad = Math.Abs(Convert.ToInt32(descLinea[1]) - Convert.ToInt32(descLinea[0]));
-
-                                                totalImporte += cantidad * float.Parse(descLinea[2]);
-
-                                                cantidad = aux - cantidad;
-                                            }
-                                        }
-
-                                        // Sin CheckBox
-                                        if (descLinea[3] == "1")
-                                        {
-                                            if (cantidad >= Convert.ToInt32(descLinea[0]) && cantidad <= Convert.ToInt32(descLinea[1]))
-                                            {
-                                                totalImporte = cantidad * float.Parse(descLinea[2]);
-                                            }
-                                            else
-                                            {
-                                                totalImporte = cantidad * float.Parse(descLinea[2]);
-                                            }
-                                        }
-                                    }
-                                }
-
-                                //Console.WriteLine("IMPORTE: " + totalImporte);
-                                continuarProceso = false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (cantidad >= rangoInicial)
-                        {
-                            cantidad = restantes;
-
-                            totalImporte += cantidad * precioFinal;
+                            ultimoCheck = descuento;
                         }
                     }
                 }
+
+                var auxDatos = tomarDescuentos.ToArray().Reverse();
+                tomarDescuentos = auxDatos.ToList();
+
+                foreach (var descuento in tomarDescuentos)
+                {
+                    var descIndividual = descuento.Split('-');
+
+                    if (cantidad >= Convert.ToInt32(descIndividual[0]) && descIndividual[3] == "0")
+                    {
+                        //restantes = cantidad;
+                        int diferencia = Math.Abs(cantidad - Convert.ToInt32(descIndividual[0]));
+                        totalImporte += diferencia * float.Parse(descIndividual[2]);
+                        cantidad = cantidad - diferencia;
+                    }
+
+                    if (cantidad >= Convert.ToInt32(descIndividual[0]) && descIndividual[3] == "1")
+                    {
+                        var datosUltimoCheck = ultimoCheck.Split('-');
+
+                        int diferencia = Math.Abs(cantidad - Convert.ToInt32(descIndividual[0]));
+                        totalImporte += diferencia * float.Parse(datosUltimoCheck[2]);
+                        cantidad = cantidad - diferencia;
+                    }
+                }
+
+                if (cantidad == 1)
+                {
+                    totalImporte += cantidad * float.Parse(precioUltimoDescuento);
+                }
+
 
                 float importe = float.Parse(DGVentas.Rows[fila].Cells["Importe"].Value.ToString());
                 float descuentoFinal = importe - totalImporte;
