@@ -8633,11 +8633,7 @@ namespace PuntoDeVentaV2
 
                 if (siEsNumero.Equals(true))
                 {
-                    if (cantidadPrecioProducto.Equals(0) && !precioOriginalConIVA.Equals(0))
-                    {
-                        txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
-                    }
-                    else
+                    if (precioOriginalConIVA > 0)
                     {
                         txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
                     }
@@ -8682,11 +8678,7 @@ namespace PuntoDeVentaV2
 
             if (siEsNumero.Equals(true))
             {
-                if (cantidadPrecioProducto.Equals(0) && !precioOriginalConIVA.Equals(0))
-                {
-                    txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
-                }
-                else
+                if (precioOriginalConIVA > 0)
                 {
                     txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
                 }
