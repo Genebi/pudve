@@ -619,140 +619,43 @@ namespace PuntoDeVentaV2
                 "txtCheque",
                 "txtVales"
             };
-
-            var indexCampos = Array.IndexOf(campos, nameOfControl);
-
+            
             if (e.KeyData.Equals(Keys.Right))
             {
+                var indexCampos = Array.IndexOf(campos, nameOfControl);
                 var indexAnteriorSiguiente = indexCampos + 1;
 
                 if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 4)
                 {
-                    var contenido = string.Empty;
-                    TextBox anteriorSiguiente, actual;
+                    TextBox actual, siguiente;
+                    var textBoxActual = campos[indexCampos].ToString();
+                    var textBoxSiguiente = campos[indexAnteriorSiguiente].ToString();
+                    actual = (TextBox)Controls.Find(textBoxActual, true)[0];
+                    siguiente = (TextBox)Controls.Find(textBoxSiguiente, true)[0];
 
-                    actual = (TextBox)Controls.Find(campos[indexCampos].ToString(), true)[0];
-
-                    if (!actual.Equals(null))
-                    {
-                        contenido = actual.Text;
-                        anteriorSiguiente = (TextBox)Controls.Find(campos[indexAnteriorSiguiente].ToString(), true)[0];
-                        anteriorSiguiente.Text = contenido;
-                        actual.Clear();
-                        anteriorSiguiente.Focus();
-                        anteriorSiguiente.SelectAll();
-                    }
+                    obtenerCantidad(actual.Text, textBoxSiguiente);
+                    siguiente.SelectAll();
+                    siguiente.Focus();
                 }
             }
             else if (e.KeyData.Equals(Keys.Left))
             {
+                var indexCampos = Array.IndexOf(campos, nameOfControl);
                 var indexAnteriorSiguiente = indexCampos - 1;
 
                 if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 4)
                 {
-                    var contenido = string.Empty;
-                    TextBox anteriorSiguiente, actual;
+                    TextBox actual, anterior;
+                    var textBoxActual = campos[indexCampos].ToString();
+                    var textBoxAnterior = campos[indexAnteriorSiguiente].ToString();
+                    actual = (TextBox)Controls.Find(textBoxActual, true)[0];
+                    anterior = (TextBox)Controls.Find(textBoxAnterior, true)[0];
 
-                    actual = (TextBox)Controls.Find(campos[indexCampos].ToString(), true)[0];
-
-                    if (!actual.Equals(null))
-                    {
-                        contenido = actual.Text;
-                        anteriorSiguiente = (TextBox)Controls.Find(campos[indexAnteriorSiguiente].ToString(), true)[0];
-                        anteriorSiguiente.Text = contenido;
-                        actual.Clear();
-                        anteriorSiguiente.Focus();
-                        anteriorSiguiente.SelectAll();
-                    }
+                    obtenerCantidad(actual.Text, textBoxAnterior);
+                    anterior.SelectAll();
+                    anterior.Focus();
                 }
             }
-
-            //var indexCampos = Array.IndexOf(campos, nameOfControl);
-
-            //if (campos.Contains(nameOfControl))
-            //{
-            //    var contenido = string.Empty;
-            //    Control anteriorSiguiente;
-
-            //    if (e.KeyData.Equals(Keys.Right))
-            //    {
-            //        if (nameOfControl.Equals("txtEfectivo"))
-            //        {
-            //            contenido = txtEfectivo.Text;
-            //            txtTarjeta.Text = contenido;
-            //            txtEfectivo.Clear();
-            //            anteriorSiguiente = GetNextControl(txtEfectivo, true);
-            //            anteriorSiguiente.Focus();
-            //            txtTarjeta.SelectAll();
-            //        }
-            //        else if (nameOfControl.Equals("txtTarjeta"))
-            //        {
-            //            contenido = txtTarjeta.Text;
-            //            txtTransferencia.Text = contenido;
-            //            txtTarjeta.Clear();
-            //            anteriorSiguiente = GetNextControl(txtTarjeta, true);
-            //            anteriorSiguiente.Focus();
-            //            txtTransferencia.SelectAll();
-            //        }
-            //        else if (nameOfControl.Equals("txtTransferencia"))
-            //        {
-            //            contenido = txtTransferencia.Text;
-            //            txtCheque.Text = contenido;
-            //            txtTransferencia.Clear();
-            //            anteriorSiguiente = GetNextControl(txtTransferencia, true);
-            //            anteriorSiguiente.Focus();
-            //            txtCheque.SelectAll();
-            //        }
-            //        else if (nameOfControl.Equals("txtCheque"))
-            //        {
-            //            contenido = txtCheque.Text;
-            //            txtVales.Text = contenido;
-            //            txtCheque.Clear();
-            //            anteriorSiguiente = GetNextControl(txtCheque, true);
-            //            anteriorSiguiente.Focus();
-            //            txtVales.SelectAll();
-            //        }
-            //    }
-            //    else if (e.KeyData.Equals(Keys.Left))
-            //    {
-            //        if (nameOfControl.Equals("txtVales"))
-            //        {
-            //            contenido = txtVales.Text;
-            //            txtCheque.Text = contenido;
-            //            txtVales.Clear();
-            //            anteriorSiguiente = GetNextControl(txtVales, false);
-            //            anteriorSiguiente.Focus();
-            //            txtCheque.SelectAll();
-            //        }
-            //        else if (nameOfControl.Equals("txtCheque"))
-            //        {
-            //            contenido = txtCheque.Text;
-            //            txtTransferencia.Text = contenido;
-            //            txtCheque.Clear();
-            //            anteriorSiguiente = GetNextControl(txtCheque, false);
-            //            anteriorSiguiente.Focus();
-            //            txtTransferencia.SelectAll();
-            //        }
-            //        else if (nameOfControl.Equals("txtTransferencia"))
-            //        {
-            //            contenido = txtTransferencia.Text;
-            //            txtTarjeta.Text = contenido;
-            //            txtTransferencia.Clear();
-            //            anteriorSiguiente = GetNextControl(txtTransferencia, false);
-            //            anteriorSiguiente.Focus();
-            //            txtTarjeta.SelectAll();
-            //        }
-            //        else if (nameOfControl.Equals("txtTarjeta"))
-            //        {
-            //            contenido = txtTarjeta.Text;
-            //            txtEfectivo.Text = contenido;
-            //            txtTarjeta.Clear();
-            //            anteriorSiguiente = GetNextControl(txtTarjeta, false);
-            //            anteriorSiguiente.Focus();
-            //            txtTarjeta.SelectAll();
-            //        }
-            //    }
-            //}
         }
 
         private void EventoTab(object sender, PreviewKeyDownEventArgs e)
