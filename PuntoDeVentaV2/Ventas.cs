@@ -926,7 +926,7 @@ namespace PuntoDeVentaV2
                     if (File.Exists(rutaImagen))
                     {
                         PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
-                        timer_img_producto.Start();
+                        //timer_img_producto.Start();
                     }
                     else
                     {
