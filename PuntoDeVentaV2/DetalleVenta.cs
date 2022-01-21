@@ -901,6 +901,7 @@ namespace PuntoDeVentaV2
         private void txtVales_Click(object sender, EventArgs e)
         {
             dioClickEnTextBox = true;
+            txtVales_Enter(sender, e);
             txtVales.SelectAll();
             txtVales.Focus();
         }
@@ -908,6 +909,7 @@ namespace PuntoDeVentaV2
         private void txtCheque_Click(object sender, EventArgs e)
         {
             dioClickEnTextBox = true;
+            txtCheque_Enter(sender, e);
             txtCheque.SelectAll();
             txtCheque.Focus();
         }
@@ -915,6 +917,7 @@ namespace PuntoDeVentaV2
         private void txtTransferencia_Click(object sender, EventArgs e)
         {
             dioClickEnTextBox = true;
+            txtTransferencia_Enter(sender, e);
             txtTransferencia.SelectAll();
             txtTransferencia.Focus();
         }
@@ -922,6 +925,7 @@ namespace PuntoDeVentaV2
         private void txtTarjeta_Click(object sender, EventArgs e)
         {
             dioClickEnTextBox = true;
+            txtTarjeta_Enter(sender, e);
             txtTarjeta.SelectAll();
             txtTarjeta.Focus();
         }
