@@ -68,10 +68,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnGuardarMensaje);
             this.Controls.Add(this.txtMensajeTicket);
+            this.KeyPreview = true;
             this.Name = "editarMensajeTicket";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "editarMensajeTicket";
             this.Load += new System.EventHandler(this.editarMensajeTicket_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.editarMensajeTicket_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

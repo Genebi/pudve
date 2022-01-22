@@ -51,5 +51,13 @@ namespace PuntoDeVentaV2
             MessageBox.Show("Guardado Correctamente");
             this.Close();
         }
+
+        private void editarMensajeTicket_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }
