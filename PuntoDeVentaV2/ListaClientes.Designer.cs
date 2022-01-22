@@ -203,6 +203,7 @@
             this.Controls.Add(this.lbAgregarCliente);
             this.Controls.Add(this.DGVClientes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "ListaClientes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
