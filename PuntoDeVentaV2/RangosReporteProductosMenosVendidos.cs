@@ -638,5 +638,13 @@ namespace PuntoDeVentaV2
             txtCantidadMostar.Clear();
             txtCantidadMostar.Text = "0";
         }
+
+        private void RangosReporteProductosMenosVendidos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }

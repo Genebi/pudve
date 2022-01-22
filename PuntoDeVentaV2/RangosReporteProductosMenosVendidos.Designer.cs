@@ -227,6 +227,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RangosReporteProductosMenosVendidos";
@@ -234,6 +235,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Parametros de busqueda del reporte";
             this.Load += new System.EventHandler(this.RangosReporteProductosMenosVendidos_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RangosReporteProductosMenosVendidos_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
