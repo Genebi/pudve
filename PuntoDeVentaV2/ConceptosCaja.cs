@@ -367,5 +367,13 @@ namespace PuntoDeVentaV2
         {
             ejecutarAccion();
         }
+
+        private void ConceptosCaja_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }

@@ -81,9 +81,11 @@
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.txtConcepto);
             this.Controls.Add(this.label1);
+            this.KeyPreview = true;
             this.Name = "AgregarConcepto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Concepto";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarConcepto_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

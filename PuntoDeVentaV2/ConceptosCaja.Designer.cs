@@ -190,12 +190,14 @@
             this.Controls.Add(this.txtConcepto);
             this.Controls.Add(this.DGVConceptos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConceptosCaja";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ConceptosCaja_Load);
             this.Shown += new System.EventHandler(this.ConceptosCaja_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConceptosCaja_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVConceptos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
