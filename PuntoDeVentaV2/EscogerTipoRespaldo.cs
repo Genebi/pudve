@@ -121,7 +121,12 @@ namespace PuntoDeVentaV2
 
         private void EscogerTipoRespaldo_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue.Equals(Keys.Escape))
+            //if (e.KeyValue.Equals(Keys.Escape))
+            //{
+            //    this.Close();
+            //}
+
+            if (e.KeyCode.Equals(Keys.Escape))
             {
                 this.Close();
             }
