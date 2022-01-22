@@ -490,10 +490,12 @@
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.DGVDatosEmpleados);
             this.Controls.Add(this.DGVDatosProductos);
+            this.KeyPreview = true;
             this.Name = "HistorialPrecioBuscador";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HistorialPrecioBuscador";
             this.Load += new System.EventHandler(this.HistorialPrecioBuscador_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HistorialPrecioBuscador_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVDatosEmpleados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVDatosProductos)).EndInit();
             this.panel5.ResumeLayout(false);
