@@ -372,7 +372,7 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode.Equals(Keys.Escape))
             {
-                this.Close();
+                this.Close(); 
             }
         }
     }
