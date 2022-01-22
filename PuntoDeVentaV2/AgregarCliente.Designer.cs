@@ -587,6 +587,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Nuevo Cliente";
             this.Load += new System.EventHandler(this.AgregarCliente_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarCliente_KeyDown);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AgregarCliente_PreviewKeyDown);
             this.gbContenedor.ResumeLayout(false);
             this.gbContenedor.PerformLayout();

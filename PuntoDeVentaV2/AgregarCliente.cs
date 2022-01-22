@@ -592,5 +592,13 @@ namespace PuntoDeVentaV2
                 return;
             }
         }
+
+        private void AgregarCliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }
