@@ -109,11 +109,13 @@
             this.ClientSize = new System.Drawing.Size(496, 235);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.groupBox1);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "setNombreConceptoDinamico";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cambiar Nombre";
             this.Load += new System.EventHandler(this.setNombreConceptoDinamico_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.setNombreConceptoDinamico_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

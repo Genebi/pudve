@@ -158,5 +158,13 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Favor de llenar el campo de nuevo", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void setNombreConceptoDinamico_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }
