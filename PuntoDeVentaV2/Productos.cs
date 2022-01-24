@@ -4507,9 +4507,16 @@ namespace PuntoDeVentaV2
                 extraProductos = auxiliar;
             }
 
-            // Consulta final despues de aplicador filtros, condiciones, etc
-            consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
-            filtroConSinFiltroAvanzado = clickBoton == 1 ? auxiliarConsulta : consultaFiltro;
+            if (status.Equals(2))
+            {
+                consultaFiltro += $"WHERE P.IDUsuario = {FormPrincipal.userID}";
+            }
+            else
+            {
+                // Consulta final despues de aplicador filtros, condiciones, etc
+                consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
+                filtroConSinFiltroAvanzado = clickBoton == 1 ? auxiliarConsulta : consultaFiltro;
+            }
 
             LimpiarAplicandoConsultaFiltros();
             
