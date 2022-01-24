@@ -567,6 +567,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Ajustar";
             this.Load += new System.EventHandler(this.AjustarProducto_Load);
+            this.Shown += new System.EventHandler(this.AjustarProducto_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AjustarProducto_KeyDown);
             this.panelComprado.ResumeLayout(false);
             this.panelComprado.PerformLayout();

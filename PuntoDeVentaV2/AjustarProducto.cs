@@ -39,6 +39,8 @@ namespace PuntoDeVentaV2
 
         private int tipoOperacion = 0;
 
+        public static string mensaje = string.Empty;
+
         //apartado 1 = Productos
         //apartado 2 = Inventario
         /// <summary>
@@ -176,8 +178,11 @@ namespace PuntoDeVentaV2
                     lblOperacionInventario.Text = "Reducir Producto(s)";
 
                     txtDisminuir.Text = cantidadPasadaProductoCombo.ToString();
+                    MessageBox.Show("Test");
                 }
             }
+            var mensajeInventario = cn.CargarDatos($"SELECT Mensaje FROM `mensajesinventario` WHERE IDProducto = {datos[0]}");
+            mensaje = mensajeInventario.Rows[0]["Mensaje"].ToString();
         }
 
         private void CargarConceptos()
@@ -1377,6 +1382,11 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void AjustarProducto_Shown(object sender, EventArgs e)
+        {
+            MessageBox.Show(AjustarProducto.mensaje);
         }
     }
 }

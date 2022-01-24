@@ -744,7 +744,9 @@ namespace PuntoDeVentaV2
                             ap.cantidadPasadaProductoCombo = 0;
                         }
                     }
+
                     ap.ShowDialog();
+                    MessageBox.Show("Test mensaje ap 2");
                 }
                 else
                 {
@@ -896,7 +898,6 @@ namespace PuntoDeVentaV2
             }
 
             AjustarProducto ap = new AjustarProducto(idProducto, 2, tipoSeleccion);
-
             ap.FormClosed += delegate
             {
                 if (botonAceptar)
@@ -911,7 +912,6 @@ namespace PuntoDeVentaV2
                     botonAceptar = false;
                 }
             };
-
             ap.ShowDialog();
         }
 
