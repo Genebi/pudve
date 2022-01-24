@@ -100,6 +100,7 @@
             this.ClientSize = new System.Drawing.Size(548, 261);
             this.Controls.Add(this.DGVConceptosHabilitados);
             this.Controls.Add(this.label1);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InputBoxMessageBoxToDelete";
@@ -107,6 +108,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Conceptos Habilitados";
             this.Load += new System.EventHandler(this.InputBoxMessageBoxToDelete_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputBoxMessageBoxToDelete_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVConceptosHabilitados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
