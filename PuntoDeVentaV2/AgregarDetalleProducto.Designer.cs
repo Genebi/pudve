@@ -369,6 +369,7 @@
             this.Controls.Add(this.chkMensajeInventario);
             this.Controls.Add(this.chkBoxProductMessage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "AgregarDetalleProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -376,6 +377,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AgregarDetalleProducto_FormClosed);
             this.Load += new System.EventHandler(this.AgregarDetalleProducto_Load);
             this.Shown += new System.EventHandler(this.AgregarDetalleProducto_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarDetalleProducto_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

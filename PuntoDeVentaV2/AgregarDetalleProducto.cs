@@ -1399,6 +1399,14 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void AgregarDetalleProducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
+
         private void cbCategoria_SelectIndexChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
