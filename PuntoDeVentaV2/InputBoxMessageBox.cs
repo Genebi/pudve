@@ -64,6 +64,14 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void InputBoxMessageBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
+
         private void InputBoxMessageBox_Load(object sender, EventArgs e)
         {
             cargarValores();
