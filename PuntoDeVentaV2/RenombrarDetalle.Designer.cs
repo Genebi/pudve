@@ -102,6 +102,7 @@
             this.ClientSize = new System.Drawing.Size(548, 261);
             this.Controls.Add(this.DGVConceptosRenombrar);
             this.Controls.Add(this.label1);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RenombrarDetalle";
@@ -109,6 +110,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Renombrar Detalle";
             this.Load += new System.EventHandler(this.RenombrarDetalle_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RenombrarDetalle_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVConceptosRenombrar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
