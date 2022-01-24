@@ -4048,7 +4048,7 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Escape)
             {
-                this.Close();
+                this.Close(); 
             }
         }
 
