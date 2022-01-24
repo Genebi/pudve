@@ -103,6 +103,7 @@
             this.Controls.Add(this.DGVConceptosInhabilitados);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConceptosInhabilitados";
@@ -110,6 +111,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Conceptos Inhabilitados";
             this.Load += new System.EventHandler(this.ConceptosInhabilitados_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConceptosInhabilitados_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVConceptosInhabilitados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
