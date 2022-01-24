@@ -581,7 +581,7 @@ namespace PuntoDeVentaV2
                             if (dtProdMessg.Rows.Count > 0)
                             {
                                 drProdMessg = dtProdMessg.Rows[0];
-                                MessageBox.Show(drProdMessg["ProductOfMessage"].ToString().ToUpper(), "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //MessageBox.Show(drProdMessg["ProductOfMessage"].ToString().ToUpper(), "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
 
