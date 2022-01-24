@@ -441,6 +441,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RevisarInventario";
@@ -451,6 +452,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RevisarInventario_FormClosing);
             this.Load += new System.EventHandler(this.RevisarInventario_Load);
             this.Shown += new System.EventHandler(this.RevisarInventario_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RevisarInventario_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

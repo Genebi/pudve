@@ -2021,5 +2021,13 @@ namespace PuntoDeVentaV2
 
             return result;
         }
+
+        private void RevisarInventario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                btnTerminar.PerformClick();
+            }
+        }
     }
 }
