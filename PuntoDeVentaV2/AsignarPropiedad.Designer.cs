@@ -57,6 +57,7 @@
             this.ClientSize = new System.Drawing.Size(334, 204);
             this.Controls.Add(this.panelContenedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AsignarPropiedad";
@@ -64,6 +65,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AsignarPropiedad_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AsignarPropiedad_FormClosed);
             this.Load += new System.EventHandler(this.AsignarPropiedad_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AsignarPropiedad_KeyDown);
             this.panelContenedor.ResumeLayout(false);
             this.ResumeLayout(false);
 
