@@ -524,6 +524,7 @@
             this.Controls.Add(this.btnAceptarDetalle);
             this.Controls.Add(this.btnCancelarDetalle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AgregarDetalleFacturacionProducto";
@@ -532,6 +533,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarDetalleFacturacionProducto_FormClosing);
             this.Load += new System.EventHandler(this.AgregarDetalleFacturacionProducto_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.AgregarDetalleFacturacionProducto_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarDetalleFacturacionProducto_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

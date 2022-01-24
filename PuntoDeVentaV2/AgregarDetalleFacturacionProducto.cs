@@ -1905,6 +1905,14 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void AgregarDetalleFacturacionProducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
+
         private void cargar_impuestos_dexml()
         {
             int t = 1;
