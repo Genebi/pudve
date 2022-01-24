@@ -826,6 +826,14 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
+        private void ListaProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
+
         private void mensajeDeRelacionConImagenParaElUsuario(string mensajeMessageBox, string tituloMessageBox)
         {
             //MessageBox.Show("Ruta Directorio:\n\n" + Properties.Settings.Default.rutaDirectorio + "\n" + Properties.Settings.Default.pathPUDVE);
