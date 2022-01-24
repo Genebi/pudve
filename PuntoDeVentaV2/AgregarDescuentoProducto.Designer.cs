@@ -197,6 +197,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label8);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(600, 399);
             this.Name = "AgregarDescuentoProducto";
@@ -204,6 +205,7 @@
             this.Text = "PUDVE - Descuento Producto";
             this.Activated += new System.EventHandler(this.AgregarDescuentoProducto_Activated);
             this.Load += new System.EventHandler(this.AgregarDescuentoProducto_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarDescuentoProducto_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
