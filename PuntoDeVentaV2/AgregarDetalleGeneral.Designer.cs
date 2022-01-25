@@ -87,6 +87,7 @@
             this.Controls.Add(this.btnQuitarDetalle);
             this.Controls.Add(this.btnAgregarDetalle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AgregarDetalleGeneral";
@@ -94,6 +95,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Nuevo Detalle";
             this.Load += new System.EventHandler(this.AgregarDetalleGeneral_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarDetalleGeneral_KeyDown);
             this.ResumeLayout(false);
 
         }

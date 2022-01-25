@@ -71,6 +71,14 @@ namespace PuntoDeVentaV2
             quitarEspecificacion.ShowDialog();
         }
 
+        private void AgregarDetalleGeneral_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
+
         private void cargarDatos()
         {
             IdUsr = getIdUsr;
