@@ -857,6 +857,7 @@ namespace PuntoDeVentaV2
                     cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
                     cbDetalleGral.SelectedIndexChanged += new System.EventHandler(cbDetalleGral_SelectIndexChanged);
                     cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
+                    cbDetalleGral.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
 
                     // Verificamos si la Lista de Detalles Generales tiene algun registro
                     if (listaDetalleGral.Length > 0)
