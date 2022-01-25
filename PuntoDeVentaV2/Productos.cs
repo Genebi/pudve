@@ -4529,7 +4529,20 @@ namespace PuntoDeVentaV2
             // Status 2 es poner el listado en todos los productos y servicios sin importar es activo o desactivado
             if (status == 2)
             {
-                if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
+                //if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
+                //{
+                //    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
+                //}
+
+                if (DGVProductos.RowCount <= 0)
+                {
+                    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (DGVProductos.RowCount >= 1 && clickBoton == 0)
+                {
+                    p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
+                }
+                else if (DGVProductos.RowCount >= 0 && clickBoton == 0)
                 {
                     p = new Paginar(consultaFiltro, DataMemberDGV, maximo_x_pagina);
                 }
