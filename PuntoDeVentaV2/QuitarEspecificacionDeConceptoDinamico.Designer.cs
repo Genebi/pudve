@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.DGVEspecificacionesActivas = new System.Windows.Forms.DataGridView();
+            this.IDHabiltado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ConceptoHabiltado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsuarioHabiltado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InhabilitarHabiltado = new System.Windows.Forms.DataGridViewImageColumn();
             this.lblConceptoDinamico = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.DGVEspecificacionesInactivas = new System.Windows.Forms.DataGridView();
-            this.IDHabiltado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ConceptoHabiltado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsuarioHabiltado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InhabilitarHabiltado = new System.Windows.Forms.DataGridViewImageColumn();
             this.IDInhabiltado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ConceptoInhabiltado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UsuarioInhabiltado = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,6 +68,34 @@
             this.DGVEspecificacionesActivas.TabIndex = 3;
             this.DGVEspecificacionesActivas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVEspecificacionesActivas_CellClick);
             this.DGVEspecificacionesActivas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVEspecificacionesActivas_CellMouseEnter);
+            // 
+            // IDHabiltado
+            // 
+            this.IDHabiltado.FillWeight = 101.5228F;
+            this.IDHabiltado.HeaderText = "ID";
+            this.IDHabiltado.Name = "IDHabiltado";
+            this.IDHabiltado.ReadOnly = true;
+            this.IDHabiltado.Visible = false;
+            // 
+            // ConceptoHabiltado
+            // 
+            this.ConceptoHabiltado.FillWeight = 98.47716F;
+            this.ConceptoHabiltado.HeaderText = "Concepto";
+            this.ConceptoHabiltado.Name = "ConceptoHabiltado";
+            this.ConceptoHabiltado.ReadOnly = true;
+            // 
+            // UsuarioHabiltado
+            // 
+            this.UsuarioHabiltado.HeaderText = "Usuario";
+            this.UsuarioHabiltado.Name = "UsuarioHabiltado";
+            this.UsuarioHabiltado.ReadOnly = true;
+            this.UsuarioHabiltado.Visible = false;
+            // 
+            // InhabilitarHabiltado
+            // 
+            this.InhabilitarHabiltado.HeaderText = "Inhabilitar";
+            this.InhabilitarHabiltado.Name = "InhabilitarHabiltado";
+            this.InhabilitarHabiltado.ReadOnly = true;
             // 
             // lblConceptoDinamico
             // 
@@ -132,34 +160,6 @@
             this.DGVEspecificacionesInactivas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVEspecificacionesInactivas_CellClick);
             this.DGVEspecificacionesInactivas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVEspecificacionesInactivas_CellMouseEnter);
             // 
-            // IDHabiltado
-            // 
-            this.IDHabiltado.FillWeight = 101.5228F;
-            this.IDHabiltado.HeaderText = "ID";
-            this.IDHabiltado.Name = "IDHabiltado";
-            this.IDHabiltado.ReadOnly = true;
-            this.IDHabiltado.Visible = false;
-            // 
-            // ConceptoHabiltado
-            // 
-            this.ConceptoHabiltado.FillWeight = 98.47716F;
-            this.ConceptoHabiltado.HeaderText = "Concepto";
-            this.ConceptoHabiltado.Name = "ConceptoHabiltado";
-            this.ConceptoHabiltado.ReadOnly = true;
-            // 
-            // UsuarioHabiltado
-            // 
-            this.UsuarioHabiltado.HeaderText = "Usuario";
-            this.UsuarioHabiltado.Name = "UsuarioHabiltado";
-            this.UsuarioHabiltado.ReadOnly = true;
-            this.UsuarioHabiltado.Visible = false;
-            // 
-            // InhabilitarHabiltado
-            // 
-            this.InhabilitarHabiltado.HeaderText = "Inhabilitar";
-            this.InhabilitarHabiltado.Name = "InhabilitarHabiltado";
-            this.InhabilitarHabiltado.ReadOnly = true;
-            // 
             // IDInhabiltado
             // 
             this.IDInhabiltado.FillWeight = 101.5228F;
@@ -196,6 +196,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lblConceptoDinamico);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "QuitarEspecificacionDeConceptoDinamico";
@@ -203,6 +204,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Especificacion para quitar";
             this.Load += new System.EventHandler(this.QuitarEspecificacionDeConceptoDinamico_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QuitarEspecificacionDeConceptoDinamico_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVEspecificacionesActivas)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

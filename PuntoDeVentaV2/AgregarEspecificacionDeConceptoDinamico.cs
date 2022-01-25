@@ -87,5 +87,13 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Ocurrio una irregularidad al intentar\nInhabilitar la Especificación del Detalle Producto...\nExcepción:\n" + ex.Message.ToString());
             }
         }
+
+        private void AgregarEspecificacionDeConceptoDinamico_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }
