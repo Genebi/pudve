@@ -74,6 +74,7 @@
             this.Controls.Add(this.btnAgregarEspecificacion);
             this.Controls.Add(this.txtEspecificacion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AgregarEspecificacionDeConceptoDinamico";
@@ -81,6 +82,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Agregar especificación";
             this.Load += new System.EventHandler(this.AgregarEspecificacionDeConceptoDinamico_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AgregarEspecificacionDeConceptoDinamico_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
