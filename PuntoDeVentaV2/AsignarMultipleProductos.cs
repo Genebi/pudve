@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -28,6 +29,12 @@ namespace PuntoDeVentaV2
 
             panelContenedor.HorizontalScroll.Visible = false;
         }
+       
+        private string SplitCamelCase(string str)
+        {
+          return Regex.Replace(Regex.Replace(str, @"(\P{Ll})(\P{Ll}\p{Ll})", "$1 $2"), @"(\p{Ll})(\P{Ll})", "$1 $2");
+        }
+        
 
         private void botonAsignar_Click(object sender, EventArgs e)
         {
