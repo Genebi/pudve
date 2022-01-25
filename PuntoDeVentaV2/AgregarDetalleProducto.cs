@@ -671,6 +671,7 @@ namespace PuntoDeVentaV2
                     cbProveedor.Height = 30;
                     cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
                     cbProveedor.SelectedIndexChanged += new System.EventHandler(cbProveedor_SelectValueChanged);
+                    cbProveedor.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
 
                     // Verificamos que si la Lista Proveedor tiene registros
                     if (listaProveedores.Length > 0)
@@ -1023,6 +1024,12 @@ namespace PuntoDeVentaV2
             //{
             //    saveConfigIntoDB();
             //}
+        }
+
+        private void ComboBox_Quitar_MouseWheel(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs ee = (HandledMouseEventArgs)e;
+            ee.Handled = true;
         }
 
         private void bt_Click(object sender, EventArgs e)
