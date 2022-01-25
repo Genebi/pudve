@@ -346,6 +346,7 @@ namespace PuntoDeVentaV2
                 cbIVA.DataSource = listaIVA.ToArray();
                 cbIVA.DisplayMember = "Value";
                 cbIVA.ValueMember = "Key";
+                cbIVA.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
                 cbIVA.Location = new Point(15, 70);
 
                 panelContenedor.Controls.Add(cbIVA);
@@ -388,6 +389,7 @@ namespace PuntoDeVentaV2
                 cbClaves.DisplayMember = "Value";
                 cbClaves.ValueMember = "Key";
                 cbClaves.SelectedValueChanged += new EventHandler(CambioComboBox);
+                cbClaves.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
                 cbClaves.Location = new Point(15, 80);
 
                 panelContenedor.Controls.Add(tbClaveUnidad);
@@ -460,6 +462,7 @@ namespace PuntoDeVentaV2
                     cbProveedores.DataSource = lista.ToArray();
                     cbProveedores.DisplayMember = "Value";
                     cbProveedores.ValueMember = "Key";
+                    cbProveedores.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
                     cbProveedores.Location = new Point(15, 70);
 
                     panelContenedor.Controls.Add(cbProveedores);
@@ -511,6 +514,7 @@ namespace PuntoDeVentaV2
                     cbPropiedad.DataSource = opciones.ToArray();
                     cbPropiedad.DisplayMember = "Value";
                     cbPropiedad.ValueMember = "Key";
+                    cbPropiedad.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
                     cbPropiedad.Location = new Point(15, 70);
 
                     panelContenedor.Controls.Add(cbPropiedad);
@@ -524,6 +528,12 @@ namespace PuntoDeVentaV2
                     Dispose();
                 }
             }
+        }
+
+        private void ComboBox_Quitar_MouseWheel(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs ee = (HandledMouseEventArgs)e;
+            ee.Handled = true;
         }
 
         private void chkEliminarMensaje_CheckedChanged(object sender, EventArgs e)
