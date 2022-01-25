@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -37,6 +38,8 @@ namespace PuntoDeVentaV2
 
         private const char SignoDecimal = '.';
 
+        private string nombreAsignar = string.Empty;
+
         public AsignarPropiedad(object propiedad)
         {
             InitializeComponent();
@@ -48,9 +51,13 @@ namespace PuntoDeVentaV2
             datosHistPrecio = Productos.productosSeleccionadosParaHistorialPrecios;
         }
 
+        private string SplitCamelCase(string str)
+        {
+            return Regex.Replace(Regex.Replace(str, @"(\P{Ll})(\P{Ll}\p{Ll})", "$1 $2"), @"(\p{Ll})(\P{Ll})", "$1 $2");
+        }
+
         private void AsignarPropiedad_Load(object sender, EventArgs e)
         {
-            //var propiedadAModificar = propiedad.ToUpper().Replace("_", " ").Split('V');
             var propiedadNombre = propiedad.ToUpper().Replace("_", " ");
             string dato = string.Empty;
             if (propiedadNombre == "MENSAJEVENTAS")
@@ -65,8 +72,9 @@ namespace PuntoDeVentaV2
             {
 
             }
-
-            //lbNombrePropiedad.Text = $"ASIGNAR {propiedad.ToUpper().Replace("_", " ")}";
+            nombreAsignar = SplitCamelCase(propiedad.Replace("_"," "));
+            lbNombrePropiedad.Text = $"ASIGNAR {nombreAsignar.ToUpper()}";
+            //lbNombrePropiedad.Text = $"ASIGNAR {SplitCamelCase(propiedad.ToUpper())}";
 
             clavesUnidades = mb.CargarClavesUnidades();
 
