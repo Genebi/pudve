@@ -1282,6 +1282,12 @@ namespace PuntoDeVentaV2
                             {
                                 Folio = item["Folio"].ToString();
                                 Serie = item["Serie"].ToString();
+
+                                if (Folio.Equals("0"))
+                                {
+                                    MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
+                                }
                             }
                         }
                     }
