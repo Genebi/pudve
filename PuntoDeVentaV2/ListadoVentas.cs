@@ -715,6 +715,27 @@ namespace PuntoDeVentaV2
                 //Cancelar
                 if (e.ColumnIndex == 10)
                 {
+                    var Folio = string.Empty;
+                    var Serie = string.Empty;
+
+                    using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
+                    {
+                        if (!dtDatosVentas.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtDatosVentas.Rows)
+                            {
+                                Folio = item["Folio"].ToString();
+                                Serie = item["Serie"].ToString();
+
+                                if (Folio.Equals("0"))
+                                {
+                                    MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
                     var ultimaFechaCorte = mb.ObtenerFechaUltimoCorte();
                     var fechaVenta = mb.ObtenerFechaVenta(idVenta);
                     DateTime validarFechaCorte = Convert.ToDateTime(ultimaFechaCorte);
@@ -1282,6 +1303,12 @@ namespace PuntoDeVentaV2
                             {
                                 Folio = item["Folio"].ToString();
                                 Serie = item["Serie"].ToString();
+
+                                if (Folio.Equals("0"))
+                                {
+                                    MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
+                                }
                             }
                         }
                     }
@@ -1379,6 +1406,27 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    var Folio = string.Empty;
+                    var Serie = string.Empty;
+
+                    using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
+                    {
+                        if (!dtDatosVentas.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtDatosVentas.Rows)
+                            {
+                                Folio = item["Folio"].ToString();
+                                Serie = item["Serie"].ToString();
+
+                                if (Folio.Equals("0"))
+                                {
+                                    MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
                     var servidor = Properties.Settings.Default.Hosting;
 
                     ticketGenerado = $"ticket_venta_{idVenta}.pdf";
@@ -1450,6 +1498,27 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    var Folio = string.Empty;
+                    var Serie = string.Empty;
+
+                    using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
+                    {
+                        if (!dtDatosVentas.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtDatosVentas.Rows)
+                            {
+                                Folio = item["Folio"].ToString();
+                                Serie = item["Serie"].ToString();
+
+                                if (Folio.Equals("0"))
+                                {
+                                    MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
                     //Verificamos si tiene seleccionada la opcion de ventas a credito
                     if (opcion == "VCC")
                     {
@@ -1489,6 +1558,27 @@ namespace PuntoDeVentaV2
                     {
                         Utilidades.MensajePermiso();
                         return;
+                    }
+
+                    var Folio = string.Empty;
+                    var Serie = string.Empty;
+
+                    using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
+                    {
+                        if (!dtDatosVentas.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtDatosVentas.Rows)
+                            {
+                                Folio = item["Folio"].ToString();
+                                Serie = item["Serie"].ToString();
+
+                                if (Folio.Equals("0"))
+                                {
+                                    MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
+                        }
                     }
 
                     // Si la nota ya ha sido cancelada entonces no será facturada
