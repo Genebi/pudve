@@ -6433,6 +6433,27 @@ namespace PuntoDeVentaV2
             {
                 var idVenta = cn.EjecutarSelect($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY ID DESC LIMIT 1", 1).ToString();
 
+                var Folio = string.Empty;
+                var Serie = string.Empty;
+
+                using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(Convert.ToInt32(idVenta))))
+                {
+                    if (!dtDatosVentas.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow item in dtDatosVentas.Rows)
+                        {
+                            Folio = item["Folio"].ToString();
+                            Serie = item["Serie"].ToString();
+
+                            if (Folio.Equals("0"))
+                            {
+                                MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+                        }
+                    }
+                }
+
                 if (Utilidades.AdobeReaderInstalado())
                 {
                     ImprimirTicket(idVenta);
