@@ -166,6 +166,13 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void RecordViewProduct_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
 
         public void SeleccionarFila()
         {

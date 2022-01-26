@@ -447,6 +447,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.DGVProductRecord);
             this.Controls.Add(this.panel1);
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -455,6 +456,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Historial de Compra del Producto";
             this.Load += new System.EventHandler(this.RecordViewProduct_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RecordViewProduct_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductRecord)).EndInit();
