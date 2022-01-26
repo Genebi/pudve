@@ -5673,8 +5673,8 @@ namespace PuntoDeVentaV2
                 //listProductos.Add(datosProducto[0] + "|" + cantidad.ToString());
                 consulta.ShowDialog();
             }
-            SendKeys.Send("{TAB}");
-            SendKeys.Send("{ENTER}");
+            //SendKeys.Send("{TAB}");
+            //SendKeys.Send("{ENTER}");
         }
 
         private void listaProductosVenta()
