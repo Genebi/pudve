@@ -1089,7 +1089,7 @@ namespace PuntoDeVentaV2
                     PBImagen.Image = null;
                     PBImagen.Refresh();
                 }
-
+                
                 // Cantidad
                 //if (columna.Equals(5))
                 //{
@@ -1437,6 +1437,8 @@ namespace PuntoDeVentaV2
                 }
 
                 DGVentas.ClearSelection();
+                DGVentas.Rows[celdaCellClick].Selected = true;
+
                 CalculoMayoreo();
                 CantidadesFinalesVenta();
 
@@ -6617,6 +6619,7 @@ namespace PuntoDeVentaV2
         {
             PBImagen.Image = null;
             PBImagen.Refresh();
+            
         }
 
         private void panel1_Click(object sender, EventArgs e)
