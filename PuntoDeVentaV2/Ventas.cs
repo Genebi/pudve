@@ -2510,7 +2510,7 @@ namespace PuntoDeVentaV2
 
         private void btnEliminarTodos_Click(object sender, EventArgs e)
         {
-            DialogResult dialogoResult = MessageBox.Show("¿Desea remover todos los artículos?", "!Advertencia¡", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult dialogoResult = MessageBox.Show("¿Desea remover todos los artículos?", "¡Advertencia!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (dialogoResult == DialogResult.Yes)
             {
                 if (opcion18 == 0)
