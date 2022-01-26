@@ -370,7 +370,7 @@ namespace PuntoDeVentaV2
             {
                 mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
                 Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
-                txtMaximoPorPagina.Text = maximo_x_pagina.ToString(); 
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
                 return;
             }
 
