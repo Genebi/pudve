@@ -602,5 +602,13 @@ namespace PuntoDeVentaV2
             HistorialStockProductos historial = new HistorialStockProductos();
             historial.Show();
         }
+
+        private void TipoHistorial_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }

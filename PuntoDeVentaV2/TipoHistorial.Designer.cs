@@ -104,10 +104,12 @@
             this.Controls.Add(this.btnHistorialVentas);
             this.Controls.Add(this.btnHistorialCompras);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TipoHistorial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TipoHistorial_KeyDown);
             this.ResumeLayout(false);
 
         }
