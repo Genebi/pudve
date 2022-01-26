@@ -659,7 +659,7 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Escape)
             {
-                Close();
+                this.Close();
             }
         }
 

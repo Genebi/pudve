@@ -409,6 +409,7 @@
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.DGVProductos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConsultarProductoVentas";
