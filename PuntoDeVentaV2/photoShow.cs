@@ -140,5 +140,13 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+        private void photoShow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }

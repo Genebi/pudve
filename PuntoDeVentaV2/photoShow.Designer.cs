@@ -37,7 +37,7 @@
             // pictureBoxProducto
             // 
             this.pictureBoxProducto.Location = new System.Drawing.Point(20, 53);
-            this.pictureBoxProducto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxProducto.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxProducto.Name = "pictureBoxProducto";
             this.pictureBoxProducto.Size = new System.Drawing.Size(319, 269);
             this.pictureBoxProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -77,7 +77,8 @@
             this.Controls.Add(this.btnImagen);
             this.Controls.Add(this.lblNombreProducto);
             this.Controls.Add(this.pictureBoxProducto);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "photoShow";
@@ -85,6 +86,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Imagen  de Producto";
             this.Load += new System.EventHandler(this.photoShow_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.photoShow_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).EndInit();
             this.ResumeLayout(false);
 
