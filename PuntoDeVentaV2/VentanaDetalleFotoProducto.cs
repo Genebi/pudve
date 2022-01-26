@@ -45,5 +45,13 @@ namespace PuntoDeVentaV2
             lblClaveInterna.Text = row["Clave Interna"].ToString();
             lblCodigoBarras.Text = row["Codigo de Barras"].ToString();
         }
+
+        private void VentanaDetalleFotoProducto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }
