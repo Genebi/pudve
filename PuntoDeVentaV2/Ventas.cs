@@ -6610,7 +6610,28 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Click(object sender, EventArgs e)
         {
-            
+            limpiarImagenDelProducto();
+        }
+
+        private void limpiarImagenDelProducto()
+        {
+            PBImagen.Image = null;
+            PBImagen.Refresh();
+        }
+
+        private void panel1_Click(object sender, EventArgs e)
+        {
+            limpiarImagenDelProducto();
+        }
+
+        private void panel5_Click(object sender, EventArgs e)
+        {
+            limpiarImagenDelProducto();
+        }
+
+        private void panel2_Click(object sender, EventArgs e)
+        {
+            limpiarImagenDelProducto();
         }
 
         private void DGVentas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
