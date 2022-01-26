@@ -109,6 +109,8 @@ namespace PuntoDeVentaV2
         string mensajeMessageBox = "El producto que usted desea vincular ya se encuentra relacionado\n\nPodras vizualizar tus productos relacionados en el siguiente\nbotón que se encuentra en la ventana principal de Agregar o\nEditar Productos (Igual al que se muestra en esté mensaje\n\"Botón del ojito con la flecha\" del lado Izquierdo)";
         string tituloMessageBox = "Aviso del sistema";
 
+        string mensajeParaMostrar = string.Empty;
+
         // metodo para poder cargar los datos al inicio
         public void CargarDataGridView()
         {
@@ -362,10 +364,25 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
         {
-            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+
+            if (cantidadAMostrar <= 0)
+            {
+                mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString(); 
+                return;
+            }
+
+            maximo_x_pagina = cantidadAMostrar;
             p.actualizarTope(maximo_x_pagina);
             CargarDatos();
             actualizar();
+
+            //maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            //p.actualizarTope(maximo_x_pagina);
+            //CargarDatos();
+            //actualizar();
         }
 
         private void btnPrimeraPagina_Click(object sender, EventArgs e)
@@ -441,10 +458,25 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
-                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+
+                if (cantidadAMostrar <= 0)
+                {
+                    mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                    Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                    return;
+                }
+
+                maximo_x_pagina = cantidadAMostrar;
                 p.actualizarTope(maximo_x_pagina);
                 CargarDatos();
                 actualizar();
+
+                //maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                //p.actualizarTope(maximo_x_pagina);
+                //CargarDatos();
+                //actualizar();
             }
         }
         #endregion
