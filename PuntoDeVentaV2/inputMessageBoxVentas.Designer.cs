@@ -145,13 +145,14 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "inputMessageBoxVentas";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "inputMessageBoxVentas";
             this.Load += new System.EventHandler(this.inputMessageBoxVentas_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputMessageBoxVentas_KeyDown);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);

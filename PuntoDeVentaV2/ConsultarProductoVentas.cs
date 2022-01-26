@@ -657,7 +657,7 @@ namespace PuntoDeVentaV2
 
         private void ConsultarProductoVentas_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            if (e.KeyCode.Equals(Keys.Escape))
             {
                 this.Close();
             }

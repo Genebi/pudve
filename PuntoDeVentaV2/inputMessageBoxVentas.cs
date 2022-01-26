@@ -159,6 +159,14 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void inputMessageBoxVentas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                btnCancelar.PerformClick();
+            }
+        }
+
         private void txtCantidad_KeyUp(object sender, KeyEventArgs e)
         {
             
