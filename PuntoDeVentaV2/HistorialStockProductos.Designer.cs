@@ -88,10 +88,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtNombreProducto);
             this.Controls.Add(this.DGVHistorialStock);
+            this.KeyPreview = true;
             this.Name = "HistorialStockProductos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HistorialStockProductos";
             this.Load += new System.EventHandler(this.HistorialStockProductos_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HistorialStockProductos_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVHistorialStock)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
