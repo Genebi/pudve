@@ -1057,6 +1057,39 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
+                var imagen = DGVentas.Rows[celdaCellClick].Cells["ImagenProducto"].Value.ToString();
+
+                if (!string.IsNullOrEmpty(imagen))
+                {
+                    var servidor = Properties.Settings.Default.Hosting;
+                    var rutaImagen = string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        rutaImagen = $@"\\{servidor}\PUDVE\Productos\" + imagen;
+                    }
+                    else
+                    {
+                        rutaImagen = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\" + imagen;
+                    }
+
+                    if (File.Exists(rutaImagen))
+                    {
+                        PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
+                        //timer_img_producto.Start();
+                    }
+                    else
+                    {
+                        PBImagen.Image = null;
+                        PBImagen.Refresh();
+                    }
+                }
+                else
+                {
+                    PBImagen.Image = null;
+                    PBImagen.Refresh();
+                }
+
                 // Cantidad
                 //if (columna.Equals(5))
                 //{
@@ -6573,6 +6606,11 @@ namespace PuntoDeVentaV2
                 reproducirProductoAgregado();
                 contador++;
             }
+        }
+
+        private void Ventas_Click(object sender, EventArgs e)
+        {
+            
         }
 
         private void DGVentas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)

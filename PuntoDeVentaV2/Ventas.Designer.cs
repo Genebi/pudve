@@ -1172,6 +1172,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ventas_FormClosed);
             this.Load += new System.EventHandler(this.Ventas_Load);
             this.Shown += new System.EventHandler(this.Ventas_Shown);
+            this.Click += new System.EventHandler(this.Ventas_Click);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ventas_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Ventas_KeyPress_1);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
