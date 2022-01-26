@@ -6619,7 +6619,7 @@ namespace PuntoDeVentaV2
         {
             PBImagen.Image = null;
             PBImagen.Refresh();
-            
+            DGVentas.ClearSelection();
         }
 
         private void panel1_Click(object sender, EventArgs e)
