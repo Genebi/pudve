@@ -462,7 +462,13 @@ namespace PuntoDeVentaV2
                                                 var NuevoMensaje = textoMensaje.Text;
                                                 if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                 {
-                                                    cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, NuevoMensaje));
+                                                    var estado = 1;
+                                                    CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                    if (!txtCantidadCompra.Checked.Equals(true))
+                                                    {
+                                                        estado = 0;
+                                                    }
+                                                    cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
                                                     MessageBox.Show("Actualizado Correctamente.");
                                                 }
                                             }
@@ -471,7 +477,13 @@ namespace PuntoDeVentaV2
                                                 var NuevoMensaje = textoMensaje.Text;
                                                 if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                 {
-                                                    cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje));
+                                                    var estado = 1;
+                                                    CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                    if (!txtCantidadCompra.Checked.Equals(true))
+                                                    {
+                                                        estado = 0;
+                                                    }
+                                                    cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje, estado));
                                                     MessageBox.Show("Actualizado Correctamente.");
                                                 }
                                             }

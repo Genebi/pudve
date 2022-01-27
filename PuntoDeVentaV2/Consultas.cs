@@ -2798,16 +2798,16 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
-        public string actualizarMensajeVentas(int idProductoSeleccionado, string mensaje)
+        public string actualizarMensajeVentas(int idProductoSeleccionado, string mensaje, int estado)
         {
-            var consulta = $"UPDATE productmessage SET ProductOfMessage = '{mensaje}' WHERE IDProducto = {idProductoSeleccionado}";
+            var consulta = $"UPDATE productmessage SET ProductOfMessage = '{mensaje}' ProductMessageActivated = {estado} WHERE IDProducto = {idProductoSeleccionado}";
 
             return consulta;
         }
 
-        public string insertarMensajeVenta(int idProducto, string mensaje)
+        public string insertarMensajeVenta(int idProducto, int estado, string mensaje)
         {
-            var consulta = $"INSERT INTO productmessage (ProductOfMessage, IDProducto) VALUES ('{mensaje}', '{idProducto}')";
+            var consulta = $"INSERT INTO productmessage (ProductOfMessage, ProductMessageActivated, IDProducto) VALUES ('{mensaje}',{estado} ,'{idProducto}')";
 
             return consulta;
         }
