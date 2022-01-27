@@ -1034,7 +1034,7 @@ namespace PuntoDeVentaV2
                                 {
                                     if (item["Status"].Equals(0))
                                     {
-                                        MessageBox.Show(mensajeDeshabilitadosConOpcionTodosLosProductos, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        MessageBox.Show(mensajeDeshabilitadosConOpcionTodosLosProductos, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information); 
                                         return;
                                     }
                                 }
