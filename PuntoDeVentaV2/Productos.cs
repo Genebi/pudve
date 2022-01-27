@@ -1080,6 +1080,7 @@ namespace PuntoDeVentaV2
                         Utilidades.MensajePermiso();
                         return;
                     }
+
                     idProductoHistorialStock = idProducto;
                     using (var historial = new TipoHistorial(idProducto))
                     {

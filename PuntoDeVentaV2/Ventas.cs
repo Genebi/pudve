@@ -1425,8 +1425,6 @@ namespace PuntoDeVentaV2
 
                         DGVentas.Rows.RemoveAt(celdaCellClick);
 
-                        DGVentas.ClearSelection();
-
                         noSeBorroFila = false;
 
                         if (productosDescuentoG.ContainsKey(idProducto))
