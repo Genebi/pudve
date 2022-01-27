@@ -1081,6 +1081,29 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    using (var dbEsComboServicio = cn.CargarDatos(cs.SaberSiEsComboServicio(idProducto)))
+                    {
+                        if (!dbEsComboServicio.Rows.Count.Equals(0))
+                        {
+                            var mensajeSiEsComboServicioHistorial = string.Empty;
+
+                            foreach (DataRow item in dbEsComboServicio.Rows)
+                            {
+                                if (item["Tipo"].Equals("PQ"))
+                                {
+                                    mensajeSiEsComboServicioHistorial = "Los Combos No Manejan Stock Físico";
+                                }
+                                else if (item["Tipo"].Equals("S"))
+                                {
+                                    mensajeSiEsComboServicioHistorial = "Los Servicios No Manejan Stock Físico";
+                                }
+
+                                MessageBox.Show(mensajeSiEsComboServicioHistorial, "Aviso Historial Producto, Combo, Servicio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); 
+                                return;
+                            }
+                        }
+                    }
+
                     idProductoHistorialStock = idProducto;
                     using (var historial = new TipoHistorial(idProducto))
                     {
