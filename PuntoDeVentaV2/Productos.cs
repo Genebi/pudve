@@ -989,6 +989,7 @@ namespace PuntoDeVentaV2
         private void DGVProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var apartado = cbMostrar.SelectedItem.ToString();
+            var mensajeDeshabilitadosConOpcionTodosLosProductos = "Este Producto Servicio o Combo, se encuentra deshabilitado,\npara activar esta opción primero debe enviarlo a habilitados ";
 
             if (apartado.Equals("Deshabilitados"))
             {
@@ -1021,6 +1022,24 @@ namespace PuntoDeVentaV2
                     {
                         Utilidades.MensajePermiso();
                         return;
+                    }
+
+                    if (cbMostrar.Text.Equals("Todos"))
+                    {
+                        using (DataTable dbSaberSiEstaActivoNoActivo = cn.CargarDatos(cs.SaberSiEstaActivoNoActivo(idProducto)))
+                        {
+                            if (!dbSaberSiEstaActivoNoActivo.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dbSaberSiEstaActivoNoActivo.Rows)
+                                {
+                                    if (item["Status"].Equals(0))
+                                    {
+                                        MessageBox.Show(mensajeDeshabilitadosConOpcionTodosLosProductos, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     // Editar el producto
@@ -1059,6 +1078,24 @@ namespace PuntoDeVentaV2
                     {
                         Utilidades.MensajePermiso();
                         return;
+                    }
+
+                    if (cbMostrar.Text.Equals("Todos"))
+                    {
+                        using (DataTable dbSaberSiEstaActivoNoActivo = cn.CargarDatos(cs.SaberSiEstaActivoNoActivo(idProducto)))
+                        {
+                            if (!dbSaberSiEstaActivoNoActivo.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dbSaberSiEstaActivoNoActivo.Rows)
+                                {
+                                    if (item["Status"].Equals(0))
+                                    {
+                                        MessageBox.Show(mensajeDeshabilitadosConOpcionTodosLosProductos, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     // Estado del producto
@@ -1129,6 +1166,24 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    if (cbMostrar.Text.Equals("Todos"))
+                    {
+                        using (DataTable dbSaberSiEstaActivoNoActivo = cn.CargarDatos(cs.SaberSiEstaActivoNoActivo(idProducto)))
+                        {
+                            if (!dbSaberSiEstaActivoNoActivo.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dbSaberSiEstaActivoNoActivo.Rows)
+                                {
+                                    if (item["Status"].Equals(0))
+                                    {
+                                        MessageBox.Show(mensajeDeshabilitadosConOpcionTodosLosProductos, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     // Generar Codigo de Barras del Producto
                     string codiBarProd = "";
                     numfila = e.RowIndex;
@@ -1175,6 +1230,24 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    if (cbMostrar.Text.Equals("Todos"))
+                    {
+                        using (DataTable dbSaberSiEstaActivoNoActivo = cn.CargarDatos(cs.SaberSiEstaActivoNoActivo(idProducto)))
+                        {
+                            if (!dbSaberSiEstaActivoNoActivo.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dbSaberSiEstaActivoNoActivo.Rows)
+                                {
+                                    if (item["Status"].Equals(0))
+                                    {
+                                        MessageBox.Show(mensajeDeshabilitadosConOpcionTodosLosProductos, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     // Imagen del Producto
                     numfila = e.RowIndex;
                     obtenerDatosDGVProductos(numfila);
@@ -1205,6 +1278,24 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    if (cbMostrar.Text.Equals("Todos"))
+                    {
+                        using (DataTable dbSaberSiEstaActivoNoActivo = cn.CargarDatos(cs.SaberSiEstaActivoNoActivo(idProducto)))
+                        {
+                            if (!dbSaberSiEstaActivoNoActivo.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dbSaberSiEstaActivoNoActivo.Rows)
+                                {
+                                    if (item["Status"].Equals(0))
+                                    {
+                                        MessageBox.Show(mensajeDeshabilitadosConOpcionTodosLosProductos, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     // Etiqueta del Producto
                     numerofila = e.RowIndex;
                     obtenerDatosDGVProductos(numerofila);
@@ -1232,6 +1323,24 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    if (cbMostrar.Text.Equals("Todos"))
+                    {
+                        using (DataTable dbSaberSiEstaActivoNoActivo = cn.CargarDatos(cs.SaberSiEstaActivoNoActivo(idProducto)))
+                        {
+                            if (!dbSaberSiEstaActivoNoActivo.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dbSaberSiEstaActivoNoActivo.Rows)
+                                {
+                                    if (item["Status"].Equals(0))
+                                    {
+                                        MessageBox.Show(mensajeDeshabilitadosConOpcionTodosLosProductos, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     // Copiar el Producto
                     if (seleccionadoDato == 0)
                     {
@@ -1251,6 +1360,24 @@ namespace PuntoDeVentaV2
                     {
                         Utilidades.MensajePermiso();
                         return;
+                    }
+
+                    if (cbMostrar.Text.Equals("Todos"))
+                    {
+                        using (DataTable dbSaberSiEstaActivoNoActivo = cn.CargarDatos(cs.SaberSiEstaActivoNoActivo(idProducto)))
+                        {
+                            if (!dbSaberSiEstaActivoNoActivo.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dbSaberSiEstaActivoNoActivo.Rows)
+                                {
+                                    if (item["Status"].Equals(0))
+                                    {
+                                        MessageBox.Show(mensajeDeshabilitadosConOpcionTodosLosProductos, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     // Ajustar el Producto

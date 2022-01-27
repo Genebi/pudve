@@ -3047,5 +3047,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string SaberSiEstaActivoNoActivo(int idProdCombServ)
+        {
+            var consulta = $"SELECT ID, Nombre, Categoria, Tipo, `Status` FROM productos WHERE ID = '{idProdCombServ}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
     }
 }  
