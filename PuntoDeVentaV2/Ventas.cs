@@ -2555,6 +2555,8 @@ namespace PuntoDeVentaV2
 
                 CalculoMayoreo();
                 CantidadesFinalesVenta();
+
+                limpiarImagenDelProducto();
             }
             else if (dialogoResult == DialogResult.No)
             {
