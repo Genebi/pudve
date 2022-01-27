@@ -224,5 +224,10 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void AsignarMultipleProductos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Productos.checkboxMarcados.Clear();
+        }
     }
 }

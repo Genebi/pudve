@@ -53,6 +53,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Asignación multiple";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AsignarMultipleProductos_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AsignarMultipleProductos_FormClosed);
             this.Load += new System.EventHandler(this.AsignarMultipleProductos_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AsignarMultipleProductos_KeyDown);
             this.ResumeLayout(false);
