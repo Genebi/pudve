@@ -1098,7 +1098,7 @@ namespace PuntoDeVentaV2
                                     mensajeSiEsComboServicioHistorial = "Los Servicios No Manejan Stock Físico";
                                 }
 
-                                MessageBox.Show(mensajeSiEsComboServicioHistorial, "Aviso Historial Producto, Combo, Servicio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); 
+                                MessageBox.Show(mensajeSiEsComboServicioHistorial, "Aviso Historial Producto, Combo, Servicio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                 return;
                             }
                         }
