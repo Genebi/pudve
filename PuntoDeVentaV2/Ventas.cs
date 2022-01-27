@@ -1049,6 +1049,7 @@ namespace PuntoDeVentaV2
         { //consultarListaRelacionados 356 (por si no jala)
             if (e.RowIndex >= 0)
             {
+                var noSeBorroFila = true;
                 celdaCellClick = DGVentas.CurrentCell.RowIndex;
                 columnaCellClick = DGVentas.CurrentCell.ColumnIndex;
 
@@ -1424,6 +1425,10 @@ namespace PuntoDeVentaV2
 
                         DGVentas.Rows.RemoveAt(celdaCellClick);
 
+                        DGVentas.ClearSelection();
+
+                        noSeBorroFila = false;
+
                         if (productosDescuentoG.ContainsKey(idProducto))
                         {
                             productosDescuentoG.Remove(idProducto);
@@ -1436,12 +1441,16 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                if (DGVentas.RowCount >= 0)
+                if (noSeBorroFila)
                 {
                     DGVentas.ClearSelection();
                     DGVentas.Rows[celdaCellClick].Selected = true;
                 }
-                
+                else
+                {
+                    limpiarImagenDelProducto();
+                }
+
                 CalculoMayoreo();
                 CantidadesFinalesVenta();
 
