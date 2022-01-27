@@ -1436,9 +1436,12 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                DGVentas.ClearSelection();
-                DGVentas.Rows[celdaCellClick].Selected = true;
-
+                if (DGVentas.RowCount >= 0)
+                {
+                    DGVentas.ClearSelection();
+                    DGVentas.Rows[celdaCellClick].Selected = true;
+                }
+                
                 CalculoMayoreo();
                 CantidadesFinalesVenta();
 
