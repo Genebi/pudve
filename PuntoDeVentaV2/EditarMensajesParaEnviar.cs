@@ -116,6 +116,8 @@ namespace PuntoDeVentaV2
                 CheckBox chkMostrarMensaje = new CheckBox();
                 chkMostrarMensaje.Text = "Mostrar Mensaje";
                 chkMostrarMensaje.Name = "chkMostrarMensajeVenta";
+                chkMostrarMensaje.Checked = true;
+                chkMostrarMensaje.AutoCheck = true;
                 chkMostrarMensaje.Location = new Point(190, 3);
                 chkMostrarMensaje.CheckedChanged += new EventHandler(cbxN_CheckedChanged);
 
