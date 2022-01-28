@@ -1534,6 +1534,7 @@ namespace PuntoDeVentaV2
                     consulta += "ON DUPLICATE KEY UPDATE ID = VALUES(ID), Status = VALUES(Status)";
 
                     cn.EjecutarConsulta(consulta);
+                    productosSeleccionados.Clear();
                 }
             }
             else
@@ -1607,6 +1608,7 @@ namespace PuntoDeVentaV2
                             }
 
                             cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
+                            productosSeleccionados.Clear();
                         }
                     }
                 }
@@ -1640,8 +1642,8 @@ namespace PuntoDeVentaV2
                 txtBusqueda.Focus();
             }
 
-            CheckBox master = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
-            master.Checked = false;
+            //CheckBox master = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+            //master.Checked = false;
             //linkLblPaginaActual_Click_1(sender, e);
             //actualizarDatosDespuesDeAgregarProducto();
         }
@@ -2739,6 +2741,7 @@ namespace PuntoDeVentaV2
                 {
                     clickBoton = 0;
                     CargarDatos(1);
+                    desmarcarCheckBoxSeleccionados();
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
@@ -2757,6 +2760,7 @@ namespace PuntoDeVentaV2
                 {
                     clickBoton = 0;
                     CargarDatos(0);
+                    desmarcarCheckBoxSeleccionados();
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
@@ -2775,6 +2779,7 @@ namespace PuntoDeVentaV2
                     clickBoton = 0;
                     // cargamos todos los registros
                     CargarDatos(2);
+                    desmarcarCheckBoxSeleccionados();
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
