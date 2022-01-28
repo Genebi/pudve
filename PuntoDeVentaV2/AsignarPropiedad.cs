@@ -176,7 +176,6 @@ namespace PuntoDeVentaV2
                 chkMostrarOcultarMensaje.Name = "chkMostrarMensaje";
                 chkMostrarOcultarMensaje.Checked = stateChkMostrarMensaje;
                 chkMostrarOcultarMensaje.AutoCheck = true;
-                stateChkMostrarMensaje = chkMostrarOcultarMensaje.Checked;
                 chkMostrarOcultarMensaje.CheckedChanged += new EventHandler(chkMostrarOcultarMensaje_CheckedChanged);
                 chkMostrarOcultarMensaje.Height = 15;
                 chkMostrarOcultarMensaje.Width = 15;
@@ -185,7 +184,6 @@ namespace PuntoDeVentaV2
                 RadioButton chkOcultarMensaje = new RadioButton();
                 chkOcultarMensaje.Name = "chkOcultarMensaje";
                 chkOcultarMensaje.Checked = false;
-                stateChkOcultarMensajes = chkMostrarOcultarMensaje.Checked;
                 chkOcultarMensaje.CheckedChanged += new EventHandler(chkOcultarMensaje_CheckedChanged);
                 chkOcultarMensaje.Height = 15;
                 chkOcultarMensaje.Width = 15;
@@ -643,6 +641,17 @@ namespace PuntoDeVentaV2
             }
             TextBox txtCantidadCompraFocus = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
             this.ActiveControl = txtCantidadCompraFocus;
+            if (stateChkOcultarMensajes.Equals(true))
+            {
+                RadioButton rbOcultarMensaje = (RadioButton)Controls.Find("chkOcultarMensaje", true)[0];
+                rbOcultarMensaje.Checked = true;
+            }
+            else if (stateChkMostrarMensaje.Equals(true))
+            {
+                RadioButton rbMostrarMensaje = (RadioButton)Controls.Find("chkMostrarMensaje", true)[0];
+                rbMostrarMensaje.Checked = true;
+            }
+
         }
 
         private void chkOcultarMensaje_CheckedChanged(object sender, EventArgs e)
