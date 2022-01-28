@@ -9265,6 +9265,7 @@ namespace PuntoDeVentaV2
             }
 
             LimpiarDatos();
+            Productos.codProductoEditarVenta = 0;
         }
 
         private void mostrarOcultarLblArrow()
