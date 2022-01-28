@@ -2520,58 +2520,65 @@ namespace PuntoDeVentaV2
 
         private void btnEliminarTodos_Click(object sender, EventArgs e)
         {
-            DialogResult dialogoResult = MessageBox.Show("¿Desea remover todos los artículos?", "¡Advertencia!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (dialogoResult == DialogResult.Yes)
+            if (!DGVentas.Rows.Count.Equals(0))
             {
-                if (opcion18 == 0)
+                DialogResult dialogoResult = MessageBox.Show("¿Desea remover todos los artículos?", "¡Advertencia!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dialogoResult == DialogResult.Yes)
                 {
-                    Utilidades.MensajePermiso();
+                    if (opcion18 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
+                    // Ejecutar hilo para envio notificacion
+                    var datosConfig = mb.ComprobarConfiguracion();
+
+                    if (datosConfig.Count > 0)
+                    {
+                        if (Convert.ToInt32(datosConfig[19]).Equals(1))
+                        {
+                            List<string> productosNoVendidos = new List<string>();
+                            string fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), importeTotal = string.Empty;
+
+                            foreach (DataGridViewRow dgvRenglon in DGVentas.Rows)
+                            {
+                                productosNoVendidos.Add(dgvRenglon.Cells["Cantidad"].Value.ToString() + "|" + dgvRenglon.Cells["Precio"].Value.ToString() + "|" + dgvRenglon.Cells["Descripcion"].Value.ToString() + "|" + dgvRenglon.Cells["Descuento"].Value.ToString() + "|" + dgvRenglon.Cells["Importe"].Value.ToString());
+                            }
+
+                            importeTotal = cTotal.Text.ToString();
+
+                            Thread btnClearAllItemSale = new Thread(
+                                () => Utilidades.ventaBtnClarAllItemSaleEmail(productosNoVendidos, fechaSistema, importeTotal, FormPrincipal.datosUsuario)
+                            );
+
+                            btnClearAllItemSale.Start();
+                        }
+                    }
+
+                    DGVentas.Rows.Clear();
+                    // Almacena los ID de los productos a los que se aplica descuento general
+                    productosDescuentoG.Clear();
+                    // Guarda los datos de los descuentos directos que se han aplicado
+                    descuentosDirectos.Clear();
+
+                    CalculoMayoreo();
+                    CantidadesFinalesVenta();
+
+                    limpiarImagenDelProducto();
+                }
+                else if (dialogoResult == DialogResult.No)
+                {
                     return;
                 }
-
-                // Ejecutar hilo para envio notificacion
-                var datosConfig = mb.ComprobarConfiguracion();
-
-                if (datosConfig.Count > 0)
-                {
-                    if (Convert.ToInt32(datosConfig[19]).Equals(1))
-                    {
-                        List<string> productosNoVendidos = new List<string>();
-                        string fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), importeTotal = string.Empty;
-
-                        foreach (DataGridViewRow dgvRenglon in DGVentas.Rows)
-                        {
-                            productosNoVendidos.Add(dgvRenglon.Cells["Cantidad"].Value.ToString() + "|" + dgvRenglon.Cells["Precio"].Value.ToString() + "|" + dgvRenglon.Cells["Descripcion"].Value.ToString() + "|" + dgvRenglon.Cells["Descuento"].Value.ToString() + "|" + dgvRenglon.Cells["Importe"].Value.ToString());
-                        }
-
-                        importeTotal = cTotal.Text.ToString();
-
-                        Thread btnClearAllItemSale = new Thread(
-                            () => Utilidades.ventaBtnClarAllItemSaleEmail(productosNoVendidos, fechaSistema, importeTotal, FormPrincipal.datosUsuario)
-                        );
-
-                        btnClearAllItemSale.Start();
-                    }
-                }
-
-                DGVentas.Rows.Clear();
-                // Almacena los ID de los productos a los que se aplica descuento general
-                productosDescuentoG.Clear();
-                // Guarda los datos de los descuentos directos que se han aplicado
-                descuentosDirectos.Clear();
-
-                CalculoMayoreo();
-                CantidadesFinalesVenta();
-
-                limpiarImagenDelProducto();
+                listProductos.Clear();
+                liststock2.Clear();
+                listaMensajesEnviados.Clear();
             }
-            else if (dialogoResult == DialogResult.No)
+            else
             {
-                return;
+                MessageBox.Show("No tiene producto agregados\na la venta para eliminar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            listProductos.Clear();
-            liststock2.Clear();
-            listaMensajesEnviados.Clear();
         }
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)
