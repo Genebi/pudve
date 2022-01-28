@@ -6014,12 +6014,15 @@ namespace PuntoDeVentaV2
 
             if (txtBusqueda.Text.Equals(""))
             {
-                CargarDatos();
+                //CargarDatos();
+                busquedaDelUsuario();
             }
             else if (!txtBusqueda.Text.Equals(""))
             {
                 quitarEspacioEnBlanco();
                 busquedaDelUsuario();
+                agregarEspacioAlFinal();
+                borrarCodigosNoValidos();
             }
 
             txtBusqueda.Focus();
