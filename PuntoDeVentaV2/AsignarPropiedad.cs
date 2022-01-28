@@ -44,6 +44,8 @@ namespace PuntoDeVentaV2
 
         bool estado = true;
 
+        public static string tipoDeAsignacion = string.Empty;
+
         public AsignarPropiedad(object propiedad)
         {
             InitializeComponent();
@@ -713,43 +715,43 @@ namespace PuntoDeVentaV2
 
         private void chkMostrarOcultarMensajeInventario_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton checkbox = (RadioButton)sender;
+            //RadioButton checkbox = (RadioButton)sender;
 
-            if (checkbox.Name.Equals("chkEliminarMensaje") || checkbox.Name.Equals("chkOcultarMensaje"))
-            {
-                if (checkbox.Name.Equals("chkEliminarMensaje") && checkbox.Checked == true)
-                {
-                    stateChkEliminarMensajes = true;
-                    stateChkOcultarMensajes = false;
-                }
-                else
-                {
-                    stateChkEliminarMensajes = false;
-                    stateChkOcultarMensajes = true;
-                }
+            //if (checkbox.Name.Equals("chkEliminarMensaje") || checkbox.Name.Equals("chkOcultarMensaje"))
+            //{
+            //    if (checkbox.Name.Equals("chkEliminarMensaje") && checkbox.Checked == true)
+            //    {
+            //        stateChkEliminarMensajes = true;
+            //        stateChkOcultarMensajes = false;
+            //    }
+            //    else
+            //    {
+            //        stateChkEliminarMensajes = false;
+            //        stateChkOcultarMensajes = true;
+            //    }
 
-                if (checkbox.Name.Equals("chkOcultarMensaje") && checkbox.Checked == true)
-                {
-                    stateChkOcultarMensajes = true;
-                    stateChkEliminarMensajes = false;
-                }
-                else
-                {
-                    stateChkOcultarMensajes = false;
-                    stateChkEliminarMensajes = true;
-                }
-            }
-            else
-            {
-                if (checkbox.Name.Equals("chkMostrarMensaje") && checkbox.Checked == true)
-                {
-                    stateChkMostrarMensaje = true;
-                }
-                else
-                {
-                    stateChkMostrarMensaje = false;
-                }
-            }
+            //    if (checkbox.Name.Equals("chkOcultarMensaje") && checkbox.Checked == true)
+            //    {
+            //        stateChkOcultarMensajes = true;
+            //        stateChkEliminarMensajes = false;
+            //    }
+            //    else
+            //    {
+            //        stateChkOcultarMensajes = false;
+            //        stateChkEliminarMensajes = true;
+            //    }
+            //}
+            //else
+            //{
+            //    if (checkbox.Name.Equals("chkMostrarMensaje") && checkbox.Checked == true)
+            //    {
+            //        stateChkMostrarMensaje = true;
+            //    }
+            //    else
+            //    {
+            //        stateChkMostrarMensaje = false;
+            //    }
+            //}
         }
 
         private void chkMostrarOcultarMensaje_CheckedChanged(object sender, EventArgs e)
@@ -761,6 +763,7 @@ namespace PuntoDeVentaV2
                 stateChkMostrarMensaje = true;
                 stateChkOcultarMensajes = false;
                 stateChkEliminarMensajes = false;
+                
             }
 
         }
@@ -814,6 +817,20 @@ namespace PuntoDeVentaV2
             RadioButton rbOcultarMensaje = (RadioButton)Controls.Find("chkOcultarMensaje", true)[0];
             RadioButton rbMostrarMensaje = (RadioButton)Controls.Find("chkMostrarMensaje", true)[0];
             RadioButton rbEliminarMensaje = (RadioButton)Controls.Find("chkEliminarMensaje", true)[0];
+
+            if (rbMostrarMensaje.Checked == true)
+            {
+                tipoDeAsignacion = "mensajes";
+            }
+            else if (rbOcultarMensaje.Checked == true)
+            {
+                tipoDeAsignacion = "Ocultar mensajes";
+            }
+            else if (rbEliminarMensaje.Checked == true)
+            {
+                tipoDeAsignacion = "Eliminar mensajes";
+            }
+
 
             if (!rbMostrarMensaje.Checked.Equals(true) && !rbOcultarMensaje.Checked.Equals(true) && !rbEliminarMensaje.Checked.Equals(true))
             {
