@@ -1849,14 +1849,14 @@ namespace PuntoDeVentaV2
 
 
                 float importe = float.Parse(DGVentas.Rows[fila].Cells["Importe"].Value.ToString());
-                float descuentoFinal = importe - totalImporte;
+                float descuentoFinal = importe - float.Parse(totalImporte.ToString("0.00"));
 
                 if (descuentoFinal < 0)
                 {
                     descuentoFinal = 0;
                 }
 
-                DGVentas.Rows[fila].Cells["Descuento"].Value = descuentoFinal;
+                DGVentas.Rows[fila].Cells["Descuento"].Value = descuentoFinal.ToString("0.00");
                 DGVentas.Rows[fila].Cells["Importe"].Value = totalImporte;
             }
         }
