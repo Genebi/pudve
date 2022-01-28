@@ -182,7 +182,11 @@ namespace PuntoDeVentaV2
                 }
             }
             var mensajeInventario = cn.CargarDatos($"SELECT Mensaje FROM `mensajesinventario` WHERE IDProducto = {datos[0]}");
-            mensaje = mensajeInventario.Rows[0]["Mensaje"].ToString();
+            if (!mensajeInventario.Rows.Count.Equals(0))
+            {
+                mensaje = mensajeInventario.Rows[0]["Mensaje"].ToString();
+            }
+
         }
 
         private void CargarConceptos()
