@@ -2800,7 +2800,7 @@ namespace PuntoDeVentaV2
         }
         public string actualizarMensajeVentas(int idProductoSeleccionado, string mensaje, int estado)
         {
-            var consulta = $"UPDATE productmessage SET ProductOfMessage = '{mensaje}' ProductMessageActivated = {estado} WHERE IDProducto = {idProductoSeleccionado}";
+            var consulta = $"UPDATE productmessage SET ProductOfMessage = '{mensaje}', ProductMessageActivated = {estado} WHERE IDProducto = {idProductoSeleccionado}";
 
             return consulta;
         }

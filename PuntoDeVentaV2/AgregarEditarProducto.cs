@@ -4054,6 +4054,11 @@ namespace PuntoDeVentaV2
 
         private void btnMensajeVenta_Click(object sender, EventArgs e)
         {
+            if (Productos.codProductoEditarVenta.Equals(0))
+            {
+                MessageBox.Show("Se Necesita guardar el producto antes de asignarle los mensajes");
+                return;
+            }
             MensajeVentasYMensajeInventario mensajes = new MensajeVentasYMensajeInventario();
             nombreProductoEditar = txtNombreProducto.Text;
             mensajes.ShowDialog();
