@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
             tituloDeLaVentana = string.Empty;
             tituloDeLaVentana = definirTituloDeVentana();
             this.Text = $"Asignando {tituloDeLaVentana}";
-            lblAsigandoConcepto.Text = $"Asignando {tituloDeLaVentana}";
+            lblAsigandoConcepto.Text = $"Espere: Asignando {tituloDeLaVentana}";
             progresoDeLaBarra();
         }
 
@@ -51,7 +51,7 @@ namespace PuntoDeVentaV2
             {
                 if (propiedadCambiar.Equals("MensajeVentas"))
                 {
-                    titulo = "mensaje de venta";
+                    titulo = AsignarPropiedad.tipoDeAsignacion;
                 }
                 else if (propiedadCambiar.Equals("MensajeInventario"))
                 {
