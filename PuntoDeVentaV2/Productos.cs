@@ -4760,7 +4760,7 @@ namespace PuntoDeVentaV2
             {
                 mostrarColumnas = false;
             }
-
+             
             DGVProductos.Columns["Column7"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column8"].Visible = mostrarColumnas;
             //DGVProductos.Columns["Column9"].Visible = mostrarColumnas;
