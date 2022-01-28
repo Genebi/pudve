@@ -408,9 +408,14 @@ namespace PuntoDeVentaV2
             TextBox cantidadCompra = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
             TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
 
-            if (string.IsNullOrWhiteSpace(cantidadCompra.Text) || string.IsNullOrWhiteSpace(mensajeMostrado.Text))
+            if (string.IsNullOrWhiteSpace(cantidadCompra.Text))
             {
-                MessageBox.Show("Favor verificar que los 2 campos esten correctos.","Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Favor de asignar una cantidad de compra minima.","Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(mensajeMostrado.Text))
+            {
+                MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
