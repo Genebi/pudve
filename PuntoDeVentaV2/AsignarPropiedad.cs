@@ -808,7 +808,7 @@ namespace PuntoDeVentaV2
 
             if (!rbMostrarMensaje.Checked.Equals(true) && !rbOcultarMensaje.Checked.Equals(true) && !rbEliminarMensaje.Checked.Equals(true))
             {
-                MessageBox.Show("Favor de marcar la opcion a realizar");
+                MessageBox.Show("Favor de marcar la opcion a realizar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

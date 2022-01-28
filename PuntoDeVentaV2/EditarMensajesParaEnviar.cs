@@ -405,6 +405,15 @@ namespace PuntoDeVentaV2
         {
             var dato = MensajeVentasYMensajeInventario.enviarDato;
 
+            TextBox cantidadCompra = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
+            TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
+
+            if (string.IsNullOrWhiteSpace(cantidadCompra.Text) || string.IsNullOrWhiteSpace(mensajeMostrado.Text))
+            {
+                MessageBox.Show("Favor verificar que los 2 campos esten correctos.","Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (dato == "mensajeVentas")
             {
                 foreach (Control item in this.Controls)
@@ -421,6 +430,7 @@ namespace PuntoDeVentaV2
                                     {
                                         if (textoMensaje.Name.Equals("txtCantidadCompra"))
                                         {
+                                           
                                             var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
                                             if (updateOinsert.Rows.Count.Equals(0))
                                             {
@@ -454,7 +464,7 @@ namespace PuntoDeVentaV2
                                     {
                                         if (textoMensaje is TextBox)
                                         {
-                                            if (textoMensaje.Name.Equals("txtMensaje"))
+                                        if (textoMensaje.Name.Equals("txtMensaje"))
                                             {
                                             var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
                                             if (updateOinsert.Rows.Count.Equals(0))
