@@ -3124,6 +3124,7 @@ namespace PuntoDeVentaV2
 
                     // Obtener ID de la venta
                     string idVenta = cn.EjecutarSelect("SELECT ID FROM Ventas ORDER BY ID DESC LIMIT 1", 1).ToString();
+
                     var sumaEfectivo = Properties.Settings.Default.efectivoRecibido + Properties.Settings.Default.tarjetaRecibido + Properties.Settings.Default.transfRecibido + Properties.Settings.Default.chequeRecibido + Properties.Settings.Default.valesRecibido;
 
                     var cambio = sumaEfectivo - (float)Convert.ToDouble(Total);
