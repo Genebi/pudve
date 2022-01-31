@@ -2927,93 +2927,93 @@ namespace PuntoDeVentaV2
                                             string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idHistorialCompraProducto}','{FechaRegistrada}')";
                                             cn.EjecutarConsulta(queryRecordHistorialProd);
 
-                                            if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
-                                            {
-                                                ProductosDeServicios.Clear();
-                                                // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
-                                                foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
-                                                {
-                                                    // agregamos la variable para egregar los procutos
-                                                    string prodSerPaq = null;
-                                                    DataTable dtProductos;
-                                                    foreach (Control item in panel.Controls)
-                                                    {
-                                                        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                        if (item is ComboBox)
-                                                        {
-                                                            if (item.Text != "Por favor selecciona un Producto")
-                                                            {
-                                                                string buscar = null;
-                                                                string comboBoxText = item.Text;
-                                                                string comboBoxValue = null;
-                                                                buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = '1'";
-                                                                dtProductos = cn.CargarDatos(buscar);
-                                                                DataRow row = dtProductos.Rows[0];
-                                                                comboBoxValue = row["ID"].ToString();
-                                                                prodSerPaq += fech + "|";
-                                                                prodSerPaq += idProducto + "|";
-                                                                prodSerPaq += comboBoxValue + "|";
-                                                                prodSerPaq += comboBoxText + "|";
-                                                            }
-                                                        }
-                                                        if (item is TextBox)
-                                                        {
-                                                            var tb = item.Text;
-                                                            if (item.Text == "0")
-                                                            {
-                                                                tb = "0";
-                                                                prodSerPaq += tb;
-                                                            }
-                                                            else
-                                                            {
-                                                                prodSerPaq += tb;
-                                                            }
-                                                        }
-                                                    }
-                                                    ProductosDeServicios.Add(prodSerPaq);
-                                                    prodSerPaq = null;
-                                                }
+                                            //if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
+                                            //{
+                                            //    ProductosDeServicios.Clear();
+                                            //    // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
+                                            //    foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
+                                            //    {
+                                            //        // agregamos la variable para egregar los procutos
+                                            //        string prodSerPaq = null;
+                                            //        DataTable dtProductos;
+                                            //        foreach (Control item in panel.Controls)
+                                            //        {
+                                            //            string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                            //            if (item is ComboBox)
+                                            //            {
+                                            //                if (item.Text != "Por favor selecciona un Producto")
+                                            //                {
+                                            //                    string buscar = null;
+                                            //                    string comboBoxText = item.Text;
+                                            //                    string comboBoxValue = null;
+                                            //                    buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = '1'";
+                                            //                    dtProductos = cn.CargarDatos(buscar);
+                                            //                    DataRow row = dtProductos.Rows[0];
+                                            //                    comboBoxValue = row["ID"].ToString();
+                                            //                    prodSerPaq += fech + "|";
+                                            //                    prodSerPaq += idProducto + "|";
+                                            //                    prodSerPaq += comboBoxValue + "|";
+                                            //                    prodSerPaq += comboBoxText + "|";
+                                            //                }
+                                            //            }
+                                            //            if (item is TextBox)
+                                            //            {
+                                            //                var tb = item.Text;
+                                            //                if (item.Text == "0")
+                                            //                {
+                                            //                    tb = "0";
+                                            //                    prodSerPaq += tb;
+                                            //                }
+                                            //                else
+                                            //                {
+                                            //                    prodSerPaq += tb;
+                                            //                }
+                                            //            }
+                                            //        }
+                                            //        ProductosDeServicios.Add(prodSerPaq);
+                                            //        prodSerPaq = null;
+                                            //    }
 
-                                                //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
-                                                if (ProductosDeServicios.Any())
-                                                {
-                                                    foreach (var productosSP in ProductosDeServicios)
-                                                    {
-                                                        string[] tmp = productosSP.Split('|');
-                                                        if (tmp.Length == 5)
-                                                        {
-                                                            cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                                                        }
-                                                    }
-                                                    ProductosDeServicios.Clear();
-                                                }
-                                            }
-                                            flowLayoutPanel2.Controls.Clear();
-                                        }
+                                            //    //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                                            //    if (ProductosDeServicios.Any())
+                                            //    {
+                                            //        foreach (var productosSP in ProductosDeServicios)
+                                            //        {
+                                            //            string[] tmp = productosSP.Split('|');
+                                            //            if (tmp.Length == 5)
+                                            //            {
+                                            //                cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                            //            }
+                                            //        }
+                                            //        ProductosDeServicios.Clear();
+                                            //    }
+                                            //}
+                                            //flowLayoutPanel2.Controls.Clear();
 
-                                        using (DataTable dtProdDeServComb = cn.CargarDatos(cs.ProductosDeServicios(idProducto)))
-                                        {
-                                            if (!dtProdDeServComb.Rows.Count.Equals(0))
+                                            using (DataTable dtProdDeServComb = cn.CargarDatos(cs.ProductosDeServicios(idProducto)))
                                             {
-                                                foreach (DataRow drProdServComb in dtProdDeServComb.Rows)
+                                                if (!dtProdDeServComb.Rows.Count.Equals(0))
                                                 {
-                                                    var cantidadProducto = Convert.ToDecimal(drProdServComb["Cantidad"].ToString());
-                                                    var NoProducto = Convert.ToInt32(drProdServComb["IDProducto"].ToString());
-                                                    try
+                                                    foreach (DataRow drProdServComb in dtProdDeServComb.Rows)
                                                     {
-                                                        if (!this.Text.Equals("AGREGAR COMBOS"))
+                                                        var cantidadProducto = Convert.ToDecimal(drProdServComb["Cantidad"].ToString());
+                                                        var NoProducto = Convert.ToInt32(drProdServComb["IDProducto"].ToString());
+                                                        try
                                                         {
-                                                            cn.EjecutarConsulta(cs.actualizarStockProdServCombo(cantidadProducto, NoProducto));
+                                                            if (!this.Text.Equals("AGREGAR COMBOS"))
+                                                            {
+                                                                cn.EjecutarConsulta(cs.actualizarStockProdServCombo(cantidadProducto, NoProducto));
+                                                            }
                                                         }
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        MessageBox.Show("Advertencia en el proceso de aumento de Stock de producto relacionado", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                    }
-                                                    finally
-                                                    {
-                                                        cantidadProducto = 0;
-                                                        NoProducto = 0;
+                                                        catch (Exception ex)
+                                                        {
+                                                            MessageBox.Show("Advertencia en el proceso de aumento de Stock de producto relacionado", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                        }
+                                                        finally
+                                                        {
+                                                            cantidadProducto = 0;
+                                                            NoProducto = 0;
+                                                        }
                                                     }
                                                 }
                                             }
