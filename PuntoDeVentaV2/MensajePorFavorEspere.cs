@@ -55,7 +55,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (propiedadCambiar.Equals("MensajeInventario"))
                 {
-                    titulo = "mensaje para el inventario";
+                    titulo = AsignarPropiedad.tipoDeAsignacion;
                 }
                 else if (propiedadCambiar.Equals("Stock"))
                 {

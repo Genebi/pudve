@@ -86,21 +86,43 @@ namespace PuntoDeVentaV2
 
             stateChkMostrarMensaje = true;
 
-            var consulta = cn.CargarDatos($"SELECT ProductMessageActivated FROM productmessage WHERE IDProducto = {productos.Keys.First()}");
-            if (consulta.Rows.Count.Equals(1))
+            if (propiedad == "MensajeVentas")
             {
-                estado = Convert.ToBoolean(consulta.Rows[0]["ProductMessageActivated"].ToString());
-                if (estado)
+                var consulta = cn.CargarDatos($"SELECT ProductMessageActivated FROM productmessage WHERE IDProducto = {productos.Keys.First()}");
+                if (consulta.Rows.Count.Equals(1))
                 {
-                    stateChkMostrarMensaje = true;
-                    stateChkOcultarMensajes = false;
-                }
-                else
-                {
-                    stateChkOcultarMensajes = true;
-                    stateChkMostrarMensaje = false;
+                    estado = Convert.ToBoolean(consulta.Rows[0]["ProductMessageActivated"].ToString());
+                    if (estado)
+                    {
+                        stateChkMostrarMensaje = true;
+                        stateChkOcultarMensajes = false;
+                    }
+                    else
+                    {
+                        stateChkOcultarMensajes = true;
+                        stateChkMostrarMensaje = false;
+                    }
                 }
             }
+            else if (propiedad == "MensajeInventario")
+            {
+                var consulta = cn.CargarDatos($"SELECT Activo FROM mensajesinventario WHERE IDProducto = {productos.Keys.First()}");
+                if (consulta.Rows.Count.Equals(1))
+                {
+                    var status = consulta.Rows[0]["Activo"].ToString();
+                    if (status == "1")
+                    {
+                        stateChkMostrarMensaje = true;
+                        stateChkOcultarMensajes = false;
+                    }
+                    else
+                    {
+                        stateChkOcultarMensajes = true;
+                        stateChkMostrarMensaje = false;
+                    }
+                }
+            }
+            
 
             CargarPropiedad();
 
@@ -314,7 +336,8 @@ namespace PuntoDeVentaV2
 
                 RadioButton chkMostrarOcultarMensaje = new RadioButton();
                 chkMostrarOcultarMensaje.Name = "chkMostrarMensaje";
-                stateChkMostrarMensaje = chkMostrarOcultarMensaje.Checked;
+                chkMostrarOcultarMensaje.Checked = stateChkMostrarMensaje;
+                chkMostrarOcultarMensaje.AutoCheck = true;
                 chkMostrarOcultarMensaje.CheckedChanged += new EventHandler(chkMostrarOcultarMensajeInventario_CheckedChanged);
                 chkMostrarOcultarMensaje.Height = 15;
                 chkMostrarOcultarMensaje.Width = 15;
@@ -322,7 +345,7 @@ namespace PuntoDeVentaV2
 
                 RadioButton chkOcultarMensaje = new RadioButton();
                 chkOcultarMensaje.Name = "chkOcultarMensaje";
-                stateChkOcultarMensajes = chkOcultarMensaje.Checked;
+                chkOcultarMensaje.Checked = stateChkOcultarMensajes;
                 chkOcultarMensaje.CheckedChanged += new EventHandler(chkOcultarMensaje_CheckedChanged);
                 chkOcultarMensaje.Height = 15;
                 chkOcultarMensaje.Width = 15;
@@ -815,29 +838,60 @@ namespace PuntoDeVentaV2
 
         private /*async*/ void botonAceptar_Click(object sender, EventArgs e)
         {
-            RadioButton rbOcultarMensaje = (RadioButton)Controls.Find("chkOcultarMensaje", true)[0];
-            RadioButton rbMostrarMensaje = (RadioButton)Controls.Find("chkMostrarMensaje", true)[0];
-            RadioButton rbEliminarMensaje = (RadioButton)Controls.Find("chkEliminarMensaje", true)[0];
+            if (propiedad == "MensajeVentas")
+            {
+                RadioButton rbOcultarMensaje = (RadioButton)Controls.Find("chkOcultarMensaje", true)[0];
+                RadioButton rbMostrarMensaje = (RadioButton)Controls.Find("chkMostrarMensaje", true)[0];
+                RadioButton rbEliminarMensaje = (RadioButton)Controls.Find("chkEliminarMensaje", true)[0];
 
-            if (rbMostrarMensaje.Checked == true)
-            {
-                tipoDeAsignacion = "mensajes";
-            }
-            else if (rbOcultarMensaje.Checked == true)
-            {
-                tipoDeAsignacion = "Ocultar mensajes";
-            }
-            else if (rbEliminarMensaje.Checked == true)
-            {
-                tipoDeAsignacion = "Eliminar mensajes";
-            }
+                if (rbMostrarMensaje.Checked == true)
+                {
+                    tipoDeAsignacion = "Mensajes";
+                }
+                else if (rbOcultarMensaje.Checked == true)
+                {
+                    tipoDeAsignacion = "Ocultar mensajes";
+                }
+                else if (rbEliminarMensaje.Checked == true)
+                {
+                    tipoDeAsignacion = "Eliminar mensajes";
+                }
 
 
-            if (!rbMostrarMensaje.Checked.Equals(true) && !rbOcultarMensaje.Checked.Equals(true) && !rbEliminarMensaje.Checked.Equals(true))
-            {
-                MessageBox.Show("Favor de marcar la opcion a realizar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                if (!rbMostrarMensaje.Checked.Equals(true) && !rbOcultarMensaje.Checked.Equals(true) && !rbEliminarMensaje.Checked.Equals(true))
+                {
+                    MessageBox.Show("Favor de marcar la opcion a realizar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
             }
+            else if (propiedad == "MensajeInventario")
+            {
+                RadioButton rbOcultarMensaje = (RadioButton)Controls.Find("chkOcultarMensaje", true)[0];
+                RadioButton rbMostrarMensaje = (RadioButton)Controls.Find("chkMostrarMensaje", true)[0];
+                RadioButton rbEliminarMensaje = (RadioButton)Controls.Find("chkEliminarMensaje", true)[0];
+
+                if (rbMostrarMensaje.Checked == true)
+                {
+                    tipoDeAsignacion = "Mensajes";
+                }
+                else if (rbOcultarMensaje.Checked == true)
+                {
+                    tipoDeAsignacion = "Ocultar mensajes";
+                }
+                else if (rbEliminarMensaje.Checked == true)
+                {
+                    tipoDeAsignacion = "Eliminar mensajes";
+                }
+
+
+                if (!rbMostrarMensaje.Checked.Equals(true) && !rbOcultarMensaje.Checked.Equals(true) && !rbEliminarMensaje.Checked.Equals(true))
+                {
+                    MessageBox.Show("Favor de marcar la opcion a realizar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+
+           
 
             Button btn = (Button)sender;
             btn.Enabled = false;
