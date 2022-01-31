@@ -907,22 +907,68 @@ namespace PuntoDeVentaV2
             //cargando.Close();
 
             //Dispose();
+            if (propiedad == "MensajeVentas")
+            {
+                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeVentas", true)[0];
+                var mensaje = txtMensaje.Text;
 
-            MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
+                TextBox txtCantidadCompra = (TextBox)this.Controls.Find("txtCantidadCompra", true)[0];
+                var cantidad = txtCantidadCompra.Text;
+                if (!string.IsNullOrWhiteSpace(mensaje) && !string.IsNullOrWhiteSpace(cantidad))
+                {
+                    MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
 
-            // Mostrar formulario sin modo
-            porFavorEspere.tiempoDeEspera = 150;
-            porFavorEspere.propiedadCambiar = propiedad;
-            porFavorEspere.ShowDialog();
+                    // Mostrar formulario sin modo
+                    porFavorEspere.tiempoDeEspera = 150;
+                    porFavorEspere.propiedadCambiar = propiedad;
+                    porFavorEspere.ShowDialog();
+
+                    OperacionBoton();
+
+                    // Permita que el hilo principal de la interfaz de usuario se muestre correctamente, espere el formulario.
+                    Application.DoEvents();
+
+                    porFavorEspere.Dispose();
+                }
+                else
+                {
+                    MessageBox.Show("Favor de rellenar los 2 campos contengan informacion.");
+                }
+            }
+            else if (propiedad == "MensajeInventario")
+            {
+                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
+                var mensaje = txtMensaje.Text;
+                if (!string.IsNullOrWhiteSpace(mensaje))
+                {
+                    MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
+
+                    // Mostrar formulario sin modo
+                    porFavorEspere.tiempoDeEspera = 150;
+                    porFavorEspere.propiedadCambiar = propiedad;
+                    porFavorEspere.ShowDialog();
+
+                    OperacionBoton();
+
+                    // Permita que el hilo principal de la interfaz de usuario se muestre correctamente, espere el formulario.
+                    Application.DoEvents();
+
+                    porFavorEspere.Dispose();
+                }
+                else
+                {
+                    MessageBox.Show("Favor de insertar un mensaje a mostrar.");
+                }
+            }
+
+            //MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
+
+            //// Mostrar formulario sin modo
+            //porFavorEspere.tiempoDeEspera = 150;
+            //porFavorEspere.propiedadCambiar = propiedad;
+            //porFavorEspere.ShowDialog();
 
             //Thread.Sleep(500);
-
-            OperacionBoton();
-
-            // Permita que el hilo principal de la interfaz de usuario se muestre correctamente, espere el formulario.
-            Application.DoEvents();
-
-            porFavorEspere.Dispose();
 
             this.Close();
         }
@@ -942,7 +988,7 @@ namespace PuntoDeVentaV2
 
                 if (!string.IsNullOrWhiteSpace(mensaje) && !string.IsNullOrWhiteSpace(cantidad) || stateChkEliminarMensajes.Equals(true))
                 {
-                    if (stateChkMostrarMensaje.Equals(true) /*&& stateChkOcultarMensajes.Equals(false)*/)
+                    if (stateChkMostrarMensaje.Equals(true))
                     {
                         foreach (var producto in productos)
                         {
@@ -1107,13 +1153,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                else
-                {
-                    if (stateChkEliminarMensajes == false)
-                    {
-                        MessageBox.Show("Favor de verificar que los campos contengan informacion.");
-                    }
-                }
+                
             }
             else if (propiedad == "Stock")
             {

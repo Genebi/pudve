@@ -433,9 +433,6 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-           
-
-            
 
             if (dato == "mensajeVentas")
             {
