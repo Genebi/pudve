@@ -407,19 +407,35 @@ namespace PuntoDeVentaV2
         {
             var dato = MensajeVentasYMensajeInventario.enviarDato;
 
-            TextBox cantidadCompra = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
-            TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
+            if (dato == "mensajeVentas")
+            {
+                TextBox cantidadCompra = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
+                TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
 
-            if (string.IsNullOrWhiteSpace(cantidadCompra.Text))
-            {
-                MessageBox.Show("Favor de asignar una cantidad de compra minima.","Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                if (string.IsNullOrWhiteSpace(cantidadCompra.Text))
+                {
+                    MessageBox.Show("Favor de asignar una cantidad de compra minima.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(mensajeMostrado.Text))
+                {
+                    MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
             }
-            if (string.IsNullOrWhiteSpace(mensajeMostrado.Text))
+            else if (dato == "mensajeInventario")
             {
-                MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
+
+                if (string.IsNullOrWhiteSpace(mensajeMostrado.Text))
+                {
+                    MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
             }
+           
+
+            
 
             if (dato == "mensajeVentas")
             {
