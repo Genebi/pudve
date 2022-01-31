@@ -182,6 +182,7 @@ namespace PuntoDeVentaV2
                 }
             }
             var mensajeInventario = cn.CargarDatos($"SELECT Mensaje FROM `mensajesinventario` WHERE IDProducto = {datos[0]}");
+            
             if (!mensajeInventario.Rows.Count.Equals(0))
             {
                 mensaje = mensajeInventario.Rows[0]["Mensaje"].ToString();
@@ -1390,7 +1391,15 @@ namespace PuntoDeVentaV2
 
         private void AjustarProducto_Shown(object sender, EventArgs e)
         {
-            MessageBox.Show(AjustarProducto.mensaje);
+            string[] datos = cn.BuscarProducto(IDProducto, FormPrincipal.userID);
+
+            var estado = cn.CargarDatos($"SELECT Activo FROM `mensajesinventario` WHERE IDProducto = {datos[0]}");
+            var activo = estado.Rows[0]["Activo"].ToString();
+            if (activo == "1")
+            {
+                MessageBox.Show(AjustarProducto.mensaje);
+            }
+           
         }
     }
 }

@@ -746,7 +746,6 @@ namespace PuntoDeVentaV2
                     }
 
                     ap.ShowDialog();
-                    MessageBox.Show("Test mensaje ap 2");
                 }
                 else
                 {
