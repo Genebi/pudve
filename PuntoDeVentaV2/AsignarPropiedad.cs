@@ -132,11 +132,6 @@ namespace PuntoDeVentaV2
                 tbMensaje.ScrollBars = ScrollBars.Vertical;
                 tbMensaje.Location = new Point(65, 110);
 
-               
-                var datos = Productos.checkboxMarcados;
-                var cantidadDatos = datos.Count;
-               
-
                 Label lbCantidadCompra = new Label();
                 lbCantidadCompra.Text = "Cantidad minima en la venta para mostrar mensaje:";
                 lbCantidadCompra.AutoSize = true;
@@ -157,9 +152,9 @@ namespace PuntoDeVentaV2
                 lbEliminarMensajes.AutoSize = true;
                 lbEliminarMensajes.Location = new Point(152, 78);
 
-               
+                var datos = Productos.checkboxMarcados;
+                var cantidadDatos = datos.Count;
 
-             
                 if (cantidadDatos == 1)
                 {
                     foreach (KeyValuePair<int,string> item in datos)
@@ -276,8 +271,20 @@ namespace PuntoDeVentaV2
 
                 }
 
+                TextBox txtCantidadCompraFocus = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
+                this.ActiveControl = txtCantidadCompraFocus;
+                if (stateChkOcultarMensajes.Equals(true))
+                {
+                    RadioButton rbOcultarMensaje = (RadioButton)Controls.Find("chkOcultarMensaje", true)[0];
+                    rbOcultarMensaje.Checked = true;
+                }
+                else if (stateChkMostrarMensaje.Equals(true))
+                {
+                    RadioButton rbMostrarMensaje = (RadioButton)Controls.Find("chkMostrarMensaje", true)[0];
+                    rbMostrarMensaje.Checked = true;
+                }
             }
-            else if (propiedad == "MensajeInventario")
+            else if (propiedad == "MensajeInventario")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 TextBox tbMensaje = new TextBox();
                 tbMensaje.Name = "tb" + propiedad;
@@ -289,22 +296,6 @@ namespace PuntoDeVentaV2
                 tbMensaje.Multiline = true;
                 tbMensaje.ScrollBars = ScrollBars.Vertical;
                 tbMensaje.Location = new Point(65, 95);
-
-                var datos = Productos.checkboxMarcados;
-                var cantidadDatos = datos.Count;
-                if (cantidadDatos == 1)
-                {
-                    foreach (KeyValuePair<int, string> item in datos)
-                    {
-                        var id = item.Key;
-                        var dato = cn.CargarDatos($"SELECT Mensaje FROM mensajesinventario WHERE IDProducto = {id}");
-                        if (!dato.Rows.Count.Equals(0))
-                        {
-                            string cantidad = dato.Rows[0]["Mensaje"].ToString();
-                            tbMensaje.Text = cantidad.ToString();
-                        }
-                    }
-                }
 
                 Label lbMostrarMensaje = new Label();
                 lbMostrarMensaje.Text = "Mostrar mensaje:";
@@ -322,9 +313,7 @@ namespace PuntoDeVentaV2
                 lbEliminarMensajes.Location = new Point(172, 50);
 
                 RadioButton chkMostrarOcultarMensaje = new RadioButton();
-                chkMostrarOcultarMensaje.Name = "chkMostrarMensajeInventario";
-                chkMostrarOcultarMensaje.Checked = true;
-                chkMostrarOcultarMensaje.AutoCheck = true;
+                chkMostrarOcultarMensaje.Name = "chkMostrarMensaje";
                 stateChkMostrarMensaje = chkMostrarOcultarMensaje.Checked;
                 chkMostrarOcultarMensaje.CheckedChanged += new EventHandler(chkMostrarOcultarMensajeInventario_CheckedChanged);
                 chkMostrarOcultarMensaje.Height = 15;
@@ -333,7 +322,7 @@ namespace PuntoDeVentaV2
 
                 RadioButton chkOcultarMensaje = new RadioButton();
                 chkOcultarMensaje.Name = "chkOcultarMensaje";
-                stateChkMostrarMensaje = chkMostrarOcultarMensaje.Checked;
+                stateChkOcultarMensajes = chkOcultarMensaje.Checked;
                 chkOcultarMensaje.CheckedChanged += new EventHandler(chkOcultarMensaje_CheckedChanged);
                 chkOcultarMensaje.Height = 15;
                 chkOcultarMensaje.Width = 15;
@@ -357,8 +346,60 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(tbMensaje);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
+
+                var datos = Productos.checkboxMarcados;
+                var cantidadDatos = datos.Count;
+
+
+                if (cantidadDatos == 1)
+                {
+                    foreach (KeyValuePair<int, string> item in datos)
+                    {
+                        var id = item.Key;
+                        var dato = cn.CargarDatos($"SELECT Mensaje FROM mensajesinventario WHERE IDProducto = {id}");
+                        if (!dato.Rows.Count.Equals(0))
+                        {
+                            string cantidad = dato.Rows[0]["Mensaje"].ToString();
+                            tbMensaje.Text = cantidad.ToString();
+                        }
+                    }
+                }
+
+                if (cantidadDatos > 1)
+                {
+                    int mensajesRepetidos = 0;
+
+                    var idProducto = datos.Keys.First();
+                    var consultaPrimerProducto = cn.CargarDatos($"SELECT Mensaje FROM mensajesinventario WHERE IDProducto = {idProducto}");
+                    if (!consultaPrimerProducto.Rows.Count.Equals(0))
+                    {
+                        string mensajeAComparar = consultaPrimerProducto.Rows[0]["Mensaje"].ToString();
+
+                        foreach (KeyValuePair<int, string> item in datos)
+                        {
+                            var id = item.Key;
+                            var consulta = cn.CargarDatos($"SELECT Mensaje FROM mensajesinventario WHERE IDProducto = {id}");
+                            if (!consulta.Rows.Count.Equals(0))
+                            {
+                                string mensaje = consulta.Rows[0]["Mensaje"].ToString();
+
+                                if (mensajeAComparar.Equals(mensaje))
+                                {
+                                    mensajesRepetidos++;
+                                }
+                            }
+                        }
+
+                        if (datos.Count.Equals(mensajesRepetidos))
+                        {
+                            var consultaMensaje = cn.CargarDatos($"SELECT Mensaje  FROM mensajesinventario WHERE IDProducto = {idProducto}");
+                            string mensaje = consultaMensaje.Rows[0]["Mensaje"].ToString();
+                            tbMensaje.Text = mensaje;
+                        }
+                    }
+                }
             }
-            else if (propiedad == "Stock")
+            else if (propiedad == "Stock")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 TextBox tbStock = new TextBox();
                 tbStock.Name = "tb" + propiedad;
@@ -373,7 +414,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarStock"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarStock"));
             }
-            else if (propiedad == "StockMinimo")
+            else if (propiedad == "StockMinimo")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 TextBox tbStock = new TextBox();
                 tbStock.Name = "tb" + propiedad;
@@ -388,7 +429,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarStockMinimo"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarStockMinimo"));
             }
-            else if (propiedad == "StockMaximo")
+            else if (propiedad == "StockMaximo")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 TextBox tbStock = new TextBox();
                 tbStock.Name = "tb" + propiedad;
@@ -403,7 +444,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarStockMaximo"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarStockMaximo"));
             }
-            else if (propiedad == "Precio")
+            else if (propiedad == "Precio")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 DialogResult respuesta = MessageBox.Show("Al modificar el precio de los productos/servicios/combos todos aquellos que tengan descuentos agregados estos mismos descuentos serán eliminados y será necesario agregarlos nuevamente, ¿Está de acuerdo con esta operación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 
@@ -427,7 +468,7 @@ namespace PuntoDeVentaV2
                     Dispose();
                 }
             }
-            else if (propiedad == "NumeroRevision")
+            else if (propiedad == "NumeroRevision")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 TextBox tbRevision = new TextBox();
                 tbRevision.Name = "tb" + propiedad;
@@ -442,7 +483,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarRevision"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarRevision"));
             }
-            else if (propiedad == "TipoIVA")
+            else if (propiedad == "TipoIVA")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 Dictionary<string, string> listaIVA = new Dictionary<string, string>();
                 listaIVA.Add("0%", "IVA AL 0%");
@@ -466,7 +507,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarIVA"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarIVA"));
             }
-            else if (propiedad == "ClaveProducto")
+            else if (propiedad == "ClaveProducto")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 TextBox tbClaveProducto = new TextBox();
                 tbClaveProducto.Name = "tb" + propiedad;
@@ -481,7 +522,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarClaveProducto"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarClaveProducto"));
             }
-            else if (propiedad == "ClaveUnidad")
+            else if (propiedad == "ClaveUnidad")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 TextBox tbClaveUnidad = new TextBox();
                 tbClaveUnidad.Name = "tb" + propiedad;
@@ -510,7 +551,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarClaveUnidad"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarClaveUnidad"));
             }
-            else if (propiedad == "Correos")
+            else if (propiedad == "Correos")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 //CheckBox primerCB = new CheckBox();
                 //primerCB.Text = "Correo al modificar precio de producto";
@@ -548,7 +589,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarCorreos", 150));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarCorreos", 150));
             }
-            else if (propiedad == "Proveedor")
+            else if (propiedad == "Proveedor")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 var listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
 
@@ -641,18 +682,7 @@ namespace PuntoDeVentaV2
                     Dispose();
                 }
             }
-            TextBox txtCantidadCompraFocus = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
-            this.ActiveControl = txtCantidadCompraFocus;
-            if (stateChkOcultarMensajes.Equals(true))
-            {
-                RadioButton rbOcultarMensaje = (RadioButton)Controls.Find("chkOcultarMensaje", true)[0];
-                rbOcultarMensaje.Checked = true;
-            }
-            else if (stateChkMostrarMensaje.Equals(true))
-            {
-                RadioButton rbMostrarMensaje = (RadioButton)Controls.Find("chkMostrarMensaje", true)[0];
-                rbMostrarMensaje.Checked = true;
-            }
+          
 
         }
 
@@ -715,43 +745,15 @@ namespace PuntoDeVentaV2
 
         private void chkMostrarOcultarMensajeInventario_CheckedChanged(object sender, EventArgs e)
         {
-            //RadioButton checkbox = (RadioButton)sender;
+            RadioButton checkbox = (RadioButton)sender;
 
-            //if (checkbox.Name.Equals("chkEliminarMensaje") || checkbox.Name.Equals("chkOcultarMensaje"))
-            //{
-            //    if (checkbox.Name.Equals("chkEliminarMensaje") && checkbox.Checked == true)
-            //    {
-            //        stateChkEliminarMensajes = true;
-            //        stateChkOcultarMensajes = false;
-            //    }
-            //    else
-            //    {
-            //        stateChkEliminarMensajes = false;
-            //        stateChkOcultarMensajes = true;
-            //    }
+            if (checkbox.Name.Equals("chkMostrarMensaje") && checkbox.Checked == true)
+            {
+                stateChkMostrarMensaje = true;
+                stateChkOcultarMensajes = false;
+                stateChkEliminarMensajes = false;
+            }
 
-            //    if (checkbox.Name.Equals("chkOcultarMensaje") && checkbox.Checked == true)
-            //    {
-            //        stateChkOcultarMensajes = true;
-            //        stateChkEliminarMensajes = false;
-            //    }
-            //    else
-            //    {
-            //        stateChkOcultarMensajes = false;
-            //        stateChkEliminarMensajes = true;
-            //    }
-            //}
-            //else
-            //{
-            //    if (checkbox.Name.Equals("chkMostrarMensaje") && checkbox.Checked == true)
-            //    {
-            //        stateChkMostrarMensaje = true;
-            //    }
-            //    else
-            //    {
-            //        stateChkMostrarMensaje = false;
-            //    }
-            //}
         }
 
         private void chkMostrarOcultarMensaje_CheckedChanged(object sender, EventArgs e)
@@ -763,7 +765,6 @@ namespace PuntoDeVentaV2
                 stateChkMostrarMensaje = true;
                 stateChkOcultarMensajes = false;
                 stateChkEliminarMensajes = false;
-                
             }
 
         }
@@ -944,7 +945,8 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta($"UPDATE productmessage SET ProductOfMessage = '{mensaje}' WHERE IDProducto = '{item.Key}'");
                             cn.EjecutarConsulta(cs.actualizarCompraMinimaMultiple(item.Key, Convert.ToInt32(txtCantidadCompra.Text)));
                         }
-                    }else if (stateChkEliminarMensajes.Equals(true) && stateChkMostrarMensaje.Equals(false) && stateChkOcultarMensajes.Equals(false))
+                    }
+                    else if (stateChkEliminarMensajes.Equals(true) && stateChkMostrarMensaje.Equals(false) && stateChkOcultarMensajes.Equals(false))
                     {
                         if (stateChkEliminarMensajes == true)
                         {
@@ -955,10 +957,6 @@ namespace PuntoDeVentaV2
                                 if (propiedadNombre.Equals("MENSAJEVENTAS"))
                                 {
                                     cn.EjecutarConsulta($"DELETE FROM productmessage WHERE IDProducto = {id}");
-                                }
-                                else if (propiedadNombre.Equals("MENSAJEINVENTARIO"))
-                                {
-                                    cn.EjecutarConsulta($"DELETE FROM mensajesinventario WHERE IDProducto = {id}");
                                 }
                             }
                         }
@@ -973,106 +971,95 @@ namespace PuntoDeVentaV2
                 }
                 
             }
-            else if (propiedad == "MensajeInventario")
+            else if (propiedad == "MensajeInventario")/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
 
-                if (stateChkMostrarMensaje.Equals(true))
+                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
+                var mensaje = txtMensaje.Text;
+
+                if (!string.IsNullOrWhiteSpace(mensaje) || stateChkEliminarMensajes.Equals(true))
                 {
-                    foreach (var producto in productos)
+                    if (stateChkMostrarMensaje.Equals(true))
                     {
-                        using (DataTable datosI = cn.CargarDatos($"SELECT * FROM mensajesinventario WHERE IDProducto = '{producto.Key}'"))
+                        foreach (var producto in productos)
                         {
-                            if (!datosI.Rows.Count.Equals(0))
+                            using (DataTable datosV = cn.CargarDatos($"SELECT * FROM mensajesinventario WHERE IDProducto = '{producto.Key}'"))
                             {
-                                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Mensaje = '{mensajeCompra}' WHERE IDProducto = {producto.Key}");
-                                if (stateChkMostrarMensaje.Equals(false))
+                                if (!datosV.Rows.Count.Equals(0))
+                                {
+
+                                    cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1, Mensaje = '{mensaje}' WHERE IDProducto = '{producto.Key}'");
+                                }
+                                else
+                                {
+                                    var status = 0;
+                                    if (stateChkMostrarMensaje)
+                                    {
+                                        status = 1;
+                                    }
+                                    else
+                                    {
+                                        status = 0;
+                                    }
+                                    cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDProducto,Mensaje,Activo,IDUsuario) VALUES ('{producto.Key}','{mensaje}','{status}','{FormPrincipal.userID}')");
+                                }
+                            }
+
+                        }
+                    }
+                    else if (stateChkMostrarMensaje.Equals(false) && stateChkOcultarMensajes.Equals(true))
+                    {
+                        foreach (var producto in productos)
+                        {
+                            using (DataTable datosV = cn.CargarDatos($"SELECT * FROM mensajesinventario WHERE IDProducto = '{producto.Key}'"))
+                            {
+                                if (!datosV.Rows.Count.Equals(0))
                                 {
                                     cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0 WHERE IDProducto = '{producto.Key}'");
                                 }
                                 else
                                 {
-                                    cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1 WHERE IDProducto = '{producto.Key}'");
+                                    var status = 0;
+                                    if (stateChkMostrarMensaje)
+                                    {
+                                        status = 1;
+                                    }
+                                    else
+                                    {
+                                        status = 0;
+                                    }
+                                    cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDProducto,Mensaje,Activo,IDUsuario) VALUES ('{producto.Key}','{mensaje}','{status}','{FormPrincipal.userID}'");
                                 }
-                            }
-                            else
-                            {
-                                var status = 0;
-                                if (stateChkMostrarMensaje)
-                                {
-                                    status = 1;
-                                }
-                                else
-                                {
-                                    status = 0;
-                                }
-                                cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDUsuario,IDProducto,Mensaje,Activo) VALUES ({FormPrincipal.userID},'{producto.Key}','{mensajeCompra}','{status}')");
                             }
                         }
-
+                        foreach (var item in productos)
+                        {
+                            cn.EjecutarConsulta($"UPDATE mensajesinventario SET Mensaje = '{mensaje}' WHERE IDProducto = '{item.Key}'");
+                        }
+                    }
+                    else if (stateChkEliminarMensajes.Equals(true) && stateChkMostrarMensaje.Equals(false) && stateChkOcultarMensajes.Equals(false))
+                    {
+                        if (stateChkEliminarMensajes == true)
+                        {
+                            foreach (var ids in productos)
+                            {
+                                var id = ids.Key;
+                                var propiedadNombre = propiedad.ToUpper().Replace("_", " ");
+                                if (propiedadNombre.Equals("MENSAJEINVENTARIO"))
+                                {
+                                    cn.EjecutarConsulta($"DELETE FROM mensajesinventario WHERE IDProducto = {id}");
+                                }
+                            }
+                        }
                     }
                 }
                 else
                 {
-                    foreach (var producto in productos)
+                    if (stateChkEliminarMensajes == false)
                     {
-                        using (DataTable datosI = cn.CargarDatos($"SELECT * FROM mensajesinventario WHERE IDProducto = '{producto.Key}'"))
-                        {
-                            if (!datosI.Rows.Count.Equals(0))
-                            {
-                                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0 WHERE IDProducto = '{producto.Key}'");
-                            }
-                            else
-                            {
-                                var status = 0;
-                                if (stateChkMostrarMensaje)
-                                {
-                                    status = 1;
-                                }
-                                else
-                                {
-                                    status = 0;
-                                }
-                                cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDUsuario,IDProducto,Mensaje,Activo) VALUES ({FormPrincipal.userID},{producto.Key},'{mensajeCompra}','{status}')");
-                            }
-                        }
+                        MessageBox.Show("Favor de verificar que los campos contengan informacion.");
                     }
                 }
-
-                //TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
-
-                //var mensaje = txtMensaje.Text;
-                //var consulta = "INSERT IGNORE INTO MensajesInventario (ID, IDUsuario, IDProducto, Mensaje) VALUES";
-                //var valores = string.Empty;
-
-                //if (string.IsNullOrWhiteSpace(mensaje))
-                //{
-                //    MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    return;
-                //}
-
-                //foreach (var producto in productos)
-                //{
-                //    // Comprobar si existe ya un mensaje para este producto en inventario
-                //    var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}", 1));
-
-                //    if (id > 0)
-                //    {
-                //        valores += $"({id}, {FormPrincipal.userID}, {producto.Key}, '{mensaje}'),";
-                //    }
-                //    else
-                //    {
-                //        valores += $"(null, {FormPrincipal.userID}, {producto.Key}, '{mensaje}'),";
-                //    }
-                //}
-
-                //if (!string.IsNullOrWhiteSpace(valores))
-                //{
-                //    valores = valores.TrimEnd(',');
-
-                //    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), Mensaje = VALUES(Mensaje);";
-
-                //    cn.EjecutarConsulta(consulta);
-                //}
             }
             else if (propiedad == "Stock")
             {
