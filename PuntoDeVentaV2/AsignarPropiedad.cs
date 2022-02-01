@@ -938,8 +938,9 @@ namespace PuntoDeVentaV2
             else if (propiedad == "MensajeInventario")
             {
                 TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
+                RadioButton rbEliminarMensaje = (RadioButton)Controls.Find("chkEliminarMensaje", true)[0];
                 var mensaje = txtMensaje.Text;
-                if (!string.IsNullOrWhiteSpace(mensaje))
+                if (!string.IsNullOrWhiteSpace(mensaje) || rbEliminarMensaje.Checked.Equals(true))
                 {
                     MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
 
@@ -947,12 +948,10 @@ namespace PuntoDeVentaV2
                     porFavorEspere.tiempoDeEspera = 150;
                     porFavorEspere.propiedadCambiar = propiedad;
                     porFavorEspere.ShowDialog();
-
                     OperacionBoton();
 
                     // Permita que el hilo principal de la interfaz de usuario se muestre correctamente, espere el formulario.
                     Application.DoEvents();
-
                     porFavorEspere.Dispose();
                 }
                 else
@@ -960,16 +959,13 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Favor de insertar un mensaje a mostrar.");
                 }
             }
-
             //MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
 
             //// Mostrar formulario sin modo
             //porFavorEspere.tiempoDeEspera = 150;
             //porFavorEspere.propiedadCambiar = propiedad;
             //porFavorEspere.ShowDialog();
-
             //Thread.Sleep(500);
-
             this.Close();
         }
 
