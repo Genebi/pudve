@@ -310,7 +310,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (estado.Equals(2)) // Ventas guardadas
                         {
-                            //consulta = cs.VerComoAdministradorTodasLasVentasGuardadas(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                            consulta = cs.VerComoAdministradorTodasLasVentasGuardadas(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
                         }
                         else if (estado.Equals(3)) // Ventas canceladas
                         {
