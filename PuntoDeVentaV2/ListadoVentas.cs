@@ -286,20 +286,26 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    /*
-                    // Ventas pagadas
-                    if (opcion == "VP") { estado = 1; }
-                    // Ventas guardadas
-                    if (opcion == "VG") { estado = 2; }
-                    // Ventas canceladas
-                    if (opcion == "VC") { estado = 3; }
-                    // Ventas a credito
-                    if (opcion == "VCC") { estado = 4; } 
-                    */
-
                     if (FormPrincipal.userNickName.Contains("@"))
                     {
                         consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
+
+                        if (estado.Equals(1)) // Ventas pagadas
+                        {
+                            consulta = cs.VerComoEmpleadoTodasMisVentasPagadas(estado, FormPrincipal.id_empleado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                        }
+                        else if (estado.Equals(2)) // Ventas guardadas
+                        {
+                            return;
+                        }
+                        else if (estado.Equals(3)) // Ventas canceladas
+                        {
+                            return;
+                        }
+                        else if (estado.Equals(4)) // Ventas a credito
+                        {
+                            return;
+                        }
                     }
                     else
                     {
