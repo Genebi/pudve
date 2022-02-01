@@ -2785,9 +2785,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string insertarMensajeInventario(int idProductoSeleccionado, string mensaje)
+        public string insertarMensajeInventario(int idProductoSeleccionado, string mensaje, int estado)
         {
-            var consulta = $"INSERT INTO mensajesinventario (IDUsuario, IDProducto,mensaje) VALUES ('{FormPrincipal.userID}', '{idProductoSeleccionado}', '{mensaje}');";
+            var consulta = $"INSERT INTO mensajesinventario (IDUsuario, IDProducto, mensaje, Activo) VALUES ('{FormPrincipal.userID}', '{idProductoSeleccionado}', '{mensaje}', {estado});";
 
             return consulta;
         }

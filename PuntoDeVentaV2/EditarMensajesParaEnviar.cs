@@ -550,9 +550,16 @@ namespace PuntoDeVentaV2
                                                 if (updateOinsert.Rows.Count.Equals(0))
                                                 {
                                                     var NuevoMensaje = textoMensaje.Text;
+
                                                     if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                     {
-                                                        cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje));
+                                                        var estado = 1;
+                                                        CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
+                                                        if (!txtCantidadCompra.Checked.Equals(true))
+                                                        {
+                                                            estado = 0;
+                                                        }
+                                                        cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje, estado));
                                                         MessageBox.Show("Actualizado Correctamente.");
                                                     }
                                                 }
