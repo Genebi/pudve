@@ -45,13 +45,13 @@ namespace PuntoDeVentaV2
             {
                 DataRow drow = dtHistorialStock.NewRow();
                 drow["ID"] = string.Empty;
-                drow["Tipo de Movimiento"] = "Stock al Registrarse el Producto";
+                drow["Tipo de Movimiento"] = "Stock al realizar el primer movimiento";
                 drow["Stock Anterior"] = 0;
                 drow["Cantidad"] = StockInicialH;
                 drow["Nuevo Stock"] = 0;
                 drow["Nombre de Usuario"] = FormPrincipal.userNickName;
                 //drow["StockInicial"] = string.Empty;
-                drow["Fecha"] = DateTime.Now.ToString("dd/MM/yyyy");
+                drow["Fecha"] = datos.Rows[0]["Fecha"].ToString();
                 dtHistorialStock.Rows.Add(drow);
 
                 foreach (DataRow item in datos.Rows)
@@ -72,7 +72,7 @@ namespace PuntoDeVentaV2
             {
                 DataRow drow = dtHistorialStock.NewRow();
                 drow["ID"] = string.Empty;
-                drow["Tipo de Movimiento"] = "Stock al Registrarse el Producto";
+                drow["Tipo de Movimiento"] = "Stock al realizar el primer movimiento";
                 drow["Stock Anterior"] = stockInicialProductos;
                 drow["Cantidad"] = stockInicialProductos;
                 drow["Nuevo Stock"] = stockInicialProductos;

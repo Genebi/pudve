@@ -178,7 +178,6 @@ namespace PuntoDeVentaV2
                     lblOperacionInventario.Text = "Reducir Producto(s)";
 
                     txtDisminuir.Text = cantidadPasadaProductoCombo.ToString();
-                    MessageBox.Show("Test");
                 }
             }
             var mensajeInventario = cn.CargarDatos($"SELECT Mensaje FROM `mensajesinventario` WHERE IDProducto = {datos[0]}");
@@ -435,7 +434,7 @@ namespace PuntoDeVentaV2
                         if (mensaje.Rows.Count > 0)
                         {
                             string mensajeInventario = mensaje.Rows[0]["Mensaje"].ToString();
-                            MessageBox.Show(mensajeInventario);
+                            //MessageBox.Show(mensajeInventario);
                         }
                        
                         
