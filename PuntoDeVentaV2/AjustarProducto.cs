@@ -1006,7 +1006,13 @@ namespace PuntoDeVentaV2
             {
                 if (!dtUsuarios.Rows.Count.Equals(0))
                 {
+                    var precio = txtPrecio.Text.Replace("$", "");
+                    txtPrecio.Text = precio;
 
+                    txtPrecio.ReadOnly = false;
+                    txtPrecio.SelectAll();
+                    txtPrecio.Focus();
+                    //txtPrecio.Select(txtPrecio.Text.Length, 0);
                 }
                 else
                 {
@@ -1026,8 +1032,9 @@ namespace PuntoDeVentaV2
                         txtPrecio.Text = precio;
 
                         txtPrecio.ReadOnly = false;
+                        txtPrecio.SelectAll();
                         txtPrecio.Focus();
-                        txtPrecio.Select(txtPrecio.Text.Length, 0);
+                        //txtPrecio.Select(txtPrecio.Text.Length, 0);
                     }
                     else
                     {
@@ -1292,7 +1299,22 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                precioProductoAux = float.Parse(txtPrecio.Text);
+                bool esNumero = false;
+                double precio = 0;
+
+                esNumero = Double.TryParse(txtPrecio.Text, out precio);
+                if (esNumero)
+                {
+                    precioProductoAux = float.Parse(precio.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("Favor de ingresar una cantidad valida","Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtPrecio.SelectAll();
+                    txtPrecio.Focus();
+                    return;
+                }
+                
             }
         }
 

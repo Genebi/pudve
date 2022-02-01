@@ -112,6 +112,7 @@
             // 
             // panelComprado
             // 
+            this.panelComprado.Controls.Add(this.btnActualiza);
             this.panelComprado.Controls.Add(this.cantidadStockActual);
             this.panelComprado.Controls.Add(this.lbCantidadCompra);
             this.panelComprado.Controls.Add(this.lbPrecioCompra);
@@ -227,7 +228,7 @@
             this.txtPrecioCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrecioCompra.Location = new System.Drawing.Point(324, 87);
             this.txtPrecioCompra.Name = "txtPrecioCompra";
-            this.txtPrecioCompra.Size = new System.Drawing.Size(110, 21);
+            this.txtPrecioCompra.Size = new System.Drawing.Size(108, 21);
             this.txtPrecioCompra.TabIndex = 2;
             this.txtPrecioCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPrecioCompra.Enter += new System.EventHandler(this.txtPrecioCompra_Enter);
@@ -507,9 +508,9 @@
             this.btnActualiza.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualiza.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualiza.ForeColor = System.Drawing.Color.White;
-            this.btnActualiza.Location = new System.Drawing.Point(393, 43);
+            this.btnActualiza.Location = new System.Drawing.Point(326, 113);
             this.btnActualiza.Name = "btnActualiza";
-            this.btnActualiza.Size = new System.Drawing.Size(144, 28);
+            this.btnActualiza.Size = new System.Drawing.Size(106, 28);
             this.btnActualiza.TabIndex = 33;
             this.btnActualiza.Text = "Actualizar";
             this.btnActualiza.UseVisualStyleBackColor = false;
@@ -548,7 +549,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 412);
             this.Controls.Add(this.pnlOpcionesRadioButtons);
-            this.Controls.Add(this.btnActualiza);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.lbEditarPrecio);
             this.Controls.Add(this.btnAceptar);
