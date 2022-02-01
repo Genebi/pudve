@@ -1395,7 +1395,7 @@ namespace PuntoDeVentaV2
 
             var estado = cn.CargarDatos($"SELECT Activo FROM `mensajesinventario` WHERE IDProducto = {datos[0]}");
             var activo = estado.Rows[0]["Activo"].ToString();
-            if (activo == "1")
+             if (activo == "1")
             {
                 MessageBox.Show(AjustarProducto.mensaje);
             }

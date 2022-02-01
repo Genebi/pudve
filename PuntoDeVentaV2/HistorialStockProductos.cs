@@ -46,9 +46,9 @@ namespace PuntoDeVentaV2
                 DataRow drow = dtHistorialStock.NewRow();
                 drow["ID"] = string.Empty;
                 drow["Tipo de Movimiento"] = "Stock al Registrarse el Producto";
-                drow["Stock Anterior"] = StockInicialH;
+                drow["Stock Anterior"] = 0;
                 drow["Cantidad"] = StockInicialH;
-                drow["Nuevo Stock"] = StockInicialH;
+                drow["Nuevo Stock"] = 0;
                 drow["Nombre de Usuario"] = FormPrincipal.userNickName;
                 //drow["StockInicial"] = string.Empty;
                 drow["Fecha"] = DateTime.Now.ToString("dd/MM/yyyy");
@@ -94,10 +94,10 @@ namespace PuntoDeVentaV2
             int idprod = Productos.idProductoHistorialStock;
             var datos = cn.CargarDatos($"SELECT ID, TipoDeMovimiento AS 'Tipo de Movimiento', StockAnterior AS 'Stock Anterior', Cantidad, StockNuevo 'Nuevo Stock', Fecha, NombreUsuario AS 'Nombre de Usuario', StockInicial FROM historialstock WHERE IDProducto = {idprod}");
 
-            var datoStock = cn.CargarDatos($"SELECT StockInicial FROM `historialstock` WHERE IDProducto = {idprod} ORDER BY Fecha ASC LIMIT 1");
+            var datoStock = cn.CargarDatos($"SELECT Cantidad FROM `historialstock` WHERE IDProducto = {idprod} ORDER BY Fecha ASC LIMIT 1");
             if (!datoStock.Rows.Count.Equals(0))
             {
-              StockInicial = datos.Rows[0]["StockInicial"].ToString();
+              StockInicial = datos.Rows[0]["Cantidad"].ToString();
             }
            
             if(datos.Rows.Count.Equals(0))
