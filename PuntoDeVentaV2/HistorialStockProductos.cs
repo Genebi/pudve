@@ -45,7 +45,7 @@ namespace PuntoDeVentaV2
             {
                 DataRow drow = dtHistorialStock.NewRow();
                 drow["ID"] = string.Empty;
-                drow["Tipo de Movimiento"] = "Stock al realizar el primer movimiento";
+                drow["Tipo de Movimiento"] = "Stock inicial al realizar el primer movimiento";
                 drow["Stock Anterior"] = 0;
                 drow["Cantidad"] = StockInicialH;
                 drow["Nuevo Stock"] = 0;
@@ -72,7 +72,7 @@ namespace PuntoDeVentaV2
             {
                 DataRow drow = dtHistorialStock.NewRow();
                 drow["ID"] = string.Empty;
-                drow["Tipo de Movimiento"] = "Stock al realizar el primer movimiento";
+                drow["Tipo de Movimiento"] = "Stock inicial al realizar el primer movimiento";
                 drow["Stock Anterior"] = stockInicialProductos;
                 drow["Cantidad"] = stockInicialProductos;
                 drow["Nuevo Stock"] = stockInicialProductos;

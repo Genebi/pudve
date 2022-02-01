@@ -1396,7 +1396,7 @@ namespace PuntoDeVentaV2
             var activo = estado.Rows[0]["Activo"].ToString();
              if (activo == "1")
             {
-                MessageBox.Show(AjustarProducto.mensaje);
+                MessageBox.Show(AjustarProducto.mensaje, "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
            
         }
