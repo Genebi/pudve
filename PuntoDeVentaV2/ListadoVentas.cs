@@ -304,7 +304,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (estado.Equals(4)) // Ventas a credito
                         {
-                            //consulta = cs.VerComoEmpleadoTodasLasVentasACredito(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                            consulta = cs.VerComoEmpleadoTodasLasVentasACredito(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
                         }
                     }
                     else
