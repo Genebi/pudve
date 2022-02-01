@@ -242,9 +242,10 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
+                            //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
+                            consulta = cs.VerComoAdministradorTodasLaVentasPagadasPorFechas(estado, fechaInicial, fechaFinal);
                         }
-                        }
+                    }
                     else
                     {
                         int n;
@@ -270,7 +271,6 @@ namespace PuntoDeVentaV2
                                     extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
                                 }
                             }
-                           
                         }
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
@@ -280,20 +280,46 @@ namespace PuntoDeVentaV2
                         {
                             consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
                         }
-                            
-
+                        
                         txtBuscador.Text = string.Empty;
                     }
                 }
                 else
                 {
+                    /*
+                    // Ventas pagadas
+                    if (opcion == "VP") { estado = 1; }
+                    // Ventas guardadas
+                    if (opcion == "VG") { estado = 2; }
+                    // Ventas canceladas
+                    if (opcion == "VC") { estado = 3; }
+                    // Ventas a credito
+                    if (opcion == "VCC") { estado = 4; } 
+                    */
+
                     if (FormPrincipal.userNickName.Contains("@"))
                     {
                         consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
                     }
                     else
                     {
-                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
+                        //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
+                        if (estado.Equals(1)) // Ventas pagadas
+                        {
+                            consulta = cs.VerComoAdministradorTodasLasVentasPagadas(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                        }
+                        else if (estado.Equals(2)) // Ventas guardadas
+                        {
+                            //consulta = cs.VerComoAdministradorTodasLasVentasGuardadas(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                        }
+                        else if (estado.Equals(3)) // Ventas canceladas
+                        {
+                            //consulta = cs.VerComoAdministradorTodasLasVentasCanceladas(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                        }
+                        else if (estado.Equals(4)) // Ventas a credito
+                        {
+                            //consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                        }
                     }
                     
                 }
@@ -337,6 +363,7 @@ namespace PuntoDeVentaV2
 
                     string cliente = filaDatos["Cliente"].ToString();
                     string rfc = filaDatos["RFC"].ToString();
+                    string vendedor = filaDatos["Vendedor"].ToString();
 
                     // Obtener detalle de venta y datos del cliente
                     var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
@@ -385,6 +412,7 @@ namespace PuntoDeVentaV2
                     row.Cells["col_checkbox"].Value = false;
                     row.Cells["Cliente"].Value = cliente;
                     row.Cells["RFC"].Value = rfc;
+                    row.Cells["Vendedor"].Value = vendedor;
                     row.Cells["Subtotal"].Value = subtotalTmp.ToString("0.00");
                     row.Cells["IVA"].Value = ivaTmp.ToString("0.00");
                     row.Cells["Total"].Value = totalTmp.ToString("0.00");
@@ -613,7 +641,7 @@ namespace PuntoDeVentaV2
 
                     DGVListadoVentas.Cursor = Cursors.Hand;
 
-                    if (e.ColumnIndex == 10)
+                    if (e.ColumnIndex == 11)
                     {
                         textoTT = "Cancelar";
                         coordenadaX = 60;
@@ -621,19 +649,19 @@ namespace PuntoDeVentaV2
                         if (opcion == "VC") { permitir = false; }
                     }
 
-                    if (e.ColumnIndex == 11)
+                    if (e.ColumnIndex == 12)
                     {
                         textoTT = "Ver nota";
                         coordenadaX = 70;
                     }
 
-                    if (e.ColumnIndex == 12)
+                    if (e.ColumnIndex == 13)
                     {
                         textoTT = "Ver ticket";
                         coordenadaX = 62;
                     }
 
-                    if (e.ColumnIndex == 13)
+                    if (e.ColumnIndex == 14)
                     {
                         textoTT = "Abonos";
                         coordenadaX = 54;
@@ -641,18 +669,18 @@ namespace PuntoDeVentaV2
                         if (opcion != "VCC") { permitir = false; }
                     }
 
-                    if (e.ColumnIndex == 14)
+                    if (e.ColumnIndex == 15)
                     {
                         textoTT = "Timbrar";
                         coordenadaX = 56;
                     }
 
-                    if (e.ColumnIndex == 15)
+                    if (e.ColumnIndex == 16)
                     {
                         textoTT = "Información";
                         coordenadaX = 75;
                     }
-                    if (e.ColumnIndex == 16)
+                    if (e.ColumnIndex == 17)
                     {
                         textoTT = "Retomar esta venta";
                         coordenadaX = 120;
@@ -713,7 +741,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Cancelar
-                if (e.ColumnIndex == 10)
+                if (e.ColumnIndex == 11)
                 {
                     var Folio = string.Empty;
                     var Serie = string.Empty;
@@ -1272,7 +1300,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Ver nota
-                if (e.ColumnIndex == 11)
+                if (e.ColumnIndex == 12)
                 {
                     if (opcion2 == 0)
                     {
@@ -1391,7 +1419,7 @@ namespace PuntoDeVentaV2
                 }
  
                 //Ver ticket
-                if (e.ColumnIndex == 12)
+                if (e.ColumnIndex == 13)
                 {
                     if (opcion3 == 0)
                     {
@@ -1490,7 +1518,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Abonos
-                if (e.ColumnIndex == 13)
+                if (e.ColumnIndex == 14)
                 {
                     if (opcion4 == 0)
                     {
@@ -1552,7 +1580,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Timbrar
-                if (e.ColumnIndex == 14)
+                if (e.ColumnIndex == 15)
                 {
                     if (opcion5 == 0)
                     {
@@ -1609,14 +1637,14 @@ namespace PuntoDeVentaV2
                 }
 
                 // Información
-                if (e.ColumnIndex == 15)
+                if (e.ColumnIndex == 16)
                 {
                     Ventas_ventana_informacion info = new Ventas_ventana_informacion(idVenta);
                     info.ShowDialog();
                 }
 
                 // Retomar Venta
-                if (e.ColumnIndex == 16)
+                if (e.ColumnIndex == 17)
                 {
                     retomarVentasCanceladas = 1;
 
