@@ -3090,6 +3090,27 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string VerComoEmpleadoTodasLasVentasGuardadas(int estado, string ultimaFechaDeCorte)
+        {
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{estado}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion > '{ultimaFechaDeCorte}' ORDER BY ID DESC ";
+
+            return consulta;
+        }
+
+        public string VerComoEmpleadoTodasMisVentasCanceladas(int estado, int idEmpleado, string ultimaFechaDeCorte)
+        {
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{estado}' AND Vent.IDEmpleado = '{idEmpleado}' AND Vent.FechaOperacion > '{ultimaFechaDeCorte}' ORDER BY Vent.ID DESC";
+
+            return consulta;
+        }
+
+        public string VerComoEmpleadoTodasLasVentasACredito(int estado, string ultimaFechaDeCorte)
+        {
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{estado}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion > '{ultimaFechaDeCorte}' ORDER BY ID DESC ";
+
+            return consulta;
+        }
         #endregion
 
         #region Listado Ventas desde Usuario sin texto que buscar pero con rango de fechas

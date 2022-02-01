@@ -288,7 +288,7 @@ namespace PuntoDeVentaV2
                 {
                     if (FormPrincipal.userNickName.Contains("@"))
                     {
-                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
+                        //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
 
                         if (estado.Equals(1)) // Ventas pagadas
                         {
@@ -296,15 +296,15 @@ namespace PuntoDeVentaV2
                         }
                         else if (estado.Equals(2)) // Ventas guardadas
                         {
-                            return;
+                            consulta = cs.VerComoEmpleadoTodasLasVentasGuardadas(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
                         }
                         else if (estado.Equals(3)) // Ventas canceladas
                         {
-                            return;
+                            //consulta = cs.VerComoEmpleadoTodasMisVentasCanceladas(estado, FormPrincipal.id_empleado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
                         }
                         else if (estado.Equals(4)) // Ventas a credito
                         {
-                            return;
+                            //consulta = cs.VerComoEmpleadoTodasLasVentasACredito(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
                         }
                     }
                     else
