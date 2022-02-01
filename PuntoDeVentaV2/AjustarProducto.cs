@@ -1393,11 +1393,19 @@ namespace PuntoDeVentaV2
             string[] datos = cn.BuscarProducto(IDProducto, FormPrincipal.userID);
 
             var estado = cn.CargarDatos($"SELECT Activo FROM `mensajesinventario` WHERE IDProducto = {datos[0]}");
-            var activo = estado.Rows[0]["Activo"].ToString();
-             if (activo == "1")
+            if (estado.Rows.Count.Equals(0))
             {
-                MessageBox.Show(AjustarProducto.mensaje, "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
+            else
+            {
+                var activo = estado.Rows[0]["Activo"].ToString();
+                if (activo == "1")
+                {
+                    MessageBox.Show(AjustarProducto.mensaje, "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            
            
         }
     }
