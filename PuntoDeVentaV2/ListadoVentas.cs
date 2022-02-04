@@ -245,7 +245,7 @@ namespace PuntoDeVentaV2
                             //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
                             if (estado.Equals(1)) // Ventas pagadas
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasPagadasPorFechas(estado, fechaInicial, fechaFinal); 
+                                consulta = cs.VerComoAdministradorTodasLaVentasPagadasPorFechas(estado, fechaInicial, fechaFinal);
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
