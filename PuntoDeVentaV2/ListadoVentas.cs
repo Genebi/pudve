@@ -253,7 +253,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
-                                return;
+                                return; 
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
