@@ -269,7 +269,8 @@ namespace PuntoDeVentaV2
 
                         if (esNumero)
                         {
-                            extra = $"AND Folio = {buscador}";
+                            //extra = $"AND Folio = {buscador}";
+                            extra = cs.ParametroDeBusquedaFolioSiendoAdministrador(buscador);
                         }
                         else
                         {
@@ -283,7 +284,8 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
+                                    //extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
+                                    extra = cs.ParametrosDeBusquedaNombreRFCSiendoAdministrador(buscador);
                                 }
                             }
                         }
@@ -293,7 +295,24 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
+                            //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
+
+                            if (estado.Equals(1)) // Ventas pagadas
+                            {
+                                consulta = cs.VerComoAdministradorTodasLaVentasPagadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                            }
+                            else if (estado.Equals(2)) // Ventas guardadas
+                            {
+                                return;
+                            }
+                            else if (estado.Equals(3)) // Ventas canceladas
+                            {
+                                return;
+                            }
+                            else if (estado.Equals(4)) // Ventas a credito
+                            {
+                                return;
+                            }
                         }
                         
                         txtBuscador.Text = string.Empty;
