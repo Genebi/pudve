@@ -249,7 +249,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal); 
+                                consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal);
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
@@ -303,7 +303,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
-                                return;
+                                consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
