@@ -307,7 +307,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra); 
+                                consulta = cs.VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
