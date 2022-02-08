@@ -20,7 +20,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
 
 
-        public string[] cancelar(int idf, string tipof)
+        public string[] cancelar(int idf, string tipof, string motivo_canc, string uuid_sust)
         {
             var usuarioCancelacion = string.Empty;
 
@@ -108,8 +108,8 @@ namespace PuntoDeVentaV2
             var pos = cer_pem.IndexOf("-----BEGIN CERTIFICATE-----");
             cer_pem = cer_pem.Substring(pos, cer_pem.Length - pos);
             //Console.WriteLine("RESULTADO" + cer_pem);
- 
-
+            Console.WriteLine("uuid = " + uuid_xml + " rfc_receptor = " + rfc_rec + " total = " + total_xml+ "motivo = "+motivo_canc + "folio_sustituto = " + uuid_sust);
+            
             try
             {
                 folios folios_datos = new folios();
@@ -120,7 +120,9 @@ namespace PuntoDeVentaV2
                 {
                     uuid = uuid_xml,
                     rfc_receptor = rfc_rec,
-                    total = total_xml
+                    total = total_xml,
+                    motivo = motivo_canc,
+                    folio_sustituto = uuid_sust                    
                 });
 
                 var folio_array = lista_folios.ToArray();
@@ -264,282 +266,6 @@ namespace PuntoDeVentaV2
             return mensaje;
         }
 
-/*
-        public void Sellar(string ArchivoClavePrivada, string lPassword)
-        {
-            byte[] ClavePrivada = File.ReadAllBytes(ArchivoClavePrivada);
-            
-            SecureString lSecStr = new SecureString();
-            SHA256Managed sham = new SHA256Managed();
 
-            lSecStr.Clear();
-
-            foreach (char c in lPassword.ToCharArray())
-                lSecStr.AppendChar(c);
-
-            RSACryptoServiceProvider lrsa = CFDI.OpenSSLKey.DecodeEncryptedPrivateKeyInfo(ClavePrivada, lSecStr);
-            Console.WriteLine(lrsa);
-            Console.WriteLine("\n------------------------------------------------\n");
-            ExportPrivateKey(lrsa);
-            Console.WriteLine("\n------------------------------------------------\n");
-            ExportPublicKey(lrsa);
-            //string sellodigital = ByteConverter.(lrsa);
-            // byte[] d = lrsa;
-
-
-            Console.WriteLine(ExportPublicKeyToPEMFormat(lrsa));
-
-            Console.WriteLine("\n------------------------------------------------\n");
-            Console.WriteLine("DOS");
-
-            Console.WriteLine("\n------------------------------------------------\n");
-            ///////Console.WriteLine(Convert.ToBase64String(lrsa));
-        }
-
-
-        private static void ExportPrivateKey(RSACryptoServiceProvider csp)
-        {
-            Console.WriteLine("HOLA");
-            TextWriter outputStream = new StringWriter();
-            if (csp.PublicOnly) throw new ArgumentException("CSP does not contain a private key", "csp");
-            var parameters = csp.ExportParameters(true);
-            using (var stream = new MemoryStream())
-            {
-                Console.WriteLine("HOLA 2");
-                var writer = new BinaryWriter(stream);
-                writer.Write((byte)0x30); // SEQUENCE
-                using (var innerStream = new MemoryStream())
-                {
-                    Console.WriteLine("HOLA 3");
-                    var innerWriter = new BinaryWriter(innerStream);
-                    EncodeIntegerBigEndian(innerWriter, new byte[] { 0x00 }); // Version
-                    EncodeIntegerBigEndian(innerWriter, parameters.Modulus);
-                    EncodeIntegerBigEndian(innerWriter, parameters.Exponent);
-                    EncodeIntegerBigEndian(innerWriter, parameters.D);
-                    EncodeIntegerBigEndian(innerWriter, parameters.P);
-                    EncodeIntegerBigEndian(innerWriter, parameters.Q);
-                    EncodeIntegerBigEndian(innerWriter, parameters.DP);
-                    EncodeIntegerBigEndian(innerWriter, parameters.DQ);
-                    EncodeIntegerBigEndian(innerWriter, parameters.InverseQ);
-                    var length = (int)innerStream.Length;
-                    EncodeLength(writer, length);
-                    writer.Write(innerStream.GetBuffer(), 0, length);
-                }
-
-                var base64 = Convert.ToBase64String(stream.GetBuffer(), 0, (int)stream.Length).ToCharArray();
-                outputStream.WriteLine("-----BEGIN RSA PRIVATE KEY-----");
-                // Output as Base64 with lines chopped at 64 characters
-                for (var i = 0; i < base64.Length; i += 64)
-                {
-                    outputStream.WriteLine(base64, i, Math.Min(64, base64.Length - i));
-                }
-                outputStream.WriteLine("-----END RSA PRIVATE KEY-----");
-
-                Console.WriteLine("HOLA outputStream" + outputStream);
-            }
-        }
-
-        private static void EncodeLength(BinaryWriter stream, int length)
-        {
-            if (length < 0) throw new ArgumentOutOfRangeException("length", "Length must be non-negative");
-            if (length < 0x80)
-            {
-                // Short form
-                stream.Write((byte)length);
-            }
-            else
-            {
-                // Long form
-                var temp = length;
-                var bytesRequired = 0;
-                while (temp > 0)
-                {
-                    temp >>= 8;
-                    bytesRequired++;
-                }
-                stream.Write((byte)(bytesRequired | 0x80));
-                for (var i = bytesRequired - 1; i >= 0; i--)
-                {
-                    stream.Write((byte)(length >> (8 * i) & 0xff));
-                }
-            }
-        }
-
-        private static void EncodeIntegerBigEndian(BinaryWriter stream, byte[] value, bool forceUnsigned = true)
-        {
-            stream.Write((byte)0x02); // INTEGER
-            var prefixZeros = 0;
-            for (var i = 0; i < value.Length; i++)
-            {
-                if (value[i] != 0) break;
-                prefixZeros++;
-            }
-            if (value.Length - prefixZeros == 0)
-            {
-                EncodeLength(stream, 1);
-                stream.Write((byte)0);
-            }
-            else
-            {
-                if (forceUnsigned && value[prefixZeros] > 0x7f)
-                {
-                    // Add a prefix zero to force unsigned if the MSB is 1
-                    EncodeLength(stream, value.Length - prefixZeros + 1);
-                    stream.Write((byte)0);
-                }
-                else
-                {
-                    EncodeLength(stream, value.Length - prefixZeros);
-                }
-                for (var i = prefixZeros; i < value.Length; i++)
-                {
-                    stream.Write(value[i]);
-                }
-            }
-        }
-
-
-        private static void ExportPublicKey(RSACryptoServiceProvider csp)
-        {
-            TextWriter outputStream = new StringWriter();
-
-            var parameters = csp.ExportParameters(false);
-            using (var stream = new MemoryStream())
-            {
-                var writer = new BinaryWriter(stream);
-                writer.Write((byte)0x30); // SEQUENCE
-                using (var innerStream = new MemoryStream())
-                {
-                    var innerWriter = new BinaryWriter(innerStream);
-                    innerWriter.Write((byte)0x30); // SEQUENCE
-                    EncodeLength(innerWriter, 13);
-                    innerWriter.Write((byte)0x06); // OBJECT IDENTIFIER
-                    var rsaEncryptionOid = new byte[] { 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01 };
-                    EncodeLength(innerWriter, rsaEncryptionOid.Length);
-                    innerWriter.Write(rsaEncryptionOid);
-                    innerWriter.Write((byte)0x05); // NULL
-                    EncodeLength(innerWriter, 0);
-                    innerWriter.Write((byte)0x03); // BIT STRING
-                    using (var bitStringStream = new MemoryStream())
-                    {
-                        var bitStringWriter = new BinaryWriter(bitStringStream);
-                        bitStringWriter.Write((byte)0x00); // # of unused bits
-                        bitStringWriter.Write((byte)0x30); // SEQUENCE
-                        using (var paramsStream = new MemoryStream())
-                        {
-                            var paramsWriter = new BinaryWriter(paramsStream);
-                            EncodeIntegerBigEndian(paramsWriter, parameters.Modulus); // Modulus
-                            EncodeIntegerBigEndian(paramsWriter, parameters.Exponent); // Exponent
-                            var paramsLength = (int)paramsStream.Length;
-                            EncodeLength(bitStringWriter, paramsLength);
-                            bitStringWriter.Write(paramsStream.GetBuffer(), 0, paramsLength);
-                        }
-                        var bitStringLength = (int)bitStringStream.Length;
-                        EncodeLength(innerWriter, bitStringLength);
-                        innerWriter.Write(bitStringStream.GetBuffer(), 0, bitStringLength);
-                    }
-                    var length = (int)innerStream.Length;
-                    EncodeLength(writer, length);
-                    writer.Write(innerStream.GetBuffer(), 0, length);
-                }
-
-                var base64 = Convert.ToBase64String(stream.GetBuffer(), 0, (int)stream.Length).ToCharArray();
-                outputStream.WriteLine("-----BEGIN PUBLIC KEY-----");
-                for (var i = 0; i < base64.Length; i += 64)
-                {
-                    outputStream.WriteLine(base64, i, Math.Min(64, base64.Length - i));
-                }
-                outputStream.WriteLine("-----END PUBLIC KEY-----");
-
-
-                Console.WriteLine("HOLA outputStream CER--" + outputStream);
-
-
-                CFDI.OpenSSLKey.DecodePEMKey(outputStream.ToString());
-
-                //int t= outputStream.
-                //byte[] df= Convert.ToByte(File.ReadAllBytes(outputStream));
-
-                //CFDI.OpenSSLKey.DecodeX509PublicKey(df);
-            }
-        }
-
-
-
-        public static byte[] DecodePkcs8EncPrivateKey(String instr)
-        {
-            const String pemp8encheader = "-----BEGIN ENCRYPTED PRIVATE KEY-----";
-            const String pemp8encfooter = "-----END ENCRYPTED PRIVATE KEY-----";
-            String pemstr = instr.Trim();
-            byte[] binkey;
-            if (!pemstr.StartsWith(pemp8encheader) || !pemstr.EndsWith(pemp8encfooter))
-                return null;
-            StringBuilder sb = new StringBuilder(pemstr);
-            sb.Replace(pemp8encheader, "");  //remove headers/footers, if present
-            sb.Replace(pemp8encfooter, "");
-
-            String pubstr = sb.ToString().Trim();   //get string after removing leading/trailing whitespace
-
-            try
-            {
-                binkey = Convert.FromBase64String(pubstr);
-            }
-            catch (System.FormatException)
-            {       //if can't b64 decode, data is not valid
-                return null;
-            }
-            Console.WriteLine("-........................--");
-            Console.WriteLine("||||||--" + binkey);
-            return binkey;
-        }
-
-
-        public static String ExportPublicKeyToPEMFormat(RSACryptoServiceProvider csp)
-        {
-            TextWriter outputStream = new StringWriter();
-
-            var parameters = csp.ExportParameters(false);
-            using (var stream = new MemoryStream())
-            {
-                var writer = new BinaryWriter(stream);
-                writer.Write((byte)0x30); // SEQUENCE
-                using (var innerStream = new MemoryStream())
-                {
-                    var innerWriter = new BinaryWriter(innerStream);
-                    EncodeIntegerBigEndian(innerWriter, new byte[] { 0x00 }); // Version
-                    EncodeIntegerBigEndian(innerWriter, parameters.Modulus);
-                    EncodeIntegerBigEndian(innerWriter, parameters.Exponent);
-
-                    //All Parameter Must Have Value so Set Other Parameter Value Whit Invalid Data  (for keeping Key Structure  use "parameters.Exponent" value for invalid data)
-                    EncodeIntegerBigEndian(innerWriter, parameters.Exponent); // instead of parameters.D
-                    EncodeIntegerBigEndian(innerWriter, parameters.Exponent); // instead of parameters.P
-                    EncodeIntegerBigEndian(innerWriter, parameters.Exponent); // instead of parameters.Q
-                    EncodeIntegerBigEndian(innerWriter, parameters.Exponent); // instead of parameters.DP
-                    EncodeIntegerBigEndian(innerWriter, parameters.Exponent); // instead of parameters.DQ
-                    EncodeIntegerBigEndian(innerWriter, parameters.Exponent); // instead of parameters.InverseQ
-
-                    var length = (int)innerStream.Length;
-                    EncodeLength(writer, length);
-                    writer.Write(innerStream.GetBuffer(), 0, length);
-                }
-
-                var base64 = Convert.ToBase64String(stream.GetBuffer(), 0, (int)stream.Length).ToCharArray();
-                outputStream.WriteLine("-----BEGIN PUBLIC KEY-----");
-                // Output as Base64 with lines chopped at 64 characters
-                for (var i = 0; i < base64.Length; i += 64)
-                {
-                    outputStream.WriteLine(base64, i, Math.Min(64, base64.Length - i));
-                }
-                outputStream.WriteLine("-----END PUBLIC KEY-----");
-
-
-                Console.WriteLine("...............................");
-                Console.WriteLine("............ OTRO .........");
-                Console.WriteLine("...............................");
-                return outputStream.ToString();
-
-            }
-        }
-        */
     }
 }
