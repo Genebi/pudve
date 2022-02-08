@@ -23,7 +23,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
-        Cancelar_XML cancela = new Cancelar_XML(); 
+        //Cancelar_XML cancela = new Cancelar_XML(); 
 
         int id_usuario = FormPrincipal.userID;
         int id_empleado = FormPrincipal.id_empleado;
@@ -323,6 +323,7 @@ namespace PuntoDeVentaV2
                 int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
                 int con_cpago = Convert.ToInt16(datagv_facturas.Rows[e.RowIndex].Cells["col_conpago"].Value);
                 string t_comprobante = Convert.ToString(datagv_facturas.Rows[e.RowIndex].Cells["col_t_comprobante"].Value);
+                string folio_f = Convert.ToString(datagv_facturas.Rows[e.RowIndex].Cells["col_folio"].Value);
                 var servidor = Properties.Settings.Default.Hosting;
 
                 if (e.ColumnIndex == 0)
@@ -506,7 +507,28 @@ namespace PuntoDeVentaV2
 
                                     if (resp == DialogResult.Yes)
                                     {
-                                        string[] respuesta = cancela.cancelar(id_factura, t_comprobante);
+                                        // Abre ventana para definir el motivo de cancelación 
+
+                                        string [][] arr_id_cmult = new string[1][];
+                                        arr_id_cmult[0] = new string[4];
+
+                                        arr_id_cmult[0][0] = id_factura.ToString();
+                                        arr_id_cmult[0][1] = t_comprobante;
+                                        arr_id_cmult[0][2] = folio_f;
+
+                                        Ventana_motivo_cancelacion vnt_motivo_canc = new Ventana_motivo_cancelacion(1, arr_id_cmult);
+
+                                        vnt_motivo_canc.FormClosed += delegate
+                                        {
+                                            // Cargar consulta
+                                            int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
+                                            cargar_lista_facturas(tipo_factura);
+                                        };
+
+                                        vnt_motivo_canc.ShowDialog();
+
+                                        /*string[] respuesta = cancela.cance
+                                         * lar(id_factura, t_comprobante);
 
                                         if (respuesta[1] == "201")
                                         {
@@ -522,7 +544,7 @@ namespace PuntoDeVentaV2
                                         else
                                         {
                                             MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        }
+                                        }*/
                                     }
                                 }
                             }
@@ -892,6 +914,21 @@ namespace PuntoDeVentaV2
                 {
                     comprobante.Emisor.nombreComercialEmisorSpecified = true;
                     comprobante.Emisor.NombreComercialEmisor = r_factura["e_nombre_comercial"].ToString();
+                }
+
+                // Motivo de cancelación
+                comprobante.Motivoc = "";
+
+                if (r_factura["motivo_canc"].ToString() != null & r_factura["motivo_canc"].ToString() != "")
+                {
+                    comprobante.Motivoc = r_factura["motivo_canc"].ToString();
+                }
+                
+
+                if(r_factura["motivo_canc"].ToString() == "01")
+                {
+                    comprobante.FoliosustSpecified = true;
+                    comprobante.Foliosust = r_factura["uuid_sust"].ToString();
                 }
 
 
@@ -1446,9 +1483,24 @@ namespace PuntoDeVentaV2
                     }
 
 
+                    // Abre ventana para definir el motivo de cancelación 
+
+                    Ventana_motivo_cancelacion vnt_motivo_canc = new Ventana_motivo_cancelacion(1, arr_id_cmult);
+
+                    vnt_motivo_canc.FormClosed += delegate
+                    {
+                        // Cargar consulta
+                        cargar_lista_facturas(opc_tipo_factura);
+
+                        // Obtenemos la cantidad de timbres
+                        actualizar_timbres();
+                    };
+
+                    vnt_motivo_canc.ShowDialog();
+
                     // Mandar a cancelar
 
-                    for (var z=0; z<arr_id_cmult.Length; z++)
+                    /*for (var z=0; z<arr_id_cmult.Length; z++)
                     {
                         string[] respuesta = cancela.cancelar(Convert.ToInt32(arr_id_cmult[z][0]), arr_id_cmult[z][1]);
 
@@ -1476,7 +1528,7 @@ namespace PuntoDeVentaV2
                     canc_mensaje.ShowDialog();
 
                     // Obtenemos la cantidad de timbres
-                    actualizar_timbres();
+                    actualizar_timbres();*/
                 }
             }
         }

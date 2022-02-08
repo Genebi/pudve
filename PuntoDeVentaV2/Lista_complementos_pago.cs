@@ -142,6 +142,7 @@ namespace PuntoDeVentaV2
             if (e.RowIndex >= 0)
             {
                 int id_factura = Convert.ToInt16(datagv_complementospg.Rows[e.RowIndex].Cells["col_id"].Value);
+                string folio_c = datagv_complementospg.Rows[e.RowIndex].Cells["col_folio"].Value.ToString();
                 var servidor = Properties.Settings.Default.Hosting;
 
 
@@ -218,7 +219,30 @@ namespace PuntoDeVentaV2
 
                         if (resp == DialogResult.Yes)
                         {
-                            string[] respuesta = cancela.cancelar(id_factura, "P");
+                            // Abre ventana para definir el motivo de cancelación 
+
+                            string[][] arr_id_cmult = new string[1][];
+                            arr_id_cmult[0] = new string[4];
+
+                            arr_id_cmult[0][0] = id_factura.ToString();
+                            arr_id_cmult[0][1] = "P";
+                            arr_id_cmult[0][2] = folio_c;
+
+                            Ventana_motivo_cancelacion vnt_motivo_canc = new Ventana_motivo_cancelacion(2, arr_id_cmult);
+
+                            vnt_motivo_canc.FormClosed += delegate
+                            {
+                                // Cargar consulta
+                                cargar_lista_complementos();
+
+                                // Obtenemos la cantidad de timbres
+                                fct.actualizar_timbres();
+                            };
+
+                            vnt_motivo_canc.ShowDialog();
+
+
+                            /*string[] respuesta = cancela.cancelar(id_factura, "P");
 
                             if (respuesta[1] == "201")
                             {
@@ -263,13 +287,13 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
+                            }*/
                         }
 
                         // Obtenemos la cantidad de timbres
-                        fct.actualizar_timbres();
+                        //fct.actualizar_timbres();
                     }
-                    
+
                 }
                 
                 // Información empleado
@@ -473,8 +497,7 @@ namespace PuntoDeVentaV2
 
                     if (estado == true)
                     {
-
-                        arr_id_cmult[c] = new string[5];
+                        arr_id_cmult[c] = new string[7];
 
                         arr_id_cmult[c][0] = Convert.ToString(row.Cells["col_id"].Value);
                         arr_id_cmult[c][1] = "P";
@@ -484,11 +507,27 @@ namespace PuntoDeVentaV2
                 }
 
 
+                // Abre ventana para definir el motivo de cancelación 
+
+                Ventana_motivo_cancelacion vnt_motivo_canc = new Ventana_motivo_cancelacion(2, arr_id_cmult);
+
+                vnt_motivo_canc.FormClosed += delegate
+                {
+                    // Cargar consulta
+                    cargar_lista_complementos();
+
+                    // Obtenemos la cantidad de timbres
+                    fct.actualizar_timbres();
+                };
+
+                vnt_motivo_canc.ShowDialog();
+
+
                 // Mandar a cancelar
 
-                for (var z = 0; z < arr_id_cmult.Length; z++)
+                /*for (var z = 0; z < arr_id_cmult.Length; z++)
                 {
-                    string[] respuesta = cancela.cancelar(Convert.ToInt32(arr_id_cmult[z][0]), arr_id_cmult[z][1]);
+                     string[] respuesta = cancela.cancelar(Convert.ToInt32(arr_id_cmult[z][0]), arr_id_cmult[z][1]);
 
                     if (respuesta[1] == "201" | respuesta[1] == "202")
                     {
@@ -540,11 +579,9 @@ namespace PuntoDeVentaV2
                     cargar_lista_complementos();
                 };
 
-                canc_mensaje.ShowDialog();
+                canc_mensaje.ShowDialog();*/
             }
-
-            // Obtenemos la cantidad de timbres
-            fct.actualizar_timbres();
+            
         }
     }
 }

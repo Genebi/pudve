@@ -35,7 +35,7 @@ namespace PuntoDeVentaV2
             {
                 string tipo_img = "close";
 
-                if(arr_resultado[z][4] == "201" | arr_resultado[z][4] == "202")
+                if(arr_resultado[z][6] == "201" | arr_resultado[z][6] == "202")
                 {
                     tipo_img = "check";
                 }
@@ -51,7 +51,7 @@ namespace PuntoDeVentaV2
                 lbl_f.Size = new Size(50, 17);
 
                 Label lbl_m = new Label();
-                lbl_m.Text = arr_resultado[z][3];
+                lbl_m.Text = arr_resultado[z][5];
                 lbl_m.Location = new Point(106, y);
                 //lbl_m.Size = new Size(589, 34);
                 lbl_m.AutoSize = true;

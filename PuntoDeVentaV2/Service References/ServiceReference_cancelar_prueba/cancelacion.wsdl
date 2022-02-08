@@ -12,6 +12,8 @@
           <xsd:element name="uuid" nillable="true" type="xsd:string" />
           <xsd:element name="rfc_receptor" nillable="true" type="xsd:string" />
           <xsd:element name="total" nillable="true" type="xsd:string" />
+          <xsd:element name="motivo" nillable="true" type="xsd:string" />
+          <xsd:element name="folio_sustituto" nillable="true" type="xsd:string" />
         </xsd:sequence>
       </xsd:complexType>
       <xsd:complexType name="cancelar_cfdi_result">
@@ -30,6 +32,8 @@
           <xsd:element name="uuid" nillable="true" type="xsd:string" />
           <xsd:element name="rfc_receptor" nillable="true" type="xsd:string" />
           <xsd:element name="total" nillable="true" type="xsd:string" />
+          <xsd:element name="motivo" nillable="true" type="xsd:string" />
+          <xsd:element name="folio_sustituto" nillable="true" type="xsd:string" />
           <xsd:element name="fecha_timbrado" nillable="true" type="xsd:string" />
           <xsd:element name="tipo_comprobante" nillable="true" type="xsd:string" />
         </xsd:sequence>

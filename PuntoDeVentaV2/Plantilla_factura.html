@@ -129,6 +129,26 @@
         </div>
     </div>
 
+
+    @if(Model.Cancelada == 1){
+        if(Model.Motivoc == ""){
+            
+        }
+        else{
+            <br />
+            <br />
+
+            <div class="alineacion txt-tipo-letra" style="width: 100%; margin-top: 1em; line-height: 1.4;">
+                <b>Motivo cancelación:</b>  @Model.Motivoc <span> - </span> @motivo_canc(@Model.Motivoc)
+                
+                @if(Model.Motivoc == "01"){
+                    <b>Folio sustitución:</b> @Model.Foliosust
+                }    
+            </div>
+        }
+    }
+
+
     <div style="clear: both;"></div>
     <br />
     <br />
@@ -656,6 +676,18 @@
             if(opc == 3){    return imp_restante.ToString();    }                                                       
 
             return "";
+        }
+
+        string motivo_canc(string clave){
+
+            string desc_motivo = "";
+            
+            if(clave == "01"){   desc_motivo = "Comprobante emitido con errores con relación";  }
+            if(clave == "02"){   desc_motivo = "Comprobante emitido con errores sin relación";  }
+            if(clave == "03"){   desc_motivo = "No se llevó a cabo la operación";  }
+            if(clave == "04"){   desc_motivo = "Operación nominativa relacionada en la factura";  }
+                                                                  
+            return desc_motivo;
         }
     }
 </html>
