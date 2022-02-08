@@ -149,7 +149,7 @@ namespace PuntoDeVentaV2
         {
             var result = string.Empty;
 
-            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE Nombre LIKE '%{name}%'");
+            var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE Nombre LIKE '%{name}%' AND IDUsuario = '{FormPrincipal.userID}'");
 
             if (!query.Rows.Count.Equals(0))
             {
@@ -1806,9 +1806,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string getIdCliente(string nombreCliente)
+        public string getDatosClienteVentas(string nombreCliente, string fechaInicial, string fechaFinal)
         {
-            var consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RazonSocial = '{nombreCliente}'";
+            var consulta = $"SELECT Cliente, RFC FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND DATE( FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND ( Cliente LIKE '%{nombreCliente}%' OR RFC LIKE '%{nombreCliente}%' )";
 
             return consulta;
         }
@@ -3144,6 +3144,34 @@ namespace PuntoDeVentaV2
         #endregion
 
         #region Listado Ventas desde Usuario con texto que buscar pero con rango de fechas
+        public string NombreAdministrador(string name)
+        {
+            var result = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT ID FROM Usuarios WHERE Usuario LIKE '%{name}%' AND ID = '{FormPrincipal.userID}'");
+
+            if (!query.Rows.Count.Equals(0))
+            {
+                result = query.Rows[0]["ID"].ToString();
+            }
+
+            return result;
+        }
+
+        public string ParametroDeBusquedaIdUsuarioSiendoAdministrador(string IDAdministrador, string fechaInicial, string fechaFinal)
+        {
+            var consulta = $"SELECT * FROM ventas WHERE IDUsuario = '{IDAdministrador}' AND DATE( FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' LIMIT 1";
+
+            return consulta;
+        }
+
+        public string ParametroDeBusquedaIdEmpleadoSiendoAdministrador(string IDEmpleado, string fechaInicial, string fechaFinal)
+        {
+            var consulta = $"SELECT * FROM ventas WHERE IDEmpleado = '{IDEmpleado}' AND DATE( FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' LIMIT 1";
+
+            return consulta;
+        }
+
         public string ParametroDeBusquedaFolioSiendoAdministrador(string campoFolio)
         {
             var consulta = $"AND Folio = {campoFolio}";
@@ -3154,6 +3182,20 @@ namespace PuntoDeVentaV2
         public string ParametrosDeBusquedaNombreRFCSiendoAdministrador(string campoNombreRFC)
         {
             var consulta = $"AND ( Vent.Cliente LIKE '%{campoNombreRFC}%' OR Vent.RFC LIKE '%{campoNombreRFC}%' )";
+
+            return consulta;
+        }
+
+        public string ParametrosDeBusquedaDeEmpleadoSiendoAdministrador(string campoIDEmpleado)
+        {
+            var consulta = $"AND ( Emp.nombre LIKE '%{campoIDEmpleado}%' )";
+
+            return consulta;
+        }
+
+        public string ParametrosDeBusquedaDeUsuarioSiendoAdministrador(string campoIDUsuario)
+        {
+            var consulta = $"AND ( Emp.nombre IS NULL )";
 
             return consulta;
         }

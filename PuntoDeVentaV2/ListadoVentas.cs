@@ -274,18 +274,58 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            var idEmpleado = cs.NombreEmpleado(buscador);
+                            //var idEmpleado = cs.NombreEmpleado(buscador);
 
-                            if (idEmpleado == FormPrincipal.id_empleado.ToString() || !FormPrincipal.userNickName.Contains("@"))
+                            //if (idEmpleado == FormPrincipal.id_empleado.ToString() || !FormPrincipal.userNickName.Contains("@"))
+                            //{
+                            //    if (!string.IsNullOrEmpty(idEmpleado))
+                            //    {
+                            //        extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%' OR IDEmpleado = '{idEmpleado}')";
+                            //    }
+                            //    else
+                            //    {
+                            //        //extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
+                            //        extra = cs.ParametrosDeBusquedaNombreRFCSiendoAdministrador(buscador);
+                            //    }
+                            //}
+
+                            using (DataTable dtCliete = cn.CargarDatos(cs.getDatosClienteVentas(buscador, fechaInicial, fechaFinal)))
                             {
-                                if (!string.IsNullOrEmpty(idEmpleado))
+                                if (!dtCliete.Rows.Count.Equals(0))
                                 {
-                                    extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%' OR IDEmpleado = '{idEmpleado}')";
+                                    extra += cs.ParametrosDeBusquedaNombreRFCSiendoAdministrador(buscador);
                                 }
-                                else
+                            }
+
+                            var IDEmpleado = cs.NombreEmpleado(buscador);
+
+                            if (!string.IsNullOrWhiteSpace(IDEmpleado))
+                            {
+                                using (DataTable dtEmpleado = cn.CargarDatos(cs.ParametroDeBusquedaIdEmpleadoSiendoAdministrador(IDEmpleado, fechaInicial, fechaFinal)))
                                 {
-                                    //extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
-                                    extra = cs.ParametrosDeBusquedaNombreRFCSiendoAdministrador(buscador);
+                                    if (!dtEmpleado.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow item in dtEmpleado.Rows)
+                                        {
+                                            extra += cs.ParametrosDeBusquedaDeEmpleadoSiendoAdministrador(buscador);
+                                        }
+                                    }
+                                }
+                            }
+
+                            var IDAdministrador = cs.NombreAdministrador(buscador);
+
+                            if (!string.IsNullOrWhiteSpace(IDAdministrador))
+                            {
+                                using (DataTable dtAdmin = cn.CargarDatos(cs.ParametroDeBusquedaIdUsuarioSiendoAdministrador(IDAdministrador, fechaInicial, fechaFinal)))
+                                {
+                                    if (!dtAdmin.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow item in dtAdmin.Rows)
+                                        {
+                                            extra += cs.ParametrosDeBusquedaDeUsuarioSiendoAdministrador(buscador);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -311,7 +351,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra); 
+                                consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                             }
                         }
                         
