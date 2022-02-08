@@ -257,7 +257,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);  
+                                consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
                             }
                         }
                     }
