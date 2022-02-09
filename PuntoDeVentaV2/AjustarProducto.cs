@@ -47,7 +47,7 @@ namespace PuntoDeVentaV2
         /// 
         /// </summary>
         /// <param name="IDProducto">ID de Producto a Modificar</param>
-        /// <param name="apartado">apartado=1(Sección Productos) apartado=2(Sección Invetario)</param>
+        /// <param name="apartado">apartado=1(Sección Productos) apartado=2(Sección Invetario)</param> 
         /// <param name="operacion"></param>
         public AjustarProducto(int IDProducto, int apartado = 1, int operacion = 0)
         {

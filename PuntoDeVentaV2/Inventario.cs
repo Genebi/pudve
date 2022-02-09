@@ -73,7 +73,11 @@ namespace PuntoDeVentaV2
 
         int columnasConcepto = 0;
 
+        string numCodigo;
+
         public static string filtradoParaRealizar = string.Empty;
+
+        DialogResult resultado = DialogResult.No;
 
         public Inventario()
         {
@@ -880,12 +884,40 @@ namespace PuntoDeVentaV2
 
         private void CargarDatosProducto()
         {
+
+
             ocultarResultados();
             txtBusqueda.Text = "";
             txtBusqueda.Focus();
 
             var productoSeleccionado = listaProductos.Items[listaProductos.SelectedIndex].ToString();
             var idProducto = productos.FirstOrDefault(x => x.Value == productoSeleccionado).Key;
+
+            var datos = cn.CargarDatos($"SELECT Codigo FROM dgvaumentarinventario WHERE idProducto = {idProducto}");
+            if (!datos.Rows.Count.Equals(0))
+            {
+                numCodigo = datos.Rows[0]["Codigo"].ToString();
+            }
+            else
+            {
+                numCodigo = "";
+            }
+            
+
+            foreach (DataGridViewRow fila in DGVInventario.Rows)
+            {
+                var codigo = fila.Cells[7].Value.ToString();
+                if (codigo.Equals(numCodigo))
+                {
+                    resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                    if (resultado.Equals(DialogResult.No))
+                    {
+                        return;
+                    }
+
+                }
+            }
 
             if (rbAumentarProducto.Checked)
             {
@@ -977,8 +1009,20 @@ namespace PuntoDeVentaV2
                 if (string.IsNullOrEmpty(idEmplado)) { idEmplado = "0"; }
 
                 string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmplado, empleadoFinal };
-                var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
-                cn.EjecutarConsulta(insertAumentarInventario);
+
+                if (resultado.Equals(DialogResult.No))
+                {
+                    var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
+                    cn.EjecutarConsulta(insertAumentarInventario);
+                    resultado = DialogResult.No;
+                }
+                else if (resultado.Equals(DialogResult.Yes))
+                {
+                    var insertAumentarInventario = cs.UpdateAumentarInventario(datosAumentarInventario);
+                    cn.EjecutarConsulta(insertAumentarInventario);
+                    resultado = DialogResult.No;
+                }
+                
                 using (DataTable dtRetriveAumentarInventario = cn.CargarDatos(cs.GetAumentarInventario()))
                 {
                     if (!dtRetriveAumentarInventario.Rows.Count.Equals(0))
@@ -1042,9 +1086,20 @@ namespace PuntoDeVentaV2
 
                 string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmpleado };
 
-                var insertarDisminuirInventario = cs.InsertarIntoDisminuirInventario(datosDisminuirInventario);
+                if (resultado.Equals(DialogResult.No))
+                {
+                    var insertarDisminuirInventario = cs.InsertarIntoDisminuirInventario(datosDisminuirInventario);
+                    cn.EjecutarConsulta(insertarDisminuirInventario);
+                    resultado = DialogResult.No;
+                }
+                else if (resultado.Equals(DialogResult.Yes))
+                {
+                    var insertarDisminuirInventario = cs.UpdateIntoDisminuirInventario(datosDisminuirInventario);
+                    cn.EjecutarConsulta(insertarDisminuirInventario);
+                    resultado = DialogResult.No;
+                }
 
-                cn.EjecutarConsulta(insertarDisminuirInventario);
+                
 
                 using (DataTable dtRetriveDisminuirInventario = cn.CargarDatos(cs.GetDisminuirInventario()))
                 {
