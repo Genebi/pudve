@@ -644,6 +644,8 @@ namespace PuntoDeVentaV2
 
             Utilidades.registrarNuevoEmpleadoPermisosConfiguracion(id_empleado);
             Utilidades.registrarEmpleadosAntiguosPermisosConfiguracion();
+
+            cn.EjecutarConsulta(cs.ActualizarRegimenFiscal());
         }
 
         public void agregarCamposDinamicosPermisos()
