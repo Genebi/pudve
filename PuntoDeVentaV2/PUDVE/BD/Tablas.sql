@@ -1704,3 +1704,10 @@ IF
 	ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS StockInicial VARCHAR(100);
 
 	ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RespaldoAlCerrarSesion INT DEFAULT 1;
+
+
+	-- Agregar columnas extra para facturacion en tabla Facturas
+
+	ALTER TABLE facturas ADD COLUMN IF NOT EXISTS motivo_canc VARCHAR(2) DEFAULT NULL AFTER e_nombre_comercial;
+
+	ALTER TABLE facturas ADD COLUMN IF NOT EXISTS uuid_sust VARCHAR(36) DEFAULT NULL AFTER motivo_canc;
