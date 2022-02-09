@@ -3054,5 +3054,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string ActualizarRegimenFiscal()
+        {
+            var consulta = "UPDATE RegimenFiscal SET AplicaFisica = REPLACE ( AplicaFisica, '?', 'í' ), AplicaMoral = REPLACE ( AplicaMoral, '?', 'í' )";
+
+            return consulta;
+        }
     }
 }  
