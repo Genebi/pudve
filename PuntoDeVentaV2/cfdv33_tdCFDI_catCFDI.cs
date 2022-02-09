@@ -103,6 +103,10 @@ public partial class Comprobante {
     private int canceladaField;
     private bool canceladaFieldSpecified;
 
+    private string motivocField;
+    private string foliosustField;
+    private bool foliosustFieldSpecified;
+
 
     public string QR
     {
@@ -503,6 +507,48 @@ public partial class Comprobante {
         set
         {
             this.canceladaFieldSpecified = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Motivoc
+    {
+        get
+        {
+            return this.motivocField;
+        }
+        set
+        {
+            this.motivocField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Foliosust
+    {
+        get
+        {
+            return this.foliosustField;
+        }
+        set
+        {
+            this.foliosustField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool FoliosustSpecified
+    {
+        get
+        {
+            return this.foliosustFieldSpecified;
+        }
+        set
+        {
+            this.foliosustFieldSpecified = value;
         }
     }
     #endregion
