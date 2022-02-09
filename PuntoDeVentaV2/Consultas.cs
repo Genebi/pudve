@@ -1532,6 +1532,12 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string UpdateAumentarInventario(string[] datosAumentarInventario)
+        {
+            var consulta = $"UPDATE DGVAumentarInventario SET StockActual = '{datosAumentarInventario[2]}', DiferenciaUnidades = '{datosAumentarInventario[3]}', NuevoStock = '{datosAumentarInventario[4]}', Precio =  '{datosAumentarInventario[5]}', Clave = '{datosAumentarInventario[6]}', Codigo = '{datosAumentarInventario[7]}', Fecha = '{datosAumentarInventario[8]}', NoRevision = '{datosAumentarInventario[9]}', StatusActualizacion = '{datosAumentarInventario[10]}', NombreEmisor = '{datosAumentarInventario[11]}', Comentarios = '{datosAumentarInventario[12]}', ValorUnitario = '{datosAumentarInventario[13]}', IdUsuario = '{datosAumentarInventario[14]}', IDEmpleado ='{datosAumentarInventario[15]}' , NameUsr = '{datosAumentarInventario[16]}' WHERE Codigo = '{datosAumentarInventario[7]}' AND StatusActualizacion = '1'";
+            return consulta;
+        }
+
         public string GetAumentarInventario()
         {
             var consultar = $"SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, ID FROM DGVAumentarInventario WHERE StatusActualizacion = 1 AND IdUsuario = {FormPrincipal.userID}";
@@ -1604,6 +1610,12 @@ namespace PuntoDeVentaV2
             var consulta = "INSERT INTO DGVDisminuirInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IdUsuario, IDEmpleado) VALUES";
             consulta += $"('{datosDisminuirInventario[0]}', '{datosDisminuirInventario[1]}', '{datosDisminuirInventario[2]}', '{datosDisminuirInventario[3]}', '{datosDisminuirInventario[4]}', '{datosDisminuirInventario[5]}', '{datosDisminuirInventario[6]}', '{datosDisminuirInventario[7]}', '{datosDisminuirInventario[8]}', '{datosDisminuirInventario[9]}', '{datosDisminuirInventario[10]}', '{datosDisminuirInventario[11]}', '{datosDisminuirInventario[12]}', '{datosDisminuirInventario[13]}', '{datosDisminuirInventario[14]}', '{datosDisminuirInventario[15]}')";
 
+            return consulta;
+        }
+
+        public string UpdateIntoDisminuirInventario(string[] datosDisminuirInventario)
+        {
+            var consulta = $"UPDATE DGVDisminuirInventario SET StockActual = '{datosDisminuirInventario[2]}', DiferenciaUnidades = '{datosDisminuirInventario[3]}', NuevoStock = '{datosDisminuirInventario[4]}', Precio =  '{datosDisminuirInventario[5]}', Clave = '{datosDisminuirInventario[6]}', Codigo = '{datosDisminuirInventario[7]}', Fecha = '{datosDisminuirInventario[8]}', NoRevision = '{datosDisminuirInventario[9]}', StatusActualizacion = '{datosDisminuirInventario[10]}', NombreEmisor = '{datosDisminuirInventario[11]}', Comentarios = '{datosDisminuirInventario[12]}', ValorUnitario = '{datosDisminuirInventario[13]}', IdUsuario = '{datosDisminuirInventario[14]}', IDEmpleado ='{datosDisminuirInventario[15]}' WHERE Codigo = '{datosDisminuirInventario[7]}' AND StatusActualizacion = '1'";
             return consulta;
         }
 
