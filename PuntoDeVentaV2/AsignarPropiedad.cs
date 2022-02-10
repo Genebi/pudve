@@ -912,7 +912,7 @@ namespace PuntoDeVentaV2
 
                 TextBox txtCantidadCompra = (TextBox)this.Controls.Find("txtCantidadCompra", true)[0];
                 var cantidad = txtCantidadCompra.Text;
-                if (!string.IsNullOrWhiteSpace(mensaje) && !string.IsNullOrWhiteSpace(cantidad))
+                if (!string.IsNullOrWhiteSpace(mensaje) && !string.IsNullOrWhiteSpace(cantidad) || stateChkEliminarMensajes.Equals(true))
                 {
                     MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
 
@@ -1009,7 +1009,8 @@ namespace PuntoDeVentaV2
                             }
 
                         }
-                    }else if (stateChkMostrarMensaje.Equals(false) && stateChkOcultarMensajes.Equals(true))
+                    }
+                    else if (stateChkMostrarMensaje.Equals(false) && stateChkOcultarMensajes.Equals(true))
                     {
                         foreach (var producto in productos)
                         {
