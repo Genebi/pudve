@@ -365,7 +365,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
-                                consulta = cs.VerComoEmpleadoTodasMisVentasCanceladasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra); 
+                                consulta = cs.VerComoEmpleadoTodasMisVentasCanceladasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra);
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
