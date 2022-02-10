@@ -238,7 +238,23 @@ namespace PuntoDeVentaV2
                     {
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
-                            consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
+                            //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
+                            if (estado.Equals(1)) // Ventas pagadas
+                            {
+                                consulta = cs.VerComoEpleadoTodasLaVentasPagadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
+                            }
+                            else if (estado.Equals(2)) // Ventas guardadas
+                            {
+                                return;
+                            }
+                            else if (estado.Equals(3)) // Ventas canceladas
+                            {
+                                return;
+                            }
+                            else if (estado.Equals(4)) // Ventas a credito
+                            {
+                                return;
+                            }
                         }
                         else
                         {
@@ -627,8 +643,7 @@ namespace PuntoDeVentaV2
             var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
             var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
 
-            if ((DateTime.Parse(fechaInicial) <= DateTime.Parse(fechaFinal)) && 
-                (DateTime.Parse(fechaInicial) >= DateTime.Parse(fechaFinal)))
+            if (DateTime.Parse(fechaInicial) <= DateTime.Parse(fechaFinal))
             {
                 validacionFecha = true;
             }
