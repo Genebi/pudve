@@ -208,10 +208,12 @@ namespace PuntoDeVentaV2
         #region Método para cargar los datos en el DataGridView
         public void CargarDatos(int estado = 1, bool busqueda = false, string clienteFolio = "")
         {
+            var consulta = string.Empty;
+            var extra = string.Empty;
+            bool esNumero = false;
+
             if (clickBoton == 0)
             {
-                var consulta = string.Empty;
-
                 if (busqueda)
                 {
                     var buscador = txtBuscador.Text.Trim();
@@ -280,8 +282,8 @@ namespace PuntoDeVentaV2
                     else
                     {
                         int n;
-                        var extra = string.Empty;
-                        var esNumero = int.TryParse(buscador, out n);
+                        
+                        esNumero = int.TryParse(buscador, out n);
 
                         if (esNumero)
                         {
@@ -603,6 +605,8 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("No Se Encontraron Resultados\nDentro Del Rango De Búsqueda Seleccionada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtBuscador.Focus();
                 busqueda = false;
+                extra = string.Empty;
+                esNumero = false;
                 restaurarBusqueda();
             }
 
