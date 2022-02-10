@@ -247,11 +247,11 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
-                                consulta = cs.VerComoEpleadoTodasLaVentasGuardadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoEpleadoTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal);
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
-                                return;
+                                consulta = cs.VerComoEpleadoTodasMisVentasCanceladasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);   
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
@@ -361,7 +361,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
-                                consulta = cs.VerComoEmpleadoTodasLasVentasGuardadasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra);
+                                consulta = cs.VerComoEmpleadoTodasLasVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
