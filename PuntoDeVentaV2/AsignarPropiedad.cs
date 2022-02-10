@@ -891,8 +891,6 @@ namespace PuntoDeVentaV2
                 }
             }
 
-           
-
             Button btn = (Button)sender;
             btn.Enabled = false;
             //cargando.Show();
