@@ -90,7 +90,8 @@ namespace PuntoDeVentaV2
         public static float validarCheque { get; set; }
         public static float validarTrans { get; set; }
 
-
+        string mensajeParaMostrar = string.Empty;
+        
         public ListadoVentas()
         {
             InitializeComponent();
@@ -3404,6 +3405,67 @@ namespace PuntoDeVentaV2
 
             return lista.ToArray();
         }
-    //}
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+                {
+                    var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+
+                    if (cantidadAMostrar <= 0)
+                    {
+                        mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                        Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
+                        txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                        return;
+                    }
+
+                    maximo_x_pagina = cantidadAMostrar;
+                    p.actualizarTope(maximo_x_pagina);
+                    CargarDatos();
+                    actualizar();
+                }
+                else if (txtMaximoPorPagina.Text.Equals(string.Empty))
+                {
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                }
+            }
+        }
+
+        private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
+        {
+            if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+            {
+                var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+
+                if (cantidadAMostrar <= 0)
+                {
+                    mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                    Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                    return;
+                }
+
+                maximo_x_pagina = cantidadAMostrar;
+                p.actualizarTope(maximo_x_pagina);
+                CargarDatos();
+                actualizar();
+            }
+            else if (txtMaximoPorPagina.Text.Equals(string.Empty))
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
+        }
+        //}
     }
 }

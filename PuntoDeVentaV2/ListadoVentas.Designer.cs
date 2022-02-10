@@ -50,6 +50,8 @@
             this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
             this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnReportes = new System.Windows.Forms.Button();
             this.btn_descargar = new System.Windows.Forms.Button();
             this.txtBuscador = new System.Windows.Forms.TextBox();
@@ -77,8 +79,9 @@
             this.lb_texto_descarga_verpdf = new System.Windows.Forms.Label();
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.btnActualizarMaximoProductos = new System.Windows.Forms.Button();
+            this.txtMaximoPorPagina = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -283,6 +286,24 @@
             this.panelBotones.Size = new System.Drawing.Size(886, 76);
             this.panelBotones.TabIndex = 6;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(518, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Fecha final";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(412, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Fecha incial";
+            // 
             // btnReportes
             // 
             this.btnReportes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -452,6 +473,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnActualizarMaximoProductos);
+            this.panel1.Controls.Add(this.txtMaximoPorPagina);
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.linkLblPaginaSiguiente);
@@ -641,23 +665,45 @@
             this.chTodos.UseVisualStyleBackColor = true;
             this.chTodos.CheckedChanged += new System.EventHandler(this.chTodos_CheckedChanged);
             // 
-            // label1
+            // btnActualizarMaximoProductos
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(412, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Fecha incial";
+            this.btnActualizarMaximoProductos.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnActualizarMaximoProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(196)))), ((int)(((byte)(15)))));
+            this.btnActualizarMaximoProductos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnActualizarMaximoProductos.FlatAppearance.BorderSize = 0;
+            this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
+            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(796, 25);
+            this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
+            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(80, 23);
+            this.btnActualizarMaximoProductos.TabIndex = 29;
+            this.btnActualizarMaximoProductos.Text = "Actualizar";
+            this.btnActualizarMaximoProductos.UseVisualStyleBackColor = false;
+            this.btnActualizarMaximoProductos.Click += new System.EventHandler(this.btnActualizarMaximoProductos_Click);
             // 
-            // label2
+            // txtMaximoPorPagina
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(518, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Fecha final";
+            this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtMaximoPorPagina.Location = new System.Drawing.Point(730, 26);
+            this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
+            this.txtMaximoPorPagina.Size = new System.Drawing.Size(56, 26);
+            this.txtMaximoPorPagina.TabIndex = 28;
+            this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMaximoPorPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaximoPorPagina_KeyDown);
+            this.txtMaximoPorPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMaximoPorPagina_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(577, 19);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(147, 38);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "Cantidad de ventas para mostrar: ";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ListadoVentas
             // 
@@ -743,5 +789,8 @@
         private System.Windows.Forms.DataGridViewImageColumn retomarVenta;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnActualizarMaximoProductos;
+        private System.Windows.Forms.TextBox txtMaximoPorPagina;
+        private System.Windows.Forms.Label label7;
     }
 }
