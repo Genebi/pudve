@@ -3455,7 +3455,7 @@ namespace PuntoDeVentaV2
                     txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
                     return;
                 }
-
+                 
                 maximo_x_pagina = cantidadAMostrar;
                 p.actualizarTope(maximo_x_pagina);
                 CargarDatos();
