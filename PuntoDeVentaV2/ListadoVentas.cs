@@ -245,7 +245,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
-                                consulta = cs.VerComoEpleadoTodasLaVentasGuardadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal); 
+                                consulta = cs.VerComoEpleadoTodasLaVentasGuardadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
@@ -344,17 +344,22 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
+
+                            if (string.IsNullOrWhiteSpace(extra))
+                            {
+                                extra += cs.ParametrosDeBusquedaNombreRFCSiendoAdministrador(buscador);
+                            }
                         }
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
                             //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
                             if (estado.Equals(1)) // Ventas pagadas
                             {
-                                consulta = cs.VerComoEmpleadoTodasLaVentasPagadasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra);
+                                consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra);
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
-                                return;
+                                consulta = cs.VerComoEmpleadoTodasLasVentasGuardadasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra);
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
@@ -597,6 +602,8 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No Se Encontraron Resultados\nDentro Del Rango De Búsqueda Seleccionada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtBuscador.Focus();
+                busqueda = false;
+                restaurarBusqueda();
             }
 
             tipo_venta = estado;
@@ -604,6 +611,29 @@ namespace PuntoDeVentaV2
             llenarGDV();
         }
         #endregion
+
+        private void restaurarBusqueda()
+        {
+            var opcion = cbTipoVentas.SelectedValue.ToString();
+            clickBoton = 0;
+
+            if (opcion == "VP") //Ventas pagadas
+            {
+                CargarDatos(1);
+            }
+            else if (opcion == "VG") //Ventas guardadas
+            {
+                CargarDatos(2);
+            }
+            else if (opcion == "VC") //Ventas canceladas
+            {
+                CargarDatos(3);
+            }
+            else if (opcion == "VCC") //Ventas a credito
+            {
+                CargarDatos(4);
+            }
+        }
 
         private void AgregarTotalesGenerales(float ivaGral, float subtotalGral, float totalGral)
         {
