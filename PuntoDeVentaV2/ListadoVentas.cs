@@ -577,6 +577,10 @@ namespace PuntoDeVentaV2
 
                 DGVListadoVentas.FirstDisplayedScrollingColumnIndex = DGVListadoVentas.ColumnCount - 1;
             }
+            else if (busqueda.Equals(true))
+            {
+                MessageBox.Show("No Se Encontraron Resultados\nDentro Del Rango De Fechas Seleccionado", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             tipo_venta = estado;
 
