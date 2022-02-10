@@ -3073,5 +3073,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string SimbolosDePreguntaRegimenFiscalEnDescripcion()
+        {
+            var consulta = "UPDATE RegimenFiscal SET Descripcion = REPLACE ( Descripcion, 'R?gimen', 'Régimen' ) WHERE CodigoRegimen = 625; UPDATE RegimenFiscal SET Descripcion = REPLACE ( Descripcion, 'trav?s', 'través' ) WHERE CodigoRegimen = 625; UPDATE RegimenFiscal SET Descripcion = REPLACE ( Descripcion, 'Tecnol?gicas', 'Tecnológicas' ) WHERE CodigoRegimen = 625; UPDATE RegimenFiscal SET Descripcion = REPLACE ( Descripcion, 'R?gimen', 'Régimen' ) WHERE CodigoRegimen = 626;";
+
+            return consulta;
+        }
     }
 }  

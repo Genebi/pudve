@@ -645,7 +645,15 @@ namespace PuntoDeVentaV2
             Utilidades.registrarNuevoEmpleadoPermisosConfiguracion(id_empleado);
             Utilidades.registrarEmpleadosAntiguosPermisosConfiguracion();
 
+            quitarSimbolosDePreguntaRegimenFiscalEnDescripcion();
+        }
+
+        private void quitarSimbolosDePreguntaRegimenFiscalEnDescripcion()
+        {
+            // Quitar Simbolos de Pregunta en campos AplicaFisica, AplicaMoral
             cn.EjecutarConsulta(cs.ActualizarRegimenFiscal());
+            // Quitar Simbolos de Pregunta en el campo Descripcion
+            cn.EjecutarConsulta(cs.SimbolosDePreguntaRegimenFiscalEnDescripcion());
         }
 
         public void agregarCamposDinamicosPermisos()
