@@ -821,7 +821,21 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            MessageBox.Show($"No se encontraron resultados para \nla búsqueda '{datosSeparados[0].Trim()}'", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            var datos = cn.CargarDatos($"SELECT Tipo FROM productos WHERE CodigoBarras = '{datosSeparados[0].Trim()}'");
+                            if (!datos.Rows.Count.Equals(0))
+                            {
+                                var producto = datos.Rows[0]["Tipo"].ToString();
+                                if (producto.Equals("S"))
+                                {
+                                    MessageBox.Show($"La busqueda relacionada con este codigo \n'{datosSeparados[0].Trim()}' pertenece a un servicio", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show($"No se encontraron resultados para \nla búsqueda '{datosSeparados[0].Trim()}'", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            
+                            
                         }
                     }
                 }
@@ -909,8 +923,6 @@ namespace PuntoDeVentaV2
 
         private void CargarDatosProducto()
         {
-
-
             ocultarResultados();
             txtBusqueda.Text = "";
             txtBusqueda.Focus();
