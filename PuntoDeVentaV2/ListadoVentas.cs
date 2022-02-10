@@ -245,7 +245,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
-                                consulta = cs.VerComoEpleadoTodasLaVentasGuardadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);   
+                                consulta = cs.VerComoEpleadoTodasLaVentasGuardadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);  
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
