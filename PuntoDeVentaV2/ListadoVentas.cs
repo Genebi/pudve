@@ -596,6 +596,7 @@ namespace PuntoDeVentaV2
             else if (busqueda.Equals(true))
             {
                 MessageBox.Show("No Se Encontraron Resultados\nDentro Del Rango De Búsqueda Seleccionada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtBuscador.Focus();
             }
 
             tipo_venta = estado;
