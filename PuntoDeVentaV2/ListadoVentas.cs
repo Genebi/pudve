@@ -347,7 +347,23 @@ namespace PuntoDeVentaV2
                         }
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
-                            consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
+                            //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
+                            if (estado.Equals(1)) // Ventas pagadas
+                            {
+                                consulta = cs.VerComoEmpleadoTodasLaVentasPagadasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra);
+                            }
+                            else if (estado.Equals(2)) // Ventas guardadas
+                            {
+                                return;
+                            }
+                            else if (estado.Equals(3)) // Ventas canceladas
+                            {
+                                return;
+                            }
+                            else if (estado.Equals(4)) // Ventas a credito
+                            {
+                                return;
+                            }
                         }
                         else
                         {
@@ -363,7 +379,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra); 
+                                consulta = cs.VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
@@ -579,7 +595,7 @@ namespace PuntoDeVentaV2
             }
             else if (busqueda.Equals(true))
             {
-                MessageBox.Show("No Se Encontraron Resultados\nDentro Del Rango De Fechas Seleccionado", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No Se Encontraron Resultados\nDentro Del Rango De Búsqueda Seleccionada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             tipo_venta = estado;
