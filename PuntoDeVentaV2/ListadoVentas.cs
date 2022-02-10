@@ -607,9 +607,33 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            bool fechasValidas = validarFechasDeBusqueda();
+
+            if (fechasValidas.Equals(false))
+            {
+                MessageBox.Show("Favor de verificar el rango de fechas seleccionadas", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             CargarDatos(busqueda: true);
             btnPrimeraPagina.PerformClick();
             //+++btnUltimaPagina.PerformClick();
+        }
+
+        private bool validarFechasDeBusqueda()
+        {
+            var validacionFecha = false;
+
+            var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+            var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+
+            if ((DateTime.Parse(fechaInicial) <= DateTime.Parse(fechaFinal)) && 
+                (DateTime.Parse(fechaInicial) >= DateTime.Parse(fechaFinal)))
+            {
+                validacionFecha = true;
+            }
+
+            return validacionFecha;
         }
 
         public void btnNuevaVenta_Click(object sender, EventArgs e)
