@@ -406,7 +406,7 @@ namespace PuntoDeVentaV2
 
                     Thread hilo;
 
-                    if (!File.Exists(ruta_archivo))
+                    if (!File.Exists(ruta_archivo) || File.Exists(ruta_archivo))
                     {
                         //MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
                         //Generar_PDF_factura.generar_PDF(nombre_xml);
