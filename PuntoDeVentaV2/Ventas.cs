@@ -6465,8 +6465,13 @@ namespace PuntoDeVentaV2
             {
                 if (mostrarVenta > 0)
                 {
-                    //Cargar la venta cancelada 
-                    CargarVentaGuardada();
+                    DialogResult respuesta = MessageBox.Show("Venta cancelada exitosamente\ndesea recargar datos de la venta", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                    if (respuesta.Equals(DialogResult.Yes))
+                    {
+                        //Cargar la venta cancelada 
+                        CargarVentaGuardada();
+                    }
 
                     mostrarVenta = 0;
                     txtBuscadorProducto.Text = string.Empty;
