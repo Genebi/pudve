@@ -697,30 +697,31 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                //var datos2 = cn.CargarDatos($"SELECT Codigo FROM dgvaumentarinventario WHERE idProducto = {idProducto}");
-                //if (!datos2.Rows.Count.Equals(0))
-                //{
-                //    numCodigo = datos2.Rows[0]["Codigo"].ToString();
-                //}
-                //else
-                //{
-                //    numCodigo = "";
-                //}
+                var datos2 = cn.CargarDatos($"SELECT Codigo FROM dgvaumentarinventario WHERE idProducto = {idProducto}");
+                if (!datos2.Rows.Count.Equals(0))
+                {
+                    numCodigo = datos2.Rows[0]["Codigo"].ToString();
+                }
+                else
+                {
+                    numCodigo = "";
+                }
 
-                //foreach (DataGridViewRow fila in DGVInventario.Rows)
-                //{
-                //    var codigo = fila.Cells[7].Value.ToString();
-                //    if (codigo.Equals(numCodigo))
-                //    {
-                //      var resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                foreach (DataGridViewRow fila in DGVInventario.Rows)
+                {
+                    var codigo = fila.Cells[7].Value.ToString();
+                    if (codigo.Equals(numCodigo) && contadorMensaje.Equals(0))
+                    {
+                        var resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-                //        if (resultado.Equals(DialogResult.No))
-                //        {
-                //            return;
-                //        }
-
-                //    }
-                //}
+                        if (resultado.Equals(DialogResult.No))
+                        {
+                            return;
+                        }
+                    }
+                    contadorMensaje++;
+                }
+                contadorMensaje = 0;
 
                 // Si es mayor a cero es un producto y lo mostramos directamente en la ventana de ajustar
                 if (idProducto > 0)
