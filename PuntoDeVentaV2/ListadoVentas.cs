@@ -1261,8 +1261,7 @@ namespace PuntoDeVentaV2
                                     CargarDatos();
                                 }
                             }
-
-
+                            MessageBox.Show("Venta cancelada exitosamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
