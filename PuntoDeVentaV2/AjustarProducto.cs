@@ -514,13 +514,26 @@ namespace PuntoDeVentaV2
                                     return;
                                 }
 
+                                var emisor = string.Empty;
+                                using (DataTable dtProvedor = cn.CargarDatos($"SELECT IDProducto, Proveedor FROM detallesproducto WHERE IDProducto = '{IDProducto}'"))
+                                {
+                                    if (!dtProvedor.Rows.Count.Equals(0))
+                                    {
+                                        emisor = dtProvedor.Rows[0]["Proveedor"].ToString();
+                                    }
+                                    else
+                                    {
+                                        emisor = "Ajuste";
+                                    }
+                                }
+
                                 //Datos para la tabla historial de compras
                                 string[] datos = new string[]
                                 {
                                     producto, auxiliar.ToString(), precioProducto.ToString(),
                                     comentario, "2", fechaOperacion, IDProducto.ToString(),
                                     FormPrincipal.userID.ToString(), "Ajuste", "Ajuste",
-                                    "Ajuste", fechaOperacion, concepto
+                                    emisor, fechaOperacion, concepto
                                 };
 
                                 int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
