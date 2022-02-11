@@ -1338,7 +1338,7 @@ namespace PuntoDeVentaV2
 
                     Thread hilo;
                     //pictureBox1.Visible = true;
-                    if (!File.Exists(ruta_archivo))
+                    if (!File.Exists(ruta_archivo) || File.Exists(ruta_archivo))
                     {// () => mnsj(),
                         //Parallel.Invoke(() => mnsj(), () => verfactura(idVenta));
                         
