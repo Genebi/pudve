@@ -1532,11 +1532,11 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string UpdateAumentarInventario(string[] datosAumentarInventario)
-        {
-            var consulta = $"UPDATE DGVAumentarInventario SET StockActual = '{datosAumentarInventario[2]}', DiferenciaUnidades = '{datosAumentarInventario[3]}', NuevoStock = '{datosAumentarInventario[4]}', Precio =  '{datosAumentarInventario[5]}', Clave = '{datosAumentarInventario[6]}', Codigo = '{datosAumentarInventario[7]}', Fecha = '{datosAumentarInventario[8]}', NoRevision = '{datosAumentarInventario[9]}', StatusActualizacion = '{datosAumentarInventario[10]}', NombreEmisor = '{datosAumentarInventario[11]}', Comentarios = '{datosAumentarInventario[12]}', ValorUnitario = '{datosAumentarInventario[13]}', IdUsuario = '{datosAumentarInventario[14]}', IDEmpleado ='{datosAumentarInventario[15]}' , NameUsr = '{datosAumentarInventario[16]}' WHERE Codigo = '{datosAumentarInventario[7]}' AND StatusActualizacion = '1'";
-            return consulta;
-        }
+        //public string UpdateAumentarInventario(string[] datosAumentarInventario)
+        //{
+        //    var consulta = $"UPDATE DGVAumentarInventario SET StockActual = '{datosAumentarInventario[2]}', DiferenciaUnidades = '{datosAumentarInventario[3]}', NuevoStock = '{datosAumentarInventario[4]}', Precio =  '{datosAumentarInventario[5]}', Clave = '{datosAumentarInventario[6]}', Codigo = '{datosAumentarInventario[7]}', Fecha = '{datosAumentarInventario[8]}', NoRevision = '{datosAumentarInventario[9]}', StatusActualizacion = '{datosAumentarInventario[10]}', NombreEmisor = '{datosAumentarInventario[11]}', Comentarios = '{datosAumentarInventario[12]}', ValorUnitario = '{datosAumentarInventario[13]}', IdUsuario = '{datosAumentarInventario[14]}', IDEmpleado ='{datosAumentarInventario[15]}' , NameUsr = '{datosAumentarInventario[16]}' WHERE Codigo = '{datosAumentarInventario[7]}' AND StatusActualizacion = '1'";
+        //    return consulta;
+        //}
 
         public string GetAumentarInventario()
         {
@@ -1613,11 +1613,11 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string UpdateIntoDisminuirInventario(string[] datosDisminuirInventario)
-        {
-            var consulta = $"UPDATE DGVDisminuirInventario SET StockActual = '{datosDisminuirInventario[2]}', DiferenciaUnidades = '{datosDisminuirInventario[3]}', NuevoStock = '{datosDisminuirInventario[4]}', Precio =  '{datosDisminuirInventario[5]}', Clave = '{datosDisminuirInventario[6]}', Codigo = '{datosDisminuirInventario[7]}', Fecha = '{datosDisminuirInventario[8]}', NoRevision = '{datosDisminuirInventario[9]}', StatusActualizacion = '{datosDisminuirInventario[10]}', NombreEmisor = '{datosDisminuirInventario[11]}', Comentarios = '{datosDisminuirInventario[12]}', ValorUnitario = '{datosDisminuirInventario[13]}', IdUsuario = '{datosDisminuirInventario[14]}', IDEmpleado ='{datosDisminuirInventario[15]}' WHERE Codigo = '{datosDisminuirInventario[7]}' AND StatusActualizacion = '1'";
-            return consulta;
-        }
+        //public string UpdateIntoDisminuirInventario(string[] datosDisminuirInventario)
+        //{
+        //    var consulta = $"UPDATE DGVDisminuirInventario SET StockActual = '{datosDisminuirInventario[2]}', DiferenciaUnidades = '{datosDisminuirInventario[3]}', NuevoStock = '{datosDisminuirInventario[4]}', Precio =  '{datosDisminuirInventario[5]}', Clave = '{datosDisminuirInventario[6]}', Codigo = '{datosDisminuirInventario[7]}', Fecha = '{datosDisminuirInventario[8]}', NoRevision = '{datosDisminuirInventario[9]}', StatusActualizacion = '{datosDisminuirInventario[10]}', NombreEmisor = '{datosDisminuirInventario[11]}', Comentarios = '{datosDisminuirInventario[12]}', ValorUnitario = '{datosDisminuirInventario[13]}', IdUsuario = '{datosDisminuirInventario[14]}', IDEmpleado ='{datosDisminuirInventario[15]}' WHERE Codigo = '{datosDisminuirInventario[7]}' AND StatusActualizacion = '1'";
+        //    return consulta;
+        //}
 
         public string GetDisminuirInventario()
         {

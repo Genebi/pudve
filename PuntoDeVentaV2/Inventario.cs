@@ -74,10 +74,10 @@ namespace PuntoDeVentaV2
         int columnasConcepto = 0;
 
         string numCodigo;
+        int contadorMensaje = 0;
 
         public static string filtradoParaRealizar = string.Empty;
 
-        DialogResult resultado = DialogResult.No;
 
         public Inventario()
         {
@@ -697,30 +697,30 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                var datos2 = cn.CargarDatos($"SELECT Codigo FROM dgvaumentarinventario WHERE idProducto = {idProducto}");
-                if (!datos2.Rows.Count.Equals(0))
-                {
-                    numCodigo = datos2.Rows[0]["Codigo"].ToString();
-                }
-                else
-                {
-                    numCodigo = "";
-                }
+                //var datos2 = cn.CargarDatos($"SELECT Codigo FROM dgvaumentarinventario WHERE idProducto = {idProducto}");
+                //if (!datos2.Rows.Count.Equals(0))
+                //{
+                //    numCodigo = datos2.Rows[0]["Codigo"].ToString();
+                //}
+                //else
+                //{
+                //    numCodigo = "";
+                //}
 
-                foreach (DataGridViewRow fila in DGVInventario.Rows)
-                {
-                    var codigo = fila.Cells[7].Value.ToString();
-                    if (codigo.Equals(numCodigo))
-                    {
-                        resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                //foreach (DataGridViewRow fila in DGVInventario.Rows)
+                //{
+                //    var codigo = fila.Cells[7].Value.ToString();
+                //    if (codigo.Equals(numCodigo))
+                //    {
+                //      var resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-                        if (resultado.Equals(DialogResult.No))
-                        {
-                            return;
-                        }
+                //        if (resultado.Equals(DialogResult.No))
+                //        {
+                //            return;
+                //        }
 
-                    }
-                }
+                //    }
+                //}
 
                 // Si es mayor a cero es un producto y lo mostramos directamente en la ventana de ajustar
                 if (idProducto > 0)
@@ -949,22 +949,24 @@ namespace PuntoDeVentaV2
             {
                 numCodigo = "";
             }
-            
+
 
             foreach (DataGridViewRow fila in DGVInventario.Rows)
             {
                 var codigo = fila.Cells[7].Value.ToString();
-                if (codigo.Equals(numCodigo))
+                if (codigo.Equals(numCodigo) && contadorMensaje.Equals(0))
                 {
-                    resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                   var resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                     if (resultado.Equals(DialogResult.No))
                     {
                         return;
                     }
-
+                    contadorMensaje++;
                 }
             }
+
+            contadorMensaje = 0;
 
             if (rbAumentarProducto.Checked)
             {
@@ -985,7 +987,6 @@ namespace PuntoDeVentaV2
                     suma = getSuma;
                     resta = getResta;
                     stockAnterior = getStockAnterior;
-
                     AgregarProductoDGV(producto);
                     botonAceptar = false;
                 }
@@ -1057,19 +1058,10 @@ namespace PuntoDeVentaV2
 
                 string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmplado, empleadoFinal };
 
-                if (resultado.Equals(DialogResult.No))
-                {
                     var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
                     cn.EjecutarConsulta(insertAumentarInventario);
-                    resultado = DialogResult.No;
-                }
-                else if (resultado.Equals(DialogResult.Yes))
-                {
-                    var insertAumentarInventario = cs.UpdateAumentarInventario(datosAumentarInventario);
-                    cn.EjecutarConsulta(insertAumentarInventario);
-                    resultado = DialogResult.No;
-                }
-                
+
+
                 using (DataTable dtRetriveAumentarInventario = cn.CargarDatos(cs.GetAumentarInventario()))
                 {
                     if (!dtRetriveAumentarInventario.Rows.Count.Equals(0))
@@ -1133,20 +1125,8 @@ namespace PuntoDeVentaV2
 
                 string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmpleado };
 
-                if (resultado.Equals(DialogResult.No))
-                {
                     var insertarDisminuirInventario = cs.InsertarIntoDisminuirInventario(datosDisminuirInventario);
                     cn.EjecutarConsulta(insertarDisminuirInventario);
-                    resultado = DialogResult.No;
-                }
-                else if (resultado.Equals(DialogResult.Yes))
-                {
-                    var insertarDisminuirInventario = cs.UpdateIntoDisminuirInventario(datosDisminuirInventario);
-                    cn.EjecutarConsulta(insertarDisminuirInventario);
-                    resultado = DialogResult.No;
-                }
-
-                
 
                 using (DataTable dtRetriveDisminuirInventario = cn.CargarDatos(cs.GetDisminuirInventario()))
                 {
