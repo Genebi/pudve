@@ -2577,7 +2577,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("No tiene producto agregados\na la venta para eliminar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No tiene artículos agregados\na la venta para eliminar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -6465,7 +6465,7 @@ namespace PuntoDeVentaV2
             {
                 if (mostrarVenta > 0)
                 {
-                    DialogResult respuesta = MessageBox.Show("Venta cancelada exitosamente\ndesea recargar datos de la venta", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    DialogResult respuesta = MessageBox.Show("Venta cancelada exitosamente\n\n¿desea recargar artículos de la venta?", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                     if (respuesta.Equals(DialogResult.Yes))
                     {
