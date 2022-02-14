@@ -75,6 +75,7 @@ namespace PuntoDeVentaV2
         string mensajeNoHay = string.Empty;
         int terminarRev = 0;
 
+        public static int mostrar = 0;
 
         public RevisarInventario(string[] datos)
         {
@@ -645,16 +646,16 @@ namespace PuntoDeVentaV2
 
                 if (terminarRev == 0)
                 {
-                    if (tipoFiltro != "normmal" && cantidadRegistrosAux != cantidadRegistros)
+                    if (tipoFiltro != "normal" && cantidadRegistrosAux != cantidadRegistros)
                     {
                         btnTerminar.PerformClick();
                     }
                     else
                     {
+                        mostrar = 1;
                         MessageBox.Show("No se encontraron productos \ncon este filtro", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         ultimoProductoRevision();
-
-                        //this.Close();
+                        this.Close();
                     }
                 }
             }
