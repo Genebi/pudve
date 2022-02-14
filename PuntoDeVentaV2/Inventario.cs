@@ -304,16 +304,22 @@ namespace PuntoDeVentaV2
 
                                 RevisarInventario revisar = new RevisarInventario(datos);
 
-                                revisar.FormClosed += delegate
-                                {
-                                    ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
-                                    reporte.GetFilterNumActiveRecord = NumRevActivo;
-                                    reporte.limpiarTabla = limpiarTabla;
-                                    limpiarTabla = false;
-                                    reporte.ShowDialog();
-                                };
+                                var ocultar = RevisarInventario.mostrar;
 
-                                revisar.ShowDialog();
+                               
+                                    revisar.FormClosed += delegate
+                                    {
+                                       var mostrado = RevisarInventario.mostrar;
+                                        if (mostrado.Equals(0))
+                                        {
+                                            ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
+                                            reporte.GetFilterNumActiveRecord = NumRevActivo;
+                                            reporte.limpiarTabla = limpiarTabla;
+                                            limpiarTabla = false;
+                                            reporte.ShowDialog();
+                                        }
+                                    };
+                                    revisar.ShowDialog();
                             }
                         }
                     }
