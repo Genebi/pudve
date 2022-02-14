@@ -3104,22 +3104,24 @@ namespace PuntoDeVentaV2
                     if (string.IsNullOrWhiteSpace(credito)) { credito = "0"; }
                     if (string.IsNullOrWhiteSpace(Anticipo)) { Anticipo = "0"; }
 
-
-                    if (FormPrincipal.userNickName.Contains("@"))
+                    if (!statusVenta.Equals("2"))
                     {
-                        string[] datos = new string[] {
+                        if (FormPrincipal.userNickName.Contains("@"))
+                        {
+                            string[] datos = new string[] {
                             "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
                              efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
                         };
-                        cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos));
-                    }
-                    else
-                    {
-                        string[] datos = new string[] {
-                        "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
-                        efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo
-                    };
-                        cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                            cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos));
+                        }
+                        else
+                        {
+                            string[] datos = new string[] {
+                            "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                            efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo
+                        };
+                            cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                        }
                     }
 
                     // Obtener ID de la venta
@@ -3128,7 +3130,7 @@ namespace PuntoDeVentaV2
                     var sumaEfectivo = Properties.Settings.Default.efectivoRecibido + Properties.Settings.Default.tarjetaRecibido + Properties.Settings.Default.transfRecibido + Properties.Settings.Default.chequeRecibido + Properties.Settings.Default.valesRecibido;
 
                     var cambio = sumaEfectivo - (float)Convert.ToDouble(Total);
-                    cn.EjecutarConsulta(cs.actualizarDatosVenta(sumaEfectivo,cambio, Convert.ToInt32(idVenta)));
+                    cn.EjecutarConsulta(cs.actualizarDatosVenta(sumaEfectivo, cambio, Convert.ToInt32(idVenta)));
 
                     // Si la lista ventasGuardadas contiene elementos quiere decir que son ventas que deberian 
                     // eliminarse junto con sus productos de la tabla ProductosVenta
@@ -3192,24 +3194,43 @@ namespace PuntoDeVentaV2
                         // Si es un producto, paquete o servicio lo guarda en la tabla de productos de venta
                         if (Tipo == "P" || Tipo == "S" || Tipo == "PQ")
                         {
-                            using (DataTable dtProductosVenta = cn.CargarDatos(cs.checarProductosVenta(idVenta)))
+                            if (!statusVenta.Equals("2"))
                             {
-                                bool contains = dtProductosVenta.AsEnumerable().Any(row => Convert.ToInt32(IDProducto) == row.Field<int>("IDProducto"));
-
-                                if (contains)
+                                using (DataTable dtProductosVenta = cn.CargarDatos(cs.checarProductosVenta(idVenta)))
                                 {
-                                    cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar, 1));
-                                }
-                                else
-                                {
-                                    cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
-                                }
+                                    bool contains = dtProductosVenta.AsEnumerable().Any(row => Convert.ToInt32(IDProducto) == row.Field<int>("IDProducto"));
 
-                                var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {guardar[1]}");
-                                decimal stockActual = Convert.ToDecimal( dato.Rows[0]["Stock"]);
-                                decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
-                               
-                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}')");
+                                    if (contains)
+                                    {
+                                        cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar, 1));
+                                    }
+                                    else
+                                    {
+                                        cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
+                                    }
+
+                                    var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {guardar[1]}");
+                                    decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
+                                    decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
+
+                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}')");
+                                }
+                            }
+                            else
+                            {
+                                using (DataTable dtProductosVenta = cn.CargarDatos(cs.checarProductosVenta(idVenta)))
+                                {
+                                    bool contains = dtProductosVenta.AsEnumerable().Any(row => Convert.ToInt32(IDProducto) == row.Field<int>("IDProducto"));
+
+                                    if (contains)
+                                    {
+                                        cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar, 1));
+                                    }
+                                    else
+                                    {
+                                        cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
+                                    }
+                                }
                             }
                         }
 
@@ -3436,10 +3457,9 @@ namespace PuntoDeVentaV2
                     }
 
                     GenerarTicket(infoProductos);
-
+                    
                     if (ventaGuardada)
                     {
-
                         if (statusVenta.Equals("2"))
                         {
                             Utilidades.CrearMarcaDeAgua(Convert.ToInt32(idVenta), "PRESUPUESTO");
@@ -3452,7 +3472,19 @@ namespace PuntoDeVentaV2
                     {
                         if (Utilidades.AdobeReaderInstalado())
                         {
-                            ImprimirTicket(idVenta);
+                            if (statusVenta.Equals("2"))
+                            {
+                                DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                                if (respuestaImpresion.Equals(DialogResult.Yes))
+                                {
+                                    ImprimirTicket(idVenta);
+                                }
+                            }
+                            else
+                            {
+                                ImprimirTicket(idVenta);
+                            }
                         }
                         else
                         {
