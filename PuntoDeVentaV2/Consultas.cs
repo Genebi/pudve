@@ -3315,6 +3315,5 @@ namespace PuntoDeVentaV2
             return consulta;
         }
         #endregion
->>>>>>> CajaPorCadaTipoDeUsuario
     }
 }  
