@@ -1461,7 +1461,8 @@ namespace PuntoDeVentaV2
                                     // Agregamos marca de agua al PDF de la nota de venta cancelada
                                     Utilidades.CrearMarcaDeAguaNota(idVenta, "CANCELADA");
 
-                                    CargarDatos();
+                                    //CargarDatos();
+                                    restaurarBusqueda();
                                 }
                             }
                             MessageBox.Show("Venta cancelada exitosamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
