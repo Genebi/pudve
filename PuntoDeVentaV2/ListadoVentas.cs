@@ -964,7 +964,9 @@ namespace PuntoDeVentaV2
                         }
 
                         var stopCancelar = false;
-                        var mensaje = MessageBox.Show("¿Estás seguro de cancelar la venta?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        var preguntaCancelacion = string.Empty;
+                        preguntaCancelacion = preguntarCancelacion();
+                        var mensaje = MessageBox.Show(preguntaCancelacion, "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (mensaje == DialogResult.Yes)
                         {
@@ -1474,12 +1476,17 @@ namespace PuntoDeVentaV2
                                     restaurarBusqueda();
                                 }
                             }
-                            MessageBox.Show("Venta cancelada exitosamente", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            var mensajeCancelar = string.Empty;
+
+                            mensajeCancelar = cancelarMensajeExitoso();
+
+                            MessageBox.Show(mensajeCancelar, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("No es posible cancelar ventas \nanteriores al corte de caja", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No es posible cancelar ventas, presupuestos o creditos \nanteriores al corte de caja", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
 
@@ -1852,6 +1859,58 @@ namespace PuntoDeVentaV2
    
                 DGVListadoVentas.ClearSelection();
             }
+        }
+
+        private string preguntarCancelacion()
+        {
+            var preguntaDesdeDonde = string.Empty;
+
+            var opcion = cbTipoVentas.SelectedValue.ToString();
+
+            if (opcion == "VP") //Ventas pagadas
+            {
+                preguntaDesdeDonde = "¿Estás seguro de cancelar la venta?";
+            }
+            else if (opcion == "VG") //Ventas guardadas
+            {
+                preguntaDesdeDonde = "¿Estás seguro de cancelar el presupuesto?";
+            }
+            else if (opcion == "VC") //Ventas canceladas
+            {
+                preguntaDesdeDonde = "¿Estás seguro de cancelar la venta cancelada?";
+            }
+            else if (opcion == "VCC") //Ventas a credito
+            {
+                preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?";
+            }
+
+            return preguntaDesdeDonde;
+        }
+
+        private string cancelarMensajeExitoso()
+        {
+            var cancelarDesdeDonde = string.Empty;
+
+            var opcion = cbTipoVentas.SelectedValue.ToString();
+
+            if (opcion == "VP") //Ventas pagadas
+            {
+                cancelarDesdeDonde = "Venta (Pagada) cancelada exitosamente";
+            }
+            else if (opcion == "VG") //Ventas guardadas
+            {
+                cancelarDesdeDonde = "Presupuesto (Venta Guardada) cancelado exitosamente";
+            }
+            else if (opcion == "VC") //Ventas canceladas
+            {
+                cancelarDesdeDonde = "Venta (Cancelada) cancelada exitosamente";
+            }
+            else if (opcion == "VCC") //Ventas a credito
+            {
+                cancelarDesdeDonde = "Venta a credito cancelada exitosamente";
+            }
+
+            return cancelarDesdeDonde;
         }
 
         public void mnsj()
