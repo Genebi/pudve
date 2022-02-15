@@ -470,6 +470,15 @@ namespace PuntoDeVentaV2
 
             if (dtDatos.Rows.Count > 0)
             {
+                if (estado.Equals(3))
+                {
+                    DGVListadoVentas.Columns["Cancelar"].Visible = false;
+                }
+                else
+                {
+                    DGVListadoVentas.Columns["Cancelar"].Visible = true;
+                }
+
                 float iva = 0f;
                 float subtotal = 0f;
                 float total = 0f;
