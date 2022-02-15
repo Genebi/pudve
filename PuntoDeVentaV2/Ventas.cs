@@ -2915,6 +2915,7 @@ namespace PuntoDeVentaV2
             var Serie = "A";
             var idClienteTmp = idCliente;
             string id_empleado = Convert.ToString(FormPrincipal.id_empleado);
+            var tipoDeVenta = "";
 
             // variable para saber si esta facturada la venta Guardada
             var estaTimbrada = false;
@@ -2951,7 +2952,7 @@ namespace PuntoDeVentaV2
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
                 DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion,
-                idClienteDescuento.ToString(), id_empleado, formaDePagoDeVenta
+                idClienteDescuento.ToString(), id_empleado, formaDePagoDeVenta, tipoDeVenta
             };
 
 
@@ -3086,7 +3087,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         mostrarVenta = 0;
-                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta)); //Aqui se guarda
                     }
                 }
 
@@ -3156,6 +3157,16 @@ namespace PuntoDeVentaV2
                         var Cantidad = fila.Cells["Cantidad"].Value.ToString();
                         var Precio = fila.Cells["Precio"].Value.ToString();
                         var Tipo = fila.Cells["TipoPS"].Value.ToString();
+                        tipoDeVenta = Tipo;
+
+                        if (tipoDeVenta.Equals("PQ"))
+                        {
+                            var consulta = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = '{IDProducto}'");
+                        }
+                        else if (tipoDeVenta.Equals("S"))
+                        {
+
+                        }
 
                         var DescuentoIndividual = fila.Cells["Descuento"].Value.ToString();
                         var ImporteIndividual = fila.Cells["Importe"].Value.ToString();
@@ -3209,7 +3220,7 @@ namespace PuntoDeVentaV2
                                 decimal stockActual = Convert.ToDecimal( dato.Rows[0]["Stock"]);
                                 decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
                                
-                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}')");
+                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}')");
                             }
                         }
 
