@@ -131,7 +131,13 @@ namespace PuntoDeVentaV2
             ag_checkb_header();
 
             existenProductos = mb.TieneProductos();
-            CargarDatos();
+
+            var tipoDeBusqueda = 0;
+
+            tipoDeBusqueda = verTipoDeBusqueda();
+
+            CargarDatos(tipoDeBusqueda);
+
             actualizar();
             //btnUltimaPagina.PerformClick();
             btnPrimeraPagina.PerformClick();
@@ -451,6 +457,17 @@ namespace PuntoDeVentaV2
 
             DGVListadoVentas.Rows.Clear();
 
+            if (estado.Equals(3))
+            {
+                DGVListadoVentas.Columns["Cancelar"].Visible = false;
+                DGVListadoVentas.Columns["Timbrar"].Visible = false;
+            }
+            else
+            {
+                DGVListadoVentas.Columns["Cancelar"].Visible = true;
+                DGVListadoVentas.Columns["Timbrar"].Visible = true;
+            }
+
             DataSet datos = p.cargar();
             DataTable dtDatos = datos.Tables[0];
 
@@ -470,15 +487,6 @@ namespace PuntoDeVentaV2
 
             if (dtDatos.Rows.Count > 0)
             {
-                if (estado.Equals(3))
-                {
-                    DGVListadoVentas.Columns["Cancelar"].Visible = false;
-                }
-                else
-                {
-                    DGVListadoVentas.Columns["Cancelar"].Visible = true;
-                }
-
                 float iva = 0f;
                 float subtotal = 0f;
                 float total = 0f;
@@ -696,9 +704,40 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            CargarDatos(busqueda: true);
+            var tipoDeBusqueda = 0;
+
+            tipoDeBusqueda = verTipoDeBusqueda();
+
+            CargarDatos(tipoDeBusqueda, busqueda: true);
             btnPrimeraPagina.PerformClick();
             //+++btnUltimaPagina.PerformClick();
+        }
+
+        private int verTipoDeBusqueda()
+        {
+            var estado = 1;
+
+            var opcion = cbTipoVentas.SelectedValue.ToString();
+            clickBoton = 0;
+
+            if (opcion == "VP") //Ventas pagadas
+            {
+                estado = 1;
+            }
+            else if (opcion == "VG") //Ventas guardadas
+            {
+                estado = 2;
+            }
+            else if (opcion == "VC") //Ventas canceladas
+            {
+                estado = 3;
+            }
+            else if (opcion == "VCC") //Ventas a credito
+            {
+                estado = 4;
+            }
+
+            return estado;
         }
 
         private bool validarFechasDeBusqueda()
@@ -751,7 +790,12 @@ namespace PuntoDeVentaV2
                             cbTipoVentas.Text = "Ventas pagadas";
 
                             clickBoton = 0;
-                            CargarDatos();
+
+                            var tipoDeBusqueda = 0;
+
+                            tipoDeBusqueda = verTipoDeBusqueda();
+
+                            CargarDatos(tipoDeBusqueda);
                             actualizar();
 
                             //+++btnUltimaPagina.PerformClick();
@@ -1973,7 +2017,11 @@ namespace PuntoDeVentaV2
             {
                 fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
 
-                CargarDatos();
+                var tipoDeBusqueda = 0;
+
+                tipoDeBusqueda = verTipoDeBusqueda();
+
+                CargarDatos(tipoDeBusqueda);
 
                 existenProductos = mb.TieneProductos();
 
@@ -2220,7 +2268,9 @@ namespace PuntoDeVentaV2
         {
             p.primerPagina();
             clickBoton = 1;
-            CargarDatos();
+            var tipoDeBusqueda = 0;
+            tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos(tipoDeBusqueda);
             actualizar();
             clickBoton = 0;
         }
@@ -2229,7 +2279,9 @@ namespace PuntoDeVentaV2
         {
             p.atras();
             clickBoton = 1;
-            CargarDatos();
+            var tipoDeBusqueda = 0;
+            tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos(tipoDeBusqueda);
             actualizar();
             clickBoton = 0;
         }
@@ -2238,7 +2290,9 @@ namespace PuntoDeVentaV2
         {
             p.adelante();
             clickBoton = 1;
-            CargarDatos();
+            var tipoDeBusqueda = 0;
+            tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos(tipoDeBusqueda);
             actualizar();
             clickBoton = 0;
         }
@@ -2247,7 +2301,9 @@ namespace PuntoDeVentaV2
         {
             p.ultimaPagina();
             clickBoton = 1;
-            CargarDatos();
+            var tipoDeBusqueda = 0;
+            tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos(tipoDeBusqueda);
             actualizar();
             clickBoton = 0;
         }
@@ -2256,7 +2312,9 @@ namespace PuntoDeVentaV2
         {
             p.atras();
             clickBoton = 1;
-            CargarDatos();
+            var tipoDeBusqueda = 0;
+            tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos(tipoDeBusqueda);
             actualizar();
             clickBoton = 0;
         }
@@ -2270,7 +2328,9 @@ namespace PuntoDeVentaV2
         {
             p.adelante();
             clickBoton = 1;
-            CargarDatos();
+            var tipoDeBusqueda = 0;
+            tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos(tipoDeBusqueda);
             actualizar();
             clickBoton = 0;
         }
@@ -3492,7 +3552,9 @@ namespace PuntoDeVentaV2
 
                     maximo_x_pagina = cantidadAMostrar;
                     p.actualizarTope(maximo_x_pagina);
-                    CargarDatos();
+                    var tipoDeBusqueda = 0;
+                    tipoDeBusqueda = verTipoDeBusqueda();
+                    CargarDatos(tipoDeBusqueda);
                     actualizar();
                 }
                 else if (txtMaximoPorPagina.Text.Equals(string.Empty))
@@ -3526,7 +3588,9 @@ namespace PuntoDeVentaV2
                  
                 maximo_x_pagina = cantidadAMostrar;
                 p.actualizarTope(maximo_x_pagina);
-                CargarDatos();
+                var tipoDeBusqueda = 0;
+                tipoDeBusqueda = verTipoDeBusqueda();
+                CargarDatos(tipoDeBusqueda);
                 actualizar();
             }
             else if (txtMaximoPorPagina.Text.Equals(string.Empty))
