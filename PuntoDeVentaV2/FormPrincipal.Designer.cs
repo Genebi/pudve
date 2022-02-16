@@ -62,7 +62,7 @@
             this.panelMaestro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMaestro.Location = new System.Drawing.Point(0, 0);
             this.panelMaestro.Name = "panelMaestro";
-            this.panelMaestro.Size = new System.Drawing.Size(1084, 602);
+            this.panelMaestro.Size = new System.Drawing.Size(1255, 602);
             this.panelMaestro.TabIndex = 0;
             // 
             // panelContenedor
@@ -70,7 +70,7 @@
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(230, 0);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(854, 602);
+            this.panelContenedor.Size = new System.Drawing.Size(1025, 602);
             this.panelContenedor.TabIndex = 2;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContenedor_Paint);
             // 
@@ -413,9 +413,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1084, 602);
+            this.ClientSize = new System.Drawing.Size(1255, 602);
             this.Controls.Add(this.panelMaestro);
-            this.MinimumSize = new System.Drawing.Size(1100, 597);
+            this.MinimumSize = new System.Drawing.Size(1271, 634);
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SIFO - Punto de Venta";
