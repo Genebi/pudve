@@ -1180,7 +1180,7 @@ namespace PuntoDeVentaV2
 
                                             cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
                                         }
-                                    }
+                                    } 
                                    
 
                                     if (d_prod_venta.Rows.Count > 0)
