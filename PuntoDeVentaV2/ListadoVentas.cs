@@ -164,6 +164,22 @@ namespace PuntoDeVentaV2
 
             ////Realizar una operacion de retiro de caja para cuando sea una ceunta nueva 
             //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('retiro', '0.00', '0.00', '', '{fechaCreacion}', '{FormPrincipal.userID}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
+
+            txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+
+            verComboBoxAdministradorEmpleado();
+        }
+
+        private void verComboBoxAdministradorEmpleado()
+        {
+            if (FormPrincipal.userNickName.Contains("@"))
+            {
+                cbFiltroAdminEmpleado.Visible = false;
+            }
+            else
+            {
+                cbFiltroAdminEmpleado.Visible = true;
+            }
         }
 
         private void actualizar()
@@ -2268,9 +2284,9 @@ namespace PuntoDeVentaV2
         {
             p.primerPagina();
             clickBoton = 1;
-            var tipoDeBusqueda = 0;
-            tipoDeBusqueda = verTipoDeBusqueda();
-            CargarDatos(tipoDeBusqueda);
+            //var tipoDeBusqueda = 0;
+            //tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos();
             actualizar();
             clickBoton = 0;
         }
@@ -2279,9 +2295,9 @@ namespace PuntoDeVentaV2
         {
             p.atras();
             clickBoton = 1;
-            var tipoDeBusqueda = 0;
-            tipoDeBusqueda = verTipoDeBusqueda();
-            CargarDatos(tipoDeBusqueda);
+            //var tipoDeBusqueda = 0;
+            //tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos();
             actualizar();
             clickBoton = 0;
         }
@@ -2290,9 +2306,9 @@ namespace PuntoDeVentaV2
         {
             p.adelante();
             clickBoton = 1;
-            var tipoDeBusqueda = 0;
-            tipoDeBusqueda = verTipoDeBusqueda();
-            CargarDatos(tipoDeBusqueda);
+            //var tipoDeBusqueda = 0;
+            //tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos();
             actualizar();
             clickBoton = 0;
         }
@@ -2301,9 +2317,9 @@ namespace PuntoDeVentaV2
         {
             p.ultimaPagina();
             clickBoton = 1;
-            var tipoDeBusqueda = 0;
-            tipoDeBusqueda = verTipoDeBusqueda();
-            CargarDatos(tipoDeBusqueda);
+            //var tipoDeBusqueda = 0;
+            //tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos();
             actualizar();
             clickBoton = 0;
         }
@@ -2312,9 +2328,9 @@ namespace PuntoDeVentaV2
         {
             p.atras();
             clickBoton = 1;
-            var tipoDeBusqueda = 0;
-            tipoDeBusqueda = verTipoDeBusqueda();
-            CargarDatos(tipoDeBusqueda);
+            //var tipoDeBusqueda = 0;
+            //tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos();
             actualizar();
             clickBoton = 0;
         }
@@ -2328,9 +2344,9 @@ namespace PuntoDeVentaV2
         {
             p.adelante();
             clickBoton = 1;
-            var tipoDeBusqueda = 0;
-            tipoDeBusqueda = verTipoDeBusqueda();
-            CargarDatos(tipoDeBusqueda);
+            //var tipoDeBusqueda = 0;
+            //tipoDeBusqueda = verTipoDeBusqueda();
+            CargarDatos();
             actualizar();
             clickBoton = 0;
         }
