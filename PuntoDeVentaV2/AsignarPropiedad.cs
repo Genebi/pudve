@@ -905,6 +905,7 @@ namespace PuntoDeVentaV2
             //cargando.Close();
 
             //Dispose();
+
             if (propiedad == "MensajeVentas")
             {
                 TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeVentas", true)[0];
@@ -956,6 +957,10 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Favor de insertar un mensaje a mostrar.");
                 }
+            }
+            else
+            {
+                OperacionBoton();
             }
             //MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
 
