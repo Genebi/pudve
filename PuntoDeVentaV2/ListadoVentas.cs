@@ -91,7 +91,9 @@ namespace PuntoDeVentaV2
         public static float validarTrans { get; set; }
 
         string mensajeParaMostrar = string.Empty;
-        
+
+        string extra = string.Empty;
+
         public ListadoVentas()
         {
             InitializeComponent();
@@ -232,8 +234,9 @@ namespace PuntoDeVentaV2
         public void CargarDatos(int estado = 1, bool busqueda = false, string clienteFolio = "")
         {
             var consulta = string.Empty;
-            var extra = string.Empty;
             bool esNumero = false;
+
+            extra = string.Empty;
 
             if (clickBoton == 0)
             {
@@ -338,35 +341,44 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
-                            var IDEmpleado = cs.NombreEmpleado(buscador);
+                            var opcionFiltrado = cbTipoVentas.SelectedValue.ToString();
 
-                            if (!string.IsNullOrWhiteSpace(IDEmpleado))
+                            if (FormPrincipal.userNickName.Contains("@"))
                             {
-                                using (DataTable dtEmpleado = cn.CargarDatos(cs.ParametroDeBusquedaIdEmpleadoSiendoAdministrador(IDEmpleado, fechaInicial, fechaFinal)))
+                                if (opcionFiltrado == "VP") //Ventas pagadas
                                 {
-                                    if (!dtEmpleado.Rows.Count.Equals(0))
-                                    {
-                                        foreach (DataRow item in dtEmpleado.Rows)
-                                        {
-                                            extra += cs.ParametrosDeBusquedaDeEmpleadoSiendoAdministrador(buscador);
-                                        }
-                                    }
+                                    buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
+                                }
+                                else if (opcionFiltrado == "VG") //Ventas guardadas
+                                {
+                                    buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
+                                }
+                                else if (opcionFiltrado == "VC") //Ventas canceladas
+                                {
+                                    buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
+                                }
+                                else if (opcionFiltrado == "VCC") //Ventas a credito
+                                {
+                                    buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
                             }
-
-                            var IDAdministrador = cs.NombreAdministrador(buscador);
-
-                            if (!string.IsNullOrWhiteSpace(IDAdministrador))
+                            else
                             {
-                                using (DataTable dtAdmin = cn.CargarDatos(cs.ParametroDeBusquedaIdUsuarioSiendoAdministrador(IDAdministrador, fechaInicial, fechaFinal)))
+                                if (opcionFiltrado == "VP") //Ventas pagadas
                                 {
-                                    if (!dtAdmin.Rows.Count.Equals(0))
-                                    {
-                                        foreach (DataRow item in dtAdmin.Rows)
-                                        {
-                                            extra += cs.ParametrosDeBusquedaDeUsuarioSiendoAdministrador(buscador);
-                                        }
-                                    }
+                                    buscarSoloAdministrador(buscador, fechaInicial, fechaFinal);
+                                }
+                                else if (opcionFiltrado == "VG") //Ventas guardadas
+                                {
+                                    buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
+                                }
+                                else if (opcionFiltrado == "VC") //Ventas canceladas
+                                {
+                                    buscarSoloAdministrador(buscador, fechaInicial, fechaFinal);
+                                }
+                                else if (opcionFiltrado == "VCC") //Ventas a credito
+                                {
+                                    buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
                             }
 
@@ -647,6 +659,87 @@ namespace PuntoDeVentaV2
             tipo_venta = estado;
 
             llenarGDV();
+        }
+
+        private void buscarSoloAdministrador(string buscador, string fechaInicial, string fechaFinal)
+        {
+            var IDAdministrador = cs.NombreAdministrador(buscador);
+
+            if (!string.IsNullOrWhiteSpace(IDAdministrador))
+            {
+                using (DataTable dtAdmin = cn.CargarDatos(cs.ParametroDeBusquedaIdUsuarioSiendoAdministrador(IDAdministrador, fechaInicial, fechaFinal)))
+                {
+                    if (!dtAdmin.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow item in dtAdmin.Rows)
+                        {
+                            extra += cs.ParametrosDeBusquedaDeUsuarioSiendoAdministrador();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                extra += cs.ParametrosDeBusquedaDeUsuarioSiendoAdministradorI();
+            }
+        }
+
+        private void buscarEmpleadoYAdministrador(string buscador, string fechaInicial, string fechaFinal)
+        {
+            var IDEmpleado = cs.NombreEmpleado(buscador);
+
+            if (!string.IsNullOrWhiteSpace(IDEmpleado))
+            {
+                using (DataTable dtEmpleado = cn.CargarDatos(cs.ParametroDeBusquedaIdEmpleadoSiendoAdministrador(IDEmpleado, fechaInicial, fechaFinal)))
+                {
+                    if (!dtEmpleado.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow item in dtEmpleado.Rows)
+                        {
+                            extra += cs.ParametrosDeBusquedaDeEmpleadoSiendoAdministrador(buscador);
+                        }
+                    }
+                }
+            }
+
+            var IDAdministrador = cs.NombreAdministrador(buscador);
+
+            if (!string.IsNullOrWhiteSpace(IDAdministrador))
+            {
+                using (DataTable dtAdmin = cn.CargarDatos(cs.ParametroDeBusquedaIdUsuarioSiendoAdministrador(IDAdministrador, fechaInicial, fechaFinal)))
+                {
+                    if (!dtAdmin.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow item in dtAdmin.Rows)
+                        {
+                            extra += cs.ParametrosDeBusquedaDeUsuarioSiendoAdministrador();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void buscarSoloEmpleado(string buscador, string fechaInicial, string fechaFinal)
+        {
+            var IDEmpleado = cs.NombreEmpleado(buscador);
+
+            if (!string.IsNullOrWhiteSpace(IDEmpleado))
+            {
+                using (DataTable dtEmpleado = cn.CargarDatos(cs.ParametroDeBusquedaIdEmpleadoSiendoAdministrador(IDEmpleado, fechaInicial, fechaFinal)))
+                {
+                    if (!dtEmpleado.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow item in dtEmpleado.Rows)
+                        {
+                            extra += cs.ParametrosDeBusquedaDeEmpleadoSiendoAdministrador(buscador);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                extra += cs.ParametrosDeBusquedaDeEmpleadoSiendoEmpleado(buscador);
+            }
         }
         #endregion
 

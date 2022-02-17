@@ -1820,7 +1820,7 @@ namespace PuntoDeVentaV2
 
         public string getDatosClienteVentas(string nombreCliente, string fechaInicial, string fechaFinal)
         {
-            var consulta = $"SELECT Cliente, RFC FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND DATE( FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND ( Cliente LIKE '%{nombreCliente}%' OR RFC LIKE '%{nombreCliente}%' )";
+            var consulta = $"SELECT Cliente, RFC FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND DATE( FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND ( Cliente LIKE '%{nombreCliente}%' OR RFC LIKE '%{nombreCliente}%' ) LIMIT 1";
 
             return consulta;
         }
@@ -3096,7 +3096,7 @@ namespace PuntoDeVentaV2
 
         public string VerComoAdministradorTodasLasVentasCanceladas(int estado, string ultimaFechaDeCorte)
         {
-            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{estado}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion > '{ultimaFechaDeCorte}' ORDER BY ID DESC ";
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{estado}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Emp.nombre IS NULL AND Vent.FechaOperacion > '{ultimaFechaDeCorte}' ORDER BY ID DESC ";
 
             return consulta;
         }
@@ -3230,28 +3230,42 @@ namespace PuntoDeVentaV2
 
         public string ParametroDeBusquedaFolioSiendoAdministrador(string campoFolio)
         {
-            var consulta = $"AND Folio = {campoFolio}";
+            var consulta = $"AND Folio = {campoFolio} ";
 
             return consulta;
         }
 
         public string ParametrosDeBusquedaNombreRFCSiendoAdministrador(string campoNombreRFC)
         {
-            var consulta = $"AND ( Vent.Cliente LIKE '%{campoNombreRFC}%' OR Vent.RFC LIKE '%{campoNombreRFC}%' )";
+            var consulta = $"AND ( Vent.Cliente LIKE '%{campoNombreRFC}%' OR Vent.RFC LIKE '%{campoNombreRFC}%' ) ";
 
             return consulta;
         }
 
         public string ParametrosDeBusquedaDeEmpleadoSiendoAdministrador(string campoIDEmpleado)
         {
-            var consulta = $"AND ( Emp.nombre LIKE '%{campoIDEmpleado}%' )";
+            var consulta = $"AND ( Emp.nombre LIKE '%{campoIDEmpleado}%' ) ";
 
             return consulta;
         }
 
-        public string ParametrosDeBusquedaDeUsuarioSiendoAdministrador(string campoIDUsuario)
+        public string ParametrosDeBusquedaDeEmpleadoSiendoEmpleado(string campoIDEmpleado)
         {
-            var consulta = $"AND ( Emp.nombre IS NULL )";
+            var consulta = $"AND ( Emp.nombre LIKE '%{campoIDEmpleado}%' ) ";
+
+            return consulta;
+        }
+
+        public string ParametrosDeBusquedaDeUsuarioSiendoAdministrador()
+        {
+            var consulta = $"AND ( Emp.nombre IS NULL ) ";
+
+            return consulta;
+        }
+
+        public string ParametrosDeBusquedaDeUsuarioSiendoAdministradorI()
+        {
+            var consulta = $"AND ( Emp.nombre IS NULL ) ";
 
             return consulta;
         }
