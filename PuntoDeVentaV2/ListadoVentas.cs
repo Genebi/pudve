@@ -93,6 +93,7 @@ namespace PuntoDeVentaV2
         string mensajeParaMostrar = string.Empty;
 
         string extra = string.Empty;
+        int yaValidado = 0;
 
         public ListadoVentas()
         {
@@ -237,6 +238,7 @@ namespace PuntoDeVentaV2
             bool esNumero = false;
 
             extra = string.Empty;
+            yaValidado = 0;
 
             if (clickBoton == 0)
             {
@@ -297,7 +299,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasCanceladasPorFechas(estado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoAdministradorTodasLaVentasCanceladasMiasPorFechas(estado, fechaInicial, fechaFinal);
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
@@ -333,10 +335,13 @@ namespace PuntoDeVentaV2
                             //    }
                             //}
 
+                            validacionSiEstaVaciaLaCadenaExtra();
+                            
                             using (DataTable dtCliete = cn.CargarDatos(cs.getDatosClienteVentas(buscador, fechaInicial, fechaFinal)))
                             {
                                 if (!dtCliete.Rows.Count.Equals(0))
                                 {
+                                    validacionSiEstaVaciaLaCadenaExtra();
                                     extra += cs.ParametrosDeBusquedaNombreRFCSiendoAdministrador(buscador);
                                 }
                             }
@@ -384,8 +389,11 @@ namespace PuntoDeVentaV2
 
                             if (string.IsNullOrWhiteSpace(extra))
                             {
+                                validacionSiEstaVaciaLaCadenaExtra();
                                 extra += cs.ParametrosDeBusquedaNombreRFCSiendoAdministrador(buscador);
                             }
+
+                            extra += " ) ";
                         }
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
@@ -661,6 +669,25 @@ namespace PuntoDeVentaV2
             llenarGDV();
         }
 
+        private void validacionSiEstaVaciaLaCadenaExtra()
+        {
+            if (string.IsNullOrWhiteSpace(extra))
+            {
+                extra += "AND ( ";
+            }
+            else if (!string.IsNullOrWhiteSpace(extra))
+            {
+                if (extra.Contains("AND (") && yaValidado.Equals(0))
+                {
+                    yaValidado = 1;
+                }
+                else if (yaValidado.Equals(1))
+                {
+                    extra += "OR ";
+                }
+            }
+        }
+
         private void buscarSoloAdministrador(string buscador, string fechaInicial, string fechaFinal)
         {
             var IDAdministrador = cs.NombreAdministrador(buscador);
@@ -673,6 +700,7 @@ namespace PuntoDeVentaV2
                     {
                         foreach (DataRow item in dtAdmin.Rows)
                         {
+                            validacionSiEstaVaciaLaCadenaExtra();
                             extra += cs.ParametrosDeBusquedaDeUsuarioSiendoAdministrador();
                         }
                     }
@@ -680,6 +708,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                validacionSiEstaVaciaLaCadenaExtra();
                 extra += cs.ParametrosDeBusquedaDeUsuarioSiendoAdministradorI();
             }
         }
@@ -696,6 +725,7 @@ namespace PuntoDeVentaV2
                     {
                         foreach (DataRow item in dtEmpleado.Rows)
                         {
+                            validacionSiEstaVaciaLaCadenaExtra();
                             extra += cs.ParametrosDeBusquedaDeEmpleadoSiendoAdministrador(buscador);
                         }
                     }
@@ -712,6 +742,7 @@ namespace PuntoDeVentaV2
                     {
                         foreach (DataRow item in dtAdmin.Rows)
                         {
+                            validacionSiEstaVaciaLaCadenaExtra();
                             extra += cs.ParametrosDeBusquedaDeUsuarioSiendoAdministrador();
                         }
                     }
@@ -731,6 +762,7 @@ namespace PuntoDeVentaV2
                     {
                         foreach (DataRow item in dtEmpleado.Rows)
                         {
+                            validacionSiEstaVaciaLaCadenaExtra();
                             extra += cs.ParametrosDeBusquedaDeEmpleadoSiendoAdministrador(buscador);
                         }
                     }
@@ -738,6 +770,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                validacionSiEstaVaciaLaCadenaExtra();
                 extra += cs.ParametrosDeBusquedaDeEmpleadoSiendoEmpleado(buscador);
             }
         }
