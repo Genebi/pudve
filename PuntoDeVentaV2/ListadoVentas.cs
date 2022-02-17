@@ -110,7 +110,10 @@ namespace PuntoDeVentaV2
             // Placeholder del campo buscador
             txtBuscador.GotFocus += new EventHandler(BuscarTieneFoco);
             txtBuscador.LostFocus += new EventHandler(BuscarPierdeFoco);
-            dpFechaInicial.Value = DateTime.Today.AddDays(-7);
+            fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
+            //dpFechaInicial.Value = DateTime.Today.AddDays(-7);
+            dpFechaInicial.Value = fechaUltimoCorte;
+            dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             // Opciones para el combobox
             Dictionary<string, string> ventas = new Dictionary<string, string>();
@@ -126,7 +129,7 @@ namespace PuntoDeVentaV2
             cbVentas.SelectedIndex = 0;
             cbTipoVentas.SelectedIndex = 0;
 
-            fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
+            //fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
 
             clickBoton = 0;
 
@@ -245,8 +248,8 @@ namespace PuntoDeVentaV2
                 if (busqueda)
                 {
                     var buscador = txtBuscador.Text.Trim();
-                    var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
-                    var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+                    var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd HH:mm:ss");
                     var opcion = cbTipoVentas.SelectedValue.ToString();
 
                     // Ventas pagadas
