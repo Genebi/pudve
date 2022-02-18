@@ -3208,7 +3208,6 @@ namespace PuntoDeVentaV2
                                 {
                                     bool contains = dtProductosVenta.AsEnumerable().Any(row => Convert.ToInt32(IDProducto) == row.Field<int>("IDProducto"));
 
-<<<<<<< HEAD
                                     if (contains)
                                     {
                                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar, 1));
@@ -3240,7 +3239,6 @@ namespace PuntoDeVentaV2
                                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
                                     }
                                 }
-=======
 
                                 if (tipoDeVenta.Equals("PQ") || tipoDeVenta.Equals("S"))
                                 {
@@ -3274,9 +3272,6 @@ namespace PuntoDeVentaV2
 
                                     cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}','{idComboServicio}')");
                                 }
-
-                               
->>>>>>> detalleHistorialStock
                             }
                         }
 
