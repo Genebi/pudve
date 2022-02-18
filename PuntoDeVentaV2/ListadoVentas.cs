@@ -496,7 +496,9 @@ namespace PuntoDeVentaV2
 
             DGVListadoVentas.Rows.Clear();
 
-            if (estado.Equals(3))
+            var opcionOcultarColumnasEnCancelar = cbTipoVentas.SelectedValue.ToString();
+
+            if (estado.Equals(3) || opcionOcultarColumnasEnCancelar.Equals("VC"))
             {
                 DGVListadoVentas.Columns["Cancelar"].Visible = false;
                 DGVListadoVentas.Columns["Timbrar"].Visible = false;
