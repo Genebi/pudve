@@ -390,7 +390,7 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
-                            if (string.IsNullOrWhiteSpace(extra))
+                            if (extra.Equals("AND ( "))
                             {
                                 validacionSiEstaVaciaLaCadenaExtra();
                                 extra += cs.ParametrosDeBusquedaNombreRFCSiendoAdministrador(buscador);
