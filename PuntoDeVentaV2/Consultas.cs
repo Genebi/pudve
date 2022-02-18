@@ -1820,7 +1820,7 @@ namespace PuntoDeVentaV2
 
         public string getDatosClienteVentas(string nombreCliente, string fechaInicial, string fechaFinal)
         {
-            var consulta = $"SELECT Cliente, RFC FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND DATE( FechaOperacion ) BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND ( Cliente LIKE '%{nombreCliente}%' OR RFC LIKE '%{nombreCliente}%' ) LIMIT 1";
+            var consulta = $"SELECT Cliente, RFC FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion BETWEEN '{fechaInicial}' AND '{fechaFinal}' AND ( Cliente LIKE '%{nombreCliente}%' OR RFC LIKE '%{nombreCliente}%' ) LIMIT 1";
 
             return consulta;
         }
@@ -3272,7 +3272,7 @@ namespace PuntoDeVentaV2
 
         public string VerComoAdministradorTodasLaVentasPagadasPorFechasYBusqueda(int status, string FechaInicial, string FechaFinal, string busqueda)
         {
-            var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{status}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' {busqueda} ORDER BY Vent.ID DESC";
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{status}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' AND Emp.Nombre IS NULL {busqueda} ORDER BY Vent.ID DESC";
 
             return consulta;
         }
@@ -3286,7 +3286,7 @@ namespace PuntoDeVentaV2
 
         public string VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(int status, string FechaInicial, string FechaFinal, string busqueda)
         {
-            var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{status}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' {busqueda} ORDER BY Vent.ID DESC";
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{status}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Emp.nombre IS NULL AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' {busqueda} ORDER BY Vent.ID DESC";
 
             return consulta;
         }

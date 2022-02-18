@@ -603,7 +603,7 @@ namespace PuntoDeVentaV2
 
                     row.Cells["Timbrar"].Value = timbrar;
                     // Ventas canceladas
-                    if(estado == 3)
+                    if (estado == 3)
                     {
                         row.Cells["Timbrar"].Value = sinImagen;
                     }
@@ -709,11 +709,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            else
-            {
-                validacionSiEstaVaciaLaCadenaExtra();
-                extra += cs.ParametrosDeBusquedaDeUsuarioSiendoAdministradorI();
-            }
         }
 
         private void buscarEmpleadoYAdministrador(string buscador, string fechaInicial, string fechaFinal)
@@ -770,11 +765,6 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-            }
-            else
-            {
-                validacionSiEstaVaciaLaCadenaExtra();
-                extra += cs.ParametrosDeBusquedaDeEmpleadoSiendoEmpleado(buscador);
             }
         }
         #endregion
