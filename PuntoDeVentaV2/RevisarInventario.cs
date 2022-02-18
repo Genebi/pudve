@@ -1209,7 +1209,22 @@ namespace PuntoDeVentaV2
                                 // Obtenemos los datos del producto para el email
                                 var datosProductoAux = cn.BuscarProducto(idProducto, FormPrincipal.userID);
 
-                                var html = $@"<li>
+                                var auxStockActual = Convert.ToDecimal(datosProductoAux[4]);
+                                var auxStockNuevo = Convert.ToDecimal(stockFisico);
+
+                                var clase = "";
+
+                                if (auxStockActual > auxStockNuevo)
+                                {
+                                    clase = "class='disminuyo'";
+                                }
+
+                                if (auxStockActual < auxStockNuevo)
+                                {
+                                    clase = "class='aumento'";
+                                }
+
+                                var html = $@"<li {clase}>
                                             <span style='color: red;'>{datosProductoAux[1]}</span> 
                                             --- <b>STOCK ANTERIOR:</b> 
                                             <span style='color: red;'>{datosProductoAux[4]}</span> 
@@ -1288,7 +1303,22 @@ namespace PuntoDeVentaV2
 
                                                     if (datosProducto[4] != stockFisico)
                                                     {
-                                                        var html = $@"<li>
+                                                        var auxStockActual = Convert.ToDecimal(datosProducto[4]);
+                                                        var auxStockNuevo = Convert.ToDecimal(stockFisico);
+
+                                                        var clase = "";
+
+                                                        if (auxStockActual > auxStockNuevo)
+                                                        {
+                                                            clase = "class='disminuyo'";
+                                                        }
+
+                                                        if (auxStockActual < auxStockNuevo)
+                                                        {
+                                                            clase = "class='aumento'";
+                                                        }
+
+                                                        var html = $@"<li {clase}>
                                                             <span style='color: red;'>{datosProducto[1]}</span> 
                                                             --- <b>STOCK ANTERIOR:</b> 
                                                             <span style='color: red;'>{datosProducto[4]}</span> 
@@ -1492,10 +1522,38 @@ namespace PuntoDeVentaV2
                 if (listaProductos.Count > 0)
                 {
                     var html = string.Empty;
+                    var htmlIncremento = string.Empty;
+                    var htmlDecremento = string.Empty;
 
                     foreach (var producto in listaProductos)
                     {
-                        html += producto.Value;
+                        if (producto.Value.Contains("class='aumento'"))
+                        {
+                            htmlIncremento += producto.Value;
+                        }
+
+                        if (producto.Value.Contains("class='disminuyo'"))
+                        {
+                            htmlDecremento += producto.Value;
+                        }
+
+                        //html += producto.Value;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(htmlIncremento))
+                    {
+                        html += $@"<h4 style='text-align: center;'>LISTA DE PRODUCTOS CON STOCK AUMENTADO</h4><hr>
+                                <ul style='font-size: 0.8em;'>
+                                    {htmlIncremento}
+                                </ul><br><br>";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(htmlDecremento))
+                    {
+                        html += $@"<h4 style='text-align: center;'>LISTA DE PRODUCTOS CON STOCK REDUCIDO</h4><hr>
+                                <ul style='font-size: 0.8em;'>
+                                    {htmlDecremento}
+                                </ul>";
                     }
 
                     // Ejecutar hilo para enviar notificacion
@@ -1509,6 +1567,7 @@ namespace PuntoDeVentaV2
 
                     listaProductos.Clear();
                 }
+
                 this.Hide();
                 this.Close();
             }

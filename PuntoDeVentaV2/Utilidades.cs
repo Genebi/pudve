@@ -356,7 +356,7 @@ namespace PuntoDeVentaV2
                 smtp.Host = "smtp.gmail.com"; // para host gmail
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "Steroids12");
+                smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "grtpoxrdmngbozwm");
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(mensaje);
 
@@ -393,7 +393,7 @@ namespace PuntoDeVentaV2
                 smtp.Host = "smtp.gmail.com"; // para host gmail
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "Steroids12");
+                smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "grtpoxrdmngbozwm");
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(mensaje);
 
@@ -502,10 +502,7 @@ namespace PuntoDeVentaV2
                 {
                     html = $@"
                     <div>
-                        <h4 style='text-align: center;'>LISTA DE PRODUCTOS CON STOCK MODIFICADO</h4><hr>
-                        <ul style='font-size: 0.8em;'>
-                            {producto}
-                        </ul>
+                        {producto}
                         <p style='font-size: 0.8em;'>
                             <span>NOTA: El stock de los productos fue modificado desde {origen}.</span><br>
                             <span>Fecha de Modificación: <b>{DateTime.Now}</b></span>
