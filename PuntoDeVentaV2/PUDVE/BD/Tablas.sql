@@ -1845,3 +1845,8 @@ FROM
 DUAL 
 WHERE
 	NOT EXISTS ( SELECT CodigoRegimen, Descripcion, AplicaFisica, AplicaMoral FROM regimenfiscal WHERE CodigoRegimen = 626 );
+
+ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS tipoDeVenta varchar (2);
+
+ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS idComboServicio  int;
+

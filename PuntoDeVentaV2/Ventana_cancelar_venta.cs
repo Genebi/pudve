@@ -190,9 +190,11 @@ namespace PuntoDeVentaV2
 
                                                             var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                             var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
-                                                            var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
+                                                            var FolioDeCancelacion = datoFolio.Rows[0]["Folio"]; 
                                                             decimal stockActual = Convert.ToDecimal(drProdVenta["Stock"].ToString());
                                                             decimal stockNuevo = stockActual + Convert.ToDecimal(drProdVenta["Cantidad"]);
+
+
 
                                                             cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{drProdVenta["ID"].ToString()}','Venta Cancelada folio: {FolioDeCancelacion} ','{stockActual}','{stockNuevo}','{fecha}','{FormPrincipal.userNickName}','+{drProdVenta["Cantidad"].ToString()}')");
 

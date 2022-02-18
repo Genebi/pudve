@@ -147,6 +147,7 @@ namespace PuntoDeVentaV2
         bool ventaFinalizada = false;
 
         decimal cantidadAnterior = 0;
+        int idComboServicio = 0;
 
         List<string> productoRestado = new List<string>(),
                      productoEliminado = new List<string>(),
@@ -176,9 +177,12 @@ namespace PuntoDeVentaV2
         int celdaCellClick;
         int columnaCellClick;
 
+        string idprodCombo = string.Empty;
+        int cantidadCombo = 0;
+
         Dictionary<int, string> listaMensajesEnviados = new Dictionary<int, string>();
 
-
+        
 
         private string FolioVentaCorreo = string.Empty;
 
@@ -2915,6 +2919,7 @@ namespace PuntoDeVentaV2
             var Serie = "A";
             var idClienteTmp = idCliente;
             string id_empleado = Convert.ToString(FormPrincipal.id_empleado);
+            var tipoDeVenta = "";
 
             // variable para saber si esta facturada la venta Guardada
             var estaTimbrada = false;
@@ -2951,7 +2956,7 @@ namespace PuntoDeVentaV2
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
                 DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion,
-                idClienteDescuento.ToString(), id_empleado, formaDePagoDeVenta
+                idClienteDescuento.ToString(), id_empleado, formaDePagoDeVenta, tipoDeVenta
             };
 
 
@@ -3086,7 +3091,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         mostrarVenta = 0;
-                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta)); //Aqui se guarda
                     }
                 }
 
@@ -3158,6 +3163,9 @@ namespace PuntoDeVentaV2
                         var Cantidad = fila.Cells["Cantidad"].Value.ToString();
                         var Precio = fila.Cells["Precio"].Value.ToString();
                         var Tipo = fila.Cells["TipoPS"].Value.ToString();
+                        tipoDeVenta = Tipo;
+
+                       
 
                         var DescuentoIndividual = fila.Cells["Descuento"].Value.ToString();
                         var ImporteIndividual = fila.Cells["Importe"].Value.ToString();
@@ -3200,6 +3208,7 @@ namespace PuntoDeVentaV2
                                 {
                                     bool contains = dtProductosVenta.AsEnumerable().Any(row => Convert.ToInt32(IDProducto) == row.Field<int>("IDProducto"));
 
+<<<<<<< HEAD
                                     if (contains)
                                     {
                                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar, 1));
@@ -3231,6 +3240,43 @@ namespace PuntoDeVentaV2
                                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
                                     }
                                 }
+=======
+
+                                if (tipoDeVenta.Equals("PQ") || tipoDeVenta.Equals("S"))
+                                {
+                                    var tipoDeVentaComboServicio = string.Empty;
+                                    var consulta = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = '{IDProducto}'");
+                                    idprodCombo = consulta.Rows[0]["IDProducto"].ToString();
+                                    var consulta2 = cn.CargarDatos($"SELECT Cantidad FROM productosdeservicios WHERE IDServicio = '{IDProducto}' AND IDProducto = '{idprodCombo}'");
+                                    cantidadCombo = Convert.ToInt32(consulta.Rows[0]["cantidad"]);
+                                    idComboServicio = Convert.ToInt32(consulta.Rows[0]["IDServicio"].ToString());
+
+                                    var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {idprodCombo}");
+                                    decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
+                                    decimal stockNuevo = stockActual - cantidadCombo * Convert.ToDecimal(guardar[3]);
+                                    if (tipoDeVenta.Equals("PQ"))
+                                    {
+                                        tipoDeVentaComboServicio = "de combo";
+                                    }
+                                    else if (tipoDeVenta.Equals("S"))
+                                    {
+                                        tipoDeVentaComboServicio = "de servicio";
+                                    }
+
+                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+                                }
+                                else
+                                {
+                                    var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {guardar[1]}");
+                                    decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
+                                    decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
+                                    idComboServicio = 0;
+
+                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}','{idComboServicio}')");
+                                }
+
+                               
+>>>>>>> detalleHistorialStock
                             }
                         }
 
