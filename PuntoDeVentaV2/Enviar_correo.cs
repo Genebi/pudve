@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Authentication;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -190,17 +191,20 @@ namespace PuntoDeVentaV2
             // Inicia la formación del correo
 
             SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.office365.com";
+            smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
             smtp.EnableSsl = true;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials= new NetworkCredential("contacto@sifo.mx", "@2040Sifo");
+            smtp.Credentials= new NetworkCredential("pudve.contacto@gmail.com", "grtpoxrdmngbozwm");
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //smtp.TargetName = "STARTTLS/smtp.office365.com";
+            //smtp.SSLConfiguration.EnabledSslProtocols = SslProtocols.Tls12;
 
 
 
             MailMessage correo = new MailMessage();
             // De
-            correo.From = new MailAddress("contacto@sifo.mx");
+            correo.From = new MailAddress("pudve.contacto@gmail.com");
 
             // Para
             foreach(string c in list_correos)
@@ -308,7 +312,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                MessageBox.Show("La " + tipo + " ha sido enviado con éxito.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("La " + tipo + " ha sido enviada con éxito.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.Dispose();
             }
@@ -319,7 +323,7 @@ namespace PuntoDeVentaV2
                 btn_enviar.Cursor = Cursors.Hand;
                 btn_cancelar.Cursor = Cursors.Hand;
 
-                MessageBox.Show("La " + tipo + " no fue enviado. Revisar que el correo se halla escrito correctamente.  \n\n" + ex.Message + "", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La " + tipo + " no fue enviada. Revisar que el correo se halla escrito correctamente.  \n\n" + ex.Message + "", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         

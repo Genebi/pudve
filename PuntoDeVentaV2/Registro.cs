@@ -398,7 +398,7 @@ namespace PuntoDeVentaV2
                 smtp.Host = "smtp.gmail.com"; // para host gmail
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "Steroids12");
+                smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "grtpoxrdmngbozwm");
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(mensaje);
             }
