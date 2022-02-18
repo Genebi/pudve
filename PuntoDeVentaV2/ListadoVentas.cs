@@ -445,25 +445,28 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+                    var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd HH:mm:ss");
+
                     if (FormPrincipal.userNickName.Contains("@"))
                     {
                         //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
 
                         if (estado.Equals(1)) // Ventas pagadas
                         {
-                            consulta = cs.VerComoEmpleadoTodasMisVentasPagadas(estado, FormPrincipal.id_empleado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                            consulta = cs.VerComoEmpleadoTodasMisVentasPagadas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
                         }
                         else if (estado.Equals(2)) // Ventas guardadas
                         {
-                            consulta = cs.VerComoEmpleadoTodasLasVentasGuardadas(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                            consulta = cs.VerComoEmpleadoTodasLasVentasGuardadas(estado, fechaInicial, fechaFinal);
                         }
                         else if (estado.Equals(3)) // Ventas canceladas
                         {
-                            consulta = cs.VerComoEmpleadoTodasMisVentasCanceladas(estado, FormPrincipal.id_empleado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                            consulta = cs.VerComoEmpleadoTodasMisVentasCanceladas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
                         }
                         else if (estado.Equals(4)) // Ventas a credito
                         {
-                            consulta = cs.VerComoEmpleadoTodasLasVentasACredito(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                            consulta = cs.VerComoEmpleadoTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
                         }
                     }
                     else
@@ -471,19 +474,19 @@ namespace PuntoDeVentaV2
                         //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
                         if (estado.Equals(1)) // Ventas pagadas
                         {
-                            consulta = cs.VerComoAdministradorTodasLasVentasPagadas(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                            consulta = cs.VerComoAdministradorTodasLasVentasPagadas(estado, fechaInicial, fechaFinal);
                         }
                         else if (estado.Equals(2)) // Ventas guardadas
                         {
-                            consulta = cs.VerComoAdministradorTodasLasVentasGuardadas(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                            consulta = cs.VerComoAdministradorTodasLasVentasGuardadas(estado, fechaInicial, fechaFinal);
                         }
                         else if (estado.Equals(3)) // Ventas canceladas
                         {
-                            consulta = cs.VerComoAdministradorTodasLasVentasCanceladas(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                            consulta = cs.VerComoAdministradorTodasLasVentasCanceladas(estado, fechaInicial, fechaFinal);
                         }
                         else if (estado.Equals(4)) // Ventas a credito
                         {
-                            consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"));
+                            consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
                         }
                     }
                     
