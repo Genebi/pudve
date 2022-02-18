@@ -471,12 +471,8 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public static void CambioStockProductoEmail(string[] datos, int tipo = 0)
+        public static void CambioStockProductoEmail(string[] datos, int tipo = 0, string titulo = "MODIFICADO")
         {
-            var correo = FormPrincipal.datosUsuario[9];
-            var asunto = "Cambio de stock para producto(s)";
-            var html = string.Empty;
-
             var producto = datos[0];
             var stockAnterior = datos[1];
             var stockNuevo = datos[2];
@@ -484,13 +480,22 @@ namespace PuntoDeVentaV2
             var origen = datos[4];
             var operacion = datos[5];
 
+            if (operacion.Equals("restó"))
+            {
+                titulo = "DISMINUIDO";
+            }
+
+            var correo = FormPrincipal.datosUsuario[9];
+            var asunto = $"STOCK DE PRODUCTO {titulo}";// "Cambio de stock para producto(s)";
+            var html = string.Empty;
+
             if (!string.IsNullOrWhiteSpace(correo))
             {
                 if (tipo == 0)
                 {
                     html = $@"
                     <div>
-                        <h4 style='text-align: center;'>STOCK DE PRODUCTO MODIFICADO</h4><hr>
+                        <h4 style='text-align: center;'>STOCK DE PRODUCTO {titulo}</h4><hr>
                         <p>El stock del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
                         {origen}, su stock <b>anterior</b> era de <span style='color: red;'>{stockAnterior}</span>, se {operacion} la cantidad
                         de <span style='color: red;'>{stockNuevo}</span> y su stock <b>actual</b> es de <span style='color: red;'>{stockActual}</span>.</p>
