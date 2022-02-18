@@ -1168,17 +1168,55 @@ namespace PuntoDeVentaV2
                                         {
                                             var idprod = item["IDProducto"].ToString();
                                             var cantidad = item["Cantidad"].ToString();
-                                            var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
-                                            var stockOriginal = stock.Rows[0]["Stock"].ToString();
-                                            var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
-                                            var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
-                                            var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
-                                            decimal stockAnterior = Convert.ToDecimal(stockOriginal);
-                                            decimal stockNuevo = Convert.ToInt32(stockActual);
-                                            
-                                            var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                            var consulta = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = {idprod}");
+                                            var consultaCombo = cn.CargarDatos($"SELECT IDProducto FROM productosdeservicios WHERE IDServicio = {idprod}");
 
-                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
+                                            if (!consulta.Rows.Count.Equals(0)) //En caso que el producto sea un combo o servicio
+                                            {
+                                                var cantidadCombo = consulta.Rows[0]["Cantidad"].ToString();
+                                                var idProd = consulta.Rows[0]["IDProducto"].ToString();
+                                                var stock = cn.CargarDatos($"SELECT StockNuevo FROM `historialstock` WHERE IDProducto = {idProd} ORDER BY ID DESC");
+                                                var stockOriginal = stock.Rows[0]["StockNuevo"].ToString();
+                                                var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(Convert.ToDecimal(cantidadCombo) * Convert.ToDecimal(cantidad));
+                                                var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
+                                                var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
+                                                decimal stockAnterior = Convert.ToDecimal(stockOriginal);
+                                                decimal stockNuevo = Convert.ToInt32(stockActual);
+                                                var cantidadR = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cantidadCombo);
+                                                var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                var paqueteServicio = string.Empty;
+
+                                                var tipoComboSerbicio = cn.CargarDatos($"SELECT tipoDeVenta FROM `historialstock` WHERE idComboServicio = {idprod} ");
+                                                paqueteServicio = tipoComboSerbicio.Rows[0]["tipoDeVenta"].ToString();
+
+                                                if (paqueteServicio.Equals("PQ"))
+                                                {
+                                                    paqueteServicio = "de combo";
+                                                }
+                                                else
+                                                {
+                                                    paqueteServicio = "de servicio";
+                                                }
+                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','{cantidadR.ToString("N")}')");
+
+
+                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidadR}");
+                                            }
+                                            else //En caso de ser un producto
+                                            {
+                                                var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
+                                                var stockOriginal = stock.Rows[0]["Stock"].ToString();
+                                                var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
+                                                var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
+                                                var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
+                                                decimal stockAnterior = Convert.ToDecimal(stockOriginal);
+                                                decimal stockNuevo = Convert.ToInt32(stockActual);
+
+                                                var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
+
+                                            }
                                         }
                                     } 
                                    

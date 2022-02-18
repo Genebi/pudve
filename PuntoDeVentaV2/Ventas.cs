@@ -147,6 +147,7 @@ namespace PuntoDeVentaV2
         bool ventaFinalizada = false;
 
         decimal cantidadAnterior = 0;
+        int idComboServicio = 0;
 
         List<string> productoRestado = new List<string>(),
                      productoEliminado = new List<string>(),
@@ -3220,27 +3221,30 @@ namespace PuntoDeVentaV2
                                     idprodCombo = consulta.Rows[0]["IDProducto"].ToString();
                                     var consulta2 = cn.CargarDatos($"SELECT Cantidad FROM productosdeservicios WHERE IDServicio = '{IDProducto}' AND IDProducto = '{idprodCombo}'");
                                     cantidadCombo = Convert.ToInt32(consulta.Rows[0]["cantidad"]);
+                                    idComboServicio = Convert.ToInt32(consulta.Rows[0]["IDServicio"].ToString());
 
                                     var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {idprodCombo}");
                                     decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
-                                    decimal stockNuevo = stockActual - cantidadCombo;
+                                    decimal stockNuevo = stockActual - cantidadCombo * Convert.ToDecimal(guardar[3]);
                                     if (tipoDeVenta.Equals("PQ"))
                                     {
                                         tipoDeVentaComboServicio = "de combo";
                                     }
-                                    else
+                                    else if (tipoDeVenta.Equals("S"))
                                     {
                                         tipoDeVentaComboServicio = "de servicio";
                                     }
-                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo}','{tipoDeVenta}')");
+
+                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                 }
                                 else
                                 {
                                     var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {guardar[1]}");
                                     decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
                                     decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
+                                    idComboServicio = 0;
 
-                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}')");
+                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}','{idComboServicio}')");
                                 }
 
                                
