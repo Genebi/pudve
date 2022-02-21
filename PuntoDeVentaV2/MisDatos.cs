@@ -273,7 +273,14 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            cbRegimen.SelectedIndex = 0;
+            if (string.IsNullOrWhiteSpace(LblRegimenActual.Text.ToString()))
+            {
+                cbRegimen.SelectedIndex = 0;
+            }
+            else
+            {
+                cbRegimen.Text = LblRegimenActual.Text;
+            }
         }
     
         public void actualizarVariables()
@@ -1094,6 +1101,10 @@ namespace PuntoDeVentaV2
             if (cbRegimen.SelectedIndex.Equals(0))
             {
                 LblRegimenActual.Text = string.Empty;
+            }
+            else
+            {
+                LblRegimenActual.Text = cbRegimen.Text;
             }
         }
 
