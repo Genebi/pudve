@@ -30,6 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txt_nombre_comercial = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -97,8 +99,6 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.lbSeparador1 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.txt_nombre_comercial = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -164,6 +164,24 @@
             this.panel1.Size = new System.Drawing.Size(558, 457);
             this.panel1.TabIndex = 1;
             // 
+            // txt_nombre_comercial
+            // 
+            this.txt_nombre_comercial.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.txt_nombre_comercial.Location = new System.Drawing.Point(19, 77);
+            this.txt_nombre_comercial.Name = "txt_nombre_comercial";
+            this.txt_nombre_comercial.Size = new System.Drawing.Size(526, 23);
+            this.txt_nombre_comercial.TabIndex = 80;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Century Gothic", 7.8F);
+            this.label30.Location = new System.Drawing.Point(17, 58);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(109, 16);
+            this.label30.TabIndex = 79;
+            this.label30.Text = "Nombre Comercial";
+            // 
             // label21
             // 
             this.label21.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -199,6 +217,7 @@
             this.label17.Size = new System.Drawing.Size(14, 17);
             this.label17.TabIndex = 76;
             this.label17.Text = "*";
+            this.label17.Visible = false;
             // 
             // label16
             // 
@@ -211,6 +230,7 @@
             this.label16.Size = new System.Drawing.Size(14, 17);
             this.label16.TabIndex = 75;
             this.label16.Text = "*";
+            this.label16.Visible = false;
             // 
             // label18
             // 
@@ -275,6 +295,7 @@
             this.label19.Size = new System.Drawing.Size(14, 17);
             this.label19.TabIndex = 77;
             this.label19.Text = "*";
+            this.label19.Visible = false;
             // 
             // rbPersonaMoral
             // 
@@ -961,24 +982,6 @@
             this.lbSeparador1.Name = "lbSeparador1";
             this.lbSeparador1.Size = new System.Drawing.Size(962, 2);
             this.lbSeparador1.TabIndex = 20;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Century Gothic", 7.8F);
-            this.label30.Location = new System.Drawing.Point(17, 58);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(109, 16);
-            this.label30.TabIndex = 79;
-            this.label30.Text = "Nombre Comercial";
-            // 
-            // txt_nombre_comercial
-            // 
-            this.txt_nombre_comercial.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.txt_nombre_comercial.Location = new System.Drawing.Point(19, 77);
-            this.txt_nombre_comercial.Name = "txt_nombre_comercial";
-            this.txt_nombre_comercial.Size = new System.Drawing.Size(526, 23);
-            this.txt_nombre_comercial.TabIndex = 80;
             // 
             // MisDatos
             // 

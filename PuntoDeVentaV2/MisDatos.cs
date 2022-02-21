@@ -580,38 +580,38 @@ namespace PuntoDeVentaV2
                 return false;
             }
 
-            if (!VerificarRFC(txtRFC.Text))
-            {
-                if (!string.IsNullOrWhiteSpace(txtRFC.Text))
-                {
-                    MessageBox.Show("El RFC contiene un formato incorrecto, favor de verificarlo.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show("El RFC no puede estar vacio, favor de verificarlo.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            //if (!VerificarRFC(txtRFC.Text))
+            //{
+            //    if (!string.IsNullOrWhiteSpace(txtRFC.Text))
+            //    {
+            //        MessageBox.Show("El RFC contiene un formato incorrecto, favor de verificarlo.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("El RFC no puede estar vacio, favor de verificarlo.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
 
-                txtRFC.Focus();
+            //    txtRFC.Focus();
 
-                return false;
-            }
+            //    return false;
+            //}
 
-            if (string.IsNullOrWhiteSpace(txtCodPost.Text))
-            {
-                MessageBox.Show("Se requiere el código postal", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //if (string.IsNullOrWhiteSpace(txtCodPost.Text))
+            //{
+            //    MessageBox.Show("Se requiere el código postal", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                txtCodPost.Focus();
+            //    txtCodPost.Focus();
 
-                return false;
-            }
+            //    return false;
+            //}
 
-            if (txtCodPost.TextLength < 5)
-            {
-                MessageBox.Show("La longitud del código postal es incorrecta.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtCodPost.Focus();
+            //if (txtCodPost.TextLength < 5)
+            //{
+            //    MessageBox.Show("La longitud del código postal es incorrecta.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    txtCodPost.Focus();
 
-                return false;
-            }
+            //    return false;
+            //}
 
             if (!ValidarEmail(txtEmail.Text))
             {
@@ -629,15 +629,15 @@ namespace PuntoDeVentaV2
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(LblRegimenActual.Text))
-            {
-                if (cbRegimen.SelectedIndex == 0)
-                {
-                    MessageBox.Show("Seleccione un régimen fiscal", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //if (string.IsNullOrWhiteSpace(LblRegimenActual.Text))
+            //{
+            //    if (cbRegimen.SelectedIndex == 0)
+            //    {
+            //        MessageBox.Show("Seleccione un régimen fiscal", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    return false;
-                }
-            }
+            //        return false;
+            //    }
+            //}
 
             return true;
         }
