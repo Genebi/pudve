@@ -34,7 +34,7 @@ namespace PuntoDeVentaV2
         {
           return Regex.Replace(Regex.Replace(str, @"(\P{Ll})(\P{Ll}\p{Ll})", "$1 $2"), @"(\p{Ll})(\P{Ll})", "$1 $2");
         }
-        
+
 
         private void botonAsignar_Click(object sender, EventArgs e)
         {
@@ -49,13 +49,44 @@ namespace PuntoDeVentaV2
             if (!dtUsuarios.Rows.Count.Equals(0))
             {
                 var ap = new AsignarPropiedad(propiedad);
-                
+
                 ap.ShowDialog();
             }
             else
             {
+                using (DataTable dtEmpleadosPermisos = cn.CargarDatos(cs.condicionAsignar(propiedad.ToString().Replace(" ", "_"), idempleado)))
+                {
+                    if (!dtEmpleadosPermisos.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow item in dtEmpleadosPermisos.Rows)
+                        {
+                            comprobar = Convert.ToInt32(item["total"]);
+                        }
+                    }
+                }
+                if (comprobar > 0)
+                {
+                    using (var ap = new AsignarPropiedad(propiedad))
+                    {
+                        ap.FormClosed += delegate
+                        {
+                            using (var form = Application.OpenForms.OfType<AsignarMultipleProductos>().FirstOrDefault())
+                            {
+                                if (!form.Equals(null))
+                                {
+                                    form.BringToFront();
+                                }
+                            }
+                        };
 
-            }
+                        ap.ShowDialog();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No cuentas con los privilegios requeridos en esta sección", "Alerta Sistema!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+        }
 
             dtUsuarios.Dispose();
             dtUsuarios = null;

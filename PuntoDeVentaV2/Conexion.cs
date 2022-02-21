@@ -92,7 +92,7 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = consulta;
             resultado = sql_cmd.ExecuteNonQuery();
             sql_con.Close();
-
+                
             if (regresarID)
             {
                 resultado = Convert.ToInt32(sql_cmd.LastInsertedId);
