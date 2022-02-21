@@ -339,6 +339,7 @@
             this.cbRegimen.Name = "cbRegimen";
             this.cbRegimen.Size = new System.Drawing.Size(524, 25);
             this.cbRegimen.TabIndex = 23;
+            this.cbRegimen.SelectedIndexChanged += new System.EventHandler(this.cbRegimen_SelectedIndexChanged);
             this.cbRegimen.Click += new System.EventHandler(this.cbRegimen_Click);
             this.cbRegimen.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbRegimen_KeyDown);
             // 

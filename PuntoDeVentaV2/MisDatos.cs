@@ -1088,7 +1088,15 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-                
+
+        private void cbRegimen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbRegimen.SelectedIndex.Equals(0))
+            {
+                LblRegimenActual.Text = string.Empty;
+            }
+        }
+
         private void cbRegimen_Click(object sender, EventArgs e)
         {
             // al dar clic en el comboBox se despliega la lista de opciones
