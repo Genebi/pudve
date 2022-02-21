@@ -3024,7 +3024,7 @@ namespace PuntoDeVentaV2
                                     guardar[1] = idClienteTmp;
                                     mostrarVenta = 0;
                                     MessageBox.Show($"Esta venta ya fue guardada y facturada con un cliente distinto,\npor lo tanto se guardara como una venta nueva\ncon el cliente: {nombreCliente}.", "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                    respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta)); 
                                 }
                             }
                         }
@@ -3207,7 +3207,6 @@ namespace PuntoDeVentaV2
                                 using (DataTable dtProductosVenta = cn.CargarDatos(cs.checarProductosVenta(idVenta)))
                                 {
                                     bool contains = dtProductosVenta.AsEnumerable().Any(row => Convert.ToInt32(IDProducto) == row.Field<int>("IDProducto"));
-
                                     if (contains)
                                     {
                                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar, 1));
@@ -3217,11 +3216,43 @@ namespace PuntoDeVentaV2
                                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
                                     }
 
-                                    var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {guardar[1]}");
-                                    decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
-                                    decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
+                                    //var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {guardar[1]}");
+                                    //decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
+                                    //decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
 
-                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}')");
+                                    //cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}')");
+                                    if (tipoDeVenta.Equals("PQ") || tipoDeVenta.Equals("S"))
+                                    {
+                                        var tipoDeVentaComboServicio = string.Empty;
+                                        var consulta = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = '{IDProducto}'");
+                                        idprodCombo = consulta.Rows[0]["IDProducto"].ToString();
+                                        var consulta2 = cn.CargarDatos($"SELECT Cantidad FROM productosdeservicios WHERE IDServicio = '{IDProducto}' AND IDProducto = '{idprodCombo}'");
+                                        cantidadCombo = Convert.ToInt32(consulta.Rows[0]["cantidad"]);
+                                        idComboServicio = Convert.ToInt32(consulta.Rows[0]["IDServicio"].ToString());
+
+                                        var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {idprodCombo}");
+                                        decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
+                                        decimal stockNuevo = stockActual - cantidadCombo * Convert.ToDecimal(guardar[3]);
+                                        if (tipoDeVenta.Equals("PQ"))
+                                        {
+                                            tipoDeVentaComboServicio = "de combo";
+                                        }
+                                        else if (tipoDeVenta.Equals("S"))
+                                        {
+                                            tipoDeVentaComboServicio = "de servicio";
+                                        }
+
+                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+                                    }
+                                    else
+                                    {
+                                        var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {guardar[1]}");
+                                        decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
+                                        decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
+                                        idComboServicio = 0;
+
+                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}','{idComboServicio}')");
+                                    }
                                 }
                             }
                             else
@@ -3239,7 +3270,6 @@ namespace PuntoDeVentaV2
                                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
                                     }
                                 }
-
                                 if (tipoDeVenta.Equals("PQ") || tipoDeVenta.Equals("S"))
                                 {
                                     var tipoDeVentaComboServicio = string.Empty;
@@ -3273,6 +3303,7 @@ namespace PuntoDeVentaV2
                                     cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}','{idComboServicio}')");
                                 }
                             }
+                           
                         }
 
                         // Si la venta no fue guardada con el boton "Guardar"

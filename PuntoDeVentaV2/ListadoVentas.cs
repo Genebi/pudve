@@ -1595,7 +1595,7 @@ namespace PuntoDeVentaV2
                                                 {
                                                     paqueteServicio = "de servicio";
                                                 }
-                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','{cantidadR.ToString("N")}')");
+                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
 
 
                                                 cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidadR}");
