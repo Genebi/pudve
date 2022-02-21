@@ -137,7 +137,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-                valdarRFCExistente();
+            valdarRFCExistente();
 
             if (validarRFC == true || cbCliente.Checked)
             {
@@ -207,9 +207,9 @@ namespace PuntoDeVentaV2
 
                 string[] datos = new string[]
                 {
-                FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI.ToString(), pais, estado, municipio, localidad,
-                cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago, fechaOperacion, idCliente.ToString(),
-                tipoCliente, numeroCliente
+                    FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI.ToString(), pais, estado, municipio, localidad,
+                    cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago, fechaOperacion, idCliente.ToString(),
+                    tipoCliente, numeroCliente
                 };
 
                 //Si el checkbox de agregar cliente repetido esta marcado
@@ -373,15 +373,15 @@ namespace PuntoDeVentaV2
         
         private void valida_longitud(object sender, EventArgs e)
         {
-            int tam = txtRFC.TextLength;
+            //int tam = txtRFC.TextLength;
 
-            if (tam > 0 & (tam == 12 | tam == 13))
-            {
-            }
-            else
-            {
-                MessageBox.Show("La longitud del RFC es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //if (tam > 0 & (tam == 12 | tam == 13))
+            //{
+            //}
+            //else
+            //{
+            //    MessageBox.Show("La longitud del RFC es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private string GenerarNumeroCliente()
