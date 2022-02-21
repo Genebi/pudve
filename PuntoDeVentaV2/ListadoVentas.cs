@@ -184,7 +184,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cbFiltroAdminEmpleado.Visible = true;
+                cbFiltroAdminEmpleado.Visible = false;
             }
         }
 
