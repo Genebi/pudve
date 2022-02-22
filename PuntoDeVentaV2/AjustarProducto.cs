@@ -394,16 +394,20 @@ namespace PuntoDeVentaV2
                             {
                                 if (configProducto[1] == 1)
                                 {
-                                    var info = new string[] {
-                                        lbProducto.Text, stockOriginal.ToString(), stockAgregado,
-                                        stockActual.ToString(), "ajustar producto", "agregó"
-                                    };
+                                    //var info = new string[] {
+                                    //    lbProducto.Text, stockOriginal.ToString(), stockAgregado,
+                                    //    stockActual.ToString(), "ajustar producto", "agregó"
+                                    //};
 
-                                    Thread notificacion = new Thread(
-                                        () => Utilidades.CambioStockProductoEmail(info, titulo: "AUMENTADO")
-                                    );
+                                    //Thread notificacion = new Thread(
+                                    //    () => Utilidades.CambioStockProductoEmail(info, titulo: "AUMENTADO")
+                                    //);
 
-                                    notificacion.Start();
+                                    //notificacion.Start();
+
+                                    string cadenaProducto = $"{lbProducto.Text}|{stockOriginal}|{stockAgregado}|{stockActual}|ajustar producto|agregó";
+
+                                    Inventario.productosAumentoDecremento.Add(cadenaProducto);
                                 }
                             }
                         }
@@ -575,11 +579,15 @@ namespace PuntoDeVentaV2
                                                         stockActual.ToString(), "ajustar producto", operacion
                                                     };
 
-                                                    Thread notificacion = new Thread(
-                                                        () => Utilidades.CambioStockProductoEmail(info)
-                                                    );
+                                                    //Thread notificacion = new Thread(
+                                                    //    () => Utilidades.CambioStockProductoEmail(info)
+                                                    //);
 
-                                                    notificacion.Start();
+                                                    //notificacion.Start();
+
+                                                    string cadenaProducto = $"{lbProducto.Text}|{stockOriginal}|{stockAgregado}|{stockActual}|ajustar producto|{operacion}";
+
+                                                    Inventario.productosAumentoDecremento.Add(cadenaProducto);
                                                 }
                                             }
                                         }

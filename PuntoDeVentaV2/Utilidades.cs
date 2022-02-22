@@ -519,6 +519,42 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public static void CambioStockAumentoDecremento(List<string> cadenas, string titulo)
+        {
+            var correo = FormPrincipal.datosUsuario[9];
+            var asunto = $"STOCK DE PRODUCTO {titulo}";// "Cambio de stock para producto(s)";
+            var html = string.Empty;
+
+            html = $@"
+                    <div>
+                        <h4 style='text-align: center;'>STOCK DE PRODUCTO {titulo}</h4><hr>
+                        <ul>";
+
+            foreach (var cadena in cadenas)
+            {
+                var producto = cadena.Split('|');
+
+                var nombre = producto[0];
+                var stockAnterior = producto[1];
+                var stockNuevo = producto[2];
+                var stockActual = producto[3];
+                var origen = producto[4];
+                var operacion = producto[5];
+
+                html += $@"<li>El stock del producto <span style='color: red;'>{nombre}</span> ha sido modificado desde
+                        {origen}, su stock <b>anterior</b> era de <span style='color: red;'>{ stockAnterior}</span>, se {operacion}
+                        la cantidad de <span style='color: red;'>{stockNuevo}</span> y su stock <b>actual</b> es de <span style='color: red;'>{stockActual}</span>.</li>";
+            }
+
+            html += $@"</ul>
+                       <p style='font-size: 0.8em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
+                   </div>";
+
+            Inventario.productosAumentoDecremento.Clear();
+
+            EnviarEmail(html, asunto, correo);
+        }
+
         public static bool AdobeReaderInstalado()
         {
             var instalado = false;

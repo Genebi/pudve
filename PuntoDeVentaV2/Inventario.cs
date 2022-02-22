@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,6 +43,7 @@ namespace PuntoDeVentaV2
         Dictionary<int, string> productos;
 
         static public List<string> idProductoDelCombo;
+        static public List<string> productosAumentoDecremento = new List<string>();
 
         public int GetNumRevActive { get; set; }
 
@@ -1261,6 +1263,18 @@ namespace PuntoDeVentaV2
                                 cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
                                 cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
                             }
+
+                            if (productosAumentoDecremento.Count > 0)
+                            {
+                                var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
+
+                                Thread notificacion = new Thread(
+                                    () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
+                                );
+
+                                notificacion.Start();
+                            }
+                            
                         }
                         else if (!Directory.Exists(rutaArchivo))
                         {
@@ -1283,6 +1297,18 @@ namespace PuntoDeVentaV2
                             var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
                             cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
                             cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
+                        }
+
+
+                        if (productosAumentoDecremento.Count > 0)
+                        {
+                            var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
+
+                            Thread notificacion = new Thread(
+                                () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
+                            );
+
+                            notificacion.Start();
                         }
                     }
                 }
