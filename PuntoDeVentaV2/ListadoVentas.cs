@@ -446,6 +446,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd HH:mm:ss");
 
                     if (FormPrincipal.userNickName.Contains("@"))
