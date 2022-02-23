@@ -452,10 +452,14 @@ namespace PuntoDeVentaV2
                     var stockNuevo = stockActual;
                     var stockAnterior = stockOriginal;
                     var numRevision = cn.CargarDatos($"SELECT * FROM NoRevisionAumentarInventario WHERE IdUsuario = {FormPrincipal.userID}");
-                    var numeroRevision = numRevision.Rows[0]["NoRevisionAumentarInventario"].ToString();
 
-                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
+                    if (numRevision.Rows.Count > 0)
+                    {
+                        var numeroRevision = numRevision.Rows[0]["NoRevisionAumentarInventario"].ToString();
 
+                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
+                    }
+                    
                     this.Close();
                 }
             }
