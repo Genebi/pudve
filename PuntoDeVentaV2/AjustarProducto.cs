@@ -578,10 +578,10 @@ namespace PuntoDeVentaV2
                                             {
                                                 if (configProducto[1] == 1)
                                                 {
-                                                    var info = new string[] {
-                                                        lbProducto.Text, stockOriginal.ToString(), stockAgregado.ToString(),
-                                                        stockActual.ToString(), "ajustar producto", operacion
-                                                    };
+                                                    //var info = new string[] {
+                                                    //    lbProducto.Text, stockOriginal.ToString(), stockAgregado.ToString(),
+                                                    //    stockActual.ToString(), "ajustar producto", operacion
+                                                    //};
 
                                                     //Thread notificacion = new Thread(
                                                     //    () => Utilidades.CambioStockProductoEmail(info)
@@ -688,7 +688,7 @@ namespace PuntoDeVentaV2
                                         auxiliar = float.Parse(disminuir);
                                         stockAgregado = auxiliar;
                                         stockProducto -= auxiliar;
-                                        operacion = "resto";
+                                        operacion = "restó";
 
                                         if (stockProducto < 0)
                                         {
@@ -749,16 +749,20 @@ namespace PuntoDeVentaV2
                                                 {
                                                     if (configProducto[1] == 1)
                                                     {
-                                                        var info = new string[] {
-                                                        lbProducto.Text, stockOriginal.ToString(), stockAgregado.ToString(),
-                                                        stockActual.ToString(), "ajustar producto", operacion
-                                                    };
+                                                        //var info = new string[] {
+                                                        //    lbProducto.Text, stockOriginal.ToString(), stockAgregado.ToString(),
+                                                        //    stockActual.ToString(), "ajustar producto", operacion
+                                                        //};
 
-                                                        Thread notificacion = new Thread(
-                                                            () => Utilidades.CambioStockProductoEmail(info)
-                                                        );
+                                                        //Thread notificacion = new Thread(
+                                                        //    () => Utilidades.CambioStockProductoEmail(info)
+                                                        //);
 
-                                                        notificacion.Start();
+                                                        //notificacion.Start();
+
+                                                        string cadenaProducto = $"{lbProducto.Text}|{stockOriginal}|{stockAgregado}|{stockActual}|ajustar producto|{operacion}";
+
+                                                        Inventario.productosAumentoDecremento.Add(cadenaProducto);
                                                     }
                                                 }
                                             }
