@@ -1491,7 +1491,7 @@ namespace PuntoDeVentaV2
                 mensajeMostrar = mensajeNoHay;
             }
 
-                DialogResult deseaTernimar = MessageBox.Show($"{mensajeMostrar}", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult deseaTernimar = MessageBox.Show($"{mensajeMostrar}", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (deseaTernimar == DialogResult.Yes)
             {
@@ -1531,13 +1531,14 @@ namespace PuntoDeVentaV2
                         {
                             htmlIncremento += producto.Value;
                         }
-
-                        if (producto.Value.Contains("class='disminuyo'"))
+                        else if (producto.Value.Contains("class='disminuyo'"))
                         {
                             htmlDecremento += producto.Value;
                         }
-
-                        //html += producto.Value;
+                        else
+                        {
+                            html += producto.Value;
+                        }
                     }
 
                     if (!string.IsNullOrWhiteSpace(htmlIncremento))
