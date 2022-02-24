@@ -4885,27 +4885,27 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                ProcessStartInfo info = new ProcessStartInfo();
-                info.Verb = "print";
-                info.FileName = ruta;
-                info.CreateNoWindow = true;
-                info.WindowStyle = ProcessWindowStyle.Hidden;
+                var pi = new ProcessStartInfo(ruta);
+                pi.UseShellExecute = true;
+                pi.Verb = "print";
+                var process = System.Diagnostics.Process.Start(pi);
 
-                Process p = new Process();
-                p.StartInfo = info;
-                p.Start();
+                //ProcessStartInfo info = new ProcessStartInfo();
+                //info.Verb = "print";
+                //info.FileName = ruta;
+                //info.CreateNoWindow = true;
+                //info.WindowStyle = ProcessWindowStyle.Hidden;
 
-                if (tipo == 0)
-                {
-                    p.WaitForInputIdle();
-                }
-                
-                Thread.Sleep(tiempo);
+                //Process p = new Process();
+                //p.StartInfo = info;
+                //p.Start();
+                //p.WaitForInputIdle();
+                //Thread.Sleep(tiempo);
 
-                if (false == p.CloseMainWindow())
-                {
-                    p.Kill();
-                }
+                //if (false == p.CloseMainWindow())
+                //{
+                //    p.Kill();
+                //}
             }
             catch (Exception ex)
             {
