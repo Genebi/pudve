@@ -650,6 +650,10 @@ namespace PuntoDeVentaV2
                     {
                         btnTerminar.PerformClick();
                     }
+                    else if (tipoFiltro != "normal" && cantidadRegistrosAux == cantidadRegistros)
+                    {
+                        btnTerminar.PerformClick();
+                    }
                     else
                     {
                         mostrar = 1;
