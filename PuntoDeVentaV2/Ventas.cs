@@ -4895,8 +4895,12 @@ namespace PuntoDeVentaV2
                 p.StartInfo = info;
                 p.Start();
 
-                p.WaitForInputIdle();
-                System.Threading.Thread.Sleep(tiempo);
+                if (tipo == 0)
+                {
+                    p.WaitForInputIdle();
+                }
+                
+                Thread.Sleep(tiempo);
 
                 if (false == p.CloseMainWindow())
                 {
