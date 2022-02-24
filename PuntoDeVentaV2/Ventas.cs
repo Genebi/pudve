@@ -4842,10 +4842,19 @@ namespace PuntoDeVentaV2
             ticket.Close();
             writer.Close();
 
-            ImprimirTicket(folioTicket.ToString(), 1);
+            var respuesta = MessageBox.Show("¿Desea imprimir el ticket?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                ImprimirTicket(folioTicket.ToString(), 1, 2500);
+            }
+            else
+            {
+                txtBuscadorProducto.Focus();
+            }
         }
 
-        private void ImprimirTicket(string idVenta, int tipo = 0)
+        private void ImprimirTicket(string idVenta, int tipo = 0, int tiempo = 500)
         {
             try
             {
@@ -4887,7 +4896,7 @@ namespace PuntoDeVentaV2
                 p.Start();
 
                 p.WaitForInputIdle();
-                System.Threading.Thread.Sleep(5000);
+                System.Threading.Thread.Sleep(tiempo);
 
                 if (false == p.CloseMainWindow())
                 {
