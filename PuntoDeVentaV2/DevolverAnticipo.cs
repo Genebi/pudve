@@ -324,6 +324,12 @@ namespace PuntoDeVentaV2
                 comentario = "devolucion anticipo";
                 iniciarVariablesWebService();
                 CargarSaldo();
+
+                var datos = cdc.CargarSaldo("Caja");
+
+                datos[50] = datos[50] == null ? "0" : datos[50];
+
+                efectivo1 = float.Parse(datos[50]);
             }
 
             // Habilitar anticipo

@@ -1459,7 +1459,7 @@ namespace PuntoDeVentaV2
 
         public string UltimaFechaCorte()
         {
-            string fecha = DateTime.MinValue.ToString();
+            string fecha = DateTime.Now.ToString();
 
             DatosConexion($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
 
