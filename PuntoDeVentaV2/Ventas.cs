@@ -4871,6 +4871,23 @@ namespace PuntoDeVentaV2
                     {
                         ruta = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}.pdf";
                     }
+
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.Verb = "print";
+                    info.FileName = ruta;
+                    info.CreateNoWindow = true;
+                    info.WindowStyle = ProcessWindowStyle.Hidden;
+
+                    Process p = new Process();
+                    p.StartInfo = info;
+                    p.Start();
+                    p.WaitForInputIdle();
+                    Thread.Sleep(tiempo);
+
+                    if (false == p.CloseMainWindow())
+                    {
+                        p.Kill();
+                    }
                 }
 
                 if (tipo == 1)
@@ -4883,29 +4900,12 @@ namespace PuntoDeVentaV2
                     {
                         ruta = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_caja_abierta_{idVenta}.pdf";
                     }
+
+                    ProcessStartInfo pi = new ProcessStartInfo(ruta);
+                    pi.UseShellExecute = true;
+                    pi.Verb = "print";
+                    Process process = Process.Start(pi);
                 }
-
-                var pi = new ProcessStartInfo(ruta);
-                pi.UseShellExecute = true;
-                pi.Verb = "print";
-                var process = System.Diagnostics.Process.Start(pi);
-
-                //ProcessStartInfo info = new ProcessStartInfo();
-                //info.Verb = "print";
-                //info.FileName = ruta;
-                //info.CreateNoWindow = true;
-                //info.WindowStyle = ProcessWindowStyle.Hidden;
-
-                //Process p = new Process();
-                //p.StartInfo = info;
-                //p.Start();
-                //p.WaitForInputIdle();
-                //Thread.Sleep(tiempo);
-
-                //if (false == p.CloseMainWindow())
-                //{
-                //    p.Kill();
-                //}
             }
             catch (Exception ex)
             {

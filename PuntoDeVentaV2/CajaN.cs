@@ -2495,11 +2495,11 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            Utilidades.GenerarTicketCaja();
-
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion,"Apertura de Caja",FormPrincipal.id_empleado.ToString(), "N/A" };
+            var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion, "Apertura de Caja", FormPrincipal.id_empleado.ToString(), "N/A" };
             cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
+
+            Utilidades.GenerarTicketCaja(); 
         }
 
         private void btnCambioAbonos_Click(object sender, EventArgs e)

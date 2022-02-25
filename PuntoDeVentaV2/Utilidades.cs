@@ -272,7 +272,12 @@ namespace PuntoDeVentaV2
             ticket.Close();
             writer.Close();
 
-            ImprimirTicket(folioTicket.ToString(), 1);
+            var respuesta = MessageBox.Show("¿Desea imprimir el ticket?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                ImprimirTicket(folioTicket.ToString(), 1);
+            }
         }
 
         private static void ImprimirTicket(string idVenta, int tipo = 0)
@@ -306,23 +311,28 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                ProcessStartInfo info = new ProcessStartInfo();
-                info.Verb = "print";
-                info.FileName = ruta;
-                info.CreateNoWindow = true;
-                info.WindowStyle = ProcessWindowStyle.Hidden;
+                ProcessStartInfo pi = new ProcessStartInfo(ruta);
+                pi.UseShellExecute = true;
+                pi.Verb = "print";
+                Process process = Process.Start(pi);
 
-                Process p = new Process();
-                p.StartInfo = info;
-                p.Start();
+                //ProcessStartInfo info = new ProcessStartInfo();
+                //info.Verb = "print";
+                //info.FileName = ruta;
+                //info.CreateNoWindow = true;
+                //info.WindowStyle = ProcessWindowStyle.Hidden;
 
-                p.WaitForInputIdle();
-                System.Threading.Thread.Sleep(5000);
+                //Process p = new Process();
+                //p.StartInfo = info;
+                //p.Start();
 
-                if (false == p.CloseMainWindow())
-                {
-                    p.Kill();
-                }
+                //p.WaitForInputIdle();
+                //System.Threading.Thread.Sleep(5000);
+
+                //if (false == p.CloseMainWindow())
+                //{
+                //    p.Kill();
+                //}
             }
             catch (Exception ex)
             {
