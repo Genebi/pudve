@@ -1596,10 +1596,24 @@ namespace PuntoDeVentaV2
                                                 {
                                                     paqueteServicio = "de servicio";
                                                 }
-                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
 
+                                                if (!consulta.Rows.Count.Equals(1))
+                                                {
+                                                    foreach (DataRow products in consulta.Rows)
+                                                    {
+                                                        int cant = Convert.ToInt32(products[5]);
+                                                        var stockActual2 = cn.CargarDatos($"SELECT StockNuevo FROM `historialstock` WHERE IDProducto = {products[3]} ORDER BY ID DESC");
+                                                        var stockAnterior2 = stockActual2.Rows[0]["StockNuevo"].ToString();
+                                                        var cantidadNuevoStock = Convert.ToDecimal(stockAnterior2) + cant;
 
-                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidadR}");
+                                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{products[3]}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior2}','{cantidadNuevoStock}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cant.ToString("N")}')");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
+                                                }
+
                                             }
                                             else //En caso de ser un producto
                                             {
