@@ -499,6 +499,8 @@ namespace PuntoDeVentaV2
             var asunto = $"STOCK DE PRODUCTO {titulo}";// "Cambio de stock para producto(s)";
             var html = string.Empty;
 
+            asunto += MetodosBusquedas.ObtenerResponsable();
+
             if (!string.IsNullOrWhiteSpace(correo))
             {
                 if (tipo == 0)
@@ -534,6 +536,8 @@ namespace PuntoDeVentaV2
             var correo = FormPrincipal.datosUsuario[9];
             var asunto = $"STOCK DE PRODUCTO {titulo}";// "Cambio de stock para producto(s)";
             var html = string.Empty;
+
+            asunto += MetodosBusquedas.ObtenerResponsable();
 
             html = $@"
                     <div>

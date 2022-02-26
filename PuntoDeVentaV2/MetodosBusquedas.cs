@@ -2674,6 +2674,31 @@ namespace PuntoDeVentaV2
             return existe;
         }
 
+        public static string ObtenerResponsable()
+        {
+            string responsable = string.Empty;
+
+            // Datos de quien realiza el cambio
+            if (FormPrincipal.id_empleado > 0)
+            {
+                MetodosBusquedas mb = new MetodosBusquedas();
+                var datosEmpleado =  mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
+
+                string nombreEmpleado = datosEmpleado[15];
+                string usuarioEmpleado = datosEmpleado[16];
+
+                var infoEmpleado = usuarioEmpleado.Split('@');
+
+                responsable = $" - EMPLEADO {nombreEmpleado} ({infoEmpleado[1]})";
+            }
+            else
+            {
+                responsable = $" - ADMIN {FormPrincipal.userNickName}";
+            }
+
+            return responsable;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);
