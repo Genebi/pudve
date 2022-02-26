@@ -3323,7 +3323,17 @@ namespace PuntoDeVentaV2
             }
         }
 
-
+        private void Productos_VisibleChanged(object sender, EventArgs e)
+        {
+            if (primeraVez == false)
+            {
+                p.primerPagina();
+                clickBoton = 1;
+                CargarDatos(EstadoProductosListados());
+                actualizar();
+                CambiarCheckBoxMaster();
+            }
+        }
 
         private void Productos_KeyDown(object sender, KeyEventArgs e)
         {

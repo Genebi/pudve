@@ -946,6 +946,12 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                if (formulario.Name == "Productos")
+                {
+                    formulario.Visible = false;
+                    formulario.Visible = true;
+                }
+
                 formulario.BringToFront();
             }
         }

@@ -1164,6 +1164,7 @@
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);
             this.Shown += new System.EventHandler(this.Productos_Shown);
+            this.VisibleChanged += new System.EventHandler(this.Productos_VisibleChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Productos_KeyDown);
             this.Resize += new System.EventHandler(this.Productos_Resize);
             this.panelShowDGVProductosView.ResumeLayout(false);
