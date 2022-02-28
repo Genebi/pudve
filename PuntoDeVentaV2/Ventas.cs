@@ -3224,9 +3224,37 @@ namespace PuntoDeVentaV2
                                     if (tipoDeVenta.Equals("PQ") || tipoDeVenta.Equals("S"))
                                     {
                                         var tipoDeVentaComboServicio = string.Empty;
+                                        
                                         var consulta = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = '{IDProducto}'");
                                         // faltaba esa validacion de si no tenia nada la consulta
-                                        if (!consulta.Rows.Count.Equals(0))
+                                        if (consulta.Rows.Count > 1) //Combo o Servicio con mas de 1 producto asignado
+                                        {
+                                            foreach (DataRow item in consulta.Rows)
+                                            {
+                                                idprodCombo = item[3].ToString();
+                                            var consulta2 = cn.CargarDatos($"SELECT Cantidad FROM productosdeservicios WHERE IDServicio = '{IDProducto}' AND IDProducto = '{idprodCombo}'");
+                                            cantidadCombo = Convert.ToInt32(consulta2.Rows[0]["cantidad"]);
+                                            idComboServicio = Convert.ToInt32(consulta.Rows[0]["IDServicio"].ToString());
+
+                                            var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {idprodCombo}");
+                                            // faltaba esa validacion de si no tenia nada la consulta
+                                            if (!dato.Rows.Count.Equals(0))
+                                            {
+                                                decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
+                                                decimal stockNuevo = stockActual - cantidadCombo * Convert.ToDecimal(guardar[3]);
+                                                if (tipoDeVenta.Equals("PQ"))
+                                                {
+                                                    tipoDeVentaComboServicio = "de combo";
+                                                }
+                                                else if (tipoDeVenta.Equals("S"))
+                                                {
+                                                    tipoDeVentaComboServicio = "de servicio";
+                                                }
+                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+                                                }
+                                            }
+                                        }
+                                        else if(!consulta.Rows.Count.Equals(0))//Combo o Servicio con 1 solo producto agregado
                                         {
                                             idprodCombo = consulta.Rows[0]["IDProducto"].ToString();
                                             var consulta2 = cn.CargarDatos($"SELECT Cantidad FROM productosdeservicios WHERE IDServicio = '{IDProducto}' AND IDProducto = '{idprodCombo}'");

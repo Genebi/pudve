@@ -194,10 +194,6 @@ namespace PuntoDeVentaV2
                                                             decimal stockActual = Convert.ToDecimal(drProdVenta["Stock"].ToString());
                                                             decimal stockNuevo = stockActual + Convert.ToDecimal(drProdVenta["Cantidad"]);
 
-
-
-                                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{drProdVenta["ID"].ToString()}','Venta Cancelada folio: {FolioDeCancelacion} ','{stockActual}','{stockNuevo}','{fecha}','{FormPrincipal.userNickName}','+{drProdVenta["Cantidad"].ToString()}')");
-
                                                             cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), (float)(Convert.ToDecimal(drProdVenta["Stock"].ToString()) + Convert.ToDecimal(drProdVenta["Cantidad"].ToString()))));
                                                         }
                                                     }
@@ -217,7 +213,13 @@ namespace PuntoDeVentaV2
                                 }
 
 
-                                //this.Dispose();
+
+
+                                //cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Cancelada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+
+
+
+
                                 this.Close();
                             }                            
                         }
