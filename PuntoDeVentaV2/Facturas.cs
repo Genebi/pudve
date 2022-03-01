@@ -1612,7 +1612,7 @@ namespace PuntoDeVentaV2
 
         private void btn_comprar_timbres_Click(object sender, EventArgs e)
         {
-            Process.Start("https://sifo.com.mx/pagina-para-factura-electronica.php");
+            Process.Start("https://sifo.com.mx/puntodeventa.php");
         }
 
 
