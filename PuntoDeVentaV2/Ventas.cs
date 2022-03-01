@@ -4874,7 +4874,7 @@ namespace PuntoDeVentaV2
 
             if (respuesta == DialogResult.Yes)
             {
-                ImprimirTicket(folioTicket.ToString(), 1, 2500);
+                ImprimirTicket(folioTicket.ToString(), 1);
             }
             else
             {
@@ -4882,7 +4882,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void ImprimirTicket(string idVenta, int tipo = 0, int tiempo = 500)
+        private void ImprimirTicket(string idVenta, int tipo = 0)
         {
             try
             {
@@ -4910,7 +4910,7 @@ namespace PuntoDeVentaV2
                     p.StartInfo = info;
                     p.Start();
                     p.WaitForInputIdle();
-                    Thread.Sleep(tiempo);
+                    Thread.Sleep(5000);
 
                     if (false == p.CloseMainWindow())
                     {
