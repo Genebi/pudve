@@ -38,10 +38,10 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(249, 17);
+            this.label1.Size = new System.Drawing.Size(225, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Ingresar folio de la nota por cancelar";
             // 
@@ -51,7 +51,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_folio_nota.Location = new System.Drawing.Point(15, 57);
             this.txt_folio_nota.Name = "txt_folio_nota";
-            this.txt_folio_nota.Size = new System.Drawing.Size(246, 22);
+            this.txt_folio_nota.Size = new System.Drawing.Size(246, 21);
             this.txt_folio_nota.TabIndex = 1;
             this.txt_folio_nota.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txt_folio_nota.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_folio_nota_KeyDown);
@@ -75,13 +75,13 @@
             // 
             // Ventana_cancelar_venta
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(273, 156);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.txt_folio_nota);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
